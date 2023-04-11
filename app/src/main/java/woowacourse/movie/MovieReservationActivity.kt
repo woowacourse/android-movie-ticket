@@ -24,8 +24,8 @@ class MovieReservationActivity : AppCompatActivity() {
         moviePoster.setImageResource(movie.poster)
         movieTitle.text = movie.title
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        movieReleaseData.text = "상영일 : ${movie.releaseDate.format(dateTimeFormatter)}"
-        movieRunningTime.text = "러닝타임 : ${movie.runningTime}분"
+        movieReleaseData.text = getString(R.string.movie_release_date).format(movie.releaseDate.format(dateTimeFormatter))
+        movieRunningTime.text = getString(R.string.movie_running_time).format(movie.runningTime)
         movieSummary.text = movie.summary
 
         val decreaseButton = findViewById<TextView>(R.id.reservation_decrease_ticket_button)

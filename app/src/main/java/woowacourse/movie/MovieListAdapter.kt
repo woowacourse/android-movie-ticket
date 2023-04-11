@@ -41,8 +41,8 @@ class MovieListAdapter(
             title.text = this.title
 
             val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-            releaseDate.text = "상영일 : ${this.releaseDate.format(dateTimeFormatter)}"
-            runningTime.text = "러닝타임 : ${this.runningTime}분"
+            releaseDate.text = context.getString(R.string.movie_release_date).format(this.releaseDate.format(dateTimeFormatter))
+            runningTime.text = context.getString(R.string.movie_running_time).format(this.runningTime)
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)
                 intent.putExtra("movie", this)
