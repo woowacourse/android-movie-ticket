@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TicketingActivity">
+
     <ImageView
-        android:id="@+id/image_movie"
+        android:id="@+id/img_movie"
         android:layout_width="match_parent"
         android:layout_height="341dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,15 +23,15 @@
         android:paddingLeft="21dp"
         android:paddingRight="21dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/image_movie"
-        >
+        app:layout_constraintTop_toBottomOf="@id/img_movie">
+
         <TextView
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_playing_date"
@@ -52,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:layout_marginTop="19.87dp"/>
+            android:layout_marginTop="19.87dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -64,18 +65,24 @@
         android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <Button
+                android:id="@+id/btn_minus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/minus"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="25sp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <TextView
+                android:text="1"
+                android:id="@+id/text_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -83,9 +90,10 @@
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:layout_weight="100"
-                android:gravity="center"
-                />
+                android:gravity="center" />
+
             <Button
+                android:id="@+id/btn_plus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/plus"
@@ -93,10 +101,11 @@
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:gravity="center"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_ticketing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/complete_ticketing"
