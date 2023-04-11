@@ -1,4 +1,4 @@
-package movie
+package domain
 
 class PaymentAmountTest {
 // todo help !!!

@@ -1,4 +1,4 @@
-package movie
+package domain
 
 enum class PaymentType {
     LOCAL_PAYMENT;

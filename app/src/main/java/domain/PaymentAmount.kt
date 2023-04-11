@@ -1,4 +1,4 @@
-package movie
+package domain
 
 @JvmInline
 value class PaymentAmount(val value: Int) {

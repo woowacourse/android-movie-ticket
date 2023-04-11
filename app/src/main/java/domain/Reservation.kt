@@ -1,4 +1,4 @@
-package movie
+package domain
 
 data class Reservation(
     val movie: Movie,
