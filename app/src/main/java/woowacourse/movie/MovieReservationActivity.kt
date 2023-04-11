@@ -1,14 +1,16 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +24,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
 
         if (movie != null) {
-            findViewById<ImageView>(R.id.movie_reservation_poster)
-                .setImageResource(movie.picture)
+            findViewById<ImageView>(R.id.movie_reservation_poster).setImageResource(movie.picture)
             findViewById<TextView>(R.id.movie_reservation_title).text = movie.title
 
             val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
@@ -33,8 +34,21 @@ class MovieReservationActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.movie_reservation_running_time).text =
                 "러닝타임: %d분".format(movie.runningTime)
 
-            findViewById<TextView>(R.id.movie_reservation_description).text =
-                movie.description
+            findViewById<TextView>(R.id.movie_reservation_description).text = movie.description
+        }
+
+        val counter = Counter(
+            findViewById(R.id.movie_reservation_people_count_minus),
+            findViewById(R.id.movie_reservation_people_count_plus),
+            findViewById(R.id.movie_reservation_people_count),
+            INITIAL_COUNT
+        )
+
+        findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
+            val intent = Intent(this, ReservationResultActivity::class.java)
+            intent.putExtra("peopleCount", counter.count)
+            intent.putExtra("movie", movie)
+            startActivity(intent)
         }
     }
 
@@ -43,5 +57,9 @@ class MovieReservationActivity : AppCompatActivity() {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val INITIAL_COUNT = 1
     }
 }
