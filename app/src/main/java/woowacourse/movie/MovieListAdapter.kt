@@ -25,25 +25,41 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = LayoutInflater.from(context).inflate(R.layout.movie_item, null)
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_item, null)
+
+        if (convertView == null) {
+            val holder = ViewHolder()
+            holder.image = view.findViewById(R.id.img_movie)
+            holder.title = view.findViewById(R.id.text_title)
+            holder.playingDate = view.findViewById(R.id.text_playing_date)
+            holder.runningTime = view.findViewById(R.id.text_running_time)
+            holder.ticketingButton = view.findViewById(R.id.btn_ticketing)
+
+            view.tag = holder
+        }
+
+        val holder = view.tag as ViewHolder
         val movie = getItem(position) as Movie
-        val image = view.findViewById<ImageView>(R.id.img_movie)
-        val title = view.findViewById<TextView>(R.id.text_title)
-        val playingDate = view.findViewById<TextView>(R.id.text_playing_date)
-        val runningTime = view.findViewById<TextView>(R.id.text_running_time)
-        val ticketingButton = view.findViewById<Button>(R.id.btn_ticketing)
 
-        image.setImageResource(movie.image)
-        title.text = movie.title
-        playingDate.text = context.getString(R.string.playing_time).format(movie.playingDate)
-        runningTime.text = context.getString(R.string.playing_time).format(movie.runningTime)
+        holder.image?.setImageResource(movie.image)
+        holder.title?.text = movie.title
+        holder.playingDate?.text = context.getString(R.string.playing_time).format(movie.playingDate)
+        holder.runningTime?.text = context.getString(R.string.running_time).format(movie.runningTime)
 
-        ticketingButton.setOnClickListener {
+        holder.ticketingButton?.setOnClickListener {
             val intent = Intent(context, TicketingActivity::class.java)
             intent.putExtra("movie", movie)
             context.startActivity(intent)
         }
 
         return view
+    }
+
+    private class ViewHolder {
+        var image: ImageView? = null
+        var title: TextView? = null
+        var playingDate: TextView? = null
+        var runningTime: TextView? = null
+        var ticketingButton: Button? = null
     }
 }
