@@ -3,21 +3,22 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
-    val movieList = arrayListOf<Movie>(
+    private val movieList = arrayListOf(
         Movie(
             title = "해리 포터와 마법사의 돌",
-            releaseDate = "상영일: 2024.3.1",
-            runningTime = "러닝타임: 152분",
+            releaseDate = LocalDate.of(2021, 3, 1),
+            runningTime = 152,
             summary = "해리 포으터와 마법사의 도을",
             poster = R.drawable.ic_launcher_background,
         ),
         Movie(
-            title = "해리 포터와 비밀의 방",
-            releaseDate = "상영일: 2023.3.1",
-            runningTime = "러닝타임: 142분",
-            summary = "으워터와 비밀의 방",
+            title = "인셉션",
+            releaseDate = LocalDate.of(2021, 3, 1),
+            runningTime = 112,
+            summary = "시간과 정신의 방",
             poster = R.drawable.ic_launcher_foreground,
         ),
     )
@@ -26,6 +27,10 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
+        initMovieList()
+    }
+
+    private fun initMovieList() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
         movieListView.adapter = MovieListAdapter(this, movieList)
     }

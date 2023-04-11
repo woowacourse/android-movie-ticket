@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
     var ticketCount = 1
@@ -22,8 +23,9 @@ class MovieReservationActivity : AppCompatActivity() {
 
         moviePoster.setImageResource(movie.poster)
         movieTitle.text = movie.title
-        movieReleaseData.text = movie.releaseDate
-        movieRunningTime.text = movie.runningTime
+        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        movieReleaseData.text = "상영일 : ${movie.releaseDate.format(dateTimeFormatter)}"
+        movieRunningTime.text = "러닝타임 : ${movie.runningTime}분"
         movieSummary.text = movie.summary
 
         val decreaseButton = findViewById<TextView>(R.id.reservation_decrease_ticket_button)

@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
+import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val context: Context,
@@ -38,8 +39,10 @@ class MovieListAdapter(
         with(movieList[position]) {
             poster.setImageResource(this.poster)
             title.text = this.title
-            releaseDate.text = this.releaseDate
-            runningTime.text = this.runningTime
+
+            val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+            releaseDate.text = "상영일 : ${this.releaseDate.format(dateTimeFormatter)}"
+            runningTime.text = "러닝타임 : ${this.runningTime}분"
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)
                 intent.putExtra("movie", this)
