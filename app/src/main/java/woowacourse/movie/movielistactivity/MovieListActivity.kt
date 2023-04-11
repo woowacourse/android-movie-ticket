@@ -34,7 +34,6 @@ class MovieListActivity : AppCompatActivity() {
                 description = this.getString(R.string.dummy_data)
             )
         )
-
         movieListAdapter = MovieListAdapter(this, tempMovies)
     }
 

@@ -1,14 +1,21 @@
 package woowacourse.movie
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.util.customGetParcelableExtra
+import woowacourse.movie.util.setOnSingleClickListener
+import kotlin.properties.Delegates
 
 class MovieBookingActivity : AppCompatActivity() {
     lateinit var movieData: MovieData
+    lateinit var tvTicketCount: TextView
+
+    var ticketCount by Delegates.observable(0) { _, _, new ->
+        tvTicketCount.text = new.toString()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +23,10 @@ class MovieBookingActivity : AppCompatActivity() {
 
         initExtraData()
         initMovieInformation()
+        initTicketCountView()
+        initTicketCount()
+        initMinusButtonClickListener()
+        initPlusButtonClickListener()
     }
 
     private fun initExtraData() {
@@ -38,5 +49,30 @@ class MovieBookingActivity : AppCompatActivity() {
         tvBookingRunningTime.text =
             this.getString(R.string.running_time_format).toString().format(movieData.runningTime)
         tvBookingDescription.text = movieData.description
+    }
+
+    private fun initTicketCount() {
+        tvTicketCount.text = ticketCount.toString()
+    }
+
+    private fun initTicketCountView() {
+        tvTicketCount = findViewById(R.id.tv_ticket_count)
+    }
+
+    private fun initPlusButtonClickListener() {
+        findViewById<Button>(R.id.btn_ticket_plus).setOnSingleClickListener {
+            ticketCount++
+        }
+    }
+
+    private fun initMinusButtonClickListener() {
+        /** 원시값 포장관련 리펙터링 고려 해야하 */
+        findViewById<Button>(R.id.btn_ticket_minus).setOnSingleClickListener {
+            if (ticketCount <= 0) {
+                ticketCount = 0
+            } else {
+                ticketCount--
+            }
+        }
     }
 }
