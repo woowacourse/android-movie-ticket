@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Movie</string>
+
+    <!-- StartActivity -->
+    <string name="btn_booking">지금 예매</string>
+
+
+
 </resources>
