@@ -1,10 +1,10 @@
 package movie
 
-import java.util.Date
+import java.time.LocalDate
 
 data class Movie(
     val name: String,
-    val screeningDate: Date,
+    val screeningDate: LocalDate,
     val runningTime: Int,
     val description: String
 )
