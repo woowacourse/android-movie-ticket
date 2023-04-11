@@ -1,6 +1,7 @@
 package woowacourse.movie.domain
 
-data class Minute(val value: Int) {
+@JvmInline
+value class Minute(val value: Int) {
     init {
         require(value.isNotNegative()) { NEGATIVE_ERROR }
     }
