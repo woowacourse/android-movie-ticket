@@ -8,7 +8,6 @@ import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.ItemMovieBinding
-import java.text.SimpleDateFormat
 
 class MovieListAdapter(
     private val movies: List<Movie>,
@@ -27,10 +26,7 @@ class MovieListAdapter(
         with(movies[position]) {
             binding.ivPoster.setImageResource(thumbnail)
             binding.tvTitle.text = title
-            binding.tvDate.text = context?.getString(
-                R.string.movie_release_date,
-                SimpleDateFormat("yyyy.MM.dd").format(date)
-            )
+            binding.tvDate.text = context?.getString(R.string.movie_release_date, formattedDate)
             binding.tvRunningTime.text = context?.getString(R.string.movie_running_time, runningTime)
             binding.btnBook.setOnClickListener { onBookClickListener.onClick(this) }
         }

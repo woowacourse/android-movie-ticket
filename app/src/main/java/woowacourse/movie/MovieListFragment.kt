@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.data.Movie
@@ -32,7 +33,12 @@ class MovieListFragment : Fragment() {
                 Movie.provideDummy(),
                 object : MovieListAdapter.OnBookClickListener {
                     override fun onClick(item: Movie) {
-                        // Fragment 전환
+                        val ticketingFragment =
+                            TicketingFragment().apply { arguments = bundleOf(MOVIE_KEY to item) }
+                        parentFragmentManager.commit {
+                            add(R.id.fragment_movie, ticketingFragment)
+                            addToBackStack(FIRST_TRANSACTION)
+                        }
                     }
                 }
             )
@@ -43,5 +49,10 @@ class MovieListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
         _listAdapter = null
+    }
+
+    companion object {
+        internal const val FIRST_TRANSACTION = "FirstTransaction"
+        internal const val MOVIE_KEY = "movie"
     }
 }

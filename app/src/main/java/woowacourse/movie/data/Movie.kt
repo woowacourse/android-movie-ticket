@@ -1,7 +1,10 @@
 package woowacourse.movie.data
 
+import android.annotation.SuppressLint
 import androidx.annotation.DrawableRes
 import woowacourse.movie.R
+import java.io.Serializable
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
@@ -11,7 +14,10 @@ data class Movie(
     val runningTime: Int,
     val introduce: String,
     @DrawableRes val thumbnail: Int,
-) {
+) : Serializable {
+    @SuppressLint("SimpleDateFormat")
+    val formattedDate: String = SimpleDateFormat("yyyy.MM.dd").format(date)
+
     companion object {
         fun provideDummy(): List<Movie> = listOf(
             Movie(

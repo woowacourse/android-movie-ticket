@@ -3,4 +3,6 @@
     <string name="movie_release_date">상영일: %s</string>
     <string name="movie_running_time">러닝타임: %d분</string>
     <string name="ticket_now">지금 예매</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
