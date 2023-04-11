@@ -1,11 +1,13 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Ticket
 
 class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +48,13 @@ class MovieDetailActivity : AppCompatActivity() {
                 numberOfBooker = 10
             }
             booker.text = numberOfBooker.toString()
+        }
+
+        bookBtn.setOnClickListener {
+            val ticket = Ticket(13000, movie.runningDate.startDate, movie.title, numberOfBooker)
+            val intent = Intent(this, TicketActivity::class.java)
+            intent.putExtra("ticket", ticket)
+            startActivity(intent)
         }
     }
 }
