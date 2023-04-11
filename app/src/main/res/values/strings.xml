@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Movie</string>
 
-    <!-- StartActivity -->
+    <!-- MovieListActivity -->
     <string name="btn_booking">지금 예매</string>
-
-
+    <string name="running_time_format">러닝타임: %d분</string>
 
 </resources>

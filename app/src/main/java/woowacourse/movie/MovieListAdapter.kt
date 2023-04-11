@@ -38,10 +38,11 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
             viewHolder = itemLayout?.tag as MovieViewHolder
         }
 
-        /** 이미지 로드 하기 */
+        viewHolder.ivPoster.setImageResource(movies[position].posterImage)
         viewHolder.tvMovieName.text = movies[position].title
         viewHolder.tvScreeningDay.text = movies[position].screeningDay
-        viewHolder.tvRunningTime.text = movies[position].runningTime.toString()
+        viewHolder.tvRunningTime.text = context.getText(R.string.running_time_format).toString()
+            .format(movies[position].runningTime)
 
         viewHolder.btnBooking.setOnSingleClickListener { /** 다음 액티비티로 고고식 */ }
 
