@@ -1,10 +1,11 @@
 package woowacourse.movie
 
-import java.util.*
+import java.time.LocalDate
 
 data class Movie(
+    val id: Int,
     val title: String,
-    val screeningDate: Date,
+    val screeningDate: LocalDate,
     val runningTime: Int,
     val description: String,
 )
