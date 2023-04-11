@@ -1,11 +1,13 @@
 package woowacourse.movie
 
-import android.graphics.drawable.Drawable
+import androidx.annotation.DrawableRes
+import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
-    val imgDrawable: Drawable?,
+    @DrawableRes
+    val imgResourceId: Int,
     val title: String,
     val date: LocalDate,
     val runningTime: Int,
-)
+) : Serializable
