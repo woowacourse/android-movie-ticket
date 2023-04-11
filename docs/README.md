@@ -16,7 +16,8 @@
   - 티켓수
   - 결제액
   - 결제 종류
-- [ ] value class 납부할 금액
+- [x] value class 납부할 금액
+  - [x] 납부할 금액은 0원 이상이다
 - [x] enum class 결제 종류
   - 현장 결제
 
