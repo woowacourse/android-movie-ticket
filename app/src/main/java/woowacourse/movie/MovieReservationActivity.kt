@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Reservation
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -23,6 +24,13 @@ class MovieReservationActivity : AppCompatActivity() {
             intent.extras?.getSerializable("movie") as Movie
         }
 
+        val counter = Counter(
+            findViewById(R.id.movie_reservation_people_count_minus),
+            findViewById(R.id.movie_reservation_people_count_plus),
+            findViewById(R.id.movie_reservation_people_count),
+            INITIAL_COUNT,
+        )
+
         if (movie != null) {
             findViewById<ImageView>(R.id.movie_reservation_poster).setImageResource(movie.picture)
             findViewById<TextView>(R.id.movie_reservation_title).text = movie.title
@@ -35,20 +43,13 @@ class MovieReservationActivity : AppCompatActivity() {
                 "러닝타임: %d분".format(movie.runningTime)
 
             findViewById<TextView>(R.id.movie_reservation_description).text = movie.description
-        }
 
-        val counter = Counter(
-            findViewById(R.id.movie_reservation_people_count_minus),
-            findViewById(R.id.movie_reservation_people_count_plus),
-            findViewById(R.id.movie_reservation_people_count),
-            INITIAL_COUNT
-        )
-
-        findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
-            val intent = Intent(this, ReservationResultActivity::class.java)
-            intent.putExtra("peopleCount", counter.count)
-            intent.putExtra("movie", movie)
-            startActivity(intent)
+            findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
+                val reservation = Reservation(movie.date, counter.count, movie, 13000)
+                val intent = Intent(this, ReservationResultActivity::class.java)
+                intent.putExtra("reservation", reservation)
+                startActivity(intent)
+            }
         }
     }
 
