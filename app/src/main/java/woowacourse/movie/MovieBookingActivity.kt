@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -27,6 +28,7 @@ class MovieBookingActivity : AppCompatActivity() {
         initTicketCount()
         initMinusButtonClickListener()
         initPlusButtonClickListener()
+        initBookingCompleteButtonClickListener()
     }
 
     private fun initExtraData() {
@@ -73,6 +75,16 @@ class MovieBookingActivity : AppCompatActivity() {
             } else {
                 ticketCount--
             }
+        }
+    }
+
+    private fun initBookingCompleteButtonClickListener() {
+        findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
+            val intent = Intent(this, MovieBookingCheckActivity::class.java).apply {
+                putExtra("movieData", movieData)
+                putExtra("ticketCount", ticketCount)
+            }
+            startActivity(intent)
         }
     }
 }
