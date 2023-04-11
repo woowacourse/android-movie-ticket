@@ -10,7 +10,6 @@
         android:id="@+id/image_movie"
         android:layout_width="match_parent"
         android:layout_height="341dp"
-        android:src="@drawable/img"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -31,8 +30,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:text="asdfasdf" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/text_playing_date"
@@ -53,7 +51,6 @@
             android:id="@+id/text_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="asdfasdfasdfsadf"
             android:textColor="@color/black"
             android:layout_marginTop="19.87dp"/>
     </LinearLayout>
@@ -81,7 +78,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_gravity="center"
