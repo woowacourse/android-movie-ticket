@@ -7,7 +7,7 @@
     android:layout_height="132dp">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/movie_poster"
         android:layout_width="76dp"
         android:layout_height="108dp"
         android:layout_margin="12dp"
@@ -21,14 +21,16 @@
         android:layout_marginTop="12dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/movie_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="24dp"
+            android:textColor="@color/black"
             android:text="Title"
-            android:textSize="24dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
 
@@ -45,6 +47,7 @@
                 android:textSize="14dp" />
 
             <TextView
+                android:id="@+id/screening_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -64,6 +67,7 @@
                 android:textSize="14dp" />
 
             <TextView
+                android:id="@+id/running_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="200"
@@ -80,6 +84,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/book_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="11dp"
