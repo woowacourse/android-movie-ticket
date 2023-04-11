@@ -1,10 +1,13 @@
 package woowacourse.movie.movielistactivity
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import woowacourse.movie.MovieBookingActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.util.setOnSingleClickListener
@@ -46,7 +49,13 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
         viewHolder.tvRunningTime.text = context.getText(R.string.running_time_format).toString()
             .format(movies[position].runningTime)
 
-        viewHolder.btnBooking.setOnSingleClickListener { /** 다음 액티비티로 고고식 */ }
+        viewHolder.btnBooking.setOnSingleClickListener {
+            val intent = Intent(context, MovieBookingActivity::class.java).putExtra(
+                "movieData",
+                movies[position]
+            )
+            context.startActivity(intent)
+        }
 
         return itemLayout ?: throw IllegalStateException(NULL_ITEM_LAYOUT_ERROR)
     }
