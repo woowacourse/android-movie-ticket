@@ -30,7 +30,8 @@ class MovieListActivity : AppCompatActivity() {
                 posterImage = R.drawable.harrypotter_poster,
                 title = "해리 포터와 마법사의 돌",
                 screeningDay = "상영일: 2024.3.1",
-                runningTime = 152
+                runningTime = 152,
+                description = this.getString(R.string.dummy_data)
             )
         )
 
