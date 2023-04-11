@@ -9,6 +9,7 @@ class ReservationTest {
     fun `영화와 티켓 개수를 받아서 예매 정보를 반환한다`() {
         val movie = Movie(
             name = "해리포터",
+            posterImage = null,
             screeningDate = LocalDate.of(2000, 10, 1),
             runningTime = 120,
             description = "마법영화"
