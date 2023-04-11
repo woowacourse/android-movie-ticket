@@ -3,4 +3,7 @@
     <string name="playing_time">상영일: %s</string>
     <string name="running_time">러닝타임: %s분</string>
     <string name="ticketing_now">지금 예매</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+    <string name="complete_ticketing">예매 완료</string>
 </resources>
