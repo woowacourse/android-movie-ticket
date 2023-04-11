@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ReservationActivity"
+            android:exported="false" />
+
         <activity
             android:name=".MoviesActivity"
             android:exported="true">

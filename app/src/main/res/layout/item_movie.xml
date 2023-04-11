@@ -49,6 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/movie_screening_date_text_view" />
 
     <Button
+        android:id="@+id/reservation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="지금 예매"

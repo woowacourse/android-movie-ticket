@@ -2,14 +2,18 @@ package woowacourse.movie.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import domain.Movie
 import woowacourse.movie.R
+import woowacourse.movie.ReservationActivity
 
 class MoviesAdapter(
     private val context: Context,
@@ -28,7 +32,13 @@ class MoviesAdapter(
         val movieImageView: ImageView = view.findViewById(R.id.movie_image_view)
         val screeningDateTextView: TextView = view.findViewById(R.id.movie_screening_date_text_view)
         val runningTimeTextView: TextView = view.findViewById(R.id.movie_running_time_text_view)
+        val reservationButton: Button = view.findViewById(R.id.reservation_button)
 
+        reservationButton.setOnClickListener {
+            val intent: Intent = Intent(context, ReservationActivity::class.java)
+            intent.putExtra("movie", movies[position])
+            context.startActivity(intent)
+        }
         // todo: 코드 줄이기
         val movie: Movie = movies[position]
 

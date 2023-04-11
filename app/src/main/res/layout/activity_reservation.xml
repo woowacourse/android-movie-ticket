@@ -10,7 +10,7 @@
     <ScrollView
         android:id="@+id/movie_information_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/movie_image_view1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
@@ -31,27 +32,27 @@
                 android:padding="21dp">
 
                 <TextView
-                    android:id="@+id/movie_name_text_view"
+                    android:id="@+id/movie_name_text_view1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="해리 포터와 마법사의 돌"
                     android:textSize="24dp" />
 
                 <TextView
-                    android:id="@+id/movie_screening_date_text_view"
+                    android:id="@+id/movie_screening_date_text_view1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="34dp"
                     android:text="상영일: 0000.00.00" />
 
                 <TextView
-                    android:id="@+id/movie_running_time_text_view"
+                    android:id="@+id/movie_running_time_text_view1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="러닝타임: 000분" />
 
                 <TextView
-                    android:id="@+id/movie_description_text_view"
+                    android:id="@+id/movie_description_text_view1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

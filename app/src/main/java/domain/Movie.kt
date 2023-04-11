@@ -1,5 +1,7 @@
 package domain
 
+import android.os.Parcelable
+import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
@@ -8,4 +10,4 @@ data class Movie(
     val screeningDate: LocalDate,
     val runningTime: Int,
     val description: String
-)
+): Serializable
