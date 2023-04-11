@@ -26,16 +26,19 @@ class MovieAdapter(private val context: Context, private val movies: Movies) : B
             .setImageResource(movies.value[position].picture)
         view.findViewById<TextView>(R.id.item_movie_title).text = movies.value[position].title
 
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+        val dateFormat =
+            SimpleDateFormat(context.getString(R.string.movie_date_format), Locale.KOREA)
         view.findViewById<TextView>(R.id.item_movie_date).text =
-            "상영일: %s".format(dateFormat.format(movies.value[position].date))
+            context.getString(R.string.movie_date)
+                .format(dateFormat.format(movies.value[position].date))
 
         view.findViewById<TextView>(R.id.item_movie_running_time).text =
-            "러닝타임: %d분".format(movies.value[position].runningTime)
+            context.getString(R.string.movie_running_time)
+                .format(movies.value[position].runningTime)
 
         view.findViewById<Button>(R.id.item_movie_reservation_button).setOnClickListener {
             val intent = Intent(context, MovieReservationActivity::class.java)
-            intent.putExtra("movie", movies.value[position])
+            intent.putExtra(context.getString(R.string.movie_extra_name), movies.value[position])
             context.startActivity(intent)
         }
         return view

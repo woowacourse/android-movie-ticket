@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Reservation
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -16,24 +17,29 @@ class ReservationResultActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val reservation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.extras?.getSerializable("reservation", Reservation::class.java)
+            intent.extras?.getSerializable(
+                getString(R.string.reservation_extra_name), Reservation::class.java
+            )
         } else {
-            intent.extras?.getSerializable("reservation") as Reservation
+            intent.extras?.getSerializable(getString(R.string.reservation_extra_name)) as Reservation
         }
 
         if (reservation != null) {
             findViewById<TextView>(R.id.movie_reservation_result_title).text =
                 reservation.movie.title
 
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+            val dateFormat = SimpleDateFormat(getString(R.string.movie_date_format), Locale.KOREA)
             findViewById<TextView>(R.id.movie_reservation_result_date).text =
                 dateFormat.format(reservation.date)
 
             findViewById<TextView>(R.id.movie_reservation_result_people_count).text =
-                "일반 %d명".format(reservation.peopleCount)
+                getString(R.string.reservation_people_count).format(reservation.peopleCount)
+
+            val formattedPrice = NumberFormat.getNumberInstance(Locale.US)
+                .format(reservation.getTotalPrice())
 
             findViewById<TextView>(R.id.movie_reservation_result_price).text =
-                "%d원".format(reservation.price)
+                getString(R.string.reservation_price).format(formattedPrice)
         }
     }
 

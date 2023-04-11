@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Ticket
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -19,9 +20,9 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.extras?.getSerializable("movie", Movie::class.java)
+            intent.extras?.getSerializable(getString(R.string.movie_extra_name), Movie::class.java)
         } else {
-            intent.extras?.getSerializable("movie") as Movie
+            intent.extras?.getSerializable(getString(R.string.movie_extra_name)) as Movie
         }
 
         val counter = Counter(
@@ -35,19 +36,19 @@ class MovieReservationActivity : AppCompatActivity() {
             findViewById<ImageView>(R.id.movie_reservation_poster).setImageResource(movie.picture)
             findViewById<TextView>(R.id.movie_reservation_title).text = movie.title
 
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
+            val dateFormat = SimpleDateFormat(getString(R.string.movie_date_format), Locale.KOREA)
             findViewById<TextView>(R.id.movie_reservation_date).text =
-                "상영일: %s".format(dateFormat.format(movie.date))
+                getString(R.string.movie_date).format(dateFormat.format(movie.date))
 
             findViewById<TextView>(R.id.movie_reservation_running_time).text =
-                "러닝타임: %d분".format(movie.runningTime)
+                getString(R.string.movie_running_time).format(movie.runningTime)
 
             findViewById<TextView>(R.id.movie_reservation_description).text = movie.description
 
             findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
-                val reservation = Reservation(movie.date, counter.count, movie, 13000)
+                val reservation = Reservation(movie.date, counter.count, movie, Ticket())
                 val intent = Intent(this, ReservationResultActivity::class.java)
-                intent.putExtra("reservation", reservation)
+                intent.putExtra(getString(R.string.reservation_extra_name), reservation)
                 startActivity(intent)
             }
         }
