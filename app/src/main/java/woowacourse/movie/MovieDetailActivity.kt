@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -18,6 +19,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val date = findViewById<TextView>(R.id.detail_date)
         val time = findViewById<TextView>(R.id.detail_time)
         val description = findViewById<TextView>(R.id.description)
+
+        val reservationConfirm = findViewById<Button>(R.id.reservation_confirm)
 
         val minus = findViewById<Button>(R.id.minus)
         val plus = findViewById<Button>(R.id.plus)
@@ -41,5 +44,16 @@ class MovieDetailActivity : AppCompatActivity() {
         date.text = movie.date.toString()
         time.text = movie.runningTime.toString()
         description.text = movie.description
+
+        reservationConfirm.setOnClickListener {
+            val intent = Intent(this, ReservationConfirmActivity::class.java)
+            intent.putExtra(MainActivity.KEY_MOVIE_DATA, movie)
+            intent.putExtra(KEY_RESERVATION_COUNT, count.text.toString().toInt())
+            startActivity(intent)
+        }
+    }
+
+    companion object {
+        const val KEY_RESERVATION_COUNT = "count"
     }
 }

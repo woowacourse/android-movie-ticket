@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".ReservationConfirmActivity"
+            android:exported="false" />
+        <activity
             android:name=".MovieDetailActivity"
             android:exported="false" />
         <activity
