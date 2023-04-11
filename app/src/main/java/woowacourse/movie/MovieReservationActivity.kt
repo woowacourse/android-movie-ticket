@@ -1,9 +1,11 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 class MovieReservationActivity : AppCompatActivity() {
     var ticketCount = 1
@@ -34,6 +36,14 @@ class MovieReservationActivity : AppCompatActivity() {
         }
         increaseButton.setOnClickListener {
             ticketCountView.text = (++ticketCount).toString()
+        }
+
+        val reservationButton = findViewById<TextView>(R.id.reservation_complete_button)
+        reservationButton.setOnClickListener {
+            val intent = Intent(this, MovieTicketActivity::class.java)
+            intent.putExtra("movie", movie)
+            intent.putExtra("ticketCount", ticketCount)
+            ContextCompat.startActivity(this, intent, null)
         }
     }
 }
