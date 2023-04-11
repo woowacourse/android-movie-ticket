@@ -39,8 +39,8 @@ class TicketingActivity : AppCompatActivity() {
 
         image.setImageResource(movie.image)
         title.text = movie.title
-        playingDate.text = movie.playingDate
-        runningTime.text = movie.runningTime.toString()
+        playingDate.text = getText(R.string.playing_time).toString().format(movie.playingDate)
+        runningTime.text = getText(R.string.running_time).toString().format(movie.runningTime.toString())
         description.text = movie.description
 
         var count = 1
