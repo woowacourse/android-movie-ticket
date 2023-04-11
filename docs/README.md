@@ -17,6 +17,8 @@
   - 결제액
   - 결제 종류
 - [ ] value class 납부할 금액
+- [x] enum class 결제 종류
+  - 현장 결제
 
 ## Activity 목록
 - 영화들
