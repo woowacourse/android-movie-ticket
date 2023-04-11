@@ -10,13 +10,15 @@ class MovieListActivity : AppCompatActivity() {
             title = "해리 포터와 마법사의 돌",
             releaseDate = "상영일: 2024.3.1",
             runningTime = "러닝타임: 152분",
+            summary = "해리 포으터와 마법사의 도을",
             poster = R.drawable.ic_launcher_background,
         ),
         Movie(
             title = "해리 포터와 비밀의 방",
-            releaseDate = "상영일: 2024.3.1",
-            runningTime = "러닝타임: 152분",
-            poster = R.drawable.ic_launcher_background,
+            releaseDate = "상영일: 2023.3.1",
+            runningTime = "러닝타임: 142분",
+            summary = "으워터와 비밀의 방",
+            poster = R.drawable.ic_launcher_foreground,
         ),
     )
 
@@ -25,6 +27,6 @@ class MovieListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_list)
 
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        movieListView.adapter = MovieListAdapter(movieList)
+        movieListView.adapter = MovieListAdapter(this, movieList)
     }
 }

@@ -33,7 +33,6 @@
             android:textStyle="bold"
             android:textSize="20sp"
             android:text="해리 포터와 마법사의 돌" />
-<!--        padding 10dp-->
         <View
             android:layout_width="wrap_content"
             android:layout_height="10dp" />
@@ -55,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="124dp"
-            android:text="Button" />
+            android:text="지금 예매" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

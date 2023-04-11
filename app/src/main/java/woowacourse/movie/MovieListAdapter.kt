@@ -1,13 +1,17 @@
 package woowacourse.movie
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 
 class MovieListAdapter(
+    private val context: Context,
     private val movieList: List<Movie>,
 ) : BaseAdapter() {
     override fun getCount(): Int {
@@ -37,7 +41,9 @@ class MovieListAdapter(
             releaseDate.text = this.releaseDate
             runningTime.text = this.runningTime
             reservationButton.setOnClickListener {
-                TODO("Not yet implemented")
+                val intent = Intent(context, MovieReservationActivity::class.java)
+                intent.putExtra("movie", this)
+                startActivity(context, intent, null)
             }
         }
 
