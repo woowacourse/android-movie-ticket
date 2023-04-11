@@ -19,35 +19,60 @@
         android:layout_height="24dp"
         android:layout_marginStart="15dp"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/date"
-        android:layout_width="86dp"
-        android:layout_height="14dp"
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:textSize="12sp"
+        android:autoSizeTextType="uniform"
+        android:gravity="center_vertical|left"
+        android:text="상영일:"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
-        android:id="@+id/time"
-        android:layout_width="82dp"
-        android:layout_height="14dp"
+        android:id="@+id/date"
+        android:layout_width="86dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="10dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/date_text"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
-        android:textSize="12sp"
+        android:text="러닝타임:"
+        android:autoSizeTextType="uniform"
+        android:gravity="center_vertical|left"
         app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/date_text" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="82dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/time_text"
         app:layout_constraintTop_toBottomOf="@id/date" />
 
     <Button
         android:id="@+id/reservation"
         android:layout_width="88dp"
         android:layout_height="36dp"
-        android:text="지금 예매"
         android:autoSizeTextType="uniform"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="지금 예매"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
                     ResourcesCompat.getDrawable(resources, R.drawable.slamdunk, null),
                     "더 퍼스트 슬램덩크",
                     LocalDate.of(2023, 1, 4),
-                    124,
-                ),
+                    124
+                )
             )
         }
     }
