@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +16,8 @@ class TicketingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val intent = intent
         val movie: Movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -44,18 +47,30 @@ class TicketingActivity : AppCompatActivity() {
         minusButton.setOnClickListener {
             if (count > 1) {
                 count--
+                countText.text = count.toString()
             }
-            countText.text = count.toString()
         }
         plusButton.setOnClickListener {
-            countText.text = (count++).toString()
+            countText.text = (++count).toString()
         }
 
         ticketingButton.setOnClickListener {
             val intent = Intent(this, MovieTicketActivity::class.java)
-            val ticketingInfo = TicketingInfo(movie.title, movie.playingDate, count, Price(), "현장 결제")
+            val ticketingInfo = TicketingInfo(movie.title, movie.playingDate, count, Price(), "현장")
             intent.putExtra("ticketingInfo", ticketingInfo)
             startActivity(intent)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
     }
 }
