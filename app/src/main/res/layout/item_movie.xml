@@ -11,7 +11,7 @@
         android:layout_marginVertical="12dp"
         android:layout_marginStart="12dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/poster_harrypotter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="해리 포터와 마법사의 돌"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -33,7 +32,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="상영일: 2024.3.1"
         android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="@id/item_movie_title"
         app:layout_constraintTop_toBottomOf="@id/item_movie_title" />
@@ -42,7 +40,6 @@
         android:id="@+id/item_movie_running_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="러닝타임: 152분"
         android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="@id/item_movie_title"
         app:layout_constraintTop_toBottomOf="@id/item_movie_date" />
@@ -55,7 +52,7 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:padding="0dp"
-        android:text="지금 예매"
+        android:text="@string/item_movie_reservation_button"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
