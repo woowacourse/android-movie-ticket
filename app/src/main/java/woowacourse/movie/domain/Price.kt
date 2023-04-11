@@ -1,6 +1,7 @@
 package woowacourse.movie.domain
 
-data class Price(val price: Int = DEFAULT) {
+@JvmInline
+value class Price(val price: Int = DEFAULT) {
     init {
         require(price >= 0) { throw IllegalArgumentException(MINUS_ERROR) }
     }
