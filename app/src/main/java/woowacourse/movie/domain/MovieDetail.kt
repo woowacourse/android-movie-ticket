@@ -1,3 +1,5 @@
 package woowacourse.movie.domain
 
-data class MovieDetail(val summary: String)
+import java.io.Serializable
+
+data class MovieDetail(val summary: String) : Serializable

@@ -1,7 +1,9 @@
 package woowacourse.movie.domain
 
+import java.io.Serializable
+
 @JvmInline
-value class Minute(val value: Int) {
+value class Minute(val value: Int) : Serializable {
     init {
         require(value.isNotNegative()) { NEGATIVE_ERROR }
     }

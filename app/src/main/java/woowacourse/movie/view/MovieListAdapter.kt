@@ -1,12 +1,15 @@
 package woowacourse.movie.view
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 
@@ -32,6 +35,12 @@ class MovieListAdapter(
             context.resources.getString(R.string.running_time)
                 .format(movie.runningTime.value)
 
+        convertView.findViewById<Button>(R.id.reserve_now_button).setOnClickListener {
+            val intent = Intent(context, ReservationActivity::class.java)
+            intent.putExtra(MOVIE, movie)
+            startActivity(context, intent, null)
+        }
+
         return convertView
     }
 
@@ -49,5 +58,6 @@ class MovieListAdapter(
 
     companion object {
         private const val NULL_VIEW_ERROR = "[ERROR] 뷰는 널일 수 없습니다."
+        private const val MOVIE = "MOVIE"
     }
 }

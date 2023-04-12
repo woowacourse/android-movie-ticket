@@ -1,3 +1,5 @@
 package woowacourse.movie.domain
 
-data class Poster(val resourceId: Int)
+import java.io.Serializable
+
+data class Poster(val resourceId: Int) : Serializable

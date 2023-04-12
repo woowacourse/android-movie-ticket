@@ -13,7 +13,7 @@ class MovieListActivity : AppCompatActivity() {
 
         val movies = MovieMockRepository.findAll()
         val movieAdapter = MovieListAdapter(this, movies)
-        val movieList = findViewById<ListView>(R.id.movie_listview)
-        movieList.adapter = movieAdapter
+        val movieListView = findViewById<ListView>(R.id.movie_listview)
+        movieListView.adapter = movieAdapter
     }
 }
