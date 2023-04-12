@@ -6,6 +6,7 @@ import woowacourse.movie.util.customGetParcelableExtra
 import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
+
     lateinit var movieData: MovieData
     var ticketCount by Delegates.notNull<Int>()
 
