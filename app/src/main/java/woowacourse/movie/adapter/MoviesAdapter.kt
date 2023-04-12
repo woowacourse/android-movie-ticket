@@ -10,10 +10,9 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import domain.Movie
 import woowacourse.movie.R
-import woowacourse.movie.ReservationActivity
+import woowacourse.movie.activity.ReservationActivity
 
 class MoviesAdapter(
     private val context: Context,
@@ -36,7 +35,7 @@ class MoviesAdapter(
 
         reservationButton.setOnClickListener {
             val intent: Intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra("movie", movies[position])
+            intent.putExtra(context.getString(R.string.movie_key), movies[position])
             context.startActivity(intent)
         }
         // todo: 코드 줄이기

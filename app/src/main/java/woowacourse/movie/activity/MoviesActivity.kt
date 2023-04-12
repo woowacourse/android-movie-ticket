@@ -1,9 +1,10 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import domain.Movie
+import woowacourse.movie.R
 import woowacourse.movie.adapter.MoviesAdapter
 import java.time.LocalDate
 
@@ -15,19 +16,20 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-        initMoviesListView()
+        initMoviesView()
     }
 
-    private fun initMoviesListView() {
-        val movies: List<Movie> = listOf(
-            Movie(
-                name = "해리포터",
-                posterImage = null,
-                screeningDate = LocalDate.of(2000, 10, 1),
-                runningTime = 120,
-                description = "마법영화"
-            )
-        )
-        moviesListView.adapter = MoviesAdapter(this, movies)
+    private fun initMoviesView() {
+        moviesListView.adapter = MoviesAdapter(this, getMovies())
     }
+
+    private fun getMovies() = listOf(
+        Movie(
+            name = "해리포터",
+            posterImage = null,
+            screeningDate = LocalDate.of(2000, 10, 1),
+            runningTime = 120,
+            description = "마법영화"
+        )
+    )
 }

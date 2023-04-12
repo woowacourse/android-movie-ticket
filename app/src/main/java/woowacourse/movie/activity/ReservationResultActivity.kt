@@ -1,10 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import domain.PaymentType
 import domain.Reservation
+import woowacourse.movie.R
 import java.text.DecimalFormat
 
 class ReservationResultActivity : AppCompatActivity() {
