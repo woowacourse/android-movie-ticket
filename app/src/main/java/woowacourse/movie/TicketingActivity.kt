@@ -4,13 +4,20 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.TicketingInfo
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class TicketingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +43,13 @@ class TicketingActivity : AppCompatActivity() {
         val minusButton = findViewById<Button>(R.id.btn_minus)
         val plusButton = findViewById<Button>(R.id.btn_plus)
         val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
 
         image.setImageResource(movie.image)
         title.text = movie.title
-        playingDate.text = getText(R.string.playing_time).toString().format(movie.playingDate)
+        val dateFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
+        playingDate.text = getText(R.string.playing_time).toString().format(movie.playingTimes.startDate.format(dateFormatter).toString(), movie.playingTimes.endDate.format(dateFormatter).toString())
         runningTime.text = getText(R.string.running_time).toString().format(movie.runningTime.toString())
         description.text = movie.description
 
@@ -53,10 +63,34 @@ class TicketingActivity : AppCompatActivity() {
         plusButton.setOnClickListener {
             countText.text = (++count).toString()
         }
+        val dates = movie.playingTimes.times.keys.sorted()
+        val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dates)
+        dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerDate.adapter = dateAdapter
+        spinnerDate.setSelection(0)
+        var times: List<LocalTime> = listOf()
+        val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerTime.adapter = timeAdapter
+        spinnerTime.setSelection(0)
+
+        spinnerDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, index: Int, p3: Long) {
+                times = movie.playingTimes.times[dates[index]] ?: listOf()
+                spinnerTime.adapter = ArrayAdapter(timeAdapter.context, android.R.layout.simple_spinner_item, times)
+                timeAdapter.notifyDataSetChanged()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                println()
+            }
+        }
 
         ticketingButton.setOnClickListener {
+            val dateFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
+            val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
             val intent = Intent(this, MovieTicketActivity::class.java)
-            val ticketingInfo = TicketingInfo(movie.title, movie.playingDate, count, Price(), "현장")
+            val ticketingInfo = TicketingInfo(movie.title, dateFormatter.format(spinnerDate.selectedItem as LocalDate), timeFormatter.format(spinnerTime.selectedItem as LocalTime), count, Price(), "현장")
             intent.putExtra("ticketingInfo", ticketingInfo)
             startActivity(intent)
         }

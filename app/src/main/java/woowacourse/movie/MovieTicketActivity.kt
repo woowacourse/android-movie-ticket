@@ -29,7 +29,7 @@ class MovieTicketActivity : AppCompatActivity() {
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
 
         title.text = info.title
-        playingDate.text = info.playingDate
+        playingDate.text = getString(R.string.date_time).format(info.playingDate, info.playingTime)
         count.text = info.count.toString()
         val totalPrice = DecimalFormat("#,###").format(info.price.price * info.count)
         price.text = totalPrice.toString()

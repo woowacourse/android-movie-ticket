@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.domain.Movie
+import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(private val context: Context, private val movies: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int {
@@ -43,7 +44,8 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
 
         holder.image?.setImageResource(movie.image)
         holder.title?.text = movie.title
-        holder.playingDate?.text = context.getString(R.string.playing_time).format(movie.playingDate)
+        val dateFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
+        holder.playingDate?.text = context.getString(R.string.playing_time).format(dateFormatter.format(movie.playingTimes.startDate), dateFormatter.format(movie.playingTimes.endDate))
         holder.runningTime?.text = context.getString(R.string.running_time).format(movie.runningTime)
 
         holder.ticketingButton?.setOnClickListener {
