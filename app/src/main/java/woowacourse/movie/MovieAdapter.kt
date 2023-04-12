@@ -49,10 +49,6 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
         }
     }
 
-    private fun LocalDate.formatScreenDate(): String {
-        return format(DateTimeFormatter.ISO_LOCAL_DATE).replace('-', '.')
-    }
-
     fun initMovies(items: List<Movie>) {
         movies.clear()
         movies.addAll(items)
