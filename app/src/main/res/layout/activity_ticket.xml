@@ -48,7 +48,6 @@
         android:text="2024.03.01"
         android:textColor="@color/black"
         android:textSize="25sp"
-        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/ticket_title"
         tools:layout_editor_absoluteX="15dp" />
 

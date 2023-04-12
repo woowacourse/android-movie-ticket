@@ -19,8 +19,8 @@ class TicketActivity : AppCompatActivity() {
         val price = findViewById<TextView>(R.id.ticket_price)
 
         movieTitle.text = ticket.movieTitle
-        movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        numberOfPeople.text = ticket.calculateTotalPrice().toString()
-        price.text = (ticket.numberOfPeople * ticket.price).toString()
+        movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
+        numberOfPeople.text = ticket.numberOfPeople.toString()
+        price.text = ticket.calculateTotalPrice().toString()
     }
 }
