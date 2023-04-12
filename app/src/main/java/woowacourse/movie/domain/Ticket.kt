@@ -1,10 +1,15 @@
-package woowacourse.movie
+package woowacourse.movie.domain
+
+import java.io.Serializable
 
 @JvmInline
-value class Ticket(val count: Int = MIN_TICKET_COUNT) {
+value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
     init {
         require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
+
+    fun calculateTotalPrice(ticketPrice: Int = DEFAULT_TICKET_PRICE) =
+        count * ticketPrice
 
     operator fun dec(): Ticket = if (count > MIN_TICKET_COUNT) {
         Ticket(count - TICKET_UP_DOWN_UNIT)
@@ -17,6 +22,8 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) {
     companion object {
         private const val MIN_TICKET_COUNT = 1
         private const val TICKET_UP_DOWN_UNIT = 1
+        private const val DEFAULT_TICKET_PRICE = 13000
+
         private const val INVALID_TICKET_COUNT_EXCEPTION_MESSAGE = "티켓 개수는 최소 1장 이상이어야 합니다."
     }
 }

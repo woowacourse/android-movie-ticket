@@ -1,4 +1,4 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.view.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

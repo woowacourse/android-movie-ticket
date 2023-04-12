@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import woowacourse.movie.MovieListFragment.Companion.MOVIE_KEY
+import woowacourse.movie.R
+import woowacourse.movie.commit
 import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.FragmentTicketingBinding
+import woowacourse.movie.domain.Ticket
+import woowacourse.movie.getSerializable
+import woowacourse.movie.view.fragments.MovieListFragment.Companion.MOVIE_KEY
 
 class TicketingFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentTicketingBinding? = null
@@ -60,7 +64,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 val ticketingResultFragment = TicketingResultFragment().apply {
                     arguments = bundleOf(
                         MOVIE_KEY to this@TicketingFragment.getSerializable<Movie>(MOVIE_KEY),
-                        TICKET_COUNT_KEY to movieTicket.count
+                        TICKET_KEY to movieTicket
                     )
                 }
                 parentFragmentManager.commit {
@@ -84,6 +88,6 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     }
 
     companion object {
-        internal const val TICKET_COUNT_KEY = "ticketCount"
+        internal const val TICKET_KEY = "ticketCount"
     }
 }
