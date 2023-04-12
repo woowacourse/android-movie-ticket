@@ -23,4 +23,8 @@ object MovieData {
             R.drawable.harry_potter_poster,
         ),
     )
+
+    fun findMovieById(id: Long): Movie {
+        return movies.find { it.id == id } ?: throw NoSuchElementException()
+    }
 }
