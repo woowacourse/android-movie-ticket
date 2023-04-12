@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
 import java.time.LocalTime
@@ -26,6 +28,24 @@ class MovieReservationActivity : AppCompatActivity() {
         updateMovieView()
         registerListener()
         registerSpinnerListener()
+        registerToolbar()
+    }
+
+    private fun registerToolbar() {
+        val reservationToolbar = findViewById<Toolbar>(R.id.reservation_toolbar)
+        setSupportActionBar(reservationToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+            else -> {}
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun registerSpinnerListener() {

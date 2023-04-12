@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MovieTicketActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/ticket_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6200EE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -15,7 +24,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/ticket_toolbar">
 
         <TextView
             android:id="@+id/textView5"
