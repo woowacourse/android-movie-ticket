@@ -11,7 +11,7 @@ object MovieMockRepository : MovieRepository {
 
     private val movies = listOf(
         Movie(
-            "해리 포토와 마법사의 돌",
+            "해리 포터와 마법사의 돌",
             LocalDate.of(2024, 3, 1),
             Minute(152),
             Poster(R.drawable.harry_porter_poster),
