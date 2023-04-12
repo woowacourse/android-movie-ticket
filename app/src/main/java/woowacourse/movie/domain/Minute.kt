@@ -11,5 +11,4 @@ value class Minute(val value: Int) {
     companion object {
         private const val NEGATIVE_ERROR = "[ERROR] 분은 음수일 수 없습니다."
     }
-
 }

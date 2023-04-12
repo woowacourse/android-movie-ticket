@@ -1,7 +1,8 @@
 package woowacourse.movie.domain
 
 data class Reservation(
-    private val movie: Movie, val peopleCount: Int
+    private val movie: Movie,
+    val peopleCount: Int
 ) {
     val movieTitle = movie.title
     val movieScreeningDate = movie.screeningDate
