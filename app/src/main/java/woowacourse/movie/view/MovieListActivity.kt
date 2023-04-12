@@ -9,7 +9,7 @@ import woowacourse.movie.repository.MovieMockRepository
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movie_list)
 
         val movies = MovieMockRepository.findAll()
         val movieAdapter = MovieListAdapter(this, movies)
