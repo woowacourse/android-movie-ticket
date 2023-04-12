@@ -20,7 +20,7 @@ class TicketActivity : AppCompatActivity() {
 
         movieTitle.text = ticket.movieTitle
         movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        numberOfPeople.text = ticket.numberOfPeople.toString()
+        numberOfPeople.text = ticket.calculateTicketPrice().toString()
         price.text = (ticket.numberOfPeople * ticket.price).toString()
     }
 }

@@ -8,4 +8,6 @@ data class Ticket(
     val date: LocalDate,
     val movieTitle: String,
     val numberOfPeople: Int,
-) : Serializable
+) : Serializable {
+    fun calculateTicketPrice(): Int = price * numberOfPeople
+}
