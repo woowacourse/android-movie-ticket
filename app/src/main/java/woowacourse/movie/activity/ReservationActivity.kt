@@ -2,8 +2,12 @@ package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +15,9 @@ import domain.Movie
 import domain.Reservation
 import domain.TicketCount
 import woowacourse.movie.R
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
@@ -29,6 +36,12 @@ class ReservationActivity : AppCompatActivity() {
     }
     private val descriptionTextView: TextView by lazy {
         findViewById(R.id.reservation_movie_description_text_view)
+    }
+    private val screeningDateSpinner: Spinner by lazy {
+        findViewById(R.id.screening_date_spinner)
+    }
+    private val screeningTimeSpinner: Spinner by lazy {
+        findViewById(R.id.screening_time_spinner)
     }
     private val minusButton: Button by lazy {
         findViewById(R.id.reservation_ticket_count_minus_button)
@@ -52,6 +65,7 @@ class ReservationActivity : AppCompatActivity() {
 
         initReservationView()
         initClickListener()
+        initSpinner()
     }
 
     private fun initReservationView() {
@@ -67,6 +81,35 @@ class ReservationActivity : AppCompatActivity() {
             runningTimeTextView.text = getString(R.string.running_time_form).format(runningTime)
             descriptionTextView.text = description
         }
+    }
+
+    private fun initSpinner() {
+        val dates = movie.screeningPeriod.getScreeningDates()
+
+        screeningDateSpinner.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            dates
+        )
+        screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                initTimeSpinner(dates[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                initTimeSpinner(null)
+            }
+        }
+    }
+
+    private fun initTimeSpinner(date: LocalDate?) {
+        val times = movie.screeningPeriod.getScreeningTimes(date)
+
+        screeningTimeSpinner.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            times
+        )
     }
 
     private fun initClickListener() {
@@ -96,7 +139,9 @@ class ReservationActivity : AppCompatActivity() {
     private fun initCompleteButton() {
         completeButton.setOnClickListener {
             val ticketCount = ticketCountTextView.text.toString().toInt()
-            val reservation: Reservation = Reservation.from(movie, ticketCount)
+            val screeningDate = screeningDateSpinner.selectedItem as LocalDate
+            val screeningTime = screeningTimeSpinner.selectedItem as LocalTime
+            val reservation: Reservation = Reservation.from(movie, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
             val intent = Intent(this, ReservationResultActivity::class.java)
             intent.putExtra(getString(R.string.reservation_key), reservation)
             startActivity(intent)

@@ -8,7 +8,7 @@ import java.time.LocalTime
 data class ScreeningPeriod(
     val startDate: LocalDate,
     val endDate: LocalDate
-): Serializable {
+) : Serializable {
 
     init {
         require(startDate <= endDate)
@@ -26,18 +26,22 @@ data class ScreeningPeriod(
         return screeningDates
     }
 
-    fun getScreeningTimes(screeningDate: LocalDate): List<LocalTime> =
-        when (screeningDate.dayOfWeek) {
+    fun getScreeningTimes(screeningDate: LocalDate?): List<LocalTime> {
+        if (screeningDate == null) {
+            return listOf()
+        }
+        return when (screeningDate.dayOfWeek) {
             in DayOfWeek.MONDAY..DayOfWeek.FRIDAY -> getScreeningTimes(10)
             in DayOfWeek.SATURDAY..DayOfWeek.SUNDAY -> getScreeningTimes(9)
             else -> listOf()
         }
+    }
 
-    private fun getScreeningTimes(startHour: Int, endHour: Int = 12): List<LocalTime> {
+    private fun getScreeningTimes(startHour: Int, endHour: Int = 24): List<LocalTime> {
         val screeningTimes = mutableListOf<LocalTime>()
         var currentHour = startHour
 
-        while (currentHour < endHour) {
+        while (currentHour <= endHour) {
             screeningTimes.add(LocalTime.of(currentHour, 0))
             currentHour += 2
         }

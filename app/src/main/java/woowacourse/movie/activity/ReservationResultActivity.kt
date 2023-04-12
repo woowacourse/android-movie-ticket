@@ -13,7 +13,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private val movieNameTextView: TextView by lazy { findViewById<TextView>(R.id.result_movie_name_text_view) }
     private val paymentAmountTextView: TextView by lazy { findViewById<TextView>(R.id.result_payment_amount_text_view) }
-    private val screeningDateTextView: TextView by lazy { findViewById<TextView>(R.id.result_screening_date_text_view) }
+    private val screeningDateTimeTextView: TextView by lazy { findViewById<TextView>(R.id.result_screening_date_time_text_view) }
     private val ticketCountTextView: TextView by lazy { findViewById<TextView>(R.id.result_ticket_count_text_view) }
     private val reservation: Reservation by lazy { intent.getSerializableExtra("reservation") as Reservation }
 
@@ -26,13 +26,10 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private fun initReservationResultView() {
         with(reservation) {
-            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
             movieNameTextView.text = movie.name
-            screeningDateTextView.text = getString(R.string.screening_period_form).format(
-                movie.screeningPeriod.startDate.format(dateFormat),
-                movie.screeningPeriod.endDate.format(dateFormat)
-            )
+            screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
 
             ticketCountTextView.text = TICKET_COUNT.format(ticketCount)
 
