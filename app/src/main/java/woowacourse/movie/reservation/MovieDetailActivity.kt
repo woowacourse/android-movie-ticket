@@ -16,11 +16,16 @@ import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDateSetter
+import woowacourse.movie.domain.RunningTimeSetter
 import woowacourse.movie.main.MainActivity
 import java.time.LocalDate
+import java.time.LocalTime
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var selectDate: LocalDate
+    private lateinit var selectTime: LocalTime
+
+    private lateinit var timeSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +76,8 @@ class MovieDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        selectDate = movie.startDate
+
         val runningDates = RunningDateSetter().getRunningDates(movie.startDate, movie.endDate)
         val dateSpinnerAdapter = ArrayAdapter(
             this,
@@ -88,9 +95,37 @@ class MovieDetailActivity : AppCompatActivity() {
             ) {
                 selectDate = runningDates[position]
                 Log.d("mendel", "$selectDate")
+                setTimeSpinnerAdapter()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    fun setTimeSpinnerAdapter() {
+        timeSpinner = findViewById(R.id.time_spinner)
+
+        val runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+        val timeSpinnerAdapter = ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            runningTimes.map { it.toString() }
+        )
+
+        timeSpinner.adapter = timeSpinnerAdapter
+        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectTime = runningTimes[position]
+                Log.d("hyunji", "$selectTime")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
         }
     }
 
