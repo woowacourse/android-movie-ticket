@@ -1,10 +1,10 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.repository.MovieMockRepository
-import woowacourse.movie.view.MovieListAdapter
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
