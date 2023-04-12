@@ -73,10 +73,13 @@ class MovieDetailActivity : AppCompatActivity() {
             val intent = Intent(this, ReservationConfirmActivity::class.java)
             intent.putExtra(MainActivity.KEY_MOVIE_DATA, movie)
             intent.putExtra(KEY_RESERVATION_COUNT, count.text.toString().toInt())
+            intent.putExtra(KEY_RESERVATION_DATE, selectDate)
+            intent.putExtra(KEY_RESERVATION_TIME, selectTime)
             startActivity(intent)
         }
 
         selectDate = movie.startDate
+        selectTime = RunningTimeSetter().getRunningTimes(selectDate)[0]
 
         val runningDates = RunningDateSetter().getRunningDates(movie.startDate, movie.endDate)
         val dateSpinnerAdapter = ArrayAdapter(
@@ -131,5 +134,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_RESERVATION_COUNT = "count"
+        const val KEY_RESERVATION_DATE = "date"
+        const val KEY_RESERVATION_TIME = "time"
     }
 }
