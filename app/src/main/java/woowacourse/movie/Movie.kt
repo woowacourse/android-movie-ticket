@@ -8,7 +8,8 @@ data class Movie(
     @DrawableRes
     val imgResourceId: Int,
     val title: String,
-    val date: LocalDate,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
     val runningTime: Int,
     val description: String,
 ) : Serializable

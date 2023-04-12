@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import woowacourse.movie.Movie
+import woowacourse.movie.R
 
 class MovieAdapter(
     private val mLayoutInflater: LayoutInflater,
@@ -46,7 +48,7 @@ class MovieAdapter(
 
         image.setImageDrawable(imgDrawable)
         title.text = _movie[p0].title
-        date.text = _movie[p0].date.toString()
+        date.text = _movie[p0].startDate.toString()
         time.text = _movie[p0].runningTime.toString()
 
         reservation.setOnClickListener {

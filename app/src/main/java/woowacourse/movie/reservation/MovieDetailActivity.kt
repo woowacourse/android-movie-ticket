@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.reservation
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import woowacourse.movie.Movie
+import woowacourse.movie.R
+import woowacourse.movie.confirm.ReservationConfirmActivity
+import woowacourse.movie.main.MainActivity
 
 class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +45,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         image.setImageDrawable(ResourcesCompat.getDrawable(image.resources, movie.imgResourceId, null))
         title.text = movie.title
-        date.text = movie.date.toString()
+        date.text = movie.startDate.toString()
         time.text = movie.runningTime.toString()
         description.text = movie.description
 
