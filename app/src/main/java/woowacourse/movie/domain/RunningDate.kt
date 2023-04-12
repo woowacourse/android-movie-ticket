@@ -1,7 +1,7 @@
 package woowacourse.movie.domain
 
 import java.io.Serializable
-import java.util.*
+import java.time.LocalDate
 
-data class RunningDate(val startDate: Date, val endDate: Date) :
+data class RunningDate(val startDate: LocalDate, val endDate: LocalDate) :
     Serializable

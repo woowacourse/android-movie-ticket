@@ -1,15 +1,19 @@
 package woowacourse.movie
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
+import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -30,7 +34,9 @@ class MovieDetailActivity : AppCompatActivity() {
         moviePoster.setImageResource(movie.moviePoster)
         movieTitle.text = movie.title
         booker.text = numberOfBooker.toString()
-        screeningDate.text = movie.runningDate.startDate.toString()
+
+        screeningDate.text =
+            movie.runningDate.startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         runningTime.text = movie.runningTime.toString()
         description.text = movie.description
 

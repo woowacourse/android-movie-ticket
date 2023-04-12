@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Ticket
-import java.text.SimpleDateFormat
-import java.util.*
+import java.time.format.DateTimeFormatter
 
 class TicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +19,7 @@ class TicketActivity : AppCompatActivity() {
         val price = findViewById<TextView>(R.id.ticket_price)
 
         movieTitle.text = ticket.movieTitle
-        movieDate.text = SimpleDateFormat("yyyy-MM-dd", Locale("ko", "KR")).format(ticket.date)
+        movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         numberOfPeople.text = ticket.numberOfPeople.toString()
         price.text = (ticket.numberOfPeople * ticket.price).toString()
     }
