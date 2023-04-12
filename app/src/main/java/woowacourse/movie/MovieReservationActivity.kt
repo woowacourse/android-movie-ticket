@@ -12,6 +12,9 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ReservationDetail
+import woowacourse.movie.domain.discountPolicy.Discount
+import woowacourse.movie.domain.discountPolicy.MovieDay
+import woowacourse.movie.domain.discountPolicy.OffTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
@@ -47,7 +50,9 @@ class MovieReservationActivity : AppCompatActivity() {
 
             findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
                 val reservationDetail = ReservationDetail(movie.date, counter.count, Price())
-                val reservation = Reservation(movie, reservationDetail)
+                val discount = Discount(listOf(MovieDay, OffTime))
+                val discountedReservationDetail = discount.calculate(reservationDetail)
+                val reservation = Reservation(movie, discountedReservationDetail)
                 val intent = Intent(this, ReservationResultActivity::class.java)
                 intent.putExtra(getString(R.string.reservation_extra_name), reservation)
                 startActivity(intent)

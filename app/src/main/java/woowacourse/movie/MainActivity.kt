@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
                 Movie(
                     R.drawable.poster_harrypotter,
                     "해리 포터",
-                    LocalDateTime.now(),
+                    LocalDateTime.of(2020, 1, 10, 9, 0),
                     153,
                     "adsfasdfadsf",
                 ),

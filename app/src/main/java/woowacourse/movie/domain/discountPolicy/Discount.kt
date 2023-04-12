@@ -2,9 +2,8 @@ package woowacourse.movie.domain.discountPolicy
 
 import woowacourse.movie.domain.ReservationDetail
 
-object Discount {
+class Discount(private val discountPolicy: List<DiscountPolicy>) {
     fun calculate(
-        discountPolicy: List<DiscountPolicy>,
         reservationDetail: ReservationDetail,
     ): ReservationDetail {
         var result = reservationDetail
