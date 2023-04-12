@@ -41,7 +41,7 @@ class MovieListAdapter(
             title.text = this.title
 
             val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-            releaseDate.text = context.getString(R.string.movie_release_date).format(this.releaseDate.format(dateTimeFormatter))
+            releaseDate.text = context.getString(R.string.movie_release_date).format(this.releaseStartDate.format(dateTimeFormatter), this.releaseEndDate.format(dateTimeFormatter))
             runningTime.text = context.getString(R.string.movie_running_time).format(this.runningTime)
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)

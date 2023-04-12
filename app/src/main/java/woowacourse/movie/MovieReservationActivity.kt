@@ -24,7 +24,7 @@ class MovieReservationActivity : AppCompatActivity() {
         moviePoster.setImageResource(movie.poster)
         movieTitle.text = movie.title
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        movieReleaseData.text = getString(R.string.movie_release_date).format(movie.releaseDate.format(dateTimeFormatter))
+        movieReleaseData.text = getString(R.string.movie_release_date).format(movie.releaseStartDate.format(dateTimeFormatter), movie.releaseEndDate.format(dateTimeFormatter))
         movieRunningTime.text = getString(R.string.movie_running_time).format(movie.runningTime)
         movieSummary.text = movie.summary
 

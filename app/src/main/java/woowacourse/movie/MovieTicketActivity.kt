@@ -22,7 +22,7 @@ class MovieTicketActivity : AppCompatActivity() {
         ticketTitle.text = movie.title
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         val decimalFormat = DecimalFormat("#,###")
-        ticketMovieReleaseDate.text = movie.releaseDate.format(dateTimeFormatter)
+        ticketMovieReleaseDate.text = movie.releaseStartDate.format(dateTimeFormatter)
         ticketCountView.text = getString(R.string.movie_ticket_count).format(ticketCount)
         ticketTotalPrice.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticketCount * 13000))
     }

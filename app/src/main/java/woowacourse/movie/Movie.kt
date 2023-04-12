@@ -6,7 +6,8 @@ import java.time.LocalDate
 
 data class Movie(
     val title: String,
-    val releaseDate: LocalDate,
+    val releaseStartDate: LocalDate,
+    val releaseEndDate: LocalDate,
     val runningTime: Int,
     val summary: String,
     @DrawableRes
