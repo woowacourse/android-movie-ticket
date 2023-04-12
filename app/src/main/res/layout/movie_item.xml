@@ -47,7 +47,21 @@
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/screening_date"
+                android:id="@+id/screening_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="2024.3.1"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text=" ~ "
+                android:textSize="14dp" />
+            <TextView
+                android:id="@+id/screening_end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
