@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 
 class MovieListAdapter(
@@ -31,10 +32,14 @@ class MovieListAdapter(
         val movie = movies[position]
         itemView.findViewById<ImageView>(R.id.item_poster).setImageResource(movie.poster)
         itemView.findViewById<TextView>(R.id.item_title).text = movie.title
-        itemView.findViewById<TextView>(R.id.item_date).text = "상영일: ${movie.date.year}.${movie.date.month}.${movie.date.day}"
-        itemView.findViewById<TextView>(R.id.item_running_time).text = "러닝타임: ${movie.time}분"
+        itemView.findViewById<TextView>(R.id.item_date).text = movie.date.toScreenDate()
+        itemView.findViewById<TextView>(R.id.item_running_time).text = movie.time.toRunningTime()
         itemView.findViewById<Button>(R.id.item_booking_button).setOnClickListener { itemClickListener.onItemClick(position) }
 
         return itemView
     }
+
+    private fun Date.toScreenDate(): String = "상영일: $year.$month.$day"
+
+    private fun Int.toRunningTime(): String = "러닝타임: ${this}분"
 }
