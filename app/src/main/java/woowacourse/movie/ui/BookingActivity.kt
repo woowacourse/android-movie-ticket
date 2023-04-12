@@ -39,7 +39,10 @@ class BookingActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
-            movie.screeningDate.formatScreenDate()
+            getString(R.string.screening_date).format(
+                movie.screeningStartDate.formatScreenDate(),
+                movie.screeningEndDate.formatScreenDate(),
+            )
         findViewById<TextView>(R.id.textBookingRunningTime).text =
             getString(R.string.running_time).format(movie.runningTime)
         findViewById<TextView>(R.id.textBookingDescription).text = movie.description
