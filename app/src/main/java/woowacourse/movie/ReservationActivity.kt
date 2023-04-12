@@ -20,7 +20,6 @@ class ReservationActivity : AppCompatActivity() {
         val runningTimeTextView: TextView = findViewById(R.id.movie_running_time_text_view1)
         val descriptionTextView: TextView = findViewById(R.id.movie_description_text_view1)
 
-        val intent = Intent()
         intent.customGetSerializable<Movie>("movie")?.let {
             it.posterImage?.let { id -> posterImageView.setImageResource(id) }
             nameTextView.text = it.name
