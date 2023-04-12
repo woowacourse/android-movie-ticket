@@ -22,4 +22,6 @@ class MovieInfo(
     }
 
     fun getScreeningTime(date: LocalDate): List<LocalTime> = screeningDate.getScreeningTime(date)
+
+    fun getScreeningDate(): List<String> = screeningDate.dateList
 }

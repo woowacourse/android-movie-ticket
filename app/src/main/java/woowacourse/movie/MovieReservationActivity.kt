@@ -2,10 +2,15 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
@@ -19,6 +24,30 @@ class MovieReservationActivity : AppCompatActivity() {
 
         updateMovieView()
         registerListener()
+        registerSpinnerListener()
+    }
+
+    private fun registerSpinnerListener() {
+        val dateSpinner = findViewById<Spinner>(R.id.reservation_screening_date_spinner)
+        val dateList = movieInfo.getScreeningDate()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
+        dateSpinner.adapter = adapter
+
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                updateTimeView(LocalDate.parse(dateList[position]))
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+    }
+
+    private fun updateTimeView(data: LocalDate) {
+        val timeSpinner = findViewById<Spinner>(R.id.reservation_screening_time_spinner)
+        val timeList = movieInfo.getScreeningTime(data)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeList)
+        timeSpinner.adapter = adapter
     }
 
     private fun updateMovieView() {
