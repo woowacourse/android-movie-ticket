@@ -26,7 +26,7 @@ class ReservationCompletedActivity : AppCompatActivity() {
         val titleView = findViewById<TextView>(R.id.movie_title)
         titleView.text = reservation.movieTitle
         val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
-        screeningDateView.text = reservation.movieScreeningDate.toString()
+        screeningDateView.text = reservation.screeningDateTime.toString()
         val peopleCountView = findViewById<TextView>(R.id.people_count)
         peopleCountView.text = getString(R.string.reservation_people_count_format)
             .format(getString(R.string.general_person), reservation.peopleCount)

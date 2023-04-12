@@ -9,7 +9,6 @@ data class Reservation(
     val screeningDateTime: LocalDateTime
 ) : Serializable {
     val movieTitle = movie.title
-    val movieScreeningDate = movie.screeningStartDate
     val totalReservationFee = Money(peopleCount * TICKET_PRICE)
 
     init {
