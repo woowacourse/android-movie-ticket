@@ -1,6 +1,10 @@
 package woowacourse.movie.domain
 
-class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) {
+class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
+    Comparable<MovieTime> {
+
+    override fun compareTo(other: MovieTime): Int =
+        (hour * HOUR_TO_MIN + min) - (other.hour * HOUR_TO_MIN + other.min)
 
     companion object {
         private const val WEEKEND_MIN_TIME = 9
@@ -27,11 +31,11 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) {
         @JvmOverloads
         fun of(
             isWeekday: Boolean,
-            hour: Int = DEFAULT_HOUR,
-            min: Int = DEFAULT_MIN,
+            curHour: Int = DEFAULT_HOUR,
+            curMin: Int = DEFAULT_MIN,
         ): List<MovieTime> {
-            if (isWeekday) return weekdayTimes.filter { it.hour * HOUR_TO_MIN + it.min > hour * HOUR_TO_MIN + min }
-            return weekendTimes.filter { it.hour * HOUR_TO_MIN + it.min > hour * HOUR_TO_MIN + min }
+            val times = if (isWeekday) weekdayTimes else weekendTimes
+            return times.filter { MovieTime(it.hour, it.min) > MovieTime(curHour, curMin) }
         }
     }
 }
