@@ -2,9 +2,8 @@ package woowacourse.movie
 
 import android.os.Bundle
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 
-class BookCompleteActivity : AppCompatActivity() {
+class BookCompleteActivity : BackButtonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_complete)
