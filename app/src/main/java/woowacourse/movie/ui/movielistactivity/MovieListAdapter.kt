@@ -45,8 +45,8 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
         viewHolder.ivPoster.setImageResource(movies[position].posterImage)
         viewHolder.tvMovieName.text = movies[position].title
         viewHolder.tvScreeningDay.text = movies[position].screeningDay
-        viewHolder.tvRunningTime.text = context.getText(R.string.running_time_format).toString()
-            .format(movies[position].runningTime)
+        viewHolder.tvRunningTime.text =
+            context.getString(R.string.running_time_format).format(movies[position].runningTime)
 
         viewHolder.btnBooking.setOnSingleClickListener {
             val intent = Intent(context, MovieBookingActivity::class.java).putExtra(

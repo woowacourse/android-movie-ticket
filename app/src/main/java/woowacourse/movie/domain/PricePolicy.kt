@@ -2,5 +2,7 @@ package woowacourse.movie.domain
 
 interface PricePolicy {
 
-    fun calculate(price: Int): Int
+    fun totalPriceCalculate(ticketPrice: Int, ticketCount: Int): Int
+
+    fun discountCalculate(price: Int): Int
 }

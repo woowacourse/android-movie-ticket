@@ -51,7 +51,7 @@ class MovieBookingActivity : AppCompatActivity() {
         tvBookingMovieName.text = movieData.title
         tvBookingScreeningDay.text = movieData.screeningDay
         tvBookingRunningTime.text =
-            this.getString(R.string.running_time_format).toString().format(movieData.runningTime)
+            this.getString(R.string.running_time_format).format(movieData.runningTime)
         tvBookingDescription.text = movieData.description
     }
 
