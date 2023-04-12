@@ -19,28 +19,37 @@ class MoviesAdapter(
     private val movies: List<Movie>
 ) : BaseAdapter() {
 
+    private val view: View by lazy { LayoutInflater.from(context).inflate(R.layout.item_movie, null) }
+    private val movieImageView: ImageView by lazy { view.findViewById(R.id.movie_image_view) }
+    private val screeningDateTextView: TextView by lazy { view.findViewById(R.id.movie_screening_date_text_view) }
+    private val runningTimeTextView: TextView by lazy { view.findViewById(R.id.movie_running_time_text_view) }
+    private val reservationButton: Button by lazy { view.findViewById(R.id.reservation_button) }
+
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Movie = movies[position]
 
     override fun getItemId(position: Int): Long = 0
 
-    @SuppressLint("ViewHolder", "InflateParams")
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.item_movie, null)
-        val movieImageView: ImageView = view.findViewById(R.id.movie_image_view)
-        val screeningDateTextView: TextView = view.findViewById(R.id.movie_screening_date_text_view)
-        val runningTimeTextView: TextView = view.findViewById(R.id.movie_running_time_text_view)
-        val reservationButton: Button = view.findViewById(R.id.reservation_button)
-
-        reservationButton.setOnClickListener {
-            val intent: Intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra(context.getString(R.string.movie_key), movies[position])
-            context.startActivity(intent)
-        }
-        // todo: 코드 줄이기
         val movie: Movie = movies[position]
 
+        initReservationClickEvent(movie)
+        initView(movie)
+
+        return view
+    }
+
+    private fun initReservationClickEvent(movie: Movie) {
+        reservationButton.setOnClickListener {
+            val intent = Intent(context, ReservationActivity::class.java)
+            intent.putExtra(context.getString(R.string.movie_key), movie)
+            context.startActivity(intent)
+        }
+    }
+
+    private fun initView(movie: Movie) {
         movie.posterImage?.let { movieImageView.setImageResource(it) }
         screeningDateTextView.text = context
             .getString(R.string.screening_date_form)
@@ -52,7 +61,5 @@ class MoviesAdapter(
         runningTimeTextView.text = context
             .getString(R.string.running_time_form)
             .format(movie.runningTime)
-
-        return view
     }
 }
