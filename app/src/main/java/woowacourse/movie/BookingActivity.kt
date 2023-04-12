@@ -16,13 +16,18 @@ class BookingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_booking)
         val movie = getMovie()
         initView(movie)
-        clickMinus()
-        clickPlus()
+        gatherClickListeners()
     }
 
     private fun getMovie(): Movie {
-        val id = intent.getLongExtra("ID", -1)
-        return MovieData.findMovieById(id)
+        val movieId = intent.getLongExtra(MOVIE_ID, -1)
+        return MovieData.findMovieById(movieId)
+    }
+
+    private fun gatherClickListeners() {
+        clickMinus()
+        clickPlus()
+        clickBookingComplete()
     }
 
     private fun initView(movie: Movie) {
@@ -51,8 +56,12 @@ class BookingActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val MOVIE_ID = "MOVIE_ID"
+
         fun getIntent(context: Context, movieId: Long): Intent {
-            return Intent(context, BookingActivity::class.java).apply { putExtra("ID", movieId) }
+            return Intent(context, BookingActivity::class.java).apply {
+                putExtra(MOVIE_ID, movieId)
+            }
         }
     }
 }
