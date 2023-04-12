@@ -5,8 +5,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
-import woowacourse.movie.domain.PricePolicy
-import woowacourse.movie.domain.PricePolicyCalculator
+import woowacourse.movie.domain.price.PricePolicy
+import woowacourse.movie.domain.price.PricePolicyCalculator
 import woowacourse.movie.util.customGetParcelableExtra
 import kotlin.properties.Delegates
 
