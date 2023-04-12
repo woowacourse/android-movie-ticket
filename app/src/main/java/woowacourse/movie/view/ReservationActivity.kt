@@ -36,9 +36,9 @@ class ReservationActivity : AppCompatActivity() {
         titleView.text = movie.title
         val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
         screeningDateView.text =
-            getString(R.string.screening_date).format(movie.screeningDate.toString())
+            getString(R.string.screening_date_format).format(movie.screeningDate.toString())
         val runningTimeView = findViewById<TextView>(R.id.movie_running_time)
-        runningTimeView.text = getString(R.string.running_time).format(movie.runningTime.value)
+        runningTimeView.text = getString(R.string.running_time_format).format(movie.runningTime.value)
         val summaryView = findViewById<TextView>(R.id.movie_summary)
         summaryView.text = movie.movieDetail.summary
     }

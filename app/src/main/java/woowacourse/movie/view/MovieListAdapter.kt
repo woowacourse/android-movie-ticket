@@ -29,10 +29,10 @@ class MovieListAdapter(
             ?.setImageResource(movie.poster.resourceId)
         convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
         convertView.findViewById<TextView>(R.id.movie_screening_date)?.text =
-            context.resources.getString(R.string.screening_date)
+            context.resources.getString(R.string.screening_date_format)
                 .format(movie.screeningDate.toString())
         convertView.findViewById<TextView>(R.id.movie_running_time)?.text =
-            context.resources.getString(R.string.running_time)
+            context.resources.getString(R.string.running_time_format)
                 .format(movie.runningTime.value)
 
         convertView.findViewById<Button>(R.id.reserve_now_button).setOnClickListener {

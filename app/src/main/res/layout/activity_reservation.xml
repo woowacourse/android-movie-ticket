@@ -47,7 +47,7 @@
                     android:layout_marginTop="34dp"
                     android:textSize="16sp"
                     android:textColor="@color/black"
-                    tools:text="@string/screening_date" />
+                    tools:text="@string/screening_date_format" />
 
                 <TextView
                     android:id="@+id/movie_running_time"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textColor="@color/black"
-                    tools:text="@string/running_time" />
+                    tools:text="@string/running_time_format" />
 
                 <TextView
                     android:id="@+id/movie_summary"

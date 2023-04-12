@@ -37,7 +37,7 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
         app:layout_constraintTop_toBottomOf="@id/movie_title"
-        tools:text="@string/screening_date" />
+        tools:text="@string/screening_date_format" />
 
     <TextView
         android:id="@+id/movie_running_time"
@@ -48,7 +48,7 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
         app:layout_constraintTop_toBottomOf="@id/movie_screening_date"
-        tools:text="@string/running_time" />
+        tools:text="@string/running_time_format" />
 
     <Button
         android:id="@+id/reserve_now_button"
