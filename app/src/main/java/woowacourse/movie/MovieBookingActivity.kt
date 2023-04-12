@@ -34,7 +34,7 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun initExtraData() {
         movieData = intent.customGetParcelableExtra<MovieData>("movieData") ?: run {
             finish()
-            MovieData(-1, "-1", "-1", -1)
+            MovieData(R.drawable.img_error, "-1", "-1", -1)
         }
     }
 
