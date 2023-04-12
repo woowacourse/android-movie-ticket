@@ -9,7 +9,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
@@ -26,50 +25,74 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
+    private val counter: SaveStateCounter by lazy {
+        SaveStateCounter(
+            Counter(
+                findViewById(R.id.movie_reservation_people_count_minus),
+                findViewById(R.id.movie_reservation_people_count_plus),
+                findViewById(R.id.movie_reservation_people_count),
+                INITIAL_COUNT,
+            ),
+            COUNTER_SAVE_STATE_KEY,
+        )
+    }
+
+    private val dateSpinner: SaveStateSpinner by lazy {
+        SaveStateSpinner(
+            DATE_SPINNER_SAVE_STATE_KEY,
+            findViewById(R.id.movie_reservation_date_spinner),
+        )
+    }
+
+    private val timeSpinner: SaveStateSpinner by lazy {
+        SaveStateSpinner(
+            TIME_SPINNER_SAVE_STATE_KEY,
+            findViewById(R.id.movie_reservation_time_spinner),
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        counter.load(savedInstanceState)
+        dateSpinner.load(savedInstanceState)
+        timeSpinner.load(savedInstanceState)
+
         val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getSerializable(getString(R.string.movie_extra_name), Movie::class.java)
         } else {
             intent.extras?.getSerializable(getString(R.string.movie_extra_name)) as Movie
         }
 
-        val counter = Counter(
-            findViewById(R.id.movie_reservation_people_count_minus),
-            findViewById(R.id.movie_reservation_people_count_plus),
-            findViewById(R.id.movie_reservation_people_count),
-            INITIAL_COUNT,
-        )
+        counter.applyToView()
 
         if (movie != null) {
             val dateArray = movie.date.toList().map { LocalFormattedDate(it) }
             val dateAdapter =
                 ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dateArray)
-            val dateSpinner: Spinner = findViewById(R.id.movie_reservation_date_spinner)
-            dateSpinner.adapter = dateAdapter
+            dateSpinner.spinner.adapter = dateAdapter
 
-            val timeSpinner: Spinner = findViewById(R.id.movie_reservation_time_spinner)
+            dateSpinner.spinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
 
-            dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                }
-
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    val timeArray = MovieTime(
-                        listOf(
-                            WeekDayMovieTime, WeekendMovieTime
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        val timeArray = MovieTime(
+                            listOf(
+                                WeekDayMovieTime, WeekendMovieTime
+                            )
+                        ).determine(dateArray[p2].date).map { LocalFormattedTime(it) }
+                        val timeAdapter = ArrayAdapter(
+                            this@MovieReservationActivity,
+                            android.R.layout.simple_spinner_dropdown_item,
+                            timeArray
                         )
-                    ).determine(dateArray[p2].date).map { LocalFormattedTime(it) }
-                    val timeAdapter = ArrayAdapter(
-                        this@MovieReservationActivity,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        timeArray
-                    )
-                    timeSpinner.adapter = timeAdapter
+                        timeSpinner.spinner.adapter = timeAdapter
+                    }
                 }
-            }
 
             findViewById<ImageView>(R.id.movie_reservation_poster).setImageResource(movie.picture)
             findViewById<TextView>(R.id.movie_reservation_title).text = movie.title
@@ -88,8 +111,8 @@ class MovieReservationActivity : AppCompatActivity() {
             findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
                 val reservationDetail = ReservationDetail(
                     LocalDateTime.of(
-                        (dateSpinner.selectedItem as LocalFormattedDate).date,
-                        (timeSpinner.selectedItem as LocalFormattedTime).time
+                        (dateSpinner.spinner.selectedItem as LocalFormattedDate).date,
+                        (timeSpinner.spinner.selectedItem as LocalFormattedTime).time
                     ),
                     counter.count, Price()
                 )
@@ -103,6 +126,14 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        counter.save(outState)
+        dateSpinner.save(outState)
+        timeSpinner.save(outState)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> finish()
@@ -112,5 +143,8 @@ class MovieReservationActivity : AppCompatActivity() {
 
     companion object {
         const val INITIAL_COUNT = 1
+        const val COUNTER_SAVE_STATE_KEY = "counter"
+        const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
+        const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
     }
 }

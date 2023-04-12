@@ -10,8 +10,6 @@ class Counter(
     var count: Int
 ) {
     init {
-        applyToView()
-
         minus.setOnClickListener {
             count -= COUNT_FACTOR
             applyToView()
@@ -23,7 +21,7 @@ class Counter(
         }
     }
 
-    private fun applyToView() {
+    fun applyToView() {
         text.text = count.toString()
     }
 
