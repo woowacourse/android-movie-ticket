@@ -26,7 +26,7 @@ class MovieTicketActivity : AppCompatActivity() {
     private fun setMovieInfo() {
         val movie = getMovieFromIntent()
         findViewById<TextView>(R.id.ticket_title).text = movie.title
-        findViewById<TextView>(R.id.ticket_date).text = movie.date.toScreenDate()
+        findViewById<TextView>(R.id.ticket_date).text = movie.startDate.toScreenDate()
     }
 
     private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

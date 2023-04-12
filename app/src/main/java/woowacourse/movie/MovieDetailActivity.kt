@@ -46,14 +46,16 @@ class MovieDetailActivity : AppCompatActivity() {
 
         moviePoster.setImageResource(movie.poster)
         movieTitle.text = movie.title
-        movieDate.text = movie.date.toScreenDate()
-        movieTime.text = movie.time.toRunningTime()
+        movieDate.text = movie.getScreenDate()
+        movieTime.text = movie.getRunningTime()
         movieDescription.text = movie.description
     }
 
-    private fun Date.toScreenDate(): String = "상영일: $year.$month.$day"
+    private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
 
-    private fun Int.toRunningTime(): String = "러닝타임: ${this}분"
+    private fun Date.format(): String = "$year.$month.$day"
+
+    private fun Movie.getRunningTime(): String = "러닝타임: ${time}분"
 
     private fun setPeopleCountController() {
         val peopleCountView = findViewById<TextView>(R.id.detail_people_count)

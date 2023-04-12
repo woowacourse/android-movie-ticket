@@ -25,19 +25,23 @@ class MovieListAdapter(
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
+        val itemView =
+            LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
 
         val movie = movies[position]
         itemView.findViewById<ImageView>(R.id.item_poster).setImageResource(movie.poster)
         itemView.findViewById<TextView>(R.id.item_title).text = movie.title
-        itemView.findViewById<TextView>(R.id.item_date).text = movie.date.toScreenDate()
-        itemView.findViewById<TextView>(R.id.item_running_time).text = movie.time.toRunningTime()
-        itemView.findViewById<Button>(R.id.item_booking_button).setOnClickListener { itemClickListener.onItemClick(position) }
+        itemView.findViewById<TextView>(R.id.item_date).text = movie.getScreenDate()
+        itemView.findViewById<TextView>(R.id.item_running_time).text = movie.getRunningTime()
+        itemView.findViewById<Button>(R.id.item_booking_button)
+            .setOnClickListener { itemClickListener.onItemClick(position) }
 
         return itemView
     }
 
-    private fun Date.toScreenDate(): String = "상영일: $year.$month.$day"
+    private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
 
-    private fun Int.toRunningTime(): String = "러닝타임: ${this}분"
+    private fun Date.format(): String = "$year.$month.$day"
+
+    private fun Movie.getRunningTime(): String = "러닝타임: ${time}분"
 }
