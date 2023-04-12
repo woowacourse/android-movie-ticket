@@ -7,8 +7,9 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val movies: List<Movie>,
@@ -41,7 +42,7 @@ class MovieListAdapter(
 
     private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
 
-    private fun Date.format(): String = "$year.$month.$day"
+    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
     private fun Movie.getRunningTime(): String = "러닝타임: ${time}분"
 }

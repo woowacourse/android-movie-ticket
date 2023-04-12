@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.BookingPrice
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.PeopleCount
 import java.text.DecimalFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +26,9 @@ class MovieTicketActivity : AppCompatActivity() {
 
     private fun setMovieInfo() {
         val movie = getMovieFromIntent()
+        val date = getDateFromIntent()
         findViewById<TextView>(R.id.ticket_title).text = movie.title
-        findViewById<TextView>(R.id.ticket_date).text = movie.startDate.toScreenDate()
+        findViewById<TextView>(R.id.ticket_date).text = date.format()
     }
 
     private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -35,7 +37,13 @@ class MovieTicketActivity : AppCompatActivity() {
         intent.getSerializableExtra("movie")
     } as Movie
 
-    private fun Date.toScreenDate(): String = "$year.$month.$day"
+    private fun getDateFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        intent.getSerializableExtra("date", LocalDate::class.java)
+    } else {
+        intent.getSerializableExtra("date")
+    } as LocalDate
+
+    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
     private fun Int.toPeopleCount(): String = "일반 ${this}명"
 

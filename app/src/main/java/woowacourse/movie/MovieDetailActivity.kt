@@ -3,32 +3,31 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.PeopleCount
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
     private var peopleCount = PeopleCount()
+    private lateinit var dateSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
         val movie = getMovieFromIntent()
-        setMovieInfo(movie)
-        setPeopleCountController()
 
-        val bookingButton = findViewById<Button>(R.id.detail_booking_button)
-        bookingButton.setOnClickListener {
-            val intent = Intent(this, MovieTicketActivity::class.java)
-            intent.putExtra("movie", movie)
-            intent.putExtra("count", peopleCount.count)
-            startActivity(intent)
-        }
+        setMovieInfo(movie)
+        setDateSpinner(movie)
+        setPeopleCountController()
+        setBookingButton(movie)
     }
 
     private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -53,9 +52,20 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
 
-    private fun Date.format(): String = "$year.$month.$day"
+    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
     private fun Movie.getRunningTime(): String = "러닝타임: ${time}분"
+
+    private fun setDateSpinner(movie: Movie) {
+        dateSpinner = findViewById(R.id.detail_date_spinner)
+        val dateSpinnerAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            movie.getDatesBetweenTwoDates()
+        )
+        dateSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        dateSpinner.adapter = dateSpinnerAdapter
+    }
 
     private fun setPeopleCountController() {
         val peopleCountView = findViewById<TextView>(R.id.detail_people_count)
@@ -82,5 +92,21 @@ class MovieDetailActivity : AppCompatActivity() {
             peopleCount = peopleCount.plusCount()
             setPeopleCountView(peopleCountView)
         }
+    }
+
+    private fun setBookingButton(movie: Movie) {
+        val bookingButton = findViewById<Button>(R.id.detail_booking_button)
+
+        bookingButton.setOnClickListener {
+            moveToTicketActivity(movie)
+        }
+    }
+
+    private fun moveToTicketActivity(movie: Movie) {
+        val intent = Intent(this, MovieTicketActivity::class.java)
+        intent.putExtra("movie", movie)
+        intent.putExtra("date", dateSpinner.selectedItem as LocalDate)
+        intent.putExtra("count", peopleCount.count)
+        startActivity(intent)
     }
 }

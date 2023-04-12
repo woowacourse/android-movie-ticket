@@ -79,8 +79,24 @@
         android:id="@+id/detail_booking_layout"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="30dp"
         android:paddingBottom="20dp">
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:id="@+id/detail_date_spinner"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/detail_time_spinner" />
+
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:id="@+id/detail_time_spinner"
+            app:layout_constraintTop_toTopOf="@id/detail_date_spinner"
+            app:layout_constraintStart_toEndOf="@id/detail_date_spinner"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:text="@string/button_minus"
@@ -88,9 +104,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/detail_minus_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:textStyle="bold"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            app:layout_constraintTop_toBottomOf="@id/detail_date_spinner"
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:layout_width="0dp"
