@@ -16,8 +16,8 @@ class MovieListActivity : AppCompatActivity() {
                     poster = R.drawable.ic_launcher_background,
                 ),
                 screeningDate = ScreeningDate(
-                    startDate = LocalDate.of(2021, 3, 1),
-                    endDate = LocalDate.of(2021, 3, 31),
+                    startDate = LocalDate.of(2023, 4, 1),
+                    endDate = LocalDate.of(2023, 4, 30),
                 ),
             ),
             MovieInfo(
@@ -28,8 +28,8 @@ class MovieListActivity : AppCompatActivity() {
                     poster = R.drawable.ic_launcher_foreground,
                 ),
                 screeningDate = ScreeningDate(
-                    startDate = LocalDate.of(2021, 3, 1),
-                    endDate = LocalDate.of(2021, 3, 31),
+                    startDate = LocalDate.of(2023, 3, 1),
+                    endDate = LocalDate.of(2023, 4, 30),
                 ),
             ),
         ),

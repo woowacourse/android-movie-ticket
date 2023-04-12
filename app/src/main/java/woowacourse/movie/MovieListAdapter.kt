@@ -45,7 +45,7 @@ class MovieListAdapter(
             runningTime.text = context.getString(R.string.movie_running_time).format(this.movie.runningTime)
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)
-                intent.putExtra("movie", this)
+                intent.putExtra("movieInfo", this)
                 startActivity(context, intent, null)
             }
         }

@@ -11,10 +11,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
-    private val movieInfo by lazy { intent.getSerializableExtra("movie") as MovieInfo }
+    private val movieInfo by lazy { intent.getSerializableExtra("movieInfo") as MovieInfo }
 
     var ticketCount = 1
 
@@ -91,14 +92,23 @@ class MovieReservationActivity : AppCompatActivity() {
         val reservationButton = findViewById<TextView>(R.id.reservation_complete_button)
         reservationButton.setOnClickListener {
             val intent = Intent(this, MovieTicketActivity::class.java)
-            intent.putExtra("movie", movieInfo)
-            intent.putExtra("ticketCount", ticketCount)
-            intent.putExtra("ticketTotalPrice", 1 * ticketCount)
+            val selectedDate = LocalDate.parse(findViewById<Spinner>(R.id.reservation_screening_date_spinner).selectedItem.toString())
+            val selectedTime = LocalTime.parse(findViewById<Spinner>(R.id.reservation_screening_time_spinner).selectedItem.toString())
+            val discountPolicy = movieInfo.getDiscountPolicy(selectedDate, selectedTime)
+            val movieTicket = MovieTicket(
+                discountPolicy(MOVIE_TICKET_PRICE),
+                ticketCount,
+                selectedDate,
+                selectedTime,
+            )
+            intent.putExtra("movieInfo", movieInfo)
+            intent.putExtra("movieTicket", movieTicket)
             ContextCompat.startActivity(this, intent, null)
         }
     }
 
     companion object {
         private val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        private const val MOVIE_TICKET_PRICE = 13000
     }
 }
