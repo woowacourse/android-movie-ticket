@@ -57,12 +57,12 @@ class ReservationActivity : AppCompatActivity() {
         with(movie) {
             posterImage?.let { id -> posterImageView.setImageResource(id) }
             movieNameTextView.text = name
-            screeningDateTextView.text = SCREENING_TIME.format(
+            screeningDateTextView.text = getString(R.string.screening_date_form).format(
                 screeningDate.year,
                 screeningDate.monthValue,
                 screeningDate.dayOfMonth
             )
-            runningTimeTextView.text = RUNNING_TIME.format(runningTime)
+            runningTimeTextView.text = getString(R.string.running_time_form).format(runningTime)
             descriptionTextView.text = description
         }
     }
@@ -72,6 +72,7 @@ class ReservationActivity : AppCompatActivity() {
         initPlusClickListener()
         initCompleteButton()
     }
+
     private fun initMinusClickListener() {
         minusButton.setOnClickListener {
             runCatching {
@@ -103,7 +104,5 @@ class ReservationActivity : AppCompatActivity() {
 
     companion object {
         private const val TICKET_CONDITION = "티켓 수는 ${TicketCount.MINIMUM}장 이상이어야합니다."
-        private const val SCREENING_TIME = "상영일: %d.%d.%d"
-        private const val RUNNING_TIME = "러닝타임: %d분"
     }
 }

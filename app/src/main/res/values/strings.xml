@@ -2,4 +2,6 @@
     <string name="app_name">Movie</string>
     <string name="reservation_key">reservation</string>
     <string name="movie_key">movie</string>
+    <string name="screening_date_form">상영일: %d.%d.%d</string>
+    <string name="running_time_form">러닝타임: %d분</string>
 </resources>

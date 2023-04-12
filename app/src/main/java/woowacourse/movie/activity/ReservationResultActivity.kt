@@ -23,7 +23,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
         with(reservation) {
             movieNameTextView.text = movie.name
-            screeningDateTextView.text = SCREENING_TIME.format(
+            screeningDateTextView.text = getString(R.string.screening_date_form).format(
                 movie.screeningDate.year,
                 movie.screeningDate.monthValue,
                 movie.screeningDate.dayOfMonth
@@ -44,7 +44,6 @@ class ReservationResultActivity : AppCompatActivity() {
 
     companion object {
         private const val TICKET_COUNT = "일반 %d명"
-        private const val SCREENING_TIME = "상영일: %d.%d.%d"
         private const val PAYMENT_AMOUNT = "%s원 (%s)"
     }
 }

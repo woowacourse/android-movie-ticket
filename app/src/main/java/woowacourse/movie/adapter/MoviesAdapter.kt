@@ -42,14 +42,17 @@ class MoviesAdapter(
         val movie: Movie = movies[position]
 
         movie.posterImage?.let { movieImageView.setImageResource(it) }
-        screeningDateTextView.text = SCREENING_TIME.format(movie.screeningDate.year, movie.screeningDate.monthValue, movie.screeningDate.dayOfMonth)
-        runningTimeTextView.text = RUNNING_TIME.format(movie.runningTime)
+        screeningDateTextView.text = context
+            .getString(R.string.screening_date_form)
+            .format(
+                movie.screeningDate.year,
+                movie.screeningDate.monthValue,
+                movie.screeningDate.dayOfMonth
+            )
+        runningTimeTextView.text = context
+            .getString(R.string.running_time_form)
+            .format(movie.runningTime)
 
         return view
-    }
-
-    companion object {
-        private const val SCREENING_TIME = "상영일: %d.%d.%d"
-        private const val RUNNING_TIME = "러닝타임: %d분"
     }
 }
