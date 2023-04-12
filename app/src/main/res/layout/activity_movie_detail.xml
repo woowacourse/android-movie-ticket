@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/movie_detail_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="211dp">
+        android:layout_height="56dp"
+        android:background="#6200EE"
+        app:title="Movie"
+        app:titleTextColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_marginTop="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,10 +26,10 @@
 
             <ImageView
                 android:id="@+id/movie_poster"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img"
                 android:layout_width="match_parent"
-                android:layout_height="341dp"></ImageView>
+                android:layout_height="341dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img"></ImageView>
 
             <LinearLayout
                 android:layout_width="match_parent"

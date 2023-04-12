@@ -1,8 +1,9 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -10,8 +11,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.domain.DayOfWeek
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.ReservationDate
@@ -30,7 +31,6 @@ class MovieDetailActivity : AppCompatActivity() {
     private val selectDateSpinner by lazy { findViewById<Spinner>(R.id.select_date) }
     private val selectTimeSpinner by lazy { findViewById<Spinner>(R.id.select_time) }
 
-    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -55,6 +55,10 @@ class MovieDetailActivity : AppCompatActivity() {
         val booker = findViewById<TextView>(R.id.number_of_people)
         val plusBtn = findViewById<Button>(R.id.plus_people)
         val bookBtn = findViewById<Button>(R.id.book_button)
+        val toolbar = findViewById<Toolbar>(R.id.movie_detail_toolbar)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         moviePoster.setImageResource(movie.moviePoster)
         movieTitle.text = movie.title
@@ -98,6 +102,17 @@ class MovieDetailActivity : AppCompatActivity() {
             val intent = Intent(this, TicketActivity::class.java)
             intent.putExtra("ticket", ticket)
             startActivity(intent)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                Log.d("ToolBar_item: ", "뒤로가기 버튼 클릭")
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
