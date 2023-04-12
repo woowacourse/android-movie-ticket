@@ -5,7 +5,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
-import java.util.Date
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,11 +17,11 @@ class MainActivity : AppCompatActivity() {
                 Movie(
                     R.drawable.poster_harrypotter,
                     "해리 포터",
-                    Date(),
+                    LocalDate.now(),
                     153,
-                    "adsfasdfadsf"
-                )
-            )
+                    "adsfasdfadsf",
+                ),
+            ),
         )
         val movieList = findViewById<ListView>(R.id.main_movie_list)
         movieList.adapter = MovieAdapter(this, movies)

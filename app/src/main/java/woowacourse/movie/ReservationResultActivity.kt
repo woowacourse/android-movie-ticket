@@ -18,7 +18,8 @@ class ReservationResultActivity : AppCompatActivity() {
 
         val reservation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getSerializable(
-                getString(R.string.reservation_extra_name), Reservation::class.java
+                getString(R.string.reservation_extra_name),
+                Reservation::class.java,
             )
         } else {
             intent.extras?.getSerializable(getString(R.string.reservation_extra_name)) as Reservation
@@ -30,13 +31,13 @@ class ReservationResultActivity : AppCompatActivity() {
 
             val dateFormat = SimpleDateFormat(getString(R.string.movie_date_format), Locale.KOREA)
             findViewById<TextView>(R.id.movie_reservation_result_date).text =
-                dateFormat.format(reservation.date)
+                dateFormat.format(reservation.detail.date)
 
             findViewById<TextView>(R.id.movie_reservation_result_people_count).text =
-                getString(R.string.reservation_people_count).format(reservation.peopleCount)
+                getString(R.string.reservation_people_count).format(reservation.detail.peopleCount)
 
             val formattedPrice = NumberFormat.getNumberInstance(Locale.US)
-                .format(reservation.getTotalPrice())
+                .format(reservation.detail.getTotalPrice())
 
             findViewById<TextView>(R.id.movie_reservation_result_price).text =
                 getString(R.string.reservation_price).format(formattedPrice)

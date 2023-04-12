@@ -9,8 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.Reservation
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.ReservationDetail
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -46,7 +47,8 @@ class MovieReservationActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.movie_reservation_description).text = movie.description
 
             findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
-                val reservation = Reservation(movie.date, counter.count, movie, Ticket())
+                val reservationDetail = ReservationDetail(movie.date, counter.count, Price())
+                val reservation = Reservation(movie, reservationDetail)
                 val intent = Intent(this, ReservationResultActivity::class.java)
                 intent.putExtra(getString(R.string.reservation_extra_name), reservation)
                 startActivity(intent)
