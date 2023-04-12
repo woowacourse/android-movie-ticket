@@ -2,7 +2,6 @@ package woowacourse.movie.reservation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -12,7 +11,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.confirm.ReservationConfirmActivity
@@ -23,29 +21,96 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieDetailActivity : AppCompatActivity() {
+    private val image: ImageView by lazy { findViewById(R.id.detail_image) }
+    private val title: TextView by lazy { findViewById(R.id.detail_title) }
+    private val date: TextView by lazy { findViewById(R.id.detail_date) }
+    private val time: TextView by lazy { findViewById(R.id.detail_time) }
+    private val description: TextView by lazy { findViewById(R.id.description) }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.date_spinner) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.time_spinner) }
+    private val reservationConfirm: Button by lazy { findViewById(R.id.reservation_confirm) }
+    private val minus: Button by lazy { findViewById(R.id.minus) }
+    private val plus: Button by lazy { findViewById(R.id.plus) }
+    private val count: TextView by lazy { findViewById(R.id.count) }
+
     private lateinit var selectDate: LocalDate
     private lateinit var selectTime: LocalTime
-
-    private lateinit var timeSpinner: Spinner
+    private lateinit var movie: Movie
+    private val runningDates: List<LocalDate> by lazy {
+        RunningDateSetter().getRunningDates(
+            movie.startDate,
+            movie.endDate
+        )
+    }
+    private lateinit var runningTimes: List<LocalTime>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        movie = intent.getSerializableExtra(MainActivity.KEY_MOVIE_DATA) as Movie
+        initSetOnClickListener()
+        image.setImageResource(movie.imgResourceId)
+        initMovieData()
 
-        val image = findViewById<ImageView>(R.id.detail_image)
-        val title = findViewById<TextView>(R.id.detail_title)
-        val date = findViewById<TextView>(R.id.detail_date)
-        val time = findViewById<TextView>(R.id.detail_time)
-        val description = findViewById<TextView>(R.id.description)
-        val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
+        val dateSpinnerAdapter = ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            runningDates.map { it.toString() }
+        )
+        dateSpinner.adapter = dateSpinnerAdapter
 
-        val reservationConfirm = findViewById<Button>(R.id.reservation_confirm)
+        if (savedInstanceState != null) {
+            selectDate = savedInstanceState.getSerializable("restore_date") as LocalDate
+            setTimeSpinnerAdapter()
+            selectTime = savedInstanceState.getSerializable("restore_time") as LocalTime
+            runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+            dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
+            timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
+            count.text = savedInstanceState.getInt("restore_count").toString()
+        } else {
+            selectDate = movie.startDate
+            setTimeSpinnerAdapter()
+            runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+            selectTime = runningTimes[0]
+        }
 
-        val minus = findViewById<Button>(R.id.minus)
-        val plus = findViewById<Button>(R.id.plus)
-        val count = findViewById<TextView>(R.id.count)
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectDate = runningDates[position]
+                setTimeSpinnerAdapter()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectTime = runningTimes[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun initMovieData() {
+        title.text = movie.title
+        date.text = movie.startDate.toString()
+        time.text = movie.runningTime.toString()
+        description.text = movie.description
+    }
+
+    private fun initSetOnClickListener() {
         minus.setOnClickListener {
             var previous = count.text.toString().toInt()
             previous--
@@ -57,21 +122,6 @@ class MovieDetailActivity : AppCompatActivity() {
             count.text = previous.toString()
         }
 
-        val movie = intent.getSerializableExtra(MainActivity.KEY_MOVIE_DATA) as Movie
-        Log.d("mendel", "$movie")
-
-        image.setImageDrawable(
-            ResourcesCompat.getDrawable(
-                image.resources,
-                movie.imgResourceId,
-                null
-            )
-        )
-        title.text = movie.title
-        date.text = movie.startDate.toString()
-        time.text = movie.runningTime.toString()
-        description.text = movie.description
-
         reservationConfirm.setOnClickListener {
             val intent = Intent(this, ReservationConfirmActivity::class.java)
             intent.putExtra(MainActivity.KEY_MOVIE_DATA, movie)
@@ -80,59 +130,23 @@ class MovieDetailActivity : AppCompatActivity() {
             intent.putExtra(KEY_RESERVATION_TIME, selectTime)
             startActivity(intent)
         }
+    }
 
-        selectDate = movie.startDate
-        selectTime = RunningTimeSetter().getRunningTimes(selectDate)[0]
-
-        val runningDates = RunningDateSetter().getRunningDates(movie.startDate, movie.endDate)
-        val dateSpinnerAdapter = ArrayAdapter(
-            this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-            runningDates.map { it.toString() }
-        )
-
-        dateSpinner.adapter = dateSpinnerAdapter
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectDate = runningDates[position]
-                Log.d("mendel", "$selectDate")
-                setTimeSpinnerAdapter()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("restore_date", selectDate)
+        outState.putSerializable("restore_time", selectTime)
+        outState.putInt("restore_count", count.text.toString().toInt())
     }
 
     fun setTimeSpinnerAdapter() {
-        timeSpinner = findViewById(R.id.time_spinner)
-
-        val runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+        runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
         val timeSpinnerAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
             runningTimes.map { it.toString() }
         )
-
         timeSpinner.adapter = timeSpinnerAdapter
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectTime = runningTimes[position]
-                Log.d("hyunji", "$selectTime")
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

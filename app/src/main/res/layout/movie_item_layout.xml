@@ -50,9 +50,9 @@
         android:layout_height="16dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
-        android:text="러닝타임:"
         android:autoSizeTextType="uniform"
         android:gravity="center_vertical|left"
+        android:text="러닝타임:"
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toBottomOf="@id/date_text" />
 
@@ -69,10 +69,14 @@
         android:id="@+id/reservation"
         android:layout_width="88dp"
         android:layout_height="36dp"
-        android:autoSizeTextType="uniform"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:minWidth="0dp"
         android:minHeight="0dp"
+        android:padding="0dp"
         android:text="지금 예매"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

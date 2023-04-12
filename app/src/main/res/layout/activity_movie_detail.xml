@@ -38,11 +38,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="28dp"
-                android:text="aafddsa"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_image" />
+                app:layout_constraintTop_toBottomOf="@id/detail_image"
+                tools:text="타이틀" />
 
             <TextView
                 android:id="@+id/detail_date_text"
@@ -53,6 +54,7 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="center_vertical|left"
                 android:text="상영일:"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_title" />
@@ -62,6 +64,7 @@
                 android:layout_width="86dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="34dp"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/detail_date_text"
                 app:layout_constraintTop_toBottomOf="@id/detail_title" />
@@ -75,6 +78,7 @@
                 android:autoSizeTextType="uniform"
                 android:gravity="center_vertical|left"
                 android:text="러닝타임:"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_date_text" />
@@ -84,6 +88,7 @@
                 android:layout_width="82dp"
                 android:layout_height="19dp"
                 android:layout_marginTop="4dp"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/detail_time_text"
                 app:layout_constraintTop_toBottomOf="@id/detail_date" />
@@ -96,6 +101,7 @@
                 android:layout_marginTop="38.87dp"
                 android:layout_marginEnd="20dp"
                 android:text="sajhaljsflkjlakjaldfjkj"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,15 +130,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:spinnerMode="dropdown"
-                />
+                android:spinnerMode="dropdown" />
 
             <Spinner
                 android:id="@+id/time_spinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
         </LinearLayout>
 
         <Button
@@ -140,7 +144,11 @@
             android:layout_width="65dp"
             android:layout_height="41dp"
             android:layout_marginBottom="83.67dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
             android:text="-"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/begin_guide" />
 
@@ -149,7 +157,11 @@
             android:layout_width="65dp"
             android:layout_height="41dp"
             android:layout_marginBottom="83.67dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
             android:text="+"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/end_guide" />
 
@@ -160,6 +172,7 @@
             android:layout_marginBottom="88.35dp"
             android:text="0"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/end_guide"
@@ -171,7 +184,11 @@
             android:layout_width="0dp"
             android:layout_height="47dp"
             android:layout_marginBottom="19.92dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp"
             android:text="예매 완료"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/end_guide"
             app:layout_constraintStart_toEndOf="@id/begin_guide" />
