@@ -24,10 +24,22 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
+    private var numberOfBooker = 1
+    private var dateSpinnerPosition = 0
+    private var timeSpinnerPosition = 0
+    private val selectDateSpinner by lazy { findViewById<Spinner>(R.id.select_date) }
+    private val selectTimeSpinner by lazy { findViewById<Spinner>(R.id.select_time) }
+
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+
+        if (savedInstanceState != null) {
+            numberOfBooker = savedInstanceState.getInt("BOOKER_NUMBER")
+            dateSpinnerPosition = savedInstanceState.getInt("DATE_SPINNER_POSITION")
+            timeSpinnerPosition = savedInstanceState.getInt("TIME_SPINNER_POSITION")
+        }
 
         val movie = intent.getSerializableExtra("movie") as Movie
 
@@ -35,7 +47,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val moviePoster = findViewById<ImageView>(R.id.movie_poster)
         val movieTitle = findViewById<TextView>(R.id.movie_title)
-        val screeningDate = findViewById<TextView>(R.id.screening_date)
+        val screeningStartDate = findViewById<TextView>(R.id.screening_start_date)
+        val screeningEndDate = findViewById<TextView>(R.id.screening_end_date)
         val runningTime = findViewById<TextView>(R.id.running_time)
         val description = findViewById<TextView>(R.id.movie_description)
         val minusBtn = findViewById<Button>(R.id.minus_people)
@@ -47,8 +60,12 @@ class MovieDetailActivity : AppCompatActivity() {
         movieTitle.text = movie.title
         booker.text = numberOfBooker.toString()
 
-        screeningDate.text =
-            movie.runningDate.startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        screeningStartDate.text =
+            movie.runningDate.startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+
+        screeningEndDate.text =
+            movie.runningDate.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+
         runningTime.text = movie.runningTime.toString()
         description.text = movie.description
 
