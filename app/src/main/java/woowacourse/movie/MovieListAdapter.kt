@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 
 class MovieListAdapter(
-    private val context: Context,
     private val movies: List<Movie>,
     private val itemClickListener: ItemClickListener,
 ) : BaseAdapter() {
@@ -27,7 +25,7 @@ class MovieListAdapter(
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val itemView = LayoutInflater.from(context).inflate(R.layout.movie_item, null)
+        val itemView = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
 
         val movie = movies[position]
         itemView.findViewById<ImageView>(R.id.item_poster).setImageResource(movie.poster)
