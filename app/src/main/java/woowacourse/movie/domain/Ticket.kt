@@ -1,11 +1,11 @@
 package woowacourse.movie.domain
 
 import java.io.Serializable
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class Ticket(
     val price: Int,
-    val date: LocalDate,
+    val date: LocalDateTime,
     val movieTitle: String,
     val numberOfPeople: Int,
 ) : Serializable {
