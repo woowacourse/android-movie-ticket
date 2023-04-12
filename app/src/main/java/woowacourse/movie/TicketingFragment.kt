@@ -56,9 +56,10 @@ class TicketingFragment : Fragment(), View.OnClickListener {
             }
             R.id.btn_ticketing -> {
                 popUntilFirstTransaction() // 첫번째 fragment 제외하고 모두 pop
+
                 val ticketingResultFragment = TicketingResultFragment().apply {
                     arguments = bundleOf(
-                        MOVIE_KEY to getSerializable<Movie>(MOVIE_KEY),
+                        MOVIE_KEY to this@TicketingFragment.getSerializable<Movie>(MOVIE_KEY),
                         TICKET_COUNT_KEY to movieTicket.count
                     )
                 }

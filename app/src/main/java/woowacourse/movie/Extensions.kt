@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -16,8 +15,4 @@ inline fun <reified T : Serializable> Fragment.getSerializable(key: String): T? 
 
 fun FragmentManager.commit(content: FragmentTransaction.() -> Unit) {
     beginTransaction().apply(content).commit()
-}
-
-fun Fragment.showBackButton(show: Boolean = true) {
-    (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(show)
 }

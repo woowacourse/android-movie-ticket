@@ -3,6 +3,7 @@
     <string name="movie_release_date">상영일: %s</string>
     <string name="movie_running_time">러닝타임: %d분</string>
     <string name="ticket_now">지금 예매</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ticketing_cancel_info">영화 상영 시작 시간 15분 전까지 취소가 가능합니다.</string>
+    <string name="regular_count">일반 %d명</string>
+    <string name="movie_pay_result">%,d원 (%s)</string>
 </resources>
