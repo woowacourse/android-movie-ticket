@@ -1,17 +1,19 @@
 package woowacourse.movie.domain
 
+import woowacourse.movie.entity.Count
+import woowacourse.movie.entity.Money
 import java.time.LocalDateTime
 
 class DiscountCalculator {
-    fun discount(count: Int, dateTime: LocalDateTime): Int {
-        var money = count * TICKET_MONEY
+    fun discount(count: Count, dateTime: LocalDateTime): Money {
+        var money = count.value * TICKET_MONEY
         money = when (dateTime.dayOfMonth) {
             10, 20, 30 -> (money * MOVIE_DAY_DISCOUNT).toInt()
             else -> money
         }
         return when (dateTime.hour) {
-            in TIME_MORNING_NIGHT -> money - TIME_DISCOUNT
-            else -> money
+            in TIME_MORNING_NIGHT -> Money(money - TIME_DISCOUNT)
+            else -> Money(money)
         }
     }
 

@@ -17,6 +17,7 @@ import woowacourse.movie.Toaster
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDateSetter
 import woowacourse.movie.domain.RunningTimeSetter
+import woowacourse.movie.entity.Count
 import woowacourse.movie.main.MainActivity
 import java.time.LocalDate
 import java.time.LocalTime
@@ -130,7 +131,7 @@ class MovieDetailActivity : AppCompatActivity() {
         reservationConfirm.setOnClickListener {
             val intent = Intent(this, ReservationConfirmActivity::class.java)
             intent.putExtra(MainActivity.KEY_MOVIE_DATA, movie)
-            intent.putExtra(KEY_RESERVATION_COUNT, count.text.toString().toInt())
+            intent.putExtra(KEY_RESERVATION_COUNT, Count(count.text.toString().toInt()))
             intent.putExtra(KEY_RESERVATION_DATE, selectDate)
             intent.putExtra(KEY_RESERVATION_TIME, selectTime)
             startActivity(intent)

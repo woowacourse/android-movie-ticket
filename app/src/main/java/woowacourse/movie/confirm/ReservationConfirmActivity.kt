@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.domain.DiscountCalculator
+import woowacourse.movie.entity.Count
 import woowacourse.movie.main.MainActivity
 import woowacourse.movie.reservation.MovieDetailActivity
 import java.time.LocalDate
@@ -23,7 +24,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movie = intent.getSerializableExtra(MainActivity.KEY_MOVIE_DATA) as Movie
-        val reservationCount = intent.getIntExtra(MovieDetailActivity.KEY_RESERVATION_COUNT, 0)
+        val reservationCount = intent.getSerializableExtra(MovieDetailActivity.KEY_RESERVATION_COUNT) as Count
         val date =
             intent.getSerializableExtra(MovieDetailActivity.KEY_RESERVATION_DATE) as LocalDate
         val time =
@@ -38,7 +39,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
 
         titleTextView.text = movie.title
         dateTextView.text = dateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
-        moneyTextView.text = DiscountCalculator().discount(reservationCount, dateTime).toString()
+        moneyTextView.text = DiscountCalculator().discount(reservationCount, dateTime).value.toString()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
