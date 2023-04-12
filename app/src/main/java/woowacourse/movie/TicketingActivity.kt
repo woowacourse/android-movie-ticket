@@ -24,16 +24,6 @@ class TicketingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val intent = intent
-        val movie: Movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("movie", Movie::class.java)
-                ?: throw IllegalArgumentException("오류가 발생했습니다.")
-        } else {
-            intent.getSerializableExtra("movie") as Movie
-        }
-
         val image = findViewById<ImageView>(R.id.img_movie)
         val title = findViewById<TextView>(R.id.text_title)
         val playingDate = findViewById<TextView>(R.id.text_playing_date)
@@ -45,6 +35,22 @@ class TicketingActivity : AppCompatActivity() {
         val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+
+        val savedCount = savedInstanceState?.getString("COUNT")
+        val savedDatePosition = savedInstanceState?.getInt("SPINNER_DATE") ?: 0
+        val savedTimePosition = savedInstanceState?.getInt("SPINNER_TIME") ?: 0
+
+        countText.text = savedCount
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val intent = intent
+        val movie: Movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("movie", Movie::class.java)
+                ?: throw IllegalArgumentException("오류가 발생했습니다.")
+        } else {
+            intent.getSerializableExtra("movie") as Movie
+        }
 
         image.setImageResource(movie.image)
         title.text = movie.title
@@ -67,12 +73,12 @@ class TicketingActivity : AppCompatActivity() {
         val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dates)
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerDate.adapter = dateAdapter
-        spinnerDate.setSelection(0)
+        spinnerDate.setSelection(savedDatePosition)
         var times: List<LocalTime> = listOf()
         val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerTime.adapter = timeAdapter
-        spinnerTime.setSelection(0)
+        spinnerTime.setSelection(savedTimePosition)
 
         spinnerDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, index: Int, p3: Long) {
@@ -104,5 +110,15 @@ class TicketingActivity : AppCompatActivity() {
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val countText = findViewById<TextView>(R.id.text_count)
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+        outState.putString("COUNT", countText.text.toString())
+        outState.putInt("SPINNER_DATE", spinnerDate.selectedItemPosition)
+        outState.putInt("SPINNER_TIME", spinnerTime.selectedItemPosition)
     }
 }
