@@ -61,6 +61,22 @@ class ScreeningPeriodTest {
         )
     }
 
+    @Test
+    fun `2023-03-03 ~ 2023-03-05 는 03,04,05 일의 리스트를 반환한다`() {
+        val screeningPeriod = ScreeningPeriod(
+            LocalDate.parse("2023-03-03"),
+            LocalDate.parse("2023-03-05")
+        )
+        Assert.assertEquals(
+            screeningPeriod.getScreeningDates(),
+            listOf(
+                LocalDate.parse("2023-03-03"),
+                LocalDate.parse("2023-03-04"),
+                LocalDate.parse("2023-03-05")
+            )
+        )
+    }
+
     companion object {
         private fun convertStringListToLocalTimeList(times: List<String>): List<LocalTime> =
             times.map { LocalTime.parse(it) }

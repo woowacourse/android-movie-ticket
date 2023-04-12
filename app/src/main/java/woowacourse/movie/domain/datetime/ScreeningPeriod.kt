@@ -39,6 +39,17 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
         }
     }
 
+    fun getScreeningDates(): List<LocalDate> {
+        var tempLocalDate = start
+        val screeningDates = mutableListOf<LocalDate>()
+        while (tempLocalDate != end) {
+            screeningDates.add(tempLocalDate)
+            tempLocalDate = tempLocalDate.plusDays(1)
+        }
+        screeningDates.add(tempLocalDate)
+        return screeningDates
+    }
+
     companion object {
         private const val SCREENING_PERIOD_INIT_ERROR = "기간설정 단위가 올바르지 않습니다."
         private val WEEKDAY_TIME_TABLE =
