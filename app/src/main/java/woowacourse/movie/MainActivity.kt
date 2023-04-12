@@ -5,7 +5,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
                 Movie(
                     R.drawable.poster_harrypotter,
                     "해리 포터",
-                    LocalDate.now(),
+                    LocalDateTime.now(),
                     153,
                     "adsfasdfadsf",
                 ),

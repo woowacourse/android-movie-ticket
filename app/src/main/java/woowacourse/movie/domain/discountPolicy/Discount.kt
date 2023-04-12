@@ -1,4 +1,6 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.discountPolicy
+
+import woowacourse.movie.domain.ReservationDetail
 
 object Discount {
     fun calculate(
