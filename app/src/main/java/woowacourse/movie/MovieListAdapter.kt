@@ -13,14 +13,14 @@ import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val context: Context,
-    private val movieList: List<Movie>,
+    private val Cinema: Cinema,
 ) : BaseAdapter() {
     override fun getCount(): Int {
-        return movieList.size
+        return Cinema.size
     }
 
-    override fun getItem(position: Int): Any {
-        return movieList[position]
+    override fun getItem(position: Int): MovieInfo {
+        return Cinema[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -36,13 +36,13 @@ class MovieListAdapter(
         val runningTime = view.findViewById<TextView>(R.id.movie_running_time)
         val reservationButton = view.findViewById<Button>(R.id.movie_reservation_button)
 
-        with(movieList[position]) {
-            poster.setImageResource(this.poster)
-            title.text = this.title
+        with(Cinema[position]) {
+            poster.setImageResource(this.movie.poster)
+            title.text = this.movie.title
 
             val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-            releaseDate.text = context.getString(R.string.movie_release_date).format(this.releaseStartDate.format(dateTimeFormatter), this.releaseEndDate.format(dateTimeFormatter))
-            runningTime.text = context.getString(R.string.movie_running_time).format(this.runningTime)
+            releaseDate.text = context.getString(R.string.movie_release_date).format(this.startDate.format(dateTimeFormatter), this.endDate.format(dateTimeFormatter))
+            runningTime.text = context.getString(R.string.movie_running_time).format(this.movie.runningTime)
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)
                 intent.putExtra("movie", this)

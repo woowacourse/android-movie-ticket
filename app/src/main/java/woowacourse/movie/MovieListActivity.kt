@@ -6,22 +6,32 @@ import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
-    private val movieList = arrayListOf(
-        Movie(
-            title = "해리 포터와 마법사의 돌",
-            releaseStartDate = LocalDate.of(2021, 3, 1),
-            releaseEndDate = LocalDate.of(2021, 3, 31),
-            runningTime = 152,
-            summary = "해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을해리 포으터와 마법사의 도을",
-            poster = R.drawable.ic_launcher_background,
-        ),
-        Movie(
-            title = "인셉션",
-            releaseStartDate = LocalDate.of(2021, 3, 7),
-            releaseEndDate = LocalDate.of(2021, 4, 17),
-            runningTime = 112,
-            summary = "시간과 정신의 방",
-            poster = R.drawable.ic_launcher_foreground,
+    private val Cinema: Cinema = Cinema(
+        listOf(
+            MovieInfo(
+                movie = Movie(
+                    title = "해리 포터와 마법사의 돌",
+                    runningTime = 152,
+                    summary = "asdasdasdasdasdasdasd",
+                    poster = R.drawable.ic_launcher_background,
+                ),
+                screeningDate = ScreeningDate(
+                    startDate = LocalDate.of(2021, 3, 1),
+                    endDate = LocalDate.of(2021, 3, 31),
+                ),
+            ),
+            MovieInfo(
+                movie = Movie(
+                    title = "해리 포터와 비밀의 방",
+                    runningTime = 112,
+                    summary = "asdasdasdasdasdasdasd",
+                    poster = R.drawable.ic_launcher_foreground,
+                ),
+                screeningDate = ScreeningDate(
+                    startDate = LocalDate.of(2021, 3, 1),
+                    endDate = LocalDate.of(2021, 3, 31),
+                ),
+            ),
         ),
     )
 
@@ -34,6 +44,6 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun initMovieList() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        movieListView.adapter = MovieListAdapter(this, movieList)
+        movieListView.adapter = MovieListAdapter(this, Cinema)
     }
 }

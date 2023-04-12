@@ -1,13 +1,14 @@
 package woowacourse.movie
 
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
 class ScreeningDate(
-    private val startDate: LocalDate,
-    private val endDate: LocalDate,
-) {
+    val startDate: LocalDate,
+    val endDate: LocalDate,
+) : Serializable {
     val dateList = (0..ChronoUnit.DAYS.between(startDate, endDate))
         .map { startDate.plusDays(it).toString() }
 

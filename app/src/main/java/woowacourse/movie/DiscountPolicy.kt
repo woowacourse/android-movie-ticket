@@ -1,9 +1,10 @@
 package woowacourse.movie
 
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 
-object DiscountPolicy {
+object DiscountPolicy : Serializable {
     fun of(localDate: LocalDate, localTime: LocalTime): (Int) -> Int = when {
         isMovieDay(localDate.dayOfMonth) && isEarlyMorning(localTime.hour) -> { price -> discountMovieDay(price) - EARLY_MORNING_DISCOUNT_AMOUNT }
         isMovieDay(localDate.dayOfMonth) && isEvening(localTime.hour) -> { price -> discountMovieDay(price) - EVENING_DISCOUNT_AMOUNT }
