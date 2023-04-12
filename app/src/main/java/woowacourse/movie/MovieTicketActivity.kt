@@ -4,9 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.BookingPrice
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieTime
+import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import java.text.DecimalFormat
 import java.time.LocalDate
@@ -17,44 +15,27 @@ class MovieTicketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
 
-        setMovieInfo()
-
-        val peopleCount = intent.getIntExtra("count", PeopleCount.MINIMUM_COUNT)
-        val bookingPrice = BookingPrice.of(peopleCount)
-        findViewById<TextView>(R.id.ticket_people_count).text = peopleCount.toPeopleCount()
-        findViewById<TextView>(R.id.ticket_price).text = bookingPrice.withUnit()
+        setTicketInfo()
     }
 
-    private fun setMovieInfo() {
-        val movie = getMovieFromIntent()
-        val date = getDateFromIntent()
-        val time = getTimeFromIntent()
-        findViewById<TextView>(R.id.ticket_title).text = movie.title
-        findViewById<TextView>(R.id.ticket_date).text = "${date.format()} $time"
+    private fun setTicketInfo() {
+        val ticket = getTicketFromIntent()
+        findViewById<TextView>(R.id.ticket_title).text = ticket.title
+        findViewById<TextView>(R.id.ticket_date).text = "${ticket.date.format()} ${ticket.time}"
+        findViewById<TextView>(R.id.ticket_people_count).text = ticket.peopleCount.format()
+        findViewById<TextView>(R.id.ticket_price).text = ticket.getPriceWithUnit()
     }
 
-    private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra("movie", Movie::class.java)
+    private fun getTicketFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        intent.getSerializableExtra("ticket", MovieTicket::class.java)
     } else {
-        intent.getSerializableExtra("movie")
-    } as Movie
-
-    private fun getDateFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra("date", LocalDate::class.java)
-    } else {
-        intent.getSerializableExtra("date")
-    } as LocalDate
-
-    private fun getTimeFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra("time", MovieTime::class.java)
-    } else {
-        intent.getSerializableExtra("time")
-    } as MovieTime
+        intent.getSerializableExtra("ticket")
+    } as MovieTicket
 
     private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
-    private fun Int.toPeopleCount(): String = "일반 ${this}명"
+    private fun PeopleCount.format(): String = "일반 ${count}명"
 
-    private fun BookingPrice.withUnit(): String =
-        "${DecimalFormat("#,###").format(price)}원 (현장 결제)"
+    private fun MovieTicket.getPriceWithUnit(): String =
+        "${DecimalFormat("#,###").format(getPrice())}원 (현장 결제)"
 }

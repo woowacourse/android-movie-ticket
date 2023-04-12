@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.MovieTimesGenerator
 import woowacourse.movie.domain.PeopleCount
@@ -139,11 +140,15 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun moveToTicketActivity(movie: Movie) {
+        val ticket = MovieTicket(
+            movie.title,
+            dateSpinner.selectedItem as LocalDate,
+            timeSpinner.selectedItem as MovieTime,
+            peopleCount
+        )
+
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("movie", movie)
-        intent.putExtra("date", dateSpinner.selectedItem as LocalDate)
-        intent.putExtra("time", timeSpinner.selectedItem as MovieTime)
-        intent.putExtra("count", peopleCount.count)
+        intent.putExtra("ticket", ticket)
         startActivity(intent)
     }
 }
