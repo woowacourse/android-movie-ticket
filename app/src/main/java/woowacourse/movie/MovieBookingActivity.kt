@@ -68,13 +68,9 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initMinusButtonClickListener() {
-        /** 원시값 포장관련 리펙터링 고려 해야하 */
         findViewById<Button>(R.id.btn_ticket_minus).setOnSingleClickListener {
-            if (ticketCount <= 0) {
-                ticketCount = 0
-            } else {
-                ticketCount--
-            }
+            ticketCount--
+            if (ticketCount <= 0) ticketCount = 0
         }
     }
 
