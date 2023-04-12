@@ -42,7 +42,7 @@ class ReservationActivity : AppCompatActivity() {
         findViewById(R.id.reservation_complete_button)
     }
     private val movie: Movie by lazy {
-        intent.getSerializableExtra("movie") as Movie
+        intent.getSerializableExtra(getString(R.string.movie_key)) as Movie
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +77,7 @@ class ReservationActivity : AppCompatActivity() {
         minusButton.setOnClickListener {
             runCatching {
                 val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() - 1)
-                ticketCountTextView.text = ticketCount.toString()
+                ticketCountTextView.text = ticketCount.value.toString()
             }.onFailure {
                 Toast.makeText(this, TICKET_CONDITION, Toast.LENGTH_SHORT).show()
             }
@@ -87,7 +87,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun initPlusClickListener() {
         plusButton.setOnClickListener {
             val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() + 1)
-            ticketCountTextView.text = ticketCount.toString()
+            ticketCountTextView.text = ticketCount.value.toString()
         }
     }
 

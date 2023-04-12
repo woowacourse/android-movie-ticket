@@ -11,6 +11,7 @@ data class Reservation(
 
     companion object {
         private const val TICKET_PRICE = 13000
+
         fun from(movie: Movie, ticketCount: Int) = Reservation(
             movie = movie,
             ticketCount = ticketCount,

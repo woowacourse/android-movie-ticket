@@ -10,17 +10,20 @@ import java.text.DecimalFormat
 
 class ReservationResultActivity : AppCompatActivity() {
 
+    private val movieNameTextView: TextView by lazy { findViewById<TextView>(R.id.result_movie_name_text_view) }
+    private val paymentAmountTextView: TextView by lazy { findViewById<TextView>(R.id.result_payment_amount_text_view) }
+    private val screeningDateTextView: TextView by lazy { findViewById<TextView>(R.id.result_screening_date_text_view) }
+    private val ticketCountTextView: TextView by lazy { findViewById<TextView>(R.id.result_ticket_count_text_view) }
+    private val reservation: Reservation by lazy { intent.getSerializableExtra("reservation") as Reservation }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
-        val movieNameTextView: TextView = findViewById<TextView>(R.id.result_movie_name_text_view)
-        val paymentAmountTextView: TextView = findViewById<TextView>(R.id.result_payment_amount_text_view)
-        val screeningDateTextView: TextView = findViewById<TextView>(R.id.result_screening_date_text_view)
-        val ticketCountTextView: TextView = findViewById<TextView>(R.id.result_ticket_count_text_view)
+        initReservationResultView()
+    }
 
-        val reservation: Reservation = intent.getSerializableExtra("reservation") as Reservation
-
+    private fun initReservationResultView() {
         with(reservation) {
             movieNameTextView.text = movie.name
             screeningDateTextView.text = getString(R.string.screening_date_form).format(
@@ -39,11 +42,12 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun getPaymentTypeString(paymentType: PaymentType): String = when (paymentType) {
-        PaymentType.LOCAL_PAYMENT -> "현장 결제"
+        PaymentType.LOCAL_PAYMENT -> LOCAL_PAYMENT_TEXT
     }
 
     companion object {
         private const val TICKET_COUNT = "일반 %d명"
         private const val PAYMENT_AMOUNT = "%s원 (%s)"
+        private const val LOCAL_PAYMENT_TEXT = "현장 결제"
     }
 }
