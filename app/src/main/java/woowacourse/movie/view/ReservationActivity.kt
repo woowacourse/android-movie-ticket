@@ -10,6 +10,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
+import java.time.LocalDateTime
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -36,9 +37,10 @@ class ReservationActivity : AppCompatActivity() {
         titleView.text = movie.title
         val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
         screeningDateView.text =
-            getString(R.string.screening_date_format).format(movie.screeningDate.toString())
+            getString(R.string.screening_date_format).format(movie.screeningStartDate.toString())
         val runningTimeView = findViewById<TextView>(R.id.movie_running_time)
-        runningTimeView.text = getString(R.string.running_time_format).format(movie.runningTime.value)
+        runningTimeView.text =
+            getString(R.string.running_time_format).format(movie.runningTime.value)
         val summaryView = findViewById<TextView>(R.id.movie_summary)
         summaryView.text = movie.movieDetail.summary
     }
@@ -61,7 +63,8 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initReserveButtonClickListener(movie: Movie) {
         findViewById<Button>(R.id.reservation_button).setOnClickListener {
-            val reservation = Reservation(movie, peopleCount)
+
+            val reservation = Reservation(movie, peopleCount, LocalDateTime.now())
 
             val intent = Intent(this, ReservationCompletedActivity::class.java)
             intent.putExtra(RESERVATION, reservation)
