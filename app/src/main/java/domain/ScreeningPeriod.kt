@@ -41,7 +41,7 @@ data class ScreeningPeriod(
         val screeningTimes = mutableListOf<LocalTime>()
         var currentHour = startHour
 
-        while (currentHour <= endHour) {
+        while (currentHour < endHour) {
             screeningTimes.add(LocalTime.of(currentHour, 0))
             currentHour += 2
         }

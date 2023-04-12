@@ -1,5 +1,6 @@
 package domain
 
+import domain.discount.Discount
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -14,11 +15,17 @@ data class Reservation(
     companion object {
         private const val TICKET_PRICE = 13000
 
-        fun from(movie: Movie, ticketCount: Int, screeningDateTime: LocalDateTime) = Reservation(
-            movie = movie,
-            screeningDateTime = screeningDateTime,
-            ticketCount = ticketCount,
-            paymentAmount = PaymentAmount(ticketCount * TICKET_PRICE),
-        )
+        fun from(movie: Movie, ticketCount: Int, screeningDateTime: LocalDateTime): Reservation {
+            val paymentAmount: PaymentAmount = Discount().getPaymentAmountResult(
+                PaymentAmount(ticketCount * TICKET_PRICE),
+                screeningDateTime
+            )
+            return Reservation(
+                movie = movie,
+                screeningDateTime = screeningDateTime,
+                ticketCount = ticketCount,
+                paymentAmount = paymentAmount,
+            )
+        }
     }
 }

@@ -28,7 +28,7 @@ class MoviesActivity : AppCompatActivity() {
         Movie(
             name = "해리포터",
             posterImage = null,
-            screeningPeriod = ScreeningPeriod(LocalDate.of(2000, 10, 1), LocalDate.of(2000, 10, 2)),
+            screeningPeriod = ScreeningPeriod(LocalDate.of(2000, 10, 1), LocalDate.of(2000, 10, 28)),
             runningTime = 120,
             description = "마법영화"
         )
