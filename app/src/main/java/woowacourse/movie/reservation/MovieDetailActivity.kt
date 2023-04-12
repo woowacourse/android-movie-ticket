@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.Movie
 import woowacourse.movie.R
+import woowacourse.movie.Toaster
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDateSetter
 import woowacourse.movie.domain.RunningTimeSetter
@@ -114,6 +115,10 @@ class MovieDetailActivity : AppCompatActivity() {
         minus.setOnClickListener {
             var previous = count.text.toString().toInt()
             previous--
+            if (previous < 0) {
+                Toaster.showToast(this, "예약 인원은 음수가 될 수 없습니다")
+                return@setOnClickListener
+            }
             count.text = previous.toString()
         }
         plus.setOnClickListener {
