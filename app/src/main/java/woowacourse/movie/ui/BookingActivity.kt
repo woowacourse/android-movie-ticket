@@ -3,15 +3,24 @@ package woowacourse.movie.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieData
+import woowacourse.movie.domain.ScreeningTimes
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
     var ticketCount = TicketCount()
@@ -22,6 +31,7 @@ class BookingActivity : AppCompatActivity() {
         val movie = getMovie()
         initView(movie)
         gatherClickListeners()
+        initDateSpinner(movie)
     }
 
     private fun getMovie(): Movie {
@@ -66,8 +76,40 @@ class BookingActivity : AppCompatActivity() {
     private fun clickBookingComplete() {
         findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
             val movieId = intent.getLongExtra(MOVIE_ID, -1)
-            startActivity(CompletedActivity.getIntent(this, movieId, ticketCount.value))
+            val date = findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItem as LocalDate
+            val time = findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItem as LocalTime
+            val dateTime = LocalDateTime.of(date, time)
+            val ticket = Ticket(movieId, dateTime, ticketCount.value)
+            startActivity(CompletedActivity.getIntent(this, ticket))
         }
+    }
+
+    private fun initDateSpinner(movie: Movie) {
+        val dateSpinner = findViewById<Spinner>(R.id.spinnerScreeningDate)
+        val dates: List<LocalDate> =
+            ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
+        dateSpinner.adapter =
+            ArrayAdapter(this, R.layout.screening_date_time_item, R.id.textSpinnerDateTime, dates)
+
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                initTimeSpinner(dates[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun initTimeSpinner(date: LocalDate) {
+        val timeSpinner = findViewById<Spinner>(R.id.spinnerScreeningTime)
+        val times: List<LocalTime> = ScreeningTimes.getScreeningTime(date).map { it }
+        timeSpinner.adapter =
+            ArrayAdapter(this, R.layout.screening_date_time_item, R.id.textSpinnerDateTime, times)
     }
 
     companion object {

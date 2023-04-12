@@ -10,7 +10,30 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <Spinner
+            android:id="@+id/spinnerScreeningDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/textBookingTicketCount"
+            app:layout_constraintEnd_toStartOf="@+id/spinnerScreeningTime"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/screening_date_time_item" />
+
+        <Spinner
+            android:id="@+id/spinnerScreeningTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@id/spinnerScreeningDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spinnerScreeningDate"
+            app:layout_constraintTop_toTopOf="@+id/spinnerScreeningDate"
+            tools:listitem="@layout/screening_date_time_item" />
 
         <Button
             android:id="@+id/buttonBookingMinus"
@@ -40,7 +63,6 @@
             android:id="@+id/textBookingTicketCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/black"
@@ -48,7 +70,6 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonBookingComplete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="1" />
 
 
