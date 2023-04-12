@@ -11,12 +11,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<ListView>(R.id.listMovie).adapter = movieAdapter
+        findViewById<ListView>(R.id.listMainMovie).adapter = movieAdapter
         movieAdapter.initMovies(MovieData.movies)
     }
 
     private fun clickBook(movieId: Long) {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, BookingActivity::class.java)
         intent.putExtra("ID", movieId)
         startActivity(intent)
     }

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageThumbnail"
+        android:id="@+id/imageItemThumbnail"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginVertical="12dp"
@@ -19,7 +19,7 @@
         tools:src="@drawable/harry_potter_thumbnail" />
 
     <TextView
-        android:id="@+id/textTitle"
+        android:id="@+id/textItemTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -29,36 +29,36 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageThumbnail"
+        app:layout_constraintStart_toEndOf="@+id/imageItemThumbnail"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
-        android:id="@+id/textScreeningDate"
+        android:id="@+id/textBookingScreeningDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/roboto"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle"
+        app:layout_constraintStart_toStartOf="@+id/textItemTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textItemTitle"
         tools:text="상영일: 2024.3.1" />
 
     <TextView
-        android:id="@+id/textRunningTime"
+        android:id="@+id/textBookingRunningTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/roboto"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textScreeningDate"
-        app:layout_constraintTop_toBottomOf="@+id/textScreeningDate"
+        app:layout_constraintStart_toStartOf="@+id/textBookingScreeningDate"
+        app:layout_constraintTop_toBottomOf="@+id/textBookingScreeningDate"
         tools:text="러닝타임: 152분" />
 
     <Button
-        android:id="@+id/buttonBook"
+        android:id="@+id/buttonItemBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -71,5 +71,5 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textRunningTime" />
+        app:layout_constraintTop_toBottomOf="@+id/textBookingRunningTime" />
 </androidx.constraintlayout.widget.ConstraintLayout>

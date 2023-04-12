@@ -8,8 +8,6 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     BaseAdapter() {
@@ -28,7 +26,7 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
 
         initView(position, view)
 
-        view.findViewById<Button>(R.id.buttonBook).setOnClickListener {
+        view.findViewById<Button>(R.id.buttonItemBook).setOnClickListener {
             clickBook(movies[position].id)
         }
 
@@ -36,17 +34,17 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     }
 
     private fun initView(position: Int, view: View) {
-        view.findViewById<ImageView>(R.id.imageThumbnail)
+        view.findViewById<ImageView>(R.id.imageItemThumbnail)
             .setImageResource(movies[position].thumbnail)
 
-        view.findViewById<TextView>(R.id.textTitle).text = movies[position].title
+        view.findViewById<TextView>(R.id.textItemTitle).text = movies[position].title
 
-        view.findViewById<TextView>(R.id.textScreeningDate).apply {
+        view.findViewById<TextView>(R.id.textBookingScreeningDate).apply {
             text = context.getString(R.string.screening_date)
                 .format(movies[position].screeningDate.formatScreenDate())
         }
 
-        view.findViewById<TextView>(R.id.textRunningTime).apply {
+        view.findViewById<TextView>(R.id.textBookingRunningTime).apply {
             text = context.getString(R.string.running_time).format(movies[position].runningTime)
         }
     }
