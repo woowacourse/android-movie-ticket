@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MovieData
+import woowacourse.movie.R
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import kotlin.properties.Delegates

@@ -1,4 +1,4 @@
-package woowacourse.movie.movielistactivity
+package woowacourse.movie.ui.movielistactivity
 
 import android.os.Bundle
 import android.widget.ListView

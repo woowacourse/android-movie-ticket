@@ -1,15 +1,14 @@
-package woowacourse.movie.movielistactivity
+package woowacourse.movie.ui.movielistactivity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import woowacourse.movie.MovieBookingActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.ui.MovieBookingActivity
 import woowacourse.movie.util.setOnSingleClickListener
 
 class MovieListAdapter(val context: Context, val movies: List<MovieData>) : BaseAdapter() {

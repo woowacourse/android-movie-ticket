@@ -1,7 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MovieData
+import woowacourse.movie.R
 import woowacourse.movie.util.customGetParcelableExtra
 import kotlin.properties.Delegates
 
