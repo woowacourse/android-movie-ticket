@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -57,7 +58,8 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
         bookBtn.setOnClickListener {
-            val ticket = Ticket(13000, movie.runningDate.startDate, movie.title, numberOfBooker)
+            val ticket =
+                Ticket(13000, LocalDateTime.of(2024, 3, 1, 3, 15), movie.title, numberOfBooker)
             val intent = Intent(this, TicketActivity::class.java)
             intent.putExtra("ticket", ticket)
             startActivity(intent)
