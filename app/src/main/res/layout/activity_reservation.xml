@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/movie_image_view1"
+                android:id="@+id/reservation_movie_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
@@ -32,27 +32,27 @@
                 android:padding="21dp">
 
                 <TextView
-                    android:id="@+id/movie_name_text_view1"
+                    android:id="@+id/reservation_movie_name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="해리 포터와 마법사의 돌"
                     android:textSize="24dp" />
 
                 <TextView
-                    android:id="@+id/movie_screening_date_text_view1"
+                    android:id="@+id/reservation_movie_screening_date_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="34dp"
                     android:text="상영일: 0000.00.00" />
 
                 <TextView
-                    android:id="@+id/movie_running_time_text_view1"
+                    android:id="@+id/reservation_movie_running_time_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="러닝타임: 000분" />
 
                 <TextView
-                    android:id="@+id/movie_description_text_view1"
+                    android:id="@+id/reservation_movie_description_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -73,12 +73,14 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/reservation_ticket_count_minus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="-" />
 
             <TextView
+                android:id="@+id/reservation_ticket_count_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
@@ -86,6 +88,7 @@
                 android:textAlignment="center" />
 
             <Button
+                android:id="@+id/reservation_ticket_count_plus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -93,6 +96,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/reservation_complete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="예매 완료"
