@@ -55,6 +55,13 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
+    private fun clickBookingComplete() {
+        findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
+            val movieId = intent.getLongExtra(MOVIE_ID, -1)
+            startActivity(CompletedActivity.getIntent(this, movieId, ticketCount.value))
+        }
+    }
+
     companion object {
         private const val MOVIE_ID = "MOVIE_ID"
 
