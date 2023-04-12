@@ -11,6 +11,10 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.KEY_MOVIE
+import woowacourse.movie.KEY_RESERVATION_COUNT
+import woowacourse.movie.KEY_RESERVATION_DATE
+import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.Toaster
@@ -18,7 +22,6 @@ import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDateSetter
 import woowacourse.movie.domain.RunningTimeSetter
 import woowacourse.movie.entity.Count
-import woowacourse.movie.main.MainActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -50,7 +53,7 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        movie = intent.getSerializableExtra(MainActivity.KEY_MOVIE_DATA) as Movie
+        movie = intent.getSerializableExtra(KEY_MOVIE) as Movie
         initSetOnClickListener()
         image.setImageResource(movie.imgResourceId)
         initMovieData()
@@ -108,7 +111,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initMovieData() {
         title.text = movie.title
         date.text = movie.startDate.toString()
-        time.text = movie.runningTime.toString()
+        time.text = movie.runningTime.value.toString()
         description.text = movie.description
     }
 
@@ -130,7 +133,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         reservationConfirm.setOnClickListener {
             val intent = Intent(this, ReservationConfirmActivity::class.java)
-            intent.putExtra(MainActivity.KEY_MOVIE_DATA, movie)
+            intent.putExtra(KEY_MOVIE, movie)
             intent.putExtra(KEY_RESERVATION_COUNT, Count(count.text.toString().toInt()))
             intent.putExtra(KEY_RESERVATION_DATE, selectDate)
             intent.putExtra(KEY_RESERVATION_TIME, selectTime)
@@ -163,11 +166,5 @@ class MovieDetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    companion object {
-        const val KEY_RESERVATION_COUNT = "count"
-        const val KEY_RESERVATION_DATE = "date"
-        const val KEY_RESERVATION_TIME = "time"
     }
 }

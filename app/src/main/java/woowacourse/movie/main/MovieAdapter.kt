@@ -7,7 +7,6 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 
@@ -43,17 +42,12 @@ class MovieAdapter(
         val time = view.findViewById<TextView>(R.id.time)
         val reservation = view.findViewById<Button>(R.id.reservation)
 
-        val imgDrawable =
-            ResourcesCompat.getDrawable(image.resources, _movie[p0].imgResourceId, null)
-
-        image.setImageDrawable(imgDrawable)
+        image.setImageResource(_movie[p0].imgResourceId)
         title.text = _movie[p0].title
         date.text = _movie[p0].startDate.toString()
-        time.text = _movie[p0].runningTime.toString()
+        time.text = _movie[p0].runningTime.value.toString()
 
-        reservation.setOnClickListener {
-            clickListener?.onClick(p0)
-        }
+        reservation.setOnClickListener { clickListener?.onClick(p0) }
         return view
     }
 

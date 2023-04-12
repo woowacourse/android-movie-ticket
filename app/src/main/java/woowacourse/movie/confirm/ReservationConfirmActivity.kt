@@ -5,12 +5,14 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.KEY_MOVIE
+import woowacourse.movie.KEY_RESERVATION_COUNT
+import woowacourse.movie.KEY_RESERVATION_DATE
+import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
-import woowacourse.movie.main.MainActivity
-import woowacourse.movie.reservation.MovieDetailActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -23,12 +25,12 @@ class ReservationConfirmActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = intent.getSerializableExtra(MainActivity.KEY_MOVIE_DATA) as Movie
-        val reservationCount = intent.getSerializableExtra(MovieDetailActivity.KEY_RESERVATION_COUNT) as Count
+        val movie = intent.getSerializableExtra(KEY_MOVIE) as Movie
+        val reservationCount = intent.getSerializableExtra(KEY_RESERVATION_COUNT) as Count
         val date =
-            intent.getSerializableExtra(MovieDetailActivity.KEY_RESERVATION_DATE) as LocalDate
+            intent.getSerializableExtra(KEY_RESERVATION_DATE) as LocalDate
         val time =
-            intent.getSerializableExtra(MovieDetailActivity.KEY_RESERVATION_TIME) as LocalTime
+            intent.getSerializableExtra(KEY_RESERVATION_TIME) as LocalTime
         val dateTime = LocalDateTime.of(date, time)
 
         Log.d("mendel", "$movie , $reservationCount")
@@ -39,7 +41,8 @@ class ReservationConfirmActivity : AppCompatActivity() {
 
         titleTextView.text = movie.title
         dateTextView.text = dateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
-        moneyTextView.text = DiscountCalculator().discount(reservationCount, dateTime).value.toString()
+        moneyTextView.text =
+            DiscountCalculator().discount(reservationCount, dateTime).value.toString()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
