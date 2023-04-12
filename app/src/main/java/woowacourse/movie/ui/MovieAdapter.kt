@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,9 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.formatScreenDate
 
 class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     BaseAdapter() {

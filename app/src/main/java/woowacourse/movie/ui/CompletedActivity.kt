@@ -1,10 +1,14 @@
-package woowacourse.movie
+package woowacourse.movie.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieData
+import woowacourse.movie.formatScreenDate
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

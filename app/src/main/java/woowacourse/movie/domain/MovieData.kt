@@ -1,5 +1,6 @@
-package woowacourse.movie
+package woowacourse.movie.domain
 
+import woowacourse.movie.R
 import java.time.LocalDate
 
 object MovieData {
