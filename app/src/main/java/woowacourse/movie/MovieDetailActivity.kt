@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
@@ -20,6 +21,14 @@ class MovieDetailActivity : AppCompatActivity() {
         val movie = getMovieFromIntent()
         setMovieInfo(movie)
         setPeopleCountController()
+
+        val bookingButton = findViewById<Button>(R.id.detail_booking_button)
+        bookingButton.setOnClickListener {
+            val intent = Intent(this, MovieTicketActivity::class.java)
+            intent.putExtra("movie", movie)
+            intent.putExtra("count", peopleCount.count)
+            startActivity(intent)
+        }
     }
 
     private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
