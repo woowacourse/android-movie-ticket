@@ -10,7 +10,7 @@
         android:id="@+id/iv_poster"
         android:layout_width="76dp"
         android:layout_height="108dp"
-        android:src="@drawable/img_default_movie_thumbnail"
+        android:src="@drawable/img_default_movie_thumbnail1"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

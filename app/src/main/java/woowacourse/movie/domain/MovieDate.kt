@@ -1,13 +1,25 @@
 package woowacourse.movie.domain
 
+import java.io.Serializable
+import java.time.DayOfWeek
 import java.time.LocalDate
 
 class MovieDate private constructor(
     val year: Int,
     val month: Int,
     val day: Int
-) {
+) : Serializable {
     fun isDiscountDay(): Boolean = day in DISCOUNT_DAYS
+
+    fun isWeekend(): Boolean {
+        val dayOfWeek = LocalDate.of(year, month, day).dayOfWeek
+        return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
+    }
+
+    fun isToday(): Boolean {
+        val today = LocalDate.now()
+        return today.compareTo(LocalDate.of(year, month, day)) == 0
+    }
 
     companion object {
         private val DISCOUNT_DAYS = listOf(10, 20, 30)

@@ -1,7 +1,10 @@
 package woowacourse.movie.domain
 
+import java.io.Serializable
+import java.time.LocalTime
+
 class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
-    Comparable<MovieTime> {
+    Comparable<MovieTime>, Serializable {
     fun isDiscountTime(): Boolean =
         hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME
 
@@ -20,7 +23,6 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
         private const val WEEKDAY_MAX_TIME = 24
         private const val WEEKDAY_MOVIE_TIME_INTERVAL = 2
 
-        private const val DEFAULT_HOUR = 0
         private const val DEFAULT_MIN = 0
         private const val HOUR_TO_MIN = 60
 
@@ -36,11 +38,14 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
         @JvmOverloads
         fun of(
             isWeekday: Boolean,
-            curHour: Int = DEFAULT_HOUR,
-            curMin: Int = DEFAULT_MIN,
+            isToday: Boolean = true,
+            curHour: Int = LocalTime.now().hour,
+            curMin: Int = LocalTime.now().minute,
         ): List<MovieTime> {
+            val hour = if (isToday) curHour else 0
+            val min = if (isToday) curMin else 0
             val times = if (isWeekday) weekdayTimes else weekendTimes
-            return times.filter { MovieTime(it.hour, it.min) > MovieTime(curHour, curMin) }
+            return times.filter { MovieTime(it.hour, it.min) > MovieTime(hour, min) }
         }
 
         @JvmOverloads

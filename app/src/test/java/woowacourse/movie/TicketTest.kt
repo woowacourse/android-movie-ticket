@@ -39,7 +39,7 @@ class TicketTest {
         val movieDate = MovieDate.of(2023, 4, 10)
         val movieTime = MovieTime.of(9, 0)
 
-        val actual = ticket.calculateTotalPrice2(13_000, movieDate, movieTime)
+        val actual = ticket.calculateTotalPrice(13_000, movieDate, movieTime)
         val expected = 19_400
 
         assertEquals(actual, expected)
@@ -51,7 +51,7 @@ class TicketTest {
         val movieDate = MovieDate.of(2023, 4, 20)
         val movieTime = MovieTime.of(12, 0)
 
-        val actual = ticket.calculateTotalPrice2(13000, movieDate, movieTime)
+        val actual = ticket.calculateTotalPrice(13000, movieDate, movieTime)
         val expected = 23_400
 
         assertEquals(actual, expected)
@@ -63,7 +63,7 @@ class TicketTest {
         val movieDate = MovieDate.of(2023, 4, 11)
         val movieTime = MovieTime.of(9, 0)
 
-        val actual = ticket.calculateTotalPrice2(13_000, movieDate, movieTime)
+        val actual = ticket.calculateTotalPrice(13_000, movieDate, movieTime)
         val expected = 22_000
 
         assertEquals(actual, expected)

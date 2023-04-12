@@ -8,10 +8,7 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
         require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
 
-    fun calculateTotalPrice(ticketPrice: Int = DEFAULT_TICKET_PRICE) =
-        count * ticketPrice
-
-    fun calculateTotalPrice2(
+    fun calculateTotalPrice(
         ticketPrice: Int = DEFAULT_TICKET_PRICE,
         movieDate: MovieDate,
         movieTime: MovieTime

@@ -1,6 +1,8 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.os.Build
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -15,4 +17,12 @@ inline fun <reified T : Serializable> Fragment.getSerializable(key: String): T? 
 
 fun FragmentManager.commit(content: FragmentTransaction.() -> Unit) {
     beginTransaction().apply(content).commit()
+}
+
+fun Context.showToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Fragment.showToast(message: String) {
+    requireContext().showToast(message)
 }

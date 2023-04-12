@@ -8,9 +8,13 @@ import androidx.fragment.app.Fragment
 import woowacourse.movie.R
 import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.FragmentTicketingResultBinding
+import woowacourse.movie.domain.MovieDate
+import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.getSerializable
 import woowacourse.movie.view.fragments.MovieListFragment.Companion.MOVIE_KEY
+import woowacourse.movie.view.fragments.TicketingFragment.Companion.MOVIE_DATE_KEY
+import woowacourse.movie.view.fragments.TicketingFragment.Companion.MOVIE_TIME_KEY
 import woowacourse.movie.view.fragments.TicketingFragment.Companion.TICKET_KEY
 
 class TicketingResultFragment : Fragment() {
@@ -29,17 +33,24 @@ class TicketingResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            getSerializable<Movie>(MOVIE_KEY)?.let {
-                tvTitle.text = it.title
-                tvDate.text = getString(R.string.movie_release_date, it.formattedDate)
+            val movieDate = getSerializable<MovieDate>(MOVIE_DATE_KEY)!!
+            val movieTime = getSerializable<MovieTime>(MOVIE_TIME_KEY)!!
+            getSerializable<Movie>(MOVIE_KEY)?.run {
+                tvTitle.text = title
+                tvDate.text = getString(
+                    R.string.book_date_time,
+                    movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
+                )
             }
-
             getSerializable<Ticket>(TICKET_KEY)?.let {
                 tvRegularCount.text = getString(R.string.regular_count, it.count)
                 tvPayResult.text =
                     getString(
                         R.string.movie_pay_result,
-                        it.calculateTotalPrice(),
+                        it.calculateTotalPrice(
+                            movieDate = movieDate,
+                            movieTime = movieTime,
+                        ),
                         getString(R.string.on_site_payment)
                     )
             }
