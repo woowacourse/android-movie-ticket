@@ -29,7 +29,7 @@ class ReservationResultActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.movie_reservation_result_title).text =
                 reservation.movie.title
 
-            val dateFormat = DateTimeFormatter.ofPattern(getString(R.string.movie_date_format))
+            val dateFormat = DateTimeFormatter.ofPattern(getString(R.string.reservation_datetime_format))
             findViewById<TextView>(R.id.movie_reservation_result_date).text =
                 dateFormat.format(reservation.detail.date)
 

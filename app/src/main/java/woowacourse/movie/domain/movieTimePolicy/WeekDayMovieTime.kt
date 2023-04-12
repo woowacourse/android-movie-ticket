@@ -5,7 +5,7 @@ import java.time.LocalTime
 
 object WeekDayMovieTime : MovieTimePolicy {
     private val WEEKDAY = 1..5
-    private val SCREEN_TIME = 10..24
+    private val SCREEN_TIME = 10 until 24
     private const val SCREEN_TIME_INTERVAL = 2
 
     override fun generateTime(date: LocalDate): List<LocalTime>? {

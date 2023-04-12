@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -17,9 +19,10 @@ import woowacourse.movie.domain.ReservationDetail
 import woowacourse.movie.domain.discountPolicy.Discount
 import woowacourse.movie.domain.discountPolicy.MovieDay
 import woowacourse.movie.domain.discountPolicy.OffTime
-import java.time.LocalDate
+import woowacourse.movie.domain.movieTimePolicy.MovieTime
+import woowacourse.movie.domain.movieTimePolicy.WeekDayMovieTime
+import woowacourse.movie.domain.movieTimePolicy.WeekendMovieTime
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
@@ -33,18 +36,6 @@ class MovieReservationActivity : AppCompatActivity() {
             intent.extras?.getSerializable(getString(R.string.movie_extra_name)) as Movie
         }
 
-        val dateArray = arrayOf(LocalFormattedDate(LocalDate.of(2020, 1, 1)))
-        val dateAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dateArray)
-        val dateSpinner: Spinner = findViewById<Spinner>(R.id.movie_reservation_date_spinner)
-        dateSpinner.adapter = dateAdapter
-
-        val timeArray = arrayOf(LocalFormattedTime(LocalTime.of(9, 0)))
-        val timeAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, timeArray)
-        val timeSpinner: Spinner = findViewById<Spinner>(R.id.movie_reservation_time_spinner)
-        timeSpinner.adapter = timeAdapter
-
         val counter = Counter(
             findViewById(R.id.movie_reservation_people_count_minus),
             findViewById(R.id.movie_reservation_people_count_plus),
@@ -53,6 +44,33 @@ class MovieReservationActivity : AppCompatActivity() {
         )
 
         if (movie != null) {
+            val dateArray = movie.date.toList().map { LocalFormattedDate(it) }
+            val dateAdapter =
+                ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dateArray)
+            val dateSpinner: Spinner = findViewById(R.id.movie_reservation_date_spinner)
+            dateSpinner.adapter = dateAdapter
+
+            val timeSpinner: Spinner = findViewById(R.id.movie_reservation_time_spinner)
+
+            dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    val timeArray = MovieTime(
+                        listOf(
+                            WeekDayMovieTime, WeekendMovieTime
+                        )
+                    ).determine(dateArray[p2].date).map { LocalFormattedTime(it) }
+                    val timeAdapter = ArrayAdapter(
+                        this@MovieReservationActivity,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        timeArray
+                    )
+                    timeSpinner.adapter = timeAdapter
+                }
+            }
+
             findViewById<ImageView>(R.id.movie_reservation_poster).setImageResource(movie.picture)
             findViewById<TextView>(R.id.movie_reservation_title).text = movie.title
 
