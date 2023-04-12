@@ -4,7 +4,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) {
+class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) : java.io.Serializable {
     private val _times: MutableMap<LocalDate, List<LocalTime>> = mutableMapOf()
     val times: Map<LocalDate, List<LocalTime>>
         get() = _times.toMap()
