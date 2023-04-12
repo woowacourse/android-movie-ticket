@@ -56,10 +56,6 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        counter.load(savedInstanceState)
-        dateSpinner.load(savedInstanceState)
-        timeSpinner.load(savedInstanceState)
-
         val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getSerializable(getString(R.string.movie_extra_name), Movie::class.java)
         } else {
@@ -69,6 +65,10 @@ class MovieReservationActivity : AppCompatActivity() {
         counter.applyToView()
 
         if (movie != null) {
+            counter.load(savedInstanceState)
+            dateSpinner.load(savedInstanceState)
+            timeSpinner.load(savedInstanceState)
+
             val dateArray = movie.date.toList().map { LocalFormattedDate(it) }
             val dateAdapter =
                 ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dateArray)
@@ -91,6 +91,7 @@ class MovieReservationActivity : AppCompatActivity() {
                             timeArray
                         )
                         timeSpinner.spinner.adapter = timeAdapter
+                        timeSpinner.load(savedInstanceState)
                     }
                 }
 
