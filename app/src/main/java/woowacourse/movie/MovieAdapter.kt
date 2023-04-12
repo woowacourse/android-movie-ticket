@@ -28,7 +28,7 @@ class MovieAdapter(private val context: Context, private val movies: Movies) : B
         val dateFormat = DateTimeFormatter.ofPattern(context.getString(R.string.movie_date_format))
         view.findViewById<TextView>(R.id.item_movie_date).text =
             context.getString(R.string.movie_date)
-                .format(dateFormat.format(movies.value[position].date))
+                .format(dateFormat.format(movies.value[position].date.startDate), dateFormat.format(movies.value[position].date.endDate))
 
         view.findViewById<TextView>(R.id.item_movie_running_time).text =
             context.getString(R.string.movie_running_time)

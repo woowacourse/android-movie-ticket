@@ -3,9 +3,10 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.domain.DateRange
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,10 @@ class MainActivity : AppCompatActivity() {
                 Movie(
                     R.drawable.poster_harrypotter,
                     "해리 포터",
-                    LocalDateTime.of(2020, 1, 10, 9, 0),
+                    DateRange(
+                        LocalDate.of(2024, 3, 1),
+                        LocalDate.of(2024, 3, 31),
+                    ),
                     153,
                     "adsfasdfadsf",
                 ),
