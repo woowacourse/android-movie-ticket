@@ -17,15 +17,11 @@ class MainActivity : AppCompatActivity() {
 
         adapter.clickListener = object : MovieAdapter.ReservationClickListener {
             override fun onClick(position: Int) {
-                inten(adapter.movie[position])
+                val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
+                intent.putExtra(KEY_MOVIE_DATA, adapter.movie[position])
+                startActivity(intent)
             }
         }
-    }
-
-    private fun inten(movie: Movie) {
-        val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(KEY_MOVIE_DATA, movie)
-        startActivity(intent)
     }
 
     private fun initMovieData(): List<Movie> {
