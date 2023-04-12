@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,8 +15,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clickBook(movieId: Long) {
-        val intent = Intent(this, BookingActivity::class.java)
-        intent.putExtra("ID", movieId)
-        startActivity(intent)
+        startActivity(BookingActivity.getIntent(this, movieId))
     }
 }
