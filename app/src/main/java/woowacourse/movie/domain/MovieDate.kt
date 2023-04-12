@@ -7,12 +7,17 @@ class MovieDate private constructor(
     val month: Int,
     val day: Int
 ) {
+    fun isDiscountDay(): Boolean = day in DISCOUNT_DAYS
+
     companion object {
+        private val DISCOUNT_DAYS = listOf(10, 20, 30)
+
         private fun LocalDate.max(other: LocalDate): LocalDate {
             if (this > other) return this
             return other
         }
 
+        @JvmOverloads
         fun of(
             today: LocalDate = LocalDate.now(),
             from: LocalDate,
@@ -24,5 +29,7 @@ class MovieDate private constructor(
                 .map { MovieDate(it.year, it.monthValue, it.dayOfMonth) }
                 .toList()
         }
+
+        fun of(year: Int, month: Int, day: Int): MovieDate = MovieDate(year, month, day)
     }
 }
