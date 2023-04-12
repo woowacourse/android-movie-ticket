@@ -1,12 +1,9 @@
 package woowacourse.movie.domain
 
 import java.io.Serializable
+import java.time.LocalDate
 
-data class MovieTime(
-    val hour: Int,
-    val minute: Int = 0
-) : Serializable {
-    override fun toString(): String {
-        return "%02d:%02d".format(hour, minute)
-    }
-}
+class MovieTime(
+    val date: LocalDate,
+    val time: Time
+) : Serializable

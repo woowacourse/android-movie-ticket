@@ -2,14 +2,17 @@ package woowacourse.movie.domain
 
 import java.time.LocalDate
 
-object MovieTimesGenerator {
-    fun getTimesByDate(date: LocalDate): List<MovieTime> {
+object TimesGenerator {
+    private val WEEKDAYS = (9..23 step 2).map(::Time)
+    private val WEEKENDS = (10..24 step 2).map(::Time)
+
+    fun getTimesByDate(date: LocalDate): List<Time> {
         return when (date.dayOfWeek.value) {
             1, 2, 3, 4, 5 -> {
-                (9..23 step 2).map(::MovieTime)
+                WEEKDAYS
             }
             6, 7 -> {
-                (10..24 step 2).map(::MovieTime)
+                WEEKENDS
             }
             else -> throw IllegalArgumentException()
         }

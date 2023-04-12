@@ -4,19 +4,19 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 
-class MovieTimesGeneratorTest {
+class TimesGeneratorTest {
     @Test
     fun `날짜가 평일이면 9시부터 23시까지 2시간 간격의 시간 리스트를 가져온다`() {
         val date = LocalDate.of(2023, 4, 12)
 
         val expected = listOf(
-            MovieTime(9), MovieTime(11),
-            MovieTime(13), MovieTime(15),
-            MovieTime(17), MovieTime(19),
-            MovieTime(21), MovieTime(23)
+            Time(9), Time(11),
+            Time(13), Time(15),
+            Time(17), Time(19),
+            Time(21), Time(23)
         )
 
-        assertEquals(expected, MovieTimesGenerator.getTimesByDate(date))
+        assertEquals(expected, TimesGenerator.getTimesByDate(date))
     }
 
     @Test
@@ -24,12 +24,12 @@ class MovieTimesGeneratorTest {
         val date = LocalDate.of(2023, 4, 15)
 
         val expected = listOf(
-            MovieTime(10), MovieTime(12),
-            MovieTime(14), MovieTime(16),
-            MovieTime(18), MovieTime(20),
-            MovieTime(22), MovieTime(24)
+            Time(10), Time(12),
+            Time(14), Time(16),
+            Time(18), Time(20),
+            Time(22), Time(24)
         )
 
-        assertEquals(expected, MovieTimesGenerator.getTimesByDate(date))
+        assertEquals(expected, TimesGenerator.getTimesByDate(date))
     }
 }

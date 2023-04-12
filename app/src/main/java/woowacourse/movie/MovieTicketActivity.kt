@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.MovieTicket
+import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.PeopleCount
 import java.text.DecimalFormat
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MovieTicketActivity : AppCompatActivity() {
     private fun setTicketInfo() {
         val ticket = getTicketFromIntent()
         findViewById<TextView>(R.id.ticket_title).text = ticket.title
-        findViewById<TextView>(R.id.ticket_date).text = "${ticket.date.format()} ${ticket.time}"
+        findViewById<TextView>(R.id.ticket_date).text = ticket.time.format()
         findViewById<TextView>(R.id.ticket_people_count).text = ticket.peopleCount.format()
         findViewById<TextView>(R.id.ticket_price).text = ticket.getPriceWithUnit()
     }
@@ -32,7 +32,8 @@ class MovieTicketActivity : AppCompatActivity() {
         intent.getSerializableExtra("ticket")
     } as MovieTicket
 
-    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+    private fun MovieTime.format(): String =
+        "${date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))} $time"
 
     private fun PeopleCount.format(): String = "일반 ${count}명"
 
