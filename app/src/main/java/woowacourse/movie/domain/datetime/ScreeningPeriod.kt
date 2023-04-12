@@ -62,7 +62,7 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) {
                     "18:00",
                     "20:00",
                     "22:00",
-                    "24:00"
+                    "00:00"
                 )
             )
 
