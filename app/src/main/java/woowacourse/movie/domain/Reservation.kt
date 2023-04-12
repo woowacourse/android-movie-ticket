@@ -1,9 +1,11 @@
 package woowacourse.movie.domain
 
+import java.io.Serializable
+
 data class Reservation(
     private val movie: Movie,
     val peopleCount: Int
-) {
+) : Serializable {
     val movieTitle = movie.title
     val movieScreeningDate = movie.screeningDate
     val totalReservationFee = Money(peopleCount * TICKET_PRICE)

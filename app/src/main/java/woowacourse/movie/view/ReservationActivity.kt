@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,7 +25,8 @@ class ReservationActivity : AppCompatActivity() {
         }
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         initViewData(movie)
-        initButtonClickListener()
+        initPeopleCountAdjustButtonClickListener()
+        initReserveButtonClickListener(movie)
     }
 
     private fun initViewData(movie: Movie) {
@@ -41,7 +43,7 @@ class ReservationActivity : AppCompatActivity() {
         summaryView.text = movie.movieDetail.summary
     }
 
-    private fun initButtonClickListener() {
+    private fun initPeopleCountAdjustButtonClickListener() {
         val peopleCountView = findViewById<TextView>(R.id.people_count)
         findViewById<Button>(R.id.minus_button).setOnClickListener {
             if (peopleCount > Reservation.MIN_PEOPLE_COUNT) {
@@ -55,5 +57,19 @@ class ReservationActivity : AppCompatActivity() {
                 peopleCountView.text = peopleCount.toString()
             }
         }
+    }
+
+    private fun initReserveButtonClickListener(movie: Movie) {
+        findViewById<Button>(R.id.reservation_button).setOnClickListener {
+            val reservation = Reservation(movie, peopleCount)
+
+            val intent = Intent(this, ReservationCompletedActivity::class.java)
+            intent.putExtra(RESERVATION, reservation)
+            startActivity(intent)
+        }
+    }
+
+    companion object {
+        const val RESERVATION = "RESERVATION"
     }
 }
