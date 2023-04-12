@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.ui.DateFormatters.hyphenDateFormatter
 import woowacourse.movie.ui.MovieBookingActivity
 import woowacourse.movie.util.setOnSingleClickListener
 
@@ -42,16 +43,21 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
             viewHolder = itemLayout?.tag as MovieViewHolder
         }
 
-        viewHolder.ivPoster.setImageResource(movies[position].posterImage)
-        viewHolder.tvMovieName.text = movies[position].title
-        viewHolder.tvScreeningDay.text = movies[position].screeningDay
+        val item = movies[position]
+        viewHolder.ivPoster.setImageResource(item.posterImage)
+        viewHolder.tvMovieName.text = item.title
+        viewHolder.tvScreeningDay.text = context.getString(R.string.screening_date_format)
+            .format(
+                item.screeningDay.start.format(hyphenDateFormatter),
+                item.screeningDay.end.format(hyphenDateFormatter)
+            )
         viewHolder.tvRunningTime.text =
-            context.getString(R.string.running_time_format).format(movies[position].runningTime)
+            context.getString(R.string.running_time_format).format(item.runningTime)
 
         viewHolder.btnBooking.setOnSingleClickListener {
             val intent = Intent(context, MovieBookingActivity::class.java).putExtra(
                 "movieData",
-                movies[position]
+                item
             )
             context.startActivity(intent)
         }

@@ -1,5 +1,7 @@
 package woowacourse.movie.domain.datetime
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.datetime.DayOfWeekStandard.WEEKDAY
 import woowacourse.movie.domain.datetime.DayOfWeekStandard.WEEKEND
 import java.time.DayOfWeek.FRIDAY
@@ -12,7 +14,8 @@ import java.time.DayOfWeek.WEDNESDAY
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ScreeningPeriod(val start: LocalDate, val end: LocalDate) {
+@Parcelize
+class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
     init {
         validatePeriod()
     }

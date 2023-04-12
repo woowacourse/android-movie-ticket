@@ -5,9 +5,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.PricePolicy
 import woowacourse.movie.domain.price.PricePolicyCalculator
 import woowacourse.movie.util.customGetParcelableExtra
+import java.time.LocalDate
 import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
@@ -26,7 +28,12 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     private fun initExtraData() {
         movieData = intent.customGetParcelableExtra<MovieData>("movieData") ?: run {
             finish()
-            MovieData(R.drawable.img_error, "-1", "-1", -1)
+            MovieData(
+                R.drawable.img_error,
+                "-1",
+                ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31")),
+                -1
+            )
         }
         ticketCount = intent.getIntExtra("ticketCount", -1)
     }
@@ -38,7 +45,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         val tvBookingCheckTotalMoney = findViewById<TextView>(R.id.tv_booking_check_total_money)
 
         tvBookingCheckMovieName.text = movieData.title
-        tvBookingCheckScreeningDay.text = movieData.screeningDay
+        // tvBookingCheckScreeningDay.text = movieData.screeningDay
         tvBookingCheckPersonCount.text =
             this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
         tvBookingCheckTotalMoney.text = this.getString(R.string.tv_booking_check_total_money)

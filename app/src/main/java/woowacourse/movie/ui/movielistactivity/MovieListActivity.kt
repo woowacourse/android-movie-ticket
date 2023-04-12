@@ -5,6 +5,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.domain.datetime.ScreeningPeriod
+import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
 
@@ -29,7 +31,10 @@ class MovieListActivity : AppCompatActivity() {
             MovieData(
                 posterImage = R.drawable.harrypotter_poster,
                 title = "해리 포터와 마법사의 돌",
-                screeningDay = "상영일: 2024.3.1",
+                screeningDay = ScreeningPeriod(
+                    LocalDate.parse("2023-04-01"),
+                    LocalDate.parse("2023-04-28")
+                ),
                 runningTime = 152,
                 description = this.getString(R.string.dummy_data)
             )

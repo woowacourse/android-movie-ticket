@@ -8,8 +8,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
+import java.time.LocalDate
 import kotlin.properties.Delegates
 
 class MovieBookingActivity : AppCompatActivity() {
@@ -36,7 +38,12 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun initExtraData() {
         movieData = intent.customGetParcelableExtra<MovieData>("movieData") ?: run {
             finish()
-            MovieData(R.drawable.img_error, "-1", "-1", -1)
+            MovieData(
+                R.drawable.img_error,
+                "-1",
+                ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31")),
+                -1
+            )
         }
     }
 
@@ -49,7 +56,11 @@ class MovieBookingActivity : AppCompatActivity() {
 
         ivBookingPoster.setImageResource(movieData.posterImage)
         tvBookingMovieName.text = movieData.title
-        tvBookingScreeningDay.text = movieData.screeningDay
+        tvBookingScreeningDay.text = this.getString(R.string.screening_date_format)
+            .format(
+                movieData.screeningDay.start.format(DateFormatters.hyphenDateFormatter),
+                movieData.screeningDay.end.format(DateFormatters.hyphenDateFormatter)
+            )
         tvBookingRunningTime.text =
             this.getString(R.string.running_time_format).format(movieData.runningTime)
         tvBookingDescription.text = movieData.description
