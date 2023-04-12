@@ -2,6 +2,7 @@ package woowacourse.movie.confirm
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.Movie
@@ -18,6 +19,8 @@ class ReservationConfirmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_confirm)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movie = intent.getSerializableExtra(MainActivity.KEY_MOVIE_DATA) as Movie
         val reservationCount = intent.getIntExtra(MovieDetailActivity.KEY_RESERVATION_COUNT, 0)
@@ -38,6 +41,13 @@ class ReservationConfirmActivity : AppCompatActivity() {
         moneyTextView.text = DiscountCalculator().discount(reservationCount, dateTime).toString()
     }
 
-    companion object {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
