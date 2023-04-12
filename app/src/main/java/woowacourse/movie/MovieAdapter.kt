@@ -10,8 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.domain.Movies
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.format.DateTimeFormatter
 
 class MovieAdapter(private val context: Context, private val movies: Movies) : BaseAdapter() {
     override fun getCount(): Int = movies.value.size
@@ -26,8 +25,7 @@ class MovieAdapter(private val context: Context, private val movies: Movies) : B
             .setImageResource(movies.value[position].picture)
         view.findViewById<TextView>(R.id.item_movie_title).text = movies.value[position].title
 
-        val dateFormat =
-            SimpleDateFormat(context.getString(R.string.movie_date_format), Locale.KOREA)
+        val dateFormat = DateTimeFormatter.ofPattern(context.getString(R.string.movie_date_format))
         view.findViewById<TextView>(R.id.item_movie_date).text =
             context.getString(R.string.movie_date)
                 .format(dateFormat.format(movies.value[position].date))

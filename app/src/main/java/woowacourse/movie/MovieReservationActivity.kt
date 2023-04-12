@@ -12,8 +12,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ReservationDetail
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,7 @@ class MovieReservationActivity : AppCompatActivity() {
             findViewById<ImageView>(R.id.movie_reservation_poster).setImageResource(movie.picture)
             findViewById<TextView>(R.id.movie_reservation_title).text = movie.title
 
-            val dateFormat = SimpleDateFormat(getString(R.string.movie_date_format), Locale.KOREA)
+            val dateFormat = DateTimeFormatter.ofPattern(getString(R.string.movie_date_format))
             findViewById<TextView>(R.id.movie_reservation_date).text =
                 getString(R.string.movie_date).format(dateFormat.format(movie.date))
 
