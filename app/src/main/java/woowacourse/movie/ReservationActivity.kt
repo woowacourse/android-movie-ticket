@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import domain.Movie
+import domain.Reservation
 import java.io.Serializable
 
 class ReservationActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class ReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reservation)
 
         val posterImageView: ImageView = findViewById(R.id.reservation_movie_image_view)
-        val nameTextView: TextView = findViewById(R.id.reservation_movie_name_text_view)
+        val movieNameTextView: TextView = findViewById(R.id.reservation_movie_name_text_view)
         val screeningDateTextView: TextView =
             findViewById(R.id.reservation_movie_screening_date_text_view)
         val runningTimeTextView: TextView =
@@ -28,7 +29,7 @@ class ReservationActivity : AppCompatActivity() {
 
         intent.customGetSerializable<Movie>("movie")?.let {
             it.posterImage?.let { id -> posterImageView.setImageResource(id) }
-            nameTextView.text = it.name
+            movieNameTextView.text = it.name
             screeningDateTextView.text = SCREENING_TIME.format(
                 it.screeningDate.year,
                 it.screeningDate.monthValue,
@@ -51,6 +52,18 @@ class ReservationActivity : AppCompatActivity() {
         plusButton.setOnClickListener {
             val ticketCount = ticketCountTextView.text.toString().toInt()
             ticketCountTextView.text = (ticketCount + 1).toString()
+        }
+
+        val completeButton: Button = findViewById(R.id.reservation_complete_button)
+        completeButton.setOnClickListener {
+            intent.customGetSerializable<Movie>("movie")?.let {
+                val ticketCount = ticketCountTextView.text.toString().toInt()
+                val reservation: Reservation = Reservation.from(it, ticketCount)
+                val intent: Intent = Intent(this, ReservationResultActivity::class.java)
+                intent.putExtra("reservation", reservation)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

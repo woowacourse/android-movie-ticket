@@ -1,11 +1,13 @@
 package domain
 
+import java.io.Serializable
+
 data class Reservation(
     val movie: Movie,
     val ticketCount: Int,
     val paymentAmount: PaymentAmount,
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
-) {
+) : Serializable {
 
     companion object {
         private const val TICKET_PRICE = 13000
