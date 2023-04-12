@@ -1,9 +1,11 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -20,6 +22,12 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
         val movie = movies[position]
 
         setMovieData(view, movie)
+
+        view.findViewById<Button>(R.id.bt_book_now).setOnClickListener {
+            val intent = Intent(parent?.context, MovieDetailActivity::class.java)
+            intent.putExtra("movieData", movie)
+            parent?.context?.startActivity(intent)
+        }
 
         return view
     }
