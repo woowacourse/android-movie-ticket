@@ -53,6 +53,7 @@
             app:layout_constraintTop_toTopOf="@id/bt_ticket_count_minus" />
 
         <Button
+            android:id="@+id/bt_book_complete"
             android:layout_width="match_parent"
             android:layout_height="47dp"
             android:layout_marginHorizontal="20dp"
@@ -90,6 +91,7 @@
                     android:id="@+id/iv_movie_poster"
                     android:layout_width="match_parent"
                     android:layout_height="341dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -128,7 +130,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_movie_release_date" />
 
                 <TextView
-                    android:id="@+id/tv_movie_detail"
+                    android:id="@+id/tv_movie_synopsis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="21dp"
