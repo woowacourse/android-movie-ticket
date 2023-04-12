@@ -58,6 +58,6 @@ class MovieListAdapter(
 
     companion object {
         private const val NULL_VIEW_ERROR = "[ERROR] 뷰는 널일 수 없습니다."
-        private const val MOVIE = "MOVIE"
+        const val MOVIE = "MOVIE"
     }
 }
