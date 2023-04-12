@@ -1,3 +1,17 @@
 package woowacourse.movie.domain
 
-data class TicketingInfo(val title: String, val playingDate: String, val playingTime: String, val count: Int, val price: Price, val payment: String) : java.io.Serializable
+import java.time.LocalDate
+import java.time.LocalTime
+
+data class TicketingInfo private constructor(val title: String, val playingDate: LocalDate, val playingTime: LocalTime, val count: Int, val price: Price, val payment: String) : java.io.Serializable {
+    companion object {
+        private val policies = listOf(MovieDayPolicy(), MorningPolicy(), NightPolicy())
+        fun of(title: String, playingDate: LocalDate, playingTime: LocalTime, count: Int, price: Price, payment: String): TicketingInfo {
+            var calculatePrice = price
+            for (policy in policies) {
+                calculatePrice = policy.calculate(playingDate, playingTime, calculatePrice)
+            }
+            return TicketingInfo(title, playingDate, playingTime, count, calculatePrice, payment)
+        }
+    }
+}

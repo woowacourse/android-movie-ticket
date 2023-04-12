@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.TicketingInfo
 import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,8 +29,11 @@ class MovieTicketActivity : AppCompatActivity() {
         val price = findViewById<TextView>(R.id.text_price)
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
 
+        val dateFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
+        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
         title.text = info.title
-        playingDate.text = getString(R.string.date_time).format(info.playingDate, info.playingTime)
+        playingDate.text = getString(R.string.date_time).format(dateFormatter.format(info.playingDate), timeFormatter.format(info.playingTime))
         count.text = info.count.toString()
         val totalPrice = DecimalFormat("#,###").format(info.price.price * info.count)
         price.text = totalPrice.toString()

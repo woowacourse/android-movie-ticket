@@ -87,10 +87,8 @@ class TicketingActivity : AppCompatActivity() {
         }
 
         ticketingButton.setOnClickListener {
-            val dateFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
-            val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
             val intent = Intent(this, MovieTicketActivity::class.java)
-            val ticketingInfo = TicketingInfo(movie.title, dateFormatter.format(spinnerDate.selectedItem as LocalDate), timeFormatter.format(spinnerTime.selectedItem as LocalTime), count, Price(), "현장")
+            val ticketingInfo = TicketingInfo.of(movie.title, spinnerDate.selectedItem as LocalDate, spinnerTime.selectedItem as LocalTime, count, Price(), "현장")
             intent.putExtra("ticketingInfo", ticketingInfo)
             startActivity(intent)
         }
