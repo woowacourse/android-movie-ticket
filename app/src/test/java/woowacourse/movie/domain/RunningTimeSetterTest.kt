@@ -1,8 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.domain
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
-import woowacourse.movie.domain.RunningTimeSetter
 import java.time.LocalDate
 import java.time.LocalTime
 

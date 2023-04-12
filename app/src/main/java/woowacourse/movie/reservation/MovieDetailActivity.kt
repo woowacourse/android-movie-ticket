@@ -3,17 +3,25 @@ package woowacourse.movie.reservation
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.confirm.ReservationConfirmActivity
+import woowacourse.movie.domain.RunningDateSetter
 import woowacourse.movie.main.MainActivity
+import java.time.LocalDate
 
 class MovieDetailActivity : AppCompatActivity() {
+    private lateinit var selectDate: LocalDate
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
@@ -23,6 +31,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val date = findViewById<TextView>(R.id.detail_date)
         val time = findViewById<TextView>(R.id.detail_time)
         val description = findViewById<TextView>(R.id.description)
+        val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
 
         val reservationConfirm = findViewById<Button>(R.id.reservation_confirm)
 
@@ -43,7 +52,13 @@ class MovieDetailActivity : AppCompatActivity() {
         val movie = intent.getSerializableExtra(MainActivity.KEY_MOVIE_DATA) as Movie
         Log.d("mendel", "$movie")
 
-        image.setImageDrawable(ResourcesCompat.getDrawable(image.resources, movie.imgResourceId, null))
+        image.setImageDrawable(
+            ResourcesCompat.getDrawable(
+                image.resources,
+                movie.imgResourceId,
+                null
+            )
+        )
         title.text = movie.title
         date.text = movie.startDate.toString()
         time.text = movie.runningTime.toString()
@@ -54,6 +69,28 @@ class MovieDetailActivity : AppCompatActivity() {
             intent.putExtra(MainActivity.KEY_MOVIE_DATA, movie)
             intent.putExtra(KEY_RESERVATION_COUNT, count.text.toString().toInt())
             startActivity(intent)
+        }
+
+        val runningDates = RunningDateSetter().getRunningDates(movie.startDate, movie.endDate)
+        val dateSpinnerAdapter = ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            runningDates.map { it.toString() }
+        )
+
+        dateSpinner.adapter = dateSpinnerAdapter
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectDate = runningDates[position]
+                Log.d("mendel", "$selectDate")
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
