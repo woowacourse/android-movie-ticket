@@ -35,4 +35,4 @@
 ## Repository
 
 ### MovieRepository
-- [ ] 영화 데이터들을 조회할 수 있다.
+- [x] 영화 데이터들을 조회할 수 있다.
