@@ -11,6 +11,7 @@ import domain.Movie
 import domain.Reservation
 import domain.TicketCount
 import woowacourse.movie.R
+import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -55,12 +56,13 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initReservationView() {
         with(movie) {
+            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
             posterImage?.let { id -> posterImageView.setImageResource(id) }
             movieNameTextView.text = name
-            screeningDateTextView.text = getString(R.string.screening_date_form).format(
-                screeningDate.year,
-                screeningDate.monthValue,
-                screeningDate.dayOfMonth
+            screeningDateTextView.text = getString(R.string.screening_period_form).format(
+                movie.screeningPeriod.startDate.format(dateFormat),
+                movie.screeningPeriod.endDate.format(dateFormat)
             )
             runningTimeTextView.text = getString(R.string.running_time_form).format(runningTime)
             descriptionTextView.text = description

@@ -10,7 +10,7 @@ class ReservationTest {
         val movie = Movie(
             name = "해리포터",
             posterImage = null,
-            screeningDate = LocalDate.of(2000, 10, 1),
+            screeningPeriod = LocalDate.of(2000, 10, 1),
             runningTime = 120,
             description = "마법영화"
         )

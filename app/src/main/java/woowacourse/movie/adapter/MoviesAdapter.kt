@@ -13,6 +13,7 @@ import android.widget.TextView
 import domain.Movie
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity
+import java.time.format.DateTimeFormatter
 
 class MoviesAdapter(
     private val context: Context,
@@ -50,13 +51,14 @@ class MoviesAdapter(
     }
 
     private fun initView(movie: Movie) {
+        val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
         movie.posterImage?.let { movieImageView.setImageResource(it) }
         screeningDateTextView.text = context
-            .getString(R.string.screening_date_form)
+            .getString(R.string.screening_period_form)
             .format(
-                movie.screeningDate.year,
-                movie.screeningDate.monthValue,
-                movie.screeningDate.dayOfMonth
+                movie.screeningPeriod.startDate.format(dateFormat),
+                movie.screeningPeriod.endDate.format(dateFormat)
             )
         runningTimeTextView.text = context
             .getString(R.string.running_time_form)

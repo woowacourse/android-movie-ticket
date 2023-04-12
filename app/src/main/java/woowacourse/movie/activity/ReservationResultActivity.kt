@@ -7,6 +7,7 @@ import domain.PaymentType
 import domain.Reservation
 import woowacourse.movie.R
 import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : AppCompatActivity() {
 
@@ -25,11 +26,12 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private fun initReservationResultView() {
         with(reservation) {
+            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
             movieNameTextView.text = movie.name
-            screeningDateTextView.text = getString(R.string.screening_date_form).format(
-                movie.screeningDate.year,
-                movie.screeningDate.monthValue,
-                movie.screeningDate.dayOfMonth
+            screeningDateTextView.text = getString(R.string.screening_period_form).format(
+                movie.screeningPeriod.startDate.format(dateFormat),
+                movie.screeningPeriod.endDate.format(dateFormat)
             )
 
             ticketCountTextView.text = TICKET_COUNT.format(ticketCount)
