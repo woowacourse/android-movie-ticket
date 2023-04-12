@@ -33,7 +33,8 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_reservation_poster" />
+                app:layout_constraintTop_toBottomOf="@id/movie_reservation_poster"
+                tools:text="영화제목" />
 
             <TextView
                 android:id="@+id/movie_reservation_date"
@@ -43,7 +44,8 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="@id/movie_reservation_title"
-                app:layout_constraintTop_toBottomOf="@id/movie_reservation_title" />
+                app:layout_constraintTop_toBottomOf="@id/movie_reservation_title"
+                tools:text="상영일: 123.123" />
 
             <TextView
                 android:id="@+id/movie_reservation_running_time"
@@ -52,7 +54,8 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="@id/movie_reservation_title"
-                app:layout_constraintTop_toBottomOf="@id/movie_reservation_date" />
+                app:layout_constraintTop_toBottomOf="@id/movie_reservation_date"
+                tools:text="러닝타임: 123.123" />
 
             <TextView
                 android:id="@+id/movie_reservation_description"
@@ -63,22 +66,51 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="@id/movie_reservation_title"
-                app:layout_constraintTop_toBottomOf="@id/movie_reservation_running_time" />
+                app:layout_constraintTop_toBottomOf="@id/movie_reservation_running_time"
+                tools:text="상세 상세 상세 상세" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="138dp"
+        android:layout_height="211dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <LinearLayout
+            android:id="@+id/movie_reservation_date_spinner_container"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginHorizontal="12dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="29dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Spinner
+                android:id="@+id/movie_reservation_date_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </Spinner>
+
+            <Spinner
+                android:id="@+id/movie_reservation_time_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+            </Spinner>
+        </LinearLayout>
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="44dp"
             android:layout_marginVertical="10dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/movie_reservation_date_spinner_container">
 
             <Button
                 android:id="@+id/movie_reservation_people_count_minus"

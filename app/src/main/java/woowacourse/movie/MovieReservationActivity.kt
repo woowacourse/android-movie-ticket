@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
@@ -58,6 +60,16 @@ class MovieReservationActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        val array = arrayOf(1, 2, 3)
+        val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, array)
+
+        val dateSpinner: Spinner = findViewById<Spinner>(R.id.movie_reservation_date_spinner)
+        dateSpinner.adapter = dateAdapter
+
+        val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, array)
+
+        val timeSpinner: Spinner = findViewById<Spinner>(R.id.movie_reservation_time_spinner)
+        timeSpinner.adapter = timeAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
