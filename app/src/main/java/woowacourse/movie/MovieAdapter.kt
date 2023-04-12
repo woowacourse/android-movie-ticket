@@ -23,27 +23,25 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View =
             convertView ?: layoutInflater.inflate(R.layout.movie_list_item, parent, false)
-
         initView(position, view)
+        clickBookButton(view, position)
+        return view
+    }
 
+    private fun clickBookButton(view: View, position: Int) {
         view.findViewById<Button>(R.id.buttonItemBook).setOnClickListener {
             clickBook(movies[position].id)
         }
-
-        return view
     }
 
     private fun initView(position: Int, view: View) {
         view.findViewById<ImageView>(R.id.imageItemThumbnail)
             .setImageResource(movies[position].thumbnail)
-
         view.findViewById<TextView>(R.id.textItemTitle).text = movies[position].title
-
         view.findViewById<TextView>(R.id.textBookingScreeningDate).apply {
             text = context.getString(R.string.screening_date)
                 .format(movies[position].screeningDate.formatScreenDate())
         }
-
         view.findViewById<TextView>(R.id.textBookingRunningTime).apply {
             text = context.getString(R.string.running_time).format(movies[position].runningTime)
         }
