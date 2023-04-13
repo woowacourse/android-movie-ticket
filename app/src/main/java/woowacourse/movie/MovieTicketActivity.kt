@@ -1,13 +1,10 @@
 package woowacourse.movie
 
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.TicketingInfo
-import java.text.DecimalFormat
-import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,27 +13,24 @@ class MovieTicketActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val info: TicketingInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("ticketingInfo", TicketingInfo::class.java)
-                ?: throw IllegalArgumentException("오류가 발생했습니다.")
-        } else {
-            intent.getSerializableExtra("ticketingInfo") as TicketingInfo
-        }
+        val info: TicketingInfo = intent.customGetSerializable(INFO_KEY)
 
         val title = findViewById<TextView>(R.id.text_title)
-        val playingDate = findViewById<TextView>(R.id.text_playing_date)
-        val count = findViewById<TextView>(R.id.text_person_count)
-        val price = findViewById<TextView>(R.id.text_price)
-        val pricePayment = findViewById<TextView>(R.id.text_price_payment)
-
-        val dateFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
-        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-
         title.text = info.title
-        playingDate.text = getString(R.string.date_time).format(dateFormatter.format(info.playingDate), timeFormatter.format(info.playingTime))
+
+        val playingDate = findViewById<TextView>(R.id.text_playing_date)
+        playingDate.text = getString(R.string.date_time).format(
+            Formatter.dateFormat(info.playingDate),
+            Formatter.timeFormat(info.playingTime)
+        )
+
+        val count = findViewById<TextView>(R.id.text_person_count)
         count.text = info.count.toString()
-        val totalPrice = DecimalFormat("#,###").format(info.price.price * info.count)
-        price.text = totalPrice.toString()
+
+        val price = findViewById<TextView>(R.id.text_price)
+        price.text = Formatter.decimalFormat(info.price.price * info.count)
+
+        val pricePayment = findViewById<TextView>(R.id.text_price_payment)
         pricePayment.text = getText(R.string.price_payment).toString().format(info.payment)
     }
 
@@ -50,5 +44,9 @@ class MovieTicketActivity : AppCompatActivity() {
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    companion object {
+        private const val INFO_KEY = "ticketingInfo"
     }
 }

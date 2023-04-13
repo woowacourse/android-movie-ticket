@@ -10,10 +10,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.domain.Movie
-import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val context: Context, private val movies: List<Movie>) :
-    BaseAdapter() {
+class MovieListAdapter(private val context: Context, private val movies: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
     }
@@ -28,25 +26,13 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_item, null)
-
-        if (convertView == null) {
-            view.tag = getViewHolder(view)
-        }
+        if (convertView == null) view.tag = getViewHolder(view)
 
         val holder = view.tag as ViewHolder
         val movie = getItem(position) as Movie
         setViewHolder(holder, movie)
         return view
     }
-
-    private class ViewHolder {
-        var image: ImageView? = null
-        var title: TextView? = null
-        var playingDate: TextView? = null
-        var runningTime: TextView? = null
-        var ticketingButton: Button? = null
-    }
-
     private fun getViewHolder(view: View): ViewHolder {
         val holder = ViewHolder()
         holder.image = view.findViewById(R.id.img_movie)
@@ -61,13 +47,11 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
     private fun setViewHolder(holder: ViewHolder, movie: Movie) {
         holder.image?.setImageResource(movie.image)
         holder.title?.text = movie.title
-        val dateFormatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
         holder.playingDate?.text = getString(R.string.playing_time).format(
-            dateFormatter.format(movie.playingTimes.startDate),
-            dateFormatter.format(movie.playingTimes.endDate)
+            Formatter.dateFormat(movie.playingTimes.startDate),
+            Formatter.dateFormat(movie.playingTimes.endDate)
         )
         holder.runningTime?.text = getString(R.string.running_time).format(movie.runningTime)
-
         holder.ticketingButton?.setOnClickListener {
             val intent = Intent(context, TicketingActivity::class.java)
             intent.putExtra(MOVIE_KEY, movie)
@@ -76,6 +60,13 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
     }
 
     private fun getString(string: Int): String = context.getString(string)
+    private class ViewHolder {
+        var image: ImageView? = null
+        var title: TextView? = null
+        var playingDate: TextView? = null
+        var runningTime: TextView? = null
+        var ticketingButton: Button? = null
+    }
 
     companion object {
         private const val MOVIE_KEY = "movie"
