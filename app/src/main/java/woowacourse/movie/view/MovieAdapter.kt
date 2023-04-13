@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import woowacourse.movie.R
+import woowacourse.movie.activity.MovieReservationActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
 

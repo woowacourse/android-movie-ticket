@@ -1,8 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Context
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 

@@ -1,9 +1,18 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.getSerializable
+import woowacourse.movie.view.Counter
+import woowacourse.movie.view.DateSpinner
+import woowacourse.movie.view.MovieController
+import woowacourse.movie.view.ReservationButton
+import woowacourse.movie.view.SaveStateCounter
+import woowacourse.movie.view.SaveStateSpinner
+import woowacourse.movie.view.TimeSpinner
 
 class MovieReservationActivity : AppCompatActivity() {
     private val counter: SaveStateCounter by lazy {

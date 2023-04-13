@@ -1,9 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.getSerializable
+import woowacourse.movie.view.MovieController
+import woowacourse.movie.view.ReservationDetailController
 
 class ReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

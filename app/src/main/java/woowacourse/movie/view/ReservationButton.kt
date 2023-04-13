@@ -1,8 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Context
 import android.content.Intent
 import android.widget.Button
+import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.Reservation
