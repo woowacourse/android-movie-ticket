@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -39,4 +40,9 @@ class MovieTicketActivity : AppCompatActivity() {
 
     private fun MovieTicket.getPriceWithUnit(): String =
         "${DecimalFormat("#,###").format(getPrice())}원 (현장 결제)"
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        setContentView(R.layout.activity_movie_ticket)
+        super.onConfigurationChanged(newConfig)
+    }
 }

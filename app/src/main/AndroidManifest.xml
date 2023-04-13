@@ -16,6 +16,8 @@
             android:exported="false" />
         <activity
             android:name=".MovieDetailActivity"
+            android:configChanges="screenSize|orientation"
+            android:screenOrientation="sensor"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
