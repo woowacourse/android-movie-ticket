@@ -7,7 +7,7 @@ class PricePolicyCalculator(private val discountPolicies: List<DiscountPolicy> =
 
     override fun discountCalculate(price: Int): Int {
         var processedPrice = price
-        if (discountPolicies.isNotEmpty()) return price
+        if (discountPolicies.isEmpty()) return price
         discountPolicies.forEach { processedPrice = it.discount(processedPrice) }
         return processedPrice
     }
