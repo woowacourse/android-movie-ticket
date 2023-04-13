@@ -16,8 +16,8 @@ class MovieListFragment : Fragment() {
     private var _binding: FragmentMovieListBinding? = null
     private val binding get() = _binding!!
 
-    private var _listAdapter: MovieListAdapter? = null
-    private val listAdapter get() = _listAdapter!!
+    private var _movieListAdapter: MovieListAdapter? = null
+    private val movieListAdapter get() = _movieListAdapter!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +30,12 @@ class MovieListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _listAdapter =
+        setMovieListAdapter()
+        binding.lvMovies.adapter = movieListAdapter
+    }
+
+    private fun setMovieListAdapter() {
+        _movieListAdapter =
             MovieListAdapter(
                 Movie.provideDummy(),
                 object : MovieListAdapter.OnBookClickListener {
@@ -45,13 +50,12 @@ class MovieListFragment : Fragment() {
                     }
                 }
             )
-        binding.lvMovies.adapter = listAdapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        _listAdapter = null
+        _movieListAdapter = null
     }
 
     companion object {

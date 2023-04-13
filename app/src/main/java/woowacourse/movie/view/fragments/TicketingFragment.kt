@@ -36,6 +36,12 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     private val _movieTimes = mutableListOf<MovieTime>()
     private val movieTimes: List<MovieTime> get() = _movieTimes
 
+    private val movieDateAdapter: ArrayAdapter<String> by lazy {
+        ArrayAdapter(
+            requireContext(), android.R.layout.simple_spinner_item,
+            movieDates.map { getString(R.string.book_date, it.year, it.month, it.day) }
+        )
+    }
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, mutableListOf())
     }
@@ -59,59 +65,82 @@ class TicketingFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            getSerializable<Movie>(MOVIE_KEY)?.run {
-                ivPoster.setImageResource(thumbnail)
-                tvTitle.text = title
-                tvDate.text = getString(
-                    R.string.movie_release_date,
-                    startDate.formattedDate,
-                    endDate.formattedDate
-                )
-                tvRunningTime.text = getString(R.string.movie_running_time, runningTime)
-                tvIntroduce.text = introduce
+            showMovieIntroduce()
+            setSpinnerConfig()
+            setClickListener()
+        }
+    }
+
+    private fun FragmentTicketingBinding.setClickListener() {
+        btnMinus.setOnClickListener(this@TicketingFragment)
+        btnPlus.setOnClickListener(this@TicketingFragment)
+        btnTicketing.setOnClickListener(this@TicketingFragment)
+    }
+
+    private fun FragmentTicketingBinding.setSpinnerConfig() {
+        setSpinnerAdapter()
+        setSpinnerListener()
+    }
+
+    private fun FragmentTicketingBinding.setSpinnerAdapter() {
+        spinnerMovieDate.adapter = movieDateAdapter
+        spinnerMovieTime.adapter = movieTimeAdapter
+        movieDateAdapter.setNotifyOnChange(true)
+        movieTimeAdapter.setNotifyOnChange(true)
+    }
+
+    private fun FragmentTicketingBinding.setSpinnerListener() {
+        spinnerMovieTime.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                itemView: View?,
+                pos: Int,
+                id: Long,
+            ) {
+                _selectedTime = movieTimes[pos]
             }
 
-            spinnerMovieDate.adapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                movieDates.map { getString(R.string.book_date, it.year, it.month, it.day) }
-            )
-            spinnerMovieTime.adapter = movieTimeAdapter
-            movieTimeAdapter.setNotifyOnChange(true)
-            spinnerMovieTime.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    itemView: View?,
-                    pos: Int,
-                    id: Long
-                ) {
-                    _selectedTime = movieTimes[pos]
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-            spinnerMovieDate.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    itemView: View?,
-                    pos: Int,
-                    id: Long
-                ) {
-                    _selectedDate = movieDates[pos]
-                    _movieTimes.clear()
-                    selectedDate?.run { _movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
-                    movieTimeAdapter.clear()
-                    movieTimeAdapter.addAll(
-                        movieTimes.map { getString(R.string.book_time, it.hour, it.min) }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        spinnerMovieDate.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                itemView: View?,
+                pos: Int,
+                id: Long,
+            ) {
+                _selectedDate = movieDates[pos]
+                _movieTimes.clear()
+                selectedDate?.run {
+                    _movieTimes.addAll(
+                        MovieTime.runningTimes(
+                            isWeekend(),
+                            isToday()
+                        )
                     )
-                    _selectedTime = movieTimes.firstOrNull()
                 }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                movieTimeAdapter.clear()
+                movieTimeAdapter.addAll(
+                    movieTimes.map { getString(R.string.book_time, it.hour, it.min) }
+                )
+                _selectedTime = movieTimes.firstOrNull()
             }
-            btnMinus.setOnClickListener(this@TicketingFragment)
-            btnPlus.setOnClickListener(this@TicketingFragment)
-            btnTicketing.setOnClickListener(this@TicketingFragment)
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun FragmentTicketingBinding.showMovieIntroduce() {
+        getSerializable<Movie>(MOVIE_KEY)?.run {
+            ivPoster.setImageResource(thumbnail)
+            tvTitle.text = title
+            tvDate.text = getString(
+                R.string.movie_release_date,
+                startDate.formattedDate,
+                endDate.formattedDate
+            )
+            tvRunningTime.text = getString(R.string.movie_running_time, runningTime)
+            tvIntroduce.text = introduce
         }
     }
 
