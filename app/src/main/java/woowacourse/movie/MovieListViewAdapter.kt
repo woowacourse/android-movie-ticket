@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
@@ -26,17 +23,17 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = LayoutInflater
-            .from(parent?.context)
-            .inflate(R.layout.movie_item, parent, false)
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+        var itemView = convertView
+        val holder: MovieListViewHolder
 
-        val moviePoster = view.findViewById<ImageView>(R.id.movie_poster)
-        val movieTitle = view.findViewById<TextView>(R.id.movie_title)
-        val screeningStartDate = view.findViewById<TextView>(R.id.screening_start_date)
-        val screeningEndDate = view.findViewById<TextView>(R.id.screening_end_date)
-        val runningTime = view.findViewById<TextView>(R.id.running_time)
-        val bookButton = view.findViewById<Button>(R.id.book_button)
+        if (itemView == null) {
+            itemView = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
+            holder = MovieListViewHolder(itemView)
+            itemView.tag = holder
+        } else {
+            holder = itemView.tag as MovieListViewHolder
+        }
         val item: Movie = movies[position]
 
         moviePoster.setImageResource(item.moviePoster)
@@ -61,7 +58,5 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
             intent.putExtra("movie", item)
             context.startActivity(intent)
         }
-
-        return view
     }
 }
