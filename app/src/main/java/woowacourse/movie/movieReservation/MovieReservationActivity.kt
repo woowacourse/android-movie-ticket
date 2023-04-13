@@ -31,9 +31,9 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
 
         updateMovieView()
+        registerToolbar()
         registerListener()
         registerSpinnerListener()
-        registerToolbar()
 
         saveInstanceState(savedInstanceState)
     }
@@ -51,12 +51,6 @@ class MovieReservationActivity : AppCompatActivity() {
         outState.putInt(KEY_COUNT, ticketCount)
     }
 
-    private fun registerToolbar() {
-        val reservationToolbar = findViewById<Toolbar>(R.id.reservation_toolbar)
-        setSupportActionBar(reservationToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -64,26 +58,6 @@ class MovieReservationActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun registerSpinnerListener() {
-        val dateSpinner = findViewById<Spinner>(R.id.reservation_screening_date_spinner)
-        val dateList = movieSchedule.getScreeningDate()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
-        dateSpinner.adapter = adapter
-
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                updateTimeView(LocalDate.parse(dateList[position]))
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
@@ -112,6 +86,12 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
+    private fun registerToolbar() {
+        val reservationToolbar = findViewById<Toolbar>(R.id.reservation_toolbar)
+        setSupportActionBar(reservationToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     private fun registerListener() {
         registerCountButton()
         registerReservationButton()
@@ -127,6 +107,26 @@ class MovieReservationActivity : AppCompatActivity() {
         }
         increaseButton.setOnClickListener {
             ticketCountView.text = (++ticketCount).toString()
+        }
+    }
+
+    private fun registerSpinnerListener() {
+        val dateSpinner = findViewById<Spinner>(R.id.reservation_screening_date_spinner)
+        val dateList = movieSchedule.getScreeningDate()
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
+        dateSpinner.adapter = adapter
+
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                updateTimeView(LocalDate.parse(dateList[position]))
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 

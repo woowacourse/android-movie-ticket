@@ -15,14 +15,8 @@ class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
-        updateMovieView()
         registerToolbar()
-    }
-
-    private fun registerToolbar() {
-        val reservationToolbar = findViewById<Toolbar>(R.id.ticket_toolbar)
-        setSupportActionBar(reservationToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        updateMovieView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -33,6 +27,12 @@ class MovieTicketActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun registerToolbar() {
+        val reservationToolbar = findViewById<Toolbar>(R.id.ticket_toolbar)
+        setSupportActionBar(reservationToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun updateMovieView() {
