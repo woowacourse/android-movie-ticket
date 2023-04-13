@@ -63,9 +63,27 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
+        loadInstances(savedInstanceState)
         initReservationView()
         initClickListener()
-        initSpinner()
+        initSpinner(savedInstanceState)
+    }
+
+    private fun loadInstances(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) return
+        val ticketCount: Int = savedInstanceState.getInt("ticket_count")
+        ticketCountTextView.text = ticketCount.toString()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val selectedDate: LocalDate = screeningDateSpinner.selectedItem as LocalDate
+        val selectedTime: LocalTime = screeningTimeSpinner.selectedItem as LocalTime
+
+        outState.putInt("ticket_count", ticketCountTextView.text.toString().toInt())
+        outState.putLong("screening_date", selectedDate.toEpochDay())
+        outState.putString("screening_time", selectedTime.toString())
     }
 
     private fun initReservationView() {
@@ -83,7 +101,7 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSpinner() {
+    private fun initSpinner(savedInstanceState: Bundle?) {
         val dates = movie.screeningPeriod.getScreeningDates()
 
         screeningDateSpinner.adapter = ArrayAdapter(
@@ -92,8 +110,24 @@ class ReservationActivity : AppCompatActivity() {
             dates
         )
         screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                initTimeSpinner(dates[position])
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (savedInstanceState == null) {
+                    initTimeSpinner(dates[position])
+                    return
+                }
+                val screeningDate: LocalDate = LocalDate.ofEpochDay(savedInstanceState.getLong("screening_date"))
+                val screeningTime: LocalTime = LocalTime.parse(savedInstanceState.getString("screening_time"))
+
+                val selectedDatePosition: Int = movie.screeningPeriod.getScreeningDates().indexOf(screeningDate)
+                val selectedTimePosition: Int = movie.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
+
+                screeningDateSpinner.setSelection(selectedDatePosition)
+                initTimeSpinner(screeningDate, selectedTimePosition)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -102,7 +136,7 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initTimeSpinner(date: LocalDate?) {
+    private fun initTimeSpinner(date: LocalDate?, defaultPoint: Int = 0) {
         val times = movie.screeningPeriod.getScreeningTimes(date)
 
         screeningTimeSpinner.adapter = ArrayAdapter(
@@ -110,6 +144,7 @@ class ReservationActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             times
         )
+        screeningTimeSpinner.setSelection(defaultPoint)
     }
 
     private fun initClickListener() {
@@ -141,7 +176,8 @@ class ReservationActivity : AppCompatActivity() {
             val ticketCount = ticketCountTextView.text.toString().toInt()
             val screeningDate = screeningDateSpinner.selectedItem as LocalDate
             val screeningTime = screeningTimeSpinner.selectedItem as LocalTime
-            val reservation: Reservation = Reservation.from(movie, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
+            val reservation: Reservation =
+                Reservation.from(movie, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
             val intent = Intent(this, ReservationResultActivity::class.java)
             intent.putExtra(getString(R.string.reservation_key), reservation)
             startActivity(intent)
