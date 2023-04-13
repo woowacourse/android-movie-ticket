@@ -26,6 +26,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
     private val titleTextView: TextView by lazy { findViewById(R.id.reservation_title) }
     private val dateTextView: TextView by lazy { findViewById(R.id.reservation_date) }
     private val moneyTextView: TextView by lazy { findViewById(R.id.reservation_money) }
+    private val reservationCountTextView: TextView by lazy { findViewById(R.id.reservation_count) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,16 +44,20 @@ class ReservationConfirmActivity : AppCompatActivity() {
         setInitReservationData(movie, dateTime, reservationCount)
     }
 
-    private fun setInitReservationData(movie: Movie, dateTime: LocalDateTime, reservationCount: Count) {
+    private fun setInitReservationData(
+        movie: Movie,
+        dateTime: LocalDateTime,
+        reservationCount: Count
+    ) {
         titleTextView.text = movie.title
-        dateTextView.text = dateTime.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
+        dateTextView.text = dateTime.format(DATE_TIME_FORMATTER)
         moneyTextView.text = formattingMoney(reservationCount, dateTime)
+        reservationCountTextView.text = reservationCount.value.toString()
     }
 
     private fun formattingMoney(reservationCount: Count, dateTime: LocalDateTime): String {
-        val dec = DecimalFormat("#,###")
         val money = DiscountCalculator().discount(reservationCount, dateTime).value
-        return dec.format(money)
+        return DECIMAL_FORMATTER.format(money)
     }
 
     @Suppress("DEPRECATION")
@@ -72,5 +77,10 @@ class ReservationConfirmActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm")
+        private val DECIMAL_FORMATTER = DecimalFormat("#,###")
     }
 }

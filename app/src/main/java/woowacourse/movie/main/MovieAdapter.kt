@@ -46,8 +46,8 @@ class MovieAdapter(
 
         image.setImageResource(_movie[p0].imgResourceId)
         title.text = _movie[p0].title
-        startDate.text = _movie[p0].startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        endDate.text = _movie[p0].endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+        startDate.text = _movie[p0].startDate.format(DATE_TIME_FORMATTER)
+        endDate.text = _movie[p0].endDate.format(DATE_TIME_FORMATTER)
         time.text = _movie[p0].runningTime.value.toString()
 
         reservation.setOnClickListener { clickListener?.onClick(p0) }
@@ -56,5 +56,9 @@ class MovieAdapter(
 
     interface ReservationClickListener {
         fun onClick(position: Int)
+    }
+
+    companion object {
+        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
     }
 }

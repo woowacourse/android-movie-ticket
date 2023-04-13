@@ -75,8 +75,8 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initMovieData() {
         image.setImageResource(movie.imgResourceId)
         title.text = movie.title
-        startDate.text = movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        endDate.text = movie.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+        startDate.text = movie.startDate.format(DATE_TIME_FORMATTER)
+        endDate.text = movie.endDate.format(DATE_TIME_FORMATTER)
         time.text = movie.runningTime.value.toString()
         description.text = movie.description
     }
@@ -95,7 +95,7 @@ class MovieDetailActivity : AppCompatActivity() {
             var previous = count.text.toString().toInt()
             previous--
             if (previous <= 0) {
-                Toaster.showToast(this, "예약 인원은 최소 한명 이상이어야 합니다")
+                Toaster.showToast(this, getString(R.string.error_reservation_min_count))
                 return@setOnClickListener
             }
             count.text = previous.toString()
@@ -208,5 +208,9 @@ class MovieDetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
     }
 }

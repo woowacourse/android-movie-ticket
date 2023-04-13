@@ -21,7 +21,7 @@
         android:layout_height="57dp"
         android:background="@color/soft_purple"
         android:gravity="center"
-        android:text="영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다."
+        android:text="@string/guide_reservation_cancel_condition"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -35,13 +35,13 @@
         android:layout_height="43dp"
         android:layout_marginTop="31dp"
         android:gravity="center"
-        android:text="영화 제목"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cancel_description" />
+        app:layout_constraintTop_toBottomOf="@id/cancel_description"
+        tools:text="영화 제목" />
 
     <TextView
         android:id="@+id/reservation_date"
@@ -49,27 +49,51 @@
         android:layout_height="38dp"
         android:layout_marginTop="9dp"
         android:gravity="center"
-        android:text="상영 날짜"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservation_title" />
+        app:layout_constraintTop_toBottomOf="@id/reservation_title"
+        tools:text="상영 날짜" />
 
-    <TextView
-        android:id="@+id/reservation_count"
+    <LinearLayout
+        android:id="@+id/reservation_count_box"
         android:layout_width="332dp"
         android:layout_height="38dp"
         android:layout_marginTop="69dp"
         android:gravity="center"
-        android:text="일반 1명"
-        android:textColor="@color/black"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservation_date" />
+        app:layout_constraintTop_toBottomOf="@id/reservation_date">
 
+        <TextView
+            android:id="@+id/reservation_type_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/normalize_type"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/reservation_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:text="1"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/reservation_count_unit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/person_unit_text"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -77,7 +101,7 @@
         android:layout_marginTop="19dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservation_count">
+        app:layout_constraintTop_toBottomOf="@id/reservation_count_box">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -91,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="13000"
+                tools:text="13000"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -103,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="원 (현장 결제)"
+                android:text="@string/reservation_pay_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/reservation_money" />
