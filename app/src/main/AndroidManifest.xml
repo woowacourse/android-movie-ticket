@@ -17,10 +17,10 @@
             android:name=".TicketActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieDetailActivity"
+            android:name=".moviedetail.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".movielist.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

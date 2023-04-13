@@ -1,9 +1,10 @@
-package woowacourse.movie
+package woowacourse.movie.movielist
 
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.R
 
 class MovieListViewHolder(itemView: View) {
 

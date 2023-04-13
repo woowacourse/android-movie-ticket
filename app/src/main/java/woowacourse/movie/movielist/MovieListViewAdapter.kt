@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.movielist
 
 import android.content.Context
 import android.content.Intent
@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import woowacourse.movie.moviedetail.MovieDetailActivity
+import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
 import java.time.format.DateTimeFormatter
 
