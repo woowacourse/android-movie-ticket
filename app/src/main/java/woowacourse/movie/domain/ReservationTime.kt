@@ -14,11 +14,9 @@ class ReservationTime(private val dayOfWeek: DayOfWeek) {
         var startTime: LocalTime = getStartTime()
         val endTime = LocalTime.of(23, 0)
 
-        val times = generateSequence(startTime) { it.plusMinutes(1) }
+        return generateSequence(startTime) { it.plusMinutes(1) }
             .takeWhile { !it.isAfter(endTime) }
             .map { it.format(DateTimeFormatter.ofPattern("HH:mm")) }
             .toList()
-
-        return times
     }
 }

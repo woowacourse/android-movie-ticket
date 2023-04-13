@@ -8,11 +8,9 @@ class ReservationDate(private val runningDate: RunningDate) {
         val startDay = runningDate.startDate
         val endDay = runningDate.endDate
 
-        val dates = generateSequence(startDay) { it.plusDays(1) }
+        return generateSequence(startDay) { it.plusDays(1) }
             .takeWhile { !it.isAfter(endDay) }
             .map { it.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) }
             .toList()
-
-        return dates
     }
 }
