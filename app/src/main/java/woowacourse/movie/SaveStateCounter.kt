@@ -14,6 +14,7 @@ class SaveStateCounter(val counter: Counter, override val saveStateKey: String) 
     override fun load(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             counter.count = savedInstanceState.getInt(saveStateKey)
+            applyToView()
         }
     }
 
