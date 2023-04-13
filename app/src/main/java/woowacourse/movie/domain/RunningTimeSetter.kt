@@ -6,7 +6,7 @@ import java.time.LocalTime
 class RunningTimeSetter {
     fun getRunningTimes(date: LocalDate): List<LocalTime> {
         return when (date.dayOfWeek.value) {
-            6, 7 -> weekendTimes.toList()
+            in weekDays -> weekendTimes.toList()
             else -> weekDayTimes.toList()
         }
     }
@@ -24,5 +24,7 @@ class RunningTimeSetter {
                 add(LocalTime.of(hour, 0, 0))
             }
         }
+
+        private val weekDays = listOf(6, 7)
     }
 }

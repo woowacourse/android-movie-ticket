@@ -3,7 +3,7 @@ package woowacourse.movie.entity
 @JvmInline
 value class Money(val value: Int) {
     init {
-        require(value > 0) { MONEY_ERROR_MESSAGE }
+        require(value > MIN_MONEY_RANGE) { MONEY_ERROR_MESSAGE }
     }
 
     operator fun times(other: Float): Money {
@@ -21,5 +21,6 @@ value class Money(val value: Int) {
 
     companion object {
         private const val MONEY_ERROR_MESSAGE = "[ERROR} 예매 금액은 0원보다 커야 합니다."
+        private const val MIN_MONEY_RANGE = 0
     }
 }

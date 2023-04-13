@@ -39,7 +39,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
         val date = intent.customGetSerializable<LocalDate>(KEY_RESERVATION_DATE)
         val time = intent.customGetSerializable<LocalTime>(KEY_RESERVATION_TIME)
         val dateTime = LocalDateTime.of(date, time)
-        Log.d("mendel", "$movie , $reservationCount")
+        Log.d(LOG_TAG, "$movie , $reservationCount")
 
         setInitReservationData(movie, dateTime, reservationCount)
     }
@@ -82,5 +82,6 @@ class ReservationConfirmActivity : AppCompatActivity() {
     companion object {
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm")
         private val DECIMAL_FORMATTER = DecimalFormat("#,###")
+        private const val LOG_TAG = "mendel and bbotto"
     }
 }

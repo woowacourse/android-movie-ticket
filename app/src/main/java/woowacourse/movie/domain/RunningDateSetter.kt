@@ -7,9 +7,13 @@ class RunningDateSetter {
     fun getRunningDates(start: LocalDate, end: LocalDate): List<LocalDate> {
         val betweenDays = DAYS.between(start, end)
         val allDays = mutableListOf<LocalDate>()
-        for (i in 0..betweenDays) {
+        for (i in ZERO..betweenDays) {
             allDays.add(start.plusDays(i))
         }
         return allDays.toList()
+    }
+
+    companion object {
+        private const val ZERO = 0
     }
 }
