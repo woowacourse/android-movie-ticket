@@ -8,10 +8,8 @@ class MovieDate private constructor(
     val year: Int,
     val month: Int,
     val day: Int,
-) : Serializable {
+) : Discountable, Serializable {
     private constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
-
-    fun isDiscountDay(): Boolean = day in DISCOUNT_DAYS
 
     fun isWeekend(): Boolean {
         val dayOfWeek = LocalDate.of(year, month, day).dayOfWeek
@@ -22,6 +20,11 @@ class MovieDate private constructor(
         val today = LocalDate.now()
         return today.compareTo(LocalDate.of(year, month, day)) == 0
     }
+
+    private fun isDiscountDay(): Boolean = day in DISCOUNT_DAYS
+
+    override fun discount(money: Int): Int =
+        if (isDiscountDay()) (money - money * DISCOUNT_PERCENT).toInt() else money
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,6 +48,7 @@ class MovieDate private constructor(
 
     companion object {
         private val DISCOUNT_DAYS = listOf(10, 20, 30)
+        private const val DISCOUNT_PERCENT = 0.1
 
         private infix fun LocalDate.max(other: LocalDate): LocalDate {
             if (this > other) return this

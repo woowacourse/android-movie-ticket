@@ -24,7 +24,7 @@ class TicketingResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentTicketingResultBinding.inflate(inflater, container, false)
         return binding.root
@@ -47,10 +47,7 @@ class TicketingResultFragment : Fragment() {
                 tvPayResult.text =
                     getString(
                         R.string.movie_pay_result,
-                        it.calculateTotalPrice(
-                            movieDate = movieDate,
-                            movieTime = movieTime,
-                        ),
+                        it.calculateTotalPrice(listOf(movieDate, movieTime)),
                         getString(R.string.on_site_payment)
                     )
             }

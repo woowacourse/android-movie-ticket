@@ -4,12 +4,15 @@ import java.io.Serializable
 import java.time.LocalTime
 
 class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
-    Comparable<MovieTime>, Serializable {
-    fun isDiscountTime(): Boolean =
+    Discountable, Comparable<MovieTime>, Serializable {
+    private fun isDiscountTime(): Boolean =
         hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME
 
     override fun compareTo(other: MovieTime): Int =
         (hour * HOUR_TO_MIN + min) - (other.hour * HOUR_TO_MIN + other.min)
+
+    override fun discount(money: Int): Int =
+        if (isDiscountTime()) money - DISCOUNT_PRICE else money
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -43,6 +46,8 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
 
         private const val DEFAULT_MIN = 0
         private const val HOUR_TO_MIN = 60
+
+        private const val DISCOUNT_PRICE = 2_000
 
         private val weekendTimes: List<MovieTime> =
             (WEEKEND_MIN_TIME until WEEKEND_MAX_TIME step WEEKEND_MOVIE_TIME_INTERVAL)

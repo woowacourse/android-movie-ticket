@@ -8,17 +8,15 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
         require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
 
+    @JvmOverloads
     fun calculateTotalPrice(
+        discountables: List<Discountable>,
         ticketPrice: Int = DEFAULT_TICKET_PRICE,
-        movieDate: MovieDate,
-        movieTime: MovieTime
     ): Int {
-        var discountedTicketPrice = ticketPrice
-        if (movieDate.isDiscountDay()) discountedTicketPrice =
-            (ticketPrice - ticketPrice * DISCOUNT_PERCENT).toInt()
-        if (movieTime.isDiscountTime()) discountedTicketPrice -= DISCOUNT_PRICE
+        var discountedPrice = ticketPrice
+        discountables.forEach { discountedPrice = it.discount(discountedPrice) }
 
-        return discountedTicketPrice * count
+        return discountedPrice * count
     }
 
     operator fun dec(): Ticket = if (count > MIN_TICKET_COUNT) {
@@ -33,8 +31,6 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
         private const val MIN_TICKET_COUNT = 1
         private const val TICKET_UP_DOWN_UNIT = 1
         private const val DEFAULT_TICKET_PRICE = 13_000
-        private const val DISCOUNT_PRICE = 2_000
-        private const val DISCOUNT_PERCENT = 0.1
 
         private const val INVALID_TICKET_COUNT_EXCEPTION_MESSAGE = "티켓 개수는 최소 1장 이상이어야 합니다."
     }
