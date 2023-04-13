@@ -11,7 +11,7 @@ import woowacourse.movie.utils.DateUtil
 import java.text.DecimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
-    private val ticket by lazy { intent.getSerializableExtra("movieTicket") as MovieTicket }
+    private val ticket by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as MovieTicket }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
@@ -51,6 +51,7 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     companion object {
-        val decimalFormat = DecimalFormat("#,###")
+        private val decimalFormat = DecimalFormat("#,###")
+        const val KEY_MOVIE_TICKET = "movieTicket"
     }
 }

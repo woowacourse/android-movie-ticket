@@ -52,7 +52,7 @@ class MovieListAdapter(
 
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)
-                intent.putExtra("movieSchedule", this)
+                intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, this)
                 startActivity(context, intent, null)
             }
         }

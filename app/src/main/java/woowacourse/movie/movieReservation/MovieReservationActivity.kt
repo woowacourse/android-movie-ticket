@@ -22,7 +22,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
-    private val movieSchedule by lazy { intent.getSerializableExtra("movieSchedule") as MovieSchedule }
+    private val movieSchedule by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as MovieSchedule }
 
     private var ticketCount = 1
 
@@ -41,14 +41,14 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun saveInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             val ticketCountView = findViewById<TextView>(R.id.reservation_ticket_count)
-            ticketCount = it.getInt("count")
-            ticketCountView.text = it.getInt("count").toString()
+            ticketCount = it.getInt(KEY_COUNT)
+            ticketCountView.text = it.getInt(KEY_COUNT).toString()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("count", ticketCount)
+        outState.putInt(KEY_COUNT, ticketCount)
     }
 
     private fun registerToolbar() {
@@ -83,14 +83,13 @@ class MovieReservationActivity : AppCompatActivity() {
                 updateTimeView(LocalDate.parse(dateList[position]))
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
-    private fun updateTimeView(data: LocalDate) {
+    private fun updateTimeView(date: LocalDate) {
         val timeSpinner = findViewById<Spinner>(R.id.reservation_screening_time_spinner)
-        val timeList = movieSchedule.getScreeningTime(data)
+        val timeList = movieSchedule.getScreeningTime(date)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeList)
         timeSpinner.adapter = adapter
     }
@@ -147,12 +146,14 @@ class MovieReservationActivity : AppCompatActivity() {
                 date = selectedDate,
                 time = selectedTime,
             )
-            intent.putExtra("movieTicket", movieTicket)
+            intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
             ContextCompat.startActivity(this, intent, null)
         }
     }
 
     companion object {
         private const val MOVIE_TICKET_PRICE = 13000
+        private const val KEY_COUNT = "count"
+        const val KEY_MOVIE_SCHEDULE = "movieSchedule"
     }
 }
