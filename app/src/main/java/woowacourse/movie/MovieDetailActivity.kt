@@ -35,6 +35,8 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
+        setToolBar()
+
         if (savedInstanceState != null) {
             numberOfBooker = savedInstanceState.getInt("BOOKER_NUMBER")
             dateSpinnerPosition = savedInstanceState.getInt("DATE_SPINNER_POSITION")
@@ -44,42 +46,60 @@ class MovieDetailActivity : AppCompatActivity() {
         val movie = intent.getSerializableExtra("movie") as Movie
 
         setDateSpinner(movie.runningDate)
+        setUpMovieData(movie)
+        setNumberOfPeople()
+        clickBookBtn(movie)
+    }
 
+    private fun setToolBar() {
+        val toolbar = findViewById<Toolbar>(R.id.movie_detail_toolbar)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setUpMovieData(movie: Movie) {
         val moviePoster = findViewById<ImageView>(R.id.movie_poster)
         val movieTitle = findViewById<TextView>(R.id.movie_title)
         val screeningStartDate = findViewById<TextView>(R.id.screening_start_date)
         val screeningEndDate = findViewById<TextView>(R.id.screening_end_date)
         val runningTime = findViewById<TextView>(R.id.running_time)
         val description = findViewById<TextView>(R.id.movie_description)
-        val minusBtn = findViewById<Button>(R.id.minus_people)
-        val booker = findViewById<TextView>(R.id.number_of_people)
-        val plusBtn = findViewById<Button>(R.id.plus_people)
-        val bookBtn = findViewById<Button>(R.id.book_button)
-        val toolbar = findViewById<Toolbar>(R.id.movie_detail_toolbar)
-
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         moviePoster.setImageResource(movie.moviePoster)
         movieTitle.text = movie.title
-        booker.text = numberOfBooker.toString()
 
         screeningStartDate.text =
-            movie.runningDate.startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+            movie.runningDate.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
         screeningEndDate.text =
-            movie.runningDate.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+            movie.runningDate.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
         runningTime.text = movie.runningTime.toString()
         description.text = movie.description
+    }
+
+    private fun setNumberOfPeople() {
+        val booker = findViewById<TextView>(R.id.number_of_people)
+        booker.text = numberOfBooker.toString()
+        clickDecreaseBtn(booker)
+        clickIncreaseBtn(booker)
+    }
+
+    private fun clickDecreaseBtn(booker: TextView) {
+        val minusBtn = findViewById<Button>(R.id.minus_people)
 
         minusBtn.setOnClickListener {
             numberOfBooker -= 1
-            if (numberOfBooker <= 1) {
-                numberOfBooker = 1
+            if (numberOfBooker <= 0) {
+                numberOfBooker = 0
             }
             booker.text = numberOfBooker.toString()
         }
+    }
+
+    private fun clickIncreaseBtn(booker: TextView) {
+        val plusBtn = findViewById<Button>(R.id.plus_people)
 
         plusBtn.setOnClickListener {
             numberOfBooker += 1
@@ -88,7 +108,10 @@ class MovieDetailActivity : AppCompatActivity() {
             }
             booker.text = numberOfBooker.toString()
         }
+    }
 
+    private fun clickBookBtn(movie: Movie) {
+        val bookBtn = findViewById<Button>(R.id.book_button)
         bookBtn.setOnClickListener {
             val selectedDate = LocalDate.parse(selectDateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(selectTimeSpinner.selectedItem.toString())
@@ -106,23 +129,21 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item?.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
-                Log.d("ToolBar_item: ", "뒤로가기 버튼 클릭")
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    fun setDateSpinner(date: RunningDate) {
+    private fun setDateSpinner(date: RunningDate) {
         val dateAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             ReservationDate(date).getScreeningDays(),
         )
-
         dateAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
         selectDateSpinner.adapter = dateAdapter
         selectDateSpinner.setSelection(dateSpinnerPosition)
@@ -142,7 +163,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun setTimeSpinner(selectedDay: LocalDate) {
+    private fun setTimeSpinner(selectedDay: LocalDate) {
         val timeAdapter = ArrayAdapter.createFromResource(
             this,
             ReservationTime(DayOfWeek.checkDayOfWeek(selectedDay)).getScreeningTimes(),
