@@ -36,11 +36,11 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         }
         val item: Movie = movies[position]
 
-        moviePoster.setImageResource(item.moviePoster)
-        movieTitle.text = item.title
-        screeningStartDate.text = item.runningDate.startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        screeningEndDate.text = item.runningDate.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        runningTime.text = item.runningTime.toString()
+        setMovieData(holder, item)
+        buttonSetOnclickListener(holder, item)
+
+        return itemView
+    }
 
     private fun setMovieData(holder: MovieListViewHolder, item: Movie) {
         holder.moviePoster.setImageResource(item.moviePoster)
