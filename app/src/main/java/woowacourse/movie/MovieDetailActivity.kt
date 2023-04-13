@@ -11,8 +11,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.RunningDate
+import woowacourse.movie.domain.movieinfo.Movie
+import woowacourse.movie.domain.movieinfo.RunningDate
 import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime

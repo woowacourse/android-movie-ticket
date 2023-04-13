@@ -3,8 +3,8 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.RunningDate
+import woowacourse.movie.domain.movieinfo.Movie
+import woowacourse.movie.domain.movieinfo.RunningDate
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {

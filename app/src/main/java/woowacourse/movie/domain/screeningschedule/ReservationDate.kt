@@ -1,8 +1,10 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.screeningschedule
+
+import woowacourse.movie.domain.movieinfo.RunningDate
 
 class ReservationDate(private val runningDate: RunningDate) {
 
-    fun getScreeningDays(): List<String> {
+    fun getIntervalDays(): List<String> {
         val startDay = runningDate.startDate
         val endDay = runningDate.endDate
 

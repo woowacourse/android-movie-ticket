@@ -3,6 +3,7 @@ package woowacourse.movie.domain
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
+import woowacourse.movie.domain.policy.TimeDiscountPolicy
 import java.time.LocalDateTime
 
 class TimeDiscountPolicyTest {

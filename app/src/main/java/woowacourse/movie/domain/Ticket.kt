@@ -1,5 +1,8 @@
 package woowacourse.movie.domain
 
+import woowacourse.movie.domain.policy.DiscountPolicy
+import woowacourse.movie.domain.policy.MovieDayDiscountPolicy
+import woowacourse.movie.domain.policy.TimeDiscountPolicy
 import java.io.Serializable
 import java.time.LocalDateTime
 

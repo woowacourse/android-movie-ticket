@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.movieinfo
 
 import java.io.Serializable
 import java.time.LocalDate
