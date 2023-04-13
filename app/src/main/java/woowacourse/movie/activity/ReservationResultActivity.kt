@@ -31,9 +31,9 @@ class ReservationResultActivity : AppCompatActivity() {
             movieNameTextView.text = movie.name.value
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
 
-            ticketCountTextView.text = TICKET_COUNT.format(ticketCount)
+            ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
 
-            paymentAmountTextView.text = PAYMENT_AMOUNT.format(
+            paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
                 DecimalFormat("#,###").format(paymentAmount.value),
                 getPaymentTypeString(paymentType)
             )
@@ -41,12 +41,6 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun getPaymentTypeString(paymentType: PaymentType): String = when (paymentType) {
-        PaymentType.LOCAL_PAYMENT -> LOCAL_PAYMENT_TEXT
-    }
-
-    companion object {
-        private const val TICKET_COUNT = "일반 %d명"
-        private const val PAYMENT_AMOUNT = "%s원 (%s)"
-        private const val LOCAL_PAYMENT_TEXT = "현장 결제"
+        PaymentType.LOCAL_PAYMENT -> getString(R.string.payment_type_local_text)
     }
 }
