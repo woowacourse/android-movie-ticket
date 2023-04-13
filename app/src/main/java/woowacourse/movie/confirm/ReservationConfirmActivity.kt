@@ -3,7 +3,13 @@ package woowacourse.movie.confirm
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import woowacourse.movie.*
+import woowacourse.movie.BackKeyActionBarActivity
+import woowacourse.movie.KEY_MOVIE
+import woowacourse.movie.KEY_RESERVATION_COUNT
+import woowacourse.movie.KEY_RESERVATION_DATE
+import woowacourse.movie.KEY_RESERVATION_TIME
+import woowacourse.movie.Movie
+import woowacourse.movie.R
 import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
 import java.text.DecimalFormat
