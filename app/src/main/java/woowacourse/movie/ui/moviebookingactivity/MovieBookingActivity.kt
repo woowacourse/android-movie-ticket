@@ -9,12 +9,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
-import woowacourse.movie.ui.DateFormatters
+import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import kotlin.properties.Delegates
 
 class MovieBookingActivity : AppCompatActivity() {
@@ -54,7 +57,12 @@ class MovieBookingActivity : AppCompatActivity() {
         timeSpinnerAdapter =
             TimeSpinnerAdapter(timeSpinner, movieData.screeningDay, this).apply { initAdapter() }
         dateSpinnerAdapter =
-            DateSpinnerAdapter(dateSpinner, timeSpinnerAdapter::updateTimeTable, movieData.screeningDay, this)
+            DateSpinnerAdapter(
+                dateSpinner,
+                timeSpinnerAdapter::updateTimeTable,
+                movieData.screeningDay,
+                this
+            )
                 .apply { initAdapter() }
     }
 
@@ -81,8 +89,8 @@ class MovieBookingActivity : AppCompatActivity() {
         tvBookingMovieName.text = movieData.title
         tvBookingScreeningDay.text = this.getString(R.string.screening_date_format)
             .format(
-                movieData.screeningDay.start.format(DateFormatters.hyphenDateFormatter),
-                movieData.screeningDay.end.format(DateFormatters.hyphenDateFormatter)
+                movieData.screeningDay.start.format(DateTimeFormatters.hyphenDateFormatter),
+                movieData.screeningDay.end.format(DateTimeFormatters.hyphenDateFormatter)
             )
         tvBookingRunningTime.text =
             this.getString(R.string.running_time_format).format(movieData.runningTime)
@@ -110,11 +118,20 @@ class MovieBookingActivity : AppCompatActivity() {
         }
     }
 
+    private fun getScreeningDateTime(): ScreeningDateTime {
+        val date = dateSpinner.selectedItem as LocalDate
+        val time = timeSpinner.selectedItem as LocalTime
+
+        return ScreeningDateTime(LocalDateTime.of(date, time), movieData.screeningDay)
+    }
+
+    // timespinner 초기화 관련 방어코드 고려
     private fun initBookingCompleteButtonClickListener() {
         findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
             val intent = Intent(this, MovieBookingCheckActivity::class.java).apply {
                 putExtra("movieData", movieData)
                 putExtra("ticketCount", ticketCount)
+                putExtra("bookedScreeningDateTime", getScreeningDateTime())
             }
             startActivity(intent)
         }
