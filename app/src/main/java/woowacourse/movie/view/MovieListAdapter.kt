@@ -14,8 +14,8 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 
 class MovieListAdapter(
-    val context: Context,
-    val movies: List<Movie>
+    private val context: Context,
+    private val movies: List<Movie>
 ) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
@@ -25,6 +25,15 @@ class MovieListAdapter(
         }
         requireNotNull(convertView) { NULL_VIEW_ERROR }
         val movie = movies[position]
+        initMovieItemView(convertView, movie)
+
+        return convertView
+    }
+
+    private fun initMovieItemView(
+        convertView: View,
+        movie: Movie
+    ) {
         convertView.findViewById<ImageView>(R.id.movie_poster)
             ?.setImageResource(movie.poster.resourceId)
         convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
@@ -37,14 +46,11 @@ class MovieListAdapter(
         convertView.findViewById<TextView>(R.id.movie_running_time)?.text =
             context.resources.getString(R.string.running_time_format)
                 .format(movie.runningTime.value)
-
         convertView.findViewById<Button>(R.id.reserve_now_button).setOnClickListener {
             val intent = Intent(context, ReservationActivity::class.java)
             intent.putExtra(MOVIE, movie)
             startActivity(context, intent, null)
         }
-
-        return convertView
     }
 
     override fun getCount(): Int {

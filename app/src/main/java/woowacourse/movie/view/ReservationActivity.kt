@@ -19,6 +19,7 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var selectedScreeningDate: LocalDate
     private lateinit var selectedScreeningTime: LocalTime
     private val movie: Movie by lazy { initMovieFromIntent() }
+    private var timeSpinnerPosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +76,7 @@ class ReservationActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             screeningDates
         )
+
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -83,12 +85,18 @@ class ReservationActivity : AppCompatActivity() {
                 id: Long
             ) {
                 selectedScreeningDate = screeningDates[position]
+                if (timeSpinnerPosition != -1) {
+                    initTimeSpinner(timeSpinnerPosition)
+                } else {
+                    initTimeSpinner(null)
+                }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
+    }
 
+    private fun initTimeSpinner(selectedPosition: Int?) {
         val screeningTimes = movie.getAllScreeningTimes(selectedScreeningDate)
         val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
         timeSpinner.adapter = ArrayAdapter(
@@ -96,6 +104,9 @@ class ReservationActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             screeningTimes
         )
+        if (selectedPosition != null) {
+            timeSpinner.setSelection(selectedPosition, false)
+        }
         timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -106,10 +117,10 @@ class ReservationActivity : AppCompatActivity() {
                 selectedScreeningTime = screeningTimes[position]
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
+
 
     private fun initPeopleCountAdjustButtonClickListener() {
         val peopleCountView = findViewById<TextView>(R.id.people_count)
@@ -145,16 +156,21 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt(PEOPLE_COUNT, peopleCount)
-        outState.putSerializable(SELECTED_DATE, selectedScreeningDate)
-        outState.putSerializable(SELECTED_TIME, selectedScreeningTime)
+        val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
 
+        outState.apply {
+            putInt(PEOPLE_COUNT, peopleCount)
+            putSerializable(SELECTED_DATE, selectedScreeningDate)
+            putSerializable(SELECTED_TIME, selectedScreeningTime)
+            putInt(SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         peopleCount = savedInstanceState.getInt(PEOPLE_COUNT)
+        timeSpinnerPosition = savedInstanceState.getInt(SELECTED_TIME_POSITION)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             savedInstanceState.getSerializable(SELECTED_DATE, LocalDate::class.java)?.run {
@@ -179,5 +195,6 @@ class ReservationActivity : AppCompatActivity() {
         private const val PEOPLE_COUNT = "PEOPLE_COUNT"
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"
+        private const val SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
     }
 }
