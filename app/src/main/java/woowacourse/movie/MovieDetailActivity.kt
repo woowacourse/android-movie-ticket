@@ -46,6 +46,25 @@ class MovieDetailActivity : AppCompatActivity() {
         loadSavedData(savedInstanceState)
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+
+        outState.putInt("date_position", dateSpinner.selectedItemPosition)
+        outState.putInt("time_position", timeSpinner.selectedItemPosition)
+        outState.putInt("count", peopleCount.count)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    @Suppress("DEPRECATION")
     private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         intent.getSerializableExtra("movie", Movie::class.java)
     } else {
@@ -53,17 +72,11 @@ class MovieDetailActivity : AppCompatActivity() {
     } as Movie
 
     private fun setMovieInfo(movie: Movie) {
-        val moviePoster = findViewById<ImageView>(R.id.detail_poster)
-        val movieTitle = findViewById<TextView>(R.id.detail_title)
-        val movieDate = findViewById<TextView>(R.id.detail_date)
-        val movieTime = findViewById<TextView>(R.id.detail_running_time)
-        val movieDescription = findViewById<TextView>(R.id.detail_description)
-
-        moviePoster.setImageResource(movie.poster)
-        movieTitle.text = movie.title
-        movieDate.text = movie.getScreenDate()
-        movieTime.text = movie.getRunningTime()
-        movieDescription.text = movie.description
+        findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
+        findViewById<TextView>(R.id.detail_title).text = movie.title
+        findViewById<TextView>(R.id.detail_date).text = movie.getScreenDate()
+        findViewById<TextView>(R.id.detail_running_time).text = movie.getRunningTime()
+        findViewById<TextView>(R.id.detail_description).text = movie.description
     }
 
     private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
@@ -73,7 +86,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
 
     private fun setDateSpinner(movie: Movie) {
-        dateSpinner = findViewById<Spinner>(R.id.detail_date_spinner)
+        dateSpinner = findViewById(R.id.detail_date_spinner)
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -100,7 +113,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setTimeSpinner() {
-        timeSpinner = findViewById<Spinner>(R.id.detail_time_spinner)
+        timeSpinner = findViewById(R.id.detail_time_spinner)
         times.addAll(TimesGenerator.getTimesByDate(dateSpinner.selectedItem as LocalDate))
         timeSpinnerAdapter = ArrayAdapter(
             this,
@@ -161,14 +174,6 @@ class MovieDetailActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-
-        outState.putInt("date_position", dateSpinner.selectedItemPosition)
-        outState.putInt("time_position", timeSpinner.selectedItemPosition)
-        outState.putInt("count", peopleCount.count)
-    }
-
     private fun loadSavedData(savedInstanceState: Bundle?) {
         val datePosition = savedInstanceState?.getInt("date_position") ?: 0
         val timePosition = savedInstanceState?.getInt("time_position") ?: 0
@@ -176,15 +181,5 @@ class MovieDetailActivity : AppCompatActivity() {
         dateSpinner.setSelection(datePosition)
         timeSpinner.setSelection(timePosition)
         peopleCount = PeopleCount(count)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

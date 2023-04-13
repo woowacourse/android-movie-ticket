@@ -12,11 +12,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val movies = setMovies()
+        val movies = getMovies()
         setMovieList(movies)
     }
 
-    private fun setMovies(): List<Movie> {
+    private fun getMovies(): List<Movie> {
         return listOf(
             Movie(
                 R.drawable.parasite,
@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity() {
         val moviesView = findViewById<ListView>(R.id.main_movie_list)
         moviesView.adapter = MovieListAdapter(
             movies,
-            object : MovieListAdapter.ItemClickListener {
-                override fun onItemClick(position: Int) {
+            object : MovieListAdapter.ItemButtonClickListener {
+                override fun onClick(position: Int) {
                     moveToDetailActivity(movies[position])
                 }
             }

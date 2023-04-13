@@ -13,10 +13,10 @@ import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val movies: List<Movie>,
-    private val itemClickListener: ItemClickListener,
+    private val itemButtonClickListener: ItemButtonClickListener,
 ) : BaseAdapter() {
-    interface ItemClickListener {
-        fun onItemClick(position: Int)
+    interface ItemButtonClickListener {
+        fun onClick(position: Int)
     }
 
     override fun getCount(): Int = movies.size
@@ -35,7 +35,7 @@ class MovieListAdapter(
         itemView.findViewById<TextView>(R.id.item_date).text = movie.getScreenDate()
         itemView.findViewById<TextView>(R.id.item_running_time).text = movie.getRunningTime()
         itemView.findViewById<Button>(R.id.item_booking_button)
-            .setOnClickListener { itemClickListener.onItemClick(position) }
+            .setOnClickListener { itemButtonClickListener.onClick(position) }
 
         return itemView
     }
