@@ -1,9 +1,7 @@
 package woowacourse.movie.reservation
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,27 +9,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.KEY_MOVIE
-import woowacourse.movie.KEY_RESERVATION_COUNT
-import woowacourse.movie.KEY_RESERVATION_DATE
-import woowacourse.movie.KEY_RESERVATION_TIME
-import woowacourse.movie.KEY_RESTORE_COUNT
-import woowacourse.movie.KEY_RESTORE_DATE
-import woowacourse.movie.KEY_RESTORE_TIME
-import woowacourse.movie.Movie
-import woowacourse.movie.R
-import woowacourse.movie.Toaster
+import woowacourse.movie.*
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDateSetter
 import woowacourse.movie.domain.RunningTimeSetter
 import woowacourse.movie.entity.Count
-import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : BackKeyActionBarActivity() {
     private val image: ImageView by lazy { findViewById(R.id.detail_image) }
     private val title: TextView by lazy { findViewById(R.id.detail_title) }
     private val startDate: TextView by lazy { findViewById(R.id.start_date) }
@@ -58,10 +45,8 @@ class MovieDetailActivity : AppCompatActivity() {
     }
     private lateinit var runningTimes: List<LocalTime>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         movie = intent.customGetSerializable(KEY_MOVIE)!!
         initSetOnClickListener()
         initMovieData()
@@ -179,34 +164,6 @@ class MovieDetailActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    inline fun <reified T : Serializable> Intent.customGetSerializable(key: String): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getSerializableExtra(key, T::class.java)
-        } else {
-            getSerializableExtra(key) as? T
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    inline fun <reified T : Serializable> Bundle.customGetSerializable(key: String): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getSerializable(key, T::class.java)
-        } else {
-            getSerializable(key) as? T
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
