@@ -5,6 +5,7 @@ import java.time.LocalTime
 
 class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
     Discountable, Comparable<MovieTime>, Serializable {
+
     private fun isDiscountTime(): Boolean =
         hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME
 

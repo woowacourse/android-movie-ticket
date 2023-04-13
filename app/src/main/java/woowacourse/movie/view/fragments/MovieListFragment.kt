@@ -22,7 +22,7 @@ class MovieListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMovieListBinding.inflate(inflater, container, false)
         return binding.root
@@ -37,8 +37,9 @@ class MovieListFragment : Fragment() {
                     override fun onClick(item: Movie) {
                         val ticketingFragment =
                             TicketingFragment().apply { arguments = bundleOf(MOVIE_KEY to item) }
+                        val tag = TicketingFragment::class.java.name
                         parentFragmentManager.commit {
-                            add(R.id.fragment_movie, ticketingFragment, TicketingFragment::class.java.name)
+                            add(R.id.fragment_movie, ticketingFragment, tag)
                             addToBackStack(FIRST_TRANSACTION)
                         }
                     }

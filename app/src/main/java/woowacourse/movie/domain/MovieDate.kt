@@ -9,6 +9,7 @@ class MovieDate private constructor(
     val month: Int,
     val day: Int,
 ) : Discountable, Serializable {
+
     private constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
 
     fun isWeekend(): Boolean {
