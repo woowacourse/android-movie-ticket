@@ -8,7 +8,7 @@ import java.time.LocalDate
 class MovieDateTest {
     @Test
     fun `상영일 범위 내에서 현재 날짜부터 마지막 상영일까지 목록을 반환한다`() {
-        val movieDate: List<MovieDate> = MovieDate.of(
+        val movieDate: List<MovieDate> = MovieDate.releaseDates(
             today = LocalDate.of(2023, 4, 10),
             from = LocalDate.of(2023, 4, 1),
             to = LocalDate.of(2023, 4, 28),
@@ -21,7 +21,7 @@ class MovieDateTest {
 
     @Test
     fun `오늘이 상영일 이전이라면 모든 상영일 목록을 반환한다`() {
-        val movieDate: List<MovieDate> = MovieDate.of(
+        val movieDate: List<MovieDate> = MovieDate.releaseDates(
             today = LocalDate.of(2023, 3, 25),
             from = LocalDate.of(2023, 4, 1),
             to = LocalDate.of(2023, 4, 28),
@@ -34,7 +34,7 @@ class MovieDateTest {
 
     @Test
     fun `오늘이 상영일 이후라면 빈 목록을 반환한다`() {
-        val movieDate: List<MovieDate> = MovieDate.of(
+        val movieDate: List<MovieDate> = MovieDate.releaseDates(
             today = LocalDate.of(2023, 4, 29),
             from = LocalDate.of(2023, 4, 1),
             to = LocalDate.of(2023, 4, 28),

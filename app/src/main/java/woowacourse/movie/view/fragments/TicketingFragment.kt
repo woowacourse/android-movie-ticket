@@ -30,7 +30,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     private val movieTicket get() = _movieTicket
 
     private val movieDates: List<MovieDate> by lazy {
-        getSerializable<Movie>(MOVIE_KEY)?.run { MovieDate.of(from = startDate, to = endDate) }
+        getSerializable<Movie>(MOVIE_KEY)?.run { MovieDate.releaseDates(from = startDate, to = endDate) }
             ?: emptyList()
     }
     private val _movieTimes = mutableListOf<MovieTime>()
@@ -99,7 +99,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 ) {
                     _selectedDate = movieDates[pos]
                     _movieTimes.clear()
-                    selectedDate?.run { _movieTimes.addAll(MovieTime.of(isWeekend(), isToday())) }
+                    selectedDate?.run { _movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
                     movieTimeAdapter.clear()
                     movieTimeAdapter.addAll(
                         movieTimes.map { getString(R.string.book_time, it.hour, it.min) }
@@ -127,7 +127,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 _movieTicket = getSerializable(TICKET_COUNT_STATE_KEY) as Ticket
             }
         }
-        selectedDate?.run { _movieTimes.addAll(MovieTime.of(isWeekend(), isToday())) }
+        selectedDate?.run { _movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

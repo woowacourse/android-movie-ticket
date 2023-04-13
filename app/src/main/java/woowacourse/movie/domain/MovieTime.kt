@@ -45,28 +45,24 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
         private const val HOUR_TO_MIN = 60
 
         private val weekendTimes: List<MovieTime> =
-            (WEEKEND_MIN_TIME until WEEKEND_MAX_TIME step WEEKEND_MOVIE_TIME_INTERVAL).map {
-                MovieTime(it)
-            }
+            (WEEKEND_MIN_TIME until WEEKEND_MAX_TIME step WEEKEND_MOVIE_TIME_INTERVAL)
+                .map { MovieTime(it) }
+
         private val weekdayTimes: List<MovieTime> =
-            (WEEKDAY_MIN_TIME until WEEKDAY_MAX_TIME step WEEKDAY_MOVIE_TIME_INTERVAL).map {
-                MovieTime(it)
-            }
+            (WEEKDAY_MIN_TIME until WEEKDAY_MAX_TIME step WEEKDAY_MOVIE_TIME_INTERVAL)
+                .map { MovieTime(it) }
 
         @JvmOverloads
-        fun of(
+        fun runningTimes(
             isWeekday: Boolean,
-            isToday: Boolean = true,
-            curHour: Int = LocalTime.now().hour,
-            curMin: Int = LocalTime.now().minute,
+            isToday: Boolean,
+            currentTime: LocalTime = LocalTime.now(),
         ): List<MovieTime> {
-            val hour = if (isToday) curHour else 0
-            val min = if (isToday) curMin else 0
-            val times = if (isWeekday) weekdayTimes else weekendTimes
-            return times.filter { MovieTime(it.hour, it.min) > MovieTime(hour, min) }
-        }
+            val runningTimes = if (isWeekday) weekdayTimes else weekendTimes
+            val hour = if (isToday) currentTime.hour else 0
+            val min = if (isToday) currentTime.minute else 0
 
-        @JvmOverloads
-        fun of(hour: Int, min: Int = DEFAULT_MIN): MovieTime = MovieTime(hour, min)
+            return runningTimes.filter { it > MovieTime(hour, min) }
+        }
     }
 }

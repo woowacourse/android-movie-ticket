@@ -7,8 +7,10 @@ import java.time.LocalDate
 class MovieDate private constructor(
     val year: Int,
     val month: Int,
-    val day: Int
+    val day: Int,
 ) : Serializable {
+    private constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
+
     fun isDiscountDay(): Boolean = day in DISCOUNT_DAYS
 
     fun isWeekend(): Boolean {
@@ -44,24 +46,22 @@ class MovieDate private constructor(
     companion object {
         private val DISCOUNT_DAYS = listOf(10, 20, 30)
 
-        private fun LocalDate.max(other: LocalDate): LocalDate {
+        private infix fun LocalDate.max(other: LocalDate): LocalDate {
             if (this > other) return this
             return other
         }
 
         @JvmOverloads
-        fun of(
-            today: LocalDate = LocalDate.now(),
+        fun releaseDates(
             from: LocalDate,
             to: LocalDate,
+            today: LocalDate = LocalDate.now(),
         ): List<MovieDate> {
             if (today > to) return emptyList()
-            return generateSequence(today.max(from)) { it.plusDays(1) }
+            return generateSequence(today max from) { it.plusDays(1) }
                 .takeWhile { it <= to }
-                .map { MovieDate(it.year, it.monthValue, it.dayOfMonth) }
+                .map { MovieDate(it) }
                 .toList()
         }
-
-        fun of(year: Int, month: Int, day: Int): MovieDate = MovieDate(year, month, day)
     }
 }
