@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model
 
 @JvmInline
 value class Price(val price: Int = DEFAULT) {

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,16 +11,20 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Price
-import woowacourse.movie.domain.TicketingInfo
+import woowacourse.movie.R
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.PlayingTimes
+import woowacourse.movie.model.Price
+import woowacourse.movie.model.TicketingInfo
+import woowacourse.movie.util.Formatter
+import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
 
-class TicketingActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ticketing)
+        setContentView(R.layout.activity_movie_detail)
 
         val savedCount = savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
         val savedDate = savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
@@ -49,7 +53,7 @@ class TicketingActivity : AppCompatActivity() {
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
 
         ticketingButton.setOnClickListener {
-            val intent = Intent(this, MovieTicketActivity::class.java)
+            val intent = Intent(this, TicketResultActivity::class.java)
             val ticketingInfo = TicketingInfo.of(
                 movie.title,
                 spinnerDate.selectedItem as LocalDate,

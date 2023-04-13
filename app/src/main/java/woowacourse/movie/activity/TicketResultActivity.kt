@@ -1,15 +1,18 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.TicketingInfo
+import woowacourse.movie.R
+import woowacourse.movie.model.TicketingInfo
+import woowacourse.movie.util.Formatter
+import woowacourse.movie.util.customGetSerializable
 
-class MovieTicketActivity : AppCompatActivity() {
+class TicketResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_ticket)
+        setContentView(R.layout.activity_ticket_result)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

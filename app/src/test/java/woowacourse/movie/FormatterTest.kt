@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
+import woowacourse.movie.util.Formatter
 import java.time.LocalDate
 import java.time.LocalTime
 

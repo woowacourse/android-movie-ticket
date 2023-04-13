@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,10 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.R
+import woowacourse.movie.activity.MovieDetailActivity
+import woowacourse.movie.model.Movie
+import woowacourse.movie.util.Formatter
 
 class MovieListAdapter(private val context: Context, private val movies: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int {
@@ -53,7 +56,7 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
         )
         holder.runningTime?.text = getString(R.string.running_time).format(movie.runningTime)
         holder.ticketingButton?.setOnClickListener {
-            val intent = Intent(context, TicketingActivity::class.java)
+            val intent = Intent(context, MovieDetailActivity::class.java)
             intent.putExtra(MOVIE_KEY, movie)
             context.startActivity(intent)
         }

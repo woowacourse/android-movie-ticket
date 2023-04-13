@@ -1,6 +1,4 @@
-package woowacourse.movie.domain
-
-import woowacourse.movie.PlayingTimes
+package woowacourse.movie.model
 
 data class Movie(
     val image: Int,

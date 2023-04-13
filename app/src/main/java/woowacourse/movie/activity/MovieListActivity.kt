@@ -1,9 +1,12 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.R
+import woowacourse.movie.adapter.MovieListAdapter
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.PlayingTimes
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {

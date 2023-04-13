@@ -2,8 +2,8 @@ package woowacourse.movie
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import woowacourse.movie.domain.MovieDayPolicy
-import woowacourse.movie.domain.Price
+import woowacourse.movie.model.Price
+import woowacourse.movie.model.policy.MovieDayPolicy
 import java.time.LocalDate
 import java.time.LocalTime
 
