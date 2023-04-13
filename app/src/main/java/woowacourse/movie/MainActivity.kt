@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             "해리포터",
             RunningDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 4, 1)),
             200,
-            "rkrkrkrkrkrk",
+            getString(R.string.description),
             R.drawable.img,
         ),
     )
