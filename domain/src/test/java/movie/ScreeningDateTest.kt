@@ -1,7 +1,7 @@
-package woowacourse.movie
+package movie
 
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -23,7 +23,7 @@ class ScreeningDateTest {
         val expect = screeningDate.dateList
 
         // then
-        assertEquals(expect, actual)
+        assertThat(expect).isEqualTo(actual)
     }
 
     @Test
@@ -48,7 +48,7 @@ class ScreeningDateTest {
         val expect = screeningDate.getScreeningTime(LocalDate.of(2023, 4, 1))
 
         // then
-        assertEquals(expect, actual)
+        assertThat(expect).isEqualTo(actual)
     }
 
     @Test
@@ -73,6 +73,6 @@ class ScreeningDateTest {
         val expect = screeningDate.getScreeningTime(LocalDate.of(2023, 4, 11))
 
         // then
-        assertEquals(expect, actual)
+        assertThat(expect).isEqualTo(actual)
     }
 }

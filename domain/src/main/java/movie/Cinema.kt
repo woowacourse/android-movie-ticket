@@ -1,4 +1,4 @@
-package woowacourse.movie
+package movie
 
 class Cinema(
     private val movies: List<MovieInfo>,

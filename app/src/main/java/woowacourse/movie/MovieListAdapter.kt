@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
+import movie.Cinema
+import movie.MovieInfo
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(

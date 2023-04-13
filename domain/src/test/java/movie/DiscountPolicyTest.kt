@@ -1,7 +1,7 @@
-package woowacourse.movie
+package movie
 
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -16,7 +16,7 @@ class DiscountPolicyTest {
         val discountPolicy = DiscountPolicy.of(localDate, localTime)
 
         // then
-        assertEquals(discountPolicy(10000), 10000)
+        assertThat(discountPolicy(10000)).isEqualTo(10000)
     }
 
     @Test
@@ -29,7 +29,7 @@ class DiscountPolicyTest {
         val discountPolicy = DiscountPolicy.of(localDate, localTime)
 
         // then
-        assertEquals(discountPolicy(10000), 9000)
+        assertThat(discountPolicy(10000)).isEqualTo(9000)
     }
 
     @Test
@@ -42,7 +42,7 @@ class DiscountPolicyTest {
         val discountPolicy = DiscountPolicy.of(localDate, localTime)
 
         // then
-        assertEquals(discountPolicy(10000), 7000)
+        assertThat(discountPolicy(10000)).isEqualTo(7000)
     }
 
     @Test
@@ -55,7 +55,7 @@ class DiscountPolicyTest {
         val discountPolicy = DiscountPolicy.of(localDate, localTime)
 
         // then
-        assertEquals(discountPolicy(10000), 7000)
+        assertThat(discountPolicy(10000)).isEqualTo(7000)
     }
 
     @Test
@@ -68,7 +68,7 @@ class DiscountPolicyTest {
         val discountPolicy = DiscountPolicy.of(localDate, localTime)
 
         // then
-        assertEquals(discountPolicy(10000), 8000)
+        assertThat(discountPolicy(10000)).isEqualTo(8000)
     }
 
     @Test
@@ -81,6 +81,6 @@ class DiscountPolicyTest {
         val discountPolicy = DiscountPolicy.of(localDate, localTime)
 
         // then
-        assertEquals(discountPolicy(10000), 8000)
+        assertThat(discountPolicy(10000)).isEqualTo(8000)
     }
 }

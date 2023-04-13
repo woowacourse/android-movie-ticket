@@ -5,6 +5,8 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import movie.MovieInfo
+import movie.MovieTicket
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 

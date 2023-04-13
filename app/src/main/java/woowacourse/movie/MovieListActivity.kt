@@ -3,6 +3,10 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import movie.Cinema
+import movie.Movie
+import movie.MovieInfo
+import movie.ScreeningDate
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
