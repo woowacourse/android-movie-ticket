@@ -10,11 +10,13 @@ data class Ticket(
     val numberOfPeople: Int,
 ) : Serializable {
 
+    private val discountPolicies = listOf(MovieDayDiscountPolicy(), TimeDiscountPolicy())
+
     fun calculateTotalPrice(): Int {
-        var a = price
-        a = calculateTicketPrice(a, MovieDayDiscountPolicy())
-        a = calculateTicketPrice(a, TimeDiscountPolicy())
-        return a * numberOfPeople
+        val discountedPrice = discountPolicies.fold(price) { ticketPrice, policy ->
+            calculateTicketPrice(ticketPrice, policy)
+        }
+        return discountedPrice * numberOfPeople
     }
 
     private fun calculateTicketPrice(price: Int, policy: DiscountPolicy): Int {
