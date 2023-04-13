@@ -18,24 +18,35 @@ class ReservationActivity : AppCompatActivity() {
     private var peopleCount = 1
     private lateinit var selectedScreeningDate: LocalDate
     private lateinit var selectedScreeningTime: LocalTime
+    private val movie: Movie by lazy { initMovieFromIntent() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
+
+        initViewData()
+        initSpinner()
+        initPeopleCountAdjustButtonClickListener()
+        initReserveButtonClickListener()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val peopleCountView = findViewById<TextView>(R.id.people_count)
+        peopleCountView.text = peopleCount.toString()
+    }
+
+    private fun initMovieFromIntent(): Movie {
         val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(MovieListAdapter.MOVIE, Movie::class.java)
         } else {
             intent.getSerializableExtra(MovieListAdapter.MOVIE) as? Movie
         }
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
-
-        initViewData(movie)
-        initSpinner(movie)
-        initPeopleCountAdjustButtonClickListener()
-        initReserveButtonClickListener(movie)
+        return movie
     }
 
-    private fun initViewData(movie: Movie) {
+    private fun initViewData() {
         val posterView = findViewById<ImageView>(R.id.movie_poster)
         posterView.setImageResource(movie.poster.resourceId)
         val titleView = findViewById<TextView>(R.id.movie_title)
@@ -50,7 +61,7 @@ class ReservationActivity : AppCompatActivity() {
         summaryView.text = movie.movieDetail.summary
     }
 
-    private fun initSpinner(movie: Movie) {
+    private fun initSpinner() {
         selectedScreeningDate = movie.screeningStartDate
         selectedScreeningTime = movie.getFirstScreeningTime(selectedScreeningDate)
 
@@ -113,7 +124,7 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initReserveButtonClickListener(movie: Movie) {
+    private fun initReserveButtonClickListener() {
         findViewById<Button>(R.id.reservation_button).setOnClickListener {
 
             val reservation = Reservation(
@@ -128,7 +139,42 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(PEOPLE_COUNT, peopleCount)
+        outState.putSerializable(SELECTED_DATE, selectedScreeningDate)
+        outState.putSerializable(SELECTED_TIME, selectedScreeningTime)
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        peopleCount = savedInstanceState.getInt(PEOPLE_COUNT)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            savedInstanceState.getSerializable(SELECTED_DATE, LocalDate::class.java)?.run {
+                selectedScreeningDate = this
+            }
+            savedInstanceState.getSerializable(SELECTED_TIME, LocalTime::class.java)?.run {
+                selectedScreeningTime = this
+            }
+        } else {
+            (savedInstanceState.getSerializable(SELECTED_DATE) as LocalDate?)?.run {
+                selectedScreeningDate = this
+            }
+            (savedInstanceState.getSerializable(SELECTED_TIME) as LocalTime?)?.run {
+                selectedScreeningTime = this
+            }
+        }
+    }
+
+
     companion object {
         const val RESERVATION = "RESERVATION"
+        private const val PEOPLE_COUNT = "PEOPLE_COUNT"
+        private const val SELECTED_DATE = "SELECTED_DATE"
+        private const val SELECTED_TIME = "SELECTED_TIME"
     }
 }
