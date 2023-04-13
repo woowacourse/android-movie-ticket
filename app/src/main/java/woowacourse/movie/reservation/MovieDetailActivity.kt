@@ -91,8 +91,8 @@ class MovieDetailActivity : AppCompatActivity() {
         minus.setOnClickListener {
             var previous = count.text.toString().toInt()
             previous--
-            if (previous < 0) {
-                Toaster.showToast(this, "예약 인원은 음수가 될 수 없습니다")
+            if (previous <= 0) {
+                Toaster.showToast(this, "예약 인원은 최소 한명 이상이어야 합니다")
                 return@setOnClickListener
             }
             count.text = previous.toString()

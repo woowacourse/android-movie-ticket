@@ -209,7 +209,7 @@
             android:layout_width="189dp"
             android:layout_height="33dp"
             android:layout_marginBottom="88.35dp"
-            android:text="0"
+            android:text="1"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
