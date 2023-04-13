@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.discountpolicy.DateTimeTimeDiscountAdapter
 import woowacourse.movie.formatScreenDateTime
 
 class CompletedActivity : AppCompatActivity() {
@@ -18,13 +17,14 @@ class CompletedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_completed)
 
-        val ticket: Ticket = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(TICKET, Ticket::class.java)
-                ?: throw IllegalArgumentException()
-        } else {
-            intent.getParcelableExtra(TICKET) ?: throw IllegalArgumentException()
-        }
+        val ticket: Ticket = getTicket()
         initView(ticket)
+    }
+
+    private fun getTicket() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        intent.getParcelableExtra(TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
+    } else {
+        intent.getParcelableExtra(TICKET) ?: throw IllegalArgumentException()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -43,15 +43,11 @@ class CompletedActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
             getString(R.string.normal_ticket_count).format(ticket.count)
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount).format(getPaymentAmount(ticket))
+            getString(R.string.payment_amount).format(ticket.getPaymentAmount())
     }
-
-    private fun getPaymentAmount(ticket: Ticket) =
-        DateTimeTimeDiscountAdapter(ticket.bookedDateTime).discount(TICKET_PRICE) * ticket.count
 
     companion object {
         private const val TICKET = "TICKET"
-        private const val TICKET_PRICE = 13000
 
         fun getIntent(context: Context, ticket: Ticket): Intent {
             return Intent(context, CompletedActivity::class.java).apply {
