@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.discountpolicy.DateTimeTimeDiscountAdapter
 import woowacourse.movie.formatScreenDateTime
 
 class CompletedActivity : AppCompatActivity() {
@@ -33,10 +34,11 @@ class CompletedActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
             getString(R.string.normal_ticket_count).format(ticket.count)
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount).format(getPaymentAmount(ticket.count)) // format(DecimalFormat("#,##0").format(getPaymentAmount(ticketCount)))
+            getString(R.string.payment_amount).format(getPaymentAmount(ticket))
     }
 
-    private fun getPaymentAmount(ticketCount: Int) = ticketCount * TICKET_PRICE
+    private fun getPaymentAmount(ticket: Ticket) =
+        DateTimeTimeDiscountAdapter(ticket.bookedDateTime).discount(TICKET_PRICE) * ticket.count
 
     companion object {
         private const val TICKET = "TICKET"
