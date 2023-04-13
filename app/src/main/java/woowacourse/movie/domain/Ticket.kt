@@ -6,7 +6,6 @@ import java.time.LocalDateTime
 data class Ticket(
     val price: Int,
     val date: LocalDateTime,
-    val movieTitle: String,
     val numberOfPeople: Int,
 ) : Serializable {
 

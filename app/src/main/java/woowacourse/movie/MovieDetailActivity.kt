@@ -96,11 +96,11 @@ class MovieDetailActivity : AppCompatActivity() {
                 Ticket(
                     13000,
                     LocalDateTime.of(selectedDate, selectedTime),
-                    movie.title,
                     numberOfBooker,
                 )
             val intent = Intent(this, TicketActivity::class.java)
             intent.putExtra("ticket", ticket)
+            intent.putExtra("movie", movie)
             startActivity(intent)
         }
     }

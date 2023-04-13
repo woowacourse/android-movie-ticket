@@ -1,11 +1,11 @@
 package woowacourse.movie
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
@@ -15,6 +15,7 @@ class TicketActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ticket)
 
         val ticket = intent.getSerializableExtra("ticket") as Ticket
+        val movie = intent.getSerializableExtra("movie") as Movie
 
         val movieTitle = findViewById<TextView>(R.id.ticket_title)
         val movieDate = findViewById<TextView>(R.id.ticket_date)
@@ -25,7 +26,7 @@ class TicketActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        movieTitle.text = ticket.movieTitle
+        movieTitle.text = movie.title
         movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
         numberOfPeople.text = ticket.numberOfPeople.toString()
         price.text = ticket.calculateTotalPrice().toString()
