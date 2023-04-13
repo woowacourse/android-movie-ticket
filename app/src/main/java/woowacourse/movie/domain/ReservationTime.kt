@@ -5,16 +5,20 @@ import java.time.format.DateTimeFormatter
 
 class ReservationTime(private val dayOfWeek: DayOfWeek) {
 
+    private fun getStartTime(): LocalTime = when (dayOfWeek) {
+        DayOfWeek.WEEKDAY -> LocalTime.of(9, 0)
+        DayOfWeek.WEEKEND -> LocalTime.of(10, 0)
+    }
+
     fun getScreeningTimes(): List<String> {
-        var startTime: LocalTime = when (dayOfWeek) {
-            DayOfWeek.WEEKDAY -> LocalTime.of(9, 0)
-            DayOfWeek.WEEKEND -> LocalTime.of(10, 0)
-        }
-        val list = mutableListOf<String>()
-        while (startTime.hour in (9..23)) {
-            list.add(startTime.format(DateTimeFormatter.ofPattern("HH:mm")))
-            startTime = startTime.plusHours(2)
-        }
-        return list
+        var startTime: LocalTime = getStartTime()
+        val endTime = LocalTime.of(23, 0)
+
+        val times = generateSequence(startTime) { it.plusMinutes(1) }
+            .takeWhile { !it.isAfter(endTime) }
+            .map { it.format(DateTimeFormatter.ofPattern("HH:mm")) }
+            .toList()
+
+        return times
     }
 }
