@@ -16,6 +16,9 @@ import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_TIME
+import woowacourse.movie.KEY_RESTORE_COUNT
+import woowacourse.movie.KEY_RESTORE_DATE
+import woowacourse.movie.KEY_RESTORE_TIME
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.Toaster
@@ -116,9 +119,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable("restore_date", selectDate)
-        outState.putSerializable("restore_time", selectTime)
-        outState.putInt("restore_count", count.text.toString().toInt())
+        outState.putSerializable(KEY_RESTORE_DATE, selectDate)
+        outState.putSerializable(KEY_RESTORE_TIME, selectTime)
+        outState.putInt(KEY_RESTORE_COUNT, count.text.toString().toInt())
     }
 
     fun setTimeSpinnerAdapter() {
@@ -139,13 +142,13 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        selectDate = savedInstanceState.customGetSerializable("restore_date")!!
+        selectDate = savedInstanceState.customGetSerializable(KEY_RESTORE_DATE)!!
         setTimeSpinnerAdapter()
-        selectTime = savedInstanceState.customGetSerializable("restore_time")!!
+        selectTime = savedInstanceState.customGetSerializable(KEY_RESTORE_TIME)!!
         runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
-        count.text = savedInstanceState.getInt("restore_count").toString()
+        count.text = savedInstanceState.getInt(KEY_RESTORE_COUNT).toString()
     }
 
     private fun setOnClickDateListener() {
