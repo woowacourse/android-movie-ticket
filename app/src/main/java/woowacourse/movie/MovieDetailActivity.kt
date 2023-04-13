@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -38,6 +39,8 @@ class MovieDetailActivity : AppCompatActivity() {
         setTimeSpinner()
         setPeopleCountController()
         setBookingButton(movie)
+
+        loadSavedData(savedInstanceState)
     }
 
     private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -153,5 +156,22 @@ class MovieDetailActivity : AppCompatActivity() {
         val intent = Intent(this, MovieTicketActivity::class.java)
         intent.putExtra("ticket", ticket)
         startActivity(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+
+        outState.putInt("date_position", dateSpinner.selectedItemPosition)
+        outState.putInt("time_position", timeSpinner.selectedItemPosition)
+        outState.putInt("count", peopleCount.count)
+    }
+
+    private fun loadSavedData(savedInstanceState: Bundle?) {
+        val datePosition = savedInstanceState?.getInt("date_position") ?: 0
+        val timePosition = savedInstanceState?.getInt("time_position") ?: 0
+        val count = savedInstanceState?.getInt("count") ?: 1
+        dateSpinner.setSelection(datePosition)
+        timeSpinner.setSelection(timePosition)
+        peopleCount = PeopleCount(count)
     }
 }
