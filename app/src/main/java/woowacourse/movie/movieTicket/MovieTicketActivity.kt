@@ -5,14 +5,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import movie.MovieInfo
 import movie.MovieTicket
 import woowacourse.movie.R
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
-    private val movieInfo by lazy { intent.getSerializableExtra("movieInfo") as MovieInfo }
     private val ticket by lazy { intent.getSerializableExtra("movieTicket") as MovieTicket }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +42,12 @@ class MovieTicketActivity : AppCompatActivity() {
         val ticketMovieReleaseDateView = findViewById<TextView>(R.id.ticket_release_date)
         val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
 
-        with(movieInfo) {
-            ticketTitleView.text = title
-            ticketMovieReleaseDateView.text = ticket.date.format(dateTimeFormatter)
-            ticketCountView.text = getString(R.string.movie_ticket_count).format(ticket.count)
+        with(ticket) {
+            ticketTitleView.text = this.title
+            ticketMovieReleaseDateView.text = this.date.format(dateTimeFormatter)
+            ticketCountView.text = getString(R.string.movie_ticket_count).format(this.count)
             ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(
-                decimalFormat.format(ticket.getTotalPrice()),
+                decimalFormat.format(this.getTotalPrice()),
             )
         }
     }

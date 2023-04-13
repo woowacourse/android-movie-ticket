@@ -141,12 +141,12 @@ class MovieReservationActivity : AppCompatActivity() {
                 LocalTime.parse(findViewById<Spinner>(R.id.reservation_screening_time_spinner).selectedItem.toString())
             val discountPolicy = movieInfo.getDiscountPolicy(selectedDate, selectedTime)
             val movieTicket = MovieTicket(
-                discountPolicy(MOVIE_TICKET_PRICE),
-                ticketCount,
-                selectedDate,
-                selectedTime,
+                eachPrice = discountPolicy(MOVIE_TICKET_PRICE),
+                count = ticketCount,
+                title = movieInfo.title,
+                date = selectedDate,
+                time = selectedTime,
             )
-            intent.putExtra("movieInfo", movieInfo)
             intent.putExtra("movieTicket", movieTicket)
             ContextCompat.startActivity(this, intent, null)
         }
