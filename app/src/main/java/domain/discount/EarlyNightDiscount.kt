@@ -10,7 +10,8 @@ class EarlyNightDiscount : DiscountRule {
     }
 
     private fun isDiscountCondition(screeningDateTime: LocalDateTime): Boolean {
-        if (screeningDateTime.hour in 11..20) return false
-        return true
+        if (screeningDateTime.hour <= 11) return true
+        if (screeningDateTime.hour >= 20) return true
+        return false
     }
 }
