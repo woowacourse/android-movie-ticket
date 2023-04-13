@@ -11,7 +11,7 @@ import woowacourse.movie.R
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
-    private val Cinema: Cinema = Cinema(
+    private val cinema: Cinema = Cinema(
         listOf(
             MovieInfo(
                 movie = Movie(
@@ -44,11 +44,11 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
-        initMovieList()
+        adaptMovieList()
     }
 
-    private fun initMovieList() {
+    private fun adaptMovieList() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        movieListView.adapter = MovieListAdapter(this, Cinema)
+        movieListView.adapter = MovieListAdapter(this, cinema)
     }
 }
