@@ -13,6 +13,7 @@ import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
+import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -39,14 +40,16 @@ class ReservationConfirmActivity : AppCompatActivity() {
         val dateTextView = findViewById<TextView>(R.id.reservation_date)
         val moneyTextView = findViewById<TextView>(R.id.reservation_money)
 
+        val dec = DecimalFormat("#,###")
+        val money = DiscountCalculator().discount(reservationCount, dateTime).value
+
         titleTextView.text = movie.title
         dateTextView.text = dateTime.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
-        moneyTextView.text =
-            DiscountCalculator().discount(reservationCount, dateTime).value.toString()
+        moneyTextView.text = dec.format(money)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item?.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true
