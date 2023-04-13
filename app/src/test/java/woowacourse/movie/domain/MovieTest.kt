@@ -13,8 +13,8 @@ class MovieTest {
             LocalDate.of(2024, 3, 1),
             LocalDate.of(2024, 3, 7),
             Minute(152),
-            Poster(1),
-            MovieDetail("요약")
+            1,
+            "요약"
         )
 
         val actual = movie.getAllScreeningDates()
@@ -38,8 +38,8 @@ class MovieTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 7),
             Minute(152),
-            Poster(1),
-            MovieDetail("요약")
+            1,
+            "요약"
         )
         val screeningDate = LocalDate.of(2023, 3, 1) // 수요일
 
@@ -65,8 +65,8 @@ class MovieTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 7),
             Minute(152),
-            Poster(1),
-            MovieDetail("요약")
+            1,
+            "요약"
         )
         val screeningDate = LocalDate.of(2023, 3, 4) // 토요일
 

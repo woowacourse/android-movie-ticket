@@ -35,7 +35,7 @@ class MovieListAdapter(
         movie: Movie
     ) {
         convertView.findViewById<ImageView>(R.id.movie_poster)
-            ?.setImageResource(movie.poster.resourceId)
+            ?.setImageResource(movie.posterResourceId)
         convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
         convertView.findViewById<TextView>(R.id.movie_screening_date)?.text =
             context.resources.getString(R.string.screening_date_format)

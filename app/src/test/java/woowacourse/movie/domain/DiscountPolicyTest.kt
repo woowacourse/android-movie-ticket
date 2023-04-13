@@ -13,8 +13,8 @@ class DiscountPolicyTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 31),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
         val reservation = Reservation(movie, 2, LocalDateTime.of(2023, 3, 10, 12, 0))
 
@@ -31,8 +31,8 @@ class DiscountPolicyTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 31),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
         val peopleCount = 2
         val reservation = Reservation(movie, peopleCount, LocalDateTime.of(2023, 3, 1, 11, 0))
@@ -50,8 +50,8 @@ class DiscountPolicyTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 31),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
         val peopleCount = 2
         val reservation = Reservation(movie, peopleCount, LocalDateTime.of(2023, 3, 1, 20, 0))
@@ -69,8 +69,8 @@ class DiscountPolicyTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 31),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
         val peopleCount = 2
         val reservation = Reservation(movie, peopleCount, LocalDateTime.of(2023, 3, 10, 20, 0))
@@ -89,8 +89,8 @@ class DiscountPolicyTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 31),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
         val peopleCount = 2
         val reservation = Reservation(movie, peopleCount, LocalDateTime.of(2023, 3, 1, 19, 0))

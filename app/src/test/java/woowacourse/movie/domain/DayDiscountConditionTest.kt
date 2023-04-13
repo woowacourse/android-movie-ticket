@@ -14,8 +14,8 @@ class DayDiscountConditionTest {
             LocalDate.of(2023, 3, 1),
             LocalDate.of(2023, 3, 31),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
 
         val reservation = Reservation(movie, 2, LocalDateTime.of(2023, 3, 1, 0, 0))

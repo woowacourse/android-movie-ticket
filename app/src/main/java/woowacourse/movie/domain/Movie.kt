@@ -10,8 +10,8 @@ class Movie(
     val screeningStartDate: LocalDate,
     val screeningEndDate: LocalDate,
     val runningTime: Minute,
-    val poster: Poster,
-    val movieDetail: MovieDetail
+    val posterResourceId: Int,
+    val summary: String
 ) : Serializable {
 
     fun getAllScreeningDates(): List<LocalDate> {

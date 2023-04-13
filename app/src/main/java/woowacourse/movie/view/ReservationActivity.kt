@@ -49,7 +49,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initViewData() {
         val posterView = findViewById<ImageView>(R.id.movie_poster)
-        posterView.setImageResource(movie.poster.resourceId)
+        posterView.setImageResource(movie.posterResourceId)
         val titleView = findViewById<TextView>(R.id.movie_title)
         titleView.text = movie.title
         val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
@@ -62,7 +62,7 @@ class ReservationActivity : AppCompatActivity() {
         runningTimeView.text =
             getString(R.string.running_time_format).format(movie.runningTime.value)
         val summaryView = findViewById<TextView>(R.id.movie_summary)
-        summaryView.text = movie.movieDetail.summary
+        summaryView.text = movie.summary
     }
 
     private fun initSpinner() {

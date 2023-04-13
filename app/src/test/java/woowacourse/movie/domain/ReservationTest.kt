@@ -38,8 +38,8 @@ class ReservationTest(private val illegalPeopleCount: Int) {
             LocalDate.of(2024, 3, 2),
             LocalDate.of(2024, 3, 31),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
 
         assertThrows(IllegalArgumentException::class.java) {
@@ -57,8 +57,8 @@ class ReservationTest(private val illegalPeopleCount: Int) {
             LocalDate.now(),
             LocalDate.now().plusDays(1),
             Minute(120),
-            Poster(1),
-            MovieDetail("줄거리")
+            1,
+            "줄거리"
         )
 
     companion object {
