@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="weekday_times">
+    <item>09:00</item>
+    <item>11:00</item>
+    <item>13:00</item>
+    <item>15:00</item>
+    <item>17:00</item>
+    <item>19:00</item>
+    <item>21:00</item>
+    <item>23:00</item>
+</string-array>
+</resources>

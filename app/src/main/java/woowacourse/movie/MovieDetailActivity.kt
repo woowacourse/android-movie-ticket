@@ -143,10 +143,10 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     fun setTimeSpinner(selectedDay: LocalDate) {
-        val timeAdapter = ArrayAdapter(
-            this@MovieDetailActivity,
-            android.R.layout.simple_spinner_item,
+        val timeAdapter = ArrayAdapter.createFromResource(
+            this,
             ReservationTime(DayOfWeek.checkDayOfWeek(selectedDay)).getScreeningTimes(),
+            android.R.layout.simple_spinner_item,
         )
 
         timeAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
@@ -166,5 +166,12 @@ class MovieDetailActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("BOOKER_NUMBER", numberOfBooker)
+        outState.putInt("DATE_SPINNER_POSITION", dateSpinnerPosition)
+        outState.putInt("TIME_SPINNER_POSITION", timeSpinnerPosition)
+        super.onSaveInstanceState(outState)
     }
 }
