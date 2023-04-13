@@ -9,7 +9,7 @@
         android:id="@+id/movie_image_view"
         android:layout_width="76dp"
         android:layout_height="108dp"
-        android:src="@drawable/image_movie_poster_harry_potter"
+        android:src="@drawable/baseline_image_24"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="10dp"
-        android:text="해리 포터와 마법사의 돌"
+        android:text="영화 제목"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/title_medium"
         app:layout_constraintLeft_toRightOf="@id/movie_image_view"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,9 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:text="상영일: 2024.03.06"
+        android:text="상영일: 0000.00.00"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_medium"
         app:layout_constraintLeft_toRightOf="@id/movie_image_view"
         app:layout_constraintTop_toBottomOf="@id/movie_name_text_view" />
 
@@ -44,7 +44,7 @@
         android:layout_marginStart="15dp"
         android:text="러닝타임: 000분"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_medium"
         app:layout_constraintLeft_toRightOf="@+id/movie_image_view"
         app:layout_constraintTop_toBottomOf="@+id/movie_screening_date_text_view" />
 

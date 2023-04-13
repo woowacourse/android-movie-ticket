@@ -22,8 +22,8 @@
                 android:id="@+id/reservation_movie_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:src="@drawable/image_movie_poster_harry_potter" />
+                android:adjustViewBounds="true"
+                android:src="@drawable/baseline_image_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,8 +35,9 @@
                     android:id="@+id/reservation_movie_name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="해리 포터와 마법사의 돌"
-                    android:textSize="24dp" />
+                    android:text="영화 제목"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_large" />
 
                 <TextView
                     android:id="@+id/reservation_movie_screening_date_text_view"
@@ -56,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="마법 영화" />
+                    android:text="영화 설명" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -76,13 +77,15 @@
                 android:id="@+id/screening_date_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textAlignment="center" />
 
             <Spinner
                 android:id="@+id/screening_time_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textAlignment="center" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,14 +99,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="-" />
+                android:text="@string/ticket_count_minus_button_text"
+                android:textSize="@dimen/text_large" />
 
             <TextView
                 android:id="@+id/reservation_ticket_count_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:text="1"
+                android:text="개수"
                 android:textAlignment="center" />
 
             <Button
@@ -111,15 +115,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="+" />
+                android:text="@string/ticket_count_plus_button_text"
+                android:textSize="@dimen/text_large" />
         </LinearLayout>
 
         <Button
             android:id="@+id/reservation_complete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="예매 완료"
-            android:textSize="20dp" />
+            android:text="@string/reservation_complete_button_text"
+            android:textSize="@dimen/text_large" />
     </LinearLayout>
 
 </LinearLayout>
