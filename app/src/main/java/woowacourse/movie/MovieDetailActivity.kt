@@ -13,7 +13,7 @@ import android.widget.Toast
 import woowacourse.movie.domain.MovieSchedule
 
 class MovieDetailActivity : BackButtonActivity() {
-    private var isFirst = true
+    private var restoreInstanceFlag = true
     private val dateSpinner: Spinner by lazy {
         findViewById(R.id.sp_movie_date)
     }
@@ -27,7 +27,7 @@ class MovieDetailActivity : BackButtonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        isFirst = true
+        restoreInstanceFlag = true
 
         val movieData = intent.customGetSerializable<Movie>("movieData")
         processEmptyMovieData(movieData)
@@ -100,7 +100,7 @@ class MovieDetailActivity : BackButtonActivity() {
                     android.R.layout.simple_spinner_item,
                     movieSchedule.getScheduleTimes(scheduleDate[position])
                 )
-                if (isFirst && savedInstanceState != null) {
+                if (restoreInstanceFlag && savedInstanceState != null) {
                     timeSpinner.setSelection(
                         (
                             savedInstanceState.getString("time")
@@ -108,7 +108,7 @@ class MovieDetailActivity : BackButtonActivity() {
                                     .first()
                             ).toInt()
                     )
-                    isFirst = false
+                    restoreInstanceFlag = false
                 }
             }
 
