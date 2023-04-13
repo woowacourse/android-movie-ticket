@@ -19,7 +19,7 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var selectedScreeningDate: LocalDate
     private lateinit var selectedScreeningTime: LocalTime
     private val movie: Movie by lazy { initMovieFromIntent() }
-    private var timeSpinnerPosition = -1
+    private var timeSpinnerPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +85,7 @@ class ReservationActivity : AppCompatActivity() {
                 id: Long
             ) {
                 selectedScreeningDate = screeningDates[position]
-                if (timeSpinnerPosition != -1) {
-                    initTimeSpinner(timeSpinnerPosition)
-                } else {
-                    initTimeSpinner(null)
-                }
+                initTimeSpinner(timeSpinnerPosition)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
