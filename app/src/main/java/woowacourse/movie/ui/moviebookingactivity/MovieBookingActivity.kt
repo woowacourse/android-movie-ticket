@@ -13,7 +13,6 @@ import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
-import woowacourse.movie.util.customGetParcelable
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
@@ -29,8 +28,6 @@ class MovieBookingActivity : AppCompatActivity() {
     lateinit var timeSpinner: Spinner
     lateinit var dateSpinnerAdapter: DateSpinnerAdapter
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
-    var dateSpinnerRecoverState: Int = -1
-    var timeSpinnerRecoverState: Int = -1
 
     var ticketCount by Delegates.observable(0) { _, _, new ->
         tvTicketCount.text = new.toString()
@@ -53,20 +50,13 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelable("movieData", movieData)
         outState.putInt("ticketCount", ticketCount)
-        outState.putInt("selectedDatePosition", dateSpinner.selectedItemPosition)
-        outState.putInt("selectedTimePosition", timeSpinner.selectedItemPosition)
         super.onSaveInstanceState(outState)
     }
 
     private fun recoverState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            movieData = savedInstanceState.customGetParcelable("movieData")
-                ?: throw IllegalStateException(RECOVER_STATE_ERROR)
             ticketCount = savedInstanceState.getInt("ticketCount")
-            dateSpinnerRecoverState = savedInstanceState.getInt("selectedDatePosition")
-            timeSpinnerRecoverState = savedInstanceState.getInt("selectedTimePosition")
         }
     }
 
@@ -86,10 +76,6 @@ class MovieBookingActivity : AppCompatActivity() {
                 this
             )
                 .apply { initAdapter() }
-        if (dateSpinnerRecoverState != -1 && timeSpinnerRecoverState != -1) {
-            dateSpinner.setSelection(dateSpinnerRecoverState)
-            timeSpinner.setSelection(timeSpinnerRecoverState)
-        }
     }
 
     private fun initExtraData() {
