@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Movie</string>
+
     <string name="reservation_key">reservation</string>
     <string name="movie_key">movie</string>
+    <string name="ticket_count_key">ticket_count</string>
+    <string name="screening_date_key">screening_date</string>
+    <string name="screening_time_key">screening_time</string>
+
     <string name="screening_period_form">상영일: %s ~ %s</string>
     <string name="running_time_form">러닝타임: %d분</string>
+    <string name="ticket_count_condition_message_form">티켓 수는 %d장 이상이어야합니다."</string>
 </resources>

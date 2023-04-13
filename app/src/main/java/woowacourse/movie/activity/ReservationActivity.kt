@@ -63,16 +63,10 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
-        loadInstances(savedInstanceState)
         initReservationView()
         initClickListener()
+        initTicketCount(savedInstanceState)
         initSpinner(savedInstanceState)
-    }
-
-    private fun loadInstances(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) return
-        val ticketCount: Int = savedInstanceState.getInt("ticket_count")
-        ticketCountTextView.text = ticketCount.toString()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -101,6 +95,15 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
+    private fun initTicketCount(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            ticketCountTextView.text = TicketCount.MINIMUM.toString()
+            return
+        }
+        val ticketCount: Int = savedInstanceState.getInt(getString(R.string.ticket_count_key))
+        ticketCountTextView.text = ticketCount.toString()
+    }
+
     private fun initSpinner(savedInstanceState: Bundle?) {
         val dates = movie.screeningPeriod.getScreeningDates()
 
@@ -109,6 +112,7 @@ class ReservationActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             dates
         )
+
         screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -120,20 +124,28 @@ class ReservationActivity : AppCompatActivity() {
                     initTimeSpinner(dates[position])
                     return
                 }
-                val screeningDate: LocalDate = LocalDate.ofEpochDay(savedInstanceState.getLong("screening_date"))
-                val screeningTime: LocalTime = LocalTime.parse(savedInstanceState.getString("screening_time"))
-
-                val selectedDatePosition: Int = movie.screeningPeriod.getScreeningDates().indexOf(screeningDate)
-                val selectedTimePosition: Int = movie.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
-
-                screeningDateSpinner.setSelection(selectedDatePosition)
-                initTimeSpinner(screeningDate, selectedTimePosition)
+                loadSpinner(savedInstanceState)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 initTimeSpinner(null)
             }
         }
+    }
+
+    private fun loadSpinner(savedInstanceState: Bundle) {
+        val screeningDate: LocalDate =
+            LocalDate.ofEpochDay(savedInstanceState.getLong(getString(R.string.screening_date_key)))
+        val screeningTime: LocalTime =
+            LocalTime.parse(savedInstanceState.getString(getString(R.string.screening_time_key)))
+
+        val selectedDatePosition: Int =
+            movie.screeningPeriod.getScreeningDates().indexOf(screeningDate)
+        val selectedTimePosition: Int =
+            movie.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
+
+        screeningDateSpinner.setSelection(selectedDatePosition)
+        initTimeSpinner(screeningDate, selectedTimePosition)
     }
 
     private fun initTimeSpinner(date: LocalDate?, defaultPoint: Int = 0) {
@@ -159,7 +171,9 @@ class ReservationActivity : AppCompatActivity() {
                 val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() - 1)
                 ticketCountTextView.text = ticketCount.value.toString()
             }.onFailure {
-                Toast.makeText(this, TICKET_CONDITION, Toast.LENGTH_SHORT).show()
+                val ticketCountConditionMessage =
+                    getString(R.string.ticket_count_condition_message_form).format(TicketCount.MINIMUM)
+                Toast.makeText(this, ticketCountConditionMessage, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -183,9 +197,5 @@ class ReservationActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-    }
-
-    companion object {
-        private const val TICKET_CONDITION = "티켓 수는 ${TicketCount.MINIMUM}장 이상이어야합니다."
     }
 }
