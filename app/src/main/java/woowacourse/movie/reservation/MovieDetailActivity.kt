@@ -1,6 +1,7 @@
 package woowacourse.movie.reservation
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +23,7 @@ import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDateSetter
 import woowacourse.movie.domain.RunningTimeSetter
 import woowacourse.movie.entity.Count
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -40,11 +42,13 @@ class MovieDetailActivity : AppCompatActivity() {
     private val plus: Button by lazy { findViewById(R.id.plus) }
     private val count: TextView by lazy { findViewById(R.id.count) }
 
+    private val runningDateSetter: RunningDateSetter = RunningDateSetter()
+    private val runningTimeSetter: RunningTimeSetter = RunningTimeSetter()
     private lateinit var selectDate: LocalDate
     private lateinit var selectTime: LocalTime
     private lateinit var movie: Movie
     private val runningDates: List<LocalDate> by lazy {
-        RunningDateSetter().getRunningDates(
+        runningDateSetter.getRunningDates(
             movie.startDate,
             movie.endDate
         )
@@ -55,67 +59,32 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        movie = intent.getSerializableExtra(KEY_MOVIE) as Movie
+        movie = intent.customGetSerializable(KEY_MOVIE)!!
         initSetOnClickListener()
-        image.setImageResource(movie.imgResourceId)
         initMovieData()
+        setDateSpinnerAdapter()
+        initInstanceState()
+        savedInstanceState?.let { restoreInstanceState(it) }
+        setOnClickDateListener()
+        setOnClickTimeListener()
+    }
 
+    private fun initMovieData() {
+        image.setImageResource(movie.imgResourceId)
+        title.text = movie.title
+        startDate.text = movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+        endDate.text = movie.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+        time.text = movie.runningTime.value.toString()
+        description.text = movie.description
+    }
+
+    private fun setDateSpinnerAdapter() {
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
             runningDates.map { it.toString() }
         )
         dateSpinner.adapter = dateSpinnerAdapter
-
-        if (savedInstanceState != null) {
-            selectDate = savedInstanceState.getSerializable("restore_date") as LocalDate
-            setTimeSpinnerAdapter()
-            selectTime = savedInstanceState.getSerializable("restore_time") as LocalTime
-            runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
-            dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
-            timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
-            count.text = savedInstanceState.getInt("restore_count").toString()
-        } else {
-            selectDate = movie.startDate
-            setTimeSpinnerAdapter()
-            runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
-            selectTime = runningTimes[0]
-        }
-
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectDate = runningDates[position]
-                setTimeSpinnerAdapter()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectTime = runningTimes[position]
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-    }
-
-    private fun initMovieData() {
-        title.text = movie.title
-        startDate.text = movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        endDate.text = movie.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        time.text = movie.runningTime.value.toString()
-        description.text = movie.description
     }
 
     private fun initSetOnClickListener() {
@@ -128,6 +97,7 @@ class MovieDetailActivity : AppCompatActivity() {
             }
             count.text = previous.toString()
         }
+
         plus.setOnClickListener {
             var previous = count.text.toString().toInt()
             previous++
@@ -152,7 +122,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     fun setTimeSpinnerAdapter() {
-        runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+        runningTimes = runningTimeSetter.getRunningTimes(selectDate)
         val timeSpinnerAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -161,8 +131,74 @@ class MovieDetailActivity : AppCompatActivity() {
         timeSpinner.adapter = timeSpinnerAdapter
     }
 
+    private fun initInstanceState() {
+        selectDate = movie.startDate
+        setTimeSpinnerAdapter()
+        runningTimes = runningTimeSetter.getRunningTimes(selectDate)
+        selectTime = runningTimes[0]
+    }
+
+    private fun restoreInstanceState(savedInstanceState: Bundle) {
+        selectDate = savedInstanceState.customGetSerializable("restore_date")!!
+        setTimeSpinnerAdapter()
+        selectTime = savedInstanceState.customGetSerializable("restore_time")!!
+        runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+        dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
+        timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
+        count.text = savedInstanceState.getInt("restore_count").toString()
+    }
+
+    private fun setOnClickDateListener() {
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectDate = runningDates[position]
+                setTimeSpinnerAdapter()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun setOnClickTimeListener() {
+        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectTime = runningTimes[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    inline fun <reified T : Serializable> Intent.customGetSerializable(key: String): T? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getSerializableExtra(key, T::class.java)
+        } else {
+            getSerializableExtra(key) as? T
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    inline fun <reified T : Serializable> Bundle.customGetSerializable(key: String): T? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getSerializable(key, T::class.java)
+        } else {
+            getSerializable(key) as? T
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item?.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true

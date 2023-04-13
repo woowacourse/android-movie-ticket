@@ -1,5 +1,7 @@
 package woowacourse.movie.confirm
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -13,6 +15,7 @@ import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
+import java.io.Serializable
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -20,32 +23,45 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReservationConfirmActivity : AppCompatActivity() {
+    private val titleTextView: TextView by lazy { findViewById(R.id.reservation_title) }
+    private val dateTextView: TextView by lazy { findViewById(R.id.reservation_date) }
+    private val moneyTextView: TextView by lazy { findViewById(R.id.reservation_money) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_confirm)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = intent.getSerializableExtra(KEY_MOVIE) as Movie
-        val reservationCount = intent.getSerializableExtra(KEY_RESERVATION_COUNT) as Count
-        val date =
-            intent.getSerializableExtra(KEY_RESERVATION_DATE) as LocalDate
-        val time =
-            intent.getSerializableExtra(KEY_RESERVATION_TIME) as LocalTime
+        val movie = intent.customGetSerializable<Movie>(KEY_MOVIE)!!
+        val reservationCount = intent.customGetSerializable<Count>(KEY_RESERVATION_COUNT)!!
+        val date = intent.customGetSerializable<LocalDate>(KEY_RESERVATION_DATE)
+        val time = intent.customGetSerializable<LocalTime>(KEY_RESERVATION_TIME)
         val dateTime = LocalDateTime.of(date, time)
-
         Log.d("mendel", "$movie , $reservationCount")
 
-        val titleTextView = findViewById<TextView>(R.id.reservation_title)
-        val dateTextView = findViewById<TextView>(R.id.reservation_date)
-        val moneyTextView = findViewById<TextView>(R.id.reservation_money)
+        setInitReservationData(movie, dateTime, reservationCount)
+    }
 
-        val dec = DecimalFormat("#,###")
-        val money = DiscountCalculator().discount(reservationCount, dateTime).value
-
+    private fun setInitReservationData(movie: Movie, dateTime: LocalDateTime, reservationCount: Count) {
         titleTextView.text = movie.title
         dateTextView.text = dateTime.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
-        moneyTextView.text = dec.format(money)
+        moneyTextView.text = formattingMoney(reservationCount, dateTime)
+    }
+
+    private fun formattingMoney(reservationCount: Count, dateTime: LocalDateTime): String {
+        val dec = DecimalFormat("#,###")
+        val money = DiscountCalculator().discount(reservationCount, dateTime).value
+        return dec.format(money)
+    }
+
+    @Suppress("DEPRECATION")
+    inline fun <reified T : Serializable> Intent.customGetSerializable(key: String): T? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getSerializableExtra(key, T::class.java)
+        } else {
+            getSerializableExtra(key) as? T
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

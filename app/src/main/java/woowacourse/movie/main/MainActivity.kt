@@ -12,14 +12,17 @@ import woowacourse.movie.reservation.MovieDetailActivity
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
+    private val movieListView: ListView by lazy { findViewById(R.id.listView) }
+    private val adapter: MovieAdapter by lazy { MovieAdapter(layoutInflater, initMovieData()) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initMovieListView()
+    }
 
-        val movieListView = findViewById<ListView>(R.id.listView)
-        val adapter = MovieAdapter(layoutInflater, initMovieData())
+    private fun initMovieListView() {
         movieListView.adapter = adapter
-
         adapter.clickListener = object : MovieAdapter.ReservationClickListener {
             override fun onClick(position: Int) {
                 val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
