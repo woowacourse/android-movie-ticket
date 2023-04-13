@@ -11,4 +11,5 @@
     <string name="price_payment">원 (%s 결제)</string>
     <string name="normal">일반</string>
     <string name="date_time">%s %s</string>
+    <string name="date_format">YYYY.M.d</string>
 </resources>

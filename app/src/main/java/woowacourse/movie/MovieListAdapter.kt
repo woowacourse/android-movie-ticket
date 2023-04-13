@@ -12,7 +12,8 @@ import android.widget.TextView
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val context: Context, private val movies: List<Movie>) : BaseAdapter() {
+class MovieListAdapter(private val context: Context, private val movies: List<Movie>) :
+    BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
     }
@@ -29,31 +30,12 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_item, null)
 
         if (convertView == null) {
-            val holder = ViewHolder()
-            holder.image = view.findViewById(R.id.img_movie)
-            holder.title = view.findViewById(R.id.text_title)
-            holder.playingDate = view.findViewById(R.id.text_playing_date)
-            holder.runningTime = view.findViewById(R.id.text_running_time)
-            holder.ticketingButton = view.findViewById(R.id.btn_ticketing)
-
-            view.tag = holder
+            view.tag = getViewHolder(view)
         }
 
         val holder = view.tag as ViewHolder
         val movie = getItem(position) as Movie
-
-        holder.image?.setImageResource(movie.image)
-        holder.title?.text = movie.title
-        val dateFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
-        holder.playingDate?.text = context.getString(R.string.playing_time).format(dateFormatter.format(movie.playingTimes.startDate), dateFormatter.format(movie.playingTimes.endDate))
-        holder.runningTime?.text = context.getString(R.string.running_time).format(movie.runningTime)
-
-        holder.ticketingButton?.setOnClickListener {
-            val intent = Intent(context, TicketingActivity::class.java)
-            intent.putExtra("movie", movie)
-            context.startActivity(intent)
-        }
-
+        setViewHolder(holder, movie)
         return view
     }
 
@@ -63,5 +45,39 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
         var playingDate: TextView? = null
         var runningTime: TextView? = null
         var ticketingButton: Button? = null
+    }
+
+    private fun getViewHolder(view: View): ViewHolder {
+        val holder = ViewHolder()
+        holder.image = view.findViewById(R.id.img_movie)
+        holder.title = view.findViewById(R.id.text_title)
+        holder.playingDate = view.findViewById(R.id.text_playing_date)
+        holder.runningTime = view.findViewById(R.id.text_running_time)
+        holder.ticketingButton = view.findViewById(R.id.btn_ticketing)
+
+        return holder
+    }
+
+    private fun setViewHolder(holder: ViewHolder, movie: Movie) {
+        holder.image?.setImageResource(movie.image)
+        holder.title?.text = movie.title
+        val dateFormatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
+        holder.playingDate?.text = getString(R.string.playing_time).format(
+            dateFormatter.format(movie.playingTimes.startDate),
+            dateFormatter.format(movie.playingTimes.endDate)
+        )
+        holder.runningTime?.text = getString(R.string.running_time).format(movie.runningTime)
+
+        holder.ticketingButton?.setOnClickListener {
+            val intent = Intent(context, TicketingActivity::class.java)
+            intent.putExtra(MOVIE_KEY, movie)
+            context.startActivity(intent)
+        }
+    }
+
+    private fun getString(string: Int): String = context.getString(string)
+
+    companion object {
+        private const val MOVIE_KEY = "movie"
     }
 }
