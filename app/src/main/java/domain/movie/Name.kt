@@ -8,10 +8,6 @@ value class Name(
         require(value.length >= MINIMUM_LENGTH)
     }
 
-    override fun toString(): String {
-        return value
-    }
-
     companion object {
         private const val MINIMUM_LENGTH = 1
     }
