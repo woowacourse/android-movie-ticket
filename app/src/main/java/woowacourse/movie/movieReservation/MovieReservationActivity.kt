@@ -9,12 +9,14 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import movie.DiscountPolicy
 import movie.MovieSchedule
 import movie.MovieTicket
+import movie.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.utils.DateUtil
@@ -23,7 +25,7 @@ import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
     private val movieSchedule by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as MovieSchedule }
-    private var ticketCount = 1
+    private var ticketCount = TicketCount(1)
     private var selectedPosition = 0
 
     private val dateSpinner by lazy { findViewById<Spinner>(R.id.reservation_screening_date_spinner) }
@@ -44,7 +46,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun updateInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
-            ticketCount = it.getInt(KEY_COUNT)
+            ticketCount = TicketCount(it.getInt(KEY_COUNT))
             ticketCountView.text = it.getInt(KEY_COUNT).toString()
 
             selectedPosition = it.getInt(KEY_TIME)
@@ -53,7 +55,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_COUNT, ticketCount)
+        outState.putInt(KEY_COUNT, ticketCount.toInt())
 
         selectedPosition = timeSpinner.selectedItemPosition
         outState.putInt(KEY_TIME, selectedPosition)
@@ -145,15 +147,19 @@ class MovieReservationActivity : AppCompatActivity() {
             val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
             val discountPolicy = DiscountPolicy.of(selectedDate, selectedTime)
 
-            val movieTicket = MovieTicket(
-                eachPrice = discountPolicy(MOVIE_TICKET_PRICE),
-                count = ticketCount,
-                title = movieSchedule.title,
-                date = selectedDate,
-                time = selectedTime,
-            )
-            intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
-            ContextCompat.startActivity(this, intent, null)
+            kotlin.runCatching {
+                val movieTicket = MovieTicket(
+                    eachPrice = discountPolicy(MOVIE_TICKET_PRICE),
+                    count = ticketCount,
+                    title = movieSchedule.title,
+                    date = selectedDate,
+                    time = selectedTime,
+                )
+                intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
+                ContextCompat.startActivity(this, intent, null)
+            }.onFailure {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

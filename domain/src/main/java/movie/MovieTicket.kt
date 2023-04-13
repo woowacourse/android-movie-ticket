@@ -6,11 +6,11 @@ import java.time.LocalTime
 
 data class MovieTicket(
     val eachPrice: Int,
-    val count: Int,
+    val count: TicketCount,
     val title: String,
     val date: LocalDate,
     val time: LocalTime,
 ) : Serializable {
 
-    fun getTotalPrice(): Int = eachPrice * count
+    fun getTotalPrice(): Int = eachPrice * count.toInt()
 }
