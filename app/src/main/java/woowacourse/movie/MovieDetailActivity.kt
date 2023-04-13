@@ -15,8 +15,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
-import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.PeopleCount
+import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.Time
 import woowacourse.movie.domain.TimesGenerator
 import java.time.LocalDate
@@ -70,7 +70,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
-    private fun Movie.getRunningTime(): String = "러닝타임: ${time}분"
+    private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
 
     private fun setDateSpinner(movie: Movie) {
         dateSpinner = findViewById<Spinner>(R.id.detail_date_spinner)
@@ -149,7 +149,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun moveToTicketActivity(movie: Movie) {
         val ticket = MovieTicket(
             movie.title,
-            MovieTime(
+            TicketTime(
                 dateSpinner.selectedItem as LocalDate,
                 timeSpinner.selectedItem as Time
             ),

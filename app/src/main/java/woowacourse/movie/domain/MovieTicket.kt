@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class MovieTicket(
     val title: String,
-    val time: MovieTime,
+    val time: TicketTime,
     val peopleCount: PeopleCount,
 ) : Serializable {
     fun getPrice(): Int {

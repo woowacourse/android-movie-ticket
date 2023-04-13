@@ -9,7 +9,7 @@ data class Movie(
     val title: String,
     val startDate: LocalDate,
     val endDate: LocalDate,
-    val time: Int,
+    val runningTime: Int,
     val description: String,
 ) : Serializable {
     fun getDatesBetweenTwoDates(): List<LocalDate> {

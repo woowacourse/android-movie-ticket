@@ -44,5 +44,5 @@ class MovieListAdapter(
 
     private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
-    private fun Movie.getRunningTime(): String = "러닝타임: ${time}분"
+    private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
 }

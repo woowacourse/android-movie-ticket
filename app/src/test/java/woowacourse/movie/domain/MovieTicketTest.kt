@@ -9,7 +9,7 @@ class MovieTicketTest {
     fun `인원이 2명일 경우 예매 금액은 26000원이다`() {
         val ticket = MovieTicket(
             "title",
-            MovieTime(
+            TicketTime(
                 LocalDate.of(2023, 4, 13),
                 Time(12)
             ),
@@ -22,7 +22,7 @@ class MovieTicketTest {
     fun `인원이 2명이고 무비데이인 경우 예매 금액은 23400원이다`() {
         val ticket = MovieTicket(
             "title",
-            MovieTime(
+            TicketTime(
                 LocalDate.of(2023, 4, 10),
                 Time(12)
             ),
@@ -35,7 +35,7 @@ class MovieTicketTest {
     fun `인원이 2명이고 조조 영화인 경우 예매 금액은 24000원이다`() {
         val ticket = MovieTicket(
             "title",
-            MovieTime(
+            TicketTime(
                 LocalDate.of(2023, 4, 11),
                 Time(10)
             ),
@@ -48,7 +48,7 @@ class MovieTicketTest {
     fun `인원이 2명이고 심야 영화인 경우 예매 금액은 24000원이다`() {
         val ticket = MovieTicket(
             "title",
-            MovieTime(
+            TicketTime(
                 LocalDate.of(2023, 4, 11),
                 Time(23)
             ),
@@ -61,7 +61,7 @@ class MovieTicketTest {
     fun `인원이 2명이고 무비 데이고 조조 영화인 경우 예매 금액은 21400원이다`() {
         val ticket = MovieTicket(
             "title",
-            MovieTime(
+            TicketTime(
                 LocalDate.of(2023, 4, 20),
                 Time(9)
             ),
