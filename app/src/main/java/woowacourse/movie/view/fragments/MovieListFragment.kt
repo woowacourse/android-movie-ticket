@@ -38,7 +38,7 @@ class MovieListFragment : Fragment() {
                         val ticketingFragment =
                             TicketingFragment().apply { arguments = bundleOf(MOVIE_KEY to item) }
                         parentFragmentManager.commit {
-                            add(R.id.fragment_movie, ticketingFragment)
+                            add(R.id.fragment_movie, ticketingFragment, TicketingFragment::class.java.name)
                             addToBackStack(FIRST_TRANSACTION)
                         }
                     }

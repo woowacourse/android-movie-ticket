@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".view.activities.MainActivity">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/fragment_movie"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="woowacourse.movie.view.fragments.MovieListFragment" />
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

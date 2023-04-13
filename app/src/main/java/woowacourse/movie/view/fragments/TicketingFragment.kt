@@ -1,5 +1,6 @@
 package woowacourse.movie.view.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,14 +39,18 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, mutableListOf())
     }
-    private var selectedDate: MovieDate? = null
-    private var selectedTime: MovieTime? = null
+    private var _selectedDate: MovieDate? = null
+    private val selectedDate: MovieDate? get() = _selectedDate
+
+    private var _selectedTime: MovieTime? = null
+    private val selectedTime: MovieTime? get() = _selectedTime
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        restoreState(savedInstanceState)
         _binding = FragmentTicketingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -80,7 +85,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                     pos: Int,
                     id: Long
                 ) {
-                    selectedTime = movieTimes[pos]
+                    _selectedTime = movieTimes[pos]
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -92,14 +97,14 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                     pos: Int,
                     id: Long
                 ) {
-                    selectedDate = movieDates[pos]
+                    _selectedDate = movieDates[pos]
                     _movieTimes.clear()
                     selectedDate?.run { _movieTimes.addAll(MovieTime.of(isWeekend(), isToday())) }
                     movieTimeAdapter.clear()
                     movieTimeAdapter.addAll(
                         movieTimes.map { getString(R.string.book_time, it.hour, it.min) }
                     )
-                    selectedTime = movieTimes.firstOrNull()
+                    _selectedTime = movieTimes.firstOrNull()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -108,6 +113,31 @@ class TicketingFragment : Fragment(), View.OnClickListener {
             btnPlus.setOnClickListener(this@TicketingFragment)
             btnTicketing.setOnClickListener(this@TicketingFragment)
         }
+    }
+
+    private fun restoreState(savedInstanceState: Bundle?) {
+        savedInstanceState?.run {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                _selectedDate = getSerializable(SELECTED_DATE_STATE_KEY, MovieDate::class.java)
+                _selectedTime = getSerializable(SELECTED_TIME_STATE_KEY, MovieTime::class.java)
+                _movieTicket = getSerializable(TICKET_COUNT_STATE_KEY, Ticket::class.java)!!
+            } else {
+                _selectedDate = getSerializable(SELECTED_DATE_STATE_KEY) as MovieDate
+                _selectedTime = getSerializable(SELECTED_TIME_STATE_KEY) as MovieTime
+                _movieTicket = getSerializable(TICKET_COUNT_STATE_KEY) as Ticket
+            }
+        }
+        selectedDate?.run { _movieTimes.addAll(MovieTime.of(isWeekend(), isToday())) }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        binding.tvTicketCount.text = movieTicket.count.toString()
+        val storedDateIndex = movieDates.indexOfFirst { it == selectedDate }
+        binding.spinnerMovieDate.setSelection(storedDateIndex)
+        val storedTimeIndex = movieTimes.indexOfFirst { it == selectedTime }
+        binding.spinnerMovieTime.setSelection(storedTimeIndex)
     }
 
     override fun onClick(view: View) {
@@ -136,7 +166,11 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                     )
                 }
                 parentFragmentManager.commit {
-                    add(R.id.fragment_movie, ticketingResultFragment)
+                    add(
+                        R.id.fragment_movie,
+                        ticketingResultFragment,
+                        TicketingResultFragment::class.java.name
+                    )
                     addToBackStack(null)
                 }
             }
@@ -150,6 +184,13 @@ class TicketingFragment : Fragment(), View.OnClickListener {
         )
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(TICKET_COUNT_STATE_KEY, movieTicket)
+        outState.putSerializable(SELECTED_DATE_STATE_KEY, selectedDate)
+        outState.putSerializable(SELECTED_TIME_STATE_KEY, selectedTime)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -159,5 +200,9 @@ class TicketingFragment : Fragment(), View.OnClickListener {
         internal const val TICKET_KEY = "ticketCount"
         internal const val MOVIE_DATE_KEY = "movieDate"
         internal const val MOVIE_TIME_KEY = "movieTime"
+
+        internal const val SELECTED_DATE_STATE_KEY = "selectedDate"
+        internal const val SELECTED_TIME_STATE_KEY = "selectedTime"
+        internal const val TICKET_COUNT_STATE_KEY = "ticketCountState"
     }
 }

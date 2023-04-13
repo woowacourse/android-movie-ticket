@@ -11,6 +11,24 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
     override fun compareTo(other: MovieTime): Int =
         (hour * HOUR_TO_MIN + min) - (other.hour * HOUR_TO_MIN + other.min)
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as MovieTime
+
+        if (hour != other.hour) return false
+        if (min != other.min) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = hour
+        result = 31 * result + min
+        return result
+    }
+
     companion object {
         private const val AM_DISCOUNT_CLOSE_TIME = 11
         private const val PM_DISCOUNT_OPEN_TIME = 20
