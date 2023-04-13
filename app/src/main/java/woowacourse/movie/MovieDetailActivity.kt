@@ -87,8 +87,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         minusBtn.setOnClickListener {
             numberOfBooker -= 1
-            if (numberOfBooker <= 1) {
-                numberOfBooker = 1
+            if (numberOfBooker <= MIN_BOOKER_NUMBER) {
+                numberOfBooker = MIN_BOOKER_NUMBER
             }
             booker.text = numberOfBooker.toString()
         }
@@ -99,8 +99,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         plusBtn.setOnClickListener {
             numberOfBooker += 1
-            if (numberOfBooker >= 10) {
-                numberOfBooker = 10
+            if (numberOfBooker >= MAX_BOOKER_NUMBER) {
+                numberOfBooker = MAX_BOOKER_NUMBER
             }
             booker.text = numberOfBooker.toString()
         }
@@ -113,7 +113,7 @@ class MovieDetailActivity : AppCompatActivity() {
             val selectedTime = LocalTime.parse(selectTimeSpinner.selectedItem.toString())
             val ticket =
                 Ticket(
-                    13000,
+                    TICKET_PRICE,
                     LocalDateTime.of(selectedDate, selectedTime),
                     numberOfBooker,
                 )
@@ -189,5 +189,8 @@ class MovieDetailActivity : AppCompatActivity() {
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
+        private const val MIN_BOOKER_NUMBER = 1
+        private const val MAX_BOOKER_NUMBER = 10
+        private const val TICKET_PRICE = 13000
     }
 }
