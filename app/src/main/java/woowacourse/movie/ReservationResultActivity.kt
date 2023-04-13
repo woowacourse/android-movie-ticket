@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -12,20 +11,12 @@ class ReservationResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reservation_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val reservation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.extras?.getSerializable(
-                getString(R.string.reservation_extra_name),
-                Reservation::class.java,
-            )
-        } else {
-            intent.extras?.getSerializable(getString(R.string.reservation_extra_name)) as Reservation
-        }
+        val reservation =
+            intent.extras?.getSerializable<Reservation>(getString(R.string.reservation_extra_name))
 
         if (reservation != null) {
             MovieController(
-                this,
-                reservation.movie,
-                title = findViewById(R.id.movie_reservation_result_title)
+                this, reservation.movie, title = findViewById(R.id.movie_reservation_result_title)
             ).render()
 
             ReservationDetailController(
