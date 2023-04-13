@@ -87,8 +87,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         minusBtn.setOnClickListener {
             numberOfBooker -= 1
-            if (numberOfBooker <= 0) {
-                numberOfBooker = 0
+            if (numberOfBooker <= 1) {
+                numberOfBooker = 1
             }
             booker.text = numberOfBooker.toString()
         }
