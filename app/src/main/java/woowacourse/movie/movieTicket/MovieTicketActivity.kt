@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import movie.MovieTicket
 import woowacourse.movie.R
+import woowacourse.movie.utils.DateUtil
 import java.text.DecimalFormat
-import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
     private val ticket by lazy { intent.getSerializableExtra("movieTicket") as MovieTicket }
@@ -26,14 +26,13 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
-                return true
+                true
             }
-            else -> {}
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun updateMovieView() {
@@ -41,10 +40,11 @@ class MovieTicketActivity : AppCompatActivity() {
         val ticketCountView = findViewById<TextView>(R.id.ticket_total_ticket_count)
         val ticketMovieReleaseDateView = findViewById<TextView>(R.id.ticket_release_date)
         val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
+        val context = this
 
         with(ticket) {
             ticketTitleView.text = this.title
-            ticketMovieReleaseDateView.text = this.date.format(dateTimeFormatter)
+            ticketMovieReleaseDateView.text = DateUtil(context).getDate(this.date)
             ticketCountView.text = getString(R.string.movie_ticket_count).format(this.count)
             ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(
                 decimalFormat.format(this.getTotalPrice()),
@@ -53,7 +53,6 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     companion object {
-        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         val decimalFormat = DecimalFormat("#,###")
     }
 }

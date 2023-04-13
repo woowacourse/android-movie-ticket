@@ -13,7 +13,7 @@ import movie.Cinema
 import movie.MovieInfo
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.MovieReservationActivity
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.utils.DateUtil
 
 class MovieListAdapter(
     private val context: Context,
@@ -45,11 +45,10 @@ class MovieListAdapter(
         val reservationButton = view.findViewById<Button>(R.id.movie_reservation_button)
 
         with(Cinema[position]) {
-            poster.setImageResource(this.movie.poster)
-            title.text = this.movie.title
+            poster.setImageResource(movie.poster)
+            title.text = movie.title
 
-            val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-            releaseDate.text = context.getString(R.string.movie_release_date).format(this.startDate.format(dateTimeFormatter), this.endDate.format(dateTimeFormatter))
+            releaseDate.text = DateUtil(context).getDateRange(startDate, endDate)
             runningTime.text = context.getString(R.string.movie_running_time).format(this.movie.runningTime)
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)

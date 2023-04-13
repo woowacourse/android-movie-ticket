@@ -16,14 +16,14 @@ import movie.MovieInfo
 import movie.MovieTicket
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
+import woowacourse.movie.utils.DateUtil
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
     private val movieInfo by lazy { intent.getSerializableExtra("movieInfo") as MovieInfo }
 
-    var ticketCount = 1
+    private var ticketCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,14 +57,13 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
-                return true
+                true
             }
-            else -> {}
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun registerSpinnerListener() {
@@ -101,13 +100,12 @@ class MovieReservationActivity : AppCompatActivity() {
         val movieReleaseData = findViewById<TextView>(R.id.reservation_movie_release_date)
         val movieRunningTime = findViewById<TextView>(R.id.reservation_movie_running_time)
         val movieSummary = findViewById<TextView>(R.id.reservation_movie_summary)
+        val context = this
+
         with(movieInfo) {
             moviePoster.setImageResource(poster)
             movieTitle.text = title
-            movieReleaseData.text = getString(R.string.movie_release_date).format(
-                startDate.format(dateTimeFormatter),
-                endDate.format(dateTimeFormatter),
-            )
+            movieReleaseData.text = DateUtil(context).getDateRange(startDate, endDate)
             movieRunningTime.text = getString(R.string.movie_running_time).format(runningTime)
             movieSummary.text = summary
         }
@@ -153,7 +151,6 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private const val MOVIE_TICKET_PRICE = 13000
     }
 }
