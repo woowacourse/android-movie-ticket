@@ -1,8 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import woowacourse.movie.domain.TicketCount
 
 internal class TicketCountTest {
     @Test
