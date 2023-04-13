@@ -28,7 +28,8 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         val holder: MovieListViewHolder
 
         if (itemView == null) {
-            itemView = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
+            itemView =
+                LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
             holder = MovieListViewHolder(itemView)
             itemView.tag = holder
         } else {
@@ -55,8 +56,12 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
     private fun buttonSetOnclickListener(holder: MovieListViewHolder, item: Movie) {
         holder.bookButton.setOnClickListener {
             val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra("movie", item)
+            intent.putExtra(MOVIE_KEY, item)
             context.startActivity(intent)
         }
+    }
+
+    companion object {
+        private const val MOVIE_KEY = "movie"
     }
 }

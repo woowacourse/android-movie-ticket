@@ -14,8 +14,8 @@ class TicketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
 
-        val ticket = intent.getSerializableExtra("ticket") as Ticket
-        val movie = intent.getSerializableExtra("movie") as Movie
+        val ticket = intent.getSerializableExtra(TICKET_KEY) as Ticket
+        val movie = intent.getSerializableExtra(MOVIE_KEY) as Movie
 
         val movieTitle = findViewById<TextView>(R.id.ticket_title)
         val movieDate = findViewById<TextView>(R.id.ticket_date)
@@ -40,5 +40,10 @@ class TicketActivity : AppCompatActivity() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        private const val TICKET_KEY = "ticket"
+        private const val MOVIE_KEY = "movie"
     }
 }

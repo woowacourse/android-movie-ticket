@@ -4,11 +4,16 @@ import java.time.LocalDateTime
 
 class MovieDayDiscountPolicy : DiscountPolicy {
     override fun discountPrice(price: Int): Int {
-        return (price * 0.9).toInt()
+        return (price * DISCOUNT_PERCENT).toInt()
     }
 
     override fun checkPolicy(date: LocalDateTime): Boolean {
-        if (date.dayOfMonth in listOf(10, 20, 30)) return true
+        if (date.dayOfMonth in MOVIE_DAYS) return true
         return false
+    }
+
+    companion object {
+        private const val DISCOUNT_PERCENT = 0.9
+        private val MOVIE_DAYS = listOf(10, 20, 30)
     }
 }

@@ -1,7 +1,5 @@
 package woowacourse.movie.domain
 
-import java.time.format.DateTimeFormatter
-
 class ReservationDate(private val runningDate: RunningDate) {
 
     fun getScreeningDays(): List<String> {
@@ -10,7 +8,7 @@ class ReservationDate(private val runningDate: RunningDate) {
 
         return generateSequence(startDay) { it.plusDays(1) }
             .takeWhile { !it.isAfter(endDay) }
-            .map { it.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) }
+            .map { it.toString() }
             .toList()
     }
 }

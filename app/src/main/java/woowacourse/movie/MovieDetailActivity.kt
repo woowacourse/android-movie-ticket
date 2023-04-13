@@ -2,7 +2,6 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -38,12 +37,12 @@ class MovieDetailActivity : AppCompatActivity() {
         setToolBar()
 
         if (savedInstanceState != null) {
-            numberOfBooker = savedInstanceState.getInt("BOOKER_NUMBER")
-            dateSpinnerPosition = savedInstanceState.getInt("DATE_SPINNER_POSITION")
-            timeSpinnerPosition = savedInstanceState.getInt("TIME_SPINNER_POSITION")
+            numberOfBooker = savedInstanceState.getInt(NUMBER_OF_PEOPLE)
+            dateSpinnerPosition = savedInstanceState.getInt(DATE_SPINNER_POSITION)
+            timeSpinnerPosition = savedInstanceState.getInt(TIME_SPINNER_POSITION)
         }
 
-        val movie = intent.getSerializableExtra("movie") as Movie
+        val movie = intent.getSerializableExtra(MOVIE_KEY) as Movie
 
         setDateSpinner(movie.runningDate)
         setUpMovieData(movie)
@@ -122,8 +121,8 @@ class MovieDetailActivity : AppCompatActivity() {
                     numberOfBooker,
                 )
             val intent = Intent(this, TicketActivity::class.java)
-            intent.putExtra("ticket", ticket)
-            intent.putExtra("movie", movie)
+            intent.putExtra(TICKET_KEY, ticket)
+            intent.putExtra(MOVIE_KEY, movie)
             startActivity(intent)
         }
     }
@@ -190,9 +189,17 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt("BOOKER_NUMBER", numberOfBooker)
-        outState.putInt("DATE_SPINNER_POSITION", dateSpinnerPosition)
-        outState.putInt("TIME_SPINNER_POSITION", timeSpinnerPosition)
+        outState.putInt(NUMBER_OF_PEOPLE, numberOfBooker)
+        outState.putInt(DATE_SPINNER_POSITION, dateSpinnerPosition)
+        outState.putInt(TIME_SPINNER_POSITION, timeSpinnerPosition)
         super.onSaveInstanceState(outState)
+    }
+
+    companion object {
+        private const val TICKET_KEY = "ticket"
+        private const val MOVIE_KEY = "movie"
+        private const val NUMBER_OF_PEOPLE = "booker_number"
+        private const val DATE_SPINNER_POSITION = "date_spinner_position"
+        private const val TIME_SPINNER_POSITION = "time_spinner_position"
     }
 }
