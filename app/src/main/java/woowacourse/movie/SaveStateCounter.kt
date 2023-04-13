@@ -2,7 +2,7 @@ package woowacourse.movie
 
 import android.os.Bundle
 
-class SaveStateCounter(private val counter: Counter, override val saveStateKey: String) :
+class SaveStateCounter(val counter: Counter, override val saveStateKey: String) :
     SaveState {
     val count
         get() = counter.count
