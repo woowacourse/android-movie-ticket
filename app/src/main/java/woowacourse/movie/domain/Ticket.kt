@@ -8,10 +8,8 @@ data class Ticket(
     val date: LocalDateTime,
     val numberOfPeople: Int,
 ) : Serializable {
-
-    private val discountPolicies = listOf(MovieDayDiscountPolicy(), TimeDiscountPolicy())
-
     fun calculateTotalPrice(): Int {
+        val discountPolicies = listOf(MovieDayDiscountPolicy(), TimeDiscountPolicy())
         val discountedPrice = discountPolicies.fold(price) { ticketPrice, policy ->
             calculateTicketPrice(ticketPrice, policy)
         }
