@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.MovieTicket
@@ -15,6 +16,8 @@ class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setTicketInfo()
     }
@@ -44,5 +47,15 @@ class MovieTicketActivity : AppCompatActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         setContentView(R.layout.activity_movie_ticket)
         super.onConfigurationChanged(newConfig)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

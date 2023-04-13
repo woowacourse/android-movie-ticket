@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -31,6 +32,8 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movie = getMovieFromIntent()
 
@@ -173,5 +176,15 @@ class MovieDetailActivity : AppCompatActivity() {
         dateSpinner.setSelection(datePosition)
         timeSpinner.setSelection(timePosition)
         peopleCount = PeopleCount(count)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
