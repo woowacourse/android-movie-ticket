@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.discountPolicy
 
-import org.assertj.core.api.Assertions.assertThat
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.ReservationDetail
@@ -20,7 +20,7 @@ class MovieDayTest {
 
         // then
         val expected = 11700
-        assertThat(actual).isEqualTo(expected)
+        assertEquals(actual, expected)
     }
 
     @Test
@@ -34,7 +34,7 @@ class MovieDayTest {
         val actual = MovieDay.discount(reservationDetail).price.value
 
         // then
-        val expected = 11700
-        assertThat(actual).isNotEqualTo(expected)
+        val expected = 13000
+        assertEquals(actual, expected)
     }
 }
