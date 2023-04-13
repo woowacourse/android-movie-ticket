@@ -3,7 +3,7 @@ package domain.movie
 import java.io.Serializable
 
 data class Movie(
-    val name: String,
+    val name: Name,
     val posterImage: Int?,
     val screeningPeriod: ScreeningPeriod,
     val runningTime: Int,

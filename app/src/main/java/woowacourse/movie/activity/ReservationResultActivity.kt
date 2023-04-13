@@ -28,7 +28,7 @@ class ReservationResultActivity : AppCompatActivity() {
         with(reservation) {
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
-            movieNameTextView.text = movie.name
+            movieNameTextView.text = movie.name.value
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
 
             ticketCountTextView.text = TICKET_COUNT.format(ticketCount)

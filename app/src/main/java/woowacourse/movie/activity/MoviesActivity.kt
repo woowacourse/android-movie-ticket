@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import domain.movie.Movie
+import domain.movie.Name
 import domain.movie.ScreeningPeriod
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MoviesAdapter
@@ -26,7 +27,7 @@ class MoviesActivity : AppCompatActivity() {
 
     private fun getMovies() = listOf(
         Movie(
-            name = "해리포터",
+            name = Name("해리포터"),
             posterImage = null,
             screeningPeriod = ScreeningPeriod(LocalDate.of(2000, 10, 1), LocalDate.of(2000, 10, 28)),
             runningTime = 120,

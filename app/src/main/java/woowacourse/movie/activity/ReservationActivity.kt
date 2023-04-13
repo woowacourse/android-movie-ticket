@@ -91,7 +91,7 @@ class ReservationActivity : AppCompatActivity() {
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
             posterImage?.let { id -> posterImageView.setImageResource(id) }
-            movieNameTextView.text = name
+            movieNameTextView.text = name.value
             screeningDateTextView.text = getString(R.string.screening_period_form).format(
                 movie.screeningPeriod.startDate.format(dateFormat),
                 movie.screeningPeriod.endDate.format(dateFormat)
