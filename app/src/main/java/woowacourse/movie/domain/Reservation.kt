@@ -9,7 +9,8 @@ data class Reservation(
     val screeningDateTime: LocalDateTime
 ) : Serializable {
     val movieTitle = movie.title
-    val totalReservationFee = Money(peopleCount * TICKET_PRICE)
+    val initReservationFee = Money(peopleCount * TICKET_PRICE)
+    val totalReservationFee = DiscountPolicy.getDiscountedFee(this)
 
     init {
         require(peopleCount in MIN_PEOPLE_COUNT..MAX_PEOPLE_COUNT) { PEOPLE_COUNT_RANGE_ERROR }

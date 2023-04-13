@@ -1,6 +1,5 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Test
@@ -23,11 +22,11 @@ class ReservationTest(private val illegalPeopleCount: Int) {
     }
 
     @Test
-    fun `총 예매 금액은 인원수에 영화 티켓 한 장 가격을 곱한 값이다`() {
+    fun `처음 총 예매 금액은 인원수에 영화 티켓 한 장 가격을 곱한 값이다`() {
         val peopleCount = 2
 
         val actual =
-            Reservation(getAnyMovie(), peopleCount, LocalDateTime.now()).totalReservationFee
+            Reservation(getAnyMovie(), peopleCount, LocalDateTime.now()).initReservationFee
 
         assertEquals(Money(26000), actual)
     }
