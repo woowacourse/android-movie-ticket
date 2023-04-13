@@ -30,7 +30,10 @@ class MovieListAdapter(
         convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
         convertView.findViewById<TextView>(R.id.movie_screening_date)?.text =
             context.resources.getString(R.string.screening_date_format)
-                .format(movie.screeningStartDate.toString())
+                .format(
+                    movie.screeningStartDate.format(DATE_TIME_FORMATTER),
+                    movie.screeningEndDate.format(DATE_TIME_FORMATTER)
+                )
         convertView.findViewById<TextView>(R.id.movie_running_time)?.text =
             context.resources.getString(R.string.running_time_format)
                 .format(movie.runningTime.value)
