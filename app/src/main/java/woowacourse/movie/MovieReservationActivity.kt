@@ -8,8 +8,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Price
@@ -22,7 +20,6 @@ import woowacourse.movie.domain.movieTimePolicy.MovieTime
 import woowacourse.movie.domain.movieTimePolicy.WeekDayMovieTime
 import woowacourse.movie.domain.movieTimePolicy.WeekendMovieTime
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
     private val counter: SaveStateCounter by lazy {
@@ -95,36 +92,40 @@ class MovieReservationActivity : AppCompatActivity() {
                     }
                 }
 
-            findViewById<ImageView>(R.id.movie_reservation_poster).setImageResource(movie.picture)
-            findViewById<TextView>(R.id.movie_reservation_title).text = movie.title
-
-            val dateFormat = DateTimeFormatter.ofPattern(getString(R.string.movie_date_format))
-            findViewById<TextView>(R.id.movie_reservation_date).text =
-                getString(R.string.movie_date).format(
-                    dateFormat.format(movie.date.startDate), dateFormat.format(movie.date.endDate)
-                )
-
-            findViewById<TextView>(R.id.movie_reservation_running_time).text =
-                getString(R.string.movie_running_time).format(movie.runningTime)
-
-            findViewById<TextView>(R.id.movie_reservation_description).text = movie.description
+            MovieController(
+                this,
+                movie,
+                findViewById(R.id.movie_reservation_poster),
+                findViewById(R.id.movie_reservation_title),
+                findViewById(R.id.movie_reservation_date),
+                findViewById(R.id.movie_reservation_running_time),
+                findViewById(R.id.movie_reservation_description)
+            ).render()
 
             findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
-                val reservationDetail = ReservationDetail(
-                    LocalDateTime.of(
-                        (dateSpinner.spinner.selectedItem as LocalFormattedDate).date,
-                        (timeSpinner.spinner.selectedItem as LocalFormattedTime).time
-                    ),
-                    counter.count, Price()
-                )
-                val discount = Discount(listOf(MovieDay, OffTime))
-                val discountedReservationDetail = discount.calculate(reservationDetail)
-                val reservation = Reservation(movie, discountedReservationDetail)
-                val intent = Intent(this, ReservationResultActivity::class.java)
-                intent.putExtra(getString(R.string.reservation_extra_name), reservation)
-                startActivity(intent)
+                val reservation = makeReservation(movie)
+                startReservationResultActivity(reservation)
             }
         }
+    }
+
+    private fun makeReservation(movie: Movie): Reservation {
+        val reservationDetail = ReservationDetail(
+            LocalDateTime.of(
+                (dateSpinner.spinner.selectedItem as LocalFormattedDate).date,
+                (timeSpinner.spinner.selectedItem as LocalFormattedTime).time
+            ),
+            counter.count, Price()
+        )
+        val discount = Discount(listOf(MovieDay, OffTime))
+        val discountedReservationDetail = discount.calculate(reservationDetail)
+        return Reservation(movie, discountedReservationDetail)
+    }
+
+    private fun startReservationResultActivity(reservation: Reservation) {
+        val intent = Intent(this, ReservationResultActivity::class.java)
+        intent.putExtra(getString(R.string.reservation_extra_name), reservation)
+        startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

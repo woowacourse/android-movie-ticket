@@ -7,10 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
-import java.time.format.DateTimeFormatter
 
 class MovieAdapter(private val context: Context, private val movies: Movies) : BaseAdapter() {
     override fun getCount(): Int = movies.value.size
@@ -21,24 +19,25 @@ class MovieAdapter(private val context: Context, private val movies: Movies) : B
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_movie, null)
-        view.findViewById<ImageView>(R.id.item_movie_poster)
-            .setImageResource(movies.value[position].picture)
-        view.findViewById<TextView>(R.id.item_movie_title).text = movies.value[position].title
+        MovieController(
+            context,
+            movies.value[position],
+            view.findViewById(R.id.item_movie_poster),
+            view.findViewById(R.id.item_movie_title),
+            view.findViewById(R.id.item_movie_date),
+            view.findViewById(R.id.item_movie_running_time),
+            null
+        ).render()
 
-        val dateFormat = DateTimeFormatter.ofPattern(context.getString(R.string.movie_date_format))
-        view.findViewById<TextView>(R.id.item_movie_date).text =
-            context.getString(R.string.movie_date)
-                .format(dateFormat.format(movies.value[position].date.startDate), dateFormat.format(movies.value[position].date.endDate))
+        view.findViewById<Button>(R.id.item_movie_reservation_button)
+            .setOnClickListener { reserveMovie(movies.value[position]) }
 
-        view.findViewById<TextView>(R.id.item_movie_running_time).text =
-            context.getString(R.string.movie_running_time)
-                .format(movies.value[position].runningTime)
-
-        view.findViewById<Button>(R.id.item_movie_reservation_button).setOnClickListener {
-            val intent = Intent(context, MovieReservationActivity::class.java)
-            intent.putExtra(context.getString(R.string.movie_extra_name), movies.value[position])
-            context.startActivity(intent)
-        }
         return view
+    }
+
+    private fun reserveMovie(movie: Movie) {
+        val intent = Intent(context, MovieReservationActivity::class.java)
+        intent.putExtra(context.getString(R.string.movie_extra_name), movie)
+        context.startActivity(intent)
     }
 }

@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="341dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/poster_harrypotter"
+                tools:src="@drawable/poster_harrypotter"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
