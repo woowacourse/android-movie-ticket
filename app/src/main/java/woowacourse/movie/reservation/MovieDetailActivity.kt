@@ -24,11 +24,13 @@ import woowacourse.movie.domain.RunningTimeSetter
 import woowacourse.movie.entity.Count
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
     private val image: ImageView by lazy { findViewById(R.id.detail_image) }
     private val title: TextView by lazy { findViewById(R.id.detail_title) }
-    private val date: TextView by lazy { findViewById(R.id.detail_date) }
+    private val startDate: TextView by lazy { findViewById(R.id.start_date) }
+    private val endDate: TextView by lazy { findViewById(R.id.end_date) }
     private val time: TextView by lazy { findViewById(R.id.detail_time) }
     private val description: TextView by lazy { findViewById(R.id.description) }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.date_spinner) }
@@ -110,7 +112,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun initMovieData() {
         title.text = movie.title
-        date.text = movie.startDate.toString()
+        startDate.text = movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+        endDate.text = movie.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
         time.text = movie.runningTime.value.toString()
         description.text = movie.description
     }

@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
         android:minHeight="591dp"
         app:layout_constraintBottom_toTopOf="@id/bottom_selector"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView
                 android:id="@+id/detail_title"
@@ -48,50 +49,88 @@
             <TextView
                 android:id="@+id/detail_date_text"
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="34dp"
-                android:autoSizeTextType="uniform"
-                android:gravity="center_vertical|left"
-                android:text="상영일:"
+                android:gravity="center_vertical"
+                android:text="상영일: "
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_title" />
 
             <TextView
-                android:id="@+id/detail_date"
-                android:layout_width="86dp"
-                android:layout_height="19dp"
+                android:id="@+id/start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginTop="34dp"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/detail_date_text"
+                app:layout_constraintTop_toBottomOf="@id/detail_title"
+                tools:text="2023.1.4"
+                android:gravity="bottom" />
+
+            <TextView
+                android:id="@+id/tilde_inter_date"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="34dp"
+                android:text=" ~ "
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:gravity="bottom"
+                app:layout_constraintStart_toEndOf="@id/start_date"
                 app:layout_constraintTop_toBottomOf="@id/detail_title" />
+
+            <TextView
+                android:id="@+id/end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="34dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:gravity="bottom"
+                app:layout_constraintStart_toEndOf="@id/tilde_inter_date"
+                app:layout_constraintTop_toBottomOf="@id/detail_title"
+                tools:text="2023.2.23" />
 
             <TextView
                 android:id="@+id/detail_time_text"
                 android:layout_width="wrap_content"
-                android:layout_height="19dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="4dp"
-                android:autoSizeTextType="uniform"
-                android:gravity="center_vertical|left"
-                android:text="러닝타임:"
+                android:gravity="bottom"
+                android:text="러닝타임: "
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_date_text" />
 
             <TextView
                 android:id="@+id/detail_time"
-                android:layout_width="82dp"
-                android:layout_height="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginTop="4dp"
+                android:gravity="bottom"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/detail_time_text"
-                app:layout_constraintTop_toBottomOf="@id/detail_date" />
+                app:layout_constraintTop_toBottomOf="@id/start_date"
+                tools:text="124" />
+
+            <TextView
+                android:id="@+id/minute_text"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:gravity="bottom"
+                android:text="분"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/detail_time"
+                app:layout_constraintTop_toBottomOf="@id/start_date" />
 
             <TextView
                 android:id="@+id/description"
@@ -100,12 +139,12 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="38.87dp"
                 android:layout_marginEnd="20dp"
-                android:text="sajhaljsflkjlakjaldfjkj"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_date_text" />
+                app:layout_constraintTop_toBottomOf="@id/detail_date_text"
+                tools:text="영화소개 글" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

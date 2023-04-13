@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="132dp"
     android:padding="12dp">
@@ -23,47 +24,103 @@
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
+    <LinearLayout
+        android:id="@+id/running_day"
+        android:layout_width="0dp"
+        android:layout_height="18dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:autoSizeTextType="uniform"
-        android:gravity="center_vertical|left"
-        android:text="상영일:"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title">
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="86dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="10dp"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/date_text"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:text="상영일: "
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:gravity="bottom"/>
 
-    <TextView
-        android:id="@+id/time_text"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
+        <TextView
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/date_text"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="2023.1.4"
+            android:gravity="bottom"
+            />
+
+        <TextView
+            android:id="@+id/tilde_inter_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=" ~ "
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/start_date"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:gravity="bottom"/>
+
+        <TextView
+            android:id="@+id/end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tilde_inter_date"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="2023.2.23"
+            android:gravity="bottom"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/running_time"
+        android:layout_width="0dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="4dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="4dp"
-        android:autoSizeTextType="uniform"
-        android:gravity="center_vertical|left"
-        android:text="러닝타임:"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toBottomOf="@id/date_text" />
+        app:layout_constraintTop_toBottomOf="@id/running_day">
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="82dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="4dp"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/time_text"
-        app:layout_constraintTop_toBottomOf="@id/date" />
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:text="러닝타임: "
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/date_text" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/time_text"
+            app:layout_constraintTop_toBottomOf="@id/start_date"
+            tools:text="124"
+            />
+
+        <TextView
+            android:id="@+id/minute_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="분"
+            android:textSize="12sp"
+            android:gravity="bottom"
+            app:layout_constraintStart_toEndOf="@id/time"
+            app:layout_constraintTop_toBottomOf="@id/start_date" />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/reservation"

@@ -40,7 +40,7 @@ class ReservationConfirmActivity : AppCompatActivity() {
         val moneyTextView = findViewById<TextView>(R.id.reservation_money)
 
         titleTextView.text = movie.title
-        dateTextView.text = dateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
+        dateTextView.text = dateTime.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
         moneyTextView.text =
             DiscountCalculator().discount(reservationCount, dateTime).value.toString()
     }

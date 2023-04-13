@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.Movie
 import woowacourse.movie.R
+import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
     private val mLayoutInflater: LayoutInflater,
@@ -38,13 +39,15 @@ class MovieAdapter(
 
         val image = view.findViewById<ImageView>(R.id.image)
         val title = view.findViewById<TextView>(R.id.title)
-        val date = view.findViewById<TextView>(R.id.date)
+        val startDate = view.findViewById<TextView>(R.id.start_date)
+        val endDate = view.findViewById<TextView>(R.id.end_date)
         val time = view.findViewById<TextView>(R.id.time)
         val reservation = view.findViewById<Button>(R.id.reservation)
 
         image.setImageResource(_movie[p0].imgResourceId)
         title.text = _movie[p0].title
-        date.text = _movie[p0].startDate.toString()
+        startDate.text = _movie[p0].startDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+        endDate.text = _movie[p0].endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
         time.text = _movie[p0].runningTime.value.toString()
 
         reservation.setOnClickListener { clickListener?.onClick(p0) }
