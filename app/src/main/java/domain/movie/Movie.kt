@@ -1,4 +1,4 @@
-package domain
+package domain.movie
 
 import java.io.Serializable
 

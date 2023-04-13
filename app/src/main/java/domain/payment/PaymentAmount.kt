@@ -1,4 +1,4 @@
-package domain
+package domain.payment
 
 @JvmInline
 value class PaymentAmount(val value: Int) {

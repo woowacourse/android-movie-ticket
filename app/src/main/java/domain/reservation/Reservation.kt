@@ -1,6 +1,9 @@
-package domain
+package domain.reservation
 
 import domain.discount.Discount
+import domain.movie.Movie
+import domain.payment.PaymentAmount
+import domain.payment.PaymentType
 import java.io.Serializable
 import java.time.LocalDateTime
 

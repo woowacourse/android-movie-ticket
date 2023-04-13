@@ -1,4 +1,4 @@
-package domain
+package domain.reservation
 
 @JvmInline
 value class TicketCount(val value: Int) {

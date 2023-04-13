@@ -3,8 +3,8 @@ package woowacourse.movie.activity
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import domain.Movie
-import domain.ScreeningPeriod
+import domain.movie.Movie
+import domain.movie.ScreeningPeriod
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MoviesAdapter
 import java.time.LocalDate

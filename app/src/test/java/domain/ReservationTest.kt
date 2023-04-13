@@ -1,5 +1,8 @@
 package domain
 
+import domain.movie.Movie
+import domain.payment.PaymentAmount
+import domain.reservation.Reservation
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate

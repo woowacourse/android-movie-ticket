@@ -1,6 +1,6 @@
 package domain.discount
 
-import domain.PaymentAmount
+import domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 interface DiscountRule {

@@ -10,7 +10,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import domain.Movie
+import domain.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity
 import java.time.format.DateTimeFormatter
