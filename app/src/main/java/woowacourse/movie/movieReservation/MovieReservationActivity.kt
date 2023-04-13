@@ -12,7 +12,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import movie.MovieInfo
+import movie.DiscountPolicy
+import movie.MovieSchedule
 import movie.MovieTicket
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
@@ -21,7 +22,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
-    private val movieInfo by lazy { intent.getSerializableExtra("movieInfo") as MovieInfo }
+    private val movieSchedule by lazy { intent.getSerializableExtra("movieSchedule") as MovieSchedule }
 
     private var ticketCount = 1
 
@@ -68,7 +69,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun registerSpinnerListener() {
         val dateSpinner = findViewById<Spinner>(R.id.reservation_screening_date_spinner)
-        val dateList = movieInfo.getScreeningDate()
+        val dateList = movieSchedule.getScreeningDate()
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
         dateSpinner.adapter = adapter
 
@@ -89,25 +90,26 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun updateTimeView(data: LocalDate) {
         val timeSpinner = findViewById<Spinner>(R.id.reservation_screening_time_spinner)
-        val timeList = movieInfo.getScreeningTime(data)
+        val timeList = movieSchedule.getScreeningTime(data)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeList)
         timeSpinner.adapter = adapter
     }
 
     private fun updateMovieView() {
-        val moviePoster = findViewById<ImageView>(R.id.reservation_movie_poster)
-        val movieTitle = findViewById<TextView>(R.id.reservation_movie_title)
-        val movieReleaseData = findViewById<TextView>(R.id.reservation_movie_release_date)
-        val movieRunningTime = findViewById<TextView>(R.id.reservation_movie_running_time)
-        val movieSummary = findViewById<TextView>(R.id.reservation_movie_summary)
+        val moviePosterView = findViewById<ImageView>(R.id.reservation_movie_poster)
+        val movieTitleView = findViewById<TextView>(R.id.reservation_movie_title)
+        val movieReleaseDataView = findViewById<TextView>(R.id.reservation_movie_release_date)
+        val movieRunningTimeView = findViewById<TextView>(R.id.reservation_movie_running_time)
+        val movieSummaryView = findViewById<TextView>(R.id.reservation_movie_summary)
+
         val context = this
 
-        with(movieInfo) {
-            moviePoster.setImageResource(poster)
-            movieTitle.text = title
-            movieReleaseData.text = DateUtil(context).getDateRange(startDate, endDate)
-            movieRunningTime.text = getString(R.string.movie_running_time).format(runningTime)
-            movieSummary.text = summary
+        with(movieSchedule) {
+            moviePosterView.setImageResource(poster)
+            movieTitleView.text = title
+            movieReleaseDataView.text = DateUtil(context).getDateRange(startDate, endDate)
+            movieRunningTimeView.text = getString(R.string.movie_running_time).format(runningTime)
+            movieSummaryView.text = summary
         }
     }
 
@@ -137,11 +139,11 @@ class MovieReservationActivity : AppCompatActivity() {
                 LocalDate.parse(findViewById<Spinner>(R.id.reservation_screening_date_spinner).selectedItem.toString())
             val selectedTime =
                 LocalTime.parse(findViewById<Spinner>(R.id.reservation_screening_time_spinner).selectedItem.toString())
-            val discountPolicy = movieInfo.getDiscountPolicy(selectedDate, selectedTime)
+            val discountPolicy = DiscountPolicy.of(selectedDate, selectedTime)
             val movieTicket = MovieTicket(
                 eachPrice = discountPolicy(MOVIE_TICKET_PRICE),
                 count = ticketCount,
-                title = movieInfo.title,
+                title = movieSchedule.title,
                 date = selectedDate,
                 time = selectedTime,
             )

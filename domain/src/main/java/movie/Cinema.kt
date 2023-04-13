@@ -1,9 +1,9 @@
 package movie
 
 class Cinema(
-    private val movies: List<MovieInfo>,
+    private val movies: List<MovieSchedule>,
 ) {
     val size = movies.size
 
-    operator fun get(index: Int): MovieInfo = movies[index]
+    operator fun get(index: Int): MovieSchedule = movies[index]
 }

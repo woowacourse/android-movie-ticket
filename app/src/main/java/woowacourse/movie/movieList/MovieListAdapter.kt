@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import movie.Cinema
-import movie.MovieInfo
+import movie.MovieSchedule
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.MovieReservationActivity
 import woowacourse.movie.utils.DateUtil
@@ -23,7 +23,7 @@ class MovieListAdapter(
         return Cinema.size
     }
 
-    override fun getItem(position: Int): MovieInfo {
+    override fun getItem(position: Int): MovieSchedule {
         return Cinema[position]
     }
 
@@ -38,21 +38,21 @@ class MovieListAdapter(
             null,
         )
 
-        val poster = view.findViewById<ImageView>(R.id.movie_poster)
-        val title = view.findViewById<TextView>(R.id.movie_title)
-        val releaseDate = view.findViewById<TextView>(R.id.movie_release_date)
-        val runningTime = view.findViewById<TextView>(R.id.movie_running_time)
+        val posterView = view.findViewById<ImageView>(R.id.movie_poster)
+        val titleView = view.findViewById<TextView>(R.id.movie_title)
+        val releaseDateView = view.findViewById<TextView>(R.id.movie_release_date)
+        val runningTimeView = view.findViewById<TextView>(R.id.movie_running_time)
         val reservationButton = view.findViewById<Button>(R.id.movie_reservation_button)
 
         with(Cinema[position]) {
-            poster.setImageResource(movie.poster)
-            title.text = movie.title
+            posterView.setImageResource(poster)
+            titleView.text = title
+            releaseDateView.text = DateUtil(context).getDateRange(startDate, endDate)
+            runningTimeView.text = context.getString(R.string.movie_running_time).format(runningTime)
 
-            releaseDate.text = DateUtil(context).getDateRange(startDate, endDate)
-            runningTime.text = context.getString(R.string.movie_running_time).format(this.movie.runningTime)
             reservationButton.setOnClickListener {
                 val intent = Intent(context, MovieReservationActivity::class.java)
-                intent.putExtra("movieInfo", this)
+                intent.putExtra("movieSchedule", this)
                 startActivity(context, intent, null)
             }
         }

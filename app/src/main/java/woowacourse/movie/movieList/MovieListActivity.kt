@@ -5,7 +5,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import movie.Cinema
 import movie.Movie
-import movie.MovieInfo
+import movie.MovieSchedule
 import movie.ScreeningDate
 import woowacourse.movie.R
 import java.time.LocalDate
@@ -13,7 +13,7 @@ import java.time.LocalDate
 class MovieListActivity : AppCompatActivity() {
     private val cinema: Cinema = Cinema(
         listOf(
-            MovieInfo(
+            MovieSchedule(
                 movie = Movie(
                     title = "해리 포터와 마법사의 돌",
                     runningTime = 152,
@@ -25,7 +25,7 @@ class MovieListActivity : AppCompatActivity() {
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
             ),
-            MovieInfo(
+            MovieSchedule(
                 movie = Movie(
                     title = "해리 포터와 비밀의 방",
                     runningTime = 112,

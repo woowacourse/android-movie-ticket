@@ -43,12 +43,10 @@ class MovieTicketActivity : AppCompatActivity() {
         val context = this
 
         with(ticket) {
-            ticketTitleView.text = this.title
-            ticketMovieReleaseDateView.text = DateUtil(context).getDate(this.date)
-            ticketCountView.text = getString(R.string.movie_ticket_count).format(this.count)
-            ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(
-                decimalFormat.format(this.getTotalPrice()),
-            )
+            ticketTitleView.text = title
+            ticketMovieReleaseDateView.text = DateUtil(context).getDate(date)
+            ticketCountView.text = getString(R.string.movie_ticket_count).format(count)
+            ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(getTotalPrice()))
         }
     }
 
