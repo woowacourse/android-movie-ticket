@@ -8,7 +8,7 @@ import woowacourse.movie.domain.ReservationTime
 import woowacourse.movie.domain.RunningDate
 import java.time.LocalDate
 
-class SpinnerAdapter(val context: Context) {
+class SpinnerAdapter(private val context: Context) {
 
     fun getDateSpinnerAdapter(date: RunningDate): ArrayAdapter<String> {
         val dateAdapter = ArrayAdapter(
