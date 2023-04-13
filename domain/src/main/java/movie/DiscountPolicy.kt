@@ -6,9 +6,17 @@ import java.time.LocalTime
 
 object DiscountPolicy : Serializable {
     fun of(localDate: LocalDate, localTime: LocalTime): (Int) -> Int = when {
-        isMovieDay(localDate.dayOfMonth) && isEarlyMorning(localTime.hour) -> { price -> discountMovieDay(price) - EARLY_MORNING_DISCOUNT_AMOUNT }
-        isMovieDay(localDate.dayOfMonth) && isEvening(localTime.hour) -> { price -> discountMovieDay(price) - EVENING_DISCOUNT_AMOUNT }
-        isMovieDay(localDate.dayOfMonth) -> { price -> discountMovieDay(price) }
+        isMovieDay(localDate.dayOfMonth) -> getMovieDayPolicy(localTime)
+        else -> getNormalDayPolicy(localTime)
+    }
+
+    private fun getMovieDayPolicy(localTime: LocalTime): (Int) -> Int = when {
+        isEarlyMorning(localTime.hour) -> { price -> discountMovieDay(price) - EARLY_MORNING_DISCOUNT_AMOUNT }
+        isEvening(localTime.hour) -> { price -> discountMovieDay(price) - EVENING_DISCOUNT_AMOUNT }
+        else -> { price -> discountMovieDay(price) }
+    }
+
+    private fun getNormalDayPolicy(localTime: LocalTime): (Int) -> Int = when {
         isEarlyMorning(localTime.hour) -> { price -> price - EARLY_MORNING_DISCOUNT_AMOUNT }
         isEvening(localTime.hour) -> { price -> price - EVENING_DISCOUNT_AMOUNT }
         else -> { price -> price }
