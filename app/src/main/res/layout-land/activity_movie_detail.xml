@@ -16,7 +16,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="200dp"
         app:layout_constraintTop_toBottomOf="@+id/movie_detail_toolbar">
 
         <LinearLayout
@@ -27,8 +27,8 @@
             <ImageView
                 android:id="@+id/movie_poster"
                 android:layout_width="match_parent"
-                android:layout_height="341dp"
-                android:scaleType="centerCrop"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/img" />
 
             <LinearLayout
@@ -127,7 +127,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="211dp"
+        android:layout_height="150dp"
         android:paddingHorizontal="20dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -138,9 +138,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="11dp"
-            android:layout_marginTop="29dp"
             android:orientation="horizontal"
             android:weightSum="2"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toTopOf="parent">
 
             <Spinner
@@ -172,7 +172,6 @@
                 android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingVertical="8dp"
                 android:text="-"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -194,7 +193,6 @@
                 android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingVertical="8dp"
                 android:text="+"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -206,7 +204,7 @@
             android:id="@+id/book_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+
             android:paddingVertical="8dp"
             android:text="예매 완료"
             android:textSize="20sp"
