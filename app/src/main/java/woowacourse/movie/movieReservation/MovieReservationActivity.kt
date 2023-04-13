@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.movieReservation
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import movie.MovieInfo
 import movie.MovieTicket
+import woowacourse.movie.R
+import woowacourse.movie.movieTicket.MovieTicketActivity
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.movieList
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import movie.Cinema
 import movie.MovieInfo
+import woowacourse.movie.R
+import woowacourse.movie.movieReservation.MovieReservationActivity
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
@@ -30,7 +32,11 @@ class MovieListAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: View.inflate(parent?.context, R.layout.include_movie_list_item, null)
+        val view = convertView ?: View.inflate(
+            parent?.context,
+            R.layout.include_movie_list_item,
+            null,
+        )
 
         val poster = view.findViewById<ImageView>(R.id.movie_poster)
         val title = view.findViewById<TextView>(R.id.movie_title)

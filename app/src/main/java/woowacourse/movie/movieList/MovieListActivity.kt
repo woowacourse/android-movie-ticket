@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.movieList
 
 import android.os.Bundle
 import android.widget.ListView
@@ -7,6 +7,7 @@ import movie.Cinema
 import movie.Movie
 import movie.MovieInfo
 import movie.ScreeningDate
+import woowacourse.movie.R
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {

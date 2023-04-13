@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.movieTicket
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import movie.MovieInfo
 import movie.MovieTicket
+import woowacourse.movie.R
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -47,7 +48,9 @@ class MovieTicketActivity : AppCompatActivity() {
             ticketTitleView.text = title
             ticketMovieReleaseDateView.text = ticket.date.format(dateTimeFormatter)
             ticketCountView.text = getString(R.string.movie_ticket_count).format(ticket.count)
-            ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.getTotalPrice()))
+            ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(
+                decimalFormat.format(ticket.getTotalPrice()),
+            )
         }
     }
 
