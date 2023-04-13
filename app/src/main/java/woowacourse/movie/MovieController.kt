@@ -9,11 +9,11 @@ import java.time.format.DateTimeFormatter
 class MovieController(
     private val context: Context,
     private val movie: Movie,
-    private val poster: ImageView?,
-    private val title: TextView?,
-    private val date: TextView?,
-    private val runningTime: TextView?,
-    private val description: TextView?
+    private val poster: ImageView? = null,
+    private val title: TextView? = null,
+    private val date: TextView? = null,
+    private val runningTime: TextView? = null,
+    private val description: TextView? = null
 ) {
     fun render() {
         poster?.setImageResource(movie.picture)

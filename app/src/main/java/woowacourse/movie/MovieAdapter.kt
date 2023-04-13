@@ -25,8 +25,7 @@ class MovieAdapter(private val context: Context, private val movies: Movies) : B
             view.findViewById(R.id.item_movie_poster),
             view.findViewById(R.id.item_movie_title),
             view.findViewById(R.id.item_movie_date),
-            view.findViewById(R.id.item_movie_running_time),
-            null
+            view.findViewById(R.id.item_movie_running_time)
         ).render()
 
         view.findViewById<Button>(R.id.item_movie_reservation_button)
