@@ -12,16 +12,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val movieListView = findViewById<ListView>(R.id.movie_listView)
+        setUpMovieDatas()
+    }
 
-        val movie = Movie(
+    private fun setMovieData(): List<Movie> = listOf(
+        Movie(
             "해리포터",
             RunningDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 4, 1)),
             200,
             "rkrkrkrkrkrk",
             R.drawable.img,
-        )
-        val movieListViewAdapter = MovieListViewAdapter(this, mutableListOf(movie))
+        ),
+    )
+
+    private fun setUpMovieDatas() {
+        val movieListView = findViewById<ListView>(R.id.movie_listView)
+        val movieListViewAdapter = MovieListViewAdapter(this, setMovieData())
 
         movieListView.adapter = movieListViewAdapter
     }

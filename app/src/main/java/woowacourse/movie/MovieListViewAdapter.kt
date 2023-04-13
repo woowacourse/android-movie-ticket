@@ -12,7 +12,7 @@ import android.widget.TextView
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
-class MovieListViewAdapter(private val context: Context, private val movies: MutableList<Movie>) :
+class MovieListViewAdapter(private val context: Context, private val movies: List<Movie>) :
     BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
