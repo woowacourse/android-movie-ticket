@@ -9,35 +9,55 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_movie_booking"
         android:layout_width="match_parent"
-        android:layout_height="138dp"
+        android:layout_height="211dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <Spinner
+            android:layout_marginBottom="17dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintEnd_toStartOf="@id/sp_movie_time"
+            android:id="@+id/sp_movie_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bt_ticket_count_minus"
+            app:layout_constraintStart_toStartOf="@id/bt_ticket_count_minus" />
+
+        <Spinner
+            android:layout_marginBottom="17dp"
+            android:id="@+id/sp_movie_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bt_ticket_count_plus"
+            app:layout_constraintEnd_toEndOf="@id/bt_ticket_count_plus"
+            app:layout_constraintStart_toEndOf="@id/sp_movie_date" />
+
 
         <Button
             android:id="@+id/bt_ticket_count_minus"
             android:layout_width="65dp"
             android:layout_height="45dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginBottom="19dp"
             android:background="@color/design_default_color_primary"
             android:text="-"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/bt_ticket_count_plus"
             android:layout_width="65dp"
             android:layout_height="45dp"
-            android:layout_marginTop="11dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="19dp"
             android:background="@color/design_default_color_primary"
             android:text="+"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/tv_ticket_count"
@@ -47,10 +67,10 @@
             android:text="1"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/bt_ticket_count_minus"
-            app:layout_constraintEnd_toStartOf="@id/bt_ticket_count_plus"
-            app:layout_constraintStart_toEndOf="@id/bt_ticket_count_minus"
-            app:layout_constraintTop_toTopOf="@id/bt_ticket_count_minus" />
+            app:layout_constraintBottom_toBottomOf="@+id/bt_ticket_count_plus"
+            app:layout_constraintEnd_toStartOf="@+id/bt_ticket_count_plus"
+            app:layout_constraintStart_toEndOf="@+id/bt_ticket_count_minus"
+            app:layout_constraintTop_toTopOf="@+id/bt_ticket_count_minus" />
 
         <Button
             android:id="@+id/bt_book_complete"
