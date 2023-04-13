@@ -32,6 +32,10 @@ class TicketingResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showTicketingResult()
+    }
+
+    private fun showTicketingResult() {
         with(binding) {
             val movieDate = getSerializable<MovieDate>(MOVIE_DATE_KEY)!!
             val movieTime = getSerializable<MovieTime>(MOVIE_TIME_KEY)!!
