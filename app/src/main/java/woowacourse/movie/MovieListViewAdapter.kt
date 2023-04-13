@@ -45,7 +45,18 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         screeningEndDate.text = item.runningDate.endDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
         runningTime.text = item.runningTime.toString()
 
-        bookButton.setOnClickListener {
+    private fun setMovieData(holder: MovieListViewHolder, item: Movie) {
+        holder.moviePoster.setImageResource(item.moviePoster)
+        holder.movieTitle.text = item.title
+        holder.screeningStartDate.text
+        item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+        holder.screeningEndDate.text =
+            item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+        holder.runningTime.text = item.runningTime.toString()
+    }
+
+    private fun buttonSetOnclickListener(holder: MovieListViewHolder, item: Movie) {
+        holder.bookButton.setOnClickListener {
             val intent = Intent(context, MovieDetailActivity::class.java)
             intent.putExtra("movie", item)
             context.startActivity(intent)

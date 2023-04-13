@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="date_format">yyyy.M.d</string>
 </resources>
