@@ -1,22 +1,30 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.moviebookingactivity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningPeriod
+import woowacourse.movie.ui.DateFormatters
+import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
 import kotlin.properties.Delegates
 
 class MovieBookingActivity : AppCompatActivity() {
+
     lateinit var movieData: MovieData
     lateinit var tvTicketCount: TextView
+    lateinit var dateSpinner: Spinner
+    lateinit var timeSpinner: Spinner
+    lateinit var dateSpinnerAdapter: DateSpinnerAdapter
+    lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
 
     var ticketCount by Delegates.observable(0) { _, _, new ->
         tvTicketCount.text = new.toString()
@@ -33,6 +41,21 @@ class MovieBookingActivity : AppCompatActivity() {
         initMinusButtonClickListener()
         initPlusButtonClickListener()
         initBookingCompleteButtonClickListener()
+        initSpinners()
+        initSpinnerAdapter()
+    }
+
+    private fun initSpinners() {
+        dateSpinner = findViewById(R.id.spinner_date)
+        timeSpinner = findViewById(R.id.spinner_time)
+    }
+
+    private fun initSpinnerAdapter() {
+        timeSpinnerAdapter =
+            TimeSpinnerAdapter(timeSpinner, movieData.screeningDay, this).apply { initAdapter() }
+        dateSpinnerAdapter =
+            DateSpinnerAdapter(dateSpinner, timeSpinnerAdapter::updateTimeTable, movieData.screeningDay, this)
+                .apply { initAdapter() }
     }
 
     private fun initExtraData() {

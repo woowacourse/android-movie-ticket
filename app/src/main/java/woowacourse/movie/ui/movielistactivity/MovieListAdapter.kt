@@ -9,7 +9,7 @@ import android.widget.BaseAdapter
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.ui.DateFormatters.hyphenDateFormatter
-import woowacourse.movie.ui.MovieBookingActivity
+import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
 import woowacourse.movie.util.setOnSingleClickListener
 
 class MovieListAdapter(val context: Context, val movies: List<MovieData>) : BaseAdapter() {

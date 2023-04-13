@@ -15,7 +15,7 @@
             android:name=".ui.MovieBookingCheckActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.MovieBookingActivity"
+            android:name=".ui.moviebookingactivity.MovieBookingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.movielistactivity.MovieListActivity"
