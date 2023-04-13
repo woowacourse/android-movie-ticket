@@ -59,10 +59,14 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         val tvBookingCheckTotalMoney = findViewById<TextView>(R.id.tv_booking_check_total_money)
 
         tvBookingCheckMovieName.text = movieData.title
-        tvBookingCheckScreeningDay.text = bookedScreeningDateTime.value.format(dateDotTimeColonFormatter)
+        tvBookingCheckScreeningDay.text =
+            bookedScreeningDateTime.value.format(dateDotTimeColonFormatter)
         tvBookingCheckPersonCount.text =
             this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
         tvBookingCheckTotalMoney.text = this.getString(R.string.tv_booking_check_total_money)
             .format(pricePolicy.totalPriceCalculate(13000, ticketCount))
+    }
+
+    private fun applyDisCount() {
     }
 }
