@@ -7,7 +7,11 @@ class MovieTicket(
     val time: MovieTime,
     val peopleCount: PeopleCount,
 ) : Serializable {
-    fun getPrice(): Int = TICKET_PRICE * peopleCount.count
+    fun getPrice(): Int {
+        var price = TICKET_PRICE * peopleCount.count
+        if (time.isMovieDay()) price = (price * 0.9).toInt()
+        return price
+    }
 
     companion object {
         private const val TICKET_PRICE = 13000

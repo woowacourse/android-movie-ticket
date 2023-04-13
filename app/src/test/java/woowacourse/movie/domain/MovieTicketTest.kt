@@ -11,10 +11,23 @@ class MovieTicketTest {
             "title",
             MovieTime(
                 LocalDate.of(2023, 4, 13),
-                Time(11)
+                Time(12)
             ),
             PeopleCount(2)
         )
         assertEquals(26000, ticket.getPrice())
+    }
+
+    @Test
+    fun `인원이 2명이고 무비데이인 경우 예매 금액은 23400원이다`() {
+        val ticket = MovieTicket(
+            "title",
+            MovieTime(
+                LocalDate.of(2023, 4, 10),
+                Time(12)
+            ),
+            PeopleCount(2)
+        )
+        assertEquals(23400, ticket.getPrice())
     }
 }
