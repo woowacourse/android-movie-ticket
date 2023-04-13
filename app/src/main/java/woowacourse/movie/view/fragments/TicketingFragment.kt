@@ -30,7 +30,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     private val movieTicket get() = _movieTicket
 
     private val movieDates: List<MovieDate> by lazy {
-        getSerializable<Movie>(MOVIE_KEY)?.run { MovieDate.releaseDates(from = startDate, to = endDate) }
+        getSerializable<Movie>(MOVIE_KEY)?.run { MovieDate.releaseDates(startDate, endDate) }
             ?: emptyList()
     }
     private val _movieTimes = mutableListOf<MovieTime>()
