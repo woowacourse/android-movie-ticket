@@ -1,21 +1,26 @@
 package woowacourse.movie.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.PricePolicy
 import woowacourse.movie.domain.price.PricePolicyCalculator
+import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
 import woowacourse.movie.util.customGetParcelableExtra
 import java.time.LocalDate
+import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
 
     lateinit var movieData: MovieData
     var ticketCount by Delegates.notNull<Int>()
+    lateinit var bookedScreeningDateTime: ScreeningDateTime
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +28,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
 
         initExtraData()
         initMovieInformation(PricePolicyCalculator())
+        Log.d("링딩동", bookedScreeningDateTime.toString())
     }
 
     private fun initExtraData() {
@@ -36,6 +42,14 @@ class MovieBookingCheckActivity : AppCompatActivity() {
             )
         }
         ticketCount = intent.getIntExtra("ticketCount", -1)
+        bookedScreeningDateTime =
+            intent.customGetParcelableExtra("bookedScreeningDateTime") ?: run {
+                finish()
+                ScreeningDateTime(
+                    LocalDateTime.parse("9999-12-30T00:00"),
+                    ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31"))
+                )
+            }
     }
 
     private fun initMovieInformation(pricePolicy: PricePolicy) {
@@ -45,7 +59,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         val tvBookingCheckTotalMoney = findViewById<TextView>(R.id.tv_booking_check_total_money)
 
         tvBookingCheckMovieName.text = movieData.title
-        // tvBookingCheckScreeningDay.text = movieData.screeningDay
+        tvBookingCheckScreeningDay.text = bookedScreeningDateTime.value.format(dateDotTimeColonFormatter)
         tvBookingCheckPersonCount.text =
             this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
         tvBookingCheckTotalMoney.text = this.getString(R.string.tv_booking_check_total_money)
