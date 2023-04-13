@@ -28,6 +28,7 @@ class MovieBookingActivity : AppCompatActivity() {
     lateinit var timeSpinner: Spinner
     lateinit var dateSpinnerAdapter: DateSpinnerAdapter
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
+    var timeSpinnerRecoverState: Int = -1
 
     var ticketCount by Delegates.observable(0) { _, _, new ->
         tvTicketCount.text = new.toString()
@@ -51,12 +52,14 @@ class MovieBookingActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt("ticketCount", ticketCount)
+        outState.putInt("selectedTimePosition", timeSpinner.selectedItemPosition)
         super.onSaveInstanceState(outState)
     }
 
     private fun recoverState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             ticketCount = savedInstanceState.getInt("ticketCount")
+            timeSpinnerRecoverState = savedInstanceState.getInt("selectedTimePosition")
         }
     }
 
@@ -67,7 +70,12 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun initSpinnerAdapter() {
         timeSpinnerAdapter =
-            TimeSpinnerAdapter(timeSpinner, movieData.screeningDay, this).apply { initAdapter() }
+            TimeSpinnerAdapter(
+                timeSpinner,
+                movieData.screeningDay,
+                timeSpinnerRecoverState,
+                this
+            ).apply { initAdapter() }
         dateSpinnerAdapter =
             DateSpinnerAdapter(
                 dateSpinner,

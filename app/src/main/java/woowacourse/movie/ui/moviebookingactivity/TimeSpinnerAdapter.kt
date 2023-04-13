@@ -11,6 +11,7 @@ import java.time.LocalTime
 class TimeSpinnerAdapter(
     private val timeSpinner: Spinner,
     private val screeningPeriod: ScreeningPeriod,
+    private var recoverPosition: Int,
     context: Context
 ) {
     private val times = mutableListOf<LocalTime>()
@@ -29,5 +30,9 @@ class TimeSpinnerAdapter(
         times.clear()
         times.addAll(screeningPeriod.getScreeningTime(date))
         timeAdapter.notifyDataSetChanged()
+        if (recoverPosition != -1) {
+            timeSpinner.setSelection(recoverPosition)
+            recoverPosition = -1
+        }
     }
 }
