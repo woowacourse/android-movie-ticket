@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:maxHeight="211dp"
     android:background="@color/white"
+    android:maxHeight="211dp"
     android:paddingHorizontal="20dp">
 
     <Button
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="-"
+        android:text="@string/minus"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/reservation_complete_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="예매 완료"
+        android:text="@string/reservation_complete"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +38,7 @@
         android:id="@+id/reservation_increase_ticket_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:text="@string/plus"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,14 +50,14 @@
         android:id="@+id/reservation_ticket_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
         android:text="1"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/reservation_increase_ticket_button"
         app:layout_constraintStart_toEndOf="@+id/reservation_decrease_ticket_button"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.4"
+        tools:ignore="HardcodedText" />
 
     <Spinner
         android:id="@+id/reservation_screening_date_spinner"
