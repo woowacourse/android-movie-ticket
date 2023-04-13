@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-import com.google.common.truth.Truth.assertThat
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 import java.time.LocalTime
@@ -17,7 +17,7 @@ class RunningTimeSetterTest {
             }
             add(LocalTime.of(0, 0, 0))
         }
-        assertThat(actual).isEqualTo(expected)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -30,7 +30,7 @@ class RunningTimeSetterTest {
                 add(LocalTime.of(hour, 0, 0))
             }
         }
-        assertThat(actual).isEqualTo(expected)
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -43,6 +43,6 @@ class RunningTimeSetterTest {
                 add(LocalTime.of(hour, 0, 0))
             }
         }
-        assertThat(actual).isEqualTo(expected)
+        assertEquals(expected, actual)
     }
 }
