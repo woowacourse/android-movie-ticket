@@ -20,15 +20,17 @@ class ReservationResultActivity : AppCompatActivity() {
 
         if (reservation != null) {
             MovieController(
-                this, reservation.movie, title = findViewById(R.id.movie_reservation_result_title)
+                this,
+                movie = reservation.movie,
+                title = findViewById(R.id.movie_reservation_result_title)
             ).render()
 
             ReservationDetailController(
                 this,
-                reservation.detail,
-                findViewById(R.id.movie_reservation_result_date),
-                findViewById(R.id.movie_reservation_result_people_count),
-                findViewById(R.id.movie_reservation_result_price),
+                reservationDetail = reservation.detail,
+                date = findViewById(R.id.movie_reservation_result_date),
+                peopleCount = findViewById(R.id.movie_reservation_result_people_count),
+                price = findViewById(R.id.movie_reservation_result_price),
             ).render()
         }
     }

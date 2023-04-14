@@ -57,26 +57,31 @@ class MovieReservationActivity : AppCompatActivity() {
         if (movie != null) {
             counter.load(savedInstanceState)
 
-            dateSpinner.make(this, savedInstanceState, movie, timeSpinner)
+            dateSpinner.make(
+                this,
+                savedInstanceState = savedInstanceState,
+                movie = movie,
+                timeSpinner = timeSpinner
+            )
 
             MovieController(
                 this,
-                movie,
-                findViewById(R.id.movie_reservation_poster),
-                findViewById(R.id.movie_reservation_title),
-                findViewById(R.id.movie_reservation_date),
-                findViewById(R.id.movie_reservation_running_time),
-                findViewById(R.id.movie_reservation_description)
+                movie = movie,
+                poster = findViewById(R.id.movie_reservation_poster),
+                title = findViewById(R.id.movie_reservation_title),
+                date = findViewById(R.id.movie_reservation_date),
+                runningTime = findViewById(R.id.movie_reservation_running_time),
+                description = findViewById(R.id.movie_reservation_description)
             ).render()
 
             ReservationButton(
-                findViewById(R.id.movie_reservation_button),
-                getString(R.string.reservation_extra_name),
+                button = findViewById(R.id.movie_reservation_button),
+                extraName = getString(R.string.reservation_extra_name),
                 this,
-                movie,
-                dateSpinner,
-                timeSpinner,
-                counter.counter
+                movie = movie,
+                dateSpinner = dateSpinner,
+                timeSpinner = timeSpinner,
+                counter = counter.counter
             )
         }
     }
