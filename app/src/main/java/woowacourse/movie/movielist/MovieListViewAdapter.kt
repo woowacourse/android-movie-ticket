@@ -48,11 +48,12 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
     private fun setMovieData(holder: MovieListViewHolder, item: Movie) {
         holder.moviePoster.setImageResource(item.moviePoster)
         holder.movieTitle.text = item.title
-        holder.screeningStartDate.text
-        item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
-        holder.screeningEndDate.text =
+        val startDate =
+            item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+        val endDate =
             item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
-        holder.runningTime.text = item.runningTime.toString()
+        holder.screeningDate.text = context.getString(R.string.screen_date, startDate, endDate)
+        holder.runningTime.text = context.getString(R.string.running_time, item.runningTime)
     }
 
     private fun buttonSetOnclickListener(holder: MovieListViewHolder, item: Movie) {

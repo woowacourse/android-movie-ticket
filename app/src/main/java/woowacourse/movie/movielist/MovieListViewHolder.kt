@@ -10,8 +10,7 @@ class MovieListViewHolder(itemView: View) {
 
     val moviePoster: ImageView = itemView.findViewById(R.id.movie_poster)
     val movieTitle: TextView = itemView.findViewById(R.id.movie_title)
-    val screeningStartDate: TextView = itemView.findViewById(R.id.screening_start_date)
-    val screeningEndDate: TextView = itemView.findViewById(R.id.screening_end_date)
-    val runningTime: TextView = itemView.findViewById(R.id.running_time)
+    val screeningDate: TextView = itemView.findViewById(R.id.movieList_screening_date)
+    val runningTime: TextView = itemView.findViewById(R.id.movieList_running_time)
     val bookButton: Button = itemView.findViewById(R.id.book_button)
 }

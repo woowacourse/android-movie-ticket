@@ -59,21 +59,22 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setUpMovieData(movie: Movie) {
         val moviePoster = findViewById<ImageView>(R.id.movie_poster)
         val movieTitle = findViewById<TextView>(R.id.movie_title)
-        val screeningStartDate = findViewById<TextView>(R.id.screening_start_date)
-        val screeningEndDate = findViewById<TextView>(R.id.screening_end_date)
+        val screeningDate = findViewById<TextView>(R.id.screening_date)
         val runningTime = findViewById<TextView>(R.id.running_time)
         val description = findViewById<TextView>(R.id.movie_description)
 
         moviePoster.setImageResource(movie.moviePoster)
         movieTitle.text = movie.title
 
-        screeningStartDate.text =
+        val startDate =
             movie.runningDate.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
-        screeningEndDate.text =
+        val endDate =
             movie.runningDate.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
-        runningTime.text = movie.runningTime.toString()
+        screeningDate.text = this.getString(R.string.screen_date, startDate, endDate)
+
+        runningTime.text = this.getString(R.string.running_time, movie.runningTime)
         description.text = movie.description
     }
 
