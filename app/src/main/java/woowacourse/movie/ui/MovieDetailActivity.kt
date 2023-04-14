@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui
 
 import android.content.Intent
 import android.os.Build
@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount

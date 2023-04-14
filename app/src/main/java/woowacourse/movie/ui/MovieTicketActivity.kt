@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui
 
 import android.content.res.Configuration
 import android.os.Build
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
