@@ -16,10 +16,10 @@ class MovieDetailActivity : BackButtonActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_detail)
+        binding = ActivityMovieDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         restoreInstanceFlag = true
-
-        val movieData = intent.getSerializableCompat<Movie>("movieData")
+        val movieData = intent.getParcelableCompat<Movie>("movieData")
         processEmptyMovieData(movieData)
 
         setViewData(movieData)
@@ -93,10 +93,10 @@ class MovieDetailActivity : BackButtonActivity() {
                 if (restoreInstanceFlag && savedInstanceState != null) {
                     binding.spMovieTime.setSelection(
                         (
-                                savedInstanceState.getString("time")
-                                    ?: movieSchedule.getScheduleTimes(binding.spMovieDate.selectedItem.toString())
-                                        .first()
-                                ).toInt()
+                            savedInstanceState.getString("time")
+                                ?: movieSchedule.getScheduleTimes(binding.spMovieDate.selectedItem.toString())
+                                    .first()
+                            ).toInt()
                     )
                     restoreInstanceFlag = false
                 }

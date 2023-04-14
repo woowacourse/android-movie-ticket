@@ -1,10 +1,12 @@
 package woowacourse.movie
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MovieBookingInfo(
     val movieInfo: Movie,
     val date: String,
     val time: String,
     val ticketCount: Int
-) : Serializable
+) : Parcelable
