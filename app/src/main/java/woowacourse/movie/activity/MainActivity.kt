@@ -3,32 +3,15 @@ package woowacourse.movie.activity
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MockMoviesFactory
 import woowacourse.movie.R
-import woowacourse.movie.domain.DateRange
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movies
 import woowacourse.movie.view.MovieAdapter
-import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val movies = Movies(
-            listOf(
-                Movie(
-                    R.drawable.poster_harrypotter,
-                    "해리 포터",
-                    DateRange(
-                        LocalDate.of(2024, 3, 1),
-                        LocalDate.of(2024, 3, 31),
-                    ),
-                    153,
-                    "adsfasdfadsf",
-                ),
-            ),
-        )
+        val movies = MockMoviesFactory.generateMovies()
         val movieList = findViewById<ListView>(R.id.main_movie_list)
         movieList.adapter = MovieAdapter(this, movies)
     }
