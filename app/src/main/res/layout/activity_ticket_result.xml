@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,83 +8,72 @@
     tools:context=".activity.TicketResultActivity">
 
     <TextView
+        android:id="@+id/text_notice"
         android:layout_width="match_parent"
         android:layout_height="114dp"
-        android:text="@string/cancel_notice"
-        android:textSize="15sp"
-        android:textColor="@color/white"
-        android:paddingBottom="10dp"
+        android:background="@color/ticket_color"
         android:gravity="bottom|center"
-        android:background="#9160F9" />
+        android:paddingBottom="10dp"
+        android:text="@string/cancel_notice"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="25sp"
+        android:layout_marginTop="31dp"
         android:textColor="@color/black"
-        android:layout_marginTop="31dp" />
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_notice"
+        tools:text="해리 포터와 마법사의 돌" />
+
     <TextView
         android:id="@+id/text_playing_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="25sp"
+        android:layout_marginTop="9dp"
         android:textColor="@color/black"
-        android:layout_marginTop="9dp" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_title"
+        tools:text="2024.3.1 17:00" />
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/text_person_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_marginRight="8dp"
-            android:text="@string/normal"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/text_person_count"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/count"
-            android:textSize="20sp"
-            android:textColor="@color/black" />
-    </LinearLayout>
+        android:text="@string/normal_count"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_playing_date"
+        tools:text="일반 1명" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/text_price_payment"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="19dp"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/text_price"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/text_price_payment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/price_payment"
-            android:textSize="20sp"
-            android:textColor="@color/black" />
-    </LinearLayout>
+        android:text="@string/price_payment"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_person_count" />
 
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

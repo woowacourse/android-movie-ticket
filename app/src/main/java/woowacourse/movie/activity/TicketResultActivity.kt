@@ -30,13 +30,10 @@ class TicketResultActivity : AppCompatActivity() {
         )
 
         val count = findViewById<TextView>(R.id.text_person_count)
-        count.text = info.count.toString()
-
-        val price = findViewById<TextView>(R.id.text_price)
-        price.text = DecimalFormat(getString(R.string.decimal_format)).format(info.price.price * info.count)
+        count.text = getString(R.string.normal_count, info.count)
 
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
-        pricePayment.text = getString(R.string.price_payment, info.payment)
+        pricePayment.text = getString(R.string.price_payment, DecimalFormat(getString(R.string.decimal_format)).format(info.price.price * info.count), info.payment)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
