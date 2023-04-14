@@ -30,8 +30,8 @@ class TicketActivity : AppCompatActivity() {
 
         movieTitle.text = movie.title
         movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
-        numberOfPeople.text = ticket.numberOfPeople.toString()
-        price.text = ticket.calculateTotalPrice().toString()
+        numberOfPeople.text = this.getString(R.string.ticket_number_of_people, ticket.numberOfPeople)
+        price.text = this.getString(R.string.ticket_price, ticket.calculateTotalPrice())
     }
 
     private fun setBackToBefore() {
