@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.databinding.ActivityReservationCompletedBinding
 import woowacourse.movie.domain.Reservation
 import java.text.DecimalFormat
 
 class ReservationCompletedActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityReservationCompletedBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reservation_completed)
+        binding = ActivityReservationCompletedBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val reservation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(ReservationActivity.RESERVATION, Reservation::class.java)
@@ -23,17 +28,14 @@ class ReservationCompletedActivity : AppCompatActivity() {
     }
 
     private fun initViewData(reservation: Reservation) {
-        val titleView = findViewById<TextView>(R.id.movie_title)
-        titleView.text = reservation.movieTitle
-        val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
-        screeningDateView.text =
-            reservation.screeningDateTime.format(DATE_TIME_FORMATTER)
-        val peopleCountView = findViewById<TextView>(R.id.people_count)
-        peopleCountView.text = getString(R.string.reservation_people_count_format)
-            .format(getString(R.string.general_person), reservation.peopleCount)
-        val totalPriceView = findViewById<TextView>(R.id.total_price)
-        totalPriceView.text =
-            getString(R.string.total_price_format).format(DECIMAL_FORMAT.format(reservation.totalReservationFee.amount))
+        binding.apply {
+            movieTitle.text = reservation.movieTitle
+            movieScreeningDate.text = reservation.screeningDateTime.format(DATE_TIME_FORMATTER)
+            peopleCount.text = getString(R.string.reservation_people_count_format)
+                .format(getString(R.string.general_person), reservation.peopleCount)
+            totalPrice.text =
+                getString(R.string.total_price_format).format(DECIMAL_FORMAT.format(reservation.totalReservationFee.amount))
+        }
     }
 
     companion object {
