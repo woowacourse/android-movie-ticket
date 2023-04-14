@@ -20,6 +20,7 @@ import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.Time
 import woowacourse.movie.domain.TimesGenerator
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -36,13 +37,14 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = getMovieFromIntent()
-
-        setMovieInfo(movie)
-        setDateSpinner(movie)
+        val movie = intent.getSerializable<Movie>("movie")
+        movie?.let {
+            setMovieInfo(movie)
+            setDateSpinner(movie)
+            setBookingButton(movie)
+        }
         setTimeSpinner()
         setPeopleCountController()
-        setBookingButton(movie)
 
         loadSavedData(savedInstanceState)
     }
@@ -66,11 +68,12 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     @Suppress("DEPRECATION")
-    private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra("movie", Movie::class.java)
-    } else {
-        intent.getSerializableExtra("movie")
-    } as Movie
+    private inline fun <reified T : Serializable> Intent.getSerializable(key: String): T? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            getSerializableExtra(key, T::class.java)
+        } else {
+            getSerializableExtra(key) as? T
+        }
 
     private fun setMovieInfo(movie: Movie) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
