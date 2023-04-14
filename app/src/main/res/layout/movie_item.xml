@@ -3,99 +3,52 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="12dp"
     android:layout_width="match_parent"
-    android:layout_height="132dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/movie_poster"
-        android:layout_width="76dp"
+        android:layout_width="0dp"
         android:layout_height="108dp"
-        android:layout_margin="12dp"
+        android:src="@drawable/img"
+        app:layout_constraintDimensionRatio="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="272dp"
+    <TextView
+        android:id="@+id/movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="12dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/movie_poster"
+        app:layout_constraintTop_toTopOf="@+id/movie_poster"
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/movie_date"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        tools:text="@string/movie_running_date"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/movie_poster"
+        app:layout_constraintTop_toBottomOf="@id/movie_title" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/movie_poster"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/movie_title"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:textColor="@color/black"
-            android:text="Title"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="상영일: "
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/screening_start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="2024.3.1"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text=" ~ "
-                android:textSize="14dp" />
-            <TextView
-                android:id="@+id/screening_end_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="2024.3.1"
-                android:textSize="14dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="러닝타임: "
-                android:textSize="14dp" />
-
-            <TextView
-                android:id="@+id/running_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="200"
-                android:textSize="14dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="분"
-                android:textSize="14dp" />
-        </LinearLayout>
-
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/movie_date"
+        tools:text="@string/movie_running_time" />
 
     <Button
         android:id="@+id/book_button"
@@ -103,12 +56,12 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="11dp"
         android:paddingVertical="9dp"
-        android:textSize="15sp"
-        android:text="지금 예매"
+        android:text = "@string/now_booking"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_margin="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
