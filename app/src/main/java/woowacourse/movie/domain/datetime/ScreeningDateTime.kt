@@ -20,10 +20,7 @@ class ScreeningDateTime(val value: LocalDateTime, private val screeningPeriod: S
         }
     }
 
-    fun checkMovieDay(): Boolean {
-        if (value.dayOfMonth in MOVIE_DAYS) return true
-        return false
-    }
+    fun checkMovieDay(): Boolean = value.dayOfMonth in MOVIE_DAYS
 
     fun checkEarlyMorningLateNight(): Boolean {
         val hour = value.hour
