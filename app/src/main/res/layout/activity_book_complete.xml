@@ -6,17 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".BookCompleteActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="114dp"
         android:background="@color/book_complete_info_background"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/tv_book_complete"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="@string/book_can_cancel_before_start_movie"
             android:textColor="@color/white"
@@ -25,46 +32,58 @@
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_book_movie_title"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
         android:layout_marginTop="31dp"
         android:gravity="center"
+        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
 
     <TextView
         android:id="@+id/tv_book_date"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
         android:layout_marginTop="9dp"
         android:gravity="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_book_movie_title" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_book_movie_title" />
 
     <TextView
         android:id="@+id/tv_book_person_count"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
         android:layout_marginTop="69dp"
         android:gravity="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_book_date" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_book_date" />
 
     <TextView
         android:id="@+id/tv_book_total_pay"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
         android:layout_marginTop="19dp"
         android:gravity="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_book_person_count" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_book_person_count" />
 </androidx.constraintlayout.widget.ConstraintLayout>
