@@ -5,7 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Reservation
-import woowacourse.movie.getSerializable
+import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.MovieController
 import woowacourse.movie.view.ReservationDetailController
 
@@ -16,7 +16,7 @@ class ReservationResultActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val reservation =
-            intent.extras?.getSerializable<Reservation>(getString(R.string.reservation_extra_name))
+            intent.extras?.getSerializableCompat<Reservation>(getString(R.string.reservation_extra_name))
 
         if (reservation != null) {
             MovieController(
