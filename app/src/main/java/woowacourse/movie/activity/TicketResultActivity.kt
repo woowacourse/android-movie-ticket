@@ -23,7 +23,7 @@ class TicketResultActivity : AppCompatActivity() {
         title.text = info.title
 
         val playingDate = findViewById<TextView>(R.id.text_playing_date)
-        playingDate.text = getString(R.string.date_time).format(
+        playingDate.text = getString(R.string.date_time,
             Formatter.dateFormat(info.playingDate),
             Formatter.timeFormat(info.playingTime)
         )
@@ -35,7 +35,7 @@ class TicketResultActivity : AppCompatActivity() {
         price.text = Formatter.decimalFormat(info.price.price * info.count)
 
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
-        pricePayment.text = getText(R.string.price_payment).toString().format(info.payment)
+        pricePayment.text = getString(R.string.price_payment, info.payment)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
