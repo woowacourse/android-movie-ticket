@@ -13,12 +13,19 @@ class BookCompleteActivity : BackButtonActivity() {
         binding = ActivityBookCompleteBinding.inflate(layoutInflater)
 
         val movieBookingData = intent.getSerializableCompat<MovieBookingInfo>("movieBookingInfo")
+        processEmptyBookingData(movieBookingData)
+
+        setViewData(movieBookingData!!)
+    }
+
+    private fun processEmptyBookingData(movieBookingData: MovieBookingInfo?) {
         if (movieBookingData == null) {
             Toast.makeText(this, "시스템 오류가 발생 했습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
             this.finish()
-            return
         }
+    }
 
+    private fun setViewData(movieBookingData: MovieBookingInfo) {
         binding.tvBookMovieTitle.text = movieBookingData.movieInfo.title
         binding.tvBookDate.text =
             formatBookingTime(movieBookingData.date, movieBookingData.time)
