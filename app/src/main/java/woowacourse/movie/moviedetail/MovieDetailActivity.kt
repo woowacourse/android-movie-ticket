@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
 import woowacourse.movie.TicketActivity
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.domain.movieinfo.RunningDate
-import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

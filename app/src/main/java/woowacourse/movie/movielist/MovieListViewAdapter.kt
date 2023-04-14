@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import woowacourse.movie.moviedetail.MovieDetailActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
+import woowacourse.movie.moviedetail.MovieDetailActivity
 import java.time.format.DateTimeFormatter
 
 class MovieListViewAdapter(private val context: Context, private val movies: List<Movie>) :
