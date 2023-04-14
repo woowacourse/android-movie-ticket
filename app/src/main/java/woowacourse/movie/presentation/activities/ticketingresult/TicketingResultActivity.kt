@@ -6,13 +6,14 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityTicketingResultBinding
 import woowacourse.movie.domain.model.movie.MovieDate
 import woowacourse.movie.domain.model.movie.MovieTime
+import woowacourse.movie.domain.model.movie.TicketPrice
 import woowacourse.movie.domain.model.movie.discount.policy.MovieDayDiscountPolicy
 import woowacourse.movie.domain.model.movie.discount.policy.MovieTimeDiscountPolicy
 import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
+import woowacourse.movie.presentation.activities.ticketing.TicketingActivity
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_DATE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_TIME_KEY
-import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.TICKET_KEY
 import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
 import woowacourse.movie.presentation.model.Movie
 
@@ -27,28 +28,42 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun showTicketingResult() {
-        with(binding) {
-            val movieDate = intent.getParcelableExtraCompat<MovieDate>(MOVIE_DATE_KEY)!!
-            val movieTime = intent.getParcelableExtraCompat<MovieTime>(MOVIE_TIME_KEY)!!
-            intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
-                tvTitle.text = title
-                tvDate.text = getString(
-                    R.string.book_date_time,
-                    movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
-                )
-            }
-            intent.getParcelableExtraCompat<Ticket>(TICKET_KEY)?.let { ticket ->
-                tvRegularCount.text = getString(R.string.regular_count, ticket.count)
-                tvPayResult.text =
-                    getString(
-                        R.string.movie_pay_result,
-                        ticket.applyDiscountPolicy(
-                            MovieDayDiscountPolicy(movieDate),
-                            MovieTimeDiscountPolicy(movieTime),
-                        ),
-                        getString(R.string.on_site_payment)
-                    )
-            }
+        val movieDate = intent.getParcelableExtraCompat<MovieDate>(MOVIE_DATE_KEY)!!
+        val movieTime = intent.getParcelableExtraCompat<MovieTime>(MOVIE_TIME_KEY)!!
+        val ticket = intent.getParcelableExtraCompat<Ticket>(TicketingActivity.TICKET_KEY)!!
+
+        showMovieInformation(movieDate, movieTime)
+        showPaymentPrice(ticket, movieDate, movieTime)
+    }
+
+    private fun showMovieInformation(
+        movieDate: MovieDate,
+        movieTime: MovieTime,
+    ) {
+        intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
+            binding.tvTitle.text = title
+            binding.tvDate.text = getString(
+                R.string.book_date_time,
+                movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
+            )
         }
+    }
+
+    private fun showPaymentPrice(
+        ticket: Ticket,
+        movieDate: MovieDate,
+        movieTime: MovieTime,
+    ) {
+        val totalTicketsPrice = TicketPrice().applyDiscountPolicy(
+            MovieDayDiscountPolicy(movieDate),
+            MovieTimeDiscountPolicy(movieTime),
+        ) * ticket.count
+
+        binding.tvRegularCount.text = getString(R.string.regular_count, ticket.count)
+        binding.tvPayResult.text = getString(
+            R.string.movie_pay_result,
+            totalTicketsPrice.amount,
+            getString(R.string.on_site_payment)
+        )
     }
 }
