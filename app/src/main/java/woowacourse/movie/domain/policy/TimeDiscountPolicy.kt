@@ -7,10 +7,7 @@ class TimeDiscountPolicy : DiscountPolicy {
         return price - DISCOUNT_PRICE
     }
 
-    override fun checkPolicy(date: LocalDateTime): Boolean {
-        if (date.hour !in DAYTIME) return true
-        return false
-    }
+    override fun checkPolicy(date: LocalDateTime): Boolean = date.hour !in DAYTIME
 
     companion object {
         private const val DISCOUNT_PRICE = 2000
