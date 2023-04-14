@@ -23,6 +23,7 @@ data class Reservation(
                 PaymentAmount(ticketCount * TICKET_PRICE),
                 screeningDateTime
             )
+
             return Reservation(
                 movie = movie,
                 screeningDateTime = screeningDateTime,

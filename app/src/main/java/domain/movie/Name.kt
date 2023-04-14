@@ -9,6 +9,7 @@ value class Name(
     }
 
     companion object {
+
         private const val MINIMUM_LENGTH = 1
     }
 }
