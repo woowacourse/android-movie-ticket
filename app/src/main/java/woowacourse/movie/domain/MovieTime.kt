@@ -1,10 +1,12 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalTime
 
+@Parcelize
 class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
-    Discountable, Comparable<MovieTime>, Serializable {
+    Discountable, Comparable<MovieTime>, Parcelable {
 
     private fun isDiscountTime(): Boolean =
         hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME

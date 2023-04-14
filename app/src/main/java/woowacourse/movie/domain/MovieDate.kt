@@ -1,14 +1,16 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.DayOfWeek
 import java.time.LocalDate
 
+@Parcelize
 class MovieDate private constructor(
     val year: Int,
     val month: Int,
     val day: Int,
-) : Discountable, Serializable {
+) : Discountable, Parcelable {
 
     private constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
 

@@ -17,8 +17,8 @@ import woowacourse.movie.domain.MovieDate
 import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.commit
-import woowacourse.movie.utils.getSerializableCompat
-import woowacourse.movie.utils.showToast
+import woowacourse.movie.utils.extensions.getParcelableCompat
+import woowacourse.movie.utils.extensions.showToast
 import woowacourse.movie.view.fragments.MovieListFragment.Companion.MOVIE_KEY
 
 class TicketingFragment : Fragment(), View.OnClickListener {
@@ -29,7 +29,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     private val movieTicket get() = _movieTicket
 
     private val movieDates: List<MovieDate> by lazy {
-        getSerializableCompat<Movie>(MOVIE_KEY)?.run {
+        getParcelableCompat<Movie>(MOVIE_KEY)?.run {
             MovieDate.releaseDates(
                 from = startDate,
                 to = endDate
@@ -135,7 +135,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun FragmentTicketingBinding.showMovieIntroduce() {
-        getSerializableCompat<Movie>(MOVIE_KEY)?.run {
+        getParcelableCompat<Movie>(MOVIE_KEY)?.run {
             ivPoster.setImageResource(thumbnail)
             tvTitle.text = title
             tvDate.text = getString(
@@ -150,9 +150,9 @@ class TicketingFragment : Fragment(), View.OnClickListener {
 
     private fun restoreState(savedInstanceState: Bundle?) {
         savedInstanceState?.run {
-            _selectedDate = getSerializableCompat(SELECTED_DATE_STATE_KEY)
-            _selectedTime = getSerializableCompat(SELECTED_TIME_STATE_KEY)
-            _movieTicket = getSerializableCompat(TICKET_COUNT_STATE_KEY)!!
+            _selectedDate = getParcelableCompat(SELECTED_DATE_STATE_KEY)
+            _selectedTime = getParcelableCompat(SELECTED_TIME_STATE_KEY)
+            _movieTicket = getParcelableCompat(TICKET_COUNT_STATE_KEY)!!
         }
         selectedDate?.run { _movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
     }
@@ -186,7 +186,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 popUntilFirstTransaction() // 첫번째 fragment 제외하고 모두 pop
                 val ticketingResultFragment = TicketingResultFragment().apply {
                     arguments = bundleOf(
-                        MOVIE_KEY to this@TicketingFragment.getSerializableCompat<Movie>(MOVIE_KEY),
+                        MOVIE_KEY to this@TicketingFragment.getParcelableCompat<Movie>(MOVIE_KEY),
                         TICKET_KEY to movieTicket,
                         MOVIE_DATE_KEY to selectedDate,
                         MOVIE_TIME_KEY to selectedTime,
@@ -213,9 +213,9 @@ class TicketingFragment : Fragment(), View.OnClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(TICKET_COUNT_STATE_KEY, movieTicket)
-        outState.putSerializable(SELECTED_DATE_STATE_KEY, selectedDate)
-        outState.putSerializable(SELECTED_TIME_STATE_KEY, selectedTime)
+        outState.putParcelable(TICKET_COUNT_STATE_KEY, movieTicket)
+        outState.putParcelable(SELECTED_DATE_STATE_KEY, selectedDate)
+        outState.putParcelable(SELECTED_TIME_STATE_KEY, selectedTime)
     }
 
     override fun onDestroyView() {

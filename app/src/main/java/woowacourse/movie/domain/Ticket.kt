@@ -1,9 +1,11 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 @JvmInline
-value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
+@Parcelize
+value class Ticket(val count: Int = MIN_TICKET_COUNT) : Parcelable {
     init {
         require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }

@@ -1,14 +1,15 @@
-package woowacourse.movie.utils
+package woowacourse.movie.utils.extensions
 
 import android.os.Build
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
-import java.io.Serializable
+import woowacourse.movie.utils.showToast
 
-inline fun <reified T : Serializable> Fragment.getSerializableCompat(key: String): T? =
+inline fun <reified T : Parcelable> Fragment.getParcelableCompat(key: String): T? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        arguments?.getSerializable(key, T::class.java)
+        arguments?.getParcelable(key, T::class.java)
     } else {
-        arguments?.getSerializable(key) as T?
+        arguments?.getParcelable(key) as T?
     }
 
 fun Fragment.showToast(message: String) {
