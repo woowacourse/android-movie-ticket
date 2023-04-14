@@ -8,7 +8,7 @@
         android:id="@+id/movie_detail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#6200EE"
+        android:background="@color/toolbar"
         app:title="Movie"
         app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent" />

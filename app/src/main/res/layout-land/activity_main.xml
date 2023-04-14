@@ -10,7 +10,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="#6200EE"
+        android:background="@color/toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Movie"
         app:titleTextColor="@color/white" />

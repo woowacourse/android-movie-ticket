@@ -7,4 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="toolbar">#6200EE</color>
+    <color name="ticket_purple">#9160f9</color>
 </resources>
