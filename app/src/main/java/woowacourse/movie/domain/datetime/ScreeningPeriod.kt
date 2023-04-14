@@ -28,6 +28,7 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
         return when (selectedDate.dayOfWeek) {
             MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY -> WEEKDAY
             SATURDAY, SUNDAY -> WEEKEND
+            null -> throw IllegalStateException(DAY_OF_WEEK_NULL_ERROR.format(selectedDate.toString()))
         }
     }
 
@@ -51,6 +52,8 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
     }
 
     companion object {
+        private const val DAY_OF_WEEK_NULL_ERROR =
+            "LocalDate의 dayOfWeek값이 null 이 반환되었습니다.null 이 반환된 LocalDate값:(%s)"
         private const val SCREENING_PERIOD_INIT_ERROR = "기간설정 단위가 올바르지 않습니다."
         private val WEEKDAY_TIME_TABLE =
             convertStringListToLocalTimeList(
