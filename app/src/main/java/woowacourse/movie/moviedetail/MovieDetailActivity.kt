@@ -154,8 +154,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 )
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
@@ -173,8 +172,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 timeSpinnerPosition = position
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
