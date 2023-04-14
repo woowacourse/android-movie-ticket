@@ -32,8 +32,7 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
     }
 
     fun getScreeningTime(selectedDate: LocalDate): List<LocalTime> {
-        val dayOfWeekStandard: DayOfWeekStandard = getDayOfWeekStandard(selectedDate)
-        return when (dayOfWeekStandard) {
+        return when (getDayOfWeekStandard(selectedDate)) {
             WEEKDAY -> WEEKDAY_TIME_TABLE
             WEEKEND -> WEEKEND_TIME_TABLE
         }
@@ -51,36 +50,12 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
     }
 
     companion object {
-        private const val SCREENING_PERIOD_INIT_ERROR = "기간설정 단위가 올바르지 않습니다."
-        private val WEEKDAY_TIME_TABLE =
-            convertStringListToLocalTimeList(
-                listOf(
-                    "09:00",
-                    "11:00",
-                    "13:00",
-                    "15:00",
-                    "17:00",
-                    "19:00",
-                    "21:00",
-                    "23:00"
-                )
-            )
-
-        private val WEEKEND_TIME_TABLE =
-            convertStringListToLocalTimeList(
-                listOf(
-                    "10:00",
-                    "12:00",
-                    "14:00",
-                    "16:00",
-                    "18:00",
-                    "20:00",
-                    "22:00",
-                    "00:00"
-                )
-            )
-
-        private fun convertStringListToLocalTimeList(times: List<String>): List<LocalTime> =
-            times.map { LocalTime.parse(it) }
+        private const val SCREENING_PERIOD_INIT_ERROR = "기간 설정 단위가 올바르지 않습니다."
+        private val WEEKDAY_TIME_TABLE = List(7) { index ->
+            LocalTime.of(9, 0).plusHours(2 * index.toLong())
+        }
+        private val WEEKEND_TIME_TABLE = List(7) { index ->
+            LocalTime.of(9, 0).plusHours(2 * index.toLong())
+        }
     }
 }
