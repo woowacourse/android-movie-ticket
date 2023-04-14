@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.commit
+import woowacourse.movie.utils.commit
 import woowacourse.movie.view.fragments.MovieListFragment
 import woowacourse.movie.view.fragments.TicketingFragment
 import woowacourse.movie.view.fragments.TicketingResultFragment

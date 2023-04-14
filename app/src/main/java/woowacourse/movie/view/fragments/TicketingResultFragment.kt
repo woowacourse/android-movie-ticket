@@ -11,7 +11,7 @@ import woowacourse.movie.databinding.FragmentTicketingResultBinding
 import woowacourse.movie.domain.MovieDate
 import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.getSerializable
+import woowacourse.movie.utils.getSerializableCompat
 import woowacourse.movie.view.fragments.MovieListFragment.Companion.MOVIE_KEY
 import woowacourse.movie.view.fragments.TicketingFragment.Companion.MOVIE_DATE_KEY
 import woowacourse.movie.view.fragments.TicketingFragment.Companion.MOVIE_TIME_KEY
@@ -37,16 +37,16 @@ class TicketingResultFragment : Fragment() {
 
     private fun showTicketingResult() {
         with(binding) {
-            val movieDate = getSerializable<MovieDate>(MOVIE_DATE_KEY)!!
-            val movieTime = getSerializable<MovieTime>(MOVIE_TIME_KEY)!!
-            getSerializable<Movie>(MOVIE_KEY)?.run {
+            val movieDate = getSerializableCompat<MovieDate>(MOVIE_DATE_KEY)!!
+            val movieTime = getSerializableCompat<MovieTime>(MOVIE_TIME_KEY)!!
+            getSerializableCompat<Movie>(MOVIE_KEY)?.run {
                 tvTitle.text = title
                 tvDate.text = getString(
                     R.string.book_date_time,
                     movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
                 )
             }
-            getSerializable<Ticket>(TICKET_KEY)?.let {
+            getSerializableCompat<Ticket>(TICKET_KEY)?.let {
                 tvRegularCount.text = getString(R.string.regular_count, it.count)
                 tvPayResult.text =
                     getString(

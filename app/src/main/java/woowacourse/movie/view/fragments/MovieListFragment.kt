@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import woowacourse.movie.R
-import woowacourse.movie.commit
 import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.FragmentMovieListBinding
+import woowacourse.movie.utils.commit
 import woowacourse.movie.view.adapter.MovieListAdapter
 
 class MovieListFragment : Fragment() {

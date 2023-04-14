@@ -1,6 +1,5 @@
 package woowacourse.movie.view.fragments
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import woowacourse.movie.R
-import woowacourse.movie.commit
 import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.FragmentTicketingBinding
 import woowacourse.movie.domain.MovieDate
 import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.getSerializable
-import woowacourse.movie.showToast
+import woowacourse.movie.utils.commit
+import woowacourse.movie.utils.getSerializableCompat
+import woowacourse.movie.utils.showToast
 import woowacourse.movie.view.fragments.MovieListFragment.Companion.MOVIE_KEY
 
 class TicketingFragment : Fragment(), View.OnClickListener {
@@ -30,7 +29,12 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     private val movieTicket get() = _movieTicket
 
     private val movieDates: List<MovieDate> by lazy {
-        getSerializable<Movie>(MOVIE_KEY)?.run { MovieDate.releaseDates(from = startDate, to = endDate) }
+        getSerializableCompat<Movie>(MOVIE_KEY)?.run {
+            MovieDate.releaseDates(
+                from = startDate,
+                to = endDate
+            )
+        }
             ?: emptyList()
     }
     private val _movieTimes = mutableListOf<MovieTime>()
@@ -54,7 +58,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         restoreState(savedInstanceState)
         _binding = FragmentTicketingBinding.inflate(inflater, container, false)
@@ -131,7 +135,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     }
 
     private fun FragmentTicketingBinding.showMovieIntroduce() {
-        getSerializable<Movie>(MOVIE_KEY)?.run {
+        getSerializableCompat<Movie>(MOVIE_KEY)?.run {
             ivPoster.setImageResource(thumbnail)
             tvTitle.text = title
             tvDate.text = getString(
@@ -146,15 +150,9 @@ class TicketingFragment : Fragment(), View.OnClickListener {
 
     private fun restoreState(savedInstanceState: Bundle?) {
         savedInstanceState?.run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                _selectedDate = getSerializable(SELECTED_DATE_STATE_KEY, MovieDate::class.java)
-                _selectedTime = getSerializable(SELECTED_TIME_STATE_KEY, MovieTime::class.java)
-                _movieTicket = getSerializable(TICKET_COUNT_STATE_KEY, Ticket::class.java)!!
-            } else {
-                _selectedDate = getSerializable(SELECTED_DATE_STATE_KEY) as MovieDate
-                _selectedTime = getSerializable(SELECTED_TIME_STATE_KEY) as MovieTime
-                _movieTicket = getSerializable(TICKET_COUNT_STATE_KEY) as Ticket
-            }
+            _selectedDate = getSerializableCompat(SELECTED_DATE_STATE_KEY)
+            _selectedTime = getSerializableCompat(SELECTED_TIME_STATE_KEY)
+            _movieTicket = getSerializableCompat(TICKET_COUNT_STATE_KEY)!!
         }
         selectedDate?.run { _movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
     }
@@ -188,7 +186,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 popUntilFirstTransaction() // 첫번째 fragment 제외하고 모두 pop
                 val ticketingResultFragment = TicketingResultFragment().apply {
                     arguments = bundleOf(
-                        MOVIE_KEY to this@TicketingFragment.getSerializable<Movie>(MOVIE_KEY),
+                        MOVIE_KEY to this@TicketingFragment.getSerializableCompat<Movie>(MOVIE_KEY),
                         TICKET_KEY to movieTicket,
                         MOVIE_DATE_KEY to selectedDate,
                         MOVIE_TIME_KEY to selectedTime,
