@@ -1,28 +1,18 @@
 package woowacourse.movie
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import java.io.Serializable
 
-inline fun <reified T : Serializable> Fragment.getSerializable(key: String): T? =
+inline fun <reified T : Serializable> Intent.getSerializable(key: String): T? =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        arguments?.getSerializable(key, T::class.java)
+        getSerializableExtra(key, T::class.java)
     } else {
-        arguments?.getSerializable(key) as T?
+        getSerializableExtra(key) as? T
     }
-
-fun FragmentManager.commit(content: FragmentTransaction.() -> Unit) {
-    beginTransaction().apply(content).commit()
-}
 
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
-
-fun Fragment.showToast(message: String) {
-    requireContext().showToast(message)
 }
