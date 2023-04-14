@@ -7,6 +7,10 @@ android {
     namespace = "woowacourse.movie"
     compileSdk = 33
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "woowacourse.movie"
         minSdk = 26
@@ -33,6 +37,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
 }
 
 dependencies {
