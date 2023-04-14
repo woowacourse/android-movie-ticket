@@ -3,7 +3,7 @@ package woowacourse.movie.model
 @JvmInline
 value class Price(val price: Int = DEFAULT) {
     init {
-        require(price >= 0) { throw IllegalArgumentException(MINUS_ERROR) }
+        require(price >= 0) { MINUS_ERROR }
     }
 
     companion object {
