@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.TicketingInfo
 import woowacourse.movie.util.Formatter
+import woowacourse.movie.util.Keys
 import woowacourse.movie.util.customGetSerializable
 
 class TicketResultActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class TicketResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val info: TicketingInfo = intent.customGetSerializable(INFO_KEY)
+        val info: TicketingInfo = intent.customGetSerializable(Keys.INFO_KEY)
 
         val title = findViewById<TextView>(R.id.text_title)
         title.text = info.title
@@ -47,9 +48,5 @@ class TicketResultActivity : AppCompatActivity() {
                 super.onOptionsItemSelected(item)
             }
         }
-    }
-
-    companion object {
-        private const val INFO_KEY = "ticketingInfo"
     }
 }

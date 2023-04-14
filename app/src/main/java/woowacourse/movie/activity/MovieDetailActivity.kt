@@ -17,6 +17,7 @@ import woowacourse.movie.model.PlayingTimes
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
 import woowacourse.movie.util.Formatter
+import woowacourse.movie.util.Keys
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -26,11 +27,11 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        val savedCount = savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
-        val savedDate = savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
-        val savedTime = savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
+        val savedCount = savedInstanceState?.getInt(Keys.COUNT_KEY) ?: DEFAULT_COUNT
+        val savedDate = savedInstanceState?.getInt(Keys.SPINNER_DATE_KEY) ?: DEFAULT_POSITION
+        val savedTime = savedInstanceState?.getInt(Keys.SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-        val movie: Movie = intent.customGetSerializable(MOVIE_KEY)
+        val movie: Movie = intent.customGetSerializable(Keys.MOVIE_KEY)
 
         initImageView(movie.image)
         initTitle(movie.title)
@@ -62,7 +63,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 Price(),
                 "현장"
             )
-            intent.putExtra(INFO_KEY, ticketingInfo)
+            intent.putExtra(Keys.INFO_KEY, ticketingInfo)
             startActivity(intent)
         }
     }
@@ -89,7 +90,7 @@ class MovieDetailActivity : AppCompatActivity() {
             }
 
         spinnerDate.setSelection(savedDatePosition, false)
-        spinnerDate.onItemSelectedListener = SpinnerListener(playingTimes, dates, spinnerTime)
+        spinnerDate.onItemSelectedListener = DateSpinnerListener(playingTimes, dates, spinnerTime)
     }
 
     private fun getCount(): Int = findViewById<TextView>(R.id.text_count).text.toString().toInt()
@@ -145,22 +146,6 @@ class MovieDetailActivity : AppCompatActivity() {
         imageView.setImageResource(imageResource)
     }
 
-    class SpinnerListener(private val playingTimes: PlayingTimes, private val dates: List<LocalDate>, private val spinnerTime: Spinner) : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(
-            adapterView: AdapterView<*>?,
-            view: View?,
-            index: Int,
-            p3: Long
-        ) {
-            val times = playingTimes.times[dates[index]] ?: emptyList()
-            spinnerTime.adapter =
-                ArrayAdapter(spinnerTime.context, android.R.layout.simple_spinner_item, times)
-        }
-
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -178,17 +163,12 @@ class MovieDetailActivity : AppCompatActivity() {
         val countText = findViewById<TextView>(R.id.text_count)
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        outState.putInt(COUNT_KEY, countText.text.toString().toInt())
-        outState.putInt(SPINNER_DATE_KEY, spinnerDate.selectedItemPosition)
-        outState.putInt(SPINNER_TIME_KEY, spinnerTime.selectedItemPosition)
+        outState.putInt(Keys.COUNT_KEY, countText.text.toString().toInt())
+        outState.putInt(Keys.SPINNER_DATE_KEY, spinnerDate.selectedItemPosition)
+        outState.putInt(Keys.SPINNER_TIME_KEY, spinnerTime.selectedItemPosition)
     }
 
     companion object {
-        private const val MOVIE_KEY = "movie"
-        private const val COUNT_KEY = "COUNT"
-        private const val SPINNER_DATE_KEY = "SPINNER_DATE"
-        private const val SPINNER_TIME_KEY = "SPINNER_TIME"
-        private const val INFO_KEY = "ticketingInfo"
         private const val DEFAULT_COUNT = 1
         private const val DEFAULT_POSITION = 0
     }
