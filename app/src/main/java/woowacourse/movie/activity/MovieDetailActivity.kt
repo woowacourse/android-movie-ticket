@@ -14,6 +14,7 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.PlayingTimes
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
+import woowacourse.movie.util.DiscountPolicies
 import woowacourse.movie.util.Formatter
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.customGetSerializable
@@ -54,6 +55,7 @@ class MovieDetailActivity : AppCompatActivity() {
         ticketingButton.setOnClickListener {
             val intent = Intent(this, TicketResultActivity::class.java)
             val ticketingInfo = TicketingInfo.of(
+                DiscountPolicies.policies,
                 movie.title,
                 spinnerDate.selectedItem as LocalDate,
                 spinnerTime.selectedItem as LocalTime,
