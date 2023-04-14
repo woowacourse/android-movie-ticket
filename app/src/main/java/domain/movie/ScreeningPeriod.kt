@@ -4,6 +4,7 @@ import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 
 data class ScreeningPeriod(
     val startDate: LocalDate,
@@ -11,19 +12,22 @@ data class ScreeningPeriod(
 ) : Serializable {
 
     init {
-        require(startDate <= endDate)
+        require(startDate <= endDate) {
+            PERIOD_ERROR
+        }
     }
 
     fun getScreeningDates(): List<LocalDate> {
-        val screeningDates: MutableList<LocalDate> = mutableListOf()
-        screeningDates.add(startDate)
+        var currentDate = startDate
+        val totalScreeningDays = ChronoUnit.DAYS.between(startDate, endDate).toInt() + 1
+        val screeningDates = mutableListOf<LocalDate>()
 
-        while (true) {
-            if (screeningDates.last() >= endDate) break
-            screeningDates.add(screeningDates.last().plusDays(1))
+        repeat(totalScreeningDays) {
+            screeningDates.add(currentDate)
+            currentDate = currentDate.plusDays(1)
         }
 
-        return screeningDates
+        return screeningDates.toList()
     }
 
     fun getScreeningTimes(screeningDate: LocalDate?): List<LocalTime> {
@@ -41,7 +45,10 @@ data class ScreeningPeriod(
         }
     }
 
-    private fun getScreeningTimes(startHour: Int, endHour: Int = SCREENING_END_HOUR): List<LocalTime> {
+    private fun getScreeningTimes(
+        startHour: Int,
+        endHour: Int = SCREENING_END_HOUR
+    ): List<LocalTime> {
         val screeningTimes = mutableListOf<LocalTime>()
         var currentHour = startHour
 
@@ -53,6 +60,9 @@ data class ScreeningPeriod(
     }
 
     companion object {
+
+        private const val PERIOD_ERROR = "[ERROR] 상영 시작 일은 상영 종료일 보다 이전이어야 합니다"
+
         private const val SCREENING_TERM = 2
         private const val SCREENING_END_HOUR = 24
         private const val WEEKEND_SCREENING_START_TIME = 9

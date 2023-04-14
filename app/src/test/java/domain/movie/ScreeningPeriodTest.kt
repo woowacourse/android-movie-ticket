@@ -35,7 +35,7 @@ internal class ScreeningPeriodTest {
             LocalDate.of(2023, 4, 12)
         )
 
-        assertEquals(screeningDates, expectedDates)
+        assertEquals(expectedDates, screeningDates)
     }
 
     @Test
