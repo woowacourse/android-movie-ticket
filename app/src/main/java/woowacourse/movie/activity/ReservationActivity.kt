@@ -75,9 +75,9 @@ class ReservationActivity : AppCompatActivity() {
         val selectedDate: LocalDate = screeningDateSpinner.selectedItem as LocalDate
         val selectedTime: LocalTime = screeningTimeSpinner.selectedItem as LocalTime
 
-        outState.putInt("ticket_count", ticketCountTextView.text.toString().toInt())
-        outState.putLong("screening_date", selectedDate.toEpochDay())
-        outState.putString("screening_time", selectedTime.toString())
+        outState.putInt(getString(R.string.ticket_count_key), ticketCountTextView.text.toString().toInt())
+        outState.putLong(getString(R.string.screening_date_key), selectedDate.toEpochDay())
+        outState.putString(getString(R.string.screening_time_key), selectedTime.toString())
     }
 
     private fun initReservationView() {
