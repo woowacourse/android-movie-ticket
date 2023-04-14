@@ -12,7 +12,12 @@ class ScreeningDateTime(val value: LocalDateTime, private val screeningPeriod: S
     }
 
     private fun validateDateTime() {
-        require(value.toLocalDate() in screeningPeriod.start..screeningPeriod.end) { SELECTED_SCREENING_DATE_TIME_ERROR }
+        require(value.toLocalDate() in screeningPeriod.start..screeningPeriod.end) {
+            SELECTED_SCREENING_DATE_TIME_ERROR.format(
+                value.toString(),
+                screeningPeriod.start.toString() + screeningPeriod.end.toString()
+            )
+        }
     }
 
     fun checkMovieDay(): Boolean {
@@ -27,7 +32,8 @@ class ScreeningDateTime(val value: LocalDateTime, private val screeningPeriod: S
     }
 
     companion object {
-        private const val SELECTED_SCREENING_DATE_TIME_ERROR = "선택된 날짜가 영화 상영 기간 범위에서 벗어났습니다."
+        private const val SELECTED_SCREENING_DATE_TIME_ERROR =
+            "선택된 날짜(%s)가 영화 상영 기간(%s) 범위에서 벗어났습니다."
         private val MOVIE_DAYS = listOf(10, 20, 30)
         private const val EARLY_MORNING_STANDARD = 11
         private const val LATE_NIGHT_STANDARD = 20
