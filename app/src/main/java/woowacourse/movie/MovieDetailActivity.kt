@@ -29,7 +29,7 @@ class MovieDetailActivity : BackButtonActivity() {
         setContentView(R.layout.activity_movie_detail)
         restoreInstanceFlag = true
 
-        val movieData = intent.customGetSerializable<Movie>("movieData")
+        val movieData = intent.getSerializableCompat<Movie>("movieData")
         processEmptyMovieData(movieData)
 
         setViewData(movieData)
