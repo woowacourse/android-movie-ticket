@@ -1,6 +1,6 @@
 package domain.reservation
 
-import domain.discount.Discount
+import domain.discount.MovieDiscount
 import domain.movie.Movie
 import domain.payment.PaymentAmount
 import domain.payment.PaymentType
@@ -19,7 +19,7 @@ data class Reservation(
         private const val TICKET_PRICE = 13000
 
         fun from(movie: Movie, ticketCount: Int, screeningDateTime: LocalDateTime): Reservation {
-            val paymentAmount: PaymentAmount = Discount().getPaymentAmountResult(
+            val paymentAmount: PaymentAmount = MovieDiscount().getPaymentAmountResult(
                 PaymentAmount(ticketCount * TICKET_PRICE),
                 screeningDateTime
             )

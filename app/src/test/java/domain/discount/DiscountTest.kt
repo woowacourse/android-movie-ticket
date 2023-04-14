@@ -8,12 +8,12 @@ import java.time.LocalDateTime
 
 internal class DiscountTest {
 
-    lateinit var discount: Discount
+    lateinit var discount: MovieDiscount
     val paymentAmount: PaymentAmount = PaymentAmount(13000)
 
     @Before
     fun setUp() {
-        discount = Discount()
+        discount = MovieDiscount()
     }
 
     @Test

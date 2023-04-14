@@ -3,7 +3,7 @@ package domain.discount
 import domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
-class Discount : DiscountRule {
+class MovieDiscount : DiscountRule {
     override fun getPaymentAmountResult(
         paymentAmount: PaymentAmount,
         screeningDateTime: LocalDateTime
