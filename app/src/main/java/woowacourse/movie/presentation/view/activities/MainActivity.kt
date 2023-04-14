@@ -1,13 +1,13 @@
-package woowacourse.movie.view.activities
+package woowacourse.movie.presentation.view.activities
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.presentation.view.fragments.MovieListFragment
+import woowacourse.movie.presentation.view.fragments.TicketingFragment
+import woowacourse.movie.presentation.view.fragments.TicketingResultFragment
 import woowacourse.movie.utils.commit
-import woowacourse.movie.view.fragments.MovieListFragment
-import woowacourse.movie.view.fragments.TicketingFragment
-import woowacourse.movie.view.fragments.TicketingResultFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

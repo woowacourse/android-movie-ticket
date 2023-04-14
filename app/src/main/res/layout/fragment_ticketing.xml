@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".view.fragments.TicketingFragment">
+    tools:context=".presentation.view.fragments.TicketingFragment">
 
     <ScrollView
         android:id="@+id/sv_movie_info"

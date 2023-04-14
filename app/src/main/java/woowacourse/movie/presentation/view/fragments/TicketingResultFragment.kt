@@ -1,4 +1,4 @@
-package woowacourse.movie.view.fragments
+package woowacourse.movie.presentation.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import woowacourse.movie.R
-import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.FragmentTicketingResultBinding
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.MovieTime
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.utils.extensions.getParcelableCompat
-import woowacourse.movie.view.fragments.MovieListFragment.Companion.MOVIE_KEY
-import woowacourse.movie.view.fragments.TicketingFragment.Companion.MOVIE_DATE_KEY
-import woowacourse.movie.view.fragments.TicketingFragment.Companion.MOVIE_TIME_KEY
-import woowacourse.movie.view.fragments.TicketingFragment.Companion.TICKET_KEY
+import woowacourse.movie.domain.model.movie.MovieDate
+import woowacourse.movie.domain.model.movie.MovieTime
+import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.presentation.extensions.getParcelableCompat
+import woowacourse.movie.presentation.model.Movie
+import woowacourse.movie.presentation.view.fragments.MovieListFragment.Companion.MOVIE_KEY
+import woowacourse.movie.presentation.view.fragments.TicketingFragment.Companion.MOVIE_DATE_KEY
+import woowacourse.movie.presentation.view.fragments.TicketingFragment.Companion.MOVIE_TIME_KEY
+import woowacourse.movie.presentation.view.fragments.TicketingFragment.Companion.TICKET_KEY
 
 class TicketingResultFragment : Fragment() {
     private var _binding: FragmentTicketingResultBinding? = null

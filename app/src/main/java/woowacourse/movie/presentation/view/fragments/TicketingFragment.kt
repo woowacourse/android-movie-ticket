@@ -1,4 +1,4 @@
-package woowacourse.movie.view.fragments
+package woowacourse.movie.presentation.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,15 +11,15 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import woowacourse.movie.R
-import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.FragmentTicketingBinding
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.MovieTime
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.model.movie.MovieDate
+import woowacourse.movie.domain.model.movie.MovieTime
+import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.presentation.extensions.getParcelableCompat
+import woowacourse.movie.presentation.extensions.showToast
+import woowacourse.movie.presentation.model.Movie
+import woowacourse.movie.presentation.view.fragments.MovieListFragment.Companion.MOVIE_KEY
 import woowacourse.movie.utils.commit
-import woowacourse.movie.utils.extensions.getParcelableCompat
-import woowacourse.movie.utils.extensions.showToast
-import woowacourse.movie.view.fragments.MovieListFragment.Companion.MOVIE_KEY
 
 class TicketingFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentTicketingBinding? = null

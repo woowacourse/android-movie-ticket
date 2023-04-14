@@ -1,4 +1,4 @@
-package woowacourse.movie.utils.extensions
+package woowacourse.movie.presentation.extensions
 
 import android.os.Build
 import android.os.Parcelable

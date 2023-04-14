@@ -3,9 +3,9 @@ package woowacourse.movie
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Test
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.MovieTime
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.model.movie.MovieDate
+import woowacourse.movie.domain.model.movie.MovieTime
+import woowacourse.movie.domain.model.ticket.Ticket
 import java.time.LocalDate
 
 class TicketTest {

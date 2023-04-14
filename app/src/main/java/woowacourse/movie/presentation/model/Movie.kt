@@ -1,4 +1,4 @@
-package woowacourse.movie.data
+package woowacourse.movie.presentation.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes

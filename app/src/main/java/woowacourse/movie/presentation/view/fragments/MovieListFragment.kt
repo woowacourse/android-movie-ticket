@@ -1,4 +1,4 @@
-package woowacourse.movie.view.fragments
+package woowacourse.movie.presentation.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import woowacourse.movie.R
-import woowacourse.movie.data.Movie
 import woowacourse.movie.databinding.FragmentMovieListBinding
+import woowacourse.movie.presentation.model.Movie
+import woowacourse.movie.presentation.view.adapter.MovieListAdapter
 import woowacourse.movie.utils.commit
-import woowacourse.movie.view.adapter.MovieListAdapter
 
 class MovieListFragment : Fragment() {
     private var _binding: FragmentMovieListBinding? = null

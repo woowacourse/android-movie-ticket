@@ -2,7 +2,7 @@ package woowacourse.movie
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import woowacourse.movie.domain.MovieTime
+import woowacourse.movie.domain.model.movie.MovieTime
 import java.time.LocalTime
 
 class MovieTimeTest {
