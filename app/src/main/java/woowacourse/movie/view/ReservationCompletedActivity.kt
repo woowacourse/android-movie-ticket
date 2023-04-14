@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,13 +17,19 @@ class ReservationCompletedActivity : AppCompatActivity() {
         binding = ActivityReservationCompletedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val reservation = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(ReservationActivity.RESERVATION, ReservationUiModel::class.java)
-        } else {
-            intent.getParcelableExtra(ReservationActivity.RESERVATION) as? ReservationUiModel
-        }
+        val reservation = intent.getParcelableReservation()
         requireNotNull(reservation) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         initViewData(reservation)
+    }
+
+    private fun Intent.getParcelableReservation(): ReservationUiModel? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return getParcelableExtra(
+                ReservationActivity.RESERVATION,
+                ReservationUiModel::class.java
+            )
+        }
+        return getParcelableExtra(ReservationActivity.RESERVATION) as? ReservationUiModel
     }
 
     private fun initViewData(reservation: ReservationUiModel) {
