@@ -44,9 +44,9 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initMovieFromIntent(): Movie {
         val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(MovieListAdapter.MOVIE, Movie::class.java)
+            intent.getParcelableExtra(MovieListAdapter.MOVIE, Movie::class.java)
         } else {
-            intent.getSerializableExtra(MovieListAdapter.MOVIE) as? Movie
+            intent.getParcelableExtra(MovieListAdapter.MOVIE) as? Movie
         }
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         return movie
@@ -154,7 +154,7 @@ class ReservationActivity : AppCompatActivity() {
             )
 
             val intent = Intent(this, ReservationCompletedActivity::class.java)
-            intent.putExtra(RESERVATION, reservation)
+            intent.putExtra(RESERVATION, reservation.toUiModel())
             startActivity(intent)
         }
     }

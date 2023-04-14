@@ -1,13 +1,12 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
 import java.time.LocalDateTime
 
 data class Reservation(
     private val movie: Movie,
     val peopleCount: Int,
     val screeningDateTime: LocalDateTime
-) : Serializable {
+) {
     val movieTitle = movie.title
     val initReservationFee = Money(peopleCount * TICKET_PRICE)
     val totalReservationFee = DiscountPolicy.getDiscountedFee(this)

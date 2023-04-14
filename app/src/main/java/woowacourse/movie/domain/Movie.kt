@@ -1,10 +1,16 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
+import android.os.Parcel
+import android.os.Parcelable
+import kotlinx.parcelize.Parceler
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.TypeParceler
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
+@Parcelize
+@TypeParceler<Minute, MinuteParceler>
 class Movie(
     val title: String,
     val screeningStartDate: LocalDate,
@@ -12,7 +18,7 @@ class Movie(
     val runningTime: Minute,
     val posterResourceId: Int,
     val summary: String
-) : Serializable {
+) : Parcelable {
 
     fun getAllScreeningDates(): List<LocalDate> {
         val screeningDates = mutableListOf<LocalDate>()
@@ -48,4 +54,11 @@ class Movie(
         private val FIRST_SCREENING_TIME_IN_WEEKEND = LocalTime.of(9, 0)
         private const val SCREENING_TIME_INTERVAL = 2L
     }
+}
+
+object MinuteParceler : Parceler<Minute> {
+    override fun create(parcel: Parcel): Minute = Minute(parcel.readInt())
+
+    override fun Minute.write(parcel: Parcel, flags: Int) = parcel.writeInt(value)
+
 }
