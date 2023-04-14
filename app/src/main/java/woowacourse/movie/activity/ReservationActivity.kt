@@ -56,7 +56,8 @@ class ReservationActivity : AppCompatActivity() {
         findViewById(R.id.reservation_complete_button)
     }
     private val movie: Movie by lazy {
-        intent.getSerializableExtra(getString(R.string.movie_key)) as Movie
+        intent.getSerializableExtra(getString(R.string.movie_key)) as Movie?
+            ?: throw IllegalArgumentException(getString(R.string.movie_data_error_message))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +76,10 @@ class ReservationActivity : AppCompatActivity() {
         val selectedDate: LocalDate = screeningDateSpinner.selectedItem as LocalDate
         val selectedTime: LocalTime = screeningTimeSpinner.selectedItem as LocalTime
 
-        outState.putInt(getString(R.string.ticket_count_key), ticketCountTextView.text.toString().toInt())
+        outState.putInt(
+            getString(R.string.ticket_count_key),
+            ticketCountTextView.text.toString().toInt()
+        )
         outState.putLong(getString(R.string.screening_date_key), selectedDate.toEpochDay())
         outState.putString(getString(R.string.screening_time_key), selectedTime.toString())
     }
