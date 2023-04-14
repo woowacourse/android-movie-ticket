@@ -43,13 +43,16 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieFromIntent(): Movie {
-        val movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(MovieListAdapter.MOVIE, Movie::class.java)
-        } else {
-            intent.getParcelableExtra(MovieListAdapter.MOVIE) as? Movie
-        }
+        val movie = intent.getParcelableMovie()
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         return movie
+    }
+
+    private fun Intent.getParcelableMovie(): Movie? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return getParcelableExtra(MovieListAdapter.MOVIE, Movie::class.java)
+        }
+        return getParcelableExtra(MovieListAdapter.MOVIE) as? Movie
     }
 
     private fun initViewData() {
