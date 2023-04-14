@@ -99,9 +99,9 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INITIAL_COUNT = 1
-        const val COUNTER_SAVE_STATE_KEY = "counter"
-        const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
-        const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
+        private const val INITIAL_COUNT = 1
+        private const val COUNTER_SAVE_STATE_KEY = "counter"
+        private const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
+        private const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
     }
 }
