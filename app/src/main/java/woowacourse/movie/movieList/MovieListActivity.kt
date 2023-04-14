@@ -16,6 +16,6 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun adaptMovieList() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        movieListView.adapter = MovieListAdapter(this, CINEMA_SAMPLE)
+        movieListView.adapter = MovieListAdapter(CINEMA_SAMPLE)
     }
 }

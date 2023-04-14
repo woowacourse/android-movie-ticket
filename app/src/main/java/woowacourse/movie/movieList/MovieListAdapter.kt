@@ -1,6 +1,5 @@
 package woowacourse.movie.movieList
 
-import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import woowacourse.movie.movieReservation.MovieReservationActivity
 import woowacourse.movie.utils.DateUtil
 
 class MovieListAdapter(
-    private val context: Context,
     private val Cinema: Cinema,
 ) : BaseAdapter() {
     override fun getCount(): Int {
@@ -47,13 +45,13 @@ class MovieListAdapter(
         with(Cinema[position]) {
             posterView.setImageResource(poster)
             titleView.text = title
-            releaseDateView.text = DateUtil(context).getDateRange(startDate, endDate)
-            runningTimeView.text = context.getString(R.string.movie_running_time).format(runningTime)
+            releaseDateView.text = DateUtil(view.context).getDateRange(startDate, endDate)
+            runningTimeView.text = view.context.getString(R.string.movie_running_time).format(runningTime)
 
             reservationButton.setOnClickListener {
-                val intent = Intent(context, MovieReservationActivity::class.java)
+                val intent = Intent(view.context, MovieReservationActivity::class.java)
                 intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, this)
-                startActivity(context, intent, null)
+                startActivity(view.context, intent, null)
             }
         }
 
