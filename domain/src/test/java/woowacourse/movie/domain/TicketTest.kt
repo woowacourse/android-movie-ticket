@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.domain
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows

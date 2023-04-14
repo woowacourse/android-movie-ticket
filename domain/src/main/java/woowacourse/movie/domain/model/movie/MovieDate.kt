@@ -1,18 +1,17 @@
 package woowacourse.movie.domain.model.movie
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.model.movie.discount.discountable.Discountable
+import woowacourse.movie.domain.model.discount.discountable.Discountable
 import java.time.DayOfWeek
 import java.time.LocalDate
 
-@Parcelize
-class MovieDate private constructor(
+typealias DomainMovieDate = MovieDate
+
+data class MovieDate(
     val year: Int,
     val month: Int,
     val day: Int,
-) : Discountable, Parcelable {
-    private constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
+) : Discountable {
+    constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
 
     fun isWeekend(): Boolean {
         val dayOfWeek = LocalDate.of(year, month, day).dayOfWeek
@@ -26,29 +25,8 @@ class MovieDate private constructor(
 
     override fun isDiscountable(): Boolean = day in DISCOUNT_DAYS
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as MovieDate
-
-        if (year != other.year) return false
-        if (month != other.month) return false
-        if (day != other.day) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = year
-        result = 31 * result + month
-        result = 31 * result + day
-        return result
-    }
-
     companion object {
         private val DISCOUNT_DAYS = listOf(10, 20, 30)
-        private const val DISCOUNT_PERCENT = 0.1
 
         private infix fun LocalDate.max(other: LocalDate): LocalDate {
             if (this > other) return this

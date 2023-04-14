@@ -4,18 +4,19 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityTicketingResultBinding
-import woowacourse.movie.domain.model.movie.MovieDate
-import woowacourse.movie.domain.model.movie.MovieTime
+import woowacourse.movie.domain.model.discount.policy.MovieDayDiscountPolicy
+import woowacourse.movie.domain.model.discount.policy.MovieTimeDiscountPolicy
 import woowacourse.movie.domain.model.movie.TicketPrice
-import woowacourse.movie.domain.model.movie.discount.policy.MovieDayDiscountPolicy
-import woowacourse.movie.domain.model.movie.discount.policy.MovieTimeDiscountPolicy
-import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_DATE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_TIME_KEY
 import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
+import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.model.Movie
+import woowacourse.movie.presentation.model.MovieDate
+import woowacourse.movie.presentation.model.MovieTime
+import woowacourse.movie.presentation.model.Ticket
 
 class TicketingResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTicketingResultBinding
@@ -55,8 +56,8 @@ class TicketingResultActivity : AppCompatActivity() {
         movieTime: MovieTime,
     ) {
         val totalTicketsPrice = TicketPrice().applyDiscountPolicy(
-            MovieDayDiscountPolicy(movieDate),
-            MovieTimeDiscountPolicy(movieTime),
+            MovieDayDiscountPolicy(movieDate.toDomain()),
+            MovieTimeDiscountPolicy(movieTime.toDomain()),
         ) * ticket.count
 
         binding.tvRegularCount.text = getString(R.string.regular_count, ticket.count)

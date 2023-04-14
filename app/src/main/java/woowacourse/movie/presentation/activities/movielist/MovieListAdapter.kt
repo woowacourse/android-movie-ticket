@@ -37,22 +37,18 @@ class MovieListAdapter(
     }
 
     private class ViewHolder(private val binding: ItemMovieBinding) {
-        private val ivPoster = binding.ivPoster
-        private val tvTitle = binding.tvTitle
-        private val tvDate = binding.tvDate
-        private val tvRunningTime = binding.tvRunningTime
 
         fun bind(item: Movie) {
             val context = binding.root.context
             with(item) {
-                ivPoster.setImageResource(thumbnail)
-                tvTitle.text = title
-                tvDate.text = context.getString(
+                binding.ivPoster.setImageResource(thumbnail)
+                binding.tvTitle.text = title
+                binding.tvDate.text = context.getString(
                     R.string.movie_release_date,
                     startDate.formattedDate,
                     endDate.formattedDate
                 )
-                tvRunningTime.text =
+                binding.tvRunningTime.text =
                     context.getString(R.string.movie_running_time, runningTime)
             }
         }

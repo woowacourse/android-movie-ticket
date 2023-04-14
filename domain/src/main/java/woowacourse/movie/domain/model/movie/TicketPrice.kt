@@ -1,6 +1,8 @@
 package woowacourse.movie.domain.model.movie
 
-import woowacourse.movie.domain.model.movie.discount.policy.DiscountPolicy
+import woowacourse.movie.domain.model.discount.policy.DiscountPolicy
+
+typealias DomainTicketPrice = TicketPrice
 
 @JvmInline
 value class TicketPrice(val amount: Int = DEFAULT_TICKET_PRICE) {

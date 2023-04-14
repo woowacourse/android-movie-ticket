@@ -1,37 +1,20 @@
 package woowacourse.movie.domain.model.movie
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.model.movie.discount.discountable.Discountable
+import woowacourse.movie.domain.model.discount.discountable.Discountable
 import java.time.LocalTime
 
-@Parcelize
-class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
-    Discountable, Comparable<MovieTime>, Parcelable {
+typealias DomainMovieTime = MovieTime
+
+data class MovieTime(
+    val hour: Int,
+    val min: Int = DEFAULT_MIN,
+) : Discountable, Comparable<MovieTime> {
 
     override fun compareTo(other: MovieTime): Int =
         (hour * HOUR_TO_MIN + min) - (other.hour * HOUR_TO_MIN + other.min)
 
     override fun isDiscountable(): Boolean =
         hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as MovieTime
-
-        if (hour != other.hour) return false
-        if (min != other.min) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = hour
-        result = 31 * result + min
-        return result
-    }
 
     companion object {
         private const val AM_DISCOUNT_CLOSE_TIME = 11
@@ -47,8 +30,6 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
 
         private const val DEFAULT_MIN = 0
         private const val HOUR_TO_MIN = 60
-
-        private const val DISCOUNT_PRICE = 2_000
 
         private val weekendTimes: List<MovieTime> =
             (WEEKEND_MIN_TIME until WEEKEND_MAX_TIME step WEEKEND_MOVIE_TIME_INTERVAL)

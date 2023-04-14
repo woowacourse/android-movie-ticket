@@ -9,23 +9,29 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityTicketingBinding
-import woowacourse.movie.domain.model.movie.MovieDate
-import woowacourse.movie.domain.model.movie.MovieTime
-import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.domain.model.movie.DomainMovieDate
+import woowacourse.movie.domain.model.movie.DomainMovieTime
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
 import woowacourse.movie.presentation.activities.ticketingresult.TicketingResultActivity
 import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
 import woowacourse.movie.presentation.extensions.showToast
+import woowacourse.movie.presentation.mapper.toDomain
+import woowacourse.movie.presentation.mapper.toPresentation
 import woowacourse.movie.presentation.model.Movie
+import woowacourse.movie.presentation.model.MovieDate
+import woowacourse.movie.presentation.model.MovieTime
+import woowacourse.movie.presentation.model.Ticket
 
 class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityTicketingBinding
 
     private var movieTicket: Ticket = Ticket()
+    private var selectedDate: MovieDate? = null
+    private var selectedTime: MovieTime? = null
 
     private val movieDates: List<MovieDate> by lazy {
         intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
-            MovieDate.releaseDates(from = startDate, to = endDate)
+            DomainMovieDate.releaseDates(from = startDate, to = endDate).map { it.toPresentation() }
         } ?: emptyList()
     }
     private val movieTimes = mutableListOf<MovieTime>()
@@ -39,8 +45,6 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf())
     }
-    private var selectedDate: MovieDate? = null
-    private var selectedTime: MovieTime? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,12 +99,10 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
             ) {
                 selectedDate = movieDates[pos]
                 movieTimes.clear()
-                selectedDate?.run {
+                selectedDate?.toDomain()?.run {
                     movieTimes.addAll(
-                        MovieTime.runningTimes(
-                            isWeekend(),
-                            isToday()
-                        )
+                        DomainMovieTime.runningTimes(isWeekend(), isToday())
+                            .map { it.toPresentation() }
                     )
                 }
                 movieTimeAdapter.clear()
@@ -134,7 +136,11 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
             selectedTime = getParcelableExtraCompat(SELECTED_TIME_STATE_KEY)
             movieTicket = getParcelableExtraCompat(TICKET_COUNT_STATE_KEY)!!
         }
-        selectedDate?.run { movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
+        selectedDate?.toDomain()?.run {
+            movieTimes.addAll(
+                DomainMovieTime.runningTimes(isWeekend(), isToday()).map { it.toPresentation() }
+            )
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -149,11 +155,11 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                movieTicket = --movieTicket
+                movieTicket = (movieTicket.toDomain() - 1).toPresentation()
                 binding.tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_plus -> {
-                movieTicket = ++movieTicket
+                movieTicket = (movieTicket.toDomain() + 1).toPresentation()
                 binding.tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_ticketing -> {
@@ -161,16 +167,20 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
                     showToast(getString(R.string.select_date_and_time))
                     return
                 }
-                startActivity(
-                    Intent(this, TicketingResultActivity::class.java)
-                        .putExtra(MOVIE_KEY, intent.getParcelableExtraCompat<Movie>(MOVIE_KEY))
-                        .putExtra(TICKET_KEY, movieTicket)
-                        .putExtra(MOVIE_DATE_KEY, selectedDate)
-                        .putExtra(MOVIE_TIME_KEY, selectedTime)
-                )
-                finish()
+                startTicketingResultActivity()
             }
         }
+    }
+
+    private fun startTicketingResultActivity() {
+        startActivity(
+            Intent(this, TicketingResultActivity::class.java)
+                .putExtra(MOVIE_KEY, intent.getParcelableExtraCompat<Movie>(MOVIE_KEY))
+                .putExtra(TICKET_KEY, movieTicket)
+                .putExtra(MOVIE_DATE_KEY, selectedDate)
+                .putExtra(MOVIE_TIME_KEY, selectedTime)
+        )
+        finish()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
