@@ -18,11 +18,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setMovieData(): List<Movie> = listOf(
         Movie(
-            "해리포터",
-            RunningDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 4, 1)),
-            200,
-            getString(R.string.description),
-            R.drawable.img,
+            title = "해리포터",
+            runningDate = RunningDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 4, 1)),
+            runningTime = 200,
+            description = getString(R.string.description),
+            moviePoster = R.drawable.img,
         ),
     )
 
