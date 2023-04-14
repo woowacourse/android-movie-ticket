@@ -2,7 +2,7 @@ package woowacourse.movie.domain
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 class MovieTicketTest {
     @Test
@@ -10,8 +10,7 @@ class MovieTicketTest {
         val ticket = MovieTicket(
             "title",
             TicketTime(
-                LocalDate.of(2023, 4, 13),
-                Time(12)
+                LocalDateTime.of(2023, 4, 13, 12, 0)
             ),
             PeopleCount(2)
         )
@@ -23,8 +22,7 @@ class MovieTicketTest {
         val ticket = MovieTicket(
             "title",
             TicketTime(
-                LocalDate.of(2023, 4, 10),
-                Time(12)
+                LocalDateTime.of(2023, 4, 10, 12, 0)
             ),
             PeopleCount(2)
         )
@@ -36,8 +34,7 @@ class MovieTicketTest {
         val ticket = MovieTicket(
             "title",
             TicketTime(
-                LocalDate.of(2023, 4, 11),
-                Time(10)
+                LocalDateTime.of(2023, 4, 11, 10, 0)
             ),
             PeopleCount(2)
         )
@@ -49,8 +46,7 @@ class MovieTicketTest {
         val ticket = MovieTicket(
             "title",
             TicketTime(
-                LocalDate.of(2023, 4, 11),
-                Time(23)
+                LocalDateTime.of(2023, 4, 11, 23, 0)
             ),
             PeopleCount(2)
         )
@@ -62,8 +58,7 @@ class MovieTicketTest {
         val ticket = MovieTicket(
             "title",
             TicketTime(
-                LocalDate.of(2023, 4, 20),
-                Time(9)
+                LocalDateTime.of(2023, 4, 20, 9, 0)
             ),
             PeopleCount(2)
         )
