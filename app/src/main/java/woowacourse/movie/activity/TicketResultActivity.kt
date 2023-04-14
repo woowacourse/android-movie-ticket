@@ -6,9 +6,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.util.Formatter
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.customGetSerializable
+import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
 
 class TicketResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,15 +25,15 @@ class TicketResultActivity : AppCompatActivity() {
 
         val playingDate = findViewById<TextView>(R.id.text_playing_date)
         playingDate.text = getString(R.string.date_time,
-            Formatter.dateFormat(info.playingDate),
-            Formatter.timeFormat(info.playingTime)
+            DateTimeFormatter.ofPattern(getString(R.string.date_format)).format(info.playingDate),
+            DateTimeFormatter.ofPattern(getString(R.string.time_format)).format(info.playingTime)
         )
 
         val count = findViewById<TextView>(R.id.text_person_count)
         count.text = info.count.toString()
 
         val price = findViewById<TextView>(R.id.text_price)
-        price.text = Formatter.decimalFormat(info.price.price * info.count)
+        price.text = DecimalFormat(getString(R.string.decimal_format)).format(info.price.price * info.count)
 
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
         pricePayment.text = getString(R.string.price_payment, info.payment)

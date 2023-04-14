@@ -12,4 +12,6 @@
     <string name="normal">일반</string>
     <string name="date_time">%s %s</string>
     <string name="date_format">YYYY.M.d</string>
+    <string name="time_format">HH:mm</string>
+    <string name="decimal_format">#,###</string>
 </resources>

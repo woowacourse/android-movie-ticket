@@ -12,8 +12,8 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.model.Movie
-import woowacourse.movie.util.Formatter
 import woowacourse.movie.util.Keys
+import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int {
@@ -52,8 +52,8 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
         holder.title.text = movie.title
         holder.playingDate.text = context?.getString(
             R.string.playing_time,
-            Formatter.dateFormat(movie.playingTimes.startDate),
-            Formatter.dateFormat(movie.playingTimes.endDate)
+            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.playingTimes.startDate),
+            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.playingTimes.endDate)
         )
         holder.runningTime.text = context?.getString(R.string.running_time, movie.runningTime)
         holder.ticketingButton.setOnClickListener {

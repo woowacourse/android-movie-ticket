@@ -15,11 +15,11 @@ import woowacourse.movie.model.PlayingTimes
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
 import woowacourse.movie.util.DiscountPolicies
-import woowacourse.movie.util.Formatter
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,8 +132,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
         playingDateView.text = getString(
             R.string.playing_time,
-            Formatter.dateFormat(times.startDate),
-            Formatter.dateFormat(times.endDate)
+            DateTimeFormatter.ofPattern(getString(R.string.date_format)).format(times.startDate),
+            DateTimeFormatter.ofPattern(getString(R.string.date_format)).format(times.endDate)
         )
     }
 
