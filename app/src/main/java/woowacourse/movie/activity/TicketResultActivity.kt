@@ -24,7 +24,8 @@ class TicketResultActivity : AppCompatActivity() {
         title.text = info.title
 
         val playingDate = findViewById<TextView>(R.id.text_playing_date)
-        playingDate.text = getString(R.string.date_time,
+        playingDate.text = getString(
+            R.string.date_time,
             DateTimeFormatter.ofPattern(getString(R.string.date_format)).format(info.playingDate),
             DateTimeFormatter.ofPattern(getString(R.string.time_format)).format(info.playingTime)
         )

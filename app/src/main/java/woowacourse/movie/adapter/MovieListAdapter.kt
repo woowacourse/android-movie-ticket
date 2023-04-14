@@ -46,7 +46,6 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
         view.findViewById(R.id.btn_ticketing)
     )
 
-
     private fun setViewHolder(holder: ViewHolder, movie: Movie, context: Context?) {
         holder.image.setImageResource(movie.image)
         holder.title.text = movie.title

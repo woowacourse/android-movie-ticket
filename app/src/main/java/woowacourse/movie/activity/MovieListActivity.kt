@@ -5,10 +5,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.PlayingTimes
 import woowacourse.movie.util.DummyData
-import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
