@@ -123,12 +123,13 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun initRunningTime(runningTime: Int) {
         val runningTimeView = findViewById<TextView>(R.id.text_running_time)
-        runningTimeView.text = getString(R.string.running_time, runningTime.toString())
+        runningTimeView.text = getString(R.string.running_time, runningTime)
     }
 
     private fun initPlayingDate(times: PlayingTimes) {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
-        playingDateView.text = getString(R.string.playing_time,
+        playingDateView.text = getString(
+            R.string.playing_time,
             Formatter.dateFormat(times.startDate),
             Formatter.dateFormat(times.endDate)
         )

@@ -10,7 +10,7 @@ import java.time.LocalDate
 
 class DateSpinnerListener(private val playingTimes: PlayingTimes, private val dates: List<LocalDate>, private val spinnerTime: Spinner) : AdapterView.OnItemSelectedListener {
     override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, index: Int, p3: Long) {
-        val times = playingTimes._times[dates[index]] ?: emptyList()
+        val times = playingTimes.times[dates[index]] ?: emptyList()
         spinnerTime.adapter = ArrayAdapter(spinnerTime.context, R.layout.simple_spinner_item, times)
     }
 

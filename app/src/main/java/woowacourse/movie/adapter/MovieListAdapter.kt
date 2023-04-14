@@ -13,8 +13,9 @@ import woowacourse.movie.R
 import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.util.Formatter
+import woowacourse.movie.util.Keys
 
-class MovieListAdapter(private val context: Context, private val movies: List<Movie>) : BaseAdapter() {
+class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
     }
@@ -28,12 +29,12 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_item, null)
+        val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, null)
         if (convertView == null) view.tag = getViewHolder(view)
 
         val holder = view.tag as ViewHolder
         val movie = getItem(position) as Movie
-        setViewHolder(holder, movie)
+        setViewHolder(holder, movie, parent?.context)
         return view
     }
 
@@ -46,22 +47,22 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
     )
 
 
-    private fun setViewHolder(holder: ViewHolder, movie: Movie) {
+    private fun setViewHolder(holder: ViewHolder, movie: Movie, context: Context?) {
         holder.image.setImageResource(movie.image)
         holder.title.text = movie.title
-        holder.playingDate.text = getString(R.string.playing_time).format(
+        holder.playingDate.text = context?.getString(
+            R.string.playing_time,
             Formatter.dateFormat(movie.playingTimes.startDate),
             Formatter.dateFormat(movie.playingTimes.endDate)
         )
-        holder.runningTime.text = getString(R.string.running_time).format(movie.runningTime)
+        holder.runningTime.text = context?.getString(R.string.running_time, movie.runningTime)
         holder.ticketingButton.setOnClickListener {
             val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(MOVIE_KEY, movie)
-            context.startActivity(intent)
+            intent.putExtra(Keys.MOVIE_KEY, movie)
+            context?.startActivity(intent)
         }
     }
 
-    private fun getString(string: Int): String = context.getString(string)
     private class ViewHolder(
         val image: ImageView,
         val title: TextView,
@@ -69,8 +70,4 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
         val runningTime: TextView,
         val ticketingButton: Button
     )
-
-    companion object {
-        private const val MOVIE_KEY = "movie"
-    }
 }

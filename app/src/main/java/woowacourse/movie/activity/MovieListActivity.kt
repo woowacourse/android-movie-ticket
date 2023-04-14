@@ -16,7 +16,7 @@ class MovieListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_list)
 
         val listView = findViewById<ListView>(R.id.list_view)
-        val adapter = MovieListAdapter(this, DummyData.movies)
+        val adapter = MovieListAdapter(DummyData.movies)
         listView.adapter = adapter
     }
 }
