@@ -4,18 +4,18 @@ import android.widget.Button
 import android.widget.TextView
 
 class Counter(
-    minus: Button,
-    plus: Button,
+    minusButton: Button,
+    plusButton: Button,
     private val text: TextView,
     var count: Int
 ) {
     init {
-        minus.setOnClickListener {
+        minusButton.setOnClickListener {
             count -= COUNT_FACTOR
             applyToView()
         }
 
-        plus.setOnClickListener {
+        plusButton.setOnClickListener {
             count += COUNT_FACTOR
             applyToView()
         }
