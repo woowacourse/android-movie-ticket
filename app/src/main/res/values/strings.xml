@@ -8,4 +8,7 @@
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="end_booking">예매 완료</string>
+    <string name="ticket_message">영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다.</string>
+    <string name="ticket_number">일반 %d명</string>
+    <string name="ticket_price">%s원 (현장 결제)</string>
 </resources>
