@@ -6,6 +6,8 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityTicketingResultBinding
 import woowacourse.movie.domain.model.movie.MovieDate
 import woowacourse.movie.domain.model.movie.MovieTime
+import woowacourse.movie.domain.model.movie.discount.policy.MovieDayDiscountPolicy
+import woowacourse.movie.domain.model.movie.discount.policy.MovieTimeDiscountPolicy
 import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_DATE_KEY
@@ -35,12 +37,15 @@ class TicketingResultActivity : AppCompatActivity() {
                     movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
                 )
             }
-            intent.getParcelableExtraCompat<Ticket>(TICKET_KEY)?.let {
-                tvRegularCount.text = getString(R.string.regular_count, it.count)
+            intent.getParcelableExtraCompat<Ticket>(TICKET_KEY)?.let { ticket ->
+                tvRegularCount.text = getString(R.string.regular_count, ticket.count)
                 tvPayResult.text =
                     getString(
                         R.string.movie_pay_result,
-                        it.calculateTotalPrice(listOf(movieDate, movieTime)),
+                        ticket.applyDiscountPolicy(
+                            MovieDayDiscountPolicy(movieDate),
+                            MovieTimeDiscountPolicy(movieTime),
+                        ),
                         getString(R.string.on_site_payment)
                     )
             }

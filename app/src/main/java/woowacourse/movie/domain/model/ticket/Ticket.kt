@@ -2,7 +2,7 @@ package woowacourse.movie.domain.model.ticket
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.model.movie.Discountable
+import woowacourse.movie.domain.model.movie.discount.policy.DiscountPolicy
 
 @JvmInline
 @Parcelize
@@ -12,8 +12,8 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) : Parcelable {
     }
 
     @JvmOverloads
-    fun calculateTotalPrice(
-        discountables: List<Discountable>,
+    fun applyDiscountPolicy(
+        vararg discountables: DiscountPolicy,
         ticketPrice: Int = DEFAULT_TICKET_PRICE,
     ): Int {
         var discountedPrice = ticketPrice

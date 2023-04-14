@@ -2,20 +2,18 @@ package woowacourse.movie.domain.model.movie
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.domain.model.movie.discount.discountable.Discountable
 import java.time.LocalTime
 
 @Parcelize
 class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
     Discountable, Comparable<MovieTime>, Parcelable {
 
-    private fun isDiscountTime(): Boolean =
-        hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME
-
     override fun compareTo(other: MovieTime): Int =
         (hour * HOUR_TO_MIN + min) - (other.hour * HOUR_TO_MIN + other.min)
 
-    override fun discount(money: Int): Int =
-        if (isDiscountTime()) money - DISCOUNT_PRICE else money
+    override fun isDiscountable(): Boolean =
+        hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

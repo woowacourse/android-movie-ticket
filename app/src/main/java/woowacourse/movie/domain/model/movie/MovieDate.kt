@@ -2,6 +2,7 @@ package woowacourse.movie.domain.model.movie
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.domain.model.movie.discount.discountable.Discountable
 import java.time.DayOfWeek
 import java.time.LocalDate
 
@@ -11,7 +12,6 @@ class MovieDate private constructor(
     val month: Int,
     val day: Int,
 ) : Discountable, Parcelable {
-
     private constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
 
     fun isWeekend(): Boolean {
@@ -24,10 +24,7 @@ class MovieDate private constructor(
         return today.compareTo(LocalDate.of(year, month, day)) == 0
     }
 
-    private fun isDiscountDay(): Boolean = day in DISCOUNT_DAYS
-
-    override fun discount(money: Int): Int =
-        if (isDiscountDay()) (money - money * DISCOUNT_PERCENT).toInt() else money
+    override fun isDiscountable(): Boolean = day in DISCOUNT_DAYS
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
