@@ -10,7 +10,7 @@ import woowacourse.movie.databinding.ItemMovieBinding
 
 class MovieListAdapter(
     private val movies: List<Movie>,
-    private val onBookClickListener: OnBookClickListener,
+    private val onBookBtnClick: (Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
@@ -26,6 +26,7 @@ class MovieListAdapter(
             val binding =
                 ItemMovieBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
             view = binding.root
+            binding.btnBook.setOnClickListener { onBookBtnClick(getItem(position)) }
             viewHolder = ViewHolder(binding)
             view.tag = viewHolder
         } else {
@@ -36,12 +37,11 @@ class MovieListAdapter(
         return view
     }
 
-    private inner class ViewHolder(private val binding: ItemMovieBinding) {
+    private class ViewHolder(private val binding: ItemMovieBinding) {
         private val ivPoster = binding.ivPoster
         private val tvTitle = binding.tvTitle
         private val tvDate = binding.tvDate
         private val tvRunningTime = binding.tvRunningTime
-        private val btnBook = binding.btnBook
 
         fun bind(item: Movie) {
             val context = binding.root.context
@@ -55,7 +55,6 @@ class MovieListAdapter(
                 )
                 tvRunningTime.text =
                     context.getString(R.string.movie_running_time, runningTime)
-                btnBook.setOnClickListener { onBookClickListener.onClick(this) }
             }
         }
     }

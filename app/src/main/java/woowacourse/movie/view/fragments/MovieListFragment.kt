@@ -31,25 +31,20 @@ class MovieListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setMovieListAdapter()
-        binding.lvMovies.adapter = movieListAdapter
     }
 
     private fun setMovieListAdapter() {
         _movieListAdapter =
-            MovieListAdapter(
-                Movie.provideDummy(),
-                object : MovieListAdapter.OnBookClickListener {
-                    override fun onClick(item: Movie) {
-                        val ticketingFragment =
-                            TicketingFragment().apply { arguments = bundleOf(MOVIE_KEY to item) }
-                        val tag = TicketingFragment::class.java.name
-                        parentFragmentManager.commit {
-                            add(R.id.fragment_movie, ticketingFragment, tag)
-                            addToBackStack(FIRST_TRANSACTION)
-                        }
-                    }
+            MovieListAdapter(Movie.provideDummy()) { movie ->
+                val ticketingFragment =
+                    TicketingFragment().apply { arguments = bundleOf(MOVIE_KEY to movie) }
+                val tag = TicketingFragment::class.java.name
+                parentFragmentManager.commit {
+                    add(R.id.fragment_movie, ticketingFragment, tag)
+                    addToBackStack(FIRST_TRANSACTION)
                 }
-            )
+            }
+        binding.lvMovies.adapter = movieListAdapter
     }
 
     override fun onDestroyView() {
