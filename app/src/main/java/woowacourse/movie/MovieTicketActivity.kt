@@ -53,7 +53,7 @@ class MovieTicketActivity : AppCompatActivity() {
     } as MovieTicket
 
     private fun TicketTime.format(): String =
-        "${date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))} $time"
+        dateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
 
     private fun PeopleCount.format(): String = "일반 ${count}명"
 
