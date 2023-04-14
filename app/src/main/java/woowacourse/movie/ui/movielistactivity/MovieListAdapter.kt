@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.movielistactivity
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import woowacourse.movie.ui.DateTimeFormatters.hyphenDateFormatter
 import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
 import woowacourse.movie.util.setOnSingleClickListener
 
-class MovieListAdapter(val context: Context, val movies: List<MovieData>) : BaseAdapter() {
+class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
     private lateinit var inflater: LayoutInflater
 
     override fun getCount(): Int = movies.size
@@ -27,7 +26,7 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
 
         if (convertView == null) {
             if (!::inflater.isInitialized) {
-                inflater = LayoutInflater.from(context)
+                inflater = LayoutInflater.from(parent?.context)
             }
             itemLayout = inflater.inflate(R.layout.movie_list_item, null)
 
@@ -46,20 +45,22 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
         val item = movies[position]
         viewHolder.ivPoster.setImageResource(item.posterImage)
         viewHolder.tvMovieName.text = item.title
-        viewHolder.tvScreeningDay.text = context.getString(R.string.screening_date_format)
-            .format(
-                item.screeningDay.start.format(hyphenDateFormatter),
-                item.screeningDay.end.format(hyphenDateFormatter)
-            )
+        viewHolder.tvScreeningDay.text =
+            viewHolder.tvScreeningDay.context.getString(R.string.screening_date_format)
+                .format(
+                    item.screeningDay.start.format(hyphenDateFormatter),
+                    item.screeningDay.end.format(hyphenDateFormatter)
+                )
         viewHolder.tvRunningTime.text =
-            context.getString(R.string.running_time_format).format(item.runningTime)
+            viewHolder.tvRunningTime.context.getString(R.string.running_time_format)
+                .format(item.runningTime)
 
         viewHolder.btnBooking.setOnSingleClickListener {
-            val intent = Intent(context, MovieBookingActivity::class.java).putExtra(
+            val intent = Intent(parent?.context, MovieBookingActivity::class.java).putExtra(
                 "movieData",
                 item
             )
-            context.startActivity(intent)
+            parent?.context?.startActivity(intent)
         }
 
         return itemLayout ?: throw IllegalStateException(NULL_ITEM_LAYOUT_ERROR)
