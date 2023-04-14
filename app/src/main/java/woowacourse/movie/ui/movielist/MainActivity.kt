@@ -1,10 +1,12 @@
-package woowacourse.movie
+package woowacourse.movie.ui.movielist
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui.moviedetail
 
 import android.content.Intent
 import android.os.Build
@@ -13,11 +13,13 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
+import woowacourse.movie.ui.ticket.MovieTicketActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
