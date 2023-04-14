@@ -9,10 +9,10 @@ class BookCompleteActivity : BackButtonActivity() {
     private lateinit var binding: ActivityBookCompleteBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_book_complete)
         binding = ActivityBookCompleteBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val movieBookingData = intent.getSerializableCompat<MovieBookingInfo>("movieBookingInfo")
+        val movieBookingData = intent.getParcelableCompat<MovieBookingInfo>("movieBookingInfo")
         processEmptyBookingData(movieBookingData)
 
         setViewData(movieBookingData!!)

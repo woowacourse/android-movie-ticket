@@ -2,13 +2,13 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Build
-import java.io.Serializable
+import android.os.Parcelable
 
 @Suppress("DEPRECATION")
-internal inline fun <reified T : Serializable> Intent.getSerializableCompat(key: String): T? {
+internal inline fun <reified T : Parcelable> Intent.getParcelableCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        getSerializableExtra(key, T::class.java)
+        getParcelableExtra(key, T::class.java)
     } else {
-        getSerializableExtra(key) as? T
+        getParcelableExtra(key) as? T
     }
 }
