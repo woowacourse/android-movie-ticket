@@ -42,7 +42,10 @@ class ReservationTest(private val illegalPeopleCount: Int) {
             "줄거리"
         )
 
-        assertThrows(IllegalArgumentException::class.java) {
+        assertThrows(
+            "[ERROR] 예매할 날짜가 상영 기간이 아닙니다.",
+            IllegalArgumentException::class.java
+        ) {
             Reservation(
                 movie,
                 3,
