@@ -10,13 +10,16 @@ class BookCompleteActivity : BackButtonActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_complete)
 
-        val movieBookingData = intent.customGetSerializable<MovieBookingInfo>("movieBookingInfo")
+        val movieBookingData = intent.getSerializableCompat<MovieBookingInfo>("movieBookingInfo")
         if (movieBookingData == null) {
             Toast.makeText(this, "시스템 오류가 발생 했습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
             this.finish()
             return
         }
+        initView(movieBookingData)
+    }
 
+    private fun initView(movieBookingData: MovieBookingInfo) {
         findViewById<TextView>(R.id.tv_book_movie_title).text = movieBookingData.movieInfo.title
         findViewById<TextView>(R.id.tv_book_date).text =
             formatBookingTime(movieBookingData.date, movieBookingData.time)
@@ -25,7 +28,8 @@ class BookCompleteActivity : BackButtonActivity() {
         findViewById<TextView>(R.id.tv_book_total_pay).text =
             getString(R.string.book_total_pay).format(
                 TicketBundle(movieBookingData.ticketCount).calculateTotalPrice(
-                    movieBookingData.date, movieBookingData.time
+                    movieBookingData.date,
+                    movieBookingData.time
                 )
             )
     }

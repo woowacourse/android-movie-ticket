@@ -14,30 +14,24 @@ import woowacourse.movie.domain.MovieSchedule
 
 class MovieDetailActivity : BackButtonActivity() {
     private var isFirst = true
-    private val dateSpinner: Spinner by lazy {
-        findViewById(R.id.sp_movie_date)
-    }
-    private val timeSpinner: Spinner by lazy {
-        findViewById(R.id.sp_movie_time)
-    }
-    private val personCountTextView by lazy {
-        findViewById<TextView>(R.id.tv_ticket_count)
-    }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_movie_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_movie_time) }
+    private val personCountTextView by lazy { findViewById<TextView>(R.id.tv_ticket_count) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         isFirst = true
 
-        val movieData = intent.customGetSerializable<Movie>("movieData")
+        val movieData = intent.getSerializableCompat<Movie>("movieData")
         processEmptyMovieData(movieData)
 
-        setViewData(movieData)
+        initView(movieData)
 
         val movieSchedule = MovieSchedule(movieData!!.startDate, movieData.endDate)
         val scheduleDate = movieSchedule.getScheduleDates()
 
-        setViewData(movieData)
+        initView(movieData)
         setClickListener(movieData)
         setSpinnerSelectedListener(movieSchedule, scheduleDate, savedInstanceState)
         setSpinnerAdapter(scheduleDate, movieSchedule)
@@ -60,7 +54,7 @@ class MovieDetailActivity : BackButtonActivity() {
         )
     }
 
-    private fun setViewData(movieData: Movie?) {
+    private fun initView(movieData: Movie?) {
         findViewById<ImageView>(R.id.iv_movie_poster).setImageResource(movieData!!.poster)
         findViewById<TextView>(R.id.tv_movie_title).text = movieData.title
         findViewById<TextView>(R.id.tv_movie_release_date).text = movieData.releaseDate
@@ -135,16 +129,15 @@ class MovieDetailActivity : BackButtonActivity() {
         }
 
         findViewById<Button>(R.id.bt_book_complete).setOnClickListener {
-            val intent = Intent(this, BookCompleteActivity::class.java).apply {
-                putExtra(
-                    "movieBookingInfo",
-                    MovieBookingInfo(
-                        movieData, dateSpinner.selectedItem.toString(),
-                        timeSpinner.selectedItem.toString(),
-                        currentCount
-                    )
+            val intent = Intent(this, BookCompleteActivity::class.java)
+            intent.putExtra(
+                "movieBookingInfo",
+                MovieBookingInfo(
+                    movieData, dateSpinner.selectedItem.toString(),
+                    timeSpinner.selectedItem.toString(),
+                    currentCount
                 )
-            }
+            )
             startActivity(intent)
         }
     }
