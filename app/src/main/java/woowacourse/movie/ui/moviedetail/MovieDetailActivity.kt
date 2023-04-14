@@ -19,6 +19,8 @@ import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
+import woowacourse.movie.ui.const.KEY_MOVIE
+import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.ui.ticket.MovieTicketActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -52,9 +54,9 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
 
-        outState.putInt("date_position", dateSpinner.selectedItemPosition)
-        outState.putInt("time_position", timeSpinner.selectedItemPosition)
-        outState.putInt("count", peopleCount.count)
+        outState.putInt(KEY_DATE_POSITION, dateSpinner.selectedItemPosition)
+        outState.putInt(KEY_TIME_POSITION, timeSpinner.selectedItemPosition)
+        outState.putInt(KEY_PEOPLE_COUNT, peopleCount.count)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,9 +71,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra("movie", Movie::class.java)
+        intent.getSerializableExtra(KEY_MOVIE, Movie::class.java)
     } else {
-        intent.getSerializableExtra("movie")
+        intent.getSerializableExtra(KEY_MOVIE)
     } as Movie
 
     private fun setMovieInfo(movie: Movie) {
@@ -175,16 +177,22 @@ class MovieDetailActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("ticket", ticket)
+        intent.putExtra(KEY_TICKET, ticket)
         startActivity(intent)
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
-        val datePosition = savedInstanceState?.getInt("date_position") ?: 0
-        val timePosition = savedInstanceState?.getInt("time_position") ?: 0
-        val count = savedInstanceState?.getInt("count") ?: 1
+        val datePosition = savedInstanceState?.getInt(KEY_DATE_POSITION) ?: 0
+        val timePosition = savedInstanceState?.getInt(KEY_TIME_POSITION) ?: 0
+        val count = savedInstanceState?.getInt(KEY_PEOPLE_COUNT) ?: 1
         dateSpinner.setSelection(datePosition)
         timeSpinner.setSelection(timePosition)
         peopleCount = PeopleCount(count)
+    }
+
+    companion object {
+        private const val KEY_DATE_POSITION = "date_position"
+        private const val KEY_TIME_POSITION = "time_position"
+        private const val KEY_PEOPLE_COUNT = "count"
     }
 }

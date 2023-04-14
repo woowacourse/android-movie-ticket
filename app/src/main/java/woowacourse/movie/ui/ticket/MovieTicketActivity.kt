@@ -10,6 +10,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
+import woowacourse.movie.ui.const.KEY_TICKET
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -48,9 +49,9 @@ class MovieTicketActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private fun getTicketFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra("ticket", MovieTicket::class.java)
+        intent.getSerializableExtra(KEY_TICKET, MovieTicket::class.java)
     } else {
-        intent.getSerializableExtra("ticket")
+        intent.getSerializableExtra(KEY_TICKET)
     } as MovieTicket
 
     private fun TicketTime.format(): String =

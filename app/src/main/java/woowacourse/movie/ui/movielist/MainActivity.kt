@@ -6,6 +6,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import java.time.LocalDate
 
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun moveToDetailActivity(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra("movie", movie)
+        intent.putExtra(KEY_MOVIE, movie)
         startActivity(intent)
     }
 }

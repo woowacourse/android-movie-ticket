@@ -15,8 +15,8 @@ class MovieTicket(
     }
 
     companion object {
-        private const val TICKET_PRICE = 13000
+        private const val TICKET_PRICE = 13_000
         private const val TICKET_MOVIE_DAY_SALE_RATE = 0.9
-        private const val TICKET_TIME_SALE_AMOUNT = 2000
+        private const val TICKET_TIME_SALE_AMOUNT = 2_000
     }
 }
