@@ -17,19 +17,27 @@ class TicketActivity : AppCompatActivity() {
         val ticket = intent.getSerializableExtra(TICKET_KEY) as Ticket
         val movie = intent.getSerializableExtra(MOVIE_KEY) as Movie
 
+        setUpView(ticket, movie)
+
+        setBackToBefore()
+    }
+
+    private fun setUpView(ticket: Ticket, movie: Movie) {
         val movieTitle = findViewById<TextView>(R.id.ticket_title)
         val movieDate = findViewById<TextView>(R.id.ticket_date)
         val numberOfPeople = findViewById<TextView>(R.id.ticket_numberOfPeople)
         val price = findViewById<TextView>(R.id.ticket_price)
-        val toolbar = findViewById<Toolbar>(R.id.ticket_toolbar)
-
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movieTitle.text = movie.title
         movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
         numberOfPeople.text = ticket.numberOfPeople.toString()
         price.text = ticket.calculateTotalPrice().toString()
+    }
+
+    private fun setBackToBefore() {
+        val toolbar = findViewById<Toolbar>(R.id.ticket_toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
