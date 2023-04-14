@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.adapter
+package woowacourse.movie.presentation.activities.movielist
 
 import android.view.LayoutInflater
 import android.view.View
@@ -25,10 +25,9 @@ class MovieListAdapter(
         if (view == null) {
             val binding =
                 ItemMovieBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
-            view = binding.root
             binding.btnBook.setOnClickListener { onBookBtnClick(getItem(position)) }
             viewHolder = ViewHolder(binding)
-            view.tag = viewHolder
+            view = binding.root.also { it.tag = viewHolder }
         } else {
             viewHolder = view.tag as ViewHolder
         }
@@ -57,9 +56,5 @@ class MovieListAdapter(
                     context.getString(R.string.movie_running_time, runningTime)
             }
         }
-    }
-
-    interface OnBookClickListener {
-        fun onClick(item: Movie)
     }
 }

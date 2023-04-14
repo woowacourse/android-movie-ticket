@@ -1,4 +1,4 @@
-package woowacourse.movie.utils
+package woowacourse.movie.presentation.extensions
 
 import android.content.Context
 import android.widget.Toast

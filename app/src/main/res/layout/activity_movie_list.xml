@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.view.activities.MainActivity">
+    tools:context=".presentation.activities.movielist.MovieListActivity">
 
-    <FrameLayout
-        android:id="@+id/fragment_movie"
+    <ListView
+        android:id="@+id/lv_movies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,72 +1,52 @@
-package woowacourse.movie.presentation.view.fragments
+package woowacourse.movie.presentation.activities.ticketing
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.databinding.FragmentTicketingBinding
+import woowacourse.movie.databinding.ActivityTicketingBinding
 import woowacourse.movie.domain.model.movie.MovieDate
 import woowacourse.movie.domain.model.movie.MovieTime
 import woowacourse.movie.domain.model.ticket.Ticket
-import woowacourse.movie.presentation.extensions.getParcelableCompat
+import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
+import woowacourse.movie.presentation.activities.ticketingresult.TicketingResultActivity
+import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
 import woowacourse.movie.presentation.extensions.showToast
 import woowacourse.movie.presentation.model.Movie
-import woowacourse.movie.presentation.view.fragments.MovieListFragment.Companion.MOVIE_KEY
-import woowacourse.movie.utils.commit
 
-class TicketingFragment : Fragment(), View.OnClickListener {
-    private var _binding: FragmentTicketingBinding? = null
-    private val binding get() = _binding!!
+class TicketingActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityTicketingBinding
 
-    private var _movieTicket: Ticket = Ticket()
-    private val movieTicket get() = _movieTicket
+    private var movieTicket: Ticket = Ticket()
 
     private val movieDates: List<MovieDate> by lazy {
-        getParcelableCompat<Movie>(MOVIE_KEY)?.run {
-            MovieDate.releaseDates(
-                from = startDate,
-                to = endDate
-            )
-        }
-            ?: emptyList()
+        intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
+            MovieDate.releaseDates(from = startDate, to = endDate)
+        } ?: emptyList()
     }
-    private val _movieTimes = mutableListOf<MovieTime>()
-    private val movieTimes: List<MovieTime> get() = _movieTimes
+    private val movieTimes = mutableListOf<MovieTime>()
 
     private val movieDateAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(
-            requireContext(), android.R.layout.simple_spinner_item,
+            this, android.R.layout.simple_spinner_item,
             movieDates.map { getString(R.string.book_date, it.year, it.month, it.day) }
         )
     }
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
-        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, mutableListOf())
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf())
     }
-    private var _selectedDate: MovieDate? = null
-    private val selectedDate: MovieDate? get() = _selectedDate
+    private var selectedDate: MovieDate? = null
+    private var selectedTime: MovieTime? = null
 
-    private var _selectedTime: MovieTime? = null
-    private val selectedTime: MovieTime? get() = _selectedTime
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityTicketingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         restoreState(savedInstanceState)
-        _binding = FragmentTicketingBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
             showMovieIntroduce()
@@ -75,25 +55,25 @@ class TicketingFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun FragmentTicketingBinding.setClickListener() {
-        btnMinus.setOnClickListener(this@TicketingFragment)
-        btnPlus.setOnClickListener(this@TicketingFragment)
-        btnTicketing.setOnClickListener(this@TicketingFragment)
+    private fun ActivityTicketingBinding.setClickListener() {
+        btnMinus.setOnClickListener(this@TicketingActivity)
+        btnPlus.setOnClickListener(this@TicketingActivity)
+        btnTicketing.setOnClickListener(this@TicketingActivity)
     }
 
-    private fun FragmentTicketingBinding.setSpinnerConfig() {
+    private fun ActivityTicketingBinding.setSpinnerConfig() {
         setSpinnerAdapter()
         setSpinnerListener()
     }
 
-    private fun FragmentTicketingBinding.setSpinnerAdapter() {
+    private fun ActivityTicketingBinding.setSpinnerAdapter() {
         spinnerMovieDate.adapter = movieDateAdapter
         spinnerMovieTime.adapter = movieTimeAdapter
         movieDateAdapter.setNotifyOnChange(true)
         movieTimeAdapter.setNotifyOnChange(true)
     }
 
-    private fun FragmentTicketingBinding.setSpinnerListener() {
+    private fun ActivityTicketingBinding.setSpinnerListener() {
         spinnerMovieTime.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -101,7 +81,7 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 pos: Int,
                 id: Long,
             ) {
-                _selectedTime = movieTimes[pos]
+                selectedTime = movieTimes[pos]
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -113,10 +93,10 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 pos: Int,
                 id: Long,
             ) {
-                _selectedDate = movieDates[pos]
-                _movieTimes.clear()
+                selectedDate = movieDates[pos]
+                movieTimes.clear()
                 selectedDate?.run {
-                    _movieTimes.addAll(
+                    movieTimes.addAll(
                         MovieTime.runningTimes(
                             isWeekend(),
                             isToday()
@@ -127,15 +107,15 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                 movieTimeAdapter.addAll(
                     movieTimes.map { getString(R.string.book_time, it.hour, it.min) }
                 )
-                _selectedTime = movieTimes.firstOrNull()
+                selectedTime = movieTimes.firstOrNull()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
-    private fun FragmentTicketingBinding.showMovieIntroduce() {
-        getParcelableCompat<Movie>(MOVIE_KEY)?.run {
+    private fun ActivityTicketingBinding.showMovieIntroduce() {
+        intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
             ivPoster.setImageResource(thumbnail)
             tvTitle.text = title
             tvDate.text = getString(
@@ -150,16 +130,15 @@ class TicketingFragment : Fragment(), View.OnClickListener {
 
     private fun restoreState(savedInstanceState: Bundle?) {
         savedInstanceState?.run {
-            _selectedDate = getParcelableCompat(SELECTED_DATE_STATE_KEY)
-            _selectedTime = getParcelableCompat(SELECTED_TIME_STATE_KEY)
-            _movieTicket = getParcelableCompat(TICKET_COUNT_STATE_KEY)!!
+            selectedDate = getParcelableExtraCompat(SELECTED_DATE_STATE_KEY)
+            selectedTime = getParcelableExtraCompat(SELECTED_TIME_STATE_KEY)
+            movieTicket = getParcelableExtraCompat(TICKET_COUNT_STATE_KEY)!!
         }
-        selectedDate?.run { _movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
+        selectedDate?.run { movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
     }
 
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         binding.tvTicketCount.text = movieTicket.count.toString()
         val storedDateIndex = movieDates.indexOfFirst { it == selectedDate }
         binding.spinnerMovieDate.setSelection(storedDateIndex)
@@ -170,11 +149,11 @@ class TicketingFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                _movieTicket = --_movieTicket
+                movieTicket = --movieTicket
                 binding.tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_plus -> {
-                _movieTicket = ++_movieTicket
+                movieTicket = ++movieTicket
                 binding.tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_ticketing -> {
@@ -182,33 +161,16 @@ class TicketingFragment : Fragment(), View.OnClickListener {
                     showToast(getString(R.string.select_date_and_time))
                     return
                 }
-
-                popUntilFirstTransaction() // 첫번째 fragment 제외하고 모두 pop
-                val ticketingResultFragment = TicketingResultFragment().apply {
-                    arguments = bundleOf(
-                        MOVIE_KEY to this@TicketingFragment.getParcelableCompat<Movie>(MOVIE_KEY),
-                        TICKET_KEY to movieTicket,
-                        MOVIE_DATE_KEY to selectedDate,
-                        MOVIE_TIME_KEY to selectedTime,
-                    )
-                }
-                parentFragmentManager.commit {
-                    add(
-                        R.id.fragment_movie,
-                        ticketingResultFragment,
-                        TicketingResultFragment::class.java.name
-                    )
-                    addToBackStack(null)
-                }
+                startActivity(
+                    Intent(this, TicketingResultActivity::class.java)
+                        .putExtra(MOVIE_KEY, intent.getParcelableExtraCompat<Movie>(MOVIE_KEY))
+                        .putExtra(TICKET_KEY, movieTicket)
+                        .putExtra(MOVIE_DATE_KEY, selectedDate)
+                        .putExtra(MOVIE_TIME_KEY, selectedTime)
+                )
+                finish()
             }
         }
-    }
-
-    private fun popUntilFirstTransaction() {
-        parentFragmentManager.popBackStack(
-            MovieListFragment.FIRST_TRANSACTION,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -216,11 +178,6 @@ class TicketingFragment : Fragment(), View.OnClickListener {
         outState.putParcelable(TICKET_COUNT_STATE_KEY, movieTicket)
         outState.putParcelable(SELECTED_DATE_STATE_KEY, selectedDate)
         outState.putParcelable(SELECTED_TIME_STATE_KEY, selectedTime)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
