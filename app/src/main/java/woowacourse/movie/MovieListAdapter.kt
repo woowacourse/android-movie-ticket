@@ -26,16 +26,20 @@ class MovieListAdapter(
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val itemView =
-            LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
-
         val movie = movies[position]
-        itemView.findViewById<ImageView>(R.id.item_poster).setImageResource(movie.poster)
-        itemView.findViewById<TextView>(R.id.item_title).text = movie.title
-        itemView.findViewById<TextView>(R.id.item_date).text = movie.getScreenDate()
-        itemView.findViewById<TextView>(R.id.item_running_time).text = movie.getRunningTime()
-        itemView.findViewById<Button>(R.id.item_booking_button)
-            .setOnClickListener { itemButtonClickListener.onClick(position) }
+        val viewHolder: MovieListViewHolder
+
+        val itemView = if (convertView != null) {
+            convertView.also { viewHolder = it.tag as MovieListViewHolder }
+        } else {
+            val view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
+            viewHolder = MovieListViewHolder(view)
+            view.tag = viewHolder
+            view
+        }
+
+        viewHolder.bind(movie)
+        viewHolder.button.setOnClickListener { itemButtonClickListener.onClick(position) }
 
         return itemView
     }
@@ -45,4 +49,21 @@ class MovieListAdapter(
     private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
     private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
+
+    inner class MovieListViewHolder(
+        view: View,
+    ) {
+        private val poster: ImageView = view.findViewById(R.id.item_poster)
+        private val title: TextView = view.findViewById(R.id.item_title)
+        private val date: TextView = view.findViewById(R.id.item_date)
+        private val runningTime: TextView = view.findViewById(R.id.item_running_time)
+        val button: Button = view.findViewById(R.id.item_booking_button)
+
+        fun bind(movie: Movie) {
+            poster.setImageResource(movie.poster)
+            title.text = movie.title
+            date.text = movie.getScreenDate()
+            runningTime.text = movie.getRunningTime()
+        }
+    }
 }
