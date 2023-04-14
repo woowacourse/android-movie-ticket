@@ -3,19 +3,20 @@ package domain.discount
 import domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
-class MovieDiscount : DiscountRule {
-    override fun getPaymentAmountResult(
+class MovieDiscountEvent : DiscountEvent {
+
+    override fun discount(
         paymentAmount: PaymentAmount,
         screeningDateTime: LocalDateTime
     ): PaymentAmount {
-        val discounts: List<DiscountRule> = listOf(
-            MovieDayDiscount(),
-            EarlyNightDiscount()
+        val discounts: List<DiscountEvent> = listOf(
+            MovieDayDiscountEvent(),
+            EarlyNightDiscountEvent()
         )
         var resultPaymentAmount: PaymentAmount = paymentAmount
 
         discounts.forEach {
-            resultPaymentAmount = it.getPaymentAmountResult(resultPaymentAmount, screeningDateTime)
+            resultPaymentAmount = it.discount(resultPaymentAmount, screeningDateTime)
         }
 
         return resultPaymentAmount

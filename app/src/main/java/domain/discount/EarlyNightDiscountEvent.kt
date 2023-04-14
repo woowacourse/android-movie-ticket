@@ -3,18 +3,19 @@ package domain.discount
 import domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
-class EarlyNightDiscount : DiscountRule {
-    override fun getPaymentAmountResult(
+class EarlyNightDiscountEvent : DiscountEvent {
+
+    override fun discount(
         paymentAmount: PaymentAmount,
         screeningDateTime: LocalDateTime
     ): PaymentAmount {
-        if (!isDiscountCondition(screeningDateTime)) {
+        if (!canApplyDiscount(screeningDateTime)) {
             return paymentAmount
         }
         return PaymentAmount(paymentAmount.value - DISCOUNT_AMOUNT)
     }
 
-    private fun isDiscountCondition(screeningDateTime: LocalDateTime): Boolean {
+    private fun canApplyDiscount(screeningDateTime: LocalDateTime): Boolean {
         if (screeningDateTime.hour <= EARLY_TIME_STANDARD || screeningDateTime.hour >= NIGHT_TIME_STANDARD) {
             return true
         }

@@ -3,15 +3,16 @@ package domain.discount
 import domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
-class MovieDayDiscount : DiscountRule {
-    override fun getPaymentAmountResult(paymentAmount: PaymentAmount, screeningDateTime: LocalDateTime): PaymentAmount {
-        if (!isDiscountCondition(screeningDateTime)) {
+class MovieDayDiscountEvent : DiscountEvent {
+
+    override fun discount(paymentAmount: PaymentAmount, screeningDateTime: LocalDateTime): PaymentAmount {
+        if (!canApplyDiscount(screeningDateTime)) {
             return paymentAmount
         }
         return PaymentAmount((paymentAmount.value * DISCOUNT_PERCENTAGE).toInt())
     }
 
-    private fun isDiscountCondition(screeningDateTime: LocalDateTime): Boolean {
+    private fun canApplyDiscount(screeningDateTime: LocalDateTime): Boolean {
         if (screeningDateTime.dayOfMonth in MOVIE_DAYS) {
             return true
         }

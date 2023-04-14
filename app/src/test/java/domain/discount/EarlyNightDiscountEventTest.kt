@@ -6,19 +6,19 @@ import org.junit.Before
 import org.junit.Test
 import java.time.LocalDateTime
 
-internal class EarlyNightDiscountTest {
+internal class EarlyNightDiscountEventTest {
 
-    lateinit var earlyNightDiscount: EarlyNightDiscount
+    lateinit var earlyNightDiscountEvent: EarlyNightDiscountEvent
 
     @Before
     fun setUp() {
-        earlyNightDiscount = EarlyNightDiscount()
+        earlyNightDiscountEvent = EarlyNightDiscountEvent()
     }
 
     @Test
     fun `11시_이전_혹은_20시_이후가_아닌_경우_할인이_적용되지_않는다`() {
         val paymentAmount = PaymentAmount(13000)
-        val resultDiscountedPaymentAmount = earlyNightDiscount.getPaymentAmountResult(
+        val resultDiscountedPaymentAmount = earlyNightDiscountEvent.discount(
             paymentAmount,
             LocalDateTime.of(2023, 4, 13, 15, 0)
         )
@@ -30,7 +30,7 @@ internal class EarlyNightDiscountTest {
     @Test
     fun `11시_이전인_경우_2000원_할인이_적용된다`() {
         val paymentAmount = PaymentAmount(13000)
-        val resultDiscountedPaymentAmount = earlyNightDiscount.getPaymentAmountResult(
+        val resultDiscountedPaymentAmount = earlyNightDiscountEvent.discount(
             paymentAmount,
             LocalDateTime.of(2023, 4, 13, 10, 59)
         )
@@ -42,7 +42,7 @@ internal class EarlyNightDiscountTest {
     @Test
     fun `20시_이후인_경우_2000원_할인이_적용된다`() {
         val paymentAmount = PaymentAmount(13000)
-        val resultDiscountedPaymentAmount = earlyNightDiscount.getPaymentAmountResult(
+        val resultDiscountedPaymentAmount = earlyNightDiscountEvent.discount(
             paymentAmount,
             LocalDateTime.of(2023, 4, 13, 20, 0)
         )
