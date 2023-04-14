@@ -58,7 +58,7 @@
         android:layout_margin="12dp"
         android:paddingHorizontal="11dp"
         android:paddingVertical="9dp"
-        android:text="지금 예매"
+        android:text="@string/book_now"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
