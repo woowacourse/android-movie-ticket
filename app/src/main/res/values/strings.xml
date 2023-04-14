@@ -16,7 +16,6 @@
     <string name="reservation_price">%s원 (현장 결제)</string>
     <string name="reservation_datetime_format">yyyy-MM-dd HH:mm</string>
 
-
     <string name="movie_extra_name">movie</string>
     <string name="reservation_extra_name">reservation</string>
 </resources>

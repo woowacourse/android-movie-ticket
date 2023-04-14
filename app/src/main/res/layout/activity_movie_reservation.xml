@@ -18,11 +18,13 @@
 
             <ImageView
                 android:id="@+id/movie_reservation_poster"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="341dp"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/poster_harrypotter"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/poster_harrypotter" />
 
             <TextView
                 android:id="@+id/movie_reservation_title"
@@ -60,13 +62,14 @@
 
             <TextView
                 android:id="@+id/movie_reservation_description"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="@id/movie_reservation_title"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movie_reservation_running_time"
                 tools:text="상세 상세 상세 상세" />
 
