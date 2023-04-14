@@ -2,19 +2,35 @@ package woowacourse.movie.domain
 
 import java.time.LocalTime
 
-enum class DiscountPolicy(private val discountCondition: DiscountCondition) {
-    MOVIE_DAY(DayDiscountCondition(getMovieDays())) {
-        override fun calculateDiscountFee(reservation: Reservation): Money =
-            reservation.initReservationFee / getMovieDaysDiscountRate()
+enum class DiscountPolicy {
+    MOVIE_DAY {
+        private val movieDays: List<Int> = listOf(10, 20, 30)
+
+        override val discountCondition: DiscountCondition = DayDiscountCondition(movieDays)
+
+        override fun calculateDiscountFee(reservation: Reservation): Money {
+            val movieDaysDiscountRate = 10
+            return reservation.initReservationFee / movieDaysDiscountRate
+        }
     },
-    SCREENING_TIME(
-        ScreeningTimeDiscountCondition(
-            listOf(getEarlyMorningDiscountTimeRange(), getNightDiscountTimeRange())
-        )
-    ) {
-        override fun calculateDiscountFee(reservation: Reservation): Money =
-            Money(reservation.peopleCount * getScreeningTimeDiscountAmount())
+    SCREENING_TIME {
+        private val earlyMorningDiscountTimeRange =
+            TimeRange(LocalTime.MIN, LocalTime.of(11, 0))
+
+        private val nightDiscountTimeRange = TimeRange(LocalTime.of(20, 0), LocalTime.MAX)
+
+        override val discountCondition: DiscountCondition =
+            ScreeningTimeDiscountCondition(
+                listOf(earlyMorningDiscountTimeRange, nightDiscountTimeRange)
+            )
+
+        override fun calculateDiscountFee(reservation: Reservation): Money {
+            val screeningTimeDiscountAmount = 2000
+            return Money(reservation.peopleCount * screeningTimeDiscountAmount)
+        }
     };
+
+    protected abstract val discountCondition: DiscountCondition
 
     protected abstract fun calculateDiscountFee(reservation: Reservation): Money
 
@@ -32,13 +48,3 @@ enum class DiscountPolicy(private val discountCondition: DiscountCondition) {
         }
     }
 }
-
-private fun getMovieDays(): List<Int> = listOf(10, 20, 30)
-
-private fun getMovieDaysDiscountRate(): Int = 10
-
-private fun getEarlyMorningDiscountTimeRange() = TimeRange(LocalTime.MIN, LocalTime.of(11, 0))
-
-private fun getNightDiscountTimeRange() = TimeRange(LocalTime.of(20, 0), LocalTime.MAX)
-
-private fun getScreeningTimeDiscountAmount(): Int = 2000
