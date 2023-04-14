@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
@@ -19,37 +16,46 @@ class MovieListAdapter(
 ) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
-        var convertView = view
-        if (convertView == null) {
+        val convertView: View
+        var viewHolder: MovieItemViewHolder? = null
+        if (view == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+            viewHolder = MovieItemViewHolder(
+                convertView.findViewById(R.id.movie_poster),
+                convertView.findViewById(R.id.movie_title),
+                convertView.findViewById(R.id.movie_screening_date),
+                convertView.findViewById(R.id.movie_running_time),
+                convertView.findViewById(R.id.reserve_now_button)
+            )
+        } else {
+            convertView = view
         }
-        requireNotNull(convertView) { NULL_VIEW_ERROR }
         val movie = movies[position]
-        initMovieItemView(convertView, movie)
-
+        viewHolder?.let {
+            initMovieItemView(viewHolder, movie)
+        }
         return convertView
     }
 
     private fun initMovieItemView(
-        convertView: View,
+        viewHolder: MovieItemViewHolder,
         movie: Movie
     ) {
-        convertView.findViewById<ImageView>(R.id.movie_poster)
-            ?.setImageResource(movie.posterResourceId)
-        convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
-        convertView.findViewById<TextView>(R.id.movie_screening_date)?.text =
-            context.resources.getString(R.string.screening_date_format)
-                .format(
+        viewHolder.apply {
+            poster.setImageResource(movie.posterResourceId)
+            title.text = movie.title
+            screeningStartDate.text =
+                context.resources.getString(R.string.screening_date_format).format(
                     movie.screeningStartDate.format(DATE_FORMATTER),
                     movie.screeningEndDate.format(DATE_FORMATTER)
                 )
-        convertView.findViewById<TextView>(R.id.movie_running_time)?.text =
-            context.resources.getString(R.string.running_time_format)
+            runningTime.text = context.resources.getString(R.string.running_time_format)
                 .format(movie.runningTime.value)
-        convertView.findViewById<Button>(R.id.reserve_now_button).setOnClickListener {
-            val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra(MOVIE, movie)
-            startActivity(context, intent, null)
+            reserveNow.setOnClickListener {
+                val intent = Intent(context, ReservationActivity::class.java)
+                intent.putExtra(MOVIE, movie)
+                startActivity(context, intent, null)
+            }
         }
     }
 
@@ -66,7 +72,6 @@ class MovieListAdapter(
     }
 
     companion object {
-        private const val NULL_VIEW_ERROR = "[ERROR] 뷰는 널일 수 없습니다."
         const val MOVIE = "MOVIE"
     }
 }
