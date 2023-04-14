@@ -1,6 +1,5 @@
 package woowacourse.movie.movieList
 
-import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import woowacourse.movie.movieReservation.MovieReservationActivity
 import woowacourse.movie.utils.DateUtil
 
 class MovieListAdapter(
-    private val context: Context,
     private val Cinema: Cinema,
 ) : BaseAdapter() {
     override fun getCount(): Int {
@@ -32,31 +30,55 @@ class MovieListAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: View.inflate(
-            parent?.context,
-            R.layout.include_movie_list_item,
-            null,
-        )
-
-        val posterView = view.findViewById<ImageView>(R.id.movie_poster)
-        val titleView = view.findViewById<TextView>(R.id.movie_title)
-        val releaseDateView = view.findViewById<TextView>(R.id.movie_release_date)
-        val runningTimeView = view.findViewById<TextView>(R.id.movie_running_time)
-        val reservationButton = view.findViewById<Button>(R.id.movie_reservation_button)
+        val (viewHolder: ViewHolder, view) = getViewHolder(convertView, parent)
 
         with(Cinema[position]) {
-            posterView.setImageResource(poster)
-            titleView.text = title
-            releaseDateView.text = DateUtil(context).getDateRange(startDate, endDate)
-            runningTimeView.text = context.getString(R.string.movie_running_time).format(runningTime)
-
-            reservationButton.setOnClickListener {
-                val intent = Intent(context, MovieReservationActivity::class.java)
+            viewHolder.posterView.setImageResource(poster)
+            viewHolder.titleView.text = title
+            viewHolder.releaseDateView.text = DateUtil(view.context).getDateRange(startDate, endDate)
+            viewHolder.runningTimeView.text = view.context.getString(R.string.movie_running_time).format(runningTime)
+            viewHolder.reservationButton.setOnClickListener {
+                val intent = Intent(view.context, MovieReservationActivity::class.java)
                 intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, this)
-                startActivity(context, intent, null)
+                startActivity(view.context, intent, null)
             }
         }
 
         return view
     }
+
+    private fun getViewHolder(
+        convertView: View?,
+        parent: ViewGroup?,
+    ): Pair<ViewHolder, View> {
+        val viewHolder: ViewHolder
+
+        val view = if (convertView != null) {
+            convertView.also { viewHolder = it.tag as ViewHolder }
+        } else {
+            val v = View.inflate(
+                parent?.context,
+                R.layout.include_movie_list_item,
+                null,
+            )
+            viewHolder = ViewHolder(
+                v.findViewById(R.id.movie_poster),
+                v.findViewById(R.id.movie_title),
+                v.findViewById(R.id.movie_release_date),
+                v.findViewById(R.id.movie_running_time),
+                v.findViewById(R.id.movie_reservation_button),
+            )
+            v.tag = viewHolder
+            v
+        }
+        return Pair(viewHolder, view)
+    }
+
+    class ViewHolder(
+        val posterView: ImageView,
+        val titleView: TextView,
+        val releaseDateView: TextView,
+        val runningTimeView: TextView,
+        val reservationButton: Button,
+    )
 }
