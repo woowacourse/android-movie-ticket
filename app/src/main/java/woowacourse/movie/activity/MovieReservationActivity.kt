@@ -58,14 +58,12 @@ class MovieReservationActivity : AppCompatActivity() {
             counter.load(savedInstanceState)
 
             dateSpinner.make(
-                this,
                 savedInstanceState = savedInstanceState,
                 movie = movie,
                 timeSpinner = timeSpinner
             )
 
             MovieController(
-                this,
                 movie = movie,
                 poster = findViewById(R.id.movie_reservation_poster),
                 title = findViewById(R.id.movie_reservation_title),
@@ -77,7 +75,6 @@ class MovieReservationActivity : AppCompatActivity() {
             ReservationButton(
                 button = findViewById(R.id.movie_reservation_button),
                 extraName = getString(R.string.reservation_extra_name),
-                this,
                 movie = movie,
                 dateSpinner = dateSpinner,
                 timeSpinner = timeSpinner,

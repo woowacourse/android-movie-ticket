@@ -22,7 +22,6 @@ class MovieAdapter(private val context: Context, private val movies: Movies) : B
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = LayoutInflater.from(context).inflate(R.layout.item_movie, null)
         MovieController(
-            context,
             movies.value[position],
             view.findViewById(R.id.item_movie_poster),
             view.findViewById(R.id.item_movie_title),

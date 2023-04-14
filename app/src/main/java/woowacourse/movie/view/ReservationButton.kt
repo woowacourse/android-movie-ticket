@@ -1,6 +1,5 @@
 package woowacourse.movie.view
 
-import android.content.Context
 import android.content.Intent
 import android.widget.Button
 import woowacourse.movie.activity.ReservationResultActivity
@@ -16,7 +15,6 @@ import java.time.LocalDateTime
 class ReservationButton(
     private val button: Button,
     private val extraName: String,
-    context: Context,
     movie: Movie,
     dateSpinner: DateSpinner,
     timeSpinner: TimeSpinner,
@@ -26,7 +24,7 @@ class ReservationButton(
         button.setOnClickListener {
             val reservationDetail = makeReservationDetail(dateSpinner, timeSpinner, counter)
             val reservation = makeReservation(movie, reservationDetail)
-            startReservationResultActivity(context, reservation)
+            startReservationResultActivity(reservation)
         }
     }
 
@@ -50,9 +48,9 @@ class ReservationButton(
         return Reservation(movie, discountedReservationDetail)
     }
 
-    private fun startReservationResultActivity(context: Context, reservation: Reservation) {
-        val intent = Intent(context, ReservationResultActivity::class.java)
+    private fun startReservationResultActivity(reservation: Reservation) {
+        val intent = Intent(button.context, ReservationResultActivity::class.java)
         intent.putExtra(extraName, reservation)
-        context.startActivity(intent)
+        button.context.startActivity(intent)
     }
 }

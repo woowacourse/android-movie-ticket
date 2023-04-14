@@ -1,6 +1,5 @@
 package woowacourse.movie.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -8,14 +7,13 @@ import woowacourse.movie.domain.Movie
 
 class DateSpinner(val spinner: SaveStateSpinner) {
     fun make(
-        context: Context,
         savedInstanceState: Bundle?,
         movie: Movie,
         timeSpinner: TimeSpinner
     ) {
         val dates = movie.date.toList().map { LocalFormattedDate(it) }
 
-        spinner.initSpinner(context, dates)
+        spinner.initSpinner(dates)
         spinner.load(savedInstanceState)
 
         spinner.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -23,7 +21,7 @@ class DateSpinner(val spinner: SaveStateSpinner) {
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                timeSpinner.make(context, savedInstanceState, dates[p2].date)
+                timeSpinner.make(savedInstanceState, dates[p2].date)
             }
         }
     }
