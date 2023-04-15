@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieDTO
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.getVersionDependentSerializableExtra
 
@@ -15,10 +15,10 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        val movie: Movie? = intent.getVersionDependentSerializableExtra(Keys.MOVIE_KEY)
-        if (movie != null) {
-            initMovieDetailView(movie)
-            initReservationInfoView(savedInstanceState, movie)
+        val movieDTO: MovieDTO? = intent.getVersionDependentSerializableExtra(Keys.MOVIE_KEY)
+        if (movieDTO != null) {
+            initMovieDetailView(movieDTO)
+            initReservationInfoView(savedInstanceState, movieDTO)
         } else {
             Toast.makeText(this, DATA_LOADING_ERROR_MESSAGE, Toast.LENGTH_LONG).show()
             finish()
@@ -26,8 +26,8 @@ class MovieDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun initMovieDetailView(movie: Movie) {
-        MovieDetailViewInitializer(movie).run {
+    private fun initMovieDetailView(movieDTO: MovieDTO) {
+        MovieDetailViewInitializer(movieDTO).run {
             initImageView(findViewById(R.id.img_movie))
             initTitle(findViewById(R.id.text_title))
             initPlayingDate(findViewById(R.id.text_playing_date))
@@ -36,12 +36,12 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initReservationInfoView(savedInstanceState: Bundle?, movie: Movie) {
+    private fun initReservationInfoView(savedInstanceState: Bundle?, movieDTO: MovieDTO) {
         val savedCount = savedInstanceState?.getInt(Keys.COUNT_KEY) ?: DEFAULT_COUNT
         val savedDate = savedInstanceState?.getInt(Keys.SPINNER_DATE_KEY) ?: DEFAULT_POSITION
         val savedTime = savedInstanceState?.getInt(Keys.SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-        ReservationInfoViewInitializer(movie).run {
+        ReservationInfoViewInitializer(movieDTO).run {
             initCount(savedCount, findViewById(R.id.text_count))
             initMinusButton(findViewById(R.id.btn_minus), findViewById(R.id.text_count))
             initPlusButton(findViewById(R.id.btn_plus), findViewById(R.id.text_count))

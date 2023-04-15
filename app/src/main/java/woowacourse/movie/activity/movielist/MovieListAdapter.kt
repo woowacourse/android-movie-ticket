@@ -12,17 +12,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieDTO
 import woowacourse.movie.util.Keys
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
+class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
     override fun getCount(): Int {
-        return movies.size
+        return movieDTOS.size
     }
 
     override fun getItem(position: Int): Any {
-        return movies[position]
+        return movieDTOS[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -34,10 +34,10 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
         if (convertView == null) view.tag = getViewHolder(view)
 
         val holder = view.tag as ViewHolder
-        val movie = getItem(position) as Movie
-        setViewHolder(holder, movie, parent?.context) {
+        val movieDTO = getItem(position) as MovieDTO
+        setViewHolder(holder, movieDTO, parent?.context) {
             val intent = Intent(view.context, MovieDetailActivity::class.java)
-            intent.putExtra(Keys.MOVIE_KEY, movie)
+            intent.putExtra(Keys.MOVIE_KEY, movieDTO)
             view.context.startActivity(intent)
         }
         return view
@@ -51,15 +51,15 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
         view.findViewById(R.id.btn_reserve)
     )
 
-    private fun setViewHolder(holder: ViewHolder, movie: Movie, context: Context?, clickListener: OnClickListener) {
-        holder.image.setImageResource(movie.image)
-        holder.title.text = movie.title
+    private fun setViewHolder(holder: ViewHolder, movieDTO: MovieDTO, context: Context?, clickListener: OnClickListener) {
+        holder.image.setImageResource(movieDTO.image)
+        holder.title.text = movieDTO.title
         holder.playingDate.text = context?.getString(
             R.string.playing_time,
-            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.playingTimes.startDate),
-            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.playingTimes.endDate)
+            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.playingTimes.startDate),
+            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.playingTimes.endDate)
         )
-        holder.runningTime.text = context?.getString(R.string.running_time, movie.runningTime)
+        holder.runningTime.text = context?.getString(R.string.running_time, movieDTO.runningTime)
         holder.reserveButton.setOnClickListener(clickListener)
     }
 
