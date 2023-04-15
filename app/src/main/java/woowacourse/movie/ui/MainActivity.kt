@@ -7,11 +7,15 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.MovieData
 
 class MainActivity : AppCompatActivity() {
-    private val movieAdapter by lazy { MovieAdapter(this) { clickBook(it) } }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initAdapter()
+    }
 
+    private fun initAdapter() {
+        val movieAdapter = MovieAdapter(this) { clickBook(it) }
         findViewById<ListView>(R.id.listMainMovie).adapter = movieAdapter
         movieAdapter.initMovies(MovieData.movies)
     }
