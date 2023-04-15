@@ -1,10 +1,9 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.movielist
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.util.DummyData
 
 class MovieListActivity : AppCompatActivity() {

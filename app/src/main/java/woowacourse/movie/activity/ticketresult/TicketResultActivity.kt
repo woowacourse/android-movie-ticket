@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.ticketresult
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -28,10 +28,8 @@ class TicketResultActivity : AppCompatActivity() {
             val playingDate = findViewById<TextView>(R.id.text_playing_date)
             playingDate.text = getString(
                 R.string.date_time,
-                DateTimeFormatter.ofPattern(getString(R.string.date_format))
-                    .format(info.playingDate),
-                DateTimeFormatter.ofPattern(getString(R.string.time_format))
-                    .format(info.playingTime)
+                DateTimeFormatter.ofPattern(getString(R.string.date_format)).format(info.playingDate),
+                DateTimeFormatter.ofPattern(getString(R.string.time_format)).format(info.playingTime)
             )
 
             val count = findViewById<TextView>(R.id.text_person_count)

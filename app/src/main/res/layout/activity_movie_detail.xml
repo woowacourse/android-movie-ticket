@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.MovieDetailActivity">
+    tools:context=".activity.moviedetail.MovieDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -120,7 +120,7 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/btn_ticketing"
+            app:layout_constraintBottom_toTopOf="@id/btn_reserve"
             app:layout_constraintEnd_toStartOf="@id/text_count"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_date" />
@@ -133,7 +133,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/btn_ticketing"
+            app:layout_constraintBottom_toTopOf="@id/btn_reserve"
             app:layout_constraintEnd_toStartOf="@id/btn_plus"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toEndOf="@id/btn_minus"
@@ -148,13 +148,13 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/btn_ticketing"
+            app:layout_constraintBottom_toTopOf="@id/btn_reserve"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/text_count"
             app:layout_constraintTop_toBottomOf="@id/spinner_time" />
 
         <Button
-            android:id="@+id/btn_ticketing"
+            android:id="@+id/btn_reserve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"

@@ -1,16 +1,17 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.activity.movielist
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.activity.MovieDetailActivity
+import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.util.Keys
 import java.time.format.DateTimeFormatter
@@ -34,7 +35,11 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
 
         val holder = view.tag as ViewHolder
         val movie = getItem(position) as Movie
-        setViewHolder(holder, movie, parent?.context)
+        setViewHolder(holder, movie, parent?.context) {
+            val intent = Intent(view.context, MovieDetailActivity::class.java)
+            intent.putExtra(Keys.MOVIE_KEY, movie)
+            view.context.startActivity(intent)
+        }
         return view
     }
 
@@ -43,10 +48,10 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
         view.findViewById(R.id.text_title),
         view.findViewById(R.id.text_playing_date),
         view.findViewById(R.id.text_running_time),
-        view.findViewById(R.id.btn_ticketing)
+        view.findViewById(R.id.btn_reserve)
     )
 
-    private fun setViewHolder(holder: ViewHolder, movie: Movie, context: Context?) {
+    private fun setViewHolder(holder: ViewHolder, movie: Movie, context: Context?, clickListener: OnClickListener) {
         holder.image.setImageResource(movie.image)
         holder.title.text = movie.title
         holder.playingDate.text = context?.getString(
@@ -55,11 +60,7 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
             DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.playingTimes.endDate)
         )
         holder.runningTime.text = context?.getString(R.string.running_time, movie.runningTime)
-        holder.ticketingButton.setOnClickListener {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(Keys.MOVIE_KEY, movie)
-            context?.startActivity(intent)
-        }
+        holder.ticketingButton.setOnClickListener(clickListener)
     }
 
     private class ViewHolder(

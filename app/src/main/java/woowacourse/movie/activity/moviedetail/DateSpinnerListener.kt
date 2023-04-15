@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.moviedetail
 
 import android.R
 import android.view.View
