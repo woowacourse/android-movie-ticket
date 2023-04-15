@@ -18,7 +18,7 @@ object ScreeningItem : MovieListItem {
 
     private fun initMovieListItemView(parent: ViewGroup?): View = View.inflate(
         parent?.context,
-        R.layout.include_movie_list_item,
+        R.layout.item_movie_list,
         null,
     )
 

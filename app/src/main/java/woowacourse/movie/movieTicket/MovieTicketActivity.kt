@@ -41,7 +41,7 @@ class MovieTicketActivity : AppCompatActivity() {
         val ticketMovieReleaseDateView = findViewById<TextView>(R.id.ticket_release_date)
         val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
 
-        ticketTitleView.text = title
+        ticketTitleView.text = ticket.title
         ticketMovieReleaseDateView.text = DateUtil(this).getDate(ticket.reserveTime.toLocalDate())
         ticketCountView.text = getString(R.string.movie_ticket_count).format(ticket.people.size)
         ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.getTotalPrice()))
