@@ -9,11 +9,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import woowacourse.movie.*
+import woowacourse.movie.BackKeyActionBarActivity
+import woowacourse.movie.Movie
+import woowacourse.movie.R
+import woowacourse.movie.Toaster
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDateSetter
 import woowacourse.movie.domain.RunningTimeSetter
 import woowacourse.movie.entity.Count
+import woowacourse.movie.extensions.customGetSerializable
+import woowacourse.movie.main.MainActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -104,9 +109,9 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_RESTORE_DATE, selectDate)
-        outState.putSerializable(KEY_RESTORE_TIME, selectTime)
-        outState.putInt(KEY_RESTORE_COUNT, count.text.toString().toInt())
+        outState.putSerializable(KEY_RESERVATION_DATE, selectDate)
+        outState.putSerializable(KEY_RESERVATION_TIME, selectTime)
+        outState.putInt(KEY_RESERVATION_COUNT, count.text.toString().toInt())
     }
 
     fun setTimeSpinnerAdapter() {
@@ -127,13 +132,13 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        selectDate = savedInstanceState.customGetSerializable(KEY_RESTORE_DATE)!!
+        selectDate = savedInstanceState.customGetSerializable(KEY_RESERVATION_DATE)!!
         setTimeSpinnerAdapter()
-        selectTime = savedInstanceState.customGetSerializable(KEY_RESTORE_TIME)!!
+        selectTime = savedInstanceState.customGetSerializable(KEY_RESERVATION_TIME)!!
         runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
-        count.text = savedInstanceState.getInt(KEY_RESTORE_COUNT).toString()
+        count.text = savedInstanceState.getInt(KEY_RESERVATION_COUNT).toString()
     }
 
     private fun setOnClickDateListener() {
@@ -169,5 +174,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     companion object {
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
+        internal const val KEY_RESERVATION_COUNT = "key_reservation_count"
+        internal const val KEY_RESERVATION_DATE = "key_reservation_date"
+        internal const val KEY_RESERVATION_TIME = "key_reservation_time"
     }
 }

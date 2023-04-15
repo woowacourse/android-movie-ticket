@@ -11,4 +11,6 @@ object Toaster {
             it.show()
         }
     }
+
+    fun cancel() = toast?.cancel()
 }

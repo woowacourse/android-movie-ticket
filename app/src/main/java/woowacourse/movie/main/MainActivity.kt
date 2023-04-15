@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.entity.RunningTime
@@ -13,7 +12,7 @@ import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     private val movieListView: ListView by lazy { findViewById(R.id.listView) }
-    private val adapter: MovieAdapter by lazy { MovieAdapter(layoutInflater, initMovieData()) }
+    private val adapter: MovieAdapter by lazy { MovieAdapter(initMovieData()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,5 +46,9 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+    }
+
+    companion object {
+        internal const val KEY_MOVIE = "key_movie"
     }
 }

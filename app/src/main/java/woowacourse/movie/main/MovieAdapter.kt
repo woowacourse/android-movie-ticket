@@ -12,7 +12,6 @@ import woowacourse.movie.R
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    private val mLayoutInflater: LayoutInflater,
     movie: List<Movie>,
 ) : BaseAdapter() {
 
@@ -34,8 +33,9 @@ class MovieAdapter(
         return p0.toLong()
     }
 
-    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        val view = mLayoutInflater.inflate(R.layout.movie_item_layout, null)
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+        val context = parent?.context ?: return null
+        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_item_layout, parent, false)
 
         val image = view.findViewById<ImageView>(R.id.image)
         val title = view.findViewById<TextView>(R.id.title)
@@ -44,19 +44,23 @@ class MovieAdapter(
         val time = view.findViewById<TextView>(R.id.time)
         val reservation = view.findViewById<Button>(R.id.reservation)
 
-        image.setImageResource(_movie[p0].imgResourceId)
-        title.text = _movie[p0].title
-        startDate.text = _movie[p0].startDate.format(DATE_TIME_FORMATTER)
-        endDate.text = _movie[p0].endDate.format(DATE_TIME_FORMATTER)
-        time.text = _movie[p0].runningTime.value.toString()
+        image.setImageResource(_movie[position].imgResourceId)
+        title.text = _movie[position].title
+        startDate.text = _movie[position].startDate.format(DATE_TIME_FORMATTER)
+        endDate.text = _movie[position].endDate.format(DATE_TIME_FORMATTER)
+        time.text = _movie[position].runningTime.value.toString()
 
-        reservation.setOnClickListener { clickListener?.onClick(p0) }
+        reservation.setOnClickListener { clickListener?.onClick(position) }
         return view
     }
 
     interface ReservationClickListener {
         fun onClick(position: Int)
     }
+
+//    class ViewHolder(
+//
+//    )
 
     companion object {
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
