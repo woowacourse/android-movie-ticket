@@ -10,6 +10,7 @@ import woowacourse.movie.data.Movie
 import woowacourse.movie.domain.MovieDate
 import woowacourse.movie.domain.MovieTime
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.getSerializable
 
 class TicketingResultActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class TicketingResultActivity : AppCompatActivity() {
                 getString(
                     R.string.movie_pay_result,
                     calculateTotalPrice(
-                        listOf(movieDate, movieTime)
+                        DiscountDecorator(movieDate, movieTime)
                     ),
                     getString(R.string.on_site_payment)
                 )

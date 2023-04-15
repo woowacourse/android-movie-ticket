@@ -1,37 +1,17 @@
 package woowacourse.movie.domain
 
+import woowacourse.movie.domain.policy.DiscountCondition
 import java.io.Serializable
 import java.time.LocalTime
 
-class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
-    Discountable, Comparable<MovieTime>, Serializable {
-
-    private fun isDiscountTime(): Boolean =
-        hour < AM_DISCOUNT_CLOSE_TIME || hour >= PM_DISCOUNT_OPEN_TIME
-
+data class MovieTime(val hour: Int, val min: Int = DEFAULT_MIN) :
+    DiscountCondition, Comparable<MovieTime>, Serializable {
     override fun compareTo(other: MovieTime): Int =
         (hour * HOUR_TO_MIN + min) - (other.hour * HOUR_TO_MIN + other.min)
 
-    override fun discount(money: Int): Int =
-        if (isDiscountTime()) money - DISCOUNT_PRICE else money
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as MovieTime
-
-        if (hour != other.hour) return false
-        if (min != other.min) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = hour
-        result = 31 * result + min
-        return result
-    }
+    override fun isDiscount(): Boolean =
+        calculateTime(hour, min) < calculateTime(AM_DISCOUNT_CLOSE_TIME) ||
+            calculateTime(hour, min) >= calculateTime(PM_DISCOUNT_OPEN_TIME)
 
     companion object {
         private const val AM_DISCOUNT_CLOSE_TIME = 11
@@ -57,6 +37,8 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
         private val weekdayTimes: List<MovieTime> =
             (WEEKDAY_MIN_TIME until WEEKDAY_MAX_TIME step WEEKDAY_MOVIE_TIME_INTERVAL)
                 .map { MovieTime(it) }
+
+        private fun calculateTime(hour: Int, min: Int = 0): Int = hour * HOUR_TO_MIN + min
 
         fun runningTimes(
             isWeekday: Boolean,
