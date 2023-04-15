@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -70,17 +69,13 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
-        val moviePosterView = findViewById<ImageView>(R.id.reservation_movie_poster)
-        val movieTitleView = findViewById<TextView>(R.id.reservation_movie_title)
-        val movieReleaseDataView = findViewById<TextView>(R.id.reservation_movie_release_date)
-        val movieRunningTimeView = findViewById<TextView>(R.id.reservation_movie_running_time)
-        val movieSummaryView = findViewById<TextView>(R.id.reservation_movie_summary)
-
-        moviePosterView.setImageResource(screening.poster)
-        movieTitleView.text = title
-        movieReleaseDataView.text = screening.getReserveDateRange()
-        movieRunningTimeView.text = getString(R.string.movie_running_time).format(screening.runningTime)
-        movieSummaryView.text = screening.summary
+        MovieReservationContents(
+            posterView = findViewById(R.id.reservation_movie_poster),
+            titleView = findViewById(R.id.reservation_movie_title),
+            releaseDataView = findViewById(R.id.reservation_movie_release_date),
+            runningTimeView = findViewById(R.id.reservation_movie_running_time),
+            summaryView = findViewById(R.id.reservation_movie_summary),
+        ).bind(this, screening)
     }
 
     private fun registerToolbar() {
