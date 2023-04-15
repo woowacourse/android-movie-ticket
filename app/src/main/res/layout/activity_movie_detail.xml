@@ -9,34 +9,42 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_movie_booking"
         android:layout_width="match_parent"
-        android:layout_height="211dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,360:211"
         app:layout_constraintVertical_chainStyle="spread_inside">
 
+        <View
+            android:id="@+id/space_movie_booking_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,360:29"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Spinner
-            android:layout_marginBottom="17dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toStartOf="@id/sp_movie_time"
             android:id="@+id/sp_movie_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/bt_ticket_count_minus"
-            app:layout_constraintStart_toStartOf="@id/bt_ticket_count_minus" />
+            android:layout_marginBottom="17dp"
+            app:layout_constraintEnd_toStartOf="@id/sp_movie_time"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/bt_ticket_count_minus"
+            app:layout_constraintTop_toBottomOf="@id/space_movie_booking_top" />
 
         <Spinner
-            android:layout_marginBottom="17dp"
             android:id="@+id/sp_movie_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/bt_ticket_count_plus"
+            android:layout_marginBottom="17dp"
             app:layout_constraintEnd_toEndOf="@id/bt_ticket_count_plus"
-            app:layout_constraintStart_toEndOf="@id/sp_movie_date" />
+            app:layout_constraintStart_toEndOf="@id/sp_movie_date"
+            app:layout_constraintTop_toBottomOf="@id/space_movie_booking_top" />
 
 
         <Button
             android:id="@+id/bt_ticket_count_minus"
-            android:layout_width="65dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="19dp"
             android:background="@color/design_default_color_primary"
@@ -44,12 +52,14 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintDimensionRatio="H,65:44"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.18" />
 
         <Button
             android:id="@+id/bt_ticket_count_plus"
-            android:layout_width="65dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="19dp"
             android:background="@color/design_default_color_primary"
@@ -57,7 +67,9 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintDimensionRatio="H,65:44"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.18" />
 
         <TextView
             android:id="@+id/tv_ticket_count"
@@ -75,7 +87,7 @@
         <Button
             android:id="@+id/bt_book_complete"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
             android:background="@color/design_default_color_primary"
@@ -84,6 +96,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,360:50"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -110,8 +123,9 @@
                 <ImageView
                     android:id="@+id/iv_movie_poster"
                     android:layout_width="match_parent"
-                    android:layout_height="341dp"
+                    android:layout_height="0dp"
                     android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="H,360:341"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
