@@ -58,7 +58,6 @@ class MovieTime private constructor(val hour: Int, val min: Int = DEFAULT_MIN) :
             (WEEKDAY_MIN_TIME until WEEKDAY_MAX_TIME step WEEKDAY_MOVIE_TIME_INTERVAL)
                 .map { MovieTime(it) }
 
-        @JvmOverloads
         fun runningTimes(
             isWeekday: Boolean,
             isToday: Boolean,

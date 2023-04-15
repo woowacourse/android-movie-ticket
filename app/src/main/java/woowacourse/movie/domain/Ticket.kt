@@ -8,7 +8,6 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
         require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
 
-    @JvmOverloads
     fun calculateTotalPrice(
         discountables: List<Discountable>,
         ticketPrice: Int = DEFAULT_TICKET_PRICE,

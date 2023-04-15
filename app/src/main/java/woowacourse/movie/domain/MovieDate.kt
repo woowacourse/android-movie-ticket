@@ -56,7 +56,6 @@ class MovieDate private constructor(
             return other
         }
 
-        @JvmOverloads
         fun releaseDates(
             from: LocalDate,
             to: LocalDate,
