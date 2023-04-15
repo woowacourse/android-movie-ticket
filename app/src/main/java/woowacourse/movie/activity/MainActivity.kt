@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MockMoviesFactory
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Movie.Companion.MOVIE_KEY_VALUE
 import woowacourse.movie.view.MovieAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -22,9 +23,5 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MovieReservationActivity::class.java)
         intent.putExtra(MOVIE_KEY_VALUE, movie)
         startActivity(intent)
-    }
-
-    companion object {
-        const val MOVIE_KEY_VALUE = "movie"
     }
 }

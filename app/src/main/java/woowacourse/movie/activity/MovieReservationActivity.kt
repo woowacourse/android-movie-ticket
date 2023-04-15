@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Movie.Companion.MOVIE_KEY_VALUE
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
@@ -50,7 +51,7 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = intent.extras?.getSerializableCompat<Movie>(getString(R.string.movie_extra_name))
+        val movie = intent.extras?.getSerializableCompat<Movie>(MOVIE_KEY_VALUE)
 
         counter.applyToView()
 
@@ -97,9 +98,9 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INITIAL_COUNT = 1
-        const val COUNTER_SAVE_STATE_KEY = "counter"
-        const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
-        const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
+        private const val INITIAL_COUNT = 1
+        private const val COUNTER_SAVE_STATE_KEY = "counter"
+        private const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
+        private const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
     }
 }
