@@ -5,7 +5,7 @@ typealias DomainTicket = Ticket
 @JvmInline
 value class Ticket(val count: Int = MIN_TICKET_COUNT) {
     init {
-        require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
+        require(count in MIN_TICKET_COUNT..MAX_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
 
     operator fun minus(operand: Int): Ticket =
