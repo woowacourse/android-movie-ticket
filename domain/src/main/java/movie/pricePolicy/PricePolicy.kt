@@ -1,7 +1,5 @@
 package movie.pricePolicy
 
-import java.io.Serializable
-
-interface PricePolicy : Serializable {
+interface PricePolicy {
     operator fun invoke(price: PricePolicyInfo): PricePolicyInfo
 }

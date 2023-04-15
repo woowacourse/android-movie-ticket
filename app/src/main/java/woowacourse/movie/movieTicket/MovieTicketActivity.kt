@@ -5,7 +5,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import movie.MovieTicket
+import entity.MovieTicket
 import woowacourse.movie.R
 import woowacourse.movie.utils.DateUtil
 import java.text.DecimalFormat
@@ -44,8 +44,8 @@ class MovieTicketActivity : AppCompatActivity() {
 
         with(ticket) {
             ticketTitleView.text = title
-            ticketMovieReleaseDateView.text = DateUtil(context).getDate(date)
-            ticketCountView.text = getString(R.string.movie_ticket_count).format(count.toInt())
+            ticketMovieReleaseDateView.text = DateUtil(context).getDate(reserveTime.toLocalDate())
+            ticketCountView.text = getString(R.string.movie_ticket_count).format(people.size)
             ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(getTotalPrice()))
         }
     }
