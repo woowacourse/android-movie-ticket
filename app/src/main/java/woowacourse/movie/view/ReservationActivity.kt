@@ -1,7 +1,6 @@
 package woowacourse.movie.view
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,6 +9,9 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.util.getParcelable
+import woowacourse.movie.util.serializable
+import woowacourse.movie.view.MovieListActivity.Companion.MOVIE_ITEM
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -43,16 +45,9 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieFromIntent(): Movie {
-        val movie = intent.getParcelableMovie()
+        val movie = intent.getParcelable<Movie>(MOVIE_ITEM)
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         return movie
-    }
-
-    private fun Intent.getParcelableMovie(): Movie? {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return getParcelableExtra(MovieListActivity.MOVIE_ITEM, Movie::class.java)
-        }
-        return getParcelableExtra(MovieListActivity.MOVIE_ITEM) as? Movie
     }
 
     private fun initViewData() {
@@ -187,20 +182,11 @@ class ReservationActivity : AppCompatActivity() {
         peopleCountSaved = savedInstanceState.getInt(PEOPLE_COUNT)
         timeSpinnerPosition = savedInstanceState.getInt(SELECTED_TIME_POSITION)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            savedInstanceState.getSerializable(SELECTED_DATE, LocalDate::class.java)?.run {
-                selectedScreeningDate = this
-            }
-            savedInstanceState.getSerializable(SELECTED_TIME, LocalTime::class.java)?.run {
-                selectedScreeningTime = this
-            }
-        } else {
-            (savedInstanceState.getSerializable(SELECTED_DATE) as LocalDate?)?.run {
-                selectedScreeningDate = this
-            }
-            (savedInstanceState.getSerializable(SELECTED_TIME) as LocalTime?)?.run {
-                selectedScreeningTime = this
-            }
+        savedInstanceState.serializable<LocalDate>(SELECTED_DATE)?.run {
+            selectedScreeningDate = this
+        }
+        savedInstanceState.serializable<LocalTime>(SELECTED_TIME)?.run {
+            selectedScreeningTime = this
         }
     }
 
