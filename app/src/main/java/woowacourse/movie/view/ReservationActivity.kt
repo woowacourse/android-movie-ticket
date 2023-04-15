@@ -50,9 +50,9 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun Intent.getParcelableMovie(): Movie? {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return getParcelableExtra(MovieListAdapter.MOVIE, Movie::class.java)
+            return getParcelableExtra(MovieListActivity.MOVIE_ITEM, Movie::class.java)
         }
-        return getParcelableExtra(MovieListAdapter.MOVIE) as? Movie
+        return getParcelableExtra(MovieListActivity.MOVIE_ITEM) as? Movie
     }
 
     private fun initViewData() {

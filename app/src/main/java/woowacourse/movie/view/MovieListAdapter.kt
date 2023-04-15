@@ -1,43 +1,47 @@
 package woowacourse.movie.view
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
+import woowacourse.movie.databinding.MovieItemBinding
 import woowacourse.movie.domain.Movie
 
 class MovieListAdapter(
-    private val context: Context,
-    private val movies: List<Movie>
+    private val movies: List<Movie>,
+    private val onReserveListener: OnReserveListener
 ) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
-        val convertView: View
-        var viewHolder: MovieItemViewHolder? = null
-        if (view == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+        var convertView = view
+        val viewHolder: MovieItemViewHolder
+        var binding: MovieItemBinding? = null
+        if (convertView == null) {
+            binding = MovieItemBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
+            convertView = binding.root
+
             viewHolder = MovieItemViewHolder(
-                convertView.findViewById(R.id.movie_poster),
-                convertView.findViewById(R.id.movie_title),
-                convertView.findViewById(R.id.movie_screening_date),
-                convertView.findViewById(R.id.movie_running_time),
-                convertView.findViewById(R.id.reserve_now_button)
+                binding.moviePoster,
+                binding.movieTitle,
+                binding.movieScreeningDate,
+                binding.movieRunningTime,
+                binding.reserveNowButton
             )
+            convertView.tag = viewHolder
         } else {
-            convertView = view
+            viewHolder = view?.tag as MovieItemViewHolder
         }
         val movie = movies[position]
-        viewHolder?.let {
-            initMovieItemView(viewHolder, movie)
+        binding?.let {
+            initMovieItemView(binding.root.context, viewHolder, movie)
         }
         return convertView
     }
 
     private fun initMovieItemView(
+        context: Context,
         viewHolder: MovieItemViewHolder,
         movie: Movie
     ) {
@@ -52,9 +56,7 @@ class MovieListAdapter(
             runningTime.text = context.resources.getString(R.string.running_time_format)
                 .format(movie.runningTime.value)
             reserveNow.setOnClickListener {
-                val intent = Intent(context, ReservationActivity::class.java)
-                intent.putExtra(MOVIE, movie)
-                startActivity(context, intent, null)
+                onReserveListener.onClick(movie)
             }
         }
     }
@@ -71,7 +73,7 @@ class MovieListAdapter(
         return position.toLong()
     }
 
-    companion object {
-        const val MOVIE = "MOVIE"
+    interface OnReserveListener {
+        fun onClick(movie: Movie)
     }
 }
