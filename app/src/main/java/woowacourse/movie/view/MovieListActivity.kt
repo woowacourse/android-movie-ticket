@@ -20,7 +20,7 @@ class MovieListActivity : AppCompatActivity() {
             object : MovieListAdapter.OnReserveListener {
                 override fun onClick(movie: Movie) {
                     val intent = Intent(this@MovieListActivity, ReservationActivity::class.java)
-                    intent.putExtra(MOVIE_ITEM, movie)
+                    intent.putExtra(MOVIE_ITEM, movie.toUiModel())
                     startActivity(intent)
                 }
             })

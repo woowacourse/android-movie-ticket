@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.*
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.util.getParcelable
 import woowacourse.movie.util.serializable
 import woowacourse.movie.view.MovieListActivity.Companion.MOVIE_ITEM
@@ -23,7 +23,7 @@ class ReservationActivity : AppCompatActivity() {
     private var peopleCountSaved = 1
     private lateinit var selectedScreeningDate: LocalDate
     private lateinit var selectedScreeningTime: LocalTime
-    private val movie: Movie by lazy { initMovieFromIntent() }
+    private val movie: MovieUiModel by lazy { initMovieFromIntent() }
     private var timeSpinnerPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +44,8 @@ class ReservationActivity : AppCompatActivity() {
         binding.peopleCount.text = peopleCountSaved.toString()
     }
 
-    private fun initMovieFromIntent(): Movie {
-        val movie = intent.getParcelable<Movie>(MOVIE_ITEM)
+    private fun initMovieFromIntent(): MovieUiModel {
+        val movie = intent.getParcelable<MovieUiModel>(MOVIE_ITEM)
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         return movie
     }
@@ -59,14 +59,14 @@ class ReservationActivity : AppCompatActivity() {
                 movie.screeningEndDate.format(DATE_FORMATTER)
             )
             movieRunningTime.text =
-                getString(R.string.running_time_format).format(movie.runningTime.value)
+                getString(R.string.running_time_format).format(movie.runningTime)
             movieSummary.text = movie.summary
         }
     }
 
     private fun initSpinner() {
         selectedScreeningDate = movie.screeningStartDate
-        selectedScreeningTime = movie.getFirstScreeningTime(selectedScreeningDate)
+        selectedScreeningTime = ScreeningTime(selectedScreeningDate).getFirstScreeningTime()
 
         val screeningDates = movie.getAllScreeningDates()
 
@@ -95,7 +95,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner(selectedPosition: Int?) {
-        val screeningTimes = movie.getAllScreeningTimes(selectedScreeningDate)
+        val screeningTimes = ScreeningTime(selectedScreeningDate).getAllScreeningTimes()
 
         val timeSpinnerAdapter = ArrayAdapter(
             this,
@@ -121,7 +121,6 @@ class ReservationActivity : AppCompatActivity() {
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
         }
-
     }
 
     private fun initPeopleCountAdjustButtonClickListener() {
@@ -154,7 +153,7 @@ class ReservationActivity : AppCompatActivity() {
         binding.reservationButton.setOnClickListener {
 
             val reservation = Reservation(
-                movie,
+                movie.toDomainModel(),
                 peopleCountSaved,
                 LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
             )
