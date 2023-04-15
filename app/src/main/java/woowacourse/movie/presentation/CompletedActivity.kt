@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MovieData
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieData
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.formatScreenDateTime
 
 class CompletedActivity : AppCompatActivity() {

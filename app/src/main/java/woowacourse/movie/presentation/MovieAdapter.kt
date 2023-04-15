@@ -9,17 +9,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.formatScreenDate
+import woowacourse.movie.presentation.model.MovieModel
 
 class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     BaseAdapter() {
-    private val movies = mutableListOf<Movie>()
+    private val movies = mutableListOf<MovieModel>()
     private val layoutInflater = LayoutInflater.from(context)
 
     override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): MovieModel = movies[position]
 
     override fun getItemId(position: Int): Long = movies[position].id
 
@@ -53,7 +53,7 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
         }
     }
 
-    fun initMovies(items: List<Movie>) {
+    fun initMovies(items: List<MovieModel>) {
         movies.clear()
         movies.addAll(items)
         notifyDataSetChanged()

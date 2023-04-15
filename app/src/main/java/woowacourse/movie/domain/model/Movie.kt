@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.model
 
 import java.time.LocalDate
 
@@ -9,6 +9,6 @@ data class Movie(
     val screeningEndDate: LocalDate,
     val runningTime: Int,
     val description: String,
-    val thumbnail: Int,
-    val poster: Int,
+    val thumbnail: Any,
+    val poster: Any,
 )
