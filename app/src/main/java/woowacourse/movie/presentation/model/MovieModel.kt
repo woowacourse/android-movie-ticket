@@ -11,8 +11,8 @@ data class MovieModel(
     val screeningEndDate: LocalDate,
     val runningTime: Int,
     val description: String,
-    @DrawableRes val thumbnail: Int,
-    @DrawableRes val poster: Int,
+    @DrawableRes val thumbnail: Int?,
+    @DrawableRes val poster: Int?,
 )
 
 fun Movie.toPresentation() = MovieModel(
@@ -22,7 +22,6 @@ fun Movie.toPresentation() = MovieModel(
     screeningEndDate = screeningEndDate,
     runningTime = runningTime,
     description = description,
-    thumbnail = thumbnail.hashCode(),
-    poster = poster.hashCode()
+    thumbnail = MovieDrawableData.getMovieThumbnail(id),
+    poster = MovieDrawableData.getMoviePoster(id)
 )
-

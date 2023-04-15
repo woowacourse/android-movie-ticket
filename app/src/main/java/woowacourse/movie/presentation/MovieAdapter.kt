@@ -38,8 +38,10 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     }
 
     private fun initView(position: Int, view: View) {
-        view.findViewById<ImageView>(R.id.imageItemThumbnail)
-            .setImageResource(movies[position].thumbnail)
+        movies[position].thumbnail?.let {
+            view.findViewById<ImageView>(R.id.imageItemThumbnail)
+                .setImageResource(it)
+        }
         view.findViewById<TextView>(R.id.textItemTitle).text = movies[position].title
         view.findViewById<TextView>(R.id.textBookingScreeningDate).apply {
             text = context.getString(R.string.screening_date)

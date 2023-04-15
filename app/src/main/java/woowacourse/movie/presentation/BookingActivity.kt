@@ -85,7 +85,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun initView(movie: MovieModel) {
-        findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(movie.poster)
+        movie.poster?.let { findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(it) }
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
             getString(R.string.screening_date).format(

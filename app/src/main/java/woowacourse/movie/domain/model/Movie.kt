@@ -9,6 +9,4 @@ data class Movie(
     val screeningEndDate: LocalDate,
     val runningTime: Int,
     val description: String,
-    val thumbnail: Any,
-    val poster: Any,
 )
