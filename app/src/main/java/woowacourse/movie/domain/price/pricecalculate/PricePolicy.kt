@@ -1,4 +1,7 @@
-package woowacourse.movie.domain.price
+package woowacourse.movie.domain.price.pricecalculate
+
+import woowacourse.movie.domain.price.TicketCount
+import woowacourse.movie.domain.price.TicketPrice
 
 interface PricePolicy {
 

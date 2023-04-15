@@ -2,6 +2,7 @@ package woowacourse.movie.domain.price
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator
 
 class PricePolicyCalculatorTest {
     @Test

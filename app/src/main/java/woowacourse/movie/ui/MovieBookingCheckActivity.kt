@@ -8,6 +8,8 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.*
+import woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy
+import woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator
 import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
 import woowacourse.movie.util.customGetParcelableExtra
 import java.time.LocalDate
@@ -64,15 +66,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
             .format(applyDisCount(13000, ticketCount).value)
     }
 
-    private fun applyDisCount(ticketPrice: Int, ticketCount: Int): TicketPrice {
-        val discountPolicies = mutableListOf<DiscountPolicy>()
-        if (bookedScreeningDateTime.checkMovieDay()) discountPolicies.add(MovieDayDiscount())
-        if (bookedScreeningDateTime.checkEarlyMorningLateNight()) discountPolicies.add(
-            EarlyMorningLateNightDiscount()
-        )
-        return PricePolicyCalculator(discountPolicies).totalPriceCalculate(
-            TicketPrice(ticketPrice),
-            TicketCount(ticketCount)
-        )
-    }
+    private fun applyDisCount(ticketPrice: Int, ticketCount: Int): TicketPrice =
+        PricePolicyCalculator(TimeMovieDayDiscountPolicy(bookedScreeningDateTime).getDiscountPolicies())
+            .totalPriceCalculate(TicketPrice(ticketPrice), TicketCount(ticketCount))
 }
