@@ -52,7 +52,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
-        movie = intent.customGetSerializable(KEY_MOVIE)!!
+        movie = intent.customGetSerializable(KEY_MOVIE, ::keyNoExistError) ?: return
         initSetOnClickListener()
         initMovieData()
         setDateSpinnerAdapter()
@@ -74,7 +74,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private fun setDateSpinnerAdapter() {
         val dateSpinnerAdapter = ArrayAdapter(
             this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            android.R.layout.simple_list_item_1,
             runningDates.map { it.toString() }
         )
         dateSpinner.adapter = dateSpinnerAdapter
@@ -100,18 +100,18 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         reservationConfirm.setOnClickListener {
             val intent = Intent(this, ReservationConfirmActivity::class.java)
             intent.putExtra(KEY_MOVIE, movie)
-            intent.putExtra(KEY_RESERVATION_COUNT, Count(count.text.toString().toInt()))
-            intent.putExtra(KEY_RESERVATION_DATE, selectDate)
-            intent.putExtra(KEY_RESERVATION_TIME, selectTime)
+            intent.putExtra(KEY_COUNT, Count(count.text.toString().toInt()))
+            intent.putExtra(KEY_DATE, selectDate)
+            intent.putExtra(KEY_TIME, selectTime)
             startActivity(intent)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_RESERVATION_DATE, selectDate)
-        outState.putSerializable(KEY_RESERVATION_TIME, selectTime)
-        outState.putInt(KEY_RESERVATION_COUNT, count.text.toString().toInt())
+        outState.putSerializable(KEY_DATE, selectDate)
+        outState.putSerializable(KEY_TIME, selectTime)
+        outState.putInt(KEY_COUNT, count.text.toString().toInt())
     }
 
     fun setTimeSpinnerAdapter() {
@@ -132,13 +132,13 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        selectDate = savedInstanceState.customGetSerializable(KEY_RESERVATION_DATE)!!
+        selectDate = savedInstanceState.customGetSerializable(KEY_DATE, ::keyNoExistError) ?: return
         setTimeSpinnerAdapter()
-        selectTime = savedInstanceState.customGetSerializable(KEY_RESERVATION_TIME)!!
+        selectTime = savedInstanceState.customGetSerializable(KEY_TIME, ::keyNoExistError) ?: return
         runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
-        count.text = savedInstanceState.getInt(KEY_RESERVATION_COUNT).toString()
+        count.text = savedInstanceState.getInt(KEY_COUNT).toString()
     }
 
     private fun setOnClickDateListener() {
@@ -174,8 +174,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     companion object {
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
-        internal const val KEY_RESERVATION_COUNT = "key_reservation_count"
-        internal const val KEY_RESERVATION_DATE = "key_reservation_date"
-        internal const val KEY_RESERVATION_TIME = "key_reservation_time"
+        internal const val KEY_COUNT = "key_reservation_count"
+        internal const val KEY_DATE = "key_reservation_date"
+        internal const val KEY_TIME = "key_reservation_time"
     }
 }

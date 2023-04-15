@@ -10,9 +10,9 @@ import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
 import woowacourse.movie.extensions.customGetSerializable
 import woowacourse.movie.main.MainActivity.Companion.KEY_MOVIE
-import woowacourse.movie.reservation.MovieDetailActivity.Companion.KEY_RESERVATION_COUNT
-import woowacourse.movie.reservation.MovieDetailActivity.Companion.KEY_RESERVATION_DATE
-import woowacourse.movie.reservation.MovieDetailActivity.Companion.KEY_RESERVATION_TIME
+import woowacourse.movie.reservation.MovieDetailActivity.Companion.KEY_COUNT
+import woowacourse.movie.reservation.MovieDetailActivity.Companion.KEY_DATE
+import woowacourse.movie.reservation.MovieDetailActivity.Companion.KEY_TIME
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -25,12 +25,17 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     private val moneyTextView: TextView by lazy { findViewById(R.id.reservation_money) }
     private val reservationCountTextView: TextView by lazy { findViewById(R.id.reservation_count) }
 
+    private val discountCalculator: DiscountCalculator by lazy { DiscountCalculator() }
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
-        val movie = intent.customGetSerializable<Movie>(KEY_MOVIE)!!
-        val reservationCount = intent.customGetSerializable<Count>(KEY_RESERVATION_COUNT)!!
-        val date = intent.customGetSerializable<LocalDate>(KEY_RESERVATION_DATE)
-        val time = intent.customGetSerializable<LocalTime>(KEY_RESERVATION_TIME)
+        val movie =
+            intent.customGetSerializable<Movie>(KEY_MOVIE, ::keyNoExistError) ?: return
+        val reservationCount =
+            intent.customGetSerializable<Count>(KEY_COUNT, ::keyNoExistError) ?: return
+        val date =
+            intent.customGetSerializable<LocalDate>(KEY_DATE, ::keyNoExistError) ?: return
+        val time =
+            intent.customGetSerializable<LocalTime>(KEY_TIME, ::keyNoExistError) ?: return
         val dateTime = LocalDateTime.of(date, time)
         Log.d(LOG_TAG, "$movie , $reservationCount")
         setInitReservationData(movie, dateTime, reservationCount)
@@ -48,7 +53,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     }
 
     private fun formattingMoney(reservationCount: Count, dateTime: LocalDateTime): String {
-        val money = DiscountCalculator().discount(reservationCount, dateTime).value
+        val money = discountCalculator.discount(reservationCount, dateTime).value
         return DECIMAL_FORMATTER.format(money)
     }
 
