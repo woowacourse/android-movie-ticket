@@ -76,14 +76,11 @@ class MovieReservationActivity : AppCompatActivity() {
         val movieRunningTimeView = findViewById<TextView>(R.id.reservation_movie_running_time)
         val movieSummaryView = findViewById<TextView>(R.id.reservation_movie_summary)
 
-        val movie = screening.movie
-        val reservation = screening.reservation
-
-        moviePosterView.setImageResource(movie.poster)
+        moviePosterView.setImageResource(screening.poster)
         movieTitleView.text = title
-        movieReleaseDataView.text = reservation.getReserveDateRange()
-        movieRunningTimeView.text = getString(R.string.movie_running_time).format(movie.runningTime)
-        movieSummaryView.text = movie.summary
+        movieReleaseDataView.text = screening.getReserveDateRange()
+        movieRunningTimeView.text = getString(R.string.movie_running_time).format(screening.runningTime)
+        movieSummaryView.text = screening.summary
     }
 
     private fun registerToolbar() {
@@ -111,7 +108,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun registerDateSpinnerListener() {
-        val dateList = ScreeningDate.getScreeningDate(screening.reservation.startDate, screening.reservation.endDate)
+        val dateList = ScreeningDate.getScreeningDate(screening.startDate, screening.endDate)
         dateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
         dateSpinner.onItemSelectedListener = DateSpinnerListener()
     }

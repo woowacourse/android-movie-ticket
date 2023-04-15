@@ -31,13 +31,11 @@ object ScreeningItem : MovieListItem {
     private fun bindViewHolder(view: View, screening: Screening) {
         val viewHolder = (view.tag) as? ScreeningItemViewHolder ?: initViewHolder(view)
 
-        val movie = screening.movie
-        val reservation = screening.reservation
         viewHolder.bind(
-            posterResource = movie.poster,
-            title = movie.title,
-            date = reservation.getReserveDateRange(),
-            runningTime = view.context.getString(R.string.movie_running_time).format(movie.runningTime),
+            posterResource = screening.poster,
+            title = screening.title,
+            date = screening.getReserveDateRange(),
+            runningTime = view.context.getString(R.string.movie_running_time).format(screening.runningTime),
         )
     }
 }

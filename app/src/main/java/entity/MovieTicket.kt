@@ -7,8 +7,10 @@ import java.time.format.DateTimeFormatter
 data class MovieTicket(
     val title: String,
     val reserveTime: LocalDateTime,
-    val people: List<MovieTicketPerson>,
+    private val people: List<MovieTicketPerson>,
 ) : Serializable {
+    val size: Int = people.size
+
     fun getTotalPrice(): Int = people.sumOf { it.price }
 
     fun getReserveDate(): String {
