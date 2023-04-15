@@ -11,7 +11,7 @@ import woowacourse.movie.utils.DateUtil
 import java.text.DecimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
-    private val ticket by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as MovieTicket }
+    private val ticket by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as? MovieTicket ?: throw IllegalArgumentException() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
