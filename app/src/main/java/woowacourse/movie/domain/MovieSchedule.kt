@@ -5,14 +5,14 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 class MovieSchedule(private val startDate: LocalDate, private val endDate: LocalDate) {
-    fun getScheduleDates(): List<String> {
-        return getDatesBetweenTwoDates().map {
-            it.format(dateTimeFormatter)
-        }
+
+    fun getScheduleDates(): List<String> = getDatesBetweenTwoDates().map {
+        it.format(dateTimeFormatter)
     }
 
     private fun getDatesBetweenTwoDates(): List<LocalDate> {
         val numOfDaysBetween = ChronoUnit.DAYS.between(startDate, endDate)
+
         return (0..numOfDaysBetween).map {
             startDate.plusDays(it)
         }.toList()
@@ -21,18 +21,21 @@ class MovieSchedule(private val startDate: LocalDate, private val endDate: Local
     fun getScheduleTimes(date: String): List<String> {
         val selectedDate = LocalDate.parse(date, dateTimeFormatter)
         val dayOfWeek = selectedDate.dayOfWeek.value
+
         if (dayOfWeek in weekend) {
             return getValidTimes(weekendTimes)
         }
         return getValidTimes(weekdayTimes)
     }
 
-    private fun getValidTimes(times: IntRange): List<String> = (times step 2).toList().map {
-        "${if (it < 10) "0$it" else it}:00"
-    }
+    private fun getValidTimes(times: IntRange): List<String> =
+        (times step INTERVAL_TIME).toList().map {
+            TIME_FORMAT.format(it)
+        }
 
     companion object {
-        private val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        private const val DATE_PATTERN = "yyyy-MM-dd"
+        private val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
 
         private const val WEEKEND_START_TIME = 9
         private const val WEEKDAY_START_TIME = 10
@@ -44,5 +47,8 @@ class MovieSchedule(private val startDate: LocalDate, private val endDate: Local
         private const val SATURDAY = 6
         private const val SUNDAY = 7
         private val weekend = SATURDAY..SUNDAY
+
+        private const val INTERVAL_TIME = 2
+        private const val TIME_FORMAT = "%02d:00"
     }
 }
