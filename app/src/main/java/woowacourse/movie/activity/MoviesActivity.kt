@@ -19,6 +19,6 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun initMoviesView() {
-        moviesListView.adapter = MoviesAdapter(this, MockMoviesGenerator().generate())
+        moviesListView.adapter = MoviesAdapter(MockMoviesGenerator().generate())
     }
 }

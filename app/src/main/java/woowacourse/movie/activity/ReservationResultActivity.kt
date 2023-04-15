@@ -30,9 +30,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
             movieNameTextView.text = movie.name.value
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
-
             ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
-
             paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
                 DecimalFormat("#,###").format(paymentAmount.value),
                 getPaymentTypeString(paymentType)
