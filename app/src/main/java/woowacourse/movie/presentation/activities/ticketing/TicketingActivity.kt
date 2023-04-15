@@ -59,26 +59,33 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun ActivityTicketingBinding.setClickListener() {
-        btnMinus.setOnClickListener(this@TicketingActivity)
-        btnPlus.setOnClickListener(this@TicketingActivity)
-        btnTicketing.setOnClickListener(this@TicketingActivity)
+    private fun setClickListener() {
+        with(binding) {
+            btnMinus.setOnClickListener(this@TicketingActivity)
+            btnPlus.setOnClickListener(this@TicketingActivity)
+            btnTicketing.setOnClickListener(this@TicketingActivity)
+        }
     }
 
-    private fun ActivityTicketingBinding.setSpinnerConfig() {
+    private fun setSpinnerConfig() {
         setSpinnerAdapter()
         setSpinnerListener()
     }
 
-    private fun ActivityTicketingBinding.setSpinnerAdapter() {
-        spinnerMovieDate.adapter = movieDateAdapter
-        spinnerMovieTime.adapter = movieTimeAdapter
-        movieDateAdapter.setNotifyOnChange(true)
-        movieTimeAdapter.setNotifyOnChange(true)
+    private fun setSpinnerAdapter() {
+        with(binding) {
+            spinnerMovieDate.adapter = movieDateAdapter.also { it.setNotifyOnChange(true) }
+            spinnerMovieTime.adapter = movieTimeAdapter.also { it.setNotifyOnChange(true) }
+        }
     }
 
-    private fun ActivityTicketingBinding.setSpinnerListener() {
-        spinnerMovieTime.onItemSelectedListener = object : OnItemSelectedListener {
+    private fun setSpinnerListener() {
+        setMovieTimeSpinnerListener()
+        setMovieDateSpinnerListener()
+    }
+
+    private fun setMovieTimeSpinnerListener() {
+        binding.spinnerMovieTime.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 itemView: View?,
@@ -90,7 +97,10 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        spinnerMovieDate.onItemSelectedListener = object : OnItemSelectedListener {
+    }
+
+    private fun setMovieDateSpinnerListener() {
+        binding.spinnerMovieDate.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 itemView: View?,
@@ -116,17 +126,19 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun ActivityTicketingBinding.showMovieIntroduce() {
-        intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
-            ivPoster.setImageResource(thumbnail)
-            tvTitle.text = title
-            tvDate.text = getString(
-                R.string.movie_release_date,
-                startDate.formattedDate,
-                endDate.formattedDate
-            )
-            tvRunningTime.text = getString(R.string.movie_running_time, runningTime)
-            tvIntroduce.text = introduce
+    private fun showMovieIntroduce() {
+        with(binding) {
+            intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
+                ivPoster.setImageResource(thumbnail)
+                tvTitle.text = title
+                tvDate.text = getString(
+                    R.string.movie_release_date,
+                    startDate.formattedDate,
+                    endDate.formattedDate
+                )
+                tvRunningTime.text = getString(R.string.movie_running_time, runningTime)
+                tvIntroduce.text = introduce
+            }
         }
     }
 
