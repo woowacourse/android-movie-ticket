@@ -35,7 +35,7 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun getScreeningListener(screening: Screening) {
         val intent = Intent(this, MovieReservationActivity::class.java)
-        intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, screening)
+        intent.putExtra(MovieReservationActivity.KEY_MOVIE_Screening, screening)
         ContextCompat.startActivity(this, intent, null)
     }
 }

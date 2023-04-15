@@ -22,7 +22,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
-    private val screening by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as? Screening ?: throw IllegalArgumentException() }
+    private val screening by lazy { intent.getSerializableExtra(KEY_MOVIE_Screening) as? Screening ?: throw IllegalArgumentException() }
     private var ticketCount = TicketCount(1)
     private var selectedPosition = 0
 
@@ -154,6 +154,6 @@ class MovieReservationActivity : AppCompatActivity() {
     companion object {
         private const val KEY_COUNT = "count"
         private const val KEY_TIME = "time"
-        const val KEY_MOVIE_SCHEDULE = "movieSchedule"
+        const val KEY_MOVIE_Screening = "movieScreening"
     }
 }
