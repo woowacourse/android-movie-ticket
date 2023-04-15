@@ -40,14 +40,11 @@ class MovieTicketActivity : AppCompatActivity() {
         val ticketCountView = findViewById<TextView>(R.id.ticket_total_ticket_count)
         val ticketMovieReleaseDateView = findViewById<TextView>(R.id.ticket_release_date)
         val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
-        val context = this
 
-        with(ticket) {
-            ticketTitleView.text = title
-            ticketMovieReleaseDateView.text = DateUtil(context).getDate(reserveTime.toLocalDate())
-            ticketCountView.text = getString(R.string.movie_ticket_count).format(people.size)
-            ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(getTotalPrice()))
-        }
+        ticketTitleView.text = title
+        ticketMovieReleaseDateView.text = DateUtil(this).getDate(ticket.reserveTime.toLocalDate())
+        ticketCountView.text = getString(R.string.movie_ticket_count).format(ticket.people.size)
+        ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.getTotalPrice()))
     }
 
     companion object {
