@@ -18,7 +18,6 @@ import movie.ScreeningDate
 import movie.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
-import woowacourse.movie.utils.DateUtil
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -36,7 +35,7 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        updateMovieView()
+        initMovieView()
 
         registerToolbar()
         registerListener()
@@ -71,20 +70,19 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateMovieView() {
+    private fun initMovieView() {
         val moviePosterView = findViewById<ImageView>(R.id.reservation_movie_poster)
         val movieTitleView = findViewById<TextView>(R.id.reservation_movie_title)
         val movieReleaseDataView = findViewById<TextView>(R.id.reservation_movie_release_date)
         val movieRunningTimeView = findViewById<TextView>(R.id.reservation_movie_running_time)
         val movieSummaryView = findViewById<TextView>(R.id.reservation_movie_summary)
 
-        val context = this
-
         val movie = screening.movie
         val reservation = screening.reservation
+
         moviePosterView.setImageResource(movie.poster)
         movieTitleView.text = title
-        movieReleaseDataView.text = DateUtil(context).getDateRange(reservation.startDate, reservation.endDate)
+        movieReleaseDataView.text = reservation.getReserveDateRange()
         movieRunningTimeView.text = getString(R.string.movie_running_time).format(movie.runningTime)
         movieSummaryView.text = movie.summary
     }
@@ -143,12 +141,9 @@ class MovieReservationActivity : AppCompatActivity() {
         val reservationButton = findViewById<TextView>(R.id.reservation_complete_button)
         reservationButton.setOnClickListener {
             val intent = Intent(this, MovieTicketActivity::class.java)
-            val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
-            val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
 
-            LocalDateTime.of(selectedDate, selectedTime)
-            kotlin.runCatching {
-                val movieTicket = screening.reserve(ticketCount, LocalDateTime.of(selectedDate, selectedTime))
+            runCatching {
+                val movieTicket = screening.reserve(ticketCount, getSelectedDateTime())
                 intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
                 ContextCompat.startActivity(this, intent, null)
             }.onFailure {
@@ -156,6 +151,11 @@ class MovieReservationActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun getSelectedDateTime(): LocalDateTime = LocalDateTime.of(
+        LocalDate.parse(dateSpinner.selectedItem.toString()),
+        LocalTime.parse(timeSpinner.selectedItem.toString()),
+    )
 
     companion object {
         private const val KEY_COUNT = "count"

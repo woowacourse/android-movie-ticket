@@ -76,7 +76,9 @@
                 android:id="@+id/reservation_movie_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="21dp"
                 android:layout_marginTop="20dp"
+
                 android:textSize="18sp"
                 tools:text="줄거리" />
         </LinearLayout>

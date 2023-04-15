@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import entity.MovieListDto
 import entity.Screening
 import woowacourse.movie.R
-import woowacourse.movie.utils.DateUtil
 
 object ScreeningItem : MovieListItem {
     override fun getView(movieListDto: MovieListDto, convertView: View?, parent: ViewGroup?): View {
@@ -37,7 +36,7 @@ object ScreeningItem : MovieListItem {
         viewHolder.bind(
             posterResource = movie.poster,
             title = movie.title,
-            date = DateUtil(view.context).getDateRange(reservation.startDate, reservation.endDate),
+            date = reservation.getReserveDateRange(),
             runningTime = view.context.getString(R.string.movie_running_time).format(movie.runningTime),
         )
     }

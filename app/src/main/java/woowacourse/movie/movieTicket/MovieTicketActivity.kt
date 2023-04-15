@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import entity.MovieTicket
 import woowacourse.movie.R
-import woowacourse.movie.utils.DateUtil
 import java.text.DecimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
@@ -15,8 +14,10 @@ class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
+
         registerToolbar()
-        updateMovieView()
+
+        initTicketView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -35,14 +36,14 @@ class MovieTicketActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun updateMovieView() {
+    private fun initTicketView() {
         val ticketTitleView = findViewById<TextView>(R.id.ticket_movie_title)
         val ticketCountView = findViewById<TextView>(R.id.ticket_total_ticket_count)
         val ticketMovieReleaseDateView = findViewById<TextView>(R.id.ticket_release_date)
         val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
 
         ticketTitleView.text = ticket.title
-        ticketMovieReleaseDateView.text = DateUtil(this).getDate(ticket.reserveTime.toLocalDate())
+        ticketMovieReleaseDateView.text = ticket.getReserveDate()
         ticketCountView.text = getString(R.string.movie_ticket_count).format(ticket.people.size)
         ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.getTotalPrice()))
     }
