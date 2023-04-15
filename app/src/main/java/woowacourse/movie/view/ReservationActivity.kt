@@ -129,23 +129,31 @@ class ReservationActivity : AppCompatActivity() {
 
     }
 
-
     private fun initPeopleCountAdjustButtonClickListener() {
         binding.apply {
             minusButton.setOnClickListener {
-                if (peopleCountSaved > Reservation.MIN_PEOPLE_COUNT) {
-                    peopleCountSaved--
-                    peopleCount.text = peopleCountSaved.toString()
-                }
+                decreasePeopleCount()
             }
             plusButton.setOnClickListener {
-                if (peopleCountSaved < Reservation.MAX_PEOPLE_COUNT) {
-                    peopleCountSaved++
-                    peopleCount.text = peopleCountSaved.toString()
-                }
+                increasePeopleCount()
             }
         }
     }
+
+    private fun ActivityReservationBinding.decreasePeopleCount() {
+        if (peopleCountSaved > Reservation.MIN_PEOPLE_COUNT) {
+            peopleCountSaved--
+            peopleCount.text = peopleCountSaved.toString()
+        }
+    }
+
+    private fun ActivityReservationBinding.increasePeopleCount() {
+        if (peopleCountSaved < Reservation.MAX_PEOPLE_COUNT) {
+            peopleCountSaved++
+            peopleCount.text = peopleCountSaved.toString()
+        }
+    }
+
 
     private fun initReserveButtonClickListener() {
         binding.reservationButton.setOnClickListener {
