@@ -1,44 +1,75 @@
 package woowacourse.movie.view
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.activity.MovieReservationActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
+import java.time.format.DateTimeFormatter
 
-class MovieAdapter(private val context: Context, private val movies: Movies) : BaseAdapter() {
+class MovieAdapter(
+    private val movies: Movies,
+    private val onClickEvent: (Movie) -> Unit
+) : BaseAdapter() {
     override fun getCount(): Int = movies.value.size
 
     override fun getItem(position: Int): Any = movies.value[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_movie, null)
-        MovieController(
-            context,
-            movies.value[position],
-            view.findViewById(R.id.item_movie_poster),
-            view.findViewById(R.id.item_movie_title),
-            view.findViewById(R.id.item_movie_date),
-            view.findViewById(R.id.item_movie_running_time)
-        ).render()
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+        val view: View
+        val viewHolder: ViewHolder
 
-        view.findViewById<Button>(R.id.item_movie_reservation_button)
-            .setOnClickListener { reserveMovie(movies.value[position]) }
-
+        if (convertView == null) {
+            view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, null)
+            viewHolder = ViewHolder(
+                poster = view.findViewById(R.id.item_movie_poster),
+                title = view.findViewById(R.id.item_movie_title),
+                movieDate = view.findViewById(R.id.item_movie_date),
+                runningTime = view.findViewById(R.id.item_movie_running_time),
+                reservationButton = view.findViewById(R.id.item_movie_reservation_button)
+            )
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as ViewHolder
+        }
+        viewHolder.setView(movies.value[position])
+        viewHolder.setButtonClickListener(movies.value[position], onClickEvent)
         return view
     }
 
-    private fun reserveMovie(movie: Movie) {
-        val intent = Intent(context, MovieReservationActivity::class.java)
-        intent.putExtra(context.getString(R.string.movie_extra_name), movie)
-        context.startActivity(intent)
+    class ViewHolder(
+        var poster: ImageView?,
+        var title: TextView?,
+        var movieDate: TextView?,
+        var runningTime: TextView?,
+        var reservationButton: Button?
+    ) {
+        fun setView(movie: Movie) {
+            poster?.setImageResource(movie.picture)
+            val dateFormat =
+                DateTimeFormatter.ofPattern(movieDate?.context?.getString(R.string.movie_date_format))
+            movieDate?.text = movieDate?.context?.getString(R.string.movie_date)?.format(
+                dateFormat.format(movie.date.startDate),
+                dateFormat.format(movie.date.endDate)
+            )
+            runningTime?.text =
+                runningTime?.context?.getString(R.string.movie_running_time)
+                    ?.format(movie.runningTime)
+            title?.text = movie.title
+        }
+
+        fun setButtonClickListener(movie: Movie, onClickEvent: (Movie) -> Unit) {
+            reservationButton?.setOnClickListener {
+                onClickEvent(movie)
+            }
+        }
     }
 }
