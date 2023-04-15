@@ -1,8 +1,8 @@
-package woowacourse.movie.domain
+package com.example.domain
 
 import com.example.domain.setter.RunningDateSetter
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
 class RunningDateSetterTest {
@@ -19,6 +19,6 @@ class RunningDateSetterTest {
             LocalDate.of(2023, 1, 7),
             LocalDate.of(2023, 1, 8),
         )
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 }

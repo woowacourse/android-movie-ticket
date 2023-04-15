@@ -1,20 +1,19 @@
 package woowacourse.movie.model
 
 import androidx.annotation.DrawableRes
-import com.example.domain.model.Movie
 import woowacourse.movie.R
 import java.io.Serializable
 import java.time.LocalDate
 
 data class MovieRes(
     @DrawableRes
-    override val imgId: Int,
-    override val title: String,
-    override val startDate: LocalDate,
-    override val endDate: LocalDate,
-    override val runningTime: Int,
-    override val description: String
-) : Movie, Serializable {
+    val imgId: Int,
+    val title: String,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
+    val runningTime: Int,
+    val description: String
+) : Serializable {
 
     companion object {
         fun allMovies(): List<MovieRes> = movies.toList()
