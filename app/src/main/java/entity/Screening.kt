@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 class Screening(
     private val movie: Movie,
     private val reservation: Reservation,
-) : MovieListDto, Serializable {
+) : MovieListType, Serializable {
     val title: String = movie.title
     val runningTime: Int = movie.runningTime
     val summary: String = movie.summary

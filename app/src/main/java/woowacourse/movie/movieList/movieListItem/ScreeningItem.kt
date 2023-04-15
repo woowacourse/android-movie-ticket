@@ -2,13 +2,13 @@ package woowacourse.movie.movieList.movieListItem
 
 import android.view.View
 import android.view.ViewGroup
-import entity.MovieListDto
+import entity.MovieListType
 import entity.Screening
 import woowacourse.movie.R
 
 object ScreeningItem : MovieListItem {
-    override fun getView(movieListDto: MovieListDto, convertView: View?, parent: ViewGroup?): View {
-        val screening = movieListDto as? Screening ?: throw IllegalArgumentException("Invalid type")
+    override fun getView(movieListType: MovieListType, convertView: View?, parent: ViewGroup?): View {
+        val screening = movieListType as? Screening ?: throw IllegalArgumentException("Invalid type")
         val view = convertView ?: initMovieListItemView(parent)
         bindViewHolder(view, screening)
         return view
