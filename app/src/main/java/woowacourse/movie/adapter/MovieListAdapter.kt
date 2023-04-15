@@ -50,11 +50,11 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
     private fun setViewHolder(holder: ViewHolder, movie: Movie) {
         holder.image?.setImageResource(movie.image)
         holder.title?.text = movie.title
-        holder.playingDate?.text = getString(R.string.playing_time).format(
-            Formatter.dateFormat(movie.playingTimes.startDate),
+        holder.playingDate?.text = context.getString(
+            R.string.playing_time, Formatter.dateFormat(movie.playingTimes.startDate),
             Formatter.dateFormat(movie.playingTimes.endDate)
         )
-        holder.runningTime?.text = getString(R.string.running_time).format(movie.runningTime)
+        holder.runningTime?.text = context.getString(R.string.running_time, movie.runningTime)
         holder.ticketingButton?.setOnClickListener {
             val intent = Intent(context, MovieDetailActivity::class.java)
             intent.putExtra(MOVIE_KEY, movie)
@@ -62,7 +62,6 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
         }
     }
 
-    private fun getString(string: Int): String = context.getString(string)
     private class ViewHolder {
         var image: ImageView? = null
         var title: TextView? = null

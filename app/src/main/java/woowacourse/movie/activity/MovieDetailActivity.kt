@@ -86,8 +86,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun initPlayingDate(times: PlayingTimes) {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
-        playingDateView.text = getString(R.string.playing_time).format(
-            Formatter.dateFormat(times.startDate),
+        playingDateView.text = getString(
+            R.string.playing_time, Formatter.dateFormat(times.startDate),
             Formatter.dateFormat(times.endDate)
         )
     }
@@ -95,7 +95,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initRunningTime(runningTime: Int) {
         val runningTimeView = findViewById<TextView>(R.id.text_running_time)
         runningTimeView.text =
-            getText(R.string.running_time).toString().format(runningTime.toString())
+            getString(R.string.running_time, runningTime)
     }
 
     private fun initDescription(description: String) {
