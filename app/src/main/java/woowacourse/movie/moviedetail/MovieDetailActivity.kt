@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
 import woowacourse.movie.TicketActivity
+import woowacourse.movie.domain.CountNumberOfPeople
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.domain.movieinfo.RunningDate
@@ -81,30 +82,25 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setNumberOfPeople() {
         val booker = findViewById<TextView>(R.id.number_of_people)
         booker.text = numberOfBooker.toString()
-        clickDecreaseBtn(booker)
-        clickIncreaseBtn(booker)
+        val countNumberOfPeople = CountNumberOfPeople()
+        clickDecreaseBtn(countNumberOfPeople, booker)
+        clickIncreaseBtn(countNumberOfPeople, booker)
     }
 
-    private fun clickDecreaseBtn(booker: TextView) {
+    private fun clickDecreaseBtn(countNumberOfPeople: CountNumberOfPeople, booker: TextView) {
         val minusBtn = findViewById<Button>(R.id.minus_people)
 
         minusBtn.setOnClickListener {
-            numberOfBooker -= 1
-            if (numberOfBooker <= MIN_BOOKER_NUMBER) {
-                numberOfBooker = MIN_BOOKER_NUMBER
-            }
+            numberOfBooker = countNumberOfPeople.minusNumberOfPeople(numberOfBooker)
             booker.text = numberOfBooker.toString()
         }
     }
 
-    private fun clickIncreaseBtn(booker: TextView) {
+    private fun clickIncreaseBtn(countNumberOfPeople: CountNumberOfPeople, booker: TextView) {
         val plusBtn = findViewById<Button>(R.id.plus_people)
 
         plusBtn.setOnClickListener {
-            numberOfBooker += 1
-            if (numberOfBooker >= MAX_BOOKER_NUMBER) {
-                numberOfBooker = MAX_BOOKER_NUMBER
-            }
+            numberOfBooker = countNumberOfPeople.plusNumberOfPeople(numberOfBooker)
             booker.text = numberOfBooker.toString()
         }
     }
@@ -190,8 +186,6 @@ class MovieDetailActivity : AppCompatActivity() {
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
-        private const val MIN_BOOKER_NUMBER = 1
-        private const val MAX_BOOKER_NUMBER = 10
         private const val TICKET_PRICE = 13000
     }
 }
