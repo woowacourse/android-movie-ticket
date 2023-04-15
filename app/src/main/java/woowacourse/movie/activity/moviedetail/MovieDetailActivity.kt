@@ -20,7 +20,7 @@ class MovieDetailActivity : AppCompatActivity() {
             initMovieDetailView(movie)
             initReservationInfoView(savedInstanceState, movie)
         } else {
-            Toast.makeText(this, DATA_LOADING_MESSAGE, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, DATA_LOADING_ERROR_MESSAGE, Toast.LENGTH_LONG).show()
             finish()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -89,6 +89,6 @@ class MovieDetailActivity : AppCompatActivity() {
     companion object {
         private const val DEFAULT_COUNT = 1
         private const val DEFAULT_POSITION = 0
-        private const val DATA_LOADING_MESSAGE = "데이터가 로딩되지 않았습니다. 다시 시도해주세요."
+        private const val DATA_LOADING_ERROR_MESSAGE = "데이터가 로딩되지 않았습니다. 다시 시도해주세요."
     }
 }
