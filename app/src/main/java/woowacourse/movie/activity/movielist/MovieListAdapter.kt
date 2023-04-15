@@ -60,14 +60,14 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
             DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.playingTimes.endDate)
         )
         holder.runningTime.text = context?.getString(R.string.running_time, movie.runningTime)
-        holder.ticketingButton.setOnClickListener(clickListener)
+        holder.reserveButton.setOnClickListener(clickListener)
     }
 
-    private class ViewHolder(
+    private class ViewHolder constructor(
         val image: ImageView,
         val title: TextView,
         val playingDate: TextView,
         val runningTime: TextView,
-        val ticketingButton: Button
+        val reserveButton: Button
     )
 }
