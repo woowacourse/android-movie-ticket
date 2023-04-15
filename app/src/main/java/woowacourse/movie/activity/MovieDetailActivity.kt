@@ -22,77 +22,90 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieDetailActivity : AppCompatActivity() {
+
+    var savedInstanceState: Bundle? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+        this.savedInstanceState = savedInstanceState
 
-        val savedCount = savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
-        val savedDate = savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
-        val savedTime = savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
+        val movie: Movie = getIntentMovieDate()
+        initMovieDataView(movie)
+        initCountView()
+        initSpinner(movie.playingTimes)
+        initTicketingButton(movie.title)
+        setActionBar()
+    }
 
-        val movie: Movie = intent.customGetSerializable(MOVIE_KEY)
+    private fun getIntentMovieDate(): Movie = intent.customGetSerializable(MOVIE_KEY)
 
+    private fun initMovieDataView(movie: Movie) {
         initImageView(movie.image)
         initTitle(movie.title)
         initPlayingDate(movie.playingTimes)
         initRunningTime(movie.runningTime)
         initDescription(movie.description)
-        initCount(savedCount)
-        initMinusButton()
-        initPlusButton()
-        initButton(movie)
-        initDateSpinner(savedDate, movie.playingTimes)
-        initTimeSpinner(savedTime, movie.playingTimes)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun initButton(movie: Movie) {
-        val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
-        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+    private fun initCountView() {
+        initCount()
+        initMinusButton()
+        initPlusButton()
+    }
 
+    private fun initSpinner(playingTimes: PlayingTimes) {
+        initDateSpinner(playingTimes)
+        initTimeSpinner(playingTimes)
+    }
+
+    private fun initTicketingButton(movieTitle: String) {
+        val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
         ticketingButton.setOnClickListener {
             val intent = Intent(this, TicketResultActivity::class.java)
-            val ticketingInfo = TicketingInfo.of(
-                movie.title,
-                spinnerDate.selectedItem as LocalDate,
-                spinnerTime.selectedItem as LocalTime,
-                getCount(),
-                Price(),
-                "현장"
-            )
+            val ticketingInfo = getTicketingInfo(movieTitle)
             intent.putExtra(INFO_KEY, ticketingInfo)
             startActivity(intent)
         }
     }
 
-    private fun initTimeSpinner(savedTimePosition: Int, playingTimes: PlayingTimes) {
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val times = playingTimes.times[spinnerDate.selectedItem] ?: emptyList()
-        spinnerTime.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, times).apply {
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            }
-
-        spinnerTime.setSelection(savedTimePosition)
+    private fun setActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun initDateSpinner(savedDatePosition: Int, playingTimes: PlayingTimes) {
-        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        val dates = playingTimes.times.keys.sorted()
-        spinnerDate.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, dates).apply {
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            }
-
-        spinnerDate.setSelection(savedDatePosition, false)
-        spinnerDate.onItemSelectedListener = SpinnerListener(playingTimes, dates, spinnerTime)
+    private fun initImageView(imageResource: Int) {
+        val imageView = findViewById<ImageView>(R.id.img_movie)
+        imageView.setImageResource(imageResource)
     }
 
-    private fun getCount(): Int = findViewById<TextView>(R.id.text_count).text.toString().toInt()
+    private fun initTitle(title: String) {
+        val titleView = findViewById<TextView>(R.id.text_title)
+        titleView.text = title
+    }
+
+    private fun initPlayingDate(times: PlayingTimes) {
+        val playingDateView = findViewById<TextView>(R.id.text_playing_date)
+        playingDateView.text = getString(R.string.playing_time).format(
+            Formatter.dateFormat(times.startDate),
+            Formatter.dateFormat(times.endDate)
+        )
+    }
+
+    private fun initRunningTime(runningTime: Int) {
+        val runningTimeView = findViewById<TextView>(R.id.text_running_time)
+        runningTimeView.text =
+            getText(R.string.running_time).toString().format(runningTime.toString())
+    }
+
+    private fun initDescription(description: String) {
+        val descriptionView = findViewById<TextView>(R.id.text_description)
+        descriptionView.text = description
+    }
+
+    private fun initCount() {
+        val countText = findViewById<TextView>(R.id.text_count)
+        countText.text = getSavedCount().toString()
+    }
 
     private fun initMinusButton() {
         val minusButton = findViewById<Button>(R.id.btn_minus)
@@ -112,40 +125,58 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initCount(count: Int) {
-        val countText = findViewById<TextView>(R.id.text_count)
-        countText.text = count.toString()
-    }
-
-    private fun initDescription(description: String) {
-        val descriptionView = findViewById<TextView>(R.id.text_description)
-        descriptionView.text = description
-    }
-
-    private fun initRunningTime(runningTime: Int) {
-        val runningTimeView = findViewById<TextView>(R.id.text_running_time)
-        runningTimeView.text = getText(R.string.running_time).toString().format(runningTime.toString())
-    }
-
-    private fun initPlayingDate(times: PlayingTimes) {
-        val playingDateView = findViewById<TextView>(R.id.text_playing_date)
-        playingDateView.text = getString(R.string.playing_time).format(
-            Formatter.dateFormat(times.startDate),
-            Formatter.dateFormat(times.endDate)
+    private fun getTicketingInfo(movieTitle: String): TicketingInfo {
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+        return TicketingInfo.of(
+            movieTitle,
+            spinnerDate.selectedItem as LocalDate,
+            spinnerTime.selectedItem as LocalTime,
+            getCount(),
+            Price(),
+            "현장"
         )
     }
 
-    private fun initTitle(title: String) {
-        val titleView = findViewById<TextView>(R.id.text_title)
-        titleView.text = title
+    private fun getSavedCount(): Int = savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
+    private fun getSavedDateSpinnerIndex(): Int =
+        savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
+
+    private fun getSavedTimeSpinnerIndex(): Int =
+        savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
+
+    private fun initTimeSpinner(playingTimes: PlayingTimes) {
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
+        val times = playingTimes.times[spinnerDate.selectedItem] ?: emptyList()
+        spinnerTime.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, times).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+
+        spinnerTime.setSelection(getSavedTimeSpinnerIndex())
     }
 
-    private fun initImageView(imageResource: Int) {
-        val imageView = findViewById<ImageView>(R.id.img_movie)
-        imageView.setImageResource(imageResource)
+    private fun initDateSpinner(playingTimes: PlayingTimes) {
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+        val dates = playingTimes.times.keys.sorted()
+        spinnerDate.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, dates).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+
+        spinnerDate.setSelection(getSavedDateSpinnerIndex(), false)
+        spinnerDate.onItemSelectedListener = SpinnerListener(playingTimes, dates, spinnerTime)
     }
 
-    class SpinnerListener(private val playingTimes: PlayingTimes, private val dates: List<LocalDate>, private val spinnerTime: Spinner) : AdapterView.OnItemSelectedListener {
+    private fun getCount(): Int = findViewById<TextView>(R.id.text_count).text.toString().toInt()
+
+    class SpinnerListener(
+        private val playingTimes: PlayingTimes,
+        private val dates: List<LocalDate>,
+        private val spinnerTime: Spinner
+    ) : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(
             adapterView: AdapterView<*>?,
             view: View?,
@@ -176,10 +207,10 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val countText = findViewById<TextView>(R.id.text_count)
-        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         outState.putInt(COUNT_KEY, countText.text.toString().toInt())
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         outState.putInt(SPINNER_DATE_KEY, spinnerDate.selectedItemPosition)
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         outState.putInt(SPINNER_TIME_KEY, spinnerTime.selectedItemPosition)
     }
 
