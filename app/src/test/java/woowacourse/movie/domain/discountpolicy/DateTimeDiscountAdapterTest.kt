@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions
 import org.junit.Test
 import java.time.LocalDateTime
 
-class DateTimeTimeDiscountAdapterTest {
+class DateTimeDiscountAdapterTest {
     @Test
     fun `무비데이, 조조, 야간이 아니면 할인이 없다`() {
         // given
@@ -12,7 +12,7 @@ class DateTimeTimeDiscountAdapterTest {
         val price = 13000
         val expected = 13000
         // when
-        val actual = DateTimeTimeDiscountAdapter(dateTime).discount(price)
+        val actual = DateTimeDiscountAdapter(dateTime).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -25,7 +25,7 @@ class DateTimeTimeDiscountAdapterTest {
         val price = 13000
         val expected = 11000
         // when
-        val actual = DateTimeTimeDiscountAdapter(dateTime).discount(price)
+        val actual = DateTimeDiscountAdapter(dateTime).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -38,7 +38,7 @@ class DateTimeTimeDiscountAdapterTest {
         val price = 13000
         val expected = 11000
         // when
-        val actual = DateTimeTimeDiscountAdapter(dateTime).discount(price)
+        val actual = DateTimeDiscountAdapter(dateTime).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -51,7 +51,7 @@ class DateTimeTimeDiscountAdapterTest {
         val price = 13000
         val expected = 11700
         // when
-        val actual = DateTimeTimeDiscountAdapter(dateTime).discount(price)
+        val actual = DateTimeDiscountAdapter(dateTime).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -65,7 +65,7 @@ class DateTimeTimeDiscountAdapterTest {
         val expected = 9700
 
         // when
-        val actual = DateTimeTimeDiscountAdapter(dateTime).discount(price)
+        val actual = DateTimeDiscountAdapter(dateTime).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -79,7 +79,7 @@ class DateTimeTimeDiscountAdapterTest {
         val expected = 9700
 
         // when
-        val actual = DateTimeTimeDiscountAdapter(dateTime).discount(price)
+        val actual = DateTimeDiscountAdapter(dateTime).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
