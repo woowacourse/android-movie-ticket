@@ -2,6 +2,9 @@ package woowacourse.movie.domain
 
 @JvmInline
 value class TicketCount(val value: Int = MIN_TICKET_COUNT) {
+    init {
+        require(value >= MIN_TICKET_COUNT)
+    }
 
     fun plus(): TicketCount = TicketCount(value + TICKET_UNIT)
 
