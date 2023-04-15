@@ -1,14 +1,11 @@
 package domain.movie
 
 import java.io.Serializable
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
 data class ScreeningPeriod(
-    val startDate: LocalDate,
-    val endDate: LocalDate
+    val startDate: ScreeningDate,
+    val endDate: ScreeningDate
 ) : Serializable {
 
     init {
@@ -17,46 +14,17 @@ data class ScreeningPeriod(
         }
     }
 
-    fun getScreeningDates(): List<LocalDate> {
+    fun getScreeningDates(): List<ScreeningDate> {
         var currentDate = startDate
-        val totalScreeningDays = ChronoUnit.DAYS.between(startDate, endDate).toInt() + 1
-        val screeningDates = mutableListOf<LocalDate>()
+        val totalScreeningDays = ChronoUnit.DAYS.between(startDate.value, endDate.value).toInt() + 1
+        val screeningDates = mutableListOf<ScreeningDate>()
 
         repeat(totalScreeningDays) {
             screeningDates.add(currentDate)
-            currentDate = currentDate.plusDays(1)
+            currentDate = ScreeningDate(currentDate.value.plusDays(1))
         }
 
         return screeningDates.toList()
-    }
-
-    fun getScreeningTimes(screeningDate: LocalDate?): List<LocalTime> {
-        if (screeningDate == null) {
-            return listOf()
-        }
-        return when (screeningDate.dayOfWeek) {
-            in DayOfWeek.MONDAY..DayOfWeek.FRIDAY -> getScreeningTimes(
-                WEEKDAY_SCREENING_START_TIME
-            )
-            in DayOfWeek.SATURDAY..DayOfWeek.SUNDAY -> getScreeningTimes(
-                WEEKEND_SCREENING_START_TIME
-            )
-            else -> listOf()
-        }
-    }
-
-    private fun getScreeningTimes(
-        startHour: Int,
-        endHour: Int = SCREENING_END_HOUR
-    ): List<LocalTime> {
-        val screeningTimes = mutableListOf<LocalTime>()
-        var currentHour = startHour
-
-        while (currentHour < endHour) {
-            screeningTimes.add(LocalTime.of(currentHour, 0))
-            currentHour += SCREENING_TERM
-        }
-        return screeningTimes.toList()
     }
 
     companion object {

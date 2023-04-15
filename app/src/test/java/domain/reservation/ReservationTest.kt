@@ -2,6 +2,7 @@ package domain.reservation
 
 import domain.movie.Movie
 import domain.movie.Name
+import domain.movie.ScreeningDate
 import domain.movie.ScreeningPeriod
 import domain.payment.PaymentAmount
 import org.junit.Assert.assertEquals
@@ -16,8 +17,8 @@ class ReservationTest {
             name = Name("해리포터"),
             posterImage = null,
             screeningPeriod = ScreeningPeriod(
-                LocalDate.of(2000, 10, 1),
-                LocalDate.of(2000, 10, 30)
+                ScreeningDate(LocalDate.of(2000, 10, 1)),
+                ScreeningDate(LocalDate.of(2000, 10, 30))
             ),
             runningTime = 120,
             description = "마법영화"

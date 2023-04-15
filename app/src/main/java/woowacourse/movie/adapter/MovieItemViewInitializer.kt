@@ -21,8 +21,8 @@ class MovieItemViewInitializer {
         screeningDateTextView.text = view.context
             .getString(R.string.screening_period_form)
             .format(
-                movie.screeningPeriod.startDate.format(dateFormat),
-                movie.screeningPeriod.endDate.format(dateFormat)
+                movie.screeningPeriod.startDate.value.format(dateFormat),
+                movie.screeningPeriod.endDate.value.format(dateFormat)
             )
         runningTimeTextView.text = view.context
             .getString(R.string.running_time_form)
