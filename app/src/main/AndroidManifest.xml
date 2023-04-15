@@ -14,13 +14,13 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".TicketActivity"
+            android:name=".activity.TicketActivity"
             android:exported="false" />
         <activity
-            android:name=".moviedetail.MovieDetailActivity"
+            android:name=".activity.moviedetail.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".movielist.MainActivity"
+            android:name=".activity.movielist.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package woowacourse.movie.moviedetail
+package woowacourse.movie.activity.moviedetail
 
 import android.content.Context
 import android.widget.ArrayAdapter

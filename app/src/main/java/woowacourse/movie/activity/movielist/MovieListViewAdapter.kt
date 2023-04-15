@@ -1,4 +1,4 @@
-package woowacourse.movie.movielist
+package woowacourse.movie.activity.movielist
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
+import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.moviedetail.MovieDetailActivity
 import java.time.format.DateTimeFormatter
 
 class MovieListViewAdapter(private val context: Context, private val movies: List<Movie>) :

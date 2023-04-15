@@ -1,10 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
 import java.time.format.DateTimeFormatter

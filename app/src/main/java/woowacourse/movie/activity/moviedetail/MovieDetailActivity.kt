@@ -1,4 +1,4 @@
-package woowacourse.movie.moviedetail
+package woowacourse.movie.activity.moviedetail
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
-import woowacourse.movie.TicketActivity
+import woowacourse.movie.activity.TicketActivity
 import woowacourse.movie.domain.CountNumberOfPeople
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
