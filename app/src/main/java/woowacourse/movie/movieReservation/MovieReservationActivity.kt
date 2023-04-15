@@ -80,13 +80,11 @@ class MovieReservationActivity : AppCompatActivity() {
 
         val context = this
 
-        with(movieSchedule) {
-            moviePosterView.setImageResource(poster)
-            movieTitleView.text = title
-            movieReleaseDataView.text = DateUtil(context).getDateRange(startDate, endDate)
-            movieRunningTimeView.text = getString(R.string.movie_running_time).format(runningTime)
-            movieSummaryView.text = summary
-        }
+        moviePosterView.setImageResource(movieSchedule.poster)
+        movieTitleView.text = title
+        movieReleaseDataView.text = DateUtil(context).getDateRange(movieSchedule.startDate, movieSchedule.endDate)
+        movieRunningTimeView.text = getString(R.string.movie_running_time).format(movieSchedule.runningTime)
+        movieSummaryView.text = movieSchedule.summary
     }
 
     private fun registerToolbar() {
