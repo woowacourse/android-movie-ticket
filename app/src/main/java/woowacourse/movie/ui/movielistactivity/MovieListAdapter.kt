@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import woowacourse.movie.MovieData
+import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.ui.DateTimeFormatters.hyphenDateFormatter
 import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity

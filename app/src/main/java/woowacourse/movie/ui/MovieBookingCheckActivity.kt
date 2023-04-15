@@ -3,7 +3,7 @@ package woowacourse.movie.ui
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MovieData
+import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
