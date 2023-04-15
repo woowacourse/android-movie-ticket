@@ -10,7 +10,6 @@ object ScreeningItem : MovieListItem {
     override fun getView(movieListDto: MovieListDto, convertView: View?, parent: ViewGroup?): View {
         val screening = movieListDto as? Screening ?: throw IllegalArgumentException("Invalid type")
         val view = convertView ?: initMovieListItemView(parent)
-        view.tag = view.tag ?: initViewHolder(view)
         bindViewHolder(view, screening)
         return view
     }
