@@ -17,7 +17,7 @@ import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
 import woowacourse.movie.util.DiscountPolicies
 import woowacourse.movie.util.Keys
-import woowacourse.movie.util.customGetSerializable
+import woowacourse.movie.util.getVersionDependentSerializableExtra
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -31,7 +31,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDate = savedInstanceState?.getInt(Keys.SPINNER_DATE_KEY) ?: DEFAULT_POSITION
         val savedTime = savedInstanceState?.getInt(Keys.SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-        val movie: Movie? = intent.customGetSerializable(Keys.MOVIE_KEY)
+        val movie: Movie? = intent.getVersionDependentSerializableExtra(Keys.MOVIE_KEY)
 
         if (movie != null) {
             initImageView(movie.image)

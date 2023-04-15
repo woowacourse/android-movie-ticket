@@ -5,7 +5,7 @@ import android.os.Build
 
 @Suppress("DEPRECATION")
 inline fun <reified T : java.io.Serializable>
-Intent.customGetSerializable(key: String): T? {
+Intent.getVersionDependentSerializableExtra(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getSerializableExtra(key, T::class.java)
     } else {
