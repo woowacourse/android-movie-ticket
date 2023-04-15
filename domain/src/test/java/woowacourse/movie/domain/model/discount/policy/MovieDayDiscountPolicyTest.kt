@@ -6,11 +6,10 @@ import org.junit.Test
 import woowacourse.movie.domain.model.movie.MovieDate
 
 internal class MovieDayDiscountPolicyTest {
-
     private lateinit var movieDayDiscountPolicy: DiscountPolicy
 
     @Before
-    fun setUp() {
+    internal fun setUp() {
         movieDayDiscountPolicy = MovieDayDiscountPolicy(MovieDate(2023, 10, 10))
     }
 

@@ -4,7 +4,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 
-class MovieDateTest {
+internal class MovieDateTest {
+
     @Test
     internal fun `상영일 범위 내에서 현재 날짜부터 마지막 상영일까지 목록을 반환한다`() {
         val movieDate: List<MovieDate> = MovieDate.releaseDates(

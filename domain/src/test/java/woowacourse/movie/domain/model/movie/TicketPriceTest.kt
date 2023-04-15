@@ -11,7 +11,7 @@ internal class TicketPriceTest {
     private lateinit var movieDayDiscountPolicy: MovieDayDiscountPolicy
 
     @Before
-    fun setup() {
+    internal fun setup() {
         movieTimeDiscountPolicy = MovieTimeDiscountPolicy(MovieTime(10, 0))
         movieDayDiscountPolicy = MovieDayDiscountPolicy(MovieDate(2023, 10, 10))
     }
