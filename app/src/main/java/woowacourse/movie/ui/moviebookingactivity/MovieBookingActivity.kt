@@ -30,7 +30,7 @@ class MovieBookingActivity : AppCompatActivity() {
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
     var timeSpinnerRecoverState: Int = -1
 
-    var ticketCount by Delegates.observable(0) { _, _, new ->
+    var ticketCount by Delegates.observable(1) { _, _, new ->
         tvTicketCount.text = new.toString()
     }
 
@@ -134,7 +134,7 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun initMinusButtonClickListener() {
         findViewById<Button>(R.id.btn_ticket_minus).setOnSingleClickListener {
             ticketCount--
-            if (ticketCount <= 0) ticketCount = 0
+            if (ticketCount <= 1) ticketCount = 1
         }
     }
 

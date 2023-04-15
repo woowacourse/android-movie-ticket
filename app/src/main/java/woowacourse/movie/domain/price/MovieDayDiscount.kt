@@ -1,5 +1,5 @@
 package woowacourse.movie.domain.price
 
 class MovieDayDiscount : DiscountPolicy {
-    override fun discount(price: Int): Int = (price * 0.9).toInt()
+    override fun discount(price: TicketPrice): TicketPrice = price * 0.9
 }
