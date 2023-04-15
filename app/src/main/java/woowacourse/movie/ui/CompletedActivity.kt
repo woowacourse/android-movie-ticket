@@ -2,7 +2,6 @@ package woowacourse.movie.ui
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -11,6 +10,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.formatScreenDateTime
+import woowacourse.movie.util.getParcelable
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,11 +21,7 @@ class CompletedActivity : AppCompatActivity() {
         initView(ticket)
     }
 
-    private fun getTicket() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getParcelableExtra(TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
-    } else {
-        intent.getParcelableExtra(TICKET) ?: throw IllegalArgumentException()
-    }
+    private fun getTicket(): Ticket = intent.getParcelable(TICKET, Ticket::class.java)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
