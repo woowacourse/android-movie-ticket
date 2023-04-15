@@ -67,7 +67,8 @@ class MovieDetailActivity : BackButtonActivity() {
 
     private fun processEmptyMovieData(movieData: Movie?) {
         if (movieData == null) {
-            Toast.makeText(this, "시스템 오류가 발생 했습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_intent_message), Toast.LENGTH_SHORT)
+                .show()
             this.finish()
         }
     }
@@ -111,7 +112,11 @@ class MovieDetailActivity : BackButtonActivity() {
 
         binding.btTicketCountMinus.setOnClickListener {
             if (binding.tvTicketCount.text == "1") {
-                Toast.makeText(this, "1장 이상의 표를 선택해 주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.error_booking_over_one_ticket),
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
             currentCount--
