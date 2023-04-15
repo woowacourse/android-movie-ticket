@@ -18,29 +18,29 @@ internal class TicketPriceTest {
 
     @Test
     internal fun `할인 시간 정책에 따라 할인된 티켓 가격을 반환한다`() {
-        val ticketPrice = TicketPrice(13000)
+        val ticketPrice = TicketPrice(13_000)
         val actual = ticketPrice.applyDiscountPolicy(movieTimeDiscountPolicy)
-        val expected = TicketPrice(11000)
+        val expected = TicketPrice(11_000)
 
         assertEquals(actual, expected)
     }
 
     @Test
     internal fun `무비 데이 정책에 따라 할인된 티켓 가격을 반환한다`() {
-        val ticketPrice = TicketPrice(13000)
+        val ticketPrice = TicketPrice(13_000)
         val actual = ticketPrice.applyDiscountPolicy(movieDayDiscountPolicy)
-        val expected = TicketPrice(11700)
+        val expected = TicketPrice(11_700)
 
         assertEquals(actual, expected)
     }
 
     @Test
     internal fun `무비 데이, 할인 시간 순으로 정책을 적용하여 할인된 티켓 가격을 반환한다`() {
-        val ticketPrice = TicketPrice(13000)
+        val ticketPrice = TicketPrice(13_000)
         val actual = ticketPrice.applyDiscountPolicy(
             movieDayDiscountPolicy, movieTimeDiscountPolicy
         )
-        val expected = TicketPrice(9700)
+        val expected = TicketPrice(9_700)
 
         assertEquals(actual, expected)
     }

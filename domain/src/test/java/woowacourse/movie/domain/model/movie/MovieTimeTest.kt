@@ -1,11 +1,10 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.model.movie
 
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.domain.model.movie.MovieTime
 import java.time.LocalTime
 
 @RunWith(JUnitParamsRunner::class)
