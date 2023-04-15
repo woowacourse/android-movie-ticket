@@ -27,7 +27,7 @@ object ScreeningTimes {
     fun getScreeningTime(date: LocalDate): List<LocalTime> = when (date.dayOfWeek) {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY -> getHours(WEEKDAY_START, END, TIME_STEP)
         SATURDAY, SUNDAY -> getHours(WEEKEND_START, END, TIME_STEP)
-        null -> throw NullPointerException()
+        null -> emptyList()
     }
 
     fun getScreeningDates(start: LocalDate, end: LocalDate): List<LocalDate> {
