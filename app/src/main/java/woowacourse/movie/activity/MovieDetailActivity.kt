@@ -189,8 +189,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 ArrayAdapter(spinnerTime.context, android.R.layout.simple_spinner_item, times)
         }
 
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-        }
+        override fun onNothingSelected(p0: AdapterView<*>?) = Unit
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
