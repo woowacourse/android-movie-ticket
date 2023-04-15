@@ -36,19 +36,22 @@ class MovieAdapter(
         val context = parent?.context ?: return null
         val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.movie_item_layout, parent, false)
+        val item = _movie[position]
 
         val image = view.findViewById<ImageView>(R.id.image)
         val title = view.findViewById<TextView>(R.id.title)
-        val startDate = view.findViewById<TextView>(R.id.start_date)
-        val endDate = view.findViewById<TextView>(R.id.end_date)
-        val time = view.findViewById<TextView>(R.id.time)
+        val runningDate = view.findViewById<TextView>(R.id.running_date)
+        val runningTime = view.findViewById<TextView>(R.id.running_time)
         val reservation = view.findViewById<Button>(R.id.reservation)
 
         image.setImageResource(_movie[position].imgResourceId)
         title.text = _movie[position].title
-        startDate.text = _movie[position].startDate.format(DATE_TIME_FORMATTER)
-        endDate.text = _movie[position].endDate.format(DATE_TIME_FORMATTER)
-        time.text = _movie[position].runningTime.value.toString()
+        runningDate.text = context.getString(
+            R.string.running_date,
+            item.startDate.format(DATE_TIME_FORMATTER),
+            item.endDate.format(DATE_TIME_FORMATTER)
+        )
+        runningTime.text = context.getString(R.string.running_time, item.runningTime.value)
 
         reservation.setOnClickListener { clickListener?.onClick(position) }
         return view

@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/detail_image"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="341dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="340dp"
                 android:scaleType="centerInside"
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="27dp"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -47,103 +47,44 @@
                 tools:text="타이틀" />
 
             <TextView
-                android:id="@+id/detail_date_text"
-                android:layout_width="wrap_content"
+                android:id="@+id/detail_date"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="34dp"
                 android:gravity="center_vertical"
-                android:text="@string/running_date_text"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_title" />
-
-            <TextView
-                android:id="@+id/start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginTop="34dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/detail_date_text"
                 app:layout_constraintTop_toBottomOf="@id/detail_title"
-                tools:text="2023.1.4"
-                android:gravity="bottom" />
-
-            <TextView
-                android:id="@+id/tilde_inter_date"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginTop="34dp"
-                android:text="@string/tilde"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:gravity="bottom"
-                app:layout_constraintStart_toEndOf="@id/start_date"
-                app:layout_constraintTop_toBottomOf="@id/detail_title" />
-
-            <TextView
-                android:id="@+id/end_date"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginTop="34dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:gravity="bottom"
-                app:layout_constraintStart_toEndOf="@id/tilde_inter_date"
-                app:layout_constraintTop_toBottomOf="@id/detail_title"
-                tools:text="2023.2.23" />
-
-            <TextView
-                android:id="@+id/detail_time_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:gravity="bottom"
-                android:text="@string/running_time_text"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_date_text" />
+                tools:text="상영일: 2023.1.4 ~ 2023.2.23" />
 
             <TextView
                 android:id="@+id/detail_time"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="4dp"
                 android:gravity="bottom"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/detail_time_text"
-                app:layout_constraintTop_toBottomOf="@id/start_date"
-                tools:text="124" />
-
-            <TextView
-                android:id="@+id/minute_text"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginTop="4dp"
-                android:gravity="bottom"
-                android:text="@string/minutes"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/detail_time"
-                app:layout_constraintTop_toBottomOf="@id/start_date" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_date"
+                tools:text="러닝타임: 124분" />
 
             <TextView
                 android:id="@+id/description"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="38.87dp"
-                android:layout_marginEnd="20dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detail_date_text"
+                app:layout_constraintTop_toBottomOf="@id/detail_date"
                 tools:text="영화소개 글" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -182,40 +123,40 @@
             android:id="@+id/minus"
             android:layout_width="65dp"
             android:layout_height="41dp"
-            android:layout_marginBottom="83.67dp"
+            android:layout_marginBottom="22dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:padding="0dp"
             android:text="@string/minus"
             android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/reservation_confirm"
             app:layout_constraintStart_toStartOf="@id/begin_guide" />
 
         <Button
             android:id="@+id/plus"
             android:layout_width="65dp"
             android:layout_height="41dp"
-            android:layout_marginBottom="83.67dp"
+            android:layout_marginBottom="22dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:padding="0dp"
             android:text="@string/plus"
             android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/reservation_confirm"
             app:layout_constraintEnd_toEndOf="@id/end_guide" />
 
         <TextView
             android:id="@+id/count"
-            android:layout_width="189dp"
+            android:layout_width="0dp"
             android:layout_height="33dp"
-            android:layout_marginBottom="88.35dp"
+            android:layout_marginBottom="22dp"
             android:text="1"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/end_guide"
-            app:layout_constraintStart_toEndOf="@id/begin_guide" />
+            app:layout_constraintBottom_toTopOf="@id/reservation_confirm"
+            app:layout_constraintEnd_toStartOf="@id/plus"
+            app:layout_constraintStart_toEndOf="@id/minus" />
 
 
         <Button

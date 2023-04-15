@@ -26,9 +26,8 @@ import java.time.format.DateTimeFormatter
 class MovieDetailActivity : BackKeyActionBarActivity() {
     private val image: ImageView by lazy { findViewById(R.id.detail_image) }
     private val title: TextView by lazy { findViewById(R.id.detail_title) }
-    private val startDate: TextView by lazy { findViewById(R.id.start_date) }
-    private val endDate: TextView by lazy { findViewById(R.id.end_date) }
-    private val time: TextView by lazy { findViewById(R.id.detail_time) }
+    private val detailDate: TextView by lazy { findViewById(R.id.detail_date) }
+    private val detailTime: TextView by lazy { findViewById(R.id.detail_time) }
     private val description: TextView by lazy { findViewById(R.id.description) }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.date_spinner) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.time_spinner) }
@@ -71,9 +70,12 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private fun initMovieData() {
         image.setImageResource(movie.imgResourceId)
         title.text = movie.title
-        startDate.text = movie.startDate.format(DATE_TIME_FORMATTER)
-        endDate.text = movie.endDate.format(DATE_TIME_FORMATTER)
-        time.text = movie.runningTime.value.toString()
+        detailDate.text = getString(
+            R.string.running_date,
+            movie.startDate.format(DATE_TIME_FORMATTER),
+            movie.endDate.format(DATE_TIME_FORMATTER)
+        )
+        detailTime.text = getString(R.string.running_time, movie.runningTime.value)
         description.text = movie.description
     }
 
@@ -130,7 +132,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         selectDate = movie.startDate
         setTimeSpinnerAdapter()
         runningTimes = runningTimeSetter.getRunningTimes(selectDate)
-        selectTime = runningTimes[0]
+        selectTime = runningTimes.first()
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {

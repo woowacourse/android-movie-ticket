@@ -49,7 +49,8 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         titleTextView.text = movie.title
         dateTextView.text = dateTime.format(DATE_TIME_FORMATTER)
         moneyTextView.text = formattingMoney(reservationCount, movie, dateTime)
-        reservationCountTextView.text = reservationCount.value.toString()
+        reservationCountTextView.text =
+            getString(R.string.person_count_text, reservationCount.value)
     }
 
     private fun formattingMoney(

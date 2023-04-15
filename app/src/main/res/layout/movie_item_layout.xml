@@ -24,103 +24,29 @@
         app:layout_constraintStart_toEndOf="@id/image"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/running_day"
+    <TextView
+        android:id="@+id/running_date"
         android:layout_width="0dp"
         android:layout_height="18dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tools:text="상영일: 2023.1.4 ~ 2023.2.23" />
 
-        <TextView
-            android:id="@+id/date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            tools:text="@string/running_date_text"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            android:gravity="bottom"/>
-
-        <TextView
-            android:id="@+id/start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/date_text"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            tools:text="2023.1.4"
-            android:gravity="bottom"
-            />
-
-        <TextView
-            android:id="@+id/tilde_inter_date"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/tilde"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/start_date"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            android:gravity="bottom"/>
-
-        <TextView
-            android:id="@+id/end_date"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/tilde_inter_date"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            tools:text="2023.2.23"
-            android:gravity="bottom"/>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:id="@+id/running_time"
         android:layout_width="0dp"
         android:layout_height="18dp"
-        android:layout_marginTop="4dp"
         android:layout_marginStart="15dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toBottomOf="@id/running_day">
-
-        <TextView
-            android:id="@+id/time_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:text="@string/running_time_text"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/image"
-            app:layout_constraintTop_toBottomOf="@id/date_text" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/time_text"
-            app:layout_constraintTop_toBottomOf="@id/start_date"
-            tools:text="124"
-            />
-
-        <TextView
-            android:id="@+id/minute_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/minutes"
-            android:textSize="12sp"
-            android:gravity="bottom"
-            app:layout_constraintStart_toEndOf="@id/time"
-            app:layout_constraintTop_toBottomOf="@id/start_date" />
-    </LinearLayout>
-
+        app:layout_constraintTop_toBottomOf="@id/running_date"
+        tools:text="러닝타임: 124분" />
 
     <Button
         android:id="@+id/reservation"
