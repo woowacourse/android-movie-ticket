@@ -44,8 +44,8 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
         view.findViewById<TextView>(R.id.textBookingScreeningDate).apply {
             text = context.getString(R.string.screening_date)
                 .format(
-                    movies[position].screeningStartDate.formatScreenDate(),
-                    movies[position].screeningEndDate.formatScreenDate(),
+                    movies[position].startDate.formatScreenDate(),
+                    movies[position].endDate.formatScreenDate(),
                 )
         }
         view.findViewById<TextView>(R.id.textBookingRunningTime).apply {
