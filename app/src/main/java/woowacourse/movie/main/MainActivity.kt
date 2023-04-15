@@ -12,23 +12,27 @@ import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     private val movieListView: ListView by lazy { findViewById(R.id.listView) }
-    private val adapter: MovieAdapter by lazy { MovieAdapter(initMovieData()) }
+    private val adapter: MovieAdapter by lazy {
+        MovieAdapter(
+            initMovieData(),
+            object : MovieAdapter.ReservationClickListener {
+                override fun onClick(position: Int) {
+                    navigateMovieDetail(adapter.movie[position])
+                }
+            }
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initMovieListView()
+        movieListView.adapter = adapter
     }
 
-    private fun initMovieListView() {
-        movieListView.adapter = adapter
-        adapter.clickListener = object : MovieAdapter.ReservationClickListener {
-            override fun onClick(position: Int) {
-                val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
-                intent.putExtra(KEY_MOVIE, adapter.movie[position])
-                startActivity(intent)
-            }
-        }
+    private fun navigateMovieDetail(movie: Movie) {
+        val intent = Intent(this, MovieDetailActivity::class.java)
+        intent.putExtra(KEY_MOVIE, movie)
+        startActivity(intent)
     }
 
     private fun initMovieData(): List<Movie> {

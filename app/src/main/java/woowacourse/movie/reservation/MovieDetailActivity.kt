@@ -35,7 +35,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val reservationConfirm: Button by lazy { findViewById(R.id.reservation_confirm) }
     private val minus: Button by lazy { findViewById(R.id.minus) }
     private val plus: Button by lazy { findViewById(R.id.plus) }
-    private val count: TextView by lazy { findViewById(R.id.count) }
+    private val countTextView: TextView by lazy { findViewById(R.id.count) }
 
     private val runningDateSetter: RunningDateSetter = RunningDateSetter()
     private val runningTimeSetter: RunningTimeSetter = RunningTimeSetter()
@@ -50,6 +50,12 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
     private lateinit var runningTimes: List<LocalTime>
 
+    private var count: Count = Count(1)
+        set(value) {
+            field = value
+            countTextView.text = field.value.toString()
+        }
+
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
         movie = intent.customGetSerializable(KEY_MOVIE, ::keyNoExistError) ?: return
@@ -58,8 +64,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         setDateSpinnerAdapter()
         initInstanceState()
         savedInstanceState?.let { restoreInstanceState(it) }
-        setOnClickDateListener()
-        setOnClickTimeListener()
+        setDateSpinnerListener()
+        setTimeSpinnerListener()
     }
 
     private fun initMovieData() {
@@ -71,50 +77,46 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         description.text = movie.description
     }
 
-    private fun setDateSpinnerAdapter() {
-        val dateSpinnerAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            runningDates.map { it.toString() }
-        )
-        dateSpinner.adapter = dateSpinnerAdapter
-    }
-
     private fun initSetOnClickListener() {
         minus.setOnClickListener {
-            var previous = count.text.toString().toInt()
-            previous--
-            if (previous <= 0) {
+            if (count.value == 1) {
                 Toaster.showToast(this, getString(R.string.error_reservation_min_count))
                 return@setOnClickListener
             }
-            count.text = previous.toString()
+            count -= 1
         }
 
-        plus.setOnClickListener {
-            var previous = count.text.toString().toInt()
-            previous++
-            count.text = previous.toString()
-        }
+        plus.setOnClickListener { count += 1 }
 
-        reservationConfirm.setOnClickListener {
-            val intent = Intent(this, ReservationConfirmActivity::class.java)
-            intent.putExtra(KEY_MOVIE, movie)
-            intent.putExtra(KEY_COUNT, Count(count.text.toString().toInt()))
-            intent.putExtra(KEY_DATE, selectDate)
-            intent.putExtra(KEY_TIME, selectTime)
-            startActivity(intent)
-        }
+        reservationConfirm.setOnClickListener { navigateReservationConfirm() }
+    }
+
+    private fun navigateReservationConfirm() {
+        val intent = Intent(this, ReservationConfirmActivity::class.java)
+        intent.putExtra(KEY_MOVIE, movie)
+        intent.putExtra(KEY_COUNT, count)
+        intent.putExtra(KEY_DATE, selectDate)
+        intent.putExtra(KEY_TIME, selectTime)
+        startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putSerializable(KEY_DATE, selectDate)
         outState.putSerializable(KEY_TIME, selectTime)
-        outState.putInt(KEY_COUNT, count.text.toString().toInt())
+        outState.putInt(KEY_COUNT, count.value)
     }
 
-    fun setTimeSpinnerAdapter() {
+    private fun setDateSpinnerAdapter() {
+        val dateSpinnerAdapter = ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            runningDates.map { it.toString() }
+        )
+        dateSpinner.adapter = dateSpinnerAdapter
+    }
+
+    private fun setTimeSpinnerAdapter() {
         runningTimes = runningTimeSetter.getRunningTimes(selectDate)
         val timeSpinnerAdapter = ArrayAdapter(
             this,
@@ -138,10 +140,10 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
-        count.text = savedInstanceState.getInt(KEY_COUNT).toString()
+        count = Count(savedInstanceState.getInt(KEY_COUNT, 1))
     }
 
-    private fun setOnClickDateListener() {
+    private fun setDateSpinnerListener() {
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -157,7 +159,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         }
     }
 
-    private fun setOnClickTimeListener() {
+    private fun setTimeSpinnerListener() {
         timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,

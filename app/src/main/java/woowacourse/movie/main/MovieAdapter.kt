@@ -13,29 +13,29 @@ import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
     movie: List<Movie>,
+    var clickListener: ReservationClickListener? = null
 ) : BaseAdapter() {
 
     private val _movie: List<Movie> = movie.toList()
     val movie: List<Movie>
         get() = _movie.toList()
 
-    var clickListener: ReservationClickListener? = null
-
     override fun getCount(): Int {
         return _movie.size
     }
 
-    override fun getItem(p0: Int): Movie {
-        return _movie[p0]
+    override fun getItem(position: Int): Movie {
+        return _movie[position]
     }
 
-    override fun getItemId(p0: Int): Long {
-        return p0.toLong()
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
         val context = parent?.context ?: return null
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_item_layout, parent, false)
+        val view = convertView ?: LayoutInflater.from(context)
+            .inflate(R.layout.movie_item_layout, parent, false)
 
         val image = view.findViewById<ImageView>(R.id.image)
         val title = view.findViewById<TextView>(R.id.title)
