@@ -9,10 +9,6 @@ class ScreeningDateTest {
     @Test
     fun `시작 날짜부터 종료 날짜까지 반환된다`() {
         // given
-        val screeningDate = ScreeningDate(
-            startDate = LocalDate.of(2021, 1, 1),
-            endDate = LocalDate.of(2021, 1, 3),
-        )
         val actual = listOf(
             "2021-01-01",
             "2021-01-02",
@@ -20,7 +16,10 @@ class ScreeningDateTest {
         )
 
         // when
-        val expect = screeningDate.dateList
+        val expect = ScreeningDate.getScreeningDate(
+            LocalDate.of(2021, 1, 1),
+            LocalDate.of(2021, 1, 3),
+        )
 
         // then
         assertThat(expect).isEqualTo(actual)
@@ -29,10 +28,6 @@ class ScreeningDateTest {
     @Test
     fun `주말이면 오전 10시부터 두 시간 간격으로 상영 시간이 반환된다`() {
         // given
-        val screeningDate = ScreeningDate(
-            startDate = LocalDate.of(2021, 1, 1),
-            endDate = LocalDate.of(2021, 1, 3),
-        )
         val actual = listOf<LocalTime>(
             LocalTime.of(9, 0),
             LocalTime.of(11, 0),
@@ -45,7 +40,7 @@ class ScreeningDateTest {
         )
 
         // when
-        val expect = screeningDate.getScreeningTime(LocalDate.of(2023, 4, 1))
+        val expect = ScreeningDate.getScreeningTime(LocalDate.of(2023, 4, 1))
 
         // then
         assertThat(expect).isEqualTo(actual)
@@ -54,10 +49,6 @@ class ScreeningDateTest {
     @Test
     fun `평일이면 오전 9시부터 두 시간 간격으로 상영 시간이 반환된다`() {
         // given
-        val screeningDate = ScreeningDate(
-            startDate = LocalDate.of(2021, 1, 1),
-            endDate = LocalDate.of(2021, 1, 3),
-        )
         val actual = listOf<LocalTime>(
             LocalTime.of(10, 0),
             LocalTime.of(12, 0),
@@ -70,7 +61,7 @@ class ScreeningDateTest {
         )
 
         // when
-        val expect = screeningDate.getScreeningTime(LocalDate.of(2023, 4, 11))
+        val expect = ScreeningDate.getScreeningTime(LocalDate.of(2023, 4, 11))
 
         // then
         assertThat(expect).isEqualTo(actual)

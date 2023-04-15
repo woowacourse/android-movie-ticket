@@ -14,13 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import entity.Screening
-import movie.DiscountPolicy
-import movie.MovieTicket
+import movie.ScreeningDate
 import movie.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.utils.DateUtil
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
@@ -80,11 +80,13 @@ class MovieReservationActivity : AppCompatActivity() {
 
         val context = this
 
-        moviePosterView.setImageResource(screening.poster)
+        val movie = screening.movie
+        val reservation = screening.reservation
+        moviePosterView.setImageResource(movie.poster)
         movieTitleView.text = title
-        movieReleaseDataView.text = DateUtil(context).getDateRange(screening.startDate, screening.endDate)
-        movieRunningTimeView.text = getString(R.string.movie_running_time).format(screening.runningTime)
-        movieSummaryView.text = screening.summary
+        movieReleaseDataView.text = DateUtil(context).getDateRange(reservation.startDate, reservation.endDate)
+        movieRunningTimeView.text = getString(R.string.movie_running_time).format(movie.runningTime)
+        movieSummaryView.text = movie.summary
     }
 
     private fun registerToolbar() {
@@ -112,7 +114,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun registerSpinnerListener() {
-        val dateList = screening.getScreeningDate()
+        val dateList = ScreeningDate.getScreeningDate(screening.reservation.startDate, screening.reservation.endDate)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
         dateSpinner.adapter = adapter
 
@@ -132,7 +134,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun updateTimeView(date: LocalDate) {
-        val timeList = screening.getScreeningTime(date)
+        val timeList = ScreeningDate.getScreeningTime(date)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeList)
         timeSpinner.adapter = adapter
     }
@@ -143,16 +145,10 @@ class MovieReservationActivity : AppCompatActivity() {
             val intent = Intent(this, MovieTicketActivity::class.java)
             val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
-            val discountPolicy = DiscountPolicy.of(selectedDate, selectedTime)
 
+            LocalDateTime.of(selectedDate, selectedTime)
             kotlin.runCatching {
-                val movieTicket = MovieTicket(
-                    eachPrice = discountPolicy(MOVIE_TICKET_PRICE),
-                    count = ticketCount,
-                    title = screening.title,
-                    date = selectedDate,
-                    time = selectedTime,
-                )
+                val movieTicket = screening.reserve(ticketCount, LocalDateTime.of(selectedDate, selectedTime))
                 intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
                 ContextCompat.startActivity(this, intent, null)
             }.onFailure {
@@ -162,7 +158,6 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val MOVIE_TICKET_PRICE = 13000
         private const val KEY_COUNT = "count"
         private const val KEY_TIME = "time"
         const val KEY_MOVIE_SCHEDULE = "movieSchedule"

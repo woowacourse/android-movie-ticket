@@ -1,30 +1,24 @@
 package entity
 
-import movie.ScreeningDate
+import movie.MovieTicket
+import movie.TicketCount
+import movie.pricePolicy.PricePolicyInfo
 import java.io.Serializable
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.LocalDateTime
 
 class Screening(
-    private val movie: Movie,
-    private val screeningDate: ScreeningDate,
+    val movie: Movie,
+    val reservation: Reservation,
 ) : MovieListDto, Serializable {
-    val startDate: LocalDate = screeningDate.startDate
-    val endDate: LocalDate = screeningDate.endDate
+    fun reserve(peopleCount: TicketCount, reserveTime: LocalDateTime): MovieTicket = MovieTicket(
+        eachPrice = movie.pricePolicy(PricePolicyInfo(DEFAULT_MOVIE_PRICE, reserveTime)).price,
+        count = peopleCount,
+        title = movie.title,
+        date = reserveTime.toLocalDate(),
+        time = reserveTime.toLocalTime(),
+    )
 
-    val poster: Int
-        get() = movie.poster
-
-    val title: String
-        get() = movie.title
-
-    val runningTime: Int
-        get() = movie.runningTime
-
-    val summary: String
-        get() = movie.summary
-
-    fun getScreeningTime(date: LocalDate): List<LocalTime> = screeningDate.getScreeningTime(date)
-
-    fun getScreeningDate(): List<String> = screeningDate.dateList
+    companion object {
+        private const val DEFAULT_MOVIE_PRICE = 13000
+    }
 }
