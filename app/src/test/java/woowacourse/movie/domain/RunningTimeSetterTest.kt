@@ -1,5 +1,6 @@
 package woowacourse.movie.domain
 
+import com.example.domain.setter.RunningTimeSetter
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
