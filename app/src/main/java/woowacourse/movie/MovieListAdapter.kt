@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,28 +15,17 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = convertView ?: LayoutInflater.from(parent?.context)
-            .inflate(R.layout.item_movie_list, parent, false)
-
-        binding = ItemMovieListBinding.inflate(LayoutInflater.from(view.context))
-
-        val movie = movies[position]
-
-        setMovieData(movie)
-
-        binding.btBookNow.setOnClickListener {
-            val intent = Intent(parent?.context, MovieDetailActivity::class.java)
-            intent.putExtra("movieData", movie)
-            parent?.context?.startActivity(intent)
+        if (convertView != null) {
+            binding = binding.root.tag as ItemMovieListBinding
+        } else {
+            binding = ItemMovieListBinding.inflate(LayoutInflater.from(parent?.context))
+            binding.root.tag = binding
         }
+        val movie = movies[position]
+        val viewHolder = MovieListViewHolder(binding)
+
+        viewHolder.bind(movie)
 
         return binding.root
-    }
-
-    private fun setMovieData(movie: Movie) {
-        binding.ivMoviePoster.setImageResource(movie.poster)
-        binding.tvMovieTitle.text = movie.title
-        binding.tvMovieReleaseDate.text = movie.releaseDate
-        binding.tvMovieRunningTime.text = movie.runningTime
     }
 }
