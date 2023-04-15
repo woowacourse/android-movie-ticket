@@ -6,7 +6,7 @@ import android.widget.TextView
 import woowacourse.movie.BackKeyActionBarActivity
 import woowacourse.movie.Movie
 import woowacourse.movie.R
-import woowacourse.movie.domain.DiscountCalculator
+import woowacourse.movie.domain.discount.DiscountCalculator
 import woowacourse.movie.entity.Count
 import woowacourse.movie.extensions.customGetSerializable
 import woowacourse.movie.main.MainActivity.Companion.KEY_MOVIE
@@ -48,12 +48,16 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     ) {
         titleTextView.text = movie.title
         dateTextView.text = dateTime.format(DATE_TIME_FORMATTER)
-        moneyTextView.text = formattingMoney(reservationCount, dateTime)
+        moneyTextView.text = formattingMoney(reservationCount, movie, dateTime)
         reservationCountTextView.text = reservationCount.value.toString()
     }
 
-    private fun formattingMoney(reservationCount: Count, dateTime: LocalDateTime): String {
-        val money = discountCalculator.discount(reservationCount, dateTime).value
+    private fun formattingMoney(
+        reservationCount: Count,
+        movie: Movie,
+        dateTime: LocalDateTime
+    ): String {
+        val money = discountCalculator.discount(reservationCount, movie, dateTime).value
         return DECIMAL_FORMATTER.format(money)
     }
 
