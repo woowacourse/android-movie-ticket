@@ -1,5 +1,6 @@
-package movie
+package entity
 
+import movie.ScreeningDate
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -7,7 +8,7 @@ import java.time.LocalTime
 class Screening(
     private val movie: Movie,
     private val screeningDate: ScreeningDate,
-) : Serializable {
+) : MovieListDto, Serializable {
     val startDate: LocalDate = screeningDate.startDate
     val endDate: LocalDate = screeningDate.endDate
 

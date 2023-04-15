@@ -1,7 +1,7 @@
 package woowacourse.movie.utils
 
-import movie.Movie
-import movie.Screening
+import entity.Movie
+import entity.Screening
 import movie.ScreeningDate
 import woowacourse.movie.R
 import java.time.LocalDate

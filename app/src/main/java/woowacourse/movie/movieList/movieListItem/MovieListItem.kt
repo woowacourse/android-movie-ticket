@@ -2,8 +2,8 @@ package woowacourse.movie.movieList.movieListItem
 
 import android.view.View
 import android.view.ViewGroup
-import movie.Screening
+import entity.MovieListDto
 
-interface MovieListItem {
-    fun getView(screening: Screening, convertView: View?, parent: ViewGroup?): View
+sealed interface MovieListItem {
+    fun getView(movieListDto: MovieListDto, convertView: View?, parent: ViewGroup?): View
 }
