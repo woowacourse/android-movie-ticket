@@ -10,4 +10,7 @@
     <string name="ticket_count_plus">+</string>
     <string name="movie_detail_booking_complete">예매 완료</string>
 
+    <string name="error_intent_message">시스템 오류가 발생 했습니다. 다시 시도해 주세요.</string>
+    <string name="error_booking_over_one_ticket">1장 이상의 표를 선택해 주세요.</string>
+
 </resources>
