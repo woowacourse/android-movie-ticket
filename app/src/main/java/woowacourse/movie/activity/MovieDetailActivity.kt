@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
@@ -30,19 +31,24 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDate = savedInstanceState?.getInt(Keys.SPINNER_DATE_KEY) ?: DEFAULT_POSITION
         val savedTime = savedInstanceState?.getInt(Keys.SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-        val movie: Movie = intent.customGetSerializable(Keys.MOVIE_KEY)
+        val movie: Movie? = intent.customGetSerializable(Keys.MOVIE_KEY)
 
-        initImageView(movie.image)
-        initTitle(movie.title)
-        initPlayingDate(movie.playingTimes)
-        initRunningTime(movie.runningTime)
-        initDescription(movie.description)
-        initCount(savedCount)
-        initMinusButton()
-        initPlusButton()
-        initButton(movie)
-        initDateSpinner(savedDate, movie.playingTimes)
-        initTimeSpinner(savedTime, movie.playingTimes)
+        if (movie != null) {
+            initImageView(movie.image)
+            initTitle(movie.title)
+            initPlayingDate(movie.playingTimes)
+            initRunningTime(movie.runningTime)
+            initDescription(movie.description)
+            initCount(savedCount)
+            initMinusButton()
+            initPlusButton()
+            initButton(movie)
+            initDateSpinner(savedDate, movie.playingTimes)
+            initTimeSpinner(savedTime, movie.playingTimes)
+        } else {
+            Toast.makeText(this, "데이터가 로딩되지 않았습니다. 다시 시도해주세요.", Toast.LENGTH_LONG).show()
+            finish()
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
