@@ -8,6 +8,7 @@ import kotlinx.parcelize.TypeParceler
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.Period
 
 @Parcelize
 @TypeParceler<Minute, MinuteParceler>
@@ -23,7 +24,7 @@ class Movie(
     fun getAllScreeningDates(): List<LocalDate> {
         val screeningDates = mutableListOf<LocalDate>()
         var screeningDate = screeningStartDate
-        while (screeningDate <= screeningEndDate) {
+        repeat(Period.between(screeningStartDate, screeningEndDate).days + 1) {
             screeningDates.add(screeningDate)
             screeningDate = screeningDate.plusDays(1)
         }
