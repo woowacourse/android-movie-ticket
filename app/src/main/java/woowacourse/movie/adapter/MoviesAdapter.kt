@@ -1,7 +1,6 @@
 package woowacourse.movie.adapter
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import domain.movie.Movie
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationActivity
 import java.time.format.DateTimeFormatter
 
-class MoviesAdapter(private val movies: List<Movie>) : BaseAdapter() {
+class MoviesAdapter(
+    private val movies: List<Movie>,
+    private val reservationEvent: (movie: Movie) -> Unit
+) : BaseAdapter() {
 
     override fun getCount(): Int = movies.size
 
@@ -25,21 +26,20 @@ class MoviesAdapter(private val movies: List<Movie>) : BaseAdapter() {
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val movie: Movie = movies[position]
-        val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, null)
+        val view =
+            convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, null)
 
-        initReservationClickEvent(movie, view)
         initView(movie, view)
+        initReservationButtonClickListener(view, movie)
 
         return view
     }
 
-    private fun initReservationClickEvent(movie: Movie, view: View) {
-        val reservationButton: Button = view.findViewById(R.id.reservation_button)
+    private fun initReservationButtonClickListener(view: View, movie: Movie) {
+        val reservationButton = view.findViewById<Button>(R.id.reservation_button)
 
         reservationButton.setOnClickListener {
-            val intent = Intent(view.context, ReservationActivity::class.java)
-            intent.putExtra(view.context.getString(R.string.movie_key), movie)
-            view.context.startActivity(intent)
+            reservationEvent(movie)
         }
     }
 
