@@ -34,18 +34,16 @@ object MovieListItemView {
     private fun bindViewHolder(view: View, movieSchedule: MovieSchedule) {
         val viewHolder = (view.tag) as MovieListViewHolder
 
-        with(movieSchedule) {
-            viewHolder.bind(
-                posterResource = movieSchedule.poster,
-                title = movieSchedule.title,
-                date = DateUtil(view.context).getDateRange(startDate, endDate),
-                runningTime = view.context.getString(R.string.movie_running_time).format(runningTime),
-                reservationListener = {
-                    val intent = Intent(view.context, MovieReservationActivity::class.java)
-                    intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, this)
-                    startActivity(view.context, intent, null)
-                },
-            )
-        }
+        viewHolder.bind(
+            posterResource = movieSchedule.poster,
+            title = movieSchedule.title,
+            date = DateUtil(view.context).getDateRange(movieSchedule.startDate, movieSchedule.endDate),
+            runningTime = view.context.getString(R.string.movie_running_time).format(movieSchedule.runningTime),
+            reservationListener = {
+                val intent = Intent(view.context, MovieReservationActivity::class.java)
+                intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, movieSchedule)
+                startActivity(view.context, intent, null)
+            },
+        )
     }
 }
