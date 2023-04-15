@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationCompletedBinding
-import woowacourse.movie.util.getParcelable
+import woowacourse.movie.util.getParcelableCompat
 import java.text.DecimalFormat
 
 class ReservationCompletedActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class ReservationCompletedActivity : AppCompatActivity() {
         binding = ActivityReservationCompletedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val reservation = intent.getParcelable<ReservationUiModel>(ReservationActivity.RESERVATION)
+        val reservation = intent.getParcelableCompat<ReservationUiModel>(ReservationActivity.RESERVATION)
         requireNotNull(reservation) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         initViewData(reservation)
     }

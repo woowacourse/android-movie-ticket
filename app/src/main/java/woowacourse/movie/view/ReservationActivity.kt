@@ -9,8 +9,8 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningTime
-import woowacourse.movie.util.getParcelable
-import woowacourse.movie.util.serializable
+import woowacourse.movie.util.getParcelableCompat
+import woowacourse.movie.util.getSerializableCompat
 import woowacourse.movie.view.MovieListActivity.Companion.MOVIE_ITEM
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -45,7 +45,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieFromIntent(): MovieUiModel {
-        val movie = intent.getParcelable<MovieUiModel>(MOVIE_ITEM)
+        val movie = intent.getParcelableCompat<MovieUiModel>(MOVIE_ITEM)
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         return movie
     }
@@ -181,10 +181,10 @@ class ReservationActivity : AppCompatActivity() {
         peopleCountSaved = savedInstanceState.getInt(PEOPLE_COUNT)
         timeSpinnerPosition = savedInstanceState.getInt(SELECTED_TIME_POSITION)
 
-        savedInstanceState.serializable<LocalDate>(SELECTED_DATE)?.run {
+        savedInstanceState.getSerializableCompat<LocalDate>(SELECTED_DATE)?.run {
             selectedScreeningDate = this
         }
-        savedInstanceState.serializable<LocalTime>(SELECTED_TIME)?.run {
+        savedInstanceState.getSerializableCompat<LocalTime>(SELECTED_TIME)?.run {
             selectedScreeningTime = this
         }
     }
