@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.Toast
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
 import woowacourse.movie.domain.MovieSchedule
@@ -110,7 +109,7 @@ class MovieDetailActivity : BackButtonActivity() {
 
         var currentCount = binding.tvTicketCount.text.toString().toInt()
 
-        findViewById<Button>(R.id.bt_ticket_count_minus).setOnClickListener {
+        binding.btTicketCountMinus.setOnClickListener {
             if (binding.tvTicketCount.text == "1") {
                 Toast.makeText(this, "1장 이상의 표를 선택해 주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -119,12 +118,12 @@ class MovieDetailActivity : BackButtonActivity() {
             binding.tvTicketCount.text = currentCount.toString()
         }
 
-        findViewById<Button>(R.id.bt_ticket_count_plus).setOnClickListener {
+        binding.btTicketCountPlus.setOnClickListener {
             currentCount++
             binding.tvTicketCount.text = currentCount.toString()
         }
 
-        findViewById<Button>(R.id.bt_book_complete).setOnClickListener {
+        binding.btBookComplete.setOnClickListener {
             val intent = Intent(this, BookCompleteActivity::class.java).apply {
                 putExtra(
                     "movieBookingInfo",
