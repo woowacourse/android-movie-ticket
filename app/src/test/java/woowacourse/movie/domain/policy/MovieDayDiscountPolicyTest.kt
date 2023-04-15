@@ -1,8 +1,7 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.policy
 
 import junit.framework.TestCase
 import org.junit.Test
-import woowacourse.movie.domain.policy.MovieDayDiscountPolicy
 import java.time.LocalDateTime
 
 class MovieDayDiscountPolicyTest {

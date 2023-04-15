@@ -1,9 +1,8 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.screeningschedule
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import woowacourse.movie.domain.movieinfo.RunningDate
-import woowacourse.movie.domain.screeningschedule.ReservationDate
 import java.time.LocalDate
 
 class ReservationDateTest() {
