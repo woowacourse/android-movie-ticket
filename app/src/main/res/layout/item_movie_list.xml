@@ -63,6 +63,7 @@
         android:id="@+id/movie_reservation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
         android:focusable="false"
         android:text="@string/movie_reservation_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
