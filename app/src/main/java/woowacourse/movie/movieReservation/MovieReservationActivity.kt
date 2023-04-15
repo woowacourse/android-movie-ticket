@@ -34,9 +34,8 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
 
         initMovieView()
-
-        registerToolbar()
-        registerListener()
+        initToolbar()
+        initListener()
 
         updateInstanceState(savedInstanceState)
     }
@@ -78,19 +77,19 @@ class MovieReservationActivity : AppCompatActivity() {
         ).bind(this, screening)
     }
 
-    private fun registerToolbar() {
+    private fun initToolbar() {
         val reservationToolbar = findViewById<Toolbar>(R.id.reservation_toolbar)
         setSupportActionBar(reservationToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun registerListener() {
-        registerCountButton()
-        registerReservationButton()
-        registerDateSpinnerListener()
+    private fun initListener() {
+        initCountButton()
+        initReservationButton()
+        initDateSpinnerListener()
     }
 
-    private fun registerCountButton() {
+    private fun initCountButton() {
         val decreaseButton = findViewById<TextView>(R.id.reservation_decrease_ticket_button)
         val increaseButton = findViewById<TextView>(R.id.reservation_increase_ticket_button)
 
@@ -102,7 +101,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerDateSpinnerListener() {
+    private fun initDateSpinnerListener() {
         val dateList = ScreeningDate.getScreeningDate(screening.startDate, screening.endDate)
         dateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
         dateSpinner.onItemSelectedListener = DateSpinnerListener()
@@ -123,7 +122,7 @@ class MovieReservationActivity : AppCompatActivity() {
         timeSpinner.adapter = adapter
     }
 
-    private fun registerReservationButton() {
+    private fun initReservationButton() {
         val reservationButton = findViewById<TextView>(R.id.reservation_complete_button)
         reservationButton.setOnClickListener {
             runCatching { onReservationButtonClicked() }
