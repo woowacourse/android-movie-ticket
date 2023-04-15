@@ -18,7 +18,7 @@ class MovieDetailActivity : BackButtonActivity() {
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         restoreInstanceFlag = true
-        val movieData = intent.getParcelableCompat<Movie>("movieData")
+        val movieData = intent.getParcelableCompat<Movie>(getString(R.string.MOVIE_DATA_INTENT_KEY))
         processEmptyMovieData(movieData)
 
         setViewData(movieData)
@@ -61,7 +61,8 @@ class MovieDetailActivity : BackButtonActivity() {
         savedInstanceState: Bundle?,
     ) {
         if (savedInstanceState != null) {
-            binding.tvTicketCount.text = savedInstanceState.getString("ticketCount")
+            binding.tvTicketCount.text =
+                savedInstanceState.getString(getString(R.string.USER_TICKET_COUNT_BUNDLE_KEY))
         }
     }
 
@@ -93,7 +94,7 @@ class MovieDetailActivity : BackButtonActivity() {
                 if (restoreInstanceFlag && savedInstanceState != null) {
                     binding.spMovieTime.setSelection(
                         (
-                            savedInstanceState.getString("time")
+                            savedInstanceState.getString(getString(R.string.MOVIE_INFO_TIME_BUNDLE_KEY))
                                 ?: movieSchedule.getScheduleTimes(binding.spMovieDate.selectedItem.toString())
                                     .first()
                             ).toInt()
@@ -111,7 +112,7 @@ class MovieDetailActivity : BackButtonActivity() {
         var currentCount = binding.tvTicketCount.text.toString().toInt()
 
         binding.btTicketCountMinus.setOnClickListener {
-            if (binding.tvTicketCount.text == "1") {
+            if (binding.tvTicketCount.text == BASE_TICKET_COUNT_CHARACTER) {
                 Toast.makeText(
                     this,
                     getString(R.string.error_booking_over_one_ticket),
@@ -131,7 +132,7 @@ class MovieDetailActivity : BackButtonActivity() {
         binding.btBookComplete.setOnClickListener {
             val intent = Intent(this, BookCompleteActivity::class.java).apply {
                 putExtra(
-                    "movieBookingInfo",
+                    getString(R.string.MOVIE_BOOKING_INFO_INTENT_KEY),
                     MovieBookingInfo(
                         movieData, binding.spMovieDate.selectedItem.toString(),
                         binding.spMovieTime.selectedItem.toString(),
@@ -145,8 +146,21 @@ class MovieDetailActivity : BackButtonActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("time", binding.spMovieTime.selectedItemPosition.toString())
-        outState.putInt("date", binding.spMovieDate.selectedItemPosition)
-        outState.putString("ticketCount", binding.tvTicketCount.text.toString())
+        outState.putString(
+            getString(R.string.MOVIE_INFO_TIME_BUNDLE_KEY),
+            binding.spMovieTime.selectedItemPosition.toString()
+        )
+        outState.putInt(
+            getString(R.string.MOVIE_INFO_DATE_BUNDLE_KEY),
+            binding.spMovieDate.selectedItemPosition
+        )
+        outState.putString(
+            getString(R.string.USER_TICKET_COUNT_BUNDLE_KEY),
+            binding.tvTicketCount.text.toString()
+        )
+    }
+
+    companion object {
+        private const val BASE_TICKET_COUNT_CHARACTER = "1"
     }
 }

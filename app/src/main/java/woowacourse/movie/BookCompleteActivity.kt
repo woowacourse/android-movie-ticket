@@ -12,7 +12,8 @@ class BookCompleteActivity : BackButtonActivity() {
         binding = ActivityBookCompleteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val movieBookingData = intent.getParcelableCompat<MovieBookingInfo>("movieBookingInfo")
+        val movieBookingData =
+            intent.getParcelableCompat<MovieBookingInfo>(getString(R.string.MOVIE_BOOKING_INFO_INTENT_KEY))
         processEmptyBookingData(movieBookingData)
 
         setViewData(movieBookingData!!)
