@@ -119,7 +119,7 @@ class BookingActivity : AppCompatActivity() {
                 dateSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItemPosition),
                 timeSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItemPosition),
             )
-            val ticket = Ticket(movieId, dateTime, ticketCount.value)
+            val ticket = Ticket(movieId, dateTime, ticketCount.value).toPresentation()
             startActivity(CompletedActivity.getIntent(this, ticket))
         }
     }
