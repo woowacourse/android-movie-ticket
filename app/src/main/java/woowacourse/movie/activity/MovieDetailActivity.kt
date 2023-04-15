@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Payment
 import woowacourse.movie.model.PlayingTimes
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
@@ -134,7 +135,7 @@ class MovieDetailActivity : AppCompatActivity() {
             spinnerTime.selectedItem as LocalTime,
             getCount(),
             Price(),
-            "현장"
+            Payment.ON_SITE
         )
     }
 

@@ -34,7 +34,7 @@ class TicketResultActivity : AppCompatActivity() {
         price.text = Formatter.decimalFormat(info.price.price * info.count)
 
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
-        pricePayment.text = getText(R.string.price_payment).toString().format(info.payment)
+        pricePayment.text = getText(R.string.price_payment).toString().format(info.payment.string)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
