@@ -152,7 +152,7 @@ class BookingActivity : AppCompatActivity() {
                 timeSpinnerAdapter.initItems(times)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
