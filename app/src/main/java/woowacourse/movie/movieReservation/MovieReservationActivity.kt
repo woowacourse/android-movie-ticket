@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import entity.Screening
 import movie.ScreeningDate
 import movie.TicketCount
@@ -96,7 +95,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun registerListener() {
         registerCountButton()
         registerReservationButton()
-        registerSpinnerListener()
+        registerDateSpinnerListener()
     }
 
     private fun registerCountButton() {
@@ -111,27 +110,22 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerSpinnerListener() {
+    private fun registerDateSpinnerListener() {
         val dateList = ScreeningDate.getScreeningDate(screening.reservation.startDate, screening.reservation.endDate)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
-        dateSpinner.adapter = adapter
-
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                updateTimeView(LocalDate.parse(dateList[position]))
-                timeSpinner.setSelection(selectedPosition)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+        dateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
+        dateSpinner.onItemSelectedListener = DateSpinnerListener()
     }
 
-    private fun updateTimeView(date: LocalDate) {
+    inner class DateSpinnerListener : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            initTimeView(LocalDate.parse(dateSpinner.selectedItem.toString()))
+            timeSpinner.setSelection(selectedPosition)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+    }
+
+    private fun initTimeView(date: LocalDate) {
         val timeList = ScreeningDate.getScreeningTime(date)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeList)
         timeSpinner.adapter = adapter
@@ -140,16 +134,19 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun registerReservationButton() {
         val reservationButton = findViewById<TextView>(R.id.reservation_complete_button)
         reservationButton.setOnClickListener {
-            val intent = Intent(this, MovieTicketActivity::class.java)
-
-            runCatching {
-                val movieTicket = screening.reserve(ticketCount, getSelectedDateTime())
-                intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
-                ContextCompat.startActivity(this, intent, null)
-            }.onFailure {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-            }
+            runCatching { onReservationButtonClicked() }
+                .onFailure { Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show() }
         }
+    }
+
+    private fun onReservationButtonClicked() {
+        val movieTicket = screening.reserve(ticketCount, getSelectedDateTime())
+        startActivity(
+            Intent(this, MovieTicketActivity::class.java).apply {
+                putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
+            },
+            null,
+        )
     }
 
     private fun getSelectedDateTime(): LocalDateTime = LocalDateTime.of(
