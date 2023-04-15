@@ -6,7 +6,7 @@ import android.widget.TextView
 import entity.Screening
 import woowacourse.movie.R
 
-class MovieReservationContents(
+class MovieReservationView(
     private val posterView: ImageView,
     private val titleView: TextView,
     private val releaseDataView: TextView,

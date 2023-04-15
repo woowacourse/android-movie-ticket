@@ -68,7 +68,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
-        MovieReservationContents(
+        MovieReservationView(
             posterView = findViewById(R.id.reservation_movie_poster),
             titleView = findViewById(R.id.reservation_movie_title),
             releaseDataView = findViewById(R.id.reservation_movie_release_date),

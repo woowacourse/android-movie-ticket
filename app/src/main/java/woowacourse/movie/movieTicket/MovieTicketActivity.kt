@@ -2,12 +2,10 @@ package woowacourse.movie.movieTicket
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import entity.MovieTicket
 import woowacourse.movie.R
-import java.text.DecimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
     private val ticket by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as? MovieTicket ?: throw IllegalArgumentException() }
@@ -15,8 +13,7 @@ class MovieTicketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
 
-        registerToolbar()
-
+        initToolbar()
         initTicketView()
     }
 
@@ -30,26 +27,22 @@ class MovieTicketActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerToolbar() {
+    private fun initToolbar() {
         val reservationToolbar = findViewById<Toolbar>(R.id.ticket_toolbar)
         setSupportActionBar(reservationToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initTicketView() {
-        val ticketTitleView = findViewById<TextView>(R.id.ticket_movie_title)
-        val ticketCountView = findViewById<TextView>(R.id.ticket_total_ticket_count)
-        val ticketMovieReleaseDateView = findViewById<TextView>(R.id.ticket_release_date)
-        val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
-
-        ticketTitleView.text = ticket.title
-        ticketMovieReleaseDateView.text = ticket.getReserveDate()
-        ticketCountView.text = getString(R.string.movie_ticket_count).format(ticket.size)
-        ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.getTotalPrice()))
+        MovieTicketView(
+            titleView = findViewById(R.id.ticket_movie_title),
+            countView = findViewById(R.id.ticket_total_ticket_count),
+            releaseDateView = findViewById(R.id.ticket_release_date),
+            totalPriceView = findViewById(R.id.ticket_total_price),
+        ).bind(this, ticket)
     }
 
     companion object {
-        private val decimalFormat = DecimalFormat("#,###")
         const val KEY_MOVIE_TICKET = "movieTicket"
     }
 }
