@@ -1,10 +1,14 @@
 package woowacourse.movie.domain
 
+import junitparams.JUnitParamsRunner
+import junitparams.Parameters
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
 import woowacourse.movie.domain.model.movie.MovieTime
 import java.time.LocalTime
 
+@RunWith(JUnitParamsRunner::class)
 class MovieTimeTest {
     @Test
     fun `주말 영화 상영시간은 오전 9시부터 자정까지 두 시간 간격이다`() {
@@ -36,5 +40,35 @@ class MovieTimeTest {
         val actual = movieTimes.map { it.hour * 60 + it.min }
         val expected = (11 until 24 step 2).map { it * 60 }
         assertEquals(actual, expected)
+    }
+
+    @Test
+    @Parameters(
+        "10, 0",
+        "20, 0",
+    )
+    internal fun `11시 이전이고, 20시 이후이면 할인 시간이다`(hour: Int, min: Int) {
+        val movieTime = MovieTime(hour, min)
+        val actual = movieTime.isDiscountable()
+        assertEquals(actual, true)
+    }
+
+    @Test
+    @Parameters(
+        "11, 1",
+        "19, 59",
+    )
+    internal fun `11시 이후이고, 20시 이전이면 할인 시간이 아니다`(hour: Int, min: Int) {
+        val movieTime = MovieTime(hour, min)
+        val actual = movieTime.isDiscountable()
+        assertEquals(actual, false)
+    }
+
+    @Test
+    internal fun `더 오래된 시간을 반환한다`() {
+        val prevMovieTime = MovieTime(10, 0)
+        val nextMovieTime = MovieTime(11, 0)
+        val actual = nextMovieTime > prevMovieTime
+        assertEquals(actual, true)
     }
 }
