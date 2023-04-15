@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import movie.Cinema
-import movie.MovieSchedule
+import movie.Screening
 
 class MovieListAdapter(
     private val Cinema: Cinema,
@@ -13,7 +13,7 @@ class MovieListAdapter(
         return Cinema.size
     }
 
-    override fun getItem(position: Int): MovieSchedule {
+    override fun getItem(position: Int): Screening {
         return Cinema[position]
     }
 

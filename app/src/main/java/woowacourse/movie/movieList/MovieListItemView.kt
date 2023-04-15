@@ -4,16 +4,16 @@ import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
-import movie.MovieSchedule
+import movie.Screening
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.MovieReservationActivity
 import woowacourse.movie.utils.DateUtil
 
 object MovieListItemView {
-    fun getView(movieSchedule: MovieSchedule, convertView: View?, parent: ViewGroup?): View {
+    fun getView(screening: Screening, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: initMovieListItemView(parent)
         view.tag = view.tag ?: initViewHolder(view)
-        bindViewHolder(view, movieSchedule)
+        bindViewHolder(view, screening)
         return view
     }
 
@@ -31,17 +31,17 @@ object MovieListItemView {
         reservationButton = view.findViewById(R.id.movie_reservation_button),
     )
 
-    private fun bindViewHolder(view: View, movieSchedule: MovieSchedule) {
+    private fun bindViewHolder(view: View, screening: Screening) {
         val viewHolder = (view.tag) as MovieListViewHolder
 
         viewHolder.bind(
-            posterResource = movieSchedule.poster,
-            title = movieSchedule.title,
-            date = DateUtil(view.context).getDateRange(movieSchedule.startDate, movieSchedule.endDate),
-            runningTime = view.context.getString(R.string.movie_running_time).format(movieSchedule.runningTime),
+            posterResource = screening.poster,
+            title = screening.title,
+            date = DateUtil(view.context).getDateRange(screening.startDate, screening.endDate),
+            runningTime = view.context.getString(R.string.movie_running_time).format(screening.runningTime),
             reservationListener = {
                 val intent = Intent(view.context, MovieReservationActivity::class.java)
-                intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, movieSchedule)
+                intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, screening)
                 startActivity(view.context, intent, null)
             },
         )

@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 
-class MovieSchedule(
+class Screening(
     private val movie: Movie,
     private val screeningDate: ScreeningDate,
 ) : Serializable {

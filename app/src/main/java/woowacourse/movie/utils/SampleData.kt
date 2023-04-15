@@ -2,7 +2,7 @@ package woowacourse.movie.utils
 
 import movie.Cinema
 import movie.Movie
-import movie.MovieSchedule
+import movie.Screening
 import movie.ScreeningDate
 import woowacourse.movie.R
 import java.time.LocalDate
@@ -10,7 +10,7 @@ import java.time.LocalDate
 object SampleData {
     val CINEMA_SAMPLE: Cinema = Cinema(
         listOf(
-            MovieSchedule(
+            Screening(
                 movie = Movie(
                     title = "해리 포터와 마법사의 돌",
                     runningTime = 152,
@@ -24,7 +24,7 @@ object SampleData {
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
             ),
-            MovieSchedule(
+            Screening(
                 movie = Movie(
                     title = "해리 포터와 비밀의 방",
                     runningTime = 112,
@@ -42,6 +42,6 @@ object SampleData {
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
             ),
-        ),
+        ).flatMap { a -> (0..100).map { a } },
     )
 }
