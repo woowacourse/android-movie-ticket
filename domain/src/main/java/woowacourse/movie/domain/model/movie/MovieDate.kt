@@ -28,10 +28,8 @@ data class MovieDate(
     companion object {
         private val DISCOUNT_DAYS = listOf(10, 20, 30)
 
-        private infix fun LocalDate.max(other: LocalDate): LocalDate {
-            if (this > other) return this
-            return other
-        }
+        private infix fun LocalDate.max(other: LocalDate): LocalDate =
+            if (this > other) this else other
 
         @JvmOverloads
         fun releaseDates(
