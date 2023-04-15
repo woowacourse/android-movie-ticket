@@ -1,16 +1,17 @@
-package woowacourse.movie.movieList
+package woowacourse.movie.movieList.movieListItem
 
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.ContextCompat
 import movie.Screening
 import woowacourse.movie.R
+import woowacourse.movie.movieList.MovieListViewHolder
 import woowacourse.movie.movieReservation.MovieReservationActivity
 import woowacourse.movie.utils.DateUtil
 
-object MovieListItemView {
-    fun getView(screening: Screening, convertView: View?, parent: ViewGroup?): View {
+object ScreeningItem : MovieListItem {
+    override fun getView(screening: Screening, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: initMovieListItemView(parent)
         view.tag = view.tag ?: initViewHolder(view)
         bindViewHolder(view, screening)
@@ -42,7 +43,7 @@ object MovieListItemView {
             reservationListener = {
                 val intent = Intent(view.context, MovieReservationActivity::class.java)
                 intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, screening)
-                startActivity(view.context, intent, null)
+                ContextCompat.startActivity(view.context, intent, null)
             },
         )
     }

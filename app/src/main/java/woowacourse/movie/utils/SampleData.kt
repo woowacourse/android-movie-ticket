@@ -1,6 +1,5 @@
 package woowacourse.movie.utils
 
-import movie.Cinema
 import movie.Movie
 import movie.Screening
 import movie.ScreeningDate
@@ -8,7 +7,7 @@ import woowacourse.movie.R
 import java.time.LocalDate
 
 object SampleData {
-    val CINEMA_SAMPLE: Cinema = Cinema(
+    val CINEMA_SAMPLE =
         listOf(
             Screening(
                 movie = Movie(
@@ -42,6 +41,5 @@ object SampleData {
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
             ),
-        ).flatMap { a -> (0..100).map { a } },
-    )
+        ).flatMap { a -> (0..100).map { a } }
 }
