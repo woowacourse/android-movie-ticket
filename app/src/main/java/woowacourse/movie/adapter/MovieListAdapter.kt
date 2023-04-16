@@ -14,7 +14,7 @@ import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.formatter.DateFormatter
 
-class MovieListAdapter(private val context: Context, private val movies: List<Movie>) :
+class MovieListAdapter(private val movies: List<Movie>) :
     BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
@@ -31,11 +31,12 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View
         val viewHolder: ViewHolder
+        require(parent != null) { VIEW_GROUP_NULL_ERROR }
         // parent에는 ListView
         // convertView에는 LinearLayout, 즉 item view 들어있음
         if (convertView == null) {
             // convertView 가 null 이면 holder 객체를 생성하고, 생성한 holder 객체에 inflating한 뷰의 참조값 저장
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, null)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, null)
             viewHolder = getViewHolder(view)
             // view의 태그에 holder 객체를 저장
             view.tag = viewHolder
@@ -45,7 +46,7 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
-        setViewHolder(viewHolder, movies[position])
+        setViewHolder(parent.context, viewHolder, movies[position])
         return view
     }
 
@@ -59,7 +60,7 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
         return ViewHolder(image, title, playingDate, runningTime, ticketingButton)
     }
 
-    private fun setViewHolder(holder: ViewHolder, movie: Movie) {
+    private fun setViewHolder(context: Context, holder: ViewHolder, movie: Movie) {
         holder.image.setImageResource(movie.image)
         holder.title.text = movie.title
         holder.playingDate.text = context.getString(
@@ -84,5 +85,6 @@ class MovieListAdapter(private val context: Context, private val movies: List<Mo
 
     companion object {
         private const val MOVIE_KEY = "movie"
+        private const val VIEW_GROUP_NULL_ERROR = "ViewGroup이 null 입니다."
     }
 }
