@@ -93,7 +93,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val minusBtn = findViewById<Button>(R.id.minus_button)
 
         minusBtn.setOnClickListener {
-            movieTikcet.decrease()
+            movieTikcet = movieTikcet.decrease()
             booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
@@ -102,7 +102,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val plusBtn = findViewById<Button>(R.id.plus_button)
 
         plusBtn.setOnClickListener {
-            movieTikcet.increase()
+            movieTikcet = movieTikcet.increase()
             booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
@@ -184,7 +184,6 @@ class MovieDetailActivity : AppCompatActivity() {
         private const val MOVIE_KEY = "movie"
         private const val DATE_KEY = "movie_date"
         private const val TIME_KEY = "movie_time"
-        private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
     }
