@@ -39,10 +39,7 @@ class MovieDetailActivity : BackButtonActivity() {
         reloadTicketCountInstance(savedInstanceState)
     }
 
-    private fun setSpinnerAdapter(
-        scheduleDate: List<String>,
-        movieSchedule: MovieSchedule
-    ) {
+    private fun setSpinnerAdapter(scheduleDate: List<String>, movieSchedule: MovieSchedule) {
         dateSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -51,7 +48,7 @@ class MovieDetailActivity : BackButtonActivity() {
         timeSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            movieSchedule.getScheduleTimes(scheduleDate[0])
+            movieSchedule.getScheduleTimes(scheduleDate.first())
         )
     }
 
@@ -63,11 +60,9 @@ class MovieDetailActivity : BackButtonActivity() {
         findViewById<TextView>(R.id.tv_movie_synopsis).text = movieData.synopsis
     }
 
-    private fun reloadTicketCountInstance(
-        savedInstanceState: Bundle?,
-    ) {
+    private fun reloadTicketCountInstance(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            personCountTextView.text = savedInstanceState.getString("ticketCount")
+            personCountTextView.text = savedInstanceState.getString(TICKET_COUNT_KEY)
         }
     }
 
@@ -98,7 +93,7 @@ class MovieDetailActivity : BackButtonActivity() {
                 if (isFirst && savedInstanceState != null) {
                     timeSpinner.setSelection(
                         (
-                            savedInstanceState.getString("time")
+                            savedInstanceState.getString(TIME_KEY)
                                 ?: movieSchedule.getScheduleTimes(dateSpinner.selectedItem.toString())
                                     .first()
                             ).toInt()
@@ -116,8 +111,8 @@ class MovieDetailActivity : BackButtonActivity() {
         var currentCount = personCountTextView.text.toString().toInt()
 
         findViewById<Button>(R.id.bt_ticket_count_minus).setOnClickListener {
-            if (personCountTextView.text == "1") {
-                Toast.makeText(this, "1장 이상의 표를 선택해 주세요.", Toast.LENGTH_SHORT).show()
+            if (personCountTextView.text == MIN_TICKET) {
+                Toast.makeText(this, getString(R.string.cant_lower_one), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             currentCount--
@@ -132,7 +127,7 @@ class MovieDetailActivity : BackButtonActivity() {
         findViewById<Button>(R.id.bt_book_complete).setOnClickListener {
             val intent = Intent(this, BookCompleteActivity::class.java)
             intent.putExtra(
-                "movieBookingInfo",
+                MOVIE_BOOKING_INFO_KEY,
                 MovieBookingInfo(
                     movieData, dateSpinner.selectedItem.toString(),
                     timeSpinner.selectedItem.toString(),
@@ -145,8 +140,16 @@ class MovieDetailActivity : BackButtonActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("time", timeSpinner.selectedItemPosition.toString())
-        outState.putInt("date", dateSpinner.selectedItemPosition)
-        outState.putString("ticketCount", personCountTextView.text.toString())
+        outState.putString(TIME_KEY, timeSpinner.selectedItemPosition.toString())
+        outState.putInt(DATE_KEY, dateSpinner.selectedItemPosition)
+        outState.putString(TICKET_COUNT_KEY, personCountTextView.text.toString())
+    }
+
+    companion object {
+        const val MOVIE_BOOKING_INFO_KEY = "movieBookingInfo"
+        private const val TICKET_COUNT_KEY = "ticketCount"
+        private const val DATE_KEY = "date"
+        private const val TIME_KEY = "time"
+        private const val MIN_TICKET = "1"
     }
 }
