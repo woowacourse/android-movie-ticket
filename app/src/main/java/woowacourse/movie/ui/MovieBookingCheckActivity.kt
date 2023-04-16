@@ -1,20 +1,18 @@
 package woowacourse.movie.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
-import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.DiscountPolicy
 import woowacourse.movie.domain.price.EarlyMorningLateNightDiscount
 import woowacourse.movie.domain.price.MovieDayDiscount
 import woowacourse.movie.domain.price.PricePolicyCalculator
 import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
 import woowacourse.movie.util.customGetParcelableExtra
-import java.time.LocalDate
-import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
@@ -32,24 +30,15 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetParcelableExtra<MovieData>("movieData") ?: run {
-            finish()
-            MovieData(
-                R.drawable.img_error,
-                "-1",
-                ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31")),
-                -1
-            )
-        }
+        movieData = intent.customGetParcelableExtra<MovieData>("movieData", ::finishActivity) ?: return
         ticketCount = intent.getIntExtra("ticketCount", -1)
         bookedScreeningDateTime =
-            intent.customGetParcelableExtra("bookedScreeningDateTime") ?: run {
-                finish()
-                ScreeningDateTime(
-                    LocalDateTime.parse("9999-12-30T00:00"),
-                    ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31"))
-                )
-            }
+            intent.customGetParcelableExtra("bookedScreeningDateTime", ::finishActivity) ?: return
+    }
+
+    private fun finishActivity(key: String) {
+        Log.d("MovieBookingCheck", "${key}를 찾을 수 없습니다.")
+        finish()
     }
 
     private fun initMovieInformation() {
