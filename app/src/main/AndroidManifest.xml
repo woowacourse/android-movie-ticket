@@ -15,13 +15,13 @@
             android:name=".SeatPickerActivity"
             android:exported="false" />
         <activity
-            android:name=".view.book_complete.BookCompleteActivity"
+            android:name=".presentation.view.book_complete.BookCompleteActivity"
             android:exported="false" />
         <activity
-            android:name=".view.movie_detail.MovieDetailActivity"
+            android:name=".presentation.view.movie_detail.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".presentation.view.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package woowacourse.movie.view.seat_pick
+package woowacourse.movie.presentation.view.seat_pick
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
