@@ -17,7 +17,7 @@ class MovieListViewHolder(binding: ItemMovieListBinding) {
         tvMovieRunningTime.text = movie.runningTime
         btBookNow.setOnClickListener {
             val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(context.getString(R.string.MOVIE_DATA_INTENT_KEY), movie)
+            intent.putExtra(MovieDetailActivity.MOVIE_DATA_INTENT_KEY, movie)
             context.startActivity(intent)
         }
     }
