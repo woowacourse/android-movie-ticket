@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.model.MovieRes
 import woowacourse.movie.ui.reservation.MovieDetailActivity
 
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     private val movieListView: ListView by lazy { findViewById(R.id.listView) }
     private val adapter: MovieAdapter by lazy {
         MovieAdapter(
-            MovieRes.allMovies(),
+            MovieRepositoryImpl.allMovies(),
             object : MovieAdapter.ReservationClickListener {
                 override fun onClick(position: Int) {
                     navigateMovieDetail(adapter.movie[position])
