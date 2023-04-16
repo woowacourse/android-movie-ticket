@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.ui.DateTimeFormatters.hyphenDateFormatter
@@ -68,4 +71,12 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
     companion object {
         private const val NULL_ITEM_LAYOUT_ERROR = "itemLayout이 null 값으로 반환되었습니다."
     }
+
+    private class MovieViewHolder(
+        val ivPoster: ImageView,
+        val tvMovieName: TextView,
+        val tvScreeningDay: TextView,
+        val tvRunningTime: TextView,
+        val btnBooking: Button
+    )
 }
