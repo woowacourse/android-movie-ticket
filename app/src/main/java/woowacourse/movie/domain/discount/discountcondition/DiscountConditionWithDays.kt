@@ -16,5 +16,4 @@ class DiscountConditionWithDays(private val days: List<Int>) : DateTimeDiscountC
         const val MIN_DAY = 1
         const val MAX_DAY = 31
     }
-
 }
