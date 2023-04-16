@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.formatScreenDateTime
 import woowacourse.movie.presentation.model.TicketModel
 
@@ -18,18 +17,18 @@ class CompletedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_completed)
 
-        val ticket: Ticket = getTicket()
+        val ticket: TicketModel = getTicket()
         initView(ticket)
     }
 
-    private fun getTicket(): Ticket {
+    private fun getTicket(): TicketModel {
         val ticketModel: TicketModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(TICKET, TicketModel::class.java)
                 ?: throw IllegalArgumentException()
         } else {
             intent.getParcelableExtra(TICKET) ?: throw IllegalArgumentException()
         }
-        return ticketModel.toTicket()
+        return ticketModel
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -40,7 +39,7 @@ class CompletedActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initView(ticket: Ticket) {
+    private fun initView(ticket: TicketModel) {
         val movie = MovieData.findMovieById(ticket.movieId)
         findViewById<TextView>(R.id.textCompletedTitle).text = movie.title
         findViewById<TextView>(R.id.textCompletedScreeningDate).text =
@@ -48,7 +47,7 @@ class CompletedActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
             getString(R.string.normal_ticket_count).format(ticket.count)
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount).format(ticket.getPaymentMoney())
+            getString(R.string.payment_amount).format(ticket.paymentMoney)
     }
 
     companion object {
