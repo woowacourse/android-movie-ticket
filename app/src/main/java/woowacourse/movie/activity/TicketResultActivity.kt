@@ -5,10 +5,10 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Payment
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.util.Formatter
+import woowacourse.movie.model.*
+import woowacourse.movie.model.formatter.DateFormatter
+import woowacourse.movie.model.formatter.DecimalFormatter
+import woowacourse.movie.model.formatter.TimeFormatter
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -40,8 +40,8 @@ class TicketResultActivity : AppCompatActivity() {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
         playingDateView.text = getString(
             R.string.date_time,
-            Formatter.dateFormat(playingDate),
-            Formatter.timeFormat(playingTime)
+            DateFormatter.format(playingDate),
+            TimeFormatter.format(playingTime)
         )
     }
 
@@ -52,7 +52,7 @@ class TicketResultActivity : AppCompatActivity() {
 
     private fun initPrice(price: Price, count: Int) {
         val priceView = findViewById<TextView>(R.id.text_price)
-        priceView.text = Formatter.decimalFormat(price.price * count)
+        priceView.text = DecimalFormatter.format(price.price * count)
     }
 
     private fun initPricePayment(payment: Payment) {

@@ -24,5 +24,6 @@ class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) : java.io.S
         }
     }
 
-    private fun isWeekends(dayOfWeek: DayOfWeek): Boolean = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
+    private fun isWeekends(dayOfWeek: DayOfWeek): Boolean =
+        dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
 }

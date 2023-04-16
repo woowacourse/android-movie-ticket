@@ -12,12 +12,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Payment
-import woowacourse.movie.model.PlayingTimes
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.util.Formatter
+import woowacourse.movie.model.*
+import woowacourse.movie.model.formatter.DateFormatter
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -87,8 +83,8 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initPlayingDate(times: PlayingTimes) {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
         playingDateView.text = getString(
-            R.string.playing_time, Formatter.dateFormat(times.startDate),
-            Formatter.dateFormat(times.endDate)
+            R.string.playing_time, DateFormatter.format(times.startDate),
+            DateFormatter.format(times.endDate)
         )
     }
 
