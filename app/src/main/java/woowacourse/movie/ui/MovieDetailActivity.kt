@@ -18,18 +18,18 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
-import woowacourse.movie.domain.Time
 import woowacourse.movie.domain.TimesGenerator
 import java.io.Serializable
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
     private var peopleCount = PeopleCount()
     private lateinit var dateSpinner: Spinner
     private lateinit var timeSpinner: Spinner
-    private lateinit var timeSpinnerAdapter: ArrayAdapter<Time>
-    private val times = mutableListOf<Time>()
+    private lateinit var timeSpinnerAdapter: ArrayAdapter<LocalTime>
+    private val times = mutableListOf<LocalTime>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -168,7 +168,7 @@ class MovieDetailActivity : AppCompatActivity() {
             movie.title,
             TicketTime(
                 dateSpinner.selectedItem as LocalDate,
-                timeSpinner.selectedItem as Time
+                timeSpinner.selectedItem as LocalTime
             ),
             peopleCount
         )

@@ -2,10 +2,11 @@ package woowacourse.movie.domain
 
 import java.io.Serializable
 import java.time.LocalDate
+import java.time.LocalTime
 
 class TicketTime(
     val date: LocalDate,
-    val time: Time
+    val time: LocalTime
 ) : Serializable {
     fun isMovieDay(): Boolean = date.dayOfMonth in MOVIE_DAYS
 
