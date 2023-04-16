@@ -1,18 +1,29 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Price
+import woowacourse.movie.domain.ReservationDetail
+import woowacourse.movie.domain.discountPolicy.Discount
+import woowacourse.movie.domain.discountPolicy.MovieDay
+import woowacourse.movie.domain.discountPolicy.OffTime
 import woowacourse.movie.getSerializable
-import woowacourse.movie.view.Counter
-import woowacourse.movie.view.DateSpinner
-import woowacourse.movie.view.MovieController
-import woowacourse.movie.view.ReservationButton
-import woowacourse.movie.view.SaveStateCounter
-import woowacourse.movie.view.SaveStateSpinner
-import woowacourse.movie.view.TimeSpinner
+import woowacourse.movie.view.MovieView
+import woowacourse.movie.view.Reservation
+import woowacourse.movie.view.mapper.ReservationDetailMapper.toView
+import woowacourse.movie.view.widget.Counter
+import woowacourse.movie.view.widget.DateSpinner
+import woowacourse.movie.view.widget.LocalFormattedDate
+import woowacourse.movie.view.widget.LocalFormattedTime
+import woowacourse.movie.view.widget.MovieController
+import woowacourse.movie.view.widget.SaveStateCounter
+import woowacourse.movie.view.widget.SaveStateSpinner
+import woowacourse.movie.view.widget.TimeSpinner
+import java.time.LocalDateTime
 
 class MovieReservationActivity : AppCompatActivity() {
     private val counter: SaveStateCounter by lazy {
@@ -50,7 +61,7 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = intent.extras?.getSerializable<Movie>(getString(R.string.movie_extra_name))
+        val movie = intent.extras?.getSerializable<MovieView>(MovieView.MOVIE_EXTRA_NAME)
 
         counter.applyToView()
 
@@ -72,17 +83,39 @@ class MovieReservationActivity : AppCompatActivity() {
                 description = findViewById(R.id.movie_reservation_description)
             ).render()
 
-            ReservationButton(
-                button = findViewById(R.id.movie_reservation_button),
-                extraName = getString(R.string.reservation_extra_name),
-                movie = movie,
-                dateSpinner = dateSpinner,
-                timeSpinner = timeSpinner,
-                counter = counter.counter
-            )
+            findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
+                val reservationDetail = makeReservationDetail(dateSpinner, timeSpinner, counter.counter)
+                val reservation = makeReservation(movie, reservationDetail)
+                startReservationResultActivity(reservation, Reservation.RESERVATION_EXTRA_NAME)
+            }
         }
     }
 
+    private fun makeReservationDetail(
+        dateSpinner: DateSpinner,
+        timeSpinner: TimeSpinner,
+        counter: Counter
+    ): ReservationDetail {
+        return ReservationDetail(
+            LocalDateTime.of(
+                (dateSpinner.spinner.spinner.selectedItem as LocalFormattedDate).date,
+                (timeSpinner.spinner.spinner.selectedItem as LocalFormattedTime).time
+            ),
+            counter.count, Price()
+        )
+    }
+
+    private fun makeReservation(movie: MovieView, reservationDetail: ReservationDetail): Reservation {
+        val discount = Discount(listOf(MovieDay, OffTime))
+        val discountedReservationDetail = discount.calculate(reservationDetail).toView()
+        return Reservation(movie, discountedReservationDetail)
+    }
+
+    private fun startReservationResultActivity(reservation: Reservation, extraName: String) {
+        val intent = Intent(this, ReservationResultActivity::class.java)
+        intent.putExtra(extraName, reservation)
+        startActivity(intent)
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 

@@ -1,8 +1,6 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
-
-class Price(val value: Int = DEFAULT_PRICE) : Serializable {
+class Price(val value: Int = DEFAULT_PRICE) {
     companion object {
         private const val DEFAULT_PRICE = 13000
     }

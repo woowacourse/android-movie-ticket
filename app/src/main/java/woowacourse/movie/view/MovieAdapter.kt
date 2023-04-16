@@ -9,8 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import woowacourse.movie.R
 import woowacourse.movie.activity.MovieReservationActivity
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movies
+import woowacourse.movie.view.widget.MovieController
 
 class MovieAdapter(private val context: Context, private val movies: Movies) : BaseAdapter() {
     override fun getCount(): Int = movies.value.size
@@ -35,9 +34,9 @@ class MovieAdapter(private val context: Context, private val movies: Movies) : B
         return view
     }
 
-    private fun reserveMovie(movie: Movie) {
+    private fun reserveMovie(movie: MovieView) {
         val intent = Intent(context, MovieReservationActivity::class.java)
-        intent.putExtra(context.getString(R.string.movie_extra_name), movie)
+        intent.putExtra(MovieView.MOVIE_EXTRA_NAME, movie)
         context.startActivity(intent)
     }
 }

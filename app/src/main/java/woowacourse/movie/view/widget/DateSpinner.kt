@@ -1,14 +1,14 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.widget
 
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.MovieView
 
 class DateSpinner(val spinner: SaveStateSpinner) {
     fun make(
         savedInstanceState: Bundle?,
-        movie: Movie,
+        movie: MovieView,
         timeSpinner: TimeSpinner
     ) {
         val dates = movie.date.toList().map { LocalFormattedDate(it) }

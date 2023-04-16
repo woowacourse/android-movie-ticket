@@ -1,13 +1,13 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.widget
 
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.MovieView
 import java.time.format.DateTimeFormatter
 
 class MovieController(
-    private val movie: Movie,
+    private val movie: MovieView,
     private val poster: ImageView? = null,
     private val title: TextView? = null,
     private val date: TextView? = null,
@@ -15,7 +15,7 @@ class MovieController(
     private val description: TextView? = null
 ) {
     fun render() {
-        poster?.setImageResource(movie.picture)
+        poster?.setImageResource(movie.poster.resource)
         title?.text = movie.title
 
         if (date != null) {

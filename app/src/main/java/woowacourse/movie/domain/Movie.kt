@@ -1,11 +1,9 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
-
 data class Movie(
-    val picture: Int,
+    val poster: Image,
     val title: String,
     val date: DateRange,
     val runningTime: Int,
     val description: String,
-) : Serializable
+)
