@@ -8,23 +8,23 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieRes
+import woowacourse.movie.model.MovieState
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    movie: List<MovieRes>,
+    movie: List<MovieState>,
     var clickListener: ReservationClickListener? = null
 ) : BaseAdapter() {
 
-    private val _movie: List<MovieRes> = movie.toList()
-    val movie: List<MovieRes>
+    private val _movie: List<MovieState> = movie.toList()
+    val movie: List<MovieState>
         get() = _movie.toList()
 
     override fun getCount(): Int {
         return _movie.size
     }
 
-    override fun getItem(position: Int): MovieRes {
+    override fun getItem(position: Int): MovieState {
         return _movie[position]
     }
 

@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
 @Parcelize
-data class MovieRes(
+data class MovieState(
     @DrawableRes
     val imgId: Int,
     val title: String,

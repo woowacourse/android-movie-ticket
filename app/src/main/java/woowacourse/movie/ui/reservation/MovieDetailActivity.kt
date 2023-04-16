@@ -13,8 +13,8 @@ import com.example.domain.dateTime.RunningDate
 import com.example.domain.dateTime.RunningTime
 import com.example.domain.model.Count
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieRes
-import woowacourse.movie.model.ReservationRes
+import woowacourse.movie.model.MovieState
+import woowacourse.movie.model.ReservationState
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.Toaster
 import woowacourse.movie.ui.confirm.ReservationConfirmActivity
@@ -44,7 +44,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val runningTime: RunningTime = RunningTime()
     private lateinit var selectDate: LocalDate
     private lateinit var selectTime: LocalTime
-    private lateinit var movie: MovieRes
+    private lateinit var movie: MovieState
     private val runningDates: List<LocalDate> by lazy {
         runningDate.getRunningDates(
             movie.startDate,
@@ -99,7 +99,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     private fun navigateReservationConfirm() {
         val intent = Intent(this, ReservationConfirmActivity::class.java)
-        val reservationRes = ReservationRes.from(movie, LocalDateTime.of(selectDate, selectTime), count)
+        val reservationRes = ReservationState.from(movie, LocalDateTime.of(selectDate, selectTime), count)
         intent.putExtra(KEY_RESERVATION, reservationRes)
         startActivity(intent)
     }

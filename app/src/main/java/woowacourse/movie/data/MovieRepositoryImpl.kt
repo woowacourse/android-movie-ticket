@@ -1,14 +1,14 @@
 package woowacourse.movie.data
 
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieRes
+import woowacourse.movie.model.MovieState
 import java.time.LocalDate
 
 object MovieRepositoryImpl {
-    fun allMovies(): List<MovieRes> = movies.toList()
+    fun allMovies(): List<MovieState> = movies.toList()
 
-    private val movies: List<MovieRes> = List(25) {
-        MovieRes(
+    private val movies: List<MovieState> = List(25) {
+        MovieState(
             R.drawable.slamdunk,
             "더 퍼스트 슬램덩크 $it",
             LocalDate.of(2023, 1, 4),

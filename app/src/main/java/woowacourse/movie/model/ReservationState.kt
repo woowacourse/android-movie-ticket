@@ -6,23 +6,23 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class ReservationRes private constructor(
-    private val movieRes: MovieRes,
+data class ReservationState private constructor(
+    private val movieRes: MovieState,
     private val dateTime: LocalDateTime,
     private val count: Int
 ) : Parcelable {
 
-    fun getInfo(): Triple<MovieRes, LocalDateTime, Count> {
+    fun getInfo(): Triple<MovieState, LocalDateTime, Count> {
         return Triple(movieRes, dateTime, Count(count))
     }
 
     companion object {
         fun from(
-            movieRes: MovieRes,
+            movieRes: MovieState,
             dateTime: LocalDateTime,
             count: Count
-        ): ReservationRes {
-            return ReservationRes(movieRes, dateTime, count.value)
+        ): ReservationState {
+            return ReservationState(movieRes, dateTime, count.value)
         }
     }
 }

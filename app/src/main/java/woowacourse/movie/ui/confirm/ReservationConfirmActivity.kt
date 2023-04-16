@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.example.domain.discountPolicy.DiscountPolicy
 import com.example.domain.model.Reservation
 import woowacourse.movie.R
-import woowacourse.movie.model.ReservationRes
+import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_RESERVATION
@@ -24,13 +24,13 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
         val reservationRes =
-            intent.customGetParcelableExtra<ReservationRes>(KEY_RESERVATION, ::keyNoExistError)
+            intent.customGetParcelableExtra<ReservationState>(KEY_RESERVATION, ::keyNoExistError)
                 ?: return
         setInitReservationData(reservationRes)
     }
 
     private fun setInitReservationData(
-        reservationRes: ReservationRes
+        reservationRes: ReservationState
     ) {
         val reservation = reservationRes.asDomain()
         titleTextView.text = reservation.movie.title

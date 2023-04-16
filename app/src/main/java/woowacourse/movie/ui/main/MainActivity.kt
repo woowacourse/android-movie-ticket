@@ -6,7 +6,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryImpl
-import woowacourse.movie.model.MovieRes
+import woowacourse.movie.model.MovieState
 import woowacourse.movie.ui.reservation.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         movieListView.adapter = adapter
     }
 
-    private fun navigateMovieDetail(movie: MovieRes) {
+    private fun navigateMovieDetail(movie: MovieState) {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra(KEY_MOVIE, movie)
         startActivity(intent)
