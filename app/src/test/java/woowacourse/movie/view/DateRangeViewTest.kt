@@ -1,17 +1,17 @@
-package woowacourse.movie.domain
+package woowacourse.movie.view
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 
-class DateRangeTest {
+class DateRangeViewTest {
 
     @Test
     fun `1월 3일부터 1월 7일 까지의 List를 생성한다`() {
         // given
         val startDate = LocalDate.of(2023, 1, 3)
         val endDate = LocalDate.of(2023, 1, 7)
-        val dateRange = DateRange(startDate, endDate)
+        val dateRange = DateRangeView(startDate, endDate)
 
         // when
         val dates = dateRange.toList()

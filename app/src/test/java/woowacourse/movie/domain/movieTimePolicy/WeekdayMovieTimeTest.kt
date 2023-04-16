@@ -32,6 +32,6 @@ class WeekdayMovieTimeTest {
         // when
         val actual = WeekdayMovieTime.generateTime(date)
         // then
-        assertEquals(actual, null)
+        assertEquals(actual, listOf<LocalTime>())
     }
 }
