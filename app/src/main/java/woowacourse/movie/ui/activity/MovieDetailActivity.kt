@@ -86,11 +86,11 @@ class MovieDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.detail_description).text = movie.description
     }
 
-    private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
+    private fun Movie.getScreenDate(): String = getString(R.string.screen_date, startDate.format(), endDate.format())
 
-    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
-    private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
+    private fun Movie.getRunningTime(): String = getString(R.string.running_time, runningTime)
 
     private fun setDateSpinner(movie: Movie) {
         dateSpinner = findViewById(R.id.detail_date_spinner)

@@ -54,10 +54,9 @@ class MovieTicketActivity : AppCompatActivity() {
     } as MovieTicket
 
     private fun TicketTime.format(): String =
-        dateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
+        dateTime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
 
-    private fun PeopleCount.format(): String = "일반 ${count}명"
+    private fun PeopleCount.format(): String = getString(R.string.people_count, count)
 
-    private fun MovieTicket.getPriceWithUnit(): String =
-        "${DecimalFormat("#,###").format(price)}원 (현장 결제)"
+    private fun MovieTicket.getPriceWithUnit(): String = getString(R.string.price, DecimalFormat("#,###").format(price))
 }

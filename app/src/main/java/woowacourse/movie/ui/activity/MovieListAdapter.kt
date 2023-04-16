@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.activity
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
+    private val context: Context,
     private val movies: List<Movie>,
     private val itemButtonClickListener: ItemButtonClickListener,
 ) : BaseAdapter() {
@@ -55,11 +57,11 @@ class MovieListAdapter(
         viewHolder.bookingButton.setOnClickListener { itemButtonClickListener.onClick(position) }
     }
 
-    private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
+    private fun Movie.getScreenDate(): String = context.getString(R.string.screen_date, startDate.format(), endDate.format())
 
-    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
 
-    private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
+    private fun Movie.getRunningTime(): String = context.getString(R.string.running_time, runningTime)
 
     inner class ViewHolder(view: View) {
         val moviePoster: ImageView = view.findViewById(R.id.item_poster)
