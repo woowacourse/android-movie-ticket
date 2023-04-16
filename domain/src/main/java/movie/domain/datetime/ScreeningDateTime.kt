@@ -1,27 +1,26 @@
-package woowacourse.movie.domain.datetime
+package movie.domain.datetime
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
-@Parcelize
-class ScreeningDateTime(val value: LocalDateTime, private val screeningPeriod: ScreeningPeriod) :
-    Parcelable {
+class ScreeningDateTime(
+    val dateTime: LocalDateTime,
+    val screeningPeriod: ScreeningPeriod
+) {
     init {
         validateDateTime()
     }
 
     private fun validateDateTime() {
-        require(value.toLocalDate() in screeningPeriod.start..screeningPeriod.end) { SELECTED_SCREENING_DATE_TIME_ERROR }
+        require(dateTime.toLocalDate() in screeningPeriod.start..screeningPeriod.end) { SELECTED_SCREENING_DATE_TIME_ERROR }
     }
 
     fun checkMovieDay(): Boolean {
-        if (value.dayOfMonth in MOVIE_DAYS) return true
+        if (dateTime.dayOfMonth in MOVIE_DAYS) return true
         return false
     }
 
     fun checkEarlyMorningLateNight(): Boolean {
-        val hour = value.hour
+        val hour = dateTime.hour
         if (hour < EARLY_MORNING_STANDARD || hour > LATE_NIGHT_STANDARD) return true
         return false
     }

@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.datetime
+package movie.domain.datetime
 
 enum class DayOfWeekStandard {
     WEEKEND, WEEKDAY

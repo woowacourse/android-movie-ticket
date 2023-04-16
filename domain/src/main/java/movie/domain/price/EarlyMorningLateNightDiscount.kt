@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.price
+package movie.domain.price
 
 class EarlyMorningLateNightDiscount : DiscountPolicy {
     override fun discount(price: Int): Int {

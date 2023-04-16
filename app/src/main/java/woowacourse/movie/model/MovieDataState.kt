@@ -1,14 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.datetime.ScreeningPeriod
 
 @Parcelize
-data class MovieData(
+data class MovieDataState(
     val posterImage: Int,
     val title: String,
-    val screeningDay: ScreeningPeriod,
+    val screeningDay: ScreeningPeriodState,
     val runningTime: Int,
     val description: String = ""
 ) : Parcelable

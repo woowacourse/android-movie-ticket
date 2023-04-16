@@ -4,13 +4,14 @@ import android.R
 import android.content.Context
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import woowacourse.movie.domain.datetime.ScreeningPeriod
+import woowacourse.movie.model.ScreeningPeriodState
+import woowacourse.movie.model.mapper.toDomain
 import java.time.LocalDate
 import java.time.LocalTime
 
 class TimeSpinnerAdapter(
     private val timeSpinner: Spinner,
-    private val screeningPeriod: ScreeningPeriod,
+    private val screeningPeriodState: ScreeningPeriodState,
     private var recoverPosition: Int,
     context: Context
 ) {
@@ -28,7 +29,7 @@ class TimeSpinnerAdapter(
 
     fun updateTimeTable(date: LocalDate) {
         times.clear()
-        times.addAll(screeningPeriod.getScreeningTime(date))
+        times.addAll(screeningPeriodState.toDomain().getScreeningTime(date))
         timeAdapter.notifyDataSetChanged()
         if (recoverPosition != -1) {
             timeSpinner.setSelection(recoverPosition)

@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.price
+package movie.domain.price
 
 interface PricePolicy {
 

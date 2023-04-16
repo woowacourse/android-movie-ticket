@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MovieData
 import woowacourse.movie.R
-import woowacourse.movie.domain.datetime.ScreeningDateTime
+import woowacourse.movie.model.MovieDataState
+import woowacourse.movie.model.ScreeningDateTimeState
 import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.util.customGetParcelableExtra
@@ -22,7 +22,7 @@ import kotlin.properties.Delegates
 
 class MovieBookingActivity : AppCompatActivity() {
 
-    lateinit var movieData: MovieData
+    lateinit var movieDataState: MovieDataState
     lateinit var tvTicketCount: TextView
     lateinit var dateSpinner: Spinner
     lateinit var timeSpinner: Spinner
@@ -72,7 +72,7 @@ class MovieBookingActivity : AppCompatActivity() {
         timeSpinnerAdapter =
             TimeSpinnerAdapter(
                 timeSpinner,
-                movieData.screeningDay,
+                movieDataState.screeningDay,
                 timeSpinnerRecoverState,
                 this
             ).apply { initAdapter() }
@@ -80,15 +80,15 @@ class MovieBookingActivity : AppCompatActivity() {
             DateSpinnerAdapter(
                 dateSpinner,
                 timeSpinnerAdapter::updateTimeTable,
-                movieData.screeningDay,
+                movieDataState.screeningDay,
                 this
             )
                 .apply { initAdapter() }
     }
 
     private fun initExtraData() {
-        movieData =
-            intent.customGetParcelableExtra<MovieData>("movieData", ::finishActivity) ?: return
+        movieDataState =
+            intent.customGetParcelableExtra<MovieDataState>("movieData", ::finishActivity) ?: return
     }
 
     private fun finishActivity(key: String) {
@@ -103,16 +103,16 @@ class MovieBookingActivity : AppCompatActivity() {
         val tvBookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
         val tvBookingDescription = findViewById<TextView>(R.id.tv_booking_description)
 
-        ivBookingPoster.setImageResource(movieData.posterImage)
-        tvBookingMovieName.text = movieData.title
+        ivBookingPoster.setImageResource(movieDataState.posterImage)
+        tvBookingMovieName.text = movieDataState.title
         tvBookingScreeningDay.text = this.getString(R.string.screening_date_format)
             .format(
-                movieData.screeningDay.start.format(DateTimeFormatters.hyphenDateFormatter),
-                movieData.screeningDay.end.format(DateTimeFormatters.hyphenDateFormatter)
+                movieDataState.screeningDay.start.format(DateTimeFormatters.hyphenDateFormatter),
+                movieDataState.screeningDay.end.format(DateTimeFormatters.hyphenDateFormatter)
             )
         tvBookingRunningTime.text =
-            this.getString(R.string.running_time_format).format(movieData.runningTime)
-        tvBookingDescription.text = movieData.description
+            this.getString(R.string.running_time_format).format(movieDataState.runningTime)
+        tvBookingDescription.text = movieDataState.description
     }
 
     private fun initTicketCount() {
@@ -136,18 +136,18 @@ class MovieBookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun getScreeningDateTime(): ScreeningDateTime {
+    private fun getScreeningDateTime(): ScreeningDateTimeState {
         val date = dateSpinner.selectedItem as LocalDate
         val time = timeSpinner.selectedItem as LocalTime
 
-        return ScreeningDateTime(LocalDateTime.of(date, time), movieData.screeningDay)
+        return ScreeningDateTimeState(LocalDateTime.of(date, time), movieDataState.screeningDay)
     }
 
     // timespinner 초기화 관련 방어코드 고려
     private fun initBookingCompleteButtonClickListener() {
         findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
             val intent = Intent(this, MovieBookingCheckActivity::class.java).apply {
-                putExtra("movieData", movieData)
+                putExtra("movieData", movieDataState)
                 putExtra("ticketCount", ticketCount)
                 putExtra("bookedScreeningDateTime", getScreeningDateTime())
             }

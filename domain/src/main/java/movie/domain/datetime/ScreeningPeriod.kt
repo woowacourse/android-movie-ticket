@@ -1,21 +1,13 @@
-package woowacourse.movie.domain.datetime
+package movie.domain.datetime
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.datetime.DayOfWeekStandard.WEEKDAY
-import woowacourse.movie.domain.datetime.DayOfWeekStandard.WEEKEND
-import java.time.DayOfWeek.FRIDAY
-import java.time.DayOfWeek.MONDAY
-import java.time.DayOfWeek.SATURDAY
-import java.time.DayOfWeek.SUNDAY
-import java.time.DayOfWeek.THURSDAY
-import java.time.DayOfWeek.TUESDAY
-import java.time.DayOfWeek.WEDNESDAY
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-@Parcelize
-class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
+class ScreeningPeriod(
+    val start: LocalDate,
+    val end: LocalDate
+) {
     init {
         validatePeriod()
     }
@@ -26,15 +18,15 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
 
     private fun getDayOfWeekStandard(selectedDate: LocalDate): DayOfWeekStandard {
         return when (selectedDate.dayOfWeek) {
-            MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY -> WEEKDAY
-            SATURDAY, SUNDAY -> WEEKEND
+            DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY -> DayOfWeekStandard.WEEKDAY
+            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> DayOfWeekStandard.WEEKEND
         }
     }
 
     fun getScreeningTime(selectedDate: LocalDate): List<LocalTime> {
         return when (getDayOfWeekStandard(selectedDate)) {
-            WEEKDAY -> WEEKDAY_TIME_TABLE
-            WEEKEND -> WEEKEND_TIME_TABLE
+            DayOfWeekStandard.WEEKDAY -> WEEKDAY_TIME_TABLE
+            DayOfWeekStandard.WEEKEND -> WEEKEND_TIME_TABLE
         }
     }
 

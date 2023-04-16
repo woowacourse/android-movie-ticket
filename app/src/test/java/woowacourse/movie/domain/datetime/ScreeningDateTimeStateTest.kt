@@ -2,16 +2,18 @@ package woowacourse.movie.domain.datetime
 
 import org.junit.Assert
 import org.junit.Test
+import woowacourse.movie.model.ScreeningDateTimeState
+import woowacourse.movie.model.ScreeningPeriodState
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class ScreeningDateTimeTest {
-    fun getWorkingScreeningDateTime(day: Int = 3, time: Int = 11): ScreeningDateTime {
-        val workingScreeningPeriod = ScreeningPeriod(
+class ScreeningDateTimeStateTest {
+    fun getWorkingScreeningDateTime(day: Int = 3, time: Int = 11): ScreeningDateTimeState {
+        val workingScreeningPeriod = ScreeningPeriodState(
             LocalDate.parse("2023-03-01"),
             LocalDate.parse("2023-04-01")
         )
-        return ScreeningDateTime(
+        return ScreeningDateTimeState(
             LocalDateTime.of(2023, 3, day, time, 11, 11),
             workingScreeningPeriod
         )
@@ -19,11 +21,11 @@ class ScreeningDateTimeTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun `영화 상영시간은 영화 상영 기간안에 존재해야한다`() {
-        val screeningPeriod = ScreeningPeriod(
+        val screeningPeriod = ScreeningPeriodState(
             LocalDate.parse("2023-02-01"),
             LocalDate.parse("2023-03-01")
         )
-        ScreeningDateTime(LocalDateTime.of(2024, 1, 1, 11, 11, 11), screeningPeriod)
+        ScreeningDateTimeState(LocalDateTime.of(2024, 1, 1, 11, 11, 11), screeningPeriod)
     }
 
     @Test

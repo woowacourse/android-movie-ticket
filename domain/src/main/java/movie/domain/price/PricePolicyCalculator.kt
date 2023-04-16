@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.price
+package movie.domain.price
 
 class PricePolicyCalculator(private val discountPolicies: List<DiscountPolicy> = listOf()) :
     PricePolicy {

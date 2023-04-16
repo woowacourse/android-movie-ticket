@@ -9,13 +9,13 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.MovieData
 import woowacourse.movie.R
+import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.ui.DateTimeFormatters.hyphenDateFormatter
 import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
 import woowacourse.movie.util.setOnSingleClickListener
 
-class MovieListAdapter(val context: Context, val movies: List<MovieData>) : BaseAdapter() {
+class MovieListAdapter(val context: Context, val movies: List<MovieDataState>) : BaseAdapter() {
     private lateinit var inflater: LayoutInflater
 
     override fun getCount(): Int = movies.size
@@ -25,7 +25,7 @@ class MovieListAdapter(val context: Context, val movies: List<MovieData>) : Base
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var viewHolder: MovieViewHolder? = null
+        val viewHolder: MovieViewHolder?
         var itemLayout: View? = convertView
 
         if (convertView == null) {

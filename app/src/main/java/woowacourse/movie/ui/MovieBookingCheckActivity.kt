@@ -4,22 +4,23 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MovieData
+import movie.domain.price.DiscountPolicy
+import movie.domain.price.EarlyMorningLateNightDiscount
+import movie.domain.price.MovieDayDiscount
+import movie.domain.price.PricePolicyCalculator
 import woowacourse.movie.R
-import woowacourse.movie.domain.datetime.ScreeningDateTime
-import woowacourse.movie.domain.price.DiscountPolicy
-import woowacourse.movie.domain.price.EarlyMorningLateNightDiscount
-import woowacourse.movie.domain.price.MovieDayDiscount
-import woowacourse.movie.domain.price.PricePolicyCalculator
+import woowacourse.movie.model.MovieDataState
+import woowacourse.movie.model.ScreeningDateTimeState
+import woowacourse.movie.model.mapper.toDomain
 import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
 import woowacourse.movie.util.customGetParcelableExtra
 import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
 
-    lateinit var movieData: MovieData
-    var ticketCount by Delegates.notNull<Int>()
-    lateinit var bookedScreeningDateTime: ScreeningDateTime
+    private lateinit var movieDataState: MovieDataState
+    private var ticketCount by Delegates.notNull<Int>()
+    private lateinit var bookedScreeningDateTimeState: ScreeningDateTimeState
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +31,9 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetParcelableExtra<MovieData>("movieData", ::finishActivity) ?: return
+        movieDataState = intent.customGetParcelableExtra<MovieDataState>("movieData", ::finishActivity) ?: return
         ticketCount = intent.getIntExtra("ticketCount", -1)
-        bookedScreeningDateTime =
+        bookedScreeningDateTimeState =
             intent.customGetParcelableExtra("bookedScreeningDateTime", ::finishActivity) ?: return
     }
 
@@ -47,9 +48,9 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         val tvBookingCheckPersonCount = findViewById<TextView>(R.id.tv_booking_check_person_count)
         val tvBookingCheckTotalMoney = findViewById<TextView>(R.id.tv_booking_check_total_money)
 
-        tvBookingCheckMovieName.text = movieData.title
+        tvBookingCheckMovieName.text = movieDataState.title
         tvBookingCheckScreeningDay.text =
-            bookedScreeningDateTime.value.format(dateDotTimeColonFormatter)
+            bookedScreeningDateTimeState.dateTime.format(dateDotTimeColonFormatter)
         tvBookingCheckPersonCount.text =
             this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
         tvBookingCheckTotalMoney.text = this.getString(R.string.tv_booking_check_total_money)
@@ -58,8 +59,8 @@ class MovieBookingCheckActivity : AppCompatActivity() {
 
     private fun applyDisCount(ticketPrice: Int, ticketCount: Int): Int {
         val discountPolicies = mutableListOf<DiscountPolicy>()
-        if (bookedScreeningDateTime.checkMovieDay()) discountPolicies.add(MovieDayDiscount())
-        if (bookedScreeningDateTime.checkEarlyMorningLateNight()) discountPolicies.add(
+        if (bookedScreeningDateTimeState.toDomain().checkMovieDay()) discountPolicies.add(MovieDayDiscount())
+        if (bookedScreeningDateTimeState.toDomain().checkEarlyMorningLateNight()) discountPolicies.add(
             EarlyMorningLateNightDiscount()
         )
         return PricePolicyCalculator(discountPolicies).totalPriceCalculate(ticketPrice, ticketCount)

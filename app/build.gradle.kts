@@ -49,4 +49,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.test:core:1.5.0")
     testImplementation("org.mockito:mockito-core:3.12.4")
+
+    // domain 모듈
+    implementation(project(":domain"))
 }

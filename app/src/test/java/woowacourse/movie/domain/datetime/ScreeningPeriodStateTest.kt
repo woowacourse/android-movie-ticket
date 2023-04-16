@@ -2,14 +2,15 @@ package woowacourse.movie.domain.datetime
 
 import org.junit.Assert
 import org.junit.Test
+import woowacourse.movie.model.ScreeningPeriodState
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ScreeningPeriodTest {
+class ScreeningPeriodStateTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun `영화 상영시작 일자가 상영종료 일자보다 크다면 객체를 생성할수 없다`() {
-        ScreeningPeriod(
+        ScreeningPeriodState(
             LocalDate.parse("2023-02-01"),
             LocalDate.parse("2023-01-01")
         )
@@ -17,7 +18,7 @@ class ScreeningPeriodTest {
 
     @Test
     fun `주말이라면 주말 시간표를 반환한다`() {
-        val screeningPeriod = ScreeningPeriod(
+        val screeningPeriod = ScreeningPeriodState(
             LocalDate.parse("2023-02-01"),
             LocalDate.parse("2023-03-01")
         )
@@ -40,7 +41,7 @@ class ScreeningPeriodTest {
 
     @Test
     fun `주증이라면 주증 시간표를 반환한다`() {
-        val screeningPeriod = ScreeningPeriod(
+        val screeningPeriod = ScreeningPeriodState(
             LocalDate.parse("2023-02-01"),
             LocalDate.parse("2023-03-01")
         )
@@ -63,7 +64,7 @@ class ScreeningPeriodTest {
 
     @Test
     fun `2023-03-03 ~ 2023-03-05 는 03,04,05 일의 리스트를 반환한다`() {
-        val screeningPeriod = ScreeningPeriod(
+        val screeningPeriod = ScreeningPeriodState(
             LocalDate.parse("2023-03-03"),
             LocalDate.parse("2023-03-05")
         )
