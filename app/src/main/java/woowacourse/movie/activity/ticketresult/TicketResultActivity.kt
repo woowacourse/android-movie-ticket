@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.util.Keys
 import woowacourse.movie.util.getVersionDependentSerializableExtra
 import java.text.DecimalFormat
 import java.time.LocalDate
@@ -22,7 +21,7 @@ class TicketResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val info: TicketingInfo? = intent.getVersionDependentSerializableExtra(Keys.INFO_KEY)
+        val info: TicketingInfo? = intent.getVersionDependentSerializableExtra(INFO_KEY)
 
         if (info != null) {
             initTitle(info.title)
@@ -77,5 +76,6 @@ class TicketResultActivity : AppCompatActivity() {
 
     companion object {
         private const val DATA_LOADING_ERROR_MESSAGE = "데이터가 로딩되지 않았습니다. 다시 시도해주세요."
+        const val INFO_KEY = "TICKETING_INFO"
     }
 }

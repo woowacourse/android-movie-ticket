@@ -10,7 +10,6 @@ import woowacourse.movie.model.MovieDTO
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
 import woowacourse.movie.util.DiscountPolicies
-import woowacourse.movie.util.Keys
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -27,7 +26,7 @@ class ReservationInfoViewInitializer(private val movieDTO: MovieDTO) {
                 Price(),
                 "현장"
             )
-            intent.putExtra(Keys.INFO_KEY, ticketingInfo)
+            intent.putExtra(TicketResultActivity.INFO_KEY, ticketingInfo)
             it.context.startActivity(intent)
         }
     }

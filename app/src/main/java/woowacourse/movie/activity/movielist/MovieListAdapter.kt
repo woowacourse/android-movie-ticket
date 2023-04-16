@@ -13,7 +13,6 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.model.MovieDTO
-import woowacourse.movie.util.Keys
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
@@ -37,7 +36,7 @@ class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
         val movieDTO = getItem(position) as MovieDTO
         setViewHolder(holder, movieDTO, parent?.context) {
             val intent = Intent(view.context, MovieDetailActivity::class.java)
-            intent.putExtra(Keys.MOVIE_KEY, movieDTO)
+            intent.putExtra(MovieDetailActivity.MOVIE_KEY, movieDTO)
             view.context.startActivity(intent)
         }
         return view

@@ -8,14 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDTO
-import woowacourse.movie.util.Keys
 import woowacourse.movie.util.getVersionDependentSerializableExtra
 
 class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        val movieDTO: MovieDTO? = intent.getVersionDependentSerializableExtra(Keys.MOVIE_KEY)
+        val movieDTO: MovieDTO? = intent.getVersionDependentSerializableExtra(MOVIE_KEY)
         if (movieDTO != null) {
             initMovieDetailView(movieDTO)
             initReservationInfoView(savedInstanceState, movieDTO)
@@ -37,9 +36,9 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun initReservationInfoView(savedInstanceState: Bundle?, movieDTO: MovieDTO) {
-        val savedCount = savedInstanceState?.getInt(Keys.COUNT_KEY) ?: DEFAULT_COUNT
-        val savedDate = savedInstanceState?.getInt(Keys.SPINNER_DATE_KEY) ?: DEFAULT_POSITION
-        val savedTime = savedInstanceState?.getInt(Keys.SPINNER_TIME_KEY) ?: DEFAULT_POSITION
+        val savedCount = savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
+        val savedDate = savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
+        val savedTime = savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
         ReservationInfoViewInitializer(movieDTO).run {
             initCount(savedCount, findViewById(R.id.text_count))
@@ -81,14 +80,18 @@ class MovieDetailActivity : AppCompatActivity() {
         val countText = findViewById<TextView>(R.id.text_count)
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        outState.putInt(Keys.COUNT_KEY, countText.text.toString().toInt())
-        outState.putInt(Keys.SPINNER_DATE_KEY, spinnerDate.selectedItemPosition)
-        outState.putInt(Keys.SPINNER_TIME_KEY, spinnerTime.selectedItemPosition)
+        outState.putInt(COUNT_KEY, countText.text.toString().toInt())
+        outState.putInt(SPINNER_DATE_KEY, spinnerDate.selectedItemPosition)
+        outState.putInt(SPINNER_TIME_KEY, spinnerTime.selectedItemPosition)
     }
 
     companion object {
         private const val DEFAULT_COUNT = 1
         private const val DEFAULT_POSITION = 0
         private const val DATA_LOADING_ERROR_MESSAGE = "데이터가 로딩되지 않았습니다. 다시 시도해주세요."
+        const val MOVIE_KEY = "MOVIE"
+        const val COUNT_KEY = "COUNT"
+        const val SPINNER_DATE_KEY = "SPINNER_DATE"
+        const val SPINNER_TIME_KEY = "SPINNER_TIME"
     }
 }
