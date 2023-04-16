@@ -13,10 +13,10 @@ class MovieDayTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 0, 0)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, price)
+        val reservationDetail = ReservationDetail(date, 1, Discount(listOf(MovieDay, OffTime)))
 
         // when
-        val actual = MovieDay.discount(reservationDetail).price.value
+        val actual = MovieDay.discount(reservationDetail, Price(13000)).value
 
         // then
         val expected = 11700
@@ -28,10 +28,10 @@ class MovieDayTest {
         // given
         val date = LocalDateTime.of(2023, 1, 11, 0, 0)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, price)
+        val reservationDetail = ReservationDetail(date, 1, Discount(listOf(MovieDay, OffTime)))
 
         // when
-        val actual = MovieDay.discount(reservationDetail).price.value
+        val actual = MovieDay.discount(reservationDetail, Price()).value
 
         // then
         val expected = 13000

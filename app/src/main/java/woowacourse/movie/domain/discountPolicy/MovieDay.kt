@@ -7,15 +7,10 @@ object MovieDay : DiscountPolicy {
     private val MOVIE_DAY = listOf(10, 20, 30)
     private const val DISCOUNT_RATE = 0.9f
 
-    override fun discount(reservationDetail: ReservationDetail): ReservationDetail {
+    override fun discount(reservationDetail: ReservationDetail, price: Price): Price {
         if (reservationDetail.date.dayOfMonth in MOVIE_DAY) {
-            val discountPrice = Price((reservationDetail.price.value * DISCOUNT_RATE).toInt())
-            return ReservationDetail(
-                reservationDetail.date,
-                reservationDetail.peopleCount,
-                discountPrice,
-            )
+            return Price((price.value * DISCOUNT_RATE).toInt())
         }
-        return reservationDetail
+        return price
     }
 }

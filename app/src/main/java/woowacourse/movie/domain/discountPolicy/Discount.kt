@@ -1,15 +1,18 @@
 package woowacourse.movie.domain.discountPolicy
 
+import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.ReservationDetail
+import java.io.Serializable
 
-class Discount(private val discountPolicy: List<DiscountPolicy>) {
+class Discount(private val discountPolicy: List<DiscountPolicy>) : Serializable {
     fun calculate(
         reservationDetail: ReservationDetail,
-    ): ReservationDetail {
-        var result = reservationDetail
+        price: Price
+    ): Price {
+        var presentPrice = price
         for (item in discountPolicy) {
-            result = item.discount(result)
+            presentPrice = item.discount(reservationDetail, presentPrice)
         }
-        return result
+        return presentPrice
     }
 }
