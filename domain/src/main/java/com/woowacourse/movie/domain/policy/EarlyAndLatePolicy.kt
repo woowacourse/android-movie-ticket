@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.policy
+package com.woowacourse.movie.domain.policy
 
 class EarlyAndLatePolicy(discountCondition: DiscountCondition) : DiscountPolicy(discountCondition) {
     override fun determineDiscount(price: Int): Int = price - DISCOUNT_PRICE

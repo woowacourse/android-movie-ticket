@@ -1,11 +1,13 @@
-package woowacourse.movie.data
+package woowacourse.movie.model
 
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.R
-import java.io.Serializable
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+@Parcelize
 data class Movie(
     val title: String,
     val startDate: LocalDate,
@@ -13,7 +15,7 @@ data class Movie(
     val runningTime: Int,
     val introduce: String,
     @DrawableRes val thumbnail: Int,
-) : Serializable {
+) : Parcelable {
     val LocalDate.formattedDate: String
         get() = this.format(DateTimeFormatter.ofPattern(MOVIE_DATE_PATTERN))
 

@@ -1,7 +1,9 @@
-package woowacourse.movie.domain
+package com.woowacourse.movie.domain
 
-import woowacourse.movie.domain.policy.DiscountDecorator
+import com.woowacourse.movie.domain.policy.DiscountDecorator
 import java.io.Serializable
+
+typealias TicketDomain = Ticket
 
 @JvmInline
 value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
@@ -13,11 +15,7 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
         discountDecorator: DiscountDecorator
     ): Int = discountDecorator.calculatePrice() * count
 
-    operator fun dec(): Ticket = if (count > MIN_TICKET_COUNT) {
-        Ticket(count - TICKET_UP_DOWN_UNIT)
-    } else {
-        this
-    }
+    operator fun dec(): Ticket = Ticket((count - TICKET_UP_DOWN_UNIT).coerceAtLeast(MIN_TICKET_COUNT))
 
     operator fun inc(): Ticket = Ticket(count + TICKET_UP_DOWN_UNIT)
 

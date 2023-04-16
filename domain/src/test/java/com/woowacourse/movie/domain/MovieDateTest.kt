@@ -1,8 +1,7 @@
-package woowacourse.movie
+package com.woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import woowacourse.movie.domain.MovieDate
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
 class MovieDateTest {
@@ -16,7 +15,7 @@ class MovieDateTest {
 
         val actual = movieDate.map { it.day }
         val expected = (10..28).toList()
-        assertEquals(actual, expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -29,7 +28,7 @@ class MovieDateTest {
 
         val actual = movieDate.map { it.day }
         val expected = (1..28).toList()
-        assertEquals(actual, expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -42,6 +41,6 @@ class MovieDateTest {
 
         val actual = movieDate.map { it.day }
         val expected = emptyList<MovieDate>()
-        assertEquals(actual, expected)
+        assertThat(actual).isEqualTo(expected)
     }
 }

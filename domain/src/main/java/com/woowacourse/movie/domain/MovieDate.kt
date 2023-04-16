@@ -1,15 +1,16 @@
-package woowacourse.movie.domain
+package com.woowacourse.movie.domain
 
-import woowacourse.movie.domain.policy.DiscountCondition
-import java.io.Serializable
+import com.woowacourse.movie.domain.policy.DiscountCondition
 import java.time.DayOfWeek
 import java.time.LocalDate
+
+typealias MovieDateDomain = MovieDate
 
 data class MovieDate(
     val year: Int,
     val month: Int,
     val day: Int,
-) : DiscountCondition, Serializable {
+) : DiscountCondition {
     constructor(date: LocalDate) : this(date.year, date.monthValue, date.dayOfMonth)
 
     fun isWeekend(): Boolean {
@@ -21,6 +22,7 @@ data class MovieDate(
         val today = LocalDate.now()
         return today.compareTo(LocalDate.of(year, month, day)) == 0
     }
+
     override fun isDiscount(): Boolean = day in DISCOUNT_DAYS
 
     companion object {

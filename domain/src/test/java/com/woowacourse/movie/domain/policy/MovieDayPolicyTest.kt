@@ -1,9 +1,8 @@
-package woowacourse.movie.policy
+package com.woowacourse.movie.domain.policy
 
-import junit.framework.TestCase
-import org.junit.Test
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.policy.MovieDayPolicy
+import com.woowacourse.movie.domain.MovieDate
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
 class MovieDayPolicyTest {
     @Test
@@ -13,6 +12,7 @@ class MovieDayPolicyTest {
         val ticketPrice = 13_000
         val actual = movieDay.calculatePrice(ticketPrice)
         val expected = 11_700
-        TestCase.assertEquals(expected, actual)
+
+        assertThat(actual).isEqualTo(expected)
     }
 }

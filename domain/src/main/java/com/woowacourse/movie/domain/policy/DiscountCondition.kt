@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.policy
+package com.woowacourse.movie.domain.policy
 
 interface DiscountCondition {
     fun isDiscount(): Boolean

@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.data.Movie
+import woowacourse.movie.model.Movie
 
 class MovieListViewHolder(val view: View) {
     private val ivPoster: ImageView = view.findViewById(R.id.iv_poster)
@@ -14,7 +14,7 @@ class MovieListViewHolder(val view: View) {
     private val tvRunningTime: TextView = view.findViewById(R.id.tv_running_time)
     private val btnBook: Button = view.findViewById(R.id.btn_book)
 
-    fun bind(item: Movie, onBookClickListener: OnBookClickListener) {
+    fun bind(item: Movie, onBookClick: (Movie) -> Unit) {
         with(item) {
             ivPoster.setImageResource(thumbnail)
             tvTitle.text = title
@@ -25,7 +25,7 @@ class MovieListViewHolder(val view: View) {
             )
             tvRunningTime.text =
                 view.context.getString(R.string.movie_running_time, runningTime)
-            btnBook.setOnClickListener { onBookClickListener.onClick(this) }
+            btnBook.setOnClickListener { onBookClick(item) }
         }
     }
 }

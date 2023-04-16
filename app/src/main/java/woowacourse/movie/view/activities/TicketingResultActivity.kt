@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
-import woowacourse.movie.data.Movie
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.MovieTime
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.policy.DiscountDecorator
-import woowacourse.movie.getSerializable
+import woowacourse.movie.getParcelable
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieDate
+import woowacourse.movie.model.MovieTime
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.mapper.toDomain
 
 class TicketingResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +21,10 @@ class TicketingResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieDate = intent.getSerializable<MovieDate>(TicketingActivity.MOVIE_DATE_KEY)!!
-        val movieTime = intent.getSerializable<MovieTime>(TicketingActivity.MOVIE_TIME_KEY)!!
+        val movieDate = intent.getParcelable<MovieDate>(TicketingActivity.MOVIE_DATE_KEY)!!
+        val movieTime = intent.getParcelable<MovieTime>(TicketingActivity.MOVIE_TIME_KEY)!!
 
-        intent.getSerializable<Movie>(MovieListActivity.MOVIE_KEY)?.run {
+        intent.getParcelable<Movie>(MovieListActivity.MOVIE_KEY)?.run {
             findViewById<TextView>(R.id.tv_title).text = title
             findViewById<TextView>(R.id.tv_date).text = getString(
                 R.string.book_date_time,
@@ -31,14 +32,14 @@ class TicketingResultActivity : AppCompatActivity() {
             )
         }
 
-        intent.getSerializable<Ticket>(TicketingActivity.TICKET_KEY)?.run {
+        intent.getParcelable<Ticket>(TicketingActivity.TICKET_KEY)?.run {
             findViewById<TextView>(R.id.tv_regular_count).text =
                 getString(R.string.regular_count, count)
             findViewById<TextView>(R.id.tv_pay_result).text =
                 getString(
                     R.string.movie_pay_result,
-                    calculateTotalPrice(
-                        DiscountDecorator(movieDate, movieTime)
+                    toDomain().calculateTotalPrice(
+                        DiscountDecorator(movieDate.toDomain(), movieTime.toDomain())
                     ),
                     getString(R.string.on_site_payment)
                 )

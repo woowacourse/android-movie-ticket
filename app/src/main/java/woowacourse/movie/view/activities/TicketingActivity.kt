@@ -1,7 +1,6 @@
 package woowacourse.movie.view.activities
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -13,25 +12,31 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.woowacourse.movie.domain.MovieDateDomain
+import com.woowacourse.movie.domain.MovieTimeDomain
 import woowacourse.movie.R
-import woowacourse.movie.data.Movie
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.MovieTime
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.getSerializable
+import woowacourse.movie.customGetParcelable
+import woowacourse.movie.getParcelable
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieDate
+import woowacourse.movie.model.MovieTime
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.mapper.toDomain
+import woowacourse.movie.model.mapper.toPresentation
 import woowacourse.movie.showToast
 
 class TicketingActivity : AppCompatActivity(), OnClickListener {
     private var movieTicket: Ticket = Ticket()
 
-    private val movie: Movie by lazy {
-        intent.getSerializable(MovieListActivity.MOVIE_KEY)!!
+    private val movie: Movie? by lazy {
+        intent.getParcelable(MovieListActivity.MOVIE_KEY)
     }
 
     private val movieDates: List<MovieDate> by lazy {
-        intent.getSerializable<Movie>(MovieListActivity.MOVIE_KEY)
-            ?.run { MovieDate.releaseDates(startDate, endDate) }
-            ?: emptyList()
+        intent.getParcelable<Movie>(MovieListActivity.MOVIE_KEY)
+            ?.run {
+                MovieDateDomain.releaseDates(startDate, endDate).map { it.toPresentation() }
+            } ?: emptyList()
     }
     private val movieTimes = mutableListOf<MovieTime>()
 
@@ -43,15 +48,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     private val tvTicketCount: TextView by lazy {
         findViewById(R.id.tv_ticket_count)
-    }
-    private val btnMinus: Button by lazy {
-        findViewById(R.id.btn_minus)
-    }
-    private val btnPlus: Button by lazy {
-        findViewById(R.id.btn_plus)
-    }
-    private val btnTicketing: Button by lazy {
-        findViewById(R.id.btn_ticketing)
     }
     private val spinnerMovieDate: Spinner by lazy {
         findViewById(R.id.spinner_movie_date)
@@ -73,7 +69,11 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
         val ivPoster: ImageView = findViewById(R.id.iv_poster)
 
-        movie.run {
+        val btnMinus: Button = findViewById(R.id.btn_minus)
+        val btnPlus: Button = findViewById(R.id.btn_plus)
+        val btnTicketing: Button = findViewById(R.id.btn_ticketing)
+
+        movie?.run {
             ivPoster.setImageResource(thumbnail)
             tvTitle.text = title
             tvDate.text = getString(
@@ -122,10 +122,10 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                 this@TicketingActivity.movieTimes.clear()
                 selectedDate?.run {
                     this@TicketingActivity.movieTimes.addAll(
-                        MovieTime.runningTimes(
-                            isWeekend(),
-                            isToday()
-                        )
+                        MovieTimeDomain.runningTimes(
+                            toDomain().isWeekend(),
+                            toDomain().isToday()
+                        ).map { it.toPresentation() }
                     )
                 }
                 movieTimeAdapter.clear()
@@ -158,30 +158,32 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         spinnerMovieTime.setSelection(storedTimeIndex)
     }
 
-    @Suppress("DEPRECATION")
-    private fun restoreState(savedInstanceState: Bundle?) {
-        savedInstanceState?.run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                selectedDate = getSerializable(SELECTED_DATE_STATE_KEY, MovieDate::class.java)
-                selectedTime = getSerializable(SELECTED_TIME_STATE_KEY, MovieTime::class.java)
-                movieTicket = getSerializable(TICKET_COUNT_STATE_KEY, Ticket::class.java)!!
-            } else {
-                selectedDate = getSerializable(SELECTED_DATE_STATE_KEY) as MovieDate
-                selectedTime = getSerializable(SELECTED_TIME_STATE_KEY) as MovieTime
-                movieTicket = getSerializable(TICKET_COUNT_STATE_KEY) as Ticket
-            }
+    private fun restoreState(savedInstanceState: Bundle) {
+        savedInstanceState.run {
+            selectedDate = customGetParcelable(SELECTED_DATE_STATE_KEY)
+            selectedTime = customGetParcelable(SELECTED_TIME_STATE_KEY)
+            movieTicket = customGetParcelable(TICKET_COUNT_STATE_KEY)!!
         }
-        selectedDate?.run { this@TicketingActivity.movieTimes.addAll(MovieTime.runningTimes(isWeekend(), isToday())) }
+        selectedDate?.run {
+            this@TicketingActivity.movieTimes.addAll(
+                MovieTimeDomain.runningTimes(
+                    toDomain().isWeekend(),
+                    toDomain().isToday()
+                ).map { it.toPresentation() }
+            )
+        }
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                movieTicket = --movieTicket
+                var movieTicket = movieTicket.toDomain()
+                this.movieTicket = (--movieTicket).toPresentation()
                 tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_plus -> {
-                movieTicket = ++movieTicket
+                var movieTicket = movieTicket.toDomain()
+                this.movieTicket = (++movieTicket).toPresentation()
                 tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_ticketing -> {
@@ -216,9 +218,9 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putSerializable(TICKET_COUNT_STATE_KEY, movieTicket)
-        outState.putSerializable(SELECTED_DATE_STATE_KEY, selectedDate)
-        outState.putSerializable(SELECTED_TIME_STATE_KEY, selectedTime)
+        outState.putParcelable(TICKET_COUNT_STATE_KEY, movieTicket)
+        outState.putParcelable(SELECTED_DATE_STATE_KEY, selectedDate)
+        outState.putParcelable(SELECTED_TIME_STATE_KEY, selectedTime)
     }
 
     companion object {

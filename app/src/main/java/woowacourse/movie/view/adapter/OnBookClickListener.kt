@@ -1,6 +1,6 @@
 package woowacourse.movie.view.adapter
 
-import woowacourse.movie.data.Movie
+import woowacourse.movie.model.Movie
 
 interface OnBookClickListener {
     fun onClick(item: Movie)

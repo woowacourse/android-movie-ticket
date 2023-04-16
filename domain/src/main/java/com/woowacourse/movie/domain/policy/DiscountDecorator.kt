@@ -1,7 +1,7 @@
-package woowacourse.movie.domain.policy
+package com.woowacourse.movie.domain.policy
 
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.MovieTime
+import com.woowacourse.movie.domain.MovieDate
+import com.woowacourse.movie.domain.MovieTime
 
 class DiscountDecorator(movieDate: MovieDate, movieTime: MovieTime) {
     private val policies = listOf(

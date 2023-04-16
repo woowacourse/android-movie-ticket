@@ -1,19 +1,14 @@
-package woowacourse.movie
+package com.woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertThrows
-import org.junit.Test
-import woowacourse.movie.domain.MovieDate
-import woowacourse.movie.domain.MovieTime
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.policy.DiscountDecorator
+import com.woowacourse.movie.domain.policy.DiscountDecorator
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class TicketTest {
     @Test
     fun `티켓은 1장 이상이다`() {
-        assertThrows(IllegalArgumentException::class.java) {
-            Ticket(0)
-        }
+        assertThrows<IllegalArgumentException> { Ticket(0) }
     }
 
     @Test
@@ -22,7 +17,7 @@ class TicketTest {
         val actual = --ticket
         val expected = Ticket(4)
 
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -31,7 +26,7 @@ class TicketTest {
         val actual = ++ticket
         val expected = Ticket(6)
 
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -43,6 +38,6 @@ class TicketTest {
         val actual = ticket.calculateTotalPrice(DiscountDecorator(movieDate, movieTime))
         val expected = 19_400
 
-        assertEquals(expected, actual)
+        assertThat(actual).isEqualTo(expected)
     }
 }

@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.policy
+package com.woowacourse.movie.domain.policy
 
 abstract class DiscountPolicy(private val discountCondition: DiscountCondition) {
     abstract fun determineDiscount(price: Int): Int

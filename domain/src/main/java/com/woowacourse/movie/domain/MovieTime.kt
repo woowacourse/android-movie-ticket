@@ -1,11 +1,12 @@
-package woowacourse.movie.domain
+package com.woowacourse.movie.domain
 
-import woowacourse.movie.domain.policy.DiscountCondition
-import java.io.Serializable
+import com.woowacourse.movie.domain.policy.DiscountCondition
 import java.time.LocalTime
 
+typealias MovieTimeDomain = MovieTime
+
 data class MovieTime(val hour: Int, val min: Int = DEFAULT_MIN) :
-    DiscountCondition, Comparable<MovieTime>, Serializable {
+    DiscountCondition, Comparable<MovieTime> {
     override fun compareTo(other: MovieTime): Int =
         (hour * HOUR_TO_MIN + min) - (other.hour * HOUR_TO_MIN + other.min)
 
@@ -27,8 +28,6 @@ data class MovieTime(val hour: Int, val min: Int = DEFAULT_MIN) :
 
         private const val DEFAULT_MIN = 0
         private const val HOUR_TO_MIN = 60
-
-        private const val DISCOUNT_PRICE = 2_000
 
         private val weekendTimes: List<MovieTime> =
             (WEEKEND_MIN_TIME until WEEKEND_MAX_TIME step WEEKEND_MOVIE_TIME_INTERVAL)

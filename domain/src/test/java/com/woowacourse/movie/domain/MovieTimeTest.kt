@@ -1,8 +1,7 @@
-package woowacourse.movie
+package com.woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import woowacourse.movie.domain.MovieTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalTime
 
 class MovieTimeTest {
@@ -11,7 +10,8 @@ class MovieTimeTest {
         val movieTimes = MovieTime.runningTimes(false, isToday = false)
         val actual = movieTimes.map { it.hour * 60 + it.min }
         val expected = (9 until 24 step 2).map { it * 60 }
-        assertEquals(actual, expected)
+
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -19,7 +19,8 @@ class MovieTimeTest {
         val movieTimes = MovieTime.runningTimes(true, isToday = false)
         val actual = movieTimes.map { it.hour * 60 + it.min }
         val expected = (10 until 24 step 2).map { it * 60 }
-        assertEquals(actual, expected)
+
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -27,7 +28,8 @@ class MovieTimeTest {
         val movieTimes = MovieTime.runningTimes(true, true, LocalTime.of(11, 0))
         val actual = movieTimes.map { it.hour * 60 + it.min }
         val expected = (12 until 24 step 2).map { it * 60 }
-        assertEquals(actual, expected)
+
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -35,6 +37,7 @@ class MovieTimeTest {
         val movieTimes = MovieTime.runningTimes(false, true, LocalTime.of(10, 0))
         val actual = movieTimes.map { it.hour * 60 + it.min }
         val expected = (11 until 24 step 2).map { it * 60 }
-        assertEquals(actual, expected)
+
+        assertThat(actual).isEqualTo(expected)
     }
 }
