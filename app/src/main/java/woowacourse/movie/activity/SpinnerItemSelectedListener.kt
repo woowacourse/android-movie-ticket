@@ -9,7 +9,7 @@ import woowacourse.movie.activity.ReservationActivity.Companion.SCREENING_TIME_P
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class ScreeningSpinnerOption(
+class SpinnerItemSelectedListener(
     private val savedInstanceState: Bundle?,
     private val screeningDateSpinner: Spinner,
     private val initTimeSpinner: (date: ScreeningDate?, defaultPoint: Int) -> Unit

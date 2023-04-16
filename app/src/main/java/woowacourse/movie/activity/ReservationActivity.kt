@@ -103,7 +103,7 @@ class ReservationActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             dates.map { it.value }
         )
-        screeningDateSpinner.onItemSelectedListener = ScreeningSpinnerOption(
+        screeningDateSpinner.onItemSelectedListener = SpinnerItemSelectedListener(
             savedInstanceState,
             screeningDateSpinner,
             ::initTimeSpinner
@@ -162,6 +162,7 @@ class ReservationActivity : AppCompatActivity() {
             val reservation: Reservation =
                 Reservation.from(movie, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
             val intent = Intent(this, ReservationResultActivity::class.java)
+
             intent.putExtra(getString(R.string.reservation_key), reservation)
             startActivity(intent)
             finish()

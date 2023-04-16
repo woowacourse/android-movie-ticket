@@ -31,6 +31,7 @@ class MoviesActivity : AppCompatActivity() {
 
     private fun getReservationEvent(movie: Movie) {
         val intent = Intent(this, ReservationActivity::class.java)
+
         intent.putExtra(getString(R.string.movie_key), movie)
         startActivity(intent)
     }
