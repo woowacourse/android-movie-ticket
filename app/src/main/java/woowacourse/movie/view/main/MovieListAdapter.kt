@@ -1,10 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.view.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.databinding.ItemMovieListBinding
+import woowacourse.movie.model.Movie
 
 class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
     private lateinit var binding: ItemMovieListBinding

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookCompleteActivity">
+    tools:context=".view.book_complete.BookCompleteActivity">
     <View
         android:background="#9160F9"
         app:layout_constraintDimensionRatio="H,360:57"

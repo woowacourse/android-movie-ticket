@@ -1,9 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.view.book_complete
 
 import android.os.Bundle
 import android.widget.Toast
+import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityBookCompleteBinding
 import woowacourse.movie.domain.TicketBundle
+import woowacourse.movie.getParcelableCompat
+import woowacourse.movie.model.MovieBookingInfo
+import woowacourse.movie.view.common.BackButtonActivity
 
 class BookCompleteActivity : BackButtonActivity() {
     private lateinit var binding: ActivityBookCompleteBinding
