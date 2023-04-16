@@ -7,7 +7,7 @@ import movie.screening.ScreeningDate
 import woowacourse.movie.uimodel.MovieScheduleUi
 import woowacourse.movie.uimodel.MovieTicketUi
 
-fun MovieScheduleUi.toMovieSchedule(): MovieSchedule {
+fun MovieScheduleUi.toDomain(): MovieSchedule {
     return MovieSchedule(
         Movie(
             title,
@@ -21,6 +21,6 @@ fun MovieScheduleUi.toMovieSchedule(): MovieSchedule {
     )
 }
 
-fun MovieTicketUi.toMovieTicket(): MovieTicket {
+fun MovieTicketUi.toDomain(): MovieTicket {
     return MovieTicket(eachPrice, count, title, date, time)
 }

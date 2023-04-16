@@ -21,7 +21,7 @@ import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.uimodel.MovieScheduleUi
 import woowacourse.movie.uimodel.MovieTicketUi
 import woowacourse.movie.utils.DateUtil
-import woowacourse.movie.utils.toMovieSchedule
+import woowacourse.movie.utils.toDomain
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -116,7 +116,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun registerSpinnerListener() {
-        val dateList = movieScheduleUi.toMovieSchedule().getScreeningDate()
+        val dateList = movieScheduleUi.toDomain().getScreeningDate()
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateList)
         dateSpinner.adapter = adapter
 
