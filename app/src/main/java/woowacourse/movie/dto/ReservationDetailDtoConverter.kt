@@ -10,7 +10,7 @@ class ReservationDetailDtoConverter : DtoConverter<ReservationDetail, Reservatio
         return ReservationDetail(
             date = dto.date,
             peopleCount = dto.peopleCount,
-            discount = Discount(listOf(MovieDay, OffTime))
+            discount = Discount(listOf(MovieDay(), OffTime()))
         )
     }
 

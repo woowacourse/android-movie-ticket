@@ -18,7 +18,7 @@ class MovieReservationOffice {
             screenTime
         ),
         peopleCount,
-        Discount(listOf(MovieDay, OffTime))
+        Discount(listOf(MovieDay(), OffTime()))
     )
 
     fun makeReservation(movie: Movie, reservationDetail: ReservationDetail): Reservation =

@@ -15,7 +15,7 @@ class OffTimeTest {
         val reservationDetail = ReservationDetail(date, 1, Discount(listOf()))
 
         // when
-        val actual = OffTime.discount(reservationDetail, price).value
+        val actual = OffTime().discount(reservationDetail, price).value
 
         // then
         val expected = 11000
@@ -30,7 +30,7 @@ class OffTimeTest {
         val reservationDetail = ReservationDetail(date, 1, Discount(listOf()))
 
         // when
-        val actual = OffTime.discount(reservationDetail, Price()).value
+        val actual = OffTime().discount(reservationDetail, Price()).value
 
         // then
         val expected = 13000
@@ -45,7 +45,7 @@ class OffTimeTest {
         val reservationDetail = ReservationDetail(date, 1, Discount(listOf()))
 
         // when
-        val actual = OffTime.discount(reservationDetail, price).value
+        val actual = OffTime().discount(reservationDetail, price).value
 
         // then
         val expected = 11000
