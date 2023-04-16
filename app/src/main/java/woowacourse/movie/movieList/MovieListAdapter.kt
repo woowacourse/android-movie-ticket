@@ -8,21 +8,20 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
-import movie.Cinema
 import movie.MovieSchedule
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.MovieReservationActivity
 import woowacourse.movie.utils.DateUtil
 
 class MovieListAdapter(
-    private val Cinema: Cinema,
+    private val movieSchedule: List<MovieSchedule>,
 ) : BaseAdapter() {
     override fun getCount(): Int {
-        return Cinema.size
+        return movieSchedule.size
     }
 
     override fun getItem(position: Int): MovieSchedule {
-        return Cinema[position]
+        return movieSchedule[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -32,7 +31,7 @@ class MovieListAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val (viewHolder: ViewHolder, view) = getViewHolder(convertView, parent)
 
-        with(Cinema[position]) {
+        with(movieSchedule[position]) {
             viewHolder.posterView.setImageResource(poster)
             viewHolder.titleView.text = title
             viewHolder.releaseDateView.text = DateUtil(view.context).getDateRange(startDate, endDate)

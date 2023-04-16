@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.utils.SampleData.CINEMA_SAMPLE_TEN
+import woowacourse.movie.utils.SampleData.MOVIE_SAMPLE
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +16,6 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun adaptMovieList() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        movieListView.adapter = MovieListAdapter(CINEMA_SAMPLE_TEN)
+        movieListView.adapter = MovieListAdapter(MOVIE_SAMPLE)
     }
 }
