@@ -52,11 +52,9 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         restoreState(savedInstanceState)
 
-        with(binding) {
-            showMovieIntroduce()
-            setSpinnerConfig()
-            setClickListener()
-        }
+        showMovieIntroduce()
+        setSpinnerConfig()
+        setClickListener()
     }
 
     private fun setClickListener() {
