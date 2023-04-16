@@ -1,40 +1,37 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import java.time.LocalDateTime
 
 class TicketTest {
 
     @Test
-    fun `인원 수가 3명일 때 할인이 적용되지 않은 티켓 값은 39000원이다`() {
-        val ticket = Ticket(13000, LocalDateTime.of(2024, 4, 1, 15, 10), 3)
-        val expect = 39000
+    fun `증가하면 티켓 예약자수가 한 명 증가한다`() {
+        var ticket = Ticket(1)
+        ticket = ticket.increase()
 
-        assertEquals(ticket.calculateTotalPrice(), expect)
+        assertEquals(ticket.numberOfPeople, 2)
     }
 
     @Test
-    fun `인원 수가 3명일 때 조조 할인이 적용된 티켓 값은 33000원이다`() {
-        val ticket = Ticket(13000, LocalDateTime.of(2024, 4, 1, 9, 10), 3)
-        val expect = 33000
-
-        assertEquals(ticket.calculateTotalPrice(), expect)
+    fun `예약자 수가 최대일 때 증가하면 최대를 넘어가지 않는다`() {
+        var ticket = Ticket(10)
+        ticket = ticket.increase()
+        assertEquals(ticket.numberOfPeople, 10)
     }
 
     @Test
-    fun `인원 수가 3명일 때 무비데이 할인이 적용된 티켓 값은 3000원이다`() {
-        val ticket = Ticket(13000, LocalDateTime.of(2024, 4, 10, 15, 10), 3)
-        val expect = 35100
-
-        assertEquals(ticket.calculateTotalPrice(), expect)
+    fun `예약자 수가 최소일 때 감소하면 최소를 넘어가지 않는다`() {
+        var ticket = Ticket(1)
+        ticket = ticket.decrease()
+        assertEquals(ticket.numberOfPeople, 1)
     }
 
     @Test
-    fun `인원 수가 3명일 때 무비데이 할인과 야간 할인이 적용된 티켓 값은 33000원이다`() {
-        val ticket = Ticket(13000, LocalDateTime.of(2024, 4, 10, 21, 10), 3)
-        val expect = 29100
-
-        assertEquals(ticket.calculateTotalPrice(), expect)
+    fun `감소하면 티켓 예약자수가 한 명 감소한다`() {
+        var ticket = Ticket(2)
+        ticket = ticket.decrease()
+        assertEquals(ticket.numberOfPeople, 1)
     }
 }
+
