@@ -12,4 +12,16 @@ data class Movie(
     val synopsis: String,
     val startDate: LocalDate,
     val endDate: LocalDate
-) : Serializable
+) : Serializable {
+    companion object {
+        val nullData = Movie(
+            R.drawable.no_image,
+            "영화제목",
+            "0000.0.0",
+            "0분",
+            "시놉시스가 없습니다.",
+            LocalDate.of(2023, 7, 1),
+            LocalDate.of(2023, 7, 1),
+        )
+    }
+}

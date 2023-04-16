@@ -23,12 +23,13 @@ class MovieDetailActivity : BackButtonActivity() {
         setContentView(R.layout.activity_movie_detail)
         isFirst = true
 
-        val movieData = intent.getSerializableCompat<Movie>("movieData")
-        processEmptyMovieData(movieData)
+        val movieData = intent.getSerializableCompat(MovieListAdapter.MOVIE_DATA_KEY)
+            ?: Movie.nullData
+        processMovieNullData(movieData)
 
         initView(movieData)
 
-        val movieSchedule = MovieSchedule(movieData!!.startDate, movieData.endDate)
+        val movieSchedule = MovieSchedule(movieData.startDate, movieData.endDate)
         val scheduleDate = movieSchedule.getScheduleDates()
 
         initView(movieData)
@@ -54,8 +55,8 @@ class MovieDetailActivity : BackButtonActivity() {
         )
     }
 
-    private fun initView(movieData: Movie?) {
-        findViewById<ImageView>(R.id.iv_movie_poster).setImageResource(movieData!!.poster)
+    private fun initView(movieData: Movie) {
+        findViewById<ImageView>(R.id.iv_movie_poster).setImageResource(movieData.poster)
         findViewById<TextView>(R.id.tv_movie_title).text = movieData.title
         findViewById<TextView>(R.id.tv_movie_release_date).text = movieData.releaseDate
         findViewById<TextView>(R.id.tv_movie_running_time).text = movieData.runningTime
@@ -70,9 +71,9 @@ class MovieDetailActivity : BackButtonActivity() {
         }
     }
 
-    private fun processEmptyMovieData(movieData: Movie?) {
-        if (movieData == null) {
-            Toast.makeText(this, "시스템 오류가 발생 했습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
+    private fun processMovieNullData(movieData: Movie) {
+        if (movieData == Movie.nullData) {
+            Toast.makeText(this, getString(R.string.cant_get_movie_data), Toast.LENGTH_SHORT).show()
             this.finish()
         }
     }

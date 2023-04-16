@@ -10,13 +10,24 @@ class BookCompleteActivity : BackButtonActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_complete)
 
-        val movieBookingData = intent.getSerializableCompat<MovieBookingInfo>("movieBookingInfo")
-        if (movieBookingData == null) {
-            Toast.makeText(this, "시스템 오류가 발생 했습니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show()
-            this.finish()
-            return
-        }
+        val movieBookingData = getMovieBookingInfo()
         initView(movieBookingData)
+    }
+
+    private fun getMovieBookingInfo(): MovieBookingInfo {
+        val movieBookingData =
+            intent.getSerializableCompat(MovieDetailActivity.MOVIE_BOOKING_INFO_KEY)
+                ?: MovieBookingInfo.nullData
+
+        if (movieBookingData == MovieBookingInfo.nullData) {
+            Toast.makeText(
+                this,
+                getString(R.string.cant_get_movie_booking_data),
+                Toast.LENGTH_SHORT
+            ).show()
+            this.finish()
+        }
+        return movieBookingData
     }
 
     private fun initView(movieBookingData: MovieBookingInfo) {
