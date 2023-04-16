@@ -33,32 +33,24 @@ class MovieAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        val context = parent?.context ?: return null
-        val view = convertView ?: LayoutInflater.from(context)
-            .inflate(R.layout.movie_item_layout, parent, false)
         val item = _movie[position]
+        val context = parent?.context ?: return null
+        val view = convertView ?: run {
+            val newView = LayoutInflater.from(context)
+                .inflate(R.layout.movie_item_layout, parent, false)
+            val image = newView.findViewById<ImageView>(R.id.image)
+            val title = newView.findViewById<TextView>(R.id.title)
+            val runningDate = newView.findViewById<TextView>(R.id.running_date)
+            val runningTime = newView.findViewById<TextView>(R.id.running_time)
+            val reservation = newView.findViewById<Button>(R.id.reservation)
 
-        if (convertView == null) {
-            val image = view.findViewById<ImageView>(R.id.image)
-            val title = view.findViewById<TextView>(R.id.title)
-            val runningDate = view.findViewById<TextView>(R.id.running_date)
-            val runningTime = view.findViewById<TextView>(R.id.running_time)
-            val reservation = view.findViewById<Button>(R.id.reservation)
-            val viewHoler = MovieViewHolder(image, title, runningDate, runningTime, reservation)
-            view.tag = viewHoler
+            val viewHolder = MovieViewHolder(image, title, runningDate, runningTime, reservation)
+            newView.tag = viewHolder
+            newView
         }
 
         val holder = view.tag as MovieViewHolder
-        holder.image.setImageResource(_movie[position].imgId)
-        holder.title.text = _movie[position].title
-        holder.date.text = context.getString(
-            R.string.running_date,
-            item.startDate.format(DATE_TIME_FORMATTER),
-            item.endDate.format(DATE_TIME_FORMATTER)
-        )
-        holder.time.text = context.getString(R.string.running_time, item.runningTime)
-
-        holder.reservation.setOnClickListener { clickListener?.onClick(position) }
+        holder.setViewHolderFromItem(item, position, clickListener)
         return view
     }
 
@@ -67,12 +59,28 @@ class MovieAdapter(
     }
 
     private class MovieViewHolder(
-        val image: ImageView,
-        val title: TextView,
-        val date: TextView,
-        val time: TextView,
-        val reservation: Button
-    )
+        private val image: ImageView,
+        private val title: TextView,
+        private val date: TextView,
+        private val time: TextView,
+        private val reservation: Button
+    ) {
+        fun setViewHolderFromItem(
+            item: MovieState,
+            position: Int,
+            reservationClickListener: ReservationClickListener? = null
+        ) {
+            image.setImageResource(item.imgId)
+            title.text = item.title
+            date.text = date.context.getString(
+                R.string.running_date,
+                item.startDate.format(DATE_TIME_FORMATTER),
+                item.endDate.format(DATE_TIME_FORMATTER)
+            )
+            time.text = time.context.getString(R.string.running_time, item.runningTime)
+            reservation.setOnClickListener { reservationClickListener?.onClick(position) }
+        }
+    }
 
     companion object {
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
