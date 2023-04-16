@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.Reservation
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.dto.ReservationDtoConverter
 import woowacourse.movie.getSerializableCompat
@@ -16,10 +17,7 @@ class ReservationResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reservation_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val reservationDto =
-            intent.extras?.getSerializableCompat<ReservationDto>(getString(R.string.reservation_extra_name))
-        val reservation = reservationDto?.let { ReservationDtoConverter().convertDtoToModel(it) }
-
+        val reservation = getReservationData()
         if (reservation != null) {
             MovieController(
                 this, reservation.movie, title = findViewById(R.id.movie_reservation_result_title)
@@ -33,6 +31,12 @@ class ReservationResultActivity : AppCompatActivity() {
                 findViewById(R.id.movie_reservation_result_price),
             ).render()
         }
+    }
+
+    private fun getReservationData(): Reservation? {
+        val reservationDto =
+            intent.extras?.getSerializableCompat<ReservationDto>(getString(R.string.reservation_extra_name))
+        return reservationDto?.let { ReservationDtoConverter().convertDtoToModel(it) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
