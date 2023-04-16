@@ -5,11 +5,12 @@ import android.widget.TextView
 import com.example.domain.discountPolicy.DiscountPolicy
 import com.example.domain.model.Reservation
 import woowacourse.movie.R
-import woowacourse.movie.model.ReservationInfo
+import woowacourse.movie.model.ReservationRes
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
-import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_RESERVATION_INFO
+import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_RESERVATION
 import woowacourse.movie.util.customGetSerializable
+import woowacourse.movie.util.keyNoExistError
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -22,16 +23,16 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     private val discountCalculator: DiscountPolicy by lazy { DiscountPolicy() }
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
-        val reservationInfo =
-            intent.customGetSerializable<ReservationInfo>(KEY_RESERVATION_INFO, ::keyNoExistError)
+        val reservationRes =
+            intent.customGetSerializable<ReservationRes>(KEY_RESERVATION, ::keyNoExistError)
                 ?: return
-        setInitReservationData(reservationInfo)
+        setInitReservationData(reservationRes)
     }
 
     private fun setInitReservationData(
-        reservationInfo: ReservationInfo
+        reservationRes: ReservationRes
     ) {
-        val reservation = reservationInfo.asDomain()
+        val reservation = reservationRes.asDomain()
         titleTextView.text = reservation.movie.title
         dateTextView.text = reservation.dateTime.format(DATE_TIME_FORMATTER)
         moneyTextView.text = formattingMoney(reservation)

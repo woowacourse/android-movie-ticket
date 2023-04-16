@@ -14,12 +14,13 @@ import com.example.domain.setter.RunningDateSetter
 import com.example.domain.setter.RunningTimeSetter
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieRes
-import woowacourse.movie.model.ReservationInfo
+import woowacourse.movie.model.ReservationRes
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.Toaster
 import woowacourse.movie.ui.confirm.ReservationConfirmActivity
 import woowacourse.movie.ui.main.MainActivity.Companion.KEY_MOVIE
 import woowacourse.movie.util.customGetSerializable
+import woowacourse.movie.util.keyNoExistError
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -97,8 +98,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     private fun navigateReservationConfirm() {
         val intent = Intent(this, ReservationConfirmActivity::class.java)
-        val info = ReservationInfo.from(movie, LocalDateTime.of(selectDate, selectTime), count)
-        intent.putExtra(KEY_RESERVATION_INFO, info)
+        val reservationRes = ReservationRes.from(movie, LocalDateTime.of(selectDate, selectTime), count)
+        intent.putExtra(KEY_RESERVATION, reservationRes)
         startActivity(intent)
     }
 
@@ -181,6 +182,6 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         private const val KEY_COUNT = "key_reservation_count"
         private const val KEY_DATE = "key_reservation_date"
         private const val KEY_TIME = "key_reservation_time"
-        internal const val KEY_RESERVATION_INFO = "key_reservation_info"
+        internal const val KEY_RESERVATION = "key_reservation"
     }
 }

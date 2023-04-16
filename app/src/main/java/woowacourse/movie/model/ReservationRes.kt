@@ -4,7 +4,7 @@ import com.example.domain.model.Count
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class ReservationInfo private constructor(
+data class ReservationRes private constructor(
     private val movieRes: MovieRes,
     private val dateTime: LocalDateTime,
     private val count: Int
@@ -19,8 +19,8 @@ data class ReservationInfo private constructor(
             movieRes: MovieRes,
             dateTime: LocalDateTime,
             count: Count
-        ): ReservationInfo {
-            return ReservationInfo(movieRes, dateTime, count.value)
+        ): ReservationRes {
+            return ReservationRes(movieRes, dateTime, count.value)
         }
     }
 }
