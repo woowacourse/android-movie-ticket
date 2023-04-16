@@ -1,26 +1,16 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.domain.policy.DiscountPolicy
-import woowacourse.movie.domain.policy.MovieDayDiscountPolicy
-import woowacourse.movie.domain.policy.TimeDiscountPolicy
 import java.io.Serializable
-import java.time.LocalDateTime
 
 data class Ticket(
-    val price: Int,
-    val date: LocalDateTime,
-    val numberOfPeople: Int,
+    val numberOfPeople: Int = MIN_BOOKER_NUMBER,
 ) : Serializable {
-    fun calculateTotalPrice(): Int {
-        val discountPolicies = listOf(MovieDayDiscountPolicy(), TimeDiscountPolicy())
-        val discountedPrice = discountPolicies.fold(price) { ticketPrice, policy ->
-            calculateTicketPrice(ticketPrice, policy)
-        }
-        return discountedPrice * numberOfPeople
-    }
+    fun increase(): Ticket = Ticket((numberOfPeople + 1).coerceAtMost(MAX_BOOKER_NUMBER))
 
-    private fun calculateTicketPrice(price: Int, policy: DiscountPolicy): Int {
-        if (policy.checkPolicy(date)) return policy.discountPrice(price)
-        return price
+    fun decrease(): Ticket = Ticket((numberOfPeople - 1).coerceAtLeast(MIN_BOOKER_NUMBER))
+
+    companion object {
+        private const val MIN_BOOKER_NUMBER = 1
+        private const val MAX_BOOKER_NUMBER = 10
     }
 }
