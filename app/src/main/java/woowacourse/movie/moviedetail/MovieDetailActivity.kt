@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
 import woowacourse.movie.TicketActivity
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.domain.movieinfo.RunningDate
-import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -59,33 +59,34 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setUpMovieData(movie: Movie) {
         val moviePoster = findViewById<ImageView>(R.id.movie_poster)
         val movieTitle = findViewById<TextView>(R.id.movie_title)
-        val screeningStartDate = findViewById<TextView>(R.id.screening_start_date)
-        val screeningEndDate = findViewById<TextView>(R.id.screening_end_date)
-        val runningTime = findViewById<TextView>(R.id.running_time)
+        val movieDate = findViewById<TextView>(R.id.movie_date)
+        val runningTime = findViewById<TextView>(R.id.movie_time)
         val description = findViewById<TextView>(R.id.movie_description)
 
         moviePoster.setImageResource(movie.moviePoster)
         movieTitle.text = movie.title
 
-        screeningStartDate.text =
-            movie.runningDate.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+        movieDate.text = formatMovieRunningDate(movie)
 
-        screeningEndDate.text =
-            movie.runningDate.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
-
-        runningTime.text = movie.runningTime.toString()
+        runningTime.text = getString(R.string.movie_running_time).format(movie.runningTime)
         description.text = movie.description
     }
 
+    private fun formatMovieRunningDate(item: Movie): String {
+        val startDate = item.runningDate.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+        val endDate = item.runningDate.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+        return getString(R.string.movie_running_date).format(startDate, endDate)
+    }
+
     private fun setNumberOfPeople() {
-        val booker = findViewById<TextView>(R.id.number_of_people)
+        val booker = findViewById<TextView>(R.id.booker_num)
         booker.text = numberOfBooker.toString()
         clickDecreaseBtn(booker)
         clickIncreaseBtn(booker)
     }
 
     private fun clickDecreaseBtn(booker: TextView) {
-        val minusBtn = findViewById<Button>(R.id.minus_people)
+        val minusBtn = findViewById<Button>(R.id.minus_button)
 
         minusBtn.setOnClickListener {
             numberOfBooker -= 1
@@ -97,7 +98,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun clickIncreaseBtn(booker: TextView) {
-        val plusBtn = findViewById<Button>(R.id.plus_people)
+        val plusBtn = findViewById<Button>(R.id.plus_button)
 
         plusBtn.setOnClickListener {
             numberOfBooker += 1
