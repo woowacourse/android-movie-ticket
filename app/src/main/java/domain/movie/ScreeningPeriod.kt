@@ -11,7 +11,7 @@ data class ScreeningPeriod(
 ) : Serializable {
 
     init {
-        require(startDate <= endDate)
+        require(startDate.isEqual(endDate) || startDate.isBefore(endDate)) { CONDITION_MESSAGE }
     }
 
     fun getScreeningDates(): List<LocalDate> {
@@ -41,7 +41,10 @@ data class ScreeningPeriod(
         }
     }
 
-    private fun getScreeningTimes(startHour: Int, endHour: Int = SCREENING_END_HOUR): List<LocalTime> {
+    private fun getScreeningTimes(
+        startHour: Int,
+        endHour: Int = SCREENING_END_HOUR
+    ): List<LocalTime> {
         val screeningTimes = mutableListOf<LocalTime>()
         var currentHour = startHour
 
