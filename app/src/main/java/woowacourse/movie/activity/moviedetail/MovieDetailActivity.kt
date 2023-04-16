@@ -15,13 +15,13 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
         val movieDTO: MovieDTO? = intent.getSerializableExtraCompat(MOVIE_KEY)
-        if (movieDTO != null) {
-            initMovieDetailView(movieDTO)
-            initReservationInfoView(savedInstanceState, movieDTO)
-        } else {
+        if (movieDTO == null) {
             Toast.makeText(this, DATA_LOADING_ERROR_MESSAGE, Toast.LENGTH_LONG).show()
             finish()
+            return
         }
+        initMovieDetailView(movieDTO)
+        initReservationInfoView(savedInstanceState, movieDTO)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

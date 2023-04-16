@@ -23,15 +23,15 @@ class TicketResultActivity : AppCompatActivity() {
 
         val info: TicketingInfo? = intent.getSerializableExtraCompat(INFO_KEY)
 
-        if (info != null) {
-            initTitle(info.title)
-            initPlayingDate(info.playingDate, info.playingTime)
-            initCount(info.count)
-            initPricePayment(info.price, info.count, info.payment)
-        } else {
+        if (info == null) {
             Toast.makeText(this, DATA_LOADING_ERROR_MESSAGE, Toast.LENGTH_LONG).show()
             finish()
+            return
         }
+        initTitle(info.title)
+        initPlayingDate(info.playingDate, info.playingTime)
+        initCount(info.count)
+        initPricePayment(info.price, info.count, info.payment)
     }
 
     private fun initTitle(title: String) {
