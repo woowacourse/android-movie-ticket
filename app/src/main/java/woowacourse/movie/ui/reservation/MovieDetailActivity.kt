@@ -19,6 +19,7 @@ import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.Toaster
 import woowacourse.movie.ui.confirm.ReservationConfirmActivity
 import woowacourse.movie.ui.main.MainActivity.Companion.KEY_MOVIE
+import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.customGetSerializable
 import woowacourse.movie.util.keyNoExistError
 import java.time.LocalDate
@@ -60,7 +61,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
-        movie = intent.customGetSerializable(KEY_MOVIE, ::keyNoExistError) ?: return
+        movie = intent.customGetParcelableExtra(KEY_MOVIE, ::keyNoExistError) ?: return
         initSetOnClickListener()
         initMovieData()
         setDateSpinnerAdapter()

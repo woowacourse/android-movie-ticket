@@ -1,14 +1,16 @@
 package woowacourse.movie.model
 
+import android.os.Parcelable
 import com.example.domain.model.Count
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
+@Parcelize
 data class ReservationRes private constructor(
     private val movieRes: MovieRes,
     private val dateTime: LocalDateTime,
     private val count: Int
-) : Serializable {
+) : Parcelable {
 
     fun getInfo(): Triple<MovieRes, LocalDateTime, Count> {
         return Triple(movieRes, dateTime, Count(count))
