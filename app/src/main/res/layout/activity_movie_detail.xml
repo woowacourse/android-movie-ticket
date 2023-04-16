@@ -15,8 +15,9 @@
         app:titleTextColor="@color/white" />
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movie_detail_toolbar">
@@ -66,17 +67,19 @@
                 android:layout_marginStart="21dp"
                 android:text="@string/movie_running_time"
                 android:textColor="@color/black"
+                android:textSize="19sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_date" />
 
             <TextView
                 android:id="@+id/movie_description"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="21dp"
+                android:paddingHorizontal="21dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_time"
                 tools:text="description" />
