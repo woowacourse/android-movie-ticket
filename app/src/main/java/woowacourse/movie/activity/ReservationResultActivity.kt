@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.payment.PaymentType
-import woowacourse.movie.domain.reservation.Reservation
+import woowacourse.movie.uimodel.ReservationModel
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -15,7 +15,7 @@ class ReservationResultActivity : AppCompatActivity() {
     private val paymentAmountTextView: TextView by lazy { findViewById<TextView>(R.id.result_payment_amount_text_view) }
     private val screeningDateTimeTextView: TextView by lazy { findViewById<TextView>(R.id.result_screening_date_time_text_view) }
     private val ticketCountTextView: TextView by lazy { findViewById<TextView>(R.id.result_ticket_count_text_view) }
-    private val reservation: Reservation by lazy { intent.getSerializableExtra("reservation") as Reservation }
+    private val reservationModel: ReservationModel by lazy { intent.getSerializableExtra("reservation") as ReservationModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +25,10 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservationResultView() {
-        with(reservation) {
+        with(reservationModel) {
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
-            movieNameTextView.text = movie.name.value
+            movieNameTextView.text = movieModel.name.value
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
 
             ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)

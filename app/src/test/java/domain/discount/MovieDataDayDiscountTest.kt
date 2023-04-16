@@ -7,7 +7,7 @@ import woowacourse.movie.domain.discount.MovieDayDiscount
 import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
-internal class MovieDayDiscountTest {
+internal class MovieDataDayDiscountTest {
 
     lateinit var movieDayDiscount: MovieDayDiscount
     val paymentAmount: PaymentAmount = PaymentAmount(13000)

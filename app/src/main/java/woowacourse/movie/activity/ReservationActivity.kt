@@ -12,9 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.Movie
-import woowacourse.movie.domain.reservation.Reservation
 import woowacourse.movie.domain.reservation.TicketCount
+import woowacourse.movie.uimodel.MovieModel
+import woowacourse.movie.uimodel.ReservationModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -55,8 +55,8 @@ class ReservationActivity : AppCompatActivity() {
     private val completeButton: Button by lazy {
         findViewById(R.id.reservation_complete_button)
     }
-    private val movie: Movie by lazy {
-        intent.getSerializableExtra(getString(R.string.movie_key)) as Movie
+    private val movieModel: MovieModel by lazy {
+        intent.getSerializableExtra(getString(R.string.movie_key)) as MovieModel
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,14 +81,14 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initReservationView() {
-        with(movie) {
+        with(movieModel) {
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
             posterImage?.let { id -> posterImageView.setImageResource(id) }
             movieNameTextView.text = name.value
             screeningDateTextView.text = getString(R.string.screening_period_form).format(
-                movie.screeningPeriod.startDate.format(dateFormat),
-                movie.screeningPeriod.endDate.format(dateFormat)
+                movieModel.screeningPeriod.startDate.format(dateFormat),
+                movieModel.screeningPeriod.endDate.format(dateFormat)
             )
             runningTimeTextView.text = getString(R.string.running_time_form).format(runningTime)
             descriptionTextView.text = description
@@ -105,7 +105,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initSpinner(savedInstanceState: Bundle?) {
-        val dates = movie.screeningPeriod.getScreeningDates()
+        val dates = movieModel.screeningPeriod.getScreeningDates()
 
         screeningDateSpinner.adapter = ArrayAdapter(
             this,
@@ -140,16 +140,16 @@ class ReservationActivity : AppCompatActivity() {
             LocalTime.parse(savedInstanceState.getString(getString(R.string.screening_time_key)))
 
         val selectedDatePosition: Int =
-            movie.screeningPeriod.getScreeningDates().indexOf(screeningDate)
+            movieModel.screeningPeriod.getScreeningDates().indexOf(screeningDate)
         val selectedTimePosition: Int =
-            movie.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
+            movieModel.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
 
         screeningDateSpinner.setSelection(selectedDatePosition)
         initTimeSpinner(screeningDate, selectedTimePosition)
     }
 
     private fun initTimeSpinner(date: LocalDate?, defaultPoint: Int = 0) {
-        val times = movie.screeningPeriod.getScreeningTimes(date)
+        val times = movieModel.screeningPeriod.getScreeningTimes(date)
 
         screeningTimeSpinner.adapter = ArrayAdapter(
             this,
@@ -190,10 +190,10 @@ class ReservationActivity : AppCompatActivity() {
             val ticketCount = ticketCountTextView.text.toString().toInt()
             val screeningDate = screeningDateSpinner.selectedItem as LocalDate
             val screeningTime = screeningTimeSpinner.selectedItem as LocalTime
-            val reservation: Reservation =
-                Reservation.from(movie, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
+            val reservationModel: ReservationModel =
+                ReservationModel.from(movieModel, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
             val intent = Intent(this, ReservationResultActivity::class.java)
-            intent.putExtra(getString(R.string.reservation_key), reservation)
+            intent.putExtra(getString(R.string.reservation_key), reservationModel)
             startActivity(intent)
             finish()
         }

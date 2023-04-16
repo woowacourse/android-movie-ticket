@@ -6,22 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.viewholder.MovieItemViewHolder
 
 class MoviesAdapter(
-    private val movies: List<Movie>
+    private val movieModels: List<MovieModel>
 ) : BaseAdapter() {
 
-    override fun getCount(): Int = movies.size
+    override fun getCount(): Int = movieModels.size
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): MovieModel = movieModels[position]
 
     override fun getItemId(position: Int): Long = 0
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val context: Context? = parent?.context
-        val movie: Movie = movies[position]
+        val movieModel: MovieModel = movieModels[position]
 
         val movieItemViewHolder: MovieItemViewHolder
         val view: View
@@ -40,7 +40,7 @@ class MoviesAdapter(
             movieItemViewHolder = view.tag as MovieItemViewHolder
         }
 
-        movieItemViewHolder.setViewContents(context, movie)
+        movieItemViewHolder.setViewContents(context, movieModel)
         return view
     }
 }

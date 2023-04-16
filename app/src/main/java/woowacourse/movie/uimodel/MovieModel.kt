@@ -1,8 +1,10 @@
-package woowacourse.movie.domain.movie
+package woowacourse.movie.uimodel
 
+import woowacourse.movie.domain.movie.Name
+import woowacourse.movie.domain.movie.ScreeningPeriod
 import java.io.Serializable
 
-data class Movie(
+data class MovieModel(
     val name: Name,
     val posterImage: Int?,
     val screeningPeriod: ScreeningPeriod,

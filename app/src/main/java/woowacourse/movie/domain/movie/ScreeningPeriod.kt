@@ -11,7 +11,7 @@ data class ScreeningPeriod(
 ) : Serializable {
 
     init {
-        require(startDate.isEqual(endDate) || startDate.isBefore(endDate)) { CONDITION_MESSAGE }
+        require(startDate.isEqual(endDate) || startDate.isBefore(endDate))
     }
 
     fun getScreeningDates(): List<LocalDate> {

@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.uimodel.MovieModel
 import java.time.format.DateTimeFormatter
 
 class MovieItemViewHolder(
@@ -20,32 +20,32 @@ class MovieItemViewHolder(
 
     private val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-    fun setViewContents(context: Context?, movie: Movie) {
-        setPosterResource(movie)
-        setMovieNameText(movie)
-        setScreeningDateText(context, movie)
-        setRunningTimeText(context, movie)
+    fun setViewContents(context: Context?, movieModel: MovieModel) {
+        setPosterResource(movieModel)
+        setMovieNameText(movieModel)
+        setScreeningDateText(context, movieModel)
+        setRunningTimeText(context, movieModel)
     }
 
-    private fun setPosterResource(movie: Movie) {
-        movie.posterImage?.let { moviePosterImageView.setImageResource(it) }
+    private fun setPosterResource(movieModel: MovieModel) {
+        movieModel.posterImage?.let { moviePosterImageView.setImageResource(it) }
     }
 
-    private fun setMovieNameText(movie: Movie) {
-        movieNameTextView.text = movie.name.value
+    private fun setMovieNameText(movieModel: MovieModel) {
+        movieNameTextView.text = movieModel.name.value
     }
 
-    private fun setScreeningDateText(context: Context?, movie: Movie) {
+    private fun setScreeningDateText(context: Context?, movieModel: MovieModel) {
         screeningDateTextView.text =
             context?.getString(R.string.screening_period_form)?.format(
-                movie.screeningPeriod.startDate.format(dateFormat),
-                movie.screeningPeriod.endDate.format(dateFormat)
+                movieModel.screeningPeriod.startDate.format(dateFormat),
+                movieModel.screeningPeriod.endDate.format(dateFormat)
             )
     }
 
-    private fun setRunningTimeText(context: Context?, movie: Movie) {
+    private fun setRunningTimeText(context: Context?, movieModel: MovieModel) {
         runningTimeTextView.text =
             context?.getString(R.string.running_time_form)
-                ?.format(movie.runningTime)
+                ?.format(movieModel.runningTime)
     }
 }
