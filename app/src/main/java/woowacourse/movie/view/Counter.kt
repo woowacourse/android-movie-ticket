@@ -4,28 +4,28 @@ import android.widget.Button
 import android.widget.TextView
 
 class Counter(
-    minus: Button,
-    plus: Button,
-    private val text: TextView,
-    var count: Int
-) {
+    minusButton: Button,
+    plusButton: Button,
+    private val countText: TextView,
+    savedStateKey: String
+) : SaveStateTextView(countText, saveStateKey = savedStateKey) {
     init {
-        minus.setOnClickListener {
-            count -= COUNT_FACTOR
-            applyToView()
+        applyToView(INITIAL_COUNT.toString())
+        minusButton.setOnClickListener {
+            applyToView((getCount() - COUNT_FACTOR).toString())
         }
 
-        plus.setOnClickListener {
-            count += COUNT_FACTOR
-            applyToView()
+        plusButton.setOnClickListener {
+            applyToView((getCount() + COUNT_FACTOR).toString())
         }
     }
 
-    fun applyToView() {
-        text.text = count.toString()
+    fun getCount(): Int {
+        return countText.text.toString().toInt()
     }
 
     companion object {
+        private const val INITIAL_COUNT = 1
         private const val COUNT_FACTOR = 1
     }
 }
