@@ -15,14 +15,14 @@ import woowacourse.movie.R
 import woowacourse.movie.TicketActivity
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
+import woowacourse.movie.domain.movieinfo.MovieDate
+import woowacourse.movie.domain.movieinfo.MovieTime
 import woowacourse.movie.domain.movieinfo.RunningDate
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
-    private var numberOfBooker = 1
+    private var movieTikcet = Ticket()
     private var dateSpinnerPosition = 0
     private var timeSpinnerPosition = 0
 
@@ -80,7 +80,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun setNumberOfPeople() {
         val booker = findViewById<TextView>(R.id.booker_num)
-        booker.text = numberOfBooker.toString()
+        booker.text = movieTikcet.numberOfPeople.toString()
         clickDecreaseBtn(booker)
         clickIncreaseBtn(booker)
     }
@@ -89,11 +89,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val minusBtn = findViewById<Button>(R.id.minus_button)
 
         minusBtn.setOnClickListener {
-            numberOfBooker -= 1
-            if (numberOfBooker <= MIN_BOOKER_NUMBER) {
-                numberOfBooker = MIN_BOOKER_NUMBER
-            }
-            booker.text = numberOfBooker.toString()
+            movieTikcet.decrease()
+            booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
 
@@ -101,27 +98,18 @@ class MovieDetailActivity : AppCompatActivity() {
         val plusBtn = findViewById<Button>(R.id.plus_button)
 
         plusBtn.setOnClickListener {
-            numberOfBooker += 1
-            if (numberOfBooker >= MAX_BOOKER_NUMBER) {
-                numberOfBooker = MAX_BOOKER_NUMBER
-            }
-            booker.text = numberOfBooker.toString()
+            movieTikcet.increase()
+            booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
 
     private fun clickBookBtn(movie: Movie) {
         val bookBtn = findViewById<Button>(R.id.book_button)
         bookBtn.setOnClickListener {
-            val selectedDate = LocalDate.parse(selectDateSpinner.selectedItem.toString())
-            val selectedTime = LocalTime.parse(selectTimeSpinner.selectedItem.toString())
-            val ticket =
-                Ticket(
-                    TICKET_PRICE,
-                    LocalDateTime.of(selectedDate, selectedTime),
-                    numberOfBooker,
-                )
+            val selectedDate = MovieDate.of(selectDateSpinner.selectedItem.toString())
+            val selectedTime = MovieTime.of(selectTimeSpinner.selectedItem.toString())
             val intent = Intent(this, TicketActivity::class.java)
-            intent.putExtra(TICKET_KEY, ticket)
+            intent.putExtra(TICKET_KEY, movieTikcet)
             intent.putExtra(MOVIE_KEY, movie)
             startActivity(intent)
         }
@@ -180,7 +168,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(NUMBER_OF_PEOPLE, numberOfBooker)
         outState.putInt(DATE_SPINNER_POSITION, dateSpinnerPosition)
         outState.putInt(TIME_SPINNER_POSITION, timeSpinnerPosition)
         super.onSaveInstanceState(outState)
@@ -192,8 +179,5 @@ class MovieDetailActivity : AppCompatActivity() {
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
-        private const val MIN_BOOKER_NUMBER = 1
-        private const val MAX_BOOKER_NUMBER = 10
-        private const val TICKET_PRICE = 13000
     }
 }
