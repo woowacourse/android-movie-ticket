@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import entity.MovieListType
 import entity.Screening
 import woowacourse.movie.R
-import woowacourse.movie.movieReservation.MovieReservationActivity
+import woowacourse.movie.movieReservation.ReservationActivity
 import woowacourse.movie.utils.SampleData.CINEMA_SAMPLE
 
 class MovieListActivity : AppCompatActivity() {
@@ -34,8 +34,8 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun getScreeningListener(screening: Screening) {
-        val intent = Intent(this, MovieReservationActivity::class.java)
-        intent.putExtra(MovieReservationActivity.KEY_MOVIE_Screening, screening)
+        val intent = Intent(this, ReservationActivity::class.java)
+        intent.putExtra(ReservationActivity.KEY_MOVIE_Screening, screening)
         ContextCompat.startActivity(this, intent, null)
     }
 }
