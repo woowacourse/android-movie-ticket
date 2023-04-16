@@ -7,10 +7,11 @@ import java.time.LocalDate
 data class MovieDto(
     @DrawableRes val picture: Int,
     val title: String,
-    val date: List<LocalDate>,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
     val runningTime: Int,
     val description: String,
-) : Serializable {
+) : Dto, Serializable {
     companion object {
         const val MOVIE_KEY_VALUE = "movie"
     }

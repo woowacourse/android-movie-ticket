@@ -7,4 +7,4 @@ data class ReservationDetailDto(
     val date: LocalDateTime,
     val peopleCount: Int,
     val price: Int
-) : Serializable
+) : Dto, Serializable
