@@ -1,17 +1,15 @@
 package woowacourse.movie.domain
 
 import java.io.Serializable
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.LocalDateTime
 
 class TicketTime(
-    val date: LocalDate,
-    val time: LocalTime
+    val dateTime: LocalDateTime
 ) : Serializable {
-    fun isMovieDay(): Boolean = date.dayOfMonth in MOVIE_DAYS
+    fun isMovieDay(): Boolean = dateTime.dayOfMonth in MOVIE_DAYS
 
     fun isSaleTime(): Boolean {
-        return time.hour <= SALE_TIME_STANDARD_MORNING || time.hour >= SALE_TIME_STANDARD_NIGHT
+        return dateTime.hour <= SALE_TIME_STANDARD_MORNING || dateTime.hour >= SALE_TIME_STANDARD_NIGHT
     }
 
     companion object {

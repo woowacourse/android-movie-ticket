@@ -21,6 +21,7 @@ import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
 import java.io.Serializable
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -166,10 +167,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun moveToTicketActivity(movie: Movie) {
         val ticket = MovieTicket(
             movie.title,
-            TicketTime(
-                dateSpinner.selectedItem as LocalDate,
-                timeSpinner.selectedItem as LocalTime
-            ),
+            TicketTime(LocalDateTime.of(dateSpinner.selectedItem as LocalDate, timeSpinner.selectedItem as LocalTime)),
             peopleCount
         )
 
