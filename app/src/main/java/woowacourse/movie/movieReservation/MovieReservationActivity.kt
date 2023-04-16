@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import movie.DiscountFunc
 import movie.DiscountPolicy
 import movie.MovieSchedule
 import movie.MovieTicket
@@ -145,7 +146,7 @@ class MovieReservationActivity : AppCompatActivity() {
             val intent = Intent(this, MovieTicketActivity::class.java)
             val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
-            val discountPolicy = DiscountPolicy.of(selectedDate, selectedTime)
+            val discountPolicy: DiscountFunc = DiscountPolicy.of(selectedDate, selectedTime)
 
             kotlin.runCatching {
                 val movieTicket = MovieTicket(

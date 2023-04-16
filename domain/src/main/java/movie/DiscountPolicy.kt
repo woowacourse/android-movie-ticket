@@ -1,10 +1,11 @@
 package movie
 
-import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 
-object DiscountPolicy : Serializable {
+typealias DiscountFunc = (Int) -> Int
+
+object DiscountPolicy {
     fun of(localDate: LocalDate, localTime: LocalTime): (Int) -> Int = when {
         isMovieDay(localDate.dayOfMonth) -> getMovieDayPolicy(localTime)
         else -> getNormalDayPolicy(localTime)
