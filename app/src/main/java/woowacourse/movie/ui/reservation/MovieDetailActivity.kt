@@ -14,6 +14,7 @@ import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
+import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.Toaster
 import woowacourse.movie.ui.confirm.ReservationConfirmActivity
 import woowacourse.movie.ui.main.MainActivity.Companion.KEY_MOVIE
@@ -26,7 +27,6 @@ import woowacourse.movie.util.setDefaultAdapter
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : BackKeyActionBarActivity() {
     private val getMovieRunningDateUseCase = GetMovieRunningDateUseCase()
@@ -73,11 +73,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private fun initMovieData() {
         image.setImageResource(movie.imgId)
         title.text = movie.title
-        detailDate.text = getString(
-            R.string.running_date,
-            movie.startDate.format(DATE_TIME_FORMATTER),
-            movie.endDate.format(DATE_TIME_FORMATTER)
-        )
+        detailDate.text =
+            DateTimeFormatters.convertToDateTildeDate(this, movie.startDate, movie.endDate)
         detailTime.text = getString(R.string.running_time, movie.runningTime)
         description.text = movie.description
     }
@@ -158,7 +155,6 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     companion object {
-        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
         private const val KEY_COUNT = "key_reservation_count"
         private const val KEY_DATE = "key_reservation_date"
         private const val KEY_TIME = "key_reservation_time"

@@ -7,11 +7,11 @@ import woowacourse.movie.R
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
+import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_RESERVATION
 import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.keyError
 import java.text.DecimalFormat
-import java.time.format.DateTimeFormatter
 
 class ReservationConfirmActivity : BackKeyActionBarActivity() {
     private val discountApplyUseCase = DiscountApplyUseCase()
@@ -32,7 +32,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         reservationState: ReservationState
     ) {
         titleTextView.text = reservationState.movieState.title
-        dateTextView.text = reservationState.dateTime.format(DATE_TIME_FORMATTER)
+        dateTextView.text = DateTimeFormatters.convertToDateTime(reservationState.dateTime)
         reservationCountTextView.text =
             getString(R.string.person_count_text, reservationState.countState.value)
         setDiscountApplyMoney(reservationState)
@@ -44,7 +44,6 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         }
 
     companion object {
-        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm")
         private val DECIMAL_FORMATTER = DecimalFormat("#,###")
     }
 }

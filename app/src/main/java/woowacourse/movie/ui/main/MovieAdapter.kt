@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieState
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.ui.DateTimeFormatters
 
 class MovieAdapter(
     movie: List<MovieState>,
@@ -72,17 +72,10 @@ class MovieAdapter(
         ) {
             image.setImageResource(item.imgId)
             title.text = item.title
-            date.text = date.context.getString(
-                R.string.running_date,
-                item.startDate.format(DATE_TIME_FORMATTER),
-                item.endDate.format(DATE_TIME_FORMATTER)
-            )
+            date.text =
+                DateTimeFormatters.convertToDateTildeDate(date.context, item.startDate, item.endDate)
             time.text = time.context.getString(R.string.running_time, item.runningTime)
             reservation.setOnClickListener { reservationClickListener?.onClick(position) }
         }
-    }
-
-    companion object {
-        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
     }
 }
