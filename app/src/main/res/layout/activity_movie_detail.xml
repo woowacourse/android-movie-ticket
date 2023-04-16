@@ -6,6 +6,77 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetailActivity">
 
+    <ScrollView
+        android:id="@+id/sv_movie_info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/cl_movie_booking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_movie_poster"
+                android:layout_width="match_parent"
+                android:layout_height="341dp"
+                android:contentDescription="@string/content_description_movie_poster"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="21dp"
+                android:includeFontPadding="false"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_movie_poster" />
+
+            <TextView
+                android:id="@+id/tv_movie_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:includeFontPadding="false"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/tv_movie_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_movie_title" />
+
+            <TextView
+                android:id="@+id/tv_movie_running_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/tv_movie_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_movie_release_date" />
+
+            <TextView
+                android:id="@+id/tv_movie_synopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="21dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_movie_running_time" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_movie_booking"
         android:layout_width="match_parent"
@@ -14,20 +85,20 @@
         app:layout_constraintVertical_chainStyle="spread_inside">
 
         <Spinner
-            android:layout_marginBottom="17dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintEnd_toStartOf="@id/sp_movie_time"
             android:id="@+id/sp_movie_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
             app:layout_constraintBottom_toTopOf="@+id/bt_ticket_count_minus"
+            app:layout_constraintEnd_toStartOf="@id/sp_movie_time"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/bt_ticket_count_minus" />
 
         <Spinner
-            android:layout_marginBottom="17dp"
             android:id="@+id/sp_movie_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
             app:layout_constraintBottom_toTopOf="@+id/bt_ticket_count_plus"
             app:layout_constraintEnd_toEndOf="@id/bt_ticket_count_plus"
             app:layout_constraintStart_toEndOf="@id/sp_movie_date" />
@@ -40,7 +111,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="19dp"
             android:background="@color/design_default_color_primary"
-            android:text="-"
+            android:text="@string/button_minus"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
@@ -53,7 +124,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="19dp"
             android:background="@color/design_default_color_primary"
-            android:text="+"
+            android:text="@string/button_plus"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
@@ -64,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="1"
+            android:text="@string/default_ticket_count"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/bt_ticket_count_plus"
@@ -79,7 +150,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
             android:background="@color/design_default_color_primary"
-            android:text="예매완료"
+            android:text="@string/button_book_complete"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -88,79 +159,4 @@
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
-        android:id="@+id/sv_movie_info"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/cl_movie_booking"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/iv_movie_poster"
-                    android:layout_width="match_parent"
-                    android:layout_height="341dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_movie_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="21dp"
-                    android:layout_marginTop="27dp"
-                    android:layout_marginEnd="21dp"
-                    android:includeFontPadding="false"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_movie_poster" />
-
-                <TextView
-                    android:id="@+id/tv_movie_release_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="34dp"
-                    android:includeFontPadding="false"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_movie_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_movie_title" />
-
-                <TextView
-                    android:id="@+id/tv_movie_running_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:includeFontPadding="false"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@id/tv_movie_title"
-                    app:layout_constraintTop_toBottomOf="@id/tv_movie_release_date" />
-
-                <TextView
-                    android:id="@+id/tv_movie_synopsis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="21dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="21dp"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_movie_running_time" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

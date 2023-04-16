@@ -7,5 +7,10 @@
     <string name="cant_get_movie_booking_data">영화 예약 정보를 불러오지 못했습니다. 다시 시도해 주세요.</string>
     <string name="cant_lower_one">1장 이상의 표를 선택해 주세요.</string>
     <string name="cant_get_movie_data">영화 정보를 불러오지 못했습니다. 다시 시도해 주세요.</string>
+    <string name="content_description_movie_poster">Movie Poster</string>
+    <string name="button_minus">-</string>
+    <string name="button_plus">+</string>
+    <string name="default_ticket_count">1</string>
+    <string name="button_book_complete">예매완료</string>
 
 </resources>

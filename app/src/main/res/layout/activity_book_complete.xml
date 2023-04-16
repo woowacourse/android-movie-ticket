@@ -6,47 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".BookCompleteActivity">
 
-    <LinearLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="114dp"
+    <TextView
+        android:id="@+id/tv_book_complete"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
         android:background="@color/book_complete_info_background"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:weightSum="2"
+        android:gravity="center|bottom"
+        android:padding="15dp"
+        android:text="@string/book_can_cancel_before_start_movie"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tv_book_complete"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/book_can_cancel_before_start_movie"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_book_movie_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="14dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_book_complete" />
 
     <TextView
         android:id="@+id/tv_book_date"

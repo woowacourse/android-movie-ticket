@@ -10,6 +10,7 @@
         android:id="@+id/iv_movie_poster"
         android:layout_width="0dp"
         android:layout_height="108dp"
+        android:contentDescription="@string/content_description_movie_poster"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="0.7"
         app:layout_constraintStart_toStartOf="parent"
