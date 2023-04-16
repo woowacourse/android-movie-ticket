@@ -8,10 +8,9 @@ data class Ticket(
     val bookedDateTime: LocalDateTime,
     val count: Int,
 ) {
-
-    fun getPaymentMoney() {
-        val multipliedMoney = Money(TICKET_PRICE).multiplyMoneyWithCount(count)
-        DateTimeDiscountAdapter(bookedDateTime).discount(multipliedMoney)
+    fun getPaymentMoney(): Money {
+        val discountedMoney = DateTimeDiscountAdapter(bookedDateTime).discount(Money(TICKET_PRICE))
+        return discountedMoney.multiplyMoneyWithCount(count)
     }
 
     companion object {
