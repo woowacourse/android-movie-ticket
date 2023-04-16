@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.activities.ticketingresult
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityTicketingResultBinding
@@ -25,7 +26,12 @@ class TicketingResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTicketingResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        showBackButtonOnToolbar()
         showTicketingResult()
+    }
+
+    private fun showBackButtonOnToolbar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun showTicketingResult() {
@@ -66,5 +72,12 @@ class TicketingResultActivity : AppCompatActivity() {
             totalTicketsPrice.amount,
             getString(R.string.on_site_payment)
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

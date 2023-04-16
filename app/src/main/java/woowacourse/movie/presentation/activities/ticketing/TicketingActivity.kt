@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.activities.ticketing
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
@@ -52,9 +53,14 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         restoreState(savedInstanceState)
 
+        showBackButtonOnToolbar()
         showMovieIntroduce()
         setSpinnerConfig()
         setClickListener()
+    }
+
+    private fun showBackButtonOnToolbar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setClickListener() {
@@ -208,6 +214,13 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
         outState.putParcelable(TICKET_COUNT_STATE_KEY, movieTicket)
         outState.putParcelable(SELECTED_DATE_STATE_KEY, selectedDate)
         outState.putParcelable(SELECTED_TIME_STATE_KEY, selectedTime)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
