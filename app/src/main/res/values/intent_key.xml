@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="MOVIE_BOOKING_INFO_INTENT_KEY">MOVIE_BOOKING_INFO_KEY</string>
+    <string name="MOVIE_DATA_INTENT_KEY">"MOVIE_DATA_KEY"</string>
+</resources>
