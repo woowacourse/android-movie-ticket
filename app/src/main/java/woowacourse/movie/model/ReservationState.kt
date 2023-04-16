@@ -7,14 +7,10 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class ReservationState private constructor(
-    private val movieRes: MovieState,
-    private val dateTime: LocalDateTime,
-    private val count: Int
+    val movieState: MovieState,
+    val dateTime: LocalDateTime,
+    val countState: CountState
 ) : Parcelable {
-
-    fun getInfo(): Triple<MovieState, LocalDateTime, Count> {
-        return Triple(movieRes, dateTime, Count(count))
-    }
 
     companion object {
         fun from(
@@ -22,7 +18,7 @@ data class ReservationState private constructor(
             dateTime: LocalDateTime,
             count: Count
         ): ReservationState {
-            return ReservationState(movieRes, dateTime, count.value)
+            return ReservationState(movieRes, dateTime, CountState.from(count))
         }
     }
 }

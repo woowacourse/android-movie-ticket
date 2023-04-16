@@ -4,7 +4,7 @@ import com.example.domain.model.Reservation
 import woowacourse.movie.model.ReservationState
 
 fun ReservationState.asDomain(): Reservation =
-    with(getInfo()) { Reservation(first.asDomain(), second, third) }
+    Reservation(movieState.asDomain(), dateTime, countState.asDomain())
 
 fun Reservation.asPresentation(): ReservationState =
     ReservationState.from(movie.asPresentation(), dateTime, count)

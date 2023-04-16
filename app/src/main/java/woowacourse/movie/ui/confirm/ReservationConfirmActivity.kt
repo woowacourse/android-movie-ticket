@@ -3,7 +3,6 @@ package woowacourse.movie.ui.confirm
 import android.os.Bundle
 import android.widget.TextView
 import com.example.domain.discountPolicy.DiscountPolicy
-import com.example.domain.model.Reservation
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.mapper.asDomain
@@ -30,18 +29,17 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     }
 
     private fun setInitReservationData(
-        reservationRes: ReservationState
+        reservationState: ReservationState
     ) {
-        val reservation = reservationRes.asDomain()
-        titleTextView.text = reservation.movie.title
-        dateTextView.text = reservation.dateTime.format(DATE_TIME_FORMATTER)
-        moneyTextView.text = formattingMoney(reservation)
+        titleTextView.text = reservationState.movieState.title
+        dateTextView.text = reservationState.dateTime.format(DATE_TIME_FORMATTER)
+        moneyTextView.text = formattingMoney(reservationState)
         reservationCountTextView.text =
-            getString(R.string.person_count_text, reservation.count.value)
+            getString(R.string.person_count_text, reservationState.countState.value)
     }
 
-    private fun formattingMoney(reservation: Reservation): String {
-        val money = discountCalculator.discount(reservation).value
+    private fun formattingMoney(reservationState: ReservationState): String {
+        val money = discountCalculator.discount(reservationState.asDomain()).value
         return DECIMAL_FORMATTER.format(money)
     }
 
