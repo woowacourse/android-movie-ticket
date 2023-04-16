@@ -11,8 +11,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import com.example.domain.dateTime.RunningDate
 import com.example.domain.dateTime.RunningTime
-import com.example.domain.model.Count
 import woowacourse.movie.R
+import woowacourse.movie.model.CountState
 import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.ui.BackKeyActionBarActivity
@@ -53,7 +53,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
     private lateinit var runningTimes: List<LocalTime>
 
-    private var count: Count = Count(1)
+    private var count: CountState = CountState.of(1)
         set(value) {
             field = value
             countTextView.text = field.value.toString()
@@ -100,7 +100,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private fun navigateReservationConfirm() {
         val intent = Intent(this, ReservationConfirmActivity::class.java)
         val reservationRes =
-            ReservationState.from(movie, LocalDateTime.of(selectDate, selectTime), count)
+            ReservationState(movie, LocalDateTime.of(selectDate, selectTime), count)
         intent.putExtra(KEY_RESERVATION, reservationRes)
         startActivity(intent)
     }
@@ -148,7 +148,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         runningTimes = RunningTime().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
-        count = Count(savedInstanceState.getInt(KEY_COUNT, 1))
+        count = CountState.of(savedInstanceState.getInt(KEY_COUNT, 1))
     }
 
     private fun setDateSpinnerListener() {
