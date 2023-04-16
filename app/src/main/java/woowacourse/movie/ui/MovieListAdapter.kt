@@ -28,7 +28,7 @@ class MovieListAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val itemView =
-            LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
+            convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
 
         val movie = movies[position]
         itemView.findViewById<ImageView>(R.id.item_poster).setImageResource(movie.poster)
