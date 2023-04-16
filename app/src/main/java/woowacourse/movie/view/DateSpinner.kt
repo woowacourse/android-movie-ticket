@@ -1,34 +1,32 @@
 package woowacourse.movie.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Spinner
 import woowacourse.movie.domain.Movie
+import java.time.LocalDate
 
-class DateSpinner(val spinner: SaveStateSpinner) {
+class DateSpinner(spinner: Spinner, savedStateKey: String) :
+    SaveStateSpinner(savedStateKey, spinner) {
     fun make(
-        context: Context,
         savedInstanceState: Bundle?,
         movie: Movie,
         timeSpinner: TimeSpinner
     ) {
         val dates = movie.date.toList().map { LocalFormattedDate(it) }
+        setArrayAdapter(dates)
+        load(savedInstanceState)
 
-        spinner.initSpinner(context, dates)
-        spinner.load(savedInstanceState)
-
-        spinner.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) = Unit
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                timeSpinner.make(context, savedInstanceState, dates[p2].date)
+                timeSpinner.make(savedInstanceState, dates[p2].date)
             }
         }
     }
 
-    fun save(savedInstanceState: Bundle) {
-        spinner.save(savedInstanceState)
+    fun getSelectedDate(): LocalDate {
+        return (spinner.selectedItem as LocalFormattedDate).date
     }
 }

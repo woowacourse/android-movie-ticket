@@ -1,12 +1,12 @@
 package woowacourse.movie.view
 
 import android.R
-import android.content.Context
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 
-class SaveStateSpinner(override val saveStateKey: String, val spinner: Spinner) : SaveState {
+open class SaveStateSpinner(override val saveStateKey: String, val spinner: Spinner) :
+    SaveState {
 
     override fun save(outState: Bundle) {
         outState.putInt(saveStateKey, spinner.selectedItemPosition)
@@ -18,8 +18,9 @@ class SaveStateSpinner(override val saveStateKey: String, val spinner: Spinner) 
         }
     }
 
-    fun initSpinner(context: Context, data: List<*>) {
-        val dateAdapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, data)
-        spinner.adapter = dateAdapter
+    fun setArrayAdapter(data: List<*>) {
+        val arrayAdapter =
+            ArrayAdapter(spinner.context, R.layout.simple_spinner_dropdown_item, data)
+        spinner.adapter = arrayAdapter
     }
 }
