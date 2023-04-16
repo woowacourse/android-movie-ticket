@@ -2,9 +2,6 @@ package woowacourse.movie.ui.reservation
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
@@ -24,6 +21,8 @@ import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.getSerializableCompat
 import woowacourse.movie.util.keyError
+import woowacourse.movie.util.setClickListener
+import woowacourse.movie.util.setDefaultAdapter
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -113,22 +112,12 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun setDateSpinnerAdapter() {
-        val dateSpinnerAdapter = ArrayAdapter(
-            this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-            runningDates.map { it.toString() }
-        )
-        dateSpinner.adapter = dateSpinnerAdapter
+        dateSpinner.setDefaultAdapter(runningDates.map { it.toString() })
     }
 
     private fun setTimeSpinnerAdapter() {
         getMovieRunningTimes(selectDate)
-        val timeSpinnerAdapter = ArrayAdapter(
-            this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-            runningTimes.map { it.toString() }
-        )
-        timeSpinner.adapter = timeSpinnerAdapter
+        timeSpinner.setDefaultAdapter(runningTimes.map { it.toString() })
     }
 
     private fun initInstanceState() {
@@ -148,34 +137,16 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun setDateSpinnerListener() {
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectDate = runningDates[position]
-                setTimeSpinnerAdapter()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+        dateSpinner.setClickListener({ _, _, position, _ ->
+            selectDate = runningDates[position]
+            setTimeSpinnerAdapter()
+        })
     }
 
     private fun setTimeSpinnerListener() {
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                selectTime = runningTimes[position]
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+        timeSpinner.setClickListener({ _, _, position, _ ->
+            selectTime = runningTimes[position]
+        })
     }
 
     private fun getMovieRunningDates(movie: MovieState) {
