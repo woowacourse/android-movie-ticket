@@ -1,8 +1,5 @@
 package woowacourse.movie.model
 
-import woowacourse.movie.model.policy.MorningPolicy
-import woowacourse.movie.model.policy.MovieDayPolicy
-import woowacourse.movie.model.policy.NightPolicy
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -15,7 +12,6 @@ data class TicketingInfo private constructor(
     val payment: Payment
 ) : java.io.Serializable {
     companion object {
-        private val policies = listOf(MovieDayPolicy(), MorningPolicy(), NightPolicy())
         fun of(
             title: String,
             playingDate: LocalDate,
@@ -24,10 +20,7 @@ data class TicketingInfo private constructor(
             price: Price,
             payment: Payment
         ): TicketingInfo {
-            var calculatePrice = price
-            for (policy in policies) {
-                calculatePrice = policy.calculate(playingDate, playingTime, calculatePrice)
-            }
+            val calculatePrice = PriceCalculator.calculate(price, playingDate, playingTime)
             return TicketingInfo(title, playingDate, playingTime, count, calculatePrice, payment)
         }
     }
