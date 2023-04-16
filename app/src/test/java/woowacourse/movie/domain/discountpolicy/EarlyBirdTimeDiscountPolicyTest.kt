@@ -11,10 +11,10 @@ class EarlyBirdTimeDiscountPolicyTest {
     fun `9시면 조조 할인을 적용하여 2000원 할인된다`() {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 1, 9, 0)
-        val price = 13000
-        val expected = 11000
+        val price = Money(13000)
+        val expected = Money(11000)
         // when
-        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
+        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -24,10 +24,10 @@ class EarlyBirdTimeDiscountPolicyTest {
     fun `10시면 조조 할인을 적용하여 2000원 할인된다`() {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 1, 10, 0)
-        val price = 13000
-        val expected = 11000
+        val price = Money(13000)
+        val expected = Money(11000)
         // when
-        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
+        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -37,10 +37,10 @@ class EarlyBirdTimeDiscountPolicyTest {
     fun `11시면 조조 할인을 적용하여 2000원 할인된다`() {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 1, 11, 0)
-        val price = 13000
-        val expected = 11000
+        val price = Money(13000)
+        val expected = Money(11000)
         // when
-        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
+        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -50,10 +50,10 @@ class EarlyBirdTimeDiscountPolicyTest {
     fun `9~11시가 아니면 조조 할인이 적용되지 않는다`() {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 1, 12, 0)
-        val price = 13000
-        val expected = 13000
+        val price = Money(13000)
+        val expected = Money(13000)
         // when
-        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
+        val actual = EarlyBirdTimeDiscountPolicy(dateTime, 2000).discount(price)
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
