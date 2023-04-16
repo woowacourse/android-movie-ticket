@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
 import woowacourse.movie.uimodel.MovieTicketUi
 import woowacourse.movie.utils.DateUtil
@@ -32,8 +31,6 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun registerToolbar() {
-        val reservationToolbar = findViewById<Toolbar>(R.id.ticket_toolbar)
-        setSupportActionBar(reservationToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

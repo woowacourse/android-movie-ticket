@@ -11,7 +11,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import movie.DiscountFunc
 import movie.DiscountPolicy
 import movie.TicketCount
@@ -92,8 +91,6 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun registerToolbar() {
-        val reservationToolbar = findViewById<Toolbar>(R.id.reservation_toolbar)
-        setSupportActionBar(reservationToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

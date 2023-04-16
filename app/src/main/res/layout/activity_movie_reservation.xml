@@ -7,16 +7,6 @@
     android:orientation="vertical"
     tools:context=".movieReservation.MovieReservationActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/reservation_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/toolBarBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/app_name" />
-
     <include
         android:id="@+id/reservation_movie_fragment"
         layout="@layout/include_movie_reservation_contents"
@@ -25,7 +15,7 @@
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservation_toolbar" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <include
         android:id="@+id/reservation_movie_navigate"
