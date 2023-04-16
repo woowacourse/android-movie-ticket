@@ -9,7 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.uimodel.MovieTicketUi
 import woowacourse.movie.utils.DateUtil
 import woowacourse.movie.utils.toDomain
-import java.text.DecimalFormat
+import woowacourse.movie.view.decimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
     private val ticketUi by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as MovieTicketUi }
@@ -53,7 +53,6 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val decimalFormat = DecimalFormat("#,###")
         const val KEY_MOVIE_TICKET = "movieTicketUi"
     }
 }
