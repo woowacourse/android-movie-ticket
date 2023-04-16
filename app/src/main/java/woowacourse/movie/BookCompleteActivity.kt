@@ -13,7 +13,7 @@ class BookCompleteActivity : BackButtonActivity() {
         setContentView(binding.root)
 
         val movieBookingData =
-            intent.getParcelableCompat<MovieBookingInfo>(getString(R.string.MOVIE_BOOKING_INFO_INTENT_KEY))
+            intent.getParcelableCompat<MovieBookingInfo>(MOVIE_BOOKING_INFO_INTENT_KEY)
         processEmptyBookingData(movieBookingData)
 
         setViewData(movieBookingData!!)
@@ -44,5 +44,9 @@ class BookCompleteActivity : BackButtonActivity() {
     private fun formatBookingTime(date: String, time: String): String {
         val formattedDate: String = date.split("-").joinToString(".")
         return "$formattedDate $time"
+    }
+
+    companion object {
+        const val MOVIE_BOOKING_INFO_INTENT_KEY = "MOVIE_BOOKING_INFO_KEY"
     }
 }
