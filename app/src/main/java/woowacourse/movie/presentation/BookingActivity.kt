@@ -46,6 +46,7 @@ class BookingActivity : AppCompatActivity() {
         initView()
         gatherClickListeners()
         initDateSpinnerSelectedListener()
+        initTimeSpinnerSelectedListener()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -163,7 +164,20 @@ class BookingActivity : AppCompatActivity() {
                 timeSpinnerAdapter.initItems(times)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+        }
+    }
+
+    private fun initTimeSpinnerSelectedListener() {
+        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) = Unit
+
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
