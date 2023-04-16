@@ -10,17 +10,21 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.movieinfo.Movie
+import woowacourse.movie.dto.MovieDto
 import java.time.format.DateTimeFormatter
 
-class MovieListViewAdapter(private val context: Context, private val movies: List<Movie>, private val listener: OnMovieClickListener) :
+class MovieListViewAdapter(
+    private val context: Context,
+    private val movies: List<MovieDto>,
+    private val listener: OnMovieClickListener,
+) :
     BaseAdapter() {
 
     override fun getCount(): Int {
         return movies.size
     }
 
-    override fun getItem(position: Int): Movie {
+    override fun getItem(position: Int): MovieDto {
         return movies[position]
     }
 
@@ -40,26 +44,29 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         } else {
             holder = itemView.tag as MovieListViewHolder
         }
-        val item: Movie = movies[position]
+        val item: MovieDto = movies[position]
 
         setMovieData(holder, item)
 
         return itemView
     }
 
-    private fun setMovieData(holder: MovieListViewHolder, item: Movie) {
+    private fun setMovieData(holder: MovieListViewHolder, item: MovieDto) {
         holder.moviePoster.setImageResource(item.moviePoster)
         holder.movieTitle.text = item.title
         holder.movieDate.text = formatMovieRunningDate(item)
-        holder.runningTime.text = context.getString(R.string.movie_running_time).format(item.runningTime)
+        holder.runningTime.text =
+            context.getString(R.string.movie_running_time).format(item.runningTime)
         holder.bookButton.setOnClickListener {
             listener.onMovieClick(item)
         }
     }
 
-    private fun formatMovieRunningDate(item: Movie): String {
-        val startDate = item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
-        val endDate = item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+    private fun formatMovieRunningDate(item: MovieDto): String {
+        val startDate =
+            item.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+        val endDate =
+            item.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
         return context.getString(R.string.movie_running_date, startDate, endDate)
     }
 
