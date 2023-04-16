@@ -24,7 +24,7 @@ import java.time.LocalTime
 
 class MovieDetailActivity : AppCompatActivity() {
 
-    var savedInstanceState: Bundle? = null
+    private var savedInstanceState: Bundle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

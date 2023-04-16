@@ -18,8 +18,7 @@ class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) : java.io.S
     }
 
     private fun makeTimes(date: LocalDate) = buildList<LocalTime> {
-        var startHour = 10
-        if (isWeekends(date.dayOfWeek)) startHour = 9
+        val startHour = if (isWeekends(date.dayOfWeek)) 9 else 10
         for (hour in startHour until 24 step 2) {
             add(LocalTime.of(hour, 0))
         }
