@@ -21,18 +21,10 @@ class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
         var itemLayout: View? = convertView
 
         if (convertView == null) {
-            if (!::inflater.isInitialized) {
-                inflater = LayoutInflater.from(parent?.context)
-            }
+            if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent?.context)
             itemLayout = inflater.inflate(R.layout.movie_list_item, null)
 
-            viewHolder = MovieViewHolder(
-                ivPoster = itemLayout.findViewById(R.id.iv_poster),
-                tvMovieName = itemLayout.findViewById(R.id.tv_movie_name),
-                tvScreeningDay = itemLayout.findViewById(R.id.tv_screening_day),
-                tvRunningTime = itemLayout.findViewById(R.id.tv_running_time),
-                btnBooking = itemLayout.findViewById(R.id.btn_booking)
-            )
+            viewHolder = initMovieViewHolder(itemLayout)
             itemLayout.tag = viewHolder
         } else {
             viewHolder = itemLayout?.tag as MovieViewHolder
@@ -42,6 +34,15 @@ class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
 
         return itemLayout ?: throw IllegalStateException(NULL_ITEM_LAYOUT_ERROR)
     }
+
+    private fun initMovieViewHolder(itemLayout: View): MovieViewHolder =
+        MovieViewHolder(
+            ivPoster = itemLayout.findViewById(R.id.iv_poster),
+            tvMovieName = itemLayout.findViewById(R.id.tv_movie_name),
+            tvScreeningDay = itemLayout.findViewById(R.id.tv_screening_day),
+            tvRunningTime = itemLayout.findViewById(R.id.tv_running_time),
+            btnBooking = itemLayout.findViewById(R.id.btn_booking)
+        )
 
     companion object {
         private const val NULL_ITEM_LAYOUT_ERROR = "itemLayout이 null 값으로 반환되었습니다."
