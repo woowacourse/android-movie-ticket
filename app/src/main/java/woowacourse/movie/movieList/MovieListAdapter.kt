@@ -1,5 +1,6 @@
 package woowacourse.movie.movieList
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
@@ -27,23 +28,6 @@ class MovieListAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val (viewHolder: ViewHolder, view) = getViewHolder(convertView, parent)
-
-        with(movieScheduleUi[position]) {
-            viewHolder.posterView.setImageResource(poster)
-            viewHolder.titleView.text = title
-            viewHolder.releaseDateView.text = DateUtil(view.context).getDateRange(startDate, endDate)
-            viewHolder.runningTimeView.text = view.context.getString(R.string.movie_running_time).format(runningTime)
-            viewHolder.reservationButton.setOnClickListener { onReservationClickListener(this) }
-        }
-
-        return view
-    }
-
-    private fun getViewHolder(
-        convertView: View?,
-        parent: ViewGroup?,
-    ): Pair<ViewHolder, View> {
         val viewHolder: ViewHolder
 
         val view = if (convertView != null) {
@@ -54,24 +38,39 @@ class MovieListAdapter(
                 R.layout.include_movie_list_item,
                 null,
             )
-            viewHolder = ViewHolder(
-                v.findViewById(R.id.movie_poster),
-                v.findViewById(R.id.movie_title),
-                v.findViewById(R.id.movie_release_date),
-                v.findViewById(R.id.movie_running_time),
-                v.findViewById(R.id.movie_reservation_button),
-            )
+            viewHolder = makeViewHolder(v)
             v.tag = viewHolder
             v
         }
-        return Pair(viewHolder, view)
+
+        viewHolder.bind(view.context, movieScheduleUi[position])
+        return view
     }
 
-    class ViewHolder(
+    private fun makeViewHolder(view: View): ViewHolder {
+        return ViewHolder(
+            view.findViewById(R.id.movie_poster),
+            view.findViewById(R.id.movie_title),
+            view.findViewById(R.id.movie_release_date),
+            view.findViewById(R.id.movie_running_time),
+            view.findViewById(R.id.movie_reservation_button),
+        )
+    }
+
+    private inner class ViewHolder(
         val posterView: ImageView,
         val titleView: TextView,
         val releaseDateView: TextView,
         val runningTimeView: TextView,
         val reservationButton: Button,
-    )
+    ) {
+
+        fun bind(context: Context, movieScheduleUi: MovieScheduleUi) {
+            posterView.setImageResource(movieScheduleUi.poster)
+            titleView.text = movieScheduleUi.title
+            releaseDateView.text = DateUtil(context).getDateRange(movieScheduleUi.startDate, movieScheduleUi.endDate)
+            runningTimeView.text = context.getString(R.string.movie_running_time).format(movieScheduleUi.runningTime)
+            reservationButton.setOnClickListener { onReservationClickListener(movieScheduleUi) }
+        }
+    }
 }
