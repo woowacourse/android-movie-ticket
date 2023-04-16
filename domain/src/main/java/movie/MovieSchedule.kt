@@ -1,5 +1,7 @@
 package movie
 
+import movie.screening.ScreeningDate
+import movie.screening.ScreeningTime
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -8,8 +10,6 @@ class MovieSchedule(
     private val movie: Movie,
     private val screeningDate: ScreeningDate,
 ) : Serializable {
-    val startDate: LocalDate = screeningDate.startDate
-    val endDate: LocalDate = screeningDate.endDate
 
     val poster: Int
         get() = movie.poster
@@ -23,7 +23,13 @@ class MovieSchedule(
     val summary: String
         get() = movie.summary
 
-    fun getScreeningTime(date: LocalDate): List<LocalTime> = screeningDate.getScreeningTime(date)
+    val startDate: LocalDate
+        get() = screeningDate.startDate
 
-    fun getScreeningDate(): List<String> = screeningDate.dateList
+    val endDate: LocalDate
+        get() = screeningDate.endDate
+
+    fun getScreeningTime(date: LocalDate): List<LocalTime> = ScreeningTime.getScreeningTime(date)
+
+    fun getScreeningDate(): List<String> = screeningDate.getScreeningDate()
 }

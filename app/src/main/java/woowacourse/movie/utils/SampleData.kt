@@ -3,7 +3,7 @@ package woowacourse.movie.utils
 import movie.Cinema
 import movie.Movie
 import movie.MovieSchedule
-import movie.ScreeningDate
+import movie.screening.ScreeningDate
 import woowacourse.movie.R
 import java.time.LocalDate
 
@@ -19,7 +19,7 @@ object SampleData {
                         "해리는 호그와트를 선택한다. 런던의 킹스 크로스 역에 있는 비밀의 9와 3/4 승강장에서 호그와트 급행열차를 탄 해리는 열차 안에서 같은 호그와트 마법학교 입학생인와 론 위즐리 (루퍼트 그린트), 헤르미온느 그레인저(엠마 왓슨)을 만나 친구가 된다. 이들과 함께 호그와트에 입학한 해리는, 놀라운 모험의 세계를 경험하며 갖가지 신기한 마법들을 배워 나간다. 또한 빗자루를 타고 공중을 날아다니며 경기하는 스릴 만점의 퀴디치 게임에서 스타로 탄생하게 된다. 그러던 어느 날 해리는 호그와트 지하실에 '마법사의 돌'이 비밀리에 보관되어 있다는 것을 알게되고, 해리의 부모님을 살해한 볼드모트(레이프 파인즈)가 그 돌을 노린다는 사실도 알게 된다. 해리는 볼드모트로부터 마법사의 돌과 호그와트 마법학교를 지키기 위해 필사의 노력을 해서 호그와트를 지킨다. 하지만 마법사의 돌이 깨져, 니콜라스 플라멜이 죽고 만다. 대신 여분의 약을 남겨뒀다. 그래서 바로 죽지는 않았다.",
                     poster = R.drawable.poster_sorcerers_stone,
                 ),
-                screeningDate = ScreeningDate(
+                ScreeningDate(
                     startDate = LocalDate.of(2023, 4, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
@@ -37,7 +37,7 @@ object SampleData {
                         "설상가상으로 지니 위즐리까지 슬리데린의 후계자에게 납치당했다는 소식이 들리자 호그와트 폐쇄론까지 제기된다. 이에 해리는 비밀의 방의 진상을 조사하기 위해 지니 위즐리가 가지고 있던 일기장을 꺼내 '비밀의 방에 대하여 알고 있나요?'라고 쓰고, 일기장에 든 톰 마볼로 리들의 영혼과 대화를 하게 된다. 그 일기장에서의 장면을 본 해리는 50년전에 톰 마볼로 리들이 루비우스 해그리드를 잡아내는 장면을 보고는 해그리드가 비밀의 방을 열었다고 생각하지만 그것이 아니라는 것은 곧 밝혀진다. 리들이 해그리드를 모함함으로써 그를 퇴학시켜 아즈카반에 보내도록 한 것이다. 사태를 알아차린 이들은 슬리데린의 후계자를 추적한 끝에 그 후계자가 볼드모트라는 것을 알아내고, 해리는 론과 함께 론의 여동생 지니를 구출하기 위해 비밀의 방에 가는데...",
                     poster = R.drawable.poster_chamber_of_secrets,
                 ),
-                screeningDate = ScreeningDate(
+                ScreeningDate(
                     startDate = LocalDate.of(2023, 3, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
@@ -60,7 +60,7 @@ object SampleData {
                         "설상가상으로 지니 위즐리까지 슬리데린의 후계자에게 납치당했다는 소식이 들리자 호그와트 폐쇄론까지 제기된다. 이에 해리는 비밀의 방의 진상을 조사하기 위해 지니 위즐리가 가지고 있던 일기장을 꺼내 '비밀의 방에 대하여 알고 있나요?'라고 쓰고, 일기장에 든 톰 마볼로 리들의 영혼과 대화를 하게 된다. 그 일기장에서의 장면을 본 해리는 50년전에 톰 마볼로 리들이 루비우스 해그리드를 잡아내는 장면을 보고는 해그리드가 비밀의 방을 열었다고 생각하지만 그것이 아니라는 것은 곧 밝혀진다. 리들이 해그리드를 모함함으로써 그를 퇴학시켜 아즈카반에 보내도록 한 것이다. 사태를 알아차린 이들은 슬리데린의 후계자를 추적한 끝에 그 후계자가 볼드모트라는 것을 알아내고, 해리는 론과 함께 론의 여동생 지니를 구출하기 위해 비밀의 방에 가는데...",
                     poster = R.drawable.poster_chamber_of_secrets,
                 ),
-                screeningDate = ScreeningDate(
+                ScreeningDate(
                     startDate = LocalDate.of(2023, 3, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
