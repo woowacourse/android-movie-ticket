@@ -30,10 +30,5 @@ data class ScreeningPeriod(
     companion object {
 
         private const val PERIOD_ERROR = "[ERROR] 상영 시작 일은 상영 종료일 보다 이전이어야 합니다"
-
-        private const val SCREENING_TERM = 2
-        private const val SCREENING_END_HOUR = 24
-        private const val WEEKEND_SCREENING_START_TIME = 9
-        private const val WEEKDAY_SCREENING_START_TIME = 10
     }
 }
