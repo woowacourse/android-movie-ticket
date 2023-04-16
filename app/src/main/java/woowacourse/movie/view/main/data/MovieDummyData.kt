@@ -1,5 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.view.main.data
 
+import woowacourse.movie.R
+import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
 object MovieDummyData {

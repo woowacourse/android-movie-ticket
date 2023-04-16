@@ -1,8 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.view.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.databinding.ActivityMainBinding
+import woowacourse.movie.view.main.data.MovieDummyData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
