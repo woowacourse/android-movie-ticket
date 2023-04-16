@@ -8,8 +8,8 @@ import kotlinx.parcelize.Parcelize
 @JvmInline
 value class CountState private constructor(val value: Int) : Parcelable {
 
-    operator fun minus(other: Int): CountState = CountState.of(value - other)
-    operator fun plus(other: Int): CountState = CountState.of(value + other)
+    operator fun minus(other: Int): CountState = of(value - other)
+    operator fun plus(other: Int): CountState = of(value + other)
 
     companion object {
         fun from(count: Count): CountState {
