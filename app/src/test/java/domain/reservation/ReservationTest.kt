@@ -2,6 +2,7 @@ package domain.reservation
 
 import domain.movie.Movie
 import domain.movie.MovieName
+import domain.movie.RunningTime
 import domain.movie.ScreeningDate
 import domain.movie.ScreeningPeriod
 import domain.payment.PaymentAmount
@@ -19,7 +20,7 @@ class ReservationTest {
                 ScreeningDate(LocalDate.of(2000, 10, 1)),
                 ScreeningDate(LocalDate.of(2000, 10, 30))
             ),
-            runningTime = 120,
+            runningTime = RunningTime(120),
             description = "마법영화"
         )
         val reservation = Reservation.from(movie, 3, LocalDateTime.of(2000, 10, 1, 13, 0))
