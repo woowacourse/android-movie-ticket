@@ -14,7 +14,7 @@ object MockMoviesFactory {
 
     private fun generateMovie(): Movie {
         return Movie(
-            R.drawable.poster_harrypotter,
+            R.drawable.poster_harrypotter.toString(),
             "해리 포터",
             DateRange(
                 LocalDate.of(2024, 3, 1),

@@ -17,7 +17,7 @@ class MovieController(
     private val description: TextView? = null
 ) {
     fun render() {
-        poster?.setImageResource(movie.picture)
+        poster?.setImageResource(movie.imagePath.toInt())
         title?.text = movie.title
 
         val dateFormat = DateTimeFormatter.ofPattern(context.getString(R.string.movie_date_format))

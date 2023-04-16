@@ -7,11 +7,12 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movie.Companion.MOVIE_KEY_VALUE
 import woowacourse.movie.domain.MovieReservationOffice
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieDto.Companion.MOVIE_KEY_VALUE
 import woowacourse.movie.dto.MovieDtoConverter
+import woowacourse.movie.dto.ReservationDto.Companion.RESERVATION_KEY_VALUE
 import woowacourse.movie.dto.ReservationDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
@@ -88,7 +89,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun startReservationResultActivity(reservation: Reservation) {
         val intent = Intent(this, ReservationResultActivity::class.java)
         val reservationDto = ReservationDtoConverter().convertModelToDto(reservation)
-        intent.putExtra(getString(R.string.reservation_extra_name), reservationDto)
+        intent.putExtra(RESERVATION_KEY_VALUE, reservationDto)
         startActivity(intent)
     }
 

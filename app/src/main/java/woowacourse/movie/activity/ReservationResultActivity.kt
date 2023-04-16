@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.dto.ReservationDto
+import woowacourse.movie.dto.ReservationDto.Companion.RESERVATION_KEY_VALUE
 import woowacourse.movie.dto.ReservationDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.MovieController
@@ -35,7 +36,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private fun getReservationData(): Reservation? {
         val reservationDto =
-            intent.extras?.getSerializableCompat<ReservationDto>(getString(R.string.reservation_extra_name))
+            intent.extras?.getSerializableCompat<ReservationDto>(RESERVATION_KEY_VALUE)
         return reservationDto?.let { ReservationDtoConverter().convertDtoToModel(it) }
     }
 

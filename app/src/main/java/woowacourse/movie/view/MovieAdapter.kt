@@ -53,7 +53,7 @@ class MovieAdapter(
         var reservationButton: Button?
     ) {
         fun setView(movie: Movie) {
-            poster?.setImageResource(movie.picture)
+            poster?.setImageResource(movie.imagePath.toInt())
             val dateFormat =
                 DateTimeFormatter.ofPattern(movieDate?.context?.getString(R.string.movie_date_format))
             movieDate?.text = movieDate?.context?.getString(R.string.movie_date)?.format(
