@@ -18,7 +18,7 @@ class MovieDetailActivity : BackButtonActivity() {
         binding = ActivityMovieDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         restoreInstanceFlag = true
-        val movieData = intent.getParcelableCompat<Movie>(getString(R.string.MOVIE_DATA_INTENT_KEY))
+        val movieData = intent.getParcelableCompat<Movie>(MOVIE_DATA_INTENT_KEY)
         processEmptyMovieData(movieData)
 
         setViewData(movieData)
@@ -62,7 +62,7 @@ class MovieDetailActivity : BackButtonActivity() {
     ) {
         if (savedInstanceState != null) {
             binding.tvTicketCount.text =
-                savedInstanceState.getString(getString(R.string.USER_TICKET_COUNT_BUNDLE_KEY))
+                savedInstanceState.getString(USER_TICKET_COUNT_BUNDLE_KEY)
         }
     }
 
@@ -94,7 +94,7 @@ class MovieDetailActivity : BackButtonActivity() {
                 if (restoreInstanceFlag && savedInstanceState != null) {
                     binding.spMovieTime.setSelection(
                         (
-                            savedInstanceState.getString(getString(R.string.MOVIE_INFO_TIME_BUNDLE_KEY))
+                            savedInstanceState.getString(MOVIE_INFO_TIME_BUNDLE_KEY)
                                 ?: movieSchedule.getScheduleTimes(binding.spMovieDate.selectedItem.toString())
                                     .first()
                             ).toInt()
@@ -132,7 +132,7 @@ class MovieDetailActivity : BackButtonActivity() {
         binding.btBookComplete.setOnClickListener {
             val intent = Intent(this, BookCompleteActivity::class.java).apply {
                 putExtra(
-                    getString(R.string.MOVIE_BOOKING_INFO_INTENT_KEY),
+                    BookCompleteActivity.MOVIE_BOOKING_INFO_INTENT_KEY,
                     MovieBookingInfo(
                         movieData, binding.spMovieDate.selectedItem.toString(),
                         binding.spMovieTime.selectedItem.toString(),
@@ -147,20 +147,19 @@ class MovieDetailActivity : BackButtonActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(
-            getString(R.string.MOVIE_INFO_TIME_BUNDLE_KEY),
+            MOVIE_INFO_TIME_BUNDLE_KEY,
             binding.spMovieTime.selectedItemPosition.toString()
         )
-        outState.putInt(
-            getString(R.string.MOVIE_INFO_DATE_BUNDLE_KEY),
-            binding.spMovieDate.selectedItemPosition
-        )
         outState.putString(
-            getString(R.string.USER_TICKET_COUNT_BUNDLE_KEY),
+            USER_TICKET_COUNT_BUNDLE_KEY,
             binding.tvTicketCount.text.toString()
         )
     }
 
     companion object {
         private const val BASE_TICKET_COUNT_CHARACTER = "1"
+        const val MOVIE_DATA_INTENT_KEY = "MOVIE_DATA_INTENT_KEY"
+        const val MOVIE_INFO_TIME_BUNDLE_KEY = "MOVIE_INFO_TIME_BUNDLE_KEY"
+        const val USER_TICKET_COUNT_BUNDLE_KEY = "USER_TICKET_COUNT_BUNDLE_KEY"
     }
 }
