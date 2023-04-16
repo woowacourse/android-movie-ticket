@@ -24,7 +24,7 @@ data class TicketPrice(val price: Int = TICKET_PRICE) {
         return price
     }
 
-    operator fun times(count: Int): Ticket = Ticket(price * count)
+    operator fun times(count: Int): TicketPrice = TicketPrice(price * count)
 
     companion object {
         private const val TICKET_PRICE = 13000
