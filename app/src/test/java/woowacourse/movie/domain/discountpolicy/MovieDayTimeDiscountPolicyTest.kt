@@ -2,6 +2,8 @@ package woowacourse.movie.domain.discountpolicy
 
 import org.assertj.core.api.Assertions
 import org.junit.Test
+import woowacourse.movie.domain.discount.discountpolicy.MovieDayTimeDiscountPolicy
+import woowacourse.movie.domain.model.Money
 import java.time.LocalDateTime
 
 class MovieDayTimeDiscountPolicyTest {
@@ -12,7 +14,7 @@ class MovieDayTimeDiscountPolicyTest {
         val price = 13000
         val expected = 11700
         // when
-        val actual = MovieDayTimeDiscountPolicy(dateTime).discount(price)
+        val actual = MovieDayTimeDiscountPolicy(dateTime, 0.1).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -25,7 +27,7 @@ class MovieDayTimeDiscountPolicyTest {
         val price = 13000
         val expected = 11700
         // when
-        val actual = MovieDayTimeDiscountPolicy(dateTime).discount(price)
+        val actual = MovieDayTimeDiscountPolicy(dateTime, 0.1).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -38,7 +40,7 @@ class MovieDayTimeDiscountPolicyTest {
         val price = 13000
         val expected = 11700
         // when
-        val actual = MovieDayTimeDiscountPolicy(dateTime).discount(price)
+        val actual = MovieDayTimeDiscountPolicy(dateTime, 0.1).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -51,7 +53,7 @@ class MovieDayTimeDiscountPolicyTest {
         val price = 13000
         val expected = 13000
         // when
-        val actual = MovieDayTimeDiscountPolicy(dateTime).discount(price)
+        val actual = MovieDayTimeDiscountPolicy(dateTime, 0.1).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)

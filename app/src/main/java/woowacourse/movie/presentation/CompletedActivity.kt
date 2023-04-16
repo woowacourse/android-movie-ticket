@@ -32,7 +32,6 @@ class CompletedActivity : AppCompatActivity() {
         return ticketModel.toTicket()
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             finish()
@@ -49,7 +48,7 @@ class CompletedActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
             getString(R.string.normal_ticket_count).format(ticket.count)
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount).format(ticket.getPaymentAmount())
+            getString(R.string.payment_amount).format(ticket.getPaymentMoney())
     }
 
     companion object {

@@ -13,7 +13,7 @@ class TicketTest {
         val expected = 33000
 
         // when
-        val actual = ticket.getPaymentAmount()
+        val actual = ticket.getPaymentMoney()
 
         // then
         assertThat(actual).isEqualTo(expected)

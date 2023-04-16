@@ -2,6 +2,8 @@ package woowacourse.movie.domain.discountpolicy
 
 import org.assertj.core.api.Assertions
 import org.junit.Test
+import woowacourse.movie.domain.discount.discountpolicy.LateNightTimeDiscountPolicy
+import woowacourse.movie.domain.model.Money
 import java.time.LocalDateTime
 
 class LateNightTimeDiscountPolicyTest {
@@ -12,7 +14,7 @@ class LateNightTimeDiscountPolicyTest {
         val price = 13000
         val expected = 11000
         // when
-        val actual = LateNightTimeDiscountPolicy(dateTime).discount(price)
+        val actual = LateNightTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -25,7 +27,7 @@ class LateNightTimeDiscountPolicyTest {
         val price = 13000
         val expected = 11000
         // when
-        val actual = LateNightTimeDiscountPolicy(dateTime).discount(price)
+        val actual = LateNightTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -38,7 +40,7 @@ class LateNightTimeDiscountPolicyTest {
         val price = 13000
         val expected = 11000
         // when
-        val actual = LateNightTimeDiscountPolicy(dateTime).discount(price)
+        val actual = LateNightTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -51,7 +53,7 @@ class LateNightTimeDiscountPolicyTest {
         val price = 13000
         val expected = 11000
         // when
-        val actual = LateNightTimeDiscountPolicy(dateTime).discount(price)
+        val actual = LateNightTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
@@ -64,7 +66,7 @@ class LateNightTimeDiscountPolicyTest {
         val price = 13000
         val expected = 13000
         // when
-        val actual = LateNightTimeDiscountPolicy(dateTime).discount(price)
+        val actual = LateNightTimeDiscountPolicy(dateTime, 2000).discount(Money(price))
 
         // then
         Assertions.assertThat(actual).isEqualTo(expected)
