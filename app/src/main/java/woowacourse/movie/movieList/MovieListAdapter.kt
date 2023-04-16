@@ -1,20 +1,18 @@
 package woowacourse.movie.movieList
 
-import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.movieReservation.MovieReservationActivity
 import woowacourse.movie.uimodel.MovieScheduleUi
 import woowacourse.movie.utils.DateUtil
 
 class MovieListAdapter(
     private val movieScheduleUi: List<MovieScheduleUi>,
+    private val onReservationClickListener: (MovieScheduleUi) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int {
         return movieScheduleUi.size
@@ -36,11 +34,7 @@ class MovieListAdapter(
             viewHolder.titleView.text = title
             viewHolder.releaseDateView.text = DateUtil(view.context).getDateRange(startDate, endDate)
             viewHolder.runningTimeView.text = view.context.getString(R.string.movie_running_time).format(runningTime)
-            viewHolder.reservationButton.setOnClickListener {
-                val intent = Intent(view.context, MovieReservationActivity::class.java)
-                intent.putExtra(MovieReservationActivity.KEY_MOVIE_SCHEDULE, this)
-                startActivity(view.context, intent, null)
-            }
+            viewHolder.reservationButton.setOnClickListener { onReservationClickListener(this) }
         }
 
         return view
