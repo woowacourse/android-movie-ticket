@@ -11,10 +11,10 @@ import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : AppCompatActivity() {
 
-    private val movieNameTextView: TextView by lazy { findViewById<TextView>(R.id.result_movie_name_text_view) }
-    private val paymentAmountTextView: TextView by lazy { findViewById<TextView>(R.id.result_payment_amount_text_view) }
-    private val screeningDateTimeTextView: TextView by lazy { findViewById<TextView>(R.id.result_screening_date_time_text_view) }
-    private val ticketCountTextView: TextView by lazy { findViewById<TextView>(R.id.result_ticket_count_text_view) }
+    private val movieNameTextView: TextView by lazy { findViewById(R.id.result_movie_name_text_view) }
+    private val paymentAmountTextView: TextView by lazy { findViewById(R.id.result_payment_amount_text_view) }
+    private val screeningDateTimeTextView: TextView by lazy { findViewById(R.id.result_screening_date_time_text_view) }
+    private val ticketCountTextView: TextView by lazy { findViewById(R.id.result_ticket_count_text_view) }
     private val reservation: Reservation by lazy { intent.getSerializableExtra("reservation") as Reservation }
 
     override fun onCreate(savedInstanceState: Bundle?) {
