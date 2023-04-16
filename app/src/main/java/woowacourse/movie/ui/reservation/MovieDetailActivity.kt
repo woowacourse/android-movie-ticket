@@ -19,8 +19,8 @@ import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.Toaster
 import woowacourse.movie.ui.confirm.ReservationConfirmActivity
 import woowacourse.movie.ui.main.MainActivity.Companion.KEY_MOVIE
-import woowacourse.movie.util.customGetParcelableExtra
-import woowacourse.movie.util.customGetSerializable
+import woowacourse.movie.util.getParcelableExtraCompat
+import woowacourse.movie.util.getSerializableCompat
 import woowacourse.movie.util.keyNoExistError
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -61,7 +61,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
-        movie = intent.customGetParcelableExtra(KEY_MOVIE, ::keyNoExistError) ?: return
+        movie = intent.getParcelableExtraCompat(KEY_MOVIE) ?: return keyNoExistError(KEY_MOVIE)
         initSetOnClickListener()
         initMovieData()
         setDateSpinnerAdapter()
@@ -99,7 +99,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     private fun navigateReservationConfirm() {
         val intent = Intent(this, ReservationConfirmActivity::class.java)
-        val reservationRes = ReservationState.from(movie, LocalDateTime.of(selectDate, selectTime), count)
+        val reservationRes =
+            ReservationState.from(movie, LocalDateTime.of(selectDate, selectTime), count)
         intent.putExtra(KEY_RESERVATION, reservationRes)
         startActivity(intent)
     }
@@ -138,9 +139,12 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        selectDate = savedInstanceState.customGetSerializable(KEY_DATE, ::keyNoExistError) ?: return
+        selectDate =
+            savedInstanceState.getSerializableCompat(KEY_DATE) ?: return keyNoExistError(KEY_DATE)
         setTimeSpinnerAdapter()
-        selectTime = savedInstanceState.customGetSerializable(KEY_TIME, ::keyNoExistError) ?: return
+        selectTime = savedInstanceState.getSerializableCompat(KEY_TIME) ?: return keyNoExistError(
+            KEY_TIME
+        )
         runningTimes = RunningTime().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)

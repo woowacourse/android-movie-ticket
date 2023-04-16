@@ -6,31 +6,23 @@ import android.os.Parcelable
 import java.io.Serializable
 
 @Suppress("DEPRECATION")
-inline fun <reified T : Parcelable> Bundle.customGetParcelable(
-    key: String,
-    failedProcess: (key: String) -> Unit = {}
+inline fun <reified T : Parcelable> Bundle.getParcelableCompat(
+    key: String
 ): T? {
-    val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getParcelable(key, T::class.java)
     } else {
         getParcelable(key) as? T
     }
-    result?.let { return it }
-    failedProcess(key)
-    return null
 }
 
 @Suppress("DEPRECATION")
-inline fun <reified T : Serializable> Bundle.customGetSerializable(
-    key: String,
-    failedProcess: (key: String) -> Unit = {}
+inline fun <reified T : Serializable> Bundle.getSerializableCompat(
+    key: String
 ): T? {
-    val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getSerializable(key, T::class.java)
     } else {
         getSerializable(key) as? T
     }
-    result?.let { return it }
-    failedProcess(key)
-    return null
 }

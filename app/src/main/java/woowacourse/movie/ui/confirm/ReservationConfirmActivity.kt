@@ -8,7 +8,7 @@ import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_RESERVATION
-import woowacourse.movie.util.customGetParcelableExtra
+import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.keyNoExistError
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
@@ -23,8 +23,8 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
         val reservationRes =
-            intent.customGetParcelableExtra<ReservationState>(KEY_RESERVATION, ::keyNoExistError)
-                ?: return
+            intent.getParcelableExtraCompat<ReservationState>(KEY_RESERVATION)
+                ?: return keyNoExistError(KEY_RESERVATION)
         setInitReservationData(reservationRes)
     }
 
