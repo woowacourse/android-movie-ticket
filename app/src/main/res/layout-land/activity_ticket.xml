@@ -43,7 +43,7 @@
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
         tools:layout_editor_absoluteX="15dp"
         tools:text="Title" />
 
@@ -57,7 +57,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/ticket_title"
+        app:layout_constraintTop_toBottomOf="@id/ticket_title"
         tools:layout_editor_absoluteX="15dp"
         tools:text="2024.03.01" />
 
@@ -73,7 +73,7 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ticket_date" />
+        app:layout_constraintTop_toBottomOf="@id/ticket_date" />
 
     <TextView
         android:id="@+id/ticket_price"
@@ -86,7 +86,7 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number_of_people" />
+        app:layout_constraintTop_toBottomOf="@id/number_of_people" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
