@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.Count
 import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.ReservationDetail
 import woowacourse.movie.domain.discountPolicy.Discount
@@ -32,7 +33,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 findViewById(R.id.movie_reservation_people_count_minus),
                 findViewById(R.id.movie_reservation_people_count_plus),
                 findViewById(R.id.movie_reservation_people_count),
-                INITIAL_COUNT,
+                Count(INITIAL_COUNT),
             ),
             COUNTER_SAVE_STATE_KEY,
         )
@@ -101,7 +102,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 (dateSpinner.spinner.spinner.selectedItem as LocalFormattedDate).date,
                 (timeSpinner.spinner.spinner.selectedItem as LocalFormattedTime).time
             ),
-            counter.count, Price()
+            counter.count.value, Price()
         )
     }
 
