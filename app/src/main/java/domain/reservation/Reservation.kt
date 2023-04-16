@@ -2,18 +2,18 @@ package domain.reservation
 
 import domain.discount.MovieDiscountEvent
 import domain.movie.Movie
+import domain.movie.MovieName
 import domain.payment.PaymentAmount
 import domain.payment.PaymentType
-import java.io.Serializable
 import java.time.LocalDateTime
 
 data class Reservation(
-    val movie: Movie,
+    val movieName: MovieName,
     val screeningDateTime: LocalDateTime,
     val ticketCount: Int,
     val paymentAmount: PaymentAmount,
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
-) : Serializable {
+) {
 
     companion object {
         private const val TICKET_PRICE = 13000
@@ -25,7 +25,7 @@ data class Reservation(
             )
 
             return Reservation(
-                movie = movie,
+                movieName = movie.movieName,
                 screeningDateTime = screeningDateTime,
                 ticketCount = ticketCount,
                 paymentAmount = paymentAmount,

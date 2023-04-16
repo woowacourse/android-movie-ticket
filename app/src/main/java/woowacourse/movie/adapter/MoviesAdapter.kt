@@ -7,31 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
-import domain.movie.Movie
 import woowacourse.movie.R
+import woowacourse.movie.model.ActivityMovieModel
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 class MoviesAdapter(
-    private val movies: List<Movie>,
-    private val reservationEvent: (movie: Movie) -> Unit
+    private val movies: List<ActivityMovieModel>,
+    private val reservationEvent: (movie: ActivityMovieModel) -> Unit
 ) : BaseAdapter() {
 
     override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): ActivityMovieModel = movies[position]
 
     override fun getItemId(position: Int): Long = 0
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val movie: Movie = movies[position]
+        val movie: ActivityMovieModel = movies[position]
         lateinit var view: View
 
         if (convertView == null) {
             view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, null)
             val movieItemViewHolder = MovieItemViewHolder(
-                movieNameTextView = view.findViewById(R.id.movie_name_text_view),
+                movieMovieNameTextView = view.findViewById(R.id.movie_name_text_view),
                 dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM),
                 movieImageView = view.findViewById(R.id.movie_image_view),
                 screeningDateTextView = view.findViewById(R.id.movie_screening_date_text_view),
@@ -48,18 +48,22 @@ class MoviesAdapter(
         return view
     }
 
-    private fun initMovieItemView(movie: Movie, context: Context, viewHolder: MovieItemViewHolder) {
-        viewHolder.movieNameTextView.text = movie.name.value
+    private fun initMovieItemView(
+        movie: ActivityMovieModel,
+        context: Context,
+        viewHolder: MovieItemViewHolder
+    ) {
+        viewHolder.movieMovieNameTextView.text = movie.movieName
         movie.posterImage?.let { viewHolder.movieImageView.setImageResource(it) }
         viewHolder.screeningDateTextView.text = context
             .getString(R.string.screening_period_form)
             .format(
-                movie.screeningPeriod.startDate.value.format(
+                movie.startDate.format(
                     DateTimeFormatter.ofLocalizedDate(
                         FormatStyle.MEDIUM
                     )
                 ),
-                movie.screeningPeriod.endDate.value.format(
+                movie.endDate.format(
                     DateTimeFormatter.ofLocalizedDate(
                         FormatStyle.MEDIUM
                     )
@@ -70,7 +74,7 @@ class MoviesAdapter(
             .format(movie.runningTime)
     }
 
-    private fun initReservationButtonClickListener(view: View, movie: Movie) {
+    private fun initReservationButtonClickListener(view: View, movie: ActivityMovieModel) {
         val reservationButton = view.findViewById<Button>(R.id.reservation_button)
 
         reservationButton.setOnClickListener {

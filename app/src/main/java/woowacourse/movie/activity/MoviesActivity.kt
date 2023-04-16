@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import domain.movie.Movie
-import woowacourse.movie.MockMoviesGenerator
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MoviesAdapter
+import woowacourse.movie.model.ActivityMovieModel
+import woowacourse.movie.model.MockMoviesGenerator
 
 class MoviesActivity : AppCompatActivity() {
 
@@ -19,17 +19,17 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun initMoviesAdapter() {
-        val movies: List<Movie> = MockMoviesGenerator().generate()
+        val movies: List<ActivityMovieModel> = MockMoviesGenerator().generate()
         val moviesListView: ListView = findViewById(R.id.movies_list_view)
 
         applyListAdapter(movies, moviesListView)
     }
 
-    private fun applyListAdapter(movies: List<Movie>, moviesListView: ListView) {
+    private fun applyListAdapter(movies: List<ActivityMovieModel>, moviesListView: ListView) {
         moviesListView.adapter = MoviesAdapter(movies, ::getReservationEvent)
     }
 
-    private fun getReservationEvent(movie: Movie) {
+    private fun getReservationEvent(movie: ActivityMovieModel) {
         val intent = Intent(this, ReservationActivity::class.java)
 
         intent.putExtra(MOVIE_KEY, movie)

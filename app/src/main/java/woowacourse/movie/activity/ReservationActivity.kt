@@ -9,12 +9,15 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import domain.movie.Movie
 import domain.movie.ScreeningDate
 import domain.reservation.Reservation
 import domain.reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.activity.MoviesActivity.Companion.MOVIE_KEY
+import woowacourse.movie.model.ActivityMovieModel
+import woowacourse.movie.model.ActivityReservationModel
+import woowacourse.movie.model.toActivityModel
+import woowacourse.movie.model.toDomainModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -31,8 +34,8 @@ class ReservationActivity : AppCompatActivity() {
     private val ticketCountTextView: TextView by lazy {
         findViewById(R.id.reservation_ticket_count_text_view)
     }
-    private val movie: Movie by lazy {
-        intent.getSerializableExtra(MOVIE_KEY) as Movie?
+    private val movie: ActivityMovieModel by lazy {
+        intent.getSerializableExtra(MOVIE_KEY) as ActivityMovieModel?
             ?: throw IllegalArgumentException(getString(R.string.movie_data_error_message))
     }
 
@@ -64,7 +67,7 @@ class ReservationActivity : AppCompatActivity() {
             findViewById(R.id.reservation_movie_running_time_text_view)
         val screeningDateTextView: TextView =
             findViewById(R.id.reservation_movie_screening_date_text_view)
-        val movieNameTextView: TextView =
+        val movieMovieNameTextView: TextView =
             findViewById(R.id.reservation_movie_name_text_view)
         val posterImageView: ImageView =
             findViewById(R.id.reservation_movie_image_view)
@@ -73,10 +76,10 @@ class ReservationActivity : AppCompatActivity() {
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ISO_DATE
 
             posterImage?.let { id -> posterImageView.setImageResource(id) }
-            movieNameTextView.text = name.value
+            movieMovieNameTextView.text = movieName
             screeningDateTextView.text = getString(R.string.screening_period_form).format(
-                screeningPeriod.startDate.value.format(dateFormat),
-                screeningPeriod.endDate.value.format(dateFormat)
+                startDate.format(dateFormat),
+                endDate.format(dateFormat)
             )
             runningTimeTextView.text = getString(R.string.running_time_form).format(runningTime)
             descriptionTextView.text = description
@@ -93,14 +96,14 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initSpinner(savedInstanceState: Bundle?) {
-        val dates = movie.screeningPeriod.getScreeningDates()
+        val dates = movie.screeningPeriod
         val defaultScreeningDatePosition = savedInstanceState?.getInt(SCREENING_DATE_POSITION_KEY) ?: 0
         val defaultScreeningTimePosition = savedInstanceState?.getInt(SCREENING_TIME_POSITION_KEY) ?: 0
 
         screeningDateSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            dates.map { it.value }
+            dates
         )
         screeningDateSpinner.onItemSelectedListener = SpinnerItemSelectedListener(
             screeningDateSpinner,
@@ -158,8 +161,11 @@ class ReservationActivity : AppCompatActivity() {
             val ticketCount = ticketCountTextView.text.toString().toInt()
             val screeningDate = screeningDateSpinner.selectedItem as LocalDate
             val screeningTime = screeningTimeSpinner.selectedItem as LocalTime
-            val reservation: Reservation =
-                Reservation.from(movie, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
+            val reservation: ActivityReservationModel =
+                Reservation
+                    .from(movie.toDomainModel(), ticketCount, LocalDateTime.of(screeningDate, screeningTime))
+                    .toActivityModel()
+
             val intent = Intent(this, ReservationResultActivity::class.java)
 
             intent.putExtra(RESERVATION_KEY, reservation)

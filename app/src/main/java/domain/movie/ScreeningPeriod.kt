@@ -1,12 +1,17 @@
 package domain.movie
 
-import java.io.Serializable
+import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 data class ScreeningPeriod(
     val startDate: ScreeningDate,
     val endDate: ScreeningDate
-) : Serializable {
+) {
+
+    constructor(startDate: LocalDate, endDate: LocalDate) : this(
+        ScreeningDate(startDate),
+        ScreeningDate(endDate)
+    )
 
     init {
         require(startDate <= endDate) {

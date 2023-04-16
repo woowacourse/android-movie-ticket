@@ -1,11 +1,10 @@
 package domain.movie
 
-import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-data class ScreeningDate(val value: LocalDate) : Comparable<ScreeningDate>, Serializable {
+data class ScreeningDate(val value: LocalDate) : Comparable<ScreeningDate> {
 
     val screeningTimes: List<LocalTime> = when (value.dayOfWeek) {
         in DayOfWeek.MONDAY..DayOfWeek.FRIDAY -> getScreeningTimes(
