@@ -33,7 +33,7 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
 
     private fun clickBookButton(view: View, position: Int) {
         view.findViewById<Button>(R.id.buttonItemBook).setOnClickListener {
-            clickBook(movies[position].id)
+            clickBook(getItemId(position))
         }
     }
 
