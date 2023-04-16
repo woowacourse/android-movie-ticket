@@ -9,9 +9,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import com.example.domain.dateTime.RunningDate
+import com.example.domain.dateTime.RunningTime
 import com.example.domain.model.Count
-import com.example.domain.setter.RunningDateSetter
-import com.example.domain.setter.RunningTimeSetter
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieRes
 import woowacourse.movie.model.ReservationRes
@@ -39,13 +39,13 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val plus: Button by lazy { findViewById(R.id.plus) }
     private val countTextView: TextView by lazy { findViewById(R.id.count) }
 
-    private val runningDateSetter: RunningDateSetter = RunningDateSetter()
-    private val runningTimeSetter: RunningTimeSetter = RunningTimeSetter()
+    private val runningDate: RunningDate = RunningDate()
+    private val runningTime: RunningTime = RunningTime()
     private lateinit var selectDate: LocalDate
     private lateinit var selectTime: LocalTime
     private lateinit var movie: MovieRes
     private val runningDates: List<LocalDate> by lazy {
-        runningDateSetter.getRunningDates(
+        runningDate.getRunningDates(
             movie.startDate,
             movie.endDate
         )
@@ -120,7 +120,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun setTimeSpinnerAdapter() {
-        runningTimes = runningTimeSetter.getRunningTimes(selectDate)
+        runningTimes = runningTime.getRunningTimes(selectDate)
         val timeSpinnerAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -132,7 +132,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private fun initInstanceState() {
         selectDate = movie.startDate
         setTimeSpinnerAdapter()
-        runningTimes = runningTimeSetter.getRunningTimes(selectDate)
+        runningTimes = runningTime.getRunningTimes(selectDate)
         selectTime = runningTimes.first()
     }
 
@@ -140,7 +140,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         selectDate = savedInstanceState.customGetSerializable(KEY_DATE, ::keyNoExistError) ?: return
         setTimeSpinnerAdapter()
         selectTime = savedInstanceState.customGetSerializable(KEY_TIME, ::keyNoExistError) ?: return
-        runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+        runningTimes = RunningTime().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
         count = Count(savedInstanceState.getInt(KEY_COUNT, 1))
