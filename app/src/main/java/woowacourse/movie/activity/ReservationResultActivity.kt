@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import domain.payment.PaymentType
 import domain.reservation.Reservation
 import woowacourse.movie.R
+import woowacourse.movie.activity.ReservationActivity.Companion.RESERVATION_KEY
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -15,7 +16,7 @@ class ReservationResultActivity : AppCompatActivity() {
     private val paymentAmountTextView: TextView by lazy { findViewById(R.id.result_payment_amount_text_view) }
     private val screeningDateTimeTextView: TextView by lazy { findViewById(R.id.result_screening_date_time_text_view) }
     private val ticketCountTextView: TextView by lazy { findViewById(R.id.result_ticket_count_text_view) }
-    private val reservation: Reservation by lazy { intent.getSerializableExtra("reservation") as Reservation }
+    private val reservation: Reservation by lazy { intent.getSerializableExtra(RESERVATION_KEY) as Reservation }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

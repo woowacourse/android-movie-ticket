@@ -14,6 +14,7 @@ import domain.movie.ScreeningDate
 import domain.reservation.Reservation
 import domain.reservation.TicketCount
 import woowacourse.movie.R
+import woowacourse.movie.activity.MoviesActivity.Companion.MOVIE_KEY
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -31,7 +32,7 @@ class ReservationActivity : AppCompatActivity() {
         findViewById(R.id.reservation_ticket_count_text_view)
     }
     private val movie: Movie by lazy {
-        intent.getSerializableExtra(getString(R.string.movie_key)) as Movie?
+        intent.getSerializableExtra(MOVIE_KEY) as Movie?
             ?: throw IllegalArgumentException(getString(R.string.movie_data_error_message))
     }
 
@@ -51,12 +52,9 @@ class ReservationActivity : AppCompatActivity() {
         val selectedDatePosition: Int = screeningDateSpinner.selectedItemPosition
         val selectedTimePosition: Int = screeningTimeSpinner.selectedItemPosition
 
-        outState.putInt(
-            getString(R.string.ticket_count_key),
-            ticketCountTextView.text.toString().toInt()
-        )
-        outState.putInt(SCREENING_DATE_POINT_KEY, selectedDatePosition)
-        outState.putInt(SCREENING_TIME_POINT_KEY, selectedTimePosition)
+        outState.putInt(TICKET_COUNT_KEY, ticketCountTextView.text.toString().toInt())
+        outState.putInt(SCREENING_DATE_POSITION_KEY, selectedDatePosition)
+        outState.putInt(SCREENING_TIME_POSITION_KEY, selectedTimePosition)
     }
 
     private fun initReservationView() {
@@ -90,13 +88,14 @@ class ReservationActivity : AppCompatActivity() {
             ticketCountTextView.text = TicketCount.MINIMUM.toString()
             return
         }
-        val ticketCount: Int = savedInstanceState.getInt(getString(R.string.ticket_count_key))
+        val ticketCount: Int = savedInstanceState.getInt(TICKET_COUNT_KEY)
         ticketCountTextView.text = ticketCount.toString()
     }
 
     private fun initSpinner(savedInstanceState: Bundle?) {
         val dates = movie.screeningPeriod.getScreeningDates()
-        val defaultPoint = savedInstanceState?.getInt(SCREENING_DATE_POINT_KEY) ?: 0
+        val defaultScreeningDatePosition = savedInstanceState?.getInt(SCREENING_DATE_POSITION_KEY) ?: 0
+        val defaultScreeningTimePosition = savedInstanceState?.getInt(SCREENING_TIME_POSITION_KEY) ?: 0
 
         screeningDateSpinner.adapter = ArrayAdapter(
             this,
@@ -104,14 +103,14 @@ class ReservationActivity : AppCompatActivity() {
             dates.map { it.value }
         )
         screeningDateSpinner.onItemSelectedListener = SpinnerItemSelectedListener(
-            savedInstanceState,
             screeningDateSpinner,
+            defaultScreeningTimePosition,
             ::initTimeSpinner
         )
-        screeningDateSpinner.setSelection(defaultPoint)
+        screeningDateSpinner.setSelection(defaultScreeningDatePosition)
     }
 
-    private fun initTimeSpinner(date: ScreeningDate?, defaultPoint: Int = 0) {
+    private fun initTimeSpinner(date: ScreeningDate?, defaultPosition: Int = 0) {
         val times = date?.screeningTimes ?: listOf()
 
         screeningTimeSpinner.adapter = ArrayAdapter(
@@ -119,7 +118,7 @@ class ReservationActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             times
         )
-        screeningTimeSpinner.setSelection(defaultPoint)
+        screeningTimeSpinner.setSelection(defaultPosition)
     }
 
     private fun initClickListener() {
@@ -163,14 +162,16 @@ class ReservationActivity : AppCompatActivity() {
                 Reservation.from(movie, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
             val intent = Intent(this, ReservationResultActivity::class.java)
 
-            intent.putExtra(getString(R.string.reservation_key), reservation)
+            intent.putExtra(RESERVATION_KEY, reservation)
             startActivity(intent)
             finish()
         }
     }
 
     companion object {
-        const val SCREENING_DATE_POINT_KEY = "screening_date_key"
-        const val SCREENING_TIME_POINT_KEY = "screening_time_key"
+        private const val TICKET_COUNT_KEY = "ticket_key"
+        private const val SCREENING_DATE_POSITION_KEY = "screening_date_key"
+        const val SCREENING_TIME_POSITION_KEY = "screening_time_key"
+        const val RESERVATION_KEY = "reservation_key"
     }
 }

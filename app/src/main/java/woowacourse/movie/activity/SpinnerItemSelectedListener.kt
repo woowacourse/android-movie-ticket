@@ -1,18 +1,16 @@
 package woowacourse.movie.activity
 
-import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
 import domain.movie.ScreeningDate
-import woowacourse.movie.activity.ReservationActivity.Companion.SCREENING_TIME_POINT_KEY
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class SpinnerItemSelectedListener(
-    private val savedInstanceState: Bundle?,
     private val screeningDateSpinner: Spinner,
-    private val initTimeSpinner: (date: ScreeningDate?, defaultPoint: Int) -> Unit
+    private val screeningTimePosition: Int,
+    private val initTimeSpinner: (date: ScreeningDate?, defaultPosition: Int) -> Unit
 ) : AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -22,12 +20,10 @@ class SpinnerItemSelectedListener(
                 DateTimeFormatter.ISO_DATE
             )
         )
-        val selectedScreeningTimePosition =
-            savedInstanceState?.getInt(SCREENING_TIME_POINT_KEY) ?: 0
 
         initTimeSpinner(
             screeningDate,
-            selectedScreeningTimePosition
+            screeningTimePosition
         )
     }
 
