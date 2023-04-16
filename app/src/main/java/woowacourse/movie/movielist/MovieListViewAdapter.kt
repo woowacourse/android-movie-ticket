@@ -1,7 +1,7 @@
 package woowacourse.movie.movielist
 
 import android.content.Context
-import android.content.Intent
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.moviedetail.MovieDetailActivity
 import java.time.format.DateTimeFormatter
 
-class MovieListViewAdapter(private val context: Context, private val movies: List<Movie>) :
+class MovieListViewAdapter(private val context: Context, private val movies: List<Movie>, private val listener: OnMovieClickListener) :
     BaseAdapter() {
+
     override fun getCount(): Int {
         return movies.size
     }
@@ -43,7 +43,6 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         val item: Movie = movies[position]
 
         setMovieData(holder, item)
-        buttonSetOnclickListener(holder, item)
 
         return itemView
     }
@@ -51,31 +50,24 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
     private fun setMovieData(holder: MovieListViewHolder, item: Movie) {
         holder.moviePoster.setImageResource(item.moviePoster)
         holder.movieTitle.text = item.title
-        holder.screeningStartDate.text
-        item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
-        holder.screeningEndDate.text =
-            item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
-        holder.runningTime.text = item.runningTime.toString()
+        holder.movieDate.text = formatMovieRunningDate(item)
+        holder.runningTime.text = context.getString(R.string.movie_running_time).format(item.runningTime)
+        holder.bookButton.setOnClickListener {
+            listener.onMovieClick(item)
+        }
     }
 
-    private fun buttonSetOnclickListener(holder: MovieListViewHolder, item: Movie) {
-        holder.bookButton.setOnClickListener {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(MOVIE_KEY, item)
-            context.startActivity(intent)
-        }
+    private fun formatMovieRunningDate(item: Movie): String {
+        val startDate = item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+        val endDate = item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+        return context.getString(R.string.movie_running_date).format(startDate, endDate)
     }
 
     private class MovieListViewHolder(itemView: View) {
         val moviePoster: ImageView = itemView.findViewById(R.id.movie_poster)
         val movieTitle: TextView = itemView.findViewById(R.id.movie_title)
-        val screeningStartDate: TextView = itemView.findViewById(R.id.screening_start_date)
-        val screeningEndDate: TextView = itemView.findViewById(R.id.screening_end_date)
+        val movieDate: TextView = itemView.findViewById(R.id.movie_date)
         val runningTime: TextView = itemView.findViewById(R.id.running_time)
         val bookButton: Button = itemView.findViewById(R.id.book_button)
-    }
-
-    companion object {
-        private const val MOVIE_KEY = "movie"
     }
 }

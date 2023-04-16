@@ -1,14 +1,16 @@
 package woowacourse.movie.movielist
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.domain.movieinfo.RunningDate
+import woowacourse.movie.moviedetail.MovieDetailActivity
 import java.time.LocalDate
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnMovieClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,10 +28,18 @@ class MainActivity : AppCompatActivity() {
         ),
     )
 
+    override fun onMovieClick(movie: Movie) {
+        val intent = Intent(this, MovieDetailActivity::class.java)
+        intent.putExtra(getString(R.string.movie_key), movie)
+        startActivity(intent)
+    }
+
     private fun setUpMovieDatas() {
         val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(this, setMovieData())
+        val movieListViewAdapter = MovieListViewAdapter(this, setMovieData(), this)
 
         movieListView.adapter = movieListViewAdapter
     }
+
+
 }
