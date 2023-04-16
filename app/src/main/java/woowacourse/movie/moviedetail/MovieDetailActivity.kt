@@ -73,8 +73,10 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun formatMovieRunningDate(item: Movie): String {
-        val startDate = item.runningDate.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
-        val endDate = item.runningDate.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+        val startDate =
+            item.runningDate.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+        val endDate =
+            item.runningDate.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
         return getString(R.string.movie_running_date).format(startDate, endDate)
     }
 
@@ -111,6 +113,8 @@ class MovieDetailActivity : AppCompatActivity() {
             val intent = Intent(this, TicketActivity::class.java)
             intent.putExtra(TICKET_KEY, movieTikcet)
             intent.putExtra(MOVIE_KEY, movie)
+            intent.putExtra(DATE_KEY, selectedDate)
+            intent.putExtra(TIME_KEY, selectedTime)
             startActivity(intent)
         }
     }
@@ -176,6 +180,8 @@ class MovieDetailActivity : AppCompatActivity() {
     companion object {
         private const val TICKET_KEY = "ticket"
         private const val MOVIE_KEY = "movie"
+        private const val DATE_KEY = "movie_date"
+        private const val TIME_KEY = "movie_time"
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
