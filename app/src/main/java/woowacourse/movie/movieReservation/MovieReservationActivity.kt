@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import movie.DiscountFunc
 import movie.DiscountPolicy
 import movie.MovieSchedule
@@ -157,7 +156,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     time = selectedTime,
                 )
                 intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
-                ContextCompat.startActivity(this, intent, null)
+                startActivity(intent)
             }.onFailure {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
