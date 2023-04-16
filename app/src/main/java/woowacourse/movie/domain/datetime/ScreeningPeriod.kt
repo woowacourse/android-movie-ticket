@@ -51,11 +51,11 @@ class ScreeningPeriod(val start: LocalDate, val end: LocalDate) : Parcelable {
 
     companion object {
         private const val SCREENING_PERIOD_INIT_ERROR = "기간 설정 단위가 올바르지 않습니다."
-        private val WEEKDAY_TIME_TABLE = List(7) { index ->
+        private val WEEKDAY_TIME_TABLE = List(8) { index ->
             LocalTime.of(9, 0).plusHours(2 * index.toLong())
         }
         private val WEEKEND_TIME_TABLE = List(7) { index ->
-            LocalTime.of(9, 0).plusHours(2 * index.toLong())
+            LocalTime.of(10, 0).plusHours(2 * index.toLong())
         }
     }
 }
