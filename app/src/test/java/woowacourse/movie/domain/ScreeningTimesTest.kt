@@ -31,23 +31,4 @@ class ScreeningTimesTest {
         // then
         assertThat(actual).isEqualTo(expected)
     }
-
-    @Test
-    fun `시작일과 종료일을 받으면 해당 기간을 리스트로 반환한다`() {
-        // given
-        val start = LocalDate.of(2023, 4, 12)
-        val end = LocalDate.of(2023, 4, 15)
-        val expected = listOf<LocalDate>(
-            LocalDate.of(2023, 4, 12),
-            LocalDate.of(2023, 4, 13),
-            LocalDate.of(2023, 4, 14),
-            LocalDate.of(2023, 4, 15),
-        )
-
-        // when
-        val actual = ScreeningTimes.getScreeningDates(start, end)
-
-        // then
-        assertThat(actual).isEqualTo(expected)
-    }
 }

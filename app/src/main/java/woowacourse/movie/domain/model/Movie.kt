@@ -12,11 +12,17 @@ data class Movie(
     val runningTime: Int,
     val description: String,
 ) {
-    fun reserve(dateTime: LocalDateTime, ticketCount: TicketCount) =
-        Ticket(id, dateTime, ticketCount.value)
+    fun reserve(dateTime: LocalDateTime, ticketCount: TicketCount): Ticket {
+        if (dateTime.toLocalDate() !in getScreeningDates()) throw IllegalArgumentException()
+        return Ticket(id, dateTime, ticketCount.value)
+    }
 
     fun getScreeningDates(): List<LocalDate> {
         val numberOfDays: Int = screeningStartDate.until(screeningEndDate).days
-        return (0..numberOfDays).map { (screeningStartDate.plusDays(it.toLong())) }
+        return (FIRST_DAY_INDEX..numberOfDays).map { (screeningStartDate.plusDays(it.toLong())) }
+    }
+
+    companion object {
+        private const val FIRST_DAY_INDEX = 0
     }
 }
