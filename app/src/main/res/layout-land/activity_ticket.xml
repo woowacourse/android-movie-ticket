@@ -17,18 +17,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_marginTop="56dp"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:layout_marginTop="56dp"
         android:background="@color/ticket_purple"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="37dp"
             android:gravity="center"
-            android:text="영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다."
+            android:text="@string/ticket_message"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -38,14 +38,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="31dp"
         android:gravity="center"
-        android:text="Title"
         android:textColor="@color/black"
-        android:textSize="30sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        tools:layout_editor_absoluteX="15dp" />
+        tools:layout_editor_absoluteX="15dp"
+        tools:text="Title" />
 
 
     <TextView
@@ -53,78 +53,40 @@
         android:layout_width="match_parent"
         android:layout_height="38sp"
         android:layout_marginHorizontal="15dp"
-        android:gravity="center"
-        android:text="2024.03.01"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/ticket_title"
-        tools:layout_editor_absoluteX="15dp" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:gravity="center"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/ticket_date"
-        tools:layout_editor_absoluteX="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="일반 "
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/ticket_numberOfPeople"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="2"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="명"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        tools:layout_editor_absoluteX="15dp">
-
-        <TextView
-            android:id="@+id/ticket_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="13,000"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="원 (현장 결제)"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </LinearLayout>
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/ticket_title"
+        tools:layout_editor_absoluteX="15dp"
+        tools:text="2024.03.01" />
 
 
+    <TextView
+        android:id="@+id/number_of_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/ticket_number"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ticket_date" />
+
+    <TextView
+        android:id="@+id/ticket_price"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/ticket_price"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number_of_people" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
