@@ -1,8 +1,8 @@
 package woowacourse.movie.movielist
 
-import woowacourse.movie.domain.movieinfo.Movie
+import woowacourse.movie.dto.MovieDto
 
 interface OnMovieClickListener {
 
-    fun onMovieClick(movie: Movie)
+    fun onMovieClick(movie: MovieDto)
 }

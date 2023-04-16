@@ -6,7 +6,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.domain.movieinfo.RunningDate
+import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.mapper.mapToMovieDto
 import woowacourse.movie.moviedetail.MovieDetailActivity
 import java.time.LocalDate
 
@@ -18,17 +19,20 @@ class MainActivity : AppCompatActivity(), OnMovieClickListener {
         setUpMovieDatas()
     }
 
-    private fun setMovieData(): List<Movie> = listOf(
-        Movie(
-            "해리포터",
-            RunningDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 4, 1)),
-            200,
-            getString(R.string.description),
-            R.drawable.img,
+    private fun setMovieData(): List<MovieDto> = listOf(
+        mapToMovieDto(
+            Movie(
+                "해리포터",
+                LocalDate.of(2024, 3, 1),
+                LocalDate.of(2024, 4, 1),
+                200,
+                getString(R.string.description),
+                R.drawable.img,
+            ),
         ),
     )
 
-    override fun onMovieClick(movie: Movie) {
+    override fun onMovieClick(movie: MovieDto) {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra(MOVIE_KEY, movie)
         startActivity(intent)
@@ -44,5 +48,4 @@ class MainActivity : AppCompatActivity(), OnMovieClickListener {
     companion object {
         private const val MOVIE_KEY = "movie"
     }
-
 }

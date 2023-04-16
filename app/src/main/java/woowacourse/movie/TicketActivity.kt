@@ -5,11 +5,13 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.TicketPrice
-import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.domain.movieinfo.MovieDate
-import woowacourse.movie.domain.movieinfo.MovieTime
+import woowacourse.movie.dto.MovieDateDto
+import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieTimeDto
+import woowacourse.movie.dto.TicketDto
+import woowacourse.movie.dto.TicketPriceDto
+import woowacourse.movie.mapper.mapToTicketPrice
+import woowacourse.movie.mapper.mapToTicketPriceDto
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -21,10 +23,10 @@ class TicketActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ticket)
         setToolbar()
 
-        val ticket = intent.getSerializableExtra(TICKET_KEY) as Ticket
-        val movie = intent.getSerializableExtra(MOVIE_KEY) as Movie
-        val date = intent.getSerializableExtra(DATE_KEY) as MovieDate
-        val time = intent.getSerializableExtra(TIME_KEY) as MovieTime
+        val ticket = intent.getSerializableExtra(TICKET_KEY) as TicketDto
+        val movie = intent.getSerializableExtra(MOVIE_KEY) as MovieDto
+        val date = intent.getSerializableExtra(DATE_KEY) as MovieDateDto
+        val time = intent.getSerializableExtra(TIME_KEY) as MovieTimeDto
 
         showTicketInfo(movie, date.date, time.time)
         showTicketCount(ticket)
@@ -45,24 +47,25 @@ class TicketActivity : AppCompatActivity() {
         return formatDate.plus(" $formatTime")
     }
 
-    private fun showTicketInfo(movie: Movie, date: LocalDate, time: LocalTime) {
+    private fun showTicketInfo(movie: MovieDto, date: LocalDate, time: LocalTime) {
         val movieTitle = findViewById<TextView>(R.id.ticket_title)
         val movieDate = findViewById<TextView>(R.id.ticket_date)
         movieTitle.text = movie.title
         movieDate.text = formatMovieDateTime(date, time)
     }
 
-    private fun showTicketCount(ticket: Ticket) {
+    private fun showTicketCount(ticket: TicketDto) {
         val numberOfPeople = findViewById<TextView>(R.id.number_of_people)
         numberOfPeople.text = getString(R.string.ticket_number, ticket.numberOfPeople)
     }
 
     private fun showTicketPrice(date: LocalDate, time: LocalTime, count: Int) {
         val price = findViewById<TextView>(R.id.ticket_price)
-        val ticketPrice = TicketPrice()
-        val totalTicketPrice = ticketPrice.applyPolicy(LocalDateTime.of(date, time)) * count
+        val ticketPrice = TicketPriceDto()
+        val totalTicketPrice =
+            mapToTicketPrice(ticketPrice).applyPolicy(LocalDateTime.of(date, time)) * count
 
-        price.text = getString(R.string.ticket_price, totalTicketPrice.price)
+        price.text = getString(R.string.ticket_price, mapToTicketPriceDto(totalTicketPrice).price)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

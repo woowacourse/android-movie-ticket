@@ -1,10 +1,8 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
-
 data class Ticket(
     val numberOfPeople: Int = MIN_BOOKER_NUMBER,
-) : Serializable {
+) {
     fun increase(): Ticket = Ticket((numberOfPeople + 1).coerceAtMost(MAX_BOOKER_NUMBER))
 
     fun decrease(): Ticket = Ticket((numberOfPeople - 1).coerceAtLeast(MIN_BOOKER_NUMBER))
