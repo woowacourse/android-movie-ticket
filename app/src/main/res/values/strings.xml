@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Movie</string>
     <string name="date_format">yyyy.M.d</string>
+    <string name="time_format">HH:mm</string>
     <string name="movie_running_date">상영일: %s ~ %s</string>
     <string name="movie_running_time">러닝타임: %d분</string>
     <string name="now_booking">지금 예매</string>
@@ -10,5 +11,5 @@
     <string name="end_booking">예매 완료</string>
     <string name="ticket_message">영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다.</string>
     <string name="ticket_number">일반 %d명</string>
-    <string name="ticket_price">%s원 (현장 결제)</string>
+    <string name="ticket_price">%d원 (현장 결제)</string>
 </resources>

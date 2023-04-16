@@ -60,7 +60,7 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
     private fun formatMovieRunningDate(item: Movie): String {
         val startDate = item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
         val endDate = item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
-        return context.getString(R.string.movie_running_date).format(startDate, endDate)
+        return context.getString(R.string.movie_running_date, startDate, endDate)
     }
 
     private class MovieListViewHolder(itemView: View) {
