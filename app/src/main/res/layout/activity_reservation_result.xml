@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
-        android:text="영화 제목"
+        tools:text="해리포터"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/title_large" />
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
-        android:text="예매일과 예매시간"
+        tools:text="2024.3.1 17:00"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/text_large" />
@@ -40,9 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
-        android:text="티켓 수"
         android:textAlignment="center"
         android:textColor="@color/black"
+        tools:text="일반 1명"
         android:textSize="@dimen/text_large" />
 
     <TextView
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
-        android:text="결제금액 및 결제 방식"
+        tools:text="13,000원 (현장 결제)"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/text_large" />

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp">
@@ -9,7 +10,7 @@
         android:id="@+id/movie_image_view"
         android:layout_width="76dp"
         android:layout_height="108dp"
-        android:src="@drawable/baseline_image_24"
+        tools:src="@drawable/image_movie_poster_harry_potter"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="10dp"
-        android:text="영화 제목"
+        tools:text="해리 포터"
         android:textColor="@color/black"
         android:textSize="@dimen/title_medium"
         app:layout_constraintLeft_toRightOf="@id/movie_image_view"
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:text="상영일: 0000.00.00"
+        tools:text="상영일: 1999.10.06"
         android:textColor="@color/black"
         android:textSize="@dimen/text_medium"
         app:layout_constraintLeft_toRightOf="@id/movie_image_view"
@@ -42,17 +43,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:text="러닝타임: 000분"
+        tools:text="러닝타임: 150분"
         android:textColor="@color/black"
         android:textSize="@dimen/text_medium"
-        app:layout_constraintLeft_toRightOf="@+id/movie_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/movie_screening_date_text_view" />
+        app:layout_constraintLeft_toRightOf="@id/movie_image_view"
+        app:layout_constraintTop_toBottomOf="@id/movie_screening_date_text_view" />
 
     <Button
         android:id="@+id/reservation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="지금 예매"
+        android:text="@string/reserve_now_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
