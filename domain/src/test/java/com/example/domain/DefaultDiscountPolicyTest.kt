@@ -1,6 +1,6 @@
 package com.example.domain
 
-import com.example.domain.discountPolicy.DiscountPolicy
+import com.example.domain.discountPolicy.DefaultDiscountPolicy
 import com.example.domain.model.Count
 import com.example.domain.model.Money
 import com.example.domain.model.Movie
@@ -11,7 +11,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class DiscountPolicyTest {
+class DefaultDiscountPolicyTest {
     @Test
     fun `무비데이면 10% 할인을 받는다`() {
         val count = Count(2)
@@ -20,7 +20,7 @@ class DiscountPolicyTest {
         val dateTime = LocalDateTime.of(date, time)
         val reservation = Reservation(mockMovie, dateTime, count)
 
-        val discountCalculator = DiscountPolicy()
+        val discountCalculator = DefaultDiscountPolicy()
         val actual = discountCalculator.discount(reservation)
         val expected = Money(23400)
 
@@ -33,7 +33,7 @@ class DiscountPolicyTest {
         val date = LocalDate.of(2023, 4, 12)
         val time = LocalTime.of(10, 0)
         val dateTime = LocalDateTime.of(date, time)
-        val discountCalculator = DiscountPolicy()
+        val discountCalculator = DefaultDiscountPolicy()
         val reservation = Reservation(mockMovie, dateTime, count)
 
         val actual = discountCalculator.discount(reservation)
@@ -48,7 +48,7 @@ class DiscountPolicyTest {
         val date = LocalDate.of(2023, 4, 12)
         val time = LocalTime.of(22, 0)
         val dateTime = LocalDateTime.of(date, time)
-        val discountCalculator = DiscountPolicy()
+        val discountCalculator = DefaultDiscountPolicy()
         val reservation = Reservation(mockMovie, dateTime, count)
 
         val actual = discountCalculator.discount(reservation)
@@ -63,7 +63,7 @@ class DiscountPolicyTest {
         val date = LocalDate.of(2023, 4, 10)
         val time = LocalTime.of(10, 0)
         val dateTime = LocalDateTime.of(date, time)
-        val discountCalculator = DiscountPolicy()
+        val discountCalculator = DefaultDiscountPolicy()
         val reservation = Reservation(mockMovie, dateTime, count)
 
         val actual = discountCalculator.discount(reservation)
