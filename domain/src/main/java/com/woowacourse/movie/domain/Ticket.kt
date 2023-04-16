@@ -1,6 +1,5 @@
 package com.woowacourse.movie.domain
 
-import com.woowacourse.movie.domain.policy.DiscountDecorator
 import java.io.Serializable
 
 typealias TicketDomain = Ticket
@@ -11,11 +10,8 @@ value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
         require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
 
-    fun calculateTotalPrice(
-        discountDecorator: DiscountDecorator
-    ): Int = discountDecorator.calculatePrice() * count
-
-    operator fun dec(): Ticket = Ticket((count - TICKET_UP_DOWN_UNIT).coerceAtLeast(MIN_TICKET_COUNT))
+    operator fun dec(): Ticket =
+        Ticket((count - TICKET_UP_DOWN_UNIT).coerceAtLeast(MIN_TICKET_COUNT))
 
     operator fun inc(): Ticket = Ticket(count + TICKET_UP_DOWN_UNIT)
 

@@ -8,11 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.getParcelable
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieDate
-import woowacourse.movie.model.MovieTime
+import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.mapper.toDomain
+import java.time.LocalDateTime
 
 class TicketingResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,29 +20,50 @@ class TicketingResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieDate = intent.getParcelable<MovieDate>(TicketingActivity.MOVIE_DATE_KEY)!!
-        val movieTime = intent.getParcelable<MovieTime>(TicketingActivity.MOVIE_TIME_KEY)!!
+        initReservation()
+    }
 
-        intent.getParcelable<Movie>(MovieListActivity.MOVIE_KEY)?.run {
-            findViewById<TextView>(R.id.tv_title).text = title
-            findViewById<TextView>(R.id.tv_date).text = getString(
-                R.string.book_date_time,
-                movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
+    private fun initReservation() {
+        intent.getParcelable<Reservation>(TicketingActivity.RESERVATION_KEY)?.run {
+            setReservationInfo(this)
+        }
+    }
+
+    private fun setReservationInfo(reservation: Reservation) {
+        with(reservation) {
+            findViewById<TextView>(R.id.tv_title).text = movie.title
+            setDateTime(dateTime)
+            setTicketCount(ticket)
+            setPayment(this)
+        }
+    }
+
+    private fun setDateTime(dateTime: LocalDateTime) {
+        findViewById<TextView>(R.id.tv_date).text = getString(
+            R.string.book_date_time,
+            dateTime.year,
+            dateTime.monthValue,
+            dateTime.dayOfMonth,
+            dateTime.hour,
+            dateTime.minute
+        )
+    }
+
+    private fun setTicketCount(ticket: Ticket) {
+        findViewById<TextView>(R.id.tv_regular_count).text =
+            getString(R.string.regular_count, ticket.count)
+    }
+
+    private fun setPayment(reservation: Reservation) {
+        findViewById<TextView>(R.id.tv_pay_result).text =
+            getString(
+                R.string.movie_pay_result,
+                DiscountDecorator(
+                    reservation.dateTime.toLocalDate(),
+                    reservation.dateTime.toLocalTime()
+                ).calculatePrice(reservation.toDomain()),
+                getString(R.string.on_site_payment)
             )
-        }
-
-        intent.getParcelable<Ticket>(TicketingActivity.TICKET_KEY)?.run {
-            findViewById<TextView>(R.id.tv_regular_count).text =
-                getString(R.string.regular_count, count)
-            findViewById<TextView>(R.id.tv_pay_result).text =
-                getString(
-                    R.string.movie_pay_result,
-                    toDomain().calculateTotalPrice(
-                        DiscountDecorator(movieDate.toDomain(), movieTime.toDomain())
-                    ),
-                    getString(R.string.on_site_payment)
-                )
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
