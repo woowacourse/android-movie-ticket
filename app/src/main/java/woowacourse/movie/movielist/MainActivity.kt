@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), OnMovieClickListener {
 
     override fun onMovieClick(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(getString(R.string.movie_key), movie)
+        intent.putExtra(MOVIE_KEY, movie)
         startActivity(intent)
     }
 
@@ -41,5 +41,8 @@ class MainActivity : AppCompatActivity(), OnMovieClickListener {
         movieListView.adapter = movieListViewAdapter
     }
 
+    companion object {
+        private const val MOVIE_KEY = "movie"
+    }
 
 }
