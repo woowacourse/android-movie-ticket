@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model
 
-import woowacourse.movie.domain.discountpolicy.DateTimeDiscountAdapter
+import woowacourse.movie.domain.discount.discountpolicy.DateTimeDiscountAdapter
 import java.time.LocalDateTime
 
 data class Ticket(
