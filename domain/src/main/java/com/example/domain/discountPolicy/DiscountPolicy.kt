@@ -18,7 +18,7 @@ class DiscountPolicy {
     fun discount(reservation: Reservation): Money {
         val discountApplyMoney = policy.keys.fold(TICKET_MONEY) { money, condition ->
             if (condition.isDiscountable(reservation)) {
-                return@fold policy[condition]!!.discount(money)
+                return@fold policy[condition]?.discount(money) ?: money
             }
             money
         }
