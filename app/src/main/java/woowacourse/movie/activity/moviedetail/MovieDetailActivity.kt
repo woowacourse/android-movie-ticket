@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDTO
-import woowacourse.movie.util.getVersionDependentSerializableExtra
+import woowacourse.movie.util.getSerializableExtraCompat
 
 class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        val movieDTO: MovieDTO? = intent.getVersionDependentSerializableExtra(MOVIE_KEY)
+        val movieDTO: MovieDTO? = intent.getSerializableExtraCompat(MOVIE_KEY)
         if (movieDTO != null) {
             initMovieDetailView(movieDTO)
             initReservationInfoView(savedInstanceState, movieDTO)

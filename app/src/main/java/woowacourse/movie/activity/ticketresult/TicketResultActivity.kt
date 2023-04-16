@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.util.getVersionDependentSerializableExtra
+import woowacourse.movie.util.getSerializableExtraCompat
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.LocalTime
@@ -21,7 +21,7 @@ class TicketResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val info: TicketingInfo? = intent.getVersionDependentSerializableExtra(INFO_KEY)
+        val info: TicketingInfo? = intent.getSerializableExtraCompat(INFO_KEY)
 
         if (info != null) {
             initTitle(info.title)
