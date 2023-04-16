@@ -9,25 +9,30 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import com.example.domain.dateTime.RunningDate
-import com.example.domain.dateTime.RunningTime
+import com.example.domain.usecase.GetMovieRunningDateUseCase
+import com.example.domain.usecase.GetMovieRunningTimeUseCase
 import woowacourse.movie.R
 import woowacourse.movie.model.CountState
 import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.ReservationState
+import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.Toaster
 import woowacourse.movie.ui.confirm.ReservationConfirmActivity
 import woowacourse.movie.ui.main.MainActivity.Companion.KEY_MOVIE
+import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.getSerializableCompat
-import woowacourse.movie.util.keyNoExistError
+import woowacourse.movie.util.keyError
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : BackKeyActionBarActivity() {
+    private val getMovieRunningDateUseCase = GetMovieRunningDateUseCase()
+    private val getMovieRunningTimeUseCase = GetMovieRunningTimeUseCase()
+
     private val image: ImageView by lazy { findViewById(R.id.detail_image) }
     private val title: TextView by lazy { findViewById(R.id.detail_title) }
     private val detailDate: TextView by lazy { findViewById(R.id.detail_date) }
@@ -40,17 +45,11 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val plus: Button by lazy { findViewById(R.id.plus) }
     private val countTextView: TextView by lazy { findViewById(R.id.count) }
 
-    private val runningDate: RunningDate = RunningDate()
-    private val runningTime: RunningTime = RunningTime()
     private lateinit var selectDate: LocalDate
     private lateinit var selectTime: LocalTime
     private lateinit var movie: MovieState
-    private val runningDates: List<LocalDate> by lazy {
-        runningDate.getRunningDates(
-            movie.startDate,
-            movie.endDate
-        )
-    }
+
+    private lateinit var runningDates: List<LocalDate>
     private lateinit var runningTimes: List<LocalTime>
 
     private var count: CountState = CountState.of(1)
@@ -61,7 +60,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
-        movie = intent.getParcelableExtraCompat(KEY_MOVIE) ?: return keyNoExistError(KEY_MOVIE)
+        movie = intent.getParcelableExtraCompat(KEY_MOVIE) ?: return keyError(KEY_MOVIE)
+        getMovieRunningDates(movie)
         initSetOnClickListener()
         initMovieData()
         setDateSpinnerAdapter()
@@ -109,7 +109,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         super.onSaveInstanceState(outState)
         outState.putSerializable(KEY_DATE, selectDate)
         outState.putSerializable(KEY_TIME, selectTime)
-        outState.putInt(KEY_COUNT, count.value)
+        outState.putParcelable(KEY_COUNT, count)
     }
 
     private fun setDateSpinnerAdapter() {
@@ -122,7 +122,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun setTimeSpinnerAdapter() {
-        runningTimes = runningTime.getRunningTimes(selectDate)
+        getMovieRunningTimes(selectDate)
         val timeSpinnerAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -134,21 +134,17 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private fun initInstanceState() {
         selectDate = movie.startDate
         setTimeSpinnerAdapter()
-        runningTimes = runningTime.getRunningTimes(selectDate)
+        getMovieRunningTimes(selectDate)
         selectTime = runningTimes.first()
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        selectDate =
-            savedInstanceState.getSerializableCompat(KEY_DATE) ?: return keyNoExistError(KEY_DATE)
+        selectDate = savedInstanceState.getSerializableCompat(KEY_DATE) ?: return keyError(KEY_DATE)
+        selectTime = savedInstanceState.getSerializableCompat(KEY_TIME) ?: return keyError(KEY_TIME)
+        count = savedInstanceState.getParcelableCompat(KEY_COUNT) ?: return keyError(KEY_COUNT)
         setTimeSpinnerAdapter()
-        selectTime = savedInstanceState.getSerializableCompat(KEY_TIME) ?: return keyNoExistError(
-            KEY_TIME
-        )
-        runningTimes = RunningTime().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
-        count = CountState.of(savedInstanceState.getInt(KEY_COUNT, 1))
     }
 
     private fun setDateSpinnerListener() {
@@ -180,6 +176,14 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+    }
+
+    private fun getMovieRunningDates(movie: MovieState) {
+        getMovieRunningDateUseCase(movie.asDomain()) { runningDates = it }
+    }
+
+    private fun getMovieRunningTimes(date: LocalDate) {
+        getMovieRunningTimeUseCase(date) { runningTimes = it }
     }
 
     companion object {

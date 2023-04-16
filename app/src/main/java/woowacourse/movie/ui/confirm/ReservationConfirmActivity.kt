@@ -9,7 +9,7 @@ import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_RESERVATION
 import woowacourse.movie.util.getParcelableExtraCompat
-import woowacourse.movie.util.keyNoExistError
+import woowacourse.movie.util.keyError
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -24,7 +24,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         setContentView(R.layout.activity_reservation_confirm)
         val reservationRes =
             intent.getParcelableExtraCompat<ReservationState>(KEY_RESERVATION)
-                ?: return keyNoExistError(KEY_RESERVATION)
+                ?: return keyError(KEY_RESERVATION)
         setInitReservationData(reservationRes)
     }
 
