@@ -17,7 +17,8 @@ class ReservationResultActivity : AppCompatActivity() {
     private val screeningDateTimeTextView: TextView by lazy { findViewById(R.id.result_screening_date_time_text_view) }
     private val ticketCountTextView: TextView by lazy { findViewById(R.id.result_ticket_count_text_view) }
     private val reservation: ActivityReservationModel by lazy {
-        intent.getSerializableExtra(RESERVATION_KEY) as ActivityReservationModel
+        intent.getSerializableExtra(RESERVATION_KEY) as ActivityReservationModel?
+            ?: throw IllegalArgumentException(RESERVATION_DATA_ERROR)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,5 +44,9 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private fun getPaymentTypeString(paymentType: PaymentType): String = when (paymentType) {
         PaymentType.LOCAL_PAYMENT -> getString(R.string.payment_type_local_text)
+    }
+
+    companion object {
+        private const val RESERVATION_DATA_ERROR = "[ERROR] 예약 정보를 받아올 수 없습니다."
     }
 }
