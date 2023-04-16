@@ -1,13 +1,11 @@
 package woowacourse.movie.activity.movielist
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.domain.movieinfo.Movie
 import java.time.format.DateTimeFormatter
 
@@ -40,7 +38,6 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         val item: Movie = movies[position]
 
         setMovieData(holder, item)
-        buttonSetOnclickListener(holder, item)
 
         return itemView
     }
@@ -54,17 +51,5 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
             item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
         holder.screeningDate.text = context.getString(R.string.screen_date, startDate, endDate)
         holder.runningTime.text = context.getString(R.string.running_time, item.runningTime)
-    }
-
-    private fun buttonSetOnclickListener(holder: MovieListViewHolder, item: Movie) {
-        holder.bookButton.setOnClickListener {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(MOVIE_KEY, item)
-            context.startActivity(intent)
-        }
-    }
-
-    companion object {
-        private const val MOVIE_KEY = "movie"
     }
 }

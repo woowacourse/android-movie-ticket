@@ -47,7 +47,7 @@
         android:layout_marginStart="16dp"
         android:text="러닝타임: 20분"
         android:textColor="@color/black"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/movie_poster"
         app:layout_constraintTop_toBottomOf="@id/movieList_screening_date" />
 
@@ -56,6 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
+        android:clickable="false"
+        android:focusable="false"
         android:paddingHorizontal="11dp"
         android:paddingVertical="9dp"
         android:text="@string/book_now"
