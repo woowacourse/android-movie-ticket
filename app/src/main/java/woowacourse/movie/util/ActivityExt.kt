@@ -1,9 +1,10 @@
 package woowacourse.movie.util
 
 import android.app.Activity
-import woowacourse.movie.ui.Toaster
+import android.util.Log
+import woowacourse.movie.R
 
 fun Activity.keyNoExistError(key: String) {
-    Toaster.showToast(this, "$key 에 해당하는 value를 전달받지 않았습니다")
+    Log.d("mendel", getString(R.string.no_key_exist_error, key))
     finish()
 }
