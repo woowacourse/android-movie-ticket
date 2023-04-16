@@ -3,9 +3,9 @@ package woowacourse.movie.activity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import domain.payment.PaymentType
-import domain.reservation.Reservation
 import woowacourse.movie.R
+import woowacourse.movie.domain.payment.PaymentType
+import woowacourse.movie.domain.reservation.Reservation
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 

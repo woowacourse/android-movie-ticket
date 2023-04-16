@@ -1,4 +1,4 @@
-package domain.payment
+package woowacourse.movie.domain.payment
 
 @JvmInline
 value class PaymentAmount(val value: Int) {

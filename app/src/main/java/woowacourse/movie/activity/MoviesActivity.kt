@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import domain.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MoviesAdapter
+import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.mock.Mock
 
 class MoviesActivity : AppCompatActivity() {

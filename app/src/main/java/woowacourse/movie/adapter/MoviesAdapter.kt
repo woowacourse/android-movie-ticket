@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import domain.movie.Movie
 import woowacourse.movie.R
+import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.viewholder.MovieItemViewHolder
 
 class MoviesAdapter(

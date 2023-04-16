@@ -1,9 +1,9 @@
-package domain.reservation
+package woowacourse.movie.domain.reservation
 
-import domain.discount.Discount
-import domain.movie.Movie
-import domain.payment.PaymentAmount
-import domain.payment.PaymentType
+import woowacourse.movie.domain.discount.Discount
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.payment.PaymentAmount
+import woowacourse.movie.domain.payment.PaymentType
 import java.io.Serializable
 import java.time.LocalDateTime
 

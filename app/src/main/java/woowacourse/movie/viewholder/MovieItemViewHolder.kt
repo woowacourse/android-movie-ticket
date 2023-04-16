@@ -3,8 +3,8 @@ package woowacourse.movie.viewholder
 import android.content.Context
 import android.widget.ImageView
 import android.widget.TextView
-import domain.movie.Movie
 import woowacourse.movie.R
+import woowacourse.movie.domain.movie.Movie
 import java.time.format.DateTimeFormatter
 
 class MovieItemViewHolder(

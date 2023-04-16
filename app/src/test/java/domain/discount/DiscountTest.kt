@@ -1,9 +1,10 @@
 package domain.discount
 
-import domain.payment.PaymentAmount
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.domain.discount.Discount
+import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 internal class DiscountTest {

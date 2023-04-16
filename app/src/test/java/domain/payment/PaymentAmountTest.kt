@@ -1,6 +1,7 @@
 package domain.payment
 
 import org.junit.Test
+import woowacourse.movie.domain.payment.PaymentAmount
 
 class PaymentAmountTest {
 

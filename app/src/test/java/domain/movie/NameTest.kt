@@ -1,6 +1,7 @@
 package domain.movie
 
 import org.junit.Test
+import woowacourse.movie.domain.movie.Name
 
 internal class NameTest {
 

@@ -11,10 +11,10 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import domain.movie.Movie
-import domain.reservation.Reservation
-import domain.reservation.TicketCount
 import woowacourse.movie.R
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.reservation.Reservation
+import woowacourse.movie.domain.reservation.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

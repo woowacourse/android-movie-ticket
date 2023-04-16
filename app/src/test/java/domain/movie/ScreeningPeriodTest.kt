@@ -2,6 +2,7 @@ package domain.movie
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import woowacourse.movie.domain.movie.ScreeningPeriod
 import java.time.LocalDate
 import java.time.LocalTime
 

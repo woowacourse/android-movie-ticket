@@ -1,9 +1,9 @@
 package woowacourse.movie.mock
 
-import domain.movie.Movie
-import domain.movie.Name
-import domain.movie.ScreeningPeriod
 import woowacourse.movie.R
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.movie.Name
+import woowacourse.movie.domain.movie.ScreeningPeriod
 import java.time.LocalDate
 
 object Mock {

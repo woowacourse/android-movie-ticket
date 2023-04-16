@@ -1,11 +1,12 @@
 package domain.reservation
 
-import domain.movie.Movie
-import domain.movie.Name
-import domain.movie.ScreeningPeriod
-import domain.payment.PaymentAmount
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.movie.Name
+import woowacourse.movie.domain.movie.ScreeningPeriod
+import woowacourse.movie.domain.payment.PaymentAmount
+import woowacourse.movie.domain.reservation.Reservation
 import java.time.LocalDate
 import java.time.LocalDateTime
 
