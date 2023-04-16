@@ -9,6 +9,10 @@ import woowacourse.movie.R
 
 class MovieTicketActivity : AppCompatActivity() {
     private val ticket by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as? MovieTicket ?: throw IllegalArgumentException() }
+
+    private val activityView by lazy { window.decorView.rootView }
+
+    private val ticketView by lazy { MovieTicketView(activityView) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
@@ -34,12 +38,7 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun initTicketView() {
-        MovieTicketView(
-            titleView = findViewById(R.id.ticket_movie_title),
-            countView = findViewById(R.id.ticket_total_ticket_count),
-            releaseDateView = findViewById(R.id.ticket_release_date),
-            totalPriceView = findViewById(R.id.ticket_total_price),
-        ).bind(this, ticket)
+        ticketView.update(ticket)
     }
 
     companion object {
