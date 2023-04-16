@@ -2,14 +2,12 @@ package woowacourse.movie.domain
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import woowacourse.movie.R
 import java.time.LocalDate
 
 class MovieTest {
     @Test
     fun `상영 시작, 끝 날짜 사이의 날짜 리스트를 가져온다`() {
         val movie = Movie(
-            R.drawable.parasite,
             "기생충",
             LocalDate.of(2023, 9, 12),
             LocalDate.of(2023, 9, 15),

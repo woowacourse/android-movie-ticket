@@ -1,11 +1,10 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
 import java.time.LocalDateTime
 
 class TicketTime(
     val dateTime: LocalDateTime
-) : Serializable {
+) {
     fun isMovieDay(): Boolean = dateTime.dayOfMonth in MOVIE_DAYS
 
     fun isSaleTime(): Boolean {

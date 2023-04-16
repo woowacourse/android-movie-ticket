@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.activity
 
 import android.content.Intent
 import android.os.Build
@@ -14,11 +14,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
+import woowacourse.movie.domain.mapToDomainMovie
+import woowacourse.movie.ui.dto.Movie
+import woowacourse.movie.ui.dto.mapToUIMovieTicket
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -95,7 +97,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            movie.getDatesBetweenTwoDates()
+            mapToDomainMovie(movie).getDatesBetweenTwoDates()
         )
         dateSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dateSpinner.adapter = dateSpinnerAdapter
@@ -172,7 +174,7 @@ class MovieDetailActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("ticket", ticket)
+        intent.putExtra("ticket", mapToUIMovieTicket(ticket))
         startActivity(intent)
     }
 

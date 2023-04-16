@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.activity
 
 import android.content.res.Configuration
 import android.os.Build
@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieTicket
-import woowacourse.movie.domain.PeopleCount
-import woowacourse.movie.domain.TicketTime
+import woowacourse.movie.ui.dto.MovieTicket
+import woowacourse.movie.ui.dto.PeopleCount
+import woowacourse.movie.ui.dto.TicketTime
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -59,5 +59,5 @@ class MovieTicketActivity : AppCompatActivity() {
     private fun PeopleCount.format(): String = "일반 ${count}명"
 
     private fun MovieTicket.getPriceWithUnit(): String =
-        "${DecimalFormat("#,###").format(getPrice())}원 (현장 결제)"
+        "${DecimalFormat("#,###").format(price)}원 (현장 결제)"
 }

@@ -1,12 +1,11 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Theater
+import woowacourse.movie.ui.dto.Movie
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,7 @@
-package woowacourse.movie.domain
+package woowacourse.movie.ui.activity
 
 import woowacourse.movie.R
+import woowacourse.movie.ui.dto.Movie
 import java.time.LocalDate
 
 class Theater {

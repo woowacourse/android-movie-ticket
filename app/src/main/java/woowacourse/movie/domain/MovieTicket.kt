@@ -1,12 +1,10 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
-
 class MovieTicket(
     val title: String,
     val time: TicketTime,
     val peopleCount: PeopleCount,
-) : Serializable {
+) {
     fun getPrice(): Int {
         var price = TICKET_PRICE * peopleCount.count
         if (time.isMovieDay()) price = (price * TICKET_MOVIE_DAY_SALE_RATE).toInt()
