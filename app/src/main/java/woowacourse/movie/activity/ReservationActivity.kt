@@ -2,8 +2,6 @@ package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -50,22 +48,22 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val selectedDate: LocalDate = screeningDateSpinner.selectedItem as LocalDate
-        val selectedTime: LocalTime = screeningTimeSpinner.selectedItem as LocalTime
+        val selectedDatePosition: Int = screeningDateSpinner.selectedItemPosition
+        val selectedTimePosition: Int = screeningTimeSpinner.selectedItemPosition
 
         outState.putInt(
             getString(R.string.ticket_count_key),
             ticketCountTextView.text.toString().toInt()
         )
-        outState.putLong(getString(R.string.screening_date_key), selectedDate.toEpochDay())
-        outState.putString(getString(R.string.screening_time_key), selectedTime.toString())
+        outState.putInt(SCREENING_DATE_POINT_KEY, selectedDatePosition)
+        outState.putInt(SCREENING_TIME_POINT_KEY, selectedTimePosition)
     }
 
     private fun initReservationView() {
         val descriptionTextView: TextView =
             findViewById(R.id.reservation_movie_description_text_view)
         val runningTimeTextView: TextView =
-            findViewById(R.id.movie_running_time_text_view)
+            findViewById(R.id.reservation_movie_running_time_text_view)
         val screeningDateTextView: TextView =
             findViewById(R.id.reservation_movie_screening_date_text_view)
         val movieNameTextView: TextView =
@@ -74,7 +72,7 @@ class ReservationActivity : AppCompatActivity() {
             findViewById(R.id.reservation_movie_image_view)
 
         with(movie) {
-            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+            val dateFormat: DateTimeFormatter = DateTimeFormatter.ISO_DATE
 
             posterImage?.let { id -> posterImageView.setImageResource(id) }
             movieNameTextView.text = name.value
@@ -98,46 +96,19 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initSpinner(savedInstanceState: Bundle?) {
         val dates = movie.screeningPeriod.getScreeningDates()
+        val defaultPoint = savedInstanceState?.getInt(SCREENING_DATE_POINT_KEY) ?: 0
 
         screeningDateSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            dates
+            dates.map { it.value }
         )
-
-        screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (savedInstanceState == null) {
-                    initTimeSpinner(dates[position])
-                    return
-                }
-                loadSpinner(savedInstanceState)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                initTimeSpinner(null)
-            }
-        }
-    }
-
-    private fun loadSpinner(savedInstanceState: Bundle) {
-        val screeningDate = ScreeningDate(
-            LocalDate.ofEpochDay(savedInstanceState.getLong(getString(R.string.screening_date_key)))
+        screeningDateSpinner.onItemSelectedListener = ScreeningSpinnerOption(
+            savedInstanceState,
+            screeningDateSpinner,
+            ::initTimeSpinner
         )
-        val screeningTime =
-            LocalTime.parse(savedInstanceState.getString(getString(R.string.screening_time_key)))
-        val selectedDatePosition: Int =
-            movie.screeningPeriod.getScreeningDates().indexOf(screeningDate)
-        val selectedTimePosition: Int =
-            screeningDate.screeningTimes.indexOf(screeningTime)
-
-        screeningDateSpinner.setSelection(selectedDatePosition)
-        initTimeSpinner(screeningDate, selectedTimePosition)
+        screeningDateSpinner.setSelection(defaultPoint)
     }
 
     private fun initTimeSpinner(date: ScreeningDate?, defaultPoint: Int = 0) {
@@ -195,5 +166,10 @@ class ReservationActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    companion object {
+        const val SCREENING_DATE_POINT_KEY = "screening_date_key"
+        const val SCREENING_TIME_POINT_KEY = "screening_time_key"
     }
 }
