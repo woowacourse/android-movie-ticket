@@ -100,28 +100,40 @@ class BookingActivity : AppCompatActivity() {
 
     private fun clickMinus() {
         findViewById<Button>(R.id.buttonBookingMinus).setOnClickListener {
-            ticketCount = ticketCount.minus()
-            findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
+            minusTicketCount()
         }
+    }
+
+    private fun minusTicketCount() {
+        ticketCount = ticketCount.minus()
+        findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
     }
 
     private fun clickPlus() {
         findViewById<Button>(R.id.buttonBookingPlus).setOnClickListener {
-            ticketCount = ticketCount.plus()
-            findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
+            plusTicketCount()
         }
+    }
+
+    private fun plusTicketCount() {
+        ticketCount = ticketCount.plus()
+        findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
     }
 
     private fun clickBookingComplete() {
         findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
-            val movieId = intent.getLongExtra(MOVIE_ID, -1)
-            val dateTime = LocalDateTime.of(
-                dateSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItemPosition),
-                timeSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItemPosition),
-            )
-            val ticket = Ticket(movieId, dateTime, ticketCount.value).toPresentation()
-            startActivity(CompletedActivity.getIntent(this, ticket))
+            bookMovie()
         }
+    }
+
+    private fun bookMovie() {
+        val movieId = intent.getLongExtra(MOVIE_ID, -1)
+        val dateTime = LocalDateTime.of(
+            dateSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItemPosition),
+            timeSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItemPosition),
+        )
+        val ticket = Ticket(movieId, dateTime, ticketCount.value).toPresentation()
+        startActivity(CompletedActivity.getIntent(this, ticket))
     }
 
     private fun initAdapters() {
@@ -148,8 +160,11 @@ class BookingActivity : AppCompatActivity() {
                 position: Int,
                 id: Long,
             ) {
-                val times: List<LocalTime> =
-                    ScreeningTimes.getScreeningTime(dates[position])
+                convertTimeItems(position)
+            }
+
+            private fun convertTimeItems(position: Int) {
+                val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[position])
                 timeSpinnerAdapter.initItems(times)
             }
 
