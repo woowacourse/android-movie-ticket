@@ -75,8 +75,8 @@ class ReservationActivity : AppCompatActivity() {
             posterImage?.let { id -> posterImageView.setImageResource(id) }
             movieNameTextView.text = name.value
             screeningDateTextView.text = getString(R.string.screening_period_form).format(
-                movie.screeningPeriod.startDate.value.format(dateFormat),
-                movie.screeningPeriod.endDate.value.format(dateFormat)
+                screeningPeriod.startDate.value.format(dateFormat),
+                screeningPeriod.endDate.value.format(dateFormat)
             )
             runningTimeTextView.text = getString(R.string.running_time_form).format(runningTime)
             descriptionTextView.text = description
