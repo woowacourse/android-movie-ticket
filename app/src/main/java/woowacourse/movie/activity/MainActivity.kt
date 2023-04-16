@@ -7,7 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MockMoviesFactory
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movie.Companion.MOVIE_KEY_VALUE
+import woowacourse.movie.dto.MovieDto.Companion.MOVIE_KEY_VALUE
+import woowacourse.movie.dto.MovieDtoConverter
 import woowacourse.movie.view.MovieAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun reservationButtonClick(movie: Movie) {
         val intent = Intent(this, MovieReservationActivity::class.java)
-        intent.putExtra(MOVIE_KEY_VALUE, movie)
+        val movieDto = MovieDtoConverter().convertModelToDto(movie)
+        intent.putExtra(MOVIE_KEY_VALUE, movieDto)
         startActivity(intent)
     }
 }

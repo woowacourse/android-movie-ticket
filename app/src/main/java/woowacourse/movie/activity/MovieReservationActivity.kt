@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movie.Companion.MOVIE_KEY_VALUE
+import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
@@ -42,7 +43,8 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = intent.extras?.getSerializableCompat<Movie>(MOVIE_KEY_VALUE)
+        val movieDto = intent.extras?.getSerializableCompat<MovieDto>(MOVIE_KEY_VALUE)
+        val movie = movieDto?.let { MovieDtoConverter().convertDtoToModel(it) }
 
         if (movie != null) {
             counter.load(savedInstanceState)
