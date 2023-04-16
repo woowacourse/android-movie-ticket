@@ -27,10 +27,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:contentDescription="movie_poster"
                 android:scaleType="fitXY"
-                tools:ignore="HardcodedText"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:contentDescription="@string/movie_poster"
+                tools:src="@drawable/poster_sorcerers_stone" />
 
             <View
                 android:layout_width="match_parent"
@@ -41,11 +40,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="21dp"
-                android:text="타이틀"
-
+                tools:text="해리 포터와 마법사의 돌"
                 android:textSize="24sp"
-                android:textStyle="bold"
-                tools:ignore="HardcodedText" />
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="match_parent"
@@ -56,19 +53,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="21dp"
-                android:text="상영일"
-
-                android:textSize="18sp"
-                tools:ignore="HardcodedText" />
+                tools:text="상영일 : 2023.03.01 ~ 2023.04.30"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/reservation_movie_running_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="21dp"
-                android:text="러닝타임"
-                android:textSize="18sp"
-                tools:ignore="HardcodedText" />
+                tools:text="러닝타임 152분"
+                android:textSize="18sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -79,9 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="21dp"
-                android:text="줄거리"
-                android:textSize="18sp"
-                tools:ignore="HardcodedText" />
+                tools:text="줄거리"
+                android:textSize="18sp" />
         </LinearLayout>
     </ScrollView>
 

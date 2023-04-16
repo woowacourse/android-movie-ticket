@@ -50,14 +50,13 @@
         android:id="@+id/reservation_ticket_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"
         android:textSize="30sp"
+        tools:text="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/reservation_increase_ticket_button"
         app:layout_constraintStart_toEndOf="@+id/reservation_decrease_ticket_button"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <Spinner
         android:id="@+id/reservation_screening_date_spinner"
