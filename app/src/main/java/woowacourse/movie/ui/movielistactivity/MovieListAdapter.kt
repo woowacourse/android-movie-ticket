@@ -1,15 +1,11 @@
 package woowacourse.movie.ui.movielistactivity
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.movie.MovieData
-import woowacourse.movie.ui.DateTimeFormatters.hyphenDateFormatter
-import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
-import woowacourse.movie.util.setOnSingleClickListener
 
 class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
     private lateinit var inflater: LayoutInflater
@@ -42,28 +38,8 @@ class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
             viewHolder = itemLayout?.tag as MovieViewHolder
         }
 
-        val item = movies[position]
-        viewHolder.ivPoster.setImageResource(item.posterImage)
-        viewHolder.tvMovieName.text = item.title
-        viewHolder.tvScreeningDay.text =
-            viewHolder.tvScreeningDay.context.getString(R.string.screening_date_format)
-                .format(
-                    item.screeningDay.start.format(hyphenDateFormatter),
-                    item.screeningDay.end.format(hyphenDateFormatter)
-                )
-        viewHolder.tvRunningTime.text =
-            viewHolder.tvRunningTime.context.getString(R.string.running_time_format)
-                .format(item.runningTime)
+        viewHolder.setData(movies[position])
 
-        if (!viewHolder.btnBooking.hasOnClickListeners()) {
-            viewHolder.btnBooking.setOnSingleClickListener {
-                val intent = Intent(parent?.context, MovieBookingActivity::class.java).putExtra(
-                    "movieData",
-                    item
-                )
-                parent?.context?.startActivity(intent)
-            }
-        }
         return itemLayout ?: throw IllegalStateException(NULL_ITEM_LAYOUT_ERROR)
     }
 
