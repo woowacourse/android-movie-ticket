@@ -13,7 +13,7 @@ class DiscountConditionWithTimes(private val times: List<Int>) : DateTimeDiscoun
     }
 
     companion object {
-        const val MIN_TIME = 1
-        const val MAX_TIME = 31
+        const val MIN_TIME = 0
+        const val MAX_TIME = 23
     }
 }

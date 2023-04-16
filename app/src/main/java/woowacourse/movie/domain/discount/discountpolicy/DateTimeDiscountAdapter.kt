@@ -7,10 +7,10 @@ class DateTimeDiscountAdapter(
     override val dateTime: LocalDateTime,
 ) : DateTimeDiscountPolicy {
 
-    val policies = listOf(
-        MovieDayTimeDiscountPolicy(dateTime, 0.1),
-        EarlyBirdTimeDiscountPolicy(dateTime, 2000),
-        LateNightTimeDiscountPolicy(dateTime, 2000),
+    private val policies = listOf(
+        MovieDayTimeDiscountPolicy(dateTime, DISCOUNT_RATE),
+        EarlyBirdTimeDiscountPolicy(dateTime, DISCOUNT_AMOUNT),
+        LateNightTimeDiscountPolicy(dateTime, DISCOUNT_AMOUNT),
     )
 
     override fun discount(price: Money): Money {
@@ -18,5 +18,10 @@ class DateTimeDiscountAdapter(
 
         policies.forEach { discountedMoney = it.discount(discountedMoney) }
         return discountedMoney
+    }
+
+    companion object {
+        private const val DISCOUNT_RATE = 0.1
+        private const val DISCOUNT_AMOUNT = 2000
     }
 }

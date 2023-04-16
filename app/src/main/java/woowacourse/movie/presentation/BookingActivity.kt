@@ -139,8 +139,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun initDateTimes() {
-        val dates: List<LocalDate> =
-            ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
+        val dates: List<LocalDate> = movie.getScreeningDates()
         val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
         dateSpinnerAdapter.initItems(dates)
         timeSpinnerAdapter.initItems(times)
