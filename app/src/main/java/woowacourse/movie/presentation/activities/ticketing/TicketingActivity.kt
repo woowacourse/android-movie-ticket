@@ -106,22 +106,28 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
                 id: Long,
             ) {
                 selectedDate = movieDates[pos]
-                movieTimes.clear()
                 selectedDate?.toDomain()?.run {
-                    movieTimes.addAll(
+                    updateMovieTimes(
                         DomainMovieTime.runningTimes(isWeekend(), isToday())
                             .map { it.toPresentation() }
                     )
                 }
-                movieTimeAdapter.clear()
-                movieTimeAdapter.addAll(
-                    movieTimes.map { getString(R.string.book_time, it.hour, it.min) }
-                )
+                updateMovieTimeAdapterItems(movieTimes.map { getString(R.string.book_time, it.hour, it.min) })
                 selectedTime = movieTimes.firstOrNull()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+    }
+
+    private fun updateMovieTimes(newMovieTimes: List<MovieTime>) {
+        movieTimes.clear()
+        movieTimes.addAll(newMovieTimes)
+    }
+
+    private fun updateMovieTimeAdapterItems(movieTime: List<String>) {
+        movieTimeAdapter.clear()
+        movieTimeAdapter.addAll(movieTime)
     }
 
     private fun showMovieIntroduce() {
@@ -168,10 +174,12 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
                 movieTicket = (movieTicket.toDomain() - 1).toPresentation()
                 binding.tvTicketCount.text = movieTicket.count.toString()
             }
+
             R.id.btn_plus -> {
                 movieTicket = (movieTicket.toDomain() + 1).toPresentation()
                 binding.tvTicketCount.text = movieTicket.count.toString()
             }
+
             R.id.btn_ticketing -> {
                 if (selectedDate == null || selectedTime == null) {
                     showToast(getString(R.string.select_date_and_time))
