@@ -3,7 +3,6 @@ package woowacourse.movie.moviedetail
 import android.content.Context
 import android.widget.ArrayAdapter
 import woowacourse.movie.domain.DayOfWeek
-import woowacourse.movie.domain.movieinfo.RunningDate
 import woowacourse.movie.domain.screeningschedule.ReservationDate
 import woowacourse.movie.domain.screeningschedule.ReservationTime
 import java.time.LocalDate
