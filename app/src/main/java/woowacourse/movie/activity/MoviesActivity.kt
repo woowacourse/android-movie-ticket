@@ -1,8 +1,10 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import domain.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.mock.Mock
@@ -19,6 +21,12 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun initMoviesView() {
-        moviesListView.adapter = MoviesAdapter(Mock.getMovies())
+        val movies: List<Movie> = Mock.getMovies()
+        moviesListView.adapter = MoviesAdapter(movies)
+        moviesListView.setOnItemClickListener { adapterView, view, position, id ->
+            val intent = Intent(this, ReservationActivity::class.java)
+            intent.putExtra(this.getString(R.string.movie_key), movies[position])
+            this.startActivity(intent)
+        }
     }
 }
