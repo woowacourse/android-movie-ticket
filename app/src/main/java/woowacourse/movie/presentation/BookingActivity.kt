@@ -146,8 +146,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun initDateSpinnerSelectedListener() {
-        val dates: List<LocalDate> =
-            ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
+        val dates: List<LocalDate> = movie.getScreeningDates()
 
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

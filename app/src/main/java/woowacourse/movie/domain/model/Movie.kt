@@ -14,4 +14,9 @@ data class Movie(
 ) {
     fun reserve(dateTime: LocalDateTime, ticketCount: TicketCount) =
         Ticket(id, dateTime, ticketCount.value)
+
+    fun getScreeningDates(): List<LocalDate> {
+        val numberOfDays: Int = screeningStartDate.until(screeningEndDate).days
+        return (0..numberOfDays).map { (screeningStartDate.plusDays(it.toLong())) }
+    }
 }

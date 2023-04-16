@@ -17,4 +17,6 @@ data class MovieModel(
 ) {
     fun reserve(dateTime: LocalDateTime, ticketCount: TicketCount): TicketModel =
         toDomainModel().reserve(dateTime, ticketCount).toPresentation()
+
+    fun getScreeningDates(): List<LocalDate> = toDomainModel().getScreeningDates()
 }
