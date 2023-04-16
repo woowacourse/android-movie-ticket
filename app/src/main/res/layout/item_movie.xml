@@ -45,6 +45,7 @@
         app:layout_constraintTop_toBottomOf="@id/item_movie_date" />
 
     <Button
+
         android:id="@+id/item_movie_reservation_button"
         android:layout_width="88dp"
         android:layout_height="36dp"
