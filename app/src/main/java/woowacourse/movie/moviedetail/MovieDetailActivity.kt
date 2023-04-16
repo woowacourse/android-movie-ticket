@@ -34,12 +34,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
 
         setToolBar()
-
-        if (savedInstanceState != null) {
-            numberOfBooker = savedInstanceState.getInt(NUMBER_OF_PEOPLE)
-            dateSpinnerPosition = savedInstanceState.getInt(DATE_SPINNER_POSITION)
-            timeSpinnerPosition = savedInstanceState.getInt(TIME_SPINNER_POSITION)
-        }
+        setUpState(savedInstanceState)
 
         val movie = intent.getSerializableExtra(MOVIE_KEY) as Movie
 
@@ -47,6 +42,13 @@ class MovieDetailActivity : AppCompatActivity() {
         setUpMovieData(movie)
         setNumberOfPeople()
         clickBookBtn(movie)
+    }
+
+    private fun setUpState(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            dateSpinnerPosition = savedInstanceState.getInt(DATE_SPINNER_POSITION)
+            timeSpinnerPosition = savedInstanceState.getInt(TIME_SPINNER_POSITION)
+        }
     }
 
     private fun setToolBar() {
