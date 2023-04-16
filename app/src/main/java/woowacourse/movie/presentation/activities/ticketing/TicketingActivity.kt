@@ -112,7 +112,11 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
                             .map { it.toPresentation() }
                     )
                 }
-                updateMovieTimeAdapterItems(movieTimes.map { getString(R.string.book_time, it.hour, it.min) })
+                updateMovieTimeAdapterItems(
+                    movieTimes.map {
+                        getString(R.string.book_time, it.hour, it.min)
+                    }
+                )
                 selectedTime = movieTimes.firstOrNull()
             }
 
@@ -153,7 +157,7 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
             movieTicket = getParcelableExtraCompat(TICKET_COUNT_STATE_KEY)!!
         }
         selectedDate?.toDomain()?.run {
-            movieTimes.addAll(
+            updateMovieTimes(
                 DomainMovieTime.runningTimes(isWeekend(), isToday()).map { it.toPresentation() }
             )
         }
@@ -162,10 +166,8 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         binding.tvTicketCount.text = movieTicket.count.toString()
-        val storedDateIndex = movieDates.indexOfFirst { it == selectedDate }
-        binding.spinnerMovieDate.setSelection(storedDateIndex)
-        val storedTimeIndex = movieTimes.indexOfFirst { it == selectedTime }
-        binding.spinnerMovieTime.setSelection(storedTimeIndex)
+        binding.spinnerMovieDate.setSelection(movieDates.indexOf(selectedDate))
+        binding.spinnerMovieTime.setSelection(movieTimes.indexOf(selectedTime))
     }
 
     override fun onClick(view: View) {

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class MovieDate(
+data class MovieDate(
     val year: Int,
     val month: Int,
     val day: Int,
