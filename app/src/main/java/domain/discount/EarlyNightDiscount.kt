@@ -16,7 +16,7 @@ class EarlyNightDiscount : DiscountRule {
     }
 
     companion object {
-        private const val DISCOUNT_AMOUNT = 2000
+        private const val DISCOUNT_AMOUNT = 2_000
         private const val EARLY_TIME_STANDARD = 11
         private const val NIGHT_TIME_STANDARD = 20
     }

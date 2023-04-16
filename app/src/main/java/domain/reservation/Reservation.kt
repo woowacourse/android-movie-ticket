@@ -16,7 +16,7 @@ data class Reservation(
 ) : Serializable {
 
     companion object {
-        private const val TICKET_PRICE = 13000
+        private const val TICKET_PRICE = 13_000
 
         fun from(movie: Movie, ticketCount: Int, screeningDateTime: LocalDateTime): Reservation {
             val paymentAmount: PaymentAmount = Discount().getPaymentAmountResult(
