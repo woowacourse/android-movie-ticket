@@ -15,7 +15,6 @@ import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.domain.ScreeningTimes
 import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.formatScreenDate
 import woowacourse.movie.presentation.model.MovieModel
 import woowacourse.movie.presentation.model.toPresentation
@@ -25,6 +24,10 @@ import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
     private var ticketCount = TicketCount()
+    private val movie: MovieModel by lazy {
+        val movieId = intent.getLongExtra(MOVIE_ID, -1)
+        MovieData.findMovieById(movieId).toPresentation()
+    }
     private val dateSpinner by lazy { findViewById<Spinner>(R.id.spinnerScreeningDate) }
     private val timeSpinner by lazy { findViewById<Spinner>(R.id.spinnerScreeningTime) }
     private val dateSpinnerAdapter by lazy {
@@ -37,13 +40,12 @@ class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
-        val movie = getMovie()
         initAdapters()
-        initDateTimes(movie)
+        initDateTimes()
         restoreData(savedInstanceState)
-        initView(movie)
+        initView()
         gatherClickListeners()
-        initDateSpinnerSelectedListener(movie)
+        initDateSpinnerSelectedListener()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -73,18 +75,13 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun getMovie(): MovieModel {
-        val movieId = intent.getLongExtra(MOVIE_ID, -1)
-        return MovieData.findMovieById(movieId).toPresentation()
-    }
-
     private fun gatherClickListeners() {
         clickMinus()
         clickPlus()
         clickBookingComplete()
     }
 
-    private fun initView(movie: MovieModel) {
+    private fun initView() {
         movie.poster?.let { findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(it) }
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
@@ -127,12 +124,11 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun bookMovie() {
-        val movieId = intent.getLongExtra(MOVIE_ID, -1)
         val dateTime = LocalDateTime.of(
             dateSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItemPosition),
             timeSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItemPosition),
         )
-        val ticket = Ticket(movieId, dateTime, ticketCount.value).toPresentation()
+        val ticket = movie.reserve(dateTime, ticketCount)
         startActivity(CompletedActivity.getIntent(this, ticket))
     }
 
@@ -141,7 +137,7 @@ class BookingActivity : AppCompatActivity() {
         timeSpinner.adapter = timeSpinnerAdapter
     }
 
-    private fun initDateTimes(movie: MovieModel) {
+    private fun initDateTimes() {
         val dates: List<LocalDate> =
             ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
         val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
@@ -149,7 +145,7 @@ class BookingActivity : AppCompatActivity() {
         timeSpinnerAdapter.initItems(times)
     }
 
-    private fun initDateSpinnerSelectedListener(movie: MovieModel) {
+    private fun initDateSpinnerSelectedListener() {
         val dates: List<LocalDate> =
             ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
 
