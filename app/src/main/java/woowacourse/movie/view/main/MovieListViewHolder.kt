@@ -1,7 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.view.main
 
 import android.content.Intent
 import woowacourse.movie.databinding.ItemMovieListBinding
+import woowacourse.movie.model.Movie
+import woowacourse.movie.view.movie_detail.MovieDetailActivity
 
 class MovieListViewHolder(binding: ItemMovieListBinding) {
     private val context = binding.root.context
