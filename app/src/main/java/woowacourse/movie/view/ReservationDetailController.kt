@@ -24,7 +24,7 @@ class ReservationDetailController(
             .format(reservationDetail.peopleCount)
 
         val formattedPrice =
-            NumberFormat.getNumberInstance(Locale.US).format(reservationDetail.getTotalPrice())
+            NumberFormat.getNumberInstance(Locale.US).format(reservationDetail.totalPrice.value)
 
         price?.text = context.getString(R.string.reservation_price).format(formattedPrice)
     }

@@ -11,38 +11,29 @@ import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
 import woowacourse.movie.view.MovieController
 import woowacourse.movie.view.ReservationButton
-import woowacourse.movie.view.SaveStateCounter
-import woowacourse.movie.view.SaveStateSpinner
 import woowacourse.movie.view.TimeSpinner
 
 class MovieReservationActivity : AppCompatActivity() {
-    private val counter: SaveStateCounter by lazy {
-        SaveStateCounter(
-            Counter(
-                findViewById(R.id.movie_reservation_people_count_minus),
-                findViewById(R.id.movie_reservation_people_count_plus),
-                findViewById(R.id.movie_reservation_people_count),
-                INITIAL_COUNT,
-            ),
-            COUNTER_SAVE_STATE_KEY,
+    private val counter: Counter by lazy {
+        Counter(
+            findViewById(R.id.movie_reservation_people_count_minus),
+            findViewById(R.id.movie_reservation_people_count_plus),
+            findViewById(R.id.movie_reservation_people_count),
+            COUNTER_SAVE_STATE_KEY
         )
     }
 
     private val dateSpinner: DateSpinner by lazy {
         DateSpinner(
-            SaveStateSpinner(
-                DATE_SPINNER_SAVE_STATE_KEY,
-                findViewById(R.id.movie_reservation_date_spinner),
-            )
+            findViewById(R.id.movie_reservation_date_spinner),
+            DATE_SPINNER_SAVE_STATE_KEY,
         )
     }
 
     private val timeSpinner: TimeSpinner by lazy {
         TimeSpinner(
-            SaveStateSpinner(
-                TIME_SPINNER_SAVE_STATE_KEY,
-                findViewById(R.id.movie_reservation_time_spinner),
-            )
+            findViewById(R.id.movie_reservation_time_spinner),
+            TIME_SPINNER_SAVE_STATE_KEY,
         )
     }
 
@@ -53,12 +44,9 @@ class MovieReservationActivity : AppCompatActivity() {
 
         val movie = intent.extras?.getSerializableCompat<Movie>(MOVIE_KEY_VALUE)
 
-        counter.applyToView()
-
         if (movie != null) {
             counter.load(savedInstanceState)
-
-            dateSpinner.make(this, savedInstanceState, movie, timeSpinner)
+            dateSpinner.make(savedInstanceState, movie, timeSpinner)
 
             MovieController(
                 this,
@@ -73,11 +61,10 @@ class MovieReservationActivity : AppCompatActivity() {
             ReservationButton(
                 findViewById(R.id.movie_reservation_button),
                 getString(R.string.reservation_extra_name),
-                this,
                 movie,
                 dateSpinner,
                 timeSpinner,
-                counter.counter
+                counter
             )
         }
     }
@@ -98,7 +85,6 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val INITIAL_COUNT = 1
         private const val COUNTER_SAVE_STATE_KEY = "counter"
         private const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
         private const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
