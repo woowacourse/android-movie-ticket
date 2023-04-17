@@ -59,7 +59,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
 
         tvBookingCheckMovieName.text = movieData.title
         tvBookingCheckScreeningDay.text =
-            bookedScreeningDateTime.value.format(dateDotTimeColonFormatter)
+            bookedScreeningDateTime.time.format(dateDotTimeColonFormatter)
         tvBookingCheckPersonCount.text =
             this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
         tvBookingCheckTotalMoney.text = this.getString(R.string.tv_booking_check_total_money)

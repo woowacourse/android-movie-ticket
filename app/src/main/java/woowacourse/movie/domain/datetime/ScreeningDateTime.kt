@@ -5,25 +5,25 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-class ScreeningDateTime(val value: LocalDateTime, private val screeningPeriod: ScreeningPeriod) :
+class ScreeningDateTime(val time: LocalDateTime, private val screeningPeriod: ScreeningPeriod) :
     Parcelable {
     init {
         validateDateTime()
     }
 
     private fun validateDateTime() {
-        require(value.toLocalDate() in screeningPeriod.start..screeningPeriod.end) {
+        require(time.toLocalDate() in screeningPeriod.start..screeningPeriod.end) {
             SELECTED_SCREENING_DATE_TIME_ERROR.format(
-                value.toString(),
+                time.toString(),
                 screeningPeriod.start.toString() + screeningPeriod.end.toString()
             )
         }
     }
 
-    fun checkMovieDay(): Boolean = value.dayOfMonth in MOVIE_DAYS
+    fun checkMovieDay(): Boolean = time.dayOfMonth in MOVIE_DAYS
 
     fun checkEarlyMorningLateNight(): Boolean {
-        val hour = value.hour
+        val hour = time.hour
         if (hour < EARLY_MORNING_STANDARD || hour > LATE_NIGHT_STANDARD) return true
         return false
     }
