@@ -9,6 +9,6 @@ class RateDiscountPolicy(
 ) : DiscountPolicy(conditions) {
 
     override fun calculateDiscountMoney(price: Money): Money {
-        return price.reduceMoneyWithRate(rate)
+        return price - (price * rate)
     }
 }

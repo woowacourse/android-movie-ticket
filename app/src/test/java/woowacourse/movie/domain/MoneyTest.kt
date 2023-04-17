@@ -22,7 +22,7 @@ class MoneyTest {
         val expected = Money(9000)
 
         // when
-        val actual = Money(amount).reduceMoneyWithRate(0.1)
+        val actual = Money(amount) * 0.9
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -35,7 +35,7 @@ class MoneyTest {
         val expected = Money(8000)
 
         // when
-        val actual = Money(amount).reduceMoneyWithAmount(2000)
+        val actual = Money(amount) - 2000
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -48,7 +48,7 @@ class MoneyTest {
         val expected = Money(30000)
 
         // when
-        val actual = Money(amount).multiplyMoneyWithCount(3)
+        val actual = Money(amount) * 3
 
         // then
         assertThat(actual).isEqualTo(expected)

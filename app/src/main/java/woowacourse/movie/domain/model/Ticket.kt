@@ -12,7 +12,7 @@ data class Ticket(
     fun getPaymentMoney(): Money {
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
         val discountedMoney = discountPolicy.discount(Money(TICKET_PRICE), bookedDateTime)
-        return discountedMoney.multiplyMoneyWithCount(count)
+        return discountedMoney * count
     }
 
     companion object {

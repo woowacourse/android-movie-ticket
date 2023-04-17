@@ -16,7 +16,7 @@ class RateDiscountPolicyTest {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 10, 0, 0)
         val price = Money(13000)
-        val expected = Money(11700)
+        val expected = price * 0.9
 
         val rateDiscountPolicy = RateDiscountPolicy(
             listOf(DiscountConditionWithDays(discountDays)),
@@ -31,12 +31,11 @@ class RateDiscountPolicyTest {
     }
 
     @Test
-    fun `15일이면 할인 날짜가 아니라서 10프로 할인된다`() {
+    fun `15일이면 할인 날짜가 아니라서 10프로 할인되지 않는다`() {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 15, 0, 0)
         val price = Money(13000)
         val expected = Money(13000)
-        val movieDays = listOf(10, 20, 30)
 
         val rateDiscountPolicy = RateDiscountPolicy(
             listOf(DiscountConditionWithDays(discountDays)),

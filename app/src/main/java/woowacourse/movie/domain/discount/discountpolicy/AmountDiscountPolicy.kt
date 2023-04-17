@@ -8,5 +8,5 @@ class AmountDiscountPolicy(
     private val amount: Int,
 ) : DiscountPolicy(conditions) {
 
-    override fun calculateDiscountMoney(price: Money): Money = price.reduceMoneyWithAmount(amount)
+    override fun calculateDiscountMoney(price: Money): Money = price - amount
 }

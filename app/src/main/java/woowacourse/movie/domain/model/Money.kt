@@ -6,11 +6,10 @@ data class Money(val value: Int) {
         require(value >= MIN_MONEY)
     }
 
-    fun reduceMoneyWithRate(rate: Double) = Money(value - (value * rate).toInt())
-
-    fun reduceMoneyWithAmount(amount: Int) = Money(value - amount)
-
-    fun multiplyMoneyWithCount(count: Int) = Money(value * count)
+    operator fun minus(amount: Int) = Money(value - amount)
+    operator fun minus(otherMoney: Money) = Money(value - otherMoney.value)
+    operator fun times(amount: Int) = Money((value * amount))
+    operator fun times(amount: Double) = Money((value * amount).toInt())
 
     companion object {
         private const val MIN_MONEY = 0

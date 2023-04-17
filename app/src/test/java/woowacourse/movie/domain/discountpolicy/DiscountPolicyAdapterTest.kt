@@ -28,7 +28,7 @@ class DiscountPolicyAdapterTest {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 1, 9, 0)
         val price = Money(13000)
-        val expected = Money(11000)
+        val expected = price - 2000
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
 
         // when
@@ -43,7 +43,7 @@ class DiscountPolicyAdapterTest {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 1, 20, 0)
         val price = Money(13000)
-        val expected = Money(11000)
+        val expected = price - 2000
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
 
         // when
@@ -58,7 +58,7 @@ class DiscountPolicyAdapterTest {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 10, 17, 0)
         val price = Money(13000)
-        val expected = Money(11700)
+        val expected = price * 0.9
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
 
         // when
@@ -73,7 +73,7 @@ class DiscountPolicyAdapterTest {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 10, 10, 0)
         val price = Money(13000)
-        val expected = Money(9700)
+        val expected = price * 0.9 - 2000
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
 
         // when
