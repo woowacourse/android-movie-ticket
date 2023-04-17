@@ -9,8 +9,10 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
 import java.time.format.DateTimeFormatter
 
-class MovieListViewAdapter(private val movies: List<Movie>) :
-    BaseAdapter() {
+class MovieListViewAdapter(
+    private val movies: List<Movie>,
+    private val onBookListener: OnBookListener
+) : BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
     }
@@ -53,5 +55,12 @@ class MovieListViewAdapter(private val movies: List<Movie>) :
             item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
         holder.screeningDate.text = context.getString(R.string.screen_date, startDate, endDate)
         holder.runningTime.text = context.getString(R.string.running_time, item.runningTime)
+        holder.bookBtn.setOnClickListener {
+            onBookListener.onClick(item)
+        }
+    }
+
+    interface OnBookListener {
+        fun onClick(movie: Movie)
     }
 }

@@ -22,16 +22,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpMovieDatas(movieData: MovieData) {
         val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(setMovieData(movieData))
+        val movieListViewAdapter = MovieListViewAdapter(
+            setMovieData(movieData),
+            object : MovieListViewAdapter.OnBookListener {
+                override fun onClick(movie: Movie) {
+                    val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
+                    intent.putExtra(MOVIE_KEY, movie)
+                    startActivity(intent)
+                }
+            }
+        )
 
         movieListView.adapter = movieListViewAdapter
-
-        movieListView.setOnItemClickListener { adapterView, _, position, _ ->
-            val item = adapterView.getItemAtPosition(position) as Movie
-            val intent = Intent(this, MovieDetailActivity::class.java)
-            intent.putExtra(MOVIE_KEY, item)
-            this.startActivity(intent)
-        }
     }
 
     companion object {
