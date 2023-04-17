@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.Minute
 import woowacourse.movie.domain.Movie
 import java.time.LocalDate
-import java.time.Period
+import java.time.temporal.ChronoUnit
 
 
 fun Movie.toUiModel(): MovieUiModel = MovieUiModel(
@@ -38,7 +38,7 @@ class MovieUiModel(
     fun getAllScreeningDates(): List<LocalDate> {
         val screeningDates = mutableListOf<LocalDate>()
         var screeningDate = screeningStartDate
-        repeat(Period.between(screeningStartDate, screeningEndDate).days + 1) {
+        repeat(ChronoUnit.DAYS.between(screeningStartDate, screeningEndDate).toInt() + 1) {
             screeningDates.add(screeningDate)
             screeningDate = screeningDate.plusDays(1)
         }
