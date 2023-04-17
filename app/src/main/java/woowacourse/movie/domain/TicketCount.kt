@@ -3,6 +3,10 @@ package woowacourse.movie.domain
 @JvmInline
 value class TicketCount(val value: Int = MIN_TICKET_COUNT) {
 
+    init {
+        require(value >= MIN_TICKET_COUNT) { "티켓 수량은 1보다 작을 수 없습니다. 현재 수량: $value" }
+    }
+
     fun plus(): TicketCount = TicketCount(value + TICKET_UNIT)
 
     fun minus(): TicketCount {
