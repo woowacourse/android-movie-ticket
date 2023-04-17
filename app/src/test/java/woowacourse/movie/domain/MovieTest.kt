@@ -3,15 +3,16 @@ package woowacourse.movie.domain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.ui.MovieUiModel
+import woowacourse.movie.ui.uiModel.Movie
+import woowacourse.movie.ui.uiModel.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class MovieUiModelTest {
+class MovieTest {
     @Test
     fun `상영 기간을 계산해서 리스트로 반환한다`() {
         // given
-        val movie = MovieUiModel(
+        val movie = Movie(
             1,
             "해리 포터와 마법사의 돌",
             LocalDate.of(2023, 4, 12),
@@ -38,7 +39,7 @@ class MovieUiModelTest {
     @Test
     fun `날짜시간, 티켓 수를 입력하면 티켓을 반환한다`() {
         // given
-        val movie = MovieUiModel(
+        val movie = Movie(
             1,
             "해리 포터와 마법사의 돌",
             LocalDate.of(2023, 4, 12),

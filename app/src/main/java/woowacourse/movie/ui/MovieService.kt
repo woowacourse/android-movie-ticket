@@ -3,6 +3,7 @@ package woowacourse.movie.ui
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDatabase
 import woowacourse.movie.data.MovieEntity
+import woowacourse.movie.ui.uiModel.Movie
 
 object MovieService {
     private val thumbnailMap: Map<Long, Int> = mapOf(
@@ -25,8 +26,8 @@ object MovieService {
         return posterMap[id] ?: throw IllegalArgumentException("없는 아이디 입니다")
     }
 
-    private fun MovieEntity.toUiModel(): MovieUiModel {
-        return MovieUiModel(
+    private fun MovieEntity.toUiModel(): Movie {
+        return Movie(
             id = this.id,
             title = this.title,
             startDate = this.startDate,
@@ -38,11 +39,11 @@ object MovieService {
         )
     }
 
-    fun getMovies(): List<MovieUiModel> {
+    fun getMovies(): List<Movie> {
         return MovieDatabase.movies.map { it.toUiModel() }
     }
 
-    fun getMovie(id: Long): MovieUiModel {
+    fun getMovie(id: Long): Movie {
         return MovieDatabase.selectMovie(id).toUiModel()
     }
 }

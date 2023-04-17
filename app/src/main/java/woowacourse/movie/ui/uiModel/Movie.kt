@@ -1,10 +1,9 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.uiModel
 
-import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-data class MovieUiModel(
+data class Movie(
     val id: Long,
     val title: String,
     val startDate: LocalDate,

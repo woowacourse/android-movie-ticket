@@ -13,8 +13,8 @@ import woowacourse.movie.domain.ScreeningTimes
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
 import woowacourse.movie.ui.MovieService
-import woowacourse.movie.ui.MovieUiModel
 import woowacourse.movie.ui.completed.CompletedActivity
+import woowacourse.movie.ui.uiModel.Movie
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -58,18 +58,18 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun getMovie(): MovieUiModel {
+    private fun getMovie(): Movie {
         val movieId = intent.getLongExtra(MOVIE_ID, -1)
         return MovieService.getMovie(movieId)
     }
 
-    private fun gatherClickListeners(movie: MovieUiModel) {
+    private fun gatherClickListeners(movie: Movie) {
         clickMinus()
         clickPlus()
         clickBookingComplete(movie)
     }
 
-    private fun initView(movie: MovieUiModel) {
+    private fun initView(movie: Movie) {
         findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
@@ -97,7 +97,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickBookingComplete(movie: MovieUiModel) {
+    private fun clickBookingComplete(movie: Movie) {
         findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
             val dateTime = dateTimeSpinner.selectedDateTime
             val ticket = movie.reserve(dateTime, ticketCount.value)
@@ -105,7 +105,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun initDateTimes(movie: MovieUiModel) {
+    private fun initDateTimes(movie: Movie) {
         val dates: List<LocalDate> = movie.screeningDates
         val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
         dateTimeSpinner.initDateItems(dates)
