@@ -44,7 +44,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setDateSpinner(movie.startDate, movie.endDate)
         setUpMovieData(movie)
         setNumberOfPeople()
-        clickBookBtn(movie)
+        onClickBookBtnListener(movie)
     }
 
     private fun setUpState(savedInstanceState: Bundle?) {
@@ -88,11 +88,11 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setNumberOfPeople() {
         val booker = findViewById<TextView>(R.id.booker_num)
         booker.text = movieTikcet.numberOfPeople.toString()
-        clickDecreaseBtn(booker)
-        clickIncreaseBtn(booker)
+        onClickDecreaseBtnListener(booker)
+        onClickIncreaseBtnListener(booker)
     }
 
-    private fun clickDecreaseBtn(booker: TextView) {
+    private fun onClickDecreaseBtnListener(booker: TextView) {
         val minusBtn = findViewById<Button>(R.id.minus_button)
 
         minusBtn.setOnClickListener {
@@ -102,7 +102,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickIncreaseBtn(booker: TextView) {
+    private fun onClickIncreaseBtnListener(booker: TextView) {
         val plusBtn = findViewById<Button>(R.id.plus_button)
 
         plusBtn.setOnClickListener {
@@ -112,7 +112,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickBookBtn(movie: MovieDto) {
+    private fun onClickBookBtnListener(movie: MovieDto) {
         val bookBtn = findViewById<Button>(R.id.book_button)
         bookBtn.setOnClickListener {
             val selectedDate = MovieDate.of(selectDateSpinner.selectedItem.toString())
