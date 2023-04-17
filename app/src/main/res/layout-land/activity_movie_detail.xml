@@ -35,50 +35,45 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/img" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="27dp"
+                android:text="title"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/screening_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="10dp"
+                android:text="상영일: 2024.3.1 ~ 2023.4.1"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/running_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:text="러닝타임: 200분"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/movie_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="19dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/movie_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="title"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/screening_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="상영일: 2024.3.1 ~ 2023.4.1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/running_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="러닝타임: 200분"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/movie_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/description"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
+                android:text="@string/description"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -88,8 +83,8 @@
         android:id="@+id/movie_detail_bottom"
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:paddingHorizontal="20dp"
         android:background="@color/white"
+        android:paddingHorizontal="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
