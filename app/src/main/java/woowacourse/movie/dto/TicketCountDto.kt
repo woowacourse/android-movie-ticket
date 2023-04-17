@@ -2,7 +2,7 @@ package woowacourse.movie.dto
 
 import java.io.Serializable
 
-data class TicketDto(
+data class TicketCountDto(
     val numberOfPeople: Int = MIN_BOOKER_NUMBER,
 ) : Serializable {
     companion object {
