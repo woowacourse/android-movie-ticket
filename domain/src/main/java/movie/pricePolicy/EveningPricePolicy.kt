@@ -7,7 +7,7 @@ class EveningPricePolicy(
     init {
         require(eveningLimit in 0..23) { ERROR_EVENING_LIMIT }
     }
-    override fun invoke(price: PricePolicyInfo): PricePolicyInfo = when {
+    override fun calculatePrice(price: PricePolicyInfo): PricePolicyInfo = when {
         isEveningMorning(price.reservationDateTime.hour) -> price.copy(price = price.price - discountPrice)
         else -> price
     }

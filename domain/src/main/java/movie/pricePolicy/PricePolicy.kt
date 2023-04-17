@@ -1,5 +1,5 @@
 package movie.pricePolicy
 
 interface PricePolicy {
-    operator fun invoke(price: PricePolicyInfo): PricePolicyInfo
+    fun calculatePrice(price: PricePolicyInfo): PricePolicyInfo
 }

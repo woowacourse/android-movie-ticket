@@ -17,7 +17,7 @@ class EveningPricePolicyTest {
         val pricePolicyInfo = PricePolicyInfo(10000, localDateTime)
 
         // when
-        val price = eveningPricePolicy(pricePolicyInfo)
+        val price = eveningPricePolicy.calculatePrice(pricePolicyInfo)
 
         // then
         assertThat(price.price).isEqualTo(9000)
@@ -31,7 +31,7 @@ class EveningPricePolicyTest {
         val pricePolicyInfo = PricePolicyInfo(10000, localDateTime)
 
         // when
-        val price = eveningPricePolicy(pricePolicyInfo)
+        val price = eveningPricePolicy.calculatePrice(pricePolicyInfo)
 
         // then
         assertThat(price.price).isEqualTo(10000)

@@ -3,7 +3,7 @@ package movie.pricePolicy
 class MovieDayPricePolicy(
     private val rateDiscountPrice: Double,
 ) : PricePolicy {
-    override fun invoke(price: PricePolicyInfo): PricePolicyInfo = when {
+    override fun calculatePrice(price: PricePolicyInfo): PricePolicyInfo = when {
         isMovieDay(price.reservationDateTime.dayOfMonth) -> price.copy(price = discountMovieDay(price.price))
         else -> price
     }

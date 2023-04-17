@@ -18,7 +18,7 @@ class Cinema {
     }
 
     private fun getMoviePrice(pricePolicy: PricePolicy, reserveTime: LocalDateTime): Int =
-        pricePolicy(PricePolicyInfo(DEFAULT_MOVIE_PRICE, reserveTime)).price
+        pricePolicy.calculatePrice(PricePolicyInfo(DEFAULT_MOVIE_PRICE, reserveTime)).price
 
     companion object {
         private const val DEFAULT_MOVIE_PRICE = 13000

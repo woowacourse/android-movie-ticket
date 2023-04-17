@@ -13,7 +13,7 @@ class NormalPricePolicyTest {
         val pricePolicyInfo = PricePolicyInfo(10000, localDateTime)
 
         // when
-        val price = normalPricePolicy(pricePolicyInfo)
+        val price = normalPricePolicy.calculatePrice(pricePolicyInfo)
 
         // then
         assertThat(price.price).isEqualTo(7000)
@@ -27,7 +27,7 @@ class NormalPricePolicyTest {
         val pricePolicyInfo = PricePolicyInfo(10000, localDateTime)
 
         // when
-        val price = normalPricePolicy(pricePolicyInfo)
+        val price = normalPricePolicy.calculatePrice(pricePolicyInfo)
 
         // then
         assertThat(price.price).isEqualTo(7000)
