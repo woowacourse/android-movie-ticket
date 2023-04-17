@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import model.TicketModel
 import woowacourse.movie.R
+import woowacourse.movie.utils.getSerializableExtraCompat
 
 class MovieTicketActivity : AppCompatActivity() {
     private val ticket by lazy {
-        intent.getSerializableExtra(KEY_MOVIE_TICKET) as? TicketModel ?: run {
+        intent.getSerializableExtraCompat(KEY_MOVIE_TICKET) as? TicketModel ?: run {
             finish()
             Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
             TicketModel.EMPTY
