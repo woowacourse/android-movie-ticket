@@ -7,10 +7,10 @@ import androidx.annotation.DrawableRes
 import woowacourse.movie.R
 
 class MovieListViewHolder(view: View) {
-    private var posterView: ImageView = view.findViewById(R.id.movie_poster)
-    private var titleView: TextView = view.findViewById(R.id.movie_title)
-    private var releaseDateView: TextView = view.findViewById(R.id.movie_release_date)
-    private var runningTimeView: TextView = view.findViewById(R.id.movie_running_time)
+    private val posterView: ImageView = view.findViewById(R.id.movie_poster)
+    private val titleView: TextView = view.findViewById(R.id.movie_title)
+    private val releaseDateView: TextView = view.findViewById(R.id.movie_release_date)
+    private val runningTimeView: TextView = view.findViewById(R.id.movie_running_time)
 
     fun bind(
         @DrawableRes posterResource: Int,
