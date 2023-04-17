@@ -16,7 +16,7 @@
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/result_movie_name_text_view"
+        android:id="@+id/movie_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
@@ -26,7 +26,7 @@
         android:textSize="@dimen/title_large" />
 
     <TextView
-        android:id="@+id/result_screening_date_time_text_view"
+        android:id="@+id/screening_date_time_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
@@ -36,7 +36,7 @@
         android:textSize="@dimen/text_large" />
 
     <TextView
-        android:id="@+id/result_ticket_count_text_view"
+        android:id="@+id/ticket_count_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
@@ -46,7 +46,7 @@
         android:textSize="@dimen/text_large" />
 
     <TextView
-        android:id="@+id/result_payment_amount_text_view"
+        android:id="@+id/payment_amount_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"

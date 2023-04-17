@@ -4,24 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.R
 import woowacourse.movie.adapter.MoviesAdapter
+import woowacourse.movie.databinding.ActivityMoviesBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.util.MOVIE_INTENT_KEY
 import woowacourse.movie.util.Mock
 
 class MoviesActivity : AppCompatActivity() {
 
-    private val moviesListView: ListView by lazy { findViewById(R.id.movies_list_view) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movies)
 
-        initMoviesView()
+        val binding: ActivityMoviesBinding = ActivityMoviesBinding.inflate(layoutInflater)
+        val moviesListView: ListView = binding.root
+        setContentView(moviesListView)
+
+        initMoviesView(moviesListView)
     }
 
-    private fun initMoviesView() {
+    private fun initMoviesView(moviesListView: ListView) {
         val movieModels: List<MovieModel> = Mock.getMovieModels()
         moviesListView.adapter = MoviesAdapter(movieModels)
         moviesListView.setOnItemClickListener { adapterView, view, position, id ->

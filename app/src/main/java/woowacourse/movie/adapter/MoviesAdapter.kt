@@ -29,9 +29,9 @@ class MoviesAdapter(
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_movie, null)
             movieItemViewHolder = MovieItemViewHolder(
-                moviePosterImageView = view.findViewById(R.id.movie_image_view),
+                moviePosterImageView = view.findViewById(R.id.movie_poster_image_view),
                 movieNameTextView = view.findViewById(R.id.movie_name_text_view),
-                screeningDateTextView = view.findViewById(R.id.movie_screening_date_text_view),
+                screeningDateTextView = view.findViewById(R.id.movie_screening_period_text_view),
                 runningTimeTextView = view.findViewById(R.id.movie_running_time_text_view),
             )
             view.tag = movieItemViewHolder

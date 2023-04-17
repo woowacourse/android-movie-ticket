@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.ReservationModel
@@ -27,46 +26,15 @@ import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
 
-    private val posterImageView: ImageView by lazy {
-        findViewById(R.id.reservation_movie_image_view)
-    }
-    private val movieNameTextView: TextView by lazy {
-        findViewById(R.id.reservation_movie_name_text_view)
-    }
-    private val screeningDateTextView: TextView by lazy {
-        findViewById(R.id.reservation_movie_screening_date_text_view)
-    }
-    private val runningTimeTextView: TextView by lazy {
-        findViewById(R.id.reservation_movie_running_time_text_view)
-    }
-    private val descriptionTextView: TextView by lazy {
-        findViewById(R.id.reservation_movie_description_text_view)
-    }
-    private val screeningDateSpinner: Spinner by lazy {
-        findViewById(R.id.screening_date_spinner)
-    }
-    private val screeningTimeSpinner: Spinner by lazy {
-        findViewById(R.id.screening_time_spinner)
-    }
-    private val minusButton: Button by lazy {
-        findViewById(R.id.reservation_ticket_count_minus_button)
-    }
-    private val plusButton: Button by lazy {
-        findViewById(R.id.reservation_ticket_count_plus_button)
-    }
-    private val ticketCountTextView: TextView by lazy {
-        findViewById(R.id.reservation_ticket_count_text_view)
-    }
-    private val completeButton: Button by lazy {
-        findViewById(R.id.reservation_complete_button)
-    }
-    private val movieModel: MovieModel? by lazy {
-        intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel
-    }
+    private val binding by lazy { ActivityReservationBinding.inflate(layoutInflater) }
+    private val screeningDateSpinner: Spinner by lazy { binding.screeningDateSpinner }
+    private val screeningTimeSpinner: Spinner by lazy { binding.screeningTimeSpinner }
+    private val ticketCountTextView: TextView by lazy { binding.ticketCountTextView }
+    private val movieModel: MovieModel? by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reservation)
+        setContentView(binding.root)
 
         initReservationView()
         initClickListener()
@@ -89,14 +57,15 @@ class ReservationActivity : AppCompatActivity() {
         if (movieModel == null) return
         val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-        movieModel!!.posterImage?.let { id -> posterImageView.setImageResource(id) }
-        movieNameTextView.text = movieModel!!.name.value
-        screeningDateTextView.text = getString(R.string.screening_period_form).format(
+        movieModel!!.posterImage?.let { id -> binding.moviePosterImageView.setImageResource(id) }
+        binding.movieNameTextView.text = movieModel!!.name.value
+        binding.movieScreeningPeriodTextView.text = getString(R.string.screening_period_form).format(
             movieModel!!.screeningPeriod.startDate.format(dateFormat),
             movieModel!!.screeningPeriod.endDate.format(dateFormat)
         )
-        runningTimeTextView.text = getString(R.string.running_time_form).format(movieModel!!.runningTime)
-        descriptionTextView.text = movieModel!!.description
+        binding.movieRunningTimeTextView.text =
+            getString(R.string.running_time_form).format(movieModel!!.runningTime)
+        binding.movieDescriptionTextView.text = movieModel!!.description
     }
 
     private fun initTicketCount(savedInstanceState: Bundle?) {
@@ -173,7 +142,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMinusClickListener() {
-        minusButton.setOnClickListener {
+        binding.ticketCountMinusButton.setOnClickListener {
             runCatching {
                 val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() - 1)
                 ticketCountTextView.text = ticketCount.value.toString()
@@ -186,7 +155,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initPlusClickListener() {
-        plusButton.setOnClickListener {
+        binding.ticketCountPlusButton.setOnClickListener {
             val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() + 1)
             ticketCountTextView.text = ticketCount.value.toString()
         }
@@ -195,12 +164,16 @@ class ReservationActivity : AppCompatActivity() {
     private fun initCompleteButton() {
         if (movieModel == null) return
 
-        completeButton.setOnClickListener {
+        binding.reservationCompleteButton.setOnClickListener {
             val ticketCount = ticketCountTextView.text.toString().toInt()
             val screeningDate = screeningDateSpinner.selectedItem as LocalDate
             val screeningTime = screeningTimeSpinner.selectedItem as LocalTime
             val reservationModel: ReservationModel =
-                ReservationModel.from(movieModel!!, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
+                ReservationModel.from(
+                    movieModel!!,
+                    ticketCount,
+                    LocalDateTime.of(screeningDate, screeningTime)
+                )
             val intent = Intent(this, ReservationResultActivity::class.java)
             intent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
             startActivity(intent)
