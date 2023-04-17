@@ -10,10 +10,10 @@ import woowacourse.movie.domain.data.MovieDummyData
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.view.moviedetail.MovieDetailActivity
 
-class MainActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movie_list)
 
         setUpMovieDatas(MovieDummyData)
     }
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             setMovieData(movieData),
             object : MovieListViewAdapter.OnBookListener {
                 override fun onClick(movie: Movie) {
-                    val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
+                    val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
                     intent.putExtra(MOVIE_KEY, movie)
                     startActivity(intent)
                 }
