@@ -60,7 +60,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initNavigate() {
-        navigate
+        run { navigate }
     }
 
     private fun onReservationButtonClicked() {

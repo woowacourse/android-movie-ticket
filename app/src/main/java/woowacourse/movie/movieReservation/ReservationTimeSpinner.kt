@@ -17,8 +17,8 @@ class ReservationTimeSpinner(
     val selectedTime: LocalTime
         get() = LocalTime.parse(timeSpinner.selectedItem.toString())
 
-    fun load(outState: Bundle) {
-        timeSpinner.setSelection(outState.getInt(KEY_TIME))
+    fun load(savedInstanceState: Bundle) {
+        timeSpinner.setSelection(savedInstanceState.getInt(KEY_TIME))
     }
 
     fun save(outState: Bundle) {
