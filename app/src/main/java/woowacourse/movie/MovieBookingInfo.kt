@@ -8,6 +8,12 @@ data class MovieBookingInfo(
     val time: String,
     val ticketCount: Int
 ) : Serializable {
+
+    fun formatBookingTime(): String {
+        val formattedDate: String = date.split("-").joinToString(".")
+        return "$formattedDate $time"
+    }
+
     companion object {
         val emptyData = MovieBookingInfo(
             Movie.emptyData,

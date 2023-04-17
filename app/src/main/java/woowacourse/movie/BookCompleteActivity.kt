@@ -34,7 +34,7 @@ class BookCompleteActivity : BackButtonActivity() {
     private fun initView(movieBookingData: MovieBookingInfo) {
         findViewById<TextView>(R.id.tv_book_movie_title).text = movieBookingData.movieInfo.title
         findViewById<TextView>(R.id.tv_book_date).text =
-            formatBookingTime(movieBookingData.date, movieBookingData.time)
+            movieBookingData.formatBookingTime()
         findViewById<TextView>(R.id.tv_book_person_count).text =
             getString(R.string.book_person_count).format(movieBookingData.ticketCount)
         findViewById<TextView>(R.id.tv_book_total_pay).text =
