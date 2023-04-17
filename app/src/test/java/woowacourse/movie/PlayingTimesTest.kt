@@ -26,8 +26,7 @@ class PlayingTimesTest {
     }
 
     private fun makeTimes(date: LocalDate) = buildList<LocalTime> {
-        var hour = 10
-        if (date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY) hour = 9
+        var hour = if (date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY) 9 else 10
         while (hour < 24) {
             add(LocalTime.of(hour, 0))
             hour += 2
