@@ -1,4 +1,4 @@
-package woowacourse.movie.activity.movielist
+package woowacourse.movie.view.movielist
 
 import android.content.Context
 import android.view.LayoutInflater
