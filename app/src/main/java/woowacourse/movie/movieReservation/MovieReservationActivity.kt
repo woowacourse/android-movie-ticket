@@ -71,6 +71,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun updateMovieView() {
+        ticketCountView.text = ticketCount.toInt().toString()
         val moviePosterView = findViewById<ImageView>(R.id.reservation_movie_poster)
         val movieTitleView = findViewById<TextView>(R.id.reservation_movie_title)
         val movieReleaseDataView = findViewById<TextView>(R.id.reservation_movie_release_date)
