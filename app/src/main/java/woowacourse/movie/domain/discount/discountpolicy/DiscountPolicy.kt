@@ -13,5 +13,5 @@ abstract class DiscountPolicy(
         return price
     }
 
-    abstract fun calculateDiscountMoney(price: Money): Money // 정량 할인, 정액 할인인지 관심없음
+    abstract fun calculateDiscountMoney(price: Money): Money
 }
