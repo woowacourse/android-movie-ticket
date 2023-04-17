@@ -31,10 +31,10 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieDataState = intent.customGetParcelableExtra<MovieDataState>("movieData", ::finishActivity) ?: return
+        movieDataState = intent.customGetParcelableExtra<MovieDataState>("movieData") ?: return finishActivity("movieData")
         ticketCount = intent.getIntExtra("ticketCount", -1)
         bookedScreeningDateTimeState =
-            intent.customGetParcelableExtra("bookedScreeningDateTime", ::finishActivity) ?: return
+            intent.customGetParcelableExtra("bookedScreeningDateTime") ?: return finishActivity("bookedScreeningDateTime")
     }
 
     private fun finishActivity(key: String) {

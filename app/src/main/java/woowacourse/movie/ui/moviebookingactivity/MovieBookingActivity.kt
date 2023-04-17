@@ -88,7 +88,7 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun initExtraData() {
         movieDataState =
-            intent.customGetParcelableExtra<MovieDataState>("movieData", ::finishActivity) ?: return
+            intent.customGetParcelableExtra<MovieDataState>("movieData") ?: return finishActivity("movieData")
     }
 
     private fun finishActivity(key: String) {
