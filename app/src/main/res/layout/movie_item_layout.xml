@@ -16,18 +16,22 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="245dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="15dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:padding="2dp"
+        tools:text="해리포터와 비밀의 방"
         app:layout_constraintStart_toEndOf="@id/image"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="14dp" />
 
     <LinearLayout
         android:id="@+id/running_day"
         android:layout_width="0dp"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
@@ -43,7 +47,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toBottomOf="@id/title"
-            android:gravity="bottom"/>
+            android:gravity="bottom" />
 
         <TextView
             android:id="@+id/start_date"
@@ -53,8 +57,7 @@
             app:layout_constraintStart_toEndOf="@id/date_text"
             app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="2023.1.4"
-            android:gravity="bottom"
-            />
+            android:gravity="bottom" />
 
         <TextView
             android:id="@+id/tilde_inter_date"
@@ -64,7 +67,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/start_date"
             app:layout_constraintTop_toBottomOf="@id/title"
-            android:gravity="bottom"/>
+            android:gravity="bottom" />
 
         <TextView
             android:id="@+id/end_date"
@@ -74,14 +77,14 @@
             app:layout_constraintStart_toEndOf="@id/tilde_inter_date"
             app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="2023.2.23"
-            android:gravity="bottom"/>
+            android:gravity="bottom" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/running_time"
         android:layout_width="0dp"
-        android:layout_height="18dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginStart="15dp"
         android:orientation="horizontal"
@@ -107,8 +110,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/time_text"
             app:layout_constraintTop_toBottomOf="@id/start_date"
-            tools:text="124"
-            />
+            tools:text="124" />
 
         <TextView
             android:id="@+id/minute_text"

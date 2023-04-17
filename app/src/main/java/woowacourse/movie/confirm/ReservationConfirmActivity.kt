@@ -41,7 +41,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     ) {
         binding.reservationTitle.text = movie.title
         binding.reservationDate.text = dateTime.format(DATE_TIME_FORMATTER)
-        binding.reservationMoneyText.text = formattingMoney(reservationCount, dateTime)
+        binding.reservationMoney.text = formattingMoney(reservationCount, dateTime)
         binding.reservationCount.text = reservationCount.value.toString()
     }
 

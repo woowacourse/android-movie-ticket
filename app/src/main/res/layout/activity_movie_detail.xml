@@ -7,6 +7,7 @@
     tools:context=".reservation.MovieDetailActivity">
 
     <ScrollView
+        android:id="@+id/detail_scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
@@ -14,7 +15,9 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,8 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:maxHeight="340dp"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +51,7 @@
             <TextView
                 android:id="@+id/detail_date_text"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="34dp"
                 android:gravity="center_vertical"
@@ -153,22 +155,28 @@
         android:layout_width="match_parent"
         android:layout_height="211dp"
         android:paddingTop="29dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detail_scroll"
+        app:layout_constraintHorizontal_bias="0.0">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
             app:layout_constraintEnd_toEndOf="@id/end_guide"
             app:layout_constraintStart_toStartOf="@id/begin_guide"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/linearLayout2">
 
             <Spinner
                 android:id="@+id/date_spinner"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+
                 android:spinnerMode="dropdown" />
 
             <Spinner
@@ -180,8 +188,8 @@
 
         <Button
             android:id="@+id/minus"
-            android:layout_width="65dp"
-            android:layout_height="41dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="83.67dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
@@ -189,12 +197,14 @@
             android:text="@string/minus"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/begin_guide" />
+            app:layout_constraintStart_toStartOf="@id/begin_guide"
+            app:layout_constraintEnd_toStartOf="@+id/count"
+            android:layout_marginEnd="16dp" />
 
         <Button
             android:id="@+id/plus"
-            android:layout_width="65dp"
-            android:layout_height="41dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="83.67dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
@@ -202,26 +212,30 @@
             android:text="@string/plus"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/end_guide" />
+            app:layout_constraintEnd_toEndOf="@id/end_guide"
+            app:layout_constraintStart_toEndOf="@+id/count"
+            android:layout_marginStart="16dp" />
 
         <TextView
             android:id="@+id/count"
-            android:layout_width="189dp"
-            android:layout_height="33dp"
-            android:layout_marginBottom="88.35dp"
-            android:text="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="95dp"
+            android:text="@string/one"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/end_guide"
-            app:layout_constraintStart_toEndOf="@id/begin_guide" />
+            app:layout_constraintStart_toEndOf="@id/begin_guide"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp" />
 
 
         <Button
             android:id="@+id/reservation_confirm"
             android:layout_width="0dp"
-            android:layout_height="47dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="19.92dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
