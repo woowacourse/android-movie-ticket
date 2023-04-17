@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.dummyData.MovieData
+import woowacourse.movie.view.dummyData.MovieData
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

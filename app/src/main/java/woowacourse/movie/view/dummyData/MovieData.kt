@@ -1,4 +1,4 @@
-package woowacourse.movie.dummyData
+package woowacourse.movie.view.dummyData
 
 import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
