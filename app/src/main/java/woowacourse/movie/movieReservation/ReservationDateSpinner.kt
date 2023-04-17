@@ -32,8 +32,11 @@ class ReservationDateSpinner(
     }
 
     fun initDateSpinner(screeningModel: ScreeningModel) {
-        val dateList = ScreeningDate.getScreeningDate(screeningModel.startDate, screeningModel.endDate)
-        dateSpinner.adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, dateList)
+        dateSpinner.adapter = ArrayAdapter(
+            view.context,
+            android.R.layout.simple_spinner_item,
+            ScreeningDate.getScreeningDates(screeningModel.startDate, screeningModel.endDate),
+        )
     }
 
     inner class DateSpinnerListener : AdapterView.OnItemSelectedListener {

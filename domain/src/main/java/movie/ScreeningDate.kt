@@ -5,11 +5,11 @@ import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
 object ScreeningDate {
-    fun getScreeningDate(startDate: LocalDate, endDate: LocalDate): List<String> =
+    fun getScreeningDates(startDate: LocalDate, endDate: LocalDate): List<LocalDate> =
         (0..ChronoUnit.DAYS.between(startDate, endDate))
-            .map { startDate.plusDays(it).toString() }
+            .map { startDate.plusDays(it) }
 
-    fun getScreeningTime(date: LocalDate): List<LocalTime> = when {
+    fun getScreeningTimes(date: LocalDate): List<LocalTime> = when {
         isWeekend(date) -> WEEKEND_SCHEDULE
         else -> WEEKDAY_SCHEDULE
     }

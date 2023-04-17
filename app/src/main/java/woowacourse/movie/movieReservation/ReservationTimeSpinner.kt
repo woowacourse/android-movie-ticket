@@ -26,8 +26,11 @@ class ReservationTimeSpinner(
     }
 
     fun initTimeSpinner(date: LocalDate) {
-        val timeList = ScreeningDate.getScreeningTime(date)
-        timeSpinner.adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, timeList)
+        timeSpinner.adapter = ArrayAdapter(
+            view.context,
+            android.R.layout.simple_spinner_item,
+            ScreeningDate.getScreeningTimes(date),
+        )
     }
 
     companion object {

@@ -16,7 +16,7 @@ class ScreeningDateTest {
         )
 
         // when
-        val expect = ScreeningDate.getScreeningDate(
+        val expect = ScreeningDate.getScreeningDates(
             LocalDate.of(2021, 1, 1),
             LocalDate.of(2021, 1, 3),
         )
@@ -40,7 +40,7 @@ class ScreeningDateTest {
         )
 
         // when
-        val expect = ScreeningDate.getScreeningTime(LocalDate.of(2023, 4, 1))
+        val expect = ScreeningDate.getScreeningTimes(LocalDate.of(2023, 4, 1))
 
         // then
         assertThat(expect).isEqualTo(actual)
@@ -61,7 +61,7 @@ class ScreeningDateTest {
         )
 
         // when
-        val expect = ScreeningDate.getScreeningTime(LocalDate.of(2023, 4, 11))
+        val expect = ScreeningDate.getScreeningTimes(LocalDate.of(2023, 4, 11))
 
         // then
         assertThat(expect).isEqualTo(actual)
