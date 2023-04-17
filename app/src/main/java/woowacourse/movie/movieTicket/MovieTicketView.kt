@@ -2,7 +2,7 @@ package woowacourse.movie.movieTicket
 
 import android.view.View
 import android.widget.TextView
-import entity.MovieTicket
+import model.TicketModel
 import woowacourse.movie.R
 import java.text.DecimalFormat
 
@@ -14,7 +14,7 @@ class MovieTicketView(
     private val releaseDateView: TextView = view.findViewById(R.id.ticket_release_date)
     private val totalPriceView: TextView = view.findViewById(R.id.ticket_total_price)
 
-    fun update(ticket: MovieTicket) {
+    fun update(ticket: TicketModel) {
         titleView.text = ticket.title
         countView.text = ticket.getReserveDate()
         releaseDateView.text = view.context.getString(R.string.movie_ticket_count).format(ticket.size)

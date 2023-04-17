@@ -3,12 +3,12 @@ package woowacourse.movie.movieList
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import entity.Screening
+import model.ScreeningModel
 import woowacourse.movie.R
 
 class MovieListAdapter(
-    private val items: List<Screening>,
-    private val onClickButton: (Screening) -> Unit,
+    private val items: List<ScreeningModel>,
+    private val onClickButton: (ScreeningModel) -> Unit,
 ) : BaseAdapter() {
     private val viewHolder: MutableMap<View, MovieListViewHolder> = mutableMapOf()
 
@@ -16,7 +16,7 @@ class MovieListAdapter(
         return items.size
     }
 
-    override fun getItem(position: Int): Screening {
+    override fun getItem(position: Int): ScreeningModel {
         return items[position]
     }
 
@@ -38,14 +38,14 @@ class MovieListAdapter(
         null,
     )
 
-    private fun bindViewHolder(view: View, screening: Screening) {
+    private fun bindViewHolder(view: View, screeningModel: ScreeningModel) {
         viewHolder.getOrPut(view) { MovieListViewHolder(view) }
             .bind(
-                posterResource = screening.poster,
-                title = screening.title,
-                date = screening.getReserveDateRange(),
-                runningTime = view.context.getString(R.string.movie_running_time).format(screening.runningTime),
-                onClickButton = { onClickButton(screening) },
+                posterResource = screeningModel.poster,
+                title = screeningModel.title,
+                date = screeningModel.getReserveDateRange(),
+                runningTime = view.context.getString(R.string.movie_running_time).format(screeningModel.runningTime),
+                onClickButton = { onClickButton(screeningModel) },
             )
     }
 }

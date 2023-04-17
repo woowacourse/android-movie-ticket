@@ -1,7 +1,7 @@
-package entity
+package model
 
 import java.io.Serializable
 
-data class MovieTicketPerson(
+data class MovieTicketPersonModel(
     val price: Int,
 ) : Serializable

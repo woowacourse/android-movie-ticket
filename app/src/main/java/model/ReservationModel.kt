@@ -1,10 +1,10 @@
-package entity
+package model
 
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class Reservation(
+class ReservationModel(
     val startDate: LocalDate,
     val endDate: LocalDate,
 ) : Serializable {
@@ -14,6 +14,6 @@ class Reservation(
 
     companion object {
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        val EMPTY = Reservation(LocalDate.MIN, LocalDate.MIN)
+        val EMPTY = ReservationModel(LocalDate.MIN, LocalDate.MIN)
     }
 }

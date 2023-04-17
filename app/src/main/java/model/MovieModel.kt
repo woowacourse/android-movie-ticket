@@ -1,9 +1,9 @@
-package entity
+package model
 
 import androidx.annotation.DrawableRes
 import java.io.Serializable
 
-data class Movie(
+data class MovieModel(
     val title: String,
     val runningTime: Int,
     val summary: String,
@@ -12,6 +12,6 @@ data class Movie(
     val poster: Int,
 ) : Serializable {
     companion object {
-        val EMPTY = Movie("", 0, "", 0)
+        val EMPTY = MovieModel("", 0, "", 0)
     }
 }

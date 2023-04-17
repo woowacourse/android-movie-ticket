@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import entity.Screening
+import model.ScreeningModel
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.ReservationActivity
 import woowacourse.movie.utils.SampleData.CINEMA_SAMPLE
@@ -26,9 +26,9 @@ class MovieListActivity : AppCompatActivity() {
         )
     }
 
-    private fun navigateToReservation(screening: Screening) {
+    private fun navigateToReservation(screeningModel: ScreeningModel) {
         val intent = Intent(this, ReservationActivity::class.java)
-        intent.putExtra(ReservationActivity.KEY_MOVIE_Screening, screening)
+        intent.putExtra(ReservationActivity.KEY_MOVIE_Screening, screeningModel)
         ContextCompat.startActivity(this, intent, null)
     }
 }

@@ -1,13 +1,13 @@
-package entity
+package model
 
 import java.io.Serializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-data class MovieTicket(
+data class TicketModel(
     val title: String,
     val reserveTime: LocalDateTime,
-    private val people: List<MovieTicketPerson>,
+    private val people: List<MovieTicketPersonModel>,
 ) : Serializable {
     val size: Int = people.size
 
@@ -19,6 +19,6 @@ data class MovieTicket(
 
     companion object {
         private val DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        val EMPTY = MovieTicket("", LocalDateTime.MIN, emptyList())
+        val EMPTY = TicketModel("", LocalDateTime.MIN, emptyList())
     }
 }

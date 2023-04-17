@@ -6,24 +6,24 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import entity.Screening
+import model.ScreeningModel
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 
 class ReservationActivity : AppCompatActivity() {
-    private val screening by lazy {
-        intent.getSerializableExtra(KEY_MOVIE_Screening) as? Screening
+    private val screeningModel by lazy {
+        intent.getSerializableExtra(KEY_MOVIE_Screening) as? ScreeningModel
             ?: run {
                 finish()
                 Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
-                Screening.EMPTY
+                ScreeningModel.EMPTY
             }
     }
 
     private val activityView by lazy { window.decorView.rootView }
 
     private val contents by lazy { ReservationContents(activityView) }
-    private val navigate by lazy { ReservationNavigation(activityView, screening, ::onReservationButtonClicked) }
+    private val navigate by lazy { ReservationNavigation(activityView, screeningModel, ::onReservationButtonClicked) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +64,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
-        contents.update(screening)
+        contents.update(screeningModel)
     }
 
     private fun initNavigate() {
@@ -72,7 +72,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun onReservationButtonClicked() {
-        val movieTicket = screening.reserve(navigate.ticketCount, navigate.selectedDateTime)
+        val movieTicket = screeningModel.reserve(navigate.ticketCount, navigate.selectedDateTime)
         startActivity(
             Intent(this, MovieTicketActivity::class.java).apply {
                 putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
