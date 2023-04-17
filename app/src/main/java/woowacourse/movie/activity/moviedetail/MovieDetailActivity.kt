@@ -26,7 +26,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun initMovieDetailView(movieDTO: MovieDTO) {
-        MovieDetailViewInitializer(movieDTO).run {
+        with(MovieDetailViewInitializer(movieDTO)) {
             initImageView(findViewById(R.id.img_movie))
             initTitle(findViewById(R.id.text_title))
             initPlayingDate(findViewById(R.id.text_playing_date))
@@ -40,7 +40,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDate = savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
         val savedTime = savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-        ReservationInfoViewInitializer(movieDTO).run {
+        with(ReservationInfoViewInitializer(movieDTO)) {
             initCount(savedCount, findViewById(R.id.text_count))
             initMinusButton(findViewById(R.id.btn_minus), findViewById(R.id.text_count))
             initPlusButton(findViewById(R.id.btn_plus), findViewById(R.id.text_count))
