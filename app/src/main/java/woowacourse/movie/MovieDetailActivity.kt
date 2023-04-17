@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -10,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import woowacourse.movie.BookCompleteActivity.Companion.intent
 import woowacourse.movie.domain.MovieSchedule
 
 class MovieDetailActivity : BackButtonActivity() {
@@ -125,7 +125,7 @@ class MovieDetailActivity : BackButtonActivity() {
         }
 
         findViewById<Button>(R.id.bt_book_complete).setOnClickListener {
-            val intent = Intent(this, BookCompleteActivity::class.java)
+            val intent = intent(this)
             intent.putExtra(
                 MOVIE_BOOKING_INFO_KEY,
                 MovieBookingInfo(

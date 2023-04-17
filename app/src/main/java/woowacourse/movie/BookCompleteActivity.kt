@@ -1,5 +1,7 @@
 package woowacourse.movie
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -44,8 +46,7 @@ class BookCompleteActivity : BackButtonActivity() {
             )
     }
 
-    private fun formatBookingTime(date: String, time: String): String {
-        val formattedDate: String = date.split("-").joinToString(".")
-        return "$formattedDate $time"
+    companion object {
+        fun intent(context: Context) = Intent(context, BookCompleteActivity::class.java)
     }
 }
