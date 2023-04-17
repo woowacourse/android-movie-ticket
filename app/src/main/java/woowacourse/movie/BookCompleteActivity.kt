@@ -17,15 +17,14 @@ class BookCompleteActivity : BackButtonActivity() {
     private fun getMovieBookingInfo(): MovieBookingInfo {
         val movieBookingData =
             intent.getSerializableCompat(MovieDetailActivity.MOVIE_BOOKING_INFO_KEY)
-                ?: MovieBookingInfo.nullData
+                ?: MovieBookingInfo.emptyData
 
-        if (movieBookingData == MovieBookingInfo.nullData) {
+        if (movieBookingData == MovieBookingInfo.emptyData) {
             Toast.makeText(
                 this,
                 getString(R.string.cant_get_movie_booking_data),
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_LONG
             ).show()
-            this.finish()
         }
         return movieBookingData
     }

@@ -13,7 +13,7 @@ import android.widget.Toast
 import woowacourse.movie.domain.MovieSchedule
 
 class MovieDetailActivity : BackButtonActivity() {
-    private var isFirst = true
+    private var needSpinnerInitialize = true
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_movie_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_movie_time) }
     private val personCountTextView by lazy { findViewById<TextView>(R.id.tv_ticket_count) }
@@ -21,10 +21,10 @@ class MovieDetailActivity : BackButtonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        isFirst = true
+        needSpinnerInitialize = true
 
         val movieData = intent.getSerializableCompat(MovieListAdapter.MOVIE_DATA_KEY)
-            ?: Movie.nullData
+            ?: Movie.emptyData
         processMovieNullData(movieData)
 
         initView(movieData)
@@ -67,7 +67,7 @@ class MovieDetailActivity : BackButtonActivity() {
     }
 
     private fun processMovieNullData(movieData: Movie) {
-        if (movieData == Movie.nullData) {
+        if (movieData == Movie.emptyData) {
             Toast.makeText(this, getString(R.string.cant_get_movie_data), Toast.LENGTH_SHORT).show()
             this.finish()
         }
@@ -90,7 +90,7 @@ class MovieDetailActivity : BackButtonActivity() {
                     android.R.layout.simple_spinner_item,
                     movieSchedule.getScheduleTimes(scheduleDate[position])
                 )
-                if (isFirst && savedInstanceState != null) {
+                if (needSpinnerInitialize && savedInstanceState != null) {
                     timeSpinner.setSelection(
                         (
                             savedInstanceState.getString(TIME_KEY)
@@ -98,11 +98,11 @@ class MovieDetailActivity : BackButtonActivity() {
                                     .first()
                             ).toInt()
                     )
-                    isFirst = false
+                    needSpinnerInitialize = false
                 }
             }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 

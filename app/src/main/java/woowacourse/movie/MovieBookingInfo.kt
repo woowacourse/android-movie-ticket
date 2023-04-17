@@ -9,8 +9,8 @@ data class MovieBookingInfo(
     val ticketCount: Int
 ) : Serializable {
     companion object {
-        val nullData = MovieBookingInfo(
-            Movie.nullData,
+        val emptyData = MovieBookingInfo(
+            Movie.emptyData,
             "",
             "",
             0
