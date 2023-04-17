@@ -3,6 +3,7 @@ package woowacourse.movie.movieReservation
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import entity.Screening
@@ -10,7 +11,14 @@ import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 
 class ReservationActivity : AppCompatActivity() {
-    private val screening by lazy { intent.getSerializableExtra(KEY_MOVIE_Screening) as? Screening ?: throw IllegalArgumentException() }
+    private val screening by lazy {
+        intent.getSerializableExtra(KEY_MOVIE_Screening) as? Screening
+            ?: run {
+                finish()
+                Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
+                Screening.EMPTY
+            }
+    }
 
     private val activityView by lazy { window.decorView.rootView }
 
@@ -74,6 +82,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
         const val KEY_MOVIE_Screening = "movieScreening"
     }
 }

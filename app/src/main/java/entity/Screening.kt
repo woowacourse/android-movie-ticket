@@ -38,5 +38,6 @@ class Screening(
 
     companion object {
         private const val DEFAULT_MOVIE_PRICE = 13000
+        val EMPTY = Screening(Movie.EMPTY, Reservation.EMPTY)
     }
 }

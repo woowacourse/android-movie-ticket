@@ -19,5 +19,6 @@ data class MovieTicket(
 
     companion object {
         private val DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        val EMPTY = MovieTicket("", LocalDateTime.MIN, emptyList())
     }
 }

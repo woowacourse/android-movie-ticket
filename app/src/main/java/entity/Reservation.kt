@@ -14,5 +14,6 @@ class Reservation(
 
     companion object {
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        val EMPTY = Reservation(LocalDate.MIN, LocalDate.MIN)
     }
 }
