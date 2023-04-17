@@ -17,11 +17,11 @@ class MainActivity : AppCompatActivity() {
         setUpMovieDatas()
     }
 
-    private fun setMovieData(): List<Movie> = MovieData.dummyData
+    private fun setMovieDataWithDummyData(): List<Movie> = MovieData.dummyData
 
     private fun setUpMovieDatas() {
         val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(this, setMovieData())
+        val movieListViewAdapter = MovieListViewAdapter(this, setMovieDataWithDummyData())
 
         movieListView.adapter = movieListViewAdapter
 
