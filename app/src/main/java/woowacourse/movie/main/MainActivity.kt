@@ -13,7 +13,7 @@ import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     private val movieListView: ListView by lazy { findViewById(R.id.listView) }
-    private val adapter: MovieAdapter by lazy { MovieAdapter(layoutInflater, initMovieData()) }
+    private val adapter: MovieAdapter by lazy { MovieAdapter(initMovieData()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

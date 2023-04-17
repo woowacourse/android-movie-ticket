@@ -4,16 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.Movie
 import woowacourse.movie.R
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    private val mLayoutInflater: LayoutInflater,
-    movie: List<Movie>,
+    movie: List<Movie>
 ) : BaseAdapter() {
 
     private val _movie: List<Movie> = movie.toList()
@@ -34,23 +30,27 @@ class MovieAdapter(
         return position.toLong()
     }
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
-        val view = mLayoutInflater.inflate(R.layout.movie_item_layout, null)
+    override fun getView(position: Int, convertview: View?, parent: ViewGroup?): View {
+        val view: View
+        val viewHolder: MovieViewHolder
 
-        val image = view.findViewById<ImageView>(R.id.image)
-        val title = view.findViewById<TextView>(R.id.title)
-        val startDate = view.findViewById<TextView>(R.id.start_date)
-        val endDate = view.findViewById<TextView>(R.id.end_date)
-        val time = view.findViewById<TextView>(R.id.time)
-        val reservation = view.findViewById<Button>(R.id.reservation)
+        if (convertview != null) {
+            viewHolder = convertview.tag as MovieViewHolder
+            view = convertview
+        } else {
+            view = LayoutInflater
+                .from(parent?.context)
+                .inflate(R.layout.movie_item_layout, parent, false)
+            viewHolder = MovieViewHolder(view)
+            view.tag = viewHolder
+        }
 
-        image.setImageResource(_movie[position].imgResourceId)
-        title.text = _movie[position].title
-        startDate.text = _movie[position].startDate.format(DATE_TIME_FORMATTER)
-        endDate.text = _movie[position].endDate.format(DATE_TIME_FORMATTER)
-        time.text = _movie[position].runningTime.value.toString()
-
-        reservation.setOnClickListener { clickListener?.onClick(position) }
+        viewHolder.image.setImageResource(_movie[position].imgResourceId)
+        viewHolder.title.text = _movie[position].title
+        viewHolder.startDate.text = _movie[position].startDate.format(DATE_TIME_FORMATTER)
+        viewHolder.endDate.text = _movie[position].endDate.format(DATE_TIME_FORMATTER)
+        viewHolder.time.text = _movie[position].runningTime.value.toString()
+        viewHolder.reservation.setOnClickListener { clickListener?.onClick(position) }
         return view
     }
 
