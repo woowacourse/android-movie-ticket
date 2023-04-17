@@ -1,12 +1,10 @@
 package woowacourse.movie.domain.datetime
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 import java.time.LocalDateTime
 
-@Parcelize
 class ScreeningDateTime(val time: LocalDateTime, private val screeningPeriod: ScreeningPeriod) :
-    Parcelable {
+    Serializable {
     init {
         validateDateTime()
     }

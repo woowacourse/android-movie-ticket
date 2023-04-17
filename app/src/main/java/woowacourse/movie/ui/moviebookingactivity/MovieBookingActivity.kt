@@ -13,7 +13,7 @@ import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.ui.model.MovieUIModel
-import woowacourse.movie.util.customGetParcelableExtra
+import woowacourse.movie.util.customGetSerializableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -82,7 +82,7 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetParcelableExtra<MovieUIModel>(MOVIE_DATA) ?: run {
+        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: run {
             finish()
             MovieUIModel(
                 posterImage = R.drawable.img_error,
