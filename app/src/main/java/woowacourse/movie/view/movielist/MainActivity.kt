@@ -5,23 +5,24 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.activity.moviedetail.MovieDetailActivity
+import woowacourse.movie.domain.data.MovieData
+import woowacourse.movie.domain.data.MovieDummyData
 import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.view.dummyData.MovieData
+import woowacourse.movie.view.moviedetail.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setUpMovieDatas()
+        setUpMovieDatas(MovieDummyData)
     }
 
-    private fun setMovieDataWithDummyData(): List<Movie> = MovieData.dummyData
+    private fun setMovieData(movieData: MovieData): List<Movie> = movieData.getAll()
 
-    private fun setUpMovieDatas() {
+    private fun setUpMovieDatas(movieData: MovieData) {
         val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(setMovieDataWithDummyData())
+        val movieListViewAdapter = MovieListViewAdapter(setMovieData(movieData))
 
         movieListView.adapter = movieListViewAdapter
 

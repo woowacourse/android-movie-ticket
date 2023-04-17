@@ -1,12 +1,12 @@
-package woowacourse.movie.view.dummyData
+package woowacourse.movie.domain.data
 
 import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.domain.movieinfo.RunningDate
 import java.time.LocalDate
 
-object MovieData {
-    val dummyData = listOf(
+object MovieDummyData : MovieData {
+    private val dummyData = listOf(
         Movie(
             title = "해리포터",
             runningDate = RunningDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 4, 1)),
@@ -18,4 +18,8 @@ object MovieData {
             moviePoster = R.drawable.img,
         )
     )
+
+    override fun getAll(): List<Movie> {
+        return dummyData
+    }
 }
