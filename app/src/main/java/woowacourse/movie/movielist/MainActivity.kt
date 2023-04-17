@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), OnMovieClickListener {
 
     private fun setUpMovieDatas() {
         val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(this, MovieDummy.movieDatas, this)
+        val movieListViewAdapter = MovieListViewAdapter(MovieDummy.movieDatas, this)
 
         movieListView.adapter = movieListViewAdapter
     }

@@ -14,7 +14,6 @@ import woowacourse.movie.dto.MovieDto
 import java.time.format.DateTimeFormatter
 
 class MovieListViewAdapter(
-    private val context: Context,
     private val movies: List<MovieDto>,
     private val listener: OnMovieClickListener,
 ) :
@@ -46,15 +45,15 @@ class MovieListViewAdapter(
         }
         val item: MovieDto = movies[position]
 
-        setMovieData(holder, item)
+        parent?.let { setMovieData(it.context, holder, item) }
 
         return itemView
     }
 
-    private fun setMovieData(holder: MovieListViewHolder, item: MovieDto) {
+    private fun setMovieData(context: Context, holder: MovieListViewHolder, item: MovieDto) {
         holder.moviePoster.setImageResource(item.moviePoster)
         holder.movieTitle.text = item.title
-        holder.movieDate.text = formatMovieRunningDate(item)
+        holder.movieDate.text = formatMovieRunningDate(context, item)
         holder.runningTime.text =
             context.getString(R.string.movie_running_time).format(item.runningTime)
         holder.bookButton.setOnClickListener {
@@ -62,7 +61,7 @@ class MovieListViewAdapter(
         }
     }
 
-    private fun formatMovieRunningDate(item: MovieDto): String {
+    private fun formatMovieRunningDate(context: Context, item: MovieDto): String {
         val startDate =
             item.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
         val endDate =
