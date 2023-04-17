@@ -26,12 +26,12 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun initMovieDetailView(movieDTO: MovieDTO) {
-        with(MovieDetailViewInitializer(movieDTO)) {
-            initImageView(findViewById(R.id.img_movie))
-            initTitle(findViewById(R.id.text_title))
-            initPlayingDate(findViewById(R.id.text_playing_date))
-            initRunningTime(findViewById(R.id.text_running_time))
-            initDescription(findViewById(R.id.text_description))
+        with(MovieDetailView(findViewById(R.id.layout_detail_info))) {
+            setImageView(movieDTO.image)
+            setTitle(movieDTO.title)
+            setPlayingDate(movieDTO.startDate, movieDTO.endDate)
+            setRunningTime(movieDTO.runningTime)
+            setDescription(movieDTO.description)
         }
     }
 
@@ -40,25 +40,18 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDate = savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
         val savedTime = savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-        with(ReservationInfoViewInitializer(movieDTO)) {
-            initCount(savedCount, findViewById(R.id.text_count))
-            initMinusButton(findViewById(R.id.btn_minus), findViewById(R.id.text_count))
-            initPlusButton(findViewById(R.id.btn_plus), findViewById(R.id.text_count))
-            initReserveButton(
-                findViewById(R.id.btn_reserve),
-                findViewById(R.id.text_count),
-                findViewById(R.id.spinner_date),
-                findViewById(R.id.spinner_time)
-            )
-            initDateSpinner(
+        with(ReservationInfoView(findViewById(R.id.layout_reservation_info))) {
+            setCount(savedCount)
+            setMinusButton()
+            setPlusButton()
+            setReserveButton(movieDTO.title)
+            setDateSpinner(
                 savedDate,
-                findViewById(R.id.spinner_date),
-                findViewById(R.id.spinner_time)
+                movieDTO.playingTimes
             )
-            initTimeSpinner(
+            setTimeSpinner(
                 savedTime,
-                findViewById(R.id.spinner_date),
-                findViewById(R.id.spinner_time)
+                movieDTO.playingTimes[movieDTO.playingTimes.keys.sorted()[savedTime]] ?: emptyList()
             )
         }
     }

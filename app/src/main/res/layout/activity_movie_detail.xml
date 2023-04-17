@@ -11,11 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/layout_info"
+        app:layout_constraintBottom_toTopOf="@id/layout_reservation_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_detail_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -84,7 +85,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_info"
+        android:id="@+id/layout_reservation_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
