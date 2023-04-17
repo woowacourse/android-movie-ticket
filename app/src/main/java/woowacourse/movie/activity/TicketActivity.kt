@@ -31,7 +31,8 @@ class TicketActivity : AppCompatActivity() {
 
         movieTitle.text = movie.title
         movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
-        numberOfPeople.text = this.getString(R.string.ticket_number_of_people, ticket.numberOfPeople)
+        numberOfPeople.text =
+            this.getString(R.string.ticket_number_of_people, ticket.numberOfPeople)
         price.text = this.getString(R.string.ticket_price, ticket.calculateTotalPrice())
     }
 
@@ -42,13 +43,11 @@ class TicketActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
         }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
