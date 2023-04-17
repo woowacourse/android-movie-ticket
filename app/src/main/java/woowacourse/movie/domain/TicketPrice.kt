@@ -1,18 +1,17 @@
 package woowacourse.movie.domain
 
 import woowacourse.movie.domain.policy.DiscountPolicy
-import woowacourse.movie.domain.policy.MovieDayDiscountPolicy
-import woowacourse.movie.domain.policy.TimeDiscountPolicy
 import java.time.LocalDateTime
 
-data class TicketPrice(val price: Int = TICKET_PRICE) {
+data class TicketPrice(val price: Int = TICKET_PRICE, val discountPolicies: List<DiscountPolicy>) {
+
+    constructor(discountPolicies: List<DiscountPolicy>) : this(TICKET_PRICE, discountPolicies)
 
     fun applyPolicy(dateTime: LocalDateTime): TicketPrice {
-        val discountPolicies = listOf(MovieDayDiscountPolicy(), TimeDiscountPolicy())
         val discountedPrice = discountPolicies.fold(price) { ticketPrice, policy ->
             calculateTicketPrice(dateTime, ticketPrice, policy)
         }
-        return TicketPrice(discountedPrice)
+        return TicketPrice(discountedPrice, discountPolicies)
     }
 
     private fun calculateTicketPrice(
@@ -24,7 +23,7 @@ data class TicketPrice(val price: Int = TICKET_PRICE) {
         return price
     }
 
-    operator fun times(count: Int): TicketPrice = TicketPrice(price * count)
+    operator fun times(count: Int): TicketPrice = TicketPrice(price * count, discountPolicies)
 
     companion object {
         private const val TICKET_PRICE = 13000
