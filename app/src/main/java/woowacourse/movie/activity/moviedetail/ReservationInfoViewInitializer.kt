@@ -6,10 +6,10 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.activity.ticketresult.TicketResultActivity
-import woowacourse.movie.model.MovieDTO
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.util.DiscountPolicies
+import woowacourse.movie.domain.Price
+import woowacourse.movie.domain.TicketingInfo
+import woowacourse.movie.domain.movie.MovieDTO
+import woowacourse.movie.domain.policy.DiscountPolicies
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -32,7 +32,7 @@ class ReservationInfoViewInitializer(private val movieDTO: MovieDTO) {
     }
 
     fun initTimeSpinner(savedTimePosition: Int, dateSpinner: Spinner, timeSpinner: Spinner) {
-        val times = movieDTO.playingTimes.times[dateSpinner.selectedItem] ?: emptyList()
+        val times = movieDTO.playingTimes[dateSpinner.selectedItem] ?: emptyList()
         timeSpinner.adapter =
             ArrayAdapter(timeSpinner.context, android.R.layout.simple_spinner_item, times).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -41,7 +41,7 @@ class ReservationInfoViewInitializer(private val movieDTO: MovieDTO) {
     }
 
     fun initDateSpinner(savedDatePosition: Int, dateSpinner: Spinner, timeSpinner: Spinner) {
-        val dates = movieDTO.playingTimes.times.keys.sorted()
+        val dates = movieDTO.playingTimes.keys.sorted()
         dateSpinner.adapter =
             ArrayAdapter(dateSpinner.context, android.R.layout.simple_spinner_item, dates).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

@@ -1,10 +1,10 @@
-package woowacourse.movie.model
+package woowacourse.movie.domain
 
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-class PlayingTimes(startDate: LocalDate, endDate: LocalDate) : java.io.Serializable {
+class PlayingTimes(startDate: LocalDate, endDate: LocalDate) {
     private val _times: Map<LocalDate, List<LocalTime>> = makeDates(startDate, endDate).associateWith { date -> makeTimes(date) }
     val times: Map<LocalDate, List<LocalTime>>
         get() = _times.toMap()
@@ -22,7 +22,6 @@ class PlayingTimes(startDate: LocalDate, endDate: LocalDate) : java.io.Serializa
             }
         }
     }
-
     private fun makeTimes(date: LocalDate): List<LocalTime> {
         val startHour = getStartHour(date)
         return (startHour until MAX_HOUR step STEP).map { LocalTime.of(it, MINUTE_DEFAULT) }

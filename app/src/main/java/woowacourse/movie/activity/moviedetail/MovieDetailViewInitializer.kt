@@ -3,7 +3,7 @@ package woowacourse.movie.activity.moviedetail
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.domain.movie.MovieDTO
 import java.time.format.DateTimeFormatter
 
 class MovieDetailViewInitializer(private val movieDTO: MovieDTO) {
@@ -18,9 +18,9 @@ class MovieDetailViewInitializer(private val movieDTO: MovieDTO) {
 
     fun initPlayingDate(textView: TextView) {
         textView.text = textView.context.getString(
-            R.string.playing_time,
-            DateTimeFormatter.ofPattern(textView.context.getString(R.string.date_format)).format(movieDTO.playingTimes.startDate),
-            DateTimeFormatter.ofPattern(textView.context.getString(R.string.date_format)).format(movieDTO.playingTimes.endDate)
+            R.string.playing_date_range,
+            DateTimeFormatter.ofPattern(textView.context.getString(R.string.date_format)).format(movieDTO.startDate),
+            DateTimeFormatter.ofPattern(textView.context.getString(R.string.date_format)).format(movieDTO.endDate)
         )
     }
 

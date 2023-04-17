@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
-import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.domain.movie.MovieDTO
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
@@ -54,9 +54,9 @@ class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
         holder.image.setImageResource(movieDTO.image)
         holder.title.text = movieDTO.title
         holder.playingDate.text = context?.getString(
-            R.string.playing_time,
-            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.playingTimes.startDate),
-            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.playingTimes.endDate)
+            R.string.playing_date_range,
+            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.startDate),
+            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.endDate)
         )
         holder.runningTime.text = context?.getString(R.string.running_time, movieDTO.runningTime)
         holder.reserveButton.setOnClickListener(clickListener)

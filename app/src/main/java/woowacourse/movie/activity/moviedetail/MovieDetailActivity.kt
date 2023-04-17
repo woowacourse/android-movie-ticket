@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.domain.movie.MovieDTO
 import woowacourse.movie.util.getSerializableExtraCompat
 
 class MovieDetailActivity : AppCompatActivity() {

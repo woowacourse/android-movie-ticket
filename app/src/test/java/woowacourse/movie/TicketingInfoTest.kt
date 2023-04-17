@@ -2,12 +2,12 @@ package woowacourse.movie
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.model.policy.DiscountPolicy
-import woowacourse.movie.model.policy.MorningPolicy
-import woowacourse.movie.model.policy.MovieDayPolicy
-import woowacourse.movie.model.policy.NightPolicy
+import woowacourse.movie.domain.Price
+import woowacourse.movie.domain.TicketingInfo
+import woowacourse.movie.domain.policy.DiscountPolicy
+import woowacourse.movie.domain.policy.MorningPolicy
+import woowacourse.movie.domain.policy.MovieDayPolicy
+import woowacourse.movie.domain.policy.NightPolicy
 import java.time.LocalDate
 import java.time.LocalTime
 
