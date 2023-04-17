@@ -31,7 +31,7 @@ class MovieViewHolder(
 
         btnBooking.setOnSingleClickListener {
             val intent = Intent(it.context, MovieBookingActivity::class.java)
-                .putExtra("movieData", itemData)
+                .putExtra(MovieBookingActivity.MOVIE_DATA, itemData)
             it.context.startActivity(intent)
         }
     }

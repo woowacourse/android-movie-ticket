@@ -47,15 +47,15 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt("ticketCount", ticketCount)
-        outState.putInt("selectedTimePosition", timeSpinner.selectedItemPosition)
+        outState.putInt(TICKET_COUNT, ticketCount)
+        outState.putInt(SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
         super.onSaveInstanceState(outState)
     }
 
     private fun recoverState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            ticketCount = savedInstanceState.getInt("ticketCount")
-            timeSpinnerRecoverState = savedInstanceState.getInt("selectedTimePosition")
+            ticketCount = savedInstanceState.getInt(TICKET_COUNT)
+            timeSpinnerRecoverState = savedInstanceState.getInt(SELECTED_TIME_POSITION)
         }
     }
 
@@ -83,7 +83,7 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetParcelableExtra<MovieData>("movieData") ?: run {
+        movieData = intent.customGetParcelableExtra<MovieData>(MOVIE_DATA) ?: run {
             finish()
             MovieData(
                 R.drawable.img_error,
@@ -147,11 +147,23 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun initBookingCompleteButtonClickListener() {
         findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
             val intent = Intent(this, MovieBookingCheckActivity::class.java).apply {
-                putExtra("movieData", movieData)
-                putExtra("ticketCount", ticketCount)
-                putExtra("bookedScreeningDateTime", getScreeningDateTime())
+                putExtra(MovieBookingCheckActivity.MOVIE_DATA, movieData)
+                putExtra(MovieBookingCheckActivity.TICKET_COUNT, ticketCount)
+                putExtra(
+                    MovieBookingCheckActivity.BOOKED_SCREENING_DATE_TIME,
+                    getScreeningDateTime()
+                )
             }
             startActivity(intent)
         }
+    }
+
+    companion object {
+        // savedInstanceState
+        const val TICKET_COUNT = "ticketCount"
+        const val SELECTED_TIME_POSITION = "selectedTimePosition"
+
+        // intent data
+        const val MOVIE_DATA = "movieData"
     }
 }

@@ -3,10 +3,10 @@ package woowacourse.movie.ui
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
+import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.domain.price.*
 import woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy
 import woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator
@@ -31,7 +31,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetParcelableExtra<MovieData>("movieData") ?: run {
+        movieData = intent.customGetParcelableExtra<MovieData>(MOVIE_DATA) ?: run {
             finish()
             MovieData(
                 R.drawable.img_error,
@@ -40,9 +40,9 @@ class MovieBookingCheckActivity : AppCompatActivity() {
                 -1
             )
         }
-        ticketCount = intent.getIntExtra("ticketCount", -1)
+        ticketCount = intent.getIntExtra(TICKET_COUNT, -1)
         bookedScreeningDateTime =
-            intent.customGetParcelableExtra("bookedScreeningDateTime") ?: run {
+            intent.customGetParcelableExtra(BOOKED_SCREENING_DATE_TIME) ?: run {
                 finish()
                 ScreeningDateTime(
                     LocalDateTime.parse("9999-12-30T00:00"),
@@ -69,4 +69,10 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     private fun applyDisCount(ticketPrice: Int, ticketCount: Int): TicketPrice =
         PricePolicyCalculator(TimeMovieDayDiscountPolicy(bookedScreeningDateTime).getDiscountPolicies())
             .totalPriceCalculate(TicketPrice(ticketPrice), TicketCount(ticketCount))
+
+    companion object {
+        const val MOVIE_DATA = "movieData"
+        const val TICKET_COUNT = "ticketCount"
+        const val BOOKED_SCREENING_DATE_TIME = "bookedScreeningDateTime"
+    }
 }
