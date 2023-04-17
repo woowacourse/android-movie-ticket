@@ -16,9 +16,7 @@ class ReservationResultActivity : AppCompatActivity() {
     private val paymentAmountTextView: TextView by lazy { findViewById(R.id.result_payment_amount_text_view) }
     private val screeningDateTimeTextView: TextView by lazy { findViewById(R.id.result_screening_date_time_text_view) }
     private val ticketCountTextView: TextView by lazy { findViewById(R.id.result_ticket_count_text_view) }
-    private val reservationModel: ReservationModel by lazy {
-        intent.getSerializableExtra(RESERVATION_INTENT_KEY) as ReservationModel
-    }
+    private val reservationModel: ReservationModel? by lazy { intent.getSerializableExtra(RESERVATION_INTENT_KEY) as? ReservationModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,19 +26,18 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservationResultView() {
-        with(reservationModel) {
-            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
+        if (reservationModel == null) return
+        val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
-            movieNameTextView.text = movieModel.name.value
-            screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
+        movieNameTextView.text = reservationModel!!.movieModel.name.value
+        screeningDateTimeTextView.text = reservationModel!!.screeningDateTime.format(dateFormat)
 
-            ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
+        ticketCountTextView.text = getString(R.string.ticket_count_form).format(reservationModel!!.ticketCount)
 
-            paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
-                DecimalFormat("#,###").format(paymentAmount.value),
-                getPaymentTypeString(paymentType)
-            )
-        }
+        paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
+            DecimalFormat("#,###").format(reservationModel!!.paymentAmount.value),
+            getPaymentTypeString(reservationModel!!.paymentType)
+        )
     }
 
     private fun getPaymentTypeString(paymentType: PaymentType): String = when (paymentType) {
