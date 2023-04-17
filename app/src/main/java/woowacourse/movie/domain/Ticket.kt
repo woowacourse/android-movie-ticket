@@ -16,6 +16,6 @@ data class Ticket(
         DateTimeTimeDiscountAdapter(bookedDateTime).discount(TICKET_PRICE) * count
 
     companion object {
-        private const val TICKET_PRICE = 13000
+        private const val TICKET_PRICE = 13_000
     }
 }
