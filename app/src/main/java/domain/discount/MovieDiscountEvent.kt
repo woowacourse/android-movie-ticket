@@ -9,13 +9,13 @@ class MovieDiscountEvent : DiscountEvent {
         paymentAmount: PaymentAmount,
         screeningDateTime: LocalDateTime
     ): PaymentAmount {
-        val discounts: List<DiscountEvent> = listOf(
+        val discountEvents: List<DiscountEvent> = listOf(
             MovieDayDiscountEvent(),
             EarlyNightDiscountEvent()
         )
         var resultPaymentAmount: PaymentAmount = paymentAmount
 
-        discounts.forEach {
+        discountEvents.forEach {
             resultPaymentAmount = it.discount(resultPaymentAmount, screeningDateTime)
         }
 
