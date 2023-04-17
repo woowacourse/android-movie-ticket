@@ -3,6 +3,8 @@ package woowacourse.movie.ui.moviebookingactivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
@@ -79,16 +81,34 @@ class MovieBookingActivity : AppCompatActivity() {
         dateSpinnerAdapter =
             DateSpinnerAdapter(
                 dateSpinner,
-                timeSpinnerAdapter::updateTimeTable,
+                // timeSpinnerAdapter::updateTimeTable,
                 movieDataState.screeningDay,
                 this
             )
-                .apply { initAdapter() }
+                .apply {
+                    initAdapter()
+                    setOnItemSelectedListener()
+                }
     }
 
     private fun initExtraData() {
         movieDataState =
             intent.customGetParcelableExtra<MovieDataState>("movieData") ?: return finishActivity("movieData")
+    }
+
+    private fun setOnItemSelectedListener() {
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                timeSpinnerAdapter.updateTimeTable(dateSpinner.selectedItem as LocalDate)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
     }
 
     private fun finishActivity(key: String) {

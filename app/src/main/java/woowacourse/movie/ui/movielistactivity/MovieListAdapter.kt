@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.movielistactivity
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +11,13 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.ui.DateTimeFormatters.hyphenDateFormatter
-import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
 import woowacourse.movie.util.setOnSingleClickListener
 
-class MovieListAdapter(val context: Context, val movies: List<MovieDataState>) : BaseAdapter() {
+class MovieListAdapter(
+    private val context: Context,
+    private val movies: List<MovieDataState>,
+    private val onButtonClickListener: (item: MovieDataState) -> Unit
+) : BaseAdapter() {
     private lateinit var inflater: LayoutInflater
 
     override fun getCount(): Int = movies.size
@@ -58,11 +60,7 @@ class MovieListAdapter(val context: Context, val movies: List<MovieDataState>) :
             context.getString(R.string.running_time_format).format(item.runningTime)
 
         viewHolder.btnBooking.setOnSingleClickListener {
-            val intent = Intent(context, MovieBookingActivity::class.java).putExtra(
-                "movieData",
-                item
-            )
-            context.startActivity(intent)
+            onButtonClickListener(item)
         }
 
         return itemLayout ?: throw IllegalStateException(NULL_ITEM_LAYOUT_ERROR)

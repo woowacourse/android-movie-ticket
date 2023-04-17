@@ -1,11 +1,13 @@
 package woowacourse.movie.ui.movielistactivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.model.ScreeningPeriodState
+import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
@@ -39,10 +41,18 @@ class MovieListActivity : AppCompatActivity() {
                 description = this.getString(R.string.dummy_data)
             )
         )
-        movieListAdapter = MovieListAdapter(this, tempMovies)
+        movieListAdapter = MovieListAdapter(this, tempMovies, ::onButtonClickListener)
     }
 
     private fun initMovieListView() {
         movieListView.adapter = movieListAdapter
+    }
+
+    private fun onButtonClickListener(item: MovieDataState) {
+        val intent = Intent(this, MovieBookingActivity::class.java).putExtra(
+            "movieData",
+            item
+        )
+        startActivity(intent)
     }
 }
