@@ -31,8 +31,8 @@ import java.time.format.DateTimeFormatter
 class MovieDetailActivity : BackKeyActionBarActivity() {
     private val runningDateSetter: RunningDates by lazy { RunningDates(movie.startDate, movie.endDate) }
     private val runningTimeSetter: RunningTimes = RunningTimes()
-    private lateinit var selectDate: LocalDate
-    private lateinit var selectTime: LocalTime
+    private lateinit var selectDate: ViewingDate
+    private lateinit var selectTime: ViewingTime
     private lateinit var movie: Movie
     private val runningDates: List<LocalDate> by lazy { runningDateSetter.getRunningDates() }
     private lateinit var runningTimes: List<LocalTime>
@@ -92,21 +92,21 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
             val intent = Intent(this, ReservationConfirmActivity::class.java)
             intent.putExtra(KEY_MOVIE, movie)
             intent.putExtra(KEY_RESERVATION_COUNT, Count(binding.count.text.toString().toInt()))
-            intent.putExtra(KEY_RESERVATION_DATE, ViewingDate(selectDate))
-            intent.putExtra(KEY_RESERVATION_TIME, ViewingTime(selectTime))
+            intent.putExtra(KEY_RESERVATION_DATE, selectDate)
+            intent.putExtra(KEY_RESERVATION_TIME, selectTime)
             startActivity(intent)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_RESTORE_DATE, selectDate)
-        outState.putSerializable(KEY_RESTORE_TIME, selectTime)
+        outState.putParcelable(KEY_RESTORE_DATE, selectDate)
+        outState.putParcelable(KEY_RESTORE_TIME, selectTime)
         outState.putInt(KEY_RESTORE_COUNT, binding.count.text.toString().toInt())
     }
 
     fun setTimeSpinnerAdapter() {
-        runningTimes = runningTimeSetter.getRunningTimes(selectDate)
+        runningTimes = runningTimeSetter.getRunningTimes(selectDate.value)
         val timeSpinnerAdapter = ArrayAdapter(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -116,19 +116,19 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun initInstanceState() {
-        selectDate = movie.startDate
+        selectDate = ViewingDate(movie.startDate)
         setTimeSpinnerAdapter()
-        runningTimes = runningTimeSetter.getRunningTimes(selectDate)
-        selectTime = runningTimes[0]
+        runningTimes = runningTimeSetter.getRunningTimes(selectDate.value)
+        selectTime = ViewingTime(runningTimes[0])
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
         selectDate = savedInstanceState.getParcelableCompat(KEY_RESTORE_DATE)!!
         setTimeSpinnerAdapter()
         selectTime = savedInstanceState.getParcelableCompat(KEY_RESTORE_TIME)!!
-        runningTimes = RunningTimes().getRunningTimes(selectDate)
-        binding.dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
-        binding.timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
+        runningTimes = RunningTimes().getRunningTimes(selectDate.value)
+        binding.dateSpinner.setSelection(runningDates.indexOf(selectDate.value), false)
+        binding.timeSpinner.setSelection(runningTimes.indexOf(selectTime.value), false)
         binding.count.text = savedInstanceState.getInt(KEY_RESTORE_COUNT).toString()
     }
 
@@ -140,7 +140,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
                 position: Int,
                 id: Long
             ) {
-                selectDate = runningDates[position]
+                selectDate = ViewingDate(runningDates[position])
                 setTimeSpinnerAdapter()
             }
 
@@ -156,7 +156,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
                 position: Int,
                 id: Long
             ) {
-                selectTime = runningTimes[position]
+                selectTime = ViewingTime(runningTimes[position])
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
