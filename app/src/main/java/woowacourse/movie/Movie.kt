@@ -1,11 +1,13 @@
 package woowacourse.movie
 
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.entity.RunningTime
-import java.io.Serializable
 import java.time.LocalDate
 
-data class Movie(
+@Parcelize
+class Movie constructor(
     @DrawableRes
     val imgResourceId: Int,
     val title: String,
@@ -13,4 +15,4 @@ data class Movie(
     val endDate: LocalDate,
     val runningTime: RunningTime,
     val description: String,
-) : Serializable
+) : Parcelable

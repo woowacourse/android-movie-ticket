@@ -1,7 +1,11 @@
 package woowacourse.movie.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 @JvmInline
-value class RunningTime(val value: Int) : java.io.Serializable {
+@Parcelize
+value class RunningTime(val value: Int) : Parcelable {
     init {
         require(value > MIN_RUNNING_TIME_RANGE) { RUNNING_TIME_ERROR_MESSAGE }
     }

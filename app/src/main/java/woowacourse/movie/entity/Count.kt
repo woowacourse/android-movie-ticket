@@ -1,7 +1,11 @@
 package woowacourse.movie.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 @JvmInline
-value class Count(val value: Int) : java.io.Serializable {
+@Parcelize
+value class Count(val value: Int) : Parcelable {
     init {
         require(value >= MIN_COUNT_RANGE) { COUNT_ERROR_MESSAGE }
     }

@@ -12,10 +12,11 @@ import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
+import woowacourse.movie.entity.ViewingDate
+import woowacourse.movie.entity.ViewingTime
+import woowacourse.movie.utils.getParcelableCompat
 import java.text.DecimalFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReservationConfirmActivity : BackKeyActionBarActivity() {
@@ -26,11 +27,11 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
-        val movie = intent.customGetSerializable<Movie>(KEY_MOVIE)!!
-        val reservationCount = intent.customGetSerializable<Count>(KEY_RESERVATION_COUNT)!!
-        val date = intent.customGetSerializable<LocalDate>(KEY_RESERVATION_DATE)
-        val time = intent.customGetSerializable<LocalTime>(KEY_RESERVATION_TIME)
-        val dateTime = LocalDateTime.of(date, time)
+        val movie = intent.getParcelableCompat<Movie>(KEY_MOVIE)!!
+        val reservationCount = intent.getParcelableCompat<Count>(KEY_RESERVATION_COUNT)!!
+        val date = intent.getParcelableCompat<ViewingDate>(KEY_RESERVATION_DATE)!!
+        val time = intent.getParcelableCompat<ViewingTime>(KEY_RESERVATION_TIME)!!
+        val dateTime = LocalDateTime.of(date.value, time.value)
         Log.d(LOG_TAG, "$movie , $reservationCount")
         setInitReservationData(movie, dateTime, reservationCount)
     }

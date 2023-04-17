@@ -24,6 +24,9 @@ import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDates
 import woowacourse.movie.domain.RunningTimes
 import woowacourse.movie.entity.Count
+import woowacourse.movie.entity.ViewingDate
+import woowacourse.movie.entity.ViewingTime
+import woowacourse.movie.utils.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -52,7 +55,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
-        movie = intent.customGetSerializable(KEY_MOVIE)!!
+        movie = intent.getParcelableCompat(KEY_MOVIE)!!
         initSetOnClickListener()
         initMovieData()
         setDateSpinnerAdapter()
@@ -101,8 +104,8 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
             val intent = Intent(this, ReservationConfirmActivity::class.java)
             intent.putExtra(KEY_MOVIE, movie)
             intent.putExtra(KEY_RESERVATION_COUNT, Count(count.text.toString().toInt()))
-            intent.putExtra(KEY_RESERVATION_DATE, selectDate)
-            intent.putExtra(KEY_RESERVATION_TIME, selectTime)
+            intent.putExtra(KEY_RESERVATION_DATE, ViewingDate(selectDate))
+            intent.putExtra(KEY_RESERVATION_TIME, ViewingTime(selectTime))
             startActivity(intent)
         }
     }
@@ -132,9 +135,9 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        selectDate = savedInstanceState.customGetSerializable(KEY_RESTORE_DATE)!!
+        selectDate = savedInstanceState.getParcelableCompat(KEY_RESTORE_DATE)!!
         setTimeSpinnerAdapter()
-        selectTime = savedInstanceState.customGetSerializable(KEY_RESTORE_TIME)!!
+        selectTime = savedInstanceState.getParcelableCompat(KEY_RESTORE_TIME)!!
         runningTimes = RunningTimes().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
