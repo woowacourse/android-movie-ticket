@@ -50,9 +50,13 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun onButtonClickListener(item: MovieDataState) {
         val intent = Intent(this, MovieBookingActivity::class.java).putExtra(
-            "movieData",
+            MOVIE_DATA,
             item
         )
         startActivity(intent)
+    }
+
+    companion object {
+        private const val MOVIE_DATA = "movieData"
     }
 }

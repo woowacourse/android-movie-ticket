@@ -60,8 +60,8 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun recoverState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            ticketCount = savedInstanceState.getInt("ticketCount")
-            timeSpinnerRecoverState = savedInstanceState.getInt("selectedTimePosition")
+            ticketCount = savedInstanceState.getInt(TICKET_COUNT)
+            timeSpinnerRecoverState = savedInstanceState.getInt(SELECTED_TIME_POSITION)
         }
     }
 
@@ -81,19 +81,18 @@ class MovieBookingActivity : AppCompatActivity() {
         dateSpinnerAdapter =
             DateSpinnerAdapter(
                 dateSpinner,
-                // timeSpinnerAdapter::updateTimeTable,
                 movieDataState.screeningDay,
                 this
-            )
-                .apply {
-                    initAdapter()
-                    setOnItemSelectedListener()
-                }
+            ).apply {
+                initAdapter()
+                setOnItemSelectedListener()
+            }
     }
 
     private fun initExtraData() {
         movieDataState =
-            intent.customGetParcelableExtra<MovieDataState>("movieData") ?: return finishActivity("movieData")
+            intent.customGetParcelableExtra<MovieDataState>(MOVIE_DATA)
+                ?: return finishActivity(MOVIE_DATA)
     }
 
     private fun setOnItemSelectedListener() {
@@ -112,7 +111,7 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun finishActivity(key: String) {
-        Log.d("MovieBooking", "${key}를 찾을 수 없습니다.")
+        Log.d(MOVIE_BOOKING, DATA_NOT_FOUNT_ERROR_MSG.format(key))
         finish()
     }
 
@@ -125,13 +124,13 @@ class MovieBookingActivity : AppCompatActivity() {
 
         ivBookingPoster.setImageResource(movieDataState.posterImage)
         tvBookingMovieName.text = movieDataState.title
-        tvBookingScreeningDay.text = this.getString(R.string.screening_date_format)
+        tvBookingScreeningDay.text = getString(R.string.screening_date_format)
             .format(
                 movieDataState.screeningDay.start.format(DateTimeFormatters.hyphenDateFormatter),
                 movieDataState.screeningDay.end.format(DateTimeFormatters.hyphenDateFormatter)
             )
         tvBookingRunningTime.text =
-            this.getString(R.string.running_time_format).format(movieDataState.runningTime)
+            getString(R.string.running_time_format).format(movieDataState.runningTime)
         tvBookingDescription.text = movieDataState.description
     }
 
@@ -152,7 +151,9 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun initMinusButtonClickListener() {
         findViewById<Button>(R.id.btn_ticket_minus).setOnSingleClickListener {
             ticketCount--
-            if (ticketCount <= 0) ticketCount = 0
+            if (ticketCount <= MINIMUM_TICKET_COUNT) {
+                ticketCount = MINIMUM_TICKET_COUNT
+            }
         }
     }
 
@@ -163,19 +164,24 @@ class MovieBookingActivity : AppCompatActivity() {
         return ScreeningDateTimeState(LocalDateTime.of(date, time), movieDataState.screeningDay)
     }
 
-    // timespinner 초기화 관련 방어코드 고려
     private fun initBookingCompleteButtonClickListener() {
         findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
             val intent = Intent(this, MovieBookingCheckActivity::class.java).apply {
-                putExtra("movieData", movieDataState)
-                putExtra("ticketCount", ticketCount)
-                putExtra("bookedScreeningDateTime", getScreeningDateTime())
+                putExtra(MOVIE_DATA, movieDataState)
+                putExtra(TICKET_COUNT, ticketCount)
+                putExtra(BOOKED_SCREENING_DATE_TIME, getScreeningDateTime())
             }
             startActivity(intent)
         }
     }
 
     companion object {
-        private const val RECOVER_STATE_ERROR = "화면 재구성중 null 값이 포함되어 있습니다."
+        private const val MOVIE_DATA = "movieData"
+        private const val MINIMUM_TICKET_COUNT = 0
+        private const val TICKET_COUNT = "ticketCount"
+        private const val BOOKED_SCREENING_DATE_TIME = "bookedScreeningDateTime"
+        private const val SELECTED_TIME_POSITION = "selectedTimePosition"
+        private const val MOVIE_BOOKING = "MovieBooking"
+        private const val DATA_NOT_FOUNT_ERROR_MSG = "%s를 찾을 수 없습니다."
     }
 }

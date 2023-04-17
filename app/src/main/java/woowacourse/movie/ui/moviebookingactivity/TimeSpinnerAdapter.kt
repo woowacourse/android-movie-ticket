@@ -31,9 +31,13 @@ class TimeSpinnerAdapter(
         times.clear()
         times.addAll(screeningPeriodState.toDomain().getScreeningTime(date))
         timeAdapter.notifyDataSetChanged()
-        if (recoverPosition != -1) {
+        if (recoverPosition != NULL_POSITION) {
             timeSpinner.setSelection(recoverPosition)
-            recoverPosition = -1
+            recoverPosition = NULL_POSITION
         }
+    }
+
+    companion object {
+        private const val NULL_POSITION = -1
     }
 }

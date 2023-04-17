@@ -31,14 +31,16 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieDataState = intent.customGetParcelableExtra<MovieDataState>("movieData") ?: return finishActivity("movieData")
-        ticketCount = intent.getIntExtra("ticketCount", -1)
+        movieDataState = intent.customGetParcelableExtra<MovieDataState>(MOVIE_DATA)
+            ?: return finishActivity(MOVIE_DATA)
+        ticketCount = intent.getIntExtra(TICKET_COUNT, NULL_POSITION)
         bookedScreeningDateTimeState =
-            intent.customGetParcelableExtra("bookedScreeningDateTime") ?: return finishActivity("bookedScreeningDateTime")
+            intent.customGetParcelableExtra(BOOKED_SCREENING_DATE_TIME)
+                ?: return finishActivity(BOOKED_SCREENING_DATE_TIME)
     }
 
     private fun finishActivity(key: String) {
-        Log.d("MovieBookingCheck", "${key}를 찾을 수 없습니다.")
+        Log.d(MOIVE_BOOKING_CHECK_LOG_MSG, DATA_NOT_FOUNT_ERROR_MSG.format(key))
         finish()
     }
 
@@ -53,16 +55,28 @@ class MovieBookingCheckActivity : AppCompatActivity() {
             bookedScreeningDateTimeState.dateTime.format(dateDotTimeColonFormatter)
         tvBookingCheckPersonCount.text =
             this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
-        tvBookingCheckTotalMoney.text = this.getString(R.string.tv_booking_check_total_money)
-            .format(applyDisCount(13000, ticketCount))
+        tvBookingCheckTotalMoney.text = getString(R.string.tv_booking_check_total_money)
+            .format(applyDiscount(STANDARD_TICKET_PRICE, ticketCount))
     }
 
-    private fun applyDisCount(ticketPrice: Int, ticketCount: Int): Int {
+    private fun applyDiscount(ticketPrice: Int, ticketCount: Int): Int {
         val discountPolicies = mutableListOf<DiscountPolicy>()
-        if (bookedScreeningDateTimeState.toDomain().checkMovieDay()) discountPolicies.add(MovieDayDiscount())
-        if (bookedScreeningDateTimeState.toDomain().checkEarlyMorningLateNight()) discountPolicies.add(
-            EarlyMorningLateNightDiscount()
-        )
+        if (bookedScreeningDateTimeState.toDomain().checkMovieDay()) {
+            discountPolicies.add(MovieDayDiscount())
+        }
+        if (bookedScreeningDateTimeState.toDomain().checkEarlyMorningLateNight()) {
+            discountPolicies.add(EarlyMorningLateNightDiscount())
+        }
         return PricePolicyCalculator(discountPolicies).totalPriceCalculate(ticketPrice, ticketCount)
+    }
+
+    companion object {
+        private const val MOVIE_DATA = "movieData"
+        private const val TICKET_COUNT = "ticketCount"
+        private const val BOOKED_SCREENING_DATE_TIME = "bookedScreeningDateTime"
+        private const val DATA_NOT_FOUNT_ERROR_MSG = "%s를 찾을 수 없습니다."
+        private const val MOIVE_BOOKING_CHECK_LOG_MSG = "MovieBookingCheck"
+        private const val STANDARD_TICKET_PRICE = 13000
+        private const val NULL_POSITION = -1
     }
 }

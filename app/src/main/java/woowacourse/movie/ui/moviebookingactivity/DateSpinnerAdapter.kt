@@ -8,7 +8,6 @@ import woowacourse.movie.model.mapper.toDomain
 
 class DateSpinnerAdapter(
     private val dateSpinner: Spinner,
-    // private val transferSelectedDate: (LocalDate) -> Unit,
     screeningPeriodState: ScreeningPeriodState,
     context: Context
 ) {
@@ -21,19 +20,4 @@ class DateSpinnerAdapter(
     fun initAdapter() {
         dateSpinner.adapter = dateAdapter
     }
-
-    // private fun setOnItemSelectedListener() {
-    //     dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-    //         override fun onItemSelected(
-    //             parent: AdapterView<*>,
-    //             view: View?,
-    //             position: Int,
-    //             id: Long
-    //         ) {
-    //             transferSelectedDate(dateSpinner.selectedItem as LocalDate)
-    //         }
-    //
-    //         override fun onNothingSelected(p0: AdapterView<*>?) {}
-    //     }
-    // }
 }
