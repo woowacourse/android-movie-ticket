@@ -1,4 +1,4 @@
-package woowacourse.movie.view.activities
+package woowacourse.movie.activities.ticketingresult
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
+import woowacourse.movie.activities.movielist.MovieListActivity
+import woowacourse.movie.activities.ticketing.TicketingActivity
 import woowacourse.movie.getParcelable
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.Ticket

@@ -1,4 +1,4 @@
-package woowacourse.movie.view.activities
+package woowacourse.movie.activities.ticketing
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.woowacourse.movie.domain.RunningDate
 import com.woowacourse.movie.domain.RunningTime
 import woowacourse.movie.R
+import woowacourse.movie.activities.movielist.MovieListActivity
+import woowacourse.movie.activities.ticketingresult.TicketingResultActivity
 import woowacourse.movie.customGetParcelable
 import woowacourse.movie.getParcelable
 import woowacourse.movie.model.Movie

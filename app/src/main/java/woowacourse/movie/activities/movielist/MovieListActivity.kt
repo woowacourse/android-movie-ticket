@@ -1,12 +1,13 @@
-package woowacourse.movie.view.activities
+package woowacourse.movie.activities.movielist
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.activities.movielist.adapter.MovieListAdapter
+import woowacourse.movie.activities.ticketing.TicketingActivity
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.adapter.MovieListAdapter
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
