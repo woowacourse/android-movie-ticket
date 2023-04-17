@@ -3,30 +3,47 @@ package woowacourse.movie.movieList
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import entity.MovieListType
 import entity.Screening
-import woowacourse.movie.movieList.movieListItem.MovieListItem
-import woowacourse.movie.movieList.movieListItem.ScreeningItem
+import woowacourse.movie.R
 
 class MovieListAdapter(
-    private val screeningList: List<MovieListType>,
+    private val items: List<Screening>,
 ) : BaseAdapter() {
+    private val viewHolder: MutableMap<View, MovieListViewHolder> = mutableMapOf()
+
     override fun getCount(): Int {
-        return screeningList.size
+        return items.size
     }
 
-    override fun getItem(position: Int): MovieListType {
-        return screeningList[position]
+    override fun getItem(position: Int): Screening {
+        return items[position]
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View =
-        getItemView(screeningList[position]).getView(screeningList[position], convertView, parent)
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val view = convertView ?: initItemView(parent)
+        val screening = items[position]
 
-    private fun getItemView(movieListType: MovieListType): MovieListItem = when (movieListType) {
-        is Screening -> ScreeningItem
+        bindViewHolder(view, screening)
+        return view
+    }
+
+    private fun initItemView(parent: ViewGroup?): View = View.inflate(
+        parent?.context,
+        R.layout.item_movie_list,
+        null,
+    )
+
+    private fun bindViewHolder(view: View, screening: Screening) {
+        viewHolder.getOrPut(view) { MovieListViewHolder(view) }
+            .bind(
+                posterResource = screening.poster,
+                title = screening.title,
+                date = screening.getReserveDateRange(),
+                runningTime = view.context.getString(R.string.movie_running_time).format(screening.runningTime),
+            )
     }
 }

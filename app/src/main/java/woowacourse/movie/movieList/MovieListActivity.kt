@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import entity.MovieListType
 import entity.Screening
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.ReservationActivity
@@ -23,13 +22,7 @@ class MovieListActivity : AppCompatActivity() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
         movieListView.adapter = MovieListAdapter(CINEMA_SAMPLE)
         movieListView.setOnItemClickListener { parent, _, position, _ ->
-            getListener(parent.getItemAtPosition(position) as MovieListType)
-        }
-    }
-
-    private fun getListener(item: MovieListType) {
-        when (item) {
-            is Screening -> getScreeningListener(item)
+            getScreeningListener(parent.getItemAtPosition(position) as Screening)
         }
     }
 
