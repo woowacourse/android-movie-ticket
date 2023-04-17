@@ -83,16 +83,40 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun initView() {
+        setMoviePoster()
+        setMovieTitle()
+        setMovieScreeningDate()
+        setMovieRunningTime()
+        setMovieDescription()
+        setTicketCount()
+    }
+
+    private fun setMoviePoster() {
         movie.poster?.let { findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(it) }
+    }
+
+    private fun setMovieTitle() {
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
+    }
+
+    private fun setMovieScreeningDate() {
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
             getString(R.string.screening_date).format(
                 movie.screeningStartDate.formatScreenDate(),
                 movie.screeningEndDate.formatScreenDate(),
             )
+    }
+
+    private fun setMovieRunningTime() {
         findViewById<TextView>(R.id.textBookingRunningTime).text =
             getString(R.string.running_time).format(movie.runningTime)
+    }
+
+    private fun setMovieDescription() {
         findViewById<TextView>(R.id.textBookingDescription).text = movie.description
+    }
+
+    private fun setTicketCount() {
         findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
     }
 
@@ -104,7 +128,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun minusTicketCount() {
         ticketCount = ticketCount.minus()
-        findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
+        setTicketCount()
     }
 
     private fun clickPlus() {
@@ -115,7 +139,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun plusTicketCount() {
         ticketCount = ticketCount.plus()
-        findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
+        setTicketCount()
     }
 
     private fun clickBookingComplete() {
