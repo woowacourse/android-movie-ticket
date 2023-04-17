@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
+import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.util.customGetParcelableExtra
@@ -18,7 +18,6 @@ import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import kotlin.properties.Delegates
 
 class MovieBookingActivity : AppCompatActivity() {
 
@@ -29,10 +28,7 @@ class MovieBookingActivity : AppCompatActivity() {
     lateinit var dateSpinnerAdapter: DateSpinnerAdapter
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
     var timeSpinnerRecoverState: Int = -1
-
-    var ticketCount by Delegates.observable(1) { _, _, new ->
-        tvTicketCount.text = new.toString()
-    }
+    private var ticketCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,6 +124,7 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun initPlusButtonClickListener() {
         findViewById<Button>(R.id.btn_ticket_plus).setOnSingleClickListener {
             ticketCount++
+            tvTicketCount.text = ticketCount.toString()
         }
     }
 
@@ -135,6 +132,7 @@ class MovieBookingActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_ticket_minus).setOnSingleClickListener {
             ticketCount--
             if (ticketCount <= 1) ticketCount = 1
+            tvTicketCount.text = ticketCount.toString()
         }
     }
 
@@ -155,9 +153,5 @@ class MovieBookingActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
-    }
-
-    companion object {
-        private const val RECOVER_STATE_ERROR = "화면 재구성중 null 값이 포함되어 있습니다."
     }
 }
