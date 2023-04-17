@@ -7,18 +7,18 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(JUnitParamsRunner::class)
-internal class SeatColTest {
+internal class SeatColumnTest {
     @Test
     @Parameters("1", "2", "3", "4")
     internal fun `좌석은 1열부터 4열까지이다`(column: Int) {
-        SeatCol(column)
+        SeatColumn(column)
     }
 
     @Test
     @Parameters("0", "5")
     internal fun `좌석은 1열과 4열 사이를 벗어나면 예외가 발생한다`(column: Int) {
         assertThrows(IllegalArgumentException::class.java) {
-            SeatCol(column)
+            SeatColumn(column)
         }
     }
 }

@@ -15,5 +15,7 @@
     <color name="enabled_done_color">@color/color_primary_variant</color>
     <color name="unselected_movie_seat_color">@color/white</color>
     <color name="selected_movie_seat_color">#FAFF00</color>
+    <color name="s_class_color">#19D358</color>
+    <color name="a_class_color">#1B48E9</color>
     <color name="b_class_color">#8E13EF</color>
 </resources>

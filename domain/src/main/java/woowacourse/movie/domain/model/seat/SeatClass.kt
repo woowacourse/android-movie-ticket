@@ -2,6 +2,8 @@ package woowacourse.movie.domain.model.seat
 
 import woowacourse.movie.domain.model.movie.TicketPrice
 
+typealias DomainSeatClass = SeatClass
+
 enum class SeatClass(val ticketPrice: TicketPrice) {
     S(TicketPrice(15_000)),
     A(TicketPrice(12_000)),

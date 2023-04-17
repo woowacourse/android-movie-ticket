@@ -13,6 +13,7 @@ import woowacourse.movie.presentation.activities.ticketing.TicketingActivity
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_DATE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_TIME_KEY
 import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
+import woowacourse.movie.presentation.extensions.showBackButton
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.model.Movie
 import woowacourse.movie.presentation.model.MovieDate
@@ -26,12 +27,8 @@ class TicketingResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTicketingResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        showBackButtonOnToolbar()
+        showBackButton()
         showTicketingResult()
-    }
-
-    private fun showBackButtonOnToolbar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun showTicketingResult() {

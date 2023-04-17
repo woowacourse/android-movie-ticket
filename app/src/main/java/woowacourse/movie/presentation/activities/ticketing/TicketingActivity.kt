@@ -15,6 +15,7 @@ import woowacourse.movie.domain.model.movie.DomainMovieTime
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
 import woowacourse.movie.presentation.activities.ticketingresult.TicketingResultActivity
 import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
+import woowacourse.movie.presentation.extensions.showBackButton
 import woowacourse.movie.presentation.extensions.showToast
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toPresentation
@@ -53,14 +54,10 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
         restoreState(savedInstanceState)
 
-        showBackButtonOnToolbar()
+        showBackButton()
         showMovieIntroduce()
         setSpinnerConfig()
         setClickListener()
-    }
-
-    private fun showBackButtonOnToolbar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setClickListener() {
