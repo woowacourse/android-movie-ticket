@@ -1,4 +1,4 @@
-package movie.pricePolicy
+package data
 
 import java.time.LocalDateTime
 

@@ -1,5 +1,7 @@
 package movie.pricePolicy
 
+import data.PricePolicyInfo
+
 class EveningPricePolicy(
     private val discountPrice: Int,
     private val eveningLimit: Int = 20,

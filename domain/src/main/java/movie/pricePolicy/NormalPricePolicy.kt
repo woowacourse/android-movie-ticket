@@ -1,5 +1,7 @@
 package movie.pricePolicy
 
+import data.PricePolicyInfo
+
 class NormalPricePolicy() : PricePolicy {
     private val policyList = listOf(
         MovieDayPricePolicy(0.9),

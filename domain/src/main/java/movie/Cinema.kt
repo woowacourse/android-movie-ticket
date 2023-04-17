@@ -1,10 +1,10 @@
 package movie
 
+import data.PricePolicyInfo
 import data.Screening
 import data.Ticket
 import movie.pricePolicy.NormalPricePolicy
 import movie.pricePolicy.PricePolicy
-import movie.pricePolicy.PricePolicyInfo
 import java.time.LocalDateTime
 
 class Cinema {

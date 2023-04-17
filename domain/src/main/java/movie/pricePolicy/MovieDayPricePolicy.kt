@@ -1,5 +1,7 @@
 package movie.pricePolicy
 
+import data.PricePolicyInfo
+
 class MovieDayPricePolicy(
     private val rateDiscountPrice: Double,
 ) : PricePolicy {
