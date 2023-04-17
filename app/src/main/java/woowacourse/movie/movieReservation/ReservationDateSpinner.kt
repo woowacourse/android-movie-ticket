@@ -20,7 +20,12 @@ class ReservationDateSpinner(
         get() = LocalDate.parse(dateSpinner.selectedItem.toString())
 
     init {
-        dateSpinner.onItemSelectedListener = DateSpinnerListener()
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onDateSelected(selectedDate)
+            }
+        }
     }
 
     fun save(outState: Bundle) {
@@ -37,13 +42,6 @@ class ReservationDateSpinner(
             android.R.layout.simple_spinner_item,
             ScreeningDate.getScreeningDates(screeningModel.startDate, screeningModel.endDate),
         )
-    }
-
-    inner class DateSpinnerListener : AdapterView.OnItemSelectedListener {
-        override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            onDateSelected(selectedDate)
-        }
     }
 
     companion object {
