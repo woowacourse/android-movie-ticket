@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".SeatPickerActivity"
+            android:name=".presentation.view.seat_pick.SeatPickerActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.view.book_complete.BookCompleteActivity"

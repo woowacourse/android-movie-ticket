@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.extension
 
 import android.content.Intent
 import android.os.Build
