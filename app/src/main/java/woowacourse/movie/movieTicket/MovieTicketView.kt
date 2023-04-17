@@ -17,7 +17,7 @@ class MovieTicketView(
     fun update(ticket: TicketModel) {
         titleView.text = ticket.title
         countView.text = ticket.getReserveDate()
-        releaseDateView.text = view.context.getString(R.string.movie_ticket_count).format(ticket.size)
+        releaseDateView.text = view.context.getString(R.string.movie_ticket_count).format(ticket.peopleNumber)
         totalPriceView.text = view.context.getString(R.string.movie_ticket_total_price)
             .format(decimalFormat.format(ticket.getTotalPrice()))
     }

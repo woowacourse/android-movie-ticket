@@ -7,11 +7,10 @@ import java.time.format.DateTimeFormatter
 data class TicketModel(
     val title: String,
     val reserveTime: LocalDateTime,
-    private val people: List<MovieTicketPersonModel>,
+    val price: Int,
+    val peopleNumber: Int,
 ) : Serializable {
-    val size: Int = people.size
-
-    fun getTotalPrice(): Int = people.sumOf { it.price }
+    fun getTotalPrice(): Int = peopleNumber * price
 
     fun getReserveDate(): String {
         return reserveTime.format(DATE_FORMATTER)
@@ -19,6 +18,6 @@ data class TicketModel(
 
     companion object {
         private val DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        val EMPTY = TicketModel("", LocalDateTime.MIN, emptyList())
+        val EMPTY = TicketModel("", LocalDateTime.MIN, 0, 0)
     }
 }
