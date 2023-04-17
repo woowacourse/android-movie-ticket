@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieTicket
-import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.utils.getCustomSerializableExtra
@@ -43,16 +42,11 @@ class MovieTicketActivity : AppCompatActivity() {
         intent.getCustomSerializableExtra<MovieTicket>(KEY_TICKET)?.let { ticket ->
             findViewById<TextView>(R.id.ticket_title).text = ticket.title
             findViewById<TextView>(R.id.ticket_date).text = ticket.time.format()
-            findViewById<TextView>(R.id.ticket_people_count).text = ticket.peopleCount.format()
-            findViewById<TextView>(R.id.ticket_price).text = ticket.getPriceWithUnit()
+            findViewById<TextView>(R.id.ticket_people_count).text = getString(R.string.people_count, ticket.peopleCount.count)
+            findViewById<TextView>(R.id.ticket_price).text = getString(R.string.price_with_unit, DecimalFormat("#,###").format(ticket.getPrice()))
         }
     }
 
     private fun TicketTime.format(): String =
-        dateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
-
-    private fun PeopleCount.format(): String = "일반 ${count}명"
-
-    private fun MovieTicket.getPriceWithUnit(): String =
-        "${DecimalFormat("#,###").format(getPrice())}원 (현장 결제)"
+        dateTime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
 }

@@ -41,9 +41,9 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie: Movie? = intent.getCustomSerializableExtra<Movie>(KEY_MOVIE)
+        val movie: Movie? = intent.getCustomSerializableExtra(KEY_MOVIE)
         if (movie == null) {
-            Toast.makeText(this, MESSAGE_ERROR, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error_loading), Toast.LENGTH_SHORT).show()
         }
 
         movie?.let { it ->
@@ -77,16 +77,12 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setMovieInfo(movie: Movie) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.detail_title).text = movie.title
-        findViewById<TextView>(R.id.detail_date).text = movie.getScreenDate()
-        findViewById<TextView>(R.id.detail_running_time).text = movie.getRunningTime()
+        findViewById<TextView>(R.id.detail_date).text = getString(R.string.screening_date, movie.startDate.format(), movie.endDate.format())
+        findViewById<TextView>(R.id.detail_running_time).text = getString(R.string.running_time, movie.runningTime)
         findViewById<TextView>(R.id.detail_description).text = movie.description
     }
 
-    private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
-
-    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-
-    private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
+    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
     private fun setDateSpinner(movie: Movie) {
         dateSpinner = findViewById(R.id.detail_date_spinner)
@@ -192,6 +188,5 @@ class MovieDetailActivity : AppCompatActivity() {
         private const val KEY_DATE_POSITION = "date_position"
         private const val KEY_TIME_POSITION = "time_position"
         private const val KEY_PEOPLE_COUNT = "count"
-        private const val MESSAGE_ERROR = "데이터 로딩에 실패하였습니다.\n다시 시도해주세요!"
     }
 }

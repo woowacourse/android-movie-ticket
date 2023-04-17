@@ -45,14 +45,8 @@ class MovieListAdapter(
         return itemView
     }
 
-    private fun Movie.getScreenDate(): String = "상영일: ${startDate.format()} ~ ${endDate.format()}"
-
-    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-
-    private fun Movie.getRunningTime(): String = "러닝타임: ${runningTime}분"
-
     inner class MovieListViewHolder(
-        view: View,
+        private val view: View,
     ) {
         private val poster: ImageView = view.findViewById(R.id.item_poster)
         private val title: TextView = view.findViewById(R.id.item_title)
@@ -63,8 +57,10 @@ class MovieListAdapter(
         fun bind(movie: Movie) {
             poster.setImageResource(movie.poster)
             title.text = movie.title
-            date.text = movie.getScreenDate()
-            runningTime.text = movie.getRunningTime()
+            date.text = view.context.getString(R.string.screening_date, movie.startDate.format(), movie.endDate.format())
+            runningTime.text = view.context.getString(R.string.running_time, movie.runningTime)
         }
+
+        private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(view.context.getString(R.string.date_format)))
     }
 }
