@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EAEAEA"
     tools:context=".presentation.view.seat_pick.SeatPickerActivity">
 
     <TextView
@@ -32,6 +33,7 @@
         android:id="@+id/tb_seat_picker"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/white"
         android:stretchColumns="*"
         app:layout_constraintDimensionRatio="H,292:320"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,6 +162,7 @@
         android:id="@+id/cl_seat_picker_booking_info"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,272:78"
         app:layout_constraintStart_toStartOf="parent"
