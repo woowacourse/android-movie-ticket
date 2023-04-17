@@ -22,7 +22,7 @@ import woowacourse.movie.R
 import woowacourse.movie.Toaster
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.domain.RunningDates
-import woowacourse.movie.domain.RunningTimeSetter
+import woowacourse.movie.domain.RunningTimes
 import woowacourse.movie.entity.Count
 import java.time.LocalDate
 import java.time.LocalTime
@@ -43,7 +43,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val count: TextView by lazy { findViewById(R.id.count) }
 
     private val runningDateSetter: RunningDates by lazy { RunningDates(movie.startDate, movie.endDate) }
-    private val runningTimeSetter: RunningTimeSetter = RunningTimeSetter()
+    private val runningTimeSetter: RunningTimes = RunningTimes()
     private lateinit var selectDate: LocalDate
     private lateinit var selectTime: LocalTime
     private lateinit var movie: Movie
@@ -135,7 +135,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         selectDate = savedInstanceState.customGetSerializable(KEY_RESTORE_DATE)!!
         setTimeSpinnerAdapter()
         selectTime = savedInstanceState.customGetSerializable(KEY_RESTORE_TIME)!!
-        runningTimes = RunningTimeSetter().getRunningTimes(selectDate)
+        runningTimes = RunningTimes().getRunningTimes(selectDate)
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
         timeSpinner.setSelection(runningTimes.indexOf(selectTime), false)
         count.text = savedInstanceState.getInt(KEY_RESTORE_COUNT).toString()

@@ -3,7 +3,7 @@ package woowacourse.movie.domain
 import java.time.LocalDate
 import java.time.LocalTime
 
-class RunningTimeSetter {
+class RunningTimes {
     fun getRunningTimes(date: LocalDate): List<LocalTime> {
         return when (date.dayOfWeek.value) {
             in weekDays -> weekendTimes.toList()
