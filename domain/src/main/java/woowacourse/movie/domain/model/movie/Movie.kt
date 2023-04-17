@@ -10,5 +10,4 @@ data class Movie(
     val endDate: LocalDate,
     val runningTime: Int,
     val introduce: String,
-    val thumbnail: Int,
 )
