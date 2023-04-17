@@ -21,7 +21,7 @@ import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.Toaster
 import woowacourse.movie.confirm.ReservationConfirmActivity
-import woowacourse.movie.domain.RunningDateSetter
+import woowacourse.movie.domain.RunningDates
 import woowacourse.movie.domain.RunningTimeSetter
 import woowacourse.movie.entity.Count
 import java.time.LocalDate
@@ -42,17 +42,12 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val plus: Button by lazy { findViewById(R.id.plus) }
     private val count: TextView by lazy { findViewById(R.id.count) }
 
-    private val runningDateSetter: RunningDateSetter = RunningDateSetter()
+    private val runningDateSetter: RunningDates by lazy { RunningDates(movie.startDate, movie.endDate) }
     private val runningTimeSetter: RunningTimeSetter = RunningTimeSetter()
     private lateinit var selectDate: LocalDate
     private lateinit var selectTime: LocalTime
     private lateinit var movie: Movie
-    private val runningDates: List<LocalDate> by lazy {
-        runningDateSetter.getRunningDates(
-            movie.startDate,
-            movie.endDate
-        )
-    }
+    private val runningDates: List<LocalDate> by lazy { runningDateSetter.getRunningDates() }
     private lateinit var runningTimes: List<LocalTime>
 
     override fun onCreateView(savedInstanceState: Bundle?) {
