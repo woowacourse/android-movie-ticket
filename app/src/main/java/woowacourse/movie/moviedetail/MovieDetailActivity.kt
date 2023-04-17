@@ -16,7 +16,7 @@ import woowacourse.movie.TicketActivity
 import woowacourse.movie.domain.movieinfo.MovieDate
 import woowacourse.movie.domain.movieinfo.MovieTime
 import woowacourse.movie.dto.MovieDto
-import woowacourse.movie.dto.TicketDto
+import woowacourse.movie.dto.TicketCountDto
 import woowacourse.movie.mapper.mapToMovieDateDto
 import woowacourse.movie.mapper.mapToMovieTimeDto
 import woowacourse.movie.mapper.mapToTicket
@@ -25,7 +25,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
-    private var movieTikcet = TicketDto()
+    private var movieTikcet = TicketCountDto()
     private var dateSpinnerPosition = 0
     private var timeSpinnerPosition = 0
 
@@ -96,7 +96,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val minusBtn = findViewById<Button>(R.id.minus_button)
 
         minusBtn.setOnClickListener {
-            movieTikcet = mapToTicketDto(mapToTicket(movieTikcet).decrease())
+            val ticketDecrease = movieTikcet.mapToTicket().decrease()
+            movieTikcet = ticketDecrease.mapToTicketDto()
             booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
@@ -105,7 +106,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val plusBtn = findViewById<Button>(R.id.plus_button)
 
         plusBtn.setOnClickListener {
-            movieTikcet = mapToTicketDto(mapToTicket(movieTikcet).increase())
+            val ticketIncrease = movieTikcet.mapToTicket().increase()
+            movieTikcet = ticketIncrease.mapToTicketDto()
             booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
@@ -118,8 +120,8 @@ class MovieDetailActivity : AppCompatActivity() {
             val intent = Intent(this, TicketActivity::class.java)
             intent.putExtra(TICKET_KEY, movieTikcet)
             intent.putExtra(MOVIE_KEY, movie)
-            intent.putExtra(DATE_KEY, mapToMovieDateDto(selectedDate))
-            intent.putExtra(TIME_KEY, mapToMovieTimeDto(selectedTime))
+            intent.putExtra(DATE_KEY, selectedDate.mapToMovieDateDto())
+            intent.putExtra(TIME_KEY, selectedTime.mapToMovieTimeDto())
             startActivity(intent)
         }
     }

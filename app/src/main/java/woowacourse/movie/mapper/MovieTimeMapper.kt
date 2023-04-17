@@ -3,10 +3,10 @@ package woowacourse.movie.mapper
 import woowacourse.movie.domain.movieinfo.MovieTime
 import woowacourse.movie.dto.MovieTimeDto
 
-fun mapToMovieTime(movieTimeDto: MovieTimeDto): MovieTime {
-    return MovieTime(movieTimeDto.time)
+fun MovieTimeDto.mapToMovieTime(): MovieTime {
+    return MovieTime(this.time)
 }
 
-fun mapToMovieTimeDto(movieTime: MovieTime): MovieTimeDto {
-    return MovieTimeDto(movieTime.time)
+fun MovieTime.mapToMovieTimeDto(): MovieTimeDto {
+    return MovieTimeDto(this.time)
 }

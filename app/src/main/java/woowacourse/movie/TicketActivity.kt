@@ -8,7 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto
-import woowacourse.movie.dto.TicketDto
+import woowacourse.movie.dto.TicketCountDto
 import woowacourse.movie.dto.TicketPriceDto
 import woowacourse.movie.mapper.mapToTicketPrice
 import woowacourse.movie.mapper.mapToTicketPriceDto
@@ -23,7 +23,7 @@ class TicketActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ticket)
         setToolbar()
 
-        val ticket = intent.getSerializableExtra(TICKET_KEY) as TicketDto
+        val ticket = intent.getSerializableExtra(TICKET_KEY) as TicketCountDto
         val movie = intent.getSerializableExtra(MOVIE_KEY) as MovieDto
         val date = intent.getSerializableExtra(DATE_KEY) as MovieDateDto
         val time = intent.getSerializableExtra(TIME_KEY) as MovieTimeDto
@@ -54,7 +54,7 @@ class TicketActivity : AppCompatActivity() {
         movieDate.text = formatMovieDateTime(date, time)
     }
 
-    private fun showTicketCount(ticket: TicketDto) {
+    private fun showTicketCount(ticket: TicketCountDto) {
         val numberOfPeople = findViewById<TextView>(R.id.number_of_people)
         numberOfPeople.text = getString(R.string.ticket_number, ticket.numberOfPeople)
     }
@@ -63,9 +63,9 @@ class TicketActivity : AppCompatActivity() {
         val price = findViewById<TextView>(R.id.ticket_price)
         val ticketPrice = TicketPriceDto()
         val totalTicketPrice =
-            mapToTicketPrice(ticketPrice).applyPolicy(LocalDateTime.of(date, time)) * count
+            ticketPrice.mapToTicketPrice().applyPolicy(LocalDateTime.of(date, time)) * count
 
-        price.text = getString(R.string.ticket_price, mapToTicketPriceDto(totalTicketPrice).price)
+        price.text = getString(R.string.ticket_price, totalTicketPrice.mapToTicketPriceDto().price)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
