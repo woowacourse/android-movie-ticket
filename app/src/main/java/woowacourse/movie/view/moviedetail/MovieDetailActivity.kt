@@ -1,28 +1,26 @@
-package woowacourse.movie.activity.moviedetail
+package woowacourse.movie.view.moviedetail
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
-import woowacourse.movie.activity.TicketActivity
 import woowacourse.movie.domain.CountNumberOfPeople
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.domain.movieinfo.RunningDate
+import woowacourse.movie.view.BaseActivity
+import woowacourse.movie.view.TicketActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : BaseActivity() {
     private var numberOfBooker = 1
     private var dateSpinnerPosition = 0
     private var timeSpinnerPosition = 0
@@ -34,7 +32,7 @@ class MovieDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        setToolBar()
+        setBackToBefore(R.id.movie_detail_toolbar)
 
         if (savedInstanceState != null) {
             numberOfBooker = savedInstanceState.getInt(NUMBER_OF_PEOPLE)
@@ -48,13 +46,6 @@ class MovieDetailActivity : AppCompatActivity() {
         setUpMovieData(movie)
         setNumberOfPeople()
         clickBookBtn(movie)
-    }
-
-    private fun setToolBar() {
-        val toolbar = findViewById<Toolbar>(R.id.movie_detail_toolbar)
-
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setUpMovieData(movie: Movie) {
@@ -121,14 +112,6 @@ class MovieDetailActivity : AppCompatActivity() {
             intent.putExtra(MOVIE_KEY, movie)
             startActivity(intent)
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setDateSpinner(date: RunningDate) {

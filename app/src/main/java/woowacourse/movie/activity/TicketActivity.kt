@@ -1,16 +1,13 @@
 package woowacourse.movie.activity
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
 import java.time.format.DateTimeFormatter
 
-class TicketActivity : AppCompatActivity() {
+class TicketActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
@@ -20,7 +17,7 @@ class TicketActivity : AppCompatActivity() {
 
         setUpView(ticket, movie)
 
-        setBackToBefore()
+        setBackToBefore(R.id.ticket_toolbar)
     }
 
     private fun setUpView(ticket: Ticket, movie: Movie) {
@@ -34,20 +31,6 @@ class TicketActivity : AppCompatActivity() {
         numberOfPeople.text =
             this.getString(R.string.ticket_number_of_people, ticket.numberOfPeople)
         price.text = this.getString(R.string.ticket_price, ticket.calculateTotalPrice())
-    }
-
-    private fun setBackToBefore() {
-        val toolbar = findViewById<Toolbar>(R.id.ticket_toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     companion object {
