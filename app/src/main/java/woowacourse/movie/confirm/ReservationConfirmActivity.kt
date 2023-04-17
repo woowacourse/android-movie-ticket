@@ -2,14 +2,13 @@ package woowacourse.movie.confirm
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import woowacourse.movie.BackKeyActionBarActivity
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.Movie
-import woowacourse.movie.R
+import woowacourse.movie.databinding.ActivityReservationConfirmBinding
 import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.ViewingDate
@@ -20,13 +19,12 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class ReservationConfirmActivity : BackKeyActionBarActivity() {
-    private val titleTextView: TextView by lazy { findViewById(R.id.reservation_title) }
-    private val dateTextView: TextView by lazy { findViewById(R.id.reservation_date) }
-    private val moneyTextView: TextView by lazy { findViewById(R.id.reservation_money) }
-    private val reservationCountTextView: TextView by lazy { findViewById(R.id.reservation_count) }
+    private lateinit var binding: ActivityReservationConfirmBinding
 
     override fun onCreateView(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_reservation_confirm)
+        binding = ActivityReservationConfirmBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         val movie = intent.getParcelableCompat<Movie>(KEY_MOVIE)!!
         val reservationCount = intent.getParcelableCompat<Count>(KEY_RESERVATION_COUNT)!!
         val date = intent.getParcelableCompat<ViewingDate>(KEY_RESERVATION_DATE)!!
@@ -41,10 +39,10 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         dateTime: LocalDateTime,
         reservationCount: Count
     ) {
-        titleTextView.text = movie.title
-        dateTextView.text = dateTime.format(DATE_TIME_FORMATTER)
-        moneyTextView.text = formattingMoney(reservationCount, dateTime)
-        reservationCountTextView.text = reservationCount.value.toString()
+        binding.reservationTitle.text = movie.title
+        binding.reservationDate.text = dateTime.format(DATE_TIME_FORMATTER)
+        binding.reservationMoneyText.text = formattingMoney(reservationCount, dateTime)
+        binding.reservationCount.text = reservationCount.value.toString()
     }
 
     private fun formattingMoney(reservationCount: Count, dateTime: LocalDateTime): String {
