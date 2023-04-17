@@ -15,9 +15,9 @@ import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.domain.ScreeningTimes
 import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.formatScreenDate
 import woowacourse.movie.presentation.model.MovieModel
 import woowacourse.movie.presentation.model.toPresentation
+import woowacourse.movie.util.formatScreenDate
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

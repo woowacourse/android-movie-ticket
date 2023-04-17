@@ -9,8 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
-import woowacourse.movie.formatScreenDateTime
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.model.TicketModel
+import woowacourse.movie.util.formatScreenDateTime
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +42,27 @@ class CompletedActivity : AppCompatActivity() {
 
     private fun initView(ticket: TicketModel) {
         val movie = MovieData.findMovieById(ticket.movieId)
+        setMovieTitle(movie)
+        setMovieScreeningDate(ticket)
+        setMovieTicketCount(ticket)
+        setMoviePaymentAmount(ticket)
+    }
+
+    private fun setMovieTitle(movie: Movie) {
         findViewById<TextView>(R.id.textCompletedTitle).text = movie.title
+    }
+
+    private fun setMovieScreeningDate(ticket: TicketModel) {
         findViewById<TextView>(R.id.textCompletedScreeningDate).text =
             ticket.bookedDateTime.formatScreenDateTime()
+    }
+
+    private fun setMovieTicketCount(ticket: TicketModel) {
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
             getString(R.string.normal_ticket_count).format(ticket.count)
+    }
+
+    private fun setMoviePaymentAmount(ticket: TicketModel) {
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
             getString(R.string.payment_amount).format(ticket.paymentMoney)
     }

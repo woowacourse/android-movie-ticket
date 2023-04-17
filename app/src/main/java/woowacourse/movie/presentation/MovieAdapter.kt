@@ -9,8 +9,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.formatScreenDate
 import woowacourse.movie.presentation.model.MovieModel
+import woowacourse.movie.util.formatScreenDate
 
 class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     BaseAdapter() {
@@ -38,20 +38,36 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) :
     }
 
     private fun initView(position: Int, view: View) {
+        setMovieThumbnail(position, view)
+        setMovieTitle(view, position)
+        setMovieScreeningDate(view, position)
+        setMovieRunningTime(view, position)
+    }
+
+    private fun setMovieThumbnail(position: Int, view: View) {
         movies[position].thumbnail?.let {
             view.findViewById<ImageView>(R.id.imageItemThumbnail)
                 .setImageResource(it)
         }
+    }
+
+    private fun setMovieTitle(view: View, position: Int) {
         view.findViewById<TextView>(R.id.textItemTitle).text = movies[position].title
+    }
+
+    private fun setMovieRunningTime(view: View, position: Int) {
+        view.findViewById<TextView>(R.id.textBookingRunningTime).apply {
+            text = context.getString(R.string.running_time).format(movies[position].runningTime)
+        }
+    }
+
+    private fun setMovieScreeningDate(view: View, position: Int) {
         view.findViewById<TextView>(R.id.textBookingScreeningDate).apply {
             text = context.getString(R.string.screening_date)
                 .format(
                     movies[position].screeningStartDate.formatScreenDate(),
                     movies[position].screeningEndDate.formatScreenDate(),
                 )
-        }
-        view.findViewById<TextView>(R.id.textBookingRunningTime).apply {
-            text = context.getString(R.string.running_time).format(movies[position].runningTime)
         }
     }
 
