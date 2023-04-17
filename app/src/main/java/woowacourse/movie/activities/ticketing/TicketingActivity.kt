@@ -99,7 +99,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     private fun setMovieInfo() {
         movie?.run {
-            findViewById<ImageView>(R.id.iv_poster).setImageResource(thumbnail)
+            thumbnail?.let { findViewById<ImageView>(R.id.iv_poster).setImageResource(it) }
             findViewById<TextView>(R.id.tv_title).text = title
             findViewById<TextView>(R.id.tv_date).text = getString(
                 R.string.movie_release_date,

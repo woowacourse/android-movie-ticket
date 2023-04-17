@@ -7,7 +7,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieUI
 
-class MovieListViewHolder(val view: View) {
+class MovieListViewHolder(private val view: View) {
     private val ivPoster: ImageView = view.findViewById(R.id.iv_poster)
     private val tvTitle: TextView = view.findViewById(R.id.tv_title)
     private val tvDate: TextView = view.findViewById(R.id.tv_date)
@@ -16,7 +16,7 @@ class MovieListViewHolder(val view: View) {
 
     fun bind(item: MovieUI, onBookClick: (MovieUI) -> Unit) {
         with(item) {
-            ivPoster.setImageResource(thumbnail)
+            thumbnail?.let { ivPoster.setImageResource(it) }
             tvTitle.text = title
             tvDate.text = view.context.getString(
                 R.string.movie_release_date,
