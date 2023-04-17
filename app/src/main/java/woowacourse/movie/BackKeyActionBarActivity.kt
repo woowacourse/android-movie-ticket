@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
 abstract class BackKeyActionBarActivity : AppCompatActivity() {
-
-    @Deprecated("deprecated", ReplaceWith("onCreateView"), DeprecationLevel.WARNING)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
