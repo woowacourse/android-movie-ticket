@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.moviedetail
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.MenuItem
@@ -12,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
@@ -22,6 +22,7 @@ import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.ui.ticket.MovieTicketActivity
+import woowacourse.movie.utils.getCustomSerializableExtra
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -40,15 +41,19 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = getMovieFromIntent()
+        val movie: Movie? = intent.getCustomSerializableExtra<Movie>(KEY_MOVIE)
+        if (movie == null) {
+            Toast.makeText(this, MESSAGE_ERROR, Toast.LENGTH_SHORT).show()
+        }
 
-        setMovieInfo(movie)
-        setDateSpinner(movie)
-        setTimeSpinner()
-        setPeopleCountController()
-        setBookingButton(movie)
-
-        loadSavedData(savedInstanceState)
+        movie?.let { it ->
+            setMovieInfo(it)
+            setDateSpinner(it)
+            setTimeSpinner()
+            setPeopleCountController()
+            setBookingButton(it)
+            loadSavedData(savedInstanceState)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
@@ -68,13 +73,6 @@ class MovieDetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    @Suppress("DEPRECATION")
-    private fun getMovieFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra(KEY_MOVIE, Movie::class.java)
-    } else {
-        intent.getSerializableExtra(KEY_MOVIE)
-    } as Movie
 
     private fun setMovieInfo(movie: Movie) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
@@ -194,5 +192,6 @@ class MovieDetailActivity : AppCompatActivity() {
         private const val KEY_DATE_POSITION = "date_position"
         private const val KEY_TIME_POSITION = "time_position"
         private const val KEY_PEOPLE_COUNT = "count"
+        private const val MESSAGE_ERROR = "데이터 로딩에 실패하였습니다.\n다시 시도해주세요!"
     }
 }
