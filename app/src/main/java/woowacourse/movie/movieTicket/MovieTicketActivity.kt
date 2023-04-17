@@ -11,7 +11,7 @@ import woowacourse.movie.utils.toDomain
 import woowacourse.movie.view.decimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
-    private val ticketUi by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as MovieTicketUi }
+    private val ticketUi by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as? MovieTicketUi ?: throw IllegalArgumentException() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

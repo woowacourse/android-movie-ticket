@@ -26,7 +26,7 @@ import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
 
-    private val movieScheduleUi by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as MovieScheduleUi }
+    private val movieScheduleUi by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as? MovieScheduleUi ?: throw IllegalArgumentException() }
     private var ticketCount = TicketCount(1)
     private var selectedPosition = 0
 
