@@ -1,9 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.domain
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.TicketBundle
 
 class TicketBundleTest {
     @Test
