@@ -6,7 +6,7 @@ data class TicketCount(
     init {
         require(numberOfPeople in MIN_BOOKER_NUMBER..MAX_BOOKER_NUMBER) { RANGE_ERROR_MESSAGE }
     }
-    fun increase(): TicketCount = TicketCount((numberOfPeople + 1).coerceAtMost(MIN_BOOKER_NUMBER))
+    fun increase(): TicketCount = TicketCount((numberOfPeople + 1).coerceAtLeast(MIN_BOOKER_NUMBER))
 
     fun decrease(): TicketCount = TicketCount((numberOfPeople - 1).coerceAtMost(MAX_BOOKER_NUMBER))
 
