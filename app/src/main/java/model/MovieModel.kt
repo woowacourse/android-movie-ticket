@@ -5,7 +5,7 @@ import java.io.Serializable
 
 data class MovieModel(
     val title: String,
-    val runningTime: Int,
+    val runTime: Int,
     val summary: String,
 
     @DrawableRes

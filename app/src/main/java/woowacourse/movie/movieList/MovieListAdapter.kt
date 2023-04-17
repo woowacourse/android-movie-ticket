@@ -3,8 +3,10 @@ package woowacourse.movie.movieList
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import model.ReservationModel
 import model.ScreeningModel
 import woowacourse.movie.R
+import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val items: List<ScreeningModel>,
@@ -43,9 +45,17 @@ class MovieListAdapter(
             .bind(
                 posterResource = screeningModel.poster,
                 title = screeningModel.title,
-                date = screeningModel.getReserveDateRange(),
-                runningTime = view.context.getString(R.string.movie_running_time).format(screeningModel.runningTime),
+                date = getScreeningDate(screeningModel.reservationModel),
+                runningTime = view.context.getString(R.string.movie_running_time).format(screeningModel.runTime),
                 onClickButton = { onClickButton(screeningModel) },
             )
+    }
+
+    private fun getScreeningDate(reservationModel: ReservationModel): String {
+        return "${reservationModel.startDate.format(dateTimeFormatter)} ~ ${reservationModel.endDate.format(dateTimeFormatter)}"
+    }
+
+    companion object {
+        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }

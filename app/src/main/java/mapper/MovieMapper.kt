@@ -6,13 +6,13 @@ import model.MovieModel
 
 fun MovieModel.toMovie() = Movie(
     title = title,
-    runningTime = runningTime,
+    runningTime = runTime,
     summary = summary,
 )
 
 fun Movie.toMovieModel(@DrawableRes poster: Int) = MovieModel(
     title = title,
-    runningTime = runningTime,
+    runTime = runningTime,
     summary = summary,
     poster = poster,
 )

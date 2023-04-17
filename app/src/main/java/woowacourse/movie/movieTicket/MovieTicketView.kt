@@ -5,6 +5,7 @@ import android.widget.TextView
 import model.TicketModel
 import woowacourse.movie.R
 import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
 
 class MovieTicketView(
     private val view: View,
@@ -16,13 +17,13 @@ class MovieTicketView(
 
     fun update(ticket: TicketModel) {
         titleView.text = ticket.title
-        countView.text = ticket.getReserveDate()
+        countView.text = ticket.reserveTime.format(DATE_FORMATTER)
         releaseDateView.text = view.context.getString(R.string.movie_ticket_count).format(ticket.peopleNumber)
-        totalPriceView.text = view.context.getString(R.string.movie_ticket_total_price)
-            .format(decimalFormat.format(ticket.getTotalPrice()))
+        totalPriceView.text = view.context.getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.getTotalPrice()))
     }
 
     companion object {
+        private val DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private val decimalFormat = DecimalFormat("#,###")
     }
 }
