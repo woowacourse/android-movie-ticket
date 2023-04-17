@@ -15,6 +15,11 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.ReservationModel
+import woowacourse.movie.util.MOVIE_INTENT_KEY
+import woowacourse.movie.util.RESERVATION_INTENT_KEY
+import woowacourse.movie.util.SCREENING_DATE_INSTANCE_KEY
+import woowacourse.movie.util.SCREENING_TIME_INSTANCE_KEY
+import woowacourse.movie.util.TICKET_COUNT_INSTANCE_KEY
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -56,7 +61,7 @@ class ReservationActivity : AppCompatActivity() {
         findViewById(R.id.reservation_complete_button)
     }
     private val movieModel: MovieModel by lazy {
-        intent.getSerializableExtra(getString(R.string.movie_key)) as MovieModel
+        intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,9 +80,9 @@ class ReservationActivity : AppCompatActivity() {
         val selectedDate: LocalDate = screeningDateSpinner.selectedItem as LocalDate
         val selectedTime: LocalTime = screeningTimeSpinner.selectedItem as LocalTime
 
-        outState.putInt("ticket_count", ticketCountTextView.text.toString().toInt())
-        outState.putLong("screening_date", selectedDate.toEpochDay())
-        outState.putString("screening_time", selectedTime.toString())
+        outState.putInt(TICKET_COUNT_INSTANCE_KEY, ticketCountTextView.text.toString().toInt())
+        outState.putLong(SCREENING_DATE_INSTANCE_KEY, selectedDate.toEpochDay())
+        outState.putString(SCREENING_TIME_INSTANCE_KEY, selectedTime.toString())
     }
 
     private fun initReservationView() {
@@ -100,7 +105,7 @@ class ReservationActivity : AppCompatActivity() {
             ticketCountTextView.text = TicketCount.MINIMUM.toString()
             return
         }
-        val ticketCount: Int = savedInstanceState.getInt(getString(R.string.ticket_count_key))
+        val ticketCount: Int = savedInstanceState.getInt(TICKET_COUNT_INSTANCE_KEY)
         ticketCountTextView.text = ticketCount.toString()
     }
 
@@ -135,9 +140,9 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun loadSpinner(savedInstanceState: Bundle) {
         val screeningDate: LocalDate =
-            LocalDate.ofEpochDay(savedInstanceState.getLong(getString(R.string.screening_date_key)))
+            LocalDate.ofEpochDay(savedInstanceState.getLong(SCREENING_DATE_INSTANCE_KEY))
         val screeningTime: LocalTime =
-            LocalTime.parse(savedInstanceState.getString(getString(R.string.screening_time_key)))
+            LocalTime.parse(savedInstanceState.getString(SCREENING_TIME_INSTANCE_KEY))
 
         val selectedDatePosition: Int =
             movieModel.screeningPeriod.getScreeningDates().indexOf(screeningDate)
@@ -193,7 +198,7 @@ class ReservationActivity : AppCompatActivity() {
             val reservationModel: ReservationModel =
                 ReservationModel.from(movieModel, ticketCount, LocalDateTime.of(screeningDate, screeningTime))
             val intent = Intent(this, ReservationResultActivity::class.java)
-            intent.putExtra(getString(R.string.reservation_key), reservationModel)
+            intent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
             startActivity(intent)
             finish()
         }

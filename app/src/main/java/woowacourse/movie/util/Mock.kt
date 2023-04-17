@@ -1,4 +1,4 @@
-package woowacourse.movie.mock
+package woowacourse.movie.util
 
 import woowacourse.movie.R
 import woowacourse.movie.domain.movie.Name
