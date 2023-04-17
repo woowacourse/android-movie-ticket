@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.view.viewmodel.MovieUIModel
 import woowacourse.movie.view.viewmodel.TicketUIModel
-import woowacourse.movie.view.viewmodel.toMovie
 import woowacourse.movie.view.viewmodel.toTicket
 import java.time.format.DateTimeFormatter
 
@@ -19,12 +17,12 @@ class TicketActivity : BaseActivity() {
         val ticketUI = intent.getSerializableExtra(TICKET_KEY) as TicketUIModel
         val movieUI = intent.getSerializableExtra(MOVIE_KEY) as MovieUIModel
 
-        setUpView(ticketUI.toTicket(), movieUI.toMovie())
+        setUpView(ticketUI.toTicket(), movieUI)
 
         setBackToBefore(R.id.ticket_toolbar)
     }
 
-    private fun setUpView(ticket: Ticket, movie: Movie) {
+    private fun setUpView(ticket: Ticket, movie: MovieUIModel) {
         val movieTitle = findViewById<TextView>(R.id.ticket_title)
         val movieDate = findViewById<TextView>(R.id.ticket_date)
         val numberOfPeople = findViewById<TextView>(R.id.ticket_numberOfPeople)

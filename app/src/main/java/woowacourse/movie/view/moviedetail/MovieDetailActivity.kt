@@ -11,11 +11,9 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.CountNumberOfPeople
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.view.BaseActivity
 import woowacourse.movie.view.TicketActivity
 import woowacourse.movie.view.viewmodel.MovieUIModel
-import woowacourse.movie.view.viewmodel.toMovie
 import woowacourse.movie.view.viewmodel.toUIModel
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -45,12 +43,12 @@ class MovieDetailActivity : BaseActivity() {
         val movieUI = intent.getSerializableExtra(MOVIE_KEY) as MovieUIModel
 
         setDateSpinner(movieUI.startDate, movieUI.endDate)
-        setUpMovieData(movieUI.toMovie())
+        setUpMovieData(movieUI)
         setNumberOfPeople()
-        clickBookBtn(movieUI.toMovie())
+        clickBookBtn(movieUI)
     }
 
-    private fun setUpMovieData(movie: Movie) {
+    private fun setUpMovieData(movie: MovieUIModel) {
         val moviePoster = findViewById<ImageView>(R.id.movie_poster)
         val movieTitle = findViewById<TextView>(R.id.movie_title)
         val screeningDate = findViewById<TextView>(R.id.screening_date)
@@ -98,7 +96,7 @@ class MovieDetailActivity : BaseActivity() {
         }
     }
 
-    private fun clickBookBtn(movie: Movie) {
+    private fun clickBookBtn(movie: MovieUIModel) {
         val bookBtn = findViewById<Button>(R.id.book_button)
         bookBtn.setOnClickListener {
             val selectedDate = LocalDate.parse(selectDateSpinner.selectedItem.toString())
@@ -111,7 +109,7 @@ class MovieDetailActivity : BaseActivity() {
                 )
             val intent = Intent(this, TicketActivity::class.java)
             intent.putExtra(TICKET_KEY, ticket.toUIModel())
-            intent.putExtra(MOVIE_KEY, movie.toUIModel())
+            intent.putExtra(MOVIE_KEY, movie)
             startActivity(intent)
         }
     }
