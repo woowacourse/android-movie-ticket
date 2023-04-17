@@ -168,7 +168,7 @@ class MovieDetailActivity : AppCompatActivity() {
             peopleCount
         )
 
-        val intent = Intent(this, MovieTicketActivity::class.java)
+        val intent = Intent(this, SeatPickerActivity::class.java)
         intent.putExtra("ticket", mapToMovieTicketModel(ticket))
         startActivity(intent)
     }
