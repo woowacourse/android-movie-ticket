@@ -29,9 +29,4 @@ object ScreeningTimes {
         SATURDAY, SUNDAY -> getHours(WEEKEND_START, END, TIME_STEP)
         null -> throw NullPointerException()
     }
-
-    fun getScreeningDates(start: LocalDate, end: LocalDate): List<LocalDate> {
-        val numberOfDays: Int = start.until(end).days
-        return (0..numberOfDays).map { (start.plusDays(it.toLong())) }
-    }
 }
