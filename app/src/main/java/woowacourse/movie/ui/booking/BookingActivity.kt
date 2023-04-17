@@ -9,11 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.ScreeningTimes
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
+import woowacourse.movie.ui.MovieService
+import woowacourse.movie.ui.MovieUiModel
 import woowacourse.movie.ui.completed.CompletedActivity
 import java.time.LocalDate
 import java.time.LocalTime
@@ -58,18 +58,18 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun getMovie(): Movie {
+    private fun getMovie(): MovieUiModel {
         val movieId = intent.getLongExtra(MOVIE_ID, -1)
-        return MovieData.findMovieById(movieId)
+        return MovieService.getMovie(movieId)
     }
 
-    private fun gatherClickListeners(movie: Movie) {
+    private fun gatherClickListeners(movie: MovieUiModel) {
         clickMinus()
         clickPlus()
         clickBookingComplete(movie)
     }
 
-    private fun initView(movie: Movie) {
+    private fun initView(movie: MovieUiModel) {
         findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
@@ -97,7 +97,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickBookingComplete(movie: Movie) {
+    private fun clickBookingComplete(movie: MovieUiModel) {
         findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
             val dateTime = dateTimeSpinner.selectedDateTime
             val ticket = movie.reserve(dateTime, ticketCount.value)
@@ -105,7 +105,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun initDateTimes(movie: Movie) {
+    private fun initDateTimes(movie: MovieUiModel) {
         val dates: List<LocalDate> = movie.screeningDates
         val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
         dateTimeSpinner.initDateItems(dates)

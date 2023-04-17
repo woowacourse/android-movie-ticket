@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.formatScreenDateTime
+import woowacourse.movie.ui.MovieService
 import woowacourse.movie.util.getParcelable
 
 class CompletedActivity : AppCompatActivity() {
@@ -32,7 +32,7 @@ class CompletedActivity : AppCompatActivity() {
     }
 
     private fun initView(ticket: Ticket) {
-        val movie = MovieData.findMovieById(ticket.movieId)
+        val movie = MovieService.getMovie(ticket.movieId)
         findViewById<TextView>(R.id.textCompletedTitle).text = movie.title
         findViewById<TextView>(R.id.textCompletedScreeningDate).text =
             ticket.bookedDateTime.formatScreenDateTime()
