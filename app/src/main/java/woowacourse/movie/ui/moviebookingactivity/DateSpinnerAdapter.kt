@@ -20,6 +20,10 @@ class DateSpinnerAdapter(
         screeningPeriod.getScreeningDates()
     )
 
+    init {
+        initAdapter()
+    }
+
     fun initAdapter() {
         dateSpinner.adapter = dateAdapter
         setOnItemSelectedListener()

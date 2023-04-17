@@ -22,6 +22,10 @@ class TimeSpinnerAdapter(
         times
     )
 
+    init {
+        initAdapter()
+    }
+
     fun initAdapter() {
         timeSpinner.adapter = timeAdapter
     }

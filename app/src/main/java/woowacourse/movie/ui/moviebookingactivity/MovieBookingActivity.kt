@@ -71,7 +71,7 @@ class MovieBookingActivity : AppCompatActivity() {
                 movieData.screeningDay,
                 timeSpinnerRecoverState,
                 this
-            ).apply { initAdapter() }
+            )
         dateSpinnerAdapter =
             DateSpinnerAdapter(
                 dateSpinner,
@@ -79,7 +79,6 @@ class MovieBookingActivity : AppCompatActivity() {
                 movieData.screeningDay,
                 this
             )
-                .apply { initAdapter() }
     }
 
     private fun initExtraData() {
