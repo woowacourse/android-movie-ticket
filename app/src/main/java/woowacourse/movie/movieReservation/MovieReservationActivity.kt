@@ -11,9 +11,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import movie.DiscountFunc
-import movie.DiscountPolicy
 import movie.TicketCount
+import movie.discountpolicy.DiscountPolicy
+import movie.discountpolicy.NormalDiscountPolicy
 import movie.screening.ScreeningTime
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
@@ -25,6 +25,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
+
     private val movieScheduleUi by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as MovieScheduleUi }
     private var ticketCount = TicketCount(1)
     private var selectedPosition = 0
@@ -38,10 +39,7 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
 
         updateMovieView()
-
-        registerToolbar()
         registerListener()
-
         updateInstanceState(savedInstanceState)
     }
 
@@ -90,14 +88,11 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerToolbar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
     private fun registerListener() {
         registerCountButton()
         registerReservationButton()
         registerSpinnerListener()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun registerCountButton() {
@@ -128,7 +123,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 timeSpinner.setSelection(selectedPosition)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
@@ -144,11 +139,11 @@ class MovieReservationActivity : AppCompatActivity() {
             val intent = Intent(this, MovieTicketActivity::class.java)
             val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
-            val discountPolicy: DiscountFunc = DiscountPolicy.of(selectedDate, selectedTime)
+            val eachPrice = decideEachPrice(NormalDiscountPolicy(selectedDate, selectedTime))
 
             kotlin.runCatching {
                 val movieTicketUi = MovieTicketUi(
-                    eachPrice = discountPolicy(MOVIE_TICKET_PRICE),
+                    eachPrice = eachPrice,
                     count = ticketCount,
                     title = movieScheduleUi.title,
                     date = selectedDate,
@@ -162,8 +157,12 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
+    private fun decideEachPrice(discountPolicy: DiscountPolicy): Int {
+        return discountPolicy.getDiscountPrice(MOVIE_TICKET_PRICE)
+    }
+
     companion object {
-        private const val MOVIE_TICKET_PRICE = 13000
+        private const val MOVIE_TICKET_PRICE = 13_000
         private const val KEY_COUNT = "count"
         private const val KEY_TIME = "time"
         const val KEY_MOVIE_SCHEDULE = "movieScheduleUi"
