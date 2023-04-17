@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import mapper.toScreening
 import mapper.toTicketModel
 import model.ScreeningModel
+import movie.Cinema
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 
@@ -74,9 +75,8 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun onReservationButtonClicked() {
-        val movieTicket = screeningModel
-            .toScreening()
-            .reserve(navigate.ticketCount, navigate.selectedDateTime)
+        val movieTicket = Cinema()
+            .reserveMovieTicket(screeningModel.toScreening(), navigate.ticketCount, navigate.selectedDateTime)
             .toTicketModel()
 
         startActivity(
