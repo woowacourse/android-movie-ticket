@@ -9,6 +9,7 @@ import woowacourse.movie.domain.data.MovieData
 import woowacourse.movie.domain.data.MovieDummyData
 import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.view.moviedetail.MovieDetailActivity
+import woowacourse.movie.view.viewmodel.toUIModel
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class MovieListActivity : AppCompatActivity() {
             object : MovieListViewAdapter.OnBookListener {
                 override fun onClick(movie: Movie) {
                     val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
-                    intent.putExtra(MOVIE_KEY, movie)
+                    intent.putExtra(MOVIE_KEY, movie.toUIModel())
                     startActivity(intent)
                 }
             }

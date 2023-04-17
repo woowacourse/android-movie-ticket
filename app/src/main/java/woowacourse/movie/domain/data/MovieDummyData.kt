@@ -2,14 +2,14 @@ package woowacourse.movie.domain.data
 
 import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.domain.movieinfo.RunningDate
 import java.time.LocalDate
 
 object MovieDummyData : MovieData {
     private val dummyData = listOf(
         Movie(
             title = "해리포터",
-            runningDate = RunningDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 4, 1)),
+            startDate = LocalDate.of(2024, 3, 1),
+            endDate = LocalDate.of(2024, 4, 1),
             runningTime = 200,
             description = "오래전 사악한 마법사 볼드모트에게서 부모를 잃지만 그를 몰락시키고 살아남은 아이 해리 포터는 자신이 마법사라는 사실을 알지 못하고 친척인 더즐리 집안에서 자라게 된다.\n" +
                 "        친척들로부터 갖은 구박을 받으며 힘든 나날을 보내던 도중, 11세가 되던 해에 해리에게로 마법 학교인 호그와트의 입학 통지서가 오게 된다.\n" +

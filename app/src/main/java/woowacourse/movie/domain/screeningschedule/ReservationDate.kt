@@ -1,12 +1,10 @@
 package woowacourse.movie.domain.screeningschedule
 
-import woowacourse.movie.domain.movieinfo.RunningDate
+import java.time.LocalDate
 
-class ReservationDate(private val runningDate: RunningDate) {
+class ReservationDate(private val startDay: LocalDate, private val endDay: LocalDate) {
 
     fun getIntervalDays(): List<String> {
-        val startDay = runningDate.startDate
-        val endDay = runningDate.endDate
 
         return generateSequence(startDay) { it.plusDays(1) }
             .takeWhile { !it.isAfter(endDay) }

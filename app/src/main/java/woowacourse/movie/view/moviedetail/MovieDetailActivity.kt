@@ -12,9 +12,11 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.CountNumberOfPeople
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieinfo.Movie
-import woowacourse.movie.domain.movieinfo.RunningDate
 import woowacourse.movie.view.BaseActivity
 import woowacourse.movie.view.TicketActivity
+import woowacourse.movie.view.viewmodel.MovieUIModel
+import woowacourse.movie.view.viewmodel.toMovie
+import woowacourse.movie.view.viewmodel.toUIModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -40,12 +42,12 @@ class MovieDetailActivity : BaseActivity() {
             timeSpinnerPosition = savedInstanceState.getInt(TIME_SPINNER_POSITION)
         }
 
-        val movie = intent.getSerializableExtra(MOVIE_KEY) as Movie
+        val movieUI = intent.getSerializableExtra(MOVIE_KEY) as MovieUIModel
 
-        setDateSpinner(movie.runningDate)
-        setUpMovieData(movie)
+        setDateSpinner(movieUI.startDate, movieUI.endDate)
+        setUpMovieData(movieUI.toMovie())
         setNumberOfPeople()
-        clickBookBtn(movie)
+        clickBookBtn(movieUI.toMovie())
     }
 
     private fun setUpMovieData(movie: Movie) {
@@ -59,10 +61,10 @@ class MovieDetailActivity : BaseActivity() {
         movieTitle.text = movie.title
 
         val startDate =
-            movie.runningDate.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+            movie.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
         val endDate =
-            movie.runningDate.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+            movie.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
         screeningDate.text = this.getString(R.string.screen_date, startDate, endDate)
 
@@ -108,15 +110,15 @@ class MovieDetailActivity : BaseActivity() {
                     numberOfBooker,
                 )
             val intent = Intent(this, TicketActivity::class.java)
-            intent.putExtra(TICKET_KEY, ticket)
-            intent.putExtra(MOVIE_KEY, movie)
+            intent.putExtra(TICKET_KEY, ticket.toUIModel())
+            intent.putExtra(MOVIE_KEY, movie.toUIModel())
             startActivity(intent)
         }
     }
 
-    private fun setDateSpinner(date: RunningDate) {
+    private fun setDateSpinner(startDate: LocalDate, endDate: LocalDate) {
         val spinnerAdapter = SpinnerAdapter(this)
-        selectDateSpinner.adapter = spinnerAdapter.getDateSpinnerAdapter(date)
+        selectDateSpinner.adapter = spinnerAdapter.getDateSpinnerAdapter(startDate, endDate)
         selectDateSpinner.setSelection(dateSpinnerPosition)
 
         selectDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

@@ -50,9 +50,9 @@ class MovieListViewAdapter(
         holder.moviePoster.setImageResource(item.moviePoster)
         holder.movieTitle.text = item.title
         val startDate =
-            item.runningDate.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+            item.startDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
         val endDate =
-            item.runningDate.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
+            item.endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
         holder.screeningDate.text = context.getString(R.string.screen_date, startDate, endDate)
         holder.runningTime.text = context.getString(R.string.running_time, item.runningTime)
         holder.bookBtn.setOnClickListener {
