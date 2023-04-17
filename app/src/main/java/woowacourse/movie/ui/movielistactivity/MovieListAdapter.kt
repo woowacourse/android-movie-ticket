@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.MovieData
+import woowacourse.movie.ui.model.MovieUIModel
 
-class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
+class MovieListAdapter(private val movies: List<MovieUIModel>) : BaseAdapter() {
     private lateinit var inflater: LayoutInflater
     private var viewHolderPool: MutableMap<View, MovieViewHolder> = mutableMapOf()
 

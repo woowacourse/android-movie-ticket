@@ -6,11 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
-import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.domain.price.*
 import woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy
 import woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator
 import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
+import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.util.customGetParcelableExtra
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -18,7 +18,7 @@ import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
 
-    lateinit var movieData: MovieData
+    lateinit var movieData: MovieUIModel
     var ticketCount by Delegates.notNull<Int>()
     lateinit var bookedScreeningDateTime: ScreeningDateTime
 
@@ -31,9 +31,9 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetParcelableExtra<MovieData>(MOVIE_DATA) ?: run {
+        movieData = intent.customGetParcelableExtra<MovieUIModel>(MOVIE_DATA) ?: run {
             finish()
-            MovieData(
+            MovieUIModel(
                 R.drawable.img_error,
                 "-1",
                 ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31")),

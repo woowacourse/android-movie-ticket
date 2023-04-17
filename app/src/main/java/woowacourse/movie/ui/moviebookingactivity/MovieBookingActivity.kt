@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
-import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
+import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
@@ -21,7 +21,7 @@ import java.time.LocalTime
 
 class MovieBookingActivity : AppCompatActivity() {
 
-    lateinit var movieData: MovieData
+    lateinit var movieData: MovieUIModel
     lateinit var tvTicketCount: TextView
     lateinit var dateSpinner: Spinner
     lateinit var timeSpinner: Spinner
@@ -82,13 +82,16 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetParcelableExtra<MovieData>(MOVIE_DATA) ?: run {
+        movieData = intent.customGetParcelableExtra<MovieUIModel>(MOVIE_DATA) ?: run {
             finish()
-            MovieData(
-                R.drawable.img_error,
-                "-1",
-                ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31")),
-                -1
+            MovieUIModel(
+                posterImage = R.drawable.img_error,
+                title = "-1",
+                screeningDay = ScreeningPeriod(
+                    LocalDate.parse("9999-12-30"),
+                    LocalDate.parse("9999-12-31")
+                ),
+                runningTime = -1
             )
         }
     }

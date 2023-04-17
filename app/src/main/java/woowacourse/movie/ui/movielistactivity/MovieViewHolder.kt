@@ -5,8 +5,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.MovieData
 import woowacourse.movie.ui.DateTimeFormatters.hyphenDateFormatter
+import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
 import woowacourse.movie.util.getString
 import woowacourse.movie.util.setOnSingleClickListener
@@ -18,7 +18,7 @@ class MovieViewHolder(
     val tvRunningTime: TextView,
     val btnBooking: Button
 ) {
-    fun setData(itemData: MovieData) {
+    fun setData(itemData: MovieUIModel) {
         ivPoster.setImageResource(itemData.posterImage)
         tvMovieName.text = itemData.title
         tvScreeningDay.text = tvScreeningDay.getString(R.string.screening_date_format)

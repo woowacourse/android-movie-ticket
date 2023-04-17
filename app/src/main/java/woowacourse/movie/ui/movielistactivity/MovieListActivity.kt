@@ -5,7 +5,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningPeriod
-import woowacourse.movie.domain.movie.MovieData
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.model.MovieUIModel.Companion.movieToMovieUiModel
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
@@ -27,9 +28,9 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initMovieListAdapter() {
+        // temp Movies 는 서버 어딘가에서 받아오는 것이라 가정
         val tempMovies = List(1000) {
-            MovieData(
-                posterImage = R.drawable.harrypotter_poster,
+            Movie(
                 title = "해리 포터와 마법사의 돌$it",
                 screeningDay = ScreeningPeriod(
                     LocalDate.parse("2023-04-01"),
@@ -39,7 +40,9 @@ class MovieListActivity : AppCompatActivity() {
                 description = this.getString(R.string.dummy_data)
             )
         }
-        movieListAdapter = MovieListAdapter(tempMovies)
+
+        val movieUIModels = tempMovies.map { movie: Movie -> movie.movieToMovieUiModel() }
+        movieListAdapter = MovieListAdapter(movieUIModels)
     }
 
     private fun initMovieListView() {
