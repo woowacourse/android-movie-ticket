@@ -11,4 +11,15 @@ class MovieTicketUi(
     val title: String,
     val date: LocalDate,
     val time: LocalTime,
-) : Serializable
+) : Serializable {
+
+    companion object {
+        val EMPTY_STATE: MovieTicketUi = MovieTicketUi(
+            0,
+            TicketCount(0),
+            "",
+            LocalDate.MIN,
+            LocalTime.MIN,
+        )
+    }
+}

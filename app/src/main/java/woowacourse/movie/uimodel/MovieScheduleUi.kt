@@ -11,4 +11,16 @@ class MovieScheduleUi(
     val startDate: LocalDate,
     val endDate: LocalDate,
     @DrawableRes val poster: Int,
-) : Serializable
+) : Serializable {
+
+    companion object {
+        val EMPTY_STATE: MovieScheduleUi = MovieScheduleUi(
+            "",
+            0,
+            "",
+            LocalDate.MIN,
+            LocalDate.MIN,
+            0,
+        )
+    }
+}

@@ -16,6 +16,7 @@ import movie.discountpolicy.DiscountPolicy
 import movie.discountpolicy.NormalDiscountPolicy
 import movie.screening.ScreeningTime
 import woowacourse.movie.R
+import woowacourse.movie.extension.getSerializableScheduleOrNull
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.uimodel.MovieScheduleUi
 import woowacourse.movie.uimodel.MovieTicketUi
@@ -26,7 +27,14 @@ import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
 
-    private val movieScheduleUi by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as? MovieScheduleUi ?: throw IllegalArgumentException() }
+    private val movieScheduleUi by lazy {
+        intent.getSerializableScheduleOrNull()
+            ?: run {
+                finish()
+                Toast.makeText(this, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()
+                MovieScheduleUi.EMPTY_STATE
+            }
+    }
     private var ticketCount = TicketCount(1)
     private var selectedPosition = 0
 
