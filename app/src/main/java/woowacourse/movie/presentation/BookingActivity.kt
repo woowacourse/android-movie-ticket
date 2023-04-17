@@ -58,12 +58,12 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun restoreData(savedInstanceState: Bundle?) {
-        if (savedInstanceState != null) {
-            with(savedInstanceState) {
-                ticketCount = TicketCount(getInt(TICKET_COUNT))
-                dateSpinner.setSelection(getInt(DATE_POSITION), false)
-                timeSpinner.setSelection(getInt(TIME_POSITION), false)
-            }
+        savedInstanceState ?: return
+
+        with(savedInstanceState) {
+            ticketCount = TicketCount(getInt(TICKET_COUNT))
+            dateSpinner.setSelection(getInt(DATE_POSITION), false)
+            timeSpinner.setSelection(getInt(TIME_POSITION), false)
         }
     }
 
