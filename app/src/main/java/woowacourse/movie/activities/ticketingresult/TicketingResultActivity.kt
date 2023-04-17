@@ -10,9 +10,9 @@ import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketing.TicketingActivity
 import woowacourse.movie.extensions.getParcelableCompat
-import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.Ticket
-import woowacourse.movie.model.mapper.toDomain
+import woowacourse.movie.model.ReservationUI
+import woowacourse.movie.model.TicketUI
+import woowacourse.movie.model.mapper.toReservation
 import java.time.LocalDateTime
 
 class TicketingResultActivity : AppCompatActivity() {
@@ -26,13 +26,13 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation() {
-        intent.getParcelableCompat<Reservation>(TicketingActivity.RESERVATION_KEY)?.run {
+        intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY)?.run {
             setReservationInfo(this)
         }
     }
 
-    private fun setReservationInfo(reservation: Reservation) {
-        with(reservation) {
+    private fun setReservationInfo(reservationUI: ReservationUI) {
+        with(reservationUI) {
             findViewById<TextView>(R.id.tv_title).text = movie.title
             setDateTime(dateTime)
             setTicketCount(ticket)
@@ -51,19 +51,19 @@ class TicketingResultActivity : AppCompatActivity() {
         )
     }
 
-    private fun setTicketCount(ticket: Ticket) {
+    private fun setTicketCount(ticket: TicketUI) {
         findViewById<TextView>(R.id.tv_regular_count).text =
             getString(R.string.regular_count, ticket.count)
     }
 
-    private fun setPayment(reservation: Reservation) {
+    private fun setPayment(reservationUI: ReservationUI) {
         findViewById<TextView>(R.id.tv_pay_result).text =
             getString(
                 R.string.movie_pay_result,
                 DiscountDecorator(
-                    reservation.dateTime.toLocalDate(),
-                    reservation.dateTime.toLocalTime()
-                ).calculatePrice(reservation.toDomain()),
+                    reservationUI.dateTime.toLocalDate(),
+                    reservationUI.dateTime.toLocalTime()
+                ).calculatePrice(reservationUI.toReservation()),
                 getString(R.string.on_site_payment)
             )
     }

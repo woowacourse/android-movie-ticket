@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.adapter.MovieListAdapter
 import woowacourse.movie.activities.ticketing.TicketingActivity
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieUI
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,13 +18,13 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun setAdapter() {
         val lvMovies: ListView = findViewById(R.id.lv_movies)
-        val listAdapter = MovieListAdapter(Movie.provideDummy()) { movie ->
+        val listAdapter = MovieListAdapter(MovieUI.provideDummy()) { movie ->
             onBookClick(movie)
         }
         lvMovies.adapter = listAdapter
     }
 
-    private fun onBookClick(item: Movie) {
+    private fun onBookClick(item: MovieUI) {
         val intent = Intent(this@MovieListActivity, TicketingActivity::class.java)
         intent.putExtra(MOVIE_KEY, item)
         startActivity(intent)

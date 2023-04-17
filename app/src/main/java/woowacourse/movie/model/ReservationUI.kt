@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class Reservation(
-    val movie: Movie,
+data class ReservationUI(
+    val movie: MovieUI,
     val dateTime: LocalDateTime,
-    val ticket: Ticket
+    val ticket: TicketUI
 ) : Parcelable

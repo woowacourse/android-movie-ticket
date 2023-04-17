@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @JvmInline
 @Parcelize
-value class Ticket(val count: Int = MIN_TICKET_COUNT) : Parcelable {
+value class TicketUI(val count: Int = MIN_TICKET_COUNT) : Parcelable {
     companion object {
         private const val MIN_TICKET_COUNT = 1
     }

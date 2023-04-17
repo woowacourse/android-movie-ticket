@@ -8,7 +8,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Parcelize
-data class Movie(
+data class MovieUI(
     val title: String,
     val startDate: LocalDate,
     val endDate: LocalDate,
@@ -22,8 +22,8 @@ data class Movie(
     companion object {
         private const val MOVIE_DATE_PATTERN = "yyyy.MM.dd"
 
-        fun provideDummy(): List<Movie> = List(10) {
-            Movie(
+        fun provideDummy(): List<MovieUI> = List(10) {
+            MovieUI(
                 "해리 포터와 마법사의 돌 ${it + 1}",
                 LocalDate.of(2023, 4, 1),
                 LocalDate.of(2023, 4, 30),

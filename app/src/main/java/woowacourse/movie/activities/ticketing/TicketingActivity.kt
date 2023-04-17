@@ -19,11 +19,11 @@ import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketingresult.TicketingResultActivity
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.extensions.showToast
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.Ticket
-import woowacourse.movie.model.mapper.toDomain
-import woowacourse.movie.model.mapper.toPresentation
+import woowacourse.movie.model.MovieUI
+import woowacourse.movie.model.ReservationUI
+import woowacourse.movie.model.TicketUI
+import woowacourse.movie.model.mapper.toTicket
+import woowacourse.movie.model.mapper.toTicketUI
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -32,14 +32,14 @@ import java.time.format.DateTimeFormatter
 class TicketingActivity : AppCompatActivity(), OnClickListener {
     private val runningDate = RunningDate()
     private val runningTime = RunningTime()
-    private var movieTicket: Ticket = Ticket()
+    private var movieTicket: TicketUI = TicketUI()
 
-    private val movie: Movie? by lazy {
+    private val movie: MovieUI? by lazy {
         intent.getParcelableCompat(MovieListActivity.MOVIE_KEY)
     }
 
     private val movieDates: List<LocalDate> by lazy {
-        intent.getParcelableCompat<Movie>(MovieListActivity.MOVIE_KEY)
+        intent.getParcelableCompat<MovieUI>(MovieListActivity.MOVIE_KEY)
             ?.run {
                 runningDate.getRunningDates(startDate, endDate)
             } ?: emptyList()
@@ -49,7 +49,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, mutableListOf())
     }
-    private var reservation: Reservation? = null
+    private var reservation: ReservationUI? = null
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
 
@@ -89,7 +89,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     private fun restoreState(savedInstanceState: Bundle) {
         savedInstanceState.run {
-            reservation = getParcelableCompat<Reservation>(RESERVATION_KEY)?.apply {
+            reservation = getParcelableCompat<ReservationUI>(RESERVATION_KEY)?.apply {
                 selectedDate = dateTime.toLocalDate()?.apply { initMovieTimes(this) }
                 selectedTime = dateTime.toLocalTime()
                 movieTicket = ticket
@@ -181,13 +181,13 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                var movieTicket = movieTicket.toDomain()
-                this.movieTicket = (--movieTicket).toPresentation()
+                var movieTicket = movieTicket.toTicket()
+                this.movieTicket = (--movieTicket).toTicketUI()
                 tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_plus -> {
-                var movieTicket = movieTicket.toDomain()
-                this.movieTicket = (++movieTicket).toPresentation()
+                var movieTicket = movieTicket.toTicket()
+                this.movieTicket = (++movieTicket).toTicketUI()
                 tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_ticketing -> {
@@ -197,7 +197,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                 }
 
                 val intent = Intent(this@TicketingActivity, TicketingResultActivity::class.java)
-                reservation = Reservation(
+                reservation = ReservationUI(
                     movie!!,
                     LocalDateTime.of(selectedDate!!, selectedTime!!),
                     movieTicket
@@ -223,7 +223,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        reservation = Reservation(
+        reservation = ReservationUI(
             movie!!,
             LocalDateTime.of(selectedDate, selectedTime),
             movieTicket

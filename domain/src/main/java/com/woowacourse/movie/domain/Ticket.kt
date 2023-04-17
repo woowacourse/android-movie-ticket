@@ -1,11 +1,7 @@
 package com.woowacourse.movie.domain
 
-import java.io.Serializable
-
-typealias TicketDomain = Ticket
-
 @JvmInline
-value class Ticket(val count: Int = MIN_TICKET_COUNT) : Serializable {
+value class Ticket(val count: Int = MIN_TICKET_COUNT) {
     init {
         require(count >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }

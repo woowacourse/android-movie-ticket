@@ -1,9 +1,6 @@
 package com.woowacourse.movie.domain
 
 import java.time.LocalDate
-
-typealias MovieDomain = Movie
-
 data class Movie(
     val title: String,
     val startDate: LocalDate,

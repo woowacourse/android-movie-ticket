@@ -1,10 +1,10 @@
 package woowacourse.movie.model.mapper
 
-import com.woowacourse.movie.domain.ReservationDomain
-import woowacourse.movie.model.Reservation
+import com.woowacourse.movie.domain.Reservation
+import woowacourse.movie.model.ReservationUI
 
-fun Reservation.toDomain(): ReservationDomain =
-    ReservationDomain(movie.toDomain(), dateTime, ticket.toDomain())
+fun ReservationUI.toReservation(): Reservation =
+    Reservation(movie.toMovie(), dateTime, ticket.toTicket())
 
-fun ReservationDomain.toPresentation(): Reservation =
-    Reservation(movie.toPresentation(), dateTime, ticket.toPresentation())
+fun Reservation.toReservationUI(): ReservationUI =
+    ReservationUI(movie.toMovieUI(), dateTime, ticket.toTicketUI())

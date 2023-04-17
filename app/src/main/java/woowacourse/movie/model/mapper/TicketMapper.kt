@@ -1,8 +1,8 @@
 package woowacourse.movie.model.mapper
 
-import com.woowacourse.movie.domain.TicketDomain
-import woowacourse.movie.model.Ticket
+import com.woowacourse.movie.domain.Ticket
+import woowacourse.movie.model.TicketUI
 
-fun TicketDomain.toPresentation(): Ticket = Ticket(count)
+fun Ticket.toTicketUI(): TicketUI = TicketUI(count)
 
-fun Ticket.toDomain(): TicketDomain = TicketDomain(count)
+fun TicketUI.toTicket(): Ticket = Ticket(count)
