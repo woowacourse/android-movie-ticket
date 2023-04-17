@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- MovieListAdapter -->
-    <string name="movie_view_holder_tag_id">MOVIE_VIEW_HOLDER_TAG_ID</string>
-</resources>

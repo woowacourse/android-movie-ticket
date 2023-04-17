@@ -9,6 +9,7 @@ import woowacourse.movie.domain.movie.MovieData
 
 class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
     private lateinit var inflater: LayoutInflater
+    private var viewHolderPool: MutableMap<View, MovieViewHolder> = mutableMapOf()
 
     override fun getCount(): Int = movies.size
 
@@ -17,20 +18,22 @@ class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var viewHolder: MovieViewHolder?
+        var presentViewHolder: MovieViewHolder
         var itemLayout: View? = convertView
 
         if (convertView == null) {
             if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent?.context)
             itemLayout = inflater.inflate(R.layout.movie_list_item, null)
 
-            viewHolder = initMovieViewHolder(itemLayout)
-            itemLayout.setTag(R.string.movie_view_holder_tag_id, viewHolder)
+            presentViewHolder = initMovieViewHolder(itemLayout)
+            viewHolderPool[itemLayout] = presentViewHolder
         } else {
-            viewHolder = itemLayout?.getTag(R.string.movie_view_holder_tag_id) as MovieViewHolder
+            presentViewHolder = viewHolderPool[convertView] ?: throw IllegalStateException(
+                VIEW_HOLDER_POOL_VALUE_NULL_ERROR
+            )
         }
 
-        viewHolder.setData(movies[position])
+        presentViewHolder.setData(movies[position])
 
         return itemLayout ?: throw IllegalStateException(NULL_ITEM_LAYOUT_ERROR)
     }
@@ -46,5 +49,6 @@ class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
 
     companion object {
         private const val NULL_ITEM_LAYOUT_ERROR = "itemLayout이 null 값으로 반환되었습니다."
+        private const val VIEW_HOLDER_POOL_VALUE_NULL_ERROR = "리스트 뷰의 아이템의 뷰홀더가 null 입니다."
     }
 }
