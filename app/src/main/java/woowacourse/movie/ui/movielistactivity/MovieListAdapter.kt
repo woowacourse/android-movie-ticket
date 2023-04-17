@@ -25,9 +25,9 @@ class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
             itemLayout = inflater.inflate(R.layout.movie_list_item, null)
 
             viewHolder = initMovieViewHolder(itemLayout)
-            itemLayout.tag = viewHolder
+            itemLayout.setTag(MOVIE_VIEW_HOLDER_TAG_ID, viewHolder)
         } else {
-            viewHolder = itemLayout?.tag as MovieViewHolder
+            viewHolder = itemLayout?.getTag(MOVIE_VIEW_HOLDER_TAG_ID) as MovieViewHolder
         }
 
         viewHolder.setData(movies[position])
@@ -46,5 +46,6 @@ class MovieListAdapter(private val movies: List<MovieData>) : BaseAdapter() {
 
     companion object {
         private const val NULL_ITEM_LAYOUT_ERROR = "itemLayout이 null 값으로 반환되었습니다."
+        private const val MOVIE_VIEW_HOLDER_TAG_ID = 1
     }
 }
