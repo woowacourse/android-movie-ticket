@@ -39,7 +39,7 @@ class BookCompleteActivity : BackButtonActivity() {
             getString(R.string.book_person_count).format(movieBookingData.ticketCount)
         findViewById<TextView>(R.id.tv_book_total_pay).text =
             getString(R.string.book_total_pay).format(
-                TicketBundle(movieBookingData.ticketCount).calculateTotalPrice(
+                TicketBundle.create(movieBookingData.ticketCount).calculateTotalPrice(
                     movieBookingData.date,
                     movieBookingData.time
                 )
