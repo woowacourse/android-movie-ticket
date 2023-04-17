@@ -13,9 +13,8 @@ object PriceCalculator {
         playingDate: LocalDate,
         playingTime: LocalTime
     ): Price {
-        var calculatePrice = price
-        for (policy in policies) {
-            calculatePrice = policy.calculate(playingDate, playingTime, calculatePrice)
+        val calculatePrice = policies.fold(price) { calculatePrice, policy ->
+            policy.calculate(playingDate, playingTime, calculatePrice)
         }
         return calculatePrice
     }

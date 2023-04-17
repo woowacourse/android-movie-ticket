@@ -3,6 +3,7 @@ package woowacourse.movie.model
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 
 class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) : java.io.Serializable {
     private val _times: MutableMap<LocalDate, List<LocalTime>> = mutableMapOf()
@@ -10,10 +11,10 @@ class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) : java.io.S
         get() = _times.toMap()
 
     init {
-        var date = startDate
-        while (!date.isEqual(endDate.plusDays(1))) {
+        val days = ChronoUnit.DAYS.between(startDate, endDate)
+        (0 until days).fold(startDate) { date, plusDays ->
             _times[date] = makeTimes(date)
-            date = date.plusDays(1)
+            date.plusDays(plusDays)
         }
     }
 
