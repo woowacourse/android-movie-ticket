@@ -12,7 +12,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.*
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Payment
+import woowacourse.movie.model.PlayingTimes
+import woowacourse.movie.model.Price
+import woowacourse.movie.model.TicketingInfo
 import woowacourse.movie.model.formatter.DateFormatter
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
@@ -145,7 +149,8 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initTimeSpinner(playingTimes: PlayingTimes) {
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val times = playingTimes.times[spinnerDate.selectedItem] ?: emptyList()
+        val selectedDate = playingTimes.playingDates[spinnerDate.selectedItemPosition]
+        val times = playingTimes.getTimes(selectedDate)
         spinnerTime.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, times).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -157,7 +162,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initDateSpinner(playingTimes: PlayingTimes) {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        val dates = playingTimes.times.keys.sorted()
+        val dates = playingTimes.playingDates
         spinnerDate.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, dates).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -180,7 +185,7 @@ class MovieDetailActivity : AppCompatActivity() {
             index: Int,
             p3: Long
         ) {
-            val times = playingTimes.times[dates[index]] ?: emptyList()
+            val times = playingTimes.getTimes(dates[index])
             spinnerTime.adapter =
                 ArrayAdapter(spinnerTime.context, android.R.layout.simple_spinner_item, times)
         }

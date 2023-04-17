@@ -5,20 +5,21 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) : java.io.Serializable {
-    private val _times: MutableMap<LocalDate, List<LocalTime>> = mutableMapOf()
-    val times: Map<LocalDate, List<LocalTime>>
-        get() = _times.toMap()
+class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) :
+    java.io.Serializable {
+    private val _playingDates: MutableList<LocalDate> = mutableListOf()
+    val playingDates: List<LocalDate>
+        get() = _playingDates.toList()
 
     init {
         val days = ChronoUnit.DAYS.between(startDate, endDate)
-        (0 until days).fold(startDate) { date, plusDays ->
-            _times[date] = makeTimes(date)
-            date.plusDays(plusDays)
+        (0..days).fold(startDate) { date, _ ->
+            _playingDates.add(date)
+            date.plusDays(1)
         }
     }
 
-    private fun makeTimes(date: LocalDate) = buildList<LocalTime> {
+    fun getTimes(date: LocalDate) = buildList<LocalTime> {
         val startHour = if (isWeekends(date.dayOfWeek)) 9 else 10
         for (hour in startHour until 24 step 2) {
             add(LocalTime.of(hour, 0))

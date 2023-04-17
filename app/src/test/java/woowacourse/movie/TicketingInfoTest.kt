@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
+import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.TicketingInfo
 import java.time.LocalDate
@@ -15,5 +16,5 @@ class TicketingInfoTest {
         assertEquals(actual, expected)
     }
 
-    private fun TicketingInfo(playingDate: LocalDate, playingTime: LocalTime, price: Price): TicketingInfo = TicketingInfo.of("해리포터와 마법사의 돌", playingDate, playingTime, 1, price, "현장")
+    private fun TicketingInfo(playingDate: LocalDate, playingTime: LocalTime, price: Price): TicketingInfo = TicketingInfo.of("해리포터와 마법사의 돌", playingDate, playingTime, 1, price, Payment.ON_SITE)
 }
