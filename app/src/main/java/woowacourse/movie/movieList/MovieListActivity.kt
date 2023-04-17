@@ -20,13 +20,13 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun initMovieList() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        movieListView.adapter = MovieListAdapter(CINEMA_SAMPLE)
-        movieListView.setOnItemClickListener { parent, _, position, _ ->
-            getScreeningListener(parent.getItemAtPosition(position) as Screening)
-        }
+        movieListView.adapter = MovieListAdapter(
+            items = CINEMA_SAMPLE,
+            onClickButton = ::navigateToReservation,
+        )
     }
 
-    private fun getScreeningListener(screening: Screening) {
+    private fun navigateToReservation(screening: Screening) {
         val intent = Intent(this, ReservationActivity::class.java)
         intent.putExtra(ReservationActivity.KEY_MOVIE_Screening, screening)
         ContextCompat.startActivity(this, intent, null)

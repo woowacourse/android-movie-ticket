@@ -8,6 +8,7 @@ import woowacourse.movie.R
 
 class MovieListAdapter(
     private val items: List<Screening>,
+    private val onClickButton: (Screening) -> Unit,
 ) : BaseAdapter() {
     private val viewHolder: MutableMap<View, MovieListViewHolder> = mutableMapOf()
 
@@ -44,6 +45,7 @@ class MovieListAdapter(
                 title = screening.title,
                 date = screening.getReserveDateRange(),
                 runningTime = view.context.getString(R.string.movie_running_time).format(screening.runningTime),
+                onClickButton = { onClickButton(screening) },
             )
     }
 }
