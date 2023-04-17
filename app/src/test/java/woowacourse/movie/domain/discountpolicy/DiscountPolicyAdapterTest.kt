@@ -69,7 +69,7 @@ class DiscountPolicyAdapterTest {
     }
 
     @Test
-    fun `무비데이이면서 조조시간이면 10프로 할인에 2000원 할인된다`() {
+    fun `무비데이 이면서 조조 시간이면 10프로 할인에 2000원 할인된다`() {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 10, 10, 0)
         val price = Money(13000)
@@ -84,11 +84,11 @@ class DiscountPolicyAdapterTest {
     }
 
     @Test
-    fun `무비데이이면서 야간시간이면 10프로 할인에 2000원 할인된다`() {
+    fun `무비데이 이면서 야간 시간이면 10프로 할인에 2000원 할인된다`() {
         // given
         val dateTime = LocalDateTime.of(2023, 4, 10, 10, 0)
         val price = Money(13000)
-        val expected = Money(9700)
+        val expected = price * 0.9 - 2000
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
 
         // when
