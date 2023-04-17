@@ -3,21 +3,20 @@ package woowacourse.movie.domain.discount
 import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
-class EarlyNightDiscount : DiscountRule {
+class EarlyNightDiscount(
+    private val amount: Int,
+    private val earlyTime: Int,
+    private val nightTime: Int
+) : DiscountRule {
+
     override fun getPaymentAmountResult(paymentAmount: PaymentAmount, screeningDateTime: LocalDateTime): PaymentAmount {
         if (!isDiscountCondition(screeningDateTime)) return paymentAmount
-        return PaymentAmount(paymentAmount.value - DISCOUNT_AMOUNT)
+        return PaymentAmount(paymentAmount.value - amount)
     }
 
     private fun isDiscountCondition(screeningDateTime: LocalDateTime): Boolean {
-        if (screeningDateTime.hour <= EARLY_TIME_STANDARD) return true
-        if (screeningDateTime.hour >= NIGHT_TIME_STANDARD) return true
+        if (screeningDateTime.hour <= earlyTime) return true
+        if (screeningDateTime.hour >= nightTime) return true
         return false
-    }
-
-    companion object {
-        private const val DISCOUNT_AMOUNT = 2_000
-        private const val EARLY_TIME_STANDARD = 11
-        private const val NIGHT_TIME_STANDARD = 20
     }
 }
