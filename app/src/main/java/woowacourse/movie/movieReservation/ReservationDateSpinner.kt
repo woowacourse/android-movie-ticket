@@ -10,11 +10,14 @@ import movie.ScreeningDate
 import woowacourse.movie.R
 import java.time.LocalDate
 
-class DateSpinner(
+class ReservationDateSpinner(
     private val view: View,
     private val onDateSelected: (LocalDate) -> Unit,
 ) {
     private val dateSpinner: Spinner = view.findViewById(R.id.reservation_screening_date_spinner)
+
+    val selectedDate: LocalDate
+        get() = LocalDate.parse(dateSpinner.selectedItem.toString())
 
     init {
         dateSpinner.onItemSelectedListener = DateSpinnerListener()
@@ -28,8 +31,6 @@ class DateSpinner(
         dateSpinner.setSelection(outState.getInt(KEY_DATE))
     }
 
-    fun getSelectedDate(): LocalDate = LocalDate.parse(dateSpinner.selectedItem.toString())
-
     fun initDateSpinner(screening: Screening) {
         val dateList = ScreeningDate.getScreeningDate(screening.startDate, screening.endDate)
         dateSpinner.adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, dateList)
@@ -38,7 +39,7 @@ class DateSpinner(
     inner class DateSpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            onDateSelected(getSelectedDate())
+            onDateSelected(selectedDate)
         }
     }
 

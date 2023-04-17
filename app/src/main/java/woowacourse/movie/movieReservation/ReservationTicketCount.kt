@@ -6,20 +6,23 @@ import android.widget.Button
 import android.widget.TextView
 import woowacourse.movie.R
 
-class TicketCountView(
+class ReservationTicketCount(
     view: View,
 ) {
     private val decreaseButton: Button = view.findViewById(R.id.reservation_decrease_ticket_button)
     private val increaseButton: Button = view.findViewById(R.id.reservation_increase_ticket_button)
     private val ticketCountView: TextView = view.findViewById(R.id.reservation_ticket_count)
 
+    val count: Int
+        get() = ticketCountView.text.toString().toInt()
+
     init {
         decreaseButton.setOnClickListener {
-            val count = ticketCountView.text.toString().toInt() - 1
+            val count = count - 1
             ticketCountView.text = count.toString()
         }
         increaseButton.setOnClickListener {
-            val count = ticketCountView.text.toString().toInt() + 1
+            val count = count + 1
             ticketCountView.text = count.toString()
         }
     }
@@ -29,10 +32,8 @@ class TicketCountView(
     }
 
     fun save(outState: Bundle) {
-        outState.putInt(KEY_COUNT, ticketCountView.text.toString().toInt())
+        outState.putInt(KEY_COUNT, count)
     }
-
-    fun getTicketCount(): Int = ticketCountView.text.toString().toInt()
 
     companion object {
         private const val KEY_COUNT = "count"

@@ -9,10 +9,13 @@ import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.LocalTime
 
-class TimeSpinner(
+class ReservationTimeSpinner(
     private val view: View,
 ) {
     private val timeSpinner: Spinner = view.findViewById(R.id.reservation_screening_time_spinner)
+
+    val selectedTime: LocalTime
+        get() = LocalTime.parse(timeSpinner.selectedItem.toString())
 
     fun load(outState: Bundle) {
         timeSpinner.setSelection(outState.getInt(KEY_TIME))
@@ -26,8 +29,6 @@ class TimeSpinner(
         val timeList = ScreeningDate.getScreeningTime(date)
         timeSpinner.adapter = ArrayAdapter(view.context, android.R.layout.simple_spinner_item, timeList)
     }
-
-    fun getSelectedTime(): LocalTime = LocalTime.parse(timeSpinner.selectedItem.toString())
 
     companion object {
         private const val KEY_TIME = "timeSpinner"

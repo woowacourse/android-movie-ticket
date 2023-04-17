@@ -11,12 +11,15 @@ class ReservationNavigation(
     screening: Screening,
     onReservationButtonClicked: () -> Unit,
 ) {
-    private val timeSpinner: TimeSpinner = TimeSpinner(view)
-    private val dateSpinner: DateSpinner = DateSpinner(view) { timeSpinner.initTimeSpinner(it) }
-    private val ticketCountView: TicketCountView = TicketCountView(view)
+    private val timeSpinner: ReservationTimeSpinner = ReservationTimeSpinner(view)
+    private val dateSpinner: ReservationDateSpinner = ReservationDateSpinner(view) { timeSpinner.initTimeSpinner(it) }
+    private val ticketNumberView: ReservationTicketCount = ReservationTicketCount(view)
 
-    val ticketCount: TicketCount get() = TicketCount(ticketCountView.getTicketCount())
-    val selectedDateTime: LocalDateTime get() = LocalDateTime.of(dateSpinner.getSelectedDate(), timeSpinner.getSelectedTime())
+    val ticketCount: TicketCount
+        get() = TicketCount(ticketNumberView.count)
+
+    val selectedDateTime: LocalDateTime
+        get() = LocalDateTime.of(dateSpinner.selectedDate, timeSpinner.selectedTime)
 
     init {
         dateSpinner.initDateSpinner(screening)
@@ -24,13 +27,13 @@ class ReservationNavigation(
     }
 
     fun load(savedInstanceState: Bundle) {
-        ticketCountView.load(savedInstanceState)
+        ticketNumberView.load(savedInstanceState)
         dateSpinner.load(savedInstanceState)
         timeSpinner.load(savedInstanceState)
     }
 
     fun save(outState: Bundle) {
-        ticketCountView.save(outState)
+        ticketNumberView.save(outState)
         timeSpinner.save(outState)
         dateSpinner.save(outState)
     }
