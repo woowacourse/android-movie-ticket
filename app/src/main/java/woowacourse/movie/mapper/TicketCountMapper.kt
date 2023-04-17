@@ -3,10 +3,10 @@ package woowacourse.movie.mapper
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.dto.TicketCountDto
 
-fun TicketCountDto.mapToTicket(): TicketCount {
+fun TicketCountDto.mapToTicketCount(): TicketCount {
     return TicketCount(this.numberOfPeople)
 }
 
-fun TicketCount.mapToTicketDto(): TicketCountDto {
+fun TicketCount.mapToTicketCountDto(): TicketCountDto {
     return TicketCountDto(this.numberOfPeople)
 }

@@ -19,8 +19,8 @@ import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.TicketCountDto
 import woowacourse.movie.mapper.mapToMovieDateDto
 import woowacourse.movie.mapper.mapToMovieTimeDto
-import woowacourse.movie.mapper.mapToTicket
-import woowacourse.movie.mapper.mapToTicketDto
+import woowacourse.movie.mapper.mapToTicketCount
+import woowacourse.movie.mapper.mapToTicketCountDto
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -96,8 +96,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val minusBtn = findViewById<Button>(R.id.minus_button)
 
         minusBtn.setOnClickListener {
-            val ticketDecrease = movieTikcet.mapToTicket().decrease()
-            movieTikcet = ticketDecrease.mapToTicketDto()
+            val ticketDecrease = movieTikcet.mapToTicketCount().decrease()
+            movieTikcet = ticketDecrease.mapToTicketCountDto()
             booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
@@ -106,8 +106,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val plusBtn = findViewById<Button>(R.id.plus_button)
 
         plusBtn.setOnClickListener {
-            val ticketIncrease = movieTikcet.mapToTicket().increase()
-            movieTikcet = ticketIncrease.mapToTicketDto()
+            val ticketIncrease = movieTikcet.mapToTicketCount().increase()
+            movieTikcet = ticketIncrease.mapToTicketCountDto()
             booker.text = movieTikcet.numberOfPeople.toString()
         }
     }
