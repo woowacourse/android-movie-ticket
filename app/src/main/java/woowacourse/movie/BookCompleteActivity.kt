@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
 import woowacourse.movie.domain.TicketBundle
 
 class BookCompleteActivity : BackButtonActivity() {
@@ -18,7 +19,7 @@ class BookCompleteActivity : BackButtonActivity() {
 
     private fun getMovieBookingInfo(): MovieBookingInfo {
         val movieBookingData =
-            intent.getSerializableCompat(MovieDetailActivity.MOVIE_BOOKING_INFO_KEY)
+            intent.getSerializableCompat(MOVIE_BOOKING_INFO_KEY)
                 ?: MovieBookingInfo.emptyData
 
         if (movieBookingData == MovieBookingInfo.emptyData) {

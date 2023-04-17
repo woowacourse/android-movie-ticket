@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import woowacourse.movie.BundleKeys.MOVIE_DATA_KEY
 
 class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int = movies.size
@@ -34,9 +35,5 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
             parent?.context?.startActivity(intent)
         }
         return view
-    }
-
-    companion object {
-        const val MOVIE_DATA_KEY = "movieData"
     }
 }

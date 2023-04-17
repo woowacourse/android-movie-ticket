@@ -10,6 +10,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.BookCompleteActivity.Companion.intent
+import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
+import woowacourse.movie.BundleKeys.MOVIE_DATA_KEY
 import woowacourse.movie.domain.MovieSchedule
 
 class MovieDetailActivity : BackButtonActivity() {
@@ -23,7 +25,7 @@ class MovieDetailActivity : BackButtonActivity() {
         setContentView(R.layout.activity_movie_detail)
         needSpinnerInitialize = true
 
-        val movieData = intent.getSerializableCompat(MovieListAdapter.MOVIE_DATA_KEY)
+        val movieData = intent.getSerializableCompat(MOVIE_DATA_KEY)
             ?: Movie.emptyData
         processMovieNullData(movieData)
 
@@ -146,7 +148,6 @@ class MovieDetailActivity : BackButtonActivity() {
     }
 
     companion object {
-        const val MOVIE_BOOKING_INFO_KEY = "movieBookingInfo"
         private const val TICKET_COUNT_KEY = "ticketCount"
         private const val DATE_KEY = "date"
         private const val TIME_KEY = "time"
