@@ -17,14 +17,13 @@ import com.woowacourse.movie.domain.RunningTime
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketingresult.TicketingResultActivity
-import woowacourse.movie.customGetParcelable
-import woowacourse.movie.getParcelable
+import woowacourse.movie.extensions.getParcelableCompat
+import woowacourse.movie.extensions.showToast
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.mapper.toDomain
 import woowacourse.movie.model.mapper.toPresentation
-import woowacourse.movie.showToast
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -36,11 +35,11 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private var movieTicket: Ticket = Ticket()
 
     private val movie: Movie? by lazy {
-        intent.getParcelable(MovieListActivity.MOVIE_KEY)
+        intent.getParcelableCompat(MovieListActivity.MOVIE_KEY)
     }
 
     private val movieDates: List<LocalDate> by lazy {
-        intent.getParcelable<Movie>(MovieListActivity.MOVIE_KEY)
+        intent.getParcelableCompat<Movie>(MovieListActivity.MOVIE_KEY)
             ?.run {
                 runningDate.getRunningDates(startDate, endDate)
             } ?: emptyList()
@@ -90,7 +89,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     private fun restoreState(savedInstanceState: Bundle) {
         savedInstanceState.run {
-            reservation = customGetParcelable<Reservation>(RESERVATION_KEY)?.apply {
+            reservation = getParcelableCompat<Reservation>(RESERVATION_KEY)?.apply {
                 selectedDate = dateTime.toLocalDate()?.apply { initMovieTimes(this) }
                 selectedTime = dateTime.toLocalTime()
                 movieTicket = ticket

@@ -9,7 +9,7 @@ import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketing.TicketingActivity
-import woowacourse.movie.getParcelable
+import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.mapper.toDomain
@@ -26,7 +26,7 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation() {
-        intent.getParcelable<Reservation>(TicketingActivity.RESERVATION_KEY)?.run {
+        intent.getParcelableCompat<Reservation>(TicketingActivity.RESERVATION_KEY)?.run {
             setReservationInfo(this)
         }
     }
