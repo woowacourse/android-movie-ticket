@@ -1,6 +1,7 @@
 package woowacourse.movie.domain.model
 
-import woowacourse.movie.domain.discount.discountpolicy.DateTimeDiscountAdapter
+import woowacourse.movie.domain.discount.MovieDiscountPolicy
+import woowacourse.movie.domain.discount.discountpolicy.DiscountPolicyAdapter
 import java.time.LocalDateTime
 
 data class Ticket(
@@ -9,7 +10,8 @@ data class Ticket(
     val count: Int,
 ) {
     fun getPaymentMoney(): Money {
-        val discountedMoney = DateTimeDiscountAdapter(bookedDateTime).discount(Money(TICKET_PRICE))
+        val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
+        val discountedMoney = discountPolicy.discount(Money(TICKET_PRICE), bookedDateTime)
         return discountedMoney.multiplyMoneyWithCount(count)
     }
 

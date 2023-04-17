@@ -2,7 +2,7 @@ package woowacourse.movie.domain.discount.discountcondition
 
 import java.time.LocalDateTime
 
-class DiscountConditionWithDays(private val days: List<Int>) : DateTimeDiscountCondition {
+class DiscountConditionWithDays(private val days: List<Int>) : DiscountCondition {
 
     init {
         require(days.all { it in MIN_DAY..MAX_DAY })

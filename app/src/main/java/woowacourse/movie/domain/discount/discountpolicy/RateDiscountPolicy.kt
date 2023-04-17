@@ -1,13 +1,14 @@
 package woowacourse.movie.domain.discount.discountpolicy
 
+import woowacourse.movie.domain.discount.discountcondition.DiscountCondition
 import woowacourse.movie.domain.model.Money
 
-abstract class RateDiscountPolicy(private val rate: Double) : DiscountPolicy {
+class RateDiscountPolicy(
+    conditions: List<DiscountCondition>,
+    private val rate: Double,
+) : DiscountPolicy(conditions) {
 
-    override fun discount(price: Money): Money {
-        if (isDiscount()) return price.reduceMoneyWithRate(rate)
-        return price
+    override fun calculateDiscountMoney(price: Money): Money {
+        return price.reduceMoneyWithRate(rate)
     }
-
-    abstract fun isDiscount(): Boolean
 }
