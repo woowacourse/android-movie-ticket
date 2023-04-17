@@ -5,8 +5,8 @@ import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityBookCompleteBinding
 import woowacourse.movie.domain.TicketBundle
-import woowacourse.movie.getParcelableCompat
 import woowacourse.movie.model.MovieBookingInfo
+import woowacourse.movie.presentation.extension.getParcelableCompat
 import woowacourse.movie.presentation.view.common.BackButtonActivity
 
 class BookCompleteActivity : BackButtonActivity() {
