@@ -26,15 +26,15 @@ class MovieAdapter(
         return _movie.size
     }
 
-    override fun getItem(p0: Int): Movie {
-        return _movie[p0]
+    override fun getItem(position: Int): Movie {
+        return _movie[position]
     }
 
-    override fun getItemId(p0: Int): Long {
-        return p0.toLong()
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
-    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
+    override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
         val view = mLayoutInflater.inflate(R.layout.movie_item_layout, null)
 
         val image = view.findViewById<ImageView>(R.id.image)
@@ -44,13 +44,13 @@ class MovieAdapter(
         val time = view.findViewById<TextView>(R.id.time)
         val reservation = view.findViewById<Button>(R.id.reservation)
 
-        image.setImageResource(_movie[p0].imgResourceId)
-        title.text = _movie[p0].title
-        startDate.text = _movie[p0].startDate.format(DATE_TIME_FORMATTER)
-        endDate.text = _movie[p0].endDate.format(DATE_TIME_FORMATTER)
-        time.text = _movie[p0].runningTime.value.toString()
+        image.setImageResource(_movie[position].imgResourceId)
+        title.text = _movie[position].title
+        startDate.text = _movie[position].startDate.format(DATE_TIME_FORMATTER)
+        endDate.text = _movie[position].endDate.format(DATE_TIME_FORMATTER)
+        time.text = _movie[position].runningTime.value.toString()
 
-        reservation.setOnClickListener { clickListener?.onClick(p0) }
+        reservation.setOnClickListener { clickListener?.onClick(position) }
         return view
     }
 
