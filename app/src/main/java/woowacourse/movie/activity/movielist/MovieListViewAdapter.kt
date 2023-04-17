@@ -9,7 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.movieinfo.Movie
 import java.time.format.DateTimeFormatter
 
-class MovieListViewAdapter(private val context: Context, private val movies: List<Movie>) :
+class MovieListViewAdapter(private val movies: List<Movie>) :
     BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
@@ -37,12 +37,14 @@ class MovieListViewAdapter(private val context: Context, private val movies: Lis
         }
         val item: Movie = movies[position]
 
-        setMovieData(holder, item)
+        itemView?.let {
+            setMovieData(holder, item, itemView.context)
+        }
 
         return itemView
     }
 
-    private fun setMovieData(holder: MovieListViewHolder, item: Movie) {
+    private fun setMovieData(holder: MovieListViewHolder, item: Movie, context: Context) {
         holder.moviePoster.setImageResource(item.moviePoster)
         holder.movieTitle.text = item.title
         val startDate =

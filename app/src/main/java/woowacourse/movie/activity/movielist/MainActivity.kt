@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpMovieDatas() {
         val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(this, setMovieDataWithDummyData())
+        val movieListViewAdapter = MovieListViewAdapter(setMovieDataWithDummyData())
 
         movieListView.adapter = movieListViewAdapter
 
