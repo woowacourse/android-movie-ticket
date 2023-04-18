@@ -12,17 +12,21 @@ class Counter(
 ) {
     init {
         minusButton.setOnClickListener {
-            count = count.subtract()
+            count -= COUNT_FACTOR
             applyToView()
         }
 
         plusButton.setOnClickListener {
-            count = count.add()
+            count += COUNT_FACTOR
             applyToView()
         }
     }
 
     fun applyToView() {
         text.text = count.value.toString()
+    }
+
+    companion object {
+        const val COUNT_FACTOR = 1
     }
 }
