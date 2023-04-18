@@ -6,8 +6,20 @@ import java.time.LocalDateTime
 
 class MovieDayDiscountPolicyTest {
     @Test
-    fun `무비데이라면 true를 반환한다`() {
+    fun `10일이라면 true를 반환한다`() {
         val date = LocalDateTime.of(2023, 4, 10, 15, 10)
+        TestCase.assertTrue(MovieDayDiscountPolicy().checkPolicy(date))
+    }
+
+    @Test
+    fun `20일이라면 true를 반환한다`() {
+        val date = LocalDateTime.of(2023, 4, 20, 15, 10)
+        TestCase.assertTrue(MovieDayDiscountPolicy().checkPolicy(date))
+    }
+
+    @Test
+    fun `30일이라면 true를 반환한다`() {
+        val date = LocalDateTime.of(2023, 4, 30, 15, 10)
         TestCase.assertTrue(MovieDayDiscountPolicy().checkPolicy(date))
     }
 
