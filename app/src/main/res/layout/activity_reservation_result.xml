@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.ReservationResultActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        android:paddingTop="57dp"
+        android:text="@string/reservation_cancel_alert_message"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/result_movie_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        tools:text="해리포터"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title_large" />
+
+    <TextView
+        android:id="@+id/result_screening_date_time_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        tools:text="2024.3.1 17:00"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_large" />
+
+    <TextView
+        android:id="@+id/result_ticket_count_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        tools:text="일반 1명"
+        android:textSize="@dimen/text_large" />
+
+    <TextView
+        android:id="@+id/result_payment_amount_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        tools:text="13,000원 (현장 결제)"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_large" />
+
+</LinearLayout>
