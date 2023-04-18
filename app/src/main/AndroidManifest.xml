@@ -12,7 +12,15 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.CompletedActivity"
+            android:parentActivityName=".ui.BookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.BookingActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
