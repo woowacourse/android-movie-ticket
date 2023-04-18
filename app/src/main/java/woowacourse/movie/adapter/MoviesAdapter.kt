@@ -13,7 +13,7 @@ import java.time.format.FormatStyle
 
 class MoviesAdapter(
     private val movies: List<ActivityMovieModel>,
-    private val reservationEvent: (movie: ActivityMovieModel) -> Unit
+    private val onReservationButtonClicked: (movie: ActivityMovieModel) -> Unit
 ) : BaseAdapter() {
 
     override fun getCount(): Int = movies.size
@@ -41,7 +41,7 @@ class MoviesAdapter(
         }
 
         setMovieItemView(movie, view.context, view.tag as MovieItemViewHolder)
-        initReservationButtonClickListener(view, movie)
+        applyReservationButtonClickListener(view, movie)
 
         return view
     }
@@ -72,11 +72,11 @@ class MoviesAdapter(
             .format(movie.runningTime)
     }
 
-    private fun initReservationButtonClickListener(view: View, movie: ActivityMovieModel) {
+    private fun applyReservationButtonClickListener(view: View, movie: ActivityMovieModel) {
         val reservationButton = view.findViewById<Button>(R.id.reservation_button)
 
         reservationButton.setOnClickListener {
-            reservationEvent(movie)
+            onReservationButtonClicked(movie)
         }
     }
 }
