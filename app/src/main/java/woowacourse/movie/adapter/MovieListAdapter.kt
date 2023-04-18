@@ -32,17 +32,11 @@ class MovieListAdapter(private val movies: List<Movie>) :
         val view: View
         val viewHolder: ViewHolder
         require(parent != null) { VIEW_GROUP_NULL_ERROR }
-        // parent에는 ListView
-        // convertView에는 LinearLayout, 즉 item view 들어있음
         if (convertView == null) {
-            // convertView 가 null 이면 holder 객체를 생성하고, 생성한 holder 객체에 inflating한 뷰의 참조값 저장
             view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, null)
             viewHolder = getViewHolder(view)
-            // view의 태그에 holder 객체를 저장
             view.tag = viewHolder
         } else {
-            // convertView가 null이 아니면 뷰를 생성할 때 태그에 저장했던 holder 객체가 존재
-            // 이 holder 객체는 자신을 inflating 한 참조값 (즉 다시 infalte 할 필요가 없다.)
             view = convertView
             viewHolder = view.tag as ViewHolder
         }
@@ -69,8 +63,9 @@ class MovieListAdapter(private val movies: List<Movie>) :
         )
         holder.runningTime.text = context.getString(R.string.running_time, movie.runningTime)
         holder.ticketingButton.setOnClickListener {
-            val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra(MOVIE_KEY, movie)
+            val intent = Intent(context, MovieDetailActivity::class.java).apply {
+                putExtra(MOVIE_KEY, movie)
+            }
             context.startActivity(intent)
         }
     }
