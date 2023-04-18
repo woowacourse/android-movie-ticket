@@ -8,15 +8,15 @@ import java.time.LocalDate
 class MovieScheduleTest {
     @Test
     fun `상영시작 날짜와 상영 종료 날짜 사이의 날짜들을 가져온다`() {
-        val movieSchedule = MovieSchedule(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 5))
+        val movieSchedule = MovieSchedule(LocalDate.of(2023, 3, 30), LocalDate.of(2023, 4, 3))
         val actual = movieSchedule.getScheduleDates()
         assertThat(actual).isEqualTo(
             listOf(
+                "2023-03-30",
+                "2023-03-31",
                 "2023-04-01",
                 "2023-04-02",
                 "2023-04-03",
-                "2023-04-04",
-                "2023-04-05"
             )
         )
     }
@@ -34,7 +34,7 @@ class MovieScheduleTest {
                 "17:00",
                 "19:00",
                 "21:00",
-                "23:00"
+                "23:00",
             )
         )
     }
@@ -52,7 +52,7 @@ class MovieScheduleTest {
                 "18:00",
                 "20:00",
                 "22:00",
-                "24:00"
+                "24:00",
             )
         )
     }

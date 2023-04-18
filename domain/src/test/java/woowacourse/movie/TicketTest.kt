@@ -3,11 +3,14 @@ package woowacourse.movie
 import com.woowacourse.domain.Ticket
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 class TicketTest {
-    @Test
-    fun `다른 할인 없이 무비데이라면 10퍼센트 할인한다`() {
-        val actual = Ticket().getTicketPrice("2023-04-10", "14:00")
+    @ParameterizedTest
+    @ValueSource(strings = ["2023-04-10", "2023-04-20", "2023-04-30"])
+    fun `다른 할인 없이 무비데이라면 10퍼센트 할인한다`(date: String) {
+        val actual = Ticket().getTicketPrice(date, "14:00")
         assertThat(actual).isEqualTo(11700)
     }
 
