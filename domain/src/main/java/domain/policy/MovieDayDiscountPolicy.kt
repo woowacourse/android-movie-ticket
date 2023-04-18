@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.policy
+package domain.policy
 
 import java.time.LocalDateTime
 

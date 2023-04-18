@@ -1,6 +1,6 @@
 package woowacourse.movie.mapper
 
-import woowacourse.movie.domain.movieinfo.MovieTime
+import domain.movieinfo.MovieTime
 import woowacourse.movie.dto.MovieTimeDto
 
 fun MovieTimeDto.mapToMovieTime(): MovieTime {

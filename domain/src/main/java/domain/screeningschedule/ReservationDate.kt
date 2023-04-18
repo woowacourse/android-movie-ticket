@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.screeningschedule
+package domain.screeningschedule
 
 import java.time.LocalDate
 

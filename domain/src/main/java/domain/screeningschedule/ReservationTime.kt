@@ -1,7 +1,7 @@
-package woowacourse.movie.domain.screeningschedule
+package domain.screeningschedule
 
-import woowacourse.movie.R
-import woowacourse.movie.domain.DayOfWeek
+import domain.DayOfWeek
+import java.time.LocalTime
 
 class ReservationTime(private val dayOfWeek: DayOfWeek) {
 

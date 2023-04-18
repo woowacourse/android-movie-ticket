@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package domain
 
 import java.time.LocalDate
 

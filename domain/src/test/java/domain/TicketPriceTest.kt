@@ -1,9 +1,10 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert
-import org.junit.Test
-import woowacourse.movie.domain.policy.MovieDayDiscountPolicy
-import woowacourse.movie.domain.policy.TimeDiscountPolicy
+import domain.TicketPrice
+import domain.policy.MovieDayDiscountPolicy
+import domain.policy.TimeDiscountPolicy
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
 class TicketPriceTest {
@@ -20,7 +21,7 @@ class TicketPriceTest {
         val totalTicketPrice = ticketPrice.applyPolicy(LocalDateTime.of(2024, 4, 1, 15, 10)) * 3
         val expect = 39000
 
-        Assert.assertEquals(totalTicketPrice.price, expect)
+        assertEquals(totalTicketPrice.price, expect)
     }
 
     @Test
@@ -28,7 +29,7 @@ class TicketPriceTest {
         val totalTicketPrice = ticketPrice.applyPolicy(LocalDateTime.of(2024, 4, 1, 9, 10)) * 3
         val expect = 33000
 
-        Assert.assertEquals(totalTicketPrice.price, expect)
+        assertEquals(totalTicketPrice.price, expect)
     }
 
     @Test
@@ -36,7 +37,7 @@ class TicketPriceTest {
         val totalTicketPrice = ticketPrice.applyPolicy(LocalDateTime.of(2024, 4, 10, 15, 10)) * 3
         val expect = 35100
 
-        Assert.assertEquals(totalTicketPrice.price, expect)
+        assertEquals(totalTicketPrice.price, expect)
     }
 
     @Test
@@ -44,6 +45,6 @@ class TicketPriceTest {
         val totalTicketPrice = ticketPrice.applyPolicy(LocalDateTime.of(2024, 4, 10, 21, 10)) * 3
         val expect = 29100
 
-        Assert.assertEquals(totalTicketPrice.price, expect)
+        assertEquals(totalTicketPrice.price, expect)
     }
 }

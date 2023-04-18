@@ -5,8 +5,8 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import woowacourse.movie.domain.policy.MovieDayDiscountPolicy
-import woowacourse.movie.domain.policy.TimeDiscountPolicy
+import domain.policy.MovieDayDiscountPolicy
+import domain.policy.TimeDiscountPolicy
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto

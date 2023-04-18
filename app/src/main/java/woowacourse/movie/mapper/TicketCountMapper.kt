@@ -1,6 +1,6 @@
 package woowacourse.movie.mapper
 
-import woowacourse.movie.domain.TicketCount
+import domain.TicketCount
 import woowacourse.movie.dto.TicketCountDto
 
 fun TicketCountDto.mapToTicketCount(): TicketCount {

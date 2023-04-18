@@ -1,9 +1,17 @@
-package woowacourse.movie.domain
+package domain
 
-import woowacourse.movie.domain.policy.DiscountPolicy
+import domain.policy.DiscountPolicy
+import domain.policy.MovieDayDiscountPolicy
+import domain.policy.TimeDiscountPolicy
 import java.time.LocalDateTime
 
-data class TicketPrice(val price: Int = TICKET_PRICE, val discountPolicies: List<DiscountPolicy>) {
+data class TicketPrice(
+    val price: Int = TICKET_PRICE,
+    val discountPolicies: List<DiscountPolicy> = listOf(
+        MovieDayDiscountPolicy(),
+        TimeDiscountPolicy(),
+    ),
+) {
 
     constructor(discountPolicies: List<DiscountPolicy>) : this(TICKET_PRICE, discountPolicies)
 
@@ -27,5 +35,16 @@ data class TicketPrice(val price: Int = TICKET_PRICE, val discountPolicies: List
 
     companion object {
         private const val TICKET_PRICE = 13000
+        private const val B_GRADE_TICKET_PRICE = 10000
+        private const val S_GRADE_TICKET_PRICE = 15000
+        private const val A_GRADE_TICKET_PRICE = 12000
+
+        fun of(position: Int): TicketPrice {
+            return when (Grade.checkGrade(position)) {
+                Grade.B -> TicketPrice(B_GRADE_TICKET_PRICE)
+                Grade.S -> TicketPrice(S_GRADE_TICKET_PRICE)
+                Grade.A -> TicketPrice(A_GRADE_TICKET_PRICE)
+            }
+        }
     }
 }

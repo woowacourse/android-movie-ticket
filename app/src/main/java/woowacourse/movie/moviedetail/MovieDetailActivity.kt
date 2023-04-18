@@ -12,6 +12,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import domain.DayOfWeek
+import domain.movieinfo.MovieDate
+import domain.movieinfo.MovieTime
+import domain.screeningschedule.ReservationDate
+import domain.screeningschedule.ReservationTime
 import woowacourse.movie.R
 import woowacourse.movie.TicketActivity
 import woowacourse.movie.dto.MovieDateDto

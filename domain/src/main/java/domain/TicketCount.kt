@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package domain
 
 data class TicketCount(
     val numberOfPeople: Int = MIN_BOOKER_NUMBER,

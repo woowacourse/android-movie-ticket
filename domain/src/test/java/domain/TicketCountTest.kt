@@ -1,7 +1,8 @@
 package woowacourse.movie.domain
 
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
+import domain.TicketCount
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 class TicketCountTest {
 

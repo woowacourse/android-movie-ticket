@@ -1,6 +1,6 @@
 package woowacourse.movie.mapper
 
-import woowacourse.movie.domain.TicketPrice
+import domain.TicketPrice
 import woowacourse.movie.dto.TicketPriceDto
 
 fun TicketPriceDto.mapToTicketPrice(): TicketPrice {
