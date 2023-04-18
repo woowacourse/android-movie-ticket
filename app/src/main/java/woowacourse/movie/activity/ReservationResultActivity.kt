@@ -12,15 +12,6 @@ import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : AppCompatActivity() {
 
-    private val movieMovieNameTextView: TextView by lazy { findViewById(R.id.result_movie_name_text_view) }
-    private val paymentAmountTextView: TextView by lazy { findViewById(R.id.result_payment_amount_text_view) }
-    private val screeningDateTimeTextView: TextView by lazy { findViewById(R.id.result_screening_date_time_text_view) }
-    private val ticketCountTextView: TextView by lazy { findViewById(R.id.result_ticket_count_text_view) }
-    private val reservation: ActivityReservationModel by lazy {
-        intent.getSerializableExtra(RESERVATION_KEY) as ActivityReservationModel?
-            ?: throw IllegalArgumentException(RESERVATION_DATA_ERROR)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
@@ -29,6 +20,14 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservationResultView() {
+        val movieMovieNameTextView: TextView = findViewById(R.id.result_movie_name_text_view)
+        val paymentAmountTextView: TextView = findViewById(R.id.result_payment_amount_text_view)
+        val screeningDateTimeTextView: TextView = findViewById(R.id.result_screening_date_time_text_view)
+        val ticketCountTextView: TextView = findViewById(R.id.result_ticket_count_text_view)
+        val reservation: ActivityReservationModel =
+            intent.getSerializableExtra(RESERVATION_KEY) as ActivityReservationModel?
+                ?: throw IllegalArgumentException(RESERVATION_DATA_ERROR)
+
         with(reservation) {
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
