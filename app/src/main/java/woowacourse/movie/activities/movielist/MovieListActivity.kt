@@ -30,11 +30,11 @@ class MovieListActivity : AppCompatActivity() {
             .getOrDefault(emptyList())
 
     private fun setAdapter(movies: List<MovieUI>) {
-        val lvMovies: ListView = findViewById(R.id.lv_movies)
-        val listAdapter = MovieListAdapter(movies) { movie ->
+        val listViewMovies: ListView = findViewById(R.id.lv_movies)
+        val movieAdapter = MovieListAdapter(movies) { movie ->
             onBookClick(movie)
         }
-        lvMovies.adapter = listAdapter
+        listViewMovies.adapter = movieAdapter
     }
 
     private fun onBookClick(item: MovieUI) {

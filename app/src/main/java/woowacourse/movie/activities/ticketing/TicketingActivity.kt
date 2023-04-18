@@ -51,7 +51,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
 
-    private val tvTicketCount: TextView by lazy {
+    private val textViewTicketCount: TextView by lazy {
         findViewById(R.id.tv_ticket_count)
     }
     private val spinnerMovieDate: Spinner by lazy {
@@ -78,7 +78,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         restoreState(savedInstanceState)
-        tvTicketCount.text = movieTicket.count.toString()
+        textViewTicketCount.text = movieTicket.count.toString()
         val storedDateIndex = movieDates.indexOfFirst { it == selectedDate }
         spinnerMovieDate.setSelection(storedDateIndex)
         val storedTimeIndex = this.movieTimes.indexOfFirst { it == selectedTime }
@@ -182,11 +182,11 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         when (view.id) {
             R.id.btn_minus -> {
                 movieTicket = movieTicket.toTicket().run { dec().toTicketUI() }
-                tvTicketCount.text = movieTicket.count.toString()
+                textViewTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_plus -> {
                 movieTicket = movieTicket.toTicket().run { inc().toTicketUI() }
-                tvTicketCount.text = movieTicket.count.toString()
+                textViewTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_ticketing -> {
                 if (selectedDate == null || selectedTime == null) {
