@@ -1,7 +1,7 @@
-package woowacourse.movie.domain
+package com.example.domain
 
-class Ticket {
-    var price: Int = TICKET_PRICE
+class Ticket(private val seat: Seat = Seat(0)) {
+    var price: Int = seat.getSeatGrade().price
         private set
 
     fun getTicketPrice(date: String, time: String): Int {
@@ -18,6 +18,10 @@ class Ticket {
     private fun calculateTimeBasedSale(time: String) {
         val hour = time.take(2).toInt()
         if (hour < DISCOUNT_START_TIME || hour >= DISCOUNT_END_TIME) price -= TIME_BASED_DISCOUNT
+    }
+
+    fun getSeatName(): String {
+        return seat.getSeatName()
     }
 
     companion object {

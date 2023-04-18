@@ -2,9 +2,9 @@ package woowacourse.movie.presentation.view.book_complete
 
 import android.os.Bundle
 import android.widget.Toast
+import com.example.domain.TicketBundle
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityBookCompleteBinding
-import woowacourse.movie.domain.TicketBundle
 import woowacourse.movie.model.MovieBookingInfo
 import woowacourse.movie.presentation.extension.getParcelableCompat
 import woowacourse.movie.presentation.view.common.BackButtonActivity
