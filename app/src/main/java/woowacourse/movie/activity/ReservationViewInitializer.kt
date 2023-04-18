@@ -5,7 +5,7 @@ import android.widget.TextView
 import woowacourse.movie.model.ActivityMovieModel
 import java.time.format.DateTimeFormatter
 
-class ReservationViewConfiguration(
+class ReservationViewInitializer(
     private val descriptionTextView: TextView,
     private val runningTimeTextView: TextView,
     private val screeningDateTextView: TextView,
