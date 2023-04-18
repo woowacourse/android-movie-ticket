@@ -14,14 +14,16 @@ class BookCompleteActivity : BackButtonActivity() {
         setContentView(R.layout.activity_book_complete)
 
         val movieBookingData = getMovieBookingInfo()
+        displayToastIfDummyData(movieBookingData)
         initView(movieBookingData)
     }
 
     private fun getMovieBookingInfo(): MovieBookingInfo {
-        val movieBookingData =
-            intent.getSerializableCompat(MOVIE_BOOKING_INFO_KEY)
-                ?: MovieBookingInfo.dummyData
+        return intent.getSerializableCompat(MOVIE_BOOKING_INFO_KEY)
+            ?: MovieBookingInfo.dummyData
+    }
 
+    private fun displayToastIfDummyData(movieBookingData: MovieBookingInfo) {
         if (movieBookingData == MovieBookingInfo.dummyData) {
             Toast.makeText(
                 this,
@@ -29,7 +31,6 @@ class BookCompleteActivity : BackButtonActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-        return movieBookingData
     }
 
     private fun initView(movieBookingData: MovieBookingInfo) {
