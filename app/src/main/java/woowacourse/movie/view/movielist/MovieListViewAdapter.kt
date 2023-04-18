@@ -26,22 +26,21 @@ class MovieListViewAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var itemView = convertView
+        val itemView: View
         val holder: MovieListViewHolder
+        val item: Movie = movies[position]
 
-        if (itemView == null) {
+        if (convertView == null) {
             itemView =
                 LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
             holder = MovieListViewHolder(itemView)
             itemView.tag = holder
         } else {
+            itemView = convertView
             holder = itemView.tag as MovieListViewHolder
         }
-        val item: Movie = movies[position]
 
-        itemView?.let {
-            setMovieData(holder, item, itemView.context)
-        }
+        setMovieData(holder, item, itemView.context)
 
         return itemView
     }
