@@ -15,10 +15,9 @@ internal class SeatColumnTest {
     }
 
     @Test
-    @Parameters("0", "5")
-    internal fun `좌석은 1열과 4열 사이를 벗어나면 예외가 발생한다`(column: Int) {
+    internal fun `열이 1보다 작으면 예외가 발생한다`() {
         assertThrows(IllegalArgumentException::class.java) {
-            SeatColumn(column)
+            SeatColumn(0)
         }
     }
 }

@@ -15,10 +15,9 @@ internal class SeatRowTest {
     }
 
     @Test
-    @Parameters("0", "6")
-    internal fun `좌석은 1행과 5행 사이를 벗어나면 예외가 발생한다`(row: Int) {
+    internal fun `행이 1보다 작으면 예외가 발생한다`() {
         assertThrows(IllegalArgumentException::class.java) {
-            SeatRow(row)
+            SeatRow(0)
         }
     }
 }

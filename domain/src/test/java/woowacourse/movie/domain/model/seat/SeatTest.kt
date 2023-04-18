@@ -11,7 +11,7 @@ internal class SeatTest {
     @Test
     @Parameters("1", "2")
     internal fun `1, 2행은 B등급이다`(row: Int) {
-        val seat = Seat(row)
+        val seat = Seat(SeatRow(row), SeatColumn(1))
         val expected = seat.getClass()
         val actual = SeatClass.B
 
@@ -21,7 +21,7 @@ internal class SeatTest {
     @Test
     @Parameters("3", "4")
     internal fun `3, 4행은 S등급이다`(row: Int) {
-        val seat = Seat(row)
+        val seat = Seat(SeatRow(row), SeatColumn(1))
         val expected = seat.getClass()
         val actual = SeatClass.S
 
@@ -31,7 +31,7 @@ internal class SeatTest {
     @Test
     @Parameters("5")
     internal fun `5행은 A등급이다`(row: Int) {
-        val seat = Seat(row)
+        val seat = Seat(SeatRow(row), SeatColumn(1))
         val expected = seat.getClass()
         val actual = SeatClass.A
 
