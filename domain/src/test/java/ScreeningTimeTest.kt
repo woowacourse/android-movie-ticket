@@ -1,5 +1,6 @@
 package woowacourse.movie.domain
 
+import com.example.domain.ScreeningTime
 import org.junit.Test
 import java.time.LocalDate
 import java.time.LocalTime

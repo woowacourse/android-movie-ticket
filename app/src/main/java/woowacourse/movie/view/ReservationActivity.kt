@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.*
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
-import woowacourse.movie.domain.Reservation
-import woowacourse.movie.domain.ScreeningTime
+import com.example.domain.Reservation
+import com.example.domain.ScreeningTime
 import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.util.getSerializableCompat
 import woowacourse.movie.view.MovieListActivity.Companion.MOVIE_ITEM

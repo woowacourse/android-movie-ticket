@@ -1,6 +1,7 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.*
+import com.example.domain.Money
+import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class MoneyTest {

@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package com.example.domain
 
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -26,7 +26,6 @@ class ScreeningTime(
         } else {
             FIRST_SCREENING_TIME_IN_WEEKDAY
         }
-
 
     private fun LocalDate.isWeekend(): Boolean =
         dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY

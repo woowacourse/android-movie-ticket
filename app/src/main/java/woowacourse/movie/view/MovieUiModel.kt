@@ -2,8 +2,8 @@ package woowacourse.movie.view
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.Minute
-import woowacourse.movie.domain.Movie
+import com.example.domain.Minute
+import com.example.domain.Movie
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 

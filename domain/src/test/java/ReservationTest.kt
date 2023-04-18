@@ -1,5 +1,9 @@
 package woowacourse.movie.domain
 
+import com.example.domain.Minute
+import com.example.domain.Money
+import com.example.domain.Movie
+import com.example.domain.Reservation
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Test

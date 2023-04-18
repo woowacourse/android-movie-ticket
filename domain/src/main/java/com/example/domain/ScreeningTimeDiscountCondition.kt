@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package com.example.domain
 
 class ScreeningTimeDiscountCondition(private val timeRanges: List<TimeRange>) : DiscountCondition {
     override fun isSatisfiedBy(reservation: Reservation): Boolean =

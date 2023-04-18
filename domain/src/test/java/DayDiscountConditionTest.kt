@@ -1,5 +1,9 @@
 package woowacourse.movie.domain
 
+import com.example.domain.DayDiscountCondition
+import com.example.domain.Minute
+import com.example.domain.Movie
+import com.example.domain.Reservation
 import org.junit.Test
 import java.time.LocalDate
 import java.time.LocalDateTime

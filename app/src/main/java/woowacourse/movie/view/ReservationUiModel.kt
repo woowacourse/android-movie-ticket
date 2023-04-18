@@ -2,7 +2,7 @@ package woowacourse.movie.view
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.Reservation
+import com.example.domain.Reservation
 import java.time.LocalDateTime
 
 fun Reservation.toUiModel(): ReservationUiModel = ReservationUiModel(
