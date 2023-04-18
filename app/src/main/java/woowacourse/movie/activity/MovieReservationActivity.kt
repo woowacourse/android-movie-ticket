@@ -21,6 +21,7 @@ import woowacourse.movie.view.widget.DateSpinner
 import woowacourse.movie.view.widget.LocalFormattedDate
 import woowacourse.movie.view.widget.LocalFormattedTime
 import woowacourse.movie.view.widget.MovieController
+import woowacourse.movie.view.widget.MovieView
 import woowacourse.movie.view.widget.SaveStateCounter
 import woowacourse.movie.view.widget.SaveStateSpinner
 import woowacourse.movie.view.widget.TimeSpinner
@@ -77,15 +78,18 @@ class MovieReservationActivity : AppCompatActivity() {
 
             MovieController(
                 movie = movie,
-                poster = findViewById(R.id.movie_reservation_poster),
-                title = findViewById(R.id.movie_reservation_title),
-                date = findViewById(R.id.movie_reservation_date),
-                runningTime = findViewById(R.id.movie_reservation_running_time),
-                description = findViewById(R.id.movie_reservation_description)
+                MovieView(
+                    poster = findViewById(R.id.movie_reservation_poster),
+                    title = findViewById(R.id.movie_reservation_title),
+                    date = findViewById(R.id.movie_reservation_date),
+                    runningTime = findViewById(R.id.movie_reservation_running_time),
+                    description = findViewById(R.id.movie_reservation_description)
+                )
             ).render()
 
             findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
-                val reservationDetail = makeReservationDetail(dateSpinner, timeSpinner, counter.counter)
+                val reservationDetail =
+                    makeReservationDetail(dateSpinner, timeSpinner, counter.counter)
                 val reservation = makeReservation(movie, reservationDetail)
                 startReservationResultActivity(reservation, ReservationData.RESERVATION_EXTRA_NAME)
             }
@@ -106,17 +110,24 @@ class MovieReservationActivity : AppCompatActivity() {
         )
     }
 
-    private fun makeReservation(movie: MovieViewData, reservationDetail: ReservationDetail): ReservationData {
+    private fun makeReservation(
+        movie: MovieViewData,
+        reservationDetail: ReservationDetail
+    ): ReservationData {
         val discount = Discount(listOf(MovieDay, OffTime))
         val discountedReservationDetail = discount.calculate(reservationDetail).toView()
         return ReservationData(movie, discountedReservationDetail)
     }
 
-    private fun startReservationResultActivity(reservationData: ReservationData, extraName: String) {
+    private fun startReservationResultActivity(
+        reservationData: ReservationData,
+        extraName: String
+    ) {
         val intent = Intent(this, ReservationResultActivity::class.java)
         intent.putExtra(extraName, reservationData)
         startActivity(intent)
     }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
