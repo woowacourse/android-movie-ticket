@@ -23,7 +23,7 @@ class TicketTest {
     }
 
     @Test
-    fun `인원 수가 3명일 때 무비데이 할인이 적용된 티켓 값은 3000원이다`() {
+    fun `인원 수가 3명일 때 무비데이 할인이 적용된 티켓 값은 35100원이다`() {
         val ticket = Ticket(13000, LocalDateTime.of(2024, 4, 10, 15, 10), 3)
         val expect = 35100
 
