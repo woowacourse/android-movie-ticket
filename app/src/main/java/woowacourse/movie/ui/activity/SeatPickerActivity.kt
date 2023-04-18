@@ -15,6 +15,8 @@ import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieTicketModel
 
 class SeatPickerActivity : AppCompatActivity() {
+    private var count = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_picker)
@@ -28,10 +30,10 @@ class SeatPickerActivity : AppCompatActivity() {
             .filterIsInstance<TextView>()
             .toList()
 
-        setSeatViews(seatViews)
-
-        val ticket = intent.getParcelable<MovieTicketModel>("ticket")
-        findViewById<TextView>(R.id.seat_picker_title).text = ticket?.title
+        intent.getParcelable<MovieTicketModel>("ticket")?.let {
+            setSeatViews(seatViews, it)
+            findViewById<TextView>(R.id.seat_picker_title).text = it.title
+        }
         findViewById<TextView>(R.id.seat_picker_price).text = getString(R.string.price, "0")
     }
 
@@ -45,7 +47,7 @@ class SeatPickerActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setSeatViews(seatViews: List<TextView>) {
+    private fun setSeatViews(seatViews: List<TextView>, ticket: MovieTicketModel) {
         val seats =
             Row.values().flatMap { row -> Column.values().map { column -> Seat(row, column) } }
         seatViews.zip(seats) { view, seat ->
@@ -53,9 +55,11 @@ class SeatPickerActivity : AppCompatActivity() {
             view.setTextColor(getColor(seat.row.color))
             view.setOnClickListener {
                 if (view.isSelected) {
+                    count--
                     view.setBackgroundColor(getColor(R.color.white))
                     view.isSelected = false
-                } else {
+                } else if (count < ticket.peopleCount.count) {
+                    count++
                     view.setBackgroundColor(getColor(R.color.seat_selected))
                     view.isSelected = true
                 }
