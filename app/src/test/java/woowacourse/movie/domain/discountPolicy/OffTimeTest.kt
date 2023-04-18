@@ -3,7 +3,7 @@ package woowacourse.movie.domain.discountPolicy
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import woowacourse.movie.domain.Price
-import woowacourse.movie.domain.ReservationDetail
+import woowacourse.movie.domain.Ticket
 import java.time.LocalDateTime
 
 class OffTimeTest {
@@ -12,10 +12,10 @@ class OffTimeTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 10, 0)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, Discount(listOf()))
+        val ticket = Ticket(date, 1, DisCountPolicies(listOf()))
 
         // when
-        val actual = OffTime().discount(reservationDetail, price).value
+        val actual = OffTime().discount(ticket, price).value
 
         // then
         val expected = 11000
@@ -27,10 +27,10 @@ class OffTimeTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 11, 0)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, Discount(listOf()))
+        val ticket = Ticket(date, 1, DisCountPolicies(listOf()))
 
         // when
-        val actual = OffTime().discount(reservationDetail, Price()).value
+        val actual = OffTime().discount(ticket, Price()).value
 
         // then
         val expected = 13000
@@ -42,10 +42,10 @@ class OffTimeTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 21, 0)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, Discount(listOf()))
+        val ticket = Ticket(date, 1, DisCountPolicies(listOf()))
 
         // when
-        val actual = OffTime().discount(reservationDetail, price).value
+        val actual = OffTime().discount(ticket, price).value
 
         // then
         val expected = 11000

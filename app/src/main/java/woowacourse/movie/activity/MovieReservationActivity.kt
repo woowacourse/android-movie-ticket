@@ -8,7 +8,10 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieReservationOffice
+import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.discountPolicy.DisCountPolicies
+import woowacourse.movie.domain.discountPolicy.MovieDay
+import woowacourse.movie.domain.discountPolicy.OffTime
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieDtoConverter
 import woowacourse.movie.getSerializableCompat
@@ -16,6 +19,7 @@ import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.TimeSpinner
+import java.time.LocalDateTime
 
 class MovieReservationActivity : AppCompatActivity() {
     private val counter: Counter by lazy {
@@ -43,7 +47,6 @@ class MovieReservationActivity : AppCompatActivity() {
     private val reservationButton: Button by lazy {
         findViewById(R.id.movie_reservation_button)
     }
-    private val movieReservationOffice: MovieReservationOffice by lazy { MovieReservationOffice() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +83,14 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun reservationButtonClick(movie: Movie) {
         reservationButton.setOnClickListener {
-            val reservationDetail = movieReservationOffice.makeReservationDetail(
-                dateSpinner.getSelectedDate(), timeSpinner.getSelectedTime(), counter.getCount()
+            val date = LocalDateTime.of(
+                dateSpinner.getSelectedDate(),
+                timeSpinner.getSelectedTime()
             )
-            val reservation = movieReservationOffice.makeReservation(movie, reservationDetail)
+            val discountPolicies = DisCountPolicies(listOf(MovieDay(), OffTime()))
+            val peopleCount = counter.getCount()
+            val ticket = Ticket(date, peopleCount, discountPolicies)
+            val reservation = movie.makeReservation(ticket)
             ReservationResultActivity.start(this, reservation)
         }
     }

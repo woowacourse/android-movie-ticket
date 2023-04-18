@@ -1,12 +1,12 @@
 package woowacourse.movie.domain.discountPolicy
 
 import woowacourse.movie.domain.Price
-import woowacourse.movie.domain.ReservationDetail
+import woowacourse.movie.domain.Ticket
 
-class OffTime(val earlyTime: Int = DEFAULT_EARLY_TIME, val lateTime: Int = DEFAULT_LATE_TIME) :
+class OffTime(private val earlyTime: Int = DEFAULT_EARLY_TIME, private val lateTime: Int = DEFAULT_LATE_TIME) :
     DiscountPolicy {
-    override fun discount(reservationDetail: ReservationDetail, price: Price): Price {
-        if (reservationDetail.date.hour < earlyTime || reservationDetail.date.hour > lateTime) {
+    override fun discount(ticket: Ticket, price: Price): Price {
+        if (ticket.date.hour < earlyTime || ticket.date.hour > lateTime) {
             return Price(price.value - DISCOUNT_VALUE)
         }
         return price

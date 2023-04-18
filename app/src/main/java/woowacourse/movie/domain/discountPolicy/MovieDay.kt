@@ -1,11 +1,11 @@
 package woowacourse.movie.domain.discountPolicy
 
 import woowacourse.movie.domain.Price
-import woowacourse.movie.domain.ReservationDetail
+import woowacourse.movie.domain.Ticket
 
 class MovieDay(private val movieDay: List<Int> = DEFAULT_MOVIE_DAY) : DiscountPolicy {
-    override fun discount(reservationDetail: ReservationDetail, price: Price): Price {
-        if (reservationDetail.date.dayOfMonth in movieDay) {
+    override fun discount(ticket: Ticket, price: Price): Price {
+        if (ticket.date.dayOfMonth in movieDay) {
             return Price((price.value * DISCOUNT_RATE).toInt())
         }
         return price

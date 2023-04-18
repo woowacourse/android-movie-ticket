@@ -6,4 +6,8 @@ data class Movie(
     val date: DateRange,
     val runningTime: Int,
     val description: String,
-)
+) {
+    fun makeReservation(ticket: Ticket): Reservation {
+        return Reservation(this, ticket)
+    }
+}
