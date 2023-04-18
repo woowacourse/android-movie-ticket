@@ -27,16 +27,19 @@ import java.time.format.DateTimeFormatter
 class ReservationActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityReservationBinding.inflate(layoutInflater) }
-    private val movieModel: MovieModel? by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initReservationView()
-        initClickListener()
-        initTicketCount(savedInstanceState)
-        initSpinner(savedInstanceState)
+        val movieModel: MovieModel? by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel }
+
+        movieModel?.let {
+            initReservationView(it)
+            initClickListener(it)
+            initTicketCount(savedInstanceState)
+            initSpinner(it, savedInstanceState)
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -50,19 +53,18 @@ class ReservationActivity : AppCompatActivity() {
         outState.putString(SCREENING_TIME_INSTANCE_KEY, selectedTime.toString())
     }
 
-    private fun initReservationView() {
-        if (movieModel == null) return
+    private fun initReservationView(movieModel: MovieModel?) {
         val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
         movieModel!!.posterImage?.let { id -> binding.moviePosterImageView.setImageResource(id) }
-        binding.movieNameTextView.text = movieModel!!.name.value
+        binding.movieNameTextView.text = movieModel.name.value
         binding.movieScreeningPeriodTextView.text = getString(R.string.screening_period_form).format(
-            movieModel!!.screeningPeriod.startDate.format(dateFormat),
-            movieModel!!.screeningPeriod.endDate.format(dateFormat)
+            movieModel.screeningPeriod.startDate.format(dateFormat),
+            movieModel.screeningPeriod.endDate.format(dateFormat)
         )
         binding.movieRunningTimeTextView.text =
-            getString(R.string.running_time_form).format(movieModel!!.runningTime)
-        binding.movieDescriptionTextView.text = movieModel!!.description
+            getString(R.string.running_time_form).format(movieModel.runningTime)
+        binding.movieDescriptionTextView.text = movieModel.description
     }
 
     private fun initTicketCount(savedInstanceState: Bundle?) {
@@ -74,9 +76,8 @@ class ReservationActivity : AppCompatActivity() {
         binding.ticketCountTextView.text = ticketCount.toString()
     }
 
-    private fun initSpinner(savedInstanceState: Bundle?) {
-        if (movieModel == null) return
-        val dates = movieModel!!.screeningPeriod.getScreeningDates()
+    private fun initSpinner(movieModel: MovieModel, savedInstanceState: Bundle?) {
+        val dates = movieModel.screeningPeriod.getScreeningDates()
 
         binding.screeningDateSpinner.adapter = ArrayAdapter(
             this,
@@ -92,37 +93,35 @@ class ReservationActivity : AppCompatActivity() {
                 id: Long
             ) {
                 if (savedInstanceState == null) {
-                    initTimeSpinner(dates[position])
+                    initTimeSpinner(movieModel, dates[position])
                     return
                 }
-                loadSpinner(savedInstanceState)
+                loadSpinner(movieModel, savedInstanceState)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                initTimeSpinner(null)
+                initTimeSpinner(movieModel, null)
             }
         }
     }
 
-    private fun loadSpinner(savedInstanceState: Bundle) {
-        if (movieModel == null) return
+    private fun loadSpinner(movieModel: MovieModel, savedInstanceState: Bundle) {
         val screeningDate: LocalDate =
             LocalDate.ofEpochDay(savedInstanceState.getLong(SCREENING_DATE_INSTANCE_KEY))
         val screeningTime: LocalTime =
             LocalTime.parse(savedInstanceState.getString(SCREENING_TIME_INSTANCE_KEY))
 
         val selectedDatePosition: Int =
-            movieModel!!.screeningPeriod.getScreeningDates().indexOf(screeningDate)
+            movieModel.screeningPeriod.getScreeningDates().indexOf(screeningDate)
         val selectedTimePosition: Int =
-            movieModel!!.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
+            movieModel.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
 
         binding.screeningDateSpinner.setSelection(selectedDatePosition)
-        initTimeSpinner(screeningDate, selectedTimePosition)
+        initTimeSpinner(movieModel, screeningDate, selectedTimePosition)
     }
 
-    private fun initTimeSpinner(date: LocalDate?, defaultPoint: Int = 0) {
-        if (movieModel == null) return
-        val times = movieModel!!.screeningPeriod.getScreeningTimes(date)
+    private fun initTimeSpinner(movieModel: MovieModel, date: LocalDate?, defaultPoint: Int = 0) {
+        val times = movieModel.screeningPeriod.getScreeningTimes(date)
 
         binding.screeningTimeSpinner.adapter = ArrayAdapter(
             this,
@@ -132,10 +131,10 @@ class ReservationActivity : AppCompatActivity() {
         binding.screeningTimeSpinner.setSelection(defaultPoint)
     }
 
-    private fun initClickListener() {
+    private fun initClickListener(movieModel: MovieModel) {
         initMinusClickListener()
         initPlusClickListener()
-        initCompleteButton()
+        initCompleteButton(movieModel)
     }
 
     private fun initMinusClickListener() {
@@ -158,16 +157,14 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initCompleteButton() {
-        if (movieModel == null) return
-
+    private fun initCompleteButton(movieModel: MovieModel) {
         binding.reservationCompleteButton.setOnClickListener {
             val ticketCount = binding.ticketCountTextView.text.toString().toInt()
             val screeningDate = binding.screeningDateSpinner.selectedItem as LocalDate
             val screeningTime = binding.screeningTimeSpinner.selectedItem as LocalTime
             val reservationModel: ReservationModel =
                 Reservation.from(
-                    movieModel!!.toDomainModel(),
+                    movieModel.toDomainModel(),
                     ticketCount,
                     LocalDateTime.of(screeningDate, screeningTime)
                 ).toReservationModel()
