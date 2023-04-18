@@ -7,10 +7,9 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.Ticket
 import woowacourse.movie.formatScreenDateTime
-import woowacourse.movie.ui.MovieService
-import woowacourse.movie.ui.uiModel.Ticket
-import woowacourse.movie.util.getParcelable
+import woowacourse.movie.util.getSerializable
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,7 @@ class CompletedActivity : AppCompatActivity() {
         initView(ticket)
     }
 
-    private fun getTicket(): Ticket = intent.getParcelable(TICKET, Ticket::class.java)
+    private fun getTicket(): Ticket = intent.getSerializable(TICKET, Ticket::class.java)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
