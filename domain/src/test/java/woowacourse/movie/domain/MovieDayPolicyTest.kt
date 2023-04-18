@@ -3,6 +3,7 @@ package woowacourse.movie.domain
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import woowacourse.movie.domain.policy.MovieDayPolicy
+import woowacourse.movie.domain.ticket.Price
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -15,7 +16,7 @@ class MovieDayPolicyTest {
                 LocalDate.of(2023, 4, 10), LocalTime.of(9, 0),
                 Price()
             )
-        val expected = woowacourse.movie.domain.Price(11700)
+        val expected = Price(11700)
         assertEquals(actual, expected)
     }
 

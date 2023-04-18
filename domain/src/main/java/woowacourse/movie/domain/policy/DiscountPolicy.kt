@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.policy
 
-import woowacourse.movie.domain.Price
+import woowacourse.movie.domain.ticket.Price
 import java.time.LocalDate
 import java.time.LocalTime
 

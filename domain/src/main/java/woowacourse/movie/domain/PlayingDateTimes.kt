@@ -8,10 +8,10 @@ class PlayingDateTimes(startDate: LocalDate, endDate: LocalDate) { // 뷰를 위
     private val _times: Map<LocalDate, List<LocalTime>> = makeDates(startDate, endDate).associateWith { date -> makeTimes(date) }
     val times: Map<LocalDate, List<LocalTime>>
         get() = _times.toMap()
-    val startDate: LocalDate
-        get() = times.keys.max()
-    val endDate: LocalDate
-        get() = times.keys.min()
+    // val startDate: LocalDate
+    //     get() = times.keys.max()
+    // val endDate: LocalDate
+    //     get() = times.keys.min()
 
     private fun makeDates(startDate: LocalDate, endDate: LocalDate): List<LocalDate> {
         var date = startDate
