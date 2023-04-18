@@ -1,7 +1,7 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -17,7 +17,7 @@ class TimesGeneratorTest {
             LocalTime.of(21, 0), LocalTime.of(23, 0)
         )
 
-        assertEquals(expected, TimesGenerator.getTimesByDate(date))
+        assertThat(TimesGenerator.getTimesByDate(date)).isEqualTo(expected)
     }
 
     @Test
@@ -31,6 +31,6 @@ class TimesGeneratorTest {
             LocalTime.of(22, 0)
         )
 
-        assertEquals(expected, TimesGenerator.getTimesByDate(date))
+        assertThat(TimesGenerator.getTimesByDate(date)).isEqualTo(expected)
     }
 }

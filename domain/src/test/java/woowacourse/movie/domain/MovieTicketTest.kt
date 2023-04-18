@@ -1,7 +1,7 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
 class MovieTicketTest {
@@ -12,7 +12,7 @@ class MovieTicketTest {
             TicketTime(LocalDateTime.of(2023, 4, 13, 12, 0)),
             PeopleCount(2)
         )
-        assertEquals(26000, ticket.getPrice())
+        assertThat(ticket.getPrice()).isEqualTo(26000)
     }
 
     @Test
@@ -22,7 +22,7 @@ class MovieTicketTest {
             TicketTime(LocalDateTime.of(2023, 4, 10, 12, 0)),
             PeopleCount(2)
         )
-        assertEquals(23400, ticket.getPrice())
+        assertThat(ticket.getPrice()).isEqualTo(23400)
     }
 
     @Test
@@ -32,7 +32,7 @@ class MovieTicketTest {
             TicketTime(LocalDateTime.of(2023, 4, 11, 10, 0)),
             PeopleCount(2)
         )
-        assertEquals(24000, ticket.getPrice())
+        assertThat(ticket.getPrice()).isEqualTo(24000)
     }
 
     @Test
@@ -42,7 +42,7 @@ class MovieTicketTest {
             TicketTime(LocalDateTime.of(2023, 4, 11, 23, 0)),
             PeopleCount(2)
         )
-        assertEquals(24000, ticket.getPrice())
+        assertThat(ticket.getPrice()).isEqualTo(24000)
     }
 
     @Test
@@ -52,6 +52,6 @@ class MovieTicketTest {
             TicketTime(LocalDateTime.of(2023, 4, 20, 9, 0)),
             PeopleCount(2)
         )
-        assertEquals(21400, ticket.getPrice())
+        assertThat(ticket.getPrice()).isEqualTo(21400)
     }
 }

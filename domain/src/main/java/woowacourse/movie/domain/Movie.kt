@@ -1,18 +1,7 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.ui.model.MovieModel
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
-
-fun mapToMovie(movie: MovieModel): Movie {
-    return Movie(
-        movie.title,
-        movie.startDate,
-        movie.endDate,
-        movie.runningTime,
-        movie.description
-    )
-}
 
 data class Movie(
     val title: String,

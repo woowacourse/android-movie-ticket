@@ -1,7 +1,7 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
 class MovieTest {
@@ -22,6 +22,6 @@ class MovieTest {
             LocalDate.of(2023, 9, 15)
         )
 
-        assertEquals(expected, movie.getDatesBetweenTwoDates())
+        assertThat(movie.getDatesBetweenTwoDates()).isEqualTo(expected)
     }
 }
