@@ -97,14 +97,12 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initSpinner(savedInstanceState: Bundle?) {
         val dates = movie.screeningPeriod
-        val defaultScreeningDatePosition = savedInstanceState?.getInt(SCREENING_DATE_POSITION_KEY) ?: 0
-        val defaultScreeningTimePosition = savedInstanceState?.getInt(SCREENING_TIME_POSITION_KEY) ?: 0
+        val defaultScreeningDatePosition =
+            savedInstanceState?.getInt(SCREENING_DATE_POSITION_KEY) ?: 0
+        val defaultScreeningTimePosition =
+            savedInstanceState?.getInt(SCREENING_TIME_POSITION_KEY) ?: 0
 
-        screeningDateSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            dates
-        )
+        screeningDateSpinner.applyArrayAdapter(dates)
         screeningDateSpinner.onItemSelectedListener = SpinnerItemSelectedListener(
             screeningDateSpinner,
             defaultScreeningTimePosition,
@@ -116,12 +114,16 @@ class ReservationActivity : AppCompatActivity() {
     private fun initTimeSpinner(date: ScreeningDate?, defaultPosition: Int = 0) {
         val times = date?.screeningTimes ?: listOf()
 
-        screeningTimeSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            times
-        )
+        screeningTimeSpinner.applyArrayAdapter(times)
         screeningTimeSpinner.setSelection(defaultPosition)
+    }
+
+    private fun <T> Spinner.applyArrayAdapter(inputData: List<T>) {
+        this.adapter = ArrayAdapter(
+            context,
+            android.R.layout.simple_spinner_item,
+            inputData
+        )
     }
 
     private fun initClickListener() {
@@ -163,7 +165,11 @@ class ReservationActivity : AppCompatActivity() {
             val screeningTime = screeningTimeSpinner.selectedItem as LocalTime
             val reservation: ActivityReservationModel =
                 Reservation
-                    .from(movie.toDomainModel(), ticketCount, LocalDateTime.of(screeningDate, screeningTime))
+                    .from(
+                        movie.toDomainModel(),
+                        ticketCount,
+                        LocalDateTime.of(screeningDate, screeningTime)
+                    )
                     .toActivityModel()
 
             val intent = Intent(this, ReservationResultActivity::class.java)
