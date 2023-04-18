@@ -40,6 +40,11 @@ class CompletedActivity : AppCompatActivity() {
             getString(R.string.normal_ticket_count, ticket.count)
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
             getString(R.string.payment_amount, ticket.getPaymentAmount())
+        showBackButton()
+    }
+
+    private fun showBackButton() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     companion object {

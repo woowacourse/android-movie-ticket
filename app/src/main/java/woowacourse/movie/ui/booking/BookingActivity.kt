@@ -36,14 +36,6 @@ class BookingActivity : AppCompatActivity() {
         initSpinnerListener()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finish()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun restoreData(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
             with(savedInstanceState) {
@@ -83,6 +75,19 @@ class BookingActivity : AppCompatActivity() {
             getString(R.string.running_time, movie.runningTime)
         findViewById<TextView>(R.id.textBookingDescription).text = movie.description
         findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
+        showBackButton()
+    }
+
+    private fun showBackButton() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun clickMinus() {
@@ -104,6 +109,7 @@ class BookingActivity : AppCompatActivity() {
             val dateTime = dateTimeSpinner.selectedDateTime
             val ticket = movie.reserve(dateTime, ticketCount.value)
             startActivity(CompletedActivity.getIntent(this, ticket))
+            finish()
         }
     }
 
