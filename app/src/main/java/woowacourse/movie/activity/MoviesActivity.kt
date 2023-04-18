@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.databinding.ActivityMoviesBinding
 import woowacourse.movie.uimodel.MovieModel
-import woowacourse.movie.util.MOVIE_INTENT_KEY
+import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.util.Mock
 
 class MoviesActivity : AppCompatActivity() {

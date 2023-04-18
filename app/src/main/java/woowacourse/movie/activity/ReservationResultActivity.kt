@@ -6,7 +6,7 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationResultBinding
 import woowacourse.movie.domain.payment.PaymentType
 import woowacourse.movie.uimodel.ReservationModel
-import woowacourse.movie.util.RESERVATION_INTENT_KEY
+import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_KEY
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 

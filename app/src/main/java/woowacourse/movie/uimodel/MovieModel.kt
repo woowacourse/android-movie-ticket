@@ -10,4 +10,9 @@ data class MovieModel(
     val screeningPeriod: ScreeningPeriod,
     val runningTime: Int,
     val description: String
-) : Serializable
+) : Serializable {
+
+    companion object {
+        const val MOVIE_INTENT_KEY = "movie"
+    }
+}

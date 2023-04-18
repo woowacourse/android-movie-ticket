@@ -11,12 +11,12 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.uimodel.MovieModel
+import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel
-import woowacourse.movie.util.MOVIE_INTENT_KEY
-import woowacourse.movie.util.RESERVATION_INTENT_KEY
-import woowacourse.movie.util.SCREENING_DATE_INSTANCE_KEY
-import woowacourse.movie.util.SCREENING_TIME_INSTANCE_KEY
-import woowacourse.movie.util.TICKET_COUNT_INSTANCE_KEY
+import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_KEY
+import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_INSTANCE_KEY
+import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_TIME_INSTANCE_KEY
+import woowacourse.movie.uimodel.ReservationModel.Companion.TICKET_COUNT_INSTANCE_KEY
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

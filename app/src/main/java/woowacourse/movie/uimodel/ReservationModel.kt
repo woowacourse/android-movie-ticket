@@ -18,6 +18,11 @@ data class ReservationModel(
 ) : Serializable {
 
     companion object {
+        const val RESERVATION_INTENT_KEY = "reservation"
+        const val TICKET_COUNT_INSTANCE_KEY = "ticket_count"
+        const val SCREENING_DATE_INSTANCE_KEY = "screening_date"
+        const val SCREENING_TIME_INSTANCE_KEY = "screening_time"
+
         private const val TICKET_PRICE = 13_000
 
         fun from(movieModel: MovieModel, ticketCount: Int, screeningDateTime: LocalDateTime): ReservationModel {
