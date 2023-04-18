@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -21,8 +20,6 @@ import woowacourse.movie.model.toDomainModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-
 class ReservationActivity : AppCompatActivity() {
 
     private val screeningDateSpinner: Spinner by lazy {
@@ -61,29 +58,19 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initReservationView() {
-        val descriptionTextView: TextView =
-            findViewById(R.id.reservation_movie_description_text_view)
-        val runningTimeTextView: TextView =
-            findViewById(R.id.reservation_movie_running_time_text_view)
-        val screeningDateTextView: TextView =
-            findViewById(R.id.reservation_movie_screening_date_text_view)
-        val movieMovieNameTextView: TextView =
-            findViewById(R.id.reservation_movie_name_text_view)
-        val posterImageView: ImageView =
-            findViewById(R.id.reservation_movie_image_view)
+        val reservationViewConfiguration = ReservationViewConfiguration(
+            descriptionTextView = findViewById(R.id.reservation_movie_description_text_view),
+            runningTimeTextView = findViewById(R.id.reservation_movie_running_time_text_view),
+            screeningDateTextView = findViewById(R.id.reservation_movie_screening_date_text_view),
+            movieNameTextView = findViewById(R.id.reservation_movie_name_text_view),
+            posterImageView = findViewById(R.id.reservation_movie_image_view),
+        )
 
-        with(movie) {
-            val dateFormat: DateTimeFormatter = DateTimeFormatter.ISO_DATE
-
-            posterImage?.let { id -> posterImageView.setImageResource(id) }
-            movieMovieNameTextView.text = movieName
-            screeningDateTextView.text = getString(R.string.screening_period_form).format(
-                startDate.format(dateFormat),
-                endDate.format(dateFormat)
-            )
-            runningTimeTextView.text = getString(R.string.running_time_form).format(runningTime)
-            descriptionTextView.text = description
-        }
+        reservationViewConfiguration.init(
+            movie = movie,
+            runningTimeFormat = getString(R.string.running_time_form),
+            screeningPeriodFormat = getString(R.string.screening_period_form)
+        )
     }
 
     private fun initTicketCount(savedInstanceState: Bundle?) {
