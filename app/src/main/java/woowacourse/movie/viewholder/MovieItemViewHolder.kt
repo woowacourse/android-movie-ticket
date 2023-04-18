@@ -1,6 +1,6 @@
 package woowacourse.movie.viewholder
 
-import android.content.Context
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
@@ -8,23 +8,19 @@ import woowacourse.movie.uimodel.MovieModel
 import java.time.format.DateTimeFormatter
 
 class MovieItemViewHolder(
-    val moviePosterImageView: ImageView,
-    val movieNameTextView: TextView,
-    val screeningDateTextView: TextView,
-    val runningTimeTextView: TextView,
+    private val view: View,
 ) {
-    /*
-        이 모델은 도메인모델이 아니라 뷰와 관련된 로직을 담당하는 모델인 것 같습니다.
-        그러므로 뷰를 초기화하는 로직을 여기에 사용하여도 될까요?
-     */
-
+    private val moviePosterImageView: ImageView = view.findViewById(R.id.movie_poster_image_view)
+    private val movieNameTextView: TextView = view.findViewById(R.id.movie_name_text_view)
+    private val screeningDateTextView: TextView = view.findViewById(R.id.movie_screening_period_text_view)
+    private val runningTimeTextView: TextView = view.findViewById(R.id.movie_running_time_text_view)
     private val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-    fun setViewContents(context: Context?, movieModel: MovieModel) {
+    fun setViewContents(movieModel: MovieModel) {
         setPosterResource(movieModel)
         setMovieNameText(movieModel)
-        setScreeningDateText(context, movieModel)
-        setRunningTimeText(context, movieModel)
+        setScreeningDateText(movieModel)
+        setRunningTimeText(movieModel)
     }
 
     private fun setPosterResource(movieModel: MovieModel) {
@@ -35,17 +31,17 @@ class MovieItemViewHolder(
         movieNameTextView.text = movieModel.name.value
     }
 
-    private fun setScreeningDateText(context: Context?, movieModel: MovieModel) {
+    private fun setScreeningDateText(movieModel: MovieModel) {
         screeningDateTextView.text =
-            context?.getString(R.string.screening_period_form)?.format(
+            view.context?.getString(R.string.screening_period_form)?.format(
                 movieModel.screeningPeriod.startDate.format(dateFormat),
                 movieModel.screeningPeriod.endDate.format(dateFormat)
             )
     }
 
-    private fun setRunningTimeText(context: Context?, movieModel: MovieModel) {
+    private fun setRunningTimeText(movieModel: MovieModel) {
         runningTimeTextView.text =
-            context?.getString(R.string.running_time_form)
+            view.context?.getString(R.string.running_time_form)
                 ?.format(movieModel.runningTime)
     }
 }

@@ -28,19 +28,14 @@ class MoviesAdapter(
 
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_movie, null)
-            movieItemViewHolder = MovieItemViewHolder(
-                moviePosterImageView = view.findViewById(R.id.movie_poster_image_view),
-                movieNameTextView = view.findViewById(R.id.movie_name_text_view),
-                screeningDateTextView = view.findViewById(R.id.movie_screening_period_text_view),
-                runningTimeTextView = view.findViewById(R.id.movie_running_time_text_view),
-            )
+            movieItemViewHolder = MovieItemViewHolder(view)
             view.tag = movieItemViewHolder
         } else {
             view = convertView
             movieItemViewHolder = view.tag as MovieItemViewHolder
         }
 
-        movieItemViewHolder.setViewContents(context, movieModel)
+        movieItemViewHolder.setViewContents(movieModel)
         return view
     }
 }
