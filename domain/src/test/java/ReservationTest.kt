@@ -1,10 +1,6 @@
 package woowacourse.movie.domain
 
-import com.example.domain.Minute
-import com.example.domain.Money
-import com.example.domain.Movie
-import com.example.domain.Reservation
-import org.junit.Assert.assertEquals
+import com.example.domain.*
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import java.time.LocalDate
@@ -18,28 +14,23 @@ class ReservationTest() {
             "[ERROR] 예매 인원은 최소 1명 이상 최대 200명 이하여야 합니다.",
             IllegalArgumentException::class.java
         ) {
-            Reservation(getAnyMovie(), 0, LocalDateTime.now())
+            Reservation(getAnyMovie(), listOf(), LocalDateTime.now(), Money(0))
         }
     }
 
     @Test
-    fun `예매 인원이 201명이면 에러가 발생한다`() {
+    fun `예매 인원이 21명이면 에러가 발생한다`() {
         assertThrows(
-            "[ERROR] 예매 인원은 최소 1명 이상 최대 200명 이하여야 합니다.",
+            "[ERROR] 예매 인원은 최소 1명 이상 최대 20명 이하여야 합니다.",
             IllegalArgumentException::class.java
         ) {
-            Reservation(getAnyMovie(), 201, LocalDateTime.now())
+            Reservation(
+                getAnyMovie(),
+                List<Seat>(21) { Seat(1, 1) },
+                LocalDateTime.now(),
+                Money(0)
+            )
         }
-    }
-
-    @Test
-    fun `13,000원 영화를 2명이 예약하면 초기 총 예매 금액은 26,000원이다`() {
-        val peopleCount = 2
-
-        val actual =
-            Reservation(getAnyMovie(), peopleCount, LocalDateTime.now()).initReservationFee
-
-        assertEquals(Money(26000), actual)
     }
 
     @Test
@@ -56,8 +47,9 @@ class ReservationTest() {
         assertThrows(IllegalArgumentException::class.java) {
             Reservation(
                 movie,
-                3,
-                LocalDateTime.of(2024, 3, 1, 12, 0)
+                listOf(Seat(1, 1)),
+                LocalDateTime.of(2024, 3, 1, 12, 0),
+                Money(10000)
             )
         }
     }
