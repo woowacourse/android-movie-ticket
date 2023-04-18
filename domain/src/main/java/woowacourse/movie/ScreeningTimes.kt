@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie
 
 import java.time.DayOfWeek.FRIDAY
 import java.time.DayOfWeek.MONDAY

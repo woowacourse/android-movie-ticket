@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.uiModel
+package woowacourse.movie
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -10,8 +10,6 @@ data class Movie(
     val endDate: LocalDate,
     val runningTime: Int,
     val description: String,
-    val thumbnail: Int,
-    val poster: Int,
 ) {
     val screeningDates: List<LocalDate>
         get() {

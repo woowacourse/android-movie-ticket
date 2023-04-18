@@ -1,8 +1,7 @@
-package woowacourse.movie.domain
+package woowacourse.movie
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Test
-import woowacourse.movie.ui.uiModel.Ticket
+import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
 class TicketTest {
