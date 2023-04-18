@@ -151,15 +151,14 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initReserveButtonClickListener() {
         binding.reservationButton.setOnClickListener {
-
-            val reservation = Reservation(
-                movie.toDomainModel(),
-                peopleCountSaved,
-                LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
+            val reservationOptions = ReservationOptions(
+                movie.title,
+                LocalDateTime.of(selectedScreeningDate, selectedScreeningTime),
+                peopleCountSaved
             )
 
-            val intent = Intent(this, ReservationCompletedActivity::class.java)
-            intent.putExtra(RESERVATION, reservation.toUiModel())
+            val intent = Intent(this, SeatSelectionActivity::class.java)
+            intent.putExtra(RESERVATION_OPTIONS, reservationOptions)
             startActivity(intent)
         }
     }
@@ -191,7 +190,7 @@ class ReservationActivity : AppCompatActivity() {
 
 
     companion object {
-        const val RESERVATION = "RESERVATION"
+        const val RESERVATION_OPTIONS = "RESERVATION_OPTIONS"
         private const val PEOPLE_COUNT = "PEOPLE_COUNT"
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"
