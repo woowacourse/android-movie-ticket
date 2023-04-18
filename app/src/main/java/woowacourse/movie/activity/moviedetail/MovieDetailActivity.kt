@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.util.getKeyFromIndex
 import woowacourse.movie.util.getOrEmptyList
 import woowacourse.movie.util.getSerializableExtraCompat
 
@@ -52,7 +53,7 @@ class MovieDetailActivity : AppCompatActivity() {
             )
             setTimeSpinner(
                 savedTime,
-                movieDTO.playingDateTimes.getOrEmptyList(movieDTO.playingDateTimes.keys.toList()[savedDate])
+                movieDTO.playingDateTimes.getOrEmptyList(movieDTO.playingDateTimes.getKeyFromIndex(savedDate))
             )
         }
     }
