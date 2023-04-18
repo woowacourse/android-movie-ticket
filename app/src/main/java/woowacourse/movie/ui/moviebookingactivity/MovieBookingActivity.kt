@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
+import woowacourse.movie.domain.price.TicketCount
 import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.ui.model.MovieUIModel
@@ -28,7 +29,7 @@ class MovieBookingActivity : AppCompatActivity() {
     lateinit var dateSpinnerAdapter: DateSpinnerAdapter
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
     var timeSpinnerRecoverState: Int = -1
-    private var ticketCount = 1
+    private val ticketCount = TicketCount(1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +48,14 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(TICKET_COUNT, ticketCount)
+        outState.putInt(TICKET_COUNT, ticketCount.value)
         outState.putInt(SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
         super.onSaveInstanceState(outState)
     }
 
     private fun recoverState(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            ticketCount = savedInstanceState.getInt(TICKET_COUNT)
+            ticketCount.value = savedInstanceState.getInt(TICKET_COUNT)
             timeSpinnerRecoverState = savedInstanceState.getInt(SELECTED_TIME_POSITION)
         }
     }
@@ -82,18 +83,7 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: run {
-            finish()
-            MovieUIModel(
-                posterImage = R.drawable.img_error,
-                title = "-1",
-                screeningDay = ScreeningPeriod(
-                    LocalDate.parse("9999-12-30"),
-                    LocalDate.parse("9999-12-31")
-                ),
-                runningTime = -1
-            )
-        }
+        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: throw IllegalStateException(INTENT_EXTRA_INITIAL_ERROR)
     }
 
     private fun initMovieInformation() {
@@ -116,7 +106,7 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initTicketCount() {
-        tvTicketCount.text = ticketCount.toString()
+        tvTicketCount.text = ticketCount.value.toString()
     }
 
     private fun initTicketCountView() {
@@ -125,16 +115,16 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun initPlusButtonClickListener() {
         findViewById<Button>(R.id.btn_ticket_plus).setOnSingleClickListener {
-            ticketCount++
-            tvTicketCount.text = ticketCount.toString()
+            ticketCount.value++
+            tvTicketCount.text = ticketCount.value.toString()
         }
     }
 
     private fun initMinusButtonClickListener() {
         findViewById<Button>(R.id.btn_ticket_minus).setOnSingleClickListener {
-            ticketCount--
-            if (ticketCount <= 1) ticketCount = 1
-            tvTicketCount.text = ticketCount.toString()
+            ticketCount.value--
+            if (ticketCount.value <= 1) ticketCount.value = 1
+            tvTicketCount.text = ticketCount.value.toString()
         }
     }
 
@@ -167,5 +157,7 @@ class MovieBookingActivity : AppCompatActivity() {
 
         // intent data
         const val MOVIE_DATA = "movieData"
+
+        private const val INTENT_EXTRA_INITIAL_ERROR = "intent 의 데이터 이동시 data가 null으로 넘어오고 있습니다"
     }
 }

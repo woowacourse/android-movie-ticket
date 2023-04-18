@@ -5,22 +5,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
-import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.*
+import woowacourse.movie.domain.price.TicketPrice.Companion.STANDARD_TICKET_PRICE
 import woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy
 import woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator
 import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
 import woowacourse.movie.ui.model.MovieUIModel
-import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.customGetSerializableExtra
-import java.time.LocalDate
-import java.time.LocalDateTime
-import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
 
     lateinit var movieData: MovieUIModel
-    var ticketCount by Delegates.notNull<Int>()
+    lateinit var ticketCount: TicketCount
     lateinit var bookedScreeningDateTime: ScreeningDateTime
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,24 +28,12 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: run {
-            finish()
-            MovieUIModel(
-                R.drawable.img_error,
-                "-1",
-                ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31")),
-                -1
-            )
-        }
-        ticketCount = intent.getIntExtra(TICKET_COUNT, -1)
+        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: throw IllegalStateException(INTENT_EXTRA_INITIAL_ERROR)
+        ticketCount =
+            intent.customGetSerializableExtra(TICKET_COUNT) ?: throw IllegalStateException(INTENT_EXTRA_INITIAL_ERROR)
         bookedScreeningDateTime =
-            intent.customGetSerializableExtra(BOOKED_SCREENING_DATE_TIME) ?: run {
-                finish()
-                ScreeningDateTime(
-                    LocalDateTime.parse("9999-12-30T00:00"),
-                    ScreeningPeriod(LocalDate.parse("9999-12-30"), LocalDate.parse("9999-12-31"))
-                )
-            }
+            intent.customGetSerializableExtra(BOOKED_SCREENING_DATE_TIME)
+                ?: throw IllegalStateException(INTENT_EXTRA_INITIAL_ERROR)
     }
 
     private fun initMovieInformation() {
@@ -62,18 +46,20 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         tvBookingCheckScreeningDay.text =
             bookedScreeningDateTime.time.format(dateDotTimeColonFormatter)
         tvBookingCheckPersonCount.text =
-            this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
+            this.getString(R.string.tv_booking_check_person_count).format(ticketCount.value)
         tvBookingCheckTotalMoney.text = this.getString(R.string.tv_booking_check_total_money)
-            .format(applyDisCount(13000, ticketCount).value)
+            .format(applyDisCount(TicketPrice(STANDARD_TICKET_PRICE), ticketCount).value)
     }
 
-    private fun applyDisCount(ticketPrice: Int, ticketCount: Int): TicketPrice =
+    private fun applyDisCount(ticketPrice: TicketPrice, ticketCount: TicketCount): TicketPrice =
         PricePolicyCalculator(TimeMovieDayDiscountPolicy(bookedScreeningDateTime).getDiscountPolicies())
-            .totalPriceCalculate(TicketPrice(ticketPrice), TicketCount(ticketCount))
+            .totalPriceCalculate(ticketPrice, ticketCount)
 
     companion object {
         const val MOVIE_DATA = "movieData"
         const val TICKET_COUNT = "ticketCount"
         const val BOOKED_SCREENING_DATE_TIME = "bookedScreeningDateTime"
+
+        private const val INTENT_EXTRA_INITIAL_ERROR = "intent 의 데이터 이동시 data가 null으로 넘어오고 있습니다"
     }
 }

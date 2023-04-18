@@ -1,6 +1,8 @@
 package woowacourse.movie.domain.price
 
-class TicketCount(value: Int) {
+import java.io.Serializable
+
+class TicketCount(value: Int) : Serializable {
 
     init {
         validateNegaticeInitialValue(value)
