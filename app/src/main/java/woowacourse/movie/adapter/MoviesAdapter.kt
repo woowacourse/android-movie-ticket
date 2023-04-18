@@ -1,6 +1,5 @@
 package woowacourse.movie.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,6 @@ class MoviesAdapter(
 
     override fun getItemId(position: Int): Long = 0
 
-    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val movie: ActivityMovieModel = movies[position]
         lateinit var view: View
@@ -42,13 +40,13 @@ class MoviesAdapter(
             view = convertView
         }
 
-        initMovieItemView(movie, view.context, view.tag as MovieItemViewHolder)
+        setMovieItemView(movie, view.context, view.tag as MovieItemViewHolder)
         initReservationButtonClickListener(view, movie)
 
         return view
     }
 
-    private fun initMovieItemView(
+    private fun setMovieItemView(
         movie: ActivityMovieModel,
         context: Context,
         viewHolder: MovieItemViewHolder
