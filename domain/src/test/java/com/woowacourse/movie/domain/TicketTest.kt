@@ -27,4 +27,13 @@ class TicketTest {
 
         assertThat(actual).isEqualTo(expected)
     }
+
+    @Test
+    fun `티켓이 두 장, 티켓 가격이 13_000원이면 최종 가격은 26_000원이다`() {
+        val ticket = Ticket(2)
+        val actual = ticket.calculatePrice(13_000)
+        val expected = 26_000
+
+        assertThat(actual).isEqualTo(expected)
+    }
 }

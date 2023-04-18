@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketing.TicketingActivity
@@ -65,10 +64,7 @@ class TicketingResultActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_pay_result).text =
             getString(
                 R.string.movie_pay_result,
-                DiscountDecorator(
-                    reservationUI.dateTime.toLocalDate(),
-                    reservationUI.dateTime.toLocalTime()
-                ).calculatePrice(reservationUI.toReservation()),
+                reservationUI.toReservation().totalPrice,
                 getString(R.string.on_site_payment)
             )
     }

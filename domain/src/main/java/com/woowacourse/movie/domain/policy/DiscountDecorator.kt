@@ -1,6 +1,5 @@
 package com.woowacourse.movie.domain.policy
 
-import com.woowacourse.movie.domain.Reservation
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -10,13 +9,10 @@ class DiscountDecorator(movieDate: LocalDate, movieTime: LocalTime) {
         EarlyAndLatePolicy(movieTime)
     )
 
-    fun calculatePrice(reservation: Reservation): Int {
-        var money = DEFAULT_TICKET_PRICE
-        policies.forEach {
-            money = it.calculatePrice(money)
+    fun calculatePrice(): Int =
+        policies.fold(DEFAULT_TICKET_PRICE) { acc, discountPolicy ->
+            discountPolicy.calculatePrice(acc)
         }
-        return money * reservation.ticket.count
-    }
 
     companion object {
         private const val DEFAULT_TICKET_PRICE = 13_000

@@ -13,10 +13,10 @@ data class Movie(
     val runningTime: Int,
     val introduce: String,
 ) {
-    fun reserveMovie(reserveDateTime: LocalDateTime, ticket: Ticket): Reservation? {
+    fun reserveMovie(reserveDateTime: LocalDateTime, ticket: Ticket, totalPrice: Int): Reservation? {
         if (reserveDateTime.toLocalDate() !in getRunningDates(startDate)
         ) return null
-        return Reservation(this, reserveDateTime, ticket)
+        return Reservation(this, reserveDateTime, ticket, totalPrice)
     }
 
     fun getRunningDates(

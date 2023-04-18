@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketingresult.TicketingResultActivity
@@ -223,10 +224,23 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun reserveMovie() = movie.toMovie().reserveMovie(
-        LocalDateTime.of(selectedDate, selectedTime),
-        movieTicket.toTicket()
-    )?.run { toReservationUI() }
+    private fun reserveMovie(): ReservationUI? {
+        val reservationDateTime = LocalDateTime.of(selectedDate, selectedTime)
+
+        return movie.toMovie().reserveMovie(
+            reservationDateTime,
+            movieTicket.toTicket(),
+            calculateTicketTotalPrice(reservationDateTime)
+        )?.run { toReservationUI() }
+    }
+
+    private fun calculateTicketTotalPrice(dateTime: LocalDateTime): Int =
+        movieTicket.toTicket().calculatePrice(
+            DiscountDecorator(
+                dateTime.toLocalDate(),
+                dateTime.toLocalTime()
+            ).calculatePrice()
+        )
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

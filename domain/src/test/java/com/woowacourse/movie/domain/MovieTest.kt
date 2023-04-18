@@ -21,7 +21,7 @@ class MovieTest {
         val reserveDateTime = LocalDateTime.of(2023, 4, 22, 11, 0)
         val ticket = Ticket(1)
 
-        val actual = movie.reserveMovie(reserveDateTime, ticket)!!
+        val actual = movie.reserveMovie(reserveDateTime, ticket, 13_000)!!
 
         assertAll(
             { assertThat(actual.movie).isEqualTo(movie) },
@@ -43,7 +43,7 @@ class MovieTest {
         val reserveDateTime = LocalDateTime.of(2023, 3, 22, 11, 0)
         val ticket = Ticket(1)
 
-        assertThat(movie.reserveMovie(reserveDateTime, ticket)).isNull()
+        assertThat(movie.reserveMovie(reserveDateTime, ticket, 13_000)).isNull()
     }
 
     @Test
