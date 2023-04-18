@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -27,9 +25,6 @@ import java.time.format.DateTimeFormatter
 class ReservationActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityReservationBinding.inflate(layoutInflater) }
-    private val screeningDateSpinner: Spinner by lazy { binding.screeningDateSpinner }
-    private val screeningTimeSpinner: Spinner by lazy { binding.screeningTimeSpinner }
-    private val ticketCountTextView: TextView by lazy { binding.ticketCountTextView }
     private val movieModel: MovieModel? by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +40,10 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val selectedDate: LocalDate = screeningDateSpinner.selectedItem as LocalDate
-        val selectedTime: LocalTime = screeningTimeSpinner.selectedItem as LocalTime
+        val selectedDate: LocalDate = binding.screeningDateSpinner.selectedItem as LocalDate
+        val selectedTime: LocalTime = binding.screeningTimeSpinner.selectedItem as LocalTime
 
-        outState.putInt(TICKET_COUNT_INSTANCE_KEY, ticketCountTextView.text.toString().toInt())
+        outState.putInt(TICKET_COUNT_INSTANCE_KEY, binding.ticketCountTextView.text.toString().toInt())
         outState.putLong(SCREENING_DATE_INSTANCE_KEY, selectedDate.toEpochDay())
         outState.putString(SCREENING_TIME_INSTANCE_KEY, selectedTime.toString())
     }
@@ -70,24 +65,24 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initTicketCount(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            ticketCountTextView.text = TicketCount.MINIMUM.toString()
+            binding.ticketCountTextView.text = TicketCount.MINIMUM.toString()
             return
         }
         val ticketCount: Int = savedInstanceState.getInt(TICKET_COUNT_INSTANCE_KEY)
-        ticketCountTextView.text = ticketCount.toString()
+        binding.ticketCountTextView.text = ticketCount.toString()
     }
 
     private fun initSpinner(savedInstanceState: Bundle?) {
         if (movieModel == null) return
         val dates = movieModel!!.screeningPeriod.getScreeningDates()
 
-        screeningDateSpinner.adapter = ArrayAdapter(
+        binding.screeningDateSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             dates
         )
 
-        screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -119,7 +114,7 @@ class ReservationActivity : AppCompatActivity() {
         val selectedTimePosition: Int =
             movieModel!!.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
 
-        screeningDateSpinner.setSelection(selectedDatePosition)
+        binding.screeningDateSpinner.setSelection(selectedDatePosition)
         initTimeSpinner(screeningDate, selectedTimePosition)
     }
 
@@ -127,12 +122,12 @@ class ReservationActivity : AppCompatActivity() {
         if (movieModel == null) return
         val times = movieModel!!.screeningPeriod.getScreeningTimes(date)
 
-        screeningTimeSpinner.adapter = ArrayAdapter(
+        binding.screeningTimeSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             times
         )
-        screeningTimeSpinner.setSelection(defaultPoint)
+        binding.screeningTimeSpinner.setSelection(defaultPoint)
     }
 
     private fun initClickListener() {
@@ -144,8 +139,8 @@ class ReservationActivity : AppCompatActivity() {
     private fun initMinusClickListener() {
         binding.ticketCountMinusButton.setOnClickListener {
             runCatching {
-                val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() - 1)
-                ticketCountTextView.text = ticketCount.value.toString()
+                val ticketCount = TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
+                binding.ticketCountTextView.text = ticketCount.value.toString()
             }.onFailure {
                 val ticketCountConditionMessage =
                     getString(R.string.ticket_count_condition_message_form).format(TicketCount.MINIMUM)
@@ -156,8 +151,8 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initPlusClickListener() {
         binding.ticketCountPlusButton.setOnClickListener {
-            val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() + 1)
-            ticketCountTextView.text = ticketCount.value.toString()
+            val ticketCount = TicketCount(binding.ticketCountTextView.text.toString().toInt() + 1)
+            binding.ticketCountTextView.text = ticketCount.value.toString()
         }
     }
 
@@ -165,9 +160,9 @@ class ReservationActivity : AppCompatActivity() {
         if (movieModel == null) return
 
         binding.reservationCompleteButton.setOnClickListener {
-            val ticketCount = ticketCountTextView.text.toString().toInt()
-            val screeningDate = screeningDateSpinner.selectedItem as LocalDate
-            val screeningTime = screeningTimeSpinner.selectedItem as LocalTime
+            val ticketCount = binding.ticketCountTextView.text.toString().toInt()
+            val screeningDate = binding.screeningDateSpinner.selectedItem as LocalDate
+            val screeningTime = binding.screeningTimeSpinner.selectedItem as LocalTime
             val reservationModel: ReservationModel =
                 ReservationModel.from(
                     movieModel!!,
