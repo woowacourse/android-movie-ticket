@@ -32,16 +32,9 @@ import java.time.format.DateTimeFormatter
 class TicketingActivity : AppCompatActivity(), OnClickListener {
     private var movieTicket: TicketUI = TicketUI()
 
-    private val movie: MovieUI? by lazy {
-        intent.getParcelableCompat(MovieListActivity.MOVIE_KEY)
-    }
+    private lateinit var movie: MovieUI
+    private lateinit var movieDates: List<LocalDate>
 
-    private val movieDates: List<LocalDate> by lazy {
-        intent.getParcelableCompat<MovieUI>(MovieListActivity.MOVIE_KEY)
-            ?.run {
-                toMovie().getRunningDates()
-            } ?: emptyList()
-    }
     private val movieTimes = mutableListOf<LocalTime>()
 
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
@@ -67,12 +60,15 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        setMovieInfo()
-        setButtonOnClickListener()
-        setMovieDateSpinnerAdapter()
-        setMovieTimeSpinnerAdapter()
-        setMovieDateSpinnerItemClick()
-        setMovieTimeSpinnerItemClick()
+        initIntentData()
+        if (::movie.isInitialized) {
+            setMovieInfo()
+            setButtonOnClickListener()
+            setMovieDateSpinnerAdapter()
+            setMovieTimeSpinnerAdapter()
+            setMovieDateSpinnerItemClick()
+            setMovieTimeSpinnerItemClick()
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -88,15 +84,26 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private fun restoreState(savedInstanceState: Bundle) {
         savedInstanceState.run {
             reservation = getParcelableCompat<ReservationUI>(RESERVATION_KEY)?.apply {
-                selectedDate = dateTime.toLocalDate()?.apply { initMovieTimes(this) }
+                selectedDate = dateTime.toLocalDate().apply { initMovieTimes(this) }
                 selectedTime = dateTime.toLocalTime()
                 movieTicket = ticket
             }
         }
     }
 
+    private fun initIntentData() {
+        intent.getParcelableCompat<MovieUI>(MovieListActivity.MOVIE_KEY).run {
+            if (this == null)
+                exitForUnNormalCase(MESSAGE_EMPTY_MOVIE)
+            else {
+                movie = this
+                movieDates = toMovie().getRunningDates()
+            }
+        }
+    }
+
     private fun setMovieInfo() {
-        movie?.run {
+        with(movie) {
             thumbnail?.let { findViewById<ImageView>(R.id.iv_poster).setImageResource(it) }
             findViewById<TextView>(R.id.tv_title).text = title
             findViewById<TextView>(R.id.tv_date).text = getString(
@@ -147,6 +154,18 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
+    private fun initMovieTimes(date: LocalDate) {
+        with(movie) {
+            movieTimes.clear()
+            movieTimes.addAll(toMovie().getRunningTimes(date))
+            movieTimeAdapter.clear()
+            movieTimeAdapter.addAll(
+                movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
+            )
+            movieTimeAdapter.notifyDataSetChanged()
+        }
+    }
+
     private fun setMovieTimeSpinnerAdapter() {
         spinnerMovieTime.adapter = movieTimeAdapter
     }
@@ -163,18 +182,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-    }
-
-    private fun initMovieTimes(date: LocalDate) {
-        movie?.run {
-            movieTimes.clear()
-            movieTimes.addAll(toMovie().getRunningTimes(date))
-            movieTimeAdapter.clear()
-            movieTimeAdapter.addAll(
-                movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
-            )
-            movieTimeAdapter.notifyDataSetChanged()
         }
     }
 
@@ -204,8 +211,8 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun reserveMovie() = movie!!.toMovie().reserveMovie(
-        LocalDateTime.of(selectedDate!!, selectedTime!!),
+    private fun reserveMovie() = movie.toMovie().reserveMovie(
+        LocalDateTime.of(selectedDate, selectedTime),
         movieTicket.toTicket()
     )?.run { toReservationUI() }
 
@@ -224,14 +231,21 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         reservation = ReservationUI(
-            movie!!,
+            movie,
             LocalDateTime.of(selectedDate, selectedTime),
             movieTicket
         )
         outState.putParcelable(RESERVATION_KEY, reservation)
     }
 
+    private fun exitForUnNormalCase(message: String) {
+        showToast(message)
+        finish()
+    }
+
     companion object {
+        private const val MESSAGE_EMPTY_MOVIE = "영화 정보가 없습니다"
+
         private const val MOVIE_DATE_PATTERN = "yyyy.MM.dd"
         private const val MOVIE_TIME_PATTERN = "HH:mm"
 
