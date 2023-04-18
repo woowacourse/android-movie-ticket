@@ -13,10 +13,8 @@ class MovieDayDiscountEvent : DiscountEvent {
     }
 
     private fun canApplyDiscount(screeningDateTime: LocalDateTime): Boolean {
-        if (screeningDateTime.dayOfMonth in MOVIE_DAYS) {
-            return true
-        }
-        return false
+
+        return screeningDateTime.dayOfMonth in MOVIE_DAYS
     }
 
     companion object {
