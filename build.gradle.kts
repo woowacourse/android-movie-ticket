@@ -4,7 +4,7 @@ plugins {
     id("com.android.application") version agpVersion apply false
     id("com.android.library") version agpVersion apply false
 
-    val kotlinVersion = "1.8.10"
+    val kotlinVersion = "1.8.0"
     kotlin("android") version kotlinVersion apply false
     kotlin("jvm") version kotlinVersion apply false
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0" apply false
