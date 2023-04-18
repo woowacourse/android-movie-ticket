@@ -54,16 +54,35 @@ class SeatPickerActivity : AppCompatActivity() {
             view.text = getString(R.string.seat, seat.row.name, seat.column.number)
             view.setTextColor(getColor(seat.row.color))
             view.setOnClickListener {
-                if (view.isSelected) {
-                    count--
-                    view.setBackgroundColor(getColor(R.color.white))
-                    view.isSelected = false
-                } else if (count < ticket.peopleCount.count) {
-                    count++
-                    view.setBackgroundColor(getColor(R.color.seat_selected))
-                    view.isSelected = true
-                }
+                selectSeat(view, ticket)
+                changeDoneButtonState(ticket)
             }
+        }
+    }
+
+    private fun selectSeat(
+        view: TextView,
+        ticket: MovieTicketModel
+    ) {
+        if (view.isSelected) {
+            count--
+            view.setBackgroundColor(getColor(R.color.white))
+            view.isSelected = false
+        } else if (count < ticket.peopleCount.count) {
+            count++
+            view.setBackgroundColor(getColor(R.color.seat_selected))
+            view.isSelected = true
+        }
+    }
+
+    private fun changeDoneButtonState(ticket: MovieTicketModel) {
+        val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
+        if (count == ticket.peopleCount.count) {
+            doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_on))
+            doneButton.isClickable = true
+        } else {
+            doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_off))
+            doneButton.isClickable = false
         }
     }
 }

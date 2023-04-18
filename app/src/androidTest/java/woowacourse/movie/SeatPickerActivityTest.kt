@@ -5,6 +5,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isClickable
+import androidx.test.espresso.matcher.ViewMatchers.isNotClickable
 import androidx.test.espresso.matcher.ViewMatchers.isNotSelected
 import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -31,7 +33,7 @@ class SeatPickerActivityTest {
     val activityRule = ActivityScenarioRule<SeatPickerActivity>(intent)
 
     @Test
-    fun 사용자가_빈_좌석을_누르면_좌석이_선택된다() {
+    fun 사용자가_빈_좌석을_선택하면_좌석이_선택된다() {
         onView(withId(R.id.seat_view_1))
             .check(matches(isNotSelected()))
             .perform(click())
@@ -41,7 +43,7 @@ class SeatPickerActivityTest {
     }
 
     @Test
-    fun 사용자가_이미_선택된_좌석을_누르면_좌석_선택이_해제된다() {
+    fun 사용자가_이미_선택된_좌석을_선택하면_좌석_선택이_해제된다() {
         onView(withId(R.id.seat_view_1))
             .check(matches(isNotSelected()))
             .perform(click())
@@ -68,5 +70,34 @@ class SeatPickerActivityTest {
             .check(matches(isSelected()))
         onView(withId(R.id.seat_view_2))
             .check(matches(isNotSelected()))
+    }
+
+    @Test
+    fun 좌석을_모두_선택하면_확인_버튼_클릭이_가능하다() {
+        onView(withId(R.id.seat_picker_done_button))
+            .check(matches(isNotClickable()))
+
+        onView(withId(R.id.seat_view_1))
+            .check(matches(isNotSelected()))
+            .perform(click())
+
+        onView(withId(R.id.seat_picker_done_button))
+            .check(matches(isClickable()))
+    }
+
+    @Test
+    fun 좌석을_모두_선택한_후_선택을_취소하면_확인_버튼_클릭이_불가능하다() {
+        onView(withId(R.id.seat_view_1))
+            .check(matches(isNotSelected()))
+            .perform(click())
+        onView(withId(R.id.seat_picker_done_button))
+            .check(matches(isClickable()))
+
+        onView(withId(R.id.seat_view_1))
+            .check(matches(isSelected()))
+            .perform(click())
+
+        onView(withId(R.id.seat_picker_done_button))
+            .check(matches(isNotClickable()))
     }
 }
