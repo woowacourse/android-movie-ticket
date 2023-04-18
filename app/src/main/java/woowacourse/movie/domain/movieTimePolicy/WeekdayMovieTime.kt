@@ -12,6 +12,6 @@ object WeekdayMovieTime : MovieTimePolicy {
         if (date.dayOfWeek.value in WEEKDAY) {
             return SCREEN_TIME.step(SCREEN_TIME_INTERVAL).map { LocalTime.of(it, 0) }
         }
-        return listOf()
+        return emptyList()
     }
 }
