@@ -8,13 +8,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.ui.dto.Movie
+import woowacourse.movie.ui.model.MovieModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
-    private val movies: List<Movie>,
-    private val onItemButtonClick: (Movie) -> Unit,
+    private val movies: List<MovieModel>,
+    private val onItemButtonClick: (MovieModel) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
@@ -46,7 +46,7 @@ class MovieListAdapter(
         private val movieTime: TextView = view.findViewById(R.id.item_running_time)
         private val bookingButton: Button = view.findViewById(R.id.item_booking_button)
 
-        fun bind(movie: Movie, onItemButtonClick: (Movie) -> Unit) {
+        fun bind(movie: MovieModel, onItemButtonClick: (MovieModel) -> Unit) {
             moviePoster.setImageResource(movie.poster)
             movieTitle.text = movie.title
             movieDate.text = movie.getScreenDate()
@@ -54,10 +54,10 @@ class MovieListAdapter(
             bookingButton.setOnClickListener { onItemButtonClick(movie) }
         }
 
-        private fun Movie.getScreenDate(): String = movieDate.context.getString(R.string.screen_date, startDate.format(), endDate.format())
+        private fun MovieModel.getScreenDate(): String = movieDate.context.getString(R.string.screen_date, startDate.format(), endDate.format())
 
         private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(movieDate.context.getString(R.string.date_format)))
 
-        private fun Movie.getRunningTime(): String = movieTime.context.getString(R.string.running_time, runningTime)
+        private fun MovieModel.getRunningTime(): String = movieTime.context.getString(R.string.running_time, runningTime)
     }
 }

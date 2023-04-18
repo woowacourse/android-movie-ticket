@@ -17,10 +17,10 @@ import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
-import woowacourse.movie.domain.mapToDomainMovie
-import woowacourse.movie.ui.dto.Movie
-import woowacourse.movie.ui.dto.mapToUIMovieTicket
+import woowacourse.movie.domain.mapToMovie
 import woowacourse.movie.ui.getSerializable
+import woowacourse.movie.ui.model.MovieModel
+import woowacourse.movie.ui.model.mapToMovieTicketModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -39,7 +39,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        intent.getSerializable<Movie>("movie")?.let {
+        intent.getSerializable<MovieModel>("movie")?.let {
             setMovieInfo(it)
             setDateSpinner(it)
             setBookingButton(it)
@@ -68,7 +68,7 @@ class MovieDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setMovieInfo(movie: Movie) {
+    private fun setMovieInfo(movie: MovieModel) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.detail_title).text = movie.title
         findViewById<TextView>(R.id.detail_date).text = movie.getScreenDate()
@@ -76,18 +76,18 @@ class MovieDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.detail_description).text = movie.description
     }
 
-    private fun Movie.getScreenDate(): String = getString(R.string.screen_date, startDate.format(), endDate.format())
+    private fun MovieModel.getScreenDate(): String = getString(R.string.screen_date, startDate.format(), endDate.format())
 
     private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
-    private fun Movie.getRunningTime(): String = getString(R.string.running_time, runningTime)
+    private fun MovieModel.getRunningTime(): String = getString(R.string.running_time, runningTime)
 
-    private fun setDateSpinner(movie: Movie) {
+    private fun setDateSpinner(movie: MovieModel) {
         dateSpinner = findViewById(R.id.detail_date_spinner)
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            mapToDomainMovie(movie).getDatesBetweenTwoDates()
+            mapToMovie(movie).getDatesBetweenTwoDates()
         )
         dateSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dateSpinner.adapter = dateSpinnerAdapter
@@ -148,7 +148,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBookingButton(movie: Movie) {
+    private fun setBookingButton(movie: MovieModel) {
         val bookingButton = findViewById<Button>(R.id.detail_booking_button)
 
         bookingButton.setOnClickListener {
@@ -156,7 +156,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun moveToTicketActivity(movie: Movie) {
+    private fun moveToTicketActivity(movie: MovieModel) {
         val ticket = MovieTicket(
             movie.title,
             TicketTime(LocalDateTime.of(dateSpinner.selectedItem as LocalDate, timeSpinner.selectedItem as LocalTime)),
@@ -164,7 +164,7 @@ class MovieDetailActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("ticket", mapToUIMovieTicket(ticket))
+        intent.putExtra("ticket", mapToMovieTicketModel(ticket))
         startActivity(intent)
     }
 

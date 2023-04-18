@@ -6,10 +6,10 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.ui.dto.MovieTicket
-import woowacourse.movie.ui.dto.PeopleCount
-import woowacourse.movie.ui.dto.TicketTime
 import woowacourse.movie.ui.getSerializable
+import woowacourse.movie.ui.model.MovieTicketModel
+import woowacourse.movie.ui.model.PeopleCountModel
+import woowacourse.movie.ui.model.TicketTimeModel
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -39,7 +39,7 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo() {
-        intent.getSerializable<MovieTicket>("ticket")?.let {
+        intent.getSerializable<MovieTicketModel>("ticket")?.let {
             findViewById<TextView>(R.id.ticket_title).text = it.title
             findViewById<TextView>(R.id.ticket_date).text = it.time.format()
             findViewById<TextView>(R.id.ticket_people_count).text = it.peopleCount.format()
@@ -47,10 +47,10 @@ class MovieTicketActivity : AppCompatActivity() {
         }
     }
 
-    private fun TicketTime.format(): String =
+    private fun TicketTimeModel.format(): String =
         dateTime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
 
-    private fun PeopleCount.format(): String = getString(R.string.people_count, count)
+    private fun PeopleCountModel.format(): String = getString(R.string.people_count, count)
 
-    private fun MovieTicket.getPriceWithUnit(): String = getString(R.string.price, DecimalFormat("#,###").format(price))
+    private fun MovieTicketModel.getPriceWithUnit(): String = getString(R.string.price, DecimalFormat("#,###").format(price))
 }

@@ -1,10 +1,10 @@
-package woowacourse.movie.ui.dto
+package woowacourse.movie.ui.model
 
 import androidx.annotation.DrawableRes
 import java.io.Serializable
 import java.time.LocalDate
 
-data class Movie(
+data class MovieModel(
     @DrawableRes
     val poster: Int,
     val title: String,

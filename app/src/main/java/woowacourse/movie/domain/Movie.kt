@@ -1,9 +1,10 @@
 package woowacourse.movie.domain
 
+import woowacourse.movie.ui.model.MovieModel
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
-fun mapToDomainMovie(movie: woowacourse.movie.ui.dto.Movie): Movie {
+fun mapToMovie(movie: MovieModel): Movie {
     return Movie(
         movie.title,
         movie.startDate,

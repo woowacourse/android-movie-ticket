@@ -6,7 +6,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.ui.Movies
-import woowacourse.movie.ui.dto.Movie
+import woowacourse.movie.ui.model.MovieModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setMovieList(movies)
     }
 
-    private fun setMovieList(movies: List<Movie>) {
+    private fun setMovieList(movies: List<MovieModel>) {
         val moviesView = findViewById<ListView>(R.id.main_movie_list)
         moviesView.adapter = MovieListAdapter(movies) {
             moveToDetailActivity(it)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun moveToDetailActivity(movie: Movie) {
+    private fun moveToDetailActivity(movie: MovieModel) {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra("movie", movie)
         startActivity(intent)
