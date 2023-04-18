@@ -62,14 +62,12 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun renderMovieView(movieDto: MovieDto) {
         MovieView(
-            this,
-            movieDto,
             findViewById(R.id.movie_reservation_poster),
             findViewById(R.id.movie_reservation_title),
             findViewById(R.id.movie_reservation_date),
             findViewById(R.id.movie_reservation_running_time),
             findViewById(R.id.movie_reservation_description)
-        ).render()
+        ).render(movieDto)
     }
 
     private fun getMovieDto(): MovieDto? {

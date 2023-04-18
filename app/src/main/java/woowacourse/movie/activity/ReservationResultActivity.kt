@@ -28,20 +28,16 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private fun renderMovieView(reservationDto: ReservationDto) {
         MovieView(
-            this,
-            reservationDto.movie,
             title = findViewById(R.id.movie_reservation_result_title)
-        ).render()
+        ).render(reservationDto.movie)
     }
 
     private fun renderReservationDetailView(reservationDto: ReservationDto) {
         ReservationDetailView(
-            this,
-            reservationDto.detail,
             findViewById(R.id.movie_reservation_result_date),
             findViewById(R.id.movie_reservation_result_people_count),
             findViewById(R.id.movie_reservation_result_price),
-        ).render()
+        ).render(reservationDto.detail)
     }
 
     private fun getReservationDto(): ReservationDto? {
