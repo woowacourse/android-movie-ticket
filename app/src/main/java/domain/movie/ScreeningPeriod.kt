@@ -8,16 +8,16 @@ data class ScreeningPeriod(
     val endDate: ScreeningDate
 ) {
 
-    constructor(startDate: LocalDate, endDate: LocalDate) : this(
-        ScreeningDate(startDate),
-        ScreeningDate(endDate)
-    )
-
     init {
         require(startDate <= endDate) {
             PERIOD_ERROR
         }
     }
+
+    constructor(startDate: LocalDate, endDate: LocalDate) : this(
+        ScreeningDate(startDate),
+        ScreeningDate(endDate)
+    )
 
     fun getScreeningDates(): List<ScreeningDate> {
         var currentDate = startDate
