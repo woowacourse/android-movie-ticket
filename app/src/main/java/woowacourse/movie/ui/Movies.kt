@@ -68,5 +68,5 @@ class Movies {
         )
     )
 
-    fun getAll(): List<Movie> = movies
+    fun getAll(): List<Movie> = movies.toList()
 }
