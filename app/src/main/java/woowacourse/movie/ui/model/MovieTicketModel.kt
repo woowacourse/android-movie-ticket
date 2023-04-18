@@ -1,7 +1,8 @@
 package woowacourse.movie.ui.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.MovieTicket
-import java.io.Serializable
 
 fun mapToMovieTicketModel(movieTicket: MovieTicket): MovieTicketModel {
     return MovieTicketModel(
@@ -12,9 +13,10 @@ fun mapToMovieTicketModel(movieTicket: MovieTicket): MovieTicketModel {
     )
 }
 
+@Parcelize
 data class MovieTicketModel(
     val title: String,
     val time: TicketTimeModel,
     val peopleCount: PeopleCountModel,
     val price: Int
-) : Serializable
+) : Parcelable

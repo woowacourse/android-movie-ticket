@@ -1,7 +1,8 @@
 package woowacourse.movie.ui.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.PeopleCount
-import java.io.Serializable
 
 fun mapToPeopleCountModel(peopleCount: PeopleCount): PeopleCountModel {
     return PeopleCountModel(
@@ -9,4 +10,5 @@ fun mapToPeopleCountModel(peopleCount: PeopleCount): PeopleCountModel {
     )
 }
 
-data class PeopleCountModel(val count: Int) : Serializable
+@Parcelize
+data class PeopleCountModel(val count: Int) : Parcelable

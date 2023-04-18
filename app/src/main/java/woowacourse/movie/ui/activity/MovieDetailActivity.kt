@@ -17,7 +17,7 @@ import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
-import woowacourse.movie.ui.getSerializable
+import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieModel
 import woowacourse.movie.ui.model.mapToMovie
 import woowacourse.movie.ui.model.mapToMovieTicketModel
@@ -39,7 +39,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        intent.getSerializable<MovieModel>("movie")?.let {
+        intent.getParcelable<MovieModel>("movie")?.let {
             setMovieInfo(it)
             setDateSpinner(it)
             setBookingButton(it)

@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.ui.getSerializable
+import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieTicketModel
 import woowacourse.movie.ui.model.PeopleCountModel
 import woowacourse.movie.ui.model.TicketTimeModel
@@ -39,7 +39,7 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo() {
-        intent.getSerializable<MovieTicketModel>("ticket")?.let {
+        intent.getParcelable<MovieTicketModel>("ticket")?.let {
             findViewById<TextView>(R.id.ticket_title).text = it.title
             findViewById<TextView>(R.id.ticket_date).text = it.time.format()
             findViewById<TextView>(R.id.ticket_people_count).text = it.peopleCount.format()

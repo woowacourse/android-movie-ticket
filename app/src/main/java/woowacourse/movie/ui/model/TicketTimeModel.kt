@@ -1,7 +1,8 @@
 package woowacourse.movie.ui.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.TicketTime
-import java.io.Serializable
 import java.time.LocalDateTime
 
 fun mapToTicketTimeModel(ticketTime: TicketTime): TicketTimeModel {
@@ -10,4 +11,5 @@ fun mapToTicketTimeModel(ticketTime: TicketTime): TicketTimeModel {
     )
 }
 
-data class TicketTimeModel(val dateTime: LocalDateTime) : Serializable
+@Parcelize
+data class TicketTimeModel(val dateTime: LocalDateTime) : Parcelable
