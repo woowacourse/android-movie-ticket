@@ -66,37 +66,52 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        initMovieReservationView(savedInstanceState)
+    }
 
+    private fun initMovieReservationView(savedInstanceState: Bundle?) {
+        makeBackButton()
         val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
-
-        counter.applyToView()
-
         if (movie != null) {
-            counter.load(savedInstanceState)
+            makeCounter(savedInstanceState)
+            makeSpinners(savedInstanceState, movie)
+            renderMovie(movie)
+            makeReservationButtonClickListener(movie)
+        }
+    }
 
-            dateSpinner.make(
-                savedInstanceState = savedInstanceState,
-                movie = movie,
-                timeSpinner = timeSpinner
+    private fun makeBackButton() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun makeCounter(savedInstanceState: Bundle?) {
+        counter.applyToView()
+        counter.load(savedInstanceState)
+    }
+
+    private fun makeSpinners(savedInstanceState: Bundle?, movie: MovieViewData) {
+        dateSpinner.make(
+            savedInstanceState = savedInstanceState, movie = movie, timeSpinner = timeSpinner
+        )
+    }
+
+    private fun renderMovie(movie: MovieViewData) {
+        MovieController(
+            movie = movie,
+            MovieView(
+                poster = findViewById(R.id.movie_reservation_poster),
+                title = findViewById(R.id.movie_reservation_title),
+                date = findViewById(R.id.movie_reservation_date),
+                runningTime = findViewById(R.id.movie_reservation_running_time),
+                description = findViewById(R.id.movie_reservation_description)
             )
+        ).render()
+    }
 
-            MovieController(
-                movie = movie,
-                MovieView(
-                    poster = findViewById(R.id.movie_reservation_poster),
-                    title = findViewById(R.id.movie_reservation_title),
-                    date = findViewById(R.id.movie_reservation_date),
-                    runningTime = findViewById(R.id.movie_reservation_running_time),
-                    description = findViewById(R.id.movie_reservation_description)
-                )
-            ).render()
-
-            reservationButton.setOnClickListener {
-                val reservationDetail =
-                    makeReservationDetail(dateSpinner, timeSpinner, counter.counter)
-                makeReservation(movie, reservationDetail)
-            }
+    private fun makeReservationButtonClickListener(movie: MovieViewData) {
+        reservationButton.setOnClickListener {
+            val reservationDetail = makeReservationDetail(dateSpinner, timeSpinner, counter.counter)
+            makeReservation(movie, reservationDetail)
         }
     }
 
