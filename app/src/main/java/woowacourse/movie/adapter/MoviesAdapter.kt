@@ -34,13 +34,12 @@ class MoviesAdapter(
         }
         viewHolderMap[view]?.apply {
             setView(this, movie)
-            initClickListener(movies[position])
         }
 
         return view
     }
 
-    private fun setView(viewHolder: MovieItemViewHolder, movie: MovieInfo) =
+    private fun setView(viewHolder: MovieItemViewHolder, movie: MovieInfo) {
         with(viewHolder) {
             movieNameTextView.text = movie.movieName
             movie.posterImage?.let {
@@ -64,11 +63,9 @@ class MoviesAdapter(
                 .context
                 .getString(R.string.running_time_form)
                 .format(movie.runningTime)
-        }
-
-    private fun MovieItemViewHolder.initClickListener(movie: MovieInfo) {
-        reservationButton.setOnClickListener {
-            onReservationButtonClicked(movie)
+            reservationButton.setOnClickListener {
+                onReservationButtonClicked(movie)
+            }
         }
     }
 }
