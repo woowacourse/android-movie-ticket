@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.activity
 
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -10,6 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.ui.dto.MovieTicket
 import woowacourse.movie.ui.dto.PeopleCount
 import woowacourse.movie.ui.dto.TicketTime
+import woowacourse.movie.ui.getSerializable
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -39,19 +39,13 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo() {
-        val ticket = getTicketFromIntent()
-        findViewById<TextView>(R.id.ticket_title).text = ticket.title
-        findViewById<TextView>(R.id.ticket_date).text = ticket.time.format()
-        findViewById<TextView>(R.id.ticket_people_count).text = ticket.peopleCount.format()
-        findViewById<TextView>(R.id.ticket_price).text = ticket.getPriceWithUnit()
+        intent.getSerializable<MovieTicket>("ticket")?.let {
+            findViewById<TextView>(R.id.ticket_title).text = it.title
+            findViewById<TextView>(R.id.ticket_date).text = it.time.format()
+            findViewById<TextView>(R.id.ticket_people_count).text = it.peopleCount.format()
+            findViewById<TextView>(R.id.ticket_price).text = it.getPriceWithUnit()
+        }
     }
-
-    @Suppress("DEPRECATION")
-    private fun getTicketFromIntent() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getSerializableExtra("ticket", MovieTicket::class.java)
-    } else {
-        intent.getSerializableExtra("ticket")
-    } as MovieTicket
 
     private fun TicketTime.format(): String =
         dateTime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))

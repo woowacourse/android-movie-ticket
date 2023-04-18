@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.activity
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.MenuItem
@@ -21,7 +20,7 @@ import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.domain.mapToDomainMovie
 import woowacourse.movie.ui.dto.Movie
 import woowacourse.movie.ui.dto.mapToUIMovieTicket
-import java.io.Serializable
+import woowacourse.movie.ui.getSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -40,11 +39,10 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = intent.getSerializable<Movie>("movie")
-        movie?.let {
-            setMovieInfo(movie)
-            setDateSpinner(movie)
-            setBookingButton(movie)
+        intent.getSerializable<Movie>("movie")?.let {
+            setMovieInfo(it)
+            setDateSpinner(it)
+            setBookingButton(it)
         }
         setTimeSpinner()
         setPeopleCountController()
@@ -69,14 +67,6 @@ class MovieDetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    @Suppress("DEPRECATION")
-    private inline fun <reified T : Serializable> Intent.getSerializable(key: String): T? =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getSerializableExtra(key, T::class.java)
-        } else {
-            getSerializableExtra(key) as? T
-        }
 
     private fun setMovieInfo(movie: Movie) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
