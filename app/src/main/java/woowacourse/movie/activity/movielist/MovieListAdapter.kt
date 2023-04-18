@@ -1,7 +1,6 @@
 package woowacourse.movie.activity.movielist
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
@@ -11,11 +10,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.model.MovieDTO
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
+class MovieListAdapter(private val movieDTOS: List<MovieDTO>, private val listener: MovieListItemListener) : BaseAdapter() {
     private val viewHolders: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
         return movieDTOS.size
@@ -34,9 +32,7 @@ class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
         if (viewHolders[view] == null) viewHolders[view] = getViewHolder(view)
         val movieDTO = getItem(position) as MovieDTO
         viewHolders[view]?.set(movieDTO, parent?.context) {
-            val intent = Intent(view.context, MovieDetailActivity::class.java)
-            intent.putExtra(MovieDetailActivity.MOVIE_KEY, movieDTO)
-            view.context.startActivity(intent)
+            listener.onClick(movieDTO, it)
         }
         return view
     }
