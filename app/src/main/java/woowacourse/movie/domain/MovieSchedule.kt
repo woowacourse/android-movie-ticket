@@ -15,7 +15,7 @@ class MovieSchedule(private val startDate: LocalDate, private val endDate: Local
 
         return (0..numOfDaysBetween).map {
             startDate.plusDays(it)
-        }.toList()
+        }
     }
 
     fun getScheduleTimes(date: String): List<String> {
@@ -29,7 +29,7 @@ class MovieSchedule(private val startDate: LocalDate, private val endDate: Local
     }
 
     private fun getValidTimes(times: IntRange): List<String> =
-        (times step INTERVAL_TIME).toList().map {
+        (times step INTERVAL_TIME).map {
             TIME_FORMAT.format(it)
         }
 
