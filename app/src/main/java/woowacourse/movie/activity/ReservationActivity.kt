@@ -104,14 +104,13 @@ class ReservationActivity : AppCompatActivity() {
 
         screeningDateSpinner.applyArrayAdapter(dates)
         screeningDateSpinner.onItemSelectedListener = SpinnerItemSelectedListener(
-            screeningDateSpinner,
             defaultScreeningTimePosition,
-            ::initTimeSpinner
+            ::onScreeningDateSelected
         )
         screeningDateSpinner.setSelection(defaultScreeningDatePosition)
     }
 
-    private fun initTimeSpinner(date: ScreeningDate?, defaultPosition: Int = 0) {
+    private fun onScreeningDateSelected(date: ScreeningDate?, defaultPosition: Int = 0) {
         val times = date?.screeningTimes ?: listOf()
 
         screeningTimeSpinner.applyArrayAdapter(times)
