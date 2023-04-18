@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketingresult.TicketingResultActivity
+import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.extensions.showToast
 import woowacourse.movie.model.MovieUI
@@ -236,11 +237,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             movieTicket
         )
         outState.putParcelable(RESERVATION_KEY, reservation)
-    }
-
-    private fun exitForUnNormalCase(message: String) {
-        showToast(message)
-        finish()
     }
 
     companion object {

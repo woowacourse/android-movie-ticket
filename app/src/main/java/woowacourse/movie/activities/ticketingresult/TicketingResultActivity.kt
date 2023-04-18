@@ -9,6 +9,7 @@ import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketing.TicketingActivity
+import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketUI
@@ -26,8 +27,12 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation() {
-        intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY)?.run {
-            setReservationInfo(this)
+        intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY).run {
+            if (this == null)
+                exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
+            else {
+                setReservationInfo(this)
+            }
         }
     }
 
@@ -78,5 +83,9 @@ class TicketingResultActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private companion object {
+        private const val MESSAGE_EMPTY_RESERVATION = "예약 정보가 없습니다"
     }
 }
