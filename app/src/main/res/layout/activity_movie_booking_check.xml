@@ -2,72 +2,73 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_booking_check"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MovieBookingCheckActivity">
+    tools:context=".ui.moviebookingcheckactivity.MovieBookingCheckActivity">
 
     <TextView
 
-        android:text="@string/tv_notice"
+        android:id="@+id/tv_notice"
         android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:id="@+id/tv_notice"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:textColor="@color/white"
         android:background="@color/woowa_purple"
+        android:gravity="center"
+        android:text="@string/tv_notice"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        tools:text="해리 포터와 마법사의 돌"
+        android:id="@+id/tv_booking_check_movie_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="@color/woowa_black"
-        android:includeFontPadding="false"
-        android:id="@+id/tv_booking_check_movie_name"
         android:layout_marginTop="31dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_notice"
+        android:includeFontPadding="false"
+        android:textColor="@color/woowa_black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_notice"
+        tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
-        tools:text="2024.3.1"
-        android:textSize="20sp"
-        android:textColor="@color/woowa_black"
-        android:includeFontPadding="false"
+        android:id="@+id/tv_booking_check_screening_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="9dp"
-        android:id="@+id/tv_booking_check_screening_day"
+        android:includeFontPadding="false"
+        android:textColor="@color/woowa_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_booking_check_movie_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:text="2024.3.1" />
 
     <TextView
-        tools:text="일반 1명"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/woowa_black"
-        android:includeFontPadding="false"
-        android:layout_marginTop="69dp"
         android:id="@+id/tv_booking_check_person_count"
-        app:layout_constraintTop_toBottomOf="@+id/tv_booking_check_screening_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/woowa_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_booking_check_screening_day"
+        tools:text="일반 1명" />
 
     <TextView
-        tools:text="13,000원 (현장 결제)"
-        android:layout_marginTop="19dp"
-        android:layout_width="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/woowa_black"
-        android:includeFontPadding="false"
-        android:layout_height="wrap_content"
         android:id="@+id/tv_booking_check_total_money"
-        app:layout_constraintTop_toBottomOf="@+id/tv_booking_check_person_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/woowa_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_booking_check_person_count"
+        tools:text="13,000원 (현장 결제)" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.price.TicketCount
-import woowacourse.movie.ui.MovieBookingCheckActivity
+import woowacourse.movie.ui.moviebookingcheckactivity.MovieBookingCheckActivity
 import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
