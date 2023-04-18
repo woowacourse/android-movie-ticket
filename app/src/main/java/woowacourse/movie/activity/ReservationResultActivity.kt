@@ -29,13 +29,14 @@ class ReservationResultActivity : AppCompatActivity() {
                 ?: throw IllegalArgumentException(RESERVATION_DATA_ERROR)
 
         with(reservation) {
-            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
+            val dateFormat: DateTimeFormatter =
+                DateTimeFormatter.ofPattern(getString(R.string.reservation_date_time_form))
 
             movieMovieNameTextView.text = movieName
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
             ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
             paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
-                DecimalFormat("#,###").format(paymentAmount.value),
+                DecimalFormat(getString(R.string.payment_amount_unit_form)).format(paymentAmount.value),
                 getPaymentTypeString(paymentType)
             )
         }
