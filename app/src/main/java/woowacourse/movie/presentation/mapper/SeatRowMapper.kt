@@ -4,7 +4,7 @@ import woowacourse.movie.domain.model.seat.DomainSeatRow
 import woowacourse.movie.presentation.model.SeatRow
 
 fun SeatRow.toDomain(): DomainSeatRow =
-    DomainSeatRow(value)
+    DomainSeatRow((value - 64).code)
 
 fun DomainSeatRow.toPresentation(): SeatRow =
-    SeatRow(value)
+    SeatRow((value + 64).toChar())
