@@ -13,8 +13,7 @@ import woowacourse.movie.databinding.ActivityTicketingBinding
 import woowacourse.movie.domain.model.movie.DomainMovieDate
 import woowacourse.movie.domain.model.movie.DomainMovieTime
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
-import woowacourse.movie.presentation.activities.ticketingresult.TicketingResultActivity
-import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
+import woowacourse.movie.presentation.extensions.getParcelableCompat
 import woowacourse.movie.presentation.extensions.showBackButton
 import woowacourse.movie.presentation.extensions.showToast
 import woowacourse.movie.presentation.mapper.toDomain
@@ -32,7 +31,7 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     private var selectedTime: MovieTime? = null
 
     private val movieDates: List<MovieDate> by lazy {
-        intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
+        intent.getParcelableCompat<Movie>(MOVIE_KEY)?.run {
             DomainMovieDate.releaseDates(from = startDate, to = endDate).map { it.toPresentation() }
         } ?: emptyList()
     }
@@ -139,7 +138,7 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun showMovieIntroduce() {
         with(binding) {
-            intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
+            intent.getParcelableCompat<Movie>(MOVIE_KEY)?.run {
                 ivPoster.setImageResource(thumbnail)
                 tvTitle.text = title
                 tvDate.text = getString(
@@ -155,9 +154,9 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun restoreState(savedInstanceState: Bundle?) {
         savedInstanceState?.run {
-            selectedDate = getParcelableExtraCompat(SELECTED_DATE_STATE_KEY)
-            selectedTime = getParcelableExtraCompat(SELECTED_TIME_STATE_KEY)
-            movieTicket = getParcelableExtraCompat(TICKET_COUNT_STATE_KEY)!!
+            selectedDate = getParcelableCompat(SELECTED_DATE_STATE_KEY)
+            selectedTime = getParcelableCompat(SELECTED_TIME_STATE_KEY)
+            movieTicket = getParcelableCompat(TICKET_COUNT_STATE_KEY)!!
         }
         selectedDate?.toDomain()?.run {
             updateMovieTimes(
@@ -190,15 +189,15 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
                     showToast(getString(R.string.select_date_and_time))
                     return
                 }
-                startTicketingResultActivity()
+                startSeatPickerActivity()
             }
         }
     }
 
-    private fun startTicketingResultActivity() {
+    private fun startSeatPickerActivity() {
         startActivity(
-            Intent(this, TicketingResultActivity::class.java)
-                .putExtra(MOVIE_KEY, intent.getParcelableExtraCompat<Movie>(MOVIE_KEY))
+            Intent(this, SeatPickerActivity::class.java)
+                .putExtra(MOVIE_KEY, intent.getParcelableCompat<Movie>(MOVIE_KEY))
                 .putExtra(TICKET_KEY, movieTicket)
                 .putExtra(MOVIE_DATE_KEY, selectedDate)
                 .putExtra(MOVIE_TIME_KEY, selectedTime)

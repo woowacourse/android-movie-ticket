@@ -8,6 +8,7 @@
     <string name="book_date">%04d-%02d-%02d</string>
     <string name="book_date_time">%04d.%02d.%02d %02d:%02d</string>
     <string name="regular_count">일반 %d명</string>
+    <string name="movie_pay_price">%,d원</string>
     <string name="movie_pay_result">%,d원 (%s)</string>
     <string name="on_site_payment">현장 결제</string>
     <string name="select_date_and_time">날짜와 시간을 선택해주세요!</string>
@@ -16,4 +17,5 @@
     <string name="minus_ticket">-</string>
     <string name="screen" translatable="false">SCREEN</string>
     <string name="done">확인</string>
+    <string name="exceed_pickable_seat">선택 가능한 좌석 수를 초과하였습니다.</string>
 </resources>

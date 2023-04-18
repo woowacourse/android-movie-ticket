@@ -1,6 +1,10 @@
 package woowacourse.movie.presentation.model
 
-class SeatColumn(private val value: Int) {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+class SeatColumn(val value: Int) : Parcelable {
     override fun toString(): String = "$value"
 
     companion object {

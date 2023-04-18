@@ -12,7 +12,7 @@ import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Com
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_DATE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_TIME_KEY
-import woowacourse.movie.presentation.extensions.getParcelableExtraCompat
+import woowacourse.movie.presentation.extensions.getParcelableCompat
 import woowacourse.movie.presentation.extensions.showBackButton
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.model.Movie
@@ -32,9 +32,9 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun showTicketingResult() {
-        val movieDate = intent.getParcelableExtraCompat<MovieDate>(MOVIE_DATE_KEY)!!
-        val movieTime = intent.getParcelableExtraCompat<MovieTime>(MOVIE_TIME_KEY)!!
-        val ticket = intent.getParcelableExtraCompat<Ticket>(TicketingActivity.TICKET_KEY)!!
+        val movieDate = intent.getParcelableCompat<MovieDate>(MOVIE_DATE_KEY)!!
+        val movieTime = intent.getParcelableCompat<MovieTime>(MOVIE_TIME_KEY)!!
+        val ticket = intent.getParcelableCompat<Ticket>(TicketingActivity.TICKET_KEY)!!
 
         showMovieInformation(movieDate, movieTime)
         showPaymentPrice(ticket, movieDate, movieTime)
@@ -44,7 +44,7 @@ class TicketingResultActivity : AppCompatActivity() {
         movieDate: MovieDate,
         movieTime: MovieTime,
     ) {
-        intent.getParcelableExtraCompat<Movie>(MOVIE_KEY)?.run {
+        intent.getParcelableCompat<Movie>(MOVIE_KEY)?.run {
             binding.tvTitle.text = title
             binding.tvDate.text = getString(
                 R.string.book_date_time,

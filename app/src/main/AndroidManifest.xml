@@ -14,20 +14,14 @@
         <activity
             android:name=".presentation.activities.movielist.MovieListActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-
-        <activity android:name=".presentation.activities.ticketing.TicketingActivity" />
-        <activity android:name=".presentation.activities.ticketing.SeatSelectActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".presentation.activities.ticketing.TicketingActivity" />
+        <activity android:name=".presentation.activities.ticketing.SeatPickerActivity" />
         <activity android:name=".presentation.activities.ticketingresult.TicketingResultActivity" />
     </application>
 

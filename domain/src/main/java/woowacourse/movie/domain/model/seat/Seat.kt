@@ -2,9 +2,9 @@ package woowacourse.movie.domain.model.seat
 
 typealias DomainSeat = Seat
 
-class Seat(
-    private val row: SeatRow,
-    private val col: SeatColumn,
+data class Seat(
+    val row: SeatRow,
+    val col: SeatColumn,
 ) {
     fun getClass(): SeatClass = row.getClass()
 }
