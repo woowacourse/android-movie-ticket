@@ -18,4 +18,8 @@
     <string name="screen" translatable="false">SCREEN</string>
     <string name="done">확인</string>
     <string name="exceed_pickable_seat">선택 가능한 좌석 수를 초과하였습니다.</string>
+    <string name="ticketing_confirm_positive_btn">예매 완료</string>
+    <string name="ticketing_confirm_message">정말 예매하시겠습니까?</string>
+    <string name="ticketing_confirm_negative_btn">취소</string>
+    <string name="ticketing_confirm_title">예매 확인</string>
 </resources>

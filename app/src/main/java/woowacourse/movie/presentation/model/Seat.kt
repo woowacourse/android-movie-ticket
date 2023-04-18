@@ -15,7 +15,7 @@ import woowacourse.movie.presentation.mapper.toPresentation
 class Seat(
     val row: SeatRow,
     val col: SeatColumn,
-) : Parcelable {
+) : Parcelable, Comparable<Seat> {
     fun makeView(
         context: Context,
         isChecked: Boolean = false,
@@ -25,9 +25,20 @@ class Seat(
             val rowPosition = row.toDomain().value
             val seatColorResId = SeatClass.get(rowPosition).toPresentation().colorResId
 
-            seatNumberTv.text = "${row.value}${col.value}"
+            seatNumberTv.text = this@Seat.toString()
             seatNumberTv.setTextColor(ContextCompat.getColor(context, seatColorResId))
             seatNumberTv.isSelected = isChecked
             root.setOnClickListener { onClick(this) }
         }.root
+
+    override fun compareTo(other: Seat): Int {
+        val rowCompare = row.compareTo(other.row)
+        return if (rowCompare == 0) {
+            col.compareTo(other.col)
+        } else {
+            rowCompare
+        }
+    }
+
+    override fun toString(): String = "${row.value}${col.value}"
 }

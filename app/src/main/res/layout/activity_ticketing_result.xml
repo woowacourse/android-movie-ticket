@@ -62,16 +62,42 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:gravity="center"
+        android:gravity="center|end"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ticket_count_and_seat_divider"
+        app:layout_constraintEnd_toStartOf="@+id/tv_seats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ticket_count_and_seat_divider"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="일반 1명" />
+
+    <View
+        android:id="@+id/ticket_count_and_seat_divider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_seats"
+        app:layout_constraintEnd_toStartOf="@id/tv_seats"
+        app:layout_constraintStart_toEndOf="@+id/tv_regular_count"
+        app:layout_constraintTop_toTopOf="@+id/tv_seats" />
+
+    <TextView
+        android:id="@+id/tv_seats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:gravity="center|start"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_pay_result"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        app:layout_constraintStart_toEndOf="@+id/tv_regular_count"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:text="일반 1명" />
+        tools:text="B3, D2, D1, E2, E5, E1" />
 
     <TextView
         android:id="@+id/tv_pay_result"
@@ -85,7 +111,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_regular_count"
+        app:layout_constraintTop_toBottomOf="@id/tv_seats"
         tools:text="13,000원 (현장 결제)" />
 
 

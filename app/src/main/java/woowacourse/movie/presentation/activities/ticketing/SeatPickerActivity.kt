@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.activities.ticketing
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -13,9 +14,15 @@ import woowacourse.movie.domain.model.discount.policy.MovieTimeDiscountPolicy
 import woowacourse.movie.domain.model.seat.DomainPickedSeats
 import woowacourse.movie.domain.model.seat.DomainSeat
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity
+import woowacourse.movie.presentation.activities.ticketingresult.TicketingResultActivity
+import woowacourse.movie.presentation.extensions.createAlertDialog
 import woowacourse.movie.presentation.extensions.getParcelableCompat
+import woowacourse.movie.presentation.extensions.message
+import woowacourse.movie.presentation.extensions.negativeButton
+import woowacourse.movie.presentation.extensions.positiveButton
 import woowacourse.movie.presentation.extensions.showBackButton
 import woowacourse.movie.presentation.extensions.showToast
+import woowacourse.movie.presentation.extensions.title
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toPresentation
 import woowacourse.movie.presentation.model.Movie
@@ -26,8 +33,9 @@ import woowacourse.movie.presentation.model.Seat
 import woowacourse.movie.presentation.model.SeatColumn
 import woowacourse.movie.presentation.model.SeatRow
 import woowacourse.movie.presentation.model.Ticket
+import woowacourse.movie.presentation.model.TicketPrice
 
-class SeatPickerActivity : AppCompatActivity() {
+class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivitySeatPickerBinding
 
     private var pickedSeats = DomainPickedSeats()
@@ -59,6 +67,7 @@ class SeatPickerActivity : AppCompatActivity() {
     private fun initView() {
         showBackButton()
         showMovieTitle()
+        setOnClickListener()
         updateDoneBtnEnabled(!canPick())
         updateTotalPriceView(calculateTotalPrice())
         initSeatTable(seatRowSize, seatColSize)
@@ -68,6 +77,10 @@ class SeatPickerActivity : AppCompatActivity() {
         binding.movieTitleTv.text = movie.title
     }
 
+    private fun setOnClickListener() {
+        binding.doneBtn.setOnClickListener(this)
+    }
+
     private fun updateDoneBtnEnabled(isEnabled: Boolean) {
         binding.doneBtn.isEnabled = isEnabled
     }
@@ -75,14 +88,14 @@ class SeatPickerActivity : AppCompatActivity() {
     private fun canPick(): Boolean =
         pickedSeats.canPick(ticket.toDomain())
 
-    private fun updateTotalPriceView(amount: Int) {
-        binding.totalPriceTv.text = getString(R.string.movie_pay_price, amount)
+    private fun updateTotalPriceView(ticketPrice: TicketPrice) {
+        binding.totalPriceTv.text = getString(R.string.movie_pay_price, ticketPrice.amount)
     }
 
-    private fun calculateTotalPrice(): Int = pickedSeats.calculateTotalPrice(
+    private fun calculateTotalPrice(): TicketPrice = pickedSeats.calculateTotalPrice(
         MovieDayDiscountPolicy(movieDate),
         MovieTimeDiscountPolicy(movieTime),
-    ).toPresentation().amount
+    ).toPresentation()
 
     private fun initSeatTable(rowSize: Int, colSize: Int) {
         SeatRow.make(rowSize).forEach { seatRow ->
@@ -135,7 +148,36 @@ class SeatPickerActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.done_btn -> showTicketingConfirmDialog()
+        }
+    }
+
+    private fun showTicketingConfirmDialog() {
+        createAlertDialog(false) {
+            title(getString(R.string.ticketing_confirm_title))
+            message(getString(R.string.ticketing_confirm_message))
+            positiveButton(getString(R.string.ticketing_confirm_positive_btn)) { startTicketingResultActivity() }
+            negativeButton(getString(R.string.ticketing_confirm_negative_btn)) { it.dismiss() }
+        }.show()
+    }
+
+    private fun startTicketingResultActivity() {
+        startActivity(
+            Intent(this@SeatPickerActivity, TicketingResultActivity::class.java)
+                .putExtra(TicketingActivity.MOVIE_DATE_KEY, movieDate.toPresentation())
+                .putExtra(TicketingActivity.MOVIE_TIME_KEY, movieTime.toPresentation())
+                .putExtra(TicketingActivity.TICKET_KEY, ticket)
+                .putExtra(MovieListActivity.MOVIE_KEY, movie)
+                .putExtra(PICKED_SEATS_KEY, pickedSeats.toPresentation())
+                .putExtra(TOTAL_TICKET_PRICE_KEY, calculateTotalPrice())
+        )
+        finish()
+    }
+
     companion object {
-        private const val PICKED_SEATS_KEY = "picked_seats"
+        internal const val PICKED_SEATS_KEY = "picked_seats"
+        internal const val TOTAL_TICKET_PRICE_KEY = "total_ticket_price"
     }
 }
