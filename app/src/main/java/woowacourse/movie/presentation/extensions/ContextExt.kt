@@ -30,12 +30,12 @@ fun AlertDialog.Builder.positiveButton(
     text: String = "네",
     onClick: (dialogInterface: DialogInterface) -> Unit = {},
 ) {
-    this.setNegativeButton(text) { dialogInterface, _ -> onClick(dialogInterface) }
+    this.setPositiveButton(text) { dialogInterface, _ -> onClick(dialogInterface) }
 }
 
 fun AlertDialog.Builder.negativeButton(
     text: String = "아니오",
     onClick: (dialogInterface: DialogInterface) -> Unit = {},
 ) {
-    this.setPositiveButton(text) { dialogInterface, _ -> onClick(dialogInterface) }
+    this.setNegativeButton(text) { dialogInterface, _ -> onClick(dialogInterface) }
 }
