@@ -19,11 +19,8 @@ class MovieListAdapter(
 ) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
-        var convertView = view
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
-        }
-        requireNotNull(convertView) { NULL_VIEW_ERROR }
+        val convertView =
+            view ?: LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
         val movie = movies[position]
         initMovieItemView(convertView, movie)
 
@@ -68,7 +65,6 @@ class MovieListAdapter(
     }
 
     companion object {
-        private const val NULL_VIEW_ERROR = "[ERROR] 뷰는 널일 수 없습니다."
         const val MOVIE_ID = "MOVIE_ID"
     }
 }
