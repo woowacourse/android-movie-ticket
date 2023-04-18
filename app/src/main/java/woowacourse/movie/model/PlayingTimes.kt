@@ -1,12 +1,17 @@
 package woowacourse.movie.model
 
+import woowacourse.movie.model.formatter.DateFormatter
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) :
+class PlayingTimes(startDate: LocalDate, endDate: LocalDate) :
     java.io.Serializable {
+
+    val startDateString = DateFormatter.format(startDate)
+    val endDateString = DateFormatter.format(endDate)
+
     private val _playingDates: MutableList<LocalDate> = mutableListOf()
     val playingDates: List<LocalDate>
         get() = _playingDates.toList()

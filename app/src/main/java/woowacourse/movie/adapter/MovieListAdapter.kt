@@ -12,7 +12,6 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.formatter.DateFormatter
 
 class MovieListAdapter(private val movies: List<Movie>) :
     BaseAdapter() {
@@ -58,8 +57,8 @@ class MovieListAdapter(private val movies: List<Movie>) :
         holder.image.setImageResource(movie.image)
         holder.title.text = movie.title
         holder.playingDate.text = context.getString(
-            R.string.playing_time, DateFormatter.format(movie.playingTimes.startDate),
-            DateFormatter.format(movie.playingTimes.endDate)
+            R.string.playing_time, movie.playingTimes.startDateString,
+            movie.playingTimes.endDateString
         )
         holder.runningTime.text = context.getString(R.string.running_time, movie.runningTime)
         holder.ticketingButton.setOnClickListener {
