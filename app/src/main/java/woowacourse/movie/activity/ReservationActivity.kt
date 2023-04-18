@@ -107,7 +107,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initTicketCountButton() {
-        val ticketCountButtonInitializer = TicketCountButtonInitializer(
+        val ticketCountButtonInitializer = TicketCountButtonListener(
             minusButton = findViewById(R.id.reservation_ticket_count_minus_button),
             plusButton = findViewById(R.id.reservation_ticket_count_plus_button),
             completeButton = findViewById(R.id.reservation_complete_button),

@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class TicketCountButtonInitializer(
+class TicketCountButtonListener(
     private val minusButton: Button,
     private val plusButton: Button,
     private val completeButton: Button,
