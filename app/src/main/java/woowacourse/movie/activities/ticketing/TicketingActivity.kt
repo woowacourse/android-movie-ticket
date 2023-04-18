@@ -22,6 +22,8 @@ import woowacourse.movie.extensions.showToast
 import woowacourse.movie.model.MovieUI
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketUI
+import woowacourse.movie.model.mapper.toMovie
+import woowacourse.movie.model.mapper.toReservationUI
 import woowacourse.movie.model.mapper.toTicket
 import woowacourse.movie.model.mapper.toTicketUI
 import java.time.LocalDate
@@ -179,13 +181,11 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                var movieTicket = movieTicket.toTicket()
-                this.movieTicket = (--movieTicket).toTicketUI()
+                movieTicket = movieTicket.toTicket().run { dec().toTicketUI() }
                 tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_plus -> {
-                var movieTicket = movieTicket.toTicket()
-                this.movieTicket = (++movieTicket).toTicketUI()
+                movieTicket = movieTicket.toTicket().run { inc().toTicketUI() }
                 tvTicketCount.text = movieTicket.count.toString()
             }
             R.id.btn_ticketing -> {
@@ -195,17 +195,19 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                 }
 
                 val intent = Intent(this@TicketingActivity, TicketingResultActivity::class.java)
-                reservation = ReservationUI(
-                    movie!!,
-                    LocalDateTime.of(selectedDate!!, selectedTime!!),
-                    movieTicket
-                )
-                intent.putExtra(RESERVATION_KEY, reservation)
-                startActivity(intent)
-                finish()
+                reservation = reserveMovie()?.apply {
+                    intent.putExtra(RESERVATION_KEY, this)
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
     }
+
+    private fun reserveMovie() = movie!!.toMovie().reserveMovie(
+        LocalDateTime.of(selectedDate!!, selectedTime!!),
+        movieTicket.toTicket()
+    )?.run { toReservationUI() }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

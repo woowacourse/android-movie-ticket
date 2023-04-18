@@ -1,6 +1,7 @@
 package com.woowacourse.movie.domain
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 data class Movie(
     val id: Int,
@@ -10,6 +11,16 @@ data class Movie(
     val runningTime: Int,
     val introduce: String,
 ) {
+    fun reserveMovie(reserveDateTime: LocalDateTime, ticket: Ticket): Reservation? {
+        if (reserveDateTime.toLocalDate() !in RunningDate.getRunningDates(
+                startDate,
+                endDate,
+                startDate
+            )
+        ) return null
+        return Reservation(this, reserveDateTime, ticket)
+    }
+
     companion object {
         fun provideDummy(): List<Movie> = listOf(
             Movie(
