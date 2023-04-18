@@ -236,10 +236,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     private fun calculateTicketTotalPrice(dateTime: LocalDateTime): Int =
         movieTicket.toTicket().calculatePrice(
-            DiscountDecorator(
-                dateTime.toLocalDate(),
-                dateTime.toLocalTime()
-            ).calculatePrice()
+            DiscountDecorator(dateTime).calculatePrice()
         )
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

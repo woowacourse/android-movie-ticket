@@ -1,12 +1,11 @@
 package com.woowacourse.movie.domain.policy
 
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.LocalDateTime
 
-class DiscountDecorator(movieDate: LocalDate, movieTime: LocalTime) {
+class DiscountDecorator(movieDateTime: LocalDateTime) {
     private val policies = listOf(
-        MovieDayPolicy(movieDate),
-        EarlyAndLatePolicy(movieTime)
+        MovieDayPolicy(movieDateTime.toLocalDate()),
+        EarlyAndLatePolicy(movieDateTime.toLocalTime())
     )
 
     fun calculatePrice(): Int =
