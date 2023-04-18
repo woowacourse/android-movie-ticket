@@ -46,10 +46,14 @@ class MovieListAdapter(
             context.resources.getString(R.string.running_time_format)
                 .format(movie.runningTime)
         convertView.findViewById<Button>(R.id.reserve_now_button).setOnClickListener {
-            val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra(MOVIE_ID, movie.id)
-            startActivity(context, intent, null)
+            startReservationActivity(movie)
         }
+    }
+
+    private fun startReservationActivity(movie: MovieDto) {
+        val intent = Intent(context, ReservationActivity::class.java)
+        intent.putExtra(MOVIE_ID, movie.id)
+        startActivity(context, intent, null)
     }
 
     override fun getCount(): Int {

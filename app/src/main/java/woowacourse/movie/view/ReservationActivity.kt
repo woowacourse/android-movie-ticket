@@ -123,34 +123,51 @@ class ReservationActivity : AppCompatActivity() {
 
 
     private fun initPeopleCountAdjustButtonClickListener() {
-        val peopleCountView = findViewById<TextView>(R.id.people_count)
+        val audienceCountView = findViewById<TextView>(R.id.people_count)
         val minAudienceCount = MovieQueryService.getMinAudienceCount()
         val maxAudienceCount = MovieQueryService.getMaxAudienceCount()
 
         findViewById<Button>(R.id.minus_button).setOnClickListener {
-            if (selectedAudienceCount > minAudienceCount) {
-                selectedAudienceCount--
-                peopleCountView.text = selectedAudienceCount.toString()
-            }
+            minusSelectedAudienceCount(audienceCountView, minAudienceCount)
         }
         findViewById<Button>(R.id.plus_button).setOnClickListener {
-            if (selectedAudienceCount < maxAudienceCount) {
-                selectedAudienceCount++
-                peopleCountView.text = selectedAudienceCount.toString()
-            }
+            plusSelectedAudienceCount(audienceCountView, maxAudienceCount)
+        }
+    }
+
+    private fun minusSelectedAudienceCount(audienceCountView: TextView, minAudienceCount: Int) {
+        if (selectedAudienceCount > minAudienceCount) {
+            selectedAudienceCount--
+            audienceCountView.text = selectedAudienceCount.toString()
+        }
+    }
+
+    private fun plusSelectedAudienceCount(audienceCountView: TextView, maxAudienceCount: Int) {
+        if (selectedAudienceCount < maxAudienceCount) {
+            selectedAudienceCount++
+            audienceCountView.text = selectedAudienceCount.toString()
         }
     }
 
     private fun initReserveButtonClickListener() {
         findViewById<Button>(R.id.reservation_button).setOnClickListener {
-            val selectedScreeningDateTime =
-                LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
-            MovieService.reserve(movie.id, selectedScreeningDateTime, selectedAudienceCount)
-
-            val intent = Intent(this, ReservationCompletedActivity::class.java)
-            intent.putExtra(RESERVATION_INFO, ReservationInfo(movie.id, selectedScreeningDateTime))
-            startActivity(intent)
+            reserveBySelectedReservationOptions()
+            startReservationResultActivity()
         }
+    }
+
+    private fun reserveBySelectedReservationOptions() {
+        val selectedScreeningDateTime =
+            LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
+        MovieService.reserve(movie.id, selectedScreeningDateTime, selectedAudienceCount)
+    }
+
+    private fun startReservationResultActivity() {
+        val intent = Intent(this, ReservationCompletedActivity::class.java)
+        val selectedScreeningDateTime =
+            LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
+        intent.putExtra(RESERVATION_INFO, ReservationInfo(movie.id, selectedScreeningDateTime))
+        startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
