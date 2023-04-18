@@ -30,8 +30,6 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class TicketingActivity : AppCompatActivity(), OnClickListener {
-    private val runningDate = RunningDate()
-    private val runningTime = RunningTime()
     private var movieTicket: TicketUI = TicketUI()
 
     private val movie: MovieUI? by lazy {
@@ -41,7 +39,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private val movieDates: List<LocalDate> by lazy {
         intent.getParcelableCompat<MovieUI>(MovieListActivity.MOVIE_KEY)
             ?.run {
-                runningDate.getRunningDates(startDate, endDate)
+                RunningDate.getRunningDates(startDate, endDate)
             } ?: emptyList()
     }
     private val movieTimes = mutableListOf<LocalTime>()
@@ -170,7 +168,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     private fun initMovieTimes(date: LocalDate) {
         movieTimes.clear()
-        movieTimes.addAll(runningTime.runningTimes(date))
+        movieTimes.addAll(RunningTime.runningTimes(date))
         movieTimeAdapter.clear()
         movieTimeAdapter.addAll(
             movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
