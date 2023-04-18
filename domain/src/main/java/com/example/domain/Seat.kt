@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package com.example.domain
 
 class Seat(seatIndex: Int) {
     private val row = seatIndex % SEAT_ROW_COUNT
