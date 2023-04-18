@@ -8,9 +8,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.ticketresult.TicketResultActivity
-import woowacourse.movie.domain.Price
-import woowacourse.movie.domain.TicketingInfo
-import woowacourse.movie.domain.policy.DiscountPolicies
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -18,13 +15,13 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     fun setReserveButton(title: String) {
         viewGroup.findViewById<Button>(R.id.btn_reserve).setOnClickListener {
             val intent = Intent(it.context, TicketResultActivity::class.java)
-            val ticketingInfo = TicketingInfo.of(
-                DiscountPolicies.policies,
+            val ticketingInfo = woowacourse.movie.domain.TicketingInfo.of(
+                woowacourse.movie.domain.policy.DiscountPolicies.policies,
                 title,
                 viewGroup.findViewById<Spinner>(R.id.spinner_date).selectedItem as LocalDate,
                 viewGroup.findViewById<Spinner>(R.id.spinner_time).selectedItem as LocalTime,
                 viewGroup.findViewById<TextView>(R.id.text_count).text.toString().toInt(),
-                Price(),
+                woowacourse.movie.domain.Price(),
                 "현장"
             )
             intent.putExtra(TicketResultActivity.INFO_KEY, ticketingInfo)

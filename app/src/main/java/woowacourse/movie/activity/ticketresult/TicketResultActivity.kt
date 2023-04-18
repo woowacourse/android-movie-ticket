@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Price
-import woowacourse.movie.domain.TicketingInfo
 import woowacourse.movie.util.getSerializableExtraCompat
 import java.text.DecimalFormat
 import java.time.LocalDate
@@ -21,7 +20,7 @@ class TicketResultActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val info: TicketingInfo? = intent.getSerializableExtraCompat(INFO_KEY)
+        val info: woowacourse.movie.domain.TicketingInfo? = intent.getSerializableExtraCompat(INFO_KEY)
 
         if (info == null) {
             Toast.makeText(this, DATA_LOADING_ERROR_MESSAGE, Toast.LENGTH_LONG).show()

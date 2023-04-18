@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
-import woowacourse.movie.domain.movie.MovieDTO
+import woowacourse.movie.model.MovieDTO
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {

@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.MovieDTO
+import woowacourse.movie.model.MovieDTO
 import woowacourse.movie.util.getOrEmptyList
 import woowacourse.movie.util.getSerializableExtraCompat
 
@@ -48,11 +48,11 @@ class MovieDetailActivity : AppCompatActivity() {
             setReserveButton(movieDTO.title)
             setDateSpinner(
                 savedDate,
-                movieDTO.playingTimes
+                movieDTO.playingDateTimes
             )
             setTimeSpinner(
                 savedTime,
-                movieDTO.playingTimes.getOrEmptyList(movieDTO.playingTimes.keys.sorted()[savedTime])
+                movieDTO.playingDateTimes.getOrEmptyList(movieDTO.playingDateTimes.keys.toList()[savedDate])
             )
         }
     }

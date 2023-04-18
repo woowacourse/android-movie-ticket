@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.toPresentation
+import woowacourse.movie.model.toPresentation
 import woowacourse.movie.util.DummyData
 
 class MovieListActivity : AppCompatActivity() {

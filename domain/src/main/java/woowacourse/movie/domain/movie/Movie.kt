@@ -1,11 +1,11 @@
 package woowacourse.movie.domain.movie
 
-import woowacourse.movie.domain.PlayingTimes
+import woowacourse.movie.domain.PlayingDateTimes
 import java.time.LocalDate
 
 data class Movie(
     val title: String,
-    val playingTimes: PlayingTimes,
+    val playingDateTimes: PlayingDateTimes,
     val runningTime: Int,
     val description: String
 ) {
@@ -17,7 +17,7 @@ data class Movie(
             runningTime: Int,
             description: String
         ): Movie {
-            return Movie(title, PlayingTimes(startDate, endDate), runningTime, description)
+            return Movie(title, PlayingDateTimes(startDate, endDate), runningTime, description)
         }
     }
 }
