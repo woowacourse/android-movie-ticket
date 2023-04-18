@@ -10,7 +10,7 @@ import java.time.LocalTime
 
 class TicketingInfoTest {
     @Test
-    fun `조조에 해당하지만 무비데이면 무비데이 할인이 선적용된다`() {
+    fun `할인이 적용된 TicketingInfo를 얻을 수 있다`() {
         val actual = TicketingInfo(LocalDate.of(2023, 4, 30), LocalTime.of(9, 0), Price()).price
         val expected = Price(9700)
         assertEquals(actual, expected)
