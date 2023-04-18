@@ -1,5 +1,7 @@
 package com.example.domain
 
+import java.time.LocalDateTime
+
 interface DiscountCondition {
-    fun isSatisfiedBy(reservation: Reservation): Boolean
+    fun isSatisfiedBy(dateTime: LocalDateTime): Boolean
 }

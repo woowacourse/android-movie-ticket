@@ -1,32 +1,37 @@
 package com.example.domain
 
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 enum class DiscountPolicy(private val discountCondition: DiscountCondition) {
     MOVIE_DAY(DayDiscountCondition(getMovieDays())) {
-        override fun calculateDiscountFee(reservation: Reservation): Money =
-            reservation.initReservationFee / getMovieDaysDiscountRate()
+        override fun calculateDiscountFee(initialFee: Money, peopleCount: Int): Money =
+            initialFee / getMovieDaysDiscountRate()
     },
     SCREENING_TIME(
         ScreeningTimeDiscountCondition(
             listOf(getEarlyMorningDiscountTimeRange(), getNightDiscountTimeRange())
         )
     ) {
-        override fun calculateDiscountFee(reservation: Reservation): Money =
-            Money(reservation.peopleCount * getScreeningTimeDiscountAmount())
+        override fun calculateDiscountFee(initialFee: Money, peopleCount: Int): Money =
+            Money(peopleCount * getScreeningTimeDiscountAmount())
     };
 
-    protected abstract fun calculateDiscountFee(reservation: Reservation): Money
+    protected abstract fun calculateDiscountFee(initialFee: Money, peopleCount: Int): Money
 
-    private fun getDiscountFee(reservation: Reservation): Money =
-        if (discountCondition.isSatisfiedBy(reservation)) calculateDiscountFee(reservation)
+    private fun getDiscountFee(
+        dateTime: LocalDateTime,
+        initialFee: Money,
+        peopleCount: Int
+    ): Money =
+        if (discountCondition.isSatisfiedBy(dateTime)) calculateDiscountFee(initialFee, peopleCount)
         else Money(0)
 
     companion object {
-        fun getDiscountedFee(reservation: Reservation): Money {
-            var totalFee = reservation.initReservationFee
+        fun getDiscountedFee(dateTime: LocalDateTime, initialFee: Money, peopleCount: Int): Money {
+            var totalFee = initialFee
             values().forEach {
-                totalFee -= it.getDiscountFee(reservation)
+                totalFee -= it.getDiscountFee(dateTime, initialFee, peopleCount)
             }
             return totalFee
         }
