@@ -1,9 +1,7 @@
 package woowacourse.movie.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Count
@@ -22,6 +20,7 @@ import woowacourse.movie.view.widget.LocalFormattedDate
 import woowacourse.movie.view.widget.LocalFormattedTime
 import woowacourse.movie.view.widget.MovieController
 import woowacourse.movie.view.widget.MovieView
+import woowacourse.movie.view.widget.ReservationButton
 import woowacourse.movie.view.widget.SaveStateCounter
 import woowacourse.movie.view.widget.SaveStateSpinner
 import woowacourse.movie.view.widget.TimeSpinner
@@ -58,6 +57,12 @@ class MovieReservationActivity : AppCompatActivity() {
         )
     }
 
+    private val reservationButton: ReservationButton by lazy {
+        ReservationButton(
+            findViewById(R.id.movie_reservation_button)
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
@@ -87,11 +92,10 @@ class MovieReservationActivity : AppCompatActivity() {
                 )
             ).render()
 
-            findViewById<Button>(R.id.movie_reservation_button).setOnClickListener {
+            reservationButton.setOnClickListener {
                 val reservationDetail =
                     makeReservationDetail(dateSpinner, timeSpinner, counter.counter)
-                val reservation = makeReservation(movie, reservationDetail)
-                startReservationResultActivity(reservation, ReservationData.RESERVATION_EXTRA_NAME)
+                makeReservation(movie, reservationDetail)
             }
         }
     }
@@ -117,15 +121,6 @@ class MovieReservationActivity : AppCompatActivity() {
         val discount = Discount(listOf(MovieDay, OffTime))
         val discountedReservationDetail = discount.calculate(reservationDetail).toView()
         return ReservationData(movie, discountedReservationDetail)
-    }
-
-    private fun startReservationResultActivity(
-        reservationData: ReservationData,
-        extraName: String
-    ) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        intent.putExtra(extraName, reservationData)
-        startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

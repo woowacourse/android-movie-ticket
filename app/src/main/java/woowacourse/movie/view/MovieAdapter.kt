@@ -1,5 +1,7 @@
 package woowacourse.movie.view
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.BaseAdapter
 import android.widget.Button
 import woowacourse.movie.R
+import woowacourse.movie.activity.MovieReservationActivity
 import woowacourse.movie.view.widget.MovieController
 import woowacourse.movie.view.widget.MovieView
 
@@ -48,6 +51,16 @@ class MovieAdapter(private val movieViewDatas: MovieViewDatas) : BaseAdapter() {
             (parent as AdapterView<*>).performItemClick(it, position, getItemId(position))
         }
 
+        (parent as AdapterView<*>).setOnItemClickListener { parent, _, position, _ ->
+            reserveMovie(parent.context, parent.getItemAtPosition(position) as MovieViewData)
+        }
+
         return view
+    }
+
+    private fun reserveMovie(context: Context, movie: MovieViewData) {
+        val intent = Intent(context, MovieReservationActivity::class.java)
+        intent.putExtra(MovieViewData.MOVIE_EXTRA_NAME, movie)
+        context.startActivity(intent)
     }
 }
