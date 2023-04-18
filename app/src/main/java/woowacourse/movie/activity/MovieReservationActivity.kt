@@ -17,6 +17,7 @@ import woowacourse.movie.dto.MovieDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
+import woowacourse.movie.view.MovieDateTimePicker
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.TimeSpinner
 import java.time.LocalDateTime
@@ -30,18 +31,16 @@ class MovieReservationActivity : AppCompatActivity() {
             COUNTER_SAVE_STATE_KEY
         )
     }
-
-    private val dateSpinner: DateSpinner by lazy {
-        DateSpinner(
-            findViewById(R.id.movie_reservation_date_spinner),
-            DATE_SPINNER_SAVE_STATE_KEY,
-        )
-    }
-
-    private val timeSpinner: TimeSpinner by lazy {
-        TimeSpinner(
-            findViewById(R.id.movie_reservation_time_spinner),
-            TIME_SPINNER_SAVE_STATE_KEY,
+    private val movieDateTimePicker: MovieDateTimePicker by lazy {
+        MovieDateTimePicker(
+            DateSpinner(
+                findViewById(R.id.movie_reservation_date_spinner),
+                DATE_SPINNER_SAVE_STATE_KEY,
+            ),
+            TimeSpinner(
+                findViewById(R.id.movie_reservation_time_spinner),
+                TIME_SPINNER_SAVE_STATE_KEY,
+            )
         )
     }
     private val reservationButton: Button by lazy {
@@ -58,7 +57,7 @@ class MovieReservationActivity : AppCompatActivity() {
         if (movieDto != null) renderMovieView(movieDto)
         if (movie != null) {
             counter.load(savedInstanceState)
-            dateSpinner.make(savedInstanceState, movie, timeSpinner)
+            movieDateTimePicker.makeView(movie, savedInstanceState)
             reservationButtonClick(movie)
         }
     }
@@ -84,8 +83,8 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun reservationButtonClick(movie: Movie) {
         reservationButton.setOnClickListener {
             val date = LocalDateTime.of(
-                dateSpinner.getSelectedDate(),
-                timeSpinner.getSelectedTime()
+                movieDateTimePicker.dateSpinner.getSelectedDate(),
+                movieDateTimePicker.timeSpinner.getSelectedTime()
             )
             val discountPolicies = DisCountPolicies(listOf(MovieDay(), OffTime()))
             val peopleCount = counter.getCount()
@@ -99,8 +98,7 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         counter.save(outState)
-        dateSpinner.save(outState)
-        timeSpinner.save(outState)
+        movieDateTimePicker.save(outState)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
