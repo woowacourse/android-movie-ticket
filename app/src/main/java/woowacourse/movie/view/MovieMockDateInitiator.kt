@@ -6,6 +6,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.Period
 
 object MovieMockDateInitiator {
 
@@ -33,12 +34,12 @@ object MovieMockDateInitiator {
         screeningEndDate: LocalDate
     ): List<LocalDateTime> {
         val screeningDateTimes: MutableList<LocalDateTime> = mutableListOf()
-        var date = screeningStartDate
-        while (date <= screeningEndDate) {
+        val betweenDays = Period.between(screeningStartDate, screeningEndDate).days
+        (0..betweenDays).forEach { days ->
+            val date = screeningStartDate.plusDays(days.toLong())
             val startTime = if (date.isWeekend()) LocalTime.of(9, 0) else LocalTime.of(10, 0)
             startTime.getAllTimesUntilMidNight(2)
                 .forEach { screeningDateTimes.add(LocalDateTime.of(date, it)) }
-            date = date.plusDays(1)
         }
         return screeningDateTimes
     }
