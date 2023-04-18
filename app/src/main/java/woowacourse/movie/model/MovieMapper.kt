@@ -5,7 +5,7 @@ import woowacourse.movie.domain.PlayingDateTimes
 import woowacourse.movie.domain.movie.Movie
 import java.util.TreeMap
 
-fun MovieDTO.toDomain(): Movie {
+fun MovieModel.toDomain(): Movie {
     return Movie(
         title,
         PlayingDateTimes(startDate, endDate),
@@ -14,10 +14,10 @@ fun MovieDTO.toDomain(): Movie {
     )
 }
 
-fun Movie.toPresentation(@DrawableRes res: Int): MovieDTO {
+fun Movie.toPresentation(@DrawableRes res: Int): MovieModel {
     val startDate = playingDateTimes.startDate
     val endDate = playingDateTimes.endDate
     val runningTime = runningTime
     val playingTimesInfo = TreeMap(playingDateTimes.times)
-    return MovieDTO(res, title, startDate, endDate, playingTimesInfo, runningTime, description)
+    return MovieModel(res, title, startDate, endDate, playingTimesInfo, runningTime, description)
 }

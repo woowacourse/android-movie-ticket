@@ -7,7 +7,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
-import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.model.MovieModel
 import woowacourse.movie.model.toPresentation
 import woowacourse.movie.util.DummyData
 
@@ -20,7 +20,7 @@ class MovieListActivity : AppCompatActivity() {
         val adapter = MovieListAdapter(
             DummyData.movies.map { it.toPresentation(R.drawable.img) },
             object : MovieListItemListener {
-                override fun onClick(movie: MovieDTO, view: View) {
+                override fun onClick(movie: MovieModel, view: View) {
                     val intent = Intent(view.context, MovieDetailActivity::class.java)
                     intent.putExtra(MovieDetailActivity.MOVIE_KEY, movie)
                     view.context.startActivity(intent)

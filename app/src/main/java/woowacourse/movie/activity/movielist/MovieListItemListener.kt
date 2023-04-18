@@ -1,8 +1,8 @@
 package woowacourse.movie.activity.movielist
 
 import android.view.View
-import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.model.MovieModel
 
 interface MovieListItemListener {
-    fun onClick(movie: MovieDTO, view: View)
+    fun onClick(movie: MovieModel, view: View)
 }

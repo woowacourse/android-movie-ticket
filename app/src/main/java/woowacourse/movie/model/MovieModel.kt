@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.util.TreeMap
 
-data class MovieDTO(
+data class MovieModel(
     @DrawableRes val image: Int,
     val title: String,
     val startDate: LocalDate,

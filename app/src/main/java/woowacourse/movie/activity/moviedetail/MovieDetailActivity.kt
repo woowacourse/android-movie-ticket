@@ -7,7 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.model.MovieModel
 import woowacourse.movie.util.getKeyFromIndex
 import woowacourse.movie.util.getOrEmptyList
 import woowacourse.movie.util.getSerializableExtraCompat
@@ -16,28 +16,28 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        val movieDTO: MovieDTO? = intent.getSerializableExtraCompat(MOVIE_KEY)
-        if (movieDTO == null) {
+        val movie: MovieModel? = intent.getSerializableExtraCompat(MOVIE_KEY)
+        if (movie == null) {
             Toast.makeText(this, DATA_LOADING_ERROR_MESSAGE, Toast.LENGTH_LONG).show()
             finish()
             return
         }
-        initMovieDetailView(movieDTO)
-        initReservationInfoView(savedInstanceState, movieDTO)
+        initMovieDetailView(movie)
+        initReservationInfoView(savedInstanceState, movie)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun initMovieDetailView(movieDTO: MovieDTO) {
+    private fun initMovieDetailView(movie: MovieModel) {
         with(MovieDetailView(findViewById(R.id.layout_detail_info))) {
-            setImageView(movieDTO.image)
-            setTitle(movieDTO.title)
-            setPlayingDate(movieDTO.startDate, movieDTO.endDate)
-            setRunningTime(movieDTO.runningTime)
-            setDescription(movieDTO.description)
+            setImageView(movie.image)
+            setTitle(movie.title)
+            setPlayingDate(movie.startDate, movie.endDate)
+            setRunningTime(movie.runningTime)
+            setDescription(movie.description)
         }
     }
 
-    private fun initReservationInfoView(savedInstanceState: Bundle?, movieDTO: MovieDTO) {
+    private fun initReservationInfoView(savedInstanceState: Bundle?, movie: MovieModel) {
         val savedCount = savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
         val savedDate = savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
         val savedTime = savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
@@ -46,14 +46,14 @@ class MovieDetailActivity : AppCompatActivity() {
             setCount(savedCount)
             setMinusButton()
             setPlusButton()
-            setReserveButton(movieDTO.title)
+            setReserveButton(movie.title)
             setDateSpinner(
                 savedDate,
-                movieDTO.playingDateTimes
+                movie.playingDateTimes
             )
             setTimeSpinner(
                 savedTime,
-                movieDTO.playingDateTimes.getOrEmptyList(movieDTO.playingDateTimes.getKeyFromIndex(savedDate))
+                movie.playingDateTimes.getOrEmptyList(movie.playingDateTimes.getKeyFromIndex(savedDate))
             )
         }
     }

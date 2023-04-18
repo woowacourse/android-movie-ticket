@@ -10,17 +10,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieDTO
+import woowacourse.movie.model.MovieModel
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movieDTOS: List<MovieDTO>, private val listener: MovieListItemListener) : BaseAdapter() {
+class MovieListAdapter(private val movies: List<MovieModel>, private val listener: MovieListItemListener) : BaseAdapter() {
     private val viewHolders: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
-        return movieDTOS.size
+        return movies.size
     }
 
     override fun getItem(position: Int): Any {
-        return movieDTOS[position]
+        return movies[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -30,9 +30,9 @@ class MovieListAdapter(private val movieDTOS: List<MovieDTO>, private val listen
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, null)
         if (viewHolders[view] == null) viewHolders[view] = getViewHolder(view)
-        val movieDTO = getItem(position) as MovieDTO
-        viewHolders[view]?.set(movieDTO, parent?.context) {
-            listener.onClick(movieDTO, it)
+        val movie = getItem(position) as MovieModel
+        viewHolders[view]?.set(movie, parent?.context) {
+            listener.onClick(movie, it)
         }
         return view
     }
@@ -51,15 +51,15 @@ class MovieListAdapter(private val movieDTOS: List<MovieDTO>, private val listen
         val runningTime: TextView,
         val reserveButton: Button
     ) {
-        fun set(movieDTO: MovieDTO, context: Context?, clickListener: OnClickListener) {
-            image.setImageResource(movieDTO.image)
-            title.text = movieDTO.title
+        fun set(movie: MovieModel, context: Context?, clickListener: OnClickListener) {
+            image.setImageResource(movie.image)
+            title.text = movie.title
             playingDate.text = context?.getString(
                 R.string.playing_date_range,
-                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.startDate),
-                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.endDate)
+                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.startDate),
+                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.endDate)
             )
-            runningTime.text = context?.getString(R.string.running_time, movieDTO.runningTime)
+            runningTime.text = context?.getString(R.string.running_time, movie.runningTime)
             reserveButton.setOnClickListener(clickListener)
         }
     }
