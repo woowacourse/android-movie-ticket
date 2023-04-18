@@ -8,7 +8,7 @@ import java.text.NumberFormat
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class ReservationDetailController(
+class ReservationDetailView(
     private val context: Context,
     private val reservationDetail: ReservationDetail,
     private val date: TextView? = null,

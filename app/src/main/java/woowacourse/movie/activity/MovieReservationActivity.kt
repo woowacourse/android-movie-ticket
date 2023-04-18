@@ -14,7 +14,7 @@ import woowacourse.movie.dto.MovieDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
-import woowacourse.movie.view.MovieController
+import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.TimeSpinner
 
 class MovieReservationActivity : AppCompatActivity() {
@@ -55,7 +55,7 @@ class MovieReservationActivity : AppCompatActivity() {
             counter.load(savedInstanceState)
             dateSpinner.make(savedInstanceState, movie, timeSpinner)
 
-            MovieController(
+            MovieView(
                 this,
                 movie,
                 findViewById(R.id.movie_reservation_poster),

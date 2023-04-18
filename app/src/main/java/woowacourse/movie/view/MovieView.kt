@@ -7,7 +7,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
-class MovieController(
+class MovieView(
     private val context: Context,
     private val movie: Movie,
     private val poster: ImageView? = null,

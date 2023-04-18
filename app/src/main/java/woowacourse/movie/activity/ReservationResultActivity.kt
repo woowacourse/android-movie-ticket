@@ -10,8 +10,8 @@ import woowacourse.movie.domain.Reservation
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.dto.ReservationDtoConverter
 import woowacourse.movie.getSerializableCompat
-import woowacourse.movie.view.MovieController
-import woowacourse.movie.view.ReservationDetailController
+import woowacourse.movie.view.MovieView
+import woowacourse.movie.view.ReservationDetailView
 
 class ReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,11 +21,11 @@ class ReservationResultActivity : AppCompatActivity() {
 
         val reservation = getReservationData()
         if (reservation != null) {
-            MovieController(
+            MovieView(
                 this, reservation.movie, title = findViewById(R.id.movie_reservation_result_title)
             ).render()
 
-            ReservationDetailController(
+            ReservationDetailView(
                 this,
                 reservation.detail,
                 findViewById(R.id.movie_reservation_result_date),
