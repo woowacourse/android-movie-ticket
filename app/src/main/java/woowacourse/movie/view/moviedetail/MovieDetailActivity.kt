@@ -82,7 +82,7 @@ class MovieDetailActivity : BaseActivity() {
         val minusBtn = findViewById<Button>(R.id.minus_people)
 
         minusBtn.setOnClickListener {
-            numberOfBooker = countNumberOfPeople.minusNumberOfPeople(numberOfBooker)
+            numberOfBooker = countNumberOfPeople.minus(numberOfBooker)
             booker.text = numberOfBooker.toString()
         }
     }
@@ -91,7 +91,7 @@ class MovieDetailActivity : BaseActivity() {
         val plusBtn = findViewById<Button>(R.id.plus_people)
 
         plusBtn.setOnClickListener {
-            numberOfBooker = countNumberOfPeople.plusNumberOfPeople(numberOfBooker)
+            numberOfBooker = countNumberOfPeople.plus(numberOfBooker)
             booker.text = numberOfBooker.toString()
         }
     }

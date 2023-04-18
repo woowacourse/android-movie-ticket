@@ -2,20 +2,20 @@ package woowacourse.movie.domain
 
 class CountNumberOfPeople {
 
-    fun minusNumberOfPeople(numberOfBooker: Int): Int {
-        var number = numberOfBooker
-        number -= 1
-        if (number <= MIN_BOOKER_NUMBER) {
-            number = MIN_BOOKER_NUMBER
-        }
-        return number
-    }
-
-    fun plusNumberOfPeople(numberOfBooker: Int): Int {
+    operator fun plus(numberOfBooker: Int): Int {
         var number = numberOfBooker
         number += 1
         if (number >= MAX_BOOKER_NUMBER) {
             number = MAX_BOOKER_NUMBER
+        }
+        return number
+    }
+
+    operator fun minus(numberOfBooker: Int): Int {
+        var number = numberOfBooker
+        number -= 1
+        if (number <= MIN_BOOKER_NUMBER) {
+            number = MIN_BOOKER_NUMBER
         }
         return number
     }
