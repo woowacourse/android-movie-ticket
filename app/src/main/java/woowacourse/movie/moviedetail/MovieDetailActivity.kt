@@ -14,11 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
 import woowacourse.movie.TicketActivity
-import woowacourse.movie.domain.DayOfWeek
-import woowacourse.movie.domain.movieinfo.MovieDate
-import woowacourse.movie.domain.movieinfo.MovieTime
-import woowacourse.movie.domain.screeningschedule.ReservationDate
-import woowacourse.movie.domain.screeningschedule.ReservationTime
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.TicketCountDto
@@ -196,11 +191,11 @@ class MovieDetailActivity : AppCompatActivity() {
         return dateAdapter
     }
 
-    private fun getTimeSpinnerAdapter(selectedDay: MovieDateDto): ArrayAdapter<CharSequence> {
-        val timeAdapter = ArrayAdapter.createFromResource(
+    private fun getTimeSpinnerAdapter(selectedDay: MovieDateDto): ArrayAdapter<String> {
+        val timeAdapter = ArrayAdapter(
             this,
-            ReservationTime(DayOfWeek.checkDayOfWeek(selectedDay.date)).getIntervalTimes(),
             android.R.layout.simple_spinner_item,
+            ReservationTime(DayOfWeek.checkDayOfWeek(selectedDay.date)).getIntervalTimes(),
         )
 
         timeAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)
