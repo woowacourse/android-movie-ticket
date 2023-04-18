@@ -1,11 +1,11 @@
-package woowacourse.movie.ui.activity
+package woowacourse.movie.ui
 
 import woowacourse.movie.R
 import woowacourse.movie.ui.dto.Movie
 import java.time.LocalDate
 
-class Theater {
-    val movies: List<Movie> = listOf(
+class Movies {
+    private val movies: List<Movie> = listOf(
         Movie(
             R.drawable.parasite,
             "기생충",
@@ -67,4 +67,6 @@ class Theater {
             "모든 과거를 잊고 서로에게 더 깊게 빠져든 ‘크리스찬 그레이’와 ‘아나스타샤’. 그레이의 독특한 취향으로 시작된 이 비밀스러운 관계는 더 큰 자극을 원하는 아나스타샤로 인해 역전되고, 마침내 그녀의 본능이 지배하는 마지막 절정의 순간을 맞이하게 되는데…"
         )
     )
+
+    fun getAll(): List<Movie> = movies
 }

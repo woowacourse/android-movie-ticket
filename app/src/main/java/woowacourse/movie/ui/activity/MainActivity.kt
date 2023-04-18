@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.ui.Movies
 import woowacourse.movie.ui.dto.Movie
 
 class MainActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val movies = Theater().movies
+        val movies = Movies().getAll()
         setMovieList(movies)
     }
 
