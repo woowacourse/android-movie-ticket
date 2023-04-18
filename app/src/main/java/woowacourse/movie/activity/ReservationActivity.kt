@@ -35,7 +35,7 @@ class ReservationActivity : AppCompatActivity() {
         findViewById(R.id.reservation_ticket_count_text_view)
     }
     private val movie: ActivityMovieModel by lazy {
-        intent.getSerializableExtra(MOVIE_KEY) as ActivityMovieModel?
+        intent.customGetSerializable(MOVIE_KEY) as ActivityMovieModel?
             ?: throw IllegalArgumentException(getString(R.string.movie_data_error_message))
     }
 
