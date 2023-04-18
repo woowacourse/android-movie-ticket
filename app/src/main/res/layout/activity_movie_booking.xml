@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/layout_input"
+        app:layout_constraintBottom_toTopOf="@+id/layout_movie_booking_input"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="16dp">
@@ -87,7 +87,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_input"
+        android:id="@+id/layout_movie_booking_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -100,7 +100,7 @@
             android:id="@+id/spinner_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/spinner_time"
-            app:layout_constraintTop_toTopOf="@id/layout_input" />
+            app:layout_constraintTop_toTopOf="@id/layout_movie_booking_input" />
 
         <Spinner
             android:layout_width="0dp"
