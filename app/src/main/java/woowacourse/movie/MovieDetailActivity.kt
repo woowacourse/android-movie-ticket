@@ -26,7 +26,7 @@ class MovieDetailActivity : BackButtonActivity() {
         needSpinnerInitialize = true
 
         val movieData = intent.getSerializableCompat(MOVIE_DATA_KEY)
-            ?: Movie.emptyData
+            ?: Movie.dummyData
         processMovieNullData(movieData)
 
         initView(movieData)
@@ -69,7 +69,7 @@ class MovieDetailActivity : BackButtonActivity() {
     }
 
     private fun processMovieNullData(movieData: Movie) {
-        if (movieData == Movie.emptyData) {
+        if (movieData == Movie.dummyData) {
             Toast.makeText(this, getString(R.string.cant_get_movie_data), Toast.LENGTH_SHORT).show()
             this.finish()
         }

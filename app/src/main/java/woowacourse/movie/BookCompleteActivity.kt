@@ -20,9 +20,9 @@ class BookCompleteActivity : BackButtonActivity() {
     private fun getMovieBookingInfo(): MovieBookingInfo {
         val movieBookingData =
             intent.getSerializableCompat(MOVIE_BOOKING_INFO_KEY)
-                ?: MovieBookingInfo.emptyData
+                ?: MovieBookingInfo.dummyData
 
-        if (movieBookingData == MovieBookingInfo.emptyData) {
+        if (movieBookingData == MovieBookingInfo.dummyData) {
             Toast.makeText(
                 this,
                 getString(R.string.cant_get_movie_booking_data),

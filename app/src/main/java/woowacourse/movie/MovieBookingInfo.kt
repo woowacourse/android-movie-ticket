@@ -15,8 +15,8 @@ data class MovieBookingInfo(
     }
 
     companion object {
-        val emptyData = MovieBookingInfo(
-            Movie.emptyData,
+        val dummyData = MovieBookingInfo(
+            Movie.dummyData,
             "",
             "",
             0

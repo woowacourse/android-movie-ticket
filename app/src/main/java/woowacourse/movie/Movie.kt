@@ -14,7 +14,7 @@ data class Movie(
     val endDate: LocalDate
 ) : Serializable {
     companion object {
-        val emptyData = Movie(
+        val dummyData = Movie(
             R.drawable.no_image,
             "데이터를 불러올 수 없습니다.",
             "0000.0.0",
