@@ -15,8 +15,8 @@ fun MovieModel.toDomain(): Movie {
 }
 
 fun Movie.toPresentation(@DrawableRes res: Int): MovieModel {
-    val startDate = playingDateTimes.startDate
-    val endDate = playingDateTimes.endDate
+    val startDate = playingDateTimes.times.keys.min()
+    val endDate = playingDateTimes.times.keys.max()
     val runningTime = runningTime
     val playingTimesInfo = TreeMap(playingDateTimes.times)
     return MovieModel(res, title, startDate, endDate, playingTimesInfo, runningTime, description)

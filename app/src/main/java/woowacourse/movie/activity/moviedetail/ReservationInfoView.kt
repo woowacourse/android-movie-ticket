@@ -13,6 +13,7 @@ import woowacourse.movie.domain.policy.DiscountPolicies
 import woowacourse.movie.domain.ticket.Price
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.toPresentation
 import woowacourse.movie.util.getKeyFromIndex
 import woowacourse.movie.util.getOrEmptyList
 import java.time.LocalDate
@@ -47,10 +48,9 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
                 viewGroup.findViewById<Spinner>(R.id.spinner_date).selectedItem as LocalDate,
                 viewGroup.findViewById<Spinner>(R.id.spinner_time).selectedItem as LocalTime,
                 viewGroup.findViewById<TextView>(R.id.text_count).text.toString().toInt(),
-                Price(),
-                "현장"
+                Price()
             )
-            intent.putExtra(TicketResultActivity.INFO_KEY, ticket)
+            intent.putExtra(TicketResultActivity.INFO_KEY, ticket.toPresentation())
             it.context.startActivity(intent)
         }
     }

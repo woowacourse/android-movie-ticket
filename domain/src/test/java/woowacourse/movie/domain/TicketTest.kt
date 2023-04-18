@@ -18,7 +18,7 @@ class TicketTest {
             MovieDayPolicy(),
             MorningPolicy()
         )
-        val actual = TicketingInfo(
+        val actual = Ticket(
             policies, LocalDate.of(2023, 4, 30), LocalTime.of(9, 0),
             Price()
         ).price
@@ -32,7 +32,7 @@ class TicketTest {
             MovieDayPolicy(),
             NightPolicy()
         )
-        val actual = TicketingInfo(
+        val actual = Ticket(
             policies, LocalDate.of(2023, 4, 30), LocalTime.of(21, 0),
             Price()
         ).price
@@ -40,6 +40,6 @@ class TicketTest {
         assertEquals(actual, expected)
     }
 
-    private fun TicketingInfo(policies: List<DiscountPolicy>, playingDate: LocalDate, playingTime: LocalTime, price: Price): Ticket =
+    private fun Ticket(policies: List<DiscountPolicy>, playingDate: LocalDate, playingTime: LocalTime, price: Price): Ticket =
         Ticket.of(policies, "해리포터와 마법사의 돌", playingDate, playingTime, 1, price)
 }
