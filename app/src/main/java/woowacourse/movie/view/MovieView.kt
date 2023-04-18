@@ -4,12 +4,12 @@ import android.content.Context
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.dto.MovieDto
 import java.time.format.DateTimeFormatter
 
 class MovieView(
     private val context: Context,
-    private val movie: Movie,
+    private val movieDto: MovieDto,
     private val poster: ImageView? = null,
     private val title: TextView? = null,
     private val date: TextView? = null,
@@ -17,14 +17,14 @@ class MovieView(
     private val description: TextView? = null
 ) {
     fun render() {
-        poster?.setImageResource(movie.imagePath.toInt())
-        title?.text = movie.title
+        poster?.setImageResource(movieDto.picture)
+        title?.text = movieDto.title
 
         val dateFormat = DateTimeFormatter.ofPattern(context.getString(R.string.movie_date_format))
         date?.text = context.getString(R.string.movie_date).format(
-            dateFormat.format(movie.date.startDate), dateFormat.format(movie.date.endDate)
+            dateFormat.format(movieDto.startDate), dateFormat.format(movieDto.endDate)
         )
-        runningTime?.text = context.getString(R.string.movie_running_time).format(movie.runningTime)
-        description?.text = movie.description
+        runningTime?.text = context.getString(R.string.movie_running_time).format(movieDto.runningTime)
+        description?.text = movieDto.description
     }
 }

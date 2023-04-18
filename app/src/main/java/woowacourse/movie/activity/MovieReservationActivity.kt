@@ -50,26 +50,33 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = getMovieData()
+        val movieDto = getMovieDto()
+        val movie = getMovie(movieDto)
+        if (movieDto != null) renderMovieView(movieDto)
         if (movie != null) {
             counter.load(savedInstanceState)
             dateSpinner.make(savedInstanceState, movie, timeSpinner)
-
-            MovieView(
-                this,
-                movie,
-                findViewById(R.id.movie_reservation_poster),
-                findViewById(R.id.movie_reservation_title),
-                findViewById(R.id.movie_reservation_date),
-                findViewById(R.id.movie_reservation_running_time),
-                findViewById(R.id.movie_reservation_description)
-            ).render()
             reservationButtonClick(movie)
         }
     }
 
-    private fun getMovieData(): Movie? {
-        val movieDto = intent.extras?.getSerializableCompat<MovieDto>(MOVIE_KEY_VALUE)
+    private fun renderMovieView(movieDto: MovieDto) {
+        MovieView(
+            this,
+            movieDto,
+            findViewById(R.id.movie_reservation_poster),
+            findViewById(R.id.movie_reservation_title),
+            findViewById(R.id.movie_reservation_date),
+            findViewById(R.id.movie_reservation_running_time),
+            findViewById(R.id.movie_reservation_description)
+        ).render()
+    }
+
+    private fun getMovieDto(): MovieDto? {
+        return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
+    }
+
+    private fun getMovie(movieDto: MovieDto?): Movie? {
         return movieDto?.let { MovieDtoConverter().convertDtoToModel(it) }
     }
 
@@ -82,6 +89,7 @@ class MovieReservationActivity : AppCompatActivity() {
             ReservationResultActivity.start(this, reservation)
         }
     }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 

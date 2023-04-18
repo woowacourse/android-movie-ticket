@@ -19,26 +19,33 @@ class ReservationResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reservation_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val reservation = getReservationData()
-        if (reservation != null) {
-            MovieView(
-                this, reservation.movie, title = findViewById(R.id.movie_reservation_result_title)
-            ).render()
-
-            ReservationDetailView(
-                this,
-                reservation.detail,
-                findViewById(R.id.movie_reservation_result_date),
-                findViewById(R.id.movie_reservation_result_people_count),
-                findViewById(R.id.movie_reservation_result_price),
-            ).render()
+        val reservationDto = getReservationDto()
+        if (reservationDto != null) {
+            renderMovieView(reservationDto)
+            renderReservationDetailView(reservationDto)
         }
     }
 
-    private fun getReservationData(): Reservation? {
-        val reservationDto =
-            intent.extras?.getSerializableCompat<ReservationDto>(RESERVATION_KEY_VALUE)
-        return reservationDto?.let { ReservationDtoConverter().convertDtoToModel(it) }
+    private fun renderMovieView(reservationDto: ReservationDto) {
+        MovieView(
+            this,
+            reservationDto.movie,
+            title = findViewById(R.id.movie_reservation_result_title)
+        ).render()
+    }
+
+    private fun renderReservationDetailView(reservationDto: ReservationDto) {
+        ReservationDetailView(
+            this,
+            reservationDto.detail,
+            findViewById(R.id.movie_reservation_result_date),
+            findViewById(R.id.movie_reservation_result_people_count),
+            findViewById(R.id.movie_reservation_result_price),
+        ).render()
+    }
+
+    private fun getReservationDto(): ReservationDto? {
+        return intent.extras?.getSerializableCompat<ReservationDto>(RESERVATION_KEY_VALUE)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
