@@ -57,10 +57,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
 
     private fun setTimeSpinner(savedTimePosition: Int, times: List<LocalTime>) {
         val timeSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_time)
-        timeSpinner.adapter =
-            ArrayAdapter(viewGroup.context, android.R.layout.simple_spinner_item, times).apply {
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            }
+        timeSpinner.adapter = SpinnerAdapter(times)
         timeSpinner.setSelection(savedTimePosition)
     }
 
@@ -70,14 +67,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     ) {
         val dateSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_date)
         val timeSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_time)
-        dateSpinner.adapter =
-            ArrayAdapter(
-                viewGroup.context,
-                android.R.layout.simple_spinner_item,
-                playingTimes.keys.sorted()
-            ).apply {
-                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            }
+        dateSpinner.adapter = SpinnerAdapter(playingTimes.keys.toList())
         dateSpinner.setSelection(savedDatePosition, false)
         dateSpinner.onItemSelectedListener = DateSpinnerListener(playingTimes, timeSpinner)
     }
@@ -104,6 +94,11 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
         val countView = viewGroup.findViewById<TextView>(R.id.text_count)
         countView.text = savedCount.toString()
     }
+
+    private fun <T> SpinnerAdapter(items: List<T>) =
+        ArrayAdapter(viewGroup.context, android.R.layout.simple_spinner_item, items).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
 
     companion object {
         private const val DEFAULT_COUNT = 1
