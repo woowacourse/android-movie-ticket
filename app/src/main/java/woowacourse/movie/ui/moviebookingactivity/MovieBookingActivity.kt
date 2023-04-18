@@ -3,15 +3,13 @@ package woowacourse.movie.ui.moviebookingactivity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
-import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.TicketCount
-import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.util.customGetSerializableExtra
@@ -39,7 +37,7 @@ class MovieBookingActivity : AppCompatActivity() {
         initSpinners()
         recoverState(savedInstanceState)
         initExtraData()
-        initMovieInformation()
+        initMovieInformationView()
         initTicketCount()
         initMinusButtonClickListener()
         initPlusButtonClickListener()
@@ -58,6 +56,13 @@ class MovieBookingActivity : AppCompatActivity() {
             ticketCount.value = savedInstanceState.getInt(TICKET_COUNT)
             timeSpinnerRecoverState = savedInstanceState.getInt(SELECTED_TIME_POSITION)
         }
+    }
+
+    private fun initMovieInformationView() {
+        MovieInformationView(
+            findViewById<ConstraintLayout>(R.id.layout_movie_information),
+            movieData
+        )
     }
 
     private fun initSpinners() {
@@ -83,26 +88,9 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: throw IllegalStateException(INTENT_EXTRA_INITIAL_ERROR)
-    }
-
-    private fun initMovieInformation() {
-        val ivBookingPoster = findViewById<ImageView>(R.id.iv_booking_poster)
-        val tvBookingMovieName = findViewById<TextView>(R.id.tv_booking_movie_name)
-        val tvBookingScreeningDay = findViewById<TextView>(R.id.tv_booking_screening_day)
-        val tvBookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
-        val tvBookingDescription = findViewById<TextView>(R.id.tv_booking_description)
-
-        ivBookingPoster.setImageResource(movieData.posterImage)
-        tvBookingMovieName.text = movieData.title
-        tvBookingScreeningDay.text = this.getString(R.string.screening_date_format)
-            .format(
-                movieData.screeningDay.start.format(DateTimeFormatters.hyphenDateFormatter),
-                movieData.screeningDay.end.format(DateTimeFormatters.hyphenDateFormatter)
-            )
-        tvBookingRunningTime.text =
-            this.getString(R.string.running_time_format).format(movieData.runningTime)
-        tvBookingDescription.text = movieData.description
+        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: throw IllegalStateException(
+            INTENT_EXTRA_INITIAL_ERROR
+        )
     }
 
     private fun initTicketCount() {

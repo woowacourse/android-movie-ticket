@@ -15,6 +15,7 @@
         tools:layout_editor_absoluteX="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_movie_information"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
