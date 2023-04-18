@@ -63,7 +63,7 @@ class MovieListAdapter(
 
     private fun Movie.getRunningTime(): String = context.getString(R.string.running_time, runningTime)
 
-    inner class ViewHolder(view: View) {
+    class ViewHolder(view: View) {
         val moviePoster: ImageView = view.findViewById(R.id.item_poster)
         val movieTitle: TextView = view.findViewById(R.id.item_title)
         val movieDate: TextView = view.findViewById(R.id.item_date)
