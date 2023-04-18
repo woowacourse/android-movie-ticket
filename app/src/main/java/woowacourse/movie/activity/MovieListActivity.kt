@@ -14,6 +14,10 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
+        initListView()
+    }
+
+    private fun initListView() {
         val listView = findViewById<ListView>(R.id.list_view)
         val adapter = MovieListAdapter(getMovieData())
         listView.adapter = adapter
