@@ -1,4 +1,4 @@
-package movie
+package movie.data
 
 import movie.screening.ScreeningDate
 

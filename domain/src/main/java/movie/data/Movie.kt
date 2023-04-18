@@ -1,4 +1,4 @@
-package movie
+package movie.data
 
 data class Movie(
     val title: String,

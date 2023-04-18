@@ -1,8 +1,8 @@
 package woowacourse.movie.utils
 
-import movie.Movie
-import movie.MovieSchedule
-import movie.MovieTicket
+import movie.data.Movie
+import movie.data.MovieSchedule
+import movie.data.MovieTicket
 import movie.screening.ScreeningDate
 import woowacourse.movie.uimodel.MovieScheduleUi
 import woowacourse.movie.uimodel.MovieTicketUi

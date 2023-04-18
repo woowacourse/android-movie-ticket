@@ -1,4 +1,4 @@
-package movie
+package movie.data
 
 @JvmInline
 value class TicketCount(private val value: Int) {

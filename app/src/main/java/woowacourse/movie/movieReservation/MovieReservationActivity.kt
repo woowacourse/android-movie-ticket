@@ -11,7 +11,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import movie.TicketCount
+import movie.data.TicketCount
 import movie.discountpolicy.DiscountPolicy
 import movie.discountpolicy.NormalDiscountPolicy
 import movie.screening.ScreeningTime
