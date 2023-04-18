@@ -16,6 +16,7 @@ import woowacourse.movie.model.MovieDTO
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
+    private val viewHolders: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
         return movieDTOS.size
     }
@@ -30,11 +31,9 @@ class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, null)
-        if (convertView == null) view.tag = getViewHolder(view)
-
-        val holder = view.tag as ViewHolder
+        if (viewHolders[view] == null) viewHolders[view] = getViewHolder(view)
         val movieDTO = getItem(position) as MovieDTO
-        setViewHolder(holder, movieDTO, parent?.context) {
+        viewHolders[view]?.set(movieDTO, parent?.context) {
             val intent = Intent(view.context, MovieDetailActivity::class.java)
             intent.putExtra(MovieDetailActivity.MOVIE_KEY, movieDTO)
             view.context.startActivity(intent)
@@ -49,24 +48,23 @@ class MovieListAdapter(private val movieDTOS: List<MovieDTO>) : BaseAdapter() {
         view.findViewById(R.id.text_running_time),
         view.findViewById(R.id.btn_reserve)
     )
-
-    private fun setViewHolder(holder: ViewHolder, movieDTO: MovieDTO, context: Context?, clickListener: OnClickListener) {
-        holder.image.setImageResource(movieDTO.image)
-        holder.title.text = movieDTO.title
-        holder.playingDate.text = context?.getString(
-            R.string.playing_date_range,
-            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.startDate),
-            DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.endDate)
-        )
-        holder.runningTime.text = context?.getString(R.string.running_time, movieDTO.runningTime)
-        holder.reserveButton.setOnClickListener(clickListener)
-    }
-
-    private class ViewHolder constructor(
+    private class ViewHolder(
         val image: ImageView,
         val title: TextView,
         val playingDate: TextView,
         val runningTime: TextView,
         val reserveButton: Button
-    )
+    ) {
+        fun set(movieDTO: MovieDTO, context: Context?, clickListener: OnClickListener) {
+            image.setImageResource(movieDTO.image)
+            title.text = movieDTO.title
+            playingDate.text = context?.getString(
+                R.string.playing_date_range,
+                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.startDate),
+                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movieDTO.endDate)
+            )
+            runningTime.text = context?.getString(R.string.running_time, movieDTO.runningTime)
+            reserveButton.setOnClickListener(clickListener)
+        }
+    }
 }
