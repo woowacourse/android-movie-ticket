@@ -193,23 +193,33 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                setTicketCount(movieTicket.toTicket().run { dec().toTicketUI() })
+                minusTicketCount()
             }
             R.id.btn_plus -> {
-                setTicketCount(movieTicket.toTicket().run { inc().toTicketUI() })
+                plusTicketCount()
             }
             R.id.btn_ticketing -> {
-                if (selectedDate == null || selectedTime == null) {
-                    showToast(getString(R.string.select_date_and_time))
-                    return
-                }
-                reservation = reserveMovie()?.apply {
-                    val intent = Intent(this@TicketingActivity, TicketingResultActivity::class.java)
-                    intent.putExtra(RESERVATION_KEY, this)
-                    startActivity(intent)
-                    finish()
-                }
+                onClickTicketing()
             }
+        }
+    }
+
+    private fun minusTicketCount() =
+        setTicketCount(movieTicket.toTicket().run { dec().toTicketUI() })
+
+    private fun plusTicketCount() =
+        setTicketCount(movieTicket.toTicket().run { inc().toTicketUI() })
+
+    private fun onClickTicketing() {
+        if (selectedDate == null || selectedTime == null) {
+            showToast(getString(R.string.select_date_and_time))
+            return
+        }
+        reservation = reserveMovie()?.apply {
+            val intent = Intent(this@TicketingActivity, TicketingResultActivity::class.java)
+            intent.putExtra(RESERVATION_KEY, this)
+            startActivity(intent)
+            finish()
         }
     }
 
