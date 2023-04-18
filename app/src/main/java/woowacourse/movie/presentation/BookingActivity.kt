@@ -88,7 +88,7 @@ class BookingActivity : AppCompatActivity() {
         setMovieScreeningDate()
         setMovieRunningTime()
         setMovieDescription()
-        setTicketCount()
+        setTicketCount(TicketCount(DEFAULT_TICKET_COUNT))
     }
 
     private fun setMoviePoster() {
@@ -116,7 +116,8 @@ class BookingActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textBookingDescription).text = movie.description
     }
 
-    private fun setTicketCount() {
+    private fun setTicketCount(ticketCount: TicketCount) {
+        this.ticketCount = ticketCount
         findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
     }
 
@@ -127,8 +128,8 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun minusTicketCount() {
-        ticketCount = ticketCount.minus()
-        setTicketCount()
+        val newTicketCount = ticketCount.minus()
+        setTicketCount(newTicketCount)
     }
 
     private fun clickPlus() {
@@ -138,8 +139,8 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun plusTicketCount() {
-        ticketCount = ticketCount.plus()
-        setTicketCount()
+        val newTicketCount = ticketCount.plus()
+        setTicketCount(newTicketCount)
     }
 
     private fun clickBookingComplete() {
@@ -209,7 +210,7 @@ class BookingActivity : AppCompatActivity() {
         private const val TICKET_COUNT = "TICKET_COUNT"
         private const val DATE_POSITION = "DATE_POSITION"
         private const val TIME_POSITION = "TIME_POSITION"
-
+        private const val DEFAULT_TICKET_COUNT = 1
         fun getIntent(context: Context, movieId: Long): Intent {
             return Intent(context, BookingActivity::class.java).apply {
                 putExtra(MOVIE_ID, movieId)

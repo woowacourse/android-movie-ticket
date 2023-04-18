@@ -13,6 +13,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setMovieAdapter()
+    }
+
+    private fun setMovieAdapter() {
         findViewById<ListView>(R.id.listMainMovie).adapter = movieAdapter
         movieAdapter.initMovies(MovieData.movies.map { it.toPresentation() })
     }
