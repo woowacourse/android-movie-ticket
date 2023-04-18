@@ -26,7 +26,7 @@ class ReservationResultActivity : AppCompatActivity() {
         if (reservationModel == null) return
         val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
-        binding.movieNameTextView.text = reservationModel!!.movieModel.name.value
+        binding.movieNameTextView.text = reservationModel!!.movie.name.value
         binding.screeningDateTimeTextView.text = reservationModel!!.screeningDateTime.format(dateFormat)
 
         binding.ticketCountTextView.text = getString(R.string.ticket_count_form).format(reservationModel!!.ticketCount)

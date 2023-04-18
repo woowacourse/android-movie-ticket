@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
+import woowacourse.movie.domain.payment.Reservation
 import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
@@ -17,6 +18,7 @@ import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_K
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_INSTANCE_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_TIME_INSTANCE_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.TICKET_COUNT_INSTANCE_KEY
+import woowacourse.movie.uimodel.toReservationModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -164,11 +166,11 @@ class ReservationActivity : AppCompatActivity() {
             val screeningDate = binding.screeningDateSpinner.selectedItem as LocalDate
             val screeningTime = binding.screeningTimeSpinner.selectedItem as LocalTime
             val reservationModel: ReservationModel =
-                ReservationModel.from(
-                    movieModel!!,
+                Reservation.from(
+                    movieModel!!.toDomainModel(),
                     ticketCount,
                     LocalDateTime.of(screeningDate, screeningTime)
-                )
+                ).toReservationModel()
             val intent = Intent(this, ReservationResultActivity::class.java)
             intent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
             startActivity(intent)

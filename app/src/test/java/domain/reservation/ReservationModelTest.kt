@@ -25,7 +25,7 @@ class ReservationModelTest {
         )
         val reservationModel = ReservationModel.from(movieModel, 3, LocalDateTime.of(2000, 10, 1, 13, 0))
         val result = ReservationModel(
-            movieModel = movieModel,
+            movie = movieModel,
             screeningDateTime = LocalDateTime.of(2000, 10, 1, 13, 0),
             ticketCount = 3,
             paymentAmount = PaymentAmount(39000),
