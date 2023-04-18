@@ -47,12 +47,9 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val selectedDatePosition: Int = screeningDateSpinner.selectedItemPosition
-        val selectedTimePosition: Int = screeningTimeSpinner.selectedItemPosition
-
         outState.putInt(TICKET_COUNT_KEY, ticketCountTextView.text.toString().toInt())
-        outState.putInt(SCREENING_DATE_POSITION_KEY, selectedDatePosition)
-        outState.putInt(SCREENING_TIME_POSITION_KEY, selectedTimePosition)
+        outState.putInt(SCREENING_DATE_POSITION_KEY, screeningDateSpinner.selectedItemPosition)
+        outState.putInt(SCREENING_TIME_POSITION_KEY, screeningTimeSpinner.selectedItemPosition)
     }
 
     private fun initReservationView() {
@@ -81,13 +78,12 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initSpinner(savedInstanceState: Bundle?) {
-        val dates = movie.screeningPeriod
         val defaultScreeningDatePosition =
             savedInstanceState?.getInt(SCREENING_DATE_POSITION_KEY) ?: 0
         val defaultScreeningTimePosition =
             savedInstanceState?.getInt(SCREENING_TIME_POSITION_KEY) ?: 0
 
-        screeningDateSpinner.applyArrayAdapter(dates)
+        screeningDateSpinner.applyArrayAdapter(movie.screeningPeriod)
         screeningDateSpinner.onItemSelectedListener = SpinnerItemSelectedListener(
             defaultScreeningTimePosition,
             ::onScreeningDateSelected
@@ -124,7 +120,7 @@ class ReservationActivity : AppCompatActivity() {
             movie = movie,
             screeningDateSpinner = screeningDateSpinner,
             screeningTimeSpinner = screeningTimeSpinner,
-            onCompleted = ::reservationComplete
+            onCompleted = ::onReservationCompleted
         )
     }
 
@@ -136,7 +132,7 @@ class ReservationActivity : AppCompatActivity() {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-    private fun reservationComplete(reservation: ReservationInfo) {
+    private fun onReservationCompleted(reservation: ReservationInfo) {
         val intent = Intent(this, ReservationResultActivity::class.java)
 
         intent.putExtra(RESERVATION_KEY, reservation)
