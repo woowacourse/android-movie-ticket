@@ -12,8 +12,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.woowacourse.movie.domain.RunningDate
-import com.woowacourse.movie.domain.RunningTime
 import woowacourse.movie.R
 import woowacourse.movie.activities.movielist.MovieListActivity
 import woowacourse.movie.activities.ticketingresult.TicketingResultActivity
@@ -41,7 +39,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private val movieDates: List<LocalDate> by lazy {
         intent.getParcelableCompat<MovieUI>(MovieListActivity.MOVIE_KEY)
             ?.run {
-                RunningDate.getRunningDates(startDate, endDate)
+                toMovie().getRunningDates()
             } ?: emptyList()
     }
     private val movieTimes = mutableListOf<LocalTime>()
@@ -169,13 +167,15 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun initMovieTimes(date: LocalDate) {
-        movieTimes.clear()
-        movieTimes.addAll(RunningTime.runningTimes(date))
-        movieTimeAdapter.clear()
-        movieTimeAdapter.addAll(
-            movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
-        )
-        movieTimeAdapter.notifyDataSetChanged()
+        movie?.run {
+            movieTimes.clear()
+            movieTimes.addAll(toMovie().getRunningTimes(date))
+            movieTimeAdapter.clear()
+            movieTimeAdapter.addAll(
+                movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
+            )
+            movieTimeAdapter.notifyDataSetChanged()
+        }
     }
 
     override fun onClick(view: View) {
