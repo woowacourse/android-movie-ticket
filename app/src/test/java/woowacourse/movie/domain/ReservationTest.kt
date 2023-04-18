@@ -1,11 +1,9 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 @RunWith(Parameterized::class)
@@ -17,52 +15,20 @@ class ReservationTest(private val illegalPeopleCount: Int) {
             "[ERROR] 예매 인원은 최소 1명 이상 최대 200명 이하여야 합니다.",
             IllegalArgumentException::class.java
         ) {
-            Reservation(getAnyMovie(), illegalPeopleCount, LocalDateTime.now())
+            Reservation(LocalDateTime.now(), illegalPeopleCount)
         }
     }
 
     @Test
-    fun `처음 총 예매 금액은 인원수에 영화 티켓 한 장 가격을 곱한 값이다`() {
-        val peopleCount = 2
+    fun `예매 금액은 영화 티켓 가격에 할인 정책이 적용된 금액 곱하기 예매 인원 수이다`() {
+        val audienceCount = 4
+        val reservation = Reservation(LocalDateTime.of(3021, 3, 10, 9, 0), audienceCount)
 
-        val actual =
-            Reservation(getAnyMovie(), peopleCount, LocalDateTime.now()).initReservationFee
+        val actual = reservation.fee
 
-        assertEquals(Money(26000), actual)
+        val expected = Money(9700) * audienceCount
+        assert(actual == expected)
     }
-
-    @Test
-    fun `예약 생성 시 상영 날짜가 영화의 상영 기간 범위를 벗어나면 에러가 발생한다`() {
-        val movie = Movie(
-            "아바타",
-            LocalDate.of(2024, 3, 2),
-            LocalDate.of(2024, 3, 31),
-            Minute(120),
-            1,
-            "줄거리"
-        )
-
-        assertThrows(
-            "[ERROR] 예매할 날짜가 상영 기간이 아닙니다.",
-            IllegalArgumentException::class.java
-        ) {
-            Reservation(
-                movie,
-                3,
-                LocalDateTime.of(2024, 3, 1, 12, 0)
-            )
-        }
-    }
-
-    private fun getAnyMovie(): Movie =
-        Movie(
-            "아바타",
-            LocalDate.now(),
-            LocalDate.now().plusDays(1),
-            Minute(120),
-            1,
-            "줄거리"
-        )
 
     companion object {
 

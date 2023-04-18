@@ -11,11 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.dto.MovieDto
 
 class MovieListAdapter(
     private val context: Context,
-    private val movies: List<Movie>
+    private val movies: List<MovieDto>
 ) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
@@ -32,23 +32,25 @@ class MovieListAdapter(
 
     private fun initMovieItemView(
         convertView: View,
-        movie: Movie
+        movie: MovieDto
     ) {
         convertView.findViewById<ImageView>(R.id.movie_poster)
-            ?.setImageResource(movie.posterResourceId)
+            ?.setImageResource(MovieMockDateInitiator.getImageResourceIdOf(movie.id))
         convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
         convertView.findViewById<TextView>(R.id.movie_screening_date)?.text =
-            context.resources.getString(R.string.screening_date_format)
-                .format(
-                    movie.screeningStartDate.format(DATE_FORMATTER),
-                    movie.screeningEndDate.format(DATE_FORMATTER)
+            if (movie.screenings.isEmpty())
+                context.resources.getString(R.string.screening_date_is_empty)
+            else
+                context.resources.getString(R.string.screening_date_format).format(
+                    movie.screenings.first().screeningDateTime.format(DATE_FORMATTER),
+                    movie.screenings.last().screeningDateTime.format(DATE_FORMATTER)
                 )
         convertView.findViewById<TextView>(R.id.movie_running_time)?.text =
             context.resources.getString(R.string.running_time_format)
-                .format(movie.runningTime.value)
+                .format(movie.runningTime)
         convertView.findViewById<Button>(R.id.reserve_now_button).setOnClickListener {
             val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra(MOVIE, movie)
+            intent.putExtra(MOVIE_ID, movie.id)
             startActivity(context, intent, null)
         }
     }
@@ -67,6 +69,6 @@ class MovieListAdapter(
 
     companion object {
         private const val NULL_VIEW_ERROR = "[ERROR] 뷰는 널일 수 없습니다."
-        const val MOVIE = "MOVIE"
+        const val MOVIE_ID = "MOVIE_ID"
     }
 }

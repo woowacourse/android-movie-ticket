@@ -1,5 +1,6 @@
 package woowacourse.movie.domain
 
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 enum class DiscountPolicy {
@@ -12,9 +13,9 @@ enum class DiscountPolicy {
             return DayDiscountCondition(movieDays)
         }
 
-        override fun calculateDiscountFee(reservation: Reservation): Money {
+        override fun calculateDiscountFee(movieFee: Money): Money {
             val movieDaysDiscountRate = 10
-            return reservation.initReservationFee / movieDaysDiscountRate
+            return movieFee / movieDaysDiscountRate
         }
     },
     SCREENING_TIME {
@@ -30,25 +31,26 @@ enum class DiscountPolicy {
             )
         }
 
-        override fun calculateDiscountFee(reservation: Reservation): Money {
+        override fun calculateDiscountFee(movieFee: Money): Money {
             val screeningTimeDiscountAmount = 2000
-            return Money(reservation.peopleCount * screeningTimeDiscountAmount)
+            return Money(screeningTimeDiscountAmount)
         }
     };
 
     protected abstract val discountCondition: DiscountCondition
 
-    protected abstract fun calculateDiscountFee(reservation: Reservation): Money
+    protected abstract fun calculateDiscountFee(movieFee: Money): Money
 
-    private fun getDiscountFee(reservation: Reservation): Money =
-        if (discountCondition.isSatisfiedBy(reservation)) calculateDiscountFee(reservation)
+    private fun getDiscountFee(screeningDateTime: LocalDateTime, movieFee: Money): Money =
+        if (discountCondition.isSatisfiedBy(screeningDateTime)) calculateDiscountFee(movieFee)
         else Money(0)
 
     companion object {
-        fun getDiscountedFee(reservation: Reservation): Money {
-            var totalFee = reservation.initReservationFee
+        fun getDiscountedFee(screeningDateTime: LocalDateTime, movieFee: Money): Money {
+            var totalFee = movieFee
             values().forEach {
-                totalFee -= it.getDiscountFee(reservation)
+                totalFee -= it.getDiscountFee(screeningDateTime, movieFee)
+                println(totalFee)
             }
             return totalFee
         }

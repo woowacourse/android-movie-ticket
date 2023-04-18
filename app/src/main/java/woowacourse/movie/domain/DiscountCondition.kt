@@ -1,5 +1,7 @@
 package woowacourse.movie.domain
 
+import java.time.LocalDateTime
+
 interface DiscountCondition {
-    fun isSatisfiedBy(reservation: Reservation): Boolean
+    fun isSatisfiedBy(screeningDateTime: LocalDateTime): Boolean
 }

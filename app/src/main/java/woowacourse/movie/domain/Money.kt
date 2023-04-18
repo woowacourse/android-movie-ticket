@@ -10,7 +10,9 @@ value class Money(val amount: Int) {
 
     operator fun minus(money: Money): Money = Money(amount - money.amount)
 
-    operator fun div(i: Int): Money = Money(amount / i)
+    operator fun div(number: Int): Money = Money(amount / number)
+
+    operator fun times(number: Int): Money = Money(amount * number)
 
     companion object {
         private const val NEGATIVE_ERROR = "[ERROR] 금액은 음수일 수 없습니다."
