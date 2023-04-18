@@ -1,15 +1,15 @@
 package woowacourse.movie.view.mapper
 
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.view.MovieView
+import woowacourse.movie.view.MovieViewData
 import woowacourse.movie.view.mapper.DateRangeMapper.toDomain
 import woowacourse.movie.view.mapper.DateRangeMapper.toView
 import woowacourse.movie.view.mapper.ImageMapper.toDomain
 import woowacourse.movie.view.mapper.ImageMapper.toView
 
-object MovieMapper : Mapper<Movie, MovieView> {
-    override fun Movie.toView(): MovieView {
-        return MovieView(
+object MovieMapper : Mapper<Movie, MovieViewData> {
+    override fun Movie.toView(): MovieViewData {
+        return MovieViewData(
             poster.toView(),
             title,
             date.toView(),
@@ -18,7 +18,7 @@ object MovieMapper : Mapper<Movie, MovieView> {
         )
     }
 
-    override fun MovieView.toDomain(): Movie {
+    override fun MovieViewData.toDomain(): Movie {
         return Movie(
             poster.toDomain(),
             title,

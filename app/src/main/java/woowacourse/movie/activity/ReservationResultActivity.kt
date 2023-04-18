@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.ReservationDetail
 import woowacourse.movie.getSerializable
-import woowacourse.movie.view.MovieView
-import woowacourse.movie.view.Reservation
+import woowacourse.movie.view.MovieViewData
+import woowacourse.movie.view.ReservationData
 import woowacourse.movie.view.mapper.ReservationDetailMapper.toDomain
 import java.text.NumberFormat
 import java.time.format.DateTimeFormatter
@@ -20,16 +20,16 @@ class ReservationResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reservation_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val reservation =
-            intent.extras?.getSerializable<Reservation>(Reservation.RESERVATION_EXTRA_NAME)
+        val reservationData =
+            intent.extras?.getSerializable<ReservationData>(ReservationData.RESERVATION_EXTRA_NAME)
 
-        if (reservation != null) {
+        if (reservationData != null) {
             renderMovie(
-                movie = reservation.movie, title = findViewById(R.id.movie_reservation_result_title)
+                movie = reservationData.movie, title = findViewById(R.id.movie_reservation_result_title)
             )
 
             renderReservationDetail(
-                reservationDetail = reservation.detail.toDomain(),
+                reservationDetail = reservationData.detail.toDomain(),
                 date = findViewById(R.id.movie_reservation_result_date),
                 peopleCount = findViewById(R.id.movie_reservation_result_people_count),
                 price = findViewById(R.id.movie_reservation_result_price),
@@ -38,7 +38,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun renderMovie(
-        movie: MovieView,
+        movie: MovieViewData,
         title: TextView? = null
     ) {
         title?.text = movie.title

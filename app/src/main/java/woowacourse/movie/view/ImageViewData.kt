@@ -3,6 +3,6 @@ package woowacourse.movie.view
 import androidx.annotation.DrawableRes
 import java.io.Serializable
 
-data class ImageView(
+data class ImageViewData(
     @DrawableRes val resource: Int
 ) : Serializable

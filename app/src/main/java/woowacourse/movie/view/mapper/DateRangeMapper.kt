@@ -1,17 +1,17 @@
 package woowacourse.movie.view.mapper
 
 import woowacourse.movie.domain.DateRange
-import woowacourse.movie.view.DateRangeView
+import woowacourse.movie.view.DateRangeViewData
 
-object DateRangeMapper : Mapper<DateRange, DateRangeView> {
-    override fun DateRange.toView(): DateRangeView {
-        return DateRangeView(
+object DateRangeMapper : Mapper<DateRange, DateRangeViewData> {
+    override fun DateRange.toView(): DateRangeViewData {
+        return DateRangeViewData(
             startDate,
             endDate
         )
     }
 
-    override fun DateRangeView.toDomain(): DateRange {
+    override fun DateRangeViewData.toDomain(): DateRange {
         return DateRange(
             startDate,
             endDate

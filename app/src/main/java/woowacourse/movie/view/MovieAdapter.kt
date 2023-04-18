@@ -11,7 +11,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import java.time.format.DateTimeFormatter
 
-class MovieAdapter(private val movies: Movies) : BaseAdapter() {
+class MovieAdapter(private val movieViewDatas: MovieViewDatas) : BaseAdapter() {
     class ViewHolder(
         val poster: ImageView,
         val title: TextView,
@@ -20,9 +20,9 @@ class MovieAdapter(private val movies: Movies) : BaseAdapter() {
         val reservation: Button
     )
 
-    override fun getCount(): Int = movies.value.size
+    override fun getCount(): Int = movieViewDatas.value.size
 
-    override fun getItem(position: Int): Any = movies.value[position]
+    override fun getItem(position: Int): Any = movieViewDatas.value[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -43,7 +43,7 @@ class MovieAdapter(private val movies: Movies) : BaseAdapter() {
         }
 
         renderMovie(
-            getItem(position) as MovieView, view.tag as ViewHolder
+            getItem(position) as MovieViewData, view.tag as ViewHolder
         )
 
         (view.tag as ViewHolder).reservation.setOnClickListener {
@@ -54,7 +54,7 @@ class MovieAdapter(private val movies: Movies) : BaseAdapter() {
     }
 
     private fun renderMovie(
-        movie: MovieView,
+        movie: MovieViewData,
         viewHolder: ViewHolder
     ) {
         viewHolder.poster.setImageResource(movie.poster.resource)

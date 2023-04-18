@@ -3,11 +3,11 @@ package woowacourse.movie.view.widget
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.view.MovieView
+import woowacourse.movie.view.MovieViewData
 import java.time.format.DateTimeFormatter
 
 class MovieController(
-    private val movie: MovieView,
+    private val movie: MovieViewData,
     private val poster: ImageView? = null,
     private val title: TextView? = null,
     private val date: TextView? = null,

@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.time.LocalDate
 import java.time.Period
 
-data class DateRangeView(
+data class DateRangeViewData(
     val startDate: LocalDate,
     val endDate: LocalDate
 ) : Serializable {

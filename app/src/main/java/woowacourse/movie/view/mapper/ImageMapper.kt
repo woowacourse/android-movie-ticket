@@ -1,16 +1,16 @@
 package woowacourse.movie.view.mapper
 
 import woowacourse.movie.domain.Image
-import woowacourse.movie.view.ImageView
+import woowacourse.movie.view.ImageViewData
 
-object ImageMapper : Mapper<Image, ImageView> {
-    override fun Image.toView(): ImageView {
-        return ImageView(
+object ImageMapper : Mapper<Image, ImageViewData> {
+    override fun Image.toView(): ImageViewData {
+        return ImageViewData(
             resource
         )
     }
 
-    override fun ImageView.toDomain(): Image {
+    override fun ImageViewData.toDomain(): Image {
         return Image(
             resource
         )

@@ -2,10 +2,10 @@ package woowacourse.movie.view
 
 import java.io.Serializable
 
-data class MovieView(
-    val poster: ImageView,
+data class MovieViewData(
+    val poster: ImageViewData,
     val title: String,
-    val date: DateRangeView,
+    val date: DateRangeViewData,
     val runningTime: Int,
     val description: String
 ) : Serializable {
