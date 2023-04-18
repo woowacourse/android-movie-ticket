@@ -1,6 +1,5 @@
 package woowacourse.movie.domain.movie
 
-import woowacourse.movie.domain.PlayingDateTimes
 import java.time.LocalDate
 
 data class Movie(
