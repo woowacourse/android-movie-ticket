@@ -75,7 +75,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         restoreState(savedInstanceState)
-        textViewTicketCount.text = movieTicket.count.toString()
+        setTicketCount(movieTicket)
         val storedDateIndex = movieDates.indexOfFirst { it == selectedDate }
         spinnerMovieDate.setSelection(storedDateIndex)
         val storedTimeIndex = this.movieTimes.indexOfFirst { it == selectedTime }
@@ -118,6 +118,11 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
+    private fun setTicketCount(ticket: TicketUI) {
+        movieTicket = ticket
+        textViewTicketCount.text = ticket.count.toString()
+    }
+
     private fun setButtonOnClickListener() {
         val btnMinus: Button = findViewById(R.id.btn_minus)
         val btnPlus: Button = findViewById(R.id.btn_plus)
@@ -148,7 +153,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                     initMovieTimes(this)
                 }
                 selectedTime = movieTimes.firstOrNull()
-                spinnerMovieTime.setSelection(0)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -189,21 +193,18 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                movieTicket = movieTicket.toTicket().run { dec().toTicketUI() }
-                textViewTicketCount.text = movieTicket.count.toString()
+                setTicketCount(movieTicket.toTicket().run { dec().toTicketUI() })
             }
             R.id.btn_plus -> {
-                movieTicket = movieTicket.toTicket().run { inc().toTicketUI() }
-                textViewTicketCount.text = movieTicket.count.toString()
+                setTicketCount(movieTicket.toTicket().run { inc().toTicketUI() })
             }
             R.id.btn_ticketing -> {
                 if (selectedDate == null || selectedTime == null) {
                     showToast(getString(R.string.select_date_and_time))
                     return
                 }
-
-                val intent = Intent(this@TicketingActivity, TicketingResultActivity::class.java)
                 reservation = reserveMovie()?.apply {
+                    val intent = Intent(this@TicketingActivity, TicketingResultActivity::class.java)
                     intent.putExtra(RESERVATION_KEY, this)
                     startActivity(intent)
                     finish()
