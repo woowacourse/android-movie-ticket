@@ -1,13 +1,14 @@
-package woowacourse.movie.domain
+package com.example.domain
 
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
 class MovieScheduleTest {
     @Test
     fun `상영시작 날짜와 상영 종료 날짜 사이의 날짜들을 가져온다`() {
-        val movieSchedule = MovieSchedule(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 5))
+        val movieSchedule =
+            MovieSchedule(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 5))
         val actual = movieSchedule.getScheduleDates()
         assertEquals(
             actual,
@@ -17,7 +18,8 @@ class MovieScheduleTest {
 
     @Test
     fun `평일이면 9시부터 24시까지 2시간 단위로 상영한다`() {
-        val movieSchedule = MovieSchedule(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 5))
+        val movieSchedule =
+            MovieSchedule(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 5))
         val actual = movieSchedule.getScheduleTimes("2023-04-01")
         assertEquals(
             actual,
@@ -27,7 +29,8 @@ class MovieScheduleTest {
 
     @Test
     fun `주말이면 10시부터 24시까지 2시간 단위로 상영한다`() {
-        val movieSchedule = MovieSchedule(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 5))
+        val movieSchedule =
+            MovieSchedule(LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 5))
         val actual = movieSchedule.getScheduleTimes("2023-04-03")
         assertEquals(
             actual,
