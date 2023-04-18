@@ -37,9 +37,9 @@ class CompletedActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textCompletedScreeningDate).text =
             ticket.bookedDateTime.formatScreenDateTime()
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
-            getString(R.string.normal_ticket_count).format(ticket.count)
+            getString(R.string.normal_ticket_count, ticket.count)
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount).format(ticket.getPaymentAmount())
+            getString(R.string.payment_amount, ticket.getPaymentAmount())
     }
 
     companion object {
