@@ -10,7 +10,9 @@ object RunningTime {
 
     fun runningTimes(
         date: LocalDate,
-        currentTime: LocalTime = LocalTime.now(),
+        isWeekend: (LocalDate) -> Boolean = { RunningTime.isWeekend(it) },
+        isToday: (LocalDate) -> Boolean = { RunningTime.isToday(it) },
+        currentTime: LocalTime = LocalTime.now()
     ): List<LocalTime> {
         val runningTimes = if (isWeekend(date)) weekendTimes else weekDayTimes
         val time = if (isToday(date)) currentTime else LocalTime.of(0, 0)
