@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="132dp"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="76dp"
+        android:layout_height="108dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:padding="2dp"
+        tools:text="해리포터와 비밀의 방"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="14dp" />
+
+    <LinearLayout
+        android:id="@+id/running_day"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            tools:text="@string/running_date_text"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:gravity="bottom" />
+
+        <TextView
+            android:id="@+id/start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/date_text"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="2023.1.4"
+            android:gravity="bottom" />
+
+        <TextView
+            android:id="@+id/tilde_inter_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tilde"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/start_date"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:gravity="bottom" />
+
+        <TextView
+            android:id="@+id/end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/tilde_inter_date"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="2023.2.23"
+            android:gravity="bottom" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/running_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="15dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/running_day">
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:text="@string/running_time_text"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/date_text" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/time_text"
+            app:layout_constraintTop_toBottomOf="@id/start_date"
+            tools:text="124" />
+
+        <TextView
+            android:id="@+id/minute_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/minutes"
+            android:textSize="12sp"
+            android:gravity="bottom"
+            app:layout_constraintStart_toEndOf="@id/time"
+            app:layout_constraintTop_toBottomOf="@id/start_date" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/reservation"
+        android:layout_width="88dp"
+        android:layout_height="36dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="@string/now_reservation"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
