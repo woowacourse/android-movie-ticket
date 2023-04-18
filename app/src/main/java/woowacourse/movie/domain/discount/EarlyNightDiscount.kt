@@ -4,9 +4,9 @@ import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 class EarlyNightDiscount(
-    private val amount: Int,
-    private val earlyTime: Int,
-    private val nightTime: Int
+    private val amount: Int = DiscountPolicy.earlyNightAmount,
+    private val earlyTime: Int = DiscountPolicy.earlyTime,
+    private val nightTime: Int = DiscountPolicy.nightTime
 ) : DiscountRule {
 
     override fun getPaymentAmountResult(paymentAmount: PaymentAmount, screeningDateTime: LocalDateTime): PaymentAmount {

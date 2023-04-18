@@ -4,8 +4,8 @@ import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 class MovieDayDiscount(
-    private val percentage: Double,
-    private val movieDays: List<Int>
+    private val percentage: Double = DiscountPolicy.movieDayPercentage,
+    private val movieDays: List<Int> = DiscountPolicy.movieDays
 ) : DiscountRule {
 
     override fun getPaymentAmountResult(paymentAmount: PaymentAmount, screeningDateTime: LocalDateTime): PaymentAmount {
