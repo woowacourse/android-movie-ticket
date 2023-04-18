@@ -19,15 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setMovieList(movies: List<Movie>) {
         val moviesView = findViewById<ListView>(R.id.main_movie_list)
-        moviesView.adapter = MovieListAdapter(
-            this,
-            movies,
-            object : MovieListAdapter.ItemButtonClickListener {
-                override fun onClick(position: Int) {
-                    moveToDetailActivity(movies[position])
-                }
-            }
-        )
+        moviesView.adapter = MovieListAdapter(movies) {
+            moveToDetailActivity(it)
+        }
         moviesView.setOnItemClickListener { parent, view, position, id ->
             moveToDetailActivity(movies[position])
         }

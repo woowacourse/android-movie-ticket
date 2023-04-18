@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.activity
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +13,9 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
-    private val context: Context,
     private val movies: List<Movie>,
-    private val itemButtonClickListener: ItemButtonClickListener,
+    private val onItemButtonClick: (Movie) -> Unit,
 ) : BaseAdapter() {
-    interface ItemButtonClickListener {
-        fun onClick(position: Int)
-    }
-
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Any = movies[position]
@@ -40,34 +34,30 @@ class MovieListAdapter(
             viewHolder = itemView.tag as ViewHolder
         }
 
-        setViewContent(position, viewHolder)
+        viewHolder.bind(movies[position], onItemButtonClick)
 
         return itemView
     }
 
-    private fun setViewContent(
-        position: Int,
-        viewHolder: ViewHolder
-    ) {
-        val movie = movies[position]
-        viewHolder.moviePoster.setImageResource(movie.poster)
-        viewHolder.movieTitle.text = movie.title
-        viewHolder.movieDate.text = movie.getScreenDate()
-        viewHolder.movieTime.text = movie.getRunningTime()
-        viewHolder.bookingButton.setOnClickListener { itemButtonClickListener.onClick(position) }
-    }
-
-    private fun Movie.getScreenDate(): String = context.getString(R.string.screen_date, startDate.format(), endDate.format())
-
-    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
-
-    private fun Movie.getRunningTime(): String = context.getString(R.string.running_time, runningTime)
-
     class ViewHolder(view: View) {
-        val moviePoster: ImageView = view.findViewById(R.id.item_poster)
-        val movieTitle: TextView = view.findViewById(R.id.item_title)
-        val movieDate: TextView = view.findViewById(R.id.item_date)
-        val movieTime: TextView = view.findViewById(R.id.item_running_time)
-        val bookingButton: Button = view.findViewById(R.id.item_booking_button)
+        private val moviePoster: ImageView = view.findViewById(R.id.item_poster)
+        private val movieTitle: TextView = view.findViewById(R.id.item_title)
+        private val movieDate: TextView = view.findViewById(R.id.item_date)
+        private val movieTime: TextView = view.findViewById(R.id.item_running_time)
+        private val bookingButton: Button = view.findViewById(R.id.item_booking_button)
+
+        fun bind(movie: Movie, onItemButtonClick: (Movie) -> Unit) {
+            moviePoster.setImageResource(movie.poster)
+            movieTitle.text = movie.title
+            movieDate.text = movie.getScreenDate()
+            movieTime.text = movie.getRunningTime()
+            bookingButton.setOnClickListener { onItemButtonClick(movie) }
+        }
+
+        private fun Movie.getScreenDate(): String = movieDate.context.getString(R.string.screen_date, startDate.format(), endDate.format())
+
+        private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(movieDate.context.getString(R.string.date_format)))
+
+        private fun Movie.getRunningTime(): String = movieTime.context.getString(R.string.running_time, runningTime)
     }
 }
