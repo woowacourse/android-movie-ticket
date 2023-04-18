@@ -23,17 +23,19 @@ import java.time.LocalTime
 
 class MovieDetailActivity : AppCompatActivity() {
 
-    private var savedInstanceState: Bundle? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        this.savedInstanceState = savedInstanceState
+
+        val savedCount = getSavedCount(savedInstanceState)
+        val savedDateSpinnerIndex = getSavedDateSpinnerIndex(savedInstanceState)
+        val savedTimeSpinnerIndex = getSavedTimeSpinnerIndex(savedInstanceState)
 
         val movie: Movie = getIntentMovieDate()
+
         initMovieDataView(movie)
-        initCountView()
-        initSpinner(movie.playingTimes)
+        initCountView(savedCount)
+        initSpinner(savedDateSpinnerIndex, savedTimeSpinnerIndex, movie.playingTimes)
         initTicketingButton(movie.title)
         setActionBar()
     }
@@ -48,15 +50,19 @@ class MovieDetailActivity : AppCompatActivity() {
         initDescription(movie.description)
     }
 
-    private fun initCountView() {
-        initCount()
+    private fun initCountView(savedCount: Int) {
+        initCount(savedCount)
         initMinusButton()
         initPlusButton()
     }
 
-    private fun initSpinner(playingTimes: PlayingTimes) {
-        initDateSpinner(playingTimes)
-        initTimeSpinner(playingTimes)
+    private fun initSpinner(
+        savedDateSpinnerIndex: Int,
+        savedTimeSpinnerIndex: Int,
+        playingTimes: PlayingTimes
+    ) {
+        initDateSpinner(savedDateSpinnerIndex, playingTimes)
+        initTimeSpinner(savedTimeSpinnerIndex, playingTimes)
     }
 
     private fun initTicketingButton(movieTitle: String) {
@@ -102,9 +108,9 @@ class MovieDetailActivity : AppCompatActivity() {
         descriptionView.text = description
     }
 
-    private fun initCount() {
+    private fun initCount(savedCount: Int) {
         val countText = findViewById<TextView>(R.id.text_count)
-        countText.text = getSavedCount().toString()
+        countText.text = savedCount.toString()
     }
 
     private fun initMinusButton() {
@@ -138,14 +144,16 @@ class MovieDetailActivity : AppCompatActivity() {
         )
     }
 
-    private fun getSavedCount(): Int = savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
-    private fun getSavedDateSpinnerIndex(): Int =
+    private fun getSavedCount(savedInstanceState: Bundle?): Int =
+        savedInstanceState?.getInt(COUNT_KEY) ?: DEFAULT_COUNT
+
+    private fun getSavedDateSpinnerIndex(savedInstanceState: Bundle?): Int =
         savedInstanceState?.getInt(SPINNER_DATE_KEY) ?: DEFAULT_POSITION
 
-    private fun getSavedTimeSpinnerIndex(): Int =
+    private fun getSavedTimeSpinnerIndex(savedInstanceState: Bundle?): Int =
         savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-    private fun initTimeSpinner(playingTimes: PlayingTimes) {
+    private fun initTimeSpinner(savedTimeSpinnerIndex: Int, playingTimes: PlayingTimes) {
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val selectedDate = playingTimes.playingDates[spinnerDate.selectedItemPosition]
@@ -155,10 +163,10 @@ class MovieDetailActivity : AppCompatActivity() {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             }
 
-        spinnerTime.setSelection(getSavedTimeSpinnerIndex())
+        spinnerTime.setSelection(savedTimeSpinnerIndex)
     }
 
-    private fun initDateSpinner(playingTimes: PlayingTimes) {
+    private fun initDateSpinner(savedDateSpinnerIndex: Int, playingTimes: PlayingTimes) {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val dates = playingTimes.playingDates
@@ -167,7 +175,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             }
 
-        spinnerDate.setSelection(getSavedDateSpinnerIndex(), false)
+        spinnerDate.setSelection(savedDateSpinnerIndex, false)
         spinnerDate.onItemSelectedListener = SpinnerListener(playingTimes, dates, spinnerTime)
     }
 
