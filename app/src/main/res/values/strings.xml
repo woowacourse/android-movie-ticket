@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Movie</string>
+
+    <string name="screening_period_form">상영일: %s ~ %s</string>
+    <string name="running_time_form">러닝타임: %d분</string>
+    <string name="ticket_count_form">일반 %d명</string>
+    <string name="payment_amount_form">%s원 (%s)</string>
+    <string name="ticket_count_condition_message_form">티켓 수는 %d장 이상이어야합니다."</string>
+
+    <string name="payment_type_local_text">현장 결제</string>
+    <string name="ticket_count_minus_button_text">-</string>
+    <string name="ticket_count_plus_button_text">+</string>
+    <string name="reservation_complete_button_text">예매 완료</string>
+    <string name="reservation_cancel_alert_message">영화 상영 시작 시간 15분 전까지 \n취소가 가능합니다.</string>
 </resources>
