@@ -3,8 +3,8 @@ package woowacourse.movie.ui.main
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MovieRepository
 import woowacourse.movie.R
-import woowacourse.movie.ui.MovieService
 import woowacourse.movie.ui.booking.BookingActivity
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private fun initAdapter() {
         val movieAdapter = MovieAdapter(this) { clickBook(it) }
         findViewById<ListView>(R.id.listMainMovie).adapter = movieAdapter
-        movieAdapter.initMovies(MovieService.getMovies())
+        movieAdapter.initMovies(MovieRepository.getMovies())
     }
 
     private fun clickBook(movieId: Long) {
