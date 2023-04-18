@@ -27,12 +27,12 @@ class WeekendMovieTimeTest {
     }
 
     @Test
-    fun `주말이 아니라면 null을 반환한다`() {
+    fun `주말이 아니라면 빈 리스트를 반환한다`() {
         // given
         val date = LocalDate.of(2023, 4, 13)
         // when
         val actual = WeekendMovieTime.generateTime(date)
         // then
-        assertEquals(actual, listOf<LocalTime>())
+        assertEquals(actual, emptyList<LocalTime>())
     }
 }
