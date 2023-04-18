@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package com.woowacourse.domain
 
 class Ticket {
     var price: Int = TICKET_PRICE

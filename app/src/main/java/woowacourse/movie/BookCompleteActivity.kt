@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import com.woowacourse.domain.TicketBundle
 import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
-import woowacourse.movie.domain.TicketBundle
 
 class BookCompleteActivity : BackButtonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

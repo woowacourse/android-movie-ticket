@@ -1,8 +1,8 @@
 package woowacourse.movie
 
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
-import woowacourse.movie.domain.TicketBundle
+import com.woowacourse.domain.TicketBundle
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 
 class TicketBundleTest {
     @Test
@@ -11,6 +11,6 @@ class TicketBundleTest {
             "2023-04-10",
             "13:00"
         )
-        assertEquals(actual, 35100)
+        assertThat(actual).isEqualTo(35100)
     }
 }

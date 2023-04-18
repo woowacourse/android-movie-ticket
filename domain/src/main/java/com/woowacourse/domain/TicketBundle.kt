@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package com.woowacourse.domain
 
 class TicketBundle private constructor(private val tickets: List<Ticket>) {
 
