@@ -1,14 +1,11 @@
 package woowacourse.movie.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MockMoviesFactory
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.dto.MovieDto.Companion.MOVIE_KEY_VALUE
-import woowacourse.movie.dto.MovieDtoConverter
 import woowacourse.movie.view.MovieAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -21,9 +18,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun reservationButtonClick(movie: Movie) {
-        val intent = Intent(this, MovieReservationActivity::class.java)
-        val movieDto = MovieDtoConverter().convertModelToDto(movie)
-        intent.putExtra(MOVIE_KEY_VALUE, movieDto)
-        startActivity(intent)
+        MovieReservationActivity.start(this, movie)
     }
 }

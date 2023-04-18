@@ -1,5 +1,6 @@
 package woowacourse.movie.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,12 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieReservationOffice
-import woowacourse.movie.domain.Reservation
 import woowacourse.movie.dto.MovieDto
-import woowacourse.movie.dto.MovieDto.Companion.MOVIE_KEY_VALUE
 import woowacourse.movie.dto.MovieDtoConverter
-import woowacourse.movie.dto.ReservationDto.Companion.RESERVATION_KEY_VALUE
-import woowacourse.movie.dto.ReservationDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
@@ -82,17 +79,9 @@ class MovieReservationActivity : AppCompatActivity() {
                 dateSpinner.getSelectedDate(), timeSpinner.getSelectedTime(), counter.getCount()
             )
             val reservation = movieReservationOffice.makeReservation(movie, reservationDetail)
-            startReservationResultActivity(reservation)
+            ReservationResultActivity.start(this, reservation)
         }
     }
-
-    private fun startReservationResultActivity(reservation: Reservation) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        val reservationDto = ReservationDtoConverter().convertModelToDto(reservation)
-        intent.putExtra(RESERVATION_KEY_VALUE, reservationDto)
-        startActivity(intent)
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
@@ -109,6 +98,14 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
+        fun start(context: Context, movie: Movie) {
+            val intent = Intent(context, MovieReservationActivity::class.java)
+            val movieDto = MovieDtoConverter().convertModelToDto(movie)
+            intent.putExtra(MOVIE_KEY_VALUE, movieDto)
+            context.startActivity(intent)
+        }
+
+        private const val MOVIE_KEY_VALUE = "movie"
         private const val COUNTER_SAVE_STATE_KEY = "counter"
         private const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
         private const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"

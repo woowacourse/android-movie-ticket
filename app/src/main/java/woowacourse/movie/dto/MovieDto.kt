@@ -11,8 +11,4 @@ data class MovieDto(
     val endDate: LocalDate,
     val runningTime: Int,
     val description: String,
-) : Dto, Serializable {
-    companion object {
-        const val MOVIE_KEY_VALUE = "movie"
-    }
-}
+) : Dto, Serializable

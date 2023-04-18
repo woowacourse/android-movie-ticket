@@ -1,12 +1,13 @@
 package woowacourse.movie.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.dto.ReservationDto
-import woowacourse.movie.dto.ReservationDto.Companion.RESERVATION_KEY_VALUE
 import woowacourse.movie.dto.ReservationDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.MovieController
@@ -45,5 +46,15 @@ class ReservationResultActivity : AppCompatActivity() {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val RESERVATION_KEY_VALUE = "reservation"
+        fun start(context: Context, reservation: Reservation) {
+            val intent = Intent(context, ReservationResultActivity::class.java)
+            val reservationDto = ReservationDtoConverter().convertModelToDto(reservation)
+            intent.putExtra(RESERVATION_KEY_VALUE, reservationDto)
+            context.startActivity(intent)
+        }
     }
 }
