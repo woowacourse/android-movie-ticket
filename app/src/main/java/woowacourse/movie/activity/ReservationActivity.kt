@@ -26,8 +26,12 @@ class ReservationActivity : AppCompatActivity() {
         findViewById(R.id.reservation_ticket_count_text_view)
     }
     private val movie: MovieInfo by lazy {
-        intent.customGetSerializable(MOVIE_KEY) as MovieInfo?
-            ?: throw IllegalArgumentException(getString(R.string.movie_data_error_message))
+        intent.customGetSerializable(MOVIE_KEY) as? MovieInfo
+            ?: run {
+                Toast.makeText(this, getString(R.string.reservation_data_error_message), Toast.LENGTH_SHORT).show()
+                finish()
+                MovieInfo.ofError()
+            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,6 +8,7 @@ import domain.reservation.TicketCount
 import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.model.toDomainModel
+import woowacourse.movie.model.toUIModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -55,7 +56,7 @@ class TicketCountButtonListener(
                             screeningTimeSpinner.selectedItem as LocalTime
                         )
                     )
-                    .toDomainModel()
+                    .toUIModel()
 
             onCompleted(reservation)
         }

@@ -17,7 +17,20 @@ data class MovieInfo(
     val screeningPeriod: List<LocalDate>,
     val runningTime: Int,
     val description: String
-) : Serializable
+) : Serializable {
+
+    companion object {
+        fun ofError() = MovieInfo(
+            "",
+            null,
+            LocalDate.MIN,
+            LocalDate.MIN,
+            listOf(),
+            0,
+            ""
+        )
+    }
+}
 
 fun Movie.toDomainModel(posterImage: Int?) = MovieInfo(
     movieName.value,

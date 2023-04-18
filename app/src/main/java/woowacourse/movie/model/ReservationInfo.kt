@@ -1,6 +1,5 @@
 package woowacourse.movie.model
 
-import domain.payment.PaymentAmount
 import domain.payment.PaymentType
 import domain.reservation.Reservation
 import java.io.Serializable
@@ -10,14 +9,26 @@ data class ReservationInfo(
     val movieName: String,
     val screeningDateTime: LocalDateTime,
     val ticketCount: Int,
-    val paymentAmount: PaymentAmount,
+    val paymentAmount: Int,
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
-) : Serializable
+) : Serializable {
 
-fun Reservation.toDomainModel() = ReservationInfo(
+    companion object {
+
+        fun ofError() = ReservationInfo(
+            "",
+            LocalDateTime.MIN,
+            0,
+            0,
+            PaymentType.ERROR_PAID
+        )
+    }
+}
+
+fun Reservation.toUIModel() = ReservationInfo(
     movieName.value,
     screeningDateTime,
     ticketCount,
-    paymentAmount,
+    paymentAmount.value,
     paymentType
 )
