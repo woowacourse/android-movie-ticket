@@ -4,11 +4,17 @@ import woowacourse.movie.domain.policy.DiscountPolicy
 import java.time.LocalDate
 import java.time.LocalTime
 
-class PriceCalculator(private val polices: List<DiscountPolicy>, private val defaultPrice: Price = Price()) {
+class PriceCalculator(
+    private val policies: List<DiscountPolicy>,
+    private val defaultPrice: Price = Price()
+) {
     fun calculate(playingDate: LocalDate, playingTime: LocalTime, count: Int): Price {
-        var calculatePrice = defaultPrice
-        for (policy in polices) {
-            calculatePrice = policy.calculate(playingDate, playingTime, calculatePrice)
+        val calculatePrice = policies.fold(defaultPrice) { total, policy ->
+            policy.calculate(
+                playingDate,
+                playingTime,
+                total
+            )
         }
         return Price(calculatePrice.price * count)
     }
