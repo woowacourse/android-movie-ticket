@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,9 +29,9 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
         }
         viewHolder.setData(getItem(position))
         viewHolder.bookButton?.setOnClickListener {
-            val intent = Intent(parent?.context, MovieDetailActivity::class.java)
+            val intent = MovieDetailActivity.intent(parent!!.context)
             intent.putExtra(MOVIE_DATA_KEY, getItem(position))
-            parent?.context?.startActivity(intent)
+            parent.context.startActivity(intent)
         }
         return view
     }

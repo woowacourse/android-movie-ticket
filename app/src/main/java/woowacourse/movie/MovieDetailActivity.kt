@@ -1,5 +1,7 @@
 package woowacourse.movie
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -9,7 +11,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import woowacourse.movie.BookCompleteActivity.Companion.intent
 import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
 import woowacourse.movie.BundleKeys.MOVIE_DATA_KEY
 import woowacourse.movie.domain.MovieSchedule
@@ -152,5 +153,7 @@ class MovieDetailActivity : BackButtonActivity() {
         private const val DATE_KEY = "date"
         private const val TIME_KEY = "time"
         private const val MIN_TICKET = "1"
+
+        fun intent(context: Context) = Intent(context, MovieDetailActivity::class.java)
     }
 }
