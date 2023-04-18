@@ -9,10 +9,10 @@ import woowacourse.movie.service.MovieQueryService
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 
-class ReservationCompletedActivity : AppCompatActivity() {
+class ReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reservation_completed)
+        setContentView(R.layout.activity_reservation_result)
 
         val reservationInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(ReservationActivity.RESERVATION_INFO, ReservationInfo::class.java)

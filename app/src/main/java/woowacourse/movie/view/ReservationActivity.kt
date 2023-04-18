@@ -163,7 +163,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun startReservationResultActivity() {
-        val intent = Intent(this, ReservationCompletedActivity::class.java)
+        val intent = Intent(this, ReservationResultActivity::class.java)
         val selectedScreeningDateTime =
             LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
         intent.putExtra(RESERVATION_INFO, ReservationInfo(movie.id, selectedScreeningDateTime))
