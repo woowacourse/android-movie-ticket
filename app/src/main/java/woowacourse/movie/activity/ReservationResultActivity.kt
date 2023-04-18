@@ -20,7 +20,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservationResultView() {
-        val movieMovieNameTextView: TextView = findViewById(R.id.result_movie_name_text_view)
+        val movieNameTextView: TextView = findViewById(R.id.result_movie_name_text_view)
         val paymentAmountTextView: TextView = findViewById(R.id.result_payment_amount_text_view)
         val screeningDateTimeTextView: TextView = findViewById(R.id.result_screening_date_time_text_view)
         val ticketCountTextView: TextView = findViewById(R.id.result_ticket_count_text_view)
@@ -32,7 +32,7 @@ class ReservationResultActivity : AppCompatActivity() {
             val dateFormat: DateTimeFormatter =
                 DateTimeFormatter.ofPattern(getString(R.string.reservation_date_time_form))
 
-            movieMovieNameTextView.text = movieName
+            movieNameTextView.text = movieName
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
             ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
             paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
