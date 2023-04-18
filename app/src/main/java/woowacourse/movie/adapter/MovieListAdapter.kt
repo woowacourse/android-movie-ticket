@@ -30,16 +30,15 @@ class MovieListAdapter(private val movies: List<Movie>) :
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View
         val viewHolder: ViewHolder
-        require(parent != null) { VIEW_GROUP_NULL_ERROR }
         if (convertView == null) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, null)
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent)
             viewHolder = getViewHolder(view)
             view.tag = viewHolder
         } else {
             view = convertView
-            viewHolder = view.tag as ViewHolder
+            viewHolder = convertView.tag as ViewHolder
         }
-        setViewHolder(parent.context, viewHolder, movies[position])
+        setViewHolder(view.context, viewHolder, movies[position])
         return view
     }
 
@@ -79,6 +78,5 @@ class MovieListAdapter(private val movies: List<Movie>) :
 
     companion object {
         private const val MOVIE_KEY = "movie"
-        private const val VIEW_GROUP_NULL_ERROR = "ViewGroup이 null 입니다."
     }
 }
