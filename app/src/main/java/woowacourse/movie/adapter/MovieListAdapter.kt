@@ -15,6 +15,7 @@ import woowacourse.movie.model.Movie
 
 class MovieListAdapter(private val movies: List<Movie>) :
     BaseAdapter() {
+    private val viewHolder: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
         return movies.size
     }
@@ -28,17 +29,15 @@ class MovieListAdapter(private val movies: List<Movie>) :
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View
-        val viewHolder: ViewHolder
-        if (convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent)
-            viewHolder = getViewHolder(view)
-            view.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = convertView.tag as ViewHolder
-        }
-        setViewHolder(view.context, viewHolder, movies[position])
+        val view: View =
+            convertView ?: LayoutInflater.from(parent?.context)
+                .inflate(R.layout.movie_item, parent, false)
+        val currentViewHolder = viewHolder.getOrPut(view) { getViewHolder(view) }
+        setViewHolder(
+            view.context,
+            currentViewHolder,
+            movies[position]
+        )
         return view
     }
 
