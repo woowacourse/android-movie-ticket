@@ -34,11 +34,12 @@ class ReservationActivity : AppCompatActivity() {
 
         val movieModel: MovieModel? by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel }
 
+        initTicketCount()
         movieModel?.let {
             initReservationView(it)
             initClickListener(it)
-            initTicketCount(savedInstanceState)
-            initSpinner(it, savedInstanceState)
+            initSpinner(it)
+            loadSavedInstanceState(it, savedInstanceState)
         }
     }
 
@@ -48,7 +49,10 @@ class ReservationActivity : AppCompatActivity() {
         val selectedDate: LocalDate = binding.screeningDateSpinner.selectedItem as LocalDate
         val selectedTime: LocalTime = binding.screeningTimeSpinner.selectedItem as LocalTime
 
-        outState.putInt(TICKET_COUNT_INSTANCE_KEY, binding.ticketCountTextView.text.toString().toInt())
+        outState.putInt(
+            TICKET_COUNT_INSTANCE_KEY,
+            binding.ticketCountTextView.text.toString().toInt()
+        )
         outState.putLong(SCREENING_DATE_INSTANCE_KEY, selectedDate.toEpochDay())
         outState.putString(SCREENING_TIME_INSTANCE_KEY, selectedTime.toString())
     }
@@ -58,66 +62,42 @@ class ReservationActivity : AppCompatActivity() {
 
         movieModel!!.posterImage?.let { id -> binding.moviePosterImageView.setImageResource(id) }
         binding.movieNameTextView.text = movieModel.name.value
-        binding.movieScreeningPeriodTextView.text = getString(R.string.screening_period_form).format(
-            movieModel.screeningPeriod.startDate.format(dateFormat),
-            movieModel.screeningPeriod.endDate.format(dateFormat)
-        )
+        binding.movieScreeningPeriodTextView.text =
+            getString(R.string.screening_period_form).format(
+                movieModel.screeningPeriod.startDate.format(dateFormat),
+                movieModel.screeningPeriod.endDate.format(dateFormat)
+            )
         binding.movieRunningTimeTextView.text =
             getString(R.string.running_time_form).format(movieModel.runningTime)
         binding.movieDescriptionTextView.text = movieModel.description
     }
 
-    private fun initTicketCount(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            binding.ticketCountTextView.text = TicketCount.MINIMUM.toString()
-            return
-        }
-        val ticketCount: Int = savedInstanceState.getInt(TICKET_COUNT_INSTANCE_KEY)
-        binding.ticketCountTextView.text = ticketCount.toString()
+    private fun initTicketCount() {
+        binding.ticketCountTextView.text = TicketCount.MINIMUM.toString()
     }
 
-    private fun initSpinner(movieModel: MovieModel, savedInstanceState: Bundle?) {
+    private fun initSpinner(movieModel: MovieModel) {
         val dates = movieModel.screeningPeriod.getScreeningDates()
 
         binding.screeningDateSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            dates
+            this, android.R.layout.simple_spinner_item, dates
         )
 
-        binding.screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (savedInstanceState == null) {
+        binding.screeningDateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
                     initTimeSpinner(movieModel, dates[position])
-                    return
                 }
-                loadSpinner(movieModel, savedInstanceState)
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    initTimeSpinner(movieModel, null)
+                }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                initTimeSpinner(movieModel, null)
-            }
-        }
-    }
-
-    private fun loadSpinner(movieModel: MovieModel, savedInstanceState: Bundle) {
-        val screeningDate: LocalDate =
-            LocalDate.ofEpochDay(savedInstanceState.getLong(SCREENING_DATE_INSTANCE_KEY))
-        val screeningTime: LocalTime =
-            LocalTime.parse(savedInstanceState.getString(SCREENING_TIME_INSTANCE_KEY))
-
-        val selectedDatePosition: Int =
-            movieModel.screeningPeriod.getScreeningDates().indexOf(screeningDate)
-        val selectedTimePosition: Int =
-            movieModel.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
-
-        binding.screeningDateSpinner.setSelection(selectedDatePosition)
-        initTimeSpinner(movieModel, screeningDate, selectedTimePosition)
     }
 
     private fun initTimeSpinner(movieModel: MovieModel, date: LocalDate?, defaultPoint: Int = 0) {
@@ -140,7 +120,8 @@ class ReservationActivity : AppCompatActivity() {
     private fun initMinusClickListener() {
         binding.ticketCountMinusButton.setOnClickListener {
             runCatching {
-                val ticketCount = TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
+                val ticketCount =
+                    TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
                 binding.ticketCountTextView.text = ticketCount.value.toString()
             }.onFailure {
                 val ticketCountConditionMessage =
@@ -173,5 +154,26 @@ class ReservationActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun loadSavedInstanceState(movieModel: MovieModel, instance: Bundle?) {
+        if (instance == null) return
+        loadSpinner(movieModel, instance)
+        binding.ticketCountTextView.text = instance.getInt(TICKET_COUNT_INSTANCE_KEY).toString()
+    }
+
+    private fun loadSpinner(movieModel: MovieModel, savedInstanceState: Bundle) {
+        val screeningDate: LocalDate =
+            LocalDate.ofEpochDay(savedInstanceState.getLong(SCREENING_DATE_INSTANCE_KEY))
+        val screeningTime: LocalTime =
+            LocalTime.parse(savedInstanceState.getString(SCREENING_TIME_INSTANCE_KEY))
+
+        val selectedDatePosition: Int =
+            movieModel.screeningPeriod.getScreeningDates().indexOf(screeningDate)
+        val selectedTimePosition: Int =
+            movieModel.screeningPeriod.getScreeningTimes(screeningDate).indexOf(screeningTime)
+
+        binding.screeningDateSpinner.setSelection(selectedDatePosition)
+        initTimeSpinner(movieModel, screeningDate, selectedTimePosition)
     }
 }
