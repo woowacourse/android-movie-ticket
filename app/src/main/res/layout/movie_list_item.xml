@@ -29,7 +29,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageItemThumbnail"
+        app:layout_constraintStart_toEndOf="@id/imageItemThumbnail"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="해리 포터와 마법사의 돌" />
 
@@ -41,8 +41,8 @@
         android:fontFamily="@font/roboto"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textItemTitle"
-        app:layout_constraintTop_toBottomOf="@+id/textItemTitle"
+        app:layout_constraintStart_toStartOf="@id/textItemTitle"
+        app:layout_constraintTop_toBottomOf="@id/textItemTitle"
         tools:text="상영일: 2024.3.1" />
 
     <TextView
@@ -53,8 +53,8 @@
         android:fontFamily="@font/roboto"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/textBookingScreeningDate"
-        app:layout_constraintTop_toBottomOf="@+id/textBookingScreeningDate"
+        app:layout_constraintStart_toStartOf="@id/textBookingScreeningDate"
+        app:layout_constraintTop_toBottomOf="@id/textBookingScreeningDate"
         tools:text="러닝타임: 152분" />
 
     <Button
@@ -71,5 +71,5 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textBookingRunningTime" />
+        app:layout_constraintTop_toBottomOf="@id/textBookingRunningTime" />
 </androidx.constraintlayout.widget.ConstraintLayout>

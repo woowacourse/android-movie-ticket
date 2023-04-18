@@ -32,7 +32,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCompletedDescription"
+        app:layout_constraintTop_toBottomOf="@id/textCompletedDescription"
         tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
@@ -45,7 +45,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCompletedTitle"
+        app:layout_constraintTop_toBottomOf="@id/textCompletedTitle"
         tools:text="2024.3.1 17:00" />
 
     <TextView
@@ -58,7 +58,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCompletedScreeningDate"
+        app:layout_constraintTop_toBottomOf="@id/textCompletedScreeningDate"
         tools:text="일반 1명" />
 
     <TextView
@@ -71,6 +71,6 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCompletedTicketCount"
+        app:layout_constraintTop_toBottomOf="@id/textCompletedTicketCount"
         tools:text="13,000원 (현장 결제)" />
 </androidx.constraintlayout.widget.ConstraintLayout>

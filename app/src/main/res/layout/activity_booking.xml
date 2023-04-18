@@ -28,9 +28,9 @@
             android:paddingVertical="8dp"
             android:text="@string/minus"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textBookingTicketCount"
-            app:layout_constraintStart_toStartOf="@+id/buttonBookingComplete"
-            app:layout_constraintTop_toTopOf="@+id/textBookingTicketCount" />
+            app:layout_constraintBottom_toBottomOf="@id/textBookingTicketCount"
+            app:layout_constraintStart_toStartOf="@id/buttonBookingComplete"
+            app:layout_constraintTop_toTopOf="@id/textBookingTicketCount" />
 
         <Button
             android:id="@+id/buttonBookingPlus"
@@ -40,9 +40,9 @@
             android:paddingVertical="8dp"
             android:text="@string/plus"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textBookingTicketCount"
-            app:layout_constraintEnd_toEndOf="@+id/buttonBookingComplete"
-            app:layout_constraintTop_toTopOf="@+id/textBookingTicketCount" />
+            app:layout_constraintBottom_toBottomOf="@id/textBookingTicketCount"
+            app:layout_constraintEnd_toEndOf="@id/buttonBookingComplete"
+            app:layout_constraintTop_toTopOf="@id/textBookingTicketCount" />
 
         <TextView
             android:id="@+id/textBookingTicketCount"
@@ -52,7 +52,7 @@
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonBookingComplete"
+            app:layout_constraintBottom_toTopOf="@id/buttonBookingComplete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="1" />
@@ -76,7 +76,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,8 +116,8 @@
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textBookingTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textBookingTitle"
+                app:layout_constraintStart_toStartOf="@id/textBookingTitle"
+                app:layout_constraintTop_toBottomOf="@id/textBookingTitle"
                 tools:text="상영일: 2024.3.1" />
 
             <TextView
@@ -127,8 +127,8 @@
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/textBookingScreeningDate"
-                app:layout_constraintTop_toBottomOf="@+id/textBookingScreeningDate"
+                app:layout_constraintStart_toStartOf="@id/textBookingScreeningDate"
+                app:layout_constraintTop_toBottomOf="@id/textBookingScreeningDate"
                 tools:text="러닝타임: 152분" />
 
             <TextView
