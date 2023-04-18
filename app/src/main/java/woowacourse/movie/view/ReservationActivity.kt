@@ -35,6 +35,10 @@ class ReservationActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        setAudienceCount()
+    }
+
+    private fun setAudienceCount() {
         val peopleCountView = findViewById<TextView>(R.id.people_count)
         peopleCountView.text = selectedAudienceCount.toString()
     }
