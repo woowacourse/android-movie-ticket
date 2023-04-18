@@ -5,10 +5,13 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.*
+import woowacourse.movie.model.Payment
+import woowacourse.movie.model.Price
+import woowacourse.movie.model.TicketingInfo
 import woowacourse.movie.model.formatter.DateFormatter
 import woowacourse.movie.model.formatter.DecimalFormatter
 import woowacourse.movie.model.formatter.TimeFormatter
+import woowacourse.movie.model.toUI
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -57,7 +60,7 @@ class TicketResultActivity : AppCompatActivity() {
 
     private fun initPricePayment(payment: Payment) {
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
-        pricePayment.text = getString(R.string.price_payment, payment.string)
+        pricePayment.text = getString(R.string.price_payment, payment.toUI())
     }
 
     private fun setActionBar() {
