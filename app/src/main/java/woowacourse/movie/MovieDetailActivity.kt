@@ -105,7 +105,7 @@ class MovieDetailActivity : BackButtonActivity() {
                 }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
@@ -128,7 +128,7 @@ class MovieDetailActivity : BackButtonActivity() {
         }
 
         findViewById<Button>(R.id.bt_book_complete).setOnClickListener {
-            val intent = intent(this)
+            val intent = BookCompleteActivity.intent(this)
             intent.putExtra(
                 MOVIE_BOOKING_INFO_KEY,
                 MovieBookingInfo(
