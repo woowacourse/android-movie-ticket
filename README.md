@@ -40,6 +40,14 @@
 ### ScreeningTimeDiscountCondition
 - [x] 상영 시간으로 할인할 수 있는지 판단한다.
 
+### Seat
+- [ ] 좌석의 행과 열을 알아야 한다.
+- [ ] 행은 1~4, 열은 1~5를 만족한다.
+- [ ] 좌석에 해당하는 금액을 구한다.
+
+### SeatType
+- [ ] 좌석타입에 해당하는 금액을 가지고 있다.
+
 ## View
 
 ### MovieListActivity
