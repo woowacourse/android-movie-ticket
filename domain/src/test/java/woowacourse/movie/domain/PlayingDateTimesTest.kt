@@ -2,11 +2,12 @@ package woowacourse.movie.domain
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
+import woowacourse.movie.domain.movie.PlayingDateTimes
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-class PlayingTimesTest {
+class PlayingDateTimesTest {
 
     @Test
     fun `평일 상영일은 오전 10시부터 두 시간 간격으로 상영 시간을 생성한다`() {
