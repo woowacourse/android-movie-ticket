@@ -52,7 +52,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initReservationView() {
-        val reservationViewConfiguration = ReservationViewInitializer(
+        val reservationViewInitializer = ReservationViewInitializer(
             descriptionTextView = findViewById(R.id.reservation_movie_description_text_view),
             runningTimeTextView = findViewById(R.id.reservation_movie_running_time_text_view),
             screeningDateTextView = findViewById(R.id.reservation_movie_screening_date_text_view),
@@ -60,7 +60,7 @@ class ReservationActivity : AppCompatActivity() {
             posterImageView = findViewById(R.id.reservation_movie_image_view),
         )
 
-        reservationViewConfiguration.init(
+        reservationViewInitializer.init(
             movie = movie,
             runningTimeFormat = getString(R.string.running_time_form),
             screeningPeriodFormat = getString(R.string.screening_period_form)
