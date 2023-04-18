@@ -1,6 +1,6 @@
 package woowacourse.movie
 
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
 object MovieData {

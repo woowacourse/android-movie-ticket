@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.model
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
 
 fun MovieModel.toDomainModel() = Movie(
     id = id,

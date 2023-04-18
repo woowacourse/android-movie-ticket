@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.model
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
 

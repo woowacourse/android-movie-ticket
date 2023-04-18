@@ -13,8 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieData
 import woowacourse.movie.R
-import woowacourse.movie.domain.ScreeningTimes
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.ScreeningTimes
+import woowacourse.movie.TicketCount
 import woowacourse.movie.presentation.model.MovieModel
 import woowacourse.movie.presentation.model.toPresentation
 import woowacourse.movie.util.formatScreenDate
