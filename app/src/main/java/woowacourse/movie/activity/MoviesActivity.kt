@@ -26,10 +26,10 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun applyListAdapter(movies: List<ActivityMovieModel>, moviesListView: ListView) {
-        moviesListView.adapter = MoviesAdapter(movies, ::getReservationEvent)
+        moviesListView.adapter = MoviesAdapter(movies, ::onReservationButtonClicked)
     }
 
-    private fun getReservationEvent(movie: ActivityMovieModel) {
+    private fun onReservationButtonClicked(movie: ActivityMovieModel) {
         val intent = Intent(this, ReservationActivity::class.java)
 
         intent.putExtra(MOVIE_KEY, movie)
