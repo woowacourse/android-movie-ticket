@@ -13,33 +13,20 @@ import java.time.LocalTime
 
 class TicketTest {
     @Test
-    fun `조조에 해당하지만 무비데이면 무비데이 할인이 선적용된다`() {
+    fun `티켓을 생성하면 정책에 따라 계산한다`() {
         val policies = listOf(
             MovieDayPolicy(),
-            MorningPolicy()
+            MorningPolicy(),
+            NightPolicy()
         )
         val actual = Ticket(
             policies, LocalDate.of(2023, 4, 30), LocalTime.of(9, 0),
             Price()
         ).price
-        val expected = Price(9700)
-        assertEquals(actual, expected)
-    }
-
-    @Test
-    fun `야간에 해당하지만 무비데이면 무비데이 할인이 선적용된다`() {
-        val policies = listOf(
-            MovieDayPolicy(),
-            NightPolicy()
-        )
-        val actual = Ticket(
-            policies, LocalDate.of(2023, 4, 30), LocalTime.of(21, 0),
-            Price()
-        ).price
-        val expected = Price(9700)
+        val expected = Price(29100)
         assertEquals(actual, expected)
     }
 
     private fun Ticket(policies: List<DiscountPolicy>, playingDate: LocalDate, playingTime: LocalTime, price: Price): Ticket =
-        Ticket.of(policies, "해리포터와 마법사의 돌", playingDate, playingTime, 1, price)
+        Ticket.of(policies, "해리포터와 마법사의 돌", playingDate, playingTime, 3, price)
 }
