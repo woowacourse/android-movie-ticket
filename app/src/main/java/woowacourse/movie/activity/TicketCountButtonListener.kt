@@ -5,9 +5,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import domain.reservation.Reservation
 import domain.reservation.TicketCount
-import woowacourse.movie.model.ActivityMovieModel
-import woowacourse.movie.model.ActivityReservationModel
-import woowacourse.movie.model.toActivityModel
+import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.model.toDomainModel
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -39,14 +38,14 @@ class TicketCountButtonListener(
     }
 
     fun setOnCompletedButtonClicked(
-        movie: ActivityMovieModel,
+        movie: MovieInfo,
         screeningDateSpinner: Spinner,
         screeningTimeSpinner: Spinner,
-        onCompleted: (reservation: ActivityReservationModel) -> Unit
+        onCompleted: (reservation: ReservationInfo) -> Unit
     ) {
         completeButton.setOnClickListener {
             val ticketCount = ticketCountTextView.text.toString().toInt()
-            val reservation: ActivityReservationModel =
+            val reservation: ReservationInfo =
                 Reservation
                     .from(
                         movie.toDomainModel(),
@@ -56,7 +55,7 @@ class TicketCountButtonListener(
                             screeningTimeSpinner.selectedItem as LocalTime
                         )
                     )
-                    .toActivityModel()
+                    .toDomainModel()
 
             onCompleted(reservation)
         }

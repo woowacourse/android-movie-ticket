@@ -6,7 +6,7 @@ import domain.reservation.Reservation
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class ActivityReservationModel(
+data class ReservationInfo(
     val movieName: String,
     val screeningDateTime: LocalDateTime,
     val ticketCount: Int,
@@ -14,7 +14,7 @@ data class ActivityReservationModel(
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
 ) : Serializable
 
-fun Reservation.toActivityModel() = ActivityReservationModel(
+fun Reservation.toDomainModel() = ReservationInfo(
     movieName.value,
     screeningDateTime,
     ticketCount,

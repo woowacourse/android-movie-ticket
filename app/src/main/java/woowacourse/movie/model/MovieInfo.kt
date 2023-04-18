@@ -9,7 +9,7 @@ import domain.movie.ScreeningPeriod
 import java.io.Serializable
 import java.time.LocalDate
 
-data class ActivityMovieModel(
+data class MovieInfo(
     val movieName: String,
     @DrawableRes val posterImage: Int?,
     val startDate: LocalDate,
@@ -19,7 +19,7 @@ data class ActivityMovieModel(
     val description: String
 ) : Serializable
 
-fun Movie.toActivityModel(posterImage: Int?) = ActivityMovieModel(
+fun Movie.toDomainModel(posterImage: Int?) = MovieInfo(
     movieName.value,
     posterImage,
     screeningPeriod.startDate.value,
@@ -29,7 +29,7 @@ fun Movie.toActivityModel(posterImage: Int?) = ActivityMovieModel(
     description
 )
 
-fun ActivityMovieModel.toDomainModel() = Movie(
+fun MovieInfo.toDomainModel() = Movie(
     MovieName(movieName),
     ScreeningPeriod(ScreeningDate(startDate), ScreeningDate(endDate)),
     RunningTime(runningTime),

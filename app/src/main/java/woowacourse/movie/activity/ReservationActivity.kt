@@ -11,8 +11,8 @@ import domain.movie.ScreeningDate
 import domain.reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.activity.MoviesActivity.Companion.MOVIE_KEY
-import woowacourse.movie.model.ActivityMovieModel
-import woowacourse.movie.model.ActivityReservationModel
+import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.ReservationInfo
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -25,8 +25,8 @@ class ReservationActivity : AppCompatActivity() {
     private val ticketCountTextView: TextView by lazy {
         findViewById(R.id.reservation_ticket_count_text_view)
     }
-    private val movie: ActivityMovieModel by lazy {
-        intent.customGetSerializable(MOVIE_KEY) as ActivityMovieModel?
+    private val movie: MovieInfo by lazy {
+        intent.customGetSerializable(MOVIE_KEY) as MovieInfo?
             ?: throw IllegalArgumentException(getString(R.string.movie_data_error_message))
     }
 
@@ -132,7 +132,7 @@ class ReservationActivity : AppCompatActivity() {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-    private fun reservationComplete(reservation: ActivityReservationModel) {
+    private fun reservationComplete(reservation: ReservationInfo) {
         val intent = Intent(this, ReservationResultActivity::class.java)
 
         intent.putExtra(RESERVATION_KEY, reservation)

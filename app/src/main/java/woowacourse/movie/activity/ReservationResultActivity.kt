@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import domain.payment.PaymentType
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity.Companion.RESERVATION_KEY
-import woowacourse.movie.model.ActivityReservationModel
+import woowacourse.movie.model.ReservationInfo
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -24,8 +24,8 @@ class ReservationResultActivity : AppCompatActivity() {
         val paymentAmountTextView: TextView = findViewById(R.id.result_payment_amount_text_view)
         val screeningDateTimeTextView: TextView = findViewById(R.id.result_screening_date_time_text_view)
         val ticketCountTextView: TextView = findViewById(R.id.result_ticket_count_text_view)
-        val reservation: ActivityReservationModel =
-            intent.getSerializableExtra(RESERVATION_KEY) as ActivityReservationModel?
+        val reservation: ReservationInfo =
+            intent.customGetSerializable(RESERVATION_KEY) as ReservationInfo?
                 ?: throw IllegalArgumentException(RESERVATION_DATA_ERROR)
 
         with(reservation) {

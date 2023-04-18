@@ -2,7 +2,7 @@ package woowacourse.movie.activity
 
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.model.ActivityMovieModel
+import woowacourse.movie.model.MovieInfo
 import java.time.format.DateTimeFormatter
 
 class ReservationViewInitializer(
@@ -13,7 +13,7 @@ class ReservationViewInitializer(
     private val posterImageView: ImageView,
 ) {
 
-    fun init(movie: ActivityMovieModel, runningTimeFormat: String, screeningPeriodFormat: String) {
+    fun init(movie: MovieInfo, runningTimeFormat: String, screeningPeriodFormat: String) {
         with(movie) {
             val dateFormat: DateTimeFormatter = DateTimeFormatter.ISO_DATE
 
