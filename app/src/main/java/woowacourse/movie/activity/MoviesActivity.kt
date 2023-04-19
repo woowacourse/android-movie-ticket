@@ -16,19 +16,26 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding: ActivityMoviesBinding = ActivityMoviesBinding.inflate(layoutInflater)
-        val moviesListView: ListView = binding.root
-        setContentView(moviesListView)
+        val movieListView: ListView = binding.root
+        setContentView(movieListView)
 
-        initMoviesView(moviesListView)
+        initMovieListView(movieListView)
     }
 
-    private fun initMoviesView(moviesListView: ListView) {
+    private fun initMovieListView(movieListView: ListView) {
         val movieModels: List<MovieModel> = Mock.getMovieModels()
-        moviesListView.adapter = MoviesAdapter(movieModels)
-        moviesListView.setOnItemClickListener { adapterView, view, position, id ->
-            val intent = Intent(this, ReservationActivity::class.java)
-            intent.putExtra(MOVIE_INTENT_KEY, movieModels[position])
-            this.startActivity(intent)
+        movieListView.adapter = MoviesAdapter(movieModels)
+        movieListView.setOnItemClickListener { _, _, position, _ ->
+            movieListItemClickEvent(movieModels[position], ReservationActivity::class.java)
         }
+    }
+
+    private fun movieListItemClickEvent(
+        movieModel: MovieModel,
+        nextActivity: Class<ReservationActivity>
+    ) {
+        val intent = Intent(this, nextActivity)
+        intent.putExtra(MOVIE_INTENT_KEY, movieModel)
+        this.startActivity(intent)
     }
 }
