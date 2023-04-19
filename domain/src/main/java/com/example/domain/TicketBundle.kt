@@ -1,20 +1,27 @@
 package com.example.domain
 
-class TicketBundle(private val tickets: List<Ticket>) {
+class TicketBundle(tickets: List<Ticket> = emptyList()) {
+    val tickets: List<Ticket>
+        get() = _tickets.toList()
 
-    constructor(count: Int) : this(
-        mutableListOf<Ticket>().apply {
-            repeat(count) {
-                add(Ticket(Seat(0)))
-            }
-        }.toList()
-    )
-
-    fun calculateTotalPrice(date: String, time: String): Int = tickets.sumOf {
+    private val _tickets: MutableList<Ticket> = tickets.toMutableList()
+    fun calculateTotalPrice(date: String, time: String): Int = _tickets.sumOf {
         it.getTicketPrice(date, time)
     }
 
     fun getSeatNames(): List<String> {
         return tickets.map { it.getSeatName() }
+    }
+
+    fun putTicket(seat: Seat) {
+        _tickets.add(Ticket(seat))
+    }
+
+    fun popTicket(seat: Seat) {
+        _tickets.remove(
+            _tickets.find {
+                it.getSeatName() == seat.getSeatName()
+            }
+        )
     }
 }
