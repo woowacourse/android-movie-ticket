@@ -64,12 +64,12 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
         initIntentData()
         if (::movie.isInitialized) {
-            setMovieInfo()
-            setButtonOnClickListener()
-            setMovieDateSpinnerAdapter()
-            setMovieTimeSpinnerAdapter()
-            setMovieDateSpinnerItemClick()
-            setMovieTimeSpinnerItemClick()
+            initMovieInfo()
+            initButtonOnClickListener()
+            initMovieDateSpinnerAdapter()
+            initMovieTimeSpinnerAdapter()
+            initMovieDateSpinnerItemClick()
+            initMovieTimeSpinnerItemClick()
         }
     }
 
@@ -104,7 +104,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun setMovieInfo() {
+    private fun initMovieInfo() {
         with(movie) {
             thumbnail?.let { findViewById<ImageView>(R.id.iv_poster).setImageResource(it) }
             findViewById<TextView>(R.id.tv_title).text = title
@@ -124,7 +124,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         textViewTicketCount.text = ticket.count.toString()
     }
 
-    private fun setButtonOnClickListener() {
+    private fun initButtonOnClickListener() {
         val btnMinus: Button = findViewById(R.id.btn_minus)
         val btnPlus: Button = findViewById(R.id.btn_plus)
         val btnTicketing: Button = findViewById(R.id.btn_ticketing)
@@ -134,7 +134,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         btnTicketing.setOnClickListener(this@TicketingActivity)
     }
 
-    private fun setMovieDateSpinnerAdapter() {
+    private fun initMovieDateSpinnerAdapter() {
         spinnerMovieDate.adapter = ArrayAdapter(
             this@TicketingActivity,
             android.R.layout.simple_spinner_item,
@@ -142,7 +142,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         )
     }
 
-    private fun setMovieDateSpinnerItemClick() {
+    private fun initMovieDateSpinnerItemClick() {
         spinnerMovieDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -172,11 +172,11 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun setMovieTimeSpinnerAdapter() {
+    private fun initMovieTimeSpinnerAdapter() {
         spinnerMovieTime.adapter = movieTimeAdapter
     }
 
-    private fun setMovieTimeSpinnerItemClick() {
+    private fun initMovieTimeSpinnerItemClick() {
         spinnerMovieTime.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,

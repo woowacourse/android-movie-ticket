@@ -15,15 +15,15 @@ class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
-        setMovieData()
+        initMovieData()
     }
 
-    private fun setMovieData() {
-        val movieData = setMovieThumbnail()
+    private fun initMovieData() {
+        val movieData = initMovieThumbnail()
         setAdapter(movieData)
     }
 
-    private fun setMovieThumbnail(): List<MovieUI> =
+    private fun initMovieThumbnail(): List<MovieUI> =
         runCatching {
             Movie.provideDummy().map { it.toMovieUI() }
         }
@@ -31,9 +31,7 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun setAdapter(movies: List<MovieUI>) {
         val listViewMovies: ListView = findViewById(R.id.lv_movies)
-        val movieAdapter = MovieListAdapter(movies) { movie ->
-            onBookClick(movie)
-        }
+        val movieAdapter = MovieListAdapter(movies, ::onBookClick)
         listViewMovies.adapter = movieAdapter
     }
 
