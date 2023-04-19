@@ -8,5 +8,4 @@ enum class SeatRank(
     B(Price(10_000)),
     S(Price(15_000)),
     A(Price(12_000)),
-    EMPTY(Price());
 }

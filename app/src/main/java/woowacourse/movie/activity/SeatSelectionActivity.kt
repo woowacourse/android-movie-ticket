@@ -1,58 +1,65 @@
 package woowacourse.movie.activity
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.TableLayout
-import android.widget.TableRow
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.view.data.SeatViewData
-import woowacourse.movie.view.widget.SeatView
+import woowacourse.movie.domain.TableSize
+import woowacourse.movie.domain.seat.MovieSeatRow
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.Seats
+import woowacourse.movie.view.data.SeatTable
+import woowacourse.movie.view.widget.SeatTableLayout
 
 class SeatSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
-        makeSeatTable(5, 4)
+
+        makeSeatTableLayout(
+            makeSeatTable(SEAT_ROW_COUNT, SEAT_COLUMN_COUNT)
+        )
+
         findViewById<Button>(R.id.seat_selection_reserve_button).setOnClickListener {
             onClickReserveButton()
         }
     }
 
+    private fun makeSeatTable(row: Int, column: Int): SeatTable {
+        return (0..row * column).map {
+            val y = it / column
+            val x = it % column
+            Seat(MovieSeatRow(y), x)
+        }.let {
+            SeatTable(Seats(it), TableSize(row, column))
+        }
+    }
+
+    private fun makeSeatTableLayout(seatTable: SeatTable) {
+        SeatTableLayout(findViewById(R.id.seat_selection_table))
+            .makeSeatTable(seatTable)
+    }
+
     private fun onClickReserveButton() {
-        AlertDialog.Builder(this).setTitle("예매 확인").setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _, _ ->
-                val intent = Intent(this, ReservationResultActivity::class.java)
-                // intent.putExtra("", null)
-                startActivity(intent)
-            }.setNegativeButton("취소") { dialog, _ ->
+        AlertDialog.Builder(this).setTitle(getString(R.string.seat_selection_alert_title))
+            .setMessage(getString(R.string.seat_selection_alert_message))
+            .setPositiveButton(getString(R.string.seat_selection_alert_positive)) { _, _ ->
+                onReserve()
+            }.setNegativeButton(getString(R.string.seat_selection_alert_negative)) { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }
 
-    private fun makeSeatTable(rowSize: Int, columnSize: Int) {
-        val tableLayout = findViewById<TableLayout>(R.id.seat_selection_table)
-        tableLayout.weightSum = rowSize.toFloat()
-        (0 until rowSize).forEach {
-            tableLayout.addView(makeSeatRow(it, columnSize))
-        }
+    private fun onReserve() {
+        val intent = Intent(this, ReservationResultActivity::class.java)
+        // intent.putExtra("", null)
+        startActivity(intent)
     }
 
-    private fun makeSeatRow(row: Int, columnSize: Int): TableRow {
-        val tableRow = TableRow(this)
-        tableRow.weightSum = columnSize.toFloat()
-        tableRow.layoutParams = TableLayout.LayoutParams(0, 0, 1f)
-        (0 until columnSize).forEach {
-            tableRow.addView(makeSeatCell(row, it))
-        }
-        return tableRow
-    }
-
-    private fun makeSeatCell(row: Int, column: Int): View {
-        return SeatView(this, SeatViewData('a', column, Color.BLACK))
+    companion object {
+        private const val SEAT_ROW_COUNT = 5
+        private const val SEAT_COLUMN_COUNT = 4
     }
 }

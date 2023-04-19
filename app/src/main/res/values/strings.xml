@@ -16,5 +16,10 @@
     <string name="reservation_price">%s원 (현장 결제)</string>
     <string name="reservation_datetime_format">yyyy-MM-dd HH:mm</string>
 
+    <string name="seat_selection_alert_title">예매 확인</string>
+    <string name="seat_selection_alert_message">정말 예매하시겠습니까?</string>
+    <string name="seat_selection_alert_positive">예매 완료</string>
+    <string name="seat_selection_alert_negative">취소</string>
+
     <string name="seat_row_column">%c%d</string>
 </resources>
