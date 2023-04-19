@@ -1,9 +1,9 @@
 package woowacourse.movie.utils
 
-import model.AdModel
+import model.MovieAdItem
+import model.MovieListItem
 import model.MovieModel
 import model.ReservationModel
-import model.ScreeningModel
 import woowacourse.movie.R
 import java.time.LocalDate
 
@@ -47,19 +47,19 @@ object SampleData {
     val CINEMA_SAMPLE =
         (0..10000).flatMap {
             listOf(
-                ScreeningModel(
-                    movieModel = MOVIE_SAMPLE[0],
-                    reservationModel = SCREENING_DATE_SAMPLE[0],
+                MovieListItem(
+                    movie = MOVIE_SAMPLE[0],
+                    reservation = SCREENING_DATE_SAMPLE[0],
                 ),
-                ScreeningModel(
-                    movieModel = MOVIE_SAMPLE[1],
-                    reservationModel = SCREENING_DATE_SAMPLE[1],
+                MovieListItem(
+                    movie = MOVIE_SAMPLE[1],
+                    reservation = SCREENING_DATE_SAMPLE[1],
                 ),
-                ScreeningModel(
-                    movieModel = MOVIE_SAMPLE[1],
-                    reservationModel = SCREENING_DATE_SAMPLE[1],
+                MovieListItem(
+                    movie = MOVIE_SAMPLE[1],
+                    reservation = SCREENING_DATE_SAMPLE[1],
                 ),
-                AdModel(
+                MovieAdItem(
                     image = R.drawable.list_ad_example,
                 ),
             )

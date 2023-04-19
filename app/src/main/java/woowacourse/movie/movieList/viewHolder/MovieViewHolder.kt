@@ -4,9 +4,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import model.ReservationModel
-import model.ScreeningModel
+import model.MovieListItem
 import woowacourse.movie.R
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -17,18 +17,18 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     private val reservationButton: View = view.findViewById(R.id.movie_reservation_button)
 
     fun bind(
-        screeningModel: ScreeningModel,
-        onClickButton: (ScreeningModel) -> Unit,
+        movieListItem: MovieListItem,
+        onClickButton: (MovieListItem) -> Unit,
     ) {
-        posterView.setImageResource(screeningModel.poster)
-        titleView.text = screeningModel.title
-        releaseDateView.text = getScreeningDate(screeningModel.reservationModel)
-        runningTimeView.text = view.context.getString(R.string.movie_running_time).format(screeningModel.runTime)
-        reservationButton.setOnClickListener { onClickButton(screeningModel) }
+        posterView.setImageResource(movieListItem.poster)
+        titleView.text = movieListItem.title
+        releaseDateView.text = getScreeningDate(movieListItem.startDate, movieListItem.endDate)
+        runningTimeView.text = view.context.getString(R.string.movie_running_time).format(movieListItem.runTime)
+        reservationButton.setOnClickListener { onClickButton(movieListItem) }
     }
 
-    private fun getScreeningDate(reservationModel: ReservationModel): String {
-        return "${reservationModel.startDate.format(dateTimeFormatter)} ~ ${reservationModel.endDate.format(dateTimeFormatter)}"
+    private fun getScreeningDate(startDate: LocalDate, endDate: LocalDate): String {
+        return "${startDate.format(dateTimeFormatter)} ~ ${endDate.format(dateTimeFormatter)}"
     }
 
     companion object {

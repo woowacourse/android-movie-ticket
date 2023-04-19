@@ -2,13 +2,13 @@ package woowacourse.movie.movieReservation
 
 import android.os.Bundle
 import android.view.View
-import model.ScreeningModel
+import model.MovieListItem
 import movie.TicketCount
 import java.time.LocalDateTime
 
 class ReservationNavigation(
     view: View,
-    screeningModel: ScreeningModel,
+    movieListItem: MovieListItem,
     onReservationButtonClicked: () -> Unit,
 ) {
     private val timeSpinner: ReservationTimeSpinner = ReservationTimeSpinner(view)
@@ -22,7 +22,7 @@ class ReservationNavigation(
         get() = LocalDateTime.of(dateSpinner.selectedDate, timeSpinner.selectedTime)
 
     init {
-        dateSpinner.initDateSpinner(screeningModel)
+        dateSpinner.initDateSpinner(movieListItem)
         ReservationSubmit(view) { onReservationButtonClicked() }
     }
 

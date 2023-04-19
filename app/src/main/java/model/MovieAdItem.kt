@@ -2,6 +2,6 @@ package model
 
 import androidx.annotation.DrawableRes
 
-class AdModel(
+class MovieAdItem(
     @DrawableRes val image: Int,
-) : ItemRecycler
+) : MovieListType

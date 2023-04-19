@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import model.ScreeningModel
+import model.MovieListItem
 import movie.ScreeningDate
 import woowacourse.movie.R
 import java.time.LocalDate
@@ -36,11 +36,11 @@ class ReservationDateSpinner(
         dateSpinner.setSelection(savedInstanceState.getInt(KEY_DATE))
     }
 
-    fun initDateSpinner(screeningModel: ScreeningModel) {
+    fun initDateSpinner(movieListItem: MovieListItem) {
         dateSpinner.adapter = ArrayAdapter(
             view.context,
             android.R.layout.simple_spinner_item,
-            ScreeningDate.getScreeningDates(screeningModel.startDate, screeningModel.endDate),
+            ScreeningDate.getScreeningDates(movieListItem.startDate, movieListItem.endDate),
         )
     }
 

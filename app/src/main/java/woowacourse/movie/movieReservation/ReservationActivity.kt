@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import model.ScreeningModel
+import model.MovieListItem
 import model.SeatSelectionModel
 import woowacourse.movie.R
 import woowacourse.movie.seatSelection.SeatSelectionActivity
@@ -14,19 +14,19 @@ import woowacourse.movie.seatSelection.SeatSelectionActivity.Companion.KEY_SEAT_
 import woowacourse.movie.utils.getSerializableExtraCompat
 
 class ReservationActivity : AppCompatActivity() {
-    private val screeningModel by lazy {
-        intent.getSerializableExtraCompat(KEY_MOVIE_Screening) as? ScreeningModel
+    private val movieListItem by lazy {
+        intent.getSerializableExtraCompat(KEY_MOVIE_Screening) as? MovieListItem
             ?: run {
                 finish()
                 Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
-                ScreeningModel.EMPTY
+                MovieListItem.EMPTY
             }
     }
 
     private val activityView by lazy { window.decorView.rootView }
 
     private val contents by lazy { ReservationContents(activityView) }
-    private val navigate by lazy { ReservationNavigation(activityView, screeningModel, ::onReservationButtonClicked) }
+    private val navigate by lazy { ReservationNavigation(activityView, movieListItem, ::onReservationButtonClicked) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +67,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
-        contents.update(screeningModel)
+        contents.update(movieListItem)
     }
 
     private fun initNavigate() {
@@ -76,7 +76,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun onReservationButtonClicked() {
         val seatSelectionModel = SeatSelectionModel(
-            title = screeningModel.title,
+            title = movieListItem.title,
             reserveTime = navigate.selectedDateTime,
             peopleNumber = navigate.ticketCount.toInt(),
         )
