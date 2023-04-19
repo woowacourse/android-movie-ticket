@@ -161,7 +161,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
-            android:text="@string/book_complete"
+            android:text="@string/go_to_seat_selection"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

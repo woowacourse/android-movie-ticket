@@ -12,7 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.CountNumberOfPeople
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.BaseActivity
-import woowacourse.movie.view.TicketActivity
+import woowacourse.movie.view.SeatSelectionActivity
 import woowacourse.movie.view.viewmodel.MovieUIModel
 import woowacourse.movie.view.viewmodel.toUIModel
 import java.time.LocalDate
@@ -107,7 +107,7 @@ class MovieDetailActivity : BaseActivity() {
                     LocalDateTime.of(selectedDate, selectedTime),
                     numberOfBooker,
                 )
-            val intent = Intent(this, TicketActivity::class.java)
+            val intent = Intent(this, SeatSelectionActivity::class.java)
             intent.putExtra(TICKET_KEY, ticket.toUIModel())
             intent.putExtra(MOVIE_KEY, movie)
             startActivity(intent)
