@@ -26,7 +26,7 @@ class ReservationActivity : AppCompatActivity() {
     private val activityView by lazy { window.decorView.rootView }
 
     private val contents by lazy { ReservationContents(activityView, movieListItem) }
-    private val navigate by lazy { ReservationNavigation(activityView, movieListItem, ::onReservationButtonClicked) }
+    private val navigation by lazy { ReservationNavigation(activityView, movieListItem, ::onReservationButtonClicked) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +41,13 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun loadInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
-            navigate.load(it)
+            navigation.load(it)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        navigate.save(outState)
+        navigation.save(outState)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -71,14 +71,14 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initNavigate() {
-        run { navigate }
+        run { navigation }
     }
 
     private fun onReservationButtonClicked() {
         val seatSelectionModel = SeatSelectionModel(
             title = movieListItem.title,
-            reserveTime = navigate.selectedDateTime,
-            peopleNumber = navigate.ticketQuantity.toInt(),
+            reserveTime = navigation.selectedDateTime,
+            peopleNumber = navigation.ticketQuantity.toInt(),
         )
         startActivity(
             Intent(this, SeatSelectionActivity::class.java).apply {

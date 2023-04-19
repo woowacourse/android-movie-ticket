@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import model.MovieAdItem
 import model.MovieListItem
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.ReservationActivity
@@ -23,14 +24,18 @@ class MovieListActivity : AppCompatActivity() {
         val movieListView = findViewById<RecyclerView>(R.id.movie_list)
         movieListView.adapter = MovieListAdapter(
             items = CINEMA_SAMPLE,
-            onClickButton = ::navigateToReservation,
-            onAdClick = { Log.d("MovieListRecycler", "ad") },
+            onClickButton = ::onMovieItemClick,
+            onAdClick = ::onMovieAdItemClick,
         )
     }
 
-    private fun navigateToReservation(movieListItem: MovieListItem) {
+    private fun onMovieItemClick(movieListItem: MovieListItem) {
         val intent = Intent(this, ReservationActivity::class.java)
         intent.putExtra(ReservationActivity.KEY_MOVIE_Screening, movieListItem)
         ContextCompat.startActivity(this, intent, null)
+    }
+
+    private fun onMovieAdItemClick(movieAdItem: MovieAdItem) {
+        Log.d("MovieListRecycler", "ad")
     }
 }
