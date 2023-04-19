@@ -26,13 +26,9 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation() {
-        intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY).run {
-            if (this == null)
-                exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
-            else {
-                setReservationInfo(this)
-            }
-        }
+        val reservation = intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY)
+            ?: return exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
+        setReservationInfo(reservation)
     }
 
     private fun setReservationInfo(reservationUI: ReservationUI) {

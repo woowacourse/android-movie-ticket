@@ -35,7 +35,9 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private var movieTicket: TicketUI = TicketUI()
 
     private lateinit var movie: MovieUI
-    private lateinit var movieDates: List<LocalDate>
+    private val movieDates: List<LocalDate> by lazy {
+        movie.toMovie().getRunningDates()
+    }
 
     private val movieTimes = mutableListOf<LocalTime>()
 
@@ -62,15 +64,15 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initIntentData()
-        if (::movie.isInitialized) {
-            initMovieInfo()
-            initButtonOnClickListener()
-            initMovieDateSpinnerAdapter()
-            initMovieTimeSpinnerAdapter()
-            initMovieDateSpinnerItemClick()
-            initMovieTimeSpinnerItemClick()
-        }
+        movie = intent.getParcelableCompat(MovieListActivity.MOVIE_KEY)
+            ?: return exitForUnNormalCase(MESSAGE_EMPTY_MOVIE)
+
+        initMovieInfo()
+        initButtonOnClickListener()
+        initMovieDateSpinnerAdapter()
+        initMovieTimeSpinnerAdapter()
+        initMovieDateSpinnerItemClick()
+        initMovieTimeSpinnerItemClick()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -89,17 +91,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                 selectedDate = dateTime.toLocalDate().apply { initMovieTimes(this) }
                 selectedTime = dateTime.toLocalTime()
                 movieTicket = ticket
-            }
-        }
-    }
-
-    private fun initIntentData() {
-        intent.getParcelableCompat<MovieUI>(MovieListActivity.MOVIE_KEY).run {
-            if (this == null)
-                exitForUnNormalCase(MESSAGE_EMPTY_MOVIE)
-            else {
-                movie = this
-                movieDates = toMovie().getRunningDates()
             }
         }
     }
