@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="button_booking">지금 예매</string>
-    <string name="button_booking_complete">예매 완료</string>
-    <string name="button_minus">-</string>
-    <string name="button_plus">+</string>
+    <string name="booking_button">지금 예매</string>
+    <string name="booking_complete_button">예매 완료</string>
+    <string name="minus_button">-</string>
+    <string name="plus_button">+</string>
 
     <string name="date_format">yyyy.MM.dd</string>
     <string name="date_time_format">yyyy.MM.dd HH:mm</string>

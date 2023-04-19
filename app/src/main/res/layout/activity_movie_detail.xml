@@ -99,7 +99,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            android:text="@string/button_minus"
+            android:text="@string/minus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detail_minus_button"
@@ -123,7 +123,7 @@
             app:layout_constraintBottom_toBottomOf="@id/detail_minus_button" />
 
         <Button
-            android:text="@string/button_plus"
+            android:text="@string/plus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detail_plus_button"
@@ -134,7 +134,7 @@
 
         <Button
             android:id="@+id/detail_booking_button"
-            android:text="@string/button_booking_complete"
+            android:text="@string/booking_complete_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/detail_minus_button"

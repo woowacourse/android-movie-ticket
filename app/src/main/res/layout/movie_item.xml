@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="12dp"
-        android:text="@string/button_booking"
+        android:text="@string/booking_button"
         android:textSize="14sp"
         android:textStyle="bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
