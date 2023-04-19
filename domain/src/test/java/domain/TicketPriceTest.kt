@@ -1,5 +1,6 @@
 package woowacourse.movie.domain
 
+import domain.Position
 import domain.TicketPrice
 import domain.policy.MovieDayDiscountPolicy
 import domain.policy.TimeDiscountPolicy
@@ -47,5 +48,26 @@ class TicketPriceTest {
         val expect = 29100
 
         assertEquals(totalTicketPrice.price, expect)
+    }
+
+    @Test
+    fun `좌석이 1행 2열일 때, 티켓 가격은 10000원이다`() {
+        val ticketPrice = TicketPrice.of(Position(1, 2))
+
+        assertThat(ticketPrice.price).isEqualTo(10000)
+    }
+
+    @Test
+    fun `좌석이 3행 2열일 때, 티켓 가격은 15000원이다`() {
+        val ticketPrice = TicketPrice.of(Position(3, 2))
+
+        assertThat(ticketPrice.price).isEqualTo(15000)
+    }
+
+    @Test
+    fun `좌석이 5행 2열일 때, 티켓 가격은 12000원이다`() {
+        val ticketPrice = TicketPrice.of(Position(5, 2))
+
+        assertThat(ticketPrice.price).isEqualTo(12000)
     }
 }
