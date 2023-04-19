@@ -1,9 +1,9 @@
 package woowacourse.movie.uimodel
 
-import woowacourse.movie.domain.movie.Movie
-import woowacourse.movie.domain.payment.Reservation
+import movie.Movie
+import payment.Reservation
 
-fun Movie.toMovieModel(): MovieModel =
+fun movie.Movie.toMovieModel(): MovieModel =
     MovieModel(
         name = this.name,
         posterImage = null,
@@ -12,7 +12,7 @@ fun Movie.toMovieModel(): MovieModel =
         description = this.description
     )
 
-fun Reservation.toReservationModel(): ReservationModel =
+fun payment.Reservation.toReservationModel(): ReservationModel =
     ReservationModel(
         movie = this.movie.toMovieModel(),
         screeningDateTime = this.screeningDateTime,

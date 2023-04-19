@@ -1,20 +1,20 @@
 package woowacourse.movie.uimodel
 
-import woowacourse.movie.domain.movie.Movie
-import woowacourse.movie.domain.movie.Name
-import woowacourse.movie.domain.movie.ScreeningPeriod
+import movie.Movie
+import movie.Name
+import movie.ScreeningPeriod
 import java.io.Serializable
 
 data class MovieModel(
-    val name: Name,
+    val name: movie.Name,
     val posterImage: Int?,
-    val screeningPeriod: ScreeningPeriod,
+    val screeningPeriod: movie.ScreeningPeriod,
     val runningTime: Int,
     val description: String
 ) : Serializable {
 
-    fun toDomainModel(): Movie =
-        Movie(
+    fun toDomainModel(): movie.Movie =
+        movie.Movie(
             name = name,
             screeningPeriod = screeningPeriod,
             runningTime = runningTime,

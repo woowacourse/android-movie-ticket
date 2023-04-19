@@ -9,8 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
-import woowacourse.movie.domain.payment.Reservation
-import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel
@@ -73,7 +71,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initReservationViews(movieModel: MovieModel, savedInstanceState: Bundle?) {
-        binding.ticketCountTextView.text = TicketCount.MINIMUM.toString()
+        binding.ticketCountTextView.text = reservation.TicketCount.MINIMUM.toString()
 
         binding.ticketCountMinusButton.setOnClickListener { ticketCountMinusButtonClickEvent() }
         binding.ticketCountPlusButton.setOnClickListener { ticketCountPlusButtonClickEvent() }
@@ -144,17 +142,18 @@ class ReservationActivity : AppCompatActivity() {
     private fun ticketCountMinusButtonClickEvent() {
         runCatching {
             val ticketCount =
-                TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
+                reservation.TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
             binding.ticketCountTextView.text = ticketCount.value.toString()
         }.onFailure {
             val ticketCountConditionMessage =
-                getString(R.string.ticket_count_condition_message_form).format(TicketCount.MINIMUM)
+                getString(R.string.ticket_count_condition_message_form).format(reservation.TicketCount.MINIMUM)
             Toast.makeText(this, ticketCountConditionMessage, Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun ticketCountPlusButtonClickEvent() {
-        val ticketCount = TicketCount(binding.ticketCountTextView.text.toString().toInt() + 1)
+        val ticketCount =
+            reservation.TicketCount(binding.ticketCountTextView.text.toString().toInt() + 1)
         binding.ticketCountTextView.text = ticketCount.value.toString()
     }
 
@@ -163,7 +162,7 @@ class ReservationActivity : AppCompatActivity() {
         val screeningDate = binding.screeningDateSpinner.selectedItem as LocalDate
         val screeningTime = binding.screeningTimeSpinner.selectedItem as LocalTime
         val reservationModel: ReservationModel =
-            Reservation.from(
+            payment.Reservation.from(
                 movieModel.toDomainModel(),
                 ticketCount,
                 LocalDateTime.of(screeningDate, screeningTime)

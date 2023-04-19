@@ -1,7 +1,7 @@
 package woowacourse.movie.uimodel
 
-import woowacourse.movie.domain.payment.PaymentAmount
-import woowacourse.movie.domain.payment.PaymentType
+import payment.PaymentAmount
+import payment.PaymentType
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -9,8 +9,8 @@ data class ReservationModel(
     val movie: MovieModel,
     val screeningDateTime: LocalDateTime,
     val ticketCount: Int,
-    val paymentAmount: PaymentAmount,
-    val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
+    val paymentAmount: payment.PaymentAmount,
+    val paymentType: payment.PaymentType = payment.PaymentType.LOCAL_PAYMENT
 ) : Serializable {
 
     companion object {
