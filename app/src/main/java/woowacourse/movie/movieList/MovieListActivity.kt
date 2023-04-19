@@ -2,9 +2,10 @@ package woowacourse.movie.movieList
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import model.ScreeningModel
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.ReservationActivity
@@ -19,10 +20,11 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initMovieList() {
-        val movieListView = findViewById<ListView>(R.id.movie_list)
+        val movieListView = findViewById<RecyclerView>(R.id.movie_list)
         movieListView.adapter = MovieListAdapter(
             items = CINEMA_SAMPLE,
             onClickButton = ::navigateToReservation,
+            onAdClick = { Log.d("MovieListRecycler", "ad") },
         )
     }
 

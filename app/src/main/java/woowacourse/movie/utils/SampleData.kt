@@ -1,5 +1,6 @@
 package woowacourse.movie.utils
 
+import model.AdModel
 import model.MovieModel
 import model.ReservationModel
 import model.ScreeningModel
@@ -44,14 +45,23 @@ object SampleData {
         )
 
     val CINEMA_SAMPLE =
-        listOf(
-            ScreeningModel(
-                movieModel = MOVIE_SAMPLE[0],
-                reservationModel = SCREENING_DATE_SAMPLE[0],
-            ),
-            ScreeningModel(
-                movieModel = MOVIE_SAMPLE[1],
-                reservationModel = SCREENING_DATE_SAMPLE[1],
-            ),
-        ).flatMap { a -> (0..100).map { a } }
+        (0..10000).flatMap {
+            listOf(
+                ScreeningModel(
+                    movieModel = MOVIE_SAMPLE[0],
+                    reservationModel = SCREENING_DATE_SAMPLE[0],
+                ),
+                ScreeningModel(
+                    movieModel = MOVIE_SAMPLE[1],
+                    reservationModel = SCREENING_DATE_SAMPLE[1],
+                ),
+                ScreeningModel(
+                    movieModel = MOVIE_SAMPLE[1],
+                    reservationModel = SCREENING_DATE_SAMPLE[1],
+                ),
+                AdModel(
+                    image = R.drawable.ad_example,
+                ),
+            )
+        }
 }

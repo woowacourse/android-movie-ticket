@@ -6,7 +6,7 @@ import java.time.LocalDate
 class ScreeningModel(
     val movieModel: MovieModel,
     val reservationModel: ReservationModel,
-) : Serializable {
+) : ItemRecycler, Serializable {
     val title: String = movieModel.title
     val runTime: Int = movieModel.runTime
     val summary: String = movieModel.summary
