@@ -13,15 +13,23 @@ class SeatSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
-        val seats = findViewById<TableLayout>(R.id.seat_selection)
+        val seats = (0..24).associateWith { false }.toMutableMap()
+
+        val seatsView = findViewById<TableLayout>(R.id.seat_selection)
             .children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
             .filterIsInstance<TextView>()
 
-        seats.forEachIndexed { index, view ->
+        seatsView.forEachIndexed { index, view ->
             view.setOnClickListener {
-                view.setBackgroundColor(getColor(R.color.seat_select_state))
+                if (seats[index] == true) {
+                    view.setBackgroundColor(getColor(R.color.white))
+                    seats[index] = false
+                } else {
+                    view.setBackgroundColor(getColor(R.color.seat_select_state))
+                    seats[index] = true
+                }
             }
         }
     }
