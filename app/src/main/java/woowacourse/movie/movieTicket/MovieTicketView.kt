@@ -18,10 +18,13 @@ class MovieTicketView(
     fun update(ticket: TicketModel) {
         titleView.text = ticket.title
         countView.text = ticket.reserveTime.format(DATE_FORMATTER)
-        releaseDateView.text = view.context.getString(R.string.movie_ticket_count).format(ticket.peopleNumber)
-        totalPriceView.text = view.context.getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.getTotalPrice()))
+        releaseDateView.text = view.context.getString(R.string.movie_ticket_count).format(ticket.seats.size, ticket.seats.joinToString(", ") { getSeatString(it.row, it.column) })
+        totalPriceView.text = view.context.getString(R.string.movie_ticket_total_price).format(decimalFormat.format(ticket.price))
     }
 
+    private fun getSeatString(row: Int, col: Int): String {
+        return "${'A' + row}$col"
+    }
     companion object {
         private val DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private val decimalFormat = DecimalFormat("#,###")

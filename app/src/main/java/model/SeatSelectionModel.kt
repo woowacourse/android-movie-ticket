@@ -3,13 +3,12 @@ package model
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class TicketModel(
+class SeatSelectionModel(
     val title: String,
     val reserveTime: LocalDateTime,
-    val price: Int,
-    val seats: List<SeatModel>,
+    val peopleNumber: Int,
 ) : Serializable {
     companion object {
-        val EMPTY = TicketModel("", LocalDateTime.MIN, 0, emptyList())
+        val EMPTY = SeatSelectionModel("", LocalDateTime.MIN, 0)
     }
 }

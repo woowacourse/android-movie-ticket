@@ -1,53 +1,65 @@
 package woowacourse.movie.seatSelection
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
+import androidx.appcompat.widget.Toolbar
+import model.SeatSelectionModel
 import woowacourse.movie.R
+import woowacourse.movie.movieTicket.MovieTicketActivity
+import woowacourse.movie.utils.getSerializableExtraCompat
 
 class SeatSelectionActivity : AppCompatActivity() {
-    private val seatSelectionTable by lazy { findViewById<TableLayout>(R.id.seat_selection_table) }
-    private val seatSelectionTableRows by lazy { seatSelectionTable.children.filterIsInstance<TableRow>() }
-    private val seatSelectionTableBoxes by lazy { seatSelectionTableRows.map { it.children.filterIsInstance<TextView>() } }
+    private val seatSelection: SeatSelectionModel by lazy {
+        intent.getSerializableExtraCompat(KEY_SEAT_SELECTION) as? SeatSelectionModel ?: run {
+            finish()
+            Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
+            SeatSelectionModel.EMPTY
+        }
+    }
 
-    private val _seats = MutableList(5) { MutableList(4) { false } }
-    private val seats get() = _seats
+    private val seatSelectionView by lazy {
+        SeatSelectionTable(
+            window.decorView.rootView,
+            seatSelection,
+        ) { ticketModel ->
+            startActivity(
+                Intent(this, MovieTicketActivity::class.java).apply {
+                    putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, ticketModel)
+                },
+                null,
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.seat_selection_activity)
 
-        drawSeatSelection()
-        initSeatSelection()
+        initToolbar()
+        seatSelectionView
     }
 
-    private fun initSeatSelection() {
-        seatSelectionTableBoxes.forEachIndexed { row, it ->
-            it.forEachIndexed { col, box ->
-                "${'A'.plus(row)}${col + 1}".also { box.text = it }
-                box.setOnClickListener {
-                    setSeatSelection(row, col)
-                    drawSeatSelection()
-                }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun drawSeatSelection() {
-        seatSelectionTableBoxes.forEachIndexed { row, it ->
-            it.forEachIndexed { col, box ->
-                when (seats[row][col]) {
-                    true -> box.setBackgroundResource(R.color.seat_selection_seat_selected)
-                    false -> box.setBackgroundResource(R.color.seat_selection_seat_unselected)
-                }
-            }
-        }
+    private fun initToolbar() {
+        val reservationToolbar = findViewById<Toolbar>(R.id.seat_selection_toolbar)
+        setSupportActionBar(reservationToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setSeatSelection(row: Int, col: Int) {
-        _seats[row][col] = !_seats[row][col]
+    companion object {
+        const val INVALID_MOVIE_SCREENING = "잘못된 영화 상영 정보입니다."
+        const val KEY_SEAT_SELECTION = "seat_selection"
     }
 }

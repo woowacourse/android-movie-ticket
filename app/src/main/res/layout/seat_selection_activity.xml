@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/seat_selection_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6200EE"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Movie" />
 
     <TextView
         android:layout_width="320dp"
@@ -15,7 +24,7 @@
         android:textAppearance="@style/seat_selection_screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/seat_selection_toolbar" />
 
     <TableLayout
         android:id="@+id/seat_selection_table"
@@ -38,32 +47,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="A1" />
+                android:text="@string/seat_selection_a1"
+                android:textAppearance="@style/seat_selection_b_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="A2" />
+                android:text="@string/seat_selection_a2"
+                android:textAppearance="@style/seat_selection_b_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="A3" />
+                android:text="@string/seat_selection_a3"
+                android:textAppearance="@style/seat_selection_b_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="A4" />
+                android:text="@string/seat_selection_a4"
+                android:textAppearance="@style/seat_selection_b_class" />
         </TableRow>
 
         <TableRow
@@ -77,32 +86,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="B1" />
+                android:text="@string/seat_selection_b1"
+                android:textAppearance="@style/seat_selection_b_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="B2" />
+                android:text="@string/seat_selection_b2"
+                android:textAppearance="@style/seat_selection_b_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="B3" />
+                android:text="@string/seat_selection_b3"
+                android:textAppearance="@style/seat_selection_b_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_b_class"
-                tools:text="B4" />
+                android:text="@string/seat_selection_b4"
+                android:textAppearance="@style/seat_selection_b_class" />
         </TableRow>
 
         <TableRow
@@ -116,32 +125,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="C1" />
+                android:text="@string/seat_selection_c1"
+                android:textAppearance="@style/seat_selection_s_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="C2" />
+                android:text="@string/seat_selection_c2"
+                android:textAppearance="@style/seat_selection_s_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="C3" />
+                android:text="@string/seat_selection_c3"
+                android:textAppearance="@style/seat_selection_s_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="C4" />
+                android:text="@string/seat_selection_c4"
+                android:textAppearance="@style/seat_selection_s_class" />
         </TableRow>
 
         <TableRow
@@ -155,32 +164,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="D1" />
+                android:text="@string/seat_selection_d1"
+                android:textAppearance="@style/seat_selection_s_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="D2" />
+                android:text="@string/seat_selection_d2"
+                android:textAppearance="@style/seat_selection_s_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="D3" />
+                android:text="@string/seat_selection_d3"
+                android:textAppearance="@style/seat_selection_s_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_s_class"
-                tools:text="D4" />
+                android:text="@string/seat_selection_d4"
+                android:textAppearance="@style/seat_selection_s_class" />
         </TableRow>
 
         <TableRow
@@ -194,32 +203,32 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_a_class"
-                tools:text="E1" />
+                android:text="@string/seat_selection_e1"
+                android:textAppearance="@style/seat_selection_a_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_a_class"
-                tools:text="E2" />
+                android:text="@string/seat_selection_e2"
+                android:textAppearance="@style/seat_selection_a_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_a_class"
-                tools:text="E3" />
+                android:text="@string/seat_selection_e3"
+                android:textAppearance="@style/seat_selection_a_class" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAppearance="@style/seat_selection_a_class"
-                tools:text="E4" />
+                android:text="@string/seat_selection_e4"
+                android:textAppearance="@style/seat_selection_a_class" />
         </TableRow>
     </TableLayout>
 

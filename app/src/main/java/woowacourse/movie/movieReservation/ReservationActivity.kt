@@ -6,12 +6,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import mapper.toScreening
-import mapper.toTicketModel
 import model.ScreeningModel
-import movie.Cinema
+import model.SeatSelectionModel
 import woowacourse.movie.R
-import woowacourse.movie.movieTicket.MovieTicketActivity
+import woowacourse.movie.seatSelection.SeatSelectionActivity
+import woowacourse.movie.seatSelection.SeatSelectionActivity.Companion.KEY_SEAT_SELECTION
 import woowacourse.movie.utils.getSerializableExtraCompat
 
 class ReservationActivity : AppCompatActivity() {
@@ -76,13 +75,14 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun onReservationButtonClicked() {
-        val movieTicket = Cinema()
-            .reserveMovieTicket(screeningModel.toScreening(), navigate.ticketCount, navigate.selectedDateTime)
-            .toTicketModel()
-
+        val seatSelectionModel = SeatSelectionModel(
+            title = screeningModel.title,
+            reserveTime = navigate.selectedDateTime,
+            peopleNumber = navigate.ticketCount.toInt(),
+        )
         startActivity(
-            Intent(this, MovieTicketActivity::class.java).apply {
-                putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
+            Intent(this, SeatSelectionActivity::class.java).apply {
+                putExtra(KEY_SEAT_SELECTION, seatSelectionModel)
             },
             null,
         )
