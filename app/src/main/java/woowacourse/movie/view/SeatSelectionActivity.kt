@@ -1,9 +1,11 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableRow
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
 import com.example.domain.ReservationAgency
 import com.example.domain.Seat
@@ -20,6 +22,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
     private lateinit var reservationAgency: ReservationAgency
     private var selectedSeatCount = 0
+    private var selectedSeats: List<Seat> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         initSeatButtons()
         initReserveLayout()
         initReservationAgency()
+        initConfirmReservationButton()
     }
 
     private fun initSeatButtons() {
@@ -83,7 +87,7 @@ class SeatSelectionActivity : AppCompatActivity() {
             .filterIsInstance<Button>()
             .toList()
 
-        val selectedSeats = findSelectedSeats(seats)
+        selectedSeats = findSelectedSeats(seats)
         if (reservationAgency.canReserve(selectedSeats)) {
             val reservationFee = reservationAgency.calculateReservationFee(selectedSeats)
             setReservationFee(reservationFee.amount)
@@ -134,7 +138,32 @@ class SeatSelectionActivity : AppCompatActivity() {
         }
     }
 
+    private fun initConfirmReservationButton() {
+        binding.confirmReservationButton.setOnClickListener {
+            val alertDialog: AlertDialog = AlertDialog.Builder(this).apply {
+                setPositiveButton("예매 완료") { dialog, id ->
+                    reserveSeats()
+                }
+                setNegativeButton(
+                    "취소"
+                ) { _, _ -> }
+                setCancelable(false)
+                setTitle("예매 확인")
+                setMessage("정말 예매하시겠습니까?")
+            }.create()
+            alertDialog.show()
+        }
+    }
+
+    private fun reserveSeats() {
+        val reservation = reservationAgency.reserve(selectedSeats)
+        val intent = Intent(this, ReservationCompletedActivity::class.java)
+        intent.putExtra(RESERVATION, reservation?.toUiModel())
+        startActivity(intent)
+    }
+
     companion object {
+        const val RESERVATION = "RESERVATION"
         private val DECIMAL_FORMAT = DecimalFormat("#,###")
     }
 }

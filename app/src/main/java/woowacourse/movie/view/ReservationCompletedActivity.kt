@@ -16,9 +16,9 @@ class ReservationCompletedActivity : AppCompatActivity() {
         binding = ActivityReservationCompletedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val reservation = intent.getParcelableCompat<ReservationUiModel>(ReservationActivity.RESERVATION)
-        requireNotNull(reservation) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
-        initViewData(reservation)
+        val reservation =
+            intent.getParcelableCompat<ReservationUiModel>(SeatSelectionActivity.RESERVATION)
+        reservation?.let { initViewData(it) }
     }
 
     private fun initViewData(reservation: ReservationUiModel) {
@@ -28,7 +28,7 @@ class ReservationCompletedActivity : AppCompatActivity() {
             peopleCount.text = getString(R.string.reservation_people_count_format)
                 .format(getString(R.string.general_person), reservation.peopleCount)
             totalPrice.text =
-                getString(R.string.total_price_format).format(DECIMAL_FORMAT.format(reservation.totalReservationFee))
+                getString(R.string.total_price_format).format(DECIMAL_FORMAT.format(reservation.finalReservationFee))
         }
     }
 
