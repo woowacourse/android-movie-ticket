@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.domain.model.price.Price
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieUiModel
 import woowacourse.movie.util.customGetSerializable
@@ -135,7 +136,7 @@ class MovieDetailActivity : AppCompatActivity() {
             spinnerDate.selectedItem as LocalDate,
             spinnerTime.selectedItem as LocalTime,
             getCount(),
-            com.example.domain.model.Price(),
+            Price(),
             com.example.domain.model.Payment.ON_SITE
         )
     }

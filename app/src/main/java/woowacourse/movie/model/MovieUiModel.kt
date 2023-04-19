@@ -9,4 +9,4 @@ data class MovieUiModel(
     val playingTimes: PlayingTimes,
     val runningTime: Int,
     val description: String
-)
+) : java.io.Serializable
