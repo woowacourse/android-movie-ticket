@@ -6,6 +6,10 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import domain.Position
+import domain.Seat
+import domain.Seats
+import domain.TicketPrice
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto
@@ -13,6 +17,7 @@ import woowacourse.movie.dto.TicketCountDto
 
 class SeatSelectionActivity : AppCompatActivity() {
 
+    private val seats by lazy { Seats() }
     private val date by lazy { intent.getSerializableExtra(DATE_KEY) as MovieDateDto }
     private val time by lazy { intent.getSerializableExtra(TIME_KEY) as MovieTimeDto }
     private val movie by lazy { intent.getSerializableExtra(MOVIE_KEY) as MovieDto }
@@ -43,9 +48,25 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun onSeatClickListener() {
         getSeatView().forEachIndexed { index, textView ->
             textView.setOnClickListener {
-                textView.setBackgroundColor(getColor(R.color.select_seat))
+                val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
+                when {
+                    isPossibleSelect(seat) -> selectSeat(textView, seat)
+                    else -> unselectSeat(textView, seat)
+                }
             }
         }
+    }
+
+    private fun isPossibleSelect(seat: Seat): Boolean {
+        return !seats.containsSeat(seat)
+    }
+    private fun selectSeat(textView: TextView, seat: Seat) {
+        textView.setBackgroundColor(getColor(R.color.select_seat))
+        seats.add(seat)
+    }
+    private fun unselectSeat(textView: TextView, seat: Seat) {
+        textView.setBackgroundColor(getColor(R.color.white))
+        seats.remove(seat)
     }
 
     companion object {
