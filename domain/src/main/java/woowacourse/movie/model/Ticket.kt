@@ -8,14 +8,18 @@ data class Ticket(
     val movieId: Long,
     val bookedDateTime: LocalDateTime,
     val count: Int,
+    val seats: List<Seat>,
 ) {
     fun getPaymentMoney(): Money {
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
-        val discountedMoney = discountPolicy.discount(Money(TICKET_PRICE), bookedDateTime)
-        return discountedMoney * count
+        val paymentMoneyAmount =
+            seats.sumOf { seat ->
+                val ticketPrice = SeatGrade.from(seat).ticketPrice
+                getDiscountedMoney(ticketPrice, discountPolicy).value
+            }
+        return Money(paymentMoneyAmount)
     }
 
-    companion object {
-        private const val TICKET_PRICE = 13000
-    }
+    private fun getDiscountedMoney(money: Money, discountPolicy: DiscountPolicyAdapter) =
+        discountPolicy.discount(money, bookedDateTime)
 }

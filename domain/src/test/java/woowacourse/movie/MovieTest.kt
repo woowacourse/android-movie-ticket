@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Seat
+import woowacourse.movie.model.SeatRow
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -19,6 +21,7 @@ class MovieTest {
             1L,
             screeningDate,
             3,
+            seats = listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1)),
         )
 
         val movie = Movie(
@@ -33,6 +36,7 @@ class MovieTest {
         val actual = movie.reserve(
             screeningDate,
             TicketCount(3),
+            listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1), Seat(SeatRow.C, 1)),
         )
 
         assertThat(actual).isEqualTo(expected)
@@ -47,6 +51,7 @@ class MovieTest {
             1L,
             screeningDate,
             3,
+            listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1), Seat(SeatRow.C, 1)),
         )
 
         val movie = Movie(
@@ -58,7 +63,13 @@ class MovieTest {
             description = "",
         )
 
-        assertThrows<IllegalArgumentException> { movie.reserve(screeningDate, TicketCount(3)) }
+        assertThrows<IllegalArgumentException> {
+            movie.reserve(
+                screeningDate,
+                TicketCount(3),
+                listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1), Seat(SeatRow.C, 1)),
+            )
+        }
     }
 
     @Test
