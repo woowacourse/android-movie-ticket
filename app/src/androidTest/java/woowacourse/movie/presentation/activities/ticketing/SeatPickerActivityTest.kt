@@ -10,9 +10,12 @@ import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import org.hamcrest.CoreMatchers.not
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_DATE_KEY
@@ -24,6 +27,8 @@ import woowacourse.movie.presentation.model.Ticket
 import woowacourse.movie.presentation.model.movieitem.Movie
 import java.time.LocalDate
 
+@RunWith(AndroidJUnit4::class)
+@LargeTest
 internal class SeatPickerActivityTest {
     private val movie: Movie = Movie(
         "테스트 영화",
