@@ -71,13 +71,6 @@
                 android:text="A4"
                 android:textColor="@color/seat_A_B"
                 android:textSize="22sp" />
-
-            <TextView
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:text="A5"
-                android:textColor="@color/seat_A_B"
-                android:textSize="22sp" />
         </TableRow>
 
         <TableRow>
@@ -107,13 +100,6 @@
                 android:layout_height="80dp"
                 android:gravity="center"
                 android:text="B4"
-                android:textColor="@color/seat_A_B"
-                android:textSize="22sp" />
-
-            <TextView
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:text="B5"
                 android:textColor="@color/seat_A_B"
                 android:textSize="22sp" />
         </TableRow>
@@ -147,13 +133,6 @@
                 android:text="C4"
                 android:textColor="@color/seat_C_D"
                 android:textSize="22sp" />
-
-            <TextView
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:text="C5"
-                android:textColor="@color/seat_C_D"
-                android:textSize="22sp" />
         </TableRow>
 
         <TableRow>
@@ -185,13 +164,6 @@
                 android:text="D4"
                 android:textColor="@color/seat_C_D"
                 android:textSize="22sp" />
-
-            <TextView
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:text="D5"
-                android:textColor="@color/seat_C_D"
-                android:textSize="22sp" />
         </TableRow>
 
         <TableRow>
@@ -221,13 +193,6 @@
                 android:layout_height="80dp"
                 android:gravity="center"
                 android:text="E4"
-                android:textColor="@color/seat_E"
-                android:textSize="22sp" />
-
-            <TextView
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:text="E5"
                 android:textColor="@color/seat_E"
                 android:textSize="22sp" />
         </TableRow>
