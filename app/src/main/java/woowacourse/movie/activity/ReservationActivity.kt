@@ -32,13 +32,15 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val movieModel: MovieModel? by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel }
-
-        movieModel?.let {
-            initMovieInformationViews(it)
-            initReservationViews(it, savedInstanceState)
-            loadSavedInstanceState(it, savedInstanceState)
+        val movieModel: MovieModel? = intent.getSerializableExtra(MOVIE_INTENT_KEY) as? MovieModel
+        if (movieModel == null) {
+            Toast.makeText(this, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()
+            finish()
         }
+
+        initMovieInformationViews(movieModel!!)
+        initReservationViews(movieModel, savedInstanceState)
+        loadSavedInstanceState(movieModel, savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -96,7 +98,10 @@ class ReservationActivity : AppCompatActivity() {
                     id: Long
                 ) {
                     initTimeSpinner(movieModel, dates[position])
-                    if (savedInstanceState != null) loadSavedInstanceState(movieModel, savedInstanceState)
+                    if (savedInstanceState != null) loadSavedInstanceState(
+                        movieModel,
+                        savedInstanceState
+                    )
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
