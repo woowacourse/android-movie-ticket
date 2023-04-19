@@ -1,4 +1,4 @@
-package com.example.domain.model
+package com.example.domain.model.price
 
 import com.example.domain.model.policy.MorningPolicy
 import com.example.domain.model.policy.MovieDayPolicy

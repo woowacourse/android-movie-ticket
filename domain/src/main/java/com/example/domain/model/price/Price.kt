@@ -1,4 +1,4 @@
-package com.example.domain.model
+package com.example.domain.model.price
 
 @JvmInline
 value class Price(val price: Int = DEFAULT) {

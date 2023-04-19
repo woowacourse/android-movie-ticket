@@ -1,8 +1,8 @@
 package woowacourse.movie
 
 import com.example.domain.model.Payment
-import com.example.domain.model.Price
 import com.example.domain.model.TicketingInfo
+import com.example.domain.model.price.Price
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import java.time.LocalDate

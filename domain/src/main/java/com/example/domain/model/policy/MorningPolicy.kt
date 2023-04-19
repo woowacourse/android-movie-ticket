@@ -1,6 +1,6 @@
 package com.example.domain.model.policy
 
-import com.example.domain.model.Price
+import com.example.domain.model.price.Price
 import java.time.LocalDate
 import java.time.LocalTime
 

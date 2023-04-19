@@ -1,5 +1,7 @@
 package com.example.domain.model
 
+import com.example.domain.model.price.Price
+import com.example.domain.model.price.PriceCalculator
 import java.time.LocalDate
 import java.time.LocalTime
 

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.model.formatter.DateFormatter
 import com.example.domain.model.formatter.DecimalFormatter
 import com.example.domain.model.formatter.TimeFormatter
+import com.example.domain.model.price.Price
 import com.example.domain.model.toUI
 import woowacourse.movie.R
 import woowacourse.movie.util.customGetSerializable
@@ -50,7 +51,7 @@ class TicketResultActivity : AppCompatActivity() {
         countView.text = count.toString()
     }
 
-    private fun initPrice(price: com.example.domain.model.Price, count: Int) {
+    private fun initPrice(price: Price, count: Int) {
         val priceView = findViewById<TextView>(R.id.text_price)
         priceView.text = DecimalFormatter.format(price.price * count)
     }
