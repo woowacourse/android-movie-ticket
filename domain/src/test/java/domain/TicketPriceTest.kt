@@ -3,6 +3,7 @@ package woowacourse.movie.domain
 import domain.TicketPrice
 import domain.policy.MovieDayDiscountPolicy
 import domain.policy.TimeDiscountPolicy
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime

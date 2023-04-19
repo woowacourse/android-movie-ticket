@@ -4,10 +4,10 @@ enum class Grade {
     B, S, A;
 
     companion object {
-        fun checkGrade(position: Int): Grade {
-            return when (position) {
-                in 0..7 -> B
-                in 8..15 -> S
+        fun checkGrade(position: Position): Grade {
+            return when (position.row) {
+                1, 2 -> B
+                3, 4 -> S
                 else -> A
             }
         }
