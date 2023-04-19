@@ -91,8 +91,8 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun reservationButtonClick(movie: Movie) {
         reservationButton.setOnClickListener {
             val date = LocalDateTime.of(
-                movieDateTimePicker.dateSpinner.getSelectedDate(),
-                movieDateTimePicker.timeSpinner.getSelectedTime()
+                movieDateTimePicker.getSelectedDate(),
+                movieDateTimePicker.getSelectedTime()
             )
             val discountPolicies = DisCountPolicies(listOf(MovieDay(), OffTime()))
             val peopleCount = counter.getCount()
