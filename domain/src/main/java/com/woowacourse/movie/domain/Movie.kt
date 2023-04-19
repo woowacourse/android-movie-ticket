@@ -24,7 +24,7 @@ data class Movie(
     ): List<LocalDate> {
         if (today > endDate) return emptyList()
         return generateSequence(today max startDate) { it.plusDays(1) }
-            .takeWhile { it <= endDate }
+            .filter { it <= endDate }
             .map { it }
             .toList()
     }
