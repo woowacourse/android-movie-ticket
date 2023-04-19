@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationCompletedBinding
+import woowacourse.movie.util.DATE_TIME_FORMATTER
 import woowacourse.movie.util.getParcelableCompat
+import woowacourse.movie.view.model.ReservationUiModel
 import java.text.DecimalFormat
 
 class ReservationCompletedActivity : AppCompatActivity() {

@@ -1,12 +1,11 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.model
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import com.example.domain.Minute
 import com.example.domain.Movie
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
-
 
 fun Movie.toUiModel(): MovieUiModel = MovieUiModel(
     title,

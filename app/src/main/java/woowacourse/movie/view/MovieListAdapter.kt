@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import com.example.domain.Movie
 import woowacourse.movie.R
 import woowacourse.movie.databinding.MovieItemBinding
+import woowacourse.movie.util.DATE_FORMATTER
 
 class MovieListAdapter(
     private val movies: List<Movie>,
