@@ -48,7 +48,9 @@ class MovieListAdapter(
         else -> throw IllegalArgumentException(INVALID_POSITION_ERROR_MESSAGE)
     }
 
-    override fun getItemCount(): Int = movies.size + ads.size
+    override fun getItemCount(): Int = movies.size + adsSize()
+
+    private fun adsSize() = movies.size / ADS_INTERVAL
 
     private fun isAd(position: Int): Boolean =
         position != 0 && (position + 1) % (ADS_INTERVAL + 1) == 0
@@ -57,7 +59,7 @@ class MovieListAdapter(
 
     private fun getMoviePosition(position: Int): Int = position - (position / ADS_INTERVAL)
 
-    private fun getAdPosition(position: Int): Int = position / ADS_INTERVAL
+    private fun getAdPosition(position: Int): Int = (position / (ADS_INTERVAL + 1)) % ads.size
 
     companion object {
         private const val ADS_INTERVAL = 3

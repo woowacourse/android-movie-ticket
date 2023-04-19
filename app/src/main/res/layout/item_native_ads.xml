@@ -10,11 +10,13 @@
         android:id="@+id/iv_native_ads"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.27"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/img_native_ad_banner" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp"
+        tools:src="@drawable/img_sample_native_ad_banner1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

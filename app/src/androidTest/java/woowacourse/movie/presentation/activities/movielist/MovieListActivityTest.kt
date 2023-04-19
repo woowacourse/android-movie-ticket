@@ -64,7 +64,7 @@ class MovieListActivityTest {
             movieRecyclerView.adapter = MovieListAdapter(
                 List(movieSize) { Movie("테스트1", 100) },
                 List(adSize) {
-                    Ad(R.drawable.img_native_ad_banner, "https://woowacourse.github.io/")
+                    Ad(R.drawable.img_sample_native_ad_banner1, "https://woowacourse.github.io/")
                 },
                 {},
                 {},
