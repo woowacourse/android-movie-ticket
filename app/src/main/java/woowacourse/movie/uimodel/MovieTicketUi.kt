@@ -16,7 +16,7 @@ class MovieTicketUi(
     companion object {
         val EMPTY_STATE: MovieTicketUi = MovieTicketUi(
             0,
-            TicketCount(0),
+            TicketCount(1),
             "",
             LocalDate.MIN,
             LocalTime.MIN,
