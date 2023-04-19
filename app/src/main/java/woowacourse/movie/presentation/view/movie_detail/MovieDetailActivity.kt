@@ -6,14 +6,14 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.example.domain.MovieSchedule
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
-import woowacourse.movie.domain.MovieSchedule
-import woowacourse.movie.getParcelableCompat
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieBookingInfo
-import woowacourse.movie.presentation.view.book_complete.BookCompleteActivity
+import woowacourse.movie.presentation.extension.getParcelableCompat
 import woowacourse.movie.presentation.view.common.BackButtonActivity
+import woowacourse.movie.presentation.view.seat_pick.SeatPickerActivity
 
 class MovieDetailActivity : BackButtonActivity() {
     private lateinit var binding: ActivityMovieDetailBinding
@@ -29,7 +29,8 @@ class MovieDetailActivity : BackButtonActivity() {
 
         setViewData(movieData)
 
-        val movieSchedule = MovieSchedule(movieData!!.startDate, movieData.endDate)
+        val movieSchedule =
+            MovieSchedule(movieData!!.startDate, movieData.endDate)
         val scheduleDate = movieSchedule.getScheduleDates()
 
         setViewData(movieData)
@@ -136,9 +137,9 @@ class MovieDetailActivity : BackButtonActivity() {
         }
 
         binding.btBookComplete.setOnClickListener {
-            val intent = Intent(this, BookCompleteActivity::class.java).apply {
+            val intent = Intent(this, SeatPickerActivity::class.java).apply {
                 putExtra(
-                    BookCompleteActivity.MOVIE_BOOKING_INFO_INTENT_KEY,
+                    SeatPickerActivity.MOVIE_BOOKING_INFO_SCHEDULE_INTENT_KEY,
                     MovieBookingInfo(
                         movieData, binding.spMovieDate.selectedItem.toString(),
                         binding.spMovieTime.selectedItem.toString(),
