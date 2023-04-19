@@ -12,5 +12,6 @@
     <string name="button_plus">+</string>
     <string name="default_ticket_count">1</string>
     <string name="button_book_complete">예매완료</string>
-
+    <string name="movie_screening_period">상영일: %s ~ %s</string>
+    <string name="movie_running_time">러닝타임: %d분</string>
 </resources>

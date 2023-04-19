@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.woowacourse.domain.MovieSchedule
 import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
 import woowacourse.movie.BundleKeys.MOVIE_DATA_KEY
+import java.time.LocalDate
 
 class MovieDetailActivity : BackButtonActivity() {
     private var needSpinnerInitialize = true
@@ -58,8 +59,14 @@ class MovieDetailActivity : BackButtonActivity() {
     private fun initView(movieData: Movie) {
         findViewById<ImageView>(R.id.iv_movie_poster).setImageResource(movieData.poster)
         findViewById<TextView>(R.id.tv_movie_title).text = movieData.title
-        findViewById<TextView>(R.id.tv_movie_release_date).text = movieData.releaseDate
-        findViewById<TextView>(R.id.tv_movie_running_time).text = movieData.runningTime
+        findViewById<TextView>(R.id.tv_movie_screening_period).text =
+            getString(R.string.movie_screening_period)
+                .format(
+                    DateFormatter.format(movieData.startDate),
+                    DateFormatter.format(movieData.endDate)
+                )
+        findViewById<TextView>(R.id.tv_movie_running_time).text =
+            getString(R.string.movie_running_time).format(movieData.runningTime)
         findViewById<TextView>(R.id.tv_movie_synopsis).text = movieData.synopsis
     }
 
@@ -132,7 +139,8 @@ class MovieDetailActivity : BackButtonActivity() {
             intent.putExtra(
                 MOVIE_BOOKING_INFO_KEY,
                 MovieBookingInfo(
-                    movieData, dateSpinner.selectedItem.toString(),
+                    movieData,
+                    DateFormatter.format(LocalDate.parse(dateSpinner.selectedItem.toString())),
                     timeSpinner.selectedItem.toString(),
                     currentCount
                 )

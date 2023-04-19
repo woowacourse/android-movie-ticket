@@ -45,7 +45,7 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_movie_poster" />
 
             <TextView
-                android:id="@+id/tv_movie_release_date"
+                android:id="@+id/tv_movie_screening_period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="34dp"
@@ -61,7 +61,7 @@
                 android:includeFontPadding="false"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/tv_movie_title"
-                app:layout_constraintTop_toBottomOf="@id/tv_movie_release_date" />
+                app:layout_constraintTop_toBottomOf="@id/tv_movie_screening_period" />
 
             <TextView
                 android:id="@+id/tv_movie_synopsis"

@@ -11,7 +11,7 @@ class Ticket {
     }
 
     private fun calculateMovieDaySale(date: String) {
-        val day = date.takeLast(DAY).toInt()
+        val day = date.split(SEPARATOR).last().toInt()
         if (day in MOVIE_DAYS) price = (price * MOVIE_DAY_DISCOUNT_RATE).toInt()
     }
 
@@ -22,7 +22,7 @@ class Ticket {
 
     companion object {
         private const val TICKET_PRICE = 13_000
-        private const val DAY = 2
+        private const val SEPARATOR = "."
         private const val HOUR = 2
         private val MOVIE_DAYS = listOf(10, 20, 30)
         private const val MOVIE_DAY_DISCOUNT_RATE = 0.9

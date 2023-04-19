@@ -27,9 +27,9 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
             viewHolder = convertView.tag as MovieListViewHolder
             view = convertView
         }
-        viewHolder.setData(getItem(position))
+        viewHolder.setData(parent!!.context, getItem(position))
         viewHolder.bookButton?.setOnClickListener {
-            val intent = MovieDetailActivity.intent(parent!!.context)
+            val intent = MovieDetailActivity.intent(parent.context)
             intent.putExtra(MOVIE_DATA_KEY, getItem(position))
             parent.context.startActivity(intent)
         }
