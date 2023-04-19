@@ -2,21 +2,34 @@ package domain.seat
 
 import domain.payment.PaymentAmount
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertFalse
+import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
 class ScreeningSeatTest {
 
     @Test
-    fun `좌석이_예약되면_예약된_상태의_좌석을_반환한다`() {
+    fun `좌석이_선택되면_선택된_상태의_좌석을_반환한다`() {
         // given
         val seat = ScreeningSeat(SeatRow.A, SeatColumn.THIRD)
 
         // when
-        val reservedSeat = seat.reserved()
+        val selectedSeat = seat.selected()
 
         // then
-        val expected = true
-        assertEquals(reservedSeat.isReserved, expected)
+        assertTrue(selectedSeat.isSelected)
+    }
+
+    @Test
+    fun `좌석이_취소되면_취소된_상태의_좌석을_반환한다`() {
+        // given
+        val seat = ScreeningSeat(SeatRow.A, SeatColumn.THIRD, true)
+
+        // when
+        val canceledSeat = seat.canceled()
+
+        // then
+        assertFalse(canceledSeat.isSelected)
     }
 
     @Test

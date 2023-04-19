@@ -5,7 +5,7 @@ import domain.payment.PaymentAmount
 data class ScreeningSeat(
     val row: SeatRow,
     val column: SeatColumn,
-    val isReserved: Boolean = false
+    val isSelected: Boolean = false
 ) {
 
     val payment = when (row) {
@@ -14,8 +14,13 @@ data class ScreeningSeat(
         SeatRow.E -> PaymentAmount(A_RATE_PAYMENT_AMOUNT)
     }
 
-    fun reserved(): ScreeningSeat {
+    fun selected(): ScreeningSeat {
         return ScreeningSeat(row, column, true)
+    }
+
+    // todo: testcode
+    fun canceled(): ScreeningSeat {
+        return ScreeningSeat(row, column, false)
     }
 
     companion object {
