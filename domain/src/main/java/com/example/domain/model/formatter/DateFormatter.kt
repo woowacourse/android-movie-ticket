@@ -1,4 +1,4 @@
-package woowacourse.movie.model.formatter
+package com.example.domain.model.formatter
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

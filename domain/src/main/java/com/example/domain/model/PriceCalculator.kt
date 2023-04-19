@@ -1,8 +1,8 @@
-package woowacourse.movie.model
+package com.example.domain.model
 
-import woowacourse.movie.model.policy.MorningPolicy
-import woowacourse.movie.model.policy.MovieDayPolicy
-import woowacourse.movie.model.policy.NightPolicy
+import com.example.domain.model.policy.MorningPolicy
+import com.example.domain.model.policy.MovieDayPolicy
+import com.example.domain.model.policy.NightPolicy
 import java.time.LocalDate
 import java.time.LocalTime
 

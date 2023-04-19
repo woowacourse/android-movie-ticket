@@ -1,7 +1,7 @@
 package woowacourse.movie
 
+import com.example.domain.model.Price
 import org.junit.Test
-import woowacourse.movie.model.Price
 
 class PriceTest {
 

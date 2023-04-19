@@ -1,17 +1,20 @@
 package woowacourse.movie
 
+import com.example.domain.model.Payment
+import com.example.domain.model.Price
+import com.example.domain.model.TicketingInfo
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import woowacourse.movie.model.Payment
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.TicketingInfo
 import java.time.LocalDate
 import java.time.LocalTime
 
 class TicketingInfoTest {
     @Test
     fun `할인이 적용된 TicketingInfo를 얻을 수 있다`() {
-        val actual = TicketingInfo(LocalDate.of(2023, 4, 30), LocalTime.of(9, 0), Price()).price
+        val actual = TicketingInfo(
+            LocalDate.of(2023, 4, 30), LocalTime.of(9, 0),
+            Price()
+        ).price
         val expected = Price(9700)
         assertEquals(actual, expected)
     }

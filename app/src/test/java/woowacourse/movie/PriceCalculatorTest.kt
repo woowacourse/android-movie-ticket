@@ -1,9 +1,9 @@
 package woowacourse.movie
 
+import com.example.domain.model.Price
+import com.example.domain.model.PriceCalculator
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.PriceCalculator
 import java.time.LocalDate
 import java.time.LocalTime
 

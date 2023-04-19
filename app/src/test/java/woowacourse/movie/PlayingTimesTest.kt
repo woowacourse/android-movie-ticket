@@ -1,8 +1,8 @@
 package woowacourse.movie
 
+import com.example.domain.model.PlayingTimes
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import woowacourse.movie.model.PlayingTimes
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime

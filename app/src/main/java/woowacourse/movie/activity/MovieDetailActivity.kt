@@ -12,11 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Payment
-import woowacourse.movie.model.PlayingTimes
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.TicketingInfo
+import woowacourse.movie.model.MovieUiModel
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -31,7 +27,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDateSpinnerIndex = getSavedDateSpinnerIndex(savedInstanceState)
         val savedTimeSpinnerIndex = getSavedTimeSpinnerIndex(savedInstanceState)
 
-        val movie: Movie = getIntentMovieDate()
+        val movie: MovieUiModel = getIntentMovieDate()
 
         initMovieDataView(movie)
         initCountView(savedCount)
@@ -40,9 +36,9 @@ class MovieDetailActivity : AppCompatActivity() {
         setActionBar()
     }
 
-    private fun getIntentMovieDate(): Movie = intent.customGetSerializable(MOVIE_KEY)
+    private fun getIntentMovieDate(): MovieUiModel = intent.customGetSerializable(MOVIE_KEY)
 
-    private fun initMovieDataView(movie: Movie) {
+    private fun initMovieDataView(movie: MovieUiModel) {
         initImageView(movie.image)
         initTitle(movie.title)
         initPlayingDate(movie.playingTimes)
@@ -59,7 +55,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initSpinner(
         savedDateSpinnerIndex: Int,
         savedTimeSpinnerIndex: Int,
-        playingTimes: PlayingTimes
+        playingTimes: com.example.domain.model.PlayingTimes
     ) {
         initDateSpinner(savedDateSpinnerIndex, playingTimes)
         initTimeSpinner(savedTimeSpinnerIndex, playingTimes)
@@ -89,7 +85,7 @@ class MovieDetailActivity : AppCompatActivity() {
         titleView.text = title
     }
 
-    private fun initPlayingDate(times: PlayingTimes) {
+    private fun initPlayingDate(times: com.example.domain.model.PlayingTimes) {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
         playingDateView.text = getString(
             R.string.playing_time, times.startDateString,
@@ -131,16 +127,16 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getTicketingInfo(movieTitle: String): TicketingInfo {
+    private fun getTicketingInfo(movieTitle: String): com.example.domain.model.TicketingInfo {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        return TicketingInfo.of(
+        return com.example.domain.model.TicketingInfo.of(
             movieTitle,
             spinnerDate.selectedItem as LocalDate,
             spinnerTime.selectedItem as LocalTime,
             getCount(),
-            Price(),
-            Payment.ON_SITE
+            com.example.domain.model.Price(),
+            com.example.domain.model.Payment.ON_SITE
         )
     }
 
@@ -153,7 +149,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun getSavedTimeSpinnerIndex(savedInstanceState: Bundle?): Int =
         savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-    private fun initTimeSpinner(savedTimeSpinnerIndex: Int, playingTimes: PlayingTimes) {
+    private fun initTimeSpinner(savedTimeSpinnerIndex: Int, playingTimes: com.example.domain.model.PlayingTimes) {
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val selectedDate = playingTimes.playingDates[spinnerDate.selectedItemPosition]
@@ -166,7 +162,7 @@ class MovieDetailActivity : AppCompatActivity() {
         spinnerTime.setSelection(savedTimeSpinnerIndex)
     }
 
-    private fun initDateSpinner(savedDateSpinnerIndex: Int, playingTimes: PlayingTimes) {
+    private fun initDateSpinner(savedDateSpinnerIndex: Int, playingTimes: com.example.domain.model.PlayingTimes) {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val dates = playingTimes.playingDates
@@ -182,7 +178,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun getCount(): Int = findViewById<TextView>(R.id.text_count).text.toString().toInt()
 
     class SpinnerListener(
-        private val playingTimes: PlayingTimes,
+        private val playingTimes: com.example.domain.model.PlayingTimes,
         private val dates: List<LocalDate>,
         private val spinnerTime: Spinner
     ) : AdapterView.OnItemSelectedListener {

@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.domain.model.formatter.DateFormatter
+import com.example.domain.model.formatter.DecimalFormatter
+import com.example.domain.model.formatter.TimeFormatter
+import com.example.domain.model.toUI
 import woowacourse.movie.R
-import woowacourse.movie.model.Payment
-import woowacourse.movie.model.Price
-import woowacourse.movie.model.TicketingInfo
-import woowacourse.movie.model.formatter.DateFormatter
-import woowacourse.movie.model.formatter.DecimalFormatter
-import woowacourse.movie.model.formatter.TimeFormatter
-import woowacourse.movie.model.toUI
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -26,7 +23,7 @@ class TicketResultActivity : AppCompatActivity() {
     }
 
     private fun initTicketDataView() {
-        val info: TicketingInfo = intent.customGetSerializable(INFO_KEY)
+        val info: com.example.domain.model.TicketingInfo = intent.customGetSerializable(INFO_KEY)
         initTitle(info.title)
         initPlayingDate(info.playingDate, info.playingTime)
         initCount(info.count)
@@ -53,12 +50,12 @@ class TicketResultActivity : AppCompatActivity() {
         countView.text = count.toString()
     }
 
-    private fun initPrice(price: Price, count: Int) {
+    private fun initPrice(price: com.example.domain.model.Price, count: Int) {
         val priceView = findViewById<TextView>(R.id.text_price)
         priceView.text = DecimalFormatter.format(price.price * count)
     }
 
-    private fun initPricePayment(payment: Payment) {
+    private fun initPricePayment(payment: com.example.domain.model.Payment) {
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
         pricePayment.text = getString(R.string.price_payment, payment.toUI())
     }

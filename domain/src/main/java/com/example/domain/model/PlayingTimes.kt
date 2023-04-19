@@ -1,6 +1,6 @@
-package woowacourse.movie.model
+package com.example.domain.model
 
-import woowacourse.movie.model.formatter.DateFormatter
+import com.example.domain.model.formatter.DateFormatter
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime

@@ -1,6 +1,6 @@
-package woowacourse.movie.model.policy
+package com.example.domain.model.policy
 
-import woowacourse.movie.model.Price
+import com.example.domain.model.Price
 import java.time.LocalDate
 import java.time.LocalTime
 
