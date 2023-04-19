@@ -1,6 +1,5 @@
 package domain.discount
 
-import domain.payment.PaymentAmount
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -17,13 +16,13 @@ internal class DiscountTest {
 
     @Test
     fun `10일_20일_30일임과_동시에_11시_이전_이거나_20시_이후인_경우에는_무비데이_할인이_먼저_적용된다`() {
-        val paymentAmount = PaymentAmount(13000)
+        val paymentAmount = domain.payment.PaymentAmount(13000)
         val resultDiscountedPaymentAmount =
             discount.discount(
                 paymentAmount,
                 LocalDateTime.of(2023, 10, 10, 10, 0)
             )
-        val expectedDiscountedPaymentAmount = PaymentAmount(9700)
+        val expectedDiscountedPaymentAmount = domain.payment.PaymentAmount(9700)
 
         assertEquals(resultDiscountedPaymentAmount, expectedDiscountedPaymentAmount)
     }

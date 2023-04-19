@@ -46,17 +46,14 @@ class TicketCountButtonListener(
     ) {
         completeButton.setOnClickListener {
             val ticketCount = ticketCountTextView.text.toString().toInt()
-            val reservation: ReservationInfo =
-                Reservation
-                    .from(
-                        movie.toDomainModel(),
-                        ticketCount,
-                        LocalDateTime.of(
-                            screeningDateSpinner.selectedItem as LocalDate,
-                            screeningTimeSpinner.selectedItem as LocalTime
-                        )
-                    )
-                    .toUIModel()
+            val reservation: ReservationInfo = Reservation.from(
+                movie.toDomainModel(),
+                ticketCount,
+                LocalDateTime.of(
+                    screeningDateSpinner.selectedItem as LocalDate,
+                    screeningTimeSpinner.selectedItem as LocalTime
+                )
+            ).toUIModel()
 
             onCompleted(reservation)
         }

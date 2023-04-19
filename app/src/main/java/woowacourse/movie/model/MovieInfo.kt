@@ -3,7 +3,6 @@ package woowacourse.movie.model
 import androidx.annotation.DrawableRes
 import domain.movie.Movie
 import domain.movie.MovieName
-import domain.movie.RunningTime
 import domain.movie.ScreeningDate
 import domain.movie.ScreeningPeriod
 import java.io.Serializable
@@ -44,7 +43,10 @@ fun Movie.toDomainModel(posterImage: Int?) = MovieInfo(
 
 fun MovieInfo.toDomainModel() = Movie(
     MovieName(movieName),
-    ScreeningPeriod(ScreeningDate(startDate), ScreeningDate(endDate)),
-    RunningTime(runningTime),
+    ScreeningPeriod(
+        ScreeningDate(startDate),
+        ScreeningDate(endDate)
+    ),
+    domain.movie.RunningTime(runningTime),
     description
 )

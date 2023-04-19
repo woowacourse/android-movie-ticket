@@ -1,7 +1,6 @@
 package woowacourse.movie.model
 
 import domain.payment.PaymentType
-import domain.reservation.Reservation
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -25,7 +24,7 @@ data class ReservationInfo(
     }
 }
 
-fun Reservation.toUIModel() = ReservationInfo(
+fun domain.reservation.Reservation.toUIModel() = ReservationInfo(
     movieName.value,
     screeningDateTime,
     ticketCount,
