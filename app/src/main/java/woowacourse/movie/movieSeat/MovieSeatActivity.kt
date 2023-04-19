@@ -1,7 +1,6 @@
 package woowacourse.movie.movieSeat
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -13,12 +12,12 @@ import movie.seat.Seat
 import movie.seat.SeatColumn
 import movie.seat.SeatRow
 import woowacourse.movie.R
-import woowacourse.movie.movieTicket.MovieTicketActivity
-import woowacourse.movie.uimodel.MovieTicketUi
+import woowacourse.movie.uimodel.MovieDetailUi
+import woowacourse.movie.utils.toDomain
 
 class MovieSeatActivity : AppCompatActivity() {
 
-    private val ticketUi by lazy { intent.getSerializableExtra(MovieTicketActivity.KEY_MOVIE_TICKET) as MovieTicketUi }
+    private val movieDetail by lazy { (intent.getSerializableExtra(KEY_MOVIE_DETAIL) as MovieDetailUi).toDomain() }
     private val selectedSeats: MutableList<Seat> = mutableListOf()
     private var totalPrice: Int = 0
 
@@ -27,7 +26,7 @@ class MovieSeatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_seat)
 
         val movieTitleView = findViewById<TextView>(R.id.seat_movie_title)
-        movieTitleView.text = ticketUi.title
+        movieTitleView.text = movieDetail.title
 
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table)
         val priceTextView = findViewById<TextView>(R.id.seat_ticket_price)
@@ -37,24 +36,29 @@ class MovieSeatActivity : AppCompatActivity() {
         seats.forEachIndexed { rowIndex, row ->
             row.forEachIndexed { columnIndex, textView ->
                 textView.setOnClickListener {
-                    val discountPolicy = NormalDiscountPolicy(ticketUi.date, ticketUi.time)
-
+                    val discountPolicy = NormalDiscountPolicy(movieDetail.date, movieDetail.time)
                     val seat = Seat(SeatRow.of(rowIndex), SeatColumn.of(columnIndex))
-                    if (!selectedSeats.contains(seat)) {
-                        selectedSeats.add(seat)
-                        totalPrice += discountPolicy.getDiscountPrice(seat.getSeatPrice())
-                        textView.setBackgroundColor(ContextCompat.getColor(this, R.color.selected_background))
-                    } else {
-                        selectedSeats.remove(seat)
-                        totalPrice -= discountPolicy.getDiscountPrice(seat.getSeatPrice())
-                        textView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+
+                    when {
+                        !selectedSeats.contains(seat) && movieDetail.isUpOfCount(selectedSeats.size) -> {
+                            selectedSeats.add(seat)
+                            totalPrice += discountPolicy.getDiscountPrice(seat.getSeatPrice())
+                            textView.setBackgroundColor(ContextCompat.getColor(this, R.color.selected_background))
+                        }
+                        !selectedSeats.contains(seat) && !movieDetail.isUpOfCount(selectedSeats.size) -> Unit
+                        else -> {
+                            selectedSeats.remove(seat)
+                            totalPrice -= discountPolicy.getDiscountPrice(seat.getSeatPrice())
+                            textView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+                        }
                     }
                     priceTextView.text = getString(R.string.total_price).format(totalPrice)
-
-                    Log.d("krrong", "${rowIndex}행 ${columnIndex}열 클릭됨")
-                    Log.d("krrong", selectedSeats.size.toString())
                 }
             }
         }
+    }
+
+    companion object {
+        const val KEY_MOVIE_DETAIL = "movieDetailUi"
     }
 }

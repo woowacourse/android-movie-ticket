@@ -1,11 +1,11 @@
 package woowacourse.movie.utils
 
 import movie.data.Movie
+import movie.data.MovieDetail
 import movie.data.MovieSchedule
-import movie.data.MovieTicket
 import movie.screening.ScreeningDate
+import woowacourse.movie.uimodel.MovieDetailUi
 import woowacourse.movie.uimodel.MovieScheduleUi
-import woowacourse.movie.uimodel.MovieTicketUi
 
 fun MovieScheduleUi.toDomain(): MovieSchedule {
     return MovieSchedule(
@@ -21,6 +21,6 @@ fun MovieScheduleUi.toDomain(): MovieSchedule {
     )
 }
 
-fun MovieTicketUi.toDomain(): MovieTicket {
-    return MovieTicket(eachPrice, count, title, date, time)
+fun MovieDetailUi.toDomain(): MovieDetail {
+    return MovieDetail(count, title, date, time)
 }

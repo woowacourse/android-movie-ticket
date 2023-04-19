@@ -8,6 +8,8 @@ value class TicketCount(private val value: Int) {
 
     fun toInt(): Int = value
 
+    fun isUp(other: Int): Boolean = value > other
+
     private fun willUnder(): Boolean = value - STEP <= MIN_COUNT
 
     operator fun inc(): TicketCount {
