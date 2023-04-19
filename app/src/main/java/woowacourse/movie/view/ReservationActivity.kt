@@ -159,6 +159,7 @@ class ReservationActivity : AppCompatActivity() {
 
             val intent = Intent(this, SeatSelectionActivity::class.java)
             intent.putExtra(RESERVATION_OPTIONS, reservationOptions)
+            intent.putExtra(MOVIE, movie)
             startActivity(intent)
         }
     }
@@ -191,6 +192,7 @@ class ReservationActivity : AppCompatActivity() {
 
     companion object {
         const val RESERVATION_OPTIONS = "RESERVATION_OPTIONS"
+        const val MOVIE = "MOVIE"
         private const val PEOPLE_COUNT = "PEOPLE_COUNT"
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"
