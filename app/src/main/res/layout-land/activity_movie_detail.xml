@@ -170,7 +170,7 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/button_radius"
             android:paddingVertical="8dp"
-            android:text="@string/end_booking"
+            android:text="@string/select_seat"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

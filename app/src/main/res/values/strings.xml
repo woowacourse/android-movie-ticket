@@ -7,8 +7,10 @@
     <string name="now_booking">지금 예매</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
-    <string name="end_booking">예매 완료</string>
+    <string name="select_seat">좌석 선택</string>
     <string name="ticket_message">영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다.</string>
     <string name="ticket_number">일반 %d명</string>
     <string name="ticket_price">%d원 (현장 결제)</string>
+    <string name="ticket_price_seat_page">%d원</string>
+    <string name="screen">SCREEN</string>
 </resources>
