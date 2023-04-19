@@ -18,7 +18,7 @@ import domain.movieinfo.MovieTime
 import domain.screeningschedule.ReservationDate
 import domain.screeningschedule.ReservationTime
 import woowacourse.movie.R
-import woowacourse.movie.TicketActivity
+import woowacourse.movie.SeatSelectionActivity
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.TicketCountDto
@@ -122,7 +122,7 @@ class MovieDetailActivity : AppCompatActivity() {
         bookBtn.setOnClickListener {
             val selectedDate = MovieDate.of(selectDateSpinner.selectedItem.toString())
             val selectedTime = MovieTime.of(selectTimeSpinner.selectedItem.toString())
-            val intent = Intent(this, TicketActivity::class.java)
+            val intent = Intent(this, SeatSelectionActivity::class.java)
             intent.putExtra(TICKET_KEY, movieTikcet)
             intent.putExtra(MOVIE_KEY, movie)
             intent.putExtra(DATE_KEY, selectedDate.mapToMovieDateDto())

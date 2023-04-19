@@ -9,4 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar">#6200EE</color>
     <color name="ticket_purple">#9160f9</color>
+    <color name="screen">#494949</color>
+    <color name="seat_activity">#EAEAEA</color>
+    <color name="b_seat_color">#8E13EF</color>
+    <color name="s_seat_color">#19D358</color>
+    <color name="a_seat_color">#1B48E9</color>
+    <color name="price_color">#727272</color>
+    <color name="not_enter">#B7B7B7</color>
+    <color name="enter">#6200EE</color>
+    <color name="select_seat">#FAFF00</color>
 </resources>
