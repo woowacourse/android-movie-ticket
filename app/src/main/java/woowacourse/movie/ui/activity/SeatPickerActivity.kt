@@ -8,14 +8,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.ui.data.Column
-import woowacourse.movie.ui.data.Row
-import woowacourse.movie.ui.data.Seat
 import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieTicketModel
+import woowacourse.movie.ui.seat.Column
+import woowacourse.movie.ui.seat.Rank
+import woowacourse.movie.ui.seat.Row
+import woowacourse.movie.ui.seat.Seat
 
 class SeatPickerActivity : AppCompatActivity() {
     private var count = 0
+    private val ranks = listOf(Rank.B, Rank.B, Rank.S, Rank.S, Rank.A)
+    private val seats =
+        Row.createRows(5).flatMapIndexed { rowIndex, row -> Column.createColumns(4).map { column -> Seat(row, column, ranks[rowIndex]) } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +52,9 @@ class SeatPickerActivity : AppCompatActivity() {
     }
 
     private fun setSeatViews(seatViews: List<TextView>, ticket: MovieTicketModel) {
-        val seats =
-            Row.values().flatMap { row -> Column.values().map { column -> Seat(row, column) } }
         seatViews.zip(seats) { view, seat ->
-            view.text = getString(R.string.seat, seat.row.name, seat.column.number)
-            view.setTextColor(getColor(seat.row.color))
+            view.text = getString(R.string.seat, seat.row.value, seat.column.value)
+            view.setTextColor(getColor(seat.rank.color))
             view.setOnClickListener {
                 selectSeat(view, ticket)
                 changeDoneButtonState(ticket)
