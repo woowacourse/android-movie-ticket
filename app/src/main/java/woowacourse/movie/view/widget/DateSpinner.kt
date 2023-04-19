@@ -3,8 +3,8 @@ package woowacourse.movie.view.widget
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import woowacourse.movie.view.LocalFormattedDate
-import woowacourse.movie.view.MovieViewData
+import woowacourse.movie.view.data.LocalFormattedDate
+import woowacourse.movie.view.data.MovieViewData
 
 class DateSpinner(val spinner: SaveStateSpinner) {
     fun make(

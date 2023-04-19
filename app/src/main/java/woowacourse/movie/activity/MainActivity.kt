@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieMock
 import woowacourse.movie.view.MovieAdapter
-import woowacourse.movie.view.MovieViewDatas
+import woowacourse.movie.view.data.MovieViewDatas
 import woowacourse.movie.view.mapper.MovieMapper.toView
 
 class MainActivity : AppCompatActivity() {

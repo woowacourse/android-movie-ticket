@@ -3,7 +3,7 @@ package woowacourse.movie.view.widget
 import android.content.Intent
 import android.widget.Button
 import woowacourse.movie.activity.ReservationResultActivity
-import woowacourse.movie.view.ReservationData
+import woowacourse.movie.view.data.ReservationData
 
 class ReservationButton(
     private val button: Button

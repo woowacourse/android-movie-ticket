@@ -11,10 +11,10 @@ import woowacourse.movie.domain.discountPolicy.Discount
 import woowacourse.movie.domain.discountPolicy.MovieDay
 import woowacourse.movie.domain.discountPolicy.OffTime
 import woowacourse.movie.getSerializable
-import woowacourse.movie.view.LocalFormattedDate
-import woowacourse.movie.view.LocalFormattedTime
-import woowacourse.movie.view.MovieViewData
-import woowacourse.movie.view.ReservationData
+import woowacourse.movie.view.data.LocalFormattedDate
+import woowacourse.movie.view.data.LocalFormattedTime
+import woowacourse.movie.view.data.MovieViewData
+import woowacourse.movie.view.data.ReservationData
 import woowacourse.movie.view.mapper.ReservationDetailMapper.toView
 import woowacourse.movie.view.widget.Counter
 import woowacourse.movie.view.widget.DateSpinner

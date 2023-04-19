@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.ReservationDetail
 import woowacourse.movie.getSerializable
-import woowacourse.movie.view.MovieViewData
-import woowacourse.movie.view.ReservationData
+import woowacourse.movie.view.data.MovieViewData
+import woowacourse.movie.view.data.ReservationData
 import woowacourse.movie.view.mapper.ReservationDetailMapper.toDomain
 import woowacourse.movie.view.widget.MovieController
 import woowacourse.movie.view.widget.MovieView

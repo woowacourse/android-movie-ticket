@@ -1,7 +1,7 @@
 package woowacourse.movie.view.mapper
 
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.view.MovieViewData
+import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.mapper.DateRangeMapper.toDomain
 import woowacourse.movie.view.mapper.DateRangeMapper.toView
 import woowacourse.movie.view.mapper.ImageMapper.toDomain

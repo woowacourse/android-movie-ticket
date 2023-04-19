@@ -1,7 +1,7 @@
 package woowacourse.movie.view.widget
 
 import woowacourse.movie.R
-import woowacourse.movie.view.MovieViewData
+import woowacourse.movie.view.data.MovieViewData
 import java.time.format.DateTimeFormatter
 
 class MovieController(

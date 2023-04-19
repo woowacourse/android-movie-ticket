@@ -10,6 +10,8 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import woowacourse.movie.R
 import woowacourse.movie.activity.MovieReservationActivity
+import woowacourse.movie.view.data.MovieViewData
+import woowacourse.movie.view.data.MovieViewDatas
 import woowacourse.movie.view.widget.MovieController
 import woowacourse.movie.view.widget.MovieView
 
