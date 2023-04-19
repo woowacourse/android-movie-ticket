@@ -11,9 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.MovieDetailActivity
-import woowacourse.movie.model.MovieUiModel
+import woowacourse.movie.model.MovieModel
 
-class MovieListAdapter(private val movies: List<MovieUiModel>) :
+class MovieListAdapter(private val movies: List<MovieModel>) :
     BaseAdapter() {
     private val viewHolder: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
@@ -51,12 +51,12 @@ class MovieListAdapter(private val movies: List<MovieUiModel>) :
         return ViewHolder(image, title, playingDate, runningTime, ticketingButton)
     }
 
-    private fun setViewHolder(context: Context, holder: ViewHolder, movie: MovieUiModel) {
+    private fun setViewHolder(context: Context, holder: ViewHolder, movie: MovieModel) {
         holder.image.setImageResource(movie.image)
         holder.title.text = movie.title
         holder.playingDate.text = context.getString(
-            R.string.playing_time, movie.playingTimes.startDateString,
-            movie.playingTimes.endDateString
+            R.string.playing_time, movie.playingTimes.startDate,
+            movie.playingTimes.endDate
         )
         holder.runningTime.text = context.getString(R.string.running_time, movie.runningTime)
         holder.ticketingButton.setOnClickListener {

@@ -3,9 +3,11 @@ package woowacourse.movie.activity
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.domain.model.Movie
+import com.example.domain.model.PlayingTimes
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.model.MovieUiModel
+import woowacourse.movie.model.toMovieModel
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
@@ -18,16 +20,17 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun initListView() {
         val listView = findViewById<ListView>(R.id.list_view)
-        val adapter = MovieListAdapter(getMovieData())
+        val movieUiModels = getMovieData().map { it.toMovieModel() }
+        val adapter = MovieListAdapter(movieUiModels)
         listView.adapter = adapter
     }
 
-    private fun getMovieData(): List<MovieUiModel> {
+    private fun getMovieData(): List<Movie> {
         val movies = List(1000) {
-            MovieUiModel(
+            Movie(
                 R.drawable.img,
                 "해리포터와 마법사의 돌",
-                com.example.domain.model.PlayingTimes(
+                PlayingTimes(
                     LocalDate.of(2023, 3, 1),
                     LocalDate.of(2023, 3, 31)
                 ),
