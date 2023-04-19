@@ -1,11 +1,11 @@
 package woowacourse.movie.policy
 
-import java.time.LocalDateTime
+import woowacourse.movie.ticket.Ticket
 
-class DefaultPolicy(bookedDateTime: LocalDateTime) : Policy(bookedDateTime) {
-    override val defaultPayment: Int = 13_000
+class DefaultPolicy(ticket: Ticket) : Policy(ticket) {
+    override val payment: Int = ticket.seat.rank.price
 
     override fun cost(): Int {
-        return defaultPayment
+        return payment
     }
 }

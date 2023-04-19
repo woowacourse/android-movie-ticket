@@ -4,13 +4,13 @@ import woowacourse.movie.policy.Policy
 
 class DatePolicy(policy: Policy) : PolicyDecorator(policy) {
     override fun cost(): Int {
-        var payment = defaultPayment
+        var payment = payment
         payment = movieDayDiscount(payment)
         return payment
     }
 
     private fun movieDayDiscount(price: Int): Int {
-        if (bookedDateTime.dayOfMonth in MOVIE_DAYS) return (price * DISCOUNTED_PRICE_RATE).toInt()
+        if (ticket.bookedDateTime.dayOfMonth in MOVIE_DAYS) return (price * DISCOUNTED_PRICE_RATE).toInt()
         return price
     }
 
