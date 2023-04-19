@@ -12,4 +12,7 @@
     <string name="general_person">일반</string>
     <string name="reservation_people_count_format">%s %s명</string>
     <string name="total_price_format">%s원 (현장 결제)</string>
+    <string name="reservation_fee_format">%s원</string>
+    <string name="confirm">확인</string>
+    <string name="screen">SCREEN</string>
 </resources>
