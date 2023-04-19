@@ -4,11 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import woowacourse.movie.databinding.ItemMovieBinding
-import woowacourse.movie.databinding.ItemNativeAdsBinding
+import woowacourse.movie.R
 import woowacourse.movie.presentation.activities.movielist.adapter.type.MovieViewType
 import woowacourse.movie.presentation.activities.movielist.adapter.viewholder.MovieViewHolder
-import woowacourse.movie.presentation.activities.movielist.adapter.viewholder.NativeAdsViewHolder
+import woowacourse.movie.presentation.activities.movielist.adapter.viewholder.NativeAdViewHolder
 import woowacourse.movie.presentation.model.movieitem.Ad
 import woowacourse.movie.presentation.model.movieitem.Movie
 
@@ -20,16 +19,17 @@ class MovieListAdapter(
 ) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
         when (viewType) {
             MovieViewType.MOVIE -> {
-                val movieView = ItemMovieBinding.inflate(layoutInflater, parent, false)
+                val movieView =
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
                 return MovieViewHolder(movieView, onBookBtnClick)
             }
 
             MovieViewType.AD -> {
-                val adView = ItemNativeAdsBinding.inflate(layoutInflater, parent, false)
-                return NativeAdsViewHolder(adView, onAdClick)
+                val adView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_native_ads, parent, false)
+                return NativeAdViewHolder(adView, onAdClick)
             }
         }
         throw IllegalArgumentException(INVALID_VIEW_TYPE_ERROR_MESSAGE)
@@ -38,7 +38,7 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
             is MovieViewHolder -> holder.bind(movies[getMoviePosition(position)])
-            is NativeAdsViewHolder -> holder.bind(ads[getAdPosition(position)])
+            is NativeAdViewHolder -> holder.bind(ads[getAdPosition(position)])
         }
     }
 

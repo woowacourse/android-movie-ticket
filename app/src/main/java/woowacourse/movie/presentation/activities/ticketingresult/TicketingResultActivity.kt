@@ -2,9 +2,9 @@ package woowacourse.movie.presentation.activities.ticketingresult
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.databinding.ActivityTicketingResultBinding
 import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Companion.MOVIE_KEY
 import woowacourse.movie.presentation.activities.ticketing.SeatPickerActivity
 import woowacourse.movie.presentation.activities.ticketing.SeatPickerActivity.Companion.PICKED_SEATS_KEY
@@ -21,12 +21,9 @@ import woowacourse.movie.presentation.model.TicketPrice
 import woowacourse.movie.presentation.model.movieitem.Movie
 
 class TicketingResultActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityTicketingResultBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTicketingResultBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_ticketing_result)
         showBackButton()
         showTicketingResult()
     }
@@ -42,9 +39,9 @@ class TicketingResultActivity : AppCompatActivity() {
         val movieTime = intent.getParcelableCompat<MovieTime>(MOVIE_TIME_KEY)!!
 
         intent.getParcelableCompat<Movie>(MOVIE_KEY)?.run {
-            binding.tvTitle.text = title
-            binding.tvSeats?.text = pickedSeats.sorted().toString()
-            binding.tvDate.text = getString(
+            findViewById<TextView>(R.id.tv_title).text = title
+            findViewById<TextView>(R.id.tv_seats).text = pickedSeats.sorted().toString()
+            findViewById<TextView>(R.id.tv_date).text = getString(
                 R.string.book_date_time,
                 movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
             )
@@ -56,8 +53,9 @@ class TicketingResultActivity : AppCompatActivity() {
         val ticketPrice =
             intent.getParcelableCompat<TicketPrice>(SeatPickerActivity.TOTAL_TICKET_PRICE_KEY)!!
 
-        binding.tvRegularCount.text = getString(R.string.regular_count, ticket.count)
-        binding.tvPayResult.text = getString(
+        findViewById<TextView>(R.id.tv_regular_count).text =
+            getString(R.string.regular_count, ticket.count)
+        findViewById<TextView>(R.id.tv_pay_result).text = getString(
             R.string.movie_pay_result,
             ticketPrice.amount,
             getString(R.string.on_site_payment)

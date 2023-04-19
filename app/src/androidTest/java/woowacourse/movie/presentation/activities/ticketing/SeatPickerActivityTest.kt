@@ -31,7 +31,7 @@ internal class SeatPickerActivityTest {
         endDate = LocalDate.of(2023, 4, 30),
         152,
         "테스트 영화 소개",
-        R.drawable.img_default_movie_thumbnail1,
+        R.drawable.img_sample_movie_thumbnail1,
     )
 
     // 무비 데이가 아니므로 할인 정책 적용 안 된다고 가정한다

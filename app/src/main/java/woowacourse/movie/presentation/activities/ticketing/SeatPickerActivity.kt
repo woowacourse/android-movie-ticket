@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TableLayout
 import android.widget.TableRow
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.databinding.ActivitySeatPickerBinding
-import woowacourse.movie.databinding.ItemMovieSeatBinding
 import woowacourse.movie.domain.model.discount.policy.MovieDayDiscountPolicy
 import woowacourse.movie.domain.model.discount.policy.MovieTimeDiscountPolicy
 import woowacourse.movie.domain.model.seat.DomainPickedSeats
@@ -36,8 +36,6 @@ import woowacourse.movie.presentation.model.TicketPrice
 import woowacourse.movie.presentation.model.movieitem.Movie
 
 class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var binding: ActivitySeatPickerBinding
-
     private var pickedSeats = DomainPickedSeats()
     private val seatRowSize: Int = 5
     private val seatColSize: Int = 4
@@ -54,7 +52,7 @@ class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         restoreState(savedInstanceState)
-        binding = ActivitySeatPickerBinding.inflate(layoutInflater).also { setContentView(it.root) }
+        setContentView(R.layout.activity_seat_picker)
         initView()
     }
 
@@ -74,22 +72,23 @@ class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun showMovieTitle() {
-        binding.movieTitleTv.text = movie.title
+        findViewById<TextView>(R.id.movie_title_tv).text = movie.title
     }
 
     private fun setOnClickListener() {
-        binding.doneBtn.setOnClickListener(this)
+        findViewById<TextView>(R.id.done_btn).setOnClickListener(this)
     }
 
     private fun updateDoneBtnEnabled(isEnabled: Boolean) {
-        binding.doneBtn.isEnabled = isEnabled
+        findViewById<TextView>(R.id.done_btn).isEnabled = isEnabled
     }
 
     private fun canPick(): Boolean =
         pickedSeats.canPick(ticket.toDomain())
 
     private fun updateTotalPriceView(ticketPrice: TicketPrice) {
-        binding.totalPriceTv.text = getString(R.string.movie_pay_price, ticketPrice.amount)
+        findViewById<TextView>(R.id.total_price_tv).text =
+            getString(R.string.movie_pay_price, ticketPrice.amount)
     }
 
     private fun calculateTotalPrice(): TicketPrice = pickedSeats.calculateTotalPrice(
@@ -99,7 +98,7 @@ class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initSeatTable(rowSize: Int, colSize: Int) {
         SeatRow.make(rowSize).forEach { seatRow ->
-            binding.seatTable.addView(makeSeatTableRow(seatRow, colSize))
+            findViewById<TableLayout>(R.id.seat_table).addView(makeSeatTableRow(seatRow, colSize))
         }
     }
 
@@ -113,22 +112,22 @@ class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
         val seat = Seat(row, col).toDomain()
         return seat.toPresentation().makeView(this, isPicked(seat)) {
             when {
-                isPicked(seat) -> unpick(seat)
-                canPick() -> pick(seat)
+                isPicked(seat) -> unpick(this, seat)
+                canPick() -> pick(this, seat)
                 else -> showToast(getString(R.string.exceed_pickable_seat))
             }
         }
     }
 
-    private fun ItemMovieSeatBinding.unpick(seat: DomainSeat) {
-        seatNumberTv.isSelected = false
+    private fun unpick(seatView: View, seat: DomainSeat) {
+        seatView.findViewById<TextView>(R.id.seat_number_tv).isSelected = false
         pickedSeats = pickedSeats.remove(seat)
         updateTotalPriceView(calculateTotalPrice())
         updateDoneBtnEnabled(!canPick())
     }
 
-    private fun ItemMovieSeatBinding.pick(seat: DomainSeat) {
-        seatNumberTv.isSelected = true
+    private fun pick(seatView: View, seat: DomainSeat) {
+        seatView.findViewById<TextView>(R.id.seat_number_tv).isSelected = true
         pickedSeats = pickedSeats.add(seat)
         updateTotalPriceView(calculateTotalPrice())
         updateDoneBtnEnabled(!canPick())

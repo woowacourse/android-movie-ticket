@@ -4,9 +4,10 @@ import android.content.Context
 import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.databinding.ItemMovieSeatBinding
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.seat.SeatClass
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toPresentation
@@ -19,17 +20,17 @@ class Seat(
     fun makeView(
         context: Context,
         isChecked: Boolean = false,
-        onClick: ItemMovieSeatBinding.() -> Unit = {},
-    ): View =
-        ItemMovieSeatBinding.inflate(LayoutInflater.from(context)).apply {
-            val rowPosition = row.toDomain().value
-            val seatColorResId = SeatClass.get(rowPosition).toPresentation().colorResId
+        onClick: View.() -> Unit = {},
+    ): View = LayoutInflater.from(context).inflate(R.layout.item_movie_seat, null).apply {
+        val rowPosition = row.toDomain().value
+        val seatColorResId = SeatClass.get(rowPosition).toPresentation().colorResId
+        val seatNumberTextView = findViewById<TextView>(R.id.seat_number_tv)
 
-            seatNumberTv.text = this@Seat.toString()
-            seatNumberTv.setTextColor(ContextCompat.getColor(context, seatColorResId))
-            seatNumberTv.isSelected = isChecked
-            root.setOnClickListener { onClick(this) }
-        }.root
+        seatNumberTextView.text = this@Seat.toString()
+        seatNumberTextView.setTextColor(ContextCompat.getColor(context, seatColorResId))
+        seatNumberTextView.isSelected = isChecked
+        setOnClickListener { onClick(this) }
+    }
 
     override fun compareTo(other: Seat): Int {
         val rowCompare = row.compareTo(other.row)
