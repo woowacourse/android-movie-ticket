@@ -4,6 +4,7 @@ import android.os.Bundle
 import woowacourse.movie.domain.movieTimePolicy.MovieTime
 import woowacourse.movie.domain.movieTimePolicy.WeekdayMovieTime
 import woowacourse.movie.domain.movieTimePolicy.WeekendMovieTime
+import woowacourse.movie.view.LocalFormattedTime
 import java.time.LocalDate
 
 class TimeSpinner(val spinner: SaveStateSpinner) {
