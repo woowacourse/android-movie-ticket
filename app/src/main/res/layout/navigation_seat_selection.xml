@@ -33,7 +33,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/seat_selection_confirm_enable"
+        android:background="@drawable/selector_seat_selection_confirm_enable"
         android:text="@string/seat_selection_confirm"
         android:gravity="center"
         android:enabled="false"

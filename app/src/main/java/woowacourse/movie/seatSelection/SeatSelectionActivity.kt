@@ -47,7 +47,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.seat_selection_activity)
+        setContentView(R.layout.activity_seat_selection)
 
         initToolbar()
         seatSelectionView

@@ -19,7 +19,7 @@ class MovieListAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         return if (viewType == TYPE_MOVIE) {
             MovieViewHolder(
-                layoutInflater.inflate(R.layout.item_movie_list, parent, false),
+                layoutInflater.inflate(R.layout.item_movie_movie_list, parent, false),
             )
         } else {
             AdViewHolder(
