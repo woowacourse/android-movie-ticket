@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.view.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.presentation.view.main.data.MovieDummyData
 
@@ -15,9 +16,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setListView() {
-        val listView = binding.lvMovieList
+        val listView = binding.rvMovieList
         val movies = MovieDummyData.values
-        val adapter = MovieListAdapter(movies)
+        val adapter = MovieListAdapter(movies, getDrawable(R.drawable.advertise_wooteco)!!)
         listView.adapter = adapter
     }
 }

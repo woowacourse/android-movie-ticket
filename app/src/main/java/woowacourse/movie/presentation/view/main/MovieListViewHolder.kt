@@ -1,11 +1,12 @@
 package woowacourse.movie.presentation.view.main
 
 import android.content.Intent
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.databinding.ItemMovieListBinding
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presentation.view.movie_detail.MovieDetailActivity
 
-class MovieListViewHolder(binding: ItemMovieListBinding) {
+class MovieListViewHolder(binding: ItemMovieListBinding) : RecyclerView.ViewHolder(binding.root) {
     private val context = binding.root.context
     private val ivMoviePoster = binding.ivMoviePoster
     private val tvMovieTitle = binding.tvMovieTitle
