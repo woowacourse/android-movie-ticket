@@ -249,17 +249,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            tools:text="해리포터와 마법사의 돌"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="해리포터와 마법사의 돌" />
 
         <TextView
             android:id="@+id/seat_selection_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            tools:text="0원"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="0원" />
 
     </LinearLayout>
 
@@ -268,6 +268,7 @@
         android:layout_width="wrap_content"
         android:layout_height="78dp"
         android:background="@drawable/rectangle_button"
+        android:enabled="false"
         android:text="확인"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

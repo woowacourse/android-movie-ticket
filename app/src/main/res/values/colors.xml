@@ -14,4 +14,5 @@
     <color name="seat_A_B">#8E13EF</color>
     <color name="seat_C_D">#19D358</color>
     <color name="seat_E">#1B48E9</color>
+    <color name="seat_select_state">#FAFF00</color>
 </resources>
