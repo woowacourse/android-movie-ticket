@@ -10,6 +10,7 @@ import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.utils.getCustomSerializableExtra
+import woowacourse.movie.utils.showToast
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -39,11 +40,18 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo() {
-        intent.getCustomSerializableExtra<MovieTicket>(KEY_TICKET)?.let { ticket ->
-            findViewById<TextView>(R.id.ticket_title).text = ticket.title
-            findViewById<TextView>(R.id.ticket_date).text = ticket.time.format()
-            findViewById<TextView>(R.id.ticket_people_count).text = getString(R.string.people_count, ticket.peopleCount.count)
-            findViewById<TextView>(R.id.ticket_price).text = getString(R.string.price_with_unit, DecimalFormat("#,###").format(ticket.getPrice()))
+        val ticket = intent.getCustomSerializableExtra<MovieTicket>(KEY_TICKET)
+
+        if (ticket == null) {
+            showToast(getString(R.string.error_loading))
+            finish()
+        }
+
+        ticket?.let { it ->
+            findViewById<TextView>(R.id.ticket_title).text = it.title
+            findViewById<TextView>(R.id.ticket_date).text = it.time.format()
+            findViewById<TextView>(R.id.ticket_people_count).text = getString(R.string.people_count, it.peopleCount.count)
+            findViewById<TextView>(R.id.ticket_price).text = getString(R.string.price_with_unit, DecimalFormat("#,###").format(it.getPrice()))
         }
     }
 

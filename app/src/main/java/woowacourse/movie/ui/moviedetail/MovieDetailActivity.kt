@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
@@ -23,6 +22,7 @@ import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.ui.ticket.MovieTicketActivity
 import woowacourse.movie.utils.getCustomSerializableExtra
+import woowacourse.movie.utils.showToast
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -43,7 +43,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val movie: Movie? = intent.getCustomSerializableExtra(KEY_MOVIE)
         if (movie == null) {
-            Toast.makeText(this, getString(R.string.error_loading), Toast.LENGTH_SHORT).show()
+            showToast(getString(R.string.error_loading))
+            finish()
         }
 
         movie?.let { it ->
