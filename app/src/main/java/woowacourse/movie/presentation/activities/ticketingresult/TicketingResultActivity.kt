@@ -39,9 +39,9 @@ class TicketingResultActivity : AppCompatActivity() {
         val movieTime = intent.getParcelableCompat<MovieTime>(MOVIE_TIME_KEY)!!
 
         intent.getParcelableCompat<Movie>(MOVIE_KEY)?.run {
-            findViewById<TextView>(R.id.tv_title).text = title
-            findViewById<TextView>(R.id.tv_seats).text = pickedSeats.sorted().toString()
-            findViewById<TextView>(R.id.tv_date).text = getString(
+            findViewById<TextView>(R.id.title_tv).text = title
+            findViewById<TextView>(R.id.seats_tv).text = pickedSeats.sorted().toString()
+            findViewById<TextView>(R.id.date_tv).text = getString(
                 R.string.book_date_time,
                 movieDate.year, movieDate.month, movieDate.day, movieTime.hour, movieTime.min
             )
@@ -53,9 +53,9 @@ class TicketingResultActivity : AppCompatActivity() {
         val ticketPrice =
             intent.getParcelableCompat<TicketPrice>(SeatPickerActivity.TOTAL_TICKET_PRICE_KEY)!!
 
-        findViewById<TextView>(R.id.tv_regular_count).text =
+        findViewById<TextView>(R.id.regular_count_tv).text =
             getString(R.string.regular_count, ticket.count)
-        findViewById<TextView>(R.id.tv_pay_result).text = getString(
+        findViewById<TextView>(R.id.pay_result_tv).text = getString(
             R.string.movie_pay_result,
             ticketPrice.amount,
             getString(R.string.on_site_payment)

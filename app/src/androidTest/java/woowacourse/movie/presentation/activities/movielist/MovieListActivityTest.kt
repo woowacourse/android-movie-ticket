@@ -59,7 +59,7 @@ class MovieListActivityTest {
 
     private fun setCustomAdapter(movieSize: Int, adSize: Int) {
         activityRule.scenario.onActivity { activity ->
-            val movieRecyclerView = activity.findViewById<RecyclerView>(R.id.rv_movies)
+            val movieRecyclerView = activity.findViewById<RecyclerView>(R.id.movies_recycler_view)
 
             movieRecyclerView.adapter = MovieListAdapter(
                 List(movieSize) { Movie("테스트1", 100) },
@@ -80,14 +80,14 @@ class MovieListActivityTest {
 
         setCustomAdapter(movieSize, adSize)
 
-        onView(withId(R.id.rv_movies))
+        onView(withId(R.id.movies_recycler_view))
             .check(matchItemCount(expected))
     }
 
     @Test
     internal fun 세_번에_한_번씩_광고가_등장한다() {
         activityRule.scenario.onActivity { activity ->
-            val recyclerView = activity.findViewById<RecyclerView>(R.id.rv_movies)
+            val recyclerView = activity.findViewById<RecyclerView>(R.id.movies_recycler_view)
 
             val expected = recyclerView.adapter?.getItemViewType(adInterval)
             val actual = MovieViewType.AD
@@ -99,7 +99,7 @@ class MovieListActivityTest {
     @Test
     internal fun 세_번에_한_번_외에는_영화_정보가_등장한다() {
         activityRule.scenario.onActivity { activity ->
-            val recyclerView = activity.findViewById<RecyclerView>(R.id.rv_movies)
+            val recyclerView = activity.findViewById<RecyclerView>(R.id.movies_recycler_view)
 
             for (position in 0 until adInterval) {
                 val expected = recyclerView.adapter?.getItemViewType(position)
@@ -112,10 +112,10 @@ class MovieListActivityTest {
 
     @Test
     internal fun 영화를_클릭하면_티켓팅_화면으로_이동한다() {
-        onView(withId(R.id.rv_movies))
+        onView(withId(R.id.movies_recycler_view))
             .check(matches(isDisplayed()))
             .perform(
-                actionOnItemAtPosition<RecyclerView.ViewHolder>(0, clickViewWithId(R.id.btn_book))
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(0, clickViewWithId(R.id.book_btn))
             )
 
         intended(hasComponent(TicketingActivity::class.java.name))

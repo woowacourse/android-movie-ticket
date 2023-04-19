@@ -10,7 +10,7 @@ class NativeAdViewHolder(
     view: View,
     private val onAdsClick: (Ad) -> Unit = {},
 ) : RecyclerView.ViewHolder(view) {
-    private val nativeAdsImageView: ImageView = view.findViewById(R.id.iv_native_ads)
+    private val nativeAdsImageView: ImageView = view.findViewById(R.id.native_ad_iv)
     private val rootView: View = view.findViewById(R.id.root)
 
     fun bind(item: Ad) {

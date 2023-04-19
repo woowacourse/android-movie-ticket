@@ -7,7 +7,7 @@
     tools:context=".presentation.activities.ticketing.TicketingActivity">
 
     <ScrollView
-        android:id="@+id/sv_movie_info"
+        android:id="@+id/movie_info_sv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_poster"
+                android:id="@+id/poster_iv"
                 android:layout_width="match_parent"
                 android:layout_height="340dp"
                 android:scaleType="centerCrop"
@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/title_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -42,7 +42,7 @@
                 tools:text="해리 포터와 마법사의 돌" />
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/date_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -52,7 +52,7 @@
                 tools:text="상영일: 2024.3.1" />
 
             <TextView
-                android:id="@+id/tv_running_time"
+                android:id="@+id/running_time_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -62,7 +62,7 @@
 
 
             <TextView
-                android:id="@+id/tv_introduce"
+                android:id="@+id/introduce_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -83,59 +83,59 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Spinner
-            android:id="@+id/spinner_movie_date"
+            android:id="@+id/movie_date_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_minus"
-            app:layout_constraintEnd_toStartOf="@id/spinner_movie_time"
+            app:layout_constraintBottom_toTopOf="@id/minus_btn"
+            app:layout_constraintEnd_toStartOf="@id/movie_time_spinner"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner_movie_time"
+            android:id="@+id/movie_time_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/spinner_movie_date"
+            app:layout_constraintBottom_toBottomOf="@+id/movie_date_spinner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/spinner_movie_date" />
+            app:layout_constraintStart_toEndOf="@id/movie_date_spinner" />
 
 
         <Button
-            android:id="@+id/btn_minus"
+            android:id="@+id/minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="@string/minus_ticket"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/btn_ticketing"
+            app:layout_constraintBottom_toTopOf="@+id/ticketing_btn"
             app:layout_constraintStart_toStartOf="@id/ticketing_container" />
 
         <Button
-            android:id="@+id/btn_plus"
+            android:id="@+id/plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/plus_ticket"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_minus"
+            app:layout_constraintBottom_toBottomOf="@+id/minus_btn"
             app:layout_constraintEnd_toEndOf="@id/ticketing_container" />
 
         <TextView
-            android:id="@+id/tv_ticket_count"
+            android:id="@+id/ticket_count_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/btn_minus"
-            app:layout_constraintEnd_toStartOf="@id/btn_plus"
-            app:layout_constraintStart_toEndOf="@id/btn_minus"
-            app:layout_constraintTop_toTopOf="@id/btn_minus" />
+            app:layout_constraintBottom_toBottomOf="@id/minus_btn"
+            app:layout_constraintEnd_toStartOf="@id/plus_btn"
+            app:layout_constraintStart_toEndOf="@id/minus_btn"
+            app:layout_constraintTop_toTopOf="@id/minus_btn" />
 
         <Button
-            android:id="@+id/btn_ticketing"
+            android:id="@+id/ticketing_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/done_ticketing"

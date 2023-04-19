@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="@id/ticketing_header_container" />
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/title_tv"
         android:layout_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
         tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/date_tv"
         android:layout_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,11 +55,11 @@
         android:textSize="20sp"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
         tools:text="2024.3.1" />
 
     <TextView
-        android:id="@+id/tv_regular_count"
+        android:id="@+id/regular_count_tv"
         android:layout_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,12 +71,12 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@+id/tv_pay_result"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        app:layout_constraintBottom_toTopOf="@+id/pay_result_tv"
+        app:layout_constraintTop_toBottomOf="@id/date_tv"
         tools:text="일반 1명" />
 
     <TextView
-        android:id="@+id/tv_pay_result"
+        android:id="@+id/pay_result_tv"
         android:layout_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/tv_regular_count"
+        app:layout_constraintTop_toBottomOf="@id/regular_count_tv"
         tools:text="13,000원 (현장 결제)"
         app:layout_constraintBottom_toBottomOf="parent" />
 

@@ -27,7 +27,7 @@ class MovieListActivity : AppCompatActivity() {
             onBookBtnClick = { movie -> startTicketingActivity(movie) },
             onAdClick = { ads -> accessAdWebPage(ads) }
         )
-        findViewById<RecyclerView>(R.id.rv_movies).adapter = movieListAdapter
+        findViewById<RecyclerView>(R.id.movies_rv).adapter = movieListAdapter
     }
 
     private fun startTicketingActivity(movie: Movie) {

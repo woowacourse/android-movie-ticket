@@ -7,7 +7,7 @@
     android:background="@color/movie_select_background_color">
 
     <ScrollView
-        android:id="@+id/sv_seats"
+        android:id="@+id/seats_sv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="none"
