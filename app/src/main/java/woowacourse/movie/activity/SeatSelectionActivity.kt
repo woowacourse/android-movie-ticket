@@ -6,11 +6,6 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.TableSize
-import woowacourse.movie.domain.seat.MovieSeatRow
-import woowacourse.movie.domain.seat.Seat
-import woowacourse.movie.domain.seat.Seats
-import woowacourse.movie.view.data.SeatTable
 import woowacourse.movie.view.widget.SeatTableLayout
 
 class SeatSelectionActivity : AppCompatActivity() {
@@ -18,41 +13,26 @@ class SeatSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
-        makeSeatTableLayout(
-            makeSeatTable(SEAT_ROW_COUNT, SEAT_COLUMN_COUNT)
+        val seatTableLayout = SeatTableLayout.from(
+            findViewById(R.id.seat_selection_table), SEAT_ROW_COUNT, SEAT_COLUMN_COUNT, 3
         )
 
         findViewById<Button>(R.id.seat_selection_reserve_button).setOnClickListener {
-            onClickReserveButton()
+            onClickReserveButton(seatTableLayout)
         }
     }
 
-    private fun makeSeatTable(row: Int, column: Int): SeatTable {
-        return (0..row * column).map {
-            val y = it / column
-            val x = it % column
-            Seat(MovieSeatRow(y), x)
-        }.let {
-            SeatTable(Seats(it), TableSize(row, column))
-        }
-    }
-
-    private fun makeSeatTableLayout(seatTable: SeatTable) {
-        SeatTableLayout(findViewById(R.id.seat_selection_table))
-            .makeSeatTable(seatTable)
-    }
-
-    private fun onClickReserveButton() {
+    private fun onClickReserveButton(seatTableLayout: SeatTableLayout) {
         AlertDialog.Builder(this).setTitle(getString(R.string.seat_selection_alert_title))
             .setMessage(getString(R.string.seat_selection_alert_message))
             .setPositiveButton(getString(R.string.seat_selection_alert_positive)) { _, _ ->
-                onReserve()
+                reserveMovie(seatTableLayout)
             }.setNegativeButton(getString(R.string.seat_selection_alert_negative)) { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }
 
-    private fun onReserve() {
+    private fun reserveMovie(seatTableLayout: SeatTableLayout) {
         val intent = Intent(this, ReservationResultActivity::class.java)
         // intent.putExtra("", null)
         startActivity(intent)

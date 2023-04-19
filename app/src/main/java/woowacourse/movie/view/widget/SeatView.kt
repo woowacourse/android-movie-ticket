@@ -9,15 +9,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.view.data.SeatViewData
 
-class SeatView(context: Context, seat: SeatViewData, var isSeatSelected: Boolean = false) :
-    ConstraintLayout(context) {
-    init {
-        initLayout()
-        initText(seat)
-        setOnClickListener {
-            selectSeat()
-        }
-    }
+class SeatView private constructor(
+    context: Context,
+    var isSeatSelected: Boolean = false
+) : ConstraintLayout(context) {
 
     private fun initLayout() {
         LayoutInflater.from(context).inflate(R.layout.item_seat, this)
@@ -28,25 +23,32 @@ class SeatView(context: Context, seat: SeatViewData, var isSeatSelected: Boolean
 
     private fun initText(seat: SeatViewData) {
         val textView = findViewById<TextView>(R.id.item_seat_text)
-        textView.text =
-            context.getString(
-                R.string.seat_row_column,
-                seat.rowCharacter,
-                seat.column + COLUMN_FIXER
-            )
+        textView.text = context.getString(
+            R.string.seat_row_column, seat.rowCharacter, seat.column + COLUMN_FIXER
+        )
         textView.setTextColor(seat.color)
     }
 
-    private fun selectSeat() {
-        isSeatSelected = !isSeatSelected
-        if (isSeatSelected) {
-            setBackgroundColor(Color.parseColor("#FAFF00"))
-        } else {
+    private fun selectSeat(selectable: () -> Boolean) {
+        if (!isSeatSelected && selectable()) {
+            isSeatSelected = true
+            setBackgroundColor(context.getColor(R.color.selected_seat))
+        } else if (isSeatSelected) {
+            isSeatSelected = false
             setBackgroundColor(Color.WHITE)
         }
     }
 
     companion object {
         private const val COLUMN_FIXER = 1
+        fun from(context: Context, seat: SeatViewData, selectable: () -> Boolean): SeatView {
+            return SeatView(context).apply {
+                initLayout()
+                initText(seat)
+                setOnClickListener {
+                    selectSeat(selectable)
+                }
+            }
+        }
     }
 }
