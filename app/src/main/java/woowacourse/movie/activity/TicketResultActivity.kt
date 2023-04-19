@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.domain.model.formatter.DateFormatter
-import com.example.domain.model.formatter.DecimalFormatter
-import com.example.domain.model.formatter.TimeFormatter
 import com.example.domain.model.price.Price
 import com.example.domain.model.toUI
 import woowacourse.movie.R
+import woowacourse.movie.formatter.DateFormatter
+import woowacourse.movie.formatter.DecimalFormatter
+import woowacourse.movie.formatter.TimeFormatter
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -41,8 +41,8 @@ class TicketResultActivity : AppCompatActivity() {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
         playingDateView.text = getString(
             R.string.date_time,
-            DateFormatter.format(playingDate),
-            TimeFormatter.format(playingTime)
+            DateFormatter.formatToString(playingDate),
+            TimeFormatter.formatToString(playingTime)
         )
     }
 
@@ -53,7 +53,7 @@ class TicketResultActivity : AppCompatActivity() {
 
     private fun initPrice(price: Price, count: Int) {
         val priceView = findViewById<TextView>(R.id.text_price)
-        priceView.text = DecimalFormatter.format(price.price * count)
+        priceView.text = DecimalFormatter.formatToString(price.price * count)
     }
 
     private fun initPricePayment(payment: com.example.domain.model.Payment) {

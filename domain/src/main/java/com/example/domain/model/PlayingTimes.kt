@@ -1,16 +1,11 @@
 package com.example.domain.model
 
-import com.example.domain.model.formatter.DateFormatter
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-class PlayingTimes(startDate: LocalDate, endDate: LocalDate) :
-    java.io.Serializable {
-
-    val startDateString = DateFormatter.format(startDate)
-    val endDateString = DateFormatter.format(endDate)
+class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) {
 
     private val _playingDates: MutableList<LocalDate> = mutableListOf()
     val playingDates: List<LocalDate>

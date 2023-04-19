@@ -13,7 +13,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.model.price.Price
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieUiModel
+import woowacourse.movie.mapper.toPlayingTimes
+import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.PlayingTimesModel
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -28,7 +30,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDateSpinnerIndex = getSavedDateSpinnerIndex(savedInstanceState)
         val savedTimeSpinnerIndex = getSavedTimeSpinnerIndex(savedInstanceState)
 
-        val movie: MovieUiModel = getIntentMovieDate()
+        val movie: MovieModel = getIntentMovieDate()
 
         initMovieDataView(movie)
         initCountView(savedCount)
@@ -37,9 +39,9 @@ class MovieDetailActivity : AppCompatActivity() {
         setActionBar()
     }
 
-    private fun getIntentMovieDate(): MovieUiModel = intent.customGetSerializable(MOVIE_KEY)
+    private fun getIntentMovieDate(): MovieModel = intent.customGetSerializable(MOVIE_KEY)
 
-    private fun initMovieDataView(movie: MovieUiModel) {
+    private fun initMovieDataView(movie: MovieModel) {
         initImageView(movie.image)
         initTitle(movie.title)
         initPlayingDate(movie.playingTimes)
@@ -56,7 +58,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initSpinner(
         savedDateSpinnerIndex: Int,
         savedTimeSpinnerIndex: Int,
-        playingTimes: com.example.domain.model.PlayingTimes
+        playingTimes: PlayingTimesModel
     ) {
         initDateSpinner(savedDateSpinnerIndex, playingTimes)
         initTimeSpinner(savedTimeSpinnerIndex, playingTimes)
@@ -86,11 +88,11 @@ class MovieDetailActivity : AppCompatActivity() {
         titleView.text = title
     }
 
-    private fun initPlayingDate(times: com.example.domain.model.PlayingTimes) {
+    private fun initPlayingDate(times: PlayingTimesModel) {
         val playingDateView = findViewById<TextView>(R.id.text_playing_date)
         playingDateView.text = getString(
-            R.string.playing_time, times.startDateString,
-            times.endDateString
+            R.string.playing_time, times.startDate,
+            times.endDate
         )
     }
 
@@ -115,7 +117,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val countView = findViewById<TextView>(R.id.text_count)
         minusButton.setOnClickListener {
             val count = getCount()
-            if (count > 1) countView.text = (count - 1).toString()
+            if (count > 1) countView.text = (count.minus(1)).toString()
         }
     }
 
@@ -124,7 +126,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val countView = findViewById<TextView>(R.id.text_count)
         plusButton.setOnClickListener {
             val count = getCount()
-            countView.text = (count + 1).toString()
+            countView.text = (count.plus(1)).toString()
         }
     }
 
@@ -150,11 +152,11 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun getSavedTimeSpinnerIndex(savedInstanceState: Bundle?): Int =
         savedInstanceState?.getInt(SPINNER_TIME_KEY) ?: DEFAULT_POSITION
 
-    private fun initTimeSpinner(savedTimeSpinnerIndex: Int, playingTimes: com.example.domain.model.PlayingTimes) {
+    private fun initTimeSpinner(savedTimeSpinnerIndex: Int, playingTimes: PlayingTimesModel) {
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val selectedDate = playingTimes.playingDates[spinnerDate.selectedItemPosition]
-        val times = playingTimes.getTimes(selectedDate)
+        val selectedDate = playingTimes.toPlayingTimes().playingDates[spinnerDate.selectedItemPosition]
+        val times = playingTimes.toPlayingTimes().getTimes(selectedDate)
         spinnerTime.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, times).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -163,10 +165,10 @@ class MovieDetailActivity : AppCompatActivity() {
         spinnerTime.setSelection(savedTimeSpinnerIndex)
     }
 
-    private fun initDateSpinner(savedDateSpinnerIndex: Int, playingTimes: com.example.domain.model.PlayingTimes) {
+    private fun initDateSpinner(savedDateSpinnerIndex: Int, playingTimes: PlayingTimesModel) {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        val dates = playingTimes.playingDates
+        val dates = playingTimes.toPlayingTimes().playingDates
         spinnerDate.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, dates).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -179,7 +181,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun getCount(): Int = findViewById<TextView>(R.id.text_count).text.toString().toInt()
 
     class SpinnerListener(
-        private val playingTimes: com.example.domain.model.PlayingTimes,
+        private val playingTimes: PlayingTimesModel,
         private val dates: List<LocalDate>,
         private val spinnerTime: Spinner
     ) : AdapterView.OnItemSelectedListener {
@@ -189,7 +191,7 @@ class MovieDetailActivity : AppCompatActivity() {
             index: Int,
             p3: Long
         ) {
-            val times = playingTimes.getTimes(dates[index])
+            val times = playingTimes.toPlayingTimes().getTimes(dates[index])
             spinnerTime.adapter =
                 ArrayAdapter(spinnerTime.context, android.R.layout.simple_spinner_item, times)
         }
