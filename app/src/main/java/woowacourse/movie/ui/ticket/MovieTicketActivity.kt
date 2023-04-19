@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieTicket
+import woowacourse.movie.mapper.toDomain
+import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.utils.getCustomSerializableExtra
 import woowacourse.movie.utils.showToast
@@ -40,7 +42,7 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo() {
-        val ticket = intent.getCustomSerializableExtra<MovieTicket>(KEY_TICKET)
+        val ticket: MovieTicket? = intent.getCustomSerializableExtra<MovieTicketModel>(KEY_TICKET)?.toDomain()
 
         if (ticket == null) {
             showToast(getString(R.string.error_loading))
@@ -50,8 +52,10 @@ class MovieTicketActivity : AppCompatActivity() {
         ticket?.let { it ->
             findViewById<TextView>(R.id.ticket_title).text = it.title
             findViewById<TextView>(R.id.ticket_date).text = it.time.format()
-            findViewById<TextView>(R.id.ticket_people_count).text = getString(R.string.people_count, it.peopleCount.count)
-            findViewById<TextView>(R.id.ticket_price).text = getString(R.string.price_with_unit, DecimalFormat("#,###").format(it.getPrice()))
+            findViewById<TextView>(R.id.ticket_people_count).text =
+                getString(R.string.people_count, it.peopleCount.count)
+            findViewById<TextView>(R.id.ticket_price).text =
+                getString(R.string.price_with_unit, DecimalFormat("#,###").format(it.getPrice()))
         }
     }
 

@@ -17,6 +17,9 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TimesGenerator
+import woowacourse.movie.mapper.toDomain
+import woowacourse.movie.mapper.toModel
+import woowacourse.movie.model.MovieModel
 import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.ui.ticket.MovieTicketActivity
@@ -40,7 +43,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie: Movie? = intent.getCustomSerializableExtra(KEY_MOVIE)
+        val movie: Movie? = intent.getCustomSerializableExtra<MovieModel>(KEY_MOVIE)?.toDomain()
         if (movie == null) {
             showToast(getString(R.string.error_loading))
             finish()
@@ -169,7 +172,7 @@ class MovieDetailActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra(KEY_TICKET, ticket)
+        intent.putExtra(KEY_TICKET, ticket.toModel())
         startActivity(intent)
     }
 

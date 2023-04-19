@@ -6,6 +6,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.mapper.toModel
 import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import woowacourse.movie.utils.MockData
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun moveToDetailActivity(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(KEY_MOVIE, movie)
+        intent.putExtra(KEY_MOVIE, movie.toModel())
         startActivity(intent)
     }
 }
