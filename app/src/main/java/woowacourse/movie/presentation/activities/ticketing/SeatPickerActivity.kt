@@ -25,7 +25,6 @@ import woowacourse.movie.presentation.extensions.showToast
 import woowacourse.movie.presentation.extensions.title
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toPresentation
-import woowacourse.movie.presentation.model.Movie
 import woowacourse.movie.presentation.model.MovieDate
 import woowacourse.movie.presentation.model.MovieTime
 import woowacourse.movie.presentation.model.PickedSeats
@@ -34,6 +33,7 @@ import woowacourse.movie.presentation.model.SeatColumn
 import woowacourse.movie.presentation.model.SeatRow
 import woowacourse.movie.presentation.model.Ticket
 import woowacourse.movie.presentation.model.TicketPrice
+import woowacourse.movie.presentation.model.movieitem.Movie
 
 class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivitySeatPickerBinding

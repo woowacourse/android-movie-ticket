@@ -18,10 +18,10 @@ import woowacourse.movie.presentation.activities.movielist.MovieListActivity.Com
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_DATE_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_TIME_KEY
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.TICKET_KEY
-import woowacourse.movie.presentation.model.Movie
 import woowacourse.movie.presentation.model.MovieDate
 import woowacourse.movie.presentation.model.MovieTime
 import woowacourse.movie.presentation.model.Ticket
+import woowacourse.movie.presentation.model.movieitem.Movie
 import java.time.LocalDate
 
 internal class SeatPickerActivityTest {

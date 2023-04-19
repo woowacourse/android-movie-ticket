@@ -18,10 +18,10 @@ import woowacourse.movie.presentation.extensions.showBackButton
 import woowacourse.movie.presentation.extensions.showToast
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toPresentation
-import woowacourse.movie.presentation.model.Movie
 import woowacourse.movie.presentation.model.MovieDate
 import woowacourse.movie.presentation.model.MovieTime
 import woowacourse.movie.presentation.model.Ticket
+import woowacourse.movie.presentation.model.movieitem.Movie
 
 class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityTicketingBinding

@@ -13,12 +13,12 @@ import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Com
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity.Companion.MOVIE_TIME_KEY
 import woowacourse.movie.presentation.extensions.getParcelableCompat
 import woowacourse.movie.presentation.extensions.showBackButton
-import woowacourse.movie.presentation.model.Movie
 import woowacourse.movie.presentation.model.MovieDate
 import woowacourse.movie.presentation.model.MovieTime
 import woowacourse.movie.presentation.model.PickedSeats
 import woowacourse.movie.presentation.model.Ticket
 import woowacourse.movie.presentation.model.TicketPrice
+import woowacourse.movie.presentation.model.movieitem.Movie
 
 class TicketingResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTicketingResultBinding
