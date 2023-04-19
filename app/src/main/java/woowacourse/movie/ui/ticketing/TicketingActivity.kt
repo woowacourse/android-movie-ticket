@@ -23,7 +23,6 @@ import woowacourse.movie.model.TicketUI
 import woowacourse.movie.model.mapper.toMovie
 import woowacourse.movie.model.mapper.toReservationUI
 import woowacourse.movie.model.mapper.toTicket
-import woowacourse.movie.model.mapper.toTicketUI
 import woowacourse.movie.ui.movielist.MovieListActivity
 import woowacourse.movie.ui.ticketingresult.TicketingResultActivity
 import java.time.LocalDate
@@ -197,10 +196,10 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun minusTicketCount() =
-        setTicketCount(movieTicket.toTicket().run { dec().toTicketUI() })
+        setTicketCount(--movieTicket)
 
     private fun plusTicketCount() =
-        setTicketCount(movieTicket.toTicket().run { inc().toTicketUI() })
+        setTicketCount(++movieTicket)
 
     private fun onClickTicketing() {
         if (selectedDate == null || selectedTime == null) {
