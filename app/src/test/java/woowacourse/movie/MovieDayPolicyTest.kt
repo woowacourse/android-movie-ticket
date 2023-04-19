@@ -6,7 +6,7 @@ import org.junit.Test
 import java.time.LocalDate
 import java.time.LocalTime
 
-class MovieUiModelDayPolicyTest {
+class MovieDayPolicyTest {
 
     @Test
     fun `매월 10일 상영일은 10% 할인된다`() {
