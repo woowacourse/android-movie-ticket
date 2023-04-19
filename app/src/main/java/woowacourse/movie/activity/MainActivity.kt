@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieMock
 import woowacourse.movie.view.MovieAdapter
+import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.data.MovieViewDatas
 import woowacourse.movie.view.mapper.MovieMapper.toView
 
@@ -20,5 +21,14 @@ class MainActivity : AppCompatActivity() {
         val movieViewDatas = MovieViewDatas(listOf(MovieMock.create().toView()))
         val movieList = findViewById<ListView>(R.id.main_movie_list)
         movieList.adapter = MovieAdapter(movieViewDatas)
+        movieList.setOnItemClickListener { parent, _, position, _ ->
+            reserveMovie(parent.getItemAtPosition(position) as MovieViewData)
+        }
+    }
+
+    private fun reserveMovie(movie: MovieViewData) {
+        MovieReservationActivity.from(this, movie).run {
+            startActivity(this)
+        }
     }
 }
