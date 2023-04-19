@@ -15,5 +15,5 @@
     <color name="seat_background">#EAEAEA</color>
     <color name="screen_background">#494949</color>
     <color name="next_background">#B7B7B7</color>
-
+    <color name="selected_background">#FAFF00</color>
 </resources>

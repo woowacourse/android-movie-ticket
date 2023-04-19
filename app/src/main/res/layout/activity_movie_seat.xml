@@ -22,7 +22,7 @@
         android:id="@+id/textView" />
 
     <TableLayout
-        android:id="@+id/table_layout"
+        android:id="@+id/seat_table"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -238,7 +238,7 @@
         android:layout_marginTop="96dp"
         android:orientation="vertical"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/table_layout"
+        app:layout_constraintTop_toBottomOf="@+id/seat_table"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -259,11 +259,12 @@
             android:layout_marginStart="20dp"
             android:textSize="18sp"
             android:textColor="@color/seat_price_text"
-            tools:text="0원" />
+            android:text="0원" />
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/seat_next_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="확인"

@@ -4,6 +4,7 @@
     <string name="movie_release_date">상영일 : %s ~ %s</string>
     <string name="movie_ticket_count">일반 %d명</string>
     <string name="movie_ticket_total_price">%s원 (현장 결제)</string>
+    <string name="total_price">%d원</string>
     <string name="reservation_complete">예매 완료</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
