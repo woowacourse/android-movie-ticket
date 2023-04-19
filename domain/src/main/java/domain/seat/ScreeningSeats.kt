@@ -1,5 +1,7 @@
 package domain.seat
 
+import domain.payment.PaymentAmount
+
 class ScreeningSeats {
 
     private val _values: MutableList<ScreeningSeat> = SeatRow
@@ -11,13 +13,30 @@ class ScreeningSeats {
         }.toMutableList()
     val values: List<ScreeningSeat>
         get() = _values.toList()
+    val selectedSeatsCount: Int
+        get() = _values.count { it.isSelected }
+    val selectedSeats: List<ScreeningSeat>
+        get() = _values.filter { it.isSelected }
 
-    fun removeReservedSeats(seats: List<ScreeningSeat>) {
-        seats.forEach {
-            val reservedSeat = it.reserved()
+    fun selectSeats(seat: ScreeningSeat) {
+        val selectedSeat = seat.selected()
 
-            _values.remove(it)
-            _values.add(reservedSeat)
-        }
+        _values.remove(seat)
+        _values.add(selectedSeat)
+    }
+
+    fun cancelSeats(seat: ScreeningSeat) {
+        val canceledSeat = seat.canceled()
+
+        _values.remove(seat)
+        _values.add(canceledSeat)
+    }
+
+    fun getTotalPaymentAmount(): PaymentAmount {
+        val totalPayment = _values
+            .filter { it.isSelected }
+            .sumOf { it.payment.value }
+
+        return PaymentAmount(totalPayment)
     }
 }
