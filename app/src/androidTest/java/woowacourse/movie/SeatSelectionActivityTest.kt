@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -91,5 +92,14 @@ class SeatSelectionActivityTest {
     fun 선택하면_Enable이_true로_바뀐다() {
         onView(withText("A1")).perform(ViewActions.click())
         onView(withText("A1")).check(matches(isEnabled()))
+    }
+
+    @Test
+    fun 확인_버튼을_누르면_다이어로그가_나온다() {
+        onView(withText("A1")).perform(ViewActions.click())
+        onView(withText("B1")).perform(ViewActions.click())
+        onView(withText("C1")).perform(ViewActions.click())
+        onView(withId(R.id.seat_selection_confirm)).perform(ViewActions.click())
+        onView(withText(R.string.seat_selection_confirm_dialog_contents)).check(matches(isDisplayed()))
     }
 }
