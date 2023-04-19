@@ -1,10 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.adapter
 
 import android.content.Context
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.DateFormatter
+import woowacourse.movie.Movie
+import woowacourse.movie.R
 
 class MovieListViewHolder {
     var poster: ImageView? = null

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.content.Context
 import android.content.Intent
@@ -14,6 +14,11 @@ import android.widget.Toast
 import com.woowacourse.domain.MovieSchedule
 import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
 import woowacourse.movie.BundleKeys.MOVIE_DATA_KEY
+import woowacourse.movie.DateFormatter
+import woowacourse.movie.Movie
+import woowacourse.movie.MovieBookingInfo
+import woowacourse.movie.R
+import woowacourse.movie.getSerializableCompat
 import java.time.LocalDate
 
 class MovieDetailActivity : BackButtonActivity() {

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.woowacourse.domain.TicketBundle
 import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
+import woowacourse.movie.MovieBookingInfo
+import woowacourse.movie.R
+import woowacourse.movie.getSerializableCompat
 
 class BookCompleteActivity : BackButtonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
