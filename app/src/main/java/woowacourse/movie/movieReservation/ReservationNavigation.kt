@@ -13,7 +13,7 @@ class ReservationNavigation(
 ) {
     private val timeSpinner: ReservationTimeSpinner = ReservationTimeSpinner(view)
     private val dateSpinner: ReservationDateSpinner = ReservationDateSpinner(view) { timeSpinner.initTimeSpinner(it) }
-    private val ticketNumberView: ReservationTicketCount = ReservationTicketCount(view)
+    private val ticketNumberView: ReservationTicketQuantity = ReservationTicketQuantity(view)
 
     val ticketCount: TicketCount
         get() = TicketCount(ticketNumberView.count)

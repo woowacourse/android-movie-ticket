@@ -25,7 +25,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private val activityView by lazy { window.decorView.rootView }
 
-    private val contents by lazy { ReservationContents(activityView) }
+    private val contents by lazy { ReservationContents(activityView, movieListItem) }
     private val navigate by lazy { ReservationNavigation(activityView, movieListItem, ::onReservationButtonClicked) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
-        contents.update(movieListItem)
+        contents
     }
 
     private fun initNavigate() {

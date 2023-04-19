@@ -12,7 +12,7 @@ import java.time.LocalDate
 
 class ReservationDateSpinner(
     private val view: View,
-    private val onDateSelected: (LocalDate) -> Unit,
+    onDateSelected: (LocalDate) -> Unit,
 ) {
     private val dateSpinner: Spinner = view.findViewById(R.id.reservation_screening_date_spinner)
 
