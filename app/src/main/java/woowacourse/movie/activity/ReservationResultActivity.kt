@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Reservation
@@ -19,11 +20,17 @@ class ReservationResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reservation_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val reservationDto = getReservationDto()
-        if (reservationDto != null) {
-            renderMovieView(reservationDto)
-            renderReservationDetailView(reservationDto)
+        val reservationViewModel = getReservationModelView()
+        if (reservationViewModel == null) finishActivity()
+        else {
+            renderMovieView(reservationViewModel)
+            renderReservationDetailView(reservationViewModel)
         }
+    }
+
+    private fun finishActivity() {
+        Toast.makeText(this, RESERVATION_DATA_NULL_ERROR, Toast.LENGTH_LONG).show()
+        finish()
     }
 
     private fun renderMovieView(reservationDto: ReservationViewModel) {
@@ -40,7 +47,7 @@ class ReservationResultActivity : AppCompatActivity() {
         ).render(reservationDto.detail)
     }
 
-    private fun getReservationDto(): ReservationViewModel? {
+    private fun getReservationModelView(): ReservationViewModel? {
         return intent.extras?.getSerializableCompat<ReservationViewModel>(RESERVATION_KEY_VALUE)
     }
 
@@ -53,6 +60,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
     companion object {
         private const val RESERVATION_KEY_VALUE = "reservation"
+        private const val RESERVATION_DATA_NULL_ERROR = "예약 정보를 받지 못하였습니다!"
         fun start(context: Context, reservation: Reservation) {
             val intent = Intent(context, ReservationResultActivity::class.java)
             val reservationDto = ReservationDomainViewMapper().toView(reservation)
