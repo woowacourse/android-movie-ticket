@@ -1,4 +1,4 @@
-package woowacourse.movie.activities.ticketingresult
+package woowacourse.movie.ui.ticketingresult
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,13 +6,13 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.activities.movielist.MovieListActivity
-import woowacourse.movie.activities.ticketing.TicketingActivity
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketUI
 import woowacourse.movie.model.mapper.toReservation
+import woowacourse.movie.ui.movielist.MovieListActivity
+import woowacourse.movie.ui.ticketing.TicketingActivity
 import java.time.LocalDateTime
 
 class TicketingResultActivity : AppCompatActivity() {

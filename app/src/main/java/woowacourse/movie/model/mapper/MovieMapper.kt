@@ -2,7 +2,7 @@ package woowacourse.movie.model.mapper
 
 import com.woowacourse.movie.domain.Movie
 import woowacourse.movie.model.MovieUI
-import woowacourse.movie.model.utill.MovieThumbnailDrawable
+import woowacourse.movie.model.util.MovieThumbnailDrawable
 
 fun Movie.toMovieUI(): MovieUI =
     MovieUI(id, title, startDate, endDate, runningTime, introduce, MovieThumbnailDrawable.getMovieThumbnail(id))

@@ -1,4 +1,4 @@
-package woowacourse.movie.activities.movielist.adapter
+package woowacourse.movie.ui.movielist.adapter
 
 import android.view.LayoutInflater
 import android.view.View
