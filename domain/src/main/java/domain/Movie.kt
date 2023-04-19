@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package domain
 
 data class Movie(
     val imagePath: String,

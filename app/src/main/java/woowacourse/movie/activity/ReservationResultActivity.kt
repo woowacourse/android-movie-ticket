@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Reservation
+import domain.Reservation
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.ReservationDetailView
@@ -61,7 +61,7 @@ class ReservationResultActivity : AppCompatActivity() {
     companion object {
         private const val RESERVATION_KEY_VALUE = "reservation"
         private const val RESERVATION_DATA_NULL_ERROR = "예약 정보를 받지 못하였습니다!"
-        fun start(context: Context, reservation: Reservation) {
+        fun start(context: Context, reservation: domain.Reservation) {
             val intent = Intent(context, ReservationResultActivity::class.java)
             val reservationDto = ReservationDomainViewMapper().toView(reservation)
             intent.putExtra(RESERVATION_KEY_VALUE, reservationDto)

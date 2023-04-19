@@ -1,7 +1,7 @@
 package woowacourse.movie.view
 
 import android.os.Bundle
-import woowacourse.movie.domain.Movie
+import domain.Movie
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -10,7 +10,7 @@ class MovieDateTimePicker(
     val timeSpinner: TimeSpinner,
 ) {
 
-    fun makeView(movie: Movie, savedInstanceState: Bundle?) {
+    fun makeView(movie: domain.Movie, savedInstanceState: Bundle?) {
         dateSpinner.make(savedInstanceState, movie, timeSpinner)
     }
 

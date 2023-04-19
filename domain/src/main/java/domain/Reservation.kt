@@ -1,3 +1,3 @@
-package woowacourse.movie.domain
+package domain
 
 data class Reservation(val movie: Movie, val detail: Ticket)

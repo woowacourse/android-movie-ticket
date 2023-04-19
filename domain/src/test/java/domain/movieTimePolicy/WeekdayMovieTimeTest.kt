@@ -1,7 +1,7 @@
-package woowacourse.movie.domain.movieTimePolicy
+package domain.movieTimePolicy
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -11,7 +11,7 @@ class WeekdayMovieTimeTest {
         // given
         val date = LocalDate.of(2023, 4, 13)
         // when
-        val actual = WeekdayMovieTime.generateTime(date)
+        val actual = domain.movieTimePolicy.WeekdayMovieTime.generateTime(date)
         // then
         val expected = listOf<LocalTime>(
             LocalTime.of(10, 0),
@@ -22,7 +22,7 @@ class WeekdayMovieTimeTest {
             LocalTime.of(20, 0),
             LocalTime.of(22, 0),
         )
-        assertEquals(actual, expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -32,6 +32,6 @@ class WeekdayMovieTimeTest {
         // when
         val actual = WeekdayMovieTime.generateTime(date)
         // then
-        assertEquals(actual, null)
+        assertThat(actual).isEqualTo(date)
     }
 }

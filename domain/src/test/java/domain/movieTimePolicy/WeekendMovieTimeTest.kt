@@ -1,7 +1,7 @@
-package woowacourse.movie.domain.movieTimePolicy
+package domain.movieTimePolicy
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -23,7 +23,7 @@ class WeekendMovieTimeTest {
             LocalTime.of(21, 0),
             LocalTime.of(23, 0),
         )
-        assertEquals(actual, expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -33,6 +33,6 @@ class WeekendMovieTimeTest {
         // when
         val actual = WeekendMovieTime.generateTime(date)
         // then
-        assertEquals(actual, null)
+        assertThat(actual).isEqualTo(null)
     }
 }

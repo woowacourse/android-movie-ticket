@@ -1,7 +1,7 @@
-package woowacourse.movie.domain
+package domain
 
-import woowacourse.movie.domain.discountPolicy.DisCountPolicies
-import woowacourse.movie.domain.discountPolicy.DiscountPolicy
+import domain.discountPolicy.DisCountPolicies
+import domain.discountPolicy.DiscountPolicy
 import java.time.LocalDateTime
 
 data class Ticket(

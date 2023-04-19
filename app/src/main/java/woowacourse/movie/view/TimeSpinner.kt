@@ -2,17 +2,17 @@ package woowacourse.movie.view
 
 import android.os.Bundle
 import android.widget.Spinner
-import woowacourse.movie.domain.movieTimePolicy.MovieTime
-import woowacourse.movie.domain.movieTimePolicy.WeekdayMovieTime
-import woowacourse.movie.domain.movieTimePolicy.WeekendMovieTime
+import domain.movieTimePolicy.MovieTime
+import domain.movieTimePolicy.WeekdayMovieTime
+import domain.movieTimePolicy.WeekendMovieTime
 import java.time.LocalDate
 import java.time.LocalTime
 
 class TimeSpinner(spinner: Spinner, savedStateKey: String) :
     SaveStateSpinner(savedStateKey, spinner) {
     fun make(savedInstanceState: Bundle?, date: LocalDate) {
-        val times = MovieTime(
-            listOf(WeekdayMovieTime, WeekendMovieTime)
+        val times = domain.movieTimePolicy.MovieTime(
+            listOf(domain.movieTimePolicy.WeekdayMovieTime, domain.movieTimePolicy.WeekendMovieTime)
         ).determine(date).map { LocalFormattedTime(it) }
         setArrayAdapter(times)
         load(savedInstanceState)

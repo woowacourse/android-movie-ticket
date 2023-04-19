@@ -1,7 +1,7 @@
-package woowacourse.movie.domain.discountPolicy
+package domain.discountPolicy
 
-import woowacourse.movie.domain.Price
-import woowacourse.movie.domain.Ticket
+import domain.Price
+import domain.Ticket
 
 class DisCountPolicies(list: List<DiscountPolicy>) {
     private val _list = list.toMutableList()

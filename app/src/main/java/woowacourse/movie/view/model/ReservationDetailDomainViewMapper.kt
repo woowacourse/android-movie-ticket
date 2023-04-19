@@ -1,20 +1,25 @@
 package woowacourse.movie.view.model
 
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.discountPolicy.DisCountPolicies
-import woowacourse.movie.domain.discountPolicy.MovieDay
-import woowacourse.movie.domain.discountPolicy.OffTime
+import domain.Ticket
+import domain.discountPolicy.DisCountPolicies
+import domain.discountPolicy.MovieDay
+import domain.discountPolicy.OffTime
 
-class ReservationDetailDomainViewMapper : DomainViewMapper<Ticket, ReservationDetailViewModel> {
-    override fun toDomain(viewModel: ReservationDetailViewModel): Ticket {
-        return Ticket(
+class ReservationDetailDomainViewMapper : DomainViewMapper<domain.Ticket, ReservationDetailViewModel> {
+    override fun toDomain(viewModel: ReservationDetailViewModel): domain.Ticket {
+        return domain.Ticket(
             date = viewModel.date,
             peopleCount = viewModel.peopleCount,
-            disCountPolicies = DisCountPolicies(listOf(MovieDay(), OffTime()))
+            disCountPolicies = domain.discountPolicy.DisCountPolicies(
+                listOf(
+                    domain.discountPolicy.MovieDay(),
+                    domain.discountPolicy.OffTime()
+                )
+            )
         )
     }
 
-    override fun toView(domainModel: Ticket): ReservationDetailViewModel {
+    override fun toView(domainModel: domain.Ticket): ReservationDetailViewModel {
         return ReservationDetailViewModel(
             date = domainModel.date,
             peopleCount = domainModel.peopleCount,

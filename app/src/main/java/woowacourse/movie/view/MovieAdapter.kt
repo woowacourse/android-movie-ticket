@@ -8,13 +8,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movies
+import domain.Movie
+import domain.Movies
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    private val movies: Movies,
-    private val onClickEvent: (Movie) -> Unit
+    private val movies: domain.Movies,
+    private val onClickEvent: (domain.Movie) -> Unit
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.value.size
 
@@ -52,7 +52,7 @@ class MovieAdapter(
         var runningTime: TextView?,
         var reservationButton: Button?
     ) {
-        fun setView(movie: Movie) {
+        fun setView(movie: domain.Movie) {
             poster?.setImageResource(movie.imagePath.toInt())
             val dateFormat =
                 DateTimeFormatter.ofPattern(movieDate?.context?.getString(R.string.movie_date_format))
@@ -66,7 +66,7 @@ class MovieAdapter(
             title?.text = movie.title
         }
 
-        fun setButtonClickListener(movie: Movie, onClickEvent: (Movie) -> Unit) {
+        fun setButtonClickListener(movie: domain.Movie, onClickEvent: (domain.Movie) -> Unit) {
             reservationButton?.setOnClickListener {
                 onClickEvent(movie)
             }

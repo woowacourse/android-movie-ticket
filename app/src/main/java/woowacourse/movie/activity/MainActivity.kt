@@ -5,7 +5,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MockMoviesFactory
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import domain.Movie
 import woowacourse.movie.view.MovieAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         movieList.adapter = MovieAdapter(movies, ::reservationButtonClick)
     }
 
-    private fun reservationButtonClick(movie: Movie) {
+    private fun reservationButtonClick(movie: domain.Movie) {
         MovieReservationActivity.start(this, movie)
     }
 }

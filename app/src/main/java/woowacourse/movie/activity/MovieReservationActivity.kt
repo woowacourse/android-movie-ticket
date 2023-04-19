@@ -8,11 +8,11 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.discountPolicy.DisCountPolicies
-import woowacourse.movie.domain.discountPolicy.MovieDay
-import woowacourse.movie.domain.discountPolicy.OffTime
+import domain.Movie
+import domain.Ticket
+import domain.discountPolicy.DisCountPolicies
+import domain.discountPolicy.MovieDay
+import domain.discountPolicy.OffTime
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
@@ -84,19 +84,24 @@ class MovieReservationActivity : AppCompatActivity() {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
     }
 
-    private fun getMovie(movieViewModel: MovieViewModel): Movie {
+    private fun getMovie(movieViewModel: MovieViewModel): domain.Movie {
         return MovieDomainViewMapper().toDomain(movieViewModel)
     }
 
-    private fun reservationButtonClick(movie: Movie) {
+    private fun reservationButtonClick(movie: domain.Movie) {
         reservationButton.setOnClickListener {
             val date = LocalDateTime.of(
                 movieDateTimePicker.getSelectedDate(),
                 movieDateTimePicker.getSelectedTime()
             )
-            val discountPolicies = DisCountPolicies(listOf(MovieDay(), OffTime()))
+            val discountPolicies = domain.discountPolicy.DisCountPolicies(
+                listOf(
+                    domain.discountPolicy.MovieDay(),
+                    domain.discountPolicy.OffTime()
+                )
+            )
             val peopleCount = counter.getCount()
-            val ticket = Ticket(date, peopleCount, discountPolicies)
+            val ticket = domain.Ticket(date, peopleCount, discountPolicies)
             val reservation = movie.makeReservation(ticket)
             ReservationResultActivity.start(this, reservation)
         }
@@ -117,7 +122,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context, movie: Movie) {
+        fun start(context: Context, movie: domain.Movie) {
             val intent = Intent(context, MovieReservationActivity::class.java)
             val movieDto = MovieDomainViewMapper().toView(movie)
             intent.putExtra(MOVIE_KEY_VALUE, movieDto)
