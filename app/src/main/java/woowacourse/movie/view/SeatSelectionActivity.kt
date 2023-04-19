@@ -3,6 +3,7 @@ package woowacourse.movie.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AlertDialog
@@ -37,6 +38,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         initReserveLayout()
         initReservationAgency()
         initConfirmReservationButton()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initSeatButtons() {
@@ -164,6 +166,13 @@ class SeatSelectionActivity : AppCompatActivity() {
         val intent = Intent(this, ReservationCompletedActivity::class.java)
         intent.putExtra(RESERVATION, reservation?.toUiModel())
         startActivity(intent)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
