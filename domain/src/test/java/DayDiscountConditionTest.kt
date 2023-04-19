@@ -1,6 +1,5 @@
 package woowacourse.movie.domain
 
-
 import com.example.domain.DayDiscountCondition
 import org.junit.Test
 import java.time.LocalDateTime

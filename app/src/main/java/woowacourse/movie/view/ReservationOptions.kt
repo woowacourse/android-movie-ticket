@@ -9,4 +9,4 @@ data class ReservationOptions(
     val title: String,
     val screeningDateTime: LocalDateTime,
     val peopleCount: Int
-): Parcelable
+) : Parcelable

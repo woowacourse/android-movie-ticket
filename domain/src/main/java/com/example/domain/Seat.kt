@@ -5,7 +5,7 @@ data class Seat(val column: Int, val row: Int) {
     val price = type.price
 
     private val type
-        get() : SeatType = when (row) {
+        get(): SeatType = when (row) {
             1, 2 -> SeatType.BType
             3, 4 -> SeatType.SType
             5 -> SeatType.AType

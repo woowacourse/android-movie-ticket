@@ -1,6 +1,9 @@
 package woowacourse.movie.domain
 
-import com.example.domain.*
+import com.example.domain.Minute
+import com.example.domain.Movie
+import com.example.domain.ReservationAgency
+import com.example.domain.Seat
 import org.junit.Assert
 import org.junit.Test
 import java.time.LocalDate

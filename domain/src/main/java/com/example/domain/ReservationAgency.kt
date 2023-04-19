@@ -26,5 +26,4 @@ class ReservationAgency(
 
         return DiscountPolicy.getDiscountedFee(selectedDateTime, Money(totalPrice), seats.size)
     }
-
 }
