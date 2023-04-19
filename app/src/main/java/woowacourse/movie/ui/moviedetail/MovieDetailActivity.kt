@@ -16,7 +16,6 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
-import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.const.KEY_TICKET
@@ -162,11 +161,9 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun moveToTicketActivity(movie: Movie) {
         val ticket = MovieTicket(
             movie.title,
-            TicketTime(
-                LocalDateTime.of(
-                    dateSpinner.selectedItem as LocalDate,
-                    timeSpinner.selectedItem as LocalTime
-                )
+            LocalDateTime.of(
+                dateSpinner.selectedItem as LocalDate,
+                timeSpinner.selectedItem as LocalTime
             ),
             peopleCount
         )

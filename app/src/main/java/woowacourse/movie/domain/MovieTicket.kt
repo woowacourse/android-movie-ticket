@@ -1,22 +1,20 @@
 package woowacourse.movie.domain
 
+import woowacourse.movie.domain.discount.TicketDiscount
 import java.io.Serializable
+import java.time.LocalDateTime
 
 class MovieTicket(
     val title: String,
-    val time: TicketTime,
+    val time: LocalDateTime,
     val peopleCount: PeopleCount,
 ) : Serializable {
     fun getPrice(): Int {
-        var price = TICKET_PRICE * peopleCount.count
-        if (time.isMovieDay()) price = (price * TICKET_MOVIE_DAY_SALE_RATE).toInt()
-        if (time.isSaleTime()) price -= TICKET_TIME_SALE_AMOUNT
-        return price
+        val price = TICKET_PRICE * peopleCount.count
+        return TicketDiscount(time).getDiscountPrice(price)
     }
 
     companion object {
         private const val TICKET_PRICE = 13_000
-        private const val TICKET_MOVIE_DAY_SALE_RATE = 0.9
-        private const val TICKET_TIME_SALE_AMOUNT = 2_000
     }
 }

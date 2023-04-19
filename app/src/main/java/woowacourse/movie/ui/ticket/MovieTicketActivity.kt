@@ -7,11 +7,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieTicket
-import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.utils.getCustomSerializableExtra
 import woowacourse.movie.utils.showToast
 import java.text.DecimalFormat
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
@@ -55,6 +55,6 @@ class MovieTicketActivity : AppCompatActivity() {
         }
     }
 
-    private fun TicketTime.format(): String =
-        dateTime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
+    private fun LocalDateTime.format(): String =
+        format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
 }
