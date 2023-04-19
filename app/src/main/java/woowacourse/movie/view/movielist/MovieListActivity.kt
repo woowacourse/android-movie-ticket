@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.data.MovieData
 import woowacourse.movie.domain.data.MovieDummyData
-import woowacourse.movie.domain.movieinfo.Movie
 import woowacourse.movie.view.moviedetail.MovieDetailActivity
 import woowacourse.movie.view.viewmodel.toUIModel
 

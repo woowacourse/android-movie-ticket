@@ -1,7 +1,7 @@
 package woowacourse.movie.domain.data
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.movieinfo.Movie
+import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
 object MovieDummyData : MovieData {
