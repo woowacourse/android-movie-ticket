@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ticket
 
 @JvmInline
 value class TicketCount(val value: Int = MIN_TICKET_COUNT) {

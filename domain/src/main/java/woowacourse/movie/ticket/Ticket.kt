@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ticket
 
 import woowacourse.movie.policy.DiscountAdapter
 import java.io.Serializable
