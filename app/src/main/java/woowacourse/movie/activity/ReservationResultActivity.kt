@@ -7,11 +7,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Reservation
-import woowacourse.movie.dto.ReservationDto
-import woowacourse.movie.dto.ReservationDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.ReservationDetailView
+import woowacourse.movie.view.model.ReservationDomainViewMapper
+import woowacourse.movie.view.model.ReservationViewModel
 
 class ReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,22 +26,22 @@ class ReservationResultActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderMovieView(reservationDto: ReservationDto) {
+    private fun renderMovieView(reservationDto: ReservationViewModel) {
         MovieView(
             title = findViewById(R.id.movie_reservation_result_title)
         ).render(reservationDto.movie)
     }
 
-    private fun renderReservationDetailView(reservationDto: ReservationDto) {
+    private fun renderReservationDetailView(reservationDto: ReservationViewModel) {
         ReservationDetailView(
-            findViewById(R.id.movie_reservation_result_date),
-            findViewById(R.id.movie_reservation_result_people_count),
-            findViewById(R.id.movie_reservation_result_price),
+            date = findViewById(R.id.movie_reservation_result_date),
+            peopleCount = findViewById(R.id.movie_reservation_result_people_count),
+            price = findViewById(R.id.movie_reservation_result_price),
         ).render(reservationDto.detail)
     }
 
-    private fun getReservationDto(): ReservationDto? {
-        return intent.extras?.getSerializableCompat<ReservationDto>(RESERVATION_KEY_VALUE)
+    private fun getReservationDto(): ReservationViewModel? {
+        return intent.extras?.getSerializableCompat<ReservationViewModel>(RESERVATION_KEY_VALUE)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,7 +55,7 @@ class ReservationResultActivity : AppCompatActivity() {
         private const val RESERVATION_KEY_VALUE = "reservation"
         fun start(context: Context, reservation: Reservation) {
             val intent = Intent(context, ReservationResultActivity::class.java)
-            val reservationDto = ReservationDtoConverter().convertModelToDto(reservation)
+            val reservationDto = ReservationDomainViewMapper().toView(reservation)
             intent.putExtra(RESERVATION_KEY_VALUE, reservationDto)
             context.startActivity(intent)
         }

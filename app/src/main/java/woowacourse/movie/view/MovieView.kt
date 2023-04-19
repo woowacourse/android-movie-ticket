@@ -3,7 +3,7 @@ package woowacourse.movie.view
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.view.model.MovieViewModel
 import java.time.format.DateTimeFormatter
 
 class MovieView(
@@ -13,7 +13,7 @@ class MovieView(
     private val runningTime: TextView? = null,
     private val description: TextView? = null
 ) {
-    fun render(movieDto: MovieDto) {
+    fun render(movieDto: MovieViewModel) {
         poster?.setImageResource(movieDto.picture)
         title.text = movieDto.title
 

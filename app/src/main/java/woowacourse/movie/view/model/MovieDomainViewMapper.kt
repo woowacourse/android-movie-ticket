@@ -1,10 +1,10 @@
-package woowacourse.movie.dto
+package woowacourse.movie.view.model
 
 import woowacourse.movie.domain.DateRange
 import woowacourse.movie.domain.Movie
 
-class MovieDtoConverter : DtoConverter<Movie, MovieDto> {
-    override fun convertDtoToModel(movieDto: MovieDto): Movie {
+class MovieDomainViewMapper : DomainViewMapper<Movie, MovieViewModel> {
+    override fun toDomain(movieDto: MovieViewModel): Movie {
         return Movie(
             imagePath = movieDto.picture.toString(),
             title = movieDto.title,
@@ -14,8 +14,8 @@ class MovieDtoConverter : DtoConverter<Movie, MovieDto> {
         )
     }
 
-    override fun convertModelToDto(movie: Movie): MovieDto {
-        return MovieDto(
+    override fun toView(movie: Movie): MovieViewModel {
+        return MovieViewModel(
             picture = movie.imagePath.toInt(),
             title = movie.title,
             startDate = movie.date.startDate,

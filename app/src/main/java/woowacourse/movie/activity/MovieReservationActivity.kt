@@ -12,14 +12,14 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.discountPolicy.DisCountPolicies
 import woowacourse.movie.domain.discountPolicy.MovieDay
 import woowacourse.movie.domain.discountPolicy.OffTime
-import woowacourse.movie.dto.MovieDto
-import woowacourse.movie.dto.MovieDtoConverter
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
 import woowacourse.movie.view.MovieDateTimePicker
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.TimeSpinner
+import woowacourse.movie.view.model.MovieDomainViewMapper
+import woowacourse.movie.view.model.MovieViewModel
 import java.time.LocalDateTime
 
 class MovieReservationActivity : AppCompatActivity() {
@@ -62,7 +62,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderMovieView(movieDto: MovieDto) {
+    private fun renderMovieView(movieDto: MovieViewModel) {
         MovieView(
             findViewById(R.id.movie_reservation_poster),
             findViewById(R.id.movie_reservation_title),
@@ -72,12 +72,12 @@ class MovieReservationActivity : AppCompatActivity() {
         ).render(movieDto)
     }
 
-    private fun getMovieDto(): MovieDto? {
+    private fun getMovieDto(): MovieViewModel? {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
     }
 
-    private fun getMovie(movieDto: MovieDto?): Movie? {
-        return movieDto?.let { MovieDtoConverter().convertDtoToModel(it) }
+    private fun getMovie(movieDto: MovieViewModel?): Movie? {
+        return movieDto?.let { MovieDomainViewMapper().toDomain(it) }
     }
 
     private fun reservationButtonClick(movie: Movie) {
@@ -111,7 +111,7 @@ class MovieReservationActivity : AppCompatActivity() {
     companion object {
         fun start(context: Context, movie: Movie) {
             val intent = Intent(context, MovieReservationActivity::class.java)
-            val movieDto = MovieDtoConverter().convertModelToDto(movie)
+            val movieDto = MovieDomainViewMapper().toView(movie)
             intent.putExtra(MOVIE_KEY_VALUE, movieDto)
             context.startActivity(intent)
         }

@@ -1,10 +1,10 @@
-package woowacourse.movie.dto
+package woowacourse.movie.view.model
 
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class ReservationDetailDto(
+data class ReservationDetailViewModel(
     val date: LocalDateTime,
     val peopleCount: Int,
     val price: Int
-) : Dto, Serializable
+) : ViewModel, Serializable
