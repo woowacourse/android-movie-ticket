@@ -1,5 +1,9 @@
 package woowacourse.movie
 
+import woowacourse.movie.ticket.Position
+import woowacourse.movie.ticket.Seat
+import woowacourse.movie.ticket.SeatRank
+import woowacourse.movie.ticket.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -20,6 +24,6 @@ data class Movie(
     fun reserve(dateTime: LocalDateTime, count: Int): Ticket {
         val date = dateTime.toLocalDate()
         if (date !in screeningDates) throw IllegalArgumentException("상영 기간이 아닙니다.")
-        return Ticket(id, dateTime, count)
+        return Ticket(id, dateTime, Seat(SeatRank.B, Position(1, 1)))
     }
 }
