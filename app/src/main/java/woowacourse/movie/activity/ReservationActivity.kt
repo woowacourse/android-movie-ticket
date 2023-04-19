@@ -2,7 +2,6 @@ package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -37,7 +36,7 @@ class ReservationActivity : AppCompatActivity() {
 
         movieModel?.let {
             initMovieInformationViews(it)
-            initReservationViews(it)
+            initReservationViews(it, savedInstanceState)
             loadSavedInstanceState(it, savedInstanceState)
         }
     }
@@ -71,18 +70,17 @@ class ReservationActivity : AppCompatActivity() {
         binding.movieDescriptionTextView.text = movieModel.description
     }
 
-    private fun initReservationViews(movieModel: MovieModel) {
+    private fun initReservationViews(movieModel: MovieModel, savedInstanceState: Bundle?) {
         binding.ticketCountTextView.text = TicketCount.MINIMUM.toString()
 
         binding.ticketCountMinusButton.setOnClickListener { ticketCountMinusButtonClickEvent() }
         binding.ticketCountPlusButton.setOnClickListener { ticketCountPlusButtonClickEvent() }
         binding.completeButton.setOnClickListener { completeButtonClickEvent(movieModel) }
 
-        initSpinner(movieModel)
+        initSpinner(movieModel, savedInstanceState)
     }
 
-    private fun initSpinner(movieModel: MovieModel) {
-        Log.d("debug_log", "called initSpinner")
+    private fun initSpinner(movieModel: MovieModel, savedInstanceState: Bundle?) {
         val dates = movieModel.screeningPeriod.getScreeningDates()
 
         binding.screeningDateSpinner.adapter = ArrayAdapter(
@@ -98,6 +96,7 @@ class ReservationActivity : AppCompatActivity() {
                     id: Long
                 ) {
                     initTimeSpinner(movieModel, dates[position])
+                    if (savedInstanceState != null) loadSavedInstanceState(movieModel, savedInstanceState)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -107,7 +106,6 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner(movieModel: MovieModel, date: LocalDate?, position: Int = 0) {
-        Log.d("debug_log", "initTimeSpinner in date: $date, position: $position")
         val times = movieModel.screeningPeriod.getScreeningTimes(date)
 
         binding.screeningTimeSpinner.adapter = ArrayAdapter(
@@ -125,8 +123,6 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun loadSpinner(movieModel: MovieModel, savedInstanceState: Bundle) {
-        Log.d("debug_log", "called loadSpinner")
-        Log.d("debug_log", "loadSpinner in savedInstanceState: $savedInstanceState")
         val screeningDate: LocalDate =
             LocalDate.ofEpochDay(savedInstanceState.getLong(SCREENING_DATE_INSTANCE_KEY))
         val screeningTime: LocalTime =
