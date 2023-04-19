@@ -25,7 +25,7 @@ class MovieListActivity : AppCompatActivity() {
             movies = Movie.provideDummy(),
             ads = Ad.provideDummy(),
             onBookBtnClick = { movie -> startTicketingActivity(movie) },
-            onAdClick = { ads -> accessAdSite(ads) }
+            onAdClick = { ads -> accessAdWebPage(ads) }
         )
         findViewById<RecyclerView>(R.id.rv_movies).adapter = movieListAdapter
     }
@@ -36,7 +36,7 @@ class MovieListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun accessAdSite(ads: Ad) {
+    private fun accessAdWebPage(ads: Ad) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ads.url))
         startActivity(intent)
     }
