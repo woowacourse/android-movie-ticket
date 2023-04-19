@@ -2,10 +2,9 @@ package woowacourse.movie.presentation.view.book_complete
 
 import android.os.Bundle
 import android.widget.Toast
-import com.example.domain.TicketBundle
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityBookCompleteBinding
-import woowacourse.movie.model.MovieBookingInfo
+import woowacourse.movie.model.BookingCompleteInfo
 import woowacourse.movie.presentation.extension.getParcelableCompat
 import woowacourse.movie.presentation.view.common.BackButtonActivity
 
@@ -16,32 +15,34 @@ class BookCompleteActivity : BackButtonActivity() {
         binding = ActivityBookCompleteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val movieBookingData =
-            intent.getParcelableCompat<MovieBookingInfo>(MOVIE_BOOKING_INFO_INTENT_KEY)
-        processEmptyBookingData(movieBookingData)
+        val bookingCompleteInfo =
+            intent.getParcelableCompat<BookingCompleteInfo>(BOOKING_COMPLETE_INFO_INTENT_KEY)
+        processEmptyBookingData(bookingCompleteInfo)
 
-        setViewData(movieBookingData!!)
+        setViewData(bookingCompleteInfo!!)
     }
 
-    private fun processEmptyBookingData(movieBookingData: MovieBookingInfo?) {
-        if (movieBookingData == null) {
+    private fun processEmptyBookingData(bookingCompleteInfo: BookingCompleteInfo?) {
+        if (bookingCompleteInfo == null) {
             Toast.makeText(this, getString(R.string.error_intent_message), Toast.LENGTH_SHORT)
                 .show()
             this.finish()
         }
     }
 
-    private fun setViewData(movieBookingData: MovieBookingInfo) {
+    private fun setViewData(bookingCompleteInfo: BookingCompleteInfo) {
+        val movieBookingData = bookingCompleteInfo.movieBookingInfo
         binding.tvBookMovieTitle.text = movieBookingData.movieInfo.title
         binding.tvBookDate.text =
             formatBookingTime(movieBookingData.date, movieBookingData.time)
         binding.tvBookPersonCount.text =
-            getString(R.string.book_person_count).format(movieBookingData.ticketCount)
+            getString(R.string.book_person_info).format(
+                movieBookingData.ticketCount,
+                bookingCompleteInfo.seats
+            )
         binding.tvBookTotalPay.text =
             getString(R.string.book_total_pay).format(
-                TicketBundle(movieBookingData.ticketCount).calculateTotalPrice(
-                    movieBookingData.date, movieBookingData.time
-                )
+                bookingCompleteInfo.totalPrice
             )
     }
 
@@ -51,6 +52,6 @@ class BookCompleteActivity : BackButtonActivity() {
     }
 
     companion object {
-        const val MOVIE_BOOKING_INFO_INTENT_KEY = "MOVIE_BOOKING_INFO_KEY"
+        const val BOOKING_COMPLETE_INFO_INTENT_KEY = "BOOKING_COMPLETE_INFO_INTENT_KEY"
     }
 }
