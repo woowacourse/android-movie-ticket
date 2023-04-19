@@ -3,7 +3,7 @@ package woowacourse.movie.movieReservation
 import android.os.Bundle
 import android.view.View
 import model.MovieListItem
-import movie.TicketCount
+import movie.TicketQuantity
 import java.time.LocalDateTime
 
 class ReservationNavigation(
@@ -13,10 +13,10 @@ class ReservationNavigation(
 ) {
     private val timeSpinner: ReservationTimeSpinner = ReservationTimeSpinner(view)
     private val dateSpinner: ReservationDateSpinner = ReservationDateSpinner(view) { timeSpinner.initTimeSpinner(it) }
-    private val ticketNumberView: ReservationTicketQuantity = ReservationTicketQuantity(view)
+    private val ticketQuantityView: ReservationTicketQuantity = ReservationTicketQuantity(view)
 
-    val ticketCount: TicketCount
-        get() = TicketCount(ticketNumberView.count)
+    val ticketQuantity: TicketQuantity
+        get() = ticketQuantityView.quantity
 
     val selectedDateTime: LocalDateTime
         get() = LocalDateTime.of(dateSpinner.selectedDate, timeSpinner.selectedTime)
@@ -27,13 +27,13 @@ class ReservationNavigation(
     }
 
     fun load(savedInstanceState: Bundle) {
-        ticketNumberView.load(savedInstanceState)
+        ticketQuantityView.load(savedInstanceState)
         dateSpinner.load(savedInstanceState)
         timeSpinner.load(savedInstanceState)
     }
 
     fun save(outState: Bundle) {
-        ticketNumberView.save(outState)
+        ticketQuantityView.save(outState)
         timeSpinner.save(outState)
         dateSpinner.save(outState)
     }

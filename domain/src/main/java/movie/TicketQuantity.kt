@@ -1,7 +1,7 @@
 package movie
 
 @JvmInline
-value class TicketCount(private val value: Int) {
+value class TicketQuantity(private val value: Int) {
     init {
         require(value > MIN_COUNT) { ERROR_COUNT }
     }
@@ -10,13 +10,13 @@ value class TicketCount(private val value: Int) {
 
     private fun willUnder(): Boolean = value - STEP <= MIN_COUNT
 
-    operator fun inc(): TicketCount {
-        return TicketCount(value + STEP)
+    operator fun inc(): TicketQuantity {
+        return TicketQuantity(value + STEP)
     }
-    operator fun dec(): TicketCount {
+    operator fun dec(): TicketQuantity {
         return when {
             willUnder() -> this
-            else -> TicketCount(value - STEP)
+            else -> TicketQuantity(value - STEP)
         }
     }
 

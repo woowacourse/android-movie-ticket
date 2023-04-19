@@ -8,9 +8,9 @@ class ReservationSubmit(
     view: View,
     onClickListener: () -> Unit,
 ) {
-    private val reservationButton: Button = view.findViewById(R.id.reservation_complete_button)
+    private val reservationSubmitButton: Button = view.findViewById(R.id.reservation_complete_button)
 
     init {
-        reservationButton.setOnClickListener { onClickListener() }
+        reservationSubmitButton.setOnClickListener { onClickListener() }
     }
 }

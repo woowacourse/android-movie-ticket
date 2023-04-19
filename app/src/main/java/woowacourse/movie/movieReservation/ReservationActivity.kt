@@ -78,7 +78,7 @@ class ReservationActivity : AppCompatActivity() {
         val seatSelectionModel = SeatSelectionModel(
             title = movieListItem.title,
             reserveTime = navigate.selectedDateTime,
-            peopleNumber = navigate.ticketCount.toInt(),
+            peopleNumber = navigate.ticketQuantity.toInt(),
         )
         startActivity(
             Intent(this, SeatSelectionActivity::class.java).apply {
