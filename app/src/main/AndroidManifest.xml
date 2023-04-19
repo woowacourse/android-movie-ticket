@@ -12,8 +12,11 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".activity.SeatSelectionActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.ReservationResultActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.MovieReservationActivity"
             android:exported="true" />
