@@ -11,12 +11,9 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
-import woowacourse.movie.uimodel.ReservationModel
-import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_INSTANCE_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_TIME_INSTANCE_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.TICKET_COUNT_INSTANCE_KEY
-import woowacourse.movie.uimodel.toReservationModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -75,7 +72,7 @@ class ReservationActivity : AppCompatActivity() {
 
         binding.ticketCountMinusButton.setOnClickListener { ticketCountMinusButtonClickEvent() }
         binding.ticketCountPlusButton.setOnClickListener { ticketCountPlusButtonClickEvent() }
-        binding.completeButton.setOnClickListener { completeButtonClickEvent(movieModel) }
+        binding.seatSelectionButton.setOnClickListener { seatSelectionButtonClickEvent(movieModel) }
 
         initSpinner(movieModel, savedInstanceState)
     }
@@ -157,19 +154,16 @@ class ReservationActivity : AppCompatActivity() {
         binding.ticketCountTextView.text = ticketCount.value.toString()
     }
 
-    private fun completeButtonClickEvent(movieModel: MovieModel) {
-        val ticketCount = binding.ticketCountTextView.text.toString().toInt()
-        val screeningDate = binding.screeningDateSpinner.selectedItem as LocalDate
-        val screeningTime = binding.screeningTimeSpinner.selectedItem as LocalTime
-        val reservationModel: ReservationModel =
-            payment.Reservation.from(
-                movieModel.toDomainModel(),
-                ticketCount,
-                LocalDateTime.of(screeningDate, screeningTime)
-            ).toReservationModel()
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        intent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
+    private fun seatSelectionButtonClickEvent(movieModel: MovieModel) {
+        val selectedDate: LocalDate = binding.screeningDateSpinner.selectedItem as LocalDate
+        val selectedTime: LocalTime = binding.screeningTimeSpinner.selectedItem as LocalTime
+
+        val intent: Intent = Intent(this, SeatSelectionActivity::class.java)
+        intent.putExtra(MOVIE_INTENT_KEY, movieModel)
+        intent.putExtra("ticket_count", binding.ticketCountTextView.text.toString().toInt())
+        intent.putExtra("screening_date_time", LocalDateTime.of(selectedDate, selectedTime))
+        // todo intent key 상수화 필요
+
         startActivity(intent)
-        finish()
     }
 }

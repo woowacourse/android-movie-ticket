@@ -33,7 +33,7 @@
         android:text="예매일과 예매시간"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_large" />
+        android:textSize="@dimen/text_medium" />
 
     <TextView
         android:id="@+id/ticket_count_text_view"
@@ -43,7 +43,7 @@
         android:text="티켓 수"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_large" />
+        android:textSize="@dimen/text_medium" />
 
     <TextView
         android:id="@+id/payment_amount_text_view"
@@ -53,6 +53,6 @@
         android:text="결제금액 및 결제 방식"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_large" />
+        android:textSize="@dimen/text_medium" />
 
 </LinearLayout>

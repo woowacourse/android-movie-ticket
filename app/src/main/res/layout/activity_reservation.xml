@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ticket_count_minus_button_text"
-                android:textSize="@dimen/text_large" />
+                android:textSize="@dimen/text_medium" />
 
             <TextView
                 android:id="@+id/ticket_count_text_view"
@@ -117,15 +117,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ticket_count_plus_button_text"
-                android:textSize="@dimen/text_large" />
+                android:textSize="@dimen/text_medium" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/complete_button"
+            android:id="@+id/seat_selection_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reservation_complete_button_text"
-            android:textSize="@dimen/text_large" />
+            android:text="@string/select_seat_button_text"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
 </LinearLayout>
