@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
@@ -52,32 +53,39 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieDto = getMovieDto()
-        val movie = getMovie(movieDto)
-        if (movieDto != null) renderMovieView(movieDto)
-        if (movie != null) {
+        val movieViewModel = getMovieModelView()
+        if (movieViewModel == null) {
+            finishActivity()
+        } else {
+            renderMovieView(movieViewModel)
+            val movie = getMovie(movieViewModel)
             counter.load(savedInstanceState)
             movieDateTimePicker.makeView(movie, savedInstanceState)
             reservationButtonClick(movie)
         }
     }
 
-    private fun renderMovieView(movieDto: MovieViewModel) {
+    private fun renderMovieView(movieViewModel: MovieViewModel) {
         MovieView(
-            findViewById(R.id.movie_reservation_poster),
-            findViewById(R.id.movie_reservation_title),
-            findViewById(R.id.movie_reservation_date),
-            findViewById(R.id.movie_reservation_running_time),
-            findViewById(R.id.movie_reservation_description)
-        ).render(movieDto)
+            poster = findViewById(R.id.movie_reservation_poster),
+            title = findViewById(R.id.movie_reservation_title),
+            date = findViewById(R.id.movie_reservation_date),
+            runningTime = findViewById(R.id.movie_reservation_running_time),
+            description = findViewById(R.id.movie_reservation_description)
+        ).render(movieViewModel)
     }
 
-    private fun getMovieDto(): MovieViewModel? {
+    private fun finishActivity() {
+        Toast.makeText(this, MOVIE_DATA_NULL_ERROR, Toast.LENGTH_LONG).show()
+        finish()
+    }
+
+    private fun getMovieModelView(): MovieViewModel? {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
     }
 
-    private fun getMovie(movieDto: MovieViewModel?): Movie? {
-        return movieDto?.let { MovieDomainViewMapper().toDomain(it) }
+    private fun getMovie(movieViewModel: MovieViewModel): Movie {
+        return MovieDomainViewMapper().toDomain(movieViewModel)
     }
 
     private fun reservationButtonClick(movie: Movie) {
@@ -120,5 +128,6 @@ class MovieReservationActivity : AppCompatActivity() {
         private const val COUNTER_SAVE_STATE_KEY = "counter"
         private const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
         private const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
+        private const val MOVIE_DATA_NULL_ERROR = "영화 데이터가 들어오지 않았어요!!"
     }
 }
