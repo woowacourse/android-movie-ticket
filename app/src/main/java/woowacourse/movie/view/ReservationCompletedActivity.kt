@@ -26,7 +26,11 @@ class ReservationCompletedActivity : AppCompatActivity() {
             movieTitle.text = reservation.title
             movieScreeningDate.text = reservation.screeningDateTime.format(DATE_TIME_FORMATTER)
             peopleCount.text = getString(R.string.reservation_people_count_format)
-                .format(getString(R.string.general_person), reservation.peopleCount)
+                .format(
+                    getString(R.string.general_person),
+                    reservation.peopleCount,
+                    reservation.seats.joinToString()
+                )
             totalPrice.text =
                 getString(R.string.total_price_format).format(DECIMAL_FORMAT.format(reservation.finalReservationFee))
         }
