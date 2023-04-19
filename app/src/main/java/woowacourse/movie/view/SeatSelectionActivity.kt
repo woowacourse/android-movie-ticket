@@ -141,15 +141,15 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun initConfirmReservationButton() {
         binding.confirmReservationButton.setOnClickListener {
             val alertDialog: AlertDialog = AlertDialog.Builder(this).apply {
-                setPositiveButton("예매 완료") { dialog, id ->
+                setTitle(getString(R.string.reservation_dialog_title))
+                setMessage(getString(R.string.reservation_dialog_message))
+                setPositiveButton(getString(R.string.confirm_reservation)) { _, _ ->
                     reserveSeats()
                 }
-                setNegativeButton(
-                    "취소"
-                ) { _, _ -> }
+                setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                }
                 setCancelable(false)
-                setTitle("예매 확인")
-                setMessage("정말 예매하시겠습니까?")
             }.create()
             alertDialog.show()
         }
