@@ -34,7 +34,7 @@
     <string name="tv_seat_reservation_e3">E3</string>
     <string name="tv_seat_reservation_e4">E4</string>
     <string name="tv_seat_reservation_title">해리 포터와 마법사의 돌</string>
-    <string name="tv_seat_reservation_price">0원</string>
+    <string name="tv_seat_reservation_price">%d원</string>
     <string name="tv_seat_reservation_check">확인</string>
 
 </resources>

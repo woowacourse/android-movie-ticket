@@ -25,16 +25,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:id="@+id/tableLayout"
+        android:id="@+id/tl_seat_reservation_seat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="34dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="34dp"
         android:layout_marginBottom="96dp"
+        android:background="@color/white_FFFFFF"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:background="@color/white_FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/cl_seat_reservation_movie_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,275 +43,275 @@
         <TableRow>
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_a1"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_a2"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_a3"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_a4"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_b1"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_b2"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_b3"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/purple_8E13EF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_b4"
+                android:textColor="@color/purple_8E13EF"
                 android:textSize="22sp" />
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_c1"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_c2"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_c3"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_c4"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_d1"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_d2"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_d3"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/green_19D358"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_d4"
+                android:textColor="@color/green_19D358"
                 android:textSize="22sp" />
         </TableRow>
 
         <TableRow>
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/blue_1B48E9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_e1"
+                android:textColor="@color/blue_1B48E9"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/blue_1B48E9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_e2"
+                android:textColor="@color/blue_1B48E9"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/blue_1B48E9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_e3"
+                android:textColor="@color/blue_1B48E9"
                 android:textSize="22sp" />
 
             <TextView
-                android:background="@color/selector_color_white_yellow"
-                android:textColor="@color/blue_1B48E9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
                 android:gravity="center"
                 android:paddingStart="24dp"
                 android:paddingTop="26dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="28dp"
                 android:text="@string/tv_seat_reservation_e4"
+                android:textColor="@color/blue_1B48E9"
                 android:textSize="22sp" />
         </TableRow>
 
@@ -323,7 +323,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white_FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_seat_reservation_check"
+        app:layout_constraintEnd_toStartOf="@+id/tv_seat_reservation_check_btn"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
@@ -348,6 +348,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/grey_727272"
             android:textSize="18sp"
+            android:text="@string/tv_seat_reservation_price"
             app:layout_constraintStart_toStartOf="@+id/tv_seat_reservation_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_seat_reservation_title"
             tools:text="@string/tv_seat_reservation_price" />
@@ -357,12 +358,12 @@
         android:id="@+id/tv_seat_reservation_check_btn"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:background="@color/selector_color_grey_purple"
         android:gravity="center"
         android:paddingStart="28dp"
         android:paddingEnd="29dp"
         android:text="@string/tv_seat_reservation_check"
         android:textColor="@color/white_FFFFFF"
-        android:background="@color/selector_color_grey_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cl_seat_reservation_movie_info" />
