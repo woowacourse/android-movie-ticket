@@ -8,11 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Count
-import woowacourse.movie.domain.Price
 import woowacourse.movie.domain.ReservationDetail
-import woowacourse.movie.domain.discountPolicy.Discount
-import woowacourse.movie.domain.discountPolicy.MovieDay
-import woowacourse.movie.domain.discountPolicy.OffTime
 import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.LocalFormattedDate
 import woowacourse.movie.view.data.LocalFormattedTime
@@ -62,18 +58,18 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
+
         initMovieReservationView(savedInstanceState)
     }
 
     private fun initMovieReservationView(savedInstanceState: Bundle?) {
         makeBackButton()
         val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
-        if (movie != null) {
-            makeCounter(savedInstanceState)
-            makeSpinners(savedInstanceState, movie)
-            renderMovie(movie)
-            makeReservationButtonClickListener(movie)
-        }
+            ?: return finish()
+        makeCounter(savedInstanceState)
+        makeSpinners(savedInstanceState, movie)
+        renderMovie(movie)
+        makeReservationButtonClickListener(movie)
     }
 
     private fun makeBackButton() {
@@ -125,11 +121,8 @@ class MovieReservationActivity : AppCompatActivity() {
                 (dateSpinner.spinner.spinner.selectedItem as LocalFormattedDate).date,
                 (timeSpinner.spinner.spinner.selectedItem as LocalFormattedTime).time
             ),
-            counter.count.value, Price()
-        ).let {
-            val discount = Discount(listOf(MovieDay, OffTime))
-            discount.calculate(it).toView()
-        }
+            counter.count.value
+        ).toView()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

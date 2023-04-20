@@ -50,6 +50,7 @@
             tools:text="해리 포터와 마법사의 돌" />
 
         <TextView
+            android:id="@+id/seat_selection_movie_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"

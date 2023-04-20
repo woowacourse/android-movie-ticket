@@ -9,17 +9,23 @@ import woowacourse.movie.domain.seat.MovieSeatRow
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.Seats
 import woowacourse.movie.view.data.SeatTable
-import woowacourse.movie.view.mapper.SeatMapper.toView
+import woowacourse.movie.view.data.SeatsViewData
+import woowacourse.movie.view.mapper.MovieSeatMapper.toView
 
 class SeatTableLayout(
     private val tableLayout: TableLayout,
+    private val onSelectSeat: (SeatsViewData) -> Unit
 ) {
-    fun selectedSeats(): List<SeatView> {
+    fun selectedSeats(): SeatsViewData {
         return tableLayout.children.flatMap { tableRow ->
             ((tableRow as TableRow).children as Sequence<SeatView>).filter { seatView ->
                 seatView.isSeatSelected
             }
-        }.toList()
+        }.map {
+            it.data
+        }.let {
+            SeatsViewData(it.toList())
+        }
     }
 
     fun makeSeatTable(seats: SeatTable, maxSelectableSeat: Int) {
@@ -46,10 +52,10 @@ class SeatTableLayout(
         seats: SeatTable,
         maxSelectableSeat: Int
     ): SeatView {
-        return SeatView.from(
-            tableLayout.context, seats.getSeat(row, column).toView()
-        ) {
-            selectedSeats().size < maxSelectableSeat
+        return SeatView.from(tableLayout.context, seats.getSeat(row, column).toView(), {
+            selectedSeats().seats.size < maxSelectableSeat
+        }) {
+            onSelectSeat(selectedSeats())
         }
     }
 
@@ -58,10 +64,11 @@ class SeatTableLayout(
             tableLayout: TableLayout,
             row: Int,
             column: Int,
-            maxSelectableSeat: Int
+            maxSelectableSeat: Int,
+            onSelectSeat: (SeatsViewData) -> Unit
         ): SeatTableLayout {
             return makeSeatTableLayout(
-                tableLayout, makeSeatTable(row, column), maxSelectableSeat
+                tableLayout, makeSeatTable(row, column), maxSelectableSeat, onSelectSeat
             )
         }
 
@@ -78,9 +85,10 @@ class SeatTableLayout(
         private fun makeSeatTableLayout(
             tableLayout: TableLayout,
             seatTable: SeatTable,
-            maxSelectableSeat: Int
+            maxSelectableSeat: Int,
+            onSelectSeat: (SeatsViewData) -> Unit
         ): SeatTableLayout {
-            return SeatTableLayout(tableLayout).also {
+            return SeatTableLayout(tableLayout, onSelectSeat).also {
                 it.makeSeatTable(seatTable, maxSelectableSeat)
             }
         }

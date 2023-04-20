@@ -7,11 +7,11 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.ReservationDetail
 import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.MovieViewData
+import woowacourse.movie.view.data.PriceViewData
 import woowacourse.movie.view.data.ReservationDetailViewData
-import woowacourse.movie.view.mapper.ReservationDetailMapper.toDomain
+import woowacourse.movie.view.data.SeatsViewData
 import woowacourse.movie.view.widget.MovieController
 import woowacourse.movie.view.widget.MovieView
 import java.text.NumberFormat
@@ -22,20 +22,25 @@ class ReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
+
         initReservationResultView()
     }
 
     private fun initReservationResultView() {
         makeBackButton()
+
         val reservationDetail =
             intent.extras?.getSerializable<ReservationDetailViewData>(ReservationDetailViewData.RESERVATION_DETAIL_EXTRA_NAME)
-        if (reservationDetail != null) {
-            renderReservationDetail(reservationDetail.toDomain())
-        }
+                ?: return finish()
+        val seats = intent.extras?.getSerializable<SeatsViewData>(SeatsViewData.SEATS_EXTRA_NAME)
+            ?: return finish()
+        val price = intent.extras?.getSerializable<PriceViewData>(PriceViewData.PRICE_EXTRA_NAME)
+            ?: return finish()
+        renderReservationDetail(reservationDetail, price)
+
         val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
-        if (movie != null) {
-            renderMovie(movie)
-        }
+            ?: return finish()
+        renderMovie(movie)
     }
 
     private fun makeBackButton() {
@@ -54,11 +59,12 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun renderReservationDetail(
-        reservationDetail: ReservationDetail
+        reservationDetail: ReservationDetailViewData,
+        price: PriceViewData
     ) {
         val date = findViewById<TextView>(R.id.movie_reservation_result_date)
         val peopleCount = findViewById<TextView>(R.id.movie_reservation_result_people_count)
-        val price = findViewById<TextView>(R.id.movie_reservation_result_price)
+        val priceText = findViewById<TextView>(R.id.movie_reservation_result_price)
         val dateFormat =
             DateTimeFormatter.ofPattern(date.context.getString(R.string.reservation_datetime_format))
         date.text = dateFormat.format(reservationDetail.date)
@@ -66,10 +72,10 @@ class ReservationResultActivity : AppCompatActivity() {
         peopleCount.text = peopleCount.context.getString(R.string.reservation_people_count)
             .format(reservationDetail.peopleCount)
 
-        val formattedPrice =
-            NumberFormat.getNumberInstance(Locale.US).format(reservationDetail.getTotalPrice())
+        val formattedPrice = NumberFormat.getNumberInstance(Locale.US).format(price.value)
 
-        price.text = price.context.getString(R.string.reservation_price).format(formattedPrice)
+        priceText.text =
+            priceText.context.getString(R.string.reservation_price).format(formattedPrice)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -84,12 +90,14 @@ class ReservationResultActivity : AppCompatActivity() {
             context: Context,
             movie: MovieViewData,
             reservationDetail: ReservationDetailViewData,
-            // seats: Seats
+            seats: SeatsViewData,
+            price: PriceViewData
         ): Intent {
             return Intent(context, ReservationResultActivity::class.java).apply {
                 putExtra(MovieViewData.MOVIE_EXTRA_NAME, movie)
                 putExtra(ReservationDetailViewData.RESERVATION_DETAIL_EXTRA_NAME, reservationDetail)
-                // putExtra()
+                putExtra(SeatsViewData.SEATS_EXTRA_NAME, seats)
+                putExtra(PriceViewData.PRICE_EXTRA_NAME, price)
             }
         }
     }

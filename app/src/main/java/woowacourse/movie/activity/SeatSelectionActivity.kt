@@ -3,56 +3,136 @@ package woowacourse.movie.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.discountPolicy.Discount
+import woowacourse.movie.domain.discountPolicy.MovieDay
+import woowacourse.movie.domain.discountPolicy.OffTime
 import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.MovieViewData
+import woowacourse.movie.view.data.PriceViewData
 import woowacourse.movie.view.data.ReservationDetailViewData
+import woowacourse.movie.view.data.SeatsViewData
+import woowacourse.movie.view.mapper.MovieSeatMapper.toDomain
+import woowacourse.movie.view.mapper.ReservationDetailMapper.toDomain
 import woowacourse.movie.view.widget.SeatTableLayout
 
 class SeatSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
+
         initSeatSelectionView()
     }
 
     private fun initSeatSelectionView() {
+        val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
+            ?: return finish()
+        val reservationDetail =
+            intent.extras?.getSerializable<ReservationDetailViewData>(ReservationDetailViewData.RESERVATION_DETAIL_EXTRA_NAME)
+                ?: return finish()
+
+        initSeatTableLayout(movie, reservationDetail)
+        initMovieView(movie)
+        setPriceView(PriceViewData())
+    }
+
+    private fun initSeatTableLayout(
+        movie: MovieViewData,
+        reservationDetail: ReservationDetailViewData
+    ) {
         makeBackButton()
 
         val seatTableLayout = SeatTableLayout.from(
-            findViewById(R.id.seat_selection_table), SEAT_ROW_COUNT, SEAT_COLUMN_COUNT, 3
-        )
-
-        findViewById<Button>(R.id.seat_selection_reserve_button).setOnClickListener {
-            onClickReserveButton(seatTableLayout)
+            findViewById(R.id.seat_selection_table),
+            SEAT_ROW_COUNT,
+            SEAT_COLUMN_COUNT,
+            reservationDetail.peopleCount
+        ) {
+            setPriceView(calculateDiscountedPrice(it, reservationDetail))
         }
+
+        initReserveButton(seatTableLayout, movie, reservationDetail)
     }
 
     private fun makeBackButton() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun onClickReserveButton(seatTableLayout: SeatTableLayout) {
+    private fun setPriceView(price: PriceViewData) {
+        findViewById<TextView>(R.id.seat_selection_movie_price).text =
+            getString(R.string.seat_price, price.value)
+    }
+
+    private fun calculateDiscountedPrice(
+        seats: SeatsViewData,
+        reservationDetail: ReservationDetailViewData
+    ): PriceViewData {
+        val discount = Discount(listOf(MovieDay, OffTime))
+        return seats.seats.sumOf { seat ->
+            discount.calculate(
+                reservationDetail.toDomain(), seat.toDomain().row.seatRankByRow().price
+            ).value
+        }.let {
+            PriceViewData(it)
+        }
+    }
+
+    private fun initReserveButton(
+        seatTableLayout: SeatTableLayout,
+        movie: MovieViewData,
+        reservationDetail: ReservationDetailViewData
+    ) {
+        findViewById<Button>(R.id.seat_selection_reserve_button).setOnClickListener {
+            onClickReserveButton(seatTableLayout, movie, reservationDetail)
+        }
+    }
+
+    private fun onClickReserveButton(
+        seatTableLayout: SeatTableLayout,
+        movie: MovieViewData,
+        reservationDetail: ReservationDetailViewData
+    ) {
         AlertDialog.Builder(this).setTitle(getString(R.string.seat_selection_alert_title))
             .setMessage(getString(R.string.seat_selection_alert_message))
             .setPositiveButton(getString(R.string.seat_selection_alert_positive)) { _, _ ->
-                reserveMovie(seatTableLayout)
+                reserveMovie(seatTableLayout, movie, reservationDetail)
             }.setNegativeButton(getString(R.string.seat_selection_alert_negative)) { dialog, _ ->
                 dialog.dismiss()
             }.show()
     }
 
-    private fun reserveMovie(seatTableLayout: SeatTableLayout) {
+    private fun reserveMovie(
+        seatTableLayout: SeatTableLayout,
+        movie: MovieViewData,
+        reservationDetail: ReservationDetailViewData
+    ) {
         ReservationResultActivity.from(
             this,
-            intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME) ?: return finish(),
-            intent.extras?.getSerializable<ReservationDetailViewData>(ReservationDetailViewData.RESERVATION_DETAIL_EXTRA_NAME) ?: return finish(),
+            movie,
+            reservationDetail,
+            seatTableLayout.selectedSeats(),
+            calculateDiscountedPrice(
+                seatTableLayout.selectedSeats(), reservationDetail
+            )
         ).run {
             startActivity(this)
         }
+    }
+
+    private fun initMovieView(movie: MovieViewData) {
+        findViewById<TextView>(R.id.seat_selection_movie_title).text = movie.title
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

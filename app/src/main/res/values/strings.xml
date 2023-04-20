@@ -23,4 +23,5 @@
 
     <string name="seat_row_column">%c%d</string>
     <string name="seat_text_start_letter">A</string>
+    <string name="seat_price">%d원</string>
 </resources>

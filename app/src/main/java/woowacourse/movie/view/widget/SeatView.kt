@@ -11,6 +11,7 @@ import woowacourse.movie.view.data.SeatViewData
 
 class SeatView private constructor(
     context: Context,
+    val data: SeatViewData,
     var isSeatSelected: Boolean = false
 ) : ConstraintLayout(context) {
 
@@ -21,12 +22,12 @@ class SeatView private constructor(
         setBackgroundColor(Color.WHITE)
     }
 
-    private fun initText(seat: SeatViewData) {
+    private fun initText() {
         val textView = findViewById<TextView>(R.id.item_seat_text)
         textView.text = context.getString(
-            R.string.seat_row_column, seat.rowCharacter, seat.column + COLUMN_FIXER
+            R.string.seat_row_column, data.rowCharacter, data.column + COLUMN_FIXER
         )
-        textView.setTextColor(seat.color)
+        textView.setTextColor(data.color)
     }
 
     private fun selectSeat(selectable: () -> Boolean) {
@@ -41,12 +42,13 @@ class SeatView private constructor(
 
     companion object {
         private const val COLUMN_FIXER = 1
-        fun from(context: Context, seat: SeatViewData, selectable: () -> Boolean): SeatView {
-            return SeatView(context).apply {
+        fun from(context: Context, seat: SeatViewData, selectable: () -> Boolean, onSelect: () -> Unit): SeatView {
+            return SeatView(context, seat).apply {
                 initLayout()
-                initText(seat)
+                initText()
                 setOnClickListener {
                     selectSeat(selectable)
+                    onSelect()
                 }
             }
         }
