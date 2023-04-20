@@ -5,6 +5,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
@@ -12,15 +15,29 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import model.SeatSelectionModel
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.seatSelection.SeatSelectionActivity
 import woowacourse.movie.seatSelection.SeatSelectionActivity.Companion.KEY_SEAT_SELECTION
 import java.time.LocalDateTime
 
 class SeatSelectionActivityTest {
+
+    @Before
+    fun setup() {
+        Intents.init()
+    }
+
+    @After
+    fun tearDown() {
+        Intents.release()
+    }
+
     @get:Rule
-    var activityScenarioRule: ActivityScenarioRule<SeatSelectionActivity> =
+    val activityScenarioRule: ActivityScenarioRule<SeatSelectionActivity> =
         ActivityScenarioRule(
             Intent(
                 ApplicationProvider.getApplicationContext(),
@@ -101,5 +118,16 @@ class SeatSelectionActivityTest {
         onView(withText("C1")).perform(ViewActions.click())
         onView(withId(R.id.seat_selection_confirm)).perform(ViewActions.click())
         onView(withText(R.string.seat_selection_confirm_dialog_contents)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun 다이어로그에서_확인을_누르면_결제화면으로_이동한다() {
+        onView(withText("A1")).perform(ViewActions.click())
+        onView(withText("B1")).perform(ViewActions.click())
+        onView(withText("C1")).perform(ViewActions.click())
+        onView(withId(R.id.seat_selection_confirm)).perform(ViewActions.click())
+        onView(withText(R.string.seat_selection_confirm_dialog_contents)).check(matches(isDisplayed()))
+        onView(withText(R.string.seat_selection_confirm_dialog_yes)).perform(ViewActions.click())
+        intended(hasComponent(MovieTicketActivity::class.java.name))
     }
 }
