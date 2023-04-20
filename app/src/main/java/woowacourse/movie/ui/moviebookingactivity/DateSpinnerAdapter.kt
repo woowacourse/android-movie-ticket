@@ -9,8 +9,8 @@ import woowacourse.movie.domain.datetime.ScreeningPeriod
 import java.time.LocalDate
 
 class DateSpinnerAdapter(
-    private val dateSpinner: Spinner,
-    private val transferSelectedDate: (LocalDate) -> Unit,
+    dateSpinner: Spinner,
+    itemSelectedListener: (LocalDate) -> Unit,
     screeningPeriod: ScreeningPeriod,
     context: Context
 ) {
@@ -21,15 +21,21 @@ class DateSpinnerAdapter(
     )
 
     init {
-        initAdapter()
+        initAdapter(dateSpinner, itemSelectedListener)
     }
 
-    fun initAdapter() {
+    fun initAdapter(
+        dateSpinner: Spinner,
+        transferSelectedDate: (LocalDate) -> Unit
+    ) {
         dateSpinner.adapter = dateAdapter
-        setOnItemSelectedListener()
+        setOnItemSelectedListener(dateSpinner, transferSelectedDate)
     }
 
-    private fun setOnItemSelectedListener() {
+    private fun setOnItemSelectedListener(
+        dateSpinner: Spinner,
+        transferSelectedDate: (LocalDate) -> Unit
+    ) {
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
