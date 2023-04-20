@@ -32,40 +32,52 @@ class SeatSelectionActivity : AppCompatActivity() {
         findViewById(R.id.seat_selection_reserve_button)
     }
 
+    private val seatTableLayout: SeatTableLayout by lazy {
+        SeatTableLayout.from(
+            findViewById(R.id.seat_selection_table),
+            SEAT_ROW_COUNT,
+            SEAT_COLUMN_COUNT,
+            SEAT_TABLE_LAYOUT_STATE_KEY
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
-        initSeatSelectionView()
+        initSeatSelectionView(savedInstanceState)
     }
 
-    private fun initSeatSelectionView() {
+    private fun initSeatSelectionView(savedInstanceState: Bundle?) {
         val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
             ?: return finish()
         val reservationDetail =
             intent.extras?.getSerializable<ReservationDetailViewData>(ReservationDetailViewData.RESERVATION_DETAIL_EXTRA_NAME)
                 ?: return finish()
 
-        initSeatTableLayout(movie, reservationDetail)
         initMovieView(movie)
         setPriceView(PriceViewData())
-        setReservationButtonState(DEFAULT_SEAT_SIZE, reservationDetail.peopleCount)
+        initSeatTableLayout(movie, reservationDetail, savedInstanceState)
     }
 
     private fun initSeatTableLayout(
         movie: MovieViewData,
-        reservationDetail: ReservationDetailViewData
+        reservationDetail: ReservationDetailViewData,
+        savedInstanceState: Bundle?
     ) {
+        initReserveButton(seatTableLayout, movie, reservationDetail)
+
         makeBackButton()
 
-        val seatTableLayout = SeatTableLayout.from(
-            findViewById(R.id.seat_selection_table),
-            SEAT_ROW_COUNT,
-            SEAT_COLUMN_COUNT,
-            reservationDetail.peopleCount
-        ) { onSelectSeat(it, reservationDetail) }
+        seatTableLayout.onSelectSeat = {
+            onSelectSeat(it, reservationDetail)
+        }
 
-        initReserveButton(seatTableLayout, movie, reservationDetail)
+        seatTableLayout.seatSelectCondition = { seatsSize ->
+            seatsSize < reservationDetail.peopleCount
+        }
+
+        seatTableLayout.load(savedInstanceState)
     }
 
     private fun makeBackButton() {
@@ -79,8 +91,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun setPriceView(price: PriceViewData) {
         val formattedPrice = NumberFormat.getNumberInstance(Locale.US).format(price.value)
-        priceText.text =
-            getString(R.string.seat_price, formattedPrice)
+        priceText.text = getString(R.string.seat_price, formattedPrice)
     }
 
     private fun setReservationButtonState(
@@ -115,9 +126,10 @@ class SeatSelectionActivity : AppCompatActivity() {
         movie: MovieViewData,
         reservationDetail: ReservationDetailViewData
     ) {
-        findViewById<Button>(R.id.seat_selection_reserve_button).setOnClickListener {
+        reservationButton.setOnClickListener {
             onClickReserveButton(seatTableLayout, movie, reservationDetail)
         }
+        setReservationButtonState(DEFAULT_SEAT_SIZE, reservationDetail.peopleCount)
     }
 
     private fun onClickReserveButton(
@@ -156,6 +168,11 @@ class SeatSelectionActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.seat_selection_movie_title).text = movie.title
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        seatTableLayout.save(outState)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> finish()
@@ -167,6 +184,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         private const val SEAT_ROW_COUNT = 5
         private const val SEAT_COLUMN_COUNT = 4
         private const val DEFAULT_SEAT_SIZE = 0
+        private const val SEAT_TABLE_LAYOUT_STATE_KEY = "seatTable"
 
         fun from(
             context: Context,
