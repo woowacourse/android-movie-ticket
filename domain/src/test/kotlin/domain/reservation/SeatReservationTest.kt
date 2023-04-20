@@ -19,7 +19,7 @@ class SeatReservationTest {
         seatReservation = SeatReservation(
             movieName = MovieName("해리포터"),
             screeningTime = LocalDateTime.of(1999, 10, 6, 22, 0),
-            selectingCount = TicketCount(3)
+            seatCount = TicketCount(3)
         )
     }
 

@@ -14,7 +14,7 @@ import java.time.LocalDateTime
 data class SeatReservationInfo(
     val movieName: String,
     val screeningTime: LocalDateTime,
-    val selectingCount: Int,
+    val seatCount: Int,
     val screeningSeats: Map<Pair<SeatRow, SeatColumn>, SeatState> = SeatRow
         .values()
         .flatMap { row ->
@@ -39,7 +39,7 @@ data class SeatReservationInfo(
 fun SeatReservationInfo.toDomainModel() = SeatReservation(
     movieName = MovieName(movieName),
     screeningTime = screeningTime,
-    selectingCount = TicketCount(selectingCount),
+    seatCount = TicketCount(seatCount),
     screeningSeats = ScreeningSeats(
         screeningSeats.map {
             Pair(ScreeningSeat(it.key.first, it.key.second), it.value)

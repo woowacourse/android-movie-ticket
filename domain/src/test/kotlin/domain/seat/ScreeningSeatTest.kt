@@ -12,7 +12,7 @@ class ScreeningSeatTest {
         val seat = ScreeningSeat(SeatRow.A, SeatColumn.THIRD)
 
         // when
-        val paymentAmount = seat.payment
+        val paymentAmount = seat.paymentAmount
 
         // then
         val expected = PaymentAmount(10000)
@@ -25,7 +25,7 @@ class ScreeningSeatTest {
         val seat = ScreeningSeat(SeatRow.B, SeatColumn.THIRD)
 
         // when
-        val paymentAmount = seat.payment
+        val paymentAmount = seat.paymentAmount
 
         // then
         val expected = PaymentAmount(10000)
@@ -38,7 +38,7 @@ class ScreeningSeatTest {
         val seat = ScreeningSeat(SeatRow.C, SeatColumn.THIRD)
 
         // when
-        val paymentAmount = seat.payment
+        val paymentAmount = seat.paymentAmount
 
         // then
         val expected = PaymentAmount(15000)
@@ -51,7 +51,7 @@ class ScreeningSeatTest {
         val seat = ScreeningSeat(SeatRow.D, SeatColumn.THIRD)
 
         // when
-        val paymentAmount = seat.payment
+        val paymentAmount = seat.paymentAmount
 
         // then
         val expected = PaymentAmount(15000)
@@ -64,7 +64,7 @@ class ScreeningSeatTest {
         val seat = ScreeningSeat(SeatRow.E, SeatColumn.THIRD)
 
         // when
-        val paymentAmount = seat.payment
+        val paymentAmount = seat.paymentAmount
 
         // then
         val expected = PaymentAmount(12000)

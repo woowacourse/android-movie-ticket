@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 data class SeatReservation(
     val movieName: MovieName,
     val screeningTime: LocalDateTime,
-    val selectingCount: TicketCount,
+    val seatCount: TicketCount,
     val screeningSeats: ScreeningSeats = ScreeningSeats()
 ) {
 
@@ -49,7 +49,7 @@ data class SeatReservation(
         return PaymentAmount(totalPayment)
     }
 
-    private fun isFullSelectedSeatCount() = _selectedSeats.size == selectingCount.value
+    private fun isFullSelectedSeatCount() = _selectedSeats.size == seatCount.value
 
     companion object {
         private const val ERROR_OVER_TICKET_COUNT = "[ERROR]: 티켓 개수보다 많은 좌석을 선택할 수 없습니다."
