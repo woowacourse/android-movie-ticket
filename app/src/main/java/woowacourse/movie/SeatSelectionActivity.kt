@@ -57,7 +57,7 @@ class SeatSelectionActivity : AppCompatActivity() {
             textView.setOnClickListener {
                 val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
                 when {
-                    isPossibleSelect(seat) -> selectSeat(textView, seat)
+                    isPossibleSelect(seat, ticketCount.numberOfPeople) -> selectSeat(textView, seat)
                     else -> unselectSeat(textView, seat)
                 }
                 setPrice(seats.caculateSeatPrice(LocalDateTime.of(date, time)))
@@ -112,8 +112,8 @@ class SeatSelectionActivity : AppCompatActivity() {
         return !seats.isEmpty()
     }
 
-    private fun isPossibleSelect(seat: Seat): Boolean {
-        return !seats.containsSeat(seat)
+    private fun isPossibleSelect(seat: Seat, count: Int): Boolean {
+        return !seats.containsSeat(seat) && seats.isPossibleSeatSize(count)
     }
 
     private fun selectSeat(textView: TextView, seat: Seat) {

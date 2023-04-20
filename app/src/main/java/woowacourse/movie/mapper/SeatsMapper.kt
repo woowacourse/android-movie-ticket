@@ -6,9 +6,9 @@ import woowacourse.movie.dto.SeatDto
 import woowacourse.movie.dto.SeatsDto
 
 fun SeatsDto.mapToSeats(): Seats {
-    return Seats(this.seats.map { Seat(it.position, it.price.mapToTicketPrice()) })
+    return Seats(this.seats.map { Seat(it.position.mapToDomain(), it.price.mapToTicketPrice()) })
 }
 
 fun Seats.mapToSeatsDto(): SeatsDto {
-    return SeatsDto(this.seats.map { SeatDto(it.position, it.price.mapToTicketPriceDto()) })
+    return SeatsDto(this.seats.map { SeatDto(it.position.mapToUIModel(), it.price.mapToTicketPriceDto()) })
 }

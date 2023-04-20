@@ -17,6 +17,10 @@ class Seats(seats: List<Seat> = emptyList()) {
         _seats.remove(seat)
     }
 
+    fun isPossibleSeatSize(count: Int): Boolean {
+        return seats.size <= count
+    }
+
     fun isEmpty(): Boolean = seats.isEmpty()
 
     fun caculateSeatPrice(dateTime: LocalDateTime): Int {
