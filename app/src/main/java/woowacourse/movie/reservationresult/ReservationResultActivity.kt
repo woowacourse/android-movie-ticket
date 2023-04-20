@@ -1,31 +1,25 @@
-package woowacourse.movie.activity
+package woowacourse.movie.reservationresult
 
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import domain.payment.PaymentType
 import woowacourse.movie.R
-import woowacourse.movie.activity.ScreeningSeatSelectionActivity.Companion.RESERVATION_KEY
+import woowacourse.movie.getIntentData
 import woowacourse.movie.model.ReservationInfo
+import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity.Companion.RESERVATION_RESULT_KEY
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : AppCompatActivity() {
 
-    private val reservation: ReservationInfo by lazy {
-        intent.customGetSerializable(RESERVATION_KEY) as? ReservationInfo
-            ?: run {
-                Toast.makeText(this, getString(R.string.movie_data_error_message), Toast.LENGTH_SHORT).show()
-                finish()
-                ReservationInfo.ofError()
-            }
-    }
+    private lateinit var reservation: ReservationInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
+        reservation = getIntentData(RESERVATION_RESULT_KEY) ?: ReservationInfo.ofError()
         initReservationResultView()
     }
 

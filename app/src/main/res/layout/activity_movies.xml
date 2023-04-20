@@ -4,6 +4,6 @@
     android:id="@+id/movies_list_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.movies.MoviesActivity"
+    tools:context=".movies.MoviesActivity"
     tools:ignore="AdapterViewChildren"
     tools:listitem="@layout/item_movie" />

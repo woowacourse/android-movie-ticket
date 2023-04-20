@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.seatselection
 
 import android.content.Intent
 import android.graphics.Color
@@ -19,29 +19,17 @@ import domain.seat.SeatColumn
 import domain.seat.SeatRow
 import domain.seat.SeatState
 import woowacourse.movie.R
-import woowacourse.movie.activity.reservation.ReservationActivity.Companion.SEAT_RESERVATION_KEY
+import woowacourse.movie.getIntentData
 import woowacourse.movie.model.SeatReservationInfo
 import woowacourse.movie.model.toDomainModel
 import woowacourse.movie.model.toUIModel
+import woowacourse.movie.reservation.ReservationActivity.Companion.SEAT_RESERVATION_KEY
+import woowacourse.movie.reservationresult.ReservationResultActivity
 
 class ScreeningSeatSelectionActivity : AppCompatActivity() {
 
-    private val seatReservationInfo: SeatReservationInfo by lazy {
-        intent.customGetSerializable(SEAT_RESERVATION_KEY) as? SeatReservationInfo
-            ?: run {
-                Toast.makeText(
-                    this,
-                    getString(R.string.movie_data_error_message),
-                    Toast.LENGTH_SHORT
-                ).show()
-                finish()
-                SeatReservationInfo.ofError()
-            }
-    }
-    private val seatReservation: SeatReservation by lazy {
-        seatReservationInfo.toDomainModel()
-    }
-
+    private lateinit var seatReservationInfo: SeatReservationInfo
+    private val seatReservation: SeatReservation by lazy { seatReservationInfo.toDomainModel() }
     private val paymentAmountText: TextView by lazy {
         findViewById(R.id.seat_selection_payment_amount_text)
     }
@@ -49,6 +37,8 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_seat_selection)
+
+        seatReservationInfo = getIntentData(SEAT_RESERVATION_KEY) ?: SeatReservationInfo.ofError()
         initView()
         initSeatClickListener()
         initSelectionCompleteButton()
@@ -129,7 +119,7 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
                 seatReservation.selectingComplete()
             ).toUIModel()
 
-            intent.putExtra(RESERVATION_KEY, reservation)
+            intent.putExtra(RESERVATION_RESULT_KEY, reservation)
             startActivity(intent)
         }.onFailure {
             Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
@@ -137,6 +127,6 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val RESERVATION_KEY = "reservation_key"
+        const val RESERVATION_RESULT_KEY = "reservation_key"
     }
 }

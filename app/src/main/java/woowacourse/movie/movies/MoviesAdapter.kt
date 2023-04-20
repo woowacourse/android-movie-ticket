@@ -1,4 +1,4 @@
-package woowacourse.movie.activity.movies
+package woowacourse.movie.movies
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +13,7 @@ class MoviesAdapter(
 ) : BaseAdapter() {
 
     private val viewHolderMap = mutableMapOf<View, MovieItemViewHolder>()
+
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): MovieInfo = movies[position]

@@ -1,4 +1,4 @@
-package woowacourse.movie.activity.reservation
+package woowacourse.movie.reservation
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,18 +6,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import domain.reservation.TicketCount
 import woowacourse.movie.R
-import woowacourse.movie.activity.ScreeningSeatSelectionActivity
-import woowacourse.movie.activity.movies.MoviesActivity.Companion.MOVIE_KEY
 import woowacourse.movie.getIntentData
 import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.SeatReservationInfo
+import woowacourse.movie.movies.MoviesActivity.Companion.MOVIE_KEY
+import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity
 
 class ReservationActivity : AppCompatActivity() {
 
     private val navigationViewSetter: NavigationViewSetter by lazy {
         NavigationViewSetter(movie, findViewById(R.id.reservation_navigation_bar))
     }
-
     private lateinit var movie: MovieInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {

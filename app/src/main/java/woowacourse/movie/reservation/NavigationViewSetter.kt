@@ -1,4 +1,4 @@
-package woowacourse.movie.activity.reservation
+package woowacourse.movie.reservation
 
 import android.os.Bundle
 import android.view.View
@@ -10,12 +10,11 @@ import android.widget.TextView
 import domain.movie.ScreeningDate
 import domain.reservation.TicketCount
 import woowacourse.movie.R
-import woowacourse.movie.activity.SpinnerItemSelectedListener
-import woowacourse.movie.activity.reservation.ReservationActivity.Companion.SCREENING_DATE_POSITION_KEY
-import woowacourse.movie.activity.reservation.ReservationActivity.Companion.SCREENING_TIME_POSITION_KEY
-import woowacourse.movie.activity.reservation.ReservationActivity.Companion.TICKET_COUNT_KEY
 import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.SeatReservationInfo
+import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_DATE_POSITION_KEY
+import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_TIME_POSITION_KEY
+import woowacourse.movie.reservation.ReservationActivity.Companion.TICKET_COUNT_KEY
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

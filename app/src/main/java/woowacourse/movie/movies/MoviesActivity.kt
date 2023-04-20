@@ -1,13 +1,13 @@
-package woowacourse.movie.activity.movies
+package woowacourse.movie.movies
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.model.MockMoviesGenerator
 import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {
 
