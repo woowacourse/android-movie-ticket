@@ -11,7 +11,7 @@ fun indexToPosition(index: Int): SeatPosition {
     )
 }
 
-class SeatPosition(private val row: SeatRow, private val column: Int) : Serializable {
+class SeatPosition(val row: SeatRow, private val column: Int) : Serializable {
     override fun toString(): String {
         return "${row.name}$column"
     }

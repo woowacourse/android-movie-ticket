@@ -4,18 +4,22 @@ class Seat(val position: SeatPosition, val rank: SeatRank) {
 
     companion object {
         fun makeSeats(): List<Seat> {
-            val seats = mutableListOf<Seat>()
-            for (i in SeatRow.values()) {
-                for (j in 0..3) {
-                    when (i) {
-                        SeatRow.A, SeatRow.B -> seats.add(Seat(SeatPosition(i, j), SeatRank.B))
-                        SeatRow.C, SeatRow.D -> seats.add(Seat(SeatPosition(i, j), SeatRank.S))
-                        SeatRow.E -> seats.add(Seat(SeatPosition(i, j), SeatRank.A))
-                    }
+            val position = makeSeatPosition()
+            return position.map {
+                when (it.row) {
+                    SeatRow.A, SeatRow.B -> Seat(it, SeatRank.B)
+                    SeatRow.C, SeatRow.D -> Seat(it, SeatRank.S)
+                    SeatRow.E -> Seat(it, SeatRank.A)
                 }
             }
+        }
 
-            return seats
+        private fun makeSeatPosition(): List<SeatPosition> {
+            return SeatRow.values().flatMap { seatRow ->
+                (0..3).map {
+                    SeatPosition(seatRow, it)
+                }
+            }
         }
     }
 }
