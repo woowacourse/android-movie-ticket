@@ -1,7 +1,8 @@
-package woowacourse.movie.domain
+package domain
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.PeopleCount
 
 class PeopleCountTest {
     @Test

@@ -1,7 +1,7 @@
-package woowacourse.movie.domain
+package domain
 
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.discount.LateTimeDiscount
 import java.time.LocalDateTime
 
@@ -12,7 +12,7 @@ class LateTimeDiscountTest {
             LocalDateTime.of(2023, 8, 7, 22, 0)
         ).getDiscountPrice(26000)
 
-        Assert.assertEquals(24000, actual)
+        assertEquals(24000, actual)
     }
 
     @Test
@@ -21,6 +21,6 @@ class LateTimeDiscountTest {
             LocalDateTime.of(2023, 8, 7, 15, 0)
         ).getDiscountPrice(26000)
 
-        Assert.assertEquals(26000, actual)
+        assertEquals(26000, actual)
     }
 }
