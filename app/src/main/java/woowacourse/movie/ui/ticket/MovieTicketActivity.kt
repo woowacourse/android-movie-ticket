@@ -10,7 +10,7 @@ import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.ui.const.KEY_TICKET
-import woowacourse.movie.utils.getCustomSerializableExtra
+import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.utils.showToast
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -42,7 +42,7 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo() {
-        val ticket: MovieTicket? = intent.getCustomSerializableExtra<MovieTicketModel>(KEY_TICKET)?.toDomain()
+        val ticket: MovieTicket? = intent.getSerializableExtraCompat<MovieTicketModel>(KEY_TICKET)?.toDomain()
 
         if (ticket == null) {
             showToast(getString(R.string.error_loading))

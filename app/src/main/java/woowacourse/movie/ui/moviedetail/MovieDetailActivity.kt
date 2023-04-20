@@ -21,7 +21,7 @@ import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.ui.ticket.MovieTicketActivity
-import woowacourse.movie.utils.getCustomSerializableExtra
+import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.utils.showToast
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -41,7 +41,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie: MovieModel? = intent.getCustomSerializableExtra<MovieModel>(KEY_MOVIE)
+        val movie: MovieModel? = intent.getSerializableExtraCompat<MovieModel>(KEY_MOVIE)
         if (movie == null) {
             showToast(getString(R.string.error_loading))
             finish()

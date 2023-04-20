@@ -7,7 +7,7 @@ import android.widget.Toast
 import java.io.Serializable
 
 @Suppress("DEPRECATION")
-inline fun <reified T : Serializable> Intent.getCustomSerializableExtra(key: String): T? {
+inline fun <reified T : Serializable> Intent.getSerializableExtraCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getSerializableExtra(key, T::class.java)
     } else {
