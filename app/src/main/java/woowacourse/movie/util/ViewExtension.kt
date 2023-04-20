@@ -3,7 +3,7 @@ package woowacourse.movie.util
 import android.view.View
 
 inline fun View.setOnSingleClickListener(
-    delay: Long = 500L,
+    delay: Long = 100L,
     crossinline block: (View) -> Unit
 ) {
     var previousClickedTime = 0L

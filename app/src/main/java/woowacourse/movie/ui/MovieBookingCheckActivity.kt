@@ -30,8 +30,8 @@ class MovieBookingCheckActivity : AppCompatActivity() {
             ?: return finishActivity(MOVIE_DATA)
         ticketCount = intent.getIntExtra(TICKET_COUNT, NULL_POSITION)
         bookedScreeningDateTimeState =
-            intent.customGetParcelableExtra(BOOKED_SCREENING_DATE_TIME)
-                ?: return finishActivity(BOOKED_SCREENING_DATE_TIME)
+            intent.customGetParcelableExtra(SELECTED_SCREENING_DATE_TIME)
+                ?: return finishActivity(SELECTED_SCREENING_DATE_TIME)
     }
 
     private fun finishActivity(key: String) {
@@ -57,10 +57,9 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     companion object {
         private const val MOVIE_DATA = "movieData"
         private const val TICKET_COUNT = "ticketCount"
-        private const val BOOKED_SCREENING_DATE_TIME = "bookedScreeningDateTime"
+        private const val SELECTED_SCREENING_DATE_TIME = "selectedScreeningDateTime"
         private const val DATA_NOT_FOUNT_ERROR_MSG = "%s를 찾을 수 없습니다."
         private const val MOIVE_BOOKING_CHECK_LOG_MSG = "MovieBookingCheck"
-        private const val STANDARD_TICKET_PRICE = 13000
         private const val NULL_POSITION = -1
     }
 }

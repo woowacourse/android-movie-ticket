@@ -1,10 +1,13 @@
 package woowacourse.movie.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import movie.domain.Count
@@ -31,6 +34,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var selectedScreeningDateTimeState: ScreeningDateTimeState
     private val selectedSeats: MutableList<Seat> = mutableListOf()
     private lateinit var tvSeatSelectionPrice: TextView
+    private lateinit var btnSeatSelection: Button
 
     private var price: Int by Delegates.observable(0) { _, _, new ->
         tvSeatSelectionPrice.text = "%s원".format(new)
@@ -40,12 +44,18 @@ class SeatSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
+        initView()
         initMovieData()
         initMovieInformation()
         initTicketCount()
         initSeatSelectionView()
         initSeatSelectionClickListener()
-        // initReservationButtonClickListener()
+        initReservationButtonClickListener()
+    }
+
+    private fun initView() {
+        tvSeatSelectionPrice = findViewById<TextView>(R.id.tv_seat_selection_price)
+        btnSeatSelection = findViewById<Button>(R.id.btn_seat_selection)
     }
 
     private fun initMovieData() {
@@ -65,7 +75,6 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun initMovieInformation() {
         val tvSeatSelectionTitle = findViewById<TextView>(R.id.tv_seat_selection_title)
-        tvSeatSelectionPrice = findViewById<TextView>(R.id.tv_seat_selection_price)
 
         tvSeatSelectionTitle.text = movieDataState.title
     }
@@ -111,13 +120,19 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun selectSeat(seatView: TextView, index: Int) {
-        if (selectedSeatCount == ticketCount) return
+        if (selectedSeatCount == ticketCount) {
+            return
+        }
         selectedSeatCount++
         seatView.isSelected = true
         selectedSeats.add(Seat(index))
+        if (selectedSeatCount == ticketCount) {
+            btnSeatSelection.isEnabled = true
+        }
     }
 
     private fun cancelSeat(seatView: TextView, index: Int) {
+        btnSeatSelection.isEnabled = false
         if (selectedSeatCount == Count(0)) return
         selectedSeatCount--
         seatView.isSelected = false
@@ -125,13 +140,31 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initReservationButtonClickListener() {
-        TODO("Not yet implemented")
+        btnSeatSelection.setOnSingleClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    val intent = Intent(this, MovieBookingCheckActivity::class.java)
+                        .putExtra(MOVIE_DATA, movieDataState)
+                        .putExtra(TOTAL_PRICE, price)
+                        .putExtra(SEAT_SELECTION, selectedSeats.map { it.toString() }.toTypedArray())
+                        .putExtra(SELECTED_SCREENING_DATE_TIME, selectedScreeningDateTimeState)
+                    startActivity(intent)
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setCancelable(false)
+                .show()
+        }
     }
 
     companion object {
         private const val MOVIE_DATA = "movieData"
         private const val TICKET_COUNT = "ticketCount"
         private const val SEAT_SELECTION = "SeatSelection"
+        private const val TOTAL_PRICE = "price"
         private const val SELECTED_SCREENING_DATE_TIME = "selectedScreeningDateTime"
         private const val DATA_NOT_FOUNT_ERROR_MSG = "%s를 찾을 수 없습니다."
     }

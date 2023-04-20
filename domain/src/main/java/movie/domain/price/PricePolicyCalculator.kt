@@ -6,7 +6,7 @@ class PricePolicyCalculator(private val discountPolicies: List<DiscountPolicy>) 
 
     override fun totalPriceCalculate(selectedSeats: List<Seat>): Int {
         return selectedSeats.fold(0) { totalPrice, seat ->
-            totalPrice + discountCalculate(seat.seatRank.price)
+            totalPrice + discountCalculate(seat.rank.price)
         }
     }
 
