@@ -3,14 +3,18 @@ package woowacourse.movie
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import woowacourse.movie.model.Location
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
+import woowacourse.movie.model.SeatGrade
 import woowacourse.movie.model.SeatRow
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MovieTest {
+
+    fun makeSeat(location: Location) = Seat(location, SeatGrade.from(location))
 
     @Test
     fun `무비에 해당하는 티켓을 반환한다`() {
@@ -21,7 +25,11 @@ class MovieTest {
             1L,
             screeningDate,
             3,
-            seats = listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1)),
+            seats = listOf(
+                makeSeat(Location(SeatRow.A, 1)),
+                makeSeat(Location(SeatRow.B, 1)),
+                makeSeat(Location(SeatRow.C, 1)),
+            ),
         )
 
         val movie = Movie(
@@ -36,7 +44,11 @@ class MovieTest {
         val actual = movie.reserve(
             screeningDate,
             TicketCount(3),
-            listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1), Seat(SeatRow.C, 1)),
+            listOf(
+                makeSeat(Location(SeatRow.A, 1)),
+                makeSeat(Location(SeatRow.B, 1)),
+                makeSeat(Location(SeatRow.C, 1)),
+            ),
         )
 
         assertThat(actual).isEqualTo(expected)
@@ -51,7 +63,11 @@ class MovieTest {
             1L,
             screeningDate,
             3,
-            listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1), Seat(SeatRow.C, 1)),
+            listOf(
+                makeSeat(Location(SeatRow.A, 1)),
+                makeSeat(Location(SeatRow.B, 1)),
+                makeSeat(Location(SeatRow.C, 1)),
+            ),
         )
 
         val movie = Movie(
@@ -67,7 +83,11 @@ class MovieTest {
             movie.reserve(
                 screeningDate,
                 TicketCount(3),
-                listOf(Seat(SeatRow.A, 1), Seat(SeatRow.B, 1), Seat(SeatRow.C, 1)),
+                listOf(
+                    makeSeat(Location(SeatRow.A, 1)),
+                    makeSeat(Location(SeatRow.B, 1)),
+                    makeSeat(Location(SeatRow.C, 1)),
+                ),
             )
         }
     }
