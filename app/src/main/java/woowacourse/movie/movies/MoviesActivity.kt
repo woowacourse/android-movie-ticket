@@ -15,10 +15,10 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-        initMoviesAdapter()
+        applyMoviesAdapter()
     }
 
-    private fun initMoviesAdapter() {
+    private fun applyMoviesAdapter() {
         val movies: List<MovieInfo> = MockMoviesGenerator().generate()
         val moviesListView: ListView = findViewById(R.id.movies_list_view)
 
