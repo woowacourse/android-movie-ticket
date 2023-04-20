@@ -1,6 +1,6 @@
 package woowacourse.movie
 
-import com.example.domain.model.PlayingTimes
+import com.example.domain.model.model.PlayingTimes
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import java.time.DayOfWeek

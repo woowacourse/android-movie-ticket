@@ -1,6 +1,6 @@
 package woowacourse.movie.mapper
 
-import com.example.domain.model.Movie
+import com.example.domain.model.model.Movie
 import woowacourse.movie.formatter.DateFormatter
 import woowacourse.movie.model.MovieModel
 

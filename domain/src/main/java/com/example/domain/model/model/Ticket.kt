@@ -1,4 +1,4 @@
-package com.example.domain.model
+package com.example.domain.model.model
 
 import com.example.domain.model.price.Price
 import java.time.LocalDate

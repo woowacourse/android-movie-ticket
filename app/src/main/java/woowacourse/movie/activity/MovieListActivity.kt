@@ -3,7 +3,7 @@ package woowacourse.movie.activity
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.domain.model.Movie
+import com.example.domain.model.model.Movie
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.mapper.toMovieModel

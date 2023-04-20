@@ -1,11 +1,11 @@
-package com.example.domain.model
+package com.example.domain.model.model
 
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-class PlayingTimes(val startDate: LocalDate, val endDate: LocalDate) {
+class PlayingTimes(startDate: LocalDate, endDate: LocalDate) {
 
     private val _playingDates: MutableList<LocalDate> = mutableListOf()
     val playingDates: List<LocalDate>

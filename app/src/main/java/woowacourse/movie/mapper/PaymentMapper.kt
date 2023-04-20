@@ -1,6 +1,6 @@
 package woowacourse.movie.mapper
 
-import com.example.domain.model.Payment
+import com.example.domain.model.model.Payment
 import woowacourse.movie.model.PaymentModel
 
 fun Payment.toPaymentModel(): PaymentModel {

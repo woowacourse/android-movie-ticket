@@ -1,6 +1,6 @@
 package woowacourse.movie.mapper
 
-import com.example.domain.model.Ticket
+import com.example.domain.model.model.Ticket
 import woowacourse.movie.formatter.DateFormatter
 import woowacourse.movie.formatter.TimeFormatter
 import woowacourse.movie.model.PaymentModel

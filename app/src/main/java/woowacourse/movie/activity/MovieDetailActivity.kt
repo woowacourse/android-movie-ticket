@@ -11,9 +11,9 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.domain.model.Payment
-import com.example.domain.model.PlayingTimes
-import com.example.domain.model.Ticket
+import com.example.domain.model.model.Payment
+import com.example.domain.model.model.PlayingTimes
+import com.example.domain.model.model.Ticket
 import com.example.domain.model.price.Price
 import com.example.domain.model.price.PriceCalculator
 import woowacourse.movie.R
