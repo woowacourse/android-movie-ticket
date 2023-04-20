@@ -17,7 +17,6 @@ data class Reservation(
 ) {
 
     companion object {
-
         fun of(
             movieName: String,
             ticketCount: Int,

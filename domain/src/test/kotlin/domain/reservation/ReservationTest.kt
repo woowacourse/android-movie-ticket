@@ -38,9 +38,9 @@ class ReservationTest {
         )
         val result = Reservation(
             movieName = movie.movieName,
-            screeningDateTime = LocalDateTime.of(2000, 10, 1, 13, 0),
+            screeningDateTime = LocalDateTime.of(2000, 10, 10, 13, 0),
             ticketCount = 1,
-            paymentAmount = PaymentAmount(90000),
+            paymentAmount = PaymentAmount(9000),
             seats = listOf(selectedSeat)
         )
 

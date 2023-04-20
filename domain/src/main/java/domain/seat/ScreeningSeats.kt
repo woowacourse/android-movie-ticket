@@ -1,10 +1,7 @@
 package domain.seat
 
-import domain.payment.PaymentAmount
-
-class ScreeningSeats {
-
-    private val _values: MutableMap<ScreeningSeat, SeatState> = SeatRow
+class ScreeningSeats(
+    values: Map<ScreeningSeat, SeatState> = SeatRow
         .values()
         .flatMap { row ->
             SeatColumn.values().map { column ->
@@ -12,7 +9,10 @@ class ScreeningSeats {
             }
         }.associateWith {
             SeatState.AVAILABLE
-        }.toMutableMap()
+        }
+) {
+
+    private val _values: MutableMap<ScreeningSeat, SeatState> = values.toMutableMap()
 
     val values: Map<ScreeningSeat, SeatState>
         get() = _values.toMap()
@@ -35,14 +35,5 @@ class ScreeningSeats {
         }
         _values[seat] = SeatState.AVAILABLE
         return seat
-    }
-
-    fun getTotalPaymentAmount(): PaymentAmount {
-        val totalPayment = _values
-            .filter { it.value == SeatState.RESERVED }
-            .keys
-            .sumOf { it.payment.value }
-
-        return PaymentAmount(totalPayment)
     }
 }

@@ -1,6 +1,5 @@
 package domain.seat
 
-import domain.payment.PaymentAmount
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -90,21 +89,5 @@ class ScreeningSeatsTest {
 
         // then
         assertEquals(expected, canceledSeat)
-    }
-
-    @Test
-    fun `선택한_좌석들의_총_가격을_반환한다`() {
-        // given
-        val screeningSeats = ScreeningSeats()
-
-        // when
-        screeningSeats.selectSeat(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
-        screeningSeats.selectSeat(ScreeningSeat(SeatRow.B, SeatColumn.FIRST))
-        screeningSeats.selectSeat(ScreeningSeat(SeatRow.E, SeatColumn.FIRST))
-
-        // then
-        val expected = PaymentAmount(32000)
-
-        assertEquals(expected, screeningSeats.getTotalPaymentAmount())
     }
 }

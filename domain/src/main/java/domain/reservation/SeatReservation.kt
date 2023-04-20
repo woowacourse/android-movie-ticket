@@ -1,6 +1,7 @@
 package domain.reservation
 
 import domain.movie.MovieName
+import domain.payment.PaymentAmount
 import domain.seat.ScreeningSeat
 import domain.seat.ScreeningSeats
 import java.time.LocalDateTime
@@ -40,6 +41,12 @@ data class SeatReservation(
             return _selectedSeats.toList()
         }
         throw IllegalStateException(ERROR_TICKET_COUNT)
+    }
+
+    fun getTotalPaymentAmount(): PaymentAmount {
+        val totalPayment = _selectedSeats.sumOf { it.payment.value }
+
+        return PaymentAmount(totalPayment)
     }
 
     companion object {

@@ -1,6 +1,7 @@
 package domain.reservation
 
 import domain.movie.MovieName
+import domain.payment.PaymentAmount
 import domain.seat.ScreeningSeat
 import domain.seat.SeatColumn
 import domain.seat.SeatRow
@@ -18,7 +19,7 @@ class SeatReservationTest {
         seatReservation = SeatReservation(
             movieName = MovieName("해리포터"),
             screeningTime = LocalDateTime.of(1999, 10, 6, 22, 0),
-            selectingCount = TicketCount(1)
+            selectingCount = TicketCount(3)
         )
     }
 
@@ -54,5 +55,21 @@ class SeatReservationTest {
         val expected: List<ScreeningSeat> = listOf()
 
         assertEquals(selectedSeats, expected)
+    }
+
+    @Test
+    fun `선택한_좌석들의_총_가격을_반환한다`() {
+        // given
+        seatReservation.selectSeat(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
+        seatReservation.selectSeat(ScreeningSeat(SeatRow.B, SeatColumn.FIRST))
+        seatReservation.selectSeat(ScreeningSeat(SeatRow.E, SeatColumn.FIRST))
+
+        // when
+        val totalPayment: PaymentAmount = seatReservation.getTotalPaymentAmount()
+
+        // then
+        val expected = PaymentAmount(32000)
+
+        assertEquals(expected, totalPayment)
     }
 }
