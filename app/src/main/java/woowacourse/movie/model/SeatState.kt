@@ -1,0 +1,1 @@
+package woowacourse.movie.model
