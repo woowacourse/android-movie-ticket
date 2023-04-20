@@ -1,6 +1,6 @@
 package woowacourse.movie.service
 
-import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.ReservationResult
 import woowacourse.movie.domain.Screening
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.ReservationDto
@@ -27,10 +27,10 @@ object MovieQueryService {
     }
 
     fun getMinAudienceCount(): Int {
-        return Reservation.MIN_AUDIENCE_COUNT
+        return ReservationResult.MIN_AUDIENCE_COUNT
     }
 
     fun getMaxAudienceCount(): Int {
-        return Reservation.MAX_AUDIENCE_COUNT
+        return ReservationResult.MAX_AUDIENCE_COUNT
     }
 }

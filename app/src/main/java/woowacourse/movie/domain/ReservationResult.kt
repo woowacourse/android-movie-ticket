@@ -2,7 +2,7 @@ package woowacourse.movie.domain
 
 import java.time.LocalDateTime
 
-data class Reservation(val selectedDateTime: LocalDateTime, val audienceCount: Int) {
+data class ReservationResult(val selectedDateTime: LocalDateTime, val audienceCount: Int) {
 
     val fee = DiscountPolicy.getDiscountedFee(selectedDateTime, Money(TICKET_PRICE)) * audienceCount
 

@@ -12,7 +12,7 @@ class Movie(
         screenings.addScreening(screening)
     }
 
-    fun reserve(screening: Screening, reservation: Reservation) {
-        screenings.reserve(screening, reservation)
+    fun reserve(screening: Screening, reservationResult: ReservationResult) {
+        screenings.reserve(screening, reservationResult)
     }
 }

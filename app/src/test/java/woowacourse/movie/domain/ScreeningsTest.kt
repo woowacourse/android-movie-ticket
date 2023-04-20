@@ -14,7 +14,7 @@ internal class ScreeningsTest {
 
         val actual = screenings.screenings
 
-        val expected = mapOf<Screening, Reservation?>(screening to null)
+        val expected = mapOf<Screening, ReservationResult?>(screening to null)
         assert(actual == expected)
     }
 
@@ -26,7 +26,7 @@ internal class ScreeningsTest {
             "존재하지 않는 상영을 예매할 수 없습니다.",
             IllegalArgumentException::class.java
         ) {
-            screenings.reserve(Screening(LocalDateTime.now()), Reservation(LocalDateTime.now(), 1))
+            screenings.reserve(Screening(LocalDateTime.now()), ReservationResult(LocalDateTime.now(), 1))
         }
     }
 
@@ -36,11 +36,11 @@ internal class ScreeningsTest {
         val screeningDateTime = LocalDateTime.of(2021,3,1,10,0)
         val screening = Screening(screeningDateTime)
         screenings.addScreening(screening)
-        val reservation = Reservation(screeningDateTime, 1)
+        val reservationResult = ReservationResult(screeningDateTime, 1)
 
-        screenings.reserve(screening, reservation)
+        screenings.reserve(screening, reservationResult)
         val actual = screenings.screenings[screening]
 
-        assert(actual == reservation)
+        assert(actual == reservationResult)
     }
 }

@@ -2,9 +2,9 @@ package woowacourse.movie.domain
 
 class Screenings {
 
-    private var _screenings: MutableMap<Screening, Reservation?> = mutableMapOf()
+    private var _screenings: MutableMap<Screening, ReservationResult?> = mutableMapOf()
 
-    val screenings: Map<Screening, Reservation?>
+    val screenings: Map<Screening, ReservationResult?>
         get() = _screenings.toMap()
 
     fun addScreening(screening: Screening) {
@@ -12,9 +12,9 @@ class Screenings {
         _screenings = _screenings.toSortedMap().toMutableMap()
     }
 
-    fun reserve(screening: Screening, reservation: Reservation) {
+    fun reserve(screening: Screening, reservationResult: ReservationResult) {
         require(screening in _screenings) { SCREENING_NOT_EXISTS_ERROR }
-        _screenings[screening] = reservation
+        _screenings[screening] = reservationResult
     }
 
     companion object {
