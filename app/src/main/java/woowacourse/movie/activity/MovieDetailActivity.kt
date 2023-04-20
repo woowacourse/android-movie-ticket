@@ -76,8 +76,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
         ticketingButton.setOnClickListener {
             val intent = Intent(this, TicketResultActivity::class.java)
-            val ticketingInfo = getTicketModel(movieTitle)
-            intent.putExtra(INFO_KEY, ticketingInfo)
+            val ticketModel = getTicketModel(movieTitle)
+            intent.putExtra(INFO_KEY, ticketModel)
             startActivity(intent)
         }
     }
