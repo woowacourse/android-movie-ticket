@@ -5,7 +5,7 @@ class ScreeningSeats(
         .values()
         .flatMap { row ->
             SeatColumn.values().map { column ->
-                ScreeningSeat(row, column)
+                ScreeningSeat.valueOf(row, column)
             }
         }.associateWith {
             SeatState.AVAILABLE

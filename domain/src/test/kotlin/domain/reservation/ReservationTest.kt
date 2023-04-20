@@ -12,7 +12,7 @@ class ReservationTest {
     @Test
     fun `영화와 티켓 개수를 받아서 예매 정보를 반환한다`() {
         val movie = MockMovie()
-        val selectedSeat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val selectedSeat = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
 
         val reservation = Reservation.of(
             movieName = movie.movieName,

@@ -12,7 +12,7 @@ class ScreeningSeatsTest {
         val screeningSeats = ScreeningSeats()
 
         // when
-        val seat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val seat = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
         screeningSeats.selectSeat(seat)
 
         // then
@@ -25,11 +25,11 @@ class ScreeningSeatsTest {
     fun `이용가능한_좌석을_선택하면_해당_좌석을_반환한다`() {
         // given
         val screeningSeats = ScreeningSeats()
-        val seat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val seat = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
 
         // when
         val selectedSeat = screeningSeats.selectSeat(seat)
-        val expected = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val expected = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
 
         // then
         assertEquals(expected, selectedSeat)
@@ -39,7 +39,7 @@ class ScreeningSeatsTest {
     fun `이미_선택된_좌석을_선택하면_null을_반환한다`() {
         // given
         val screeningSeats = ScreeningSeats()
-        val seat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val seat = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
         screeningSeats.selectSeat(seat)
 
         // when
@@ -56,7 +56,7 @@ class ScreeningSeatsTest {
         val screeningSeats = ScreeningSeats()
 
         // when
-        val seat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val seat = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
         screeningSeats.cancelSeat(seat)
 
         // then
@@ -67,12 +67,12 @@ class ScreeningSeatsTest {
     fun `선택된_좌석을_취소하면_해당_좌석을_반환한다`() {
         // given
         val screeningSeats = ScreeningSeats()
-        val seat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val seat = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
         screeningSeats.selectSeat(seat)
 
         // when
         val canceledSeat = screeningSeats.cancelSeat(seat)
-        val expected = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        val expected = ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST)
 
         // then
         assertEquals(expected, canceledSeat)
@@ -84,7 +84,8 @@ class ScreeningSeatsTest {
         val screeningSeats = ScreeningSeats()
 
         // when
-        val canceledSeat = screeningSeats.cancelSeat(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
+        val canceledSeat =
+            screeningSeats.cancelSeat(ScreeningSeat.valueOf(SeatRow.A, SeatColumn.FIRST))
         val expected = null
 
         // then

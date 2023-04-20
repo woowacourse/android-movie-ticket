@@ -10,7 +10,7 @@ fun Int.toScreeningSeat(): ScreeningSeat {
     val row = this / SEAT_UNIT
     val column = this % SEAT_UNIT
 
-    return ScreeningSeat(
+    return ScreeningSeat.valueOf(
         SeatRow.valueOf(row),
         SeatColumn.valueOf(column)
     )

@@ -1,21 +1,20 @@
 package domain.seat
 
-import domain.payment.PaymentAmount
-
 data class ScreeningSeat(
     val row: SeatRow,
-    val column: SeatColumn
+    val column: SeatColumn,
+    val rate: SeatRate
 ) {
 
-    val paymentAmount = when (row) {
-        SeatRow.A, SeatRow.B -> PaymentAmount(B_RATE_PAYMENT_AMOUNT)
-        SeatRow.C, SeatRow.D -> PaymentAmount(S_RATE_PAYMENT_AMOUNT)
-        SeatRow.E -> PaymentAmount(A_RATE_PAYMENT_AMOUNT)
-    }
-
+    val paymentAmount = rate.getPaymentAmount()
     companion object {
-        private const val B_RATE_PAYMENT_AMOUNT = 10_000
-        private const val A_RATE_PAYMENT_AMOUNT = 12_000
-        private const val S_RATE_PAYMENT_AMOUNT = 15_000
+
+        fun valueOf(row: SeatRow, column: SeatColumn): ScreeningSeat {
+            return when (row) {
+                SeatRow.A, SeatRow.B -> ScreeningSeat(row, column, SeatRate.B)
+                SeatRow.C, SeatRow.D -> ScreeningSeat(row, column, SeatRate.S)
+                SeatRow.E -> ScreeningSeat(row, column, SeatRate.A)
+            }
+        }
     }
 }
