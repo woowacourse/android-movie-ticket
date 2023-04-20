@@ -1,21 +1,21 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.*
-import org.junit.Test
+import org.assertj.core.api.Assertions.*
+import org.junit.jupiter.api.Test
 
 class MoneyTest {
     @Test
     fun `금액은 음수일 수 없다`() {
-        assertThrows("[ERROR] 금액은 음수일 수 없습니다.", IllegalArgumentException::class.java) {
+        assertThatIllegalArgumentException().isThrownBy {
             Money(-5)
-        }
+        }.withMessage("[ERROR] 금액은 음수일 수 없습니다.")
     }
 
     @Test
     fun `기존 금액보다 큰 금액의 돈을 빼면 에러가 발생한다`() {
-        assertThrows("[ERROR] 금액은 음수일 수 없습니다.", IllegalArgumentException::class.java) {
+        assertThatIllegalArgumentException().isThrownBy {
             Money(5000) - Money(10000)
-        }
+        }.withMessage("[ERROR] 금액은 음수일 수 없습니다.")
     }
 
     @Test
@@ -26,14 +26,12 @@ class MoneyTest {
         val actual = oneMoney - otherMoney
 
         val expected = Money(11_000)
-        assert(actual == expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun `돈을 0으로 나누면 에러가 발생한다`() {
-        assertThrows(ArithmeticException::class.java) {
-            Money(5000) / 0
-        }
+        assertThatThrownBy { Money(5000) / 0 }.isInstanceOf(ArithmeticException::class.java)
     }
 
     @Test
@@ -44,7 +42,7 @@ class MoneyTest {
         val actual = money / number
 
         val expected = Money(1_300)
-        assert(actual == expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -55,6 +53,6 @@ class MoneyTest {
         val actual = money * number
 
         val expected = Money(130_000)
-        assert(actual == expected)
+        assertThat(actual).isEqualTo(expected)
     }
 }

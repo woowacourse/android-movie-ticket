@@ -1,7 +1,10 @@
 package woowacourse.movie.service
 
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import woowacourse.movie.repository.MovieRepository
+
 
 class MovieServiceTest {
 
@@ -14,8 +17,10 @@ class MovieServiceTest {
         val movieId = MovieService.save(title, runningTime, summary)
 
         val movie = MovieRepository.findById(movieId)
-        assert(movie.title == title)
-        assert(movie.runningTime.value == runningTime)
-        assert(movie.summary == summary)
+        assertAll(
+            { assertThat(movie.title).isEqualTo(title) },
+            { assertThat(movie.runningTime.value).isEqualTo(runningTime) },
+            { assertThat(movie.summary).isEqualTo(summary) }
+        )
     }
 }

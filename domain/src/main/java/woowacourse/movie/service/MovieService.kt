@@ -8,7 +8,12 @@ object MovieService {
 
     fun save(title: String, runningTime: Int, summary: String): Long {
         val movie =
-            Movie(MovieRepository.nextId, title, Minute(runningTime), summary)
+            Movie(
+                MovieRepository.nextId,
+                title,
+                Minute(runningTime),
+                summary
+            )
 
         MovieRepository.save(movie)
 

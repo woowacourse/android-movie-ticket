@@ -14,7 +14,7 @@ data class MovieDto(
             return MovieDto(
                 movie.id,
                 movie.title,
-                movie.screenings.screenings.keys.map(ScreeningDto::from),
+                movie.screenings.screenings.keys.map(ScreeningDto.Companion::from),
                 movie.runningTime.value,
                 movie.summary
             )

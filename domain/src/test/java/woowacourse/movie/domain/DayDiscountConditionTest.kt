@@ -1,6 +1,7 @@
 package woowacourse.movie.domain
 
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -11,7 +12,7 @@ class DayDiscountConditionTest {
         val dayDiscountCondition = DayDiscountCondition(listOf(1, 2, 3))
         val screeningDateTime: LocalDateTime = LocalDate.of(2024, 3, 1).atStartOfDay()
 
-        assert(dayDiscountCondition.isSatisfiedBy(screeningDateTime))
+        assertThat(dayDiscountCondition.isSatisfiedBy(screeningDateTime)).isTrue
     }
 
     @Test
@@ -19,6 +20,6 @@ class DayDiscountConditionTest {
         val dayDiscountCondition = DayDiscountCondition(listOf(1, 2, 3))
         val screeningDateTime: LocalDateTime = LocalDate.of(2024, 3, 4).atStartOfDay()
 
-        assert(dayDiscountCondition.isSatisfiedBy(screeningDateTime).not())
+        assertThat(dayDiscountCondition.isSatisfiedBy(screeningDateTime)).isFalse
     }
 }

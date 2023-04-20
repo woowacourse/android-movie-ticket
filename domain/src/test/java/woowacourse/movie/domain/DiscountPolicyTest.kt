@@ -1,6 +1,7 @@
 package woowacourse.movie.domain
 
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
 class DiscountPolicyTest {
@@ -13,7 +14,7 @@ class DiscountPolicyTest {
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
         val expected = Money(11_700)
-        assert(actual == expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -24,7 +25,7 @@ class DiscountPolicyTest {
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
         val expected = Money(11_000)
-        assert(expected == actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -35,7 +36,8 @@ class DiscountPolicyTest {
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
         val expected = Money(11_000)
-        assert(expected == actual)
+        assertThat(actual).isEqualTo(expected)
+
     }
 
     @Test
@@ -46,7 +48,7 @@ class DiscountPolicyTest {
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
         val expected = Money(9700)
-        assert(expected == actual)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -56,6 +58,6 @@ class DiscountPolicyTest {
 
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
-        assert(actual == movieFee)
+        assertThat(actual).isEqualTo(movieFee)
     }
 }

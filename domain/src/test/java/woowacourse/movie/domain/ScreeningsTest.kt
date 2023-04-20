@@ -1,7 +1,8 @@
 package woowacourse.movie.domain
 
-import org.junit.Assert.assertThrows
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
+import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
 internal class ScreeningsTest {
@@ -15,19 +16,19 @@ internal class ScreeningsTest {
         val actual = screenings.screenings
 
         val expected = mapOf<Screening, ReservationResult?>(screening to null)
-        assert(actual == expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
     fun `상영 모음에 존재하지 않는 상영을 예매하면 에러가 발생한다`() {
         val screenings = Screenings()
 
-        assertThrows(
-            "존재하지 않는 상영을 예매할 수 없습니다.",
-            IllegalArgumentException::class.java
-        ) {
-            screenings.reserve(Screening(LocalDateTime.now()), ReservationResult(LocalDateTime.now(), 1))
-        }
+        assertThatIllegalArgumentException().isThrownBy {
+            screenings.reserve(
+                Screening(LocalDateTime.now()),
+                ReservationResult(LocalDateTime.now(), 1)
+            )
+        }.withMessage("존재하지 않는 상영을 예매할 수 없습니다.")
     }
 
     @Test
@@ -41,6 +42,6 @@ internal class ScreeningsTest {
         screenings.reserve(screening, reservationResult)
         val actual = screenings.screenings[screening]
 
-        assert(actual == reservationResult)
+        assertThat(actual).isEqualTo(reservationResult)
     }
 }

@@ -11,7 +11,7 @@ object MovieQueryService {
 
     fun findAllMovies(): List<MovieDto> {
         val movies = MovieRepository.findAll()
-        return movies.map(MovieDto::from)
+        return movies.map(woowacourse.movie.dto.MovieDto::from)
     }
 
     fun findMovieById(id: Long): MovieDto {
@@ -21,7 +21,9 @@ object MovieQueryService {
 
     fun getReservation(movieId: Long, screeningDateTime: LocalDateTime): ReservationDto {
         val movie = MovieRepository.findById(movieId)
-        val reservation = movie.screenings.screenings[Screening(screeningDateTime)]
+        val reservation = movie.screenings.screenings[Screening(
+            screeningDateTime
+        )]
             ?: throw IllegalArgumentException("해당 상영은 예매되지 않았습니다.")
         return ReservationDto.create(movie, reservation)
     }
