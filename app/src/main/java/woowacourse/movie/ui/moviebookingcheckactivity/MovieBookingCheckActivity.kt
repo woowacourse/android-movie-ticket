@@ -7,7 +7,7 @@ import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.TicketCount
 import woowacourse.movie.ui.model.MovieUIModel
-import woowacourse.movie.util.customGetSerializableExtra
+import woowacourse.movie.util.getSerializableExtraCompat
 import woowacourse.movie.util.intentDataNullProcess
 
 class MovieBookingCheckActivity : AppCompatActivity() {
@@ -26,14 +26,14 @@ class MovieBookingCheckActivity : AppCompatActivity() {
 
     private fun initExtraData() {
         movieData =
-            intent.customGetSerializableExtra(MOVIE_DATA) ?: return this.intentDataNullProcess(
+            intent.getSerializableExtraCompat(MOVIE_DATA) ?: return this.intentDataNullProcess(
                 MOVIE_DATA
             )
         ticketCount =
             TicketCount(intent.getIntExtra(TICKET_COUNT, -1))
         bookedScreeningDateTime =
             ScreeningDateTime(
-                intent.customGetSerializableExtra(BOOKED_SCREENING_DATE_TIME)
+                intent.getSerializableExtraCompat(BOOKED_SCREENING_DATE_TIME)
                     ?: return this.intentDataNullProcess(BOOKED_SCREENING_DATE_TIME),
                 ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay)
             )

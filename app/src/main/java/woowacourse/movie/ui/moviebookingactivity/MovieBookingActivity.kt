@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.MovieUIModel
-import woowacourse.movie.util.customGetSerializableExtra
+import woowacourse.movie.util.getSerializableExtraCompat
 import woowacourse.movie.util.intentDataNullProcess
 
 class MovieBookingActivity : AppCompatActivity() {
@@ -60,7 +60,7 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun initExtraData() {
         movieData =
-            intent.customGetSerializableExtra(MOVIE_DATA) ?: return this.intentDataNullProcess(
+            intent.getSerializableExtraCompat(MOVIE_DATA) ?: return this.intentDataNullProcess(
                 MOVIE_DATA
             )
     }
