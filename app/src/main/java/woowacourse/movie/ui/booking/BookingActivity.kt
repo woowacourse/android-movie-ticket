@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.booking
 
 import android.content.Context
 import android.content.Intent
@@ -18,6 +18,7 @@ import woowacourse.movie.domain.ScreeningTimes
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
+import woowacourse.movie.ui.completed.CompletedActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

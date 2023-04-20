@@ -1,10 +1,11 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.home
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieData
+import woowacourse.movie.ui.booking.BookingActivity
 
 class MainActivity : AppCompatActivity() {
     private val movieAdapter by lazy { MovieAdapter(this) { clickBook(it) } }
