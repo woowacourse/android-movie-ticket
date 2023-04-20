@@ -1,12 +1,15 @@
 package woowacourse.movie.seatSelection
 
+import android.os.Bundle
 import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
 import data.SeatPosition
+import mapper.toSeatModel
 import model.MovieTicketModel
+import model.SeatModel
 import model.SeatSelectionModel
 import movie.SeatSelection
 import woowacourse.movie.R
@@ -33,14 +36,7 @@ class SeatSelectionTable(
     init {
         seatSelectionTableBoxes.forEach { (row, col, item) ->
             item.setOnClickListener {
-                if (seatSelection[SeatPosition(row, col)].not() &&
-                    selectionInfo.Quantity <= seatSelection.sizeOfSelection
-                ) {
-                    return@setOnClickListener
-                }
-                seatSelection.selectSeat(SeatPosition(row, col))
-                drawSeatSelection()
-                updateInfo()
+                onSeatClick(row, col)
             }
         }
 
@@ -51,6 +47,28 @@ class SeatSelectionTable(
         }
 
         updateInfo()
+    }
+
+    private fun onSeatClick(row: Int, col: Int) {
+        if (seatSelection[SeatPosition(row, col)].not() && selectionInfo.Quantity <= seatSelection.sizeOfSelection) {
+            return
+        }
+        seatSelection.selectSeat(SeatPosition(row, col))
+        drawSeatSelection()
+        updateInfo()
+    }
+
+    fun loadSeatSelection(savedInstanceState: Bundle) {
+        savedInstanceState.getParcelableArray(KEY_SEAT_SELECTION_SEATS)?.map { it as SeatModel }
+            ?.forEach { onSeatClick(it.row, it.column) }
+    }
+
+    fun saveInstanceState(outState: Bundle) {
+        val seatModels = seatSelection.selection.map { it.toSeatModel() }
+        outState.putParcelableArray(
+            KEY_SEAT_SELECTION_SEATS,
+            seatModels.toTypedArray(),
+        )
     }
 
     private fun updateInfo() {
@@ -68,6 +86,7 @@ class SeatSelectionTable(
     }
 
     companion object {
+        private const val KEY_SEAT_SELECTION_SEATS = "seatSelectionSeats"
         private const val TOTAL_PRICE = "%d원"
     }
 }

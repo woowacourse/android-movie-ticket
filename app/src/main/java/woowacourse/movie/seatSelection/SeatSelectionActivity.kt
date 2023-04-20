@@ -51,7 +51,13 @@ class SeatSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_seat_selection)
 
         initToolbar()
-        seatSelectionView
+
+        savedInstanceState?.let { seatSelectionView.loadSeatSelection(it) } ?: seatSelectionView
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        seatSelectionView.saveInstanceState(outState)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

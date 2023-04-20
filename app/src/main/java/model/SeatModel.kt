@@ -1,10 +1,12 @@
 package model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-class SeatModel(
+@Parcelize
+data class SeatModel(
     val row: Int,
     val column: Int,
     val seatClass: String,
     val isReserved: Boolean,
-) : Serializable
+) : Parcelable
