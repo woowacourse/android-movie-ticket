@@ -20,10 +20,10 @@ class ScreeningSeats(
     fun selectSeat(seat: ScreeningSeat): ScreeningSeat? {
         val seatState = this[seat]
 
-        if (seatState == SeatState.RESERVED) {
+        if (seatState == SeatState.SELECTED) {
             return null
         }
-        _values[seat] = SeatState.RESERVED
+        _values[seat] = SeatState.SELECTED
         return seat
     }
 

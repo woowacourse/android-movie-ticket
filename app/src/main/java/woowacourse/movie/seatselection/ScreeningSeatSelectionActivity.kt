@@ -1,23 +1,16 @@
 package woowacourse.movie.seatselection
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import domain.movie.MovieName
 import domain.reservation.Reservation
 import domain.reservation.SeatReservation
-import domain.seat.ScreeningSeat
-import domain.seat.SeatColumn
-import domain.seat.SeatRow
-import domain.seat.SeatState
 import woowacourse.movie.R
 import woowacourse.movie.getIntentData
 import woowacourse.movie.model.SeatReservationInfo
@@ -30,91 +23,63 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
 
     private lateinit var seatReservationInfo: SeatReservationInfo
     private val seatReservation: SeatReservation by lazy { seatReservationInfo.toDomainModel() }
-    private val paymentAmountText: TextView by lazy {
-        findViewById(R.id.seat_selection_payment_amount_text)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_seat_selection)
 
         seatReservationInfo = getIntentData(SEAT_RESERVATION_KEY) ?: SeatReservationInfo.ofError()
-        initView()
-        initSeatClickListener()
-        initSelectionCompleteButton()
+        setMovieNameTextView()
+        setSeatTableView()
+        setOnCompleteButtonClickedListener()
     }
 
-    private fun initView() {
+    private fun setMovieNameTextView() {
         val movieNamTextView = findViewById<TextView>(R.id.seat_selection_movie_name_text)
 
         movieNamTextView.text = seatReservationInfo.movieName
     }
 
-    private fun initSeatClickListener() {
-        val seatButtons = findViewById<TableLayout>(R.id.seat_button)
-            .children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
-            .toList()
+    private fun setSeatTableView() {
+        val seatTableLayout = findViewById<TableLayout>(R.id.seat_table_layout)
 
-        seatButtons.forEachIndexed { index, seatSelectionButton ->
-            seatSelectionButton.setOnClickListener {
-                // TODO: PAYMENT가져오는 방법, 네이밍
-                val row = SeatRow.values().find { index / 4 == it.ordinal }
-                    ?: throw IllegalArgumentException("없는행입니다.")
-                val col = SeatColumn.values().find { index % 4 == it.ordinal }
-                    ?: throw IllegalArgumentException("없는열입니다.")
-                val seat = ScreeningSeat(row, col)
-
-                val clickedSeatState = seatReservation.screeningSeats.values[seat]
-
-                clickedSeatState?.let {
-                    runCatching {
-                        if (it == SeatState.RESERVED) {
-                            seatSelectionButton.setBackgroundColor(Color.WHITE)
-                            seatReservation.cancelSeat(seat)
-                        } else {
-                            seatSelectionButton.setBackgroundColor(Color.YELLOW)
-                            seatReservation.selectSeat(seat)
-                        }
-                    }.onFailure {
-                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-                paymentAmountText.text = seatReservation.getTotalPaymentAmount().value.toString()
-            }
+        ScreeningSeatViewSetter(seatTableLayout, seatReservation).apply {
+            setSeatViewClickedListener(::setPaymentAmountTextView)
         }
     }
 
-    private fun initSelectionCompleteButton() {
+    private fun setPaymentAmountTextView(paymentAmount: Int) {
+        val paymentAmountText: TextView = findViewById(R.id.seat_selection_payment_amount_text)
+
+        paymentAmountText.text = paymentAmount.toString()
+    }
+
+    private fun setOnCompleteButtonClickedListener() {
         val seatSelectionCompleteButton = findViewById<Button>(R.id.seat_selection_complete_button)
 
         seatSelectionCompleteButton.setOnClickListener {
-            showDialog()
+            onCompleteButtonClicked()
         }
     }
 
-    private fun showDialog() {
+    private fun onCompleteButtonClicked() {
         AlertDialog.Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예") { _, _ -> onCompleteSeatSelection() }
-            .setNegativeButton("아니요") { dialog, _ ->
+            .setTitle(getString(R.string.reservation_check_text))
+            .setMessage(getString(R.string.asking_reserve_text))
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> onFinished() }
+            .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
     }
 
-    // todo key
-    private fun onCompleteSeatSelection() {
-        kotlin.runCatching {
+    private fun onFinished() {
+        runCatching {
             val intent = Intent(this, ReservationResultActivity::class.java)
             val reservation = Reservation.of(
                 MovieName(seatReservationInfo.movieName),
                 seatReservation.seatCount,
-                // todo 변수명 screeningDataTime
-                seatReservation.screeningTime,
+                seatReservation.screeningDateTime,
                 seatReservation.getTotalPaymentAmount(),
                 seatReservation.selectingComplete()
             ).toUIModel()
@@ -127,6 +92,6 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val RESERVATION_RESULT_KEY = "reservation_key"
+        const val RESERVATION_RESULT_KEY = "reservation_result_key"
     }
 }

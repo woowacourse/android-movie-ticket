@@ -17,7 +17,7 @@ class ScreeningSeatsTest {
 
         // then
         assertTrue(
-            screeningSeats.values[seat] == SeatState.RESERVED
+            screeningSeats.values[seat] == SeatState.SELECTED
         )
     }
 

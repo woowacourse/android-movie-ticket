@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#EAEAEA"
-    tools:context=".activity.ScreeningSeatselectionActivity">
+    tools:context=".activity.ScreeningSeatSelectionActivity">
 
     <TextView
         android:id="@+id/screen_shape"
@@ -23,7 +23,7 @@
 
     <TableLayout
         android:layout_marginTop="56dp"
-        android:id="@+id/seat_button"
+        android:id="@+id/seat_table_layout"
         android:background="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,6 @@
         app:layout_constraintTop_toBottomOf="@+id/screen_shape">
 
         <TableRow>
-
             <TextView
                 android:text="A1"
                 android:textSize="22sp"

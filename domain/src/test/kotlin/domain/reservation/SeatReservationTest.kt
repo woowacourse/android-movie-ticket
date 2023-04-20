@@ -18,7 +18,7 @@ class SeatReservationTest {
     fun setUp() {
         seatReservation = SeatReservation(
             movieName = MovieName("해리포터"),
-            screeningTime = LocalDateTime.of(1999, 10, 6, 22, 0),
+            screeningDateTime = LocalDateTime.of(1999, 10, 6, 22, 0),
             seatCount = TicketCount(3)
         )
     }

@@ -38,7 +38,7 @@ data class SeatReservationInfo(
 
 fun SeatReservationInfo.toDomainModel() = SeatReservation(
     movieName = MovieName(movieName),
-    screeningTime = screeningTime,
+    screeningDateTime = screeningTime,
     seatCount = TicketCount(seatCount),
     screeningSeats = ScreeningSeats(
         screeningSeats.map {

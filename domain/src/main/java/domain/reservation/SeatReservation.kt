@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 
 data class SeatReservation(
     val movieName: MovieName,
-    val screeningTime: LocalDateTime,
+    val screeningDateTime: LocalDateTime,
     val seatCount: TicketCount,
     val screeningSeats: ScreeningSeats = ScreeningSeats()
 ) {
