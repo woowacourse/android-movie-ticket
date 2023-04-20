@@ -13,4 +13,5 @@
     <color name="seat_rank_a">#1B48E9</color>
     <color name="price">#727272</color>
     <color name="disabled_click">#B7B7B7</color>
+    <color name="select_seat">#FAFF00</color>
 </resources>
