@@ -13,14 +13,15 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
-import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieModel
+import woowacourse.movie.ui.model.MovieTicketModel
+import woowacourse.movie.ui.model.PriceModel
+import woowacourse.movie.ui.model.TicketTimeModel
 import woowacourse.movie.ui.model.mapToMovie
-import woowacourse.movie.ui.model.mapToMovieTicketModel
+import woowacourse.movie.ui.model.mapToPeopleCountModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -152,24 +153,26 @@ class MovieDetailActivity : AppCompatActivity() {
         val bookingButton = findViewById<Button>(R.id.detail_booking_button)
 
         bookingButton.setOnClickListener {
-            moveToTicketActivity(movie)
+            moveToSeatPickerActivity(movie)
         }
     }
 
-    private fun moveToTicketActivity(movie: MovieModel) {
-        val ticket = MovieTicket(
+    private fun moveToSeatPickerActivity(movie: MovieModel) {
+        val ticket = MovieTicketModel(
             movie.title,
-            TicketTime(
+            TicketTimeModel(
                 LocalDateTime.of(
                     dateSpinner.selectedItem as LocalDate,
                     timeSpinner.selectedItem as LocalTime
                 )
             ),
-            peopleCount
+            mapToPeopleCountModel(peopleCount),
+            emptySet(),
+            PriceModel(0)
         )
 
         val intent = Intent(this, SeatPickerActivity::class.java)
-        intent.putExtra("ticket", mapToMovieTicketModel(ticket))
+        intent.putExtra("ticket", ticket)
         startActivity(intent)
     }
 

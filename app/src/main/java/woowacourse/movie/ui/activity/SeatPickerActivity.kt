@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TableLayout
@@ -8,18 +9,22 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieTicketModel
-import woowacourse.movie.ui.seat.Column
-import woowacourse.movie.ui.seat.Rank
-import woowacourse.movie.ui.seat.Row
-import woowacourse.movie.ui.seat.Seat
+import woowacourse.movie.ui.model.PriceModel
+import woowacourse.movie.ui.model.mapToMovieTicket
+import woowacourse.movie.ui.model.mapToMovieTicketModel
+import woowacourse.movie.ui.model.mapToPriceModel
+import woowacourse.movie.ui.model.seat.SeatModel
+import woowacourse.movie.ui.model.seat.SeatsModel
+import woowacourse.movie.ui.model.seat.mapToSeat
+import java.text.DecimalFormat
 
 class SeatPickerActivity : AppCompatActivity() {
     private var count = 0
-    private val ranks = listOf(Rank.B, Rank.B, Rank.S, Rank.S, Rank.A)
-    private val seats =
-        Row.createRows(5).flatMapIndexed { rowIndex, row -> Column.createColumns(4).map { column -> Seat(row, column, ranks[rowIndex]) } }
+    private val seats = SeatsModel().getAll()
+    private val ticket: MovieTicket by lazy { mapToMovieTicket(intent.getParcelable("ticket")!!) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +42,17 @@ class SeatPickerActivity : AppCompatActivity() {
         intent.getParcelable<MovieTicketModel>("ticket")?.let {
             setSeatViews(seatViews, it)
             findViewById<TextView>(R.id.seat_picker_title).text = it.title
+            findViewById<TextView>(R.id.seat_picker_price).text = it.price.format()
         }
-        findViewById<TextView>(R.id.seat_picker_price).text = getString(R.string.price, "0")
+
+        val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
+        doneButton.setOnClickListener {
+            moveToTicketActivity()
+        }
+        doneButton.isClickable = ticket.peopleCount.count == count
     }
+
+    private fun PriceModel.format(): String = getString(R.string.price, DecimalFormat("#,###").format(amount))
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -53,10 +66,10 @@ class SeatPickerActivity : AppCompatActivity() {
 
     private fun setSeatViews(seatViews: List<TextView>, ticket: MovieTicketModel) {
         seatViews.zip(seats) { view, seat ->
-            view.text = getString(R.string.seat, seat.row.value, seat.column.value)
+            view.text = getString(R.string.seat, seat.row.letter, seat.column.value)
             view.setTextColor(getColor(seat.rank.color))
             view.setOnClickListener {
-                selectSeat(view, ticket)
+                selectSeat(view, ticket, seat)
                 changeDoneButtonState(ticket)
             }
         }
@@ -64,17 +77,46 @@ class SeatPickerActivity : AppCompatActivity() {
 
     private fun selectSeat(
         view: TextView,
-        ticket: MovieTicketModel
+        ticketModel: MovieTicketModel,
+        seat: SeatModel
     ) {
         if (view.isSelected) {
+            removeSeat(view, seat)
             count--
-            view.setBackgroundColor(getColor(R.color.white))
-            view.isSelected = false
-        } else if (count < ticket.peopleCount.count) {
+        } else if (count < ticketModel.peopleCount.count) {
+            addSeat(view, seat)
             count++
-            view.setBackgroundColor(getColor(R.color.seat_selected))
-            view.isSelected = true
         }
+    }
+
+    private fun removeSeat(
+        view: TextView,
+        seat: SeatModel
+    ) {
+        updateEmptySeatView(view)
+        ticket.cancelSeat(mapToSeat(seat))
+        findViewById<TextView>(R.id.seat_picker_price).text =
+            mapToPriceModel(ticket.getDiscountPrice()).format()
+    }
+
+    private fun updateEmptySeatView(view: TextView) {
+        view.setBackgroundColor(getColor(R.color.white))
+        view.isSelected = false
+    }
+
+    private fun addSeat(
+        view: TextView,
+        seat: SeatModel
+    ) {
+        updateFullSeatView(view)
+        ticket.reserveSeat(mapToSeat(seat))
+        findViewById<TextView>(R.id.seat_picker_price).text =
+            mapToPriceModel(ticket.getDiscountPrice()).format()
+    }
+
+    private fun updateFullSeatView(view: TextView) {
+        view.setBackgroundColor(getColor(R.color.seat_selected))
+        view.isSelected = true
     }
 
     private fun changeDoneButtonState(ticket: MovieTicketModel) {
@@ -86,5 +128,11 @@ class SeatPickerActivity : AppCompatActivity() {
             doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_off))
             doneButton.isClickable = false
         }
+    }
+
+    private fun moveToTicketActivity() {
+        val intent = Intent(this, MovieTicketActivity::class.java)
+        intent.putExtra("ticket", mapToMovieTicketModel(ticket))
+        startActivity(intent)
     }
 }

@@ -9,6 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieTicketModel
 import woowacourse.movie.ui.model.PeopleCountModel
+import woowacourse.movie.ui.model.PriceModel
 import woowacourse.movie.ui.model.TicketTimeModel
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
@@ -43,7 +44,7 @@ class MovieTicketActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.ticket_title).text = it.title
             findViewById<TextView>(R.id.ticket_date).text = it.time.format()
             findViewById<TextView>(R.id.ticket_people_count).text = it.peopleCount.format()
-            findViewById<TextView>(R.id.ticket_price).text = it.getPriceWithUnit()
+            findViewById<TextView>(R.id.ticket_price).text = it.price.format()
         }
     }
 
@@ -52,5 +53,5 @@ class MovieTicketActivity : AppCompatActivity() {
 
     private fun PeopleCountModel.format(): String = getString(R.string.people_count, count)
 
-    private fun MovieTicketModel.getPriceWithUnit(): String = getString(R.string.price, DecimalFormat("#,###").format(price))
+    private fun PriceModel.format(): String = getString(R.string.price, DecimalFormat("#,###").format(amount))
 }

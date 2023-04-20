@@ -5,6 +5,12 @@ import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.TicketTime
 import java.time.LocalDateTime
 
+fun mapToTicketTime(ticketTime: TicketTimeModel): TicketTime {
+    return TicketTime(
+        ticketTime.dateTime
+    )
+}
+
 fun mapToTicketTimeModel(ticketTime: TicketTime): TicketTimeModel {
     return TicketTimeModel(
         ticketTime.dateTime
