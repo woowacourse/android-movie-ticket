@@ -86,6 +86,7 @@ class MovieDetailActivity : BackButtonActivity() {
         scheduleDate: List<String>,
         savedInstanceState: Bundle?
     ) {
+
         binding.spMovieDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 adapterView: AdapterView<*>?,
@@ -116,8 +117,6 @@ class MovieDetailActivity : BackButtonActivity() {
 
     private fun setClickListener(movieData: Movie) {
 
-        var currentCount = binding.tvTicketCount.text.toString().toInt()
-
         binding.btTicketCountMinus.setOnClickListener {
             if (binding.tvTicketCount.text == BASE_TICKET_COUNT_CHARACTER) {
                 Toast.makeText(
@@ -127,13 +126,13 @@ class MovieDetailActivity : BackButtonActivity() {
                 ).show()
                 return@setOnClickListener
             }
-            currentCount--
-            binding.tvTicketCount.text = currentCount.toString()
+            val newTicketCount = binding.tvTicketCount.text.toString().toInt() - 1
+            binding.tvTicketCount.text = newTicketCount.toString()
         }
 
         binding.btTicketCountPlus.setOnClickListener {
-            currentCount++
-            binding.tvTicketCount.text = currentCount.toString()
+            val newTicketCount = binding.tvTicketCount.text.toString().toInt() + 1
+            binding.tvTicketCount.text = newTicketCount.toString()
         }
 
         binding.btBookComplete.setOnClickListener {
@@ -143,7 +142,7 @@ class MovieDetailActivity : BackButtonActivity() {
                     MovieBookingInfo(
                         movieData, binding.spMovieDate.selectedItem.toString(),
                         binding.spMovieTime.selectedItem.toString(),
-                        currentCount
+                        binding.tvTicketCount.text.toString().toInt()
                     )
                 )
             }

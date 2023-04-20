@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListView() {
         val listView = binding.rvMovieList
-        val movies = MovieDummyData.values
+        val movies = MovieDummyData.getData()
         val adapter = MovieListAdapter(movies, getDrawable(R.drawable.advertise_wooteco)!!)
         listView.adapter = adapter
     }
