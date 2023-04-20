@@ -6,8 +6,8 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
 import data.SeatPosition
+import model.MovieTicketModel
 import model.SeatSelectionModel
-import model.TicketModel
 import movie.SeatSelection
 import movie.TicketQuantity
 import woowacourse.movie.R
@@ -15,7 +15,7 @@ import woowacourse.movie.R
 class SeatSelectionTable(
     private val view: View,
     private val selectionInfo: SeatSelectionModel,
-    private val onConfirmClick: (TicketModel) -> Unit,
+    private val onConfirmClick: (MovieTicketModel) -> Unit,
 ) {
     private val movieTitle by lazy { view.findViewById<TextView>(R.id.seat_selection_title) }
     private val ticketTotalPrice by lazy { view.findViewById<TextView>(R.id.seat_selection_price) }
@@ -43,7 +43,7 @@ class SeatSelectionTable(
         movieTitle.text = selectionInfo.title
 
         seatSelectionConfirm.setOnClickListener {
-            onConfirmClick(TicketModel(selectionInfo, seatSelection))
+            onConfirmClick(MovieTicketModel(selectionInfo, seatSelection))
         }
 
         updateInfo()

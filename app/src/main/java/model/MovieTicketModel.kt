@@ -5,7 +5,7 @@ import movie.SeatSelection
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class TicketModel(
+data class MovieTicketModel(
     val title: String,
     val reserveTime: LocalDateTime,
     val price: Int,
@@ -19,6 +19,6 @@ data class TicketModel(
     )
 
     companion object {
-        val EMPTY = TicketModel("", LocalDateTime.MIN, 0, emptyList())
+        val EMPTY = MovieTicketModel("", LocalDateTime.MIN, 0, emptyList())
     }
 }

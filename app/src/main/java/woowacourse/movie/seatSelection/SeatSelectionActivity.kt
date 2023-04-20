@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import model.MovieTicketModel
 import model.SeatSelectionModel
-import model.TicketModel
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
@@ -29,14 +29,14 @@ class SeatSelectionActivity : AppCompatActivity() {
         ) { ticketModel -> onConfirmClick(ticketModel) }
     }
 
-    private fun onConfirmClick(ticketModel: TicketModel) = AlertDialog.Builder(this)
+    private fun onConfirmClick(movieTicketModel: MovieTicketModel) = AlertDialog.Builder(this)
         .setCancelable(false)
         .setTitle(getString(R.string.seat_selection_confirm_dialog_title))
         .setMessage(getString(R.string.seat_selection_confirm_dialog_contents))
         .setPositiveButton(getString(R.string.seat_selection_confirm_dialog_yes)) { _, _ ->
             startActivity(
                 Intent(this, MovieTicketActivity::class.java).apply {
-                    putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, ticketModel)
+                    putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicketModel)
                 },
                 null,
             )
