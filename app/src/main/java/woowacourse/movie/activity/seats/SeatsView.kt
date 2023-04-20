@@ -1,62 +1,55 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.seats
 
-import android.os.Bundle
+import android.content.Context
+import android.content.Intent
 import android.view.Gravity
 import android.widget.TableRow
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import discount.Discount
 import discount.EarlyNightDiscount
 import discount.MovieDayDiscount
 import payment.PaymentAmount
 import seat.Seat
-import seat.Seat.Companion.MAX_COLUMN
-import seat.Seat.Companion.MAX_ROW
-import seat.Seat.Companion.MIN_COLUMN
-import seat.Seat.Companion.MIN_ROW
 import seat.SeatType
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
-import woowacourse.movie.uimodel.MovieModel
 import java.time.LocalDateTime
 
-class SeatSelectionActivity : AppCompatActivity() {
+class SeatsView(
+    private val binding: ActivitySeatSelectionBinding,
+    private val intent: Intent
+) {
 
-    private val binding by lazy { ActivitySeatSelectionBinding.inflate(layoutInflater) }
+    private val context: Context = binding.root.context
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-
-        binding.movieNameTextView.text =
-            (intent.getSerializableExtra(MovieModel.MOVIE_INTENT_KEY) as MovieModel).name.value
-        val seats: List<List<TextView>> = setSeatsViews()
+    fun set() {
+        val seats: List<List<TextView>> = createSeatViews()
         setSeatSelectEvent(seats)
     }
 
-    private fun setSeatsViews(): List<List<TextView>> {
+    private fun createSeatViews(): List<List<TextView>> {
         val seats: MutableList<MutableList<TextView>> = mutableListOf()
 
-        for (row in MIN_ROW..MAX_ROW) {
-            val tableRow = TableRow(this)
+        for (row in Seat.MIN_ROW..Seat.MAX_ROW) {
+            val tableRow = TableRow(context)
             tableRow.layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT, 180, 1f
             )
             seats.add(mutableListOf())
 
-            for (col in MIN_COLUMN..MAX_COLUMN) {
-                val textView = TextView(this)
+            for (col in Seat.MIN_COLUMN..Seat.MAX_COLUMN) {
+                val textView = TextView(context)
                 textView.layoutParams = TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT, 180, 1f
                 )
 
-                textView.text = getString(R.string.seat_name_form).format(row, col)
-                textView.textSize = resources.getDimension(R.dimen.text_very_small)
-                textView.setBackgroundColor(getColor(R.color.not_selected_seat_color))
+                textView.text = context.getString(R.string.seat_name_form).format(row, col)
+                textView.textSize = context.resources.getDimension(R.dimen.text_very_small)
+                textView.setBackgroundColor(context.getColor(R.color.not_selected_seat_color))
                 getSeatColorID(Seat.getSeatType(row)).let { if (it != null) textView.setTextColor(it) }
                 textView.gravity = Gravity.CENTER
 
-                seats[row - MIN_ROW].add(textView)
+                seats[row - Seat.MIN_ROW].add(textView)
                 tableRow.addView(textView)
             }
 
@@ -67,9 +60,9 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun getSeatColorID(seatType: SeatType?): Int? = when (seatType) {
-        SeatType.S -> getColor(R.color.seat_s)
-        SeatType.A -> getColor(R.color.seat_a)
-        SeatType.B -> getColor(R.color.seat_b)
+        SeatType.S -> context.getColor(R.color.seat_s)
+        SeatType.A -> context.getColor(R.color.seat_a)
+        SeatType.B -> context.getColor(R.color.seat_b)
         else -> null
     }
 
@@ -86,11 +79,11 @@ class SeatSelectionActivity : AppCompatActivity() {
 
         when (clickedSeat.isSelected) {
             true -> {
-                clickedSeat.setBackgroundColor(getColor(R.color.not_selected_seat_color))
+                clickedSeat.setBackgroundColor(context.getColor(R.color.not_selected_seat_color))
                 clickedSeat.isSelected = false
             }
             false -> {
-                clickedSeat.setBackgroundColor(getColor(R.color.selected_seat_color))
+                clickedSeat.setBackgroundColor(context.getColor(R.color.selected_seat_color))
                 clickedSeat.isSelected = true
             }
         }
@@ -103,7 +96,7 @@ class SeatSelectionActivity : AppCompatActivity() {
                     it.forEach { seat ->
                         if (!seat.isSelected) seat.isClickable = false
                         binding.reservationCompleteTextView.isClickable = true
-                        binding.reservationCompleteTextView.setBackgroundColor(getColor(R.color.clickable_button_color))
+                        binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.clickable_button_color))
                         updatePaymentAmount(seats)
                     }
                 }
@@ -113,7 +106,7 @@ class SeatSelectionActivity : AppCompatActivity() {
                     it.forEach { seat ->
                         if (!seat.isSelected) seat.isClickable = true
                         binding.reservationCompleteTextView.isClickable = false
-                        binding.reservationCompleteTextView.setBackgroundColor(getColor(R.color.not_clickable_button_color))
+                        binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.not_clickable_button_color))
                     }
                 }
             }
@@ -133,7 +126,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         seats.forEachIndexed { index, it ->
             it.forEach { seat ->
                 if (seat.isSelected) {
-                    val seatType: SeatType = Seat.getSeatType(index.toChar() + MIN_ROW.toInt())
+                    val seatType: SeatType = Seat.getSeatType(index.toChar() + Seat.MIN_ROW.toInt())
                     paymentAmount += seatType.paymentAmount
                 }
             }

@@ -7,7 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.activity.SeatSelectionActivity
+import woowacourse.movie.activity.seats.SeatSelectionActivity
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
