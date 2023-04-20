@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 data class Reservation(
     val movieName: MovieName,
     val screeningDateTime: LocalDateTime,
-    val ticketCount: Int,
+    val ticketCount: TicketCount,
     val paymentAmount: PaymentAmount,
     val seats: List<ScreeningSeat>,
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
@@ -18,8 +18,8 @@ data class Reservation(
 
     companion object {
         fun of(
-            movieName: String,
-            ticketCount: Int,
+            movieName: MovieName,
+            ticketCount: TicketCount,
             screeningDateTime: LocalDateTime,
             paymentAmount: PaymentAmount,
             seats: List<ScreeningSeat>
@@ -30,7 +30,7 @@ data class Reservation(
             )
 
             return Reservation(
-                movieName = MovieName(movieName),
+                movieName = movieName,
                 screeningDateTime = screeningDateTime,
                 ticketCount = ticketCount,
                 paymentAmount = discountedPaymentAmount,
