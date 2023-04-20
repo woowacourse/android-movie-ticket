@@ -9,8 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.ReservationUI
-import woowacourse.movie.model.TicketUI
-import woowacourse.movie.model.mapper.toReservation
+import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.ui.movielist.MovieListActivity
 import woowacourse.movie.ui.ticketing.TicketingActivity
 import java.time.LocalDateTime
@@ -26,8 +25,9 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation() {
-        val reservation = intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY)
-            ?: return exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
+        val reservation =
+            intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY)
+                ?: return exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
         setReservationInfo(reservation)
     }
 
@@ -35,8 +35,8 @@ class TicketingResultActivity : AppCompatActivity() {
         with(reservationUI) {
             findViewById<TextView>(R.id.tv_title).text = movie.title
             setDateTime(dateTime)
-            setTicketCount(ticket)
-            setPayment(this)
+            setTicketCount(ticketCount)
+//            setPayment(this)
         }
     }
 
@@ -51,19 +51,19 @@ class TicketingResultActivity : AppCompatActivity() {
         )
     }
 
-    private fun setTicketCount(ticket: TicketUI) {
+    private fun setTicketCount(ticket: TicketCountUI) {
         findViewById<TextView>(R.id.tv_regular_count).text =
             getString(R.string.regular_count, ticket.count)
     }
 
-    private fun setPayment(reservationUI: ReservationUI) {
-        findViewById<TextView>(R.id.tv_pay_result).text =
-            getString(
-                R.string.movie_pay_result,
-                reservationUI.toReservation().totalPrice,
-                getString(R.string.on_site_payment)
-            )
-    }
+//    private fun setPayment(reservationUI: ReservationUI) {
+//        findViewById<TextView>(R.id.tv_pay_result).text =
+//            getString(
+//                R.string.movie_pay_result,
+//                reservationUI.toReservation(),
+//                getString(R.string.on_site_payment)
+//            )
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

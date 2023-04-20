@@ -12,26 +12,23 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.extensions.showToast
 import woowacourse.movie.model.MovieUI
 import woowacourse.movie.model.ReservationUI
-import woowacourse.movie.model.TicketUI
+import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.mapper.toMovie
-import woowacourse.movie.model.mapper.toReservationUI
-import woowacourse.movie.model.mapper.toTicket
 import woowacourse.movie.ui.movielist.MovieListActivity
-import woowacourse.movie.ui.ticketingresult.TicketingResultActivity
+import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class TicketingActivity : AppCompatActivity(), OnClickListener {
-    private var movieTicket: TicketUI = TicketUI()
+    private var movieTicket: TicketCountUI = TicketCountUI()
 
     private lateinit var movie: MovieUI
     private val movieDates: List<LocalDate> by lazy {
@@ -86,7 +83,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     private fun restoreState(savedInstanceState: Bundle) {
         savedInstanceState.run {
-            movieTicket = getParcelableCompat(TICKET_STATE_KEY) ?: TicketUI()
+            movieTicket = getParcelableCompat(TICKET_STATE_KEY) ?: TicketCountUI()
             selectedDateIdx = getInt(MOVIE_DATE_INDEX_STATE_KEY)
             selectedTimeIdx = getInt(MOVIE_TIME_INDEX_STATE_KEY)
         }
@@ -107,7 +104,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun setTicketCount(ticket: TicketUI) {
+    private fun setTicketCount(ticket: TicketCountUI) {
         movieTicket = ticket
         textViewTicketCount.text = ticket.count.toString()
     }
@@ -202,31 +199,26 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             showToast(getString(R.string.select_date_and_time))
             return
         }
-        reservation = reserveMovie()?.apply {
-            val intent = Intent(this@TicketingActivity, TicketingResultActivity::class.java)
+        reservation = reserveMovie().apply {
+            val intent = Intent(this@TicketingActivity, SeatSelectionActivity::class.java)
             intent.putExtra(RESERVATION_KEY, this)
             startActivity(intent)
             finish()
         }
     }
 
-    private fun reserveMovie(): ReservationUI? {
+    private fun reserveMovie(): ReservationUI {
         val reservationDateTime = LocalDateTime.of(
             movieDates[selectedDateIdx],
             movieTimes[selectedTimeIdx]
         )
 
-        return movie.toMovie().reserveMovie(
+        return ReservationUI(
+            movie,
             reservationDateTime,
-            movieTicket.toTicket(),
-            calculateTicketTotalPrice(reservationDateTime)
-        )?.run { toReservationUI() }
-    }
-
-    private fun calculateTicketTotalPrice(dateTime: LocalDateTime): Int =
-        movieTicket.toTicket().calculatePrice(
-            DiscountDecorator(dateTime).calculatePrice()
+            movieTicket
         )
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
