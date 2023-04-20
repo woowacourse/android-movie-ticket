@@ -10,11 +10,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.CountNumberOfPeople
-import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.BaseActivity
-import woowacourse.movie.view.SeatSelectionActivity
+import woowacourse.movie.view.seatselection.SeatSelectionActivity
 import woowacourse.movie.view.viewmodel.MovieUIModel
-import woowacourse.movie.view.viewmodel.toUIModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -101,14 +99,16 @@ class MovieDetailActivity : BaseActivity() {
         bookBtn.setOnClickListener {
             val selectedDate = LocalDate.parse(selectDateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(selectTimeSpinner.selectedItem.toString())
-            val ticket =
-                Ticket(
-                    TICKET_PRICE,
-                    LocalDateTime.of(selectedDate, selectedTime),
-                    numberOfBooker,
-                )
+//            val ticket =
+//                Ticket(
+//                    TICKET_PRICE,
+//                    LocalDateTime.of(selectedDate, selectedTime),
+//                    numberOfBooker,
+//                )
+//            intent.putExtra(TICKET_KEY, ticket.toUIModel())
             val intent = Intent(this, SeatSelectionActivity::class.java)
-            intent.putExtra(TICKET_KEY, ticket.toUIModel())
+            intent.putExtra(DATE_KEY, LocalDateTime.of(selectedDate, selectedTime))
+            intent.putExtra(NUMBER_OF_PEOPLE_KEY, numberOfBooker)
             intent.putExtra(MOVIE_KEY, movie)
             startActivity(intent)
         }
@@ -164,6 +164,8 @@ class MovieDetailActivity : BaseActivity() {
     companion object {
         private const val TICKET_KEY = "ticket"
         private const val MOVIE_KEY = "movie"
+        private const val DATE_KEY = "date"
+        private const val NUMBER_OF_PEOPLE_KEY = "numberOfPeople"
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"

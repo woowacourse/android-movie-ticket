@@ -5,6 +5,7 @@
     <string name="running_time">러닝타임: %d분</string>
     <string name="ticket_number_of_people">일반 %d명</string>
     <string name="ticket_price">%d원 (현장 결제)</string>
+    <string name="price">%d원</string>
     <string name="book_now">지금 예매</string>
     <string name="minus_btn">-</string>
     <string name="plus_btn">+</string>
