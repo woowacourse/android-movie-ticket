@@ -7,9 +7,10 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
+import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.TicketCount
-import woowacourse.movie.ui.moviebookingcheckactivity.MovieBookingCheckActivity
 import woowacourse.movie.ui.model.MovieUIModel
+import woowacourse.movie.ui.moviebookingcheckactivity.MovieBookingCheckActivity
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -47,7 +48,7 @@ class MovieBookingInputView(private val view: ViewGroup) {
         timeSpinnerAdapter =
             TimeSpinnerAdapter(
                 timeSpinner,
-                movieData.screeningDay,
+                ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay),
                 timeSpinnerRecoverState,
                 view.context
             )
@@ -55,7 +56,7 @@ class MovieBookingInputView(private val view: ViewGroup) {
             DateSpinnerAdapter(
                 dateSpinner,
                 timeSpinnerAdapter::updateTimeTable,
-                movieData.screeningDay,
+                ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay),
                 view.context
             )
     }
@@ -83,7 +84,10 @@ class MovieBookingInputView(private val view: ViewGroup) {
         val date = dateSpinner.selectedItem as LocalDate
         val time = timeSpinner.selectedItem as LocalTime
 
-        return ScreeningDateTime(LocalDateTime.of(date, time), movieData.screeningDay)
+        return ScreeningDateTime(
+            LocalDateTime.of(date, time),
+            ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay)
+        )
     }
 
     // timespinner 초기화 관련 방어코드 고려
@@ -91,10 +95,10 @@ class MovieBookingInputView(private val view: ViewGroup) {
         view.findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
             val intent = Intent(view.context, MovieBookingCheckActivity::class.java).apply {
                 putExtra(MovieBookingCheckActivity.MOVIE_DATA, movieData)
-                putExtra(MovieBookingCheckActivity.TICKET_COUNT, ticketCount)
+                putExtra(MovieBookingCheckActivity.TICKET_COUNT, ticketCount.value)
                 putExtra(
                     MovieBookingCheckActivity.BOOKED_SCREENING_DATE_TIME,
-                    getScreeningDateTime(movieData)
+                    getScreeningDateTime(movieData).time
                 )
             }
             view.context.startActivity(intent)

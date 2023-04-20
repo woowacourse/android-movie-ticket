@@ -1,10 +1,8 @@
 package woowacourse.movie.domain.datetime
 
-import java.io.Serializable
 import java.time.LocalDateTime
 
-class ScreeningDateTime(val time: LocalDateTime, private val screeningPeriod: ScreeningPeriod) :
-    Serializable {
+class ScreeningDateTime(val time: LocalDateTime, private val screeningPeriod: ScreeningPeriod) {
     init {
         validateDateTime()
     }

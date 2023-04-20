@@ -25,8 +25,8 @@ class MovieInformationView(private val view: ViewGroup, movieData: MovieUIModel)
         tvBookingMovieName.text = movieData.title
         tvBookingScreeningDay.text = tvBookingScreeningDay.getString(R.string.screening_date_format)
             .format(
-                movieData.screeningDay.start.format(DateTimeFormatters.hyphenDateFormatter),
-                movieData.screeningDay.end.format(DateTimeFormatters.hyphenDateFormatter)
+                movieData.screeningStartDay.format(DateTimeFormatters.hyphenDateFormatter),
+                movieData.screeningEndDay.format(DateTimeFormatters.hyphenDateFormatter)
             )
         tvBookingRunningTime.text = tvBookingRunningTime.getString(R.string.running_time_format)
             .format(movieData.runningTime)

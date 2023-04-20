@@ -23,8 +23,8 @@ class MovieViewHolder(
         tvMovieName.text = itemData.title
         tvScreeningDay.text = tvScreeningDay.getString(R.string.screening_date_format)
             .format(
-                itemData.screeningDay.start.format(hyphenDateFormatter),
-                itemData.screeningDay.end.format(hyphenDateFormatter)
+                itemData.screeningStartDay.format(hyphenDateFormatter),
+                itemData.screeningEndDay.format(hyphenDateFormatter)
             )
         tvRunningTime.text = tvRunningTime.getString(R.string.running_time_format)
             .format(itemData.runningTime)
