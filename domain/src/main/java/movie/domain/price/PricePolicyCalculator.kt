@@ -6,11 +6,8 @@ class PricePolicyCalculator(private val discountPolicies: List<DiscountPolicy> =
         discountCalculate(ticketPrice) * ticketCount
 
     override fun discountCalculate(price: Int): Int {
-        var processedPrice = price
-        if (discountPolicies.isEmpty()) {
-            return price
+        return discountPolicies.fold(price) { discountedPrice, discountPolicy ->
+            discountPolicy.discount(discountedPrice)
         }
-        discountPolicies.forEach { processedPrice = it.discount(processedPrice) }
-        return processedPrice
     }
 }
