@@ -18,8 +18,8 @@ data class SeatReservation(
         get() = _selectedSeats.toList()
 
     fun selectSeat(seat: ScreeningSeat) {
-        if (_selectedSeats.size == selectingCount.value) {
-            throw IllegalStateException(ERROR_TICKET_COUNT)
+        if (checkingSelectedSeatsCount()) {
+            throw IllegalStateException(ERROR_OVER_TICKET_COUNT)
         }
         val selectedSeat = screeningSeats.selectSeat(seat)
 
@@ -37,7 +37,7 @@ data class SeatReservation(
     }
 
     fun selectingComplete(): List<ScreeningSeat> {
-        if (selectingCount.value == _selectedSeats.size) {
+        if (checkingSelectedSeatsCount()) {
             return _selectedSeats.toList()
         }
         throw IllegalStateException(ERROR_TICKET_COUNT)
@@ -49,7 +49,10 @@ data class SeatReservation(
         return PaymentAmount(totalPayment)
     }
 
+    private fun checkingSelectedSeatsCount() = _selectedSeats.size == selectingCount.value
+
     companion object {
+        private const val ERROR_OVER_TICKET_COUNT = "[ERROR]: 티켓 개수보다 많은 좌석을 선택할 수 없습니다."
         private const val ERROR_TICKET_COUNT = "[ERROR]: 티켓 개수만큼 좌석을 선택해야합니다."
     }
 }
