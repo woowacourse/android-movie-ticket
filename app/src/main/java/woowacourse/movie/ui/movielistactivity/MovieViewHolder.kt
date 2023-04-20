@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.movielistactivity
 
 import android.content.Intent
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,12 +13,14 @@ import woowacourse.movie.util.getString
 import woowacourse.movie.util.setOnSingleClickListener
 
 class MovieViewHolder(
-    val ivPoster: ImageView,
-    val tvMovieName: TextView,
-    val tvScreeningDay: TextView,
-    val tvRunningTime: TextView,
-    val btnBooking: Button
+    item: View
 ) {
+
+    private val ivPoster: ImageView = item.findViewById(R.id.iv_poster)
+    private val tvMovieName: TextView = item.findViewById(R.id.tv_movie_name)
+    private val tvScreeningDay: TextView = item.findViewById(R.id.tv_screening_day)
+    private val tvRunningTime: TextView = item.findViewById(R.id.tv_running_time)
+    private val btnBooking: Button = item.findViewById(R.id.btn_booking)
     fun setData(itemData: MovieUIModel) {
         ivPoster.setImageResource(itemData.posterImage)
         tvMovieName.text = itemData.title

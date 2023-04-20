@@ -39,13 +39,7 @@ class MovieListAdapter(private val movies: List<MovieUIModel>) : BaseAdapter() {
     }
 
     private fun initMovieViewHolder(itemLayout: View): MovieViewHolder =
-        MovieViewHolder(
-            ivPoster = itemLayout.findViewById(R.id.iv_poster),
-            tvMovieName = itemLayout.findViewById(R.id.tv_movie_name),
-            tvScreeningDay = itemLayout.findViewById(R.id.tv_screening_day),
-            tvRunningTime = itemLayout.findViewById(R.id.tv_running_time),
-            btnBooking = itemLayout.findViewById(R.id.btn_booking)
-        )
+        MovieViewHolder(itemLayout)
 
     companion object {
         private const val NULL_ITEM_LAYOUT_ERROR = "itemLayout이 null 값으로 반환되었습니다."
