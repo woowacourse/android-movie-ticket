@@ -2,8 +2,8 @@ package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import com.example.domain.Movie
 import woowacourse.movie.repository.MovieMockRepository
@@ -25,7 +25,7 @@ class MovieListActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             })
-        val movieListView = findViewById<ListView>(R.id.movie_listview)
+        val movieListView = findViewById<RecyclerView>(R.id.movie_recyclerview)
         movieListView.adapter = movieAdapter
     }
 

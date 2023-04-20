@@ -2,9 +2,8 @@ package woowacourse.movie.view
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.Movie
 import woowacourse.movie.R
 import woowacourse.movie.databinding.MovieItemBinding
@@ -13,40 +12,34 @@ import woowacourse.movie.util.DATE_FORMATTER
 class MovieListAdapter(
     private val movies: List<Movie>,
     private val onReserveListener: OnReserveListener
-) : BaseAdapter() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
-        var convertView = view
-        val viewHolder: MovieItemViewHolder
-        var binding: MovieItemBinding? = null
-        if (convertView == null) {
-            binding = MovieItemBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
-            convertView = binding.root
-
-            viewHolder = MovieItemViewHolder(
-                binding.moviePoster,
-                binding.movieTitle,
-                binding.movieScreeningDate,
-                binding.movieRunningTime,
-                binding.reserveNowButton
-            )
-            convertView.tag = viewHolder
-        } else {
-            viewHolder = view?.tag as MovieItemViewHolder
-        }
-        val movie = movies[position]
-        binding?.let {
-            initMovieItemView(binding.root.context, viewHolder, movie)
-        }
-        return convertView
+    interface OnReserveListener {
+        fun onClick(movie: Movie)
     }
 
-    private fun initMovieItemView(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+        return MovieItemViewHolder(MovieItemBinding.bind(view))
+    }
+
+    override fun getItemCount(): Int = movies.size
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val movie = movies[position]
+        when (holder) {
+            is MovieItemViewHolder -> {
+                bindMovieItemViewHolder(holder.binding.root.context, holder, movie)
+            }
+        }
+    }
+
+    private fun bindMovieItemViewHolder(
         context: Context,
         viewHolder: MovieItemViewHolder,
         movie: Movie
-    ) {
-        viewHolder.apply {
+    ): MovieItemViewHolder {
+        return viewHolder.apply {
             poster.setImageResource(movie.posterResourceId)
             title.text = movie.title
             screeningStartDate.text =
@@ -62,19 +55,7 @@ class MovieListAdapter(
         }
     }
 
-    override fun getCount(): Int {
-        return movies.size
-    }
+    companion object {
 
-    override fun getItem(position: Int): Any {
-        return movies[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    interface OnReserveListener {
-        fun onClick(movie: Movie)
     }
 }
