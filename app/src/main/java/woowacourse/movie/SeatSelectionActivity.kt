@@ -1,9 +1,11 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import domain.Position
@@ -14,6 +16,7 @@ import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto
 import woowacourse.movie.dto.TicketCountDto
+import woowacourse.movie.mapper.mapToSeatsDto
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -58,8 +61,55 @@ class SeatSelectionActivity : AppCompatActivity() {
                     else -> unselectSeat(textView, seat)
                 }
                 setPrice(seats.caculateSeatPrice(LocalDateTime.of(date, time)))
+                setEnterBtnClickable()
             }
         }
+    }
+
+    private fun setEnterBtnClickable() {
+        val enterBtn = findViewById<TextView>(R.id.enterBtn)
+        when {
+            isPossibleEnter() -> {
+                enterBtn.setBackgroundColor(getColor(R.color.enter))
+                OnEnterBtnClickListener(enterBtn)
+            }
+            else -> {
+                enterBtn.setBackgroundColor(getColor(R.color.not_enter))
+                enterBtn.setOnClickListener(null)
+            }
+        }
+    }
+
+    private fun OnEnterBtnClickListener(enterBtn: TextView) {
+        enterBtn.setOnClickListener {
+            showBookingDialog()
+        }
+    }
+
+    private fun showBookingDialog() {
+        AlertDialog.Builder(this)
+            .setCancelable(false)
+            .setTitle("예매 확인")
+            .setMessage("정말 예매하시겠습니까?")
+            .setPositiveButton("예") { _, _ -> moveActivity() }
+            .setNegativeButton("아니요") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun moveActivity() {
+        val intent = Intent(this, TicketActivity::class.java)
+        intent.putExtra(MOVIE_KEY, movie)
+        intent.putExtra(SEATS_KEY, seats.mapToSeatsDto())
+        intent.putExtra(DATE_KEY, date)
+        intent.putExtra(TIME_KEY, time)
+        intent.putExtra(TICKET_KEY, ticketCount)
+        startActivity(intent)
+    }
+
+    private fun isPossibleEnter(): Boolean {
+        return !seats.isEmpty()
     }
 
     private fun isPossibleSelect(seat: Seat): Boolean {
@@ -86,5 +136,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         private const val MOVIE_KEY = "movie"
         private const val DATE_KEY = "movie_date"
         private const val TIME_KEY = "movie_time"
+        private const val SEATS_KEY = "seats"
     }
 }

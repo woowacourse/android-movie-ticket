@@ -17,6 +17,8 @@ class Seats(seats: List<Seat> = emptyList()) {
         _seats.remove(seat)
     }
 
+    fun isEmpty(): Boolean = seats.isEmpty()
+
     fun caculateSeatPrice(dateTime: LocalDateTime): Int {
         return seats.fold(0) { total, price ->
             total + price.applyPolicyPrice(dateTime)
