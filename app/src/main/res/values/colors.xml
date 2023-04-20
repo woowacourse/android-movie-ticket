@@ -8,4 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="ticket_color">#9160F9</color>
+    <color name="seat_rank_b">#8E13EF</color>
+    <color name="seat_rank_s">#19D358</color>
+    <color name="seat_rank_a">#1B48E9</color>
+    <color name="price">#727272</color>
+    <color name="disabled_click">#B7B7B7</color>
 </resources>

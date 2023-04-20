@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.activity.seatselect.SeatSelectActivity
 import woowacourse.movie.activity.ticketresult.TicketResultActivity
 import woowacourse.movie.domain.policy.DiscountPolicies
 import woowacourse.movie.domain.ticket.Price
@@ -41,7 +42,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
 
     private fun setReserveButton(title: String) {
         viewGroup.findViewById<Button>(R.id.btn_reserve).setOnClickListener {
-            val intent = Intent(it.context, TicketResultActivity::class.java)
+            val intent = Intent(it.context, SeatSelectActivity::class.java)
             val ticket = Ticket.of(
                 DiscountPolicies.policies,
                 title,

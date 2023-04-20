@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".activity.seatselect.SeatSelectActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ticketresult.TicketResultActivity"
             android:exported="false" />
         <activity
