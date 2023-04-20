@@ -9,7 +9,6 @@ import data.SeatPosition
 import model.MovieTicketModel
 import model.SeatSelectionModel
 import movie.SeatSelection
-import movie.TicketQuantity
 import woowacourse.movie.R
 
 class SeatSelectionTable(
@@ -34,7 +33,12 @@ class SeatSelectionTable(
     init {
         seatSelectionTableBoxes.forEach { (row, col, item) ->
             item.setOnClickListener {
-                seatSelection.selectSeat(SeatPosition(row, col), TicketQuantity(selectionInfo.Quantity))
+                if (seatSelection[SeatPosition(row, col)].not() &&
+                    selectionInfo.Quantity <= seatSelection.sizeOfSelection
+                ) {
+                    return@setOnClickListener
+                }
+                seatSelection.selectSeat(SeatPosition(row, col))
                 drawSeatSelection()
                 updateInfo()
             }

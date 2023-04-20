@@ -27,11 +27,7 @@ class SeatSelection(
         return seats[findByPosition(seatPosition)] ?: throw IllegalArgumentException()
     }
 
-    fun selectSeat(position: SeatPosition, maxQuantity: TicketQuantity) {
-        if (get(position).not() && sizeOfSelection >= maxQuantity.toInt()) {
-            return
-        }
-
+    fun selectSeat(position: SeatPosition) {
         val seat = findByPosition(position)
         seats[seat]?.let {
             seats[seat] = it.not()
