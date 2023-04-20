@@ -9,16 +9,20 @@
     <string name="screen">SCREEN</string>
     <string name="button_seat_picker_done">확인</string>
 
-    <string name="screen_date">"상영일: %s ~ %s"</string>
-    <string name="running_time">"러닝타임: %d분"</string>
-    <string name="people_count">"일반 %d명"</string>
-    <string name="price">"%s원"</string>
-    <string name="on_site_payment">"(현장 결제)"</string>
-    <string name="price_with_payment_type">"%s %s"</string>
-    <string name="seat">"%s%d"</string>
+    <string name="screen_date">상영일: %s ~ %s</string>
+    <string name="running_time">러닝타임: %d분</string>
+    <string name="people_count">일반 %d명</string>
+    <string name="price">%s원</string>
+    <string name="on_site_payment">(현장 결제)</string>
+    <string name="price_with_payment_type">%s %s</string>
+    <string name="seat">%s%d</string>
 
-    <string name="date_format">"yyyy.MM.dd"</string>
-    <string name="date_time_format">"yyyy.MM.dd HH:mm"</string>
+    <string name="date_format">yyyy.MM.dd</string>
+    <string name="date_time_format">yyyy.MM.dd HH:mm</string>
 
-    <string name="toast_message_seat_selection_done">"이미 모든 좌석을 선택했습니다."</string>
+    <string name="toast_message_seat_selection_done">이미 모든 좌석을 선택했습니다.</string>
+    <string name="dialog_title_seat_selection_check">예매 확인</string>
+    <string name="dialog_message_seat_selection_check">정말 예매하시겠습니까?</string>
+    <string name="dialog_positive_button_seat_selection_check">예매 완료</string>
+    <string name="dialog_negative_button_seat_selection_check">취소</string>
 </resources>

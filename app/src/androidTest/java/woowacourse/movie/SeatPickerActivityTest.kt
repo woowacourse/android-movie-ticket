@@ -6,6 +6,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotClickable
 import androidx.test.espresso.matcher.ViewMatchers.isNotSelected
 import androidx.test.espresso.matcher.ViewMatchers.isSelected
@@ -13,7 +14,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Matchers.not
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.ui.activity.SeatPickerActivity
@@ -34,17 +34,9 @@ class SeatPickerActivityTest {
     private val intent =
         Intent(ApplicationProvider.getApplicationContext(), SeatPickerActivity::class.java)
             .putExtra("ticket", ticket)
-    private lateinit var activity: SeatPickerActivity
 
     @get:Rule
     val activityRule = ActivityScenarioRule<SeatPickerActivity>(intent)
-
-    @Before
-    fun setup() {
-        activityRule.scenario.onActivity {
-            activity = it
-        }
-    }
 
     @Test
     fun 사용자가_빈_좌석을_선택하면_좌석이_선택된다() {
@@ -137,5 +129,20 @@ class SeatPickerActivityTest {
 
         onView(withId(R.id.seat_picker_price))
             .check(matches(withText("0원")))
+    }
+
+    @Test
+    fun 좌석을_선택하고_확인_버튼을_누르면_예매_확인_다이얼로그가_표시된다() {
+        onView(withId(R.id.seat_view_1))
+            .check(matches(isNotSelected()))
+            .perform(click())
+
+        onView(withId(R.id.seat_picker_done_button))
+            .perform(click())
+
+        onView(withText(R.string.dialog_title_seat_selection_check))
+            .check(matches(isDisplayed()))
+        onView(withText(R.string.dialog_message_seat_selection_check))
+            .check(matches(isDisplayed()))
     }
 }

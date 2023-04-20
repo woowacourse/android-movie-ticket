@@ -7,6 +7,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
@@ -48,7 +49,7 @@ class SeatPickerActivity : AppCompatActivity() {
 
         val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
         doneButton.setOnClickListener {
-            moveToTicketActivity()
+            showReservationCheckDialog()
         }
         doneButton.isClickable = ticket.peopleCount.count == count
     }
@@ -134,6 +135,20 @@ class SeatPickerActivity : AppCompatActivity() {
             doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_off))
             doneButton.isClickable = false
         }
+    }
+
+    private fun showReservationCheckDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dialog_title_seat_selection_check))
+            .setMessage(getString(R.string.dialog_message_seat_selection_check))
+            .setPositiveButton(getString(R.string.dialog_positive_button_seat_selection_check)) { _, _ ->
+                moveToTicketActivity()
+            }
+            .setNegativeButton(getString(R.string.dialog_negative_button_seat_selection_check)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
     }
 
     private fun moveToTicketActivity() {
