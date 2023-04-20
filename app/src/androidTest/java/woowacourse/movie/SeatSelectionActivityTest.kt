@@ -56,14 +56,14 @@ class SeatSelectionActivityTest {
 
     @Test
     fun A_Class_좌석에_앉으면_A_클래스_가격만큼_증가한다() {
-        onView(withText("D1")).perform(ViewActions.click())
+        onView(withText("E1")).perform(ViewActions.click())
         onView(withId(R.id.seat_selection_price))
             .check(matches(withText("10000원")))
     }
 
     @Test
     fun S_Class_좌석에_앉으면_S_클래스_가격만큼_증가한다() {
-        onView(withText("B1")).perform(ViewActions.click())
+        onView(withText("C1")).perform(ViewActions.click())
         onView(withId(R.id.seat_selection_price))
             .check(matches(withText("13000원")))
     }
