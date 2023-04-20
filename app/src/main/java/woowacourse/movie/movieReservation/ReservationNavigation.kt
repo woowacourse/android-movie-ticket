@@ -11,9 +11,9 @@ class ReservationNavigation(
     movieListItem: MovieListItem,
     onReservationButtonClicked: () -> Unit,
 ) {
-    private val timeSpinner: ReservationTimeSpinner = ReservationTimeSpinner(view)
-    private val dateSpinner: ReservationDateSpinner = ReservationDateSpinner(view) { timeSpinner.initTimeSpinner(it) }
-    private val ticketQuantityView: ReservationTicketQuantity = ReservationTicketQuantity(view)
+    private val timeSpinner = ReservationTimeSpinner(view)
+    private val dateSpinner = ReservationDateSpinner(view) { timeSpinner.initTimeSpinner(it) }
+    private val ticketQuantityView = ReservationTicketQuantity(view)
 
     val ticketQuantity: TicketQuantity
         get() = ticketQuantityView.quantity
@@ -23,20 +23,20 @@ class ReservationNavigation(
 
     init {
         dateSpinner.initDateSpinner(movieListItem)
+        timeSpinner.initTimeSpinner(dateSpinner.selectedDate)
         ReservationSubmit(view) { onReservationButtonClicked() }
     }
 
     fun load(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
-            ticketQuantityView.load(savedInstanceState)
-            dateSpinner.load(savedInstanceState)
-            timeSpinner.load(savedInstanceState)
-        }
+        val ticketQuantity = TicketQuantity(savedInstanceState?.getInt(KEY_COUNT) ?: 1)
+        ticketQuantityView.initTicketQuantity(ticketQuantity)
     }
 
     fun save(outState: Bundle) {
-        ticketQuantityView.save(outState)
-        timeSpinner.save(outState)
-        dateSpinner.save(outState)
+        ticketQuantityView.quantity.let { outState.putInt(KEY_COUNT, it.toInt()) }
+    }
+
+    companion object {
+        private const val KEY_COUNT = "count"
     }
 }

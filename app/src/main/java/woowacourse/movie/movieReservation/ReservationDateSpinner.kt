@@ -1,6 +1,5 @@
 package woowacourse.movie.movieReservation
 
-import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -28,23 +27,11 @@ class ReservationDateSpinner(
         }
     }
 
-    fun save(outState: Bundle) {
-        outState.putInt(KEY_DATE, dateSpinner.selectedItemPosition)
-    }
-
-    fun load(savedInstanceState: Bundle?) {
-        savedInstanceState?.getInt(KEY_DATE)?.let { dateSpinner.setSelection(it) }
-    }
-
     fun initDateSpinner(movieListItem: MovieListItem) {
         dateSpinner.adapter = ArrayAdapter(
             view.context,
             android.R.layout.simple_spinner_item,
             ScreeningDate.getScreeningDates(movieListItem.startDate, movieListItem.endDate),
         )
-    }
-
-    companion object {
-        private const val KEY_DATE = "dateSpinner"
     }
 }

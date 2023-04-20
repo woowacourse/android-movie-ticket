@@ -1,6 +1,5 @@
 package woowacourse.movie.movieReservation
 
-import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -28,15 +27,7 @@ class ReservationTicketQuantity(
         }
     }
 
-    fun load(savedInstanceState: Bundle?) {
-        ticketQuantityTextView.text = savedInstanceState?.getInt(KEY_COUNT).toString()
-    }
-
-    fun save(outState: Bundle) {
-        outState.putInt(KEY_COUNT, quantity.toInt())
-    }
-
-    companion object {
-        private const val KEY_COUNT = "count"
+    fun initTicketQuantity(ticketQuantity: TicketQuantity) {
+        ticketQuantityTextView.text = ticketQuantity.toString()
     }
 }
