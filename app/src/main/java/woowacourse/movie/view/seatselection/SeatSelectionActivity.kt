@@ -1,6 +1,7 @@
 package woowacourse.movie.view.seatselection
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -35,8 +36,15 @@ class SeatSelectionActivity : BaseActivity() {
             view.setOnClickListener {
                 seatState.setSeatState(index, view, this)
                 price.text = getString(R.string.price, seatState.priceNum)
+
+                checkNumberOfPeople(selectedNumberOfPeople, seatState.countPeople)
             }
         }
+    }
+
+    private fun checkNumberOfPeople(numberOfPeople: Int, countPeople: Int) {
+        val nextBtn = findViewById<Button>(R.id.seat_selection_check)
+        nextBtn.isEnabled = (countPeople == numberOfPeople)
     }
 
     companion object {
