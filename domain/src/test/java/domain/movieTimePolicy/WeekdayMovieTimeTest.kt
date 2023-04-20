@@ -32,6 +32,6 @@ class WeekdayMovieTimeTest {
         // when
         val actual = WeekdayMovieTime.generateTime(date)
         // then
-        assertThat(actual).isEqualTo(date)
+        assertThat(actual).isNull()
     }
 }

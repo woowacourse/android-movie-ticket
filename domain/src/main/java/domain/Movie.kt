@@ -7,7 +7,7 @@ data class Movie(
     val runningTime: Int,
     val description: String,
 ) {
-    fun makeReservation(ticket: Ticket): Reservation {
-        return Reservation(this, ticket)
+    fun makeReservation(tickets: Tickets): Reservation {
+        return Reservation(this, tickets)
     }
 }

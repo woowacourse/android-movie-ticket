@@ -1,3 +1,3 @@
 package domain
 
-data class Reservation(val movie: Movie, val detail: Ticket)
+data class Reservation(val movie: Movie, val detail: Tickets)
