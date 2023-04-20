@@ -40,7 +40,7 @@ class MovieListAdapter(
         }
 
         viewHolder.bind(movie)
-        viewHolder.button.setOnClickListener { itemButtonClickListener.onClick(position) }
+        viewHolder.setButtonClickListener(position)
 
         return itemView
     }
@@ -52,7 +52,11 @@ class MovieListAdapter(
         private val title: TextView = view.findViewById(R.id.item_title)
         private val date: TextView = view.findViewById(R.id.item_date)
         private val runningTime: TextView = view.findViewById(R.id.item_running_time)
-        val button: Button = view.findViewById(R.id.item_booking_button)
+        private val button: Button = view.findViewById(R.id.item_booking_button)
+
+        fun setButtonClickListener(position: Int) {
+            button.setOnClickListener { itemButtonClickListener.onClick(position) }
+        }
 
         fun bind(movie: MovieModel) {
             poster.setImageResource(movie.poster)
