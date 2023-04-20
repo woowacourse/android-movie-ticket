@@ -4,12 +4,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 object DateFormatter : Formatter<LocalDate>() {
-    override val formatString: String = "yyyy.M.d"
-    override fun formatToOriginal(string: String): LocalDate =
-        LocalDate.parse(string, DateTimeFormatter.ofPattern(formatString))
+    override fun formatToOriginal(string: String, format: String): LocalDate =
+        LocalDate.parse(string, DateTimeFormatter.ofPattern(format))
 
-    override fun formatToString(data: LocalDate): String {
-        val dateFormatter = DateTimeFormatter.ofPattern(formatString)
+    override fun formatToString(data: LocalDate, format: String): String {
+        val dateFormatter = DateTimeFormatter.ofPattern(format)
         return dateFormatter.format(data)
     }
 }
