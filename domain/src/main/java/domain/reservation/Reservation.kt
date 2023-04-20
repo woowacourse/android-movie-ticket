@@ -1,10 +1,10 @@
 package domain.reservation
 
 import domain.discount.MovieDiscountEvent
-import domain.movie.Movie
 import domain.movie.MovieName
 import domain.payment.PaymentAmount
 import domain.payment.PaymentType
+import domain.seat.ScreeningSeat
 import java.time.LocalDateTime
 
 data class Reservation(
@@ -12,23 +12,30 @@ data class Reservation(
     val screeningDateTime: LocalDateTime,
     val ticketCount: Int,
     val paymentAmount: PaymentAmount,
+    val seats: List<ScreeningSeat>,
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
 ) {
 
     companion object {
-        private const val TICKET_PRICE = 13000
 
-        fun from(movie: Movie, ticketCount: Int, screeningDateTime: LocalDateTime): Reservation {
-            val paymentAmount: PaymentAmount = MovieDiscountEvent().discount(
-                PaymentAmount(ticketCount * TICKET_PRICE),
+        fun of(
+            movieName: String,
+            ticketCount: Int,
+            screeningDateTime: LocalDateTime,
+            paymentAmount: PaymentAmount,
+            seats: List<ScreeningSeat>
+        ): Reservation {
+            val discountedPaymentAmount: PaymentAmount = MovieDiscountEvent().discount(
+                paymentAmount,
                 screeningDateTime
             )
 
             return Reservation(
-                movieName = movie.movieName,
+                movieName = MovieName(movieName),
                 screeningDateTime = screeningDateTime,
                 ticketCount = ticketCount,
-                paymentAmount = paymentAmount,
+                paymentAmount = discountedPaymentAmount,
+                seats = seats,
             )
         }
     }
