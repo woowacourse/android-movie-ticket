@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.seat
 
 enum class SeatRank(val price: Int) {
     B(10000),

@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-import SeatPosition
+import woowacourse.movie.domain.seat.SeatPosition
 import java.time.LocalDateTime
 
 data class Ticket(

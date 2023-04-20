@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.DiscountPrice
-import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDateTime
 
 class SeatState(

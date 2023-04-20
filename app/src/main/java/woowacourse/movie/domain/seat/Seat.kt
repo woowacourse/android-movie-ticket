@@ -1,6 +1,4 @@
-package woowacourse.movie.domain
-
-import SeatPosition
+package woowacourse.movie.domain.seat
 
 class Seat(val position: SeatPosition, val rank: SeatRank) {
 

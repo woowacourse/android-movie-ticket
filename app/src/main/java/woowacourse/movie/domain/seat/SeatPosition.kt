@@ -1,4 +1,5 @@
-import woowacourse.movie.domain.SeatRow
+package woowacourse.movie.domain.seat
+
 import java.io.Serializable
 
 fun indexToPosition(index: Int): SeatPosition {

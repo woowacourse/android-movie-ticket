@@ -8,9 +8,9 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
-import indexToPosition
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.seat.indexToPosition
 import woowacourse.movie.view.BaseActivity
 import woowacourse.movie.view.TicketActivity
 import woowacourse.movie.view.viewmodel.MovieUIModel
