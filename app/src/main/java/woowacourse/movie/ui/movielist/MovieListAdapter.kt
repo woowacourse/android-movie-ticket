@@ -8,12 +8,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.model.MovieModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
-    private val movies: List<Movie>,
+    private val movies: List<MovieModel>,
     private val itemButtonClickListener: ItemButtonClickListener,
 ) : BaseAdapter() {
     interface ItemButtonClickListener {
@@ -54,7 +54,7 @@ class MovieListAdapter(
         private val runningTime: TextView = view.findViewById(R.id.item_running_time)
         val button: Button = view.findViewById(R.id.item_booking_button)
 
-        fun bind(movie: Movie) {
+        fun bind(movie: MovieModel) {
             poster.setImageResource(movie.poster)
             title.text = movie.title
             date.text = view.context.getString(R.string.screening_date, movie.startDate.format(), movie.endDate.format())

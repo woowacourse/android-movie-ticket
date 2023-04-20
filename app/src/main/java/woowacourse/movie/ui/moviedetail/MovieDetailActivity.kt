@@ -13,7 +13,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TimesGenerator
@@ -43,7 +42,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie: Movie? = intent.getCustomSerializableExtra<MovieModel>(KEY_MOVIE)?.toDomain()
+        val movie: MovieModel? = intent.getCustomSerializableExtra<MovieModel>(KEY_MOVIE)
         if (movie == null) {
             showToast(getString(R.string.error_loading))
             finish()
@@ -77,7 +76,7 @@ class MovieDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setMovieInfo(movie: Movie) {
+    private fun setMovieInfo(movie: MovieModel) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.detail_title).text = movie.title
         findViewById<TextView>(R.id.detail_date).text = getString(R.string.screening_date, movie.startDate.format(), movie.endDate.format())
@@ -87,12 +86,12 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
-    private fun setDateSpinner(movie: Movie) {
+    private fun setDateSpinner(movie: MovieModel) {
         dateSpinner = findViewById(R.id.detail_date_spinner)
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            movie.getDatesBetweenTwoDates()
+            movie.toDomain().getDatesBetweenTwoDates()
         )
         dateSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dateSpinner.adapter = dateSpinnerAdapter
@@ -153,7 +152,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBookingButton(movie: Movie) {
+    private fun setBookingButton(movie: MovieModel) {
         val bookingButton = findViewById<Button>(R.id.detail_booking_button)
 
         bookingButton.setOnClickListener {
@@ -161,7 +160,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun moveToTicketActivity(movie: Movie) {
+    private fun moveToTicketActivity(movie: MovieModel) {
         val ticket = MovieTicket(
             movie.title,
             LocalDateTime.of(

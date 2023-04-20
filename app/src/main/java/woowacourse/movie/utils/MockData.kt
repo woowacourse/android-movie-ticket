@@ -1,12 +1,12 @@
 package woowacourse.movie.utils
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.model.MovieModel
 import java.time.LocalDate
 
 object MockData {
     val movies = listOf(
-        Movie(
+        MovieModel(
             R.drawable.parasite,
             "기생충",
             LocalDate.of(2023, 9, 12),
@@ -14,7 +14,7 @@ object MockData {
             131,
             "직업도 없이 허름한 반지하에 사는 기택 가족에게 돈을 벌 기회가 찾아온다. 친구의 소개로 부잣집 딸 다혜의 과외 선생님을 맡게 된 기택의 아들, 기우는 기대감에 부푼 채 글로벌 IT기업을 이끄는 박 사장의 저택에 들어간다."
         ),
-        Movie(
+        MovieModel(
             R.drawable.about_time,
             "About Time",
             LocalDate.of(2023, 4, 10),
@@ -22,7 +22,7 @@ object MockData {
             123,
             "아버지에게 가문 대대로 시간을 돌리는 능력을 타고났다는 사실을 들은 팀. 우연히 만난 메리에게 반한 팀은 완벽한 사랑을 위해 능력을 마음껏 사용하고, 그럴 때마다 주변 상황들이 점점 어긋나기 시작한다."
         ),
-        Movie(
+        MovieModel(
             R.drawable.witch,
             "마녀",
             LocalDate.of(2023, 8, 12),
