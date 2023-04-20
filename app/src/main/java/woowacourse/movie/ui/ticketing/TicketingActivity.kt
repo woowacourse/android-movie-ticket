@@ -44,8 +44,9 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, mutableListOf())
     }
     private var reservation: ReservationUI? = null
-    private var selectedDate: LocalDate? = null
-    private var selectedTime: LocalTime? = null
+
+    private var selectedDateIdx: Int = DEFAULT_DATE_SELECTED_IDX
+    private var selectedTimeIdx: Int = DEFAULT_TIME_SELECTED_IDX
 
     private val textViewTicketCount: TextView by lazy {
         findViewById(R.id.tv_ticket_count)
@@ -77,20 +78,17 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         restoreState(savedInstanceState)
+        initMovieTimes()
         setTicketCount(movieTicket)
-        val storedDateIndex = movieDates.indexOfFirst { it == selectedDate }
-        spinnerMovieDate.setSelection(storedDateIndex)
-        val storedTimeIndex = this.movieTimes.indexOfFirst { it == selectedTime }
-        spinnerMovieTime.setSelection(storedTimeIndex)
+        spinnerMovieDate.setSelection(selectedDateIdx)
+        spinnerMovieTime.setSelection(selectedTimeIdx)
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
         savedInstanceState.run {
-            reservation = getParcelableCompat<ReservationUI>(RESERVATION_KEY)?.apply {
-                selectedDate = dateTime.toLocalDate().apply { initMovieTimes(this) }
-                selectedTime = dateTime.toLocalTime()
-                movieTicket = ticket
-            }
+            movieTicket = getParcelableCompat(TICKET_STATE_KEY) ?: TicketUI()
+            selectedDateIdx = getInt(MOVIE_DATE_INDEX_STATE_KEY)
+            selectedTimeIdx = getInt(MOVIE_TIME_INDEX_STATE_KEY)
         }
     }
 
@@ -140,20 +138,18 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                 pos: Int,
                 id: Long
             ) {
-                selectedDate = movieDates[pos].apply {
-                    initMovieTimes(this)
-                }
-                selectedTime = movieTimes.firstOrNull()
+                selectedDateIdx = pos
+                initMovieTimes()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
-    private fun initMovieTimes(date: LocalDate) {
+    private fun initMovieTimes() {
         with(movie) {
             movieTimes.clear()
-            movieTimes.addAll(toMovie().getRunningTimes(date))
+            movieTimes.addAll(toMovie().getRunningTimes(movieDates[selectedDateIdx]))
             movieTimeAdapter.clear()
             movieTimeAdapter.addAll(
                 movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
@@ -174,7 +170,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                 pos: Int,
                 id: Long
             ) {
-                selectedTime = movieTimes[pos]
+                selectedTimeIdx = pos
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -202,7 +198,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         setTicketCount(++movieTicket)
 
     private fun onClickTicketing() {
-        if (selectedDate == null || selectedTime == null) {
+        if (selectedTimeIdx == -1) {
             showToast(getString(R.string.select_date_and_time))
             return
         }
@@ -215,7 +211,10 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     }
 
     private fun reserveMovie(): ReservationUI? {
-        val reservationDateTime = LocalDateTime.of(selectedDate, selectedTime)
+        val reservationDateTime = LocalDateTime.of(
+            movieDates[selectedDateIdx],
+            movieTimes[selectedTimeIdx]
+        )
 
         return movie.toMovie().reserveMovie(
             reservationDateTime,
@@ -243,20 +242,22 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        reservation = ReservationUI(
-            movie,
-            LocalDateTime.of(selectedDate, selectedTime),
-            movieTicket
-        )
-        outState.putParcelable(RESERVATION_KEY, reservation)
+        outState.putParcelable(TICKET_STATE_KEY, movieTicket)
+        outState.putInt(MOVIE_DATE_INDEX_STATE_KEY, selectedDateIdx)
+        outState.putInt(MOVIE_TIME_INDEX_STATE_KEY, selectedTimeIdx)
     }
 
     companion object {
         private const val MESSAGE_EMPTY_MOVIE = "영화 정보가 없습니다"
+        private const val DEFAULT_DATE_SELECTED_IDX = 0
+        private const val DEFAULT_TIME_SELECTED_IDX = -1
 
         private const val MOVIE_DATE_PATTERN = "yyyy.MM.dd"
         private const val MOVIE_TIME_PATTERN = "HH:mm"
 
         internal const val RESERVATION_KEY = "reservation"
+        internal const val TICKET_STATE_KEY = "ticket"
+        internal const val MOVIE_DATE_INDEX_STATE_KEY = "movieDate"
+        internal const val MOVIE_TIME_INDEX_STATE_KEY = "movieTime"
     }
 }
