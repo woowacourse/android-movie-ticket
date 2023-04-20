@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/seat_selection_background_color"
+    tools:context=".ui.seatselection.SeatSelectionActivity">
+
+    <LinearLayout
+        android:id="@+id/header_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="@color/seat_selection_screen_color"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/seat_selection_screen"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="56dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@id/header_screen"
+        app:layout_constraintStart_toStartOf="@id/header_screen"
+        app:layout_constraintTop_toBottomOf="@id/header_screen">
+
+        <TableLayout
+            android:id="@+id/table_seat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/white"
+            android:stretchColumns="*">
+
+            <TableRow>
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="A1"
+                    android:textColor="@color/seat_b_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="A2"
+                    android:textColor="@color/seat_b_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="A3"
+                    android:textColor="@color/seat_b_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="A4"
+                    android:textColor="@color/seat_b_rank_color" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="B1"
+                    android:textColor="@color/seat_b_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="B2"
+                    android:textColor="@color/seat_b_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="B3"
+                    android:textColor="@color/seat_b_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="B4"
+                    android:textColor="@color/seat_b_rank_color" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="C1"
+                    android:textColor="@color/seat_a_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="C2"
+                    android:textColor="@color/seat_a_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="C3"
+                    android:textColor="@color/seat_a_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="C4"
+                    android:textColor="@color/seat_a_rank_color" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="D1"
+                    android:textColor="@color/seat_a_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="D2"
+                    android:textColor="@color/seat_a_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="D3"
+                    android:textColor="@color/seat_a_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="D4"
+                    android:textColor="@color/seat_a_rank_color" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="E1"
+                    android:textColor="@color/seat_s_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="E2"
+                    android:textColor="@color/seat_s_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="E3"
+                    android:textColor="@color/seat_s_rank_color" />
+
+                <TextView
+                    style="@style/seat_selection_seat_text_style"
+                    android:text="E4"
+                    android:textColor="@color/seat_s_rank_color" />
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_ok"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="영화제목" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/seat_selection_price_color"
+            android:textSize="18sp"
+            tools:text="0원" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@drawable/button_rectangle"
+        android:paddingVertical="20dp"
+        android:text="@string/seat_selection_button_ok"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

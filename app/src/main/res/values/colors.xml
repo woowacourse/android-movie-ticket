@@ -8,4 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="ticketing_header_color">#9160F9</color>
+    <color name="seat_selection_screen_color">#494949</color>
+    <color name="seat_selection_price_color">#727272</color>
+    <color name="seat_selection_background_color">#EAEAEA</color>
+    <color name="seat_b_rank_color">#8E13EF</color>
+    <color name="seat_a_rank_color">#19D358</color>
+    <color name="seat_s_rank_color">#1B48E9</color>
+    <color name="seat_selected_background_color">#FAFF00</color>
+    <color name="seat_unselected_background_color">#FFFFFF</color>
 </resources>

@@ -9,4 +9,6 @@
     <string name="movie_pay_result">%,d원 (%s)</string>
     <string name="on_site_payment">현장 결제</string>
     <string name="select_date_and_time">날짜와 시간을 선택해주세요!</string>
+    <string name="seat_selection_screen">SCREEN</string>
+    <string name="seat_selection_button_ok">확인</string>
 </resources>
