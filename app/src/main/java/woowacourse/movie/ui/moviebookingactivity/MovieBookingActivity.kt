@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.model.ScreeningDateTimeState
 import woowacourse.movie.ui.DateTimeFormatters
-import woowacourse.movie.ui.MovieBookingCheckActivity
+import woowacourse.movie.ui.seatselectionactivity.SeatSelectionActivity
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
@@ -166,7 +166,7 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun initBookingCompleteButtonClickListener() {
         findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
-            val intent = Intent(this, MovieBookingCheckActivity::class.java).apply {
+            val intent = Intent(this, SeatSelectionActivity::class.java).apply {
                 putExtra(MOVIE_DATA, movieDataState)
                 putExtra(TICKET_COUNT, ticketCount)
                 putExtra(BOOKED_SCREENING_DATE_TIME, getScreeningDateTime())
