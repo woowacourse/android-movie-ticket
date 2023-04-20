@@ -3,7 +3,8 @@ package com.example.domain
 import com.example.domain.discountPolicy.condition.MovieDayCondition
 import com.example.domain.model.Count
 import com.example.domain.model.Movie
-import com.example.domain.model.Reservation
+import com.example.domain.model.Ticket
+import com.example.domain.model.seat.SeatPosition
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
@@ -25,10 +26,11 @@ class MovieDayConditionTest {
             120,
             ""
         )
-        val reservation = Reservation(mockMovie, dateTime, count)
+        val position = SeatPosition(3, 1) // 15000원
+        val ticket = Ticket(mockMovie, dateTime, position)
 
         val movieDayCondition = MovieDayCondition()
-        val actual = movieDayCondition.isDiscountable(reservation)
+        val actual = movieDayCondition.isDiscountable(ticket)
         assertThat(actual).isTrue
     }
 }

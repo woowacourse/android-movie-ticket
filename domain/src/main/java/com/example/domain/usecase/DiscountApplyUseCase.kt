@@ -3,14 +3,14 @@ package com.example.domain.usecase
 import com.example.domain.discountPolicy.DefaultDiscountPolicy
 import com.example.domain.discountPolicy.DiscountPolicy
 import com.example.domain.model.Money
-import com.example.domain.model.Reservation
+import com.example.domain.model.Tickets
 
 class DiscountApplyUseCase(private val discountPolicy: DiscountPolicy = DefaultDiscountPolicy()) {
     operator fun invoke(
-        reservation: Reservation,
+        tickets: Tickets,
         onResult: (Money) -> Unit
     ) {
-        val discountApplyMoney = discountPolicy.discount(reservation)
-        onResult(discountApplyMoney)
+        val discountApplyTotalMoney = tickets.getDiscountApplyTotalMoney(discountPolicy)
+        onResult(discountApplyTotalMoney)
     }
 }

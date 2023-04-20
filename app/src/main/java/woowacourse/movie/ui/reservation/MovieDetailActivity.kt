@@ -97,7 +97,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         val intent = Intent(this, SeatSelectActivity::class.java)
         val reservationState =
             ReservationState(movie, LocalDateTime.of(selectDate, selectTime), count)
-        intent.putExtra(KEY_RESERVATION, reservationState)
+        intent.putExtra(KEY_TICKETS, reservationState)
         startActivity(intent)
     }
 
@@ -158,6 +158,6 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         private const val KEY_COUNT = "key_reservation_count"
         private const val KEY_DATE = "key_reservation_date"
         private const val KEY_TIME = "key_reservation_time"
-        internal const val KEY_RESERVATION = "key_reservation"
+        internal const val KEY_TICKETS = "key_reservation"
     }
 }

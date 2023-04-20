@@ -1,10 +1,10 @@
 package com.example.domain.discountPolicy.condition
 
-import com.example.domain.model.Reservation
+import com.example.domain.model.Ticket
 
 class JoJoNightCondition : DiscountCondition {
-    override fun isDiscountable(reservation: Reservation): Boolean {
-        return reservation.dateTime.hour in TIME_CONDITION
+    override fun isDiscountable(ticket: Ticket): Boolean {
+        return ticket.dateTime.hour in TIME_CONDITION
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package com.example.domain.discountPolicy.condition
 
-import com.example.domain.model.Reservation
+import com.example.domain.model.Ticket
 
 interface DiscountCondition {
-    fun isDiscountable(reservation: Reservation): Boolean
+    fun isDiscountable(ticket: Ticket): Boolean
 }
