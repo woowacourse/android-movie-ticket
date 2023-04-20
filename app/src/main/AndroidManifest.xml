@@ -12,13 +12,16 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".ui.completed.CompletedActivity"
-            android:parentActivityName=".ui.booking.BookingActivity"
+            android:name=".SeatReservationActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.completed.CompletedActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.booking.BookingActivity" />
+        <activity
             android:name=".ui.booking.BookingActivity"
-            android:parentActivityName=".ui.home.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.home.MainActivity" />
         <activity
             android:name=".ui.home.MainActivity"
             android:exported="true">
