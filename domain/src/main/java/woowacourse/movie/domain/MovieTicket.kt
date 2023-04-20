@@ -7,10 +7,12 @@ class MovieTicket(
     val time: TicketTime,
     val peopleCount: PeopleCount,
     private val _seats: MutableSet<Seat> = mutableSetOf(),
-    private val price: Price = Price(),
+    private val _price: Price = Price(),
 ) {
     val seats: List<Seat>
         get() = _seats.map { Seat(it.row, it.column, it.rank) }
+    val price: Price
+        get() = Price(_price.amount)
 
     fun reserveSeat(seat: Seat) {
         _seats.add(seat)
@@ -18,7 +20,7 @@ class MovieTicket(
     }
 
     private fun increasePrice(amount: Int) {
-        price.plus(amount)
+        _price.plus(amount)
     }
 
     fun cancelSeat(seat: Seat) {
@@ -27,11 +29,11 @@ class MovieTicket(
     }
 
     private fun decreasePrice(amount: Int) {
-        price.minus(amount)
+        _price.minus(amount)
     }
 
     fun getDiscountPrice(): Price {
-        var discountPrice = price.amount
+        var discountPrice = _price.amount
         if (discountPrice == 0) return Price(discountPrice)
 
         if (time.isMovieDay()) discountPrice = (discountPrice * TICKET_MOVIE_DAY_SALE_RATE).toInt()

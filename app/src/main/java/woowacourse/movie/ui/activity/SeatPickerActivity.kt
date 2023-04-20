@@ -18,6 +18,7 @@ import woowacourse.movie.ui.model.MovieTicketModel
 import woowacourse.movie.ui.model.PriceModel
 import woowacourse.movie.ui.model.mapToMovieTicket
 import woowacourse.movie.ui.model.mapToMovieTicketModel
+import woowacourse.movie.ui.model.mapToMovieTicketModelWithOriginalPrice
 import woowacourse.movie.ui.model.mapToPriceModel
 import woowacourse.movie.ui.model.seat.SeatModel
 import woowacourse.movie.ui.model.seat.SeatsModel
@@ -60,7 +61,7 @@ class SeatPickerActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         outState.putInt("count", count)
-        outState.putParcelable("ticket", mapToMovieTicketModel(ticket))
+        outState.putParcelable("ticket", mapToMovieTicketModelWithOriginalPrice(ticket))
     }
 
     private fun PriceModel.format(): String =

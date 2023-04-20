@@ -27,6 +27,16 @@ fun mapToMovieTicketModel(movieTicket: MovieTicket): MovieTicketModel {
     )
 }
 
+fun mapToMovieTicketModelWithOriginalPrice(movieTicket: MovieTicket): MovieTicketModel {
+    return MovieTicketModel(
+        movieTicket.title,
+        mapToTicketTimeModel(movieTicket.time),
+        mapToPeopleCountModel(movieTicket.peopleCount),
+        movieTicket.seats.map { mapToSeatModel(it) }.toSet(),
+        mapToPriceModel(movieTicket.price)
+    )
+}
+
 @Parcelize
 data class MovieTicketModel(
     val title: String,
