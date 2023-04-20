@@ -1,8 +1,7 @@
-package domain
+package woowacourse.movie.domain.discount
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.discount.MovieDayDiscount
 import java.time.LocalDateTime
 
 class MovieDayDiscountTest {
