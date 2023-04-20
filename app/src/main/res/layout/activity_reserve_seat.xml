@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".activity.ReserveSeatActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/screen"
+            android:layout_width="292dp"
+            android:layout_height="34dp"
+            android:background="#494949"
+            android:gravity="center"
+            android:text="@string/screen"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            tools:ignore="TextSizeCheck" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp">
+
+            <TableRow>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/a1"
+                    android:textColor="#8E13EF"
+                    android:textColorHint="#8E13EF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/a2"
+                    android:textColor="#8E13EF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/a3"
+                    android:textColor="#8E13EF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/a4"
+                    android:textColor="#8E13EF" />
+            </TableRow>
+
+            <TableRow>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/b1"
+                    android:textColor="#8E13EF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/b2"
+                    android:textColor="#8E13EF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/b3"
+                    android:textColor="#8E13EF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/b4"
+                    android:textColor="#8E13EF" />
+            </TableRow>
+
+            <TableRow>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/c1"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/c2"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/c3"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/c4"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+            </TableRow>
+
+            <TableRow>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/d1"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/d2"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/d3"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/d4"
+                    android:textColor="#19D358"
+                    tools:ignore="TextContrastCheck" />
+            </TableRow>
+
+            <TableRow>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/e1"
+                    android:textColor="#1B48E9" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/e2"
+                    android:textColor="#1B48E9" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/e3"
+                    android:textColor="#1B48E9" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="73dp"
+                    android:layout_height="80dp"
+                    android:background="@color/white"
+                    android:text="@string/e4"
+                    android:textColor="#1B48E9" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/text_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="#727272"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_title"
+            tools:text="0원" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/button_check_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

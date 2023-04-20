@@ -15,4 +15,26 @@
     <string name="time_spinner_description">시간 스피너</string>
     <string name="movie_image_description">영화 포스터</string>
     <string name="payment_on_site">현장 결제</string>
+    <string name="screen">SCREEN</string>
+    <string name="button_check_text">확인</string>
+    <string name="a1">A1</string>
+    <string name="a2">A2</string>
+    <string name="a3">A3</string>
+    <string name="a4">A4</string>
+    <string name="b1">B1</string>
+    <string name="b2">B2</string>
+    <string name="b3">B3</string>
+    <string name="b4">B4</string>
+    <string name="c1">C1</string>
+    <string name="c2">C2</string>
+    <string name="c3">C3</string>
+    <string name="c4">C4</string>
+    <string name="d1">D1</string>
+    <string name="d2">D2</string>
+    <string name="d3">D3</string>
+    <string name="d4">D4</string>
+    <string name="e1">E1</string>
+    <string name="e2">E2</string>
+    <string name="e3">E3</string>
+    <string name="e4">E4</string>
 </resources>
