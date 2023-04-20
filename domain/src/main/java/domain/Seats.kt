@@ -18,10 +18,12 @@ class Seats(seats: List<Seat> = emptyList()) {
     }
 
     fun isPossibleSeatSize(count: Int): Boolean {
-        return seats.size <= count
+        return seats.size < count
     }
 
-    fun isEmpty(): Boolean = seats.isEmpty()
+    fun checkSeatCountAndSizeMatch(count: Int): Boolean{
+        return seats.size == count
+    }
 
     fun caculateSeatPrice(dateTime: LocalDateTime): Int {
         return seats.fold(0) { total, price ->

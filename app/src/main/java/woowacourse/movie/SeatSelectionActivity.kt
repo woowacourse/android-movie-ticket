@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
@@ -90,7 +91,8 @@ class SeatSelectionActivity : AppCompatActivity() {
                 val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
                 when {
                     isPossibleSelect(seat, ticketCount.numberOfPeople) -> selectSeat(textView, seat)
-                    else -> unselectSeat(textView, seat)
+                    isSeatCancelable(seat) -> unselectSeat(textView, seat)
+                    else -> Toast.makeText(this, R.string.seats_size_over_error, Toast.LENGTH_LONG).show()
                 }
                 setPrice(seats.caculateSeatPrice(LocalDateTime.of(date, time)))
                 setEnterBtnClickable()
@@ -101,7 +103,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun setEnterBtnClickable() {
         val enterBtn = findViewById<TextView>(R.id.enterBtn)
         when {
-            isPossibleEnter() -> {
+            isPossibleEnter(ticketCount.numberOfPeople) -> {
                 enterBtn.setBackgroundColor(getColor(R.color.enter))
                 OnEnterBtnClickListener(enterBtn)
             }
@@ -140,24 +142,26 @@ class SeatSelectionActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun isPossibleEnter(): Boolean {
-        return !seats.isEmpty()
+    private fun isSeatCancelable(seat: Seat): Boolean {
+        return seats.containsSeat(seat)
+    }
+
+    private fun isPossibleEnter(count: Int): Boolean {
+        return seats.checkSeatCountAndSizeMatch(count)
     }
 
     private fun isPossibleSelect(seat: Seat, count: Int): Boolean {
-        return !seats.let {
-            it.containsSeat(seat) && it.isPossibleSeatSize(count)
-        }
+        return !seats.containsSeat(seat) && seats.isPossibleSeatSize(count)
     }
 
     private fun selectSeat(textView: TextView, seat: Seat) {
         textView.setBackgroundColor(getColor(R.color.select_seat))
-        seats.let { it.add(seat) }
+        seats.add(seat)
     }
 
     private fun unselectSeat(textView: TextView, seat: Seat) {
         textView.setBackgroundColor(getColor(R.color.white))
-        seats.let { it.remove(seat) }
+        seats.remove(seat)
     }
 
     private fun setPrice(ticketPrice: Int) {

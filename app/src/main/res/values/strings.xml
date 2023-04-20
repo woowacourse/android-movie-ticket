@@ -12,6 +12,7 @@
     <string name="ticket_info">일반 %d명 | %s</string>
     <string name="ticket_price">%d원 (현장 결제)</string>
     <string name="ticket_price_seat_page">%d원</string>
+    <string name="seats_size_over_error">지정한 좌석 수를 초과합니다.</string>
     <string name="screen">SCREEN</string>
     <string name="enter">확인</string>
 </resources>
