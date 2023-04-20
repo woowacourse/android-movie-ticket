@@ -11,10 +11,8 @@ data class Seat(
         const val MIN_COLUMN = 1
         const val MAX_COLUMN = 4
 
-        fun getSeatType(row: Char): SeatType? =
-            enumValues<SeatType>().find { seatType ->
-                seatType.targetRows.contains(row)
-            }
+        fun getSeatType(row: Char): SeatType =
+            enumValues<SeatType>().find { seatType -> seatType.targetRows.contains(row) }!!
 
         fun from(row: Char, column: Int): Seat = Seat(row, column, getSeatType(row))
     }

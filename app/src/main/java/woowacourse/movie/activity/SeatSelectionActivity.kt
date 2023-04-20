@@ -5,6 +5,10 @@ import android.view.Gravity
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import discount.Discount
+import discount.EarlyNightDiscount
+import discount.MovieDayDiscount
+import payment.PaymentAmount
 import seat.Seat
 import seat.Seat.Companion.MAX_COLUMN
 import seat.Seat.Companion.MAX_ROW
@@ -14,6 +18,7 @@ import seat.SeatType
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.uimodel.MovieModel
+import java.time.LocalDateTime
 
 class SeatSelectionActivity : AppCompatActivity() {
 
@@ -94,11 +99,12 @@ class SeatSelectionActivity : AppCompatActivity() {
         val ticketCount: Int = intent.getIntExtra("ticket_count", 1)
         when {
             ticketCount <= selectedSeatCount -> {
-                seats.forEach {
+                seats.forEachIndexed { index, it ->
                     it.forEach { seat ->
                         if (!seat.isSelected) seat.isClickable = false
                         binding.reservationCompleteTextView.isClickable = true
                         binding.reservationCompleteTextView.setBackgroundColor(getColor(R.color.clickable_button_color))
+                        updatePaymentAmount(seats)
                     }
                 }
             }
@@ -118,5 +124,21 @@ class SeatSelectionActivity : AppCompatActivity() {
         var count = 0
         seats.forEach { count += it.count { seat -> seat.isSelected } }
         return count
+    }
+
+    private fun updatePaymentAmount(seats: List<List<TextView>>) {
+        val screeningDateTime: LocalDateTime = intent.getSerializableExtra("screening_date_time") as LocalDateTime
+        val discount: Discount = Discount(MovieDayDiscount(), EarlyNightDiscount())
+        var paymentAmount: Int = 0
+        seats.forEachIndexed { index, it ->
+            it.forEach { seat ->
+                if (seat.isSelected) {
+                    val seatType: SeatType = Seat.getSeatType(index.toChar() + MIN_ROW.toInt())
+                    paymentAmount += seatType.paymentAmount
+                }
+            }
+        }
+
+        binding.paymentAmountTextView.text = discount.getPaymentAmountResult(PaymentAmount(paymentAmount), screeningDateTime).toString()
     }
 }
