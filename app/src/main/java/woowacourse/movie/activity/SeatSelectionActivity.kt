@@ -13,6 +13,7 @@ import seat.Seat.Companion.MIN_ROW
 import seat.SeatType
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
+import woowacourse.movie.uimodel.MovieModel
 
 class SeatSelectionActivity : AppCompatActivity() {
 
@@ -22,6 +23,8 @@ class SeatSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.movieNameTextView.text =
+            (intent.getSerializableExtra(MovieModel.MOVIE_INTENT_KEY) as MovieModel).name.value
         val seats: List<List<TextView>> = setSeatsViews()
         setSeatSelectEvent(seats)
     }
@@ -68,16 +71,52 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun setSeatSelectEvent(seats: List<List<TextView>>) {
         seats.forEach {
             it.forEach { seat ->
-                seat.setOnClickListener {
-                    if (seat.isSelected) {
-                        seat.setBackgroundColor(getColor(R.color.not_selected_seat_color))
-                        seat.isSelected = false
-                    } else if (!seat.isSelected) {
-                        seat.setBackgroundColor(getColor(R.color.selected_seat_color))
-                        seat.isSelected = true
+                seat.setOnClickListener { seatClickEvent(seat, seats) }
+            }
+        }
+    }
+
+    private fun seatClickEvent(clickedSeat: TextView, seats: List<List<TextView>>) {
+        if (!clickedSeat.isClickable) return
+
+        when (clickedSeat.isSelected) {
+            true -> {
+                clickedSeat.setBackgroundColor(getColor(R.color.not_selected_seat_color))
+                clickedSeat.isSelected = false
+            }
+            false -> {
+                clickedSeat.setBackgroundColor(getColor(R.color.selected_seat_color))
+                clickedSeat.isSelected = true
+            }
+        }
+
+        val selectedSeatCount: Int = getSelectedCount(seats)
+        val ticketCount: Int = intent.getIntExtra("ticket_count", 1)
+        when {
+            ticketCount <= selectedSeatCount -> {
+                seats.forEach {
+                    it.forEach { seat ->
+                        if (!seat.isSelected) seat.isClickable = false
+                        binding.reservationCompleteTextView.isClickable = true
+                        binding.reservationCompleteTextView.setBackgroundColor(getColor(R.color.clickable_button_color))
+                    }
+                }
+            }
+            else -> {
+                seats.forEach {
+                    it.forEach { seat ->
+                        if (!seat.isSelected) seat.isClickable = true
+                        binding.reservationCompleteTextView.isClickable = false
+                        binding.reservationCompleteTextView.setBackgroundColor(getColor(R.color.not_clickable_button_color))
                     }
                 }
             }
         }
+    }
+
+    private fun getSelectedCount(seats: List<List<TextView>>): Int {
+        var count = 0
+        seats.forEach { count += it.count { seat -> seat.isSelected } }
+        return count
     }
 }

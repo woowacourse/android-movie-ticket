@@ -66,10 +66,11 @@
             app:layout_constraintTop_toBottomOf="@id/movie_name_text_view" />
 
         <TextView
+            android:clickable="false"
             android:id="@+id/reservation_complete_text_view"
             android:layout_width="82dp"
             android:layout_height="match_parent"
-            android:background="@color/not_selected_button_color"
+            android:background="@color/not_clickable_button_color"
             android:gravity="center"
             android:text="@string/reservation_complete_text"
             android:textColor="@color/white"

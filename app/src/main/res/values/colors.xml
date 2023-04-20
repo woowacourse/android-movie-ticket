@@ -8,8 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     
-    <color name="not_selected_button_color">#FF8C8C8C</color>
-    <color name="selected_button_color">#FF6200EE</color>
+    <color name="not_clickable_button_color">#FF8C8C8C</color>
+    <color name="clickable_button_color">#FF6200EE</color>
     <color name="not_selected_seat_color">#FFFFFFFF</color>
     <color name="selected_seat_color">#FFC429</color>
     
