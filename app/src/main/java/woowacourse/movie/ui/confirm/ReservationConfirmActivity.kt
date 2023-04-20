@@ -19,7 +19,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     private val titleTextView: TextView by lazy { findViewById(R.id.reservation_title) }
     private val dateTextView: TextView by lazy { findViewById(R.id.reservation_date) }
     private val moneyTextView: TextView by lazy { findViewById(R.id.reservation_money) }
-    private val reservationCountTextView: TextView by lazy { findViewById(R.id.reservation_count) }
+    private val reservationCountTextView: TextView by lazy { findViewById(R.id.reservation_count_and_seat) }
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
@@ -35,7 +35,11 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         dateTextView.text =
             DateTimeFormatters.convertToDateTime(reservationSeat.reservationState.dateTime)
         reservationCountTextView.text =
-            getString(R.string.person_count_text, reservationSeat.reservationState.countState.value)
+            getString(
+                R.string.person_count_and_seat,
+                reservationSeat.reservationState.countState.value,
+                reservationSeat.seats.joinToString { it.toString() }
+            )
         setDiscountApplyMoney(reservationSeat)
     }
 

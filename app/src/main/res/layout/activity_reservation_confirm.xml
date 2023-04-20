@@ -69,7 +69,7 @@
 
 
             <TextView
-                android:id="@+id/reservation_count"
+                android:id="@+id/reservation_count_and_seat"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="69dp"
@@ -79,7 +79,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/reservation_date"
-                tools:text="일반 1명" />
+                tools:text="일반 1명 | B2,D3" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                 android:layout_marginTop="19dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/reservation_count">
+                app:layout_constraintTop_toBottomOf="@id/reservation_count_and_seat">
 
                 <TextView
                     android:id="@+id/reservation_money"
