@@ -2,7 +2,10 @@ package woowacourse.movie.activity.moviedetail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
@@ -73,9 +76,19 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     ) {
         dateSpinner.adapter = SpinnerAdapter(playingTimes.keys.toList())
         dateSpinner.setSelection(savedDatePosition, false)
-        dateSpinner.setOnItemClickListener { parent, view, position, id ->
-            val times = playingTimes.getOrEmptyList(playingTimes.getKeyFromIndex(position))
-            timeSpinner.adapter = ArrayAdapter(viewGroup.context, android.R.layout.simple_spinner_item, times)
+        dateSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val times = playingTimes.getOrEmptyList(playingTimes.getKeyFromIndex(position))
+                timeSpinner.adapter = ArrayAdapter(viewGroup.context, android.R.layout.simple_spinner_item, times)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
         }
     }
 
