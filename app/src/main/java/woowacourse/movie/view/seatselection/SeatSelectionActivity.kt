@@ -1,5 +1,6 @@
 package woowacourse.movie.view.seatselection
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
@@ -25,6 +26,7 @@ class SeatSelectionActivity : BaseActivity() {
         findViewById<TextView>(R.id.seat_selection_title).text = movieUI.title
         val price = findViewById<TextView>(R.id.seat_selection_price)
         price.text = this.getString(R.string.price, 0)
+        val nextBtn = findViewById<Button>(R.id.seat_selection_check)
         val seatsView = findViewById<TableLayout>(R.id.seat_selection)
             .children
             .filterIsInstance<TableRow>()
@@ -37,19 +39,27 @@ class SeatSelectionActivity : BaseActivity() {
                 seatState.setSeatState(index, view, this)
                 price.text = getString(R.string.price, seatState.priceNum)
 
-                checkNumberOfPeople(selectedNumberOfPeople, seatState.countPeople)
+                nextBtn.isEnabled = (selectedNumberOfPeople == seatState.countPeople)
             }
         }
-    }
+        nextBtn.setOnClickListener {
 
-    private fun checkNumberOfPeople(numberOfPeople: Int, countPeople: Int) {
-        val nextBtn = findViewById<Button>(R.id.seat_selection_check)
-        nextBtn.isEnabled = (countPeople == numberOfPeople)
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 
     companion object {
         private const val MOVIE_KEY = "movie"
         private const val DATE_KEY = "date"
+        private const val TICKET_KEY = "ticket"
         private const val NUMBER_OF_PEOPLE_KEY = "numberOfPeople"
     }
 }
