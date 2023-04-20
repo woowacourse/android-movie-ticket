@@ -26,7 +26,7 @@ class ReservationTest(private val illegalPeopleCount: Int) {
 
         val actual = reservation.fee
 
-        val expected = Money(9700) * audienceCount
+        val expected = Money(38_800)
         assert(actual == expected)
     }
 

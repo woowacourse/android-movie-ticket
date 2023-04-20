@@ -12,7 +12,7 @@ class DiscountPolicyTest {
 
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
-        val expected = movieFee - (movieFee / 10)
+        val expected = Money(11_700)
         assert(actual == expected)
     }
 
@@ -23,7 +23,7 @@ class DiscountPolicyTest {
 
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
-        val expected = movieFee - Money(2000)
+        val expected = Money(11_000)
         assert(expected == actual)
     }
 
@@ -34,7 +34,7 @@ class DiscountPolicyTest {
 
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
-        val expected = movieFee - Money(2000)
+        val expected = Money(11_000)
         assert(expected == actual)
     }
 
@@ -45,7 +45,7 @@ class DiscountPolicyTest {
 
         val actual = DiscountPolicy.getDiscountedFee(screeningDateTime, movieFee)
 
-        val expected = movieFee - movieFee / 10 - Money(2000)
+        val expected = Money(9700)
         assert(expected == actual)
     }
 
