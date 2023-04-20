@@ -4,6 +4,7 @@ import org.junit.Assert
 import org.junit.Test
 import woowacourse.movie.model.ScreeningDateTimeState
 import woowacourse.movie.model.ScreeningPeriodState
+import woowacourse.movie.model.mapper.toDomain
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -31,30 +32,30 @@ class ScreeningDateTimeStateTest {
     @Test
     fun `10일이라면 무비데이이므로 true를 반환한다`() {
         val workingScreeningDateTime = getWorkingScreeningDateTime(day = 10)
-        Assert.assertTrue(workingScreeningDateTime.checkMovieDay())
+        Assert.assertTrue(workingScreeningDateTime.toDomain().checkMovieDay())
     }
 
     @Test
     fun `20일이라면 무비데이이므로 true를 반환한다`() {
         val workingScreeningDateTime = getWorkingScreeningDateTime(day = 20)
-        Assert.assertTrue(workingScreeningDateTime.checkMovieDay())
+        Assert.assertTrue(workingScreeningDateTime.toDomain().checkMovieDay())
     }
 
     @Test
     fun `30일이라면 무비데이이므로 true를 반환한다`() {
         val workingScreeningDateTime = getWorkingScreeningDateTime(day = 30)
-        Assert.assertTrue(workingScreeningDateTime.checkMovieDay())
+        Assert.assertTrue(workingScreeningDateTime.toDomain().checkMovieDay())
     }
 
     @Test
     fun `11시 이전이라면 조조이다`() {
         val workingScreeningDateTime = getWorkingScreeningDateTime(time = 10)
-        Assert.assertTrue(workingScreeningDateTime.checkEarlyMorningLateNight())
+        Assert.assertTrue(workingScreeningDateTime.toDomain().checkEarlyMorningLateNight())
     }
 
     @Test
     fun `20시 이후라면 심야이다`() {
         val workingScreeningDateTime = getWorkingScreeningDateTime(time = 21)
-        Assert.assertTrue(workingScreeningDateTime.checkEarlyMorningLateNight())
+        Assert.assertTrue(workingScreeningDateTime.toDomain().checkEarlyMorningLateNight())
     }
 }

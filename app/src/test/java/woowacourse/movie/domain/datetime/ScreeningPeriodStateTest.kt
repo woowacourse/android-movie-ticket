@@ -3,6 +3,7 @@ package woowacourse.movie.domain.datetime
 import org.junit.Assert
 import org.junit.Test
 import woowacourse.movie.model.ScreeningPeriodState
+import woowacourse.movie.model.mapper.toDomain
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -23,7 +24,7 @@ class ScreeningPeriodStateTest {
             LocalDate.parse("2023-03-01")
         )
         Assert.assertEquals(
-            screeningPeriod.getScreeningTime(LocalDate.parse("2023-02-11")),
+            screeningPeriod.toDomain().getScreeningTime(LocalDate.parse("2023-02-11")),
             convertStringListToLocalTimeList(
                 listOf(
                     "10:00",
@@ -32,8 +33,7 @@ class ScreeningPeriodStateTest {
                     "16:00",
                     "18:00",
                     "20:00",
-                    "22:00",
-                    "00:00"
+                    "22:00"
                 )
             )
         )
@@ -46,7 +46,7 @@ class ScreeningPeriodStateTest {
             LocalDate.parse("2023-03-01")
         )
         Assert.assertEquals(
-            screeningPeriod.getScreeningTime(LocalDate.parse("2023-02-10")),
+            screeningPeriod.toDomain().getScreeningTime(LocalDate.parse("2023-02-10")),
             convertStringListToLocalTimeList(
                 listOf(
                     "09:00",
@@ -69,7 +69,7 @@ class ScreeningPeriodStateTest {
             LocalDate.parse("2023-03-05")
         )
         Assert.assertEquals(
-            screeningPeriod.getScreeningDates(),
+            screeningPeriod.toDomain().getScreeningDates(),
             listOf(
                 LocalDate.parse("2023-03-03"),
                 LocalDate.parse("2023-03-04"),
