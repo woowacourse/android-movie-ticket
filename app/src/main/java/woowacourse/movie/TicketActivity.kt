@@ -5,15 +5,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import domain.policy.MovieDayDiscountPolicy
-import domain.policy.TimeDiscountPolicy
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto
+import woowacourse.movie.dto.SeatsDto
 import woowacourse.movie.dto.TicketCountDto
-import woowacourse.movie.dto.TicketPriceDto
-import woowacourse.movie.mapper.mapToTicketPrice
-import woowacourse.movie.mapper.mapToTicketPriceDto
+import woowacourse.movie.mapper.mapToSeats
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -29,10 +26,11 @@ class TicketActivity : AppCompatActivity() {
         val movie = intent.getSerializableExtra(MOVIE_KEY) as MovieDto
         val date = intent.getSerializableExtra(DATE_KEY) as MovieDateDto
         val time = intent.getSerializableExtra(TIME_KEY) as MovieTimeDto
+        val seats = intent.getSerializableExtra(SEATS_KEY) as SeatsDto
 
         showTicketInfo(movie, date.date, time.time)
         showTicketCount(ticket)
-        showTicketPrice(date.date, time.time, ticket.numberOfPeople)
+        showTicketPrice(seats, date.date, time.time, ticket.numberOfPeople)
     }
 
     private fun setToolbar() {
@@ -61,20 +59,11 @@ class TicketActivity : AppCompatActivity() {
         numberOfPeople.text = getString(R.string.ticket_number, ticket.numberOfPeople)
     }
 
-    private fun showTicketPrice(date: LocalDate, time: LocalTime, count: Int) {
+    private fun showTicketPrice(seats: SeatsDto, date: LocalDate, time: LocalTime, count: Int) {
         val price = findViewById<TextView>(R.id.ticket_price)
-        val ticketPrice = TicketPriceDto(
-            listOf(
-                MovieDayDiscountPolicy(),
-                TimeDiscountPolicy(),
-            ),
-        )
-        val totalTicketPrice =
-            ticketPrice.mapToTicketPrice().applyPolicy(
-                LocalDateTime.of(date, time),
-            ) * count
+        val totalTicketPrice = seats.mapToSeats().caculateSeatPrice(LocalDateTime.of(date, time))
 
-        price.text = getString(R.string.ticket_price, totalTicketPrice.mapToTicketPriceDto().price)
+        price.text = getString(R.string.ticket_price, totalTicketPrice)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -92,5 +81,6 @@ class TicketActivity : AppCompatActivity() {
         private const val MOVIE_KEY = "movie"
         private const val DATE_KEY = "movie_date"
         private const val TIME_KEY = "movie_time"
+        private const val SEATS_KEY = "seats"
     }
 }
