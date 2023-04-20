@@ -19,4 +19,6 @@
 
     <string name="date_format">"yyyy.MM.dd"</string>
     <string name="date_time_format">"yyyy.MM.dd HH:mm"</string>
+
+    <string name="toast_message_seat_selection_done">"이미 모든 좌석을 선택했습니다."</string>
 </resources>

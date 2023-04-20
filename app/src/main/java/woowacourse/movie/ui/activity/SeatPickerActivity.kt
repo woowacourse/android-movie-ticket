@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
@@ -52,7 +53,8 @@ class SeatPickerActivity : AppCompatActivity() {
         doneButton.isClickable = ticket.peopleCount.count == count
     }
 
-    private fun PriceModel.format(): String = getString(R.string.price, DecimalFormat("#,###").format(amount))
+    private fun PriceModel.format(): String =
+        getString(R.string.price, DecimalFormat("#,###").format(amount))
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -86,6 +88,10 @@ class SeatPickerActivity : AppCompatActivity() {
         } else if (count < ticketModel.peopleCount.count) {
             addSeat(view, seat)
             count++
+        } else {
+            Toast
+                .makeText(this, getString(R.string.toast_message_seat_selection_done), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

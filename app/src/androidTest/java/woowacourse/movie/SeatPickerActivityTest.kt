@@ -13,6 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Matchers.not
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.ui.activity.SeatPickerActivity
@@ -30,11 +31,20 @@ class SeatPickerActivityTest {
         emptySet(),
         PriceModel(0)
     )
-    private val intent = Intent(ApplicationProvider.getApplicationContext(), SeatPickerActivity::class.java)
-        .putExtra("ticket", ticket)
+    private val intent =
+        Intent(ApplicationProvider.getApplicationContext(), SeatPickerActivity::class.java)
+            .putExtra("ticket", ticket)
+    private lateinit var activity: SeatPickerActivity
 
     @get:Rule
     val activityRule = ActivityScenarioRule<SeatPickerActivity>(intent)
+
+    @Before
+    fun setup() {
+        activityRule.scenario.onActivity {
+            activity = it
+        }
+    }
 
     @Test
     fun 사용자가_빈_좌석을_선택하면_좌석이_선택된다() {
