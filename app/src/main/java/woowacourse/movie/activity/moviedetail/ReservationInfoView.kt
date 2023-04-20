@@ -21,6 +21,12 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class ReservationInfoView(private val viewGroup: ViewGroup) {
+    private val reserveButton = viewGroup.findViewById<Button>(R.id.btn_reserve)
+    private val timeSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_time)
+    private val dateSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_date)
+    private val minusButton = viewGroup.findViewById<Button>(R.id.btn_minus)
+    private val countView = viewGroup.findViewById<TextView>(R.id.text_count)
+    private val plusButton = viewGroup.findViewById<Button>(R.id.btn_plus)
 
     fun set(savedInstanceState: Bundle?, movie: MovieModel) {
         val savedCount = savedInstanceState?.getInt(MovieDetailActivity.COUNT_KEY) ?: DEFAULT_COUNT
@@ -41,7 +47,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     }
 
     private fun setReserveButton(title: String) {
-        viewGroup.findViewById<Button>(R.id.btn_reserve).setOnClickListener {
+        reserveButton.setOnClickListener {
             val intent = Intent(it.context, SeatSelectActivity::class.java)
             val ticket = Ticket.of(
                 DiscountPolicies.policies,
@@ -57,7 +63,6 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     }
 
     private fun setTimeSpinner(savedTimePosition: Int, times: List<LocalTime>) {
-        val timeSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_time)
         timeSpinner.adapter = SpinnerAdapter(times)
         timeSpinner.setSelection(savedTimePosition)
     }
@@ -66,16 +71,15 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
         savedDatePosition: Int,
         playingTimes: Map<LocalDate, List<LocalTime>>
     ) {
-        val dateSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_date)
-        val timeSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_time)
         dateSpinner.adapter = SpinnerAdapter(playingTimes.keys.toList())
         dateSpinner.setSelection(savedDatePosition, false)
-        dateSpinner.onItemSelectedListener = DateSpinnerListener(playingTimes, timeSpinner)
+        dateSpinner.setOnItemClickListener { parent, view, position, id ->
+            val times = playingTimes.getOrEmptyList(playingTimes.getKeyFromIndex(position))
+            timeSpinner.adapter = ArrayAdapter(viewGroup.context, android.R.layout.simple_spinner_item, times)
+        }
     }
 
     private fun setMinusButton() {
-        val minusButton = viewGroup.findViewById<Button>(R.id.btn_minus)
-        val countView = viewGroup.findViewById<TextView>(R.id.text_count)
         minusButton.setOnClickListener {
             val count = countView.text.toString().toInt()
             if (count > 1) countView.text = (count - 1).toString()
@@ -83,8 +87,6 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     }
 
     private fun setPlusButton() {
-        val plusButton = viewGroup.findViewById<Button>(R.id.btn_plus)
-        val countView = viewGroup.findViewById<TextView>(R.id.text_count)
         plusButton.setOnClickListener {
             val count = countView.text.toString().toInt()
             countView.text = (count + 1).toString()
@@ -92,7 +94,6 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     }
 
     private fun setCount(savedCount: Int) {
-        val countView = viewGroup.findViewById<TextView>(R.id.text_count)
         countView.text = savedCount.toString()
     }
 
