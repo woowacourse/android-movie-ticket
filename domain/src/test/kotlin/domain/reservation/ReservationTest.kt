@@ -8,7 +8,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDateTime
 
-// todo: 테스트 코드 수정하기..
 class ReservationTest {
     @Test
     fun `영화와 티켓 개수를 받아서 예매 정보를 반환한다`() {
@@ -19,7 +18,7 @@ class ReservationTest {
             movieName = movie.movieName,
             ticketCount = TicketCount(1),
             screeningDateTime = LocalDateTime.of(2000, 10, 10, 13, 0),
-            paymentAmount = selectedSeat.payment,
+            paymentAmount = selectedSeat.paymentAmount,
             seats = listOf(selectedSeat)
         )
         val result = Reservation(

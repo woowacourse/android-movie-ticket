@@ -19,7 +19,7 @@ import domain.seat.SeatColumn
 import domain.seat.SeatRow
 import domain.seat.SeatState
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationActivity.Companion.SEAT_RESERVATION_KEY
+import woowacourse.movie.activity.reservation.ReservationActivity.Companion.SEAT_RESERVATION_KEY
 import woowacourse.movie.model.SeatReservationInfo
 import woowacourse.movie.model.toDomainModel
 import woowacourse.movie.model.toUIModel
@@ -122,7 +122,7 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
             val intent = Intent(this, ReservationResultActivity::class.java)
             val reservation = Reservation.of(
                 MovieName(seatReservationInfo.movieName),
-                seatReservation.selectingCount,
+                seatReservation.seatCount,
                 // todo 변수명 screeningDataTime
                 seatReservation.screeningTime,
                 seatReservation.getTotalPaymentAmount(),
