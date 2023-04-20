@@ -28,8 +28,8 @@ class ReservationTicketQuantity(
         }
     }
 
-    fun load(savedInstanceState: Bundle) {
-        ticketQuantityTextView.text = savedInstanceState.getInt(KEY_COUNT).toString()
+    fun load(savedInstanceState: Bundle?) {
+        ticketQuantityTextView.text = savedInstanceState?.getInt(KEY_COUNT).toString()
     }
 
     fun save(outState: Bundle) {

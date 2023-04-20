@@ -26,10 +26,12 @@ class ReservationNavigation(
         ReservationSubmit(view) { onReservationButtonClicked() }
     }
 
-    fun load(savedInstanceState: Bundle) {
-        ticketQuantityView.load(savedInstanceState)
-        dateSpinner.load(savedInstanceState)
-        timeSpinner.load(savedInstanceState)
+    fun load(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            ticketQuantityView.load(savedInstanceState)
+            dateSpinner.load(savedInstanceState)
+            timeSpinner.load(savedInstanceState)
+        }
     }
 
     fun save(outState: Bundle) {

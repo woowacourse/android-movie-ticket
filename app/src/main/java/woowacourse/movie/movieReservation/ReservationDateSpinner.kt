@@ -32,8 +32,8 @@ class ReservationDateSpinner(
         outState.putInt(KEY_DATE, dateSpinner.selectedItemPosition)
     }
 
-    fun load(savedInstanceState: Bundle) {
-        dateSpinner.setSelection(savedInstanceState.getInt(KEY_DATE))
+    fun load(savedInstanceState: Bundle?) {
+        savedInstanceState?.getInt(KEY_DATE)?.let { dateSpinner.setSelection(it) }
     }
 
     fun initDateSpinner(movieListItem: MovieListItem) {

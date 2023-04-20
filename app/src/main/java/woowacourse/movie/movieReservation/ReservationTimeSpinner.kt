@@ -27,12 +27,12 @@ class ReservationTimeSpinner(view: View) {
     val selectedTime: LocalTime
         get() = LocalTime.parse(timeSpinner.selectedItem.toString())
 
-    fun load(savedInstanceState: Bundle) {
-        savedInstanceState.getStringArrayList(KEY_TIME_LIST)?.let { newTimeList ->
+    fun load(savedInstanceState: Bundle?) {
+        savedInstanceState?.getStringArrayList(KEY_TIME_LIST)?.let { newTimeList ->
             updateTimeList(newTimeList.map { LocalTime.parse(it) })
         }
 
-        date = LocalDate.parse(savedInstanceState.getString(KEY_DATE))
+        date = LocalDate.parse(savedInstanceState?.getString(KEY_DATE))
     }
 
     fun save(outState: Bundle) {
