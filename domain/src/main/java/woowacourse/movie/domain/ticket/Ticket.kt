@@ -2,13 +2,14 @@ package woowacourse.movie.domain.ticket
 
 import woowacourse.movie.domain.policy.DiscountPolicy
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 data class Ticket private constructor(
     val title: String,
-    val playingDate: LocalDate,
-    val playingTime: LocalTime,
+    val playingDateTime: LocalDateTime,
     val count: Int,
+    val seats: List<String>,
     val price: Price
 ) {
     companion object {
@@ -18,10 +19,12 @@ data class Ticket private constructor(
             playingDate: LocalDate,
             playingTime: LocalTime,
             count: Int,
+            seats: List<String>,
             price: Price
         ): Ticket {
             val calculatedPrice = PriceCalculator(policies, price).calculate(playingDate, playingTime, count)
-            return Ticket(title, playingDate, playingTime, count, calculatedPrice)
+            val mergeDate = LocalDateTime.of(playingDate, playingTime)
+            return Ticket(title, mergeDate, count, seats, calculatedPrice)
         }
     }
 }

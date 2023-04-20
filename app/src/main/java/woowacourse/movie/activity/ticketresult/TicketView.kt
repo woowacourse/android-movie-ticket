@@ -5,14 +5,13 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.TicketModel
 import java.text.DecimalFormat
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class TicketView(private val viewGroup: ViewGroup) {
     fun set(ticket: TicketModel) {
         initTitle(ticket.title)
-        initPlayingDate(ticket.playingDate, ticket.playingTime)
+        initPlayingDate(ticket.playingDateTime)
         initCount(ticket.count)
         initPricePayment(ticket.price)
     }
@@ -21,11 +20,11 @@ class TicketView(private val viewGroup: ViewGroup) {
         viewGroup.findViewById<TextView>(R.id.text_title).text = title
     }
 
-    private fun initPlayingDate(playingDate: LocalDate, playingTime: LocalTime) {
+    private fun initPlayingDate(playingDateTime: LocalDateTime) {
         viewGroup.findViewById<TextView>(R.id.text_playing_date).text = viewGroup.context.getString(
             R.string.date_time,
-            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format)).format(playingDate),
-            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.time_format)).format(playingTime)
+            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format)).format(playingDateTime),
+            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.time_format)).format(playingDateTime)
         )
     }
 
