@@ -20,8 +20,18 @@ import woowacourse.movie.view.data.SeatsViewData
 import woowacourse.movie.view.mapper.MovieSeatMapper.toDomain
 import woowacourse.movie.view.mapper.ReservationDetailMapper.toDomain
 import woowacourse.movie.view.widget.SeatTableLayout
+import java.text.NumberFormat
+import java.util.Locale
 
 class SeatSelectionActivity : AppCompatActivity() {
+    private val priceText: TextView by lazy {
+        findViewById(R.id.seat_selection_movie_price)
+    }
+
+    private val reservationButton: Button by lazy {
+        findViewById(R.id.seat_selection_reserve_button)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
@@ -39,6 +49,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         initSeatTableLayout(movie, reservationDetail)
         initMovieView(movie)
         setPriceView(PriceViewData())
+        setReservationButtonState(DEFAULT_SEAT_SIZE, reservationDetail.peopleCount)
     }
 
     private fun initSeatTableLayout(
@@ -52,9 +63,7 @@ class SeatSelectionActivity : AppCompatActivity() {
             SEAT_ROW_COUNT,
             SEAT_COLUMN_COUNT,
             reservationDetail.peopleCount
-        ) {
-            setPriceView(calculateDiscountedPrice(it, reservationDetail))
-        }
+        ) { onSelectSeat(it, reservationDetail) }
 
         initReserveButton(seatTableLayout, movie, reservationDetail)
     }
@@ -63,9 +72,28 @@ class SeatSelectionActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun onSelectSeat(seats: SeatsViewData, reservationDetail: ReservationDetailViewData) {
+        setPriceView(calculateDiscountedPrice(seats, reservationDetail))
+        setReservationButtonState(seats.seats.size, reservationDetail.peopleCount)
+    }
+
     private fun setPriceView(price: PriceViewData) {
-        findViewById<TextView>(R.id.seat_selection_movie_price).text =
-            getString(R.string.seat_price, price.value)
+        val formattedPrice = NumberFormat.getNumberInstance(Locale.US).format(price.value)
+        priceText.text =
+            getString(R.string.seat_price, formattedPrice)
+    }
+
+    private fun setReservationButtonState(
+        seatsSize: Int,
+        peopleCount: Int
+    ) {
+        if (seatsSize != peopleCount) {
+            reservationButton.setBackgroundColor(getColor(R.color.reservation_disabled))
+            reservationButton.isClickable = false
+        } else {
+            reservationButton.setBackgroundColor(getColor(R.color.purple_500))
+            reservationButton.isClickable = true
+        }
     }
 
     private fun calculateDiscountedPrice(
@@ -138,6 +166,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     companion object {
         private const val SEAT_ROW_COUNT = 5
         private const val SEAT_COLUMN_COUNT = 4
+        private const val DEFAULT_SEAT_SIZE = 0
 
         fun from(
             context: Context,

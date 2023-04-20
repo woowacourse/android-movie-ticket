@@ -36,7 +36,7 @@ class ReservationResultActivity : AppCompatActivity() {
             ?: return finish()
         val price = intent.extras?.getSerializable<PriceViewData>(PriceViewData.PRICE_EXTRA_NAME)
             ?: return finish()
-        renderReservationDetail(reservationDetail, price)
+        renderReservationDetail(reservationDetail, seats, price)
 
         val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
             ?: return finish()
@@ -60,6 +60,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private fun renderReservationDetail(
         reservationDetail: ReservationDetailViewData,
+        seats: SeatsViewData,
         price: PriceViewData
     ) {
         val date = findViewById<TextView>(R.id.movie_reservation_result_date)
@@ -70,12 +71,18 @@ class ReservationResultActivity : AppCompatActivity() {
         date.text = dateFormat.format(reservationDetail.date)
 
         peopleCount.text = peopleCount.context.getString(R.string.reservation_people_count)
-            .format(reservationDetail.peopleCount)
+            .format(reservationDetail.peopleCount, formatSeats(seats))
 
         val formattedPrice = NumberFormat.getNumberInstance(Locale.US).format(price.value)
 
         priceText.text =
             priceText.context.getString(R.string.reservation_price).format(formattedPrice)
+    }
+
+    private fun formatSeats(seats: SeatsViewData): String {
+        return seats.seats.joinToString {
+            getString(R.string.seat_row_column).format(it.rowCharacter, it.column + 1)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
