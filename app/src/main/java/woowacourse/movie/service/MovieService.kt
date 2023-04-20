@@ -23,7 +23,7 @@ object MovieService {
 
     fun reserve(movieId: Long, screeningDateTime: LocalDateTime, audienceCount: Int) {
         val movie = MovieRepository.findById(movieId)
-        movie.reserve(Screening(screeningDateTime), ReservationResult(screeningDateTime, audienceCount))
+        movie.reserve(screeningDateTime, audienceCount)
         MovieRepository.save(movie)
     }
 }

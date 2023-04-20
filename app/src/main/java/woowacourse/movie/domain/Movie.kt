@@ -1,5 +1,7 @@
 package woowacourse.movie.domain
 
+import java.time.LocalDateTime
+
 class Movie(
     val id: Long,
     val title: String,
@@ -12,7 +14,9 @@ class Movie(
         screenings.addScreening(screening)
     }
 
-    fun reserve(screening: Screening, reservationResult: ReservationResult) {
+    fun reserve(screeningDateTime: LocalDateTime, audienceCount: Int) {
+        val screening = Screening(screeningDateTime)
+        val reservationResult = ReservationResult(screeningDateTime, audienceCount)
         screenings.reserve(screening, reservationResult)
     }
 }
