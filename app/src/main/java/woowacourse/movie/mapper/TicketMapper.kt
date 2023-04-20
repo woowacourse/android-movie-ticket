@@ -3,6 +3,7 @@ package woowacourse.movie.mapper
 import com.example.domain.model.Ticket
 import woowacourse.movie.formatter.DateFormatter
 import woowacourse.movie.formatter.TimeFormatter
+import woowacourse.movie.model.PaymentModel
 import woowacourse.movie.model.TicketModel
 
 const val ticketDateFormat: String = "yyyy.M.d"
@@ -14,13 +15,15 @@ fun TicketModel.toTicket() = Ticket(
     TimeFormatter.formatToOriginal(playingTime, ticketTimeFormat),
     count,
     price,
-    payment
+    PaymentModel.of(payment).toPayment()
 )
 
-fun Ticket.toTicketModel() = TicketModel(
-    title,
-    DateFormatter.formatToString(playingDate, ticketDateFormat),
-    TimeFormatter.formatToString(playingTime, ticketTimeFormat),
-    count,
-    price, payment
-)
+fun Ticket.toTicketModel() =
+    TicketModel(
+        title,
+        DateFormatter.formatToString(playingDate, ticketDateFormat),
+        TimeFormatter.formatToString(playingTime, ticketTimeFormat),
+        count,
+        price,
+        payment.toPaymentModel().string
+    )

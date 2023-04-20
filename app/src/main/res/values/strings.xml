@@ -11,8 +11,8 @@
     <string name="price_payment">원 (%s)</string>
     <string name="normal">일반</string>
     <string name="date_time">%s %s</string>
-    <string name="date_format">YYYY.M.d</string>
     <string name="date_spinner_description">날짜 스피너</string>
     <string name="time_spinner_description">시간 스피너</string>
     <string name="movie_image_description">영화 포스터</string>
+    <string name="payment_on_site">현장 결제</string>
 </resources>

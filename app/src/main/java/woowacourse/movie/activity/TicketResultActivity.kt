@@ -5,7 +5,6 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.model.price.Price
-import com.example.domain.model.toUI
 import woowacourse.movie.R
 import woowacourse.movie.formatter.DecimalFormatter
 import woowacourse.movie.model.TicketModel
@@ -54,9 +53,9 @@ class TicketResultActivity : AppCompatActivity() {
         priceView.text = DecimalFormatter.formatToString(price.price * count, decimalFormat)
     }
 
-    private fun initPricePayment(payment: com.example.domain.model.Payment) {
+    private fun initPricePayment(payment: String) {
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
-        pricePayment.text = getString(R.string.price_payment, payment.toUI())
+        pricePayment.text = getString(R.string.price_payment, payment)
     }
 
     private fun setActionBar() {

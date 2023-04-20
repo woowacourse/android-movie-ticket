@@ -1,6 +1,5 @@
 package woowacourse.movie.model
 
-import com.example.domain.model.Payment
 import com.example.domain.model.price.Price
 
 data class TicketModel(
@@ -9,5 +8,5 @@ data class TicketModel(
     val playingTime: String,
     val count: Int,
     val price: Price,
-    val payment: Payment
+    val payment: String
 ) : java.io.Serializable
