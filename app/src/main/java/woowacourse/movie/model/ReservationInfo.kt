@@ -27,7 +27,7 @@ data class ReservationInfo(
 fun domain.reservation.Reservation.toUIModel() = ReservationInfo(
     movieName.value,
     screeningDateTime,
-    ticketCount,
+    ticketCount.value,
     paymentAmount.value,
     paymentType
 )

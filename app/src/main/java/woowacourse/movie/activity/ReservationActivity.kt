@@ -12,7 +12,7 @@ import domain.reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.activity.MoviesActivity.Companion.MOVIE_KEY
 import woowacourse.movie.model.MovieInfo
-import woowacourse.movie.model.ReservationInfo
+import woowacourse.movie.model.SeatReservationInfo
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -116,11 +116,11 @@ class ReservationActivity : AppCompatActivity() {
 
         ticketCountButtonInitializer.setOnMinusButtonClicked { alertTicketCountError() }
         ticketCountButtonInitializer.setOnPlusButtonClicked()
-        ticketCountButtonInitializer.setOnCompletedButtonClicked(
+        ticketCountButtonInitializer.setOnSeatSelectionButtonClicked(
             movie = movie,
             screeningDateSpinner = screeningDateSpinner,
             screeningTimeSpinner = screeningTimeSpinner,
-            onCompleted = ::onReservationCompleted
+            onCompleted = ::onSeatSelectionButtonClicked
         )
     }
 
@@ -132,10 +132,10 @@ class ReservationActivity : AppCompatActivity() {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-    private fun onReservationCompleted(reservation: ReservationInfo) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
+    private fun onSeatSelectionButtonClicked(seatReservation: SeatReservationInfo) {
+        val intent = Intent(this, ScreeningSeatSelectionActivity::class.java)
 
-        intent.putExtra(RESERVATION_KEY, reservation)
+        intent.putExtra(SEAT_RESERVATION_KEY, seatReservation)
         startActivity(intent)
         finish()
     }
@@ -144,6 +144,6 @@ class ReservationActivity : AppCompatActivity() {
         private const val TICKET_COUNT_KEY = "ticket_key"
         private const val SCREENING_DATE_POSITION_KEY = "screening_date_key"
         const val SCREENING_TIME_POSITION_KEY = "screening_time_key"
-        const val RESERVATION_KEY = "reservation_key"
+        const val SEAT_RESERVATION_KEY = "reservation_key"
     }
 }

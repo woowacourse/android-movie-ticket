@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import domain.payment.PaymentType
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationActivity.Companion.RESERVATION_KEY
+import woowacourse.movie.activity.ScreeningSeatSelectionActivity.Companion.RESERVATION_KEY
 import woowacourse.movie.model.ReservationInfo
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
