@@ -22,7 +22,7 @@ class ReservationTimeSpinner(view: View) {
             .apply { adapter = arrayAdapter }
 
     val selectedTime: LocalTime
-        get() = LocalTime.parse(timeSpinner.selectedItem.toString())
+        get() = timeList[timeSpinner.selectedItemPosition]
 
     fun initTimeSpinner(date: LocalDate) {
         updateTimeList(ScreeningDate.getScreeningTimes(date))

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import model.MovieListItem
 import model.SeatSelectionModel
+import movie.TicketQuantity
 import woowacourse.movie.R
 import woowacourse.movie.seatSelection.SeatSelectionActivity
 import woowacourse.movie.seatSelection.SeatSelectionActivity.Companion.KEY_SEAT_SELECTION
@@ -24,7 +25,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private val activityView by lazy { window.decorView.rootView }
-    private val navigation by lazy { ReservationNavigation(activityView, movieListItem, ::onReservationButtonClicked) }
+    private val navigation by lazy { ReservationNavigation(activityView, movieListItem.startDate, movieListItem.endDate, ::onReservationButtonClicked) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +38,12 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun loadInstanceState(savedInstanceState: Bundle?) {
-        navigation.load(savedInstanceState)
+        navigation.setTicketQuantity(TicketQuantity(savedInstanceState?.getInt(KEY_COUNT) ?: DEFAULT_TICKET_QUANTITY))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        navigation.save(outState)
+        navigation.ticketQuantity.let { outState.putInt(KEY_COUNT, it.toInt()) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,7 +81,9 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
+        private const val KEY_COUNT = "count"
+        private const val DEFAULT_TICKET_QUANTITY = 1
+        private const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
         const val KEY_MOVIE_Screening = "movieScreening"
     }
 }
