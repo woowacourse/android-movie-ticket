@@ -12,6 +12,7 @@
     <!-- custom -->
     <color name="white_FFFFFF">#FFFFFF</color>
     <color name="grey_494949">#494949</color>
+    <color name="grey_EAEAEA">#EAEAEA</color>
     <color name="grey_727272">#727272</color>
     <color name="grey_B7B7B7">#B7B7B7</color>
     <color name="black_000000">#000000</color>
@@ -19,6 +20,6 @@
     <color name="purple_6200EE">#6200EE</color>
     <color name="green_19D358">#19D358</color>
     <color name="blue_1B48E9">#1B48E9</color>
-
+    <color name="yellow_FAFF00">#FAFF00</color>
 
 </resources>
