@@ -12,12 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.seatselect.SeatSelectActivity
-import woowacourse.movie.activity.ticketresult.TicketResultActivity
-import woowacourse.movie.domain.policy.DiscountPolicies
-import woowacourse.movie.domain.ticket.Price
-import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.model.MovieModel
-import woowacourse.movie.model.toPresentation
 import woowacourse.movie.util.getKeyFromIndex
 import woowacourse.movie.util.getOrEmptyList
 import java.time.LocalDate
@@ -52,15 +47,13 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     private fun setReserveButton(title: String) {
         reserveButton.setOnClickListener {
             val intent = Intent(it.context, SeatSelectActivity::class.java)
-            val ticket = Ticket.of(
-                DiscountPolicies.policies,
-                title,
-                viewGroup.findViewById<Spinner>(R.id.spinner_date).selectedItem as LocalDate,
-                viewGroup.findViewById<Spinner>(R.id.spinner_time).selectedItem as LocalTime,
-                viewGroup.findViewById<TextView>(R.id.text_count).text.toString().toInt(),
-                Price()
-            )
-            intent.putExtra(TicketResultActivity.INFO_KEY, ticket.toPresentation())
+            val date = viewGroup.findViewById<Spinner>(R.id.spinner_date).selectedItem as LocalDate
+            val time = viewGroup.findViewById<Spinner>(R.id.spinner_time).selectedItem as LocalTime
+            val count = viewGroup.findViewById<TextView>(R.id.text_count).text.toString().toInt()
+            intent.putExtra(SeatSelectActivity.TITLE_KEY, title)
+            intent.putExtra(SeatSelectActivity.DATE_KEY, date)
+            intent.putExtra(SeatSelectActivity.TIME_KEY, time)
+            intent.putExtra(SeatSelectActivity.COUNT_KEY, count)
             it.context.startActivity(intent)
         }
     }
