@@ -13,10 +13,10 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
-        adaptMovieList()
+        initAdapter()
     }
 
-    private fun adaptMovieList() {
+    private fun initAdapter() {
         val movieListView = findViewById<ListView>(R.id.movie_list)
         movieListView.adapter = MovieListAdapter(MOVIE_SAMPLE) { movieScheduleUi ->
             val intent = Intent(this, MovieReservationActivity::class.java)

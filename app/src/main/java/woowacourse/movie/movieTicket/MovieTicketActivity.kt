@@ -17,8 +17,8 @@ class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
-        registerToolbar()
-        updateMovieView()
+        initToolBar()
+        initMovieView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -31,11 +31,11 @@ class MovieTicketActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerToolbar() {
+    private fun initToolBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun updateMovieView() {
+    private fun initMovieView() {
         val ticketTitleView = findViewById<TextView>(R.id.ticket_movie_title)
         val ticketCountView = findViewById<TextView>(R.id.ticket_total_ticket_count)
         val ticketMovieReleaseDateView = findViewById<TextView>(R.id.ticket_release_date)

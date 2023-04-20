@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import movie.data.TicketCount
 import movie.screening.ScreeningTime
@@ -36,12 +35,12 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        updateMovieView()
-        registerListener()
-        updateInstanceState(savedInstanceState)
+        initMovieView()
+        initListener()
+        initInstanceState(savedInstanceState)
     }
 
-    private fun updateInstanceState(savedInstanceState: Bundle?) {
+    private fun initInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             ticketCount = TicketCount(it.getInt(KEY_COUNT))
             ticketCountView.text = it.getInt(KEY_COUNT).toString()
@@ -68,7 +67,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateMovieView() {
+    private fun initMovieView() {
         ticketCountView.text = ticketCount.toInt().toString()
         val moviePosterView = findViewById<ImageView>(R.id.reservation_movie_poster)
         val movieTitleView = findViewById<TextView>(R.id.reservation_movie_title)
@@ -87,7 +86,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerListener() {
+    private fun initListener() {
         registerCountButton()
         registerReservationButton()
         registerSpinnerListener()
@@ -134,24 +133,26 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun registerReservationButton() {
         val reservationButton = findViewById<TextView>(R.id.reservation_complete_button)
-        reservationButton.setOnClickListener {
-            val intent = Intent(this, MovieSeatActivity::class.java)
-            val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
-            val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
+        reservationButton.setOnClickListener { startActivity(makeIntent()) }
+    }
 
-            kotlin.runCatching {
-                val movieDetailUi = MovieDetailUi(
-                    title = movieScheduleUi.title,
-                    count = ticketCount,
-                    date = selectedDate,
-                    time = selectedTime,
-                )
-                intent.putExtra(MovieSeatActivity.KEY_MOVIE_DETAIL, movieDetailUi)
-                startActivity(intent)
-            }.onFailure {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun makeIntent(): Intent {
+        val intent = Intent(this, MovieSeatActivity::class.java)
+        val movieDetailUi = makeMovieDetailUi()
+        intent.putExtra(MovieSeatActivity.KEY_MOVIE_DETAIL, movieDetailUi)
+        return intent
+    }
+
+    private fun makeMovieDetailUi(): MovieDetailUi {
+        val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
+        val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
+
+        return MovieDetailUi(
+            title = movieScheduleUi.title,
+            count = ticketCount,
+            date = selectedDate,
+            time = selectedTime,
+        )
     }
 
     companion object {

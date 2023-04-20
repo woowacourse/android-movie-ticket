@@ -28,54 +28,86 @@ class MovieSeatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_seat)
+        initMovieView()
+        initListener()
+    }
 
+    private fun initMovieView() {
         val movieTitleView = findViewById<TextView>(R.id.seat_movie_title)
         movieTitleView.text = movieDetail.title
 
         val nextButton = findViewById<Button>(R.id.seat_next_button)
-        nextButton.setOnClickListener {
-            val movieTicketUi = MovieTicketUi(
-                totalPrice = totalPrice,
-                count = movieDetail.count,
-                title = movieDetail.title,
-                date = movieDetail.date,
-                time = movieDetail.time,
-                seats = selectedSeats.map { it.getSeatPosition() },
-            )
+        nextButton.setOnClickListener { startActivity(makeIntent()) }
+    }
 
-            val intent = Intent(this, MovieTicketActivity::class.java)
-            intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicketUi)
-            startActivity(intent)
-        }
-
+    private fun initListener() {
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table)
-        val priceTextView = findViewById<TextView>(R.id.seat_ticket_price)
         val seats = seatTableLayout.children.filterIsInstance<TableRow>()
             .map { it.children.filterIsInstance<TextView>().toList() }.toList()
 
         seats.forEachIndexed { rowIndex, row ->
             row.forEachIndexed { columnIndex, textView ->
                 textView.setOnClickListener {
-                    val discountPolicy = NormalDiscountPolicy(movieDetail.date, movieDetail.time)
-                    val seat = Seat(SeatRow.of(rowIndex), SeatColumn.of(columnIndex))
-
-                    when {
-                        !selectedSeats.contains(seat) && movieDetail.isUpOfCount(selectedSeats.size) -> {
-                            selectedSeats.add(seat)
-                            totalPrice += discountPolicy.getDiscountPrice(seat.getSeatPrice())
-                            textView.setBackgroundColor(ContextCompat.getColor(this, R.color.selected_background))
-                        }
-                        !selectedSeats.contains(seat) && !movieDetail.isUpOfCount(selectedSeats.size) -> Unit
-                        else -> {
-                            selectedSeats.remove(seat)
-                            totalPrice -= discountPolicy.getDiscountPrice(seat.getSeatPrice())
-                            textView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-                        }
-                    }
-                    priceTextView.text = getString(R.string.total_price).format(totalPrice)
+                    selectSeat(rowIndex, columnIndex, textView)
                 }
             }
         }
+    }
+
+    private fun selectSeat(
+        rowIndex: Int,
+        columnIndex: Int,
+        textView: TextView,
+    ) {
+        val priceTextView = findViewById<TextView>(R.id.seat_ticket_price)
+        val seat = Seat(SeatRow.of(rowIndex), SeatColumn.of(columnIndex))
+
+        when {
+            !selectedSeats.contains(seat) && movieDetail.isUpOfCount(selectedSeats.size) -> { selected(seat, textView) }
+            !selectedSeats.contains(seat) && !movieDetail.isUpOfCount(selectedSeats.size) -> Unit
+            else -> { deselected(seat, textView) }
+        }
+        priceTextView.text = getString(R.string.total_price).format(totalPrice)
+    }
+
+    private fun deselected(
+        seat: Seat,
+        positionTextView: TextView,
+    ) {
+        val discountPolicy = NormalDiscountPolicy(movieDetail.date, movieDetail.time)
+        selectedSeats.remove(seat)
+        totalPrice -= discountPolicy.getDiscountPrice(seat.getSeatPrice())
+        positionTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        positionTextView.isSelected = false
+    }
+
+    private fun selected(
+        seat: Seat,
+        positionTextView: TextView,
+    ) {
+        val discountPolicy = NormalDiscountPolicy(movieDetail.date, movieDetail.time)
+        selectedSeats.add(seat)
+        totalPrice += discountPolicy.getDiscountPrice(seat.getSeatPrice())
+        positionTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.selected_background))
+        positionTextView.isSelected = true
+    }
+
+    private fun makeIntent(): Intent {
+        val intent = Intent(this, MovieTicketActivity::class.java)
+        val movieTicketUi = makeMovieTicketUi()
+        intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicketUi)
+        return intent
+    }
+
+    private fun makeMovieTicketUi(): MovieTicketUi {
+        return MovieTicketUi(
+            totalPrice = totalPrice,
+            count = movieDetail.count,
+            title = movieDetail.title,
+            date = movieDetail.date,
+            time = movieDetail.time,
+            seats = selectedSeats.map { it.getSeatPosition() },
+        )
     }
 
     companion object {
