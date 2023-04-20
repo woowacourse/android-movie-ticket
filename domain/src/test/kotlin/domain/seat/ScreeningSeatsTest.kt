@@ -13,38 +13,27 @@ class ScreeningSeatsTest {
         val screeningSeats = ScreeningSeats()
 
         // when
-        screeningSeats.selectSeats(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
+        val seat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        screeningSeats.selectSeat(seat)
 
         // then
         assertTrue(
-            screeningSeats.selectedSeats.contains(
-                ScreeningSeat(
-                    SeatRow.A,
-                    SeatColumn.FIRST,
-                    true
-                )
-            )
+            screeningSeats.values[seat] == SeatState.RESERVED
         )
     }
 
     @Test
-    fun `선택된_좌석을_취소하면_해당_좌석은_선택되지_않은_상태가_된다`() {
+    fun `선택된_좌석을_취소하면_해당_좌석은_이용_가능한_상태가_된다`() {
         // given
         val screeningSeats = ScreeningSeats()
-        screeningSeats.selectSeats(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
 
         // when
-        screeningSeats.cancelSeats(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
+        val seat = ScreeningSeat(SeatRow.A, SeatColumn.FIRST)
+        screeningSeats.cancelSeat(seat)
 
         // then
         assertTrue(
-            screeningSeats.values.contains(
-                ScreeningSeat(
-                    SeatRow.A,
-                    SeatColumn.FIRST,
-                    false
-                )
-            )
+            screeningSeats.values[seat] == SeatState.AVAILABLE
         )
     }
 
@@ -54,9 +43,9 @@ class ScreeningSeatsTest {
         val screeningSeats = ScreeningSeats()
 
         // when
-        screeningSeats.selectSeats(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
-        screeningSeats.selectSeats(ScreeningSeat(SeatRow.B, SeatColumn.FIRST))
-        screeningSeats.selectSeats(ScreeningSeat(SeatRow.E, SeatColumn.FIRST))
+        screeningSeats.selectSeat(ScreeningSeat(SeatRow.A, SeatColumn.FIRST))
+        screeningSeats.selectSeat(ScreeningSeat(SeatRow.B, SeatColumn.FIRST))
+        screeningSeats.selectSeat(ScreeningSeat(SeatRow.E, SeatColumn.FIRST))
 
         // then
         val expected = PaymentAmount(32000)

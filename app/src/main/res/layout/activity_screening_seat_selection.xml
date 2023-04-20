@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="#EAEAEA"
-    tools:context=".ScreeningSeatSelectionActivity">
+    tools:context=".activity.ScreeningSeatselectionActivity">
 
     <TextView
         android:id="@+id/screen_shape"
@@ -23,7 +23,7 @@
 
     <TableLayout
         android:layout_marginTop="56dp"
-        android:id="@+id/screening_seats"
+        android:id="@+id/seat_button"
         android:background="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
         <Button
             android:text="확인"
             android:clickable="false"
-            android:id="@+id/seat_selection_button"
+            android:id="@+id/seat_selection_complete_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </LinearLayout>

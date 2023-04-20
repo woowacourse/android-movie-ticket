@@ -4,37 +4,43 @@ import domain.payment.PaymentAmount
 
 class ScreeningSeats {
 
-    private val _values: MutableList<ScreeningSeat> = SeatRow
+    private val _values: MutableMap<ScreeningSeat, SeatState> = SeatRow
         .values()
         .flatMap { row ->
             SeatColumn.values().map { column ->
                 ScreeningSeat(row, column)
             }
-        }.toMutableList()
-    val values: List<ScreeningSeat>
-        get() = _values.toList()
-    val selectedSeatsCount: Int
-        get() = _values.count { it.isSelected }
-    val selectedSeats: List<ScreeningSeat>
-        get() = _values.filter { it.isSelected }
+        }.associateWith {
+            SeatState.AVAILABLE
+        }.toMutableMap()
 
-    fun selectSeats(seat: ScreeningSeat) {
-        val selectedSeat = seat.selected()
+    val values: Map<ScreeningSeat, SeatState>
+        get() = _values.toMap()
 
-        _values.remove(seat)
-        _values.add(selectedSeat)
+    fun selectSeat(seat: ScreeningSeat): ScreeningSeat? {
+        val seatState = _values[seat] ?: throw IllegalArgumentException("사용할 수 없는 좌석입니다.")
+
+        if (seatState == SeatState.RESERVED) {
+            return null
+        }
+        _values[seat] = SeatState.RESERVED
+        return seat
     }
 
-    fun cancelSeats(seat: ScreeningSeat) {
-        val canceledSeat = seat.canceled()
+    fun cancelSeat(seat: ScreeningSeat): ScreeningSeat? {
+        val seatState = _values[seat] ?: throw IllegalArgumentException("사용할 수 없는 좌석입니다.")
 
-        _values.remove(seat)
-        _values.add(canceledSeat)
+        if (seatState == SeatState.AVAILABLE) {
+            return null
+        }
+        _values[seat] = SeatState.AVAILABLE
+        return seat
     }
 
     fun getTotalPaymentAmount(): PaymentAmount {
         val totalPayment = _values
-            .filter { it.isSelected }
+            .filter { it.value == SeatState.RESERVED }
+            .keys
             .sumOf { it.payment.value }
 
         return PaymentAmount(totalPayment)
