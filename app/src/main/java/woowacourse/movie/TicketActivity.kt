@@ -29,7 +29,7 @@ class TicketActivity : AppCompatActivity() {
         val seats = intent.getSerializableExtra(SEATS_KEY) as SeatsDto
 
         showTicketInfo(movie, date.date, time.time)
-        showTicketCount(ticket)
+        showTicketInfo(ticket, seats)
         showTicketPrice(seats, date.date, time.time, ticket.numberOfPeople)
     }
 
@@ -54,10 +54,12 @@ class TicketActivity : AppCompatActivity() {
         movieDate.text = formatMovieDateTime(date, time)
     }
 
-    private fun showTicketCount(ticket: TicketCountDto) {
+    private fun showTicketInfo(ticket: TicketCountDto, seats: SeatsDto) {
         val numberOfPeople = findViewById<TextView>(R.id.number_of_people)
-        numberOfPeople.text = getString(R.string.ticket_number, ticket.numberOfPeople)
+        numberOfPeople.text = getString(R.string.ticket_info, ticket.numberOfPeople, seats.getSeatsPositionToString())
     }
+
+
 
     private fun showTicketPrice(seats: SeatsDto, date: LocalDate, time: LocalTime, count: Int) {
         val price = findViewById<TextView>(R.id.ticket_price)
