@@ -29,7 +29,7 @@ class SeatSelectionActivityTest {
                 val seatSelectionModel = SeatSelectionModel(
                     title = "해리포터와 마법사의 돌",
                     reserveTime = LocalDateTime.of(2021, 1, 1, 1, 1),
-                    peopleNumber = 3,
+                    Quantity = 3,
                 )
                 putExtra(KEY_SEAT_SELECTION, seatSelectionModel)
             },

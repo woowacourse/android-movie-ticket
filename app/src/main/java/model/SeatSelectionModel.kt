@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 class SeatSelectionModel(
     val title: String,
     val reserveTime: LocalDateTime,
-    val peopleNumber: Int,
+    val Quantity: Int,
 ) : Serializable {
     companion object {
         val EMPTY = SeatSelectionModel("", LocalDateTime.MIN, 0)
