@@ -5,8 +5,8 @@ import android.view.View
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.model.MovieModel
 
-class MovieListItemListener : ItemListener {
-    override fun onClick(movie: MovieModel, view: View) {
+interface ItemListener {
+    fun onClick(movie: MovieModel, view: View) {
         val intent = Intent(view.context, MovieDetailActivity::class.java)
         intent.putExtra(MovieDetailActivity.MOVIE_KEY, movie)
         view.context.startActivity(intent)

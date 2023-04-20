@@ -13,7 +13,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieModel
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movies: List<MovieModel>, private val listener: MovieListItemListener) : BaseAdapter() {
+class MovieListAdapter(private val movies: List<MovieModel>, private val listener: ItemListener) : BaseAdapter() {
     private val viewHolders: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
         return movies.size
