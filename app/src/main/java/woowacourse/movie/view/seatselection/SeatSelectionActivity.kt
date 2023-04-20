@@ -1,15 +1,20 @@
 package woowacourse.movie.view.seatselection
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
+import indexToPosition
 import woowacourse.movie.R
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.BaseActivity
+import woowacourse.movie.view.TicketActivity
 import woowacourse.movie.view.viewmodel.MovieUIModel
+import woowacourse.movie.view.viewmodel.toUIModel
 import java.time.LocalDateTime
 
 class SeatSelectionActivity : BaseActivity() {
@@ -44,10 +49,25 @@ class SeatSelectionActivity : BaseActivity() {
         }
         nextBtn.setOnClickListener {
 
+            val seats = mutableListOf<Int>()
+            seatsView.forEachIndexed { index, view ->
+                if (view.isSelected) seats.add(index)
+            }
+            val ticket = Ticket(
+                seatState.priceNum,
+                selectedDate,
+                seatState.countPeople,
+                seats.map { indexToPosition(it) }
+            )
+
             AlertDialog.Builder(this)
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
+                    val intent = Intent(this, TicketActivity::class.java)
+                    intent.putExtra(MOVIE_KEY, movieUI)
+                    intent.putExtra(TICKET_KEY, ticket.toUIModel())
+                    startActivity(intent)
                 }
                 .setNegativeButton("취소") { dialog, _ ->
                     dialog.dismiss()
