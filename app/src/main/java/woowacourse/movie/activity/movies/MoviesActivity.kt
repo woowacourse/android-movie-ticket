@@ -6,7 +6,6 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.activity.reservation.ReservationActivity
-import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.model.MockMoviesGenerator
 import woowacourse.movie.model.MovieInfo
 
