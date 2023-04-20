@@ -2,7 +2,6 @@ package woowacourse.movie.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -51,8 +50,8 @@ class MovieDetailActivity : AppCompatActivity() {
         loadSavedData(savedInstanceState)
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 
         outState.putInt("date_position", dateSpinner.selectedItemPosition)
         outState.putInt("time_position", timeSpinner.selectedItemPosition)

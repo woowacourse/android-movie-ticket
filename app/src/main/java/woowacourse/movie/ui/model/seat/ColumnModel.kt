@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 fun mapToColumnModel(column: Int): ColumnModel = ColumnModel.of(column)
 
 @Parcelize
-class ColumnModel private constructor(val value: Int) : Parcelable {
+data class ColumnModel(val value: Int) : Parcelable {
     companion object {
         fun createColumns(size: Int): List<ColumnModel> = (1..size).map(::ColumnModel)
 

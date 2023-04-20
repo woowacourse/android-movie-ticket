@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 fun mapToRowModel(row: Int): RowModel = RowModel.of(row)
 
 @Parcelize
-class RowModel private constructor(val value: Int, val letter: Char) : Parcelable {
+data class RowModel(val value: Int, val letter: Char) : Parcelable {
     companion object {
         private const val ALPHABET_A_NUMBER = 65
 

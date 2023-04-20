@@ -13,6 +13,7 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.ui.getParcelable
+import woowacourse.movie.ui.getParcelableByKey
 import woowacourse.movie.ui.model.MovieTicketModel
 import woowacourse.movie.ui.model.PriceModel
 import woowacourse.movie.ui.model.mapToMovieTicket
@@ -26,13 +27,15 @@ import java.text.DecimalFormat
 class SeatPickerActivity : AppCompatActivity() {
     private var count = 0
     private val seats = SeatsModel().getAll()
-    private val ticket: MovieTicket by lazy { mapToMovieTicket(intent.getParcelable("ticket")!!) }
+    private lateinit var ticket: MovieTicket
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_picker)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        loadSavedData(savedInstanceState)
 
         val seatViews = findViewById<TableLayout>(R.id.layout_seat)
             .children
@@ -41,17 +44,23 @@ class SeatPickerActivity : AppCompatActivity() {
             .filterIsInstance<TextView>()
             .toList()
 
-        intent.getParcelable<MovieTicketModel>("ticket")?.let {
-            setSeatViews(seatViews, it)
-            findViewById<TextView>(R.id.seat_picker_title).text = it.title
-            findViewById<TextView>(R.id.seat_picker_price).text = it.price.format()
-        }
+        val ticketModel = mapToMovieTicketModel(ticket)
+        setSeatViews(seatViews, ticketModel)
+        findViewById<TextView>(R.id.seat_picker_title).text = ticketModel.title
+        findViewById<TextView>(R.id.seat_picker_price).text = ticketModel.price.format()
 
         val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
         doneButton.setOnClickListener {
             showReservationCheckDialog()
         }
-        doneButton.isClickable = ticket.peopleCount.count == count
+        updateDoneButtonState(ticketModel)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt("count", count)
+        outState.putParcelable("ticket", mapToMovieTicketModel(ticket))
     }
 
     private fun PriceModel.format(): String =
@@ -67,13 +76,17 @@ class SeatPickerActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setSeatViews(seatViews: List<TextView>, ticket: MovieTicketModel) {
+    private fun setSeatViews(seatViews: List<TextView>, ticketModel: MovieTicketModel) {
         seatViews.zip(seats) { view, seat ->
             view.text = getString(R.string.seat, seat.row.letter, seat.column.value)
             view.setTextColor(getColor(seat.rank.color))
+            if (ticketModel.isSelectedSeat(seat)) {
+                view.isSelected = true
+                view.setBackgroundColor(getColor(R.color.seat_selected))
+            }
             view.setOnClickListener {
-                selectSeat(view, ticket, seat)
-                changeDoneButtonState(ticket)
+                selectSeat(view, ticketModel, seat)
+                updateDoneButtonState(ticketModel)
             }
         }
     }
@@ -126,15 +139,23 @@ class SeatPickerActivity : AppCompatActivity() {
         view.isSelected = true
     }
 
-    private fun changeDoneButtonState(ticket: MovieTicketModel) {
+    private fun updateDoneButtonState(ticket: MovieTicketModel) {
         val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
         if (count == ticket.peopleCount.count) {
-            doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_on))
-            doneButton.isClickable = true
+            activateDoneButton(doneButton)
         } else {
-            doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_off))
-            doneButton.isClickable = false
+            deactivateDoneButton(doneButton)
         }
+    }
+
+    private fun activateDoneButton(doneButton: TextView) {
+        doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_on))
+        doneButton.isClickable = true
+    }
+
+    private fun deactivateDoneButton(doneButton: TextView) {
+        doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_off))
+        doneButton.isClickable = false
     }
 
     private fun showReservationCheckDialog() {
@@ -155,5 +176,12 @@ class SeatPickerActivity : AppCompatActivity() {
         val intent = Intent(this, MovieTicketActivity::class.java)
         intent.putExtra("ticket", mapToMovieTicketModel(ticket))
         startActivity(intent)
+    }
+
+    private fun loadSavedData(savedInstanceState: Bundle?) {
+        count = savedInstanceState?.getInt("count") ?: 0
+        val ticketModel = savedInstanceState?.getParcelableByKey<MovieTicketModel>("ticket")
+            ?: intent.getParcelable("ticket")!!
+        ticket = mapToMovieTicket(ticketModel)
     }
 }

@@ -34,4 +34,6 @@ data class MovieTicketModel(
     val peopleCount: PeopleCountModel,
     val seats: Set<SeatModel>,
     val price: PriceModel
-) : Parcelable
+) : Parcelable {
+    fun isSelectedSeat(seat: SeatModel): Boolean = seats.contains(seat)
+}
