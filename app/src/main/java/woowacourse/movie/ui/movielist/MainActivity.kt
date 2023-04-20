@@ -6,7 +6,6 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieModel
-import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import woowacourse.movie.utils.MockData
 
@@ -38,5 +37,9 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra(KEY_MOVIE, movie)
         startActivity(intent)
+    }
+
+    companion object {
+        const val KEY_MOVIE = "movie"
     }
 }
