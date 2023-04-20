@@ -19,6 +19,7 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
 import woowacourse.movie.ui.completed.CompletedActivity
+import woowacourse.movie.ui.seatreservation.SeatReservationActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -81,7 +82,16 @@ class BookingActivity : AppCompatActivity() {
     private fun gatherClickListeners() {
         clickMinus()
         clickPlus()
-        clickBookingComplete()
+        setClickEventOnSeatSelectButton()
+        // clickBookingComplete()
+    }
+
+    private fun setClickEventOnSeatSelectButton() {
+        val selectSeatButton = findViewById<Button>(R.id.buttonBookingComplete)
+
+        selectSeatButton.setOnClickListener {
+            startActivity(Intent(this, SeatReservationActivity::class.java))
+        }
     }
 
     private fun initView(movie: Movie) {
