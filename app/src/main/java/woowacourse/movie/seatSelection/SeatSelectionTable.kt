@@ -10,7 +10,6 @@ import model.SeatSelectionModel
 import model.TicketModel
 import movie.SeatSelection
 import movie.TicketQuantity
-import movie.pricePolicy.NormalPricePolicy
 import woowacourse.movie.R
 
 class SeatSelectionTable(
@@ -21,7 +20,7 @@ class SeatSelectionTable(
     private val movieTitle by lazy { view.findViewById<TextView>(R.id.seat_selection_title) }
     private val ticketTotalPrice by lazy { view.findViewById<TextView>(R.id.seat_selection_price) }
     private val seatSelectionConfirm by lazy { view.findViewById<TextView>(R.id.seat_selection_confirm) }
-    private val seatSelection = SeatSelection(5, 4)
+    private val seatSelection = SeatSelection()
 
     private val seatSelectionTableBoxes by lazy {
         view.findViewById<TableLayout>(R.id.seat_selection_table).children.filterIsInstance<TableRow>()
@@ -35,7 +34,7 @@ class SeatSelectionTable(
     init {
         seatSelectionTableBoxes.forEach { (row, col, item) ->
             item.setOnClickListener {
-                seatSelection.clickSeat(SeatPosition(row, col), TicketQuantity(selectionInfo.Quantity))
+                seatSelection.selectSeat(SeatPosition(row, col), TicketQuantity(selectionInfo.Quantity))
                 drawSeatSelection()
                 updateInfo()
             }
@@ -51,7 +50,7 @@ class SeatSelectionTable(
     }
 
     private fun updateInfo() {
-        ticketTotalPrice.text = TOTAL_PRICE.format(seatSelection.getSelectedSeatsPrice(selectionInfo.reserveTime, NormalPricePolicy()))
+        ticketTotalPrice.text = TOTAL_PRICE.format(seatSelection.getTotalPrice(selectionInfo.reserveTime))
         seatSelectionConfirm.isEnabled = seatSelection.sizeOfSelection == selectionInfo.Quantity
     }
 

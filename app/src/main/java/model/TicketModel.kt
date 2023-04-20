@@ -2,7 +2,6 @@ package model
 
 import mapper.toSeatModel
 import movie.SeatSelection
-import movie.pricePolicy.NormalPricePolicy
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -15,7 +14,7 @@ data class TicketModel(
     constructor(seatSelectionModel: SeatSelectionModel, seatSelection: SeatSelection) : this(
         seatSelectionModel.title,
         seatSelectionModel.reserveTime,
-        seatSelection.getSelectedSeatsPrice(seatSelectionModel.reserveTime, NormalPricePolicy()),
+        seatSelection.getTotalPrice(seatSelectionModel.reserveTime),
         seatSelection.selection.map { it.toSeatModel() },
     )
 
