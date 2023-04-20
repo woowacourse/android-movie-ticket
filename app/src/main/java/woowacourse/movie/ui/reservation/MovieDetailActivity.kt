@@ -16,8 +16,8 @@ import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.Toaster
-import woowacourse.movie.ui.confirm.ReservationConfirmActivity
 import woowacourse.movie.ui.main.MainActivity.Companion.KEY_MOVIE
+import woowacourse.movie.ui.seat.SeatSelectActivity
 import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.getSerializableCompat
@@ -90,14 +90,14 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
         plus.setOnClickListener { count += 1 }
 
-        reservationConfirm.setOnClickListener { navigateReservationConfirm() }
+        reservationConfirm.setOnClickListener { navigateSeatSelectActivity() }
     }
 
-    private fun navigateReservationConfirm() {
-        val intent = Intent(this, ReservationConfirmActivity::class.java)
-        val reservationRes =
+    private fun navigateSeatSelectActivity() {
+        val intent = Intent(this, SeatSelectActivity::class.java)
+        val reservationState =
             ReservationState(movie, LocalDateTime.of(selectDate, selectTime), count)
-        intent.putExtra(KEY_RESERVATION, reservationRes)
+        intent.putExtra(KEY_RESERVATION, reservationState)
         startActivity(intent)
     }
 

@@ -39,7 +39,7 @@ class MovieAdapter(
             val newView = LayoutInflater.from(context)
                 .inflate(R.layout.movie_item_layout, parent, false)
             val image = newView.findViewById<ImageView>(R.id.image)
-            val title = newView.findViewById<TextView>(R.id.title)
+            val title = newView.findViewById<TextView>(R.id.reservation_title)
             val runningDate = newView.findViewById<TextView>(R.id.running_date)
             val runningTime = newView.findViewById<TextView>(R.id.running_time)
             val reservation = newView.findViewById<Button>(R.id.reservation)

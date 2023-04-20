@@ -13,4 +13,5 @@
     <string name="reservation_pay_text">원 (현장 결제)</string>
     <string name="person_count_text">일반 %d명</string>
     <string name="no_key_exist_error">%s 에 해당하는 value를 전달받지 않았기에 강제종료합니다</string>
+    <string name="screen">SCREEN</string>
 </resources>
