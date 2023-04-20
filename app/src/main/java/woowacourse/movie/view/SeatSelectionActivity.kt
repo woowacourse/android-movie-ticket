@@ -13,10 +13,10 @@ import com.example.domain.Seat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.util.getParcelableCompat
+import woowacourse.movie.view.mapper.toDomainModel
+import woowacourse.movie.view.mapper.toUiModel
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.ReservationOptions
-import woowacourse.movie.view.model.toDomainModel
-import woowacourse.movie.view.model.toUiModel
 import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity() {

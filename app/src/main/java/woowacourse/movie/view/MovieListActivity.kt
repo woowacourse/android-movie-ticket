@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import com.example.domain.Movie
 import woowacourse.movie.repository.MovieMockRepository
-import woowacourse.movie.view.model.toUiModel
+import woowacourse.movie.view.mapper.toUiModel
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

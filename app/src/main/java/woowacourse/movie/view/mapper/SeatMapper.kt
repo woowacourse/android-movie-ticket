@@ -1,4 +1,4 @@
-package woowacourse.movie.view.model
+package woowacourse.movie.view.mapper
 
 import com.example.domain.Seat
 

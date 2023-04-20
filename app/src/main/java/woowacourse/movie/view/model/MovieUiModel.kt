@@ -1,29 +1,9 @@
 package woowacourse.movie.view.model
 
 import android.os.Parcelable
-import com.example.domain.Minute
-import com.example.domain.Movie
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
-
-fun Movie.toUiModel(): MovieUiModel = MovieUiModel(
-    title,
-    screeningStartDate,
-    screeningEndDate,
-    runningTime.value,
-    posterResourceId,
-    summary
-)
-
-fun MovieUiModel.toDomainModel(): Movie = Movie(
-    title,
-    screeningStartDate,
-    screeningEndDate,
-    Minute(runningTime),
-    posterResourceId,
-    summary
-)
 
 @Parcelize
 class MovieUiModel(
