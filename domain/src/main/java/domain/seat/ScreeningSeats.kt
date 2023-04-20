@@ -18,7 +18,7 @@ class ScreeningSeats(
         get() = _values.toMap()
 
     fun selectSeat(seat: ScreeningSeat): ScreeningSeat? {
-        val seatState = _values[seat] ?: throw IllegalArgumentException("사용할 수 없는 좌석입니다.")
+        val seatState = this[seat]
 
         if (seatState == SeatState.RESERVED) {
             return null
@@ -28,12 +28,20 @@ class ScreeningSeats(
     }
 
     fun cancelSeat(seat: ScreeningSeat): ScreeningSeat? {
-        val seatState = _values[seat] ?: throw IllegalArgumentException("사용할 수 없는 좌석입니다.")
+        val seatState = this[seat]
 
         if (seatState == SeatState.AVAILABLE) {
             return null
         }
         _values[seat] = SeatState.AVAILABLE
         return seat
+    }
+
+    operator fun get(seat: ScreeningSeat): SeatState {
+        return _values[seat] ?: throw IllegalArgumentException(ERROR_NOT_EXIST_SEAT)
+    }
+
+    companion object {
+        private const val ERROR_NOT_EXIST_SEAT = "사용할 수 없는 좌석입니다."
     }
 }
