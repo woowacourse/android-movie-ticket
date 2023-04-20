@@ -14,8 +14,7 @@ data class Ticket(
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
         val paymentMoneyAmount =
             seats.sumOf { seat ->
-                val ticketPrice = SeatGrade.from(seat).ticketPrice
-                getDiscountedMoney(ticketPrice, discountPolicy).value
+                getDiscountedMoney(seat.getPrice(), discountPolicy).value
             }
         return Money(paymentMoneyAmount)
     }
