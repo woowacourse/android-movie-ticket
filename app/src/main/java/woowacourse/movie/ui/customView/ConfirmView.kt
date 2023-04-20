@@ -12,6 +12,10 @@ class ConfirmView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
+    init {
+        isClickable = false
+    }
+
     override fun setClickable(clickable: Boolean) {
         super.setClickable(clickable)
         if (clickable) {

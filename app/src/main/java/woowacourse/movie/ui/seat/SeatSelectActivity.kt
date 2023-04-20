@@ -47,6 +47,7 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
 
         seatTableViewSet.registerObserver(this)
         confirmView.setOnClickListener { navigateReservationConfirmActivity(seatTableViewSet.choosedSeatInfo) }
+        confirmView.isClickable = false // 클릭리스너를 설정하면 clickable이 자동으로 참이 되기 때문
     }
 
     override fun onRestoreInstanceState(
@@ -78,6 +79,7 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
     }
 
     override fun updateSelectSeats(positionState: List<SeatPositionState>) {
+        Log.d("mendel", "update - seatSelectActivity: ${positionState.toList()}")
         confirmView.isClickable = (positionState.size == reservationState.countState.value)
 
         // 이걸 어떻게 해줄 것인지...
