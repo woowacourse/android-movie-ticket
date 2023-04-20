@@ -9,4 +9,32 @@
     <string name="cancel_description">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
     <string name="normal_ticket_count">일반 %d명</string>
     <string name="payment_amount">%,d원 (현장 결제)</string>
+
+
+    <!-- 좌선 선택 뷰 -->
+    <string name="tv_seat_reservation_screen">SCREEN</string>
+    <string name="tv_seat_reservation_a1">A1</string>
+    <string name="tv_seat_reservation_a2">A2</string>
+    <string name="tv_seat_reservation_a3">A3</string>
+    <string name="tv_seat_reservation_a4">A4</string>
+    <string name="tv_seat_reservation_b1">B1</string>
+    <string name="tv_seat_reservation_b2">B2</string>
+    <string name="tv_seat_reservation_b3">B3</string>
+    <string name="tv_seat_reservation_b4">B4</string>
+    <string name="tv_seat_reservation_c1">C1</string>
+    <string name="tv_seat_reservation_c2">C2</string>
+    <string name="tv_seat_reservation_c3">C3</string>
+    <string name="tv_seat_reservation_c4">C4</string>
+    <string name="tv_seat_reservation_d1">D1</string>
+    <string name="tv_seat_reservation_d2">D2</string>
+    <string name="tv_seat_reservation_d3">D3</string>
+    <string name="tv_seat_reservation_d4">D4</string>
+    <string name="tv_seat_reservation_e1">E1</string>
+    <string name="tv_seat_reservation_e2">E2</string>
+    <string name="tv_seat_reservation_e3">E3</string>
+    <string name="tv_seat_reservation_e4">E4</string>
+    <string name="tv_seat_reservation_title">해리 포터와 마법사의 돌</string>
+    <string name="tv_seat_reservation_price">0원</string>
+    <string name="tv_seat_reservation_check">확인</string>
+
 </resources>
