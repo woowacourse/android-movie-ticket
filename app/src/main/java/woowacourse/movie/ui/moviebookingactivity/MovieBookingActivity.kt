@@ -16,7 +16,7 @@ import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.model.ScreeningDateTimeState
 import woowacourse.movie.model.mapper.toPresentation
 import woowacourse.movie.ui.DateTimeFormatters
-import woowacourse.movie.ui.seatselectionactivity.SeatSelectionActivity
+import woowacourse.movie.ui.SeatSelectionActivity
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
@@ -171,7 +171,7 @@ class MovieBookingActivity : AppCompatActivity() {
             val intent = Intent(this, SeatSelectionActivity::class.java).apply {
                 putExtra(MOVIE_DATA, movieDataState)
                 putExtra(TICKET_COUNT, ticketCount.toPresentation())
-                putExtra(BOOKED_SCREENING_DATE_TIME, getScreeningDateTime())
+                putExtra(SELECTED_SCREENING_DATE_TIME, getScreeningDateTime())
             }
             startActivity(intent)
         }
@@ -180,7 +180,7 @@ class MovieBookingActivity : AppCompatActivity() {
     companion object {
         private const val MOVIE_DATA = "movieData"
         private const val TICKET_COUNT = "ticketCount"
-        private const val BOOKED_SCREENING_DATE_TIME = "bookedScreeningDateTime"
+        private const val SELECTED_SCREENING_DATE_TIME = "selectedScreeningDateTime"
         private const val SELECTED_TIME_POSITION = "selectedTimePosition"
         private const val MOVIE_BOOKING = "MovieBooking"
         private const val DATA_NOT_FOUNT_ERROR_MSG = "%s를 찾을 수 없습니다."

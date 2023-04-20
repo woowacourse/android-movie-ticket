@@ -4,14 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import movie.domain.price.DiscountPolicy
-import movie.domain.price.EarlyMorningLateNightDiscount
-import movie.domain.price.MovieDayDiscount
-import movie.domain.price.PricePolicyCalculator
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.model.ScreeningDateTimeState
-import woowacourse.movie.model.mapper.toDomain
 import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
 import woowacourse.movie.util.customGetParcelableExtra
 import kotlin.properties.Delegates
@@ -56,18 +51,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         tvBookingCheckPersonCount.text =
             this.getString(R.string.tv_booking_check_person_count).format(ticketCount)
         tvBookingCheckTotalMoney.text = getString(R.string.tv_booking_check_total_money)
-            .format(applyDiscount(STANDARD_TICKET_PRICE, ticketCount))
-    }
-
-    private fun applyDiscount(ticketPrice: Int, ticketCount: Int): Int {
-        val discountPolicies = mutableListOf<DiscountPolicy>()
-        if (bookedScreeningDateTimeState.toDomain().checkMovieDay()) {
-            discountPolicies.add(MovieDayDiscount())
-        }
-        if (bookedScreeningDateTimeState.toDomain().checkEarlyMorningLateNight()) {
-            discountPolicies.add(EarlyMorningLateNightDiscount())
-        }
-        return PricePolicyCalculator(discountPolicies).totalPriceCalculate(ticketPrice, ticketCount)
+            .format(0)
     }
 
     companion object {
