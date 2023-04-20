@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -15,7 +16,9 @@ import domain.TicketPrice
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto
+import woowacourse.movie.dto.SeatsDto
 import woowacourse.movie.dto.TicketCountDto
+import woowacourse.movie.mapper.mapToSeats
 import woowacourse.movie.mapper.mapToSeatsDto
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -23,7 +26,7 @@ import java.time.LocalTime
 
 class SeatSelectionActivity : AppCompatActivity() {
 
-    private val seats by lazy { Seats() }
+    private var seats = Seats()
     private val date by lazy { intent.getSerializableExtra(DATE_KEY) as MovieDateDto }
     private val time by lazy { intent.getSerializableExtra(TIME_KEY) as MovieTimeDto }
     private val movie by lazy { intent.getSerializableExtra(MOVIE_KEY) as MovieDto }
@@ -32,6 +35,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
+        setUpState(savedInstanceState)
         setMovieTitle()
 
         onSeatClickListener(date.date, time.time)
@@ -40,6 +44,27 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun setMovieTitle() {
         val movieTtile = findViewById<TextView>(R.id.movie_title)
         movieTtile.text = movie.title
+    }
+
+    private fun setUpState(savedInstanceState: Bundle?) {
+        if (savedInstanceState != null) {
+            val seatsDto = savedInstanceState.getSerializable(SEATS_POSITION) as SeatsDto
+            seats = seatsDto.mapToSeats()
+            setUpSelectSeats()
+        } else {
+            setPrice(0)
+        }
+    }
+
+    private fun setUpSelectSeats() {
+        getSeatView().forEachIndexed { index, textView ->
+            val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
+            if (seats.containsSeat(seat)) {
+                textView.setBackgroundColor(getColor(R.color.select_seat))
+            }
+        }
+        Log.d("aa", seats.caculateSeatPrice(LocalDateTime.of(date.date, time.time)).toString())
+        setPrice(seats.caculateSeatPrice(LocalDateTime.of(date.date, time.time)))
     }
 
     private fun getSeatView(): List<TextView> {
@@ -53,7 +78,6 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun onSeatClickListener(date: LocalDate, time: LocalTime) {
         getSeatView().forEachIndexed { index, textView ->
-            setPrice(0)
             textView.setOnClickListener {
                 val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
                 when {
@@ -113,22 +137,29 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun isPossibleSelect(seat: Seat, count: Int): Boolean {
-        return !seats.containsSeat(seat) && seats.isPossibleSeatSize(count)
+        return !seats.let {
+            it.containsSeat(seat) && it.isPossibleSeatSize(count)
+        }
     }
 
     private fun selectSeat(textView: TextView, seat: Seat) {
         textView.setBackgroundColor(getColor(R.color.select_seat))
-        seats.add(seat)
+        seats.let { it.add(seat) }
     }
 
     private fun unselectSeat(textView: TextView, seat: Seat) {
         textView.setBackgroundColor(getColor(R.color.white))
-        seats.remove(seat)
+        seats.let { it.remove(seat) }
     }
 
     private fun setPrice(ticketPrice: Int) {
         val price = findViewById<TextView>(R.id.ticket_price)
         price.text = getString(R.string.ticket_price_seat_page, ticketPrice)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(SEATS_POSITION, seats.mapToSeatsDto())
+        super.onSaveInstanceState(outState)
     }
 
     companion object {
@@ -137,5 +168,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         private const val DATE_KEY = "movie_date"
         private const val TIME_KEY = "movie_time"
         private const val SEATS_KEY = "seats"
+        private const val SEATS_POSITION = "seats_position"
     }
 }
