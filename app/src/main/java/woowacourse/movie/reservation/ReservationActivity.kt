@@ -15,14 +15,14 @@ import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity
 class ReservationActivity : AppCompatActivity() {
 
     private val navigationViewSetter: NavigationViewSetter by lazy {
-        NavigationViewSetter(movie, findViewById(R.id.reservation_navigation_bar))
+        NavigationViewSetter(movieInfo, findViewById(R.id.reservation_navigation_bar))
     }
-    private lateinit var movie: MovieInfo
+    private lateinit var movieInfo: MovieInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-        movie = this.getIntentData(MOVIE_KEY) ?: MovieInfo.ofError()
+        movieInfo = this.getIntentData(MOVIE_KEY) ?: MovieInfo.ofError()
         setMovieInfoView()
         setNavigationBar(savedInstanceState)
     }
@@ -36,7 +36,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun setMovieInfoView() {
         val movieInfoViewSetter = MovieInfoViewSetter(findViewById(R.id.movie_information_view))
 
-        movieInfoViewSetter.setView(movie)
+        movieInfoViewSetter.setView(movieInfo)
     }
 
     private fun setNavigationBar(savedInstanceState: Bundle?) {

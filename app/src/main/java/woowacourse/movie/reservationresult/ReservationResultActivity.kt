@@ -13,13 +13,13 @@ import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : AppCompatActivity() {
 
-    private lateinit var reservation: ReservationInfo
+    private lateinit var reservationInfo: ReservationInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
-        reservation = getIntentData(RESERVATION_RESULT_KEY) ?: ReservationInfo.ofError()
+        reservationInfo = getIntentData(RESERVATION_RESULT_KEY) ?: ReservationInfo.ofError()
         initReservationResultView()
     }
 
@@ -30,10 +30,9 @@ class ReservationResultActivity : AppCompatActivity() {
             findViewById(R.id.result_screening_date_time_text_view)
         val ticketCountTextView: TextView = findViewById(R.id.result_ticket_count_text_view)
 
-        with(reservation) {
+        with(reservationInfo) {
             val dateFormat: DateTimeFormatter =
                 DateTimeFormatter.ofPattern(getString(R.string.reservation_date_time_form))
-
             movieNameTextView.text = movieName
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
             ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
