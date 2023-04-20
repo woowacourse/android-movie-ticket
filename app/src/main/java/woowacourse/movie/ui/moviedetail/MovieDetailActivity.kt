@@ -13,12 +13,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.mapper.toDomain
-import woowacourse.movie.mapper.toModel
 import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.ui.const.KEY_MOVIE
 import woowacourse.movie.ui.const.KEY_TICKET
 import woowacourse.movie.ui.ticket.MovieTicketActivity
@@ -161,7 +160,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun moveToTicketActivity(movie: MovieModel) {
-        val ticket = MovieTicket(
+        val ticket = MovieTicketModel(
             movie.title,
             LocalDateTime.of(
                 dateSpinner.selectedItem as LocalDate,
@@ -171,7 +170,7 @@ class MovieDetailActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra(KEY_TICKET, ticket.toModel())
+        intent.putExtra(KEY_TICKET, ticket)
         startActivity(intent)
     }
 

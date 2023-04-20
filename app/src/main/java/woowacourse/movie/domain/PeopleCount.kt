@@ -1,9 +1,9 @@
 package woowacourse.movie.domain
 
-import java.io.Serializable
-
 @JvmInline
-value class PeopleCount(val count: Int = MINIMUM_COUNT) : Serializable {
+value class PeopleCount(
+    val count: Int = MINIMUM_COUNT
+) {
     fun minusCount(): PeopleCount {
         if (count == MINIMUM_COUNT) return this
         return PeopleCount(count - 1)
