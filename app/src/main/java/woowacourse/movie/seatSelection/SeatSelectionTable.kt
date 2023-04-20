@@ -15,7 +15,7 @@ import woowacourse.movie.R
 class SeatSelectionTable(
     private val view: View,
     private val selectionInfo: SeatSelectionModel,
-    private val onConfirmClicked: (TicketModel) -> Unit,
+    private val onConfirmClick: (TicketModel) -> Unit,
 ) {
     private val movieTitle by lazy { view.findViewById<TextView>(R.id.seat_selection_title) }
     private val ticketTotalPrice by lazy { view.findViewById<TextView>(R.id.seat_selection_price) }
@@ -43,7 +43,7 @@ class SeatSelectionTable(
         movieTitle.text = selectionInfo.title
 
         seatSelectionConfirm.setOnClickListener {
-            onConfirmClicked(TicketModel(selectionInfo, seatSelection))
+            onConfirmClick(TicketModel(selectionInfo, seatSelection))
         }
 
         updateInfo()

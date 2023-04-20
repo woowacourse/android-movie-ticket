@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import model.SeatSelectionModel
+import model.TicketModel
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
@@ -25,25 +26,25 @@ class SeatSelectionActivity : AppCompatActivity() {
         SeatSelectionTable(
             window.decorView.rootView,
             seatSelection,
-        ) { ticketModel ->
-            AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setTitle(getString(R.string.seat_selection_confirm_dialog_title))
-                .setMessage(getString(R.string.seat_selection_confirm_dialog_contents))
-                .setPositiveButton(getString(R.string.seat_selection_confirm_dialog_yes)) { _, _ ->
-                    startActivity(
-                        Intent(this, MovieTicketActivity::class.java).apply {
-                            putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, ticketModel)
-                        },
-                        null,
-                    )
-                }
-                .setNegativeButton(getString(R.string.seat_selection_confirm_dialog_no)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-        }
+        ) { ticketModel -> onConfirmClick(ticketModel) }
     }
+
+    private fun onConfirmClick(ticketModel: TicketModel) = AlertDialog.Builder(this)
+        .setCancelable(false)
+        .setTitle(getString(R.string.seat_selection_confirm_dialog_title))
+        .setMessage(getString(R.string.seat_selection_confirm_dialog_contents))
+        .setPositiveButton(getString(R.string.seat_selection_confirm_dialog_yes)) { _, _ ->
+            startActivity(
+                Intent(this, MovieTicketActivity::class.java).apply {
+                    putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, ticketModel)
+                },
+                null,
+            )
+        }
+        .setNegativeButton(getString(R.string.seat_selection_confirm_dialog_no)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

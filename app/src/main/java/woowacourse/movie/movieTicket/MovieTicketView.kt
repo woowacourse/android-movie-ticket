@@ -23,7 +23,7 @@ class MovieTicketView(
     }
 
     private fun getSeatString(row: Int, col: Int): String {
-        return "${'A' + row}$col"
+        return "${'A' + row}${1 + col}"
     }
     companion object {
         private val DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy.MM.dd")
