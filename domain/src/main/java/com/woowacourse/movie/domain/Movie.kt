@@ -13,7 +13,11 @@ data class Movie(
     val runningTime: Int,
     val introduce: String,
 ) {
-    fun reserveMovie(reserveDateTime: LocalDateTime, ticket: Ticket, totalPrice: Int): Reservation? {
+    fun reserveMovie(
+        reserveDateTime: LocalDateTime,
+        ticket: Ticket,
+        totalPrice: Int
+    ): Reservation? {
         if (reserveDateTime.toLocalDate() !in getRunningDates(startDate)
         ) return null
         return Reservation(this, reserveDateTime, ticket, totalPrice)
@@ -24,7 +28,7 @@ data class Movie(
     ): List<LocalDate> {
         if (today > endDate) return emptyList()
         return generateSequence(today max startDate) { it.plusDays(1) }
-            .filter { it <= endDate }
+            .takeWhile { it <= endDate }
             .map { it }
             .toList()
     }
