@@ -1,21 +1,22 @@
 package woowacourse.movie.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
-import woowacourse.movie.R
-import woowacourse.movie.databinding.ActivityReservationBinding
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.Reservation
 import com.example.domain.ScreeningTime
+import woowacourse.movie.R
+import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.util.DATE_FORMATTER
 import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.util.getSerializableCompat
 import woowacourse.movie.view.model.ReservationOptions
 import woowacourse.movie.view.MovieListActivity.Companion.MOVIE_ITEM
-import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -151,7 +152,6 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-
     private fun initReserveButtonClickListener() {
         binding.reservationButton.setOnClickListener {
             val reservationOptions = ReservationOptions(
@@ -193,7 +193,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)

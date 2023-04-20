@@ -1,11 +1,11 @@
 package woowacourse.movie.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableRow
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
 import com.example.domain.ReservationAgency
@@ -15,7 +15,7 @@ import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.view.mapper.toDomainModel
 import woowacourse.movie.view.mapper.toUiModel
-import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 import woowacourse.movie.view.model.ReservationOptions
 import java.text.DecimalFormat
 
@@ -169,7 +169,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
