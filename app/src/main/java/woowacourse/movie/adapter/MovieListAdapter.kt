@@ -13,15 +13,15 @@ import woowacourse.movie.R
 import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.model.MovieModel
 
-class MovieListAdapter(private val movies: List<MovieModel>) :
+class MovieListAdapter(private val movieModels: List<MovieModel>) :
     BaseAdapter() {
     private val viewHolder: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
-        return movies.size
+        return movieModels.size
     }
 
     override fun getItem(position: Int): Any {
-        return movies[position]
+        return movieModels[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -36,7 +36,7 @@ class MovieListAdapter(private val movies: List<MovieModel>) :
         setViewHolder(
             view.context,
             currentViewHolder,
-            movies[position]
+            movieModels[position]
         )
         return view
     }
@@ -51,17 +51,17 @@ class MovieListAdapter(private val movies: List<MovieModel>) :
         return ViewHolder(image, title, playingDate, runningTime, ticketingButton)
     }
 
-    private fun setViewHolder(context: Context, holder: ViewHolder, movie: MovieModel) {
-        holder.image.setImageResource(movie.image)
-        holder.title.text = movie.title
+    private fun setViewHolder(context: Context, holder: ViewHolder, movieModel: MovieModel) {
+        holder.image.setImageResource(movieModel.image)
+        holder.title.text = movieModel.title
         holder.playingDate.text = context.getString(
-            R.string.playing_time, movie.playingTimes.startDate,
-            movie.playingTimes.endDate
+            R.string.playing_time, movieModel.startDate,
+            movieModel.endDate
         )
-        holder.runningTime.text = context.getString(R.string.running_time, movie.runningTime)
+        holder.runningTime.text = context.getString(R.string.running_time, movieModel.runningTime)
         holder.ticketingButton.setOnClickListener {
             val intent = Intent(context, MovieDetailActivity::class.java).apply {
-                putExtra(MOVIE_KEY, movie)
+                putExtra(MOVIE_KEY, movieModel)
             }
             context.startActivity(intent)
         }
