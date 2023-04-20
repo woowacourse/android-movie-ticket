@@ -29,6 +29,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TableLayout
+            android:id="@+id/lo_seat"
             app:layout_constraintTop_toBottomOf="@id/tv_screen"
             android:layout_width="match_parent"
             android:layout_marginTop="56dp"
