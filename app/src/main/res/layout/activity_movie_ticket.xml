@@ -48,7 +48,7 @@
         android:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/ticket_people_count"
+        android:id="@+id/ticket_reserved_seats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/ticket_title"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/ticket_title"
         app:layout_constraintEnd_toEndOf="@id/ticket_title"
-        app:layout_constraintTop_toBottomOf="@id/ticket_people_count"
+        app:layout_constraintTop_toBottomOf="@id/ticket_reserved_seats"
         android:textAlignment="center"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
