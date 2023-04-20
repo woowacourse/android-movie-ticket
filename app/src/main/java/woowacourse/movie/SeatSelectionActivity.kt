@@ -2,7 +2,6 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -20,6 +19,7 @@ import woowacourse.movie.dto.SeatsDto
 import woowacourse.movie.dto.TicketCountDto
 import woowacourse.movie.mapper.mapToSeats
 import woowacourse.movie.mapper.mapToSeatsDto
+import woowacourse.movie.mapper.mapToUIModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -47,6 +47,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun setUpState(savedInstanceState: Bundle?) {
+        setUpSeatView()
         if (savedInstanceState != null) {
             val seatsDto = savedInstanceState.getSerializable(SEATS_POSITION) as SeatsDto
             seats = seatsDto.mapToSeats()
@@ -63,8 +64,15 @@ class SeatSelectionActivity : AppCompatActivity() {
                 textView.setBackgroundColor(getColor(R.color.select_seat))
             }
         }
-        Log.d("aa", seats.caculateSeatPrice(LocalDateTime.of(date.date, time.time)).toString())
         setPrice(seats.caculateSeatPrice(LocalDateTime.of(date.date, time.time)))
+    }
+
+    private fun setUpSeatView() {
+        getSeatView().forEachIndexed { index, textView ->
+            val position = Position.of(index)
+            textView.text = position.mapToUIModel().getPosition()
+            textView.setTextColor(getColor(position.mapToUIModel().getColor()))
+        }
     }
 
     private fun getSeatView(): List<TextView> {

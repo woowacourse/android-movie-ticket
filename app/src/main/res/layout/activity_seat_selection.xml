@@ -47,8 +47,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="A1"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -56,8 +54,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="A2"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -65,8 +61,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="A3"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -74,8 +68,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="A4"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </TableRow>
@@ -86,8 +78,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="B1"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -95,8 +85,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="B2"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -104,8 +92,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="B3"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -113,8 +99,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="B4"
-                android:textColor="@color/b_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -126,8 +110,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="C1"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -135,8 +117,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="C2"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -144,8 +124,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="C3"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -153,8 +131,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="C4"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
         </TableRow>
@@ -165,8 +141,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="D1"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -174,8 +148,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="D2"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -183,8 +155,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="D3"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -192,8 +162,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="D4"
-                android:textColor="@color/s_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -205,8 +173,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="E1"
-                android:textColor="@color/a_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -214,8 +180,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="E2"
-                android:textColor="@color/a_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -223,8 +187,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="E3"
-                android:textColor="@color/a_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -232,8 +194,6 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:text="E4"
-                android:textColor="@color/a_seat_color"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -283,7 +243,7 @@
         android:layout_width="88dp"
         android:layout_height="78dp"
         android:gravity="center"
-        android:text="확인"
+        android:text="@string/enter"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="18sp"
