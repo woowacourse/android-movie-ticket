@@ -68,17 +68,9 @@ class MovieSeatActivity : AppCompatActivity() {
             else -> { deselected(seat, textView) }
         }
         priceTextView.text = getString(R.string.total_price).format(totalPrice)
-    }
+        val nextButton = findViewById<Button>(R.id.seat_next_button)
 
-    private fun deselected(
-        seat: Seat,
-        positionTextView: TextView,
-    ) {
-        val discountPolicy = NormalDiscountPolicy(movieDetail.date, movieDetail.time)
-        selectedSeats.remove(seat)
-        totalPrice -= discountPolicy.getDiscountPrice(seat.getSeatPrice())
-        positionTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-        positionTextView.isSelected = false
+        nextButton.isEnabled = movieDetail.count.toInt() == selectedSeats.size
     }
 
     private fun selected(
@@ -90,6 +82,17 @@ class MovieSeatActivity : AppCompatActivity() {
         totalPrice += discountPolicy.getDiscountPrice(seat.getSeatPrice())
         positionTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.selected_background))
         positionTextView.isSelected = true
+    }
+
+    private fun deselected(
+        seat: Seat,
+        positionTextView: TextView,
+    ) {
+        val discountPolicy = NormalDiscountPolicy(movieDetail.date, movieDetail.time)
+        selectedSeats.remove(seat)
+        totalPrice -= discountPolicy.getDiscountPrice(seat.getSeatPrice())
+        positionTextView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        positionTextView.isSelected = false
     }
 
     private fun makeIntent(): Intent {

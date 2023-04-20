@@ -5,6 +5,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotSelected
 import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -106,5 +108,29 @@ internal class MovieSeatActivityTest {
         // then
         onView(withId(R.id.textViewD1))
             .check(matches(isNotSelected()))
+    }
+
+    @Test
+    fun 티켓의_수가_2장일_때_한_좌석만_선택되면_확인_버튼을_클릭할_수_없다() {
+        // given
+        onView(withId(R.id.textViewA1))
+            .perform(click())
+
+        // then
+        onView(withId(R.id.seat_next_button))
+            .check(matches(isNotEnabled()))
+    }
+
+    @Test
+    fun 티켓의_수가_2장일_때_두_좌석이_선택되면_확인_버튼을_클릭할_수_있다() {
+        // given
+        onView(withId(R.id.textViewA1))
+            .perform(click())
+        onView(withId(R.id.textViewC1))
+            .perform(click())
+
+        // then
+        onView(withId(R.id.seat_next_button))
+            .check(matches(isEnabled()))
     }
 }
