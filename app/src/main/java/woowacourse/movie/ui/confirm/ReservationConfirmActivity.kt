@@ -6,12 +6,13 @@ import com.example.domain.usecase.DiscountApplyUseCase
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationSeat
 import woowacourse.movie.model.mapper.asDomain
+import woowacourse.movie.model.mapper.asPresentation
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.DateTimeFormatters
+import woowacourse.movie.ui.DecimalFormatters
 import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_TICKETS
 import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.keyError
-import java.text.DecimalFormat
 
 class ReservationConfirmActivity : BackKeyActionBarActivity() {
     private val discountApplyUseCase = DiscountApplyUseCase()
@@ -40,10 +41,6 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
 
     private fun setDiscountApplyMoney(reservationSeat: ReservationSeat) =
         discountApplyUseCase(reservationSeat.asDomain()) {
-            moneyTextView.text = DECIMAL_FORMATTER.format(it.value)
+            moneyTextView.text = DecimalFormatters.convertToMoneyFormat(it.asPresentation())
         }
-
-    companion object {
-        private val DECIMAL_FORMATTER = DecimalFormat("#,###")
-    }
 }

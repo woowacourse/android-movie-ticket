@@ -12,7 +12,9 @@ import woowacourse.movie.model.ReservationSeat
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.SeatPositionState
 import woowacourse.movie.model.mapper.asDomain
+import woowacourse.movie.model.mapper.asPresentation
 import woowacourse.movie.ui.BackKeyActionBarActivity
+import woowacourse.movie.ui.DecimalFormatters
 import woowacourse.movie.ui.confirm.ReservationConfirmActivity
 import woowacourse.movie.ui.customView.ConfirmView
 import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_TICKETS
@@ -78,6 +80,7 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
     override fun updateSelectSeats(positionState: List<SeatPositionState>) {
         confirmView.isClickable = (positionState.size == reservationState.countState.value)
 
+        // 이걸 어떻게 해줄 것인지...
         val tickets = Tickets(
             positionState.map {
                 Ticket(
@@ -88,7 +91,10 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
             }
         )
         discountApplyUseCase(tickets) {
-            moneyTextView.text = it.value.toString()
+            moneyTextView.text = getString(
+                R.string.discount_money,
+                DecimalFormatters.convertToMoneyFormat(it.asPresentation())
+            )
         }
     }
 
