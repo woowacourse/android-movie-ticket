@@ -69,7 +69,7 @@
             android:id="@+id/reservation_complete_text_view"
             android:layout_width="82dp"
             android:layout_height="match_parent"
-            android:background="@color/gray"
+            android:background="@color/not_selected_button_color"
             android:gravity="center"
             android:text="@string/reservation_complete_text"
             android:textColor="@color/white"
