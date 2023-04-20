@@ -28,12 +28,13 @@
         <TableLayout
             android:id="@+id/seatTableLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="420dp"
             android:layout_marginTop="@dimen/margin_large">
 
         </TableLayout>
 
     </LinearLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -62,16 +63,17 @@
             android:text="금액"
             android:textSize="@dimen/title_medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_name_text_view" />
+            app:layout_constraintTop_toBottomOf="@id/movie_name_text_view" />
 
         <TextView
+            android:id="@+id/reservation_complete_text_view"
             android:layout_width="82dp"
             android:layout_height="match_parent"
             android:background="@color/gray"
             android:gravity="center"
             android:text="@string/reservation_complete_text"
-            android:textSize="@dimen/title_medium"
             android:textColor="@color/white"
+            android:textSize="@dimen/title_medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

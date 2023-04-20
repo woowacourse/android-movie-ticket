@@ -5,7 +5,7 @@ import movie.Name
 import movie.ScreeningPeriod
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import payment.Reservation
+import payment.PaymentAmount
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -26,7 +26,7 @@ class ReservationModelTest {
             movie = movie,
             screeningDateTime = LocalDateTime.of(2000, 10, 1, 13, 0),
             ticketCount = 3,
-            paymentAmount = payment.PaymentAmount(39000),
+            paymentAmount = PaymentAmount(39000),
         )
 
         assertThat(reservation).isEqualTo(result)

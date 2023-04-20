@@ -6,6 +6,7 @@
     <string name="ticket_count_form">일반 %d명</string>
     <string name="payment_amount_form">%s원 (%s)</string>
     <string name="ticket_count_condition_message_form">티켓 수는 %d장 이상이어야합니다."</string>
+    <string name="seat_name_form">%s%d</string>
 
     <string name="payment_type_local_text">현장 결제</string>
     <string name="ticket_count_minus_button_text">-</string>

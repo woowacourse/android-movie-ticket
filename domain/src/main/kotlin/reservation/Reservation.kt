@@ -1,10 +1,12 @@
-package payment
+package reservation
 
 import discount.Discount
 import discount.DiscountRule
 import discount.EarlyNightDiscount
 import discount.MovieDayDiscount
 import movie.Movie
+import payment.PaymentAmount
+import payment.PaymentType
 import java.io.Serializable
 import java.time.LocalDateTime
 
