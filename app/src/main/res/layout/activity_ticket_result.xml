@@ -29,7 +29,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_announcement"
+        app:layout_constraintTop_toBottomOf="@id/text_announcement"
         tools:text="해리포터" />
 
     <TextView
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toStartOf="@id/text_person_count"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_playing_date" />
+        app:layout_constraintTop_toBottomOf="@id/text_playing_date" />
 
     <TextView
         android:id="@+id/text_person_count"
@@ -65,9 +65,9 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/text_normal"
+        app:layout_constraintBottom_toBottomOf="@id/text_normal"
         app:layout_constraintEnd_toStartOf="@id/text_unit"
-        app:layout_constraintStart_toEndOf="@+id/text_normal"
+        app:layout_constraintStart_toEndOf="@id/text_normal"
         app:layout_constraintTop_toTopOf="@id/text_normal"
         tools:text="1" />
 
@@ -78,7 +78,7 @@
         android:text="@string/count"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_normal"
+        app:layout_constraintBottom_toBottomOf="@id/text_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text_person_count"
         app:layout_constraintTop_toTopOf="@id/text_normal" />
@@ -94,7 +94,7 @@
         app:layout_constraintEnd_toStartOf="@id/text_price_payment"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_normal"
+        app:layout_constraintTop_toBottomOf="@id/text_normal"
         tools:text="11,000" />
 
     <TextView
@@ -104,7 +104,7 @@
         android:text="@string/price_payment"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/text_price"
+        app:layout_constraintBottom_toBottomOf="@id/text_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text_price"
         app:layout_constraintTop_toTopOf="@id/text_price" />
