@@ -3,14 +3,14 @@ package woowacourse.movie.movieReservation
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import model.MovieListItem
+import model.ReservationModel
 import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ReservationContents(
     view: View,
-    movieListItem: MovieListItem,
+    reservationModel: ReservationModel,
 ) {
     private val posterView: ImageView = view.findViewById(R.id.reservation_movie_poster)
     private val titleView: TextView = view.findViewById(R.id.reservation_movie_title)
@@ -19,7 +19,7 @@ class ReservationContents(
     private val summaryView: TextView = view.findViewById(R.id.reservation_movie_summary)
 
     init {
-        with(movieListItem) {
+        with(reservationModel) {
             posterView.setImageResource(this.poster)
             titleView.text = this.title
             screeningDateView.text = getScreeningDate(this.startDate, this.endDate)

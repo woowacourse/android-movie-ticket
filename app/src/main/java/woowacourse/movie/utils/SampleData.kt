@@ -3,7 +3,6 @@ package woowacourse.movie.utils
 import model.MovieAdItem
 import model.MovieListItem
 import model.MovieModel
-import model.ReservationModel
 import woowacourse.movie.R
 import java.time.LocalDate
 
@@ -32,32 +31,23 @@ object SampleData {
             ),
         )
 
-    private val SCREENING_DATE_SAMPLE =
-        listOf(
-            ReservationModel(
-                startDate = LocalDate.of(2023, 4, 1),
-                endDate = LocalDate.of(2023, 4, 30),
-            ),
-            ReservationModel(
-                startDate = LocalDate.of(2023, 3, 1),
-                endDate = LocalDate.of(2023, 4, 30),
-            ),
-        )
-
     val CINEMA_SAMPLE =
         (0..10000).flatMap {
             listOf(
                 MovieListItem(
                     movie = MOVIE_SAMPLE[0],
-                    reservation = SCREENING_DATE_SAMPLE[0],
+                    startDate = LocalDate.of(2023, 4, 1),
+                    endDate = LocalDate.of(2023, 4, 30),
                 ),
                 MovieListItem(
                     movie = MOVIE_SAMPLE[1],
-                    reservation = SCREENING_DATE_SAMPLE[1],
+                    startDate = LocalDate.of(2023, 4, 1),
+                    endDate = LocalDate.of(2023, 4, 30),
                 ),
                 MovieListItem(
                     movie = MOVIE_SAMPLE[1],
-                    reservation = SCREENING_DATE_SAMPLE[1],
+                    startDate = LocalDate.of(2023, 3, 1),
+                    endDate = LocalDate.of(2023, 4, 30),
                 ),
                 MovieAdItem(
                     image = R.drawable.list_ad_example,

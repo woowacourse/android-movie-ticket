@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import model.MovieListItem
+import model.ReservationModel
 import model.SeatSelectionModel
 import movie.TicketQuantity
 import woowacourse.movie.R
@@ -15,17 +15,17 @@ import woowacourse.movie.seatSelection.SeatSelectionActivity.Companion.KEY_SEAT_
 import woowacourse.movie.utils.getSerializableExtraCompat
 
 class ReservationActivity : AppCompatActivity() {
-    private val movieListItem by lazy {
-        intent.getSerializableExtraCompat(KEY_MOVIE_Screening) as? MovieListItem
+    private val reservationModel by lazy {
+        intent.getSerializableExtraCompat(KEY_MOVIE_Screening) as? ReservationModel
             ?: run {
                 finish()
                 Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
-                MovieListItem.EMPTY
+                ReservationModel.EMPTY
             }
     }
 
     private val activityView by lazy { window.decorView.rootView }
-    private val navigation by lazy { ReservationNavigation(activityView, movieListItem.startDate, movieListItem.endDate, ::onReservationButtonClicked) }
+    private val navigation by lazy { ReservationNavigation(activityView, reservationModel.startDate, reservationModel.endDate, ::onReservationButtonClicked) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,12 +63,12 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
-        ReservationContents(activityView, movieListItem)
+        ReservationContents(activityView, reservationModel)
     }
 
     private fun onReservationButtonClicked() {
         val seatSelectionModel = SeatSelectionModel(
-            title = movieListItem.title,
+            title = reservationModel.title,
             reserveTime = navigation.selectedDateTime,
             Quantity = navigation.ticketQuantity.toInt(),
         )
