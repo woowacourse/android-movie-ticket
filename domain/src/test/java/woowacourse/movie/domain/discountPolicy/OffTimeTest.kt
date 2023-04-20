@@ -12,10 +12,10 @@ class OffTimeTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 10, 59)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, price)
+        val reservationDetail = ReservationDetail(date, 1)
 
         // when
-        val actual = OffTime.discount(reservationDetail).price.value
+        val actual = OffTime.discount(reservationDetail, price).value
 
         // then
         val expected = 11000
@@ -27,10 +27,10 @@ class OffTimeTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 11, 0)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, price)
+        val reservationDetail = ReservationDetail(date, 1)
 
         // when
-        val actual = OffTime.discount(reservationDetail).price.value
+        val actual = OffTime.discount(reservationDetail, price).value
 
         // then
         val expected = 13000
@@ -42,10 +42,10 @@ class OffTimeTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 19, 59)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, price)
+        val reservationDetail = ReservationDetail(date, 1)
 
         // when
-        val actual = OffTime.discount(reservationDetail).price.value
+        val actual = OffTime.discount(reservationDetail, price).value
 
         // then
         val expected = 13000
@@ -57,10 +57,10 @@ class OffTimeTest {
         // given
         val date = LocalDateTime.of(2023, 1, 10, 21, 0)
         val price = Price(13000)
-        val reservationDetail = ReservationDetail(date, 1, price)
+        val reservationDetail = ReservationDetail(date, 1)
 
         // when
-        val actual = OffTime.discount(reservationDetail).price.value
+        val actual = OffTime.discount(reservationDetail, price).value
 
         // then
         val expected = 11000

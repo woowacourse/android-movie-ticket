@@ -1,5 +1,5 @@
 package woowacourse.movie.domain
 
-class Image(
+data class Image(
     val resource: Int
 )

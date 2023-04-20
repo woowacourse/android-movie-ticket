@@ -5,13 +5,13 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.domain.TableSize
 import woowacourse.movie.domain.seat.MovieSeatRow
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.Seats
 import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.SeatTable
 import woowacourse.movie.view.data.SeatsViewData
+import woowacourse.movie.view.data.TableSize
 import woowacourse.movie.view.mapper.MovieSeatMapper.toView
 
 class SeatTableLayout(

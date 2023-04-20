@@ -1,6 +1,5 @@
 package woowacourse.movie.view.data
 
-import woowacourse.movie.domain.TableSize
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.Seats
 
