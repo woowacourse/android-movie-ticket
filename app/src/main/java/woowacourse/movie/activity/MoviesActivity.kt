@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.activity.movieinformation.ReservationActivity
 import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.databinding.ActivityMoviesBinding
 import woowacourse.movie.uimodel.MovieModel

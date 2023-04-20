@@ -18,7 +18,7 @@
             android:name=".activity.ReservationResultActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ReservationActivity"
+            android:name=".activity.movieinformation.ReservationActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MoviesActivity"

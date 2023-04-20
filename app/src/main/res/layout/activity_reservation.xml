@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ReservationActivity">
+    tools:context=".activity.movieinformation.ReservationActivity">
 
     <ScrollView
-        android:id="@+id/movie_information_view"
+        android:id="@+id/movie_information_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -64,12 +64,14 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/movie_reservation_linear_layout_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/schedule_selection_linear_layout_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -90,6 +92,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ticket_count_linear_layout_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

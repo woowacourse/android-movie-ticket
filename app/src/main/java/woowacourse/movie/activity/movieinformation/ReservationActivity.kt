@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.movieinformation
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.R
+import woowacourse.movie.activity.SeatSelectionActivity
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
@@ -17,7 +17,6 @@ import woowacourse.movie.uimodel.ReservationModel.Companion.TICKET_COUNT_INSTANC
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -33,7 +32,8 @@ class ReservationActivity : AppCompatActivity() {
             finish()
         }
 
-        initMovieInformationViews(movieModel!!)
+        MovieInformationView(binding, movieModel!!).set()
+        TicketCountSelectorView(binding).set()
         initReservationViews(movieModel, savedInstanceState)
         loadSavedInstanceState(movieModel, savedInstanceState)
     }
@@ -52,28 +52,8 @@ class ReservationActivity : AppCompatActivity() {
         outState.putString(SCREENING_TIME_INSTANCE_KEY, selectedTime.toString())
     }
 
-    private fun initMovieInformationViews(movieModel: MovieModel?) {
-        val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-
-        movieModel!!.posterImage?.let { id -> binding.moviePosterImageView.setImageResource(id) }
-        binding.movieNameTextView.text = movieModel.name.value
-        binding.movieScreeningPeriodTextView.text =
-            getString(R.string.screening_period_form).format(
-                movieModel.screeningPeriod.startDate.format(dateFormat),
-                movieModel.screeningPeriod.endDate.format(dateFormat)
-            )
-        binding.movieRunningTimeTextView.text =
-            getString(R.string.running_time_form).format(movieModel.runningTime)
-        binding.movieDescriptionTextView.text = movieModel.description
-    }
-
     private fun initReservationViews(movieModel: MovieModel, savedInstanceState: Bundle?) {
-        binding.ticketCountTextView.text = reservation.TicketCount.MINIMUM.toString()
-
-        binding.ticketCountMinusButton.setOnClickListener { ticketCountMinusButtonClickEvent() }
-        binding.ticketCountPlusButton.setOnClickListener { ticketCountPlusButtonClickEvent() }
         binding.seatSelectionButton.setOnClickListener { seatSelectionButtonClickEvent(movieModel) }
-
         initSpinner(movieModel, savedInstanceState)
     }
 
@@ -134,24 +114,6 @@ class ReservationActivity : AppCompatActivity() {
 
         binding.screeningDateSpinner.setSelection(selectedDatePosition)
         initTimeSpinner(movieModel, screeningDate, selectedTimePosition)
-    }
-
-    private fun ticketCountMinusButtonClickEvent() {
-        runCatching {
-            val ticketCount =
-                reservation.TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
-            binding.ticketCountTextView.text = ticketCount.value.toString()
-        }.onFailure {
-            val ticketCountConditionMessage =
-                getString(R.string.ticket_count_condition_message_form).format(reservation.TicketCount.MINIMUM)
-            Toast.makeText(this, ticketCountConditionMessage, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun ticketCountPlusButtonClickEvent() {
-        val ticketCount =
-            reservation.TicketCount(binding.ticketCountTextView.text.toString().toInt() + 1)
-        binding.ticketCountTextView.text = ticketCount.value.toString()
     }
 
     private fun seatSelectionButtonClickEvent(movieModel: MovieModel) {
