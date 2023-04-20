@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.util.customGetSerializableExtra
+import woowacourse.movie.util.intentDataNullProcess
 
 class MovieBookingActivity : AppCompatActivity() {
 
@@ -58,9 +59,10 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: throw IllegalStateException(
-            INTENT_EXTRA_INITIAL_ERROR
-        )
+        movieData =
+            intent.customGetSerializableExtra(MOVIE_DATA) ?: return this.intentDataNullProcess(
+                MOVIE_DATA
+            )
     }
 
     companion object {
@@ -70,7 +72,5 @@ class MovieBookingActivity : AppCompatActivity() {
 
         // intent data
         const val MOVIE_DATA = "movieData"
-
-        private const val INTENT_EXTRA_INITIAL_ERROR = "intent 의 데이터 이동시 data가 null으로 넘어오고 있습니다"
     }
 }
