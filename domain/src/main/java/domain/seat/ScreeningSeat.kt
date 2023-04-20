@@ -7,7 +7,7 @@ data class ScreeningSeat(
     val column: SeatColumn
 ) {
 
-    val payment = when (row) {
+    val paymentAmount = when (row) {
         SeatRow.A, SeatRow.B -> PaymentAmount(B_RATE_PAYMENT_AMOUNT)
         SeatRow.C, SeatRow.D -> PaymentAmount(S_RATE_PAYMENT_AMOUNT)
         SeatRow.E -> PaymentAmount(A_RATE_PAYMENT_AMOUNT)
