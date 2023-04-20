@@ -1,6 +1,8 @@
 package woowacourse.movie.movieSeat
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -12,7 +14,9 @@ import movie.seat.Seat
 import movie.seat.SeatColumn
 import movie.seat.SeatRow
 import woowacourse.movie.R
+import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.uimodel.MovieDetailUi
+import woowacourse.movie.uimodel.MovieTicketUi
 import woowacourse.movie.utils.toDomain
 
 class MovieSeatActivity : AppCompatActivity() {
@@ -27,6 +31,22 @@ class MovieSeatActivity : AppCompatActivity() {
 
         val movieTitleView = findViewById<TextView>(R.id.seat_movie_title)
         movieTitleView.text = movieDetail.title
+
+        val nextButton = findViewById<Button>(R.id.seat_next_button)
+        nextButton.setOnClickListener {
+            val movieTicketUi = MovieTicketUi(
+                totalPrice = totalPrice,
+                count = movieDetail.count,
+                title = movieDetail.title,
+                date = movieDetail.date,
+                time = movieDetail.time,
+                seats = selectedSeats.map { it.getSeatPosition() },
+            )
+
+            val intent = Intent(this, MovieTicketActivity::class.java)
+            intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicketUi)
+            startActivity(intent)
+        }
 
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table)
         val priceTextView = findViewById<TextView>(R.id.seat_ticket_price)

@@ -6,20 +6,10 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieTicketUi(
-    val eachPrice: Int,
+    val totalPrice: Int,
     val count: TicketCount,
     val title: String,
     val date: LocalDate,
     val time: LocalTime,
-) : Serializable {
-
-    companion object {
-        val EMPTY_STATE: MovieTicketUi = MovieTicketUi(
-            0,
-            TicketCount(1),
-            "",
-            LocalDate.MIN,
-            LocalTime.MIN,
-        )
-    }
-}
+    val seats: List<String>,
+) : Serializable

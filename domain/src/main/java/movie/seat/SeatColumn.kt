@@ -5,7 +5,6 @@ enum class SeatColumn {
     TWO,
     THREE,
     FOUR,
-    FIVE,
     ;
 
     companion object {
@@ -15,7 +14,6 @@ enum class SeatColumn {
                 1 -> TWO
                 2 -> THREE
                 3 -> FOUR
-                4 -> FIVE
                 else -> throw IllegalArgumentException()
             }
         }

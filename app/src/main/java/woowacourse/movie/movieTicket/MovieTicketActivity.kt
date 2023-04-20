@@ -12,7 +12,7 @@ import woowacourse.movie.view.decimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
 
-    private val ticketUi by lazy { intent.getSerializableExtra(KEY_MOVIE_TICKET) as MovieTicketUi }
+    private val movieTicket by lazy { (intent.getSerializableExtra(KEY_MOVIE_TICKET) as MovieTicketUi).toDomain() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +42,14 @@ class MovieTicketActivity : AppCompatActivity() {
         val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
         val context = this
 
-        with(ticketUi) {
+        val seats = movieTicket.seats.joinToString(", ") { it.getSeatPosition() }
+
+        with(movieTicket) {
             ticketTitleView.text = title
             ticketMovieReleaseDateView.text = DateUtil(context).getDate(date)
             ticketCountView.text = getString(R.string.movie_ticket_count).format(count.toInt())
-            ticketTotalPriceView.text = getString(R.string.movie_ticket_total_price).format(decimalFormat.format(this.toDomain().getTotalPrice()))
+            ticketTotalPriceView.text = getString(R.string.movie_ticket_receipt)
+                .format(decimalFormat.format(movieTicket.totalPrice), seats)
         }
     }
 

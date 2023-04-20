@@ -68,4 +68,17 @@ internal class SeatTest {
         // then
         assertThat(expected).isEqualTo(actual)
     }
+
+    @Test
+    fun `of를 통해 문자열로 Seat을 생성할 수 있다`() {
+        // given
+        val seat = Seat.of("A1")
+        val actual = 10_000
+
+        // when
+        val expected = seat.getSeatPrice()
+
+        // then
+        assertThat(expected).isEqualTo(actual)
+    }
 }
