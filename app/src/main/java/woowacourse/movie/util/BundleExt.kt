@@ -26,3 +26,14 @@ inline fun <reified T : Serializable> Bundle.getSerializableCompat(
         getSerializable(key) as? T
     }
 }
+
+@Suppress("DEPRECATION")
+inline fun <reified T : Parcelable> Bundle.getParcelableArrayListCompat(
+    key: String
+): ArrayList<T>? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        getParcelableArrayList(key, T::class.java)
+    } else {
+        getParcelableArrayList(key)
+    }
+}

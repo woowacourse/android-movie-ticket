@@ -48,7 +48,7 @@
 
         <TableRow android:layout_weight="1">
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -60,7 +60,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -72,7 +72,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -84,7 +84,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -99,7 +99,7 @@
 
         <TableRow android:layout_weight="1">
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -111,7 +111,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -123,7 +123,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -135,7 +135,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -150,7 +150,7 @@
 
         <TableRow android:layout_weight="1">
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -162,7 +162,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -174,7 +174,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -186,7 +186,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -201,7 +201,7 @@
 
         <TableRow android:layout_weight="1">
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -213,7 +213,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -225,7 +225,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -237,7 +237,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -252,7 +252,7 @@
 
         <TableRow android:layout_weight="1">
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -264,7 +264,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -276,7 +276,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -288,7 +288,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <woowacourse.movie.ui.customView.SeatView
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -313,17 +313,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <woowacourse.movie.ui.customView.ConfirmView
             android:id="@+id/reservation_confirm"
             android:layout_width="88dp"
             android:layout_height="match_parent"
-            android:background="@drawable/reservation_confirm_rectangle"
-            android:enabled="false"
+            android:background="@color/confirm_enabled_false"
+            android:clickable="false"
             android:gravity="center"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:padding="0dp"
-            android:text="확인"
+            android:text="@string/confirm"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

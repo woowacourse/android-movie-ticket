@@ -17,4 +17,7 @@
     <color name="b_rank_seat_text_color">#8E13EF</color>
     <color name="s_rank_seat_text_color">#19D358</color>
     <color name="a_rank_seat_text_color">#1B48E9</color>
+
+    <color name="seat_selected">#FAFF00</color>
+    <color name="seat_no_selected">#FFFFFF</color>
 </resources>
