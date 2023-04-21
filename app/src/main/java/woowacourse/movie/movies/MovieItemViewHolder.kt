@@ -13,6 +13,7 @@ import java.time.format.FormatStyle
 data class MovieItemViewHolder(
     val itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
+
     private val movieNameTextView: TextView =
         itemView.findViewById(R.id.movie_name_text_view)
     private val movieImageView: ImageView =
