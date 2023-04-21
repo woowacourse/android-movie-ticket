@@ -13,5 +13,6 @@ value class PeopleCount(
 
     companion object {
         const val MINIMUM_COUNT = 1
+        const val MAXIMUM_COUNT = 20
     }
 }

@@ -17,7 +17,6 @@ import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.model.MovieModel
-import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.ui.movielist.MainActivity
 import woowacourse.movie.ui.seat.SeatSelectionActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
@@ -40,7 +39,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie: MovieModel? = intent.getSerializableExtraCompat<MovieModel>(MainActivity.KEY_MOVIE)
+        val movie: MovieModel? =
+            intent.getSerializableExtraCompat<MovieModel>(MainActivity.KEY_MOVIE)
         if (movie == null) {
             showToast(getString(R.string.error_loading))
             finish()
@@ -77,12 +77,15 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun setMovieInfo(movie: MovieModel) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.detail_title).text = movie.title
-        findViewById<TextView>(R.id.detail_date).text = getString(R.string.screening_date, movie.startDate.format(), movie.endDate.format())
-        findViewById<TextView>(R.id.detail_running_time).text = getString(R.string.running_time, movie.runningTime)
+        findViewById<TextView>(R.id.detail_date).text =
+            getString(R.string.screening_date, movie.startDate.format(), movie.endDate.format())
+        findViewById<TextView>(R.id.detail_running_time).text =
+            getString(R.string.running_time, movie.runningTime)
         findViewById<TextView>(R.id.detail_description).text = movie.description
     }
 
-    private fun LocalDate.format(): String = format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
+    private fun LocalDate.format(): String =
+        format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
     private fun setDateSpinner(movie: MovieModel) {
         dateSpinner = findViewById(R.id.detail_date_spinner)
@@ -154,22 +157,22 @@ class MovieDetailActivity : AppCompatActivity() {
         val bookingButton = findViewById<Button>(R.id.detail_booking_button)
 
         bookingButton.setOnClickListener {
-            moveToTicketActivity(movie)
+            moveToSeatSelectionActivity(movie)
         }
     }
 
-    private fun moveToTicketActivity(movie: MovieModel) {
-        val ticket = MovieTicketModel(
-            movie.title,
-            LocalDateTime.of(
-                dateSpinner.selectedItem as LocalDate,
-                timeSpinner.selectedItem as LocalTime
-            ),
-            peopleCount
-        )
-
-        val intent = Intent(this, SeatSelectionActivity::class.java)
-        intent.putExtra(KEY_TICKET, ticket)
+    private fun moveToSeatSelectionActivity(movie: MovieModel) {
+        val intent = Intent(this, SeatSelectionActivity::class.java).apply {
+            putExtra(KEY_TITLE, movie.title)
+            putExtra(
+                KEY_TIME,
+                LocalDateTime.of(
+                    dateSpinner.selectedItem as LocalDate,
+                    timeSpinner.selectedItem as LocalTime
+                ),
+            )
+            putExtra(KEY_PEOPLE_COUNT, peopleCount.count)
+        }
         startActivity(intent)
     }
 
@@ -185,7 +188,9 @@ class MovieDetailActivity : AppCompatActivity() {
     companion object {
         private const val KEY_DATE_POSITION = "date_position"
         private const val KEY_TIME_POSITION = "time_position"
-        private const val KEY_PEOPLE_COUNT = "count"
+        const val KEY_TITLE = "title"
+        const val KEY_TIME = "time"
+        const val KEY_PEOPLE_COUNT = "count"
         const val KEY_TICKET = "ticket"
     }
 }

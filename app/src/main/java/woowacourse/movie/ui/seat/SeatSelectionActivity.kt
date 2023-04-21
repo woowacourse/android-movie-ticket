@@ -9,21 +9,33 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SelectedSeats
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.model.SeatModel
+import woowacourse.movie.ui.moviedetail.MovieDetailActivity
+import woowacourse.movie.utils.getSerializableExtraCompat
+import woowacourse.movie.utils.showToast
 
 class SeatSelectionActivity : AppCompatActivity() {
 
-    private var selectedSeats = SelectedSeats()
+    private lateinit var selectedSeats: SelectedSeats
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        initPeopleCount()
         initSeatTable()
+    }
+
+    private fun initPeopleCount() {
+        val count = PeopleCount(
+            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: 1
+        )
+        selectedSeats = SelectedSeats(count)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -60,6 +72,11 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun clickSeat(seat: Seat, seatView: View) {
+        if (!canSelectMoreSeat(seatView)) {
+            showToast("이미 인원수만큼 좌석이 선택되었습니다")
+            return
+        }
+
         seatView.isSelected = !seatView.isSelected
 
         if (seatView.isSelected) {
@@ -70,6 +87,9 @@ class SeatSelectionActivity : AppCompatActivity() {
             selectedSeats = selectedSeats.add(seat)
         }
     }
+
+    private fun canSelectMoreSeat(seatView: View) =
+        !(seatView.isSelected && selectedSeats.isSelectionDone())
 
     companion object {
         const val ROW_SIZE = 5
