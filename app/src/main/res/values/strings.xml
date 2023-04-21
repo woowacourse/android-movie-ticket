@@ -36,4 +36,8 @@
     <string name="e3">E3</string>
     <string name="e4">E4</string>
     <string name="price_unit">원</string>
+    <string name="dialog_title">예매 확인</string>
+    <string name="dialog_message">정말 예매하시겠습니까?</string>
+    <string name="dialog_no">취소</string>
+    <string name="dialog_yes">예매 완료</string>
 </resources>

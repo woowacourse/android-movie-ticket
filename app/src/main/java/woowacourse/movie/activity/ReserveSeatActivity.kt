@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import com.example.domain.model.model.ReservationInfo
@@ -34,7 +35,8 @@ class ReserveSeatActivity : AppCompatActivity() {
             .flatMap { it.children }
             .filterIsInstance<Button>().toList()
 
-        val reservationInfoModel: ReservationInfoModel = intent.customGetSerializable(RESERVATION_INFO_KEY)
+        val reservationInfoModel: ReservationInfoModel =
+            intent.customGetSerializable(RESERVATION_INFO_KEY)
         val reservationInfo: ReservationInfo = reservationInfoModel.toReservationInfo()
 
         val title = findViewById<TextView>(R.id.text_title)
@@ -75,7 +77,6 @@ class ReserveSeatActivity : AppCompatActivity() {
         }
 
         reserveButton.setOnClickListener {
-            // 선택된 버튼 + ticketingInfo intent로 보내기
             val selectedSeats = mutableListOf<SeatModel>()
             seatViews.forEachIndexed { index, button ->
                 if (button.isSelected) {
@@ -85,12 +86,28 @@ class ReserveSeatActivity : AppCompatActivity() {
             }
             val price = priceTextView.text.toString().toInt()
             val ticketModel = TicketModel(reservationInfoModel, price, selectedSeats)
-            val intent = Intent(this, TicketResultActivity::class.java)
-            intent.putExtra(TICKET_KEY, ticketModel)
-            startActivity(intent)
+
+            val alertDialog = getDialog {
+                val intent = Intent(this, TicketResultActivity::class.java)
+                intent.putExtra(TICKET_KEY, ticketModel)
+                startActivity(intent)
+            }
+
+            alertDialog.setCancelable(false)
+            alertDialog.show()
         }
         setActionBar()
     }
+
+    private fun getDialog(clickYes: () -> Unit): AlertDialog.Builder = AlertDialog.Builder(this)
+        .setTitle(getString(R.string.dialog_title))
+        .setMessage(getString(R.string.dialog_message))
+        .setPositiveButton(getString(R.string.dialog_yes)) { _, _ ->
+            clickYes()
+        }
+        .setNegativeButton(getString(R.string.dialog_no)) { dialog, _ ->
+            dialog.dismiss()
+        }
 
     private fun setActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
