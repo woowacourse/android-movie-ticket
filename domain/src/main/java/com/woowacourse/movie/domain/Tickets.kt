@@ -23,6 +23,10 @@ class Tickets(tickets: List<Ticket>, val reservation: Reservation) {
         _tickets.remove(ticket)
     }
 
+    fun find(ticket: Ticket): Boolean = _tickets.find { it == ticket } != null
+
+    fun isEmpty(): Boolean = _tickets.isEmpty()
+
     fun calculatePrice(decorator: DiscountDecorator): Int {
         var money = 0
         tickets.forEach {
@@ -32,7 +36,7 @@ class Tickets(tickets: List<Ticket>, val reservation: Reservation) {
     }
 
     companion object {
-        private const val MIN_TICKET_COUNT = 1
-        private const val INVALID_TICKET_COUNT_EXCEPTION_MESSAGE = "티켓 개수는 최소 1장 이상이어야 합니다."
+        private const val MIN_TICKET_COUNT = 0
+        private const val INVALID_TICKET_COUNT_EXCEPTION_MESSAGE = "티켓 개수는 음수 일 수 없습니다."
     }
 }

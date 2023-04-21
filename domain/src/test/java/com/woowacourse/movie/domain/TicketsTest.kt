@@ -29,6 +29,26 @@ class TicketsTest {
     }
 
     @Test
+    fun `포지션이 (0,0), (1,1)인 티켓들이 있을 때 (0,0) 티켓을 찾을 수 있다`() {
+        val tartgetTicket = Ticket(0, 0)
+        val tickets = Tickets(
+            listOf(
+                Ticket(1, 1),
+                tartgetTicket
+            )
+        )
+
+        assertThat(tickets.find(tartgetTicket)).isTrue
+    }
+
+    @Test
+    fun `아무 티켓도 존재하지 않으면 티켓은 빈 상태다`() {
+        val tickets = Tickets(listOf())
+
+        assertThat(tickets.isEmpty()).isTrue
+    }
+
+    @Test
     fun `기존 티켓을 하나 제거할 수 있다`() {
         val tickets = Tickets(
             listOf(
