@@ -120,15 +120,17 @@ class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun unpick(seatView: View, seat: DomainSeat) {
-        seatView.findViewById<TextView>(R.id.seat_number_tv).isSelected = false
         pickedSeats = pickedSeats.remove(seat)
-        updateTotalPriceView(calculateTotalPrice())
-        updateDoneBtnEnabled(!canPick())
+        updateToggledSeatResultView(seatView, false)
     }
 
     private fun pick(seatView: View, seat: DomainSeat) {
-        seatView.findViewById<TextView>(R.id.seat_number_tv).isSelected = true
         pickedSeats = pickedSeats.add(seat)
+        updateToggledSeatResultView(seatView, true)
+    }
+
+    private fun updateToggledSeatResultView(seatView: View, isPicked: Boolean) {
+        seatView.findViewById<TextView>(R.id.seat_number_tv).isSelected = isPicked
         updateTotalPriceView(calculateTotalPrice())
         updateDoneBtnEnabled(!canPick())
     }
