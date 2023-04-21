@@ -1,19 +1,26 @@
 package woowacourse.movie.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.TableLayout
 import android.widget.TableRow
+import android.widget.Toolbar.LayoutParams
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.children
 import com.example.domain.ReservationAgency
 import com.example.domain.Seat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.util.getParcelableCompat
+import woowacourse.movie.view.mapper.textColor
 import woowacourse.movie.view.mapper.toDomainModel
+import woowacourse.movie.view.mapper.toUi
 import woowacourse.movie.view.mapper.toUiModel
 import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 import woowacourse.movie.view.model.ReservationOptions
@@ -42,19 +49,27 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initSeatButtons() {
-        val seats = binding.seatTablelayout.children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<Button>()
-            .toList()
-        val seatNames = resources.getStringArray(R.array.seats)
-        seats.forEachIndexed { index, seat ->
-            seat.text = seatNames[index]
-            seat.setOnClickListener {
-                onSeatClick(it as Button)
+        for (row in Seat.MIN_ROW..Seat.MAX_ROW) {
+            val tableRow = TableRow(this).apply {
+                layoutParams = TableLayout.LayoutParams(0, 0, 1f)
             }
+            for (col in Seat.MIN_COLUMN..Seat.MAX_COLUMN) {
+                val seat = Seat(col, row)
+                tableRow.addView(createSeat(this, seat.toUi(), seat.textColor()))
+            }
+            binding.seatTablelayout.addView(tableRow)
         }
     }
+
+    private fun createSeat(context: Context, seatText: String, textColorId: Int): AppCompatButton =
+        AppCompatButton(context).apply {
+            text = seatText
+            setTextColor(getColor(textColorId))
+            setOnClickListener { onSeatClick(this) }
+            background =
+                AppCompatResources.getDrawable(this@SeatSelectionActivity, R.drawable.selector_seat)
+            layoutParams = TableRow.LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
+        }
 
     private fun onSeatClick(seat: Button) {
         if (seat.isSelected) {

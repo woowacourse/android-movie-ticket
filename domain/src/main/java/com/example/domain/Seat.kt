@@ -4,7 +4,7 @@ data class Seat(val column: Int, val row: Int) {
 
     val price = type.price
 
-    private val type
+    val type
         get(): SeatType = when (row) {
             1, 2 -> SeatType.BType
             3, 4 -> SeatType.SType
@@ -22,9 +22,9 @@ data class Seat(val column: Int, val row: Int) {
     }
 
     companion object {
-        private const val MIN_ROW = 1
+        const val MIN_ROW = 1
         const val MAX_ROW = 5
-        private const val MIN_COLUMN = 1
+        const val MIN_COLUMN = 1
         const val MAX_COLUMN = 4
         private const val ERROR_INVALID_ROW = "[ERROR] 올바른 좌석(행)이 아닙니다."
         private const val ERROR_INVALID_COLUMN = "[ERROR] 올바른 좌석(열)이 아닙니다."
