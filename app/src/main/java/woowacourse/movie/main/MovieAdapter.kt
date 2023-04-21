@@ -45,11 +45,7 @@ class MovieAdapter(
             view.tag = viewHolder
         }
 
-        viewHolder.image.setImageResource(_movie[position].imgResourceId)
-        viewHolder.title.text = _movie[position].title
-        viewHolder.startDate.text = _movie[position].startDate.format(DATE_TIME_FORMATTER)
-        viewHolder.endDate.text = _movie[position].endDate.format(DATE_TIME_FORMATTER)
-        viewHolder.time.text = _movie[position].runningTime.value.toString()
+        viewHolder.initSet(_movie[position])
         viewHolder.reservation.setOnClickListener { clickListener?.onClick(position) }
         return view
     }
@@ -59,6 +55,6 @@ class MovieAdapter(
     }
 
     companion object {
-        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
+        val DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.M.d")
     }
 }
