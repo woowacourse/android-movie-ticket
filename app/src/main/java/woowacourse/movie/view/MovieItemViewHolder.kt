@@ -10,7 +10,8 @@ import woowacourse.movie.util.DATE_FORMATTER
 import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 
 class MovieItemViewHolder(
-    private val binding: MovieItemBinding
+    private val binding: MovieItemBinding,
+    private val onViewClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     private val poster: ImageView = binding.moviePoster
     private val title: TextView = binding.movieTitle
@@ -18,7 +19,13 @@ class MovieItemViewHolder(
     private val runningTime: TextView = binding.movieRunningTime
     private val reserveNow: Button = binding.reserveNowButton
 
-    fun bind(movie: MovieUiModel, onReserveListener: MovieListAdapter.OnReserveListener) {
+    init {
+        reserveNow.setOnClickListener {
+            onViewClick(adapterPosition)
+        }
+    }
+
+    fun bind(movie: MovieUiModel) {
         val context = binding.root.context
         poster.setImageResource(movie.posterResourceId)
         title.text = movie.title
@@ -29,8 +36,5 @@ class MovieItemViewHolder(
             )
         runningTime.text = context.resources.getString(R.string.running_time_format)
             .format(movie.runningTime)
-        reserveNow.setOnClickListener {
-            onReserveListener.onClick(movie)
-        }
     }
 }

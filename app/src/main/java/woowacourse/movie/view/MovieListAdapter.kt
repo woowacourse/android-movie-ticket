@@ -13,17 +13,17 @@ import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 
 class MovieListAdapter(
     private val dataList: List<MovieListModel>,
-    private val onReserveListener: OnReserveListener
+    private val onItemClick: (MovieUiModel) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    interface OnReserveListener {
-        fun onClick(movie: MovieUiModel)
+    private val onItemViewClick: (Int) -> Unit = {
+        onItemClick(dataList[it] as MovieUiModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.movie_item -> MovieItemViewHolder(MovieItemBinding.bind(view))
+            R.layout.movie_item -> MovieItemViewHolder(MovieItemBinding.bind(view)) { onItemViewClick }
             R.layout.movie_ad_item -> MovieAdViewHolder(MovieAdItemBinding.bind(view))
             else -> EmptyViewHolder(EmptyItemBinding.bind(view))
         }
@@ -35,7 +35,7 @@ class MovieListAdapter(
         val item = dataList[position]
         when (holder) {
             is MovieItemViewHolder -> {
-                holder.bind(item as MovieUiModel, onReserveListener)
+                holder.bind(item as MovieUiModel)
             }
             is MovieAdViewHolder -> {
                 holder.bind(item as MovieAdModel)

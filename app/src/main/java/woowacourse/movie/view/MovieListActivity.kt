@@ -19,13 +19,11 @@ class MovieListActivity : AppCompatActivity() {
         val dataList = generateMovieListData(movies)
 
         val movieAdapter = MovieListAdapter(
-            dataList,
-            object : MovieListAdapter.OnReserveListener {
-                override fun onClick(movie: MovieListModel.MovieUiModel) {
-                    val intent = Intent(this@MovieListActivity, ReservationActivity::class.java)
-                    intent.putExtra(MOVIE_ITEM, movie)
-                    startActivity(intent)
-                }
+            dataList = dataList,
+            onItemClick = {
+                val intent = Intent(this@MovieListActivity, ReservationActivity::class.java)
+                intent.putExtra(MOVIE_ITEM, it)
+                startActivity(intent)
             }
         )
         val movieListView = findViewById<RecyclerView>(R.id.movie_recyclerview)
