@@ -13,6 +13,9 @@ import domain.seat.SeatColumn
 import domain.seat.SeatRow
 import domain.seat.SeatState
 import woowacourse.movie.R
+import woowacourse.movie.util.getSeatText
+import woowacourse.movie.util.toColor
+import woowacourse.movie.util.toScreeningSeat
 
 class ScreeningSeatViewSetter(
     private val seatTable: TableLayout,

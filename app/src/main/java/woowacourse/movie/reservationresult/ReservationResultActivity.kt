@@ -8,6 +8,7 @@ import woowacourse.movie.R
 import woowacourse.movie.getIntentData
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity.Companion.RESERVATION_RESULT_KEY
+import woowacourse.movie.util.selectedSeatsToString
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -34,7 +35,7 @@ class ReservationResultActivity : AppCompatActivity() {
             val dateFormat = DateTimeFormatter.ofPattern(getString(R.string.reservation_date_time_form))
             movieNameTextView.text = movieName
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
-            ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
+            ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount, selectedSeatsToString(seats))
             paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
                 DecimalFormat(getString(R.string.payment_amount_unit_form)).format(paymentAmount),
                 getPaymentTypeString(paymentType)
