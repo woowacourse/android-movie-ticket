@@ -3,6 +3,7 @@ package woowacourse.movie.ui.booking
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -43,6 +44,7 @@ class BookingActivity : AppCompatActivity() {
         initDateTimes(movie)
         restoreData(savedInstanceState)
         initView(movie)
+        setClickEventOnSeatSelectButton(movie)
         gatherClickListeners()
         initDateSpinnerSelectedListener(movie)
     }
@@ -82,15 +84,16 @@ class BookingActivity : AppCompatActivity() {
     private fun gatherClickListeners() {
         clickMinus()
         clickPlus()
-        setClickEventOnSeatSelectButton()
         // clickBookingComplete()
     }
 
-    private fun setClickEventOnSeatSelectButton() {
+    private fun setClickEventOnSeatSelectButton(movie: Movie) {
         val selectSeatButton = findViewById<Button>(R.id.buttonBookingComplete)
 
         selectSeatButton.setOnClickListener {
-            startActivity(Intent(this, SeatReservationActivity::class.java))
+            val intent = SeatReservationActivity.getIntent(this, movie.title, ticketCount.value)
+            Log.d("123123", ticketCount.value.toString())
+            startActivity(intent)
         }
     }
 
@@ -158,8 +161,7 @@ class BookingActivity : AppCompatActivity() {
                 position: Int,
                 id: Long,
             ) {
-                val times: List<LocalTime> =
-                    ScreeningTimes.getScreeningTime(dates[position])
+                val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[position])
                 timeSpinnerAdapter.initItems(times)
             }
 
