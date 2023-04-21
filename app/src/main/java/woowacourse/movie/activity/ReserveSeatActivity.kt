@@ -1,5 +1,6 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,15 +10,17 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import com.example.domain.model.model.ReservationInfo
 import com.example.domain.model.model.Seat
+import com.example.domain.model.price.PriceCalculator
 import woowacourse.movie.R
+import woowacourse.movie.mapper.RankMapper
+import woowacourse.movie.mapper.toReservationInfo
 import woowacourse.movie.mapper.toSeatModel
 import woowacourse.movie.model.ReservationInfoModel
 import woowacourse.movie.model.SeatModel
+import woowacourse.movie.model.TicketModel
 import woowacourse.movie.util.customGetSerializable
-
-const val ROW_COUNT = 5
-const val COLUMN_COUNT = 4
 
 class ReserveSeatActivity : AppCompatActivity() {
 
@@ -31,58 +34,72 @@ class ReserveSeatActivity : AppCompatActivity() {
             .flatMap { it.children }
             .filterIsInstance<Button>().toList()
 
-        val reservationInfoModel: ReservationInfoModel = intent.customGetSerializable(INFO_KEY)
+        val reservationInfoModel: ReservationInfoModel = intent.customGetSerializable(RESERVATION_INFO_KEY)
+        val reservationInfo: ReservationInfo = reservationInfoModel.toReservationInfo()
 
         val title = findViewById<TextView>(R.id.text_title)
         title.text = reservationInfoModel.title
 
-        val price = findViewById<TextView>(R.id.text_price)
-        price.text = "0"
+        val priceTextView = findViewById<TextView>(R.id.text_price)
+        priceTextView.text = "0"
 
         var selectCount = 0
 
         val reserveButton = findViewById<Button>(R.id.btn_reserve)
-        seatViews.forEach { button ->
+        seatViews.forEachIndexed { index, button ->
             button.setOnClickListener {
+                val seat = calculateRowColumn(index)
+                val rank = RankMapper().map(seat.row + 1)
+                val rankPrice = rank.price
+                val finalPrice = PriceCalculator.calculate(
+                    rankPrice,
+                    reservationInfo.playingDate,
+                    reservationInfo.playingTime
+                )
+                val price: Int
                 if (button.isSelected) {
                     button.setBackgroundColor(Color.WHITE)
                     button.isSelected = false
                     selectCount--
-                    // 가격을 계산해줘!! 라고 도메인에게 시킴
-                    // 등급과 가격을 매핑해주는 도메인
+                    price = priceTextView.text.toString().toInt() - finalPrice.price
                 } else {
                     button.setBackgroundColor(Color.parseColor("#FAFF00"))
                     button.isSelected = true
                     selectCount++
+                    price = priceTextView.text.toString().toInt() + finalPrice.price
                 }
-//                price.text = (ticketModel.price * selectCount).toString()
+
+                priceTextView.text = price.toString()
                 reserveButton.isEnabled = selectCount == reservationInfoModel.count
             }
         }
 
         reserveButton.setOnClickListener {
             // 선택된 버튼 + ticketingInfo intent로 보내기
-            val selectedButton = mutableListOf<SeatModel>()
+            val selectedSeats = mutableListOf<SeatModel>()
             seatViews.forEachIndexed { index, button ->
                 if (button.isSelected) {
-                    val row = index / COLUMN_COUNT
-                    val column = index % COLUMN_COUNT
-                    selectedButton.add(Seat(row, column).toSeatModel())
+                    val seat = calculateRowColumn(index)
+                    selectedSeats.add(seat.toSeatModel())
                 }
             }
-            selectedButton.forEach {
-                println(it.row + it.column)
-            }
-//            val intent = Intent(this, TicketResultActivity::class.java)
-//            val ticketModel = getTicketModel(movieTitle)
-//            intent.putExtra(MovieDetailActivity.INFO_KEY, ticketModel)
-//            startActivity(intent)
+            val price = priceTextView.text.toString().toInt()
+            val ticketModel = TicketModel(reservationInfoModel, price, selectedSeats)
+            val intent = Intent(this, TicketResultActivity::class.java)
+            intent.putExtra(TICKET_KEY, ticketModel)
+            startActivity(intent)
         }
         setActionBar()
     }
 
     private fun setActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun calculateRowColumn(index: Int): Seat {
+        val row = index / COLUMN_COUNT
+        val column = index % COLUMN_COUNT
+        return Seat(row, column)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -98,6 +115,9 @@ class ReserveSeatActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val INFO_KEY = "ticketingInfo"
+        private const val RESERVATION_INFO_KEY = "reservationInfo"
+        private const val TICKET_KEY = "ticket"
+        const val ROW_COUNT = 5
+        const val COLUMN_COUNT = 4
     }
 }
