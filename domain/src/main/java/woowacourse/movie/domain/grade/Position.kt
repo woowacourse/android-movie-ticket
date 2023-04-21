@@ -10,6 +10,10 @@ class Position private constructor(val rowIndex: Int, val columnIndex: Int) {
         require(columnIndex in START_INDEX..MAXIMUM_COLUMN_INDEX) { OVER_MAXIMUM_INDEX }
     }
 
+    fun getGradePrice(): Int {
+        Grade.values().forEach { if (rowIndex in it.rowIndexRange) return it.price }
+    }
+
     companion object {
         private const val START_INDEX = 0
         private const val MAXIMUM_ROW_INDEX = 4
