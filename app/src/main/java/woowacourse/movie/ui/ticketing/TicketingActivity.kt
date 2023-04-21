@@ -199,11 +199,14 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             showToast(getString(R.string.select_date_and_time))
             return
         }
+        if (movieTicket.count == 0) {
+            showToast(getString(R.string.select_ticket_count))
+            return
+        }
         reservation = reserveMovie().apply {
             val intent = Intent(this@TicketingActivity, SeatSelectionActivity::class.java)
             intent.putExtra(RESERVATION_KEY, this)
             startActivity(intent)
-            finish()
         }
     }
 
