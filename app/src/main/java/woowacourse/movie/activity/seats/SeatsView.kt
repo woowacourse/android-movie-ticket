@@ -21,10 +21,16 @@ class SeatsView(
 ) {
 
     private val context: Context = binding.root.context
+    private val seats: List<List<TextView>> by lazy { createSeatViews() }
 
     fun set() {
-        val seats: List<List<TextView>> = createSeatViews()
-        setSeatSelectEvent(seats)
+        setSeatSelectEvent()
+    }
+
+    fun getSelectedCount(): Int {
+        var count = 0
+        seats.forEach { count += it.count { seat -> seat.isSelected } }
+        return count
     }
 
     private fun createSeatViews(): List<List<TextView>> {
@@ -66,15 +72,15 @@ class SeatsView(
         else -> null
     }
 
-    private fun setSeatSelectEvent(seats: List<List<TextView>>) {
+    private fun setSeatSelectEvent() {
         seats.forEach {
             it.forEach { seat ->
-                seat.setOnClickListener { seatClickEvent(seat, seats) }
+                seat.setOnClickListener { seatClickEvent(seat) }
             }
         }
     }
 
-    private fun seatClickEvent(clickedSeat: TextView, seats: List<List<TextView>>) {
+    private fun seatClickEvent(clickedSeat: TextView) {
         if (!clickedSeat.isClickable) return
 
         when (clickedSeat.isSelected) {
@@ -88,7 +94,7 @@ class SeatsView(
             }
         }
 
-        val selectedSeatCount: Int = getSelectedCount(seats)
+        val selectedSeatCount: Int = getSelectedCount()
         val ticketCount: Int = intent.getIntExtra("ticket_count", 1)
         when {
             ticketCount <= selectedSeatCount -> {
@@ -97,7 +103,7 @@ class SeatsView(
                         if (!seat.isSelected) seat.isClickable = false
                         binding.reservationCompleteTextView.isClickable = true
                         binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.clickable_button_color))
-                        updatePaymentAmount(seats)
+                        updatePaymentAmount()
                     }
                 }
             }
@@ -113,13 +119,7 @@ class SeatsView(
         }
     }
 
-    private fun getSelectedCount(seats: List<List<TextView>>): Int {
-        var count = 0
-        seats.forEach { count += it.count { seat -> seat.isSelected } }
-        return count
-    }
-
-    private fun updatePaymentAmount(seats: List<List<TextView>>) {
+    private fun updatePaymentAmount() {
         val screeningDateTime: LocalDateTime = intent.getSerializableExtra("screening_date_time") as LocalDateTime
         val discount: Discount = Discount(MovieDayDiscount(), EarlyNightDiscount())
         var paymentAmount: Int = 0

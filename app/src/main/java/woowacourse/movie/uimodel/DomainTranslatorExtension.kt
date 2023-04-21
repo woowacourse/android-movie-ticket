@@ -1,8 +1,9 @@
 package woowacourse.movie.uimodel
 
+import movie.Movie
 import reservation.Reservation
 
-fun movie.Movie.toMovieModel(): MovieModel =
+fun Movie.toMovieModel(): MovieModel =
     MovieModel(
         name = this.name,
         posterImage = null,
