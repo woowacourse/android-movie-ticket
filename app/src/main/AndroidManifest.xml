@@ -12,13 +12,19 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ChoiceSeatActivity"
+            android:exported="true"
+            android:parentActivityName=".presentation.BookingActivity">
+        </activity>
+
+        <activity
             android:name=".presentation.CompletedActivity"
-            android:parentActivityName=".presentation.BookingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".presentation.MainActivity" />
         <activity
             android:name=".presentation.BookingActivity"
-            android:parentActivityName=".presentation.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".presentation.MainActivity" />
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">

@@ -12,6 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.util.formatScreenDateTime
+import woowacourse.movie.util.formatSeatsCombine
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,12 +60,15 @@ class CompletedActivity : AppCompatActivity() {
 
     private fun setMovieTicketCount(ticket: TicketModel) {
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
-            getString(R.string.normal_ticket_count).format(ticket.count)
+            getString(R.string.normal_ticket_count_seat).format(
+                ticket.count,
+                ticket.seats.formatSeatsCombine(),
+            )
     }
 
     private fun setMoviePaymentAmount(ticket: TicketModel) {
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount).format(ticket.paymentMoney)
+            getString(R.string.payment_on_site_amount).format(ticket.paymentMoney)
     }
 
     companion object {

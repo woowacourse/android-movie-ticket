@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.model
 
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.util.formatLocationToString
 
 fun MovieModel.toDomainModel() = Movie(
     id = id,
@@ -28,10 +29,5 @@ fun Ticket.toPresentation() = TicketModel(
     bookedDateTime = bookedDateTime,
     count = count,
     paymentMoney = getPaymentMoney().value,
-)
-
-fun TicketModel.toDomainModel() = Ticket(
-    movieId = movieId,
-    bookedDateTime = bookedDateTime,
-    count = count,
+    seats = seats.map { it.location }.formatLocationToString(),
 )
