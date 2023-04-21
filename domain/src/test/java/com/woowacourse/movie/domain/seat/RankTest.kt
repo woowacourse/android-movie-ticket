@@ -28,7 +28,7 @@ class RankTest {
     }
 
     @Test
-    fun `좌석의 행이 4이면 B좌석이다`() {
+    fun `좌석의 행이 4이면 S좌석이다`() {
         val seatPosition = SeatPosition(row = 4)
 
         val actual = Rank.valueOf(seatPosition)
