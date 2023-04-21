@@ -2,7 +2,6 @@ package woowacourse.movie.domain.price
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator
 
 class PricePolicyCalculatorTest {
     @Test
@@ -10,10 +9,10 @@ class PricePolicyCalculatorTest {
         val pricePolicy = woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator()
         assertEquals(
             pricePolicy.totalPriceCalculate(
-                woowacourse.movie.domain.price.TicketPrice(13000),
-                woowacourse.movie.domain.price.TicketCount(3)
+                TicketPrice(13000),
+                TicketCount(3)
             ),
-            woowacourse.movie.domain.price.TicketPrice(39000)
+            TicketPrice(39000)
         )
     }
 }

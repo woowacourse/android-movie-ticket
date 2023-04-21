@@ -6,12 +6,12 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ScreeningDateTimeTest {
-    fun getWorkingScreeningDateTime(day: Int = 3, time: Int = 11): woowacourse.movie.domain.datetime.ScreeningDateTime {
-        val workingScreeningPeriod = woowacourse.movie.domain.datetime.ScreeningPeriod(
+    fun getWorkingScreeningDateTime(day: Int = 3, time: Int = 11): ScreeningDateTime {
+        val workingScreeningPeriod = ScreeningPeriod(
             LocalDate.parse("2023-03-01"),
             LocalDate.parse("2023-04-01")
         )
-        return woowacourse.movie.domain.datetime.ScreeningDateTime(
+        return ScreeningDateTime(
             LocalDateTime.of(2023, 3, day, time, 11, 11),
             workingScreeningPeriod
         )
@@ -19,11 +19,11 @@ class ScreeningDateTimeTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun `영화 상영시간은 영화 상영 기간안에 존재해야한다`() {
-        val screeningPeriod = woowacourse.movie.domain.datetime.ScreeningPeriod(
+        val screeningPeriod = ScreeningPeriod(
             LocalDate.parse("2023-02-01"),
             LocalDate.parse("2023-03-01")
         )
-        woowacourse.movie.domain.datetime.ScreeningDateTime(
+        ScreeningDateTime(
             LocalDateTime.of(
                 2024,
                 1,
