@@ -13,8 +13,8 @@ import woowacourse.movie.util.intentDataNullProcess
 class MovieBookingCheckActivity : AppCompatActivity() {
 
     lateinit var movieData: MovieUIModel
-    lateinit var ticketCount: TicketCount
-    lateinit var bookedScreeningDateTime: ScreeningDateTime
+    lateinit var ticketCount: woowacourse.movie.domain.price.TicketCount
+    lateinit var bookedScreeningDateTime: woowacourse.movie.domain.datetime.ScreeningDateTime
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +30,15 @@ class MovieBookingCheckActivity : AppCompatActivity() {
                 MOVIE_DATA
             )
         ticketCount =
-            TicketCount(intent.getIntExtra(TICKET_COUNT, -1))
+            woowacourse.movie.domain.price.TicketCount(intent.getIntExtra(TICKET_COUNT, -1))
         bookedScreeningDateTime =
-            ScreeningDateTime(
+            woowacourse.movie.domain.datetime.ScreeningDateTime(
                 intent.getSerializableExtraCompat(BOOKED_SCREENING_DATE_TIME)
                     ?: return this.intentDataNullProcess(BOOKED_SCREENING_DATE_TIME),
-                ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay)
+                woowacourse.movie.domain.datetime.ScreeningPeriod(
+                    movieData.screeningStartDay,
+                    movieData.screeningEndDay
+                )
             )
     }
 

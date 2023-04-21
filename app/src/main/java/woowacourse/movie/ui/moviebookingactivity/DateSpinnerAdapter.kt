@@ -11,7 +11,7 @@ import java.time.LocalDate
 class DateSpinnerAdapter(
     dateSpinner: Spinner,
     itemSelectedListener: (LocalDate) -> Unit,
-    screeningPeriod: ScreeningPeriod,
+    screeningPeriod: woowacourse.movie.domain.datetime.ScreeningPeriod,
     context: Context
 ) {
     private val dateAdapter = ArrayAdapter(

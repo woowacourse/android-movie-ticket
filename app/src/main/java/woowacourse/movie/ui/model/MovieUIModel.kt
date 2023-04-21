@@ -48,7 +48,7 @@ data class MovieUIModel(
     }
 
     companion object {
-        fun Movie.movieToMovieUiModel(): MovieUIModel =
+        fun woowacourse.movie.domain.model.Movie.movieToMovieUiModel(): MovieUIModel =
             MovieUIModel(
                 title = this.title,
                 screeningStartDay = this.screeningDay.start,

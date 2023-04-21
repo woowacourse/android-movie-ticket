@@ -7,6 +7,10 @@ import woowacourse.movie.domain.price.discount.partialpolicy.MovieDayDiscount
 class MovieDayDiscountTest {
     @Test
     fun `할인전 금액이 13000원인 경우 무비데이할인을 적용하면 11700원을 반환한다`() {
-        assertEquals(MovieDayDiscount().discount(TicketPrice(13000)), TicketPrice(11700))
+        assertEquals(
+            woowacourse.movie.domain.price.discount.partialpolicy.MovieDayDiscount()
+                .discount(woowacourse.movie.domain.price.TicketPrice(13000)),
+            woowacourse.movie.domain.price.TicketPrice(11700)
+        )
     }
 }

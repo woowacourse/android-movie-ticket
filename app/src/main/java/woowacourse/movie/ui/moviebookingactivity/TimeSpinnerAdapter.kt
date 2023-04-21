@@ -10,7 +10,7 @@ import java.time.LocalTime
 
 class TimeSpinnerAdapter(
     private val timeSpinner: Spinner,
-    private val screeningPeriod: ScreeningPeriod,
+    private val screeningPeriod: woowacourse.movie.domain.datetime.ScreeningPeriod,
     private var recoverPosition: Int,
     context: Context
 ) {

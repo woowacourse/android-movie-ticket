@@ -20,9 +20,9 @@ class MovieListView(private val view: ListView) {
     private fun initMovieListAdapter() {
         // temp Movies 는 서버 어딘가에서 받아오는 것이라 가정
         val tempMovies = List(1000) {
-            Movie(
+            woowacourse.movie.domain.model.Movie(
                 title = "해리 포터와 마법사의 돌$it",
-                screeningDay = ScreeningPeriod(
+                screeningDay = woowacourse.movie.domain.datetime.ScreeningPeriod(
                     LocalDate.parse("2023-04-01"),
                     LocalDate.parse("2023-04-28")
                 ),
@@ -31,7 +31,7 @@ class MovieListView(private val view: ListView) {
             )
         }
 
-        val movieUIModels = tempMovies.map { movie: Movie -> movie.movieToMovieUiModel() }
+        val movieUIModels = tempMovies.map { movie: woowacourse.movie.domain.model.Movie -> movie.movieToMovieUiModel() }
         movieListAdapter = MovieListAdapter(movieUIModels)
     }
 

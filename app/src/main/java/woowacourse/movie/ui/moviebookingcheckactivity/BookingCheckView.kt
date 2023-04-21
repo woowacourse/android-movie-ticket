@@ -14,8 +14,8 @@ import woowacourse.movie.ui.model.MovieUIModel
 class BookingCheckView(
     private val view: ViewGroup,
     movieData: MovieUIModel,
-    bookedScreeningDateTime: ScreeningDateTime,
-    ticketCount: TicketCount
+    bookedScreeningDateTime: woowacourse.movie.domain.datetime.ScreeningDateTime,
+    ticketCount: woowacourse.movie.domain.price.TicketCount
 ) {
 
     init {
@@ -24,8 +24,8 @@ class BookingCheckView(
 
     private fun initMovieInformation(
         movieData: MovieUIModel,
-        bookedScreeningDateTime: ScreeningDateTime,
-        ticketCount: TicketCount
+        bookedScreeningDateTime: woowacourse.movie.domain.datetime.ScreeningDateTime,
+        ticketCount: woowacourse.movie.domain.price.TicketCount
     ) {
         val tvBookingCheckMovieName = view.findViewById<TextView>(R.id.tv_booking_check_movie_name)
         val tvBookingCheckScreeningDay =
@@ -44,7 +44,7 @@ class BookingCheckView(
             view.context.getString(R.string.tv_booking_check_total_money)
                 .format(
                     applyDisCount(
-                        TicketPrice(TicketPrice.STANDARD_TICKET_PRICE),
+                        woowacourse.movie.domain.price.TicketPrice(woowacourse.movie.domain.price.TicketPrice.STANDARD_TICKET_PRICE),
                         ticketCount,
                         bookedScreeningDateTime
                     ).value
@@ -52,10 +52,14 @@ class BookingCheckView(
     }
 
     private fun applyDisCount(
-        ticketPrice: TicketPrice,
-        ticketCount: TicketCount,
-        bookedScreeningDateTime: ScreeningDateTime
-    ): TicketPrice =
-        PricePolicyCalculator(TimeMovieDayDiscountPolicy(bookedScreeningDateTime).getDiscountPolicies())
+        ticketPrice: woowacourse.movie.domain.price.TicketPrice,
+        ticketCount: woowacourse.movie.domain.price.TicketCount,
+        bookedScreeningDateTime: woowacourse.movie.domain.datetime.ScreeningDateTime
+    ): woowacourse.movie.domain.price.TicketPrice =
+        woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator(
+            woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy(
+                bookedScreeningDateTime
+            ).getDiscountPolicies()
+        )
             .totalPriceCalculate(ticketPrice, ticketCount)
 }

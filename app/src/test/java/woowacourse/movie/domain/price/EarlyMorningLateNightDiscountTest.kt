@@ -8,8 +8,9 @@ class EarlyMorningLateNightDiscountTest {
     @Test
     fun `할인전 금액이 13000원인 경우 조조,심야할인을 적용하면 11000원을 반환한다`() {
         assertEquals(
-            EarlyMorningLateNightDiscount().discount(TicketPrice(13000)),
-            TicketPrice(11000)
+            woowacourse.movie.domain.price.discount.partialpolicy.EarlyMorningLateNightDiscount()
+                .discount(woowacourse.movie.domain.price.TicketPrice(13000)),
+            woowacourse.movie.domain.price.TicketPrice(11000)
         )
     }
 }

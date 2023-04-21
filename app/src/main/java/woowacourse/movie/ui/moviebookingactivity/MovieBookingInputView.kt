@@ -22,7 +22,7 @@ class MovieBookingInputView(private val view: ViewGroup) {
     lateinit var timeSpinner: Spinner
     lateinit var dateSpinnerAdapter: DateSpinnerAdapter
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
-    val ticketCount = TicketCount(1)
+    val ticketCount = woowacourse.movie.domain.price.TicketCount(1)
 
     init {
         initTicketCountView()
@@ -48,7 +48,10 @@ class MovieBookingInputView(private val view: ViewGroup) {
         timeSpinnerAdapter =
             TimeSpinnerAdapter(
                 timeSpinner,
-                ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay),
+                woowacourse.movie.domain.datetime.ScreeningPeriod(
+                    movieData.screeningStartDay,
+                    movieData.screeningEndDay
+                ),
                 timeSpinnerRecoverState,
                 view.context
             )
@@ -56,7 +59,10 @@ class MovieBookingInputView(private val view: ViewGroup) {
             DateSpinnerAdapter(
                 dateSpinner,
                 timeSpinnerAdapter::updateTimeTable,
-                ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay),
+                woowacourse.movie.domain.datetime.ScreeningPeriod(
+                    movieData.screeningStartDay,
+                    movieData.screeningEndDay
+                ),
                 view.context
             )
     }
@@ -80,13 +86,16 @@ class MovieBookingInputView(private val view: ViewGroup) {
         }
     }
 
-    private fun getScreeningDateTime(movieData: MovieUIModel): ScreeningDateTime {
+    private fun getScreeningDateTime(movieData: MovieUIModel): woowacourse.movie.domain.datetime.ScreeningDateTime {
         val date = dateSpinner.selectedItem as LocalDate
         val time = timeSpinner.selectedItem as LocalTime
 
-        return ScreeningDateTime(
+        return woowacourse.movie.domain.datetime.ScreeningDateTime(
             LocalDateTime.of(date, time),
-            ScreeningPeriod(movieData.screeningStartDay, movieData.screeningEndDay)
+            woowacourse.movie.domain.datetime.ScreeningPeriod(
+                movieData.screeningStartDay,
+                movieData.screeningEndDay
+            )
         )
     }
 
