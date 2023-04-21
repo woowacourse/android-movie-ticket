@@ -7,6 +7,10 @@ android {
     namespace = "woowacourse.movie"
     compileSdk = 33
 
+    testOptions {
+        animationsDisabled = true
+    }
+
     defaultConfig {
         applicationId = "woowacourse.movie"
         minSdk = 26

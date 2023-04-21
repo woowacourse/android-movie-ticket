@@ -10,4 +10,7 @@
     <color name="reservation_result_background">#9160F9</color>
     <color name="selected_seat">#FAFF00</color>
     <color name="reservation_disabled">#B7B7B7</color>
+    <color name="b_rank">#8E13EF</color>
+    <color name="s_rank">#19D358</color>
+    <color name="a_rank">#1B48E9</color>
 </resources>

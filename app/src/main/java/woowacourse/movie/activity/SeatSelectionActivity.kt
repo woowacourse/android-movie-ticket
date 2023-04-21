@@ -98,13 +98,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         seatsSize: Int,
         peopleCount: Int
     ) {
-        if (seatsSize != peopleCount) {
-            reservationButton.setBackgroundColor(getColor(R.color.reservation_disabled))
-            reservationButton.isClickable = false
-        } else {
-            reservationButton.setBackgroundColor(getColor(R.color.purple_500))
-            reservationButton.isClickable = true
-        }
+        reservationButton.isEnabled = seatsSize == peopleCount
     }
 
     private fun calculateDiscountedPrice(

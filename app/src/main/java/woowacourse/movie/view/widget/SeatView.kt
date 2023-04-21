@@ -27,7 +27,7 @@ class SeatView private constructor(
         textView.text = context.getString(
             R.string.seat_row_column, data.rowCharacter, data.column + COLUMN_FIXER
         )
-        textView.setTextColor(data.color)
+        textView.setTextColor(context.getColor(data.color))
     }
 
     private fun selectSeat(selectable: () -> Boolean) {
@@ -42,7 +42,12 @@ class SeatView private constructor(
 
     companion object {
         private const val COLUMN_FIXER = 1
-        fun from(context: Context, seat: SeatViewData, selectable: () -> Boolean, onSelect: () -> Unit): SeatView {
+        fun from(
+            context: Context,
+            seat: SeatViewData,
+            selectable: () -> Boolean,
+            onSelect: () -> Unit
+        ): SeatView {
             return SeatView(context, seat).apply {
                 initLayout()
                 initText()
