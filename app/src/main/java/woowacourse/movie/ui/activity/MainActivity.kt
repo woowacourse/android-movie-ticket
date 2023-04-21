@@ -2,10 +2,11 @@ package woowacourse.movie.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.ui.Movies
+import woowacourse.movie.ui.adapter.MovieAdapter
 import woowacourse.movie.ui.model.MovieModel
 
 class MainActivity : AppCompatActivity() {
@@ -18,12 +19,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setMovieList(movies: List<MovieModel>) {
-        val moviesView = findViewById<ListView>(R.id.main_movie_list)
-        moviesView.adapter = MovieListAdapter(movies) {
+        val moviesView = findViewById<RecyclerView>(R.id.main_movie_list)
+        moviesView.adapter = MovieAdapter(movies) {
             moveToDetailActivity(it)
-        }
-        moviesView.setOnItemClickListener { parent, view, position, id ->
-            moveToDetailActivity(movies[position])
         }
     }
 
