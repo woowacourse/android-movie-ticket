@@ -3,13 +3,13 @@ package woowacourse.movie.movieReservation
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import movie.ScreeningDate
 import woowacourse.movie.R
-import java.time.LocalDate
 import java.time.LocalTime
 
-class ReservationTimeSpinner(view: View) {
-    private val timeList = mutableListOf<LocalTime>()
+class ReservationTimeSpinner(
+    view: View,
+) {
+    private val timeList: MutableList<LocalTime> = mutableListOf()
 
     private val arrayAdapter = ArrayAdapter(
         view.context,
@@ -24,8 +24,8 @@ class ReservationTimeSpinner(view: View) {
     val selectedTime: LocalTime
         get() = timeList[timeSpinner.selectedItemPosition]
 
-    fun initTimeSpinner(date: LocalDate) {
-        updateTimeList(ScreeningDate.getScreeningTimes(date))
+    fun initTimeSpinner(timeList: List<LocalTime>) {
+        updateTimeList(timeList)
     }
 
     private fun updateTimeList(newTimeList: List<LocalTime>) {

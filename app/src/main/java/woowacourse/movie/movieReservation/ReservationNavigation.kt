@@ -1,7 +1,10 @@
 package woowacourse.movie.movieReservation
 
 import android.view.View
+import android.widget.Button
+import movie.ScreeningDate
 import movie.TicketQuantity
+import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -11,9 +14,14 @@ class ReservationNavigation(
     endDate: LocalDate,
     onReservationButtonClicked: () -> Unit,
 ) {
-    private val dateSpinner = ReservationDateSpinner(view, startDate, endDate) { timeSpinner.initTimeSpinner(it) }
+    private val dateSpinner = ReservationDateSpinner(
+        view,
+        ScreeningDate.getScreeningDates(startDate, endDate),
+    ) { timeSpinner.initTimeSpinner(ScreeningDate.getScreeningTimes(it)) }
+
     private val timeSpinner = ReservationTimeSpinner(view)
     private val ticketQuantityView = ReservationTicketQuantity(view)
+    private val submitButton: Button = view.findViewById(R.id.reservation_complete_button)
 
     val ticketQuantity: TicketQuantity
         get() = ticketQuantityView.quantity
@@ -22,9 +30,9 @@ class ReservationNavigation(
         get() = LocalDateTime.of(dateSpinner.selectedDate, timeSpinner.selectedTime)
 
     init {
-        timeSpinner.initTimeSpinner(dateSpinner.selectedDate)
-        ReservationSubmit(view) { onReservationButtonClicked() }
+        timeSpinner.initTimeSpinner(ScreeningDate.getScreeningTimes(dateSpinner.selectedDate))
         ticketQuantityView.initTicketQuantity(ticketQuantity)
+        submitButton.setOnClickListener { onReservationButtonClicked() }
     }
 
     fun setTicketQuantity(ticketQuantity: TicketQuantity) {
