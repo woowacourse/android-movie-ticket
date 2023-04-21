@@ -34,8 +34,10 @@ class MovieDetailView(private val viewGroup: ViewGroup) {
     private fun setPlayingDate(startDate: LocalDate, endDate: LocalDate) {
         playingDateView.text = viewGroup.context.getString(
             R.string.playing_date_range,
-            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format)).format(startDate),
-            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format)).format(endDate)
+            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format))
+                .format(startDate),
+            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format))
+                .format(endDate),
         )
     }
 

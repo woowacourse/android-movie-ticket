@@ -1,7 +1,8 @@
 package woowacourse.movie.domain
 
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.domain.seat.Grade
@@ -39,7 +40,25 @@ class SeatSelectSystemTest {
         if (actual is SelectResult.Success.Selection) {
             assertEquals(actual.seatPrice, Grade.B.price)
         }
-        assertTrue(actual is SelectResult.Success.Selection)
+    }
+
+    @Test
+    fun `선택 후 모든 자리 선택을 완료했으면 참을 함께 반환한다`() {
+        system.select(1, 3)
+        system.select(1, 2)
+        val actual = system.select(0, 0)
+        if (actual is SelectResult.Success.Selection) {
+            assertTrue(actual.isSelectAll)
+        }
+    }
+
+    @Test
+    fun `선택 후 모든 자리 선택을 완료하기 전이라면 거짓을 함께 반환한다`() {
+        system.select(1, 3)
+        val actual = system.select(0, 0)
+        if (actual is SelectResult.Success.Selection) {
+            assertFalse(actual.isSelectAll)
+        }
     }
 
     @Test

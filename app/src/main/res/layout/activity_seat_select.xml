@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA"
+    android:id="@+id/layout_select_seat"
     tools:context=".activity.seatselect.SeatSelectActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -313,7 +314,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:paddingHorizontal="20dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_okay">
+            app:layout_constraintEnd_toStartOf="@id/btn_next">
 
             <TextView
                 android:id="@+id/text_title"
@@ -334,7 +335,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_okay"
+            android:id="@+id/btn_next"
             android:layout_width="88dp"
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"

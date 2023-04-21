@@ -16,6 +16,7 @@ import woowacourse.movie.model.MovieModel
 import woowacourse.movie.util.getKeyFromIndex
 import woowacourse.movie.util.getOrEmptyList
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationInfoView(private val viewGroup: ViewGroup) {
@@ -40,7 +41,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
         setDateSpinner(savedDate, movie.playingDateTimes)
         setTimeSpinner(
             savedTime,
-            movie.playingDateTimes.getOrEmptyList(movie.playingDateTimes.getKeyFromIndex(savedDate))
+            movie.playingDateTimes.getOrEmptyList(movie.playingDateTimes.getKeyFromIndex(savedDate)),
         )
     }
 
@@ -51,8 +52,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
             val time = viewGroup.findViewById<Spinner>(R.id.spinner_time).selectedItem as LocalTime
             val count = viewGroup.findViewById<TextView>(R.id.text_count).text.toString().toInt()
             intent.putExtra(SeatSelectActivity.TITLE_KEY, title)
-            intent.putExtra(SeatSelectActivity.DATE_KEY, date)
-            intent.putExtra(SeatSelectActivity.TIME_KEY, time)
+            intent.putExtra(SeatSelectActivity.DATETIME_KEY, LocalDateTime.of(date, time))
             intent.putExtra(SeatSelectActivity.COUNT_KEY, count)
             it.context.startActivity(intent)
         }
@@ -65,7 +65,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
 
     private fun setDateSpinner(
         savedDatePosition: Int,
-        playingTimes: Map<LocalDate, List<LocalTime>>
+        playingTimes: Map<LocalDate, List<LocalTime>>,
     ) {
         dateSpinner.adapter = SpinnerAdapter(playingTimes.keys.toList())
         dateSpinner.setSelection(savedDatePosition, false)
@@ -74,10 +74,11 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
-                id: Long
+                id: Long,
             ) {
                 val times = playingTimes.getOrEmptyList(playingTimes.getKeyFromIndex(position))
-                timeSpinner.adapter = ArrayAdapter(viewGroup.context, android.R.layout.simple_spinner_item, times)
+                timeSpinner.adapter =
+                    ArrayAdapter(viewGroup.context, android.R.layout.simple_spinner_item, times)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

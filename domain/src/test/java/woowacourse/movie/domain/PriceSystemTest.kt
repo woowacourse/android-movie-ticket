@@ -29,7 +29,7 @@ class PriceSystemTest {
     fun `선택 성공 시 더한 가격을 반환한다`() {
         val priceSystem = PriceSystem(calculator, LocalDateTime.of(2023, 4, 30, 9, 0))
         val actual =
-            priceSystem.getCurrentPrice(Price(10000), SelectResult.Success.Selection(Price(13000)))
+            priceSystem.getCurrentPrice(Price(10000), SelectResult.Success.Selection(Price(13000), false))
         val expected = Price(19700)
         assertEquals(actual, expected)
     }
