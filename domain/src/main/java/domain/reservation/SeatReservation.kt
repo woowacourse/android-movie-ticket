@@ -4,6 +4,7 @@ import domain.movie.MovieName
 import domain.payment.PaymentAmount
 import domain.seat.ScreeningSeat
 import domain.seat.ScreeningSeats
+import domain.seat.SeatState
 import java.time.LocalDateTime
 
 data class SeatReservation(
@@ -51,7 +52,13 @@ data class SeatReservation(
 
     private fun isFullSelectedSeatCount() = _selectedSeats.size == seatCount.value
 
+    operator fun get(seat: ScreeningSeat): SeatState {
+        return screeningSeats.values[seat]
+            ?: throw IllegalArgumentException(ERROR_NOT_EXIST_SEAT)
+    }
+
     companion object {
+        private const val ERROR_NOT_EXIST_SEAT = "[ERROR] 사용할 수 없는 좌석입니다."
         private const val ERROR_OVER_TICKET_COUNT = "[ERROR]: 티켓 개수보다 많은 좌석을 선택할 수 없습니다."
         private const val ERROR_TICKET_COUNT = "[ERROR]: 티켓 개수만큼 좌석을 선택해야합니다."
     }

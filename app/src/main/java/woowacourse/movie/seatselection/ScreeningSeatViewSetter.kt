@@ -31,7 +31,7 @@ class ScreeningSeatViewSetter(
         seatTableConfiguration.forEachIndexed { seatPosition, seatView ->
             val seat = seatPosition.toScreeningSeat()
 
-            when (seatReservation.screeningSeats.values[seat]) {
+            when (seatReservation[seat]) {
                 SeatState.SELECTED -> seatView.markSelected()
                 else -> seatView.markAvailable()
             }
@@ -42,9 +42,8 @@ class ScreeningSeatViewSetter(
         seatTableConfiguration.forEachIndexed { seatPosition, seatView ->
             seatView.setOnClickListener {
                 val seat = seatPosition.toScreeningSeat()
-                val clickedSeatState = seatReservation.screeningSeats.values[seat]
 
-                clickedSeatState?.let {
+                seatReservation[seat].apply {
                     runCatching {
                         onSeatViewClicked(seatView, seat)
                     }.onFailure {
@@ -57,7 +56,7 @@ class ScreeningSeatViewSetter(
     }
 
     private fun onSeatViewClicked(seatView: TextView, seat: ScreeningSeat) {
-        if (seatReservation.screeningSeats.values[seat] == SeatState.SELECTED) {
+        if (seatReservation[seat] == SeatState.SELECTED) {
             seatReservation.cancelSeat(seat)
             seatView.markAvailable()
         } else {
