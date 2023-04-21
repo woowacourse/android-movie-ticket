@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import payment.PaymentAmount
 import reservation.Reservation
 import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
@@ -36,21 +37,28 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun showDialog() {
-        val movieModel: MovieModel = intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel
-        val ticketCount: Int = intent.getIntExtra("ticket_count", 1)
-        val screeningDateTime: LocalDateTime =
-            intent.getSerializableExtra("screening_date_time") as LocalDateTime
-
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
             .setPositiveButton("예매 완료") { _, _ ->
-                val intent: Intent = Intent(this, ReservationResultActivity::class.java)
-                val reservation: Reservation =
-                    Reservation.from(movieModel.toDomainModel(), ticketCount, screeningDateTime)
+                val movieModel: MovieModel = intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel
+                val ticketCount: Int = intent.getIntExtra("ticket_count", 1)
+                val screeningDateTime: LocalDateTime =
+                    intent.getSerializableExtra("screening_date_time") as LocalDateTime
 
-                intent.putExtra(RESERVATION_INTENT_KEY, reservation.toReservationModel())
-                startActivity(intent)
+                val nextIntent = Intent(this, ReservationResultActivity::class.java)
+                val paymentAmount =
+                    PaymentAmount(binding.paymentAmountTextView.text.toString().toInt())
+
+                val reservation = Reservation(
+                    movie = movieModel.toDomainModel(),
+                    screeningDateTime = screeningDateTime,
+                    ticketCount = ticketCount,
+                    paymentAmount = paymentAmount
+                )
+
+                nextIntent.putExtra(RESERVATION_INTENT_KEY, reservation.toReservationModel())
+                startActivity(nextIntent)
             }
             .setNegativeButton("취소") { dialog, _ ->
                 dialog.dismiss()

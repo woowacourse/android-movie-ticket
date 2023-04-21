@@ -33,6 +33,22 @@ class SeatsView(
         return count
     }
 
+    private fun getSelectedSeats(): List<Seat> {
+        val selectedSeat: MutableList<Seat> = mutableListOf()
+
+        seats.forEachIndexed { rowIndex, it ->
+            it.forEachIndexed() { columnIndex, seat ->
+                if (seat.isSelected) {
+                    val row: Char = rowIndex.toChar() + Seat.MIN_ROW.toInt()
+                    val column: Int = columnIndex + Seat.MIN_COLUMN
+                    selectedSeat.add(Seat.from(row, column))
+                }
+            }
+        }
+
+        return selectedSeat
+    }
+
     private fun createSeatViews(): List<List<TextView>> {
         val seats: MutableList<MutableList<TextView>> = mutableListOf()
 
@@ -120,18 +136,12 @@ class SeatsView(
     }
 
     private fun updatePaymentAmount() {
-        val screeningDateTime: LocalDateTime = intent.getSerializableExtra("screening_date_time") as LocalDateTime
+        val screeningDateTime: LocalDateTime =
+            intent.getSerializableExtra("screening_date_time") as LocalDateTime
         val discount: Discount = Discount(MovieDayDiscount(), EarlyNightDiscount())
-        var paymentAmount: Int = 0
-        seats.forEachIndexed { index, it ->
-            it.forEach { seat ->
-                if (seat.isSelected) {
-                    val seatType: SeatType = Seat.getSeatType(index.toChar() + Seat.MIN_ROW.toInt())
-                    paymentAmount += seatType.paymentAmount
-                }
-            }
-        }
 
-        binding.paymentAmountTextView.text = discount.getPaymentAmountResult(PaymentAmount(paymentAmount), screeningDateTime).toString()
+        val basePaymentAmount: PaymentAmount = PaymentAmount.from(getSelectedSeats())
+        binding.paymentAmountTextView.text =
+            discount.getPaymentAmountResult(basePaymentAmount, screeningDateTime).toString()
     }
 }
