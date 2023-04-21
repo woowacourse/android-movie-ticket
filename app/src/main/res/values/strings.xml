@@ -36,5 +36,6 @@
     <string name="tv_seat_reservation_title">해리 포터와 마법사의 돌</string>
     <string name="tv_seat_reservation_price">%d원</string>
     <string name="tv_seat_reservation_check">확인</string>
+    <string name="st_seat_reservation_over">더 이상 좌석을 선택할 수 없습니다</string>
 
 </resources>

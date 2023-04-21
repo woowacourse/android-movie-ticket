@@ -3,21 +3,21 @@ package woowacourse.movie.ui.seatreservation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.ui.seatreservation.domain.Money
-import woowacourse.movie.ui.seatreservation.domain.Seat
-import woowacourse.movie.ui.seatreservation.domain.Total
+import woowacourse.movie.ui.seatreservation.domain.BoxOffice
 
 class SeatReservationActivity : AppCompatActivity() {
     private val seatingChart: Sequence<TextView> by lazy { createSeatingChart() }
-    private val sum: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_price) }
+    private val totalPrice: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_price) }
     private val movieName: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_title) }
-    private val total: Total by lazy { Total.from() }
+    private val boxOffice: BoxOffice by lazy { BoxOffice.create() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_reservation)
@@ -29,7 +29,7 @@ class SeatReservationActivity : AppCompatActivity() {
 
     private fun initView() {
         movieName.text = intent.getStringExtra(MOVIE_TITLE)
-        sum.text = getString(R.string.tv_seat_reservation_price).format(ZERO)
+        totalPrice.text = getString(R.string.tv_seat_reservation_price).format(ZERO)
     }
 
     private fun setClickEventOnCheck() {
@@ -42,17 +42,20 @@ class SeatReservationActivity : AppCompatActivity() {
     }
 
     private fun setClickEventOnSeat() {
+        var count = 0
         seatingChart.forEachIndexed { seatLocation, view ->
             view.setOnClickListener { view ->
-                view.isSelected = !view.isSelected
+                updateTotalView(view, seatLocation)
 
-                val seat = Seat.valueOf(seatLocation)
-                val price = Money.from(seat.price)
-                total.calculate(price)
-
-                sum.text = getString(R.string.tv_seat_reservation_price).format(total.price)
+                count++
             }
         }
+    }
+
+    private fun updateTotalView(view: View, seatLocation: Int) {
+        val sum = boxOffice.calculate(view, seatLocation)
+
+        totalPrice.text = getString(R.string.tv_seat_reservation_price).format(sum)
     }
 
     private fun createSeatingChart() =
@@ -63,12 +66,13 @@ class SeatReservationActivity : AppCompatActivity() {
 
     companion object {
         private const val MOVIE_TITLE = "Title"
+        private const val TICKET_COUNT = "Count"
         private const val ZERO = 0
 
-        fun getIntent(context: Context, title: String): Intent {
-            return Intent(context, SeatReservationActivity::class.java).apply {
+        fun getIntent(context: Context, title: String, ticketCount: Int): Intent =
+            Intent(context, SeatReservationActivity::class.java).apply {
                 putExtra(MOVIE_TITLE, title)
+                putExtra(TICKET_COUNT, ticketCount)
             }
-        }
     }
 }
