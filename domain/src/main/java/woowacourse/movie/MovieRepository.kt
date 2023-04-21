@@ -1,5 +1,8 @@
 package woowacourse.movie
 
+import woowacourse.movie.movie.MovieDatabase
+import woowacourse.movie.movie.MovieEntity
+
 object MovieRepository {
     fun getMovies(): List<Movie> {
         return MovieDatabase.movies.map { it.toMovie() }
