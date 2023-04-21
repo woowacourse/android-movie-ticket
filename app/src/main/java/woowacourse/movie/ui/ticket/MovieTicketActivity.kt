@@ -55,7 +55,7 @@ class MovieTicketActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.ticket_people_count).text =
                 getString(R.string.people_count, it.peopleCount.count)
             findViewById<TextView>(R.id.ticket_price).text =
-                getString(R.string.price_with_unit, DecimalFormat("#,###").format(it.getPrice()))
+                getString(R.string.price_with_payment, DecimalFormat("#,###").format(it.getPrice()))
         }
     }
 

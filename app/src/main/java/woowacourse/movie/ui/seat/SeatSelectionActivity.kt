@@ -22,6 +22,7 @@ import woowacourse.movie.utils.showToast
 class SeatSelectionActivity : AppCompatActivity() {
 
     private lateinit var selectedSeats: SelectedSeats
+    private val priceTextView by lazy { findViewById<TextView>(R.id.seat_price) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +31,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
         initPeopleCount()
         initSeatTable()
-    }
-
-    private fun initPeopleCount() {
-        val count = PeopleCount(
-            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: 1
-        )
-        selectedSeats = SelectedSeats(count)
+        initBottomField()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -49,6 +44,13 @@ class SeatSelectionActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun initPeopleCount() {
+        val count = PeopleCount(
+            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: 1
+        )
+        selectedSeats = SelectedSeats(count)
+    }
+
     private fun initSeatTable() {
         val seatTable = findViewById<TableLayout>(R.id.seat_table_layout)
         for (row in 1..ROW_SIZE) {
@@ -58,6 +60,16 @@ class SeatSelectionActivity : AppCompatActivity() {
             }
             seatTable.addView(tableRow)
         }
+    }
+
+    private fun initBottomField() {
+        findViewById<TextView>(R.id.seat_movie_title).text =
+            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: ""
+        updatePriceText(0)
+    }
+
+    private fun updatePriceText(price: Int) {
+        priceTextView.text = getString(R.string.price_with_unit, price)
     }
 
     private fun getSeatView(row: Int, column: Int): View {
@@ -88,6 +100,8 @@ class SeatSelectionActivity : AppCompatActivity() {
             seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
             selectedSeats = selectedSeats.add(seat)
         }
+
+        updatePriceText(selectedSeats.getAllPrice())
     }
 
     private fun canSelectMoreSeat(seatView: View) =
