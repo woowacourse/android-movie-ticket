@@ -15,6 +15,8 @@ import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SelectedSeats
 import woowacourse.movie.mapper.toDomain
+import woowacourse.movie.mapper.toModel
+import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.model.SeatClassModel
 import woowacourse.movie.model.SeatModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
@@ -133,15 +135,15 @@ class SeatSelectionActivity : AppCompatActivity() {
         !(seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
 
     private fun moveToTicketActivity() {
-/*        val ticket = MovieTicketModel(
+        val ticket = MovieTicketModel(
             title = movieTitle,
             time = movieTime,
-            // peopleCount = peopleCount,
-            seats = selectedSeats
-        )*/
+            peopleCount = peopleCount.toModel(),
+            seats = selectedSeats.toModel()
+        )
 
         val intent = Intent(this, MovieTicketActivity::class.java)
-        // intent.putExtra(KEY_TICKET, ticket)
+        intent.putExtra(KEY_TICKET, ticket)
         startActivity(intent)
     }
 

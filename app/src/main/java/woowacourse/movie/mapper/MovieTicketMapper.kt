@@ -7,5 +7,5 @@ fun MovieTicketModel.toDomain(): MovieTicket =
     MovieTicket(
         title = title,
         time = time,
-        peopleCount = peopleCount
+        peopleCount = peopleCount.toDomain(),
     )

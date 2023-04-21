@@ -19,7 +19,6 @@ class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setTicketInfo()
@@ -52,7 +51,7 @@ class MovieTicketActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.ticket_price).text =
             getString(
                 R.string.price_with_payment,
-                DecimalFormat("#,###").format(ticket.toDomain().getPrice())
+                DecimalFormat("#,###").format(ticket.seats.toDomain().getAllPrice())
             )
     }
 
