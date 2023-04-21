@@ -23,6 +23,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private lateinit var selectedSeats: SelectedSeats
     private val priceTextView by lazy { findViewById<TextView>(R.id.seat_price) }
+    private val selectButton by lazy { findViewById<TextView>(R.id.seat_confirm_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,10 +69,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         updatePriceText(0)
     }
 
-    private fun updatePriceText(price: Int) {
-        priceTextView.text = getString(R.string.price_with_unit, price)
-    }
-
     private fun getSeatView(row: Int, column: Int): View {
         val seatView = LayoutInflater.from(this).inflate(R.layout.item_seat, null, false)
         val seat = SeatModel(row, column)
@@ -102,6 +99,11 @@ class SeatSelectionActivity : AppCompatActivity() {
         }
 
         updatePriceText(selectedSeats.getAllPrice())
+        selectButton.isEnabled = selectedSeats.isSelectionDone()
+    }
+
+    private fun updatePriceText(price: Int) {
+        priceTextView.text = getString(R.string.price_with_unit, price)
     }
 
     private fun canSelectMoreSeat(seatView: View) =
