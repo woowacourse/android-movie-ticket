@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotSelected
@@ -132,5 +133,22 @@ internal class MovieSeatActivityTest {
         // then
         onView(withId(R.id.seat_next_button))
             .check(matches(isEnabled()))
+    }
+
+    @Test
+    fun 두_자리가_선택되어있고_확인버튼_클릭시_다이얼로그가_뜬다() {
+        // given
+        onView(withId(R.id.textViewA1))
+            .perform(click())
+        onView(withId(R.id.textViewC1))
+            .perform(click())
+
+        // when
+        onView(withId(R.id.seat_next_button))
+            .perform(click())
+
+        // then
+        onView(withText("정말 예매하시겠습니까?"))
+            .inRoot(isDialog())
     }
 }

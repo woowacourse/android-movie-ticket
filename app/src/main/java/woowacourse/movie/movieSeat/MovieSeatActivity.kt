@@ -1,11 +1,13 @@
 package woowacourse.movie.movieSeat
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -37,7 +39,28 @@ class MovieSeatActivity : AppCompatActivity() {
         movieTitleView.text = movieDetail.title
 
         val nextButton = findViewById<Button>(R.id.seat_next_button)
-        nextButton.setOnClickListener { startActivity(makeIntent()) }
+        nextButton.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setCancelable(false)
+
+            val listener = DialogInterface.OnClickListener { p0, p1 ->
+                when (p1) {
+                    DialogInterface.BUTTON_POSITIVE -> {
+                        startActivity(makeIntent())
+                    }
+                    DialogInterface.BUTTON_NEGATIVE -> Unit
+                }
+            }
+
+            dialogBuilder.setPositiveButton("예매완료", listener)
+            dialogBuilder.setNegativeButton("취소", listener)
+
+            val dialog = dialogBuilder.create()
+            dialog.show()
+        }
     }
 
     private fun initListener() {
@@ -69,7 +92,6 @@ class MovieSeatActivity : AppCompatActivity() {
         }
         priceTextView.text = getString(R.string.total_price).format(totalPrice)
         val nextButton = findViewById<Button>(R.id.seat_next_button)
-
         nextButton.isEnabled = movieDetail.count.toInt() == selectedSeats.size
     }
 
