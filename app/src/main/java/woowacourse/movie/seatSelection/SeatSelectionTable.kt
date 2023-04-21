@@ -13,6 +13,7 @@ import model.SeatModel
 import model.SeatSelectionModel
 import movie.SeatSelection
 import woowacourse.movie.R
+import java.io.Serializable
 
 class SeatSelectionTable(
     private val view: View,
@@ -59,16 +60,14 @@ class SeatSelectionTable(
     }
 
     fun loadSeatSelection(savedInstanceState: Bundle) {
-        savedInstanceState.getParcelableArray(KEY_SEAT_SELECTION_SEATS)?.map { it as SeatModel }
-            ?.forEach { onSeatClick(it.row, it.column) }
+        (savedInstanceState.getSerializable(KEY_SEAT_SELECTION_SEATS) as ArrayList<*>)
+            .filterIsInstance<SeatModel>()
+            .forEach { onSeatClick(it.row, it.column) }
     }
 
     fun saveInstanceState(outState: Bundle) {
         val seatModels = seatSelection.selection.map { it.toSeatModel() }
-        outState.putParcelableArray(
-            KEY_SEAT_SELECTION_SEATS,
-            seatModels.toTypedArray(),
-        )
+        outState.putSerializable(KEY_SEAT_SELECTION_SEATS, seatModels as Serializable)
     }
 
     private fun updateInfo() {
