@@ -1,7 +1,10 @@
 package woowacourse.movie.presentation.activities.movielist.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
@@ -12,26 +15,23 @@ import woowacourse.movie.presentation.model.movieitem.Ad
 import woowacourse.movie.presentation.model.movieitem.Movie
 
 class MovieListAdapter(
-    private val movies: List<Movie>,
     private val ads: List<Ad>,
     private val onBookBtnClick: (Movie) -> Unit,
     private val onAdClick: (Ad) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
-
-    private val onMovieItemClick: (Int) -> Unit = { onBookBtnClick(movies[getMoviePosition(it)]) }
-    private val onAdItemClick: (Int) -> Unit = { onAdClick(ads[getMoviePosition(it)]) }
+    private val _movies: MutableList<Movie> = mutableListOf()
+    private val onMovieItemClick: (Int) -> Unit = { onBookBtnClick(_movies[getMoviePosition(it)]) }
+    private val onAdItemClick: (Int) -> Unit = { onAdClick(ads[getAdPosition(it)]) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         when (viewType) {
             MovieViewType.MOVIE -> {
-                val movieView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_movie, parent, false)
+                val movieView = inflate(parent.context, parent, R.layout.item_movie)
                 return MovieViewHolder(movieView, onMovieItemClick)
             }
 
             MovieViewType.AD -> {
-                val adView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_native_ads, parent, false)
+                val adView = inflate(parent.context, parent, R.layout.item_native_ad)
                 return NativeAdViewHolder(adView, onAdItemClick)
             }
         }
@@ -40,7 +40,7 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
-            is MovieViewHolder -> holder.bind(movies[getMoviePosition(position)])
+            is MovieViewHolder -> holder.bind(_movies[getMoviePosition(position)])
             is NativeAdViewHolder -> holder.bind(ads[getAdPosition(position)])
         }
     }
@@ -51,16 +51,24 @@ class MovieListAdapter(
         else -> throw IllegalArgumentException(INVALID_POSITION_ERROR_MESSAGE)
     }
 
-    override fun getItemCount(): Int = movies.size + adsSize()
+    override fun getItemCount(): Int = _movies.size + adsSize()
 
-    private fun adsSize() = movies.size / ADS_INTERVAL
+    private fun inflate(context: Context, parent: ViewGroup, @LayoutRes resId: Int): View =
+        LayoutInflater.from(context).inflate(resId, parent, false)
+
+    fun addAll(newMovies: List<Movie>) {
+        _movies.addAll(newMovies)
+        notifyItemRangeChanged(_movies.size, newMovies.size)
+    }
+
+    private fun adsSize() = _movies.size / ADS_INTERVAL
 
     private fun isAd(position: Int): Boolean =
         position != 0 && (position + 1) % (ADS_INTERVAL + 1) == 0
 
     private fun isMovie(position: Int): Boolean = !isAd(position)
 
-    private fun getMoviePosition(position: Int): Int = position - (position / ADS_INTERVAL)
+    private fun getMoviePosition(position: Int): Int = position - (position / (ADS_INTERVAL + 1))
 
     private fun getAdPosition(position: Int): Int = (position / (ADS_INTERVAL + 1)) % ads.size
 

@@ -22,7 +22,9 @@ data class Movie(
     companion object {
         private const val MOVIE_DATE_PATTERN = "yyyy.MM.dd"
 
-        fun provideDummy(): List<Movie> = List(10_000) {
+        private const val DEFAULT_LOAD_SIZE = 20
+        private var loadedSize = 0
+        private val dummy: List<Movie> = List(10_000) {
             Movie(
                 "해리 포터와 마법사의 돌 $it",
                 LocalDate.of(2023, 4, 1),
@@ -31,6 +33,23 @@ data class Movie(
                 "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 R.drawable.img_sample_movie_thumbnail1
             )
+        }
+
+        fun provideDummy(loadSize: Int = DEFAULT_LOAD_SIZE): List<Movie> {
+            val temp: MutableList<Movie> = mutableListOf()
+
+            while (temp.size < loadSize) {
+                if (canLoad()) return temp
+                addDummy(temp)
+            }
+            return temp
+        }
+
+        private fun canLoad() = loadedSize >= dummy.size
+
+        private fun addDummy(tempDummy: MutableList<Movie>) {
+            tempDummy.add(dummy[loadedSize])
+            loadedSize++
         }
     }
 }

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import woowacourse.movie.R
 import woowacourse.movie.presentation.activities.movielist.adapter.MovieListAdapter
 import woowacourse.movie.presentation.activities.ticketing.TicketingActivity
@@ -21,13 +22,22 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initMovieListAdapter() {
+        val movieRecyclerView = findViewById<RecyclerView>(R.id.movies_rv)
         movieListAdapter = MovieListAdapter(
-            movies = Movie.provideDummy(),
             ads = Ad.provideDummy(),
             onBookBtnClick = { movie -> startTicketingActivity(movie) },
             onAdClick = { ads -> accessAdWebPage(ads) }
-        )
-        findViewById<RecyclerView>(R.id.movies_rv).adapter = movieListAdapter
+        ).also { it.addAll(Movie.provideDummy()) }
+
+        movieRecyclerView.adapter = movieListAdapter
+        movieRecyclerView.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!recyclerView.canScrollVertically(DOWN_DIRECTION) && dy > 0) {
+                    movieListAdapter.addAll(Movie.provideDummy())
+                }
+            }
+        })
     }
 
     private fun startTicketingActivity(movie: Movie) {
@@ -43,5 +53,6 @@ class MovieListActivity : AppCompatActivity() {
 
     companion object {
         internal const val MOVIE_KEY = "movie_key"
+        private const val DOWN_DIRECTION = 1
     }
 }
