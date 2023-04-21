@@ -96,7 +96,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     private fun setPlusButton() {
         plusButton.setOnClickListener {
             val count = countView.text.toString().toInt()
-            countView.text = (count + 1).toString()
+            if (count < MAX_COUNT) countView.text = (count + 1).toString()
         }
     }
 
@@ -112,5 +112,6 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     companion object {
         private const val DEFAULT_COUNT = 1
         private const val DEFAULT_POSITION = 0
+        private const val MAX_COUNT = 20
     }
 }
