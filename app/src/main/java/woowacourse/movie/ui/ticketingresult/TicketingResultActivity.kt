@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
-import woowacourse.movie.model.ReservationUI
-import woowacourse.movie.model.TicketCountUI
+import woowacourse.movie.model.TicketsUI
+import woowacourse.movie.model.mapper.toTickets
 import woowacourse.movie.ui.movielist.MovieListActivity
-import woowacourse.movie.ui.ticketing.TicketingActivity
+import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import java.time.LocalDateTime
 
 class TicketingResultActivity : AppCompatActivity() {
@@ -25,18 +26,18 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation() {
-        val reservation =
-            intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY)
+        val tickets =
+            intent.getParcelableCompat<TicketsUI>(SeatSelectionActivity.TICKETS_KEY)
                 ?: return exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
-        setReservationInfo(reservation)
+        setReservationInfo(tickets)
     }
 
-    private fun setReservationInfo(reservationUI: ReservationUI) {
-        with(reservationUI) {
-            findViewById<TextView>(R.id.tv_title).text = movie.title
-            setDateTime(dateTime)
-            setTicketCount(ticketCount)
-//            setPayment(this)
+    private fun setReservationInfo(tickets: TicketsUI) {
+        with(tickets) {
+            findViewById<TextView>(R.id.tv_title).text = reservation.movie.title
+            setDateTime(reservation.dateTime)
+            setTicketCount(this)
+            setPayment(this)
         }
     }
 
@@ -51,19 +52,31 @@ class TicketingResultActivity : AppCompatActivity() {
         )
     }
 
-    private fun setTicketCount(ticket: TicketCountUI) {
+    private fun setTicketCount(tickets: TicketsUI) {
         findViewById<TextView>(R.id.tv_regular_count).text =
-            getString(R.string.regular_count, ticket.count)
+            getString(
+                R.string.regular_count,
+                tickets.toTickets().size,
+                getString(
+                    R.string.reservation_seat_position,
+                    tickets.getSeatPositionUIFormat()
+                )
+            )
     }
 
-//    private fun setPayment(reservationUI: ReservationUI) {
-//        findViewById<TextView>(R.id.tv_pay_result).text =
-//            getString(
-//                R.string.movie_pay_result,
-//                reservationUI.toReservation(),
-//                getString(R.string.on_site_payment)
-//            )
-//    }
+    private fun setPayment(tickets: TicketsUI) {
+        findViewById<TextView>(R.id.tv_pay_result).text =
+            getString(
+                R.string.movie_pay_result,
+                calculateTicketPrice(tickets),
+                getString(R.string.on_site_payment)
+            )
+    }
+
+    private fun calculateTicketPrice(tickets: TicketsUI): Int {
+        val decorator = DiscountDecorator(tickets.reservation.dateTime)
+        return tickets.toTickets().calculatePrice(decorator)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
