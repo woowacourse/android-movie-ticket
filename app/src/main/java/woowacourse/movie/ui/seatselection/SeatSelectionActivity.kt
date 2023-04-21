@@ -8,15 +8,15 @@ import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.woowacourse.movie.domain.Tickets
 import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketUI
-import woowacourse.movie.model.mapper.toReservation
+import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.mapper.toTicket
+import woowacourse.movie.model.mapper.toTickets
 import woowacourse.movie.model.mapper.toTicketsUI
 import woowacourse.movie.model.seat.SeatPositionUI
 import woowacourse.movie.ui.ticketing.TicketingActivity
@@ -24,10 +24,14 @@ import woowacourse.movie.ui.ticketingresult.TicketingResultActivity
 
 class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var reservation: ReservationUI
+    private lateinit var ticketsUI: TicketsUI
     private var moviePrice = DEFAULT_MOVIE_PRICE
 
-    private val tickets: Tickets by lazy {
-        Tickets(listOf(), reservation.toReservation())
+    private val seatTableLayout: TableLayout by lazy {
+        findViewById(R.id.table_seat)
+    }
+    private val seatTable: SeatTable by lazy {
+        SeatTable(seatTableLayout, ticketsUI, ::setButtonEnable, ::setTicket)
     }
 
     private val okButton: Button by lazy {
@@ -47,22 +51,34 @@ class SeatSelectionActivity : AppCompatActivity() {
             ?: return exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
 
         initMovieData()
-        initSeatTable()
         initButtonClickListener()
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.getParcelableCompat<TicketsUI>(TICKETS_STATE_KEY)?.run {
+            setRestoreTickets(this)
+        }
+    }
+
+    private fun setRestoreTickets(ticketsUI: TicketsUI) {
+        val tickets = ticketsUI.toTickets()
+        ticketsUI.tickets.forEach {
+            seatTable.setSeatPosition(it.seatPosition)
+            tickets.addTicket(it.toTicket())
+        }
+        this.ticketsUI = tickets.toTicketsUI()
+    }
+
     private fun initMovieData() {
+        ticketsUI = TicketsUI(listOf(), reservation)
+        seatTable
         findViewById<TextView>(R.id.tv_title).text = reservation.movie.title
         setMoviePrice(moviePrice)
     }
 
     private fun setMoviePrice(price: Int) {
         findViewById<TextView>(R.id.tv_price).text = getString(R.string.movie_price, price)
-    }
-
-    private fun initSeatTable() {
-        val seatTableLayout = findViewById<TableLayout>(R.id.table_seat)
-        SeatTable(seatTableLayout, reservation, ::setButtonEnable, ::setTicket)
     }
 
     private fun initButtonClickListener() {
@@ -88,7 +104,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun reserveMovie() {
         val intent = Intent(this@SeatSelectionActivity, TicketingResultActivity::class.java)
-        intent.putExtra(TICKETS_KEY, tickets.toTicketsUI())
+        intent.putExtra(TICKETS_KEY, ticketsUI)
         startActivity(intent)
         finish()
     }
@@ -98,12 +114,14 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun setTicket(seatPosition: SeatPositionUI) {
+        val tickets = ticketsUI.toTickets()
         val targetTicket = TicketUI(seatPosition).toTicket()
         if (tickets.find(targetTicket)) {
             tickets.removeTicket(targetTicket)
         } else {
             tickets.addTicket(targetTicket)
         }
+        ticketsUI = tickets.toTicketsUI()
         changeTicketPrice()
     }
 
@@ -113,6 +131,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun calculateTicketPrice(): Int {
+        val tickets = ticketsUI.toTickets()
         if (tickets.isEmpty()) {
             return DEFAULT_MOVIE_PRICE
         }
@@ -129,11 +148,15 @@ class SeatSelectionActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(TICKETS_STATE_KEY, ticketsUI)
+    }
+
     companion object {
-        private const val MESSAGE_EMPTY_RESERVATION = "예매 정보가 없습니다"
-
-        private const val DEFAULT_MOVIE_PRICE = 0
-
         internal const val TICKETS_KEY = "tickets"
+        private const val TICKETS_STATE_KEY = "tickets_state_key"
+        private const val MESSAGE_EMPTY_RESERVATION = "예매 정보가 없습니다"
+        private const val DEFAULT_MOVIE_PRICE = 0
     }
 }

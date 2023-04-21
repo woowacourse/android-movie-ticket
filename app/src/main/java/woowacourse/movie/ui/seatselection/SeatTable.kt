@@ -5,15 +5,15 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
-import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
+import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.seat.ColUI
 import woowacourse.movie.model.seat.RowUI
 import woowacourse.movie.model.seat.SeatPositionUI
 
 class SeatTable(
     value: TableLayout,
-    private val reservationUI: ReservationUI,
+    private val tickets: TicketsUI,
     val setButtonEnabled: (Boolean) -> Unit,
     val setTicket: (SeatPositionUI) -> Unit
 ) {
@@ -42,20 +42,24 @@ class SeatTable(
     private fun View.setSeatOnClick(seatPosition: SeatPositionUI) {
         when (isSelected) {
             true -> {
-                isSelected = !isSelected
-                --selectedCount
+                setSeatPosition(seatPosition)
                 setButtonEnabled(false)
-                setTicket(seatPosition)
             }
             else -> {
-                if (selectedCount != reservationUI.ticketCount) {
-                    isSelected = !isSelected
-                    ++selectedCount
-                    setTicket(seatPosition)
+                if (selectedCount != tickets.reservation.ticketCount) {
+                    setSeatPosition(seatPosition)
                 }
-                if (selectedCount == reservationUI.ticketCount) {
-                    setButtonEnabled(true)
-                }
+            }
+        }
+    }
+
+    fun setSeatPosition(seatPosition: SeatPositionUI) {
+        with(seatView[seatPosition.row.x][seatPosition.col.y]) {
+            if (isSelected) --selectedCount else ++selectedCount
+            isSelected = !isSelected
+            setTicket(seatPosition)
+            if (selectedCount == tickets.reservation.ticketCount) {
+                setButtonEnabled(true)
             }
         }
     }
