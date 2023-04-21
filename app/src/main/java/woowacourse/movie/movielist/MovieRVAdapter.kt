@@ -40,10 +40,14 @@ class MovieRVAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if ((position + 1) % 4 == 0) return ViewType.AD_VIEW.ordinal else return ViewType.MOVIE_VIEW.ordinal
+        if ((position + 1) % DIVIDE_MOVIE_VIEW == 0) return ViewType.AD_VIEW.ordinal else return ViewType.MOVIE_VIEW.ordinal
     }
 
     override fun getItemCount(): Int {
         return movies.size
+    }
+
+    companion object {
+        private const val DIVIDE_MOVIE_VIEW = 4
     }
 }
