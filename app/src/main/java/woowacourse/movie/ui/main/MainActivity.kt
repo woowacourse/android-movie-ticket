@@ -2,15 +2,15 @@ package woowacourse.movie.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.model.MovieState
 import woowacourse.movie.ui.reservation.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
-    private val movieListView: ListView by lazy { findViewById(R.id.listView) }
+    private val movieListView: RecyclerView by lazy { findViewById(R.id.listView) }
     private val adapter: MovieAdapter by lazy {
         MovieAdapter(
             MovieRepositoryImpl.allMovies(),

@@ -91,7 +91,6 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
     }
 
     override fun updateSelectSeats(positionState: List<SeatPositionState>) {
-        Log.d("mendel", "update - seatSelectActivity: ${positionState.toList()}")
         confirmView.isClickable = (positionState.size == reservationState.countState.value)
 
         // 이걸 어떻게 해줄 것인지...
