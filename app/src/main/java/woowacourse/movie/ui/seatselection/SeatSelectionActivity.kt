@@ -8,22 +8,27 @@ import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.woowacourse.movie.domain.Tickets
 import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketUI
-import woowacourse.movie.model.TicketsUI
-import woowacourse.movie.model.mapper.toTickets
+import woowacourse.movie.model.mapper.toReservation
+import woowacourse.movie.model.mapper.toTicket
+import woowacourse.movie.model.mapper.toTicketsUI
 import woowacourse.movie.model.seat.SeatPositionUI
 import woowacourse.movie.ui.ticketing.TicketingActivity
 import woowacourse.movie.ui.ticketingresult.TicketingResultActivity
 
 class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var reservation: ReservationUI
-    private lateinit var tickets: TicketsUI
     private var moviePrice = DEFAULT_MOVIE_PRICE
+
+    private val tickets: Tickets by lazy {
+        Tickets(listOf(), reservation.toReservation())
+    }
 
     private val okButton: Button by lazy {
         findViewById(R.id.btn_ok)
@@ -57,7 +62,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun initSeatTable() {
         val seatTableLayout = findViewById<TableLayout>(R.id.table_seat)
-        SeatTable(seatTableLayout, reservation, ::setButtonEnable, ::setTicketPrice)
+        SeatTable(seatTableLayout, reservation, ::setButtonEnable, ::setTicket)
     }
 
     private fun initButtonClickListener() {
@@ -83,7 +88,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun reserveMovie() {
         val intent = Intent(this@SeatSelectionActivity, TicketingResultActivity::class.java)
-        intent.putExtra(TICKETS_KEY, tickets)
+        intent.putExtra(TICKETS_KEY, tickets.toTicketsUI())
         startActivity(intent)
         finish()
     }
@@ -92,18 +97,27 @@ class SeatSelectionActivity : AppCompatActivity() {
         okButton.isEnabled = enabled
     }
 
-    private fun setTicketPrice(seatPositions: List<SeatPositionUI>) {
-        val price = calculateTicketPrice(seatPositions)
+    private fun setTicket(seatPosition: SeatPositionUI) {
+        val targetTicket = TicketUI(seatPosition).toTicket()
+        if (tickets.find(targetTicket)) {
+            tickets.removeTicket(targetTicket)
+        } else {
+            tickets.addTicket(targetTicket)
+        }
+        changeTicketPrice()
+    }
+
+    private fun changeTicketPrice() {
+        val price = calculateTicketPrice()
         textPrice.text = getString(R.string.movie_price, price)
     }
 
-    private fun calculateTicketPrice(seatPositions: List<SeatPositionUI>): Int {
-        if (seatPositions.isEmpty()) {
+    private fun calculateTicketPrice(): Int {
+        if (tickets.isEmpty()) {
             return DEFAULT_MOVIE_PRICE
         }
-        tickets = TicketsUI(seatPositions.map { TicketUI(it) }, reservation)
         val decorator = DiscountDecorator(reservation.dateTime)
-        return tickets.toTickets().calculatePrice(decorator)
+        return tickets.calculatePrice(decorator)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

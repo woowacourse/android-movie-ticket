@@ -15,7 +15,7 @@ class SeatTable(
     value: TableLayout,
     private val reservationUI: ReservationUI,
     val setButtonEnabled: (Boolean) -> Unit,
-    val setTicketPrice: (List<SeatPositionUI>) -> Unit
+    val setTicket: (SeatPositionUI) -> Unit
 ) {
     private val seatView: List<List<TextView>> =
         value.children
@@ -23,7 +23,6 @@ class SeatTable(
             .map { it.children.filterIsInstance<TextView>().toList() }.toList()
 
     private var selectedCount = TicketCountUI()
-    private val seatPositions = mutableListOf<SeatPositionUI>()
 
     init {
         initTableClickListener()
@@ -45,16 +44,14 @@ class SeatTable(
             true -> {
                 isSelected = !isSelected
                 --selectedCount
-                seatPositions.remove(seatPosition)
                 setButtonEnabled(false)
-                setTicketPrice(seatPositions.toList())
+                setTicket(seatPosition)
             }
             else -> {
                 if (selectedCount != reservationUI.ticketCount) {
                     isSelected = !isSelected
                     ++selectedCount
-                    seatPositions.add(seatPosition)
-                    setTicketPrice(seatPositions.toList())
+                    setTicket(seatPosition)
                 }
                 if (selectedCount == reservationUI.ticketCount) {
                     setButtonEnabled(true)
