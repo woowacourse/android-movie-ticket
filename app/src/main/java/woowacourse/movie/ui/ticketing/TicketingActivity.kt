@@ -20,6 +20,8 @@ import woowacourse.movie.model.MovieUI
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.mapper.toMovie
+import woowacourse.movie.model.mapper.toReservationUI
+import woowacourse.movie.model.mapper.toTicketCount
 import woowacourse.movie.ui.movielist.MovieListActivity
 import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import java.time.LocalDate
@@ -203,24 +205,19 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             showToast(getString(R.string.select_ticket_count))
             return
         }
-        reservation = reserveMovie().apply {
+        reservation = reserveMovie()?.apply {
             val intent = Intent(this@TicketingActivity, SeatSelectionActivity::class.java)
             intent.putExtra(RESERVATION_KEY, this)
             startActivity(intent)
         }
     }
 
-    private fun reserveMovie(): ReservationUI {
+    private fun reserveMovie(): ReservationUI? {
         val reservationDateTime = LocalDateTime.of(
             movieDates[selectedDateIdx],
             movieTimes[selectedTimeIdx]
         )
-
-        return ReservationUI(
-            movie,
-            reservationDateTime,
-            movieTicket
-        )
+        return movie.toMovie().reserveMovie(reservationDateTime, movieTicket.toTicketCount())?.toReservationUI()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
