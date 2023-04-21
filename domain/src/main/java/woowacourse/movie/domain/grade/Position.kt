@@ -11,13 +11,15 @@ class Position private constructor(val rowIndex: Int, val columnIndex: Int) {
     }
 
     fun getGradePrice(): Int {
-        Grade.values().forEach { if (rowIndex in it.rowIndexRange) return it.price }
+        var price: Int = 0
+        Grade.values().forEach { if (rowIndex in it.rowIndexRange) price = it.price }
+        return price
     }
 
     companion object {
-        private const val START_INDEX = 0
-        private const val MAXIMUM_ROW_INDEX = 4
-        private const val MAXIMUM_COLUMN_INDEX = 3
+        const val START_INDEX = 0
+        const val MAXIMUM_ROW_INDEX = 4
+        const val MAXIMUM_COLUMN_INDEX = 3
         private const val OVER_MAXIMUM_INDEX = "좌석의 최대 범위를 벗어났습니다."
         private const val POSITION_CACHE_NULL_ERROR = "Position이 캐싱된 값이 없습니다"
 
@@ -29,6 +31,6 @@ class Position private constructor(val rowIndex: Int, val columnIndex: Int) {
                 .associateWith { Position(it.first, it.second) }
 
         fun from(row: Int, column: Int): Position =
-            COORDINATE[row to column] ?: throw IllegalStateException(POSITION_CACHE_NULL_ERROR)
+            COORDINATE[row to column] ?: throw IllegalArgumentException(POSITION_CACHE_NULL_ERROR)
     }
 }
