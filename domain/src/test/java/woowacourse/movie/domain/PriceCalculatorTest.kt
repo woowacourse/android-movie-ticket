@@ -7,18 +7,17 @@ import woowacourse.movie.domain.policy.MovieDayPolicy
 import woowacourse.movie.domain.policy.NightPolicy
 import woowacourse.movie.domain.ticket.Price
 import woowacourse.movie.domain.ticket.PriceCalculator
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.LocalDateTime
 
 class PriceCalculatorTest {
     @Test
     fun `조조에 해당하지만 무비데이면 무비데이 할인이 선적용된다`() {
         val policies = listOf(
             MovieDayPolicy(),
-            MorningPolicy()
+            MorningPolicy(),
         )
-        val calculator = PriceCalculator(policies, Price(13000))
-        val actual = calculator.calculate(LocalDate.of(2023, 4, 30), LocalTime.of(9, 0), 1)
+        val calculator = PriceCalculator(policies)
+        val actual = calculator.calculate(Price(13000), LocalDateTime.of(2023, 4, 30, 9, 0))
         val expected = Price(9700)
         assertEquals(actual, expected)
     }
@@ -27,10 +26,10 @@ class PriceCalculatorTest {
     fun `야간에 해당하지만 무비데이면 무비데이 할인이 선적용된다`() {
         val policies = listOf(
             MovieDayPolicy(),
-            NightPolicy()
+            NightPolicy(),
         )
-        val calculator = PriceCalculator(policies, Price(13000))
-        val actual = calculator.calculate(LocalDate.of(2023, 4, 30), LocalTime.of(21, 0), 1)
+        val calculator = PriceCalculator(policies)
+        val actual = calculator.calculate(Price(13000), LocalDateTime.of(2023, 4, 30, 21, 0))
         val expected = Price(9700)
         assertEquals(actual, expected)
     }
