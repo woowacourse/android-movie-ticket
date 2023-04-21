@@ -16,7 +16,7 @@ class SeatGradeTest {
         val actual = SeatGrade.from(location)
 
         // then
-        assertThat(actual).isEqualTo(SeatGrade.GRADE_A)
+        assertThat(actual).isEqualTo(SeatGrade.GRADE_B)
     }
 
     @Test
@@ -40,6 +40,6 @@ class SeatGradeTest {
         val actual = SeatGrade.from(location)
 
         // then
-        assertThat(actual).isEqualTo(SeatGrade.GRADE_B)
+        assertThat(actual).isEqualTo(SeatGrade.GRADE_A)
     }
 }
