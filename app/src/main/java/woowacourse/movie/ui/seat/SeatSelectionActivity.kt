@@ -13,6 +13,7 @@ import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SelectedSeats
 import woowacourse.movie.mapper.toDomain
+import woowacourse.movie.model.SeatClassModel
 import woowacourse.movie.model.SeatModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
@@ -62,11 +63,12 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun getSeatView(row: Int, column: Int): View {
         val seatView = LayoutInflater.from(this).inflate(R.layout.item_seat, null, false)
         val seat = SeatModel(row, column)
-        seatView.apply {
-            findViewById<TextView>(R.id.seat_view).text = seat.toString()
-            setOnClickListener {
-                clickSeat(seat.toDomain(), this)
-            }
+        seatView.setOnClickListener {
+            clickSeat(seat.toDomain(), it)
+        }
+        seatView.findViewById<TextView>(R.id.seat_view).apply {
+            text = seat.toString()
+            setTextColor(getColor(SeatClassModel.getColorId(row)))
         }
         return seatView
     }
