@@ -8,7 +8,10 @@ import java.time.temporal.ChronoUnit
 
 sealed class MovieListModel {
 
-    data class MovieAdModel(@DrawableRes val banner: Int) : MovieListModel()
+    data class MovieAdModel(
+        @DrawableRes val banner: Int,
+        val url: String
+    ) : MovieListModel()
 
     @Parcelize
     data class MovieUiModel(

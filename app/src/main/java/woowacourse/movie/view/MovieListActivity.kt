@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +21,18 @@ class MovieListActivity : AppCompatActivity() {
 
         val movieAdapter = MovieListAdapter(
             dataList = dataList,
-            onItemClick = {
-                val intent = Intent(this@MovieListActivity, ReservationActivity::class.java)
-                intent.putExtra(MOVIE_ITEM, it)
-                startActivity(intent)
+            onItemClick = object : MovieListAdapter.OnItemClick {
+                override fun onMovieClick(movie: MovieListModel.MovieUiModel) {
+                    val intent = Intent(this@MovieListActivity, ReservationActivity::class.java)
+                    intent.putExtra(MOVIE_ITEM, movie)
+                    startActivity(intent)
+                }
+
+                override fun onAdClick(ad: MovieListModel.MovieAdModel) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ad.url))
+                    startActivity(intent)
+                }
+
             }
         )
         val movieListView = findViewById<RecyclerView>(R.id.movie_recyclerview)
@@ -33,7 +42,8 @@ class MovieListActivity : AppCompatActivity() {
     private fun generateMovieListData(movies: List<Movie>): List<MovieListModel> {
         val dataList = mutableListOf<MovieListModel>()
         val ad = MovieListModel.MovieAdModel(
-            R.drawable.woowacourse_banner
+            R.drawable.woowacourse_banner,
+            "https://woowacourse.github.io/"
         )
         movies.forEachIndexed { index, movie ->
             if (index % 3 == 2) {

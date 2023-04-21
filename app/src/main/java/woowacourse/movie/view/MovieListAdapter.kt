@@ -13,18 +13,32 @@ import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 
 class MovieListAdapter(
     private val dataList: List<MovieListModel>,
-    private val onItemClick: (MovieUiModel) -> Unit
+    private val onItemClick: OnItemClick
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val onItemViewClick: (Int) -> Unit = {
-        onItemClick(dataList[it] as MovieUiModel)
+    interface OnItemClick {
+        fun onMovieClick(movie: MovieUiModel)
+
+        fun onAdClick(ad: MovieAdModel)
+    }
+
+    private val onMovieViewClick: (Int) -> Unit = {
+        onItemClick.onMovieClick(dataList[it] as MovieUiModel)
+    }
+
+    private val onAdViewClick: (Int) -> Unit = {
+        onItemClick.onAdClick(dataList[it] as MovieAdModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
-            R.layout.movie_item -> MovieItemViewHolder(MovieItemBinding.bind(view)) { onItemViewClick }
-            R.layout.movie_ad_item -> MovieAdViewHolder(MovieAdItemBinding.bind(view))
+            R.layout.movie_item -> MovieItemViewHolder(MovieItemBinding.bind(view)) {
+                onMovieViewClick(it)
+            }
+            R.layout.movie_ad_item -> MovieAdViewHolder(MovieAdItemBinding.bind(view)) {
+                onAdViewClick(it)
+            }
             else -> EmptyViewHolder(EmptyItemBinding.bind(view))
         }
     }
