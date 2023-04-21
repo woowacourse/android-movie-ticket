@@ -2,8 +2,8 @@ package woowacourse.movie.ui.movielist
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.woowacourse.movie.domain.Movie
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieUI
@@ -30,9 +30,9 @@ class MovieListActivity : AppCompatActivity() {
             .getOrDefault(emptyList())
 
     private fun setAdapter(movies: List<MovieUI>) {
-        val listViewMovies: ListView = findViewById(R.id.lv_movies)
+        val recyclerMovies: RecyclerView = findViewById(R.id.recycler_movies)
         val movieAdapter = MovieListAdapter(movies, ::onBookClick)
-        listViewMovies.adapter = movieAdapter
+        recyclerMovies.adapter = movieAdapter
     }
 
     private fun onBookClick(item: MovieUI) {
