@@ -16,7 +16,7 @@ import com.example.domain.model.model.PlayingTimes
 import com.example.domain.model.model.ReservationInfo
 import woowacourse.movie.R
 import woowacourse.movie.mapper.toMovie
-import woowacourse.movie.mapper.toTicketModel
+import woowacourse.movie.mapper.toReservationInfoModel
 import woowacourse.movie.model.MovieModel
 import woowacourse.movie.model.ReservationInfoModel
 import woowacourse.movie.util.customGetSerializable
@@ -74,8 +74,8 @@ class MovieDetailActivity : AppCompatActivity() {
         val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
         ticketingButton.setOnClickListener {
             val intent = Intent(this, ReserveSeatActivity::class.java)
-            val ticketModel = getTicketModel(movieTitle)
-            intent.putExtra(INFO_KEY, ticketModel)
+            val reservationInfoModel = getReservationInfoModel(movieTitle)
+            intent.putExtra(RESERVATION_INFO_KEY, reservationInfoModel)
             startActivity(intent)
         }
     }
@@ -136,7 +136,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getTicketModel(movieTitle: String): ReservationInfoModel {
+    private fun getReservationInfoModel(movieTitle: String): ReservationInfoModel {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val playingDate = spinnerDate.selectedItem as LocalDate
@@ -147,7 +147,7 @@ class MovieDetailActivity : AppCompatActivity() {
             playingTime,
             getCount(),
             Payment.ON_SITE
-        ).toTicketModel()
+        ).toReservationInfoModel()
     }
 
     private fun getSavedCount(savedInstanceState: Bundle?): Int =
@@ -243,7 +243,7 @@ class MovieDetailActivity : AppCompatActivity() {
         private const val COUNT_KEY = "COUNT"
         private const val SPINNER_DATE_KEY = "SPINNER_DATE"
         private const val SPINNER_TIME_KEY = "SPINNER_TIME"
-        private const val INFO_KEY = "ticketingInfo"
+        private const val RESERVATION_INFO_KEY = "reservationInfo"
         private const val DEFAULT_COUNT = 1
         private const val DEFAULT_POSITION = 0
     }
