@@ -48,6 +48,8 @@ class MovieTicketActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.ticket_date).text = ticket.time.format()
         findViewById<TextView>(R.id.ticket_people_count).text =
             getString(R.string.people_count, ticket.peopleCount.count)
+        findViewById<TextView>(R.id.ticket_seats).text =
+            getString(R.string.seats_with_separator, ticket.seats)
         findViewById<TextView>(R.id.ticket_price).text =
             getString(
                 R.string.price_with_payment,

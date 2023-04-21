@@ -12,6 +12,7 @@
     <string name="running_time">러닝타임: %d분</string>
     <string name="error_loading">데이터 로딩에 실패하였습니다.\n다시 시도해주세요!</string>
     <string name="people_count">일반 %d명</string>
+    <string name="seats_with_separator">| %s</string>
     <string name="price_with_payment">%s원 (현장 결제)</string>
     <string name="price_with_unit">%d원</string>
     <string name="screen">SCREEN</string>
