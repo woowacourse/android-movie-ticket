@@ -22,4 +22,6 @@
     <string name="ticketing_confirm_message">정말 예매하시겠습니까?</string>
     <string name="ticketing_confirm_negative_btn">취소</string>
     <string name="ticketing_confirm_title">예매 확인</string>
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
 </resources>

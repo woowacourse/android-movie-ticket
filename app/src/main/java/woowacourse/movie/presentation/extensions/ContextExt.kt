@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import woowacourse.movie.R
 
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -27,14 +28,14 @@ fun AlertDialog.Builder.message(text: String) {
 }
 
 fun AlertDialog.Builder.positiveButton(
-    text: String = "네",
+    text: String = context.getString(R.string.yes),
     onClick: (dialogInterface: DialogInterface) -> Unit = {},
 ) {
     this.setPositiveButton(text) { dialogInterface, _ -> onClick(dialogInterface) }
 }
 
 fun AlertDialog.Builder.negativeButton(
-    text: String = "아니오",
+    text: String = context.getString(R.string.no),
     onClick: (dialogInterface: DialogInterface) -> Unit = {},
 ) {
     this.setNegativeButton(text) { dialogInterface, _ -> onClick(dialogInterface) }
