@@ -24,17 +24,21 @@ class MovieListActivity : AppCompatActivity() {
     private fun initMovieListAdapter() {
         val movieRecyclerView = findViewById<RecyclerView>(R.id.movies_rv)
         movieListAdapter = MovieListAdapter(
-            ads = Ad.provideDummy(),
-            onBookBtnClick = { movie -> startTicketingActivity(movie) },
-            onAdClick = { ads -> accessAdWebPage(ads) }
-        ).also { it.addAll(Movie.provideDummy()) }
+            adTypes = Ad.provideDummy(),
+            onItemClick = { item ->
+                when (item) {
+                    is Movie -> startTicketingActivity(item)
+                    is Ad -> accessAdWebPage(item)
+                }
+            },
+        ).also { it.appendAll(Movie.provideDummy()) }
 
         movieRecyclerView.adapter = movieListAdapter
         movieRecyclerView.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (!recyclerView.canScrollVertically(DOWN_DIRECTION) && dy > 0) {
-                    movieListAdapter.addAll(Movie.provideDummy())
+                    movieListAdapter.appendAll(Movie.provideDummy())
                 }
             }
         })

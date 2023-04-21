@@ -6,7 +6,7 @@ import woowacourse.movie.R
 data class Ad(
     @DrawableRes val bannerResId: Int,
     val url: String,
-) {
+) : ListItem {
     companion object {
         fun provideDummy(): List<Ad> = listOf(
             Ad(
@@ -19,4 +19,6 @@ data class Ad(
             ),
         )
     }
+
+    override fun isAd(): Boolean = true
 }

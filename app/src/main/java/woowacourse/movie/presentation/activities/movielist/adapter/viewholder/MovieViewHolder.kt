@@ -5,12 +5,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.presentation.model.movieitem.ListItem
 import woowacourse.movie.presentation.model.movieitem.Movie
 
 class MovieViewHolder(
     view: View,
     onClick: (Int) -> Unit,
-) : BaseViewHolder<Movie>(view) {
+) : BaseViewHolder(view) {
     private val posterImageView: ImageView = view.findViewById(R.id.poster_iv)
     private val titleTextView: TextView = view.findViewById(R.id.title_tv)
     private val dateTextView: TextView = view.findViewById(R.id.date_tv)
@@ -21,8 +22,10 @@ class MovieViewHolder(
         bookButton.setOnClickListener { onClick(adapterPosition) }
     }
 
-    override fun bind(item: Movie) {
-        with(item) {
+    override fun <T : ListItem> bind(item: T) {
+        if (item !is Movie) return
+
+        with(item as Movie) {
             posterImageView.setImageResource(thumbnail)
             titleTextView.text = title
             dateTextView.text = dateTextView.context.getString(

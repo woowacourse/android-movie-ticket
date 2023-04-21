@@ -15,7 +15,7 @@ data class Movie(
     val runningTime: Int,
     val introduce: String,
     @DrawableRes val thumbnail: Int,
-) : Parcelable {
+) : ListItem, Parcelable {
     val LocalDate.formattedDate: String
         get() = this.format(DateTimeFormatter.ofPattern(MOVIE_DATE_PATTERN))
 
@@ -39,17 +39,19 @@ data class Movie(
             val temp: MutableList<Movie> = mutableListOf()
 
             while (temp.size < loadSize) {
-                if (canLoad()) return temp
+                if (isAllLoaded()) return temp
                 addDummy(temp)
             }
             return temp
         }
 
-        private fun canLoad() = loadedSize >= dummy.size
+        private fun isAllLoaded() = loadedSize >= dummy.size
 
         private fun addDummy(tempDummy: MutableList<Movie>) {
             tempDummy.add(dummy[loadedSize])
             loadedSize++
         }
     }
+
+    override fun isAd(): Boolean = false
 }
