@@ -1,19 +1,18 @@
 package woowacourse.movie.seatselection
 
-import android.graphics.Color
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.children
-import domain.reservation.SeatReservation
+import domain.reservation.SeatSelection
 import domain.seat.ScreeningSeat
 import domain.seat.SeatState
 import woowacourse.movie.R
 
 class ScreeningSeatViewSetter(
     private val seatTable: TableLayout,
-    private val seatReservation: SeatReservation
+    private val seatSelection: SeatSelection
 ) {
 
     private val seatTableConfiguration = seatTable.findViewById<TableLayout>(R.id.seat_table_layout)
@@ -31,9 +30,9 @@ class ScreeningSeatViewSetter(
         seatTableConfiguration.forEachIndexed { seatPosition, seatView ->
             val seat = seatPosition.toScreeningSeat()
 
-            when (seatReservation[seat]) {
-                SeatState.SELECTED -> seatView.markSelected()
-                else -> seatView.markAvailable()
+            when (seatSelection[seat]) {
+                SeatState.SELECTED -> seatView.isSelected = true
+                else -> seatView.isSelected = false
             }
         }
     }
@@ -46,30 +45,26 @@ class ScreeningSeatViewSetter(
             seatView.setOnClickListener {
                 val seat = seatPosition.toScreeningSeat()
 
-                seatReservation[seat].apply {
+                seatSelection[seat].apply {
                     runCatching {
                         onSeatViewClicked(seatView, seat)
                     }.onFailure {
                         Toast.makeText(seatTable.context, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
-                updatePaymentAmountView(seatReservation.getTotalPaymentAmount().value)
-                updateButtonState(seatReservation.isCompleted)
+                updatePaymentAmountView(seatSelection.getTotalPaymentAmount().value)
+                updateButtonState(seatSelection.isCompleted)
             }
         }
     }
 
     private fun onSeatViewClicked(seatView: TextView, seat: ScreeningSeat) {
-        if (seatReservation[seat] == SeatState.SELECTED) {
-            seatReservation.cancelSeat(seat)
-            seatView.markAvailable()
+        if (seatSelection[seat] == SeatState.SELECTED) {
+            seatSelection.cancelSeat(seat)
+            seatView.isSelected = false
         } else {
-            seatReservation.selectSeat(seat)
-            seatView.markSelected()
+            seatSelection.selectSeat(seat)
+            seatView.isSelected = true
         }
     }
-
-    private fun TextView.markSelected() = setBackgroundColor(Color.YELLOW)
-
-    private fun TextView.markAvailable() = setBackgroundColor(Color.WHITE)
 }

@@ -11,7 +11,7 @@ import domain.movie.ScreeningDate
 import domain.reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieInfo
-import woowacourse.movie.model.SeatReservationInfo
+import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_DATE_POSITION_KEY
 import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_TIME_POSITION_KEY
 import woowacourse.movie.reservation.ReservationActivity.Companion.TICKET_COUNT_KEY
@@ -63,7 +63,7 @@ class NavigationViewSetter(
         }
     }
 
-    fun setOnCompleteButtonClickedListener(onCompleted: (seatReservation: SeatReservationInfo) -> Unit) {
+    fun setOnCompleteButtonClickedListener(onCompleted: (seatSelectionInfo: SeatSelectionInfo) -> Unit) {
         val completeButton = findViewConfiguration<Button>(R.id.reservation_complete_button)
 
         completeButton.setOnClickListener {
@@ -71,7 +71,7 @@ class NavigationViewSetter(
                 .text
                 .toString()
                 .toInt()
-            val reservation = SeatReservationInfo(
+            val reservation = SeatSelectionInfo(
                 movieName = movieInfo.movieName,
                 screeningTime = LocalDateTime.of(
                     screeningDateSpinner.selectedItem as LocalDate,

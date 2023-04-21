@@ -10,25 +10,25 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import domain.movie.MovieName
 import domain.reservation.Reservation
-import domain.reservation.SeatReservation
+import domain.reservation.SeatSelection
 import woowacourse.movie.R
 import woowacourse.movie.getIntentData
-import woowacourse.movie.model.SeatReservationInfo
+import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.model.toDomainModel
 import woowacourse.movie.model.toUIModel
-import woowacourse.movie.reservation.ReservationActivity.Companion.SEAT_RESERVATION_KEY
+import woowacourse.movie.reservation.ReservationActivity.Companion.SEAT_SELECTION_KEY
 import woowacourse.movie.reservationresult.ReservationResultActivity
 
 class ScreeningSeatSelectionActivity : AppCompatActivity() {
 
-    private lateinit var seatReservationInfo: SeatReservationInfo
-    private val seatReservation: SeatReservation by lazy { seatReservationInfo.toDomainModel() }
+    private lateinit var seatReservationInfo: SeatSelectionInfo
+    private val seatSelection: SeatSelection by lazy { seatReservationInfo.toDomainModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_seat_selection)
 
-        seatReservationInfo = getIntentData(SEAT_RESERVATION_KEY) ?: SeatReservationInfo.ofError()
+        seatReservationInfo = getIntentData(SEAT_SELECTION_KEY) ?: SeatSelectionInfo.ofError()
         setMovieNameTextView()
         setSeatTableView()
         setOnCompleteButtonClickedListener()
@@ -43,7 +43,7 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
     private fun setSeatTableView() {
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table_layout)
 
-        ScreeningSeatViewSetter(seatTableLayout, seatReservation).apply {
+        ScreeningSeatViewSetter(seatTableLayout, seatSelection).apply {
             setSeatViewClickedListener(::setPaymentAmountTextView, ::setButtonState)
         }
     }
@@ -53,11 +53,11 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
 
         if (isCompleted) {
             seatSelectionCompleteButton.setBackgroundResource(R.drawable.rectangle_clickable_button)
-            seatSelectionCompleteButton.isClickable = true
+            seatSelectionCompleteButton.isEnabled = true
             return
         }
         seatSelectionCompleteButton.setBackgroundResource(R.drawable.rectangle_not_clickable_button)
-        seatSelectionCompleteButton.isClickable = false
+        seatSelectionCompleteButton.isEnabled = false
     }
 
     private fun setPaymentAmountTextView(paymentAmount: Int) {
@@ -82,6 +82,7 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
             .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
             }
+            .setCancelable(false)
             .show()
     }
 
@@ -90,10 +91,10 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
             val intent = Intent(this, ReservationResultActivity::class.java)
             val reservation = Reservation.of(
                 MovieName(seatReservationInfo.movieName),
-                seatReservation.seatCount,
-                seatReservation.screeningDateTime,
-                seatReservation.getTotalPaymentAmount(),
-                seatReservation.selectingComplete()
+                seatSelection.seatCount,
+                seatSelection.screeningDateTime,
+                seatSelection.getTotalPaymentAmount(),
+                seatSelection.selectingComplete()
             ).toUIModel()
 
             intent.putExtra(RESERVATION_RESULT_KEY, reservation)

@@ -51,10 +51,10 @@ class MoviesActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onReservationButtonClicked(movie: MovieInfo) {
+    private fun onReservationButtonClicked(movieInfo: MovieInfo) {
         val intent = Intent(this, ReservationActivity::class.java)
 
-        intent.putExtra(MOVIE_KEY, movie)
+        intent.putExtra(MOVIE_KEY, movieInfo)
         startActivity(intent)
     }
 

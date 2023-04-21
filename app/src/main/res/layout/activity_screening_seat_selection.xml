@@ -39,6 +39,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/a1_seat" />
 
             <TextView
@@ -48,6 +49,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/a2_seat" />
 
             <TextView
@@ -57,6 +59,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/a3_seat" />
 
             <TextView
@@ -66,6 +69,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/a4_seat" />
         </TableRow>
 
@@ -78,6 +82,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/b1_seat" />
 
             <TextView
@@ -87,6 +92,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/b2_seat" />
 
             <TextView
@@ -96,6 +102,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/b3_seat" />
 
             <TextView
@@ -105,6 +112,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/b4_seat" />
         </TableRow>
 
@@ -117,6 +125,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/c1_seat" />
 
             <TextView
@@ -126,6 +135,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/c2_seat" />
 
             <TextView
@@ -135,6 +145,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/c3_seat" />
 
             <TextView
@@ -144,6 +155,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/c4_seat" />
         </TableRow>
 
@@ -156,6 +168,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/d1_seat" />
 
             <TextView
@@ -165,6 +178,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/d2_seat" />
 
             <TextView
@@ -174,6 +188,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/d3_seat" />
 
             <TextView
@@ -183,6 +198,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/d4_seat" />
         </TableRow>
 
@@ -195,6 +211,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/e1_seat" />
 
             <TextView
@@ -204,6 +221,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/e2_seat" />
 
             <TextView
@@ -213,6 +231,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/e3_seat" />
 
             <TextView
@@ -222,6 +241,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
+                android:background="@drawable/seat_background"
                 android:id="@+id/e4_seat" />
         </TableRow>
     </TableLayout>

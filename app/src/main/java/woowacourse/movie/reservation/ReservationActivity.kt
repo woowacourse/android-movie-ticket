@@ -8,7 +8,7 @@ import domain.reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.getIntentData
 import woowacourse.movie.model.MovieInfo
-import woowacourse.movie.model.SeatReservationInfo
+import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.movies.MoviesActivity.Companion.MOVIE_KEY
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity
 
@@ -57,10 +57,10 @@ class ReservationActivity : AppCompatActivity() {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-    private fun onFinished(seatReservation: SeatReservationInfo) {
+    private fun onFinished(seatSelectionInfo: SeatSelectionInfo) {
         val intent = Intent(this, ScreeningSeatSelectionActivity::class.java)
 
-        intent.putExtra(SEAT_RESERVATION_KEY, seatReservation)
+        intent.putExtra(SEAT_SELECTION_KEY, seatSelectionInfo)
         startActivity(intent)
         finish()
     }
@@ -69,6 +69,6 @@ class ReservationActivity : AppCompatActivity() {
         const val TICKET_COUNT_KEY = "ticket_key"
         const val SCREENING_DATE_POSITION_KEY = "screening_date_key"
         const val SCREENING_TIME_POSITION_KEY = "screening_time_key"
-        const val SEAT_RESERVATION_KEY = "reservation_key"
+        const val SEAT_SELECTION_KEY = "reservation_key"
     }
 }

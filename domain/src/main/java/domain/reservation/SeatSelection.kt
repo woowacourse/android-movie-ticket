@@ -7,7 +7,7 @@ import domain.seat.ScreeningSeats
 import domain.seat.SeatState
 import java.time.LocalDateTime
 
-data class SeatReservation(
+data class SeatSelection(
     val movieName: MovieName,
     val screeningDateTime: LocalDateTime,
     val seatCount: TicketCount,

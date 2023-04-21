@@ -1,7 +1,7 @@
 package woowacourse.movie.model
 
 import domain.movie.MovieName
-import domain.reservation.SeatReservation
+import domain.reservation.SeatSelection
 import domain.reservation.TicketCount
 import domain.seat.ScreeningSeat
 import domain.seat.ScreeningSeats
@@ -11,7 +11,7 @@ import domain.seat.SeatState
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class SeatReservationInfo(
+data class SeatSelectionInfo(
     val movieName: String,
     val screeningTime: LocalDateTime,
     val seatCount: Int,
@@ -27,15 +27,15 @@ data class SeatReservationInfo(
 ) : Serializable {
 
     companion object {
-        fun ofError() = SeatReservationInfo(
-            "",
+        fun ofError() = SeatSelectionInfo(
+            "emptyMovie",
             LocalDateTime.MIN,
-            0,
+            1,
         )
     }
 }
 
-fun SeatReservationInfo.toDomainModel() = SeatReservation(
+fun SeatSelectionInfo.toDomainModel() = SeatSelection(
     movieName = MovieName(movieName),
     screeningDateTime = screeningTime,
     seatCount = TicketCount(seatCount),
