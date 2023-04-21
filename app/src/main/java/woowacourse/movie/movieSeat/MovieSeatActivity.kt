@@ -25,10 +25,10 @@ import woowacourse.movie.utils.toDomain
 class MovieSeatActivity : AppCompatActivity() {
 
     private val movieDetail by lazy {
-        (intent.getSerializableMovieDetailOrNull())?.toDomain()
+        (intent.getSerializableMovieDetailOrNull())
             ?: run {
                 finish()
-                MovieDetailUi.EMPTY.toDomain()
+                MovieDetailUi.EMPTY
             }
     }
 
@@ -87,7 +87,7 @@ class MovieSeatActivity : AppCompatActivity() {
     }
 
     private fun makeMovieTicketUi(): MovieTicketUi {
-        return MovieTicketUi.of(totalPrice, movieDetail, selectedSeats.map { getSeatPosition(it) })
+        return MovieTicketUi.of(totalPrice, movieDetail.toDomain(), selectedSeats.map { getSeatPosition(it) })
     }
 
     private fun initListener() {
@@ -110,8 +110,8 @@ class MovieSeatActivity : AppCompatActivity() {
 
     private fun selectSeat(seat: Seat, position: TextView) {
         when {
-            !selectedSeats.contains(seat) && movieDetail.isUpOfCount(selectedSeats.size) -> { selected(seat, position) }
-            !selectedSeats.contains(seat) && !movieDetail.isUpOfCount(selectedSeats.size) -> Unit
+            !selectedSeats.contains(seat) && movieDetail.toDomain().isUpOfCount(selectedSeats.size) -> { selected(seat, position) }
+            !selectedSeats.contains(seat) && !movieDetail.toDomain().isUpOfCount(selectedSeats.size) -> Unit
             else -> { deselected(seat, position) }
         }
         updateBottomView()
