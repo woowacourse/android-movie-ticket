@@ -1,18 +1,17 @@
-package woowacourse.movie.ui.main
+package woowacourse.movie.ui.main.viewHolder
 
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieState
 import woowacourse.movie.ui.DateTimeFormatters
+import woowacourse.movie.ui.main.itemModel.ItemModel
+import woowacourse.movie.ui.main.itemModel.MovieItemModel
 
 class MovieViewHolder(
-    itemView: View,
-    onClick: (position: Int) -> Unit
-) : RecyclerView.ViewHolder(itemView) {
+    itemView: View
+) : ItemViewHolder(itemView) {
     private val image: ImageView
     private val title: TextView
     private val date: TextView
@@ -25,19 +24,20 @@ class MovieViewHolder(
         date = itemView.findViewById(R.id.running_date)
         time = itemView.findViewById(R.id.running_time)
         reservation = itemView.findViewById(R.id.reservation)
-
-        reservation.setOnClickListener { onClick(adapterPosition) }
     }
 
-    fun bind(item: MovieState) {
-        image.setImageResource(item.imgId)
-        title.text = item.title
+    override fun bind(itemModel: ItemModel) {
+        val item = itemModel as MovieItemModel
+        image.setImageResource(item.movieState.imgId)
+        title.text = item.movieState.title
         date.text =
             DateTimeFormatters.convertToDateTildeDate(
                 date.context,
-                item.startDate,
-                item.endDate
+                item.movieState.startDate,
+                item.movieState.endDate
             )
-        time.text = time.context.getString(R.string.running_time, item.runningTime)
+        time.text = time.context.getString(R.string.running_time, item.movieState.runningTime)
+
+        reservation.setOnClickListener { item.onClick(adapterPosition) }
     }
 }

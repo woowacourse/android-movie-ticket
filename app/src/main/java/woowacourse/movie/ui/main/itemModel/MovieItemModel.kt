@@ -5,10 +5,7 @@ import woowacourse.movie.model.MovieState
 
 class MovieItemModel(
     val movieState: MovieState,
-    onClick: (position: Int) -> Unit
+    override val onClick: (position: Int) -> Unit
 ) : ItemModel {
     override val layoutId: Int = R.layout.movie_item_layout
-    override fun onClick(position: Int) {
-        onClick(position)
-    }
 }
