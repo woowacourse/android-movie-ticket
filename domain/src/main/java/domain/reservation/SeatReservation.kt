@@ -17,9 +17,11 @@ data class SeatReservation(
     private val _selectedSeats = mutableListOf<ScreeningSeat>()
     val selectedSeats: List<ScreeningSeat>
         get() = _selectedSeats.toList()
+    val isCompleted: Boolean
+        get() = isCompletedSelectedSeatCount()
 
     fun selectSeat(seat: ScreeningSeat) {
-        if (isFullSelectedSeatCount()) {
+        if (isCompletedSelectedSeatCount()) {
             throw IllegalStateException(ERROR_OVER_TICKET_COUNT)
         }
         val selectedSeat = screeningSeats.selectSeat(seat)
@@ -38,7 +40,7 @@ data class SeatReservation(
     }
 
     fun selectingComplete(): List<ScreeningSeat> {
-        if (isFullSelectedSeatCount()) {
+        if (isCompletedSelectedSeatCount()) {
             return _selectedSeats.toList()
         }
         throw IllegalStateException(ERROR_TICKET_COUNT)
@@ -50,7 +52,7 @@ data class SeatReservation(
         return PaymentAmount(totalPayment)
     }
 
-    private fun isFullSelectedSeatCount() = _selectedSeats.size == seatCount.value
+    private fun isCompletedSelectedSeatCount() = _selectedSeats.size == seatCount.value
 
     operator fun get(seat: ScreeningSeat): SeatState {
         return screeningSeats.values[seat]

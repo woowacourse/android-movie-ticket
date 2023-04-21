@@ -44,8 +44,20 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table_layout)
 
         ScreeningSeatViewSetter(seatTableLayout, seatReservation).apply {
-            setSeatViewClickedListener(::setPaymentAmountTextView)
+            setSeatViewClickedListener(::setPaymentAmountTextView, ::setButtonState)
         }
+    }
+
+    private fun setButtonState(isCompleted: Boolean) {
+        val seatSelectionCompleteButton = findViewById<Button>(R.id.seat_selection_complete_button)
+
+        if (isCompleted) {
+            seatSelectionCompleteButton.setBackgroundResource(R.drawable.rectangle_clickable_button)
+            seatSelectionCompleteButton.isClickable = true
+            return
+        }
+        seatSelectionCompleteButton.setBackgroundResource(R.drawable.rectangle_not_clickable_button)
+        seatSelectionCompleteButton.isClickable = false
     }
 
     private fun setPaymentAmountTextView(paymentAmount: Int) {

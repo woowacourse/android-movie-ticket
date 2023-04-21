@@ -38,7 +38,10 @@ class ScreeningSeatViewSetter(
         }
     }
 
-    fun setSeatViewClickedListener(updatePaymentAmountView: (paymentAmount: Int) -> Unit) {
+    fun setSeatViewClickedListener(
+        updatePaymentAmountView: (paymentAmount: Int) -> Unit,
+        updateButtonState: (isCompleted: Boolean) -> Unit
+    ) {
         seatTableConfiguration.forEachIndexed { seatPosition, seatView ->
             seatView.setOnClickListener {
                 val seat = seatPosition.toScreeningSeat()
@@ -51,6 +54,7 @@ class ScreeningSeatViewSetter(
                     }
                 }
                 updatePaymentAmountView(seatReservation.getTotalPaymentAmount().value)
+                updateButtonState(seatReservation.isCompleted)
             }
         }
     }

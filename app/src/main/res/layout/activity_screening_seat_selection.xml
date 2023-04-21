@@ -261,9 +261,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:text="확인"
+        <androidx.appcompat.widget.AppCompatButton
+            android:textColor="@color/white"
+            android:text="@string/seat_reservation_complete_button"
             android:clickable="false"
+            android:background="@drawable/rectangle_not_clickable_button"
             android:id="@+id/seat_selection_complete_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
