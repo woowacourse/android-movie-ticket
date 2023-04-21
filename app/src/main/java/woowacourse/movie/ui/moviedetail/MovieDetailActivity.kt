@@ -19,7 +19,7 @@ import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.model.MovieModel
 import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.ui.movielist.MainActivity
-import woowacourse.movie.ui.ticket.MovieTicketActivity
+import woowacourse.movie.ui.seat.SeatSelectionActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.utils.showToast
 import java.time.LocalDate
@@ -168,7 +168,7 @@ class MovieDetailActivity : AppCompatActivity() {
             peopleCount
         )
 
-        val intent = Intent(this, MovieTicketActivity::class.java)
+        val intent = Intent(this, SeatSelectionActivity::class.java)
         intent.putExtra(KEY_TICKET, ticket)
         startActivity(intent)
     }
