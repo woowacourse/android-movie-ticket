@@ -17,10 +17,10 @@ class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
-        setMovieListAdapter()
+        initMovieListAdapter()
     }
 
-    private fun setMovieListAdapter() {
+    private fun initMovieListAdapter() {
         movieListAdapter = MovieListAdapter(
             movies = Movie.provideDummy(),
             ads = Ad.provideDummy(),

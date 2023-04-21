@@ -55,34 +55,34 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
 
         showBackButton()
         showMovieIntroduce()
-        setSpinnerConfig()
-        setClickListener()
+        initSpinnerConfig()
+        initViewClickListener()
     }
 
-    private fun setClickListener() {
+    private fun initViewClickListener() {
         findViewById<Button>(R.id.minus_btn).setOnClickListener(this@TicketingActivity)
         findViewById<Button>(R.id.plus_btn).setOnClickListener(this@TicketingActivity)
         findViewById<Button>(R.id.ticketing_btn).setOnClickListener(this@TicketingActivity)
     }
 
-    private fun setSpinnerConfig() {
-        setSpinnerAdapter()
-        setSpinnerListener()
+    private fun initSpinnerConfig() {
+        initSpinnerAdapter()
+        initSpinnerListener()
     }
 
-    private fun setSpinnerAdapter() {
+    private fun initSpinnerAdapter() {
         findViewById<Spinner>(R.id.movie_date_spinner).adapter =
             movieDateAdapter.also { it.setNotifyOnChange(true) }
         findViewById<Spinner>(R.id.movie_time_spinner).adapter =
             movieDateAdapter.also { it.setNotifyOnChange(true) }
     }
 
-    private fun setSpinnerListener() {
-        setMovieTimeSpinnerListener()
-        setMovieDateSpinnerListener()
+    private fun initSpinnerListener() {
+        initMovieTimeSpinnerListener()
+        initMovieDateSpinnerListener()
     }
 
-    private fun setMovieTimeSpinnerListener() {
+    private fun initMovieTimeSpinnerListener() {
         findViewById<Spinner>(R.id.movie_time_spinner).onItemSelectedListener =
             object : OnItemSelectedListener {
                 override fun onItemSelected(
@@ -98,7 +98,7 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
             }
     }
 
-    private fun setMovieDateSpinnerListener() {
+    private fun initMovieDateSpinnerListener() {
         findViewById<Spinner>(R.id.movie_date_spinner).onItemSelectedListener =
             object : OnItemSelectedListener {
                 override fun onItemSelected(

@@ -65,7 +65,7 @@ class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
     private fun initView() {
         showBackButton()
         showMovieTitle()
-        setOnClickListener()
+        initViewClickListener()
         updateDoneBtnEnabled(!canPick())
         updateTotalPriceView(calculateTotalPrice())
         initSeatTable(seatRowSize, seatColSize)
@@ -75,7 +75,7 @@ class SeatPickerActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<TextView>(R.id.movie_title_tv).text = movie.title
     }
 
-    private fun setOnClickListener() {
+    private fun initViewClickListener() {
         findViewById<TextView>(R.id.done_btn).setOnClickListener(this)
     }
 
