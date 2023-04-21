@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.ui.main.itemModel.AdbItemModel
 import woowacourse.movie.ui.main.itemModel.ItemModel
 import woowacourse.movie.ui.main.itemModel.MovieItemModel
 import woowacourse.movie.ui.main.viewHolder.AdbViewHolder
@@ -12,6 +13,7 @@ import woowacourse.movie.ui.main.viewHolder.MovieViewHolder
 
 class MainListAdapter(
     movie: List<MovieItemModel>,
+    adb: List<AdbItemModel>
 ) : RecyclerView.Adapter<ItemViewHolder>() {
 
     private val _items: List<ItemModel>
@@ -19,7 +21,9 @@ class MainListAdapter(
         get() = _items.toList()
 
     init {
-        _items = movie.toList()
+//        val list = mutableListOf<ItemModel>().addAll()
+//        for(i in 0..)
+        _items = movie.toList() + adb.toList()
     }
 
     override fun onCreateViewHolder(
