@@ -1,12 +1,14 @@
 package woowacourse.movie.domain.data
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.viewmodel.MovieUIModel
 import java.time.LocalDate
 
-object MovieDummyData : MovieData {
+class ADData(val id: Int) : MovieListData
+
+object ListItems {
     private val dummyData = List(100) {
-        Movie(
+        MovieUIModel(
             title = "해리포터$it",
             startDate = LocalDate.of(2024, 3, 1),
             endDate = LocalDate.of(2024, 4, 1),
@@ -19,7 +21,20 @@ object MovieDummyData : MovieData {
         )
     }
 
-    override fun getAll(): List<Movie> {
-        return dummyData
+    private val ads = List(200) {
+        ADData(R.drawable.ad_img)
+    }
+
+    fun getItems(): List<MovieListData> {
+        val items = mutableListOf<MovieListData>()
+        var j = 0
+        dummyData.forEachIndexed { index, movie ->
+            items.add(movie)
+            if (index % 3 == 2) {
+                items.add(ads[j])
+                j += 1
+            }
+        }
+        return items
     }
 }
