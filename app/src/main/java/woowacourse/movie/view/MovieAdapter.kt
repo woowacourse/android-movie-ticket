@@ -1,55 +1,42 @@
 package woowacourse.movie.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.BaseAdapter
-import android.widget.Button
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.view.data.AdvertisementViewHolder
+import woowacourse.movie.view.data.MovieInfoViewHolder
+import woowacourse.movie.view.data.MovieListViewType
 import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.data.MovieViewDatas
-import woowacourse.movie.view.widget.MovieController
-import woowacourse.movie.view.widget.MovieView
 
-class MovieAdapter(private val movieViewDatas: MovieViewDatas) : BaseAdapter() {
-    class ViewHolder(
-        val movieView: MovieView,
-        val reservation: Button
-    )
+class MovieAdapter(private val movieViewDatas: MovieViewDatas) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (MovieListViewType.values()[viewType]) {
+            MovieListViewType.MOVIE -> MovieInfoViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_movie, parent, false
+                )
+            )
+            MovieListViewType.ADVERTISEMENT -> AdvertisementViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_advertisement, parent, false
+                )
+            )
+        }
+    }
 
-    override fun getCount(): Int = movieViewDatas.value.size
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (MovieListViewType.values()[getItemViewType(position)]) {
+            MovieListViewType.MOVIE -> (holder as MovieInfoViewHolder).bind(movieViewDatas.value[position] as MovieViewData)
+            MovieListViewType.ADVERTISEMENT -> (holder as AdvertisementViewHolder).bind()
+        }
+    }
 
-    override fun getItem(position: Int): Any = movieViewDatas.value[position]
+    override fun getItemViewType(position: Int): Int =
+        movieViewDatas.value[position].viewType.ordinal
 
     override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = if (convertView == null) {
-            val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, null)
-            val viewHolder = ViewHolder(
-                MovieView(
-                    poster = view.findViewById(R.id.item_movie_poster),
-                    title = view.findViewById(R.id.item_movie_title),
-                    date = view.findViewById(R.id.item_movie_date),
-                    runningTime = view.findViewById(R.id.item_movie_running_time)
-                ),
-                view.findViewById(R.id.item_movie_reservation_button)
-            )
-            view.tag = viewHolder
-            view
-        } else {
-            convertView
-        }
-
-        MovieController(
-            getItem(position) as MovieViewData, (view.tag as ViewHolder).movieView
-        ).render()
-
-        (view.tag as ViewHolder).reservation.setOnClickListener {
-            (parent as AdapterView<*>).performItemClick(it, position, getItemId(position))
-        }
-
-        return view
-    }
+    override fun getItemCount(): Int = movieViewDatas.value.size
 }

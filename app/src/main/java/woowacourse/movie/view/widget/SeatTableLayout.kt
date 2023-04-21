@@ -8,10 +8,10 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.seat.MovieSeatRow
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.Seats
-import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.SeatTable
 import woowacourse.movie.view.data.SeatsViewData
 import woowacourse.movie.view.data.TableSize
+import woowacourse.movie.view.getSerializable
 import woowacourse.movie.view.mapper.MovieSeatMapper.toView
 
 class SeatTableLayout(

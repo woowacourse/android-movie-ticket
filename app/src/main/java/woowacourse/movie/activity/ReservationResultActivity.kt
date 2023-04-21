@@ -7,11 +7,11 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.data.PriceViewData
 import woowacourse.movie.view.data.ReservationDetailViewData
 import woowacourse.movie.view.data.SeatsViewData
+import woowacourse.movie.view.getSerializable
 import woowacourse.movie.view.widget.MovieController
 import woowacourse.movie.view.widget.MovieView
 import java.text.NumberFormat
@@ -50,12 +50,12 @@ class ReservationResultActivity : AppCompatActivity() {
     private fun renderMovie(
         movie: MovieViewData
     ) {
-        MovieController(
+        MovieController.bind(
             movie = movie,
             MovieView(
                 title = findViewById(R.id.movie_reservation_result_title),
             )
-        ).render()
+        )
     }
 
     private fun renderReservationDetail(

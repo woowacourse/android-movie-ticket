@@ -9,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.Count
 import woowacourse.movie.domain.ReservationDetail
-import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.LocalFormattedDate
 import woowacourse.movie.view.data.LocalFormattedTime
 import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.data.ReservationDetailViewData
+import woowacourse.movie.view.getSerializable
 import woowacourse.movie.view.mapper.ReservationDetailMapper.toView
 import woowacourse.movie.view.widget.Counter
 import woowacourse.movie.view.widget.DateSpinner
@@ -88,7 +88,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun renderMovie(movie: MovieViewData) {
-        MovieController(
+        MovieController.bind(
             movie = movie,
             MovieView(
                 poster = findViewById(R.id.movie_reservation_poster),
@@ -97,7 +97,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 runningTime = findViewById(R.id.movie_reservation_running_time),
                 description = findViewById(R.id.movie_reservation_description)
             )
-        ).render()
+        )
     }
 
     private fun makeReservationButtonClickListener(

@@ -12,11 +12,11 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.discountPolicy.Discount
 import woowacourse.movie.domain.discountPolicy.MovieDay
 import woowacourse.movie.domain.discountPolicy.OffTime
-import woowacourse.movie.getSerializable
 import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.data.PriceViewData
 import woowacourse.movie.view.data.ReservationDetailViewData
 import woowacourse.movie.view.data.SeatsViewData
+import woowacourse.movie.view.getSerializable
 import woowacourse.movie.view.mapper.MovieSeatMapper.toDomain
 import woowacourse.movie.view.mapper.ReservationDetailMapper.toDomain
 import woowacourse.movie.view.widget.SeatTableLayout

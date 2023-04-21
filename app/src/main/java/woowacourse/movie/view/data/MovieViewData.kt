@@ -7,8 +7,9 @@ data class MovieViewData(
     val title: String,
     val date: DateRangeViewData,
     val runningTime: Int,
-    val description: String
-) : Serializable {
+    val description: String,
+    override val viewType: MovieListViewType = MovieListViewType.MOVIE
+) : Serializable, MovieListViewData {
     companion object {
         const val MOVIE_EXTRA_NAME = "movie"
     }
