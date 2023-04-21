@@ -2,8 +2,9 @@ package woowacourse.movie.movies
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MockMoviesGenerator
 import woowacourse.movie.model.MovieInfo
@@ -19,14 +20,15 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun applyMoviesAdapter() {
-        val movies: List<MovieInfo> = MockMoviesGenerator().generate()
-        val moviesListView: ListView = findViewById(R.id.movies_list_view)
+        val moviesInfo: List<MovieInfo> = MockMoviesGenerator().generate()
+        val moviesRecyclerView: RecyclerView = findViewById(R.id.movies_recycler_view)
 
-        applyListAdapter(movies, moviesListView)
-    }
-
-    private fun applyListAdapter(movies: List<MovieInfo>, moviesListView: ListView) {
-        moviesListView.adapter = MoviesAdapter(movies, ::onReservationButtonClicked)
+        moviesRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+        moviesRecyclerView.adapter = MoviesAdapter(moviesInfo, ::onReservationButtonClicked)
     }
 
     private fun onReservationButtonClicked(movie: MovieInfo) {
