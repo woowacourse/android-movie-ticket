@@ -5,9 +5,9 @@ import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
 object MovieDummyData : MovieData {
-    private val dummyData = listOf(
+    private val dummyData = List(100) {
         Movie(
-            title = "해리포터",
+            title = "해리포터$it",
             startDate = LocalDate.of(2024, 3, 1),
             endDate = LocalDate.of(2024, 4, 1),
             runningTime = 200,
@@ -17,7 +17,7 @@ object MovieDummyData : MovieData {
                 "        그리고 그를 맞이하러 온 호그와트의 숲지기 루비우스 해그리드의 안내로 호그와트에 입학하기 위한 준비를 하고, 마침내 학교로 가게 되는데…",
             moviePoster = R.drawable.img,
         )
-    )
+    }
 
     override fun getAll(): List<Movie> {
         return dummyData
