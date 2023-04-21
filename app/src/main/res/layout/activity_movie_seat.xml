@@ -40,7 +40,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="A1"
                 android:textColor="@color/b_class_seat"/>
@@ -49,7 +49,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="A2"
                 android:textColor="@color/b_class_seat"/>
@@ -58,7 +58,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="A3"
                 android:textColor="@color/b_class_seat"/>
@@ -67,7 +67,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="A4"
                 android:textColor="@color/b_class_seat"/>
@@ -79,7 +79,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="B1"
                 android:textColor="@color/b_class_seat"/>
@@ -88,7 +88,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="B2"
                 android:textColor="@color/b_class_seat"/>
@@ -97,7 +97,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="B3"
                 android:textColor="@color/b_class_seat"/>
@@ -106,7 +106,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="B4"
                 android:textColor="@color/b_class_seat"/>
@@ -118,7 +118,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="C1"
                 android:textColor="@color/s_class_seat"/>
@@ -127,7 +127,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="C2"
                 android:textColor="@color/s_class_seat"/>
@@ -136,7 +136,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="C3"
                 android:textColor="@color/s_class_seat"/>
@@ -145,7 +145,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="C4"
                 android:textColor="@color/s_class_seat"/>
@@ -157,7 +157,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="D1"
                 android:textColor="@color/s_class_seat"/>
@@ -166,7 +166,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="D2"
                 android:textColor="@color/s_class_seat"/>
@@ -175,7 +175,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="D3"
                 android:textColor="@color/s_class_seat"/>
@@ -184,7 +184,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="D4"
                 android:textColor="@color/s_class_seat"/>
@@ -196,7 +196,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="E1"
                 android:textColor="@color/a_class_seat" />
@@ -205,7 +205,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="E2"
                 android:textColor="@color/a_class_seat"/>
@@ -214,7 +214,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="E3"
                 android:textColor="@color/a_class_seat" />
@@ -223,7 +223,7 @@
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:gravity="center"
-                android:background="@color/white"
+                android:background="@drawable/select_background"
                 android:textSize="22sp"
                 android:text="E4"
                 android:textColor="@color/a_class_seat" />

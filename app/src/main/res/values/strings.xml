@@ -11,4 +11,8 @@
     <string name="cancel_message">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
     <string name="reservation_message">지금 예매</string>
     <string name="movie_poster">영화 포스터</string>
+    <string name="dialog_title">예매 확인</string>
+    <string name="dialog_message">정말 예매하시겠습니까?</string>
+    <string name="dialog_positive_message">예매 완료</string>
+    <string name="dialog_negative_message">취소</string>
 </resources>
