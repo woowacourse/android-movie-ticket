@@ -15,10 +15,11 @@
         app:title="Movie"
         app:titleTextColor="@color/white" />
 
-    <ListView
-        android:id="@+id/movie_listView"
-        android:layout_marginTop="56dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movie_rv"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
