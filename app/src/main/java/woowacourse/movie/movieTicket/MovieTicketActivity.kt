@@ -8,16 +8,15 @@ import woowacourse.movie.R
 import woowacourse.movie.extension.getSerializableTicketOrNull
 import woowacourse.movie.uimodel.MovieTicketUi
 import woowacourse.movie.utils.DateUtil
-import woowacourse.movie.utils.toDomain
 import woowacourse.movie.view.decimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
 
-    private val movieTicket by lazy {
-        intent.getSerializableTicketOrNull()?.toDomain()
+    private val movieTicketUi by lazy {
+        intent.getSerializableTicketOrNull()
             ?: run {
                 finish()
-                MovieTicketUi.EMPTY.toDomain()
+                MovieTicketUi.EMPTY
             }
     }
 
@@ -49,14 +48,15 @@ class MovieTicketActivity : AppCompatActivity() {
         val ticketTotalPriceView = findViewById<TextView>(R.id.ticket_total_price)
         val context = this
 
-        val seats = movieTicket.seats.joinToString(", ") { it.getSeatPosition() }
+        val seats = movieTicketUi.seats.joinToString(", ") { it }
 
-        with(movieTicket) {
+        with(movieTicketUi) {
             ticketTitleView.text = title
-            ticketMovieReleaseDateView.text = DateUtil(context).getDate(date)
             ticketCountView.text = getString(R.string.movie_ticket_count).format(count.toInt())
             ticketTotalPriceView.text = getString(R.string.movie_ticket_receipt)
-                .format(decimalFormat.format(movieTicket.totalPrice), seats)
+                .format(decimalFormat.format(movieTicketUi.totalPrice), seats)
+            "${DateUtil(context).getDate(date)} ${DateUtil(context).getTime(time)}"
+                .also { ticketMovieReleaseDateView.text = it }
         }
     }
 
