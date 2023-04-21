@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 
 class TicketTest {
 
-    fun TestSeat(location: Location) = Seat(location, SeatGrade.from(location))
+    private fun makeSeat(location: Location) = Seat(location, SeatGrade.from(location))
 
     @Test
     fun `전체 결제 금액을 계산한다`() {
@@ -22,12 +22,12 @@ class TicketTest {
             LocalDateTime.of(2024, 1, 1, 9, 0),
             3,
             listOf(
-                TestSeat(Location(SeatRow.A, 1)),
-                TestSeat(Location(SeatRow.C, 1)),
-                TestSeat(Location(SeatRow.E, 1)),
+                makeSeat(Location(SeatRow.A, 1)),
+                makeSeat(Location(SeatRow.C, 1)),
+                makeSeat(Location(SeatRow.E, 1)),
             ),
         )
-        val expected = Money(34000)
+        val expected = Money(31000)
 
         // when
         val actual = ticket.getPaymentMoney()

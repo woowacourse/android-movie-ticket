@@ -10,5 +10,5 @@ data class TicketModel(
     val bookedDateTime: LocalDateTime,
     val count: Int,
     val paymentMoney: Int,
-
+    val seats: List<String>,
 ) : Parcelable
