@@ -11,12 +11,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.ui.seatreservation.domain.BoxOffice
+import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.ABLE
+import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.DISABLE
+import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.MAX
+import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.REABLE
+import woowacourse.movie.util.shortToast
 
 class SeatReservationActivity : AppCompatActivity() {
     private val seatingChart: Sequence<TextView> by lazy { createSeatingChart() }
     private val totalPrice: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_price) }
     private val movieName: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_title) }
     private val boxOffice: BoxOffice by lazy { BoxOffice.create() }
+    private val checkButton: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_check_btn) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,21 +41,49 @@ class SeatReservationActivity : AppCompatActivity() {
     private fun setClickEventOnCheck() {
         val button = findViewById<TextView>(R.id.tv_seat_reservation_check_btn)
         button.setOnClickListener { view ->
-            view.isSelected = true
 
             // dialog
         }
     }
 
     private fun setClickEventOnSeat() {
-        var count = 0
         seatingChart.forEachIndexed { seatLocation, view ->
-            view.setOnClickListener { view ->
-                updateTotalView(view, seatLocation)
-
-                count++
+            view.setOnClickListener { seat ->
+                updateViewSelected(seat, seatLocation)
             }
         }
+    }
+
+    private fun updateViewSelected(seat: View, seatLocation: Int) {
+        val ticketCount = intent.getIntExtra(TICKET_COUNT, ZERO)
+
+        when (boxOffice.select(ticketCount, seat)) {
+            ABLE -> updateAbleState(seat, seatLocation)
+            REABLE -> updateReableState(seat, seatLocation)
+            DISABLE -> shortToast(R.string.st_seat_reservation_over)
+            MAX -> updateMaxState(seat, seatLocation)
+        }
+    }
+
+    private fun updateAbleState(seat: View, seatLocation: Int) {
+        updateTotalView(seat, seatLocation)
+        seat.isSelected = true
+    }
+
+    private fun updateReableState(seat: View, seatLocation: Int) {
+        updateTotalView(seat, seatLocation)
+        seat.isSelected = false
+        if (checkButton.isSelected) {
+            checkButton.isEnabled = false
+            checkButton.isSelected = false
+        }
+    }
+
+    private fun updateMaxState(seat: View, seatLocation: Int) {
+        updateTotalView(seat, seatLocation)
+        seat.isSelected = true
+        checkButton.isEnabled = true
+        checkButton.isSelected = true
     }
 
     private fun updateTotalView(view: View, seatLocation: Int) {
