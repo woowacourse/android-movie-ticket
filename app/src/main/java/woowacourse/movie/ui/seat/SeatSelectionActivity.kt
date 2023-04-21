@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.PeopleCount
@@ -33,6 +34,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         initPeopleCount()
         initSeatTable()
         initBottomField()
+        initSelectButton()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -67,6 +69,21 @@ class SeatSelectionActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.seat_movie_title).text =
             intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: ""
         updatePriceText(0)
+    }
+
+    private fun initSelectButton() {
+        selectButton.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.seat_dialog_title))
+                .setMessage(getString(R.string.seat_dialog_message))
+                .setPositiveButton(getString(R.string.seat_dialog_submit_button)) { _, _ ->
+                }
+                .setNegativeButton(getString(R.string.seat_dialog_cancel_button)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setCancelable(false)
+                .show()
+        }
     }
 
     private fun getSeatView(row: Int, column: Int): View {

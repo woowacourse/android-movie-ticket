@@ -16,4 +16,9 @@
     <string name="price_with_unit">%d원</string>
     <string name="screen">SCREEN</string>
     <string name="confirm_button">확인</string>
+
+    <string name="seat_dialog_title">예매 확인</string>
+    <string name="seat_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="seat_dialog_cancel_button">취소</string>
+    <string name="seat_dialog_submit_button">예매 완료</string>
 </resources>
