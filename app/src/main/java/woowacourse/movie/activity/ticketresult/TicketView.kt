@@ -3,6 +3,7 @@ package woowacourse.movie.activity.ticketresult
 import android.view.ViewGroup
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.model.SeatModel
 import woowacourse.movie.model.TicketModel
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -12,7 +13,7 @@ class TicketView(private val viewGroup: ViewGroup) {
     fun set(ticket: TicketModel) {
         initTitle(ticket.title)
         initPlayingDate(ticket.playingDateTime)
-        initCount(ticket.count)
+        initCountSeats(ticket.count, ticket.seats)
         initPricePayment(ticket.price)
     }
 
@@ -23,19 +24,24 @@ class TicketView(private val viewGroup: ViewGroup) {
     private fun initPlayingDate(playingDateTime: LocalDateTime) {
         viewGroup.findViewById<TextView>(R.id.text_playing_date).text = viewGroup.context.getString(
             R.string.date_time,
-            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format)).format(playingDateTime),
-            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.time_format)).format(playingDateTime)
+            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.date_format))
+                .format(playingDateTime),
+            DateTimeFormatter.ofPattern(viewGroup.context.getString(R.string.time_format))
+                .format(playingDateTime),
         )
     }
 
-    private fun initCount(count: Int) {
-        viewGroup.findViewById<TextView>(R.id.text_person_count).text = viewGroup.context.getString(R.string.normal_count, count)
+    private fun initCountSeats(count: Int, seats: List<SeatModel>) {
+        val convertSeats = seats.joinToString(separator = ", ", transform = { it.seatId })
+        viewGroup.findViewById<TextView>(R.id.text_person_count).text =
+            viewGroup.context.getString(R.string.normal_count_seat, count, convertSeats)
     }
 
     private fun initPricePayment(price: Int) {
-        viewGroup.findViewById<TextView>(R.id.text_price_payment).text = viewGroup.context.getString(
-            R.string.price_payment,
-            DecimalFormat(viewGroup.context.getString(R.string.decimal_format)).format(price)
-        )
+        viewGroup.findViewById<TextView>(R.id.text_price_payment).text =
+            viewGroup.context.getString(
+                R.string.price_payment,
+                DecimalFormat(viewGroup.context.getString(R.string.decimal_format)).format(price),
+            )
     }
 }
