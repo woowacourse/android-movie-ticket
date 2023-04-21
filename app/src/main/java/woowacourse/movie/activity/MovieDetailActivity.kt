@@ -13,14 +13,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.model.model.Payment
 import com.example.domain.model.model.PlayingTimes
-import com.example.domain.model.model.Ticket
-import com.example.domain.model.price.Price
-import com.example.domain.model.price.PriceCalculator
+import com.example.domain.model.model.ReservationInfo
 import woowacourse.movie.R
 import woowacourse.movie.mapper.toMovie
 import woowacourse.movie.mapper.toTicketModel
 import woowacourse.movie.model.MovieModel
-import woowacourse.movie.model.TicketModel
+import woowacourse.movie.model.ReservationInfoModel
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
@@ -75,7 +73,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initTicketingButton(movieTitle: String) {
         val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
         ticketingButton.setOnClickListener {
-            val intent = Intent(this, TicketResultActivity::class.java)
+            val intent = Intent(this, ReserveSeatActivity::class.java)
             val ticketModel = getTicketModel(movieTitle)
             intent.putExtra(INFO_KEY, ticketModel)
             startActivity(intent)
@@ -138,18 +136,16 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getTicketModel(movieTitle: String): TicketModel {
+    private fun getTicketModel(movieTitle: String): ReservationInfoModel {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val playingDate = spinnerDate.selectedItem as LocalDate
         val playingTime = spinnerTime.selectedItem as LocalTime
-        val price = PriceCalculator.calculate(Price(), playingDate, playingTime)
-        return Ticket(
+        return ReservationInfo(
             movieTitle,
             playingDate,
             playingTime,
             getCount(),
-            price,
             Payment.ON_SITE
         ).toTicketModel()
     }
