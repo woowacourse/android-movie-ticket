@@ -1,8 +1,8 @@
 package movie.seat
 
 data class Seat(
-    private val row: SeatRow,
-    private val col: SeatColumn,
+    val row: SeatRow,
+    val col: SeatColumn,
 ) {
 
     private fun getSeatTier(): SeatTier {
@@ -19,29 +19,6 @@ data class Seat(
             SeatTier.A -> SeatTier.A.price
             SeatTier.S -> SeatTier.S.price
         }
-    }
-
-    private fun getSeatRow(): String {
-        return when (row) {
-            SeatRow.A -> "A"
-            SeatRow.B -> "B"
-            SeatRow.C -> "C"
-            SeatRow.D -> "D"
-            SeatRow.E -> "E"
-        }
-    }
-
-    private fun getSeatColumn(): String {
-        return when (col) {
-            SeatColumn.ONE -> "0"
-            SeatColumn.TWO -> "1"
-            SeatColumn.THREE -> "2"
-            SeatColumn.FOUR -> "3"
-        }
-    }
-
-    fun getSeatPosition(): String {
-        return getSeatRow() + getSeatColumn()
     }
 
     companion object {

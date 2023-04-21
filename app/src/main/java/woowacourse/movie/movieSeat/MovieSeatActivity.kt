@@ -31,6 +31,9 @@ class MovieSeatActivity : AppCompatActivity() {
                 MovieDetailUi.EMPTY.toDomain()
             }
     }
+
+    private val nextButton by lazy { findViewById<Button>(R.id.seat_next_button) }
+
     private val selectedSeats: MutableList<Seat> = mutableListOf()
     private var totalPrice: Int = 0
 
@@ -46,7 +49,6 @@ class MovieSeatActivity : AppCompatActivity() {
         val movieTitleView = findViewById<TextView>(R.id.seat_movie_title)
         movieTitleView.text = movieDetail.title
 
-        val nextButton = findViewById<Button>(R.id.seat_next_button)
         nextButton.setOnClickListener {
             val dialog = makeDialog()
             dialog.show()
@@ -85,7 +87,7 @@ class MovieSeatActivity : AppCompatActivity() {
     }
 
     private fun makeMovieTicketUi(): MovieTicketUi {
-        return MovieTicketUi.of(totalPrice, movieDetail, selectedSeats.map { it.getSeatPosition() })
+        return MovieTicketUi.of(totalPrice, movieDetail, selectedSeats.map { getSeatPosition(it) })
     }
 
     private fun initListener() {
@@ -133,7 +135,6 @@ class MovieSeatActivity : AppCompatActivity() {
         val priceTextView = findViewById<TextView>(R.id.seat_ticket_price)
         priceTextView.text = getString(R.string.total_price).format(totalPrice)
 
-        val nextButton = findViewById<Button>(R.id.seat_next_button)
         nextButton.isEnabled = movieDetail.count.toInt() == selectedSeats.size
     }
 
@@ -145,6 +146,29 @@ class MovieSeatActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun getSeatRow(seat: Seat): String {
+        return when (seat.row) {
+            SeatRow.A -> "A"
+            SeatRow.B -> "B"
+            SeatRow.C -> "C"
+            SeatRow.D -> "D"
+            SeatRow.E -> "E"
+        }
+    }
+
+    private fun getSeatColumn(seat: Seat): String {
+        return when (seat.col) {
+            SeatColumn.ONE -> "1"
+            SeatColumn.TWO -> "2"
+            SeatColumn.THREE -> "3"
+            SeatColumn.FOUR -> "4"
+        }
+    }
+
+    private fun getSeatPosition(seat: Seat): String {
+        return getSeatRow(seat) + getSeatColumn(seat)
     }
 
     companion object {
