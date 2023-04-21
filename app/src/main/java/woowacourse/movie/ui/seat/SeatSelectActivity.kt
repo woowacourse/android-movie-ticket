@@ -21,6 +21,7 @@ import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_TICKET
 import woowacourse.movie.util.getParcelableArrayListCompat
 import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.keyError
+import woowacourse.movie.util.showAskDialog
 
 class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
     private val discountApplyUseCase = DiscountApplyUseCase()
@@ -46,7 +47,7 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
         titleTextView.text = reservationState.movieState.title
 
         seatTableViewSet.registerObserver(this)
-        confirmView.setOnClickListener { navigateReservationConfirmActivity(seatTableViewSet.choosedSeatInfo) }
+        confirmView.setOnClickListener { navigateShowDialog(seatTableViewSet.choosedSeatInfo) }
         confirmView.isClickable = false // 클릭리스너를 설정하면 clickable이 자동으로 참이 되기 때문
     }
 
@@ -69,6 +70,17 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
             ArrayList(seatTableViewSet.choosedSeatInfo)
         )
         Log.d("mendel", "store: ${seatTableViewSet.choosedSeatInfo.joinToString { it.toString() }}")
+    }
+
+    private fun navigateShowDialog(seats: List<SeatPositionState>) {
+        showAskDialog(
+            R.string.reservation_confirm,
+            R.string.ask_really_reservation,
+            R.string.reservation_cancel,
+            R.string.reservation_complete
+        ) {
+            navigateReservationConfirmActivity(seats)
+        }
     }
 
     private fun navigateReservationConfirmActivity(seats: List<SeatPositionState>) {
