@@ -81,7 +81,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/roboto_bold"
             android:paddingVertical="12dp"
-            android:text="@string/booking_completed"
+            android:text="@string/choosing_seat"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -154,8 +154,8 @@ class BookingActivity : AppCompatActivity() {
             dateSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItemPosition),
             timeSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItemPosition),
         )
-        val ticket = movie.reserve(dateTime, ticketCount)
-        startActivity(CompletedActivity.getIntent(this, ticket))
+        val reservation = Reservation(movie.id, dateTime, ticketCount.value)
+        startActivity(ChoiceSeatActivity.getIntent(this, reservation))
     }
 
     private fun initAdapters() {
