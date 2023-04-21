@@ -18,20 +18,14 @@ object DummyData {
         )
     }
 
-    private val ads = List(200) {
-        ADData(R.drawable.ad_img)
+    private val ads = List(5) {
+        MovieListData.ADData(R.drawable.ad_img)
     }
 
     fun getItems(): List<MovieListData> {
-        val items = mutableListOf<MovieListData>()
         var j = 0
-        dummyData.forEachIndexed { index, movie ->
-            items.add(movie)
-            if (index % 3 == 2) {
-                items.add(ads[j])
-                j += 1
-            }
+        return dummyData.flatMapIndexed { index, movie ->
+            if (index % 3 == 2) listOf(movie, ads[j++ % ads.size]) else listOf(movie)
         }
-        return items
     }
 }
