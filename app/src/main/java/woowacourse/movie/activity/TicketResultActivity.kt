@@ -5,8 +5,8 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.formatter.DecimalFormatter
-import woowacourse.movie.model.ReservationInfoModel
+import woowacourse.movie.model.SeatModel
+import woowacourse.movie.model.TicketModel
 import woowacourse.movie.util.customGetSerializable
 
 class TicketResultActivity : AppCompatActivity() {
@@ -19,12 +19,14 @@ class TicketResultActivity : AppCompatActivity() {
     }
 
     private fun initTicketDataView() {
-        val reservationInfoModel: ReservationInfoModel = intent.customGetSerializable(INFO_KEY)
-        initTitle(reservationInfoModel.title)
-        initPlayingDate(reservationInfoModel.playingDate, reservationInfoModel.playingTime)
-        initCount(reservationInfoModel.count)
-//        initPrice(ticketModel.price, ticketModel.count)
-        initPricePayment(reservationInfoModel.payment)
+        val ticketModel: TicketModel = intent.customGetSerializable(TICKET_KEY)
+        initTitle(ticketModel.reservationInfoModel.title)
+        initPlayingDate(
+            ticketModel.reservationInfoModel.playingDate,
+            ticketModel.reservationInfoModel.playingTime
+        )
+        initCountAndSeat(ticketModel.reservationInfoModel.count, ticketModel.seats)
+        initPricePayment(ticketModel.price, ticketModel.reservationInfoModel.payment)
     }
 
     private fun initTitle(title: String) {
@@ -41,20 +43,18 @@ class TicketResultActivity : AppCompatActivity() {
         )
     }
 
-    private fun initCount(count: Int) {
-        val countView = findViewById<TextView>(R.id.text_person_count)
-        countView.text = count.toString()
+    private fun initCountAndSeat(count: Int, seats: List<SeatModel>) {
+        val countView = findViewById<TextView>(R.id.text_count_seat)
+        countView.text = getString(
+            R.string.count_seat_info,
+            count,
+            seats.joinToString(", ") { it.row + it.column }
+        )
     }
 
-    private fun initPrice(price: Int, count: Int) {
-        val priceView = findViewById<TextView>(R.id.text_price)
-        val decimalFormat = "#,###"
-        priceView.text = DecimalFormatter.formatToString(price * count, decimalFormat)
-    }
-
-    private fun initPricePayment(payment: String) {
+    private fun initPricePayment(price: Int, payment: String) {
         val pricePayment = findViewById<TextView>(R.id.text_price_payment)
-        pricePayment.text = getString(R.string.price_payment, payment)
+        pricePayment.text = getString(R.string.price_payment, price, payment)
     }
 
     private fun setActionBar() {
@@ -74,6 +74,6 @@ class TicketResultActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val INFO_KEY = "ticketingInfo"
+        private const val TICKET_KEY = "ticket"
     }
 }

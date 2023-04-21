@@ -45,68 +45,31 @@
         tools:text="2023.3.1 10:00" />
 
     <TextView
-        android:id="@+id/text_normal"
+        android:id="@+id/text_count_seat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/normal"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/text_person_count"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_playing_date" />
-
-    <TextView
-        android:id="@+id/text_person_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/text_normal"
-        app:layout_constraintEnd_toStartOf="@id/text_unit"
-        app:layout_constraintStart_toEndOf="@id/text_normal"
-        app:layout_constraintTop_toTopOf="@id/text_normal"
-        tools:text="1" />
-
-    <TextView
-        android:id="@+id/text_unit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/count"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_person_count"
-        app:layout_constraintTop_toTopOf="@id/text_normal" />
-
-    <TextView
-        android:id="@+id/text_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/text_price_payment"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_normal"
-        tools:text="11,000" />
+        app:layout_constraintTop_toBottomOf="@id/text_playing_date"
+        tools:text="일반 2 명 | B1, B2" />
+
 
     <TextView
         android:id="@+id/text_price_payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/price_payment"
+        android:layout_marginTop="19dp"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_price"
-        app:layout_constraintTop_toTopOf="@id/text_price" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_count_seat"
+        tools:text="25,000원 (현장 결제)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

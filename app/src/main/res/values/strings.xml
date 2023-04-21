@@ -7,14 +7,12 @@
     <string name="plus">+</string>
     <string name="btn_select_seat_text">좌석 선택</string>
     <string name="cancel_notice">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="count">명</string>
-    <string name="price_payment">원 (%s)</string>
-    <string name="normal">일반</string>
+    <string name="price_payment">%d원 (%s)</string>
+    <string name="count_seat_info">일반 %d 명 | %s</string>
     <string name="date_time">%s %s</string>
     <string name="date_spinner_description">날짜 스피너</string>
     <string name="time_spinner_description">시간 스피너</string>
     <string name="movie_image_description">영화 포스터</string>
-    <string name="payment_on_site">현장 결제</string>
     <string name="screen">SCREEN</string>
     <string name="button_check_text">확인</string>
     <string name="a1">A1</string>
