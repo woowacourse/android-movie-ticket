@@ -5,10 +5,17 @@
     <string name="ticket_now">지금 예매</string>
     <string name="ticketing_cancel_info">영화 상영 시작 시간 15분 전까지 취소가 가능합니다.</string>
     <string name="book_date_time">%04d.%02d.%02d %02d:%02d</string>
-    <string name="regular_count">일반 %d명</string>
+    <string name="regular_count">일반 %d명 | %s</string>
+    <string name="reservation_seat_position">%s</string>
     <string name="movie_pay_result">%,d원 (%s)</string>
+    <string name="movie_price">%,d원</string>
     <string name="on_site_payment">현장 결제</string>
     <string name="select_date_and_time">날짜와 시간을 선택해주세요!</string>
+    <string name="select_ticket_count">예매 수를 선택해주세요!</string>
     <string name="seat_selection_screen">SCREEN</string>
     <string name="seat_selection_button_ok">확인</string>
+    <string name="dialog_reservation_title">예매 확인</string>
+    <string name="dialog_reservation_message">정말 예매하시겠습니까?</string>
+    <string name="dialog_reservation_positive_button">예매 완료</string>
+    <string name="dialog_reservation_negative_button">취소</string>
 </resources>
