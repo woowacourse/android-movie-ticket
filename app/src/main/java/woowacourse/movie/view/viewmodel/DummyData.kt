@@ -1,12 +1,9 @@
-package woowacourse.movie.domain.data
+package woowacourse.movie.view.viewmodel
 
 import woowacourse.movie.R
-import woowacourse.movie.view.viewmodel.MovieUIModel
 import java.time.LocalDate
 
-class ADData(val id: Int) : MovieListData
-
-object ListItems {
+object DummyData {
     private val dummyData = List(100) {
         MovieUIModel(
             title = "해리포터$it",

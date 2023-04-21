@@ -4,7 +4,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.data.ADData
+import woowacourse.movie.view.viewmodel.MovieListData.ADData
 
 class ADHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val ad = view.findViewById<ConstraintLayout>(R.id.advertisement)

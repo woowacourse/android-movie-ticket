@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.data.ADData
-import woowacourse.movie.domain.data.ListItems
-import woowacourse.movie.domain.data.MovieListData
 import woowacourse.movie.view.moviedetail.MovieDetailActivity
+import woowacourse.movie.view.viewmodel.DummyData
+import woowacourse.movie.view.viewmodel.MovieListData
+import woowacourse.movie.view.viewmodel.MovieListData.ADData
 import woowacourse.movie.view.viewmodel.MovieUIModel
 
 class MovieListActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MovieListActivity : AppCompatActivity() {
         setUpMovieDatas()
     }
 
-    private fun setMovieData(): List<MovieListData> = ListItems.getItems()
+    private fun setMovieData(): List<MovieListData> = DummyData.getItems()
 
     private fun setUpMovieDatas() {
 

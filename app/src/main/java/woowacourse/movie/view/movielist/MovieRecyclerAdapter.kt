@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.data.ADData
-import woowacourse.movie.domain.data.MovieListData
+import woowacourse.movie.view.viewmodel.MovieListData
+import woowacourse.movie.view.viewmodel.MovieListData.ADData
 import woowacourse.movie.view.viewmodel.MovieUIModel
 
 class MovieRecyclerAdapter(
