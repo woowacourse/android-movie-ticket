@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.seat
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -17,21 +18,27 @@ import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.model.SeatClassModel
 import woowacourse.movie.model.SeatModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
+import woowacourse.movie.ui.ticket.MovieTicketActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.utils.showToast
+import java.time.LocalDateTime
 
 class SeatSelectionActivity : AppCompatActivity() {
 
-    private lateinit var selectedSeats: SelectedSeats
     private val priceTextView by lazy { findViewById<TextView>(R.id.seat_price) }
     private val selectButton by lazy { findViewById<TextView>(R.id.seat_confirm_button) }
+
+    private var selectedSeats = SelectedSeats()
+    private lateinit var movieTitle: String
+    private lateinit var movieTime: LocalDateTime
+    private var peopleCount = PeopleCount()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initPeopleCount()
+        initData()
         initSeatTable()
         initBottomField()
         initSelectButton()
@@ -47,11 +54,12 @@ class SeatSelectionActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initPeopleCount() {
-        val count = PeopleCount(
+    private fun initData() {
+        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: ""
+        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME) ?: LocalDateTime.of(0, 0, 0, 0, 0)
+        peopleCount = PeopleCount(
             intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: 1
         )
-        selectedSeats = SelectedSeats(count)
     }
 
     private fun initSeatTable() {
@@ -66,8 +74,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initBottomField() {
-        findViewById<TextView>(R.id.seat_movie_title).text =
-            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: ""
+        findViewById<TextView>(R.id.seat_movie_title).text = movieTitle
         updatePriceText(0)
     }
 
@@ -77,6 +84,7 @@ class SeatSelectionActivity : AppCompatActivity() {
                 .setTitle(getString(R.string.seat_dialog_title))
                 .setMessage(getString(R.string.seat_dialog_message))
                 .setPositiveButton(getString(R.string.seat_dialog_submit_button)) { _, _ ->
+                    moveToTicketActivity()
                 }
                 .setNegativeButton(getString(R.string.seat_dialog_cancel_button)) { dialog, _ ->
                     dialog.dismiss()
@@ -106,17 +114,15 @@ class SeatSelectionActivity : AppCompatActivity() {
         }
 
         seatView.isSelected = !seatView.isSelected
-
-        if (seatView.isSelected) {
+        selectedSeats = if (seatView.isSelected) {
             seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
-            selectedSeats = selectedSeats.delete(seat)
+            selectedSeats.delete(seat)
         } else {
             seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
-            selectedSeats = selectedSeats.add(seat)
+            selectedSeats.add(seat)
         }
-
         updatePriceText(selectedSeats.getAllPrice())
-        selectButton.isEnabled = selectedSeats.isSelectionDone()
+        selectButton.isEnabled = selectedSeats.isSelectionDone(peopleCount.count)
     }
 
     private fun updatePriceText(price: Int) {
@@ -124,10 +130,16 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun canSelectMoreSeat(seatView: View) =
-        !(seatView.isSelected && selectedSeats.isSelectionDone())
+        !(seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
+
+    private fun moveToTicketActivity() {
+        val intent = Intent(this, MovieTicketActivity::class.java)
+        startActivity(intent)
+    }
 
     companion object {
         const val ROW_SIZE = 5
         const val COLUMN_SIZE = 4
+        const val KEY_TICKET = "ticket"
     }
 }
