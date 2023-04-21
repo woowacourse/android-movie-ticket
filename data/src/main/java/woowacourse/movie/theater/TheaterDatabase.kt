@@ -27,4 +27,9 @@ object TheaterDatabase {
             bRankRange = listOf(0..2),
         ),
     )
+
+    fun selectTheater(id: Long): TheaterEntity {
+        return theaters.find { it.id == id }
+            ?: throw NoSuchElementException("해당 상영관이 존재하지 않습니다. 입력된 상영관 id: $id")
+    }
 }

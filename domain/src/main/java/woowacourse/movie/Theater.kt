@@ -5,7 +5,7 @@ import woowacourse.movie.ticket.Seat
 import woowacourse.movie.ticket.SeatRank
 
 data class Theater(
-    val id: Int,
+    val id: Long,
     val rowSize: Int,
     val columnSize: Int,
     val sRankRange: List<IntRange>,
