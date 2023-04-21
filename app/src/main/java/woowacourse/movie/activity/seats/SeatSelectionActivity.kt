@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import payment.PaymentAmount
 import reservation.TicketCount
+import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.uimodel.MovieModel
@@ -20,6 +21,7 @@ import java.time.LocalDateTime
 class SeatSelectionActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySeatSelectionBinding.inflate(layoutInflater) }
+    private val seatsView by lazy { SeatsView(binding, intent) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,43 +31,48 @@ class SeatSelectionActivity : AppCompatActivity() {
         val ticketCount: Int = intent.getIntExtra(TICKET_COUNT_INTENT_KEY, TicketCount.MINIMUM)
         binding.movieNameTextView.text = movieModel.name.value
 
-        val seatsView = SeatsView(binding, intent)
         seatsView.set()
-        binding.reservationCompleteTextView.setOnClickListener { completeButtonClickEvent(seatsView, ticketCount) }
+        binding.reservationCompleteTextView.setOnClickListener {
+            completeButtonClickEvent(ticketCount)
+        }
     }
 
-    private fun completeButtonClickEvent(seatsView: SeatsView, ticketCount: Int) {
-        if (seatsView.getSelectedCount() == ticketCount) showDialog(seatsView, ticketCount)
+    private fun completeButtonClickEvent(ticketCount: Int) {
+        if (seatsView.getSelectedCount() == ticketCount) setDialog(ticketCount)
     }
 
-    private fun showDialog(seatsView: SeatsView, ticketCount: Int) {
+    private fun setDialog(ticketCount: Int) {
         AlertDialog.Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _, _ ->
-                val movieModel: MovieModel =
-                    intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel
-                val screeningDateTime: LocalDateTime =
-                    intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
-
-                val nextIntent = Intent(this, ReservationResultActivity::class.java)
-                val paymentAmount =
-                    PaymentAmount(binding.paymentAmountTextView.text.toString().toInt())
-
-                val reservationModel = ReservationModel(
-                    movie = movieModel,
-                    screeningDateTime = screeningDateTime,
-                    ticketCount = ticketCount,
-                    seats = seatsView.getSelectedSeats().map { it.toSeatModel() },
-                    paymentAmount = paymentAmount
-                )
-
-                nextIntent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
-                startActivity(nextIntent)
+            .setTitle(getString(R.string.reservation_confirmation_title))
+            .setMessage(getString(R.string.reservation_confirmation_text))
+            .setPositiveButton(getString(R.string.reservation_confirmation_positive_button)) { _, _ ->
+                positiveButtonClickEvent(ticketCount)
             }
-            .setNegativeButton("취소") { dialog, _ ->
+            .setNegativeButton(getString(R.string.reservation_confirmation_negative_button)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
+    }
+
+    private fun positiveButtonClickEvent(ticketCount: Int) {
+        val movieModel: MovieModel =
+            intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel
+        val screeningDateTime: LocalDateTime =
+            intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
+
+        val nextIntent = Intent(this, ReservationResultActivity::class.java)
+        val paymentAmount =
+            PaymentAmount(binding.paymentAmountTextView.text.toString().toInt())
+
+        val reservationModel = ReservationModel(
+            movie = movieModel,
+            screeningDateTime = screeningDateTime,
+            ticketCount = ticketCount,
+            seats = seatsView.getSelectedSeats().map { it.toSeatModel() },
+            paymentAmount = paymentAmount
+        )
+
+        nextIntent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
+        startActivity(nextIntent)
     }
 }
