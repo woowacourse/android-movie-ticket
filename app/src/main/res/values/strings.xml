@@ -15,4 +15,8 @@
     <string name="seats_size_over_error">지정한 좌석 수를 초과합니다.</string>
     <string name="screen">SCREEN</string>
     <string name="enter">확인</string>
+    <string name="seat_dialog_title">예매 확인</string>
+    <string name="seat_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="seat_dialog_yes">예</string>
+    <string name="seat_dialog_no">아니오</string>
 </resources>

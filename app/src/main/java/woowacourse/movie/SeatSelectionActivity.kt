@@ -123,10 +123,10 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun showBookingDialog() {
         AlertDialog.Builder(this)
             .setCancelable(false)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예") { _, _ -> moveActivity() }
-            .setNegativeButton("아니요") { dialog, _ ->
+            .setTitle(R.string.seat_dialog_title)
+            .setMessage(R.string.seat_dialog_message)
+            .setPositiveButton(R.string.seat_dialog_yes) { _, _ -> moveActivity() }
+            .setNegativeButton(R.string.seat_dialog_no) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -175,11 +175,11 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TICKET_KEY = "ticket"
-        private const val MOVIE_KEY = "movie"
-        private const val DATE_KEY = "movie_date"
-        private const val TIME_KEY = "movie_time"
-        private const val SEATS_KEY = "seats"
+        const val TICKET_KEY = "ticket"
+        const val MOVIE_KEY = "movie"
+        const val DATE_KEY = "movie_date"
+        const val TIME_KEY = "movie_time"
+        const val SEATS_KEY = "seats"
         private const val SEATS_POSITION = "seats_position"
     }
 }
