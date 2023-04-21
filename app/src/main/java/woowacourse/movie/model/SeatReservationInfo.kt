@@ -28,9 +28,9 @@ data class SeatSelectionInfo(
 
     companion object {
         fun ofError() = SeatSelectionInfo(
-            "emptyMovie",
+            "",
             LocalDateTime.MIN,
-            1,
+            0,
         )
     }
 }
