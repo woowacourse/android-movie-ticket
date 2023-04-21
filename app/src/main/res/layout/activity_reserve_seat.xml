@@ -28,6 +28,7 @@
             tools:ignore="TextSizeCheck" />
 
         <TableLayout
+            android:id="@+id/table_seat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp">
@@ -228,17 +229,30 @@
             android:layout_marginBottom="20dp"
             android:textColor="#727272"
             android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_title"
-            tools:text="0원" />
+            tools:text="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#727272"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/text_price"
+            app:layout_constraintStart_toEndOf="@id/text_price"
+            app:layout_constraintTop_toTopOf="@+id/text_price"
+            android:text="@string/price_unit" />
 
         <Button
+            android:id="@+id/btn_reserve"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:text="@string/button_check_text"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
