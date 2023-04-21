@@ -27,7 +27,6 @@ data class SeatReservationInfo(
 ) : Serializable {
 
     companion object {
-
         fun ofError() = SeatReservationInfo(
             "",
             LocalDateTime.MIN,
@@ -42,7 +41,7 @@ fun SeatReservationInfo.toDomainModel() = SeatReservation(
     seatCount = TicketCount(seatCount),
     screeningSeats = ScreeningSeats(
         screeningSeats.map {
-            Pair(ScreeningSeat(it.key.first, it.key.second), it.value)
+            Pair(ScreeningSeat.valueOf(it.key.first, it.key.second), it.value)
         }.toMap()
     )
 )

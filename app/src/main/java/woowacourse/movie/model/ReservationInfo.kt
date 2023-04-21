@@ -13,7 +13,6 @@ data class ReservationInfo(
 ) : Serializable {
 
     companion object {
-
         fun ofError() = ReservationInfo(
             "",
             LocalDateTime.MIN,

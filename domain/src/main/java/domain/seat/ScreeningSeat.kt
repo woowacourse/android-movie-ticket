@@ -7,8 +7,8 @@ data class ScreeningSeat(
 ) {
 
     val paymentAmount = rate.getPaymentAmount()
-    companion object {
 
+    companion object {
         fun valueOf(row: SeatRow, column: SeatColumn): ScreeningSeat {
             return when (row) {
                 SeatRow.A, SeatRow.B -> ScreeningSeat(row, column, SeatRate.B)

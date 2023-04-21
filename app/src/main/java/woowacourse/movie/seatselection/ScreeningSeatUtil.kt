@@ -1,4 +1,4 @@
-package woowacourse.movie.util
+package woowacourse.movie.seatselection
 
 import domain.seat.ScreeningSeat
 import domain.seat.SeatColumn

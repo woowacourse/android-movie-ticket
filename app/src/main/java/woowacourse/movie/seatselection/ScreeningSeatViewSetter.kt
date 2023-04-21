@@ -10,7 +10,6 @@ import domain.reservation.SeatReservation
 import domain.seat.ScreeningSeat
 import domain.seat.SeatState
 import woowacourse.movie.R
-import woowacourse.movie.util.toScreeningSeat
 
 class ScreeningSeatViewSetter(
     private val seatTable: TableLayout,

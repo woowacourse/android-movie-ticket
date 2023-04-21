@@ -31,8 +31,7 @@ class ReservationResultActivity : AppCompatActivity() {
         val ticketCountTextView: TextView = findViewById(R.id.result_ticket_count_text_view)
 
         with(reservationInfo) {
-            val dateFormat: DateTimeFormatter =
-                DateTimeFormatter.ofPattern(getString(R.string.reservation_date_time_form))
+            val dateFormat = DateTimeFormatter.ofPattern(getString(R.string.reservation_date_time_form))
             movieNameTextView.text = movieName
             screeningDateTimeTextView.text = screeningDateTime.format(dateFormat)
             ticketCountTextView.text = getString(R.string.ticket_count_form).format(ticketCount)
