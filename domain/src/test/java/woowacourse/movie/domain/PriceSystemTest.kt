@@ -6,10 +6,10 @@ import org.junit.Test
 import woowacourse.movie.domain.policy.DiscountPolicy
 import woowacourse.movie.domain.policy.MorningPolicy
 import woowacourse.movie.domain.policy.MovieDayPolicy
-import woowacourse.movie.domain.seat.SelectResult
-import woowacourse.movie.domain.ticket.Price
-import woowacourse.movie.domain.ticket.PriceCalculator
-import woowacourse.movie.domain.ticket.PriceSystem
+import woowacourse.movie.domain.price.Price
+import woowacourse.movie.domain.price.PriceCalculator
+import woowacourse.movie.domain.system.PriceSystem
+import woowacourse.movie.domain.system.SelectResult
 import java.time.LocalDateTime
 
 class PriceSystemTest {

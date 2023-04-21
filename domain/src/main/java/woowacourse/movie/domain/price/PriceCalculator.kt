@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.ticket
+package woowacourse.movie.domain.price
 
 import woowacourse.movie.domain.policy.DiscountPolicy
 import java.time.LocalDateTime

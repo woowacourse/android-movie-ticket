@@ -1,7 +1,7 @@
 package woowacourse.movie.domain.theater
 
+import woowacourse.movie.domain.price.Price
 import woowacourse.movie.domain.seat.Grade
-import woowacourse.movie.domain.ticket.Price
 
 class TheaterInfo(
     private val rowGrade: Map<Int, Grade>,

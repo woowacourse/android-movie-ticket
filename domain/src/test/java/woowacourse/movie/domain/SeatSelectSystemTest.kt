@@ -5,8 +5,8 @@ import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.domain.seat.Grade
-import woowacourse.movie.domain.seat.SeatSelectSystem
-import woowacourse.movie.domain.seat.SelectResult
+import woowacourse.movie.domain.system.SeatSelectSystem
+import woowacourse.movie.domain.system.SelectResult
 import woowacourse.movie.domain.theater.TheaterInfo
 
 class SeatSelectSystemTest {

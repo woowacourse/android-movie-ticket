@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.ticket
+package woowacourse.movie.domain.price
 
 @JvmInline
 value class Price(val price: Int = DEFAULT) {

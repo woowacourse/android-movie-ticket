@@ -1,6 +1,7 @@
-package woowacourse.movie.domain.ticket
+package woowacourse.movie.domain.system
 
-import woowacourse.movie.domain.seat.SelectResult
+import woowacourse.movie.domain.price.Price
+import woowacourse.movie.domain.price.PriceCalculator
 import java.time.LocalDateTime
 
 class PriceSystem(

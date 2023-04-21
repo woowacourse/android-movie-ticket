@@ -1,7 +1,8 @@
-package woowacourse.movie.domain.seat
+package woowacourse.movie.domain.system
 
+import woowacourse.movie.domain.price.Price
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.theater.TheaterInfo
-import woowacourse.movie.domain.ticket.Price
 
 class SeatSelectSystem(
     private val theaterInfo: TheaterInfo,

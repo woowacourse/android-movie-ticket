@@ -1,6 +1,6 @@
-package woowacourse.movie.domain.seat
+package woowacourse.movie.domain.system
 
-import woowacourse.movie.domain.ticket.Price
+import woowacourse.movie.domain.price.Price
 
 sealed class SelectResult {
     sealed class Success(val seatPrice: Price) : SelectResult() {
