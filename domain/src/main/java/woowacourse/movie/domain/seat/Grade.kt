@@ -1,5 +1,7 @@
 package woowacourse.movie.domain.seat
 
-enum class Grade(price: Int) {
-    B(10000), S(15000), A(12000)
+import woowacourse.movie.domain.ticket.Price
+
+enum class Grade(val price: Price) {
+    B(Price(10000)), S(Price(15000)), A(Price(12000))
 }
