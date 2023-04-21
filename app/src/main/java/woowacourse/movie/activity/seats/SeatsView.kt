@@ -33,7 +33,7 @@ class SeatsView(
         return count
     }
 
-    private fun getSelectedSeats(): List<Seat> {
+    fun getSelectedSeats(): List<Seat> {
         val selectedSeat: MutableList<Seat> = mutableListOf()
 
         seats.forEachIndexed { rowIndex, it ->

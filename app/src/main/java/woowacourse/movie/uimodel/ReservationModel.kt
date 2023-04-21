@@ -9,8 +9,9 @@ data class ReservationModel(
     val movie: MovieModel,
     val screeningDateTime: LocalDateTime,
     val ticketCount: Int,
-    val paymentAmount: payment.PaymentAmount,
-    val paymentType: payment.PaymentType = payment.PaymentType.LOCAL_PAYMENT
+    val seats: List<SeatModel>,
+    val paymentAmount: PaymentAmount,
+    val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
 ) : Serializable {
 
     companion object {

@@ -5,13 +5,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import payment.PaymentAmount
-import reservation.Reservation
 import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
+import woowacourse.movie.uimodel.ReservationModel
 import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_KEY
-import woowacourse.movie.uimodel.toReservationModel
+import woowacourse.movie.uimodel.toSeatModel
 import java.time.LocalDateTime
 
 class SeatSelectionActivity : AppCompatActivity() {
@@ -26,17 +26,17 @@ class SeatSelectionActivity : AppCompatActivity() {
             intent.getSerializableExtra(MovieModel.MOVIE_INTENT_KEY) as MovieModel
         binding.movieNameTextView.text = movieModel.name.value
 
-        val seatsView: SeatsView = SeatsView(binding, intent)
+        val seatsView = SeatsView(binding, intent)
         seatsView.set()
         binding.reservationCompleteTextView.setOnClickListener { completeButtonClickEvent(seatsView) }
     }
 
     private fun completeButtonClickEvent(seatsView: SeatsView) {
         val ticketCount: Int = intent.getIntExtra("ticket_count", 1)
-        if (seatsView.getSelectedCount() == ticketCount) showDialog()
+        if (seatsView.getSelectedCount() == ticketCount) showDialog(seatsView)
     }
 
-    private fun showDialog() {
+    private fun showDialog(seatsView: SeatsView) {
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
@@ -50,14 +50,15 @@ class SeatSelectionActivity : AppCompatActivity() {
                 val paymentAmount =
                     PaymentAmount(binding.paymentAmountTextView.text.toString().toInt())
 
-                val reservation = Reservation(
-                    movie = movieModel.toDomainModel(),
+                val reservationModel = ReservationModel(
+                    movie = movieModel,
                     screeningDateTime = screeningDateTime,
                     ticketCount = ticketCount,
+                    seats = seatsView.getSelectedSeats().map { it.toSeatModel() },
                     paymentAmount = paymentAmount
                 )
 
-                nextIntent.putExtra(RESERVATION_INTENT_KEY, reservation.toReservationModel())
+                nextIntent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
                 startActivity(nextIntent)
             }
             .setNegativeButton("취소") { dialog, _ ->
