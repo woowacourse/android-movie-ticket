@@ -15,11 +15,11 @@ class SeatTableViewSet(
     private val maxSelectCount: CountState
 ) : Subject {
     private val seats: TableLayout = root.findViewById(R.id.seats)
-    val choosedSeatInfo: List<SeatPositionState>
+    val chosenSeatInfo: List<SeatPositionState>
         get() {
             return mutableListOf<SeatPositionState>().apply {
                 getAllSeatView().forEachIndexed { index, seatView ->
-                    if (seatView.isChoosed) add(convertIndexToPosition(index))
+                    if (seatView.isChosen) add(convertIndexToPosition(index))
                 }
             }
         }
@@ -27,7 +27,7 @@ class SeatTableViewSet(
     private val observers: MutableList<Observer> = mutableListOf()
 
     init {
-        getAllSeatView().forEachIndexed { index, view ->
+        getAllSeatView().forEachIndexed { _, view ->
             view.setOnClickListener {
                 onClick(view)
             }
@@ -51,22 +51,22 @@ class SeatTableViewSet(
     }
 
     private fun onClick(view: SeatView) {
-        val oldChoosedCount = choosedSeatInfo.size
-        if (view.isChoosed.not() && oldChoosedCount >= maxSelectCount.value) return
+        val oldChoosedCount = chosenSeatInfo.size
+        if (view.isChosen.not() && oldChoosedCount >= maxSelectCount.value) return
         view.toggle()
-        notifyObserver(choosedSeatInfo)
+        notifyObserver(chosenSeatInfo)
     }
 
-    fun chooseSeatUpdate(newChoosedPositions: List<SeatPositionState>) {
+    fun chooseSeatUpdate(newChosenPositions: List<SeatPositionState>) {
         clear()
-        getAllSeatView().filterIndexed { index, seatView ->
-            convertIndexToPosition(index) in newChoosedPositions
+        getAllSeatView().filterIndexed { index, _ ->
+            convertIndexToPosition(index) in newChosenPositions
         }.forEach { it.toggle() }
-        notifyObserver(choosedSeatInfo)
+        notifyObserver(chosenSeatInfo)
     }
 
     private fun clear() {
-        getAllSeatView().filter { it.isChoosed }.forEach { it.toggle() } // 원본 상태로 되돌림
+        getAllSeatView().filter { it.isChosen }.forEach { it.toggle() } // 원본 상태로 되돌림
     }
 
     override fun registerObserver(observer: Observer) {

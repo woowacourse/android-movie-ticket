@@ -27,7 +27,7 @@
                 android:layout_height="341dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="340dp"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

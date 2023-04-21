@@ -11,7 +11,7 @@ class SeatView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
-    var isChoosed: Boolean = false
+    var isChosen: Boolean = false
         private set
 
     init {
@@ -19,11 +19,11 @@ class SeatView @JvmOverloads constructor(
     }
 
     fun toggle() {
-        if (isChoosed) {
+        if (isChosen) {
             setBackgroundColor(ContextCompat.getColor(context, R.color.seat_no_selected))
         } else {
             setBackgroundColor(ContextCompat.getColor(context, R.color.seat_selected))
         }
-        isChoosed = isChoosed.not()
+        isChosen = isChosen.not()
     }
 }

@@ -47,7 +47,7 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
         titleTextView.text = reservationState.movieState.title
 
         seatTableViewSet.registerObserver(this)
-        confirmView.setOnClickListener { navigateShowDialog(seatTableViewSet.choosedSeatInfo) }
+        confirmView.setOnClickListener { navigateShowDialog(seatTableViewSet.chosenSeatInfo) }
         confirmView.isClickable = false // 클릭리스너를 설정하면 clickable이 자동으로 참이 되기 때문
     }
 
@@ -67,9 +67,9 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(
             SEAT_RESTORE_KEY,
-            ArrayList(seatTableViewSet.choosedSeatInfo)
+            ArrayList(seatTableViewSet.chosenSeatInfo)
         )
-        Log.d("mendel", "store: ${seatTableViewSet.choosedSeatInfo.joinToString { it.toString() }}")
+        Log.d("mendel", "store: ${seatTableViewSet.chosenSeatInfo.joinToString { it.toString() }}")
     }
 
     private fun navigateShowDialog(seats: List<SeatPositionState>) {
