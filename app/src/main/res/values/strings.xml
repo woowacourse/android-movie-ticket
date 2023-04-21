@@ -20,7 +20,13 @@
     <string name="tv_booking_check_person_count">일반 %d명</string>
     <string name="tv_booking_check_total_money">%d원 (현장 결제)</string>
 
+    <!-- MovieSelectSeatActivity -->
+    <string name="btn_check">확인</string>
+    <string name="tv_screen">SCREEN</string>
+
+
     <!-- 상영일 텍스트 포맷 -->
     <string name="screening_date_format">상열일: %s ~ %s</string>
+
 
 </resources>
