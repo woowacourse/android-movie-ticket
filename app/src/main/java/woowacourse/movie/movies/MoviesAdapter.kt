@@ -26,9 +26,15 @@ class MoviesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            MOVIE -> MovieItemViewHolder(inflateView(R.layout.item_movie, parent))
-            ADVERTISEMENT -> AdvertisementViewHolder(inflateView(R.layout.item_advertisement, parent))
-            else -> throw IllegalArgumentException(parent.context.getString(R.string.view_type_error_msg))
+            MOVIE -> MovieItemViewHolder(
+                inflateView(R.layout.item_movie, parent)
+            )
+            ADVERTISEMENT -> AdvertisementViewHolder(
+                inflateView(R.layout.item_advertisement, parent)
+            )
+            else -> throw IllegalArgumentException(
+                parent.context.getString(R.string.view_type_error_msg)
+            )
         }
     }
 
@@ -39,6 +45,7 @@ class MoviesAdapter(
         if (!::layoutInflater.isInitialized) {
             layoutInflater = LayoutInflater.from(parent.context)
         }
+
         return layoutInflater.inflate(resourceId, parent, false)
     }
 
@@ -48,7 +55,7 @@ class MoviesAdapter(
                 val moviesPosition = position - position / CYCLE
 
                 holder.bind(
-                    moviesInfo[moviesPosition], onItemViewClickListener::onReservationButtonClicked
+                    moviesInfo[moviesPosition], onItemViewClickListener::onMovieItemClicked
                 )
             }
             is AdvertisementViewHolder -> holder.bind(

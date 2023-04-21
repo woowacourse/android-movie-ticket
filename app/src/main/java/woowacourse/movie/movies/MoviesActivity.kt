@@ -34,7 +34,7 @@ class MoviesActivity : AppCompatActivity() {
             moviesInfo = MockMoviesGenerator().generate(),
             advertisement = MockAdvertisementGenerator().generate(),
             onItemViewClickListener = object : OnItemViewClickListener {
-                override fun onReservationButtonClicked(movieInfo: MovieInfo) {
+                override fun onMovieItemClicked(movieInfo: MovieInfo) {
                     onReservationButtonClicked(movieInfo)
                 }
 

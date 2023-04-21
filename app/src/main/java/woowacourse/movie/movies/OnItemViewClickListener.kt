@@ -5,6 +5,6 @@ import woowacourse.movie.model.MovieInfo
 
 interface OnItemViewClickListener {
 
-    fun onReservationButtonClicked(movieInfo: MovieInfo)
+    fun onMovieItemClicked(movieInfo: MovieInfo)
     fun onAdvertisementClicked(advertisement: Advertisement)
 }
