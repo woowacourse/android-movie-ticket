@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.movie
 
 import woowacourse.movie.ticket.Seat
 import woowacourse.movie.ticket.Ticket

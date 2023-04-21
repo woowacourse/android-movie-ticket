@@ -1,7 +1,4 @@
-package woowacourse.movie
-
-import woowacourse.movie.theater.TheaterDatabase
-import woowacourse.movie.theater.TheaterEntity
+package woowacourse.movie.theater
 
 object TheaterRepository {
     fun getTheaters(): List<Theater> {

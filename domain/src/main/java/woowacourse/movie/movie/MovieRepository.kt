@@ -1,7 +1,4 @@
-package woowacourse.movie
-
-import woowacourse.movie.movie.MovieDatabase
-import woowacourse.movie.movie.MovieEntity
+package woowacourse.movie.movie
 
 object MovieRepository {
     fun getMovies(): List<Movie> {

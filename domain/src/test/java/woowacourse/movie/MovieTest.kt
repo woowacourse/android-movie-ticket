@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import woowacourse.movie.movie.Movie
 import woowacourse.movie.ticket.Position
 import woowacourse.movie.ticket.Seat
 import woowacourse.movie.ticket.SeatRank
@@ -50,7 +51,7 @@ class MovieTest {
             Ticket(1, LocalDateTime.of(2023, 4, 14, 10, 0), Seat(SeatRank.B, Position(1, 1)))
 
         // when
-        val actual = movie.reserve(LocalDateTime.of(2023, 4, 14, 10, 0), 2)
+        val actual = movie.reserve(LocalDateTime.of(2023, 4, 14, 10, 0), Seat(SeatRank.B, Position(1, 1)))
 
         // then
         assertThat(actual).isEqualTo(expected)
