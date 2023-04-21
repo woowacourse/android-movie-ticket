@@ -9,9 +9,15 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.SelectedSeats
+import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.model.SeatModel
 
 class SeatSelectionActivity : AppCompatActivity() {
+
+    private var selectedSeats = SelectedSeats()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
@@ -44,8 +50,25 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun getSeatView(row: Int, column: Int): View {
         val seatView = LayoutInflater.from(this).inflate(R.layout.item_seat, null, false)
         val seat = SeatModel(row, column)
-        seatView.findViewById<TextView>(R.id.seat_view).text = seat.toString()
+        seatView.apply {
+            findViewById<TextView>(R.id.seat_view).text = seat.toString()
+            setOnClickListener {
+                clickSeat(seat.toDomain(), this)
+            }
+        }
         return seatView
+    }
+
+    private fun clickSeat(seat: Seat, seatView: View) {
+        seatView.isSelected = !seatView.isSelected
+
+        if (seatView.isSelected) {
+            seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
+            selectedSeats = selectedSeats.delete(seat)
+        } else {
+            seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
+            selectedSeats = selectedSeats.add(seat)
+        }
     }
 
     companion object {

@@ -8,4 +8,10 @@ class SelectedSeats(
             price + seat.getPriceByClass()
         }
     }
+
+    fun add(seat: Seat): SelectedSeats = SelectedSeats(seats + seat)
+
+    fun delete(seat: Seat): SelectedSeats = SelectedSeats(seats - seat)
+
+    fun contains(seat: Seat): Boolean = seat in seats
 }
