@@ -1,26 +1,34 @@
 package woowacourse.movie.movieList
 
-import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.uimodel.MovieScheduleUi
-import woowacourse.movie.utils.DateUtil
+import woowacourse.movie.uimodel.MovieModelUi
 
 class MovieListAdapter(
-    private val movieScheduleUi: List<MovieScheduleUi>,
-    private val onReservationClickListener: (MovieScheduleUi) -> Unit,
+    private val movieModelUi: List<MovieModelUi>,
+    private val onReservationClickListener: (MovieModelUi.MovieScheduleUi) -> Unit,
 ) : BaseAdapter() {
+
     override fun getCount(): Int {
-        return movieScheduleUi.size
+        return movieModelUi.size
     }
 
-    override fun getItem(position: Int): MovieScheduleUi {
-        return movieScheduleUi[position]
+    override fun getItem(position: Int): MovieModelUi {
+        return movieModelUi[position]
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (movieModelUi[position]) {
+            is MovieModelUi.MovieScheduleUi -> ITEM_VIEW_TYPE_MOVIE
+            is MovieModelUi.AdUi -> ITEM_VIEW_TYPE_AD
+        }
+    }
+
+    override fun getViewTypeCount(): Int {
+        return ITEM_VIEW_TYPE_MAX
     }
 
     override fun getItemId(position: Int): Long {
@@ -28,49 +36,57 @@ class MovieListAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val viewHolder: ViewHolder
-
-        val view = if (convertView != null) {
-            convertView.also { viewHolder = it.tag as ViewHolder }
-        } else {
-            val v = View.inflate(
-                parent?.context,
-                R.layout.item_movie_list,
-                null,
-            )
-            viewHolder = makeViewHolder(v)
-            v.tag = viewHolder
-            v
+        Log.d("krrong", "${convertView == null}")
+        return when (getItemViewType(position)) {
+            ITEM_VIEW_TYPE_MOVIE -> {
+                val movieViewHolder: MovieViewHolder
+                if (convertView != null) {
+                    convertView.also {
+                        movieViewHolder = it.tag as MovieViewHolder
+                        movieViewHolder.bind(movieModelUi[position] as MovieModelUi.MovieScheduleUi, onReservationClickListener)
+                    }
+                } else {
+                    val v = View.inflate(
+                        parent?.context,
+                        R.layout.item_movie_list,
+                        null,
+                    )
+                    movieViewHolder = MovieViewHolder(v)
+                    movieViewHolder.bind(movieModelUi[position] as MovieModelUi.MovieScheduleUi, onReservationClickListener)
+                    v.tag = movieViewHolder
+                    v
+                }
+            }
+            ITEM_VIEW_TYPE_AD -> {
+                val adViewHolder: AdViewHolder
+                if (convertView != null) {
+                    convertView.also { adViewHolder = it.tag as AdViewHolder }
+                } else {
+                    val v = View.inflate(
+                        parent?.context,
+                        R.layout.item_ad_list,
+                        null,
+                    )
+                    adViewHolder = AdViewHolder(v)
+                    adViewHolder.bind(movieModelUi[position] as MovieModelUi.AdUi)
+                    v.tag = adViewHolder
+                    v
+                }
+            }
+            else -> {
+                val v = View.inflate(
+                    parent?.context,
+                    R.layout.item_ad_list,
+                    null,
+                )
+                v
+            }
         }
-
-        viewHolder.bind(view.context, movieScheduleUi[position])
-        return view
     }
 
-    private fun makeViewHolder(view: View): ViewHolder {
-        return ViewHolder(
-            view.findViewById(R.id.movie_poster),
-            view.findViewById(R.id.movie_title),
-            view.findViewById(R.id.movie_release_date),
-            view.findViewById(R.id.movie_running_time),
-            view.findViewById(R.id.movie_reservation_button),
-        )
-    }
-
-    private inner class ViewHolder(
-        val posterView: ImageView,
-        val titleView: TextView,
-        val releaseDateView: TextView,
-        val runningTimeView: TextView,
-        val reservationButton: Button,
-    ) {
-
-        fun bind(context: Context, movieScheduleUi: MovieScheduleUi) {
-            posterView.setImageResource(movieScheduleUi.poster)
-            titleView.text = movieScheduleUi.title
-            releaseDateView.text = DateUtil(context).getDateRange(movieScheduleUi.startDate, movieScheduleUi.endDate)
-            runningTimeView.text = context.getString(R.string.movie_running_time).format(movieScheduleUi.runningTime)
-            reservationButton.setOnClickListener { onReservationClickListener(movieScheduleUi) }
-        }
+    companion object {
+        private const val ITEM_VIEW_TYPE_MOVIE = 0
+        private const val ITEM_VIEW_TYPE_AD = 1
+        private const val ITEM_VIEW_TYPE_MAX = 2
     }
 }

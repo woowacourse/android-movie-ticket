@@ -7,10 +7,10 @@ import movie.data.MovieTicket
 import movie.screening.ScreeningDate
 import movie.seat.Seat
 import woowacourse.movie.uimodel.MovieDetailUi
-import woowacourse.movie.uimodel.MovieScheduleUi
+import woowacourse.movie.uimodel.MovieModelUi
 import woowacourse.movie.uimodel.MovieTicketUi
 
-fun MovieScheduleUi.toDomain(): MovieSchedule {
+fun MovieModelUi.MovieScheduleUi.toDomain(): MovieSchedule {
     return MovieSchedule(
         Movie(
             title,

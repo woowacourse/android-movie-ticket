@@ -15,7 +15,7 @@ import movie.screening.ScreeningTime
 import woowacourse.movie.R
 import woowacourse.movie.movieSeat.MovieSeatActivity
 import woowacourse.movie.uimodel.MovieDetailUi
-import woowacourse.movie.uimodel.MovieScheduleUi
+import woowacourse.movie.uimodel.MovieModelUi
 import woowacourse.movie.utils.DateUtil
 import woowacourse.movie.utils.toDomain
 import java.time.LocalDate
@@ -23,7 +23,7 @@ import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
 
-    private val movieScheduleUi by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as MovieScheduleUi }
+    private val movieScheduleUi by lazy { intent.getSerializableExtra(KEY_MOVIE_SCHEDULE) as MovieModelUi.MovieScheduleUi }
     private var ticketCount = TicketCount(1)
     private var selectedPosition = 0
 
