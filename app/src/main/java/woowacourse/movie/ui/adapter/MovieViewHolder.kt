@@ -18,8 +18,8 @@ class MovieViewHolder(view: View, private val onItemViewClick: (Int) -> Unit) : 
     private val bookingButton: Button = view.findViewById(R.id.item_booking_button)
 
     init {
-        view.setOnClickListener { onItemViewClick(adapterPosition) }
-        bookingButton.setOnClickListener { onItemViewClick(adapterPosition) }
+        view.setOnClickListener { onItemViewClick(absoluteAdapterPosition) }
+        bookingButton.setOnClickListener { onItemViewClick(absoluteAdapterPosition) }
     }
 
     fun bind(movie: MovieModel) {
