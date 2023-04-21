@@ -69,7 +69,7 @@ class ReservationAgencyTest {
 
         val actual = reservationAgency.calculateReservationFee(
             listOf(
-                Seat(3, 1), Seat(3, 2)
+                Seat(1, 3), Seat(2, 3)
             )
         ).amount
 
@@ -87,7 +87,7 @@ class ReservationAgencyTest {
 
         val actual = reservationAgency.calculateReservationFee(
             listOf(
-                Seat(3, 1), Seat(3, 2)
+                Seat(1, 3), Seat(2, 3)
             )
         ).amount
 
@@ -105,7 +105,7 @@ class ReservationAgencyTest {
 
         val actual = reservationAgency.calculateReservationFee(
             listOf(
-                Seat(3, 1), Seat(3, 2)
+                Seat(1, 3), Seat(2, 3)
             )
         ).amount
 
@@ -123,7 +123,7 @@ class ReservationAgencyTest {
 
         val actual = reservationAgency.calculateReservationFee(
             listOf(
-                Seat(3, 1), Seat(3, 2)
+                Seat(1, 3), Seat(2, 3)
             )
         ).amount
 
