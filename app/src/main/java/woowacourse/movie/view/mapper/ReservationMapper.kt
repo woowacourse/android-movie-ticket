@@ -7,6 +7,6 @@ fun Reservation.toUiModel(): ReservationUiModel = ReservationUiModel(
     movieTitle,
     screeningDateTime,
     seats.size,
-    seats.map { it.toUi() },
+    seats.map { it.toUiModel().name },
     finalReservationFee.amount
 )

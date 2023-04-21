@@ -18,12 +18,11 @@ import com.example.domain.Seat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.util.getParcelableCompat
-import woowacourse.movie.view.mapper.textColor
 import woowacourse.movie.view.mapper.toDomainModel
-import woowacourse.movie.view.mapper.toUi
 import woowacourse.movie.view.mapper.toUiModel
 import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 import woowacourse.movie.view.model.ReservationOptions
+import woowacourse.movie.view.model.SeatUiModel
 import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity() {
@@ -55,16 +54,16 @@ class SeatSelectionActivity : AppCompatActivity() {
             }
             for (col in Seat.MIN_COLUMN..Seat.MAX_COLUMN) {
                 val seat = Seat(col, row)
-                tableRow.addView(createSeat(this, seat.toUi(), seat.textColor()))
+                tableRow.addView(createSeat(this, seat.toUiModel()))
             }
             binding.seatTablelayout.addView(tableRow)
         }
     }
 
-    private fun createSeat(context: Context, seatText: String, textColorId: Int): AppCompatButton =
+    private fun createSeat(context: Context, seatUi: SeatUiModel): AppCompatButton =
         AppCompatButton(context).apply {
-            text = seatText
-            setTextColor(getColor(textColorId))
+            text = seatUi.name
+            setTextColor(getColor(seatUi.color))
             setOnClickListener { onSeatClick(this) }
             background =
                 AppCompatResources.getDrawable(this@SeatSelectionActivity, R.drawable.selector_seat)
