@@ -18,18 +18,21 @@ class MovieListAdapter(
     private val onAdClick: (Ad) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
 
+    private val onMovieItemClick: (Int) -> Unit = { onBookBtnClick(movies[getMoviePosition(it)]) }
+    private val onAdItemClick: (Int) -> Unit = { onAdClick(ads[getMoviePosition(it)]) }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         when (viewType) {
             MovieViewType.MOVIE -> {
-                val movieView =
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-                return MovieViewHolder(movieView) { onBookBtnClick(movies[it]) }
+                val movieView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_movie, parent, false)
+                return MovieViewHolder(movieView, onMovieItemClick)
             }
 
             MovieViewType.AD -> {
                 val adView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_native_ads, parent, false)
-                return NativeAdViewHolder(adView) { onAdClick(ads[it]) }
+                return NativeAdViewHolder(adView, onAdItemClick)
             }
         }
         throw IllegalArgumentException(INVALID_VIEW_TYPE_ERROR_MESSAGE)
