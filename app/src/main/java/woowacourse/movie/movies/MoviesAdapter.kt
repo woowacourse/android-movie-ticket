@@ -48,7 +48,7 @@ class MoviesAdapter(
                 val moviesPosition = position - position / CYCLE
 
                 holder.bind(
-                    moviesInfo[moviesPosition], onItemViewClickListener::onMovieItemClicked
+                    moviesInfo[moviesPosition], onItemViewClickListener::onReservationButtonClicked
                 )
             }
             is AdvertisementViewHolder -> holder.bind(
