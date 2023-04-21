@@ -7,17 +7,19 @@ class SeatSelectSystem(
     private val theaterInfo: TheaterInfo,
     private val count: Int,
 ) {
-    private val selectSeats = mutableSetOf<Pair<Int, Int>>()
+    private val selectSeats = mutableSetOf<Seat>()
+    val seats: List<Seat>
+        get() = selectSeats.toList()
 
     fun select(row: Int, col: Int): SelectResult {
         if (isWrongInput(row, col)) return SelectResult.WrongInput
-        if (selectSeats.contains(Pair(row, col))) { // 이미 잡힌 자리인 경우 - 해제
-            selectSeats.remove(Pair(row, col))
+        if (selectSeats.contains(Seat(row, col))) { // 이미 잡힌 자리인 경우 - 해제
+            selectSeats.remove(Seat(row, col))
             return SelectResult.Success.Deselection(theaterInfo.getGradePrice(row) ?: Price())
         }
         // 아직 안 잡힌 자리인 경우 - 선택
         if (isSelectAll()) {
-            selectSeats.add(Pair(row, col))
+            selectSeats.add(Seat(row, col))
             return SelectResult.Success.Selection(theaterInfo.getGradePrice(row) ?: Price())
         }
         // 이미 자리를 다 고른 상태인 경우
