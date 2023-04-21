@@ -1,6 +1,5 @@
 package woowacourse.movie.activity.seatselect
 
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TableLayout
@@ -9,20 +8,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.activity.InjectedModelListener
 import woowacourse.movie.domain.price.Price
 import woowacourse.movie.domain.system.PriceSystem
 import woowacourse.movie.domain.system.SeatSelectSystem
 import woowacourse.movie.domain.system.SelectResult
 import woowacourse.movie.domain.ticket.Ticket
+import woowacourse.movie.model.TicketModel
 import woowacourse.movie.model.toPresentation
 import woowacourse.movie.util.Theater
 import java.text.DecimalFormat
+import java.time.LocalDateTime
 
 class SeatSelectView(
     private val viewGroup: ViewGroup,
     private val seatSystem: SeatSelectSystem,
     private val priceSystem: PriceSystem,
-    private val nextListener: (Ticket) -> Unit,
+    private val clickListener: InjectedModelListener<TicketModel>,
 ) {
     private val seatViews: List<TextView> = viewGroup.findViewById<TableLayout>(R.id.layout_seats)
         .children
@@ -36,21 +38,20 @@ class SeatSelectView(
 
     private var price: Price = Price(0)
 
-    fun set(title: String) {
+    fun set(title: String, dateTime: LocalDateTime) {
         setSeatViews()
         setTitle(title)
-        setNextButton()
         setPrice(price.toPresentation())
+        setNextButton(title, dateTime)
     }
 
     private fun setTitle(title: String) {
         titleView.text = title
     }
 
-    private fun setNextButton() {
+    private fun setNextButton(title: String, dateTime: LocalDateTime) {
         nextButton.setOnClickListener {
-            Log.d("click", true.toString())
-            nextListener
+            clickListener.onClick(Ticket(title, dateTime, seatSystem.seats, price).toPresentation())
         }
     }
 

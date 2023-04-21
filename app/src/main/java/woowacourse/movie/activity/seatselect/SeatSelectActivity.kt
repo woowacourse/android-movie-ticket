@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.activity.InjectedModelListener
 import woowacourse.movie.activity.ticketresult.TicketResultActivity
 import woowacourse.movie.domain.price.PriceCalculator
 import woowacourse.movie.domain.system.PriceSystem
 import woowacourse.movie.domain.system.SeatSelectSystem
-import woowacourse.movie.model.toPresentation
+import woowacourse.movie.model.TicketModel
 import woowacourse.movie.util.Theater
 import woowacourse.movie.util.getSerializableExtraCompat
 import java.time.LocalDateTime
 
-class SeatSelectActivity : AppCompatActivity() {
+class SeatSelectActivity : AppCompatActivity(), InjectedModelListener<TicketModel> {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_select)
@@ -32,13 +33,9 @@ class SeatSelectActivity : AppCompatActivity() {
         val seatSelectSystem = SeatSelectSystem(Theater.info, count)
         val priceSystem = PriceSystem(PriceCalculator(Theater.policies), dateTime!!)
         val seatView =
-            SeatSelectView(findViewById(R.id.layout_select_seat), seatSelectSystem, priceSystem) {
-                val intent = Intent(this, TicketResultActivity::class.java)
-                intent.putExtra(TicketResultActivity.INFO_KEY, it.toPresentation())
-                startActivity(intent)
-            }
+            SeatSelectView(findViewById(R.id.layout_select_seat), seatSelectSystem, priceSystem, this)
 
-        seatView.set(title!!)
+        seatView.set(title!!, dateTime)
     }
 
     private fun isDataNull(title: String?, dateTime: LocalDateTime?, count: Int): Boolean {
@@ -50,5 +47,11 @@ class SeatSelectActivity : AppCompatActivity() {
         const val TITLE_KEY = "TITLE"
         const val DATETIME_KEY = "DATETIME"
         const val COUNT_KEY = "COUNT"
+    }
+
+    override fun onClick(model: TicketModel) {
+        val intent = Intent(this, TicketResultActivity::class.java)
+        intent.putExtra(TicketResultActivity.INFO_KEY, model)
+        startActivity(intent)
     }
 }

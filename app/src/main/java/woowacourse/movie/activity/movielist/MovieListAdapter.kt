@@ -10,10 +10,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.activity.InjectedModelListener
 import woowacourse.movie.model.MovieModel
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movies: List<MovieModel>, private val listener: ItemListener) : BaseAdapter() {
+class MovieListAdapter(private val movies: List<MovieModel>, private val clickListener: InjectedModelListener<MovieModel>) : BaseAdapter() {
     private val viewHolders: MutableMap<View, ViewHolder> = mutableMapOf()
     override fun getCount(): Int {
         return movies.size
@@ -32,7 +33,7 @@ class MovieListAdapter(private val movies: List<MovieModel>, private val listene
         if (viewHolders[view] == null) viewHolders[view] = getViewHolder(view)
         val movie = getItem(position) as MovieModel
         viewHolders[view]?.set(movie, parent?.context) {
-            listener.onClick(movie, it)
+            clickListener.onClick(movie)
         }
         return view
     }
