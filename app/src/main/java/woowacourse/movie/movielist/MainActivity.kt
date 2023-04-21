@@ -1,15 +1,16 @@
 package woowacourse.movie.movielist
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.AdDto
 import woowacourse.movie.dto.MovieDummy
-import woowacourse.movie.moviedetail.MovieDetailActivity
 
-class MainActivity : AppCompatActivity(), OnMovieClickListener {
+class MainActivity : AppCompatActivity() {
+
+    private val onMovieClickListener by lazy { OnMovieClickListener(this) }
+    private val onAdClickListener by lazy { OnAdClickListener(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,20 +18,16 @@ class MainActivity : AppCompatActivity(), OnMovieClickListener {
         setUpMovieDatas()
     }
 
-    override fun onMovieClick(movie: MovieDto) {
-        val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(MOVIE_KEY, movie)
-        startActivity(intent)
-    }
-
     private fun setUpMovieDatas() {
-        val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(MovieDummy.movieDatas, this)
+        val movieRV = findViewById<RecyclerView>(R.id.movie_rv)
+        val movieRVAdapter = MovieRVAdapter(
+            MovieDummy.movieDatas,
+            AdDto.getAdData(),
+            onMovieClickListener,
+            onAdClickListener,
+        )
 
-        movieListView.adapter = movieListViewAdapter
-    }
-
-    companion object {
-        private const val MOVIE_KEY = "movie"
+        movieRV.adapter = movieRVAdapter
+        movieRVAdapter.notifyDataSetChanged()
     }
 }
