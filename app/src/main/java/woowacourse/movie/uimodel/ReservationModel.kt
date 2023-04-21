@@ -16,8 +16,8 @@ data class ReservationModel(
 
     companion object {
         const val RESERVATION_INTENT_KEY = "reservation"
-        const val TICKET_COUNT_INSTANCE_KEY = "ticket_count"
         const val SCREENING_DATE_INSTANCE_KEY = "screening_date"
         const val SCREENING_TIME_INSTANCE_KEY = "screening_time"
+        const val SCREENING_DATE_TIME_INTENT_KEY = "screening_date_time"
     }
 }

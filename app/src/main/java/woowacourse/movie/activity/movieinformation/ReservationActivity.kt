@@ -12,8 +12,10 @@ import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_INSTANCE_KEY
+import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_TIME_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_TIME_INSTANCE_KEY
-import woowacourse.movie.uimodel.ReservationModel.Companion.TICKET_COUNT_INSTANCE_KEY
+import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INSTANCE_KEY
+import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INTENT_KEY
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -120,11 +122,10 @@ class ReservationActivity : AppCompatActivity() {
         val selectedDate: LocalDate = binding.screeningDateSpinner.selectedItem as LocalDate
         val selectedTime: LocalTime = binding.screeningTimeSpinner.selectedItem as LocalTime
 
-        val intent: Intent = Intent(this, SeatSelectionActivity::class.java)
+        val intent = Intent(this, SeatSelectionActivity::class.java)
         intent.putExtra(MOVIE_INTENT_KEY, movieModel)
-        intent.putExtra("ticket_count", binding.ticketCountTextView.text.toString().toInt())
-        intent.putExtra("screening_date_time", LocalDateTime.of(selectedDate, selectedTime))
-        // todo intent key 상수화 필요
+        intent.putExtra(TICKET_COUNT_INTENT_KEY, binding.ticketCountTextView.text.toString().toInt())
+        intent.putExtra(SCREENING_DATE_TIME_INTENT_KEY, LocalDateTime.of(selectedDate, selectedTime))
 
         startActivity(intent)
     }

@@ -13,6 +13,8 @@ import seat.Seat
 import seat.SeatType
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
+import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_TIME_INTENT_KEY
+import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INTENT_KEY
 import java.time.LocalDateTime
 
 class SeatsView(
@@ -111,7 +113,7 @@ class SeatsView(
         }
 
         val selectedSeatCount: Int = getSelectedCount()
-        val ticketCount: Int = intent.getIntExtra("ticket_count", 1)
+        val ticketCount: Int = intent.getIntExtra(TICKET_COUNT_INTENT_KEY, 1)
         when {
             ticketCount <= selectedSeatCount -> {
                 seats.forEachIndexed { index, it ->
@@ -137,7 +139,7 @@ class SeatsView(
 
     private fun updatePaymentAmount() {
         val screeningDateTime: LocalDateTime =
-            intent.getSerializableExtra("screening_date_time") as LocalDateTime
+            intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
         val discount: Discount = Discount(MovieDayDiscount(), EarlyNightDiscount())
 
         val basePaymentAmount: PaymentAmount = PaymentAmount.from(getSelectedSeats())
