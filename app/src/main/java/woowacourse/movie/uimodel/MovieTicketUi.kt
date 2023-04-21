@@ -26,5 +26,14 @@ class MovieTicketUi(
                 seats,
             )
         }
+
+        val EMPTY = MovieTicketUi(
+            totalPrice = 0,
+            count = TicketCount(1),
+            title = "",
+            date = LocalDate.MIN,
+            time = LocalTime.MIN,
+            seats = listOf(),
+        )
     }
 }

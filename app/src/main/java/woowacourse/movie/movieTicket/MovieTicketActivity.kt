@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.extension.getSerializableTicketOrNull
 import woowacourse.movie.uimodel.MovieTicketUi
 import woowacourse.movie.utils.DateUtil
 import woowacourse.movie.utils.toDomain
@@ -12,7 +13,13 @@ import woowacourse.movie.view.decimalFormat
 
 class MovieTicketActivity : AppCompatActivity() {
 
-    private val movieTicket by lazy { (intent.getSerializableExtra(KEY_MOVIE_TICKET) as MovieTicketUi).toDomain() }
+    private val movieTicket by lazy {
+        intent.getSerializableTicketOrNull()?.toDomain()
+            ?: run {
+                finish()
+                MovieTicketUi.EMPTY.toDomain()
+            }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -16,6 +16,7 @@ import movie.seat.Seat
 import movie.seat.SeatColumn
 import movie.seat.SeatRow
 import woowacourse.movie.R
+import woowacourse.movie.extension.getSerializableMovieDetailOrNull
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.uimodel.MovieDetailUi
 import woowacourse.movie.uimodel.MovieTicketUi
@@ -23,7 +24,13 @@ import woowacourse.movie.utils.toDomain
 
 class MovieSeatActivity : AppCompatActivity() {
 
-    private val movieDetail by lazy { (intent.getSerializableExtra(KEY_MOVIE_DETAIL) as MovieDetailUi).toDomain() }
+    private val movieDetail by lazy {
+        (intent.getSerializableMovieDetailOrNull())?.toDomain()
+            ?: run {
+                finish()
+                MovieDetailUi.EMPTY.toDomain()
+            }
+    }
     private val selectedSeats: MutableList<Seat> = mutableListOf()
     private var totalPrice: Int = 0
 

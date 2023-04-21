@@ -12,7 +12,18 @@ sealed class MovieModelUi : Serializable {
         val startDate: LocalDate,
         val endDate: LocalDate,
         @DrawableRes val poster: Int,
-    ) : Serializable, MovieModelUi()
+    ) : Serializable, MovieModelUi() {
+        companion object {
+            val EMPTY = MovieScheduleUi(
+                title = "",
+                runningTime = 0,
+                summary = "",
+                startDate = LocalDate.MIN,
+                endDate = LocalDate.MIN,
+                poster = 0,
+            )
+        }
+    }
 
     class AdUi(
         @DrawableRes val addPoster: Int,
