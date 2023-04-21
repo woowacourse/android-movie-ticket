@@ -2,8 +2,9 @@ package woowacourse.movie.ui.movielistactivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.model.ScreeningPeriodState
@@ -12,8 +13,8 @@ import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
 
-    lateinit var movieListAdapter: MovieListAdapter
-    lateinit var movieListView: ListView
+    lateinit var movieDataAdapter: MovieDataAdapter
+    lateinit var movieRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,27 +26,28 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initViewId() {
-        movieListView = findViewById(R.id.lv_movie)
+        movieRecyclerView = findViewById(R.id.rv_movie)
     }
 
     private fun initMovieListAdapter() {
-        val tempMovies = listOf<MovieDataState>(
+        val tempMovies = List(100) { index ->
             MovieDataState(
                 posterImage = R.drawable.harrypotter_poster,
-                title = "해리 포터와 마법사의 돌",
+                title = "해리 포터와 마법사의 돌 $index",
                 screeningDay = ScreeningPeriodState(
                     LocalDate.parse("2023-04-01"),
                     LocalDate.parse("2023-04-28")
                 ),
                 runningTime = 152,
-                description = this.getString(R.string.dummy_data)
+                description = getString(R.string.dummy_data)
             )
-        )
-        movieListAdapter = MovieListAdapter(this, tempMovies, ::onButtonClickListener)
+        }
+        movieDataAdapter = MovieDataAdapter(this, tempMovies, ::onButtonClickListener)
     }
 
     private fun initMovieListView() {
-        movieListView.adapter = movieListAdapter
+        movieRecyclerView.adapter = movieDataAdapter
+        movieRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun onButtonClickListener(item: MovieDataState) {

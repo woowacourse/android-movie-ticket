@@ -52,4 +52,7 @@ dependencies {
 
     // domain 모듈
     implementation(project(":domain"))
+
+    // recycler view
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
 }
