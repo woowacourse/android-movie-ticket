@@ -3,6 +3,7 @@ package woowacourse.movie.movieSeat
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -63,7 +64,18 @@ class MovieSeatActivity : AppCompatActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun initListener() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table)
         val seats = seatTableLayout.children.filterIsInstance<TableRow>()
             .map { it.children.filterIsInstance<TextView>().toList() }.toList()
