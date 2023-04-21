@@ -99,13 +99,6 @@ class MovieDetailActivity : BaseActivity() {
         bookBtn.setOnClickListener {
             val selectedDate = LocalDate.parse(selectDateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(selectTimeSpinner.selectedItem.toString())
-//            val ticket =
-//                Ticket(
-//                    TICKET_PRICE,
-//                    LocalDateTime.of(selectedDate, selectedTime),
-//                    numberOfBooker,
-//                )
-//            intent.putExtra(TICKET_KEY, ticket.toUIModel())
             val intent = Intent(this, SeatSelectionActivity::class.java)
             intent.putExtra(DATE_KEY, LocalDateTime.of(selectedDate, selectedTime))
             intent.putExtra(NUMBER_OF_PEOPLE_KEY, numberOfBooker)
@@ -162,13 +155,11 @@ class MovieDetailActivity : BaseActivity() {
     }
 
     companion object {
-        private const val TICKET_KEY = "ticket"
         private const val MOVIE_KEY = "movie"
         private const val DATE_KEY = "date"
         private const val NUMBER_OF_PEOPLE_KEY = "numberOfPeople"
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
-        private const val TICKET_PRICE = 13000
     }
 }
