@@ -20,10 +20,28 @@ class MainListAdapter(
     val items: List<ItemModel>
         get() = _items.toList()
 
+    private val adbSize = adb.size
+    private var curAdbIndex: Int = 0
+        set(value) {
+            if (value >= adbSize || value < 0) {
+                field = 0
+                return
+            }
+            field = value
+        }
+
     init {
-//        val list = mutableListOf<ItemModel>().addAll()
-//        for(i in 0..)
-        _items = movie.toList() + adb.toList()
+        _items = if (adb.isEmpty()) {
+            movie.toList()
+        } else {
+            val allowAdbMaxCount: Int = movie.size / 3
+            mutableListOf<ItemModel>().apply {
+                addAll(movie.toList())
+                for (index in 3..(movie.size + allowAdbMaxCount) step 4) {
+                    add(index, adb[curAdbIndex++])
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(

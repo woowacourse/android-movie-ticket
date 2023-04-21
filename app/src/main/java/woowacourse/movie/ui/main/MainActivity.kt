@@ -21,15 +21,17 @@ class MainActivity : AppCompatActivity() {
             MovieRepository.allMovies()
                 .map {
                     MovieItemModel(
-                        it,
-                        { navigateMovieDetail((adapter.items[it] as MovieItemModel).movieState) }
-                    )
+                        it
+                    ) { position ->
+                        navigateMovieDetail((adapter.items[position] as MovieItemModel).movieState)
+                    }
                 },
             AdbRepository.allAdb().map {
                 AdbItemModel(
-                    it,
-                    {}
-                )
+                    it
+                ) { position ->
+                    navigateAdb((adapter.items[position] as AdbItemModel).adbState)
+                }
             }
         )
     }

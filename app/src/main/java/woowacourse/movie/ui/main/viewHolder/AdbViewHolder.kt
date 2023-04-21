@@ -18,5 +18,6 @@ class AdbViewHolder(
     override fun bind(itemModel: ItemModel) {
         val item = itemModel as AdbItemModel
         image.setImageResource(item.adbState.imgId)
+        image.setOnClickListener { item.onClick(adapterPosition) }
     }
 }

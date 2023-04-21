@@ -1,12 +1,11 @@
 package woowacourse.movie.ui.adb
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.ui.BackKeyActionBarActivity
 
-class AdbDetailActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class AdbDetailActivity : BackKeyActionBarActivity() {
+    override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_adb_detail)
     }
 }
