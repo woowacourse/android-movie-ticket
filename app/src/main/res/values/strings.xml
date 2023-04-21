@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie</string>
     <string name="booking_button">지금 예매</string>
-    <string name="booking_complete_button">예매 완료</string>
+    <string name="selecting_seats_button">좌석 선택</string>
     <string name="minus_button">-</string>
     <string name="plus_button">+</string>
 

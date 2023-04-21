@@ -134,7 +134,7 @@
 
         <Button
             android:id="@+id/detail_booking_button"
-            android:text="@string/booking_complete_button"
+            android:text="@string/selecting_seats_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/detail_minus_button"
