@@ -56,10 +56,9 @@ class TicketActivity : AppCompatActivity() {
 
     private fun showTicketInfo(ticket: TicketCountDto, seats: SeatsDto) {
         val numberOfPeople = findViewById<TextView>(R.id.number_of_people)
-        numberOfPeople.text = getString(R.string.ticket_info, ticket.numberOfPeople, seats.getSeatsPositionToString())
+        numberOfPeople.text =
+            getString(R.string.ticket_info, ticket.numberOfPeople, seats.getSeatsPositionToString())
     }
-
-
 
     private fun showTicketPrice(seats: SeatsDto, date: LocalDate, time: LocalTime, count: Int) {
         val price = findViewById<TextView>(R.id.ticket_price)
