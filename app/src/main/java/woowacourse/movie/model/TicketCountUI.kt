@@ -12,7 +12,7 @@ value class TicketCountUI(val count: Int = MIN_TICKET_COUNT) : Parcelable {
     operator fun inc(): TicketCountUI = TicketCountUI(count + TICKET_UP_DOWN_UNIT)
 
     companion object {
-        private const val MIN_TICKET_COUNT = 1
+        private const val MIN_TICKET_COUNT = 0
         private const val TICKET_UP_DOWN_UNIT = 1
     }
 }
