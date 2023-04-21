@@ -2,13 +2,10 @@ package woowacourse.movie.view
 
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    open fun setBackToBefore(id: Int) {
-        val toolbar = findViewById<Toolbar>(id)
-        setSupportActionBar(toolbar)
+    fun setBackToBefore() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

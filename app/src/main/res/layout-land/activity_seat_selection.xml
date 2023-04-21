@@ -7,25 +7,13 @@
     android:background="@color/seat_selection_bg"
     tools:context=".view.seatselection.SeatSelectionActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/seat_selection_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@color/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Movie"
-        app:titleTextColor="@color/white" />
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/seat_selection_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seat_selection_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -29,9 +29,7 @@ class MovieDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-
-        setBackToBefore(R.id.movie_detail_toolbar)
-
+        setBackToBefore()
         if (savedInstanceState != null) {
             numberOfBooker = savedInstanceState.getInt(NUMBER_OF_PEOPLE)
             dateSpinnerPosition = savedInstanceState.getInt(DATE_SPINNER_POSITION)

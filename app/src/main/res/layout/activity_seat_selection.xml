@@ -7,17 +7,6 @@
     android:background="@color/seat_selection_bg"
     tools:context=".view.seatselection.SeatSelectionActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/seat_selection_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@color/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Movie"
-        app:titleTextColor="@color/white" />
-
     <TextView
         android:id="@+id/seat_selection_screen"
         android:layout_width="292dp"
@@ -29,7 +18,7 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seat_selection_toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
         android:id="@+id/seat_selection"

@@ -21,7 +21,7 @@ class SeatSelectionActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
-        setBackToBefore(R.id.seat_selection_toolbar)
+        setBackToBefore()
 
         val selectedDate = intent.getSerializableExtra(DATE_KEY) as LocalDateTime
         val selectedNumberOfPeople = intent.getIntExtra(NUMBER_OF_PEOPLE_KEY, 0)

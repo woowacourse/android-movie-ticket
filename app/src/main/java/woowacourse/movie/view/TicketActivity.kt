@@ -11,13 +11,12 @@ class TicketActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
+        setBackToBefore()
 
         val ticketUI = intent.getSerializableExtra(TICKET_KEY) as TicketUIModel
         val movieUI = intent.getSerializableExtra(MOVIE_KEY) as MovieUIModel
 
         setUpView(ticketUI, movieUI)
-
-        setBackToBefore(R.id.ticket_toolbar)
     }
 
     private fun setUpView(ticket: TicketUIModel, movie: MovieUIModel) {
