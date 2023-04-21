@@ -2,8 +2,9 @@ package woowacourse.movie.presentation.model
 
 import androidx.annotation.DrawableRes
 import woowacourse.movie.TicketCount
+import woowacourse.movie.model.Seat
+import woowacourse.movie.presentation.Reservation
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 data class MovieModel(
     val id: Long,
@@ -15,8 +16,9 @@ data class MovieModel(
     @DrawableRes val thumbnail: Int?,
     @DrawableRes val poster: Int?,
 ) {
-    fun reserve(dateTime: LocalDateTime, ticketCount: TicketCount): TicketModel =
-        toDomainModel().reserve(dateTime, ticketCount).toPresentation()
+    fun reserve(reservation: Reservation, seats: List<Seat>): TicketModel =
+        toDomainModel().reserve(reservation.bookedDateTime, TicketCount(reservation.count), seats)
+            .toPresentation()
 
     fun getScreeningDates(): List<LocalDate> = toDomainModel().getScreeningDates()
 }
