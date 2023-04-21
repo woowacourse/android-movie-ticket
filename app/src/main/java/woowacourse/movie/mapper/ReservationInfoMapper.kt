@@ -9,7 +9,7 @@ import woowacourse.movie.model.ReservationInfoModel
 const val ticketDateFormat: String = "yyyy.M.d"
 const val ticketTimeFormat: String = "HH:mm"
 
-fun ReservationInfoModel.toTicket() = ReservationInfo(
+fun ReservationInfoModel.toReservationInfo() = ReservationInfo(
     title,
     DateFormatter.formatToOriginal(playingDate, ticketDateFormat),
     TimeFormatter.formatToOriginal(playingTime, ticketTimeFormat),
@@ -17,7 +17,7 @@ fun ReservationInfoModel.toTicket() = ReservationInfo(
     PaymentModel.of(payment).toPayment()
 )
 
-fun ReservationInfo.toTicketModel() =
+fun ReservationInfo.toReservationInfoModel() =
     ReservationInfoModel(
         title,
         DateFormatter.formatToString(playingDate, ticketDateFormat),
