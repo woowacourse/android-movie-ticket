@@ -137,7 +137,7 @@ class SeatSelectionActivity : AppCompatActivity() {
                 reserveMovie(seatTableLayout, movie, reservationDetail)
             }.setNegativeButton(getString(R.string.seat_selection_alert_negative)) { dialog, _ ->
                 dialog.dismiss()
-            }.show()
+            }.setCancelable(false).show()
     }
 
     private fun reserveMovie(
