@@ -55,10 +55,10 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: ""
-        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME) ?: LocalDateTime.of(0, 0, 0, 0, 0)
+        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: return failLoadingData()
+        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME) ?: return failLoadingData()
         peopleCount = PeopleCount(
-            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: 1
+            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: return failLoadingData()
         )
     }
 
@@ -133,8 +133,21 @@ class SeatSelectionActivity : AppCompatActivity() {
         !(seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
 
     private fun moveToTicketActivity() {
+/*        val ticket = MovieTicketModel(
+            title = movieTitle,
+            time = movieTime,
+            // peopleCount = peopleCount,
+            seats = selectedSeats
+        )*/
+
         val intent = Intent(this, MovieTicketActivity::class.java)
+        // intent.putExtra(KEY_TICKET, ticket)
         startActivity(intent)
+    }
+
+    private fun failLoadingData() {
+        showToast(getString(R.string.error_loading))
+        finish()
     }
 
     companion object {

@@ -36,24 +36,17 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie: MovieModel? =
-            intent.getSerializableExtraCompat<MovieModel>(MainActivity.KEY_MOVIE)
-        if (movie == null) {
-            showToast(getString(R.string.error_loading))
-            finish()
-        }
+        val movie: MovieModel =
+            intent.getSerializableExtraCompat(MainActivity.KEY_MOVIE) ?: return failLoadingData()
 
-        movie?.let { it ->
-            setMovieInfo(it)
-            setDateSpinner(it)
-            setTimeSpinner()
-            setPeopleCountController()
-            setBookingButton(it)
-            loadSavedData(savedInstanceState)
-        }
+        setMovieInfo(movie)
+        setDateSpinner(movie)
+        setTimeSpinner()
+        setPeopleCountController()
+        setBookingButton(movie)
+        loadSavedData(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
@@ -183,6 +176,11 @@ class MovieDetailActivity : AppCompatActivity() {
         dateSpinner.setSelection(datePosition)
         timeSpinner.setSelection(timePosition)
         peopleCount = PeopleCount(count)
+    }
+
+    private fun failLoadingData() {
+        showToast(getString(R.string.error_loading))
+        finish()
     }
 
     companion object {
