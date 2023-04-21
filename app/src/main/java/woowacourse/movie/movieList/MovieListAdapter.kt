@@ -1,16 +1,21 @@
 package woowacourse.movie.movieList
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
+import woowacourse.movie.movieList.ItemViewType.Companion.ITEM_VIEW_TYPE_MAX
+import woowacourse.movie.movieList.ItemViewType.ITEM_VIEW_TYPE_AD
+import woowacourse.movie.movieList.ItemViewType.ITEM_VIEW_TYPE_MOVIE
 import woowacourse.movie.uimodel.MovieModelUi
 
 class MovieListAdapter(
     private val movieModelUi: List<MovieModelUi>,
     private val onReservationClickListener: (MovieModelUi.MovieScheduleUi) -> Unit,
 ) : BaseAdapter() {
+
+    private val movieViewHolder: MutableMap<View, MovieViewHolder> = mutableMapOf()
+    private val adViewHolder: MutableMap<View, AdViewHolder> = mutableMapOf()
 
     override fun getCount(): Int {
         return movieModelUi.size
@@ -22,8 +27,8 @@ class MovieListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (movieModelUi[position]) {
-            is MovieModelUi.MovieScheduleUi -> ITEM_VIEW_TYPE_MOVIE
-            is MovieModelUi.AdUi -> ITEM_VIEW_TYPE_AD
+            is MovieModelUi.MovieScheduleUi -> ITEM_VIEW_TYPE_MOVIE.value
+            is MovieModelUi.AdUi -> ITEM_VIEW_TYPE_AD.value
         }
     }
 
@@ -36,57 +41,22 @@ class MovieListAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        Log.d("krrong", "${convertView == null}")
-        return when (getItemViewType(position)) {
-            ITEM_VIEW_TYPE_MOVIE -> {
-                val movieViewHolder: MovieViewHolder
-                if (convertView != null) {
-                    convertView.also {
-                        movieViewHolder = it.tag as MovieViewHolder
-                        movieViewHolder.bind(movieModelUi[position] as MovieModelUi.MovieScheduleUi, onReservationClickListener)
-                    }
-                } else {
-                    val v = View.inflate(
-                        parent?.context,
-                        R.layout.item_movie_list,
-                        null,
-                    )
-                    movieViewHolder = MovieViewHolder(v)
-                    movieViewHolder.bind(movieModelUi[position] as MovieModelUi.MovieScheduleUi, onReservationClickListener)
-                    v.tag = movieViewHolder
-                    v
-                }
-            }
-            ITEM_VIEW_TYPE_AD -> {
-                val adViewHolder: AdViewHolder
-                if (convertView != null) {
-                    convertView.also { adViewHolder = it.tag as AdViewHolder }
-                } else {
-                    val v = View.inflate(
-                        parent?.context,
-                        R.layout.item_ad_list,
-                        null,
-                    )
-                    adViewHolder = AdViewHolder(v)
-                    adViewHolder.bind(movieModelUi[position] as MovieModelUi.AdUi)
-                    v.tag = adViewHolder
-                    v
-                }
-            }
-            else -> {
-                val v = View.inflate(
-                    parent?.context,
-                    R.layout.item_ad_list,
-                    null,
-                )
-                v
-            }
+        val view = convertView ?: initView(position, parent)
+
+        when (ItemViewType.of(getItemViewType(position))) {
+            ITEM_VIEW_TYPE_MOVIE -> movieViewHolder.getOrPut(view) { MovieViewHolder(view) }
+                .bind(movieModelUi[position] as MovieModelUi.MovieScheduleUi, onReservationClickListener)
+            ITEM_VIEW_TYPE_AD -> adViewHolder.getOrPut(view) { AdViewHolder(view) }
+                .bind(movieModelUi[position] as MovieModelUi.AdUi)
         }
+
+        return view
     }
 
-    companion object {
-        private const val ITEM_VIEW_TYPE_MOVIE = 0
-        private const val ITEM_VIEW_TYPE_AD = 1
-        private const val ITEM_VIEW_TYPE_MAX = 2
+    private fun initView(position: Int, parent: ViewGroup?): View {
+        return when (ItemViewType.of(getItemViewType(position))) {
+            ITEM_VIEW_TYPE_MOVIE -> View.inflate(parent?.context, R.layout.item_movie_list, null)
+            ITEM_VIEW_TYPE_AD -> View.inflate(parent?.context, R.layout.item_ad_list, null)
+        }
     }
 }
