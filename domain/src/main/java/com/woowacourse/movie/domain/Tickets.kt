@@ -15,7 +15,8 @@ class Tickets(tickets: List<Ticket>, val reservation: Reservation) {
     }
 
     fun addTicket(ticket: Ticket) {
-        _tickets.add(ticket)
+        if (_tickets.find { it == ticket } == null)
+            _tickets.add(ticket)
     }
 
     fun removeTicket(ticket: Ticket) {

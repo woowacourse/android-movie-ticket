@@ -20,6 +20,15 @@ class TicketsTest {
     }
 
     @Test
+    fun `중복된 티켓은 추가할 수 없다`() {
+        val tickets = Tickets(Ticket(1, 0))
+        val anotherTicket = Ticket(1, 0)
+        tickets.addTicket(anotherTicket)
+
+        assertThat(tickets.size).isEqualTo(1)
+    }
+
+    @Test
     fun `기존 티켓을 하나 제거할 수 있다`() {
         val tickets = Tickets(
             listOf(
