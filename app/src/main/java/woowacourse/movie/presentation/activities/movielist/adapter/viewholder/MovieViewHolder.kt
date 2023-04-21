@@ -10,13 +10,17 @@ import woowacourse.movie.presentation.model.movieitem.Movie
 
 class MovieViewHolder(
     view: View,
-    private val onBookBtnClick: (Movie) -> Unit = {},
+    onClick: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
     private val posterImageView: ImageView = view.findViewById(R.id.poster_iv)
     private val titleTextView: TextView = view.findViewById(R.id.title_tv)
     private val dateTextView: TextView = view.findViewById(R.id.date_tv)
     private val runningTimeTextView: TextView = view.findViewById(R.id.running_time_tv)
     private val bookButton: Button = view.findViewById(R.id.book_btn)
+
+    init {
+        bookButton.setOnClickListener { onClick(adapterPosition) }
+    }
 
     fun bind(item: Movie) {
         val context = posterImageView.context
@@ -31,7 +35,6 @@ class MovieViewHolder(
             )
             runningTimeTextView.text =
                 context.getString(R.string.movie_running_time, runningTime)
-            bookButton.setOnClickListener { onBookBtnClick(item) }
         }
     }
 }

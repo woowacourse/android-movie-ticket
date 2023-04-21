@@ -23,13 +23,13 @@ class MovieListAdapter(
             MovieViewType.MOVIE -> {
                 val movieView =
                     LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-                return MovieViewHolder(movieView, onBookBtnClick)
+                return MovieViewHolder(movieView) { onBookBtnClick(movies[it]) }
             }
 
             MovieViewType.AD -> {
                 val adView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_native_ads, parent, false)
-                return NativeAdViewHolder(adView, onAdClick)
+                return NativeAdViewHolder(adView) { onAdClick(ads[it]) }
             }
         }
         throw IllegalArgumentException(INVALID_VIEW_TYPE_ERROR_MESSAGE)
