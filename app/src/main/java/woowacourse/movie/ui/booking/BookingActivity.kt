@@ -8,12 +8,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.Movie
 import woowacourse.movie.MovieMapper.poster
-import woowacourse.movie.MovieRepository
 import woowacourse.movie.R
 import woowacourse.movie.formatScreenDate
-import woowacourse.movie.ui.completed.CompletedActivity
+import woowacourse.movie.model.BookedMovie
+import woowacourse.movie.movie.Movie
+import woowacourse.movie.movie.MovieRepository
+import woowacourse.movie.ticket.TicketCount
+import woowacourse.movie.ui.seat.SeatActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -105,8 +107,8 @@ class BookingActivity : AppCompatActivity() {
     private fun clickBookingComplete(movie: Movie) {
         findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
             val dateTime = dateTimeSpinner.selectedDateTime
-            val ticket = movie.reserve(dateTime, ticketCount.value)
-            startActivity(CompletedActivity.getIntent(this, ticket))
+            val bookedMovie = BookedMovie(movie.id, 0, ticketCount.value, dateTime)
+            startActivity(SeatActivity.getIntent(this, bookedMovie))
             finish()
         }
     }
