@@ -21,7 +21,7 @@ class MovieListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
-            1 -> {
+            AD_VIEWTYPE -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.ad_item, parent, false)
                 ViewHolder(view)
@@ -42,9 +42,9 @@ class MovieListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         if (position != 0 && position % 3 == 0) {
-            return 1
+            return AD_VIEWTYPE
         }
-        return 0
+        return NORMAL_VIEWTYPE
     }
 
     override fun getItemId(position: Int): Long = position.toLong()
@@ -73,5 +73,10 @@ class MovieListAdapter(
             runningTime.text = context.getString(R.string.running_time, movie.runningTime)
             reserveButton.setOnClickListener(clickListener)
         }
+    }
+
+    companion object {
+        private const val AD_VIEWTYPE = 1
+        private const val NORMAL_VIEWTYPE = 0
     }
 }
