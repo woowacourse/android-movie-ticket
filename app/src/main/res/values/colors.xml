@@ -8,4 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="reservation_result_background">#9160F9</color>
+    <color name="select_seat_screen_background">#494949</color>
+    <color name="select_seat_non_clickable_check_button_background">#B7B7B7</color>
+    <color name="select_seat_clickable_check_button_background">#6200EE</color>
+    <color name="select_seat_background">#EAEAEA</color>
+    <color name="seat_rank_b_color">#8E13EF</color>
+    <color name="seat_rank_a_color">#1B48E9</color>
+    <color name="seat_rank_s_color">#19D358</color>
+    <color name="seat_selection_selected_seat_color">#FAFF00</color>
+
 </resources>

@@ -30,7 +30,8 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_information" />
+        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_information"
+        tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
         android:id="@+id/movie_reservation_result_date"
@@ -42,19 +43,47 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_title" />
+        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_title"
+        tools:text="2024.3.1 17:00" />
 
     <TextView
         android:id="@+id/movie_reservation_result_people_count"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintRight_toRightOf="@id/movie_reservation_result_division"
+        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_date"
+        tools:text="일반 2명" />
+
+    <TextView
+        android:id="@+id/movie_reservation_result_division"
+        android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginTop="69dp"
         android:gravity="center"
+        android:text="|"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_date" />
+
+    <TextView
+        android:id="@+id/movie_reservation_result_seat"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="69dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@id/movie_reservation_result_division"
+        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_date"
+        tools:text="B3, D2" />
 
     <TextView
         android:id="@+id/movie_reservation_result_price"
@@ -66,5 +95,6 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_people_count" />
+        app:layout_constraintTop_toBottomOf="@id/movie_reservation_result_people_count"
+        tools:text="25,000원 (현장결제)" />
 </androidx.constraintlayout.widget.ConstraintLayout>

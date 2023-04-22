@@ -18,4 +18,13 @@
 
     <string name="movie_extra_name">movie</string>
     <string name="reservation_extra_name">reservation</string>
+
+    <string name="select_seat_screen">SCREEN</string>
+    <string name="select_seat_check">확인</string>
+    <string name="select_seat_price_format">%s원</string>
+
+    <string name="select_seat_dialog_title">예매 확인</string>
+    <string name="select_seat_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="select_seat_dialog_negative_button_text">취소</string>
+    <string name="select_seat_dialog_positive_button_text">예매 완료</string>
 </resources>
