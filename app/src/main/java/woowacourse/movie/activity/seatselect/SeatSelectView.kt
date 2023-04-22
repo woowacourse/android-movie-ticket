@@ -66,7 +66,9 @@ class SeatSelectView(
             setPositiveButton(context.getString(R.string.reserve_dialog_submit)) { _, _ ->
                 clickListener.onClick(ticketModel)
             }
-            setNegativeButton(context.getString(R.string.reserve_dialog_cancel), null)
+            setNegativeButton(context.getString(R.string.reserve_dialog_cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
             create()
         }
     }
