@@ -6,8 +6,8 @@ import com.example.domain.model.Ticket
 
 class DefaultDiscountPolicy(
     private val policies: List<Policy> = listOf(
-        Policy.JoJoNightPolicy(),
-        Policy.MovieDayPolicy()
+        Policy.MovieDayPolicy(),
+        Policy.JoJoNightPolicy()
     )
 ) : DiscountPolicy {
 
