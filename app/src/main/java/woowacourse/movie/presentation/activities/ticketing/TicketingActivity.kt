@@ -47,6 +47,10 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf())
     }
+    private val movieTimeSpinner: Spinner by lazy { findViewById(R.id.movie_time_spinner) }
+    private val movieDateSpinner: Spinner by lazy { findViewById(R.id.movie_date_spinner) }
+
+    private val ticketCountTextView: TextView by lazy { findViewById(R.id.ticket_count_tv) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +75,8 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initSpinnerAdapter() {
-        findViewById<Spinner>(R.id.movie_date_spinner).adapter =
-            movieDateAdapter.also { it.setNotifyOnChange(true) }
-        findViewById<Spinner>(R.id.movie_time_spinner).adapter =
-            movieTimeAdapter.also { it.setNotifyOnChange(true) }
+        movieDateSpinner.adapter = movieDateAdapter.also { it.setNotifyOnChange(true) }
+        movieTimeSpinner.adapter = movieTimeAdapter.also { it.setNotifyOnChange(true) }
     }
 
     private fun initSpinnerListener() {
@@ -83,23 +85,22 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initMovieTimeSpinnerListener() {
-        findViewById<Spinner>(R.id.movie_time_spinner).onItemSelectedListener =
-            object : OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    itemView: View?,
-                    pos: Int,
-                    id: Long,
-                ) {
-                    selectedTime = movieTimes.getOrNull(pos)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+        movieTimeSpinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                itemView: View?,
+                pos: Int,
+                id: Long,
+            ) {
+                selectedTime = movieTimes.getOrNull(pos)
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 
     private fun initMovieDateSpinnerListener() {
-        findViewById<Spinner>(R.id.movie_date_spinner).onItemSelectedListener =
+        movieDateSpinner.onItemSelectedListener =
             object : OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -166,21 +167,21 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        findViewById<TextView>(R.id.ticket_count_tv).text = movieTicket.count.toString()
-        findViewById<Spinner>(R.id.movie_date_spinner).setSelection(movieDates.indexOf(selectedDate))
-        findViewById<Spinner>(R.id.movie_time_spinner).setSelection(movieTimes.indexOf(selectedTime))
+        ticketCountTextView.text = movieTicket.count.toString()
+        movieDateSpinner.setSelection(movieDates.indexOf(selectedDate))
+        movieTimeSpinner.setSelection(movieTimes.indexOf(selectedTime))
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.minus_btn -> {
                 movieTicket = (movieTicket.toDomain() - 1).toPresentation()
-                findViewById<TextView>(R.id.ticket_count_tv).text = movieTicket.count.toString()
+                ticketCountTextView.text = movieTicket.count.toString()
             }
 
             R.id.plus_btn -> {
                 movieTicket = (movieTicket.toDomain() + 1).toPresentation()
-                findViewById<TextView>(R.id.ticket_count_tv).text = movieTicket.count.toString()
+                ticketCountTextView.text = movieTicket.count.toString()
             }
 
             R.id.ticketing_btn -> {
