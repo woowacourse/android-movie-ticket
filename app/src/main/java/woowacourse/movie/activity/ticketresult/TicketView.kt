@@ -32,7 +32,7 @@ class TicketView(private val viewGroup: ViewGroup) {
 
     private fun initCountSeats(count: Int, seats: List<SeatModel>) {
         val convertSeats = seats.joinToString(separator = ", ", transform = { it.seatId })
-        viewGroup.findViewById<TextView>(R.id.text_person_count).text =
+        viewGroup.findViewById<TextView>(R.id.text_person_count_seats).text =
             viewGroup.context.getString(R.string.normal_count_seat, count, convertSeats)
     }
 
