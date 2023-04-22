@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.movieselectseatactivity
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
@@ -73,7 +74,11 @@ class MovieSelectSeatActivity : AppCompatActivity() {
     }
 
     private fun initSeatConfirmView() {
-        seatConfirmView = SeatConfirmView(findViewById(R.id.layout_total_information), movieData)
+        seatConfirmView = SeatConfirmView(
+            findViewById(R.id.layout_total_information),
+            movieData,
+            ::checkButtonCheckClickListener
+        )
     }
 
     private fun initExtraData() {
@@ -93,6 +98,20 @@ class MovieSelectSeatActivity : AppCompatActivity() {
                     movieData.screeningEndDay
                 )
             )
+    }
+
+    private fun checkButtonCheckClickListener() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.dialog_title)
+            .setMessage(R.string.dialog_message)
+            .setPositiveButton(R.string.dialog_positive) { _, _ ->
+            }
+            .setNegativeButton(R.string.dialog_negative) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 
     companion object {
