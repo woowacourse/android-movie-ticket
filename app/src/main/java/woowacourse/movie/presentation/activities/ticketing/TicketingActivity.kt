@@ -74,7 +74,7 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
         findViewById<Spinner>(R.id.movie_date_spinner).adapter =
             movieDateAdapter.also { it.setNotifyOnChange(true) }
         findViewById<Spinner>(R.id.movie_time_spinner).adapter =
-            movieDateAdapter.also { it.setNotifyOnChange(true) }
+            movieTimeAdapter.also { it.setNotifyOnChange(true) }
     }
 
     private fun initSpinnerListener() {
@@ -91,7 +91,7 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
                     pos: Int,
                     id: Long,
                 ) {
-                    selectedTime = movieTimes[pos]
+                    selectedTime = movieTimes.getOrNull(pos)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -114,11 +114,7 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
                                 .map { it.toPresentation() }
                         )
                     }
-                    updateMovieTimeAdapterItems(
-                        movieTimes.map {
-                            getString(R.string.book_time, it.hour, it.min)
-                        }
-                    )
+
                     selectedTime = movieTimes.firstOrNull()
                 }
 
@@ -129,9 +125,13 @@ class TicketingActivity : AppCompatActivity(), View.OnClickListener {
     private fun updateMovieTimes(newMovieTimes: List<MovieTime>) {
         movieTimes.clear()
         movieTimes.addAll(newMovieTimes)
+
+        updateMovieTimeAdapter(
+            movieTimes.map { getString(R.string.book_time, it.hour, it.min) }
+        )
     }
 
-    private fun updateMovieTimeAdapterItems(movieTime: List<String>) {
+    private fun updateMovieTimeAdapter(movieTime: List<String>) {
         movieTimeAdapter.clear()
         movieTimeAdapter.addAll(movieTime)
     }
