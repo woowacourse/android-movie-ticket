@@ -152,7 +152,9 @@ class SeatPickerActivity : BackButtonActivity() {
                     getString(R.string.alert_dialog_book_cancel)
                 ) { dialog, _ ->
                     dialog.dismiss()
-                }.show()
+                }
+                .setCancelable(false)
+                .show()
         }
     }
 

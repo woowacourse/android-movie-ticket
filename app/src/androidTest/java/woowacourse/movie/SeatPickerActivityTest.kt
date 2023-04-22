@@ -2,16 +2,22 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.view.InputDevice
+import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.GeneralClickAction
+import androidx.test.espresso.action.Press
+import androidx.test.espresso.action.Tap
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotClickable
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -125,6 +131,36 @@ class SeatPickerActivityTest {
 
         // when
         onView(withId(R.id.bt_seat_picker_done)).perform(click())
+
+        // then
+        onView(withText("예매 확인")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun AleartDialog가_띄어져_있을_때_배경을_터치해도_AleartDialog가_사라지지_않는다() {
+        // given
+        onView(withText("B2")).perform(click())
+        onView(withText("B3")).perform(click())
+        onView(withId(R.id.bt_seat_picker_done)).perform(click())
+
+        // when
+        val x = 50
+        val y = 50
+        // 0, 0 좌표는 디바이스 기준 왼쪽 상단 꼭지점
+        val clickAction = GeneralClickAction(
+            Tap.SINGLE,
+            { view ->
+                val screenPos = IntArray(2)
+                view.getLocationOnScreen(screenPos)
+                val screenX = (screenPos[0] + x).toFloat()
+                val screenY = (screenPos[1] + y).toFloat()
+                floatArrayOf(screenX, screenY)
+            },
+            Press.FINGER,
+            InputDevice.SOURCE_MOUSE,
+            MotionEvent.BUTTON_PRIMARY
+        )
+        onView(isRoot()).perform(clickAction)
 
         // then
         onView(withText("예매 확인")).check(matches(isDisplayed()))
