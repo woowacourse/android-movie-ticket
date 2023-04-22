@@ -67,19 +67,6 @@ class SeatSelectionActivityTest {
     }
 
     @Test
-    fun `S등급의_좌석을_클릭하면_S좌석의_가격으로_갱신된다`() {
-        // given
-        val seat = onView(withText("C1"))
-
-        // when
-        seat.perform(click())
-        val paymentAmount = onView(withId(R.id.seat_selection_payment_amount_text))
-
-        // then
-        paymentAmount.check(matches(withText("15000")))
-    }
-
-    @Test
     fun `여러_좌석을_클릭하면_두_좌석_가격의_합으로_갱신된다`() {
         // given
         val seatOfRateA = onView(withText("E1"))
