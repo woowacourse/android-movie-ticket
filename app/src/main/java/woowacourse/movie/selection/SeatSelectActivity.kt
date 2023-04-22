@@ -1,10 +1,12 @@
 package woowacourse.movie.selection
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TableRow
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.KEY_MOVIE
@@ -12,6 +14,7 @@ import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.Movie
+import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.databinding.ActivitySeatSelectBinding
 import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.Seat
@@ -67,6 +70,24 @@ class SeatSelectActivity : AppCompatActivity() {
                     }
                 }
             }
+
+        binding.selectConfrimBtn.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    val intent = Intent(this, ReservationConfirmActivity::class.java)
+                    intent.putExtra(KEY_MOVIE, movie)
+                    intent.putExtra(KEY_RESERVATION_COUNT, reservationCount)
+                    intent.putExtra(KEY_RESERVATION_DATE, date)
+                    intent.putExtra(KEY_RESERVATION_TIME, time)
+                    startActivity(intent)
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }.setCancelable(false)
+                .show()
+        }
     }
 
     fun positionFind(index: Int): Seat {
