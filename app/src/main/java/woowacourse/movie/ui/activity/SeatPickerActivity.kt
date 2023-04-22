@@ -43,11 +43,13 @@ class SeatPickerActivity : AppCompatActivity() {
             .flatMap { it.children }
             .filterIsInstance<TextView>()
             .toList()
-
         val ticketModel = mapToMovieTicketModel(ticket)
         setSeatViews(seatViews, ticketModel)
-        findViewById<TextView>(R.id.seat_picker_title).text = ticketModel.title
-        findViewById<TextView>(R.id.seat_picker_price).text = ticketModel.price.format()
+
+        val titleView = findViewById<TextView>(R.id.seat_picker_title)
+        val priceView = findViewById<TextView>(R.id.seat_picker_price)
+        titleView.text = ticketModel.title
+        priceView.text = ticketModel.price.format()
 
         val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
         doneButton.setOnClickListener {
@@ -108,8 +110,8 @@ class SeatPickerActivity : AppCompatActivity() {
     ) {
         updateEmptySeatView(view)
         ticket.cancelSeat(mapToSeat(seat))
-        findViewById<TextView>(R.id.seat_picker_price).text =
-            mapToPriceModel(ticket.getDiscountPrice()).format()
+        val priceView = findViewById<TextView>(R.id.seat_picker_price)
+        priceView.text = mapToPriceModel(ticket.getDiscountPrice()).format()
         count--
     }
 
@@ -139,8 +141,8 @@ class SeatPickerActivity : AppCompatActivity() {
     ) {
         updateFullSeatView(view)
         ticket.reserveSeat(mapToSeat(seat))
-        findViewById<TextView>(R.id.seat_picker_price).text =
-            mapToPriceModel(ticket.getDiscountPrice()).format()
+        val priceView = findViewById<TextView>(R.id.seat_picker_price)
+        priceView.text = mapToPriceModel(ticket.getDiscountPrice()).format()
         count++
     }
 

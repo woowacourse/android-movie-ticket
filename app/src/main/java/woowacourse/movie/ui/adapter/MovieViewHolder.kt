@@ -11,11 +11,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(view: View, private val onItemViewClick: (Int) -> Unit) : RecyclerView.ViewHolder(view) {
-    private val moviePoster: ImageView = view.findViewById(R.id.item_poster)
-    private val movieTitle: TextView = view.findViewById(R.id.item_title)
-    private val movieDate: TextView = view.findViewById(R.id.item_date)
-    private val movieTime: TextView = view.findViewById(R.id.item_running_time)
-    private val bookingButton: Button = view.findViewById(R.id.item_booking_button)
+    private val moviePoster: ImageView by lazy { view.findViewById(R.id.item_poster) }
+    private val movieTitle: TextView by lazy { view.findViewById(R.id.item_title) }
+    private val movieDate: TextView by lazy { view.findViewById(R.id.item_date) }
+    private val movieTime: TextView by lazy { view.findViewById(R.id.item_running_time) }
+    private val bookingButton: Button by lazy { view.findViewById(R.id.item_booking_button) }
 
     init {
         view.setOnClickListener { onItemViewClick(absoluteAdapterPosition) }

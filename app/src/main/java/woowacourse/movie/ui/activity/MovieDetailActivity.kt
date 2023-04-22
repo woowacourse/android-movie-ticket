@@ -28,8 +28,8 @@ import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
     private var peopleCount = PeopleCount()
-    private lateinit var dateSpinner: Spinner
-    private lateinit var timeSpinner: Spinner
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.detail_date_spinner) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.detail_time_spinner) }
     private lateinit var timeSpinnerAdapter: ArrayAdapter<LocalTime>
     private val times = mutableListOf<LocalTime>()
 
@@ -69,11 +69,17 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setMovieInfo(movie: MovieModel) {
-        findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
-        findViewById<TextView>(R.id.detail_title).text = movie.title
-        findViewById<TextView>(R.id.detail_date).text = movie.getScreenDate()
-        findViewById<TextView>(R.id.detail_running_time).text = movie.getRunningTime()
-        findViewById<TextView>(R.id.detail_description).text = movie.description
+        val posterView = findViewById<ImageView>(R.id.detail_poster)
+        val titleView = findViewById<TextView>(R.id.detail_title)
+        val dateView = findViewById<TextView>(R.id.detail_date)
+        val runningTimeView = findViewById<TextView>(R.id.detail_running_time)
+        val descriptionView = findViewById<TextView>(R.id.detail_description)
+
+        posterView.setImageResource(movie.poster)
+        titleView.text = movie.title
+        dateView.text = movie.getScreenDate()
+        runningTimeView.text = movie.getRunningTime()
+        descriptionView.text = movie.description
     }
 
     private fun MovieModel.getScreenDate(): String = getString(R.string.screen_date, startDate.format(), endDate.format())
@@ -83,7 +89,6 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun MovieModel.getRunningTime(): String = getString(R.string.running_time, runningTime)
 
     private fun setDateSpinner(movie: MovieModel) {
-        dateSpinner = findViewById(R.id.detail_date_spinner)
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -110,7 +115,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setTimeSpinner() {
-        timeSpinner = findViewById(R.id.detail_time_spinner)
         times.addAll(TimesGenerator.getTimesByDate(dateSpinner.selectedItem as LocalDate))
         timeSpinnerAdapter = ArrayAdapter(
             this,

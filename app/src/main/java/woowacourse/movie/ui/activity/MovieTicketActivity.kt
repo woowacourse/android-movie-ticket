@@ -39,10 +39,15 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo() {
+        val titleView: TextView by lazy { findViewById(R.id.ticket_title) }
+        val dateView: TextView by lazy { findViewById(R.id.ticket_date) }
+        val reservedSeatsView: TextView by lazy { findViewById(R.id.ticket_reserved_seats) }
+        val priceView: TextView by lazy { findViewById(R.id.ticket_price) }
+
         intent.getParcelable<MovieTicketModel>("ticket")?.let { ticketModel ->
-            findViewById<TextView>(R.id.ticket_title).text = ticketModel.title
-            findViewById<TextView>(R.id.ticket_date).text = ticketModel.time.format()
-            findViewById<TextView>(R.id.ticket_reserved_seats).text =
+            titleView.text = ticketModel.title
+            dateView.text = ticketModel.time.format()
+            reservedSeatsView.text =
                 getString(
                     R.string.reserved_seat,
                     ticketModel.peopleCount.count,
@@ -51,7 +56,7 @@ class MovieTicketActivity : AppCompatActivity() {
                             seat.format()
                         }
                 )
-            findViewById<TextView>(R.id.ticket_price).text = ticketModel.price.format()
+            priceView.text = ticketModel.price.format()
         }
     }
 
