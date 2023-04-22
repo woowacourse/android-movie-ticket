@@ -21,7 +21,7 @@ class MovieRecyclerAdapter(
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         val layoutInflater = LayoutInflater.from(viewGroup.context)
-        return if (viewType == 1) {
+        return if (viewType == MOVIE_TYPE) {
             MovieViewHolder(layoutInflater.inflate(R.layout.movie_item, viewGroup, false))
         } else {
             ADHolder(layoutInflater.inflate(R.layout.advertisement, viewGroup, false))
@@ -29,14 +29,15 @@ class MovieRecyclerAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (listData[position] is MovieUIModel) return 1
-        else if (listData[position] is ADData) return 2
+        if (listData[position] is MovieUIModel) return MOVIE_TYPE
+        else if (listData[position] is ADData) return AD_TYPE
 
         return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = listData[position]
+
         if (holder is MovieViewHolder) {
             holder.bind(item as MovieUIModel, onBookListener)
         } else if (holder is ADHolder) {
@@ -45,4 +46,9 @@ class MovieRecyclerAdapter(
     }
 
     override fun getItemCount() = listData.size
+
+    companion object {
+        private const val MOVIE_TYPE = 1
+        private const val AD_TYPE = 2
+    }
 }
