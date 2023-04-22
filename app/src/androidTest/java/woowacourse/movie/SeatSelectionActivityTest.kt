@@ -11,9 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import junit.framework.TestCase.assertTrue
 import org.hamcrest.Matchers.not
 import org.junit.Test
-import woowacourse.movie.SeatSelectionActivityTestUtil.SeatSelectionInfo
-import woowacourse.movie.SeatSelectionActivityTestUtil.scenario
-import woowacourse.movie.SeatSelectionActivityTestUtil.startTest
 
 class SeatSelectionActivityTest {
 

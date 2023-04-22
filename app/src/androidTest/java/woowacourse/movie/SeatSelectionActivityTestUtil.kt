@@ -11,29 +11,27 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-object SeatSelectionActivityTestUtil {
+private val intent = Intent(
+    ApplicationProvider.getApplicationContext(),
+    ScreeningSeatSelectionActivity::class.java
+)
 
-    private val intent = Intent(
-        ApplicationProvider.getApplicationContext(),
-        ScreeningSeatSelectionActivity::class.java
-    )
-    lateinit var scenario: ActivityScenario<ScreeningSeatSelectionActivity>
+lateinit var scenario: ActivityScenario<ScreeningSeatSelectionActivity>
 
-    fun startTest(seatSelectionInfo: SeatSelectionInfo?) {
-        seatSelectionInfo?.let {
-            intent.putExtra(ReservationActivity.SEAT_SELECTION_KEY, it)
-        }
-        scenario = ActivityScenario.launch(intent)
+fun startTest(seatSelectionInfo: SeatSelectionInfo?) {
+    seatSelectionInfo?.let {
+        intent.putExtra(ReservationActivity.SEAT_SELECTION_KEY, it)
     }
-
-    fun SeatSelectionInfo(seatCount: Int): SeatSelectionInfo = SeatSelectionInfo(
-        movieName = "harrypoter",
-        screeningTime = LocalDateTime.of(
-            LocalDate.MIN,
-            LocalTime.MIN
-        ),
-        seatCount = seatCount
-    )
-
-    fun ScreeningSeat.toText(): String = "${'A' + this.row.ordinal}${this.column.ordinal + 1}"
+    scenario = ActivityScenario.launch(intent)
 }
+
+fun SeatSelectionInfo(seatCount: Int): SeatSelectionInfo = SeatSelectionInfo(
+    movieName = "harrypoter",
+    screeningTime = LocalDateTime.of(
+        LocalDate.MIN,
+        LocalTime.MIN
+    ),
+    seatCount = seatCount
+)
+
+fun ScreeningSeat.toText(): String = "${'A' + this.row.ordinal}${this.column.ordinal + 1}"
