@@ -6,11 +6,13 @@ class MovieTicket(
     val title: String,
     val time: TicketTime,
     val peopleCount: PeopleCount,
-    private val _seats: MutableSet<Seat> = mutableSetOf(),
-    private val _price: Price = Price(),
+    seats: Set<Seat> = setOf(),
+    price: Price = Price(),
 ) {
+    private val _seats = seats.toMutableSet()
     val seats: List<Seat>
         get() = _seats.map { Seat(it.row, it.column, it.rank) }
+    private val _price = price
     val price: Price
         get() = Price(_price.amount)
 

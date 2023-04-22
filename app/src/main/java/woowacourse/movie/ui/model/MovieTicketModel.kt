@@ -12,7 +12,7 @@ fun MovieTicketModel.mapToMovieTicket(): MovieTicket {
         title,
         time.mapToTicketTime(),
         peopleCount.mapToPeopleCount(),
-        seats.map { it.mapToSeat() }.toMutableSet(),
+        seats.map { it.mapToSeat() }.toSet(),
         price.mapToPrice()
     )
 }

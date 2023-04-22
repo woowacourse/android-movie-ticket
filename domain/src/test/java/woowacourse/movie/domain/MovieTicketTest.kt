@@ -13,7 +13,7 @@ class MovieTicketTest {
             "title",
             TicketTime(LocalDateTime.of(2023, 4, 10, 12, 0)),
             PeopleCount(2),
-            mutableSetOf(),
+            setOf(),
             Price(26000)
         )
 
@@ -26,7 +26,7 @@ class MovieTicketTest {
             "title",
             TicketTime(LocalDateTime.of(2023, 4, 11, 10, 0)),
             PeopleCount(2),
-            mutableSetOf(),
+            setOf(),
             Price(26000)
         )
 
@@ -39,7 +39,7 @@ class MovieTicketTest {
             "title",
             TicketTime(LocalDateTime.of(2023, 4, 11, 23, 0)),
             PeopleCount(2),
-            mutableSetOf(),
+            setOf(),
             Price(26000)
         )
 
@@ -52,7 +52,7 @@ class MovieTicketTest {
             "title",
             TicketTime(LocalDateTime.of(2023, 4, 20, 9, 0)),
             PeopleCount(2),
-            mutableSetOf(),
+            setOf(),
             Price(26000)
         )
 
@@ -78,7 +78,7 @@ class MovieTicketTest {
             "title",
             TicketTime(LocalDateTime.of(2023, 4, 20, 9, 0)),
             PeopleCount(2),
-            mutableSetOf(Seat(1, 1, Rank.A))
+            setOf(Seat(1, 1, Rank.A))
         )
 
         ticket.cancelSeat(Seat(1, 1, Rank.A))
