@@ -13,7 +13,7 @@ import domain.seat.SeatColumn
 import domain.seat.SeatRow
 import domain.seat.SeatState
 import woowacourse.movie.R
-import woowacourse.movie.util.getSeatText
+import woowacourse.movie.model.ScreeningSeatInfo
 import woowacourse.movie.util.toColor
 import woowacourse.movie.util.toScreeningSeat
 
@@ -66,7 +66,7 @@ class ScreeningSeatViewSetter(
         )
 
         return TextView(seatTable.context).apply {
-            text = getSeatText(row, col)
+            text = ScreeningSeatInfo(SeatRow.valueOf(row), SeatColumn.valueOf(col)).toString()
             setBackgroundResource(R.drawable.seat_background)
             gravity = Gravity.CENTER
             layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, TABLE_COL_WEIGHT)
