@@ -16,21 +16,16 @@ import woowacourse.movie.ui.reservation.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
     private val movieListView: RecyclerView by lazy { findViewById(R.id.listView) }
-    private val adapter: MainListAdapter by lazy {
-        MainListAdapter(
-            MovieRepository.allMovies()
-                .map {
-                    MovieItemModel(
-                        it
-                    ) { position ->
-                        navigateMovieDetail((adapter.items[position] as MovieItemModel).movieState)
-                    }
-                },
+    private val adapter: MovieAdapter by lazy {
+        MovieAdapter(
+            MovieRepository.allMovies().map {
+                it.convertToItemModel { position ->
+                    navigateMovieDetail((adapter.items[position] as MovieItemModel).movieState)
+                }
+            },
             AdbRepository.allAdb().map {
-                AdbItemModel(
-                    it
-                ) { position ->
-                    navigateAdb((adapter.items[position] as AdbItemModel).adbState)
+                it.convertToItemModel { position ->
+                    navigateAdbDetail((adapter.items[position] as AdbItemModel).adbState)
                 }
             }
         )
@@ -48,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun navigateAdb(adbState: AdbState) {
+    private fun navigateAdbDetail(adbState: AdbState) {
         val intent = Intent(this, AdbDetailActivity::class.java)
         intent.putExtra(KEY_ADB, adbState)
         startActivity(intent)

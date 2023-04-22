@@ -11,7 +11,7 @@ import woowacourse.movie.ui.main.viewHolder.AdbViewHolder
 import woowacourse.movie.ui.main.viewHolder.ItemViewHolder
 import woowacourse.movie.ui.main.viewHolder.MovieViewHolder
 
-class MainListAdapter(
+class MovieAdapter(
     movie: List<MovieItemModel>,
     adb: List<AdbItemModel>
 ) : RecyclerView.Adapter<ItemViewHolder>() {
