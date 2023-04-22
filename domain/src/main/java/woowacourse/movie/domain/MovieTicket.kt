@@ -11,7 +11,7 @@ class MovieTicket(
 ) {
     private val _seats = seats.toMutableSet()
     val seats: List<Seat>
-        get() = _seats.map { Seat(it.row, it.column, it.rank) }
+        get() = _seats.map(Seat::copy)
     private val _price = price
     val price: Price
         get() = Price(_price.amount)
