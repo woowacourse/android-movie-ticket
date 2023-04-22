@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.domain.model.model.Movie
 import com.example.domain.model.model.Payment
 import com.example.domain.model.model.PlayingTimes
 import com.example.domain.model.model.ReservationInfo
@@ -34,11 +35,12 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val movieModel: MovieListItem.MovieModel = getReceivedIntent()
         initMovieDataView(movieModel)
+        val movie: Movie = movieModel.toMovie()
         initSpinner(
             savedDateSpinnerIndex,
             savedTimeSpinnerIndex,
-            movieModel.toMovie().startDate,
-            movieModel.toMovie().endDate
+            movie.startDate,
+            movie.endDate
         )
         initCountView(savedCount)
         initTicketingButton(movieModel.title)

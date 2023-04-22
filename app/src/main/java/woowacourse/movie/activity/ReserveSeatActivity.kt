@@ -37,7 +37,6 @@ class ReserveSeatActivity : AppCompatActivity() {
 
         val reservationInfoModel: ReservationInfoModel =
             intent.customGetSerializable(RESERVATION_INFO_KEY)
-        val reservationInfo: ReservationInfo = reservationInfoModel.toReservationInfo()
 
         val title = findViewById<TextView>(R.id.text_title)
         title.text = reservationInfoModel.title
@@ -48,6 +47,7 @@ class ReserveSeatActivity : AppCompatActivity() {
         var selectCount = 0
 
         val reserveButton = findViewById<Button>(R.id.btn_reserve)
+        val reservationInfo: ReservationInfo = reservationInfoModel.toReservationInfo()
         seatViews.forEachIndexed { index, button ->
             button.setOnClickListener {
                 val seat = calculateRowColumn(index)
