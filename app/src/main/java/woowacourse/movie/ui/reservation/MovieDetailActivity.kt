@@ -134,14 +134,14 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun setDateSpinnerListener() {
-        dateSpinner.setClickListener({ _, _, position, _ ->
+        dateSpinner.setClickListener({ position ->
             selectDate = runningDates[position]
             setTimeSpinnerAdapter()
         })
     }
 
     private fun setTimeSpinnerListener() {
-        timeSpinner.setClickListener({ _, _, position, _ ->
+        timeSpinner.setClickListener({ position ->
             selectTime = runningTimes[position]
         })
     }
