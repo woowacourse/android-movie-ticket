@@ -24,13 +24,10 @@ data class Theater(
     }
 
     private fun getSeatRank(row: Int): SeatRank {
-        rankMap.entries.forEach { return it.matchedKey(row) }
-        throw IllegalArgumentException()
-    }
-
-    private fun Map.Entry<SeatRank, List<IntRange>>.matchedKey(row: Int): SeatRank {
-        if (value.any { range -> row in range }) {
-            return key
+        rankMap.entries.forEach {
+            if (it.value.any { range -> row in range }) {
+                return it.key
+            }
         }
         throw IllegalArgumentException()
     }
