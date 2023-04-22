@@ -2,6 +2,7 @@ package woowacourse.movie.activity.seatselect
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -33,25 +34,33 @@ class SeatSelectActivity : AppCompatActivity(), InjectedModelListener<TicketMode
         val seatSelectSystem = SeatSelectSystem(Theater.info, count)
         val priceSystem = PriceSystem(PriceCalculator(Theater.policies), dateTime!!)
         val seatView =
-            SeatSelectView(findViewById(R.id.layout_select_seat), seatSelectSystem, priceSystem, this)
+            SeatSelectView(
+                findViewById(R.id.layout_select_seat),
+                seatSelectSystem,
+                priceSystem,
+                this,
+            )
 
         seatView.set(title!!, dateTime)
+
+        Log.d("hyem", seatSelectSystem.seats.toString())
     }
 
     private fun isDataNull(title: String?, dateTime: LocalDateTime?, count: Int): Boolean {
         return title == null || dateTime == null || count == -1
     }
 
-    companion object {
-        private const val DATA_LOADING_ERROR_MESSAGE = "데이터가 로딩되지 않았습니다. 다시 시도해주세요."
-        const val TITLE_KEY = "TITLE"
-        const val DATETIME_KEY = "DATETIME"
-        const val COUNT_KEY = "COUNT"
-    }
-
     override fun onClick(model: TicketModel) {
         val intent = Intent(this, TicketResultActivity::class.java)
         intent.putExtra(TicketResultActivity.INFO_KEY, model)
         startActivity(intent)
+    }
+
+    companion object {
+        private const val DATA_LOADING_ERROR_MESSAGE = "데이터가 로딩되지 않았습니다. 다시 시도해주세요."
+        private const val PRICE_KEY = "PRICE"
+        const val TITLE_KEY = "TITLE"
+        const val DATETIME_KEY = "DATETIME"
+        const val COUNT_KEY = "COUNT"
     }
 }

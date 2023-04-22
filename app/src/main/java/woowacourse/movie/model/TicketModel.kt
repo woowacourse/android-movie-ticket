@@ -7,5 +7,5 @@ data class TicketModel(
     val playingDateTime: LocalDateTime,
     val count: Int,
     val seats: List<SeatModel>,
-    val price: Int
+    val price: PriceModel
 ) : java.io.Serializable

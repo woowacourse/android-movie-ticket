@@ -21,7 +21,10 @@ class MovieDetailActivity : AppCompatActivity() {
             return
         }
         MovieDetailView(findViewById(R.id.layout_detail_info)).set(movie)
-        ReservationInfoView(findViewById(R.id.layout_reservation_info)).set(savedInstanceState, movie)
+        ReservationInfoView(findViewById(R.id.layout_reservation_info)).set(
+            savedInstanceState,
+            movie,
+        )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

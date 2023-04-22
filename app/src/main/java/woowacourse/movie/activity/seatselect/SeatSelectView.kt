@@ -14,10 +14,10 @@ import woowacourse.movie.domain.system.PriceSystem
 import woowacourse.movie.domain.system.SeatSelectSystem
 import woowacourse.movie.domain.system.SelectResult
 import woowacourse.movie.domain.ticket.Ticket
+import woowacourse.movie.model.PriceModel
 import woowacourse.movie.model.TicketModel
 import woowacourse.movie.model.toPresentation
 import woowacourse.movie.util.Theater
-import java.text.DecimalFormat
 import java.time.LocalDateTime
 
 class SeatSelectView(
@@ -55,11 +55,8 @@ class SeatSelectView(
         }
     }
 
-    private fun setPrice(price: Int) {
-        priceView.text = viewGroup.context.getString(
-            R.string.price,
-            DecimalFormat(viewGroup.context.getString(R.string.decimal_format)).format(price),
-        )
+    private fun setPrice(price: PriceModel) {
+        priceView.text = viewGroup.context.getString(R.string.price, price.price)
     }
 
     private fun setSeatViews() {
@@ -77,7 +74,7 @@ class SeatSelectView(
                     is SelectResult.Success.Deselection -> {
                         textView.setBackgroundColor(textView.context.getColor(R.color.white))
                         nextButton.isEnabled = false
-                        setPrice(result.seatPrice.price)
+                        setPrice(result.seatPrice.toPresentation())
                     }
                     is SelectResult.MaxSelection -> {
                         Toast.makeText(
