@@ -18,13 +18,14 @@ import woowacourse.movie.util.setOnSingleClickListener
 class SeatView(
     private val view: TableLayout,
     private val selectedSeats: SelectedSeats,
-    private val priceClickListener: (TicketPrice) -> Unit,
-    private val buttonStateClickListener: (Boolean) -> Unit
+    private val updateTotalPrice: (TicketPrice) -> Unit,
+    private val updateButtonState: (Boolean) -> Unit
 
 ) {
 
     init {
         initTableLayoutItem()
+        initSeatViewData()
     }
 
     private fun initTableLayoutItem() {
@@ -79,8 +80,13 @@ class SeatView(
                 selectedSeats.seats.add(selectedPosition)
             }
         }
-        priceClickListener(selectedSeats.calculateTotalPrice())
-        buttonStateClickListener(selectedSeats.checkFull())
+        updateTotalPrice(selectedSeats.calculateTotalPrice())
+        updateButtonState(selectedSeats.checkFull())
+    }
+
+    private fun initSeatViewData() {
+        updateTotalPrice(selectedSeats.calculateTotalPrice())
+        updateButtonState(selectedSeats.checkFull())
     }
 
     private fun getSeatTextColor(rowIndex: Int): Int {
