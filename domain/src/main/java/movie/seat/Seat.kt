@@ -14,18 +14,17 @@ data class Seat(
     }
 
     fun getSeatPrice(): Int {
-        return when (getSeatTier()) {
-            SeatTier.B -> SeatTier.B.price
-            SeatTier.A -> SeatTier.A.price
-            SeatTier.S -> SeatTier.S.price
-        }
+        return getSeatTier().price
     }
 
     companion object {
+        private const val ROW_NORMALIZATION = 65
+        private const val COLUMN_NORMALIZATION = 48
+
         fun of(position: String): Seat {
             return Seat(
-                SeatRow.of(position[0].code - 65),
-                SeatColumn.of(position[1].code - 48),
+                SeatRow.of(position[0].code - ROW_NORMALIZATION),
+                SeatColumn.of(position[1].code - COLUMN_NORMALIZATION),
             )
         }
     }
