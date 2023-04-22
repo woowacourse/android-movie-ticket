@@ -53,11 +53,11 @@ class MovieListAdapter(
 
     class ViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.img_movie)
-        val title: TextView = view.findViewById(R.id.text_title)
-        val playingDate: TextView = view.findViewById(R.id.text_playing_date)
-        val runningTime: TextView = view.findViewById(R.id.text_running_time)
-        val reserveButton: Button = view.findViewById(R.id.btn_reserve)
+        private val image: ImageView = view.findViewById(R.id.img_movie)
+        private val title: TextView = view.findViewById(R.id.text_title)
+        private val playingDate: TextView = view.findViewById(R.id.text_playing_date)
+        private val runningTime: TextView = view.findViewById(R.id.text_running_time)
+        private val reserveButton: Button = view.findViewById(R.id.btn_reserve)
 
         fun set(movie: MovieModel, clickListener: OnClickListener) {
             val context = title.context
