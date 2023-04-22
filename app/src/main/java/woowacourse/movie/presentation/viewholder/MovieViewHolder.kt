@@ -19,7 +19,7 @@ class MovieViewHolder(private val view: View, clickBook: (Long) -> Unit) :
     private val thumbnail: ImageView = view.findViewById(R.id.imageItemThumbnail)
 
     init {
-        itemBook.setOnClickListener { clickBook(adapterPosition.toLong()) }
+        itemBook.setOnClickListener { clickBook((adapterPosition + ADDITIONAL_POSITION).toLong()) }
     }
 
     fun bind(movie: MovieModel) {
@@ -35,5 +35,9 @@ class MovieViewHolder(private val view: View, clickBook: (Long) -> Unit) :
                     movie.screeningEndDate.formatScreenDate(),
                 )
         }
+    }
+
+    companion object {
+        private const val ADDITIONAL_POSITION = 1
     }
 }
