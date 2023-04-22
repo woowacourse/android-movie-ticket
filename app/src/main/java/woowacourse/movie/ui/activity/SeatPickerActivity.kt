@@ -99,15 +99,9 @@ class SeatPickerActivity : AppCompatActivity() {
     ) {
         if (view.isSelected) {
             removeSeat(view, seat)
-            count--
-        } else if (canAddSeat(ticketModel)) {
-            addSeat(view, seat)
-            count++
-        } else {
-            Toast
-                .makeText(this, getString(R.string.toast_message_seat_selection_done), Toast.LENGTH_SHORT)
-                .show()
+            return
         }
+        selectEmptySeat(ticketModel, view, seat)
     }
 
     private fun removeSeat(
@@ -118,11 +112,24 @@ class SeatPickerActivity : AppCompatActivity() {
         ticket.cancelSeat(mapToSeat(seat))
         findViewById<TextView>(R.id.seat_picker_price).text =
             mapToPriceModel(ticket.getDiscountPrice()).format()
+        count--
     }
 
     private fun updateEmptySeatView(view: TextView) {
         view.setBackgroundColor(getColor(R.color.white))
         view.isSelected = false
+    }
+
+    private fun selectEmptySeat(
+        ticketModel: MovieTicketModel,
+        view: TextView,
+        seat: SeatModel
+    ) {
+        if (canAddSeat(ticketModel)) {
+            addSeat(view, seat)
+            return
+        }
+        notifyUnableToAddSeat()
     }
 
     private fun canAddSeat(ticketModel: MovieTicketModel) =
@@ -136,11 +143,22 @@ class SeatPickerActivity : AppCompatActivity() {
         ticket.reserveSeat(mapToSeat(seat))
         findViewById<TextView>(R.id.seat_picker_price).text =
             mapToPriceModel(ticket.getDiscountPrice()).format()
+        count++
     }
 
     private fun updateFullSeatView(view: TextView) {
         view.setBackgroundColor(getColor(R.color.seat_selected))
         view.isSelected = true
+    }
+
+    private fun notifyUnableToAddSeat() {
+        Toast
+            .makeText(
+                this,
+                getString(R.string.toast_message_seat_selection_done),
+                Toast.LENGTH_SHORT
+            )
+            .show()
     }
 
     private fun updateDoneButtonState(ticket: MovieTicketModel) {
