@@ -5,9 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import com.woowacourse.domain.TicketBundle
-import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
-import woowacourse.movie.MovieBookingInfo
+import woowacourse.movie.BundleKeys.MOVIE_BOOKING_SEAT_INFO_KEY
+import woowacourse.movie.MovieBookingSeatInfo
 import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
 
@@ -16,18 +15,18 @@ class BookCompleteActivity : BackButtonActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_complete)
 
-        val movieBookingData = getMovieBookingInfo()
+        val movieBookingData = getMovieBookingSeatInfo()
         displayToastIfDummyData(movieBookingData)
         initView(movieBookingData)
     }
 
-    private fun getMovieBookingInfo(): MovieBookingInfo {
-        return intent.getSerializableCompat(MOVIE_BOOKING_INFO_KEY)
-            ?: MovieBookingInfo.dummyData
+    private fun getMovieBookingSeatInfo(): MovieBookingSeatInfo {
+        return intent.getSerializableCompat(MOVIE_BOOKING_SEAT_INFO_KEY)
+            ?: MovieBookingSeatInfo.dummyData
     }
 
-    private fun displayToastIfDummyData(movieBookingData: MovieBookingInfo) {
-        if (movieBookingData == MovieBookingInfo.dummyData) {
+    private fun displayToastIfDummyData(movieBookingData: MovieBookingSeatInfo) {
+        if (movieBookingData == MovieBookingSeatInfo.dummyData) {
             Toast.makeText(
                 this,
                 getString(R.string.cant_get_movie_booking_data),
@@ -36,19 +35,18 @@ class BookCompleteActivity : BackButtonActivity() {
         }
     }
 
-    private fun initView(movieBookingData: MovieBookingInfo) {
-        findViewById<TextView>(R.id.tv_book_movie_title).text = movieBookingData.movieInfo.title
+    private fun initView(movieBookingSeatInfo: MovieBookingSeatInfo) {
+        findViewById<TextView>(R.id.tv_book_movie_title).text =
+            movieBookingSeatInfo.movieBookingInfo.movieInfo.title
         findViewById<TextView>(R.id.tv_book_date).text =
-            movieBookingData.formatBookingTime()
+            movieBookingSeatInfo.movieBookingInfo.formatBookingTime()
         findViewById<TextView>(R.id.tv_book_person_count).text =
-            getString(R.string.book_person_count).format(movieBookingData.ticketCount)
-        findViewById<TextView>(R.id.tv_book_total_pay).text =
-            getString(R.string.book_total_pay).format(
-                TicketBundle.create(movieBookingData.ticketCount).calculateTotalPrice(
-                    movieBookingData.date,
-                    movieBookingData.time
-                )
+            getString(R.string.book_person_count).format(
+                movieBookingSeatInfo.movieBookingInfo.ticketCount,
+                movieBookingSeatInfo.seats.joinToString(", ")
             )
+        findViewById<TextView>(R.id.tv_book_total_pay).text =
+            getString(R.string.book_total_pay).format(movieBookingSeatInfo.totalPrice)
     }
 
     companion object {

@@ -139,8 +139,8 @@ class MovieDetailActivity : BackButtonActivity() {
             personCountTextView.text = currentCount.toString()
         }
 
-        findViewById<Button>(R.id.bt_book_complete).setOnClickListener {
-            val intent = BookCompleteActivity.intent(this)
+        findViewById<Button>(R.id.bt_to_seat_picker).setOnClickListener {
+            val intent = SeatPickerActivity.intent(this)
             intent.putExtra(
                 MOVIE_BOOKING_INFO_KEY,
                 MovieBookingInfo(
