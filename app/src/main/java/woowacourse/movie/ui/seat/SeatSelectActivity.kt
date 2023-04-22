@@ -3,8 +3,6 @@ package woowacourse.movie.ui.seat
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import com.example.domain.model.Ticket
-import com.example.domain.model.Tickets
 import com.example.domain.usecase.DiscountApplyUseCase
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationState
@@ -90,22 +88,17 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
     override fun updateSelectSeats(positionStates: List<SeatPositionState>) {
         confirmView.isClickable = (positionStates.size == reservationState.countState.value)
 
-        // 이걸 어떻게 해줄 것인지...
-        val tickets = Tickets(
-            positionStates.map {
-                Ticket(
-                    reservationState.movieState.asDomain(),
-                    reservationState.dateTime,
-                    it.asDomain()
-                )
-            }
+        val tickets = TicketsState(
+            reservationState.movieState,
+            reservationState.dateTime,
+            positionStates.toList()
         )
-        discountApplyUseCase(tickets) {
-            moneyTextView.text = getString(
-                R.string.discount_money,
-                DecimalFormatters.convertToMoneyFormat(it.asPresentation())
-            )
-        }
+
+        val discountApplyMoney = discountApplyUseCase(tickets.asDomain())
+        moneyTextView.text = getString(
+            R.string.discount_money,
+            DecimalFormatters.convertToMoneyFormat(discountApplyMoney.asPresentation())
+        )
     }
 
     companion object {

@@ -147,11 +147,11 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun getMovieRunningDates(movie: MovieState) {
-        getMovieRunningDateUseCase(movie.asDomain()) { runningDates = it }
+        runningDates = getMovieRunningDateUseCase(movie.asDomain())
     }
 
     private fun getMovieRunningTimes(date: LocalDate) {
-        getMovieRunningTimeUseCase(date) { runningTimes = it }
+        runningTimes = getMovieRunningTimeUseCase(date)
     }
 
     companion object {

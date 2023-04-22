@@ -5,11 +5,6 @@ import com.example.domain.model.Movie
 import java.time.LocalDate
 
 class GetMovieRunningDateUseCase(private val runningDate: RunningDate = RunningDate()) {
-    operator fun invoke(
-        movie: Movie,
-        onResult: (List<LocalDate>) -> Unit = {}
-    ) {
-        val dates = runningDate.getRunningDates(movie.startDate, movie.endDate)
-        onResult(dates)
-    }
+    operator fun invoke(movie: Movie): List<LocalDate> =
+        runningDate.getRunningDates(movie.startDate, movie.endDate)
 }

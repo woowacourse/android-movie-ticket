@@ -6,11 +6,6 @@ import com.example.domain.model.Money
 import com.example.domain.model.Tickets
 
 class DiscountApplyUseCase(private val discountPolicy: DiscountPolicy = DefaultDiscountPolicy()) {
-    operator fun invoke(
-        tickets: Tickets,
-        onResult: (Money) -> Unit
-    ) {
-        val discountApplyTotalMoney = tickets.getTotalDiscountApplyMoney(discountPolicy)
-        onResult(discountApplyTotalMoney)
-    }
+    operator fun invoke(tickets: Tickets): Money =
+        tickets.getTotalDiscountApplyMoney(discountPolicy)
 }

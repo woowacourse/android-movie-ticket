@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class TicketsState private constructor(
+data class TicketsState(
     val movieState: MovieState,
     val dateTime: LocalDateTime,
     val positions: List<SeatPositionState>

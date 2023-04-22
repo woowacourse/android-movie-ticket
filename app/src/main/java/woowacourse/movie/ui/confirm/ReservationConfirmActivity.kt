@@ -43,8 +43,9 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         setDiscountApplyMoney(tickets)
     }
 
-    private fun setDiscountApplyMoney(tickets: TicketsState) =
-        discountApplyUseCase(tickets.asDomain()) {
-            moneyTextView.text = DecimalFormatters.convertToMoneyFormat(it.asPresentation())
-        }
+    private fun setDiscountApplyMoney(tickets: TicketsState) {
+        val discountApplyMoney = discountApplyUseCase(tickets.asDomain())
+        moneyTextView.text =
+            DecimalFormatters.convertToMoneyFormat(discountApplyMoney.asPresentation())
+    }
 }
