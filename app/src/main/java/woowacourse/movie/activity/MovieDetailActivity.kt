@@ -33,7 +33,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDateSpinnerIndex = getSavedDateSpinnerIndex(savedInstanceState)
         val savedTimeSpinnerIndex = getSavedTimeSpinnerIndex(savedInstanceState)
 
-        val movieModel: MovieListItem.MovieModel = getReceivedIntent()
+        val movieModel: MovieListItem.MovieModel = getReceivedIntentData()
         initMovieDataView(movieModel)
         val movie: Movie = movieModel.toMovie()
         initSpinner(
@@ -47,7 +47,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setActionBar()
     }
 
-    private fun getReceivedIntent(): MovieListItem.MovieModel =
+    private fun getReceivedIntentData(): MovieListItem.MovieModel =
         intent.customGetSerializable(MOVIE_KEY)
 
     private fun initMovieDataView(movie: MovieListItem.MovieModel) {
