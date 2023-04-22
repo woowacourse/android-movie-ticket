@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    testOptions {
+        animationsDisabled = true
+    }
 }
 
 dependencies {
