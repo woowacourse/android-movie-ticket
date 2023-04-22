@@ -7,8 +7,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import woowacourse.movie.BackKeyActionBarActivity
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
@@ -29,7 +29,7 @@ import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
-class SeatSelectActivity : AppCompatActivity() {
+class SeatSelectActivity : BackKeyActionBarActivity() {
     private lateinit var binding: ActivitySeatSelectBinding
 
     private var chosenSeats = mutableListOf<Seat>()
@@ -40,8 +40,7 @@ class SeatSelectActivity : AppCompatActivity() {
     private lateinit var dateTime: LocalDateTime
     private var totalMoney = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(savedInstanceState: Bundle?) {
         binding = ActivitySeatSelectBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -89,7 +88,7 @@ class SeatSelectActivity : AppCompatActivity() {
         retryConfirm()
     }
 
-    fun positionFind(index: Int): Seat {
+    private fun positionFind(index: Int): Seat {
         val row = index % 4 + 1
         val column = index / 4 + 1
         Log.v("hi", "rank: $column , row: $row")
@@ -112,7 +111,7 @@ class SeatSelectActivity : AppCompatActivity() {
         binding.selectMoney.text = ReservationConfirmActivity.DECIMAL_FORMATTER.format(totalMoney)
     }
 
-    fun retryConfirm() {
+    private fun retryConfirm() {
         binding.selectConfrimBtn.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("예매 확인")
@@ -131,8 +130,5 @@ class SeatSelectActivity : AppCompatActivity() {
                 }.setCancelable(false)
                 .show()
         }
-    }
-
-    companion object {
     }
 }

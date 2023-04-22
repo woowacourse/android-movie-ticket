@@ -3,5 +3,6 @@ package woowacourse.movie.entity
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+@JvmInline
 @Parcelize
-data class Seat(val rank: SeatRank, val row: Int) : Parcelable
+value class Seats(val value: List<Seat>) : Parcelable
