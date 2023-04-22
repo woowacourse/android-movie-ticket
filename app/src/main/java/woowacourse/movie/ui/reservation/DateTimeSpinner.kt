@@ -14,29 +14,37 @@ class DateTimeSpinner(
     view: View,
     movieState: MovieState,
     private val getDates: (MovieState) -> List<LocalDate>,
-    private val getTimes: (LocalDate) -> List<LocalTime>
+    private val getTimes: (LocalDate) -> List<LocalTime>,
+    initLocalDateTime: LocalDateTime? = null
 ) {
     private val dateSpinner: Spinner = view.findViewById(R.id.date_spinner)
     private val timeSpinner: Spinner = view.findViewById(R.id.time_spinner)
 
-    private val runningDates: List<LocalDate> = getDates(movieState)
-    private var selectDate: LocalDate = runningDates[0]
+    private val runningDates: List<LocalDate>
+    private var selectDate: LocalDate = LocalDate.now()
         set(value) {
             field = value
             runningTimes = getTimes(field)
             setTimeSpinnerAdapter()
         }
 
-    private var runningTimes: List<LocalTime> = getTimes(selectDate)
+    private var runningTimes: List<LocalTime> = listOf()
         set(value) {
             field = value
-            selectTime = field[0]
+            selectTime = field.first()
         }
-    private var selectTime: LocalTime = runningTimes[0]
+    private var selectTime: LocalTime
 
     init {
+        runningDates = getDates(movieState)
         setDateSpinnerAdapter()
+        selectDate = runningDates.first()
         setTimeSpinnerAdapter()
+        runningTimes = getTimes(selectDate)
+        selectTime = runningTimes.first()
+
+        initLocalDateTime?.let { updateSelectDateTime(it.toLocalDate(), it.toLocalTime()) }
+
         dateSpinner.setClickListener({ position ->
             selectDate = runningDates[position]
         })
@@ -47,7 +55,7 @@ class DateTimeSpinner(
 
     fun getSelectDateTime(): LocalDateTime = LocalDateTime.of(selectDate, selectTime)
 
-    fun updateSelectDateTime(selectLocalDate: LocalDate, selectLocalTime: LocalTime) {
+    private fun updateSelectDateTime(selectLocalDate: LocalDate, selectLocalTime: LocalTime) {
         selectDate = selectLocalDate
         selectTime = selectLocalTime
         dateSpinner.setSelection(runningDates.indexOf(selectDate), false)
