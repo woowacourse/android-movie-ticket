@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.ticketingresult
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -11,7 +10,6 @@ import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.mapper.toTickets
-import woowacourse.movie.ui.movielist.MovieListActivity
 import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import java.time.LocalDateTime
 
@@ -81,8 +79,6 @@ class TicketingResultActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this@TicketingResultActivity, MovieListActivity::class.java)
-                startActivity(intent)
                 finish()
             }
         }

@@ -223,8 +223,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this@TicketingActivity, MovieListActivity::class.java)
-                startActivity(intent)
                 finish()
             }
         }
