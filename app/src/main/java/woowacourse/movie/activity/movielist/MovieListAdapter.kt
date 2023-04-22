@@ -1,66 +1,61 @@
 package woowacourse.movie.activity.movielist
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.activity.InjectedModelListener
 import woowacourse.movie.model.MovieModel
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movies: List<MovieModel>, private val clickListener: InjectedModelListener<MovieModel>) : BaseAdapter() {
-    private val viewHolders: MutableMap<View, ViewHolder> = mutableMapOf()
-    override fun getCount(): Int {
-        return movies.size
+class MovieListAdapter(
+    private val movies: List<MovieModel>,
+    private val clickListener: InjectedModelListener<MovieModel>,
+) :
+    RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.movie_item, parent, false)
+
+        return ViewHolder(view)
     }
 
-    override fun getItem(position: Int): Any {
-        return movies[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, null)
-        if (viewHolders[view] == null) viewHolders[view] = getViewHolder(view)
-        val movie = getItem(position) as MovieModel
-        viewHolders[view]?.set(movie, parent?.context) {
-            clickListener.onClick(movie)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.set(movies[position]) {
+            clickListener.onClick(movies[position])
         }
-        return view
     }
 
-    private fun getViewHolder(view: View): ViewHolder = ViewHolder(
-        view.findViewById(R.id.img_movie),
-        view.findViewById(R.id.text_title),
-        view.findViewById(R.id.text_playing_date),
-        view.findViewById(R.id.text_running_time),
-        view.findViewById(R.id.btn_reserve)
-    )
-    private class ViewHolder(
-        val image: ImageView,
-        val title: TextView,
-        val playingDate: TextView,
-        val runningTime: TextView,
-        val reserveButton: Button
-    ) {
-        fun set(movie: MovieModel, context: Context?, clickListener: OnClickListener) {
+    override fun getItemId(position: Int): Long = position.toLong()
+
+    override fun getItemCount(): Int = movies.size
+
+    class ViewHolder(view: View) :
+        RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.img_movie)
+        val title: TextView = view.findViewById(R.id.text_title)
+        val playingDate: TextView = view.findViewById(R.id.text_playing_date)
+        val runningTime: TextView = view.findViewById(R.id.text_running_time)
+        val reserveButton: Button = view.findViewById(R.id.btn_reserve)
+
+        fun set(movie: MovieModel, clickListener: OnClickListener) {
+            val context = title.context
             image.setImageResource(movie.image)
             title.text = movie.title
-            playingDate.text = context?.getString(
+            playingDate.text = context.getString(
                 R.string.playing_date_range,
-                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.startDate),
-                DateTimeFormatter.ofPattern(context.getString(R.string.date_format)).format(movie.endDate)
+                DateTimeFormatter.ofPattern(context.getString(R.string.date_format))
+                    .format(movie.startDate),
+                DateTimeFormatter.ofPattern(context.getString(R.string.date_format))
+                    .format(movie.endDate),
             )
-            runningTime.text = context?.getString(R.string.running_time, movie.runningTime)
+            runningTime.text = context.getString(R.string.running_time, movie.runningTime)
             reserveButton.setOnClickListener(clickListener)
         }
     }
