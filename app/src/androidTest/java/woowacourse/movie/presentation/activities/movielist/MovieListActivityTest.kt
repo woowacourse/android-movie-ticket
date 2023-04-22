@@ -91,7 +91,7 @@ class MovieListActivityTest {
             val recyclerView = activity.findViewById<RecyclerView>(R.id.movies_rv)
 
             val expected = recyclerView.adapter?.getItemViewType(adInterval)
-            val actual = MovieViewType.AD
+            val actual = MovieViewType.AD.type
 
             assertEquals(expected, actual)
         }
@@ -104,7 +104,7 @@ class MovieListActivityTest {
 
             for (position in 0 until adInterval) {
                 val expected = recyclerView.adapter?.getItemViewType(position)
-                val actual = MovieViewType.MOVIE
+                val actual = MovieViewType.MOVIE.type
 
                 assertEquals(expected, actual)
             }

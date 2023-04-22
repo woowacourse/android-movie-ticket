@@ -5,13 +5,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.presentation.base.BaseRecyclerView
 import woowacourse.movie.presentation.model.movieitem.ListItem
 import woowacourse.movie.presentation.model.movieitem.Movie
 
 class MovieViewHolder(
     view: View,
     onClick: (Int) -> Unit,
-) : BaseViewHolder(view) {
+) : BaseRecyclerView.BaseViewHolder(view) {
     private val posterImageView: ImageView = view.findViewById(R.id.poster_iv)
     private val titleTextView: TextView = view.findViewById(R.id.title_tv)
     private val dateTextView: TextView = view.findViewById(R.id.date_tv)

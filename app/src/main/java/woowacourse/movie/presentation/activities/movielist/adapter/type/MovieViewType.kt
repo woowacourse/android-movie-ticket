@@ -1,6 +1,11 @@
 package woowacourse.movie.presentation.activities.movielist.adapter.type
 
-object MovieViewType {
-    internal const val AD: Int = 0
-    internal const val MOVIE: Int = 1
+enum class MovieViewType(val type: Int) {
+    AD(0),
+    MOVIE(1);
+
+    companion object {
+        fun get(type: Int): MovieViewType =
+            values().first { it.type == type }
+    }
 }
