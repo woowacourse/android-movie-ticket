@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/woowa_backgorund"
     tools:context=".ui.movieselectseatactivity.MovieSelectSeatActivity">
 
     <TextView
@@ -26,6 +27,7 @@
         android:layout_height="0dp"
         android:paddingHorizontal="34dp"
         android:paddingVertical="90dp"
+        android:stretchColumns="*"
         app:layout_constraintBottom_toTopOf="@+id/layout_total_information"
         app:layout_constraintTop_toBottomOf="@+id/tv_screen">
 
@@ -36,6 +38,7 @@
         android:id="@+id/layout_total_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
