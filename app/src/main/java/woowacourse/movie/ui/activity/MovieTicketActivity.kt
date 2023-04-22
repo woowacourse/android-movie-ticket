@@ -11,7 +11,6 @@ import woowacourse.movie.ui.model.MovieTicketModel
 import woowacourse.movie.ui.model.PriceModel
 import woowacourse.movie.ui.model.TicketTimeModel
 import woowacourse.movie.ui.model.seat.SeatModel
-import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity() {
@@ -61,5 +60,5 @@ class MovieTicketActivity : AppCompatActivity() {
 
     private fun SeatModel.format(): String = getString(R.string.seat, row.letter, column.value)
 
-    private fun PriceModel.format(): String = getString(R.string.price, DecimalFormat("#,###").format(amount))
+    private fun PriceModel.format(): String = getString(R.string.price, amount)
 }

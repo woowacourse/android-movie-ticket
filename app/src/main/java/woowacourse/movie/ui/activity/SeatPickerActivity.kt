@@ -23,7 +23,6 @@ import woowacourse.movie.ui.model.mapToPriceModel
 import woowacourse.movie.ui.model.seat.SeatModel
 import woowacourse.movie.ui.model.seat.SeatsModel
 import woowacourse.movie.ui.model.seat.mapToSeat
-import java.text.DecimalFormat
 
 class SeatPickerActivity : AppCompatActivity() {
     private var count = 0
@@ -64,8 +63,7 @@ class SeatPickerActivity : AppCompatActivity() {
         outState.putParcelable("ticket", mapToMovieTicketModelWithOriginalPrice(ticket))
     }
 
-    private fun PriceModel.format(): String =
-        getString(R.string.price, DecimalFormat("#,###").format(amount))
+    private fun PriceModel.format(): String = getString(R.string.price, amount)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
