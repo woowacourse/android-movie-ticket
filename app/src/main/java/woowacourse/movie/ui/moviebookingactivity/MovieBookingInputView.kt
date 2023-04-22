@@ -11,6 +11,7 @@ import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.TicketCount
 import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.ui.moviebookingcheckactivity.MovieBookingCheckActivity
+import woowacourse.movie.ui.movieselectseatactivity.MovieSelectSeatActivity
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -102,11 +103,11 @@ class MovieBookingInputView(private val view: ViewGroup) {
     // timespinner 초기화 관련 방어코드 고려
     fun initBookingCompleteButtonClickListener(movieData: MovieUIModel) {
         view.findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
-            val intent = Intent(view.context, MovieBookingCheckActivity::class.java).apply {
-                putExtra(MovieBookingCheckActivity.MOVIE_DATA, movieData)
-                putExtra(MovieBookingCheckActivity.TICKET_COUNT, ticketCount.value)
+            val intent = Intent(view.context, MovieSelectSeatActivity::class.java).apply {
+                putExtra(MovieSelectSeatActivity.MOVIE_DATA, movieData)
+                putExtra(MovieSelectSeatActivity.TICKET_COUNT, ticketCount.value)
                 putExtra(
-                    MovieBookingCheckActivity.BOOKED_SCREENING_DATE_TIME,
+                    MovieSelectSeatActivity.BOOKED_SCREENING_DATE_TIME,
                     getScreeningDateTime(movieData).time
                 )
             }

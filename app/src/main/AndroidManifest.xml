@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".MovieSelectSeatActivity"
+            android:name=".ui.movieselectseatactivity.MovieSelectSeatActivity"
             android:exported="false" />
         <activity
             android:name=".ui.moviebookingcheckactivity.MovieBookingCheckActivity"
