@@ -11,11 +11,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import com.example.domain.model.model.Rank
 import com.example.domain.model.model.ReservationInfo
 import com.example.domain.model.model.Seat
 import com.example.domain.model.price.PriceCalculator
 import woowacourse.movie.R
-import woowacourse.movie.mapper.RankMapper
 import woowacourse.movie.mapper.toReservationInfo
 import woowacourse.movie.mapper.toSeatModel
 import woowacourse.movie.model.ReservationInfoModel
@@ -51,7 +51,7 @@ class ReserveSeatActivity : AppCompatActivity() {
         seatViews.forEachIndexed { index, button ->
             button.setOnClickListener {
                 val seat = calculateRowColumn(index)
-                val rank = RankMapper().map(seat.row + 1)
+                val rank = Rank.map(seat.row + 1)
                 val rankPrice = rank.price
                 val finalPrice = PriceCalculator.calculate(
                     rankPrice,
