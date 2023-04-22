@@ -3,8 +3,6 @@ package woowacourse.movie.ui.reservation
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import com.example.domain.usecase.GetMovieRunningDateUseCase
 import com.example.domain.usecase.GetMovieRunningTimeUseCase
 import woowacourse.movie.R
@@ -13,7 +11,6 @@ import woowacourse.movie.model.MovieState
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.ui.BackKeyActionBarActivity
-import woowacourse.movie.ui.DateTimeFormatters
 import woowacourse.movie.ui.main.MainActivity.Companion.KEY_MOVIE
 import woowacourse.movie.ui.seat.SeatSelectActivity
 import woowacourse.movie.util.getParcelableCompat
@@ -28,43 +25,30 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val getMovieRunningDateUseCase = GetMovieRunningDateUseCase()
     private val getMovieRunningTimeUseCase = GetMovieRunningTimeUseCase()
 
-    private val image: ImageView by lazy { findViewById(R.id.detail_image) }
-    private val title: TextView by lazy { findViewById(R.id.detail_title) }
-    private val detailDate: TextView by lazy { findViewById(R.id.detail_date) }
-    private val detailTime: TextView by lazy { findViewById(R.id.detail_time) }
-    private val description: TextView by lazy { findViewById(R.id.description) }
-    private val reservationConfirm: Button by lazy { findViewById(R.id.reservation_confirm) }
-
     private lateinit var movie: MovieState
 
+    private lateinit var movieInfo: MovieInfo
     private lateinit var dateTimeSpinner: DateTimeSpinner
     private lateinit var reservationCounter: ReservationCounter
+    private val reservationConfirm: Button by lazy { findViewById(R.id.reservation_confirm) }
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_movie_detail)
+        val rootView = window.decorView.rootView
         movie = intent.getParcelableExtraCompat(KEY_MOVIE) ?: return keyError(KEY_MOVIE)
+        movieInfo = MovieInfo(rootView, movie)
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState)
         } else {
             dateTimeSpinner = DateTimeSpinner(
-                window.decorView.rootView,
+                rootView,
                 movie,
                 ::getMovieRunningDates,
                 ::getMovieRunningTimes
             )
-            reservationCounter = ReservationCounter(window.decorView.rootView)
+            reservationCounter = ReservationCounter(rootView)
         }
         reservationConfirm.setOnClickListener { navigateSeatSelectActivity() }
-        initMovieData()
-    }
-
-    private fun initMovieData() {
-        image.setImageResource(movie.imgId)
-        title.text = movie.title
-        detailDate.text =
-            DateTimeFormatters.convertToDateTildeDate(this, movie.startDate, movie.endDate)
-        detailTime.text = getString(R.string.running_time, movie.runningTime)
-        description.text = movie.description
     }
 
     private fun navigateSeatSelectActivity() {
