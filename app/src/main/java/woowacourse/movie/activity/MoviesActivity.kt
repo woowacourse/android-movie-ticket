@@ -1,14 +1,12 @@
 package woowacourse.movie.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.activity.movieinformation.ReservationActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.databinding.ActivityMoviesBinding
 import woowacourse.movie.uimodel.MovieModel
-import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.util.Mock
 
 class MoviesActivity : AppCompatActivity() {
@@ -17,26 +15,14 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding: ActivityMoviesBinding = ActivityMoviesBinding.inflate(layoutInflater)
-        val movieListView: ListView = binding.root
+        val movieListView: LinearLayout = binding.root
         setContentView(movieListView)
 
-        initMovieListView(movieListView)
+        initMovieListView(binding.moviesListView)
     }
 
-    private fun initMovieListView(movieListView: ListView) {
+    private fun initMovieListView(movieListView: RecyclerView) {
         val movieModels: List<MovieModel> = Mock.getMovieModels()
         movieListView.adapter = MoviesAdapter(movieModels)
-        movieListView.setOnItemClickListener { _, _, position, _ ->
-            movieListItemClickEvent(movieModels[position], ReservationActivity::class.java)
-        }
-    }
-
-    private fun movieListItemClickEvent(
-        movieModel: MovieModel,
-        nextActivity: Class<ReservationActivity>
-    ) {
-        val intent = Intent(this, nextActivity)
-        intent.putExtra(MOVIE_INTENT_KEY, movieModel)
-        this.startActivity(intent)
     }
 }

@@ -129,6 +129,7 @@ class ReservationActivity : AppCompatActivity() {
         intent.putExtra(SCREENING_DATE_TIME_INTENT_KEY, LocalDateTime.of(selectedDate, selectedTime))
 
         startActivity(intent)
+        finish()
     }
 
     private fun showToast(string: String) = Toast.makeText(this, string, Toast.LENGTH_SHORT).show()

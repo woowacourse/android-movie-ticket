@@ -74,5 +74,6 @@ class SeatSelectionActivity : AppCompatActivity() {
 
         nextIntent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
         startActivity(nextIntent)
+        finish()
     }
 }
