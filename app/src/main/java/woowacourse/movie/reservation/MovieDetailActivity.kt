@@ -19,7 +19,6 @@ import woowacourse.movie.Toaster
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
 import woowacourse.movie.domain.RunningDates
 import woowacourse.movie.domain.RunningTimes
-import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.ViewingDate
 import woowacourse.movie.entity.ViewingTime
 import woowacourse.movie.selection.SeatSelectActivity
@@ -91,7 +90,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         binding.reservationConfirm.setOnClickListener {
             val intent = Intent(this, SeatSelectActivity::class.java)
             intent.putExtra(KEY_MOVIE, movie)
-            intent.putExtra(KEY_RESERVATION_COUNT, Count(binding.count.text.toString().toInt()))
+            intent.putExtra(KEY_RESERVATION_COUNT, binding.count.text.toString().toInt())
             intent.putExtra(KEY_RESERVATION_DATE, selectDate)
             intent.putExtra(KEY_RESERVATION_TIME, selectTime)
             startActivity(intent)

@@ -1,7 +1,11 @@
 package woowacourse.movie.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 @JvmInline
-value class Money(val value: Int) {
+@Parcelize
+value class Money(val value: Int) : Parcelable {
     init {
         require(value > MIN_MONEY_RANGE) { MONEY_ERROR_MESSAGE }
     }

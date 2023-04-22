@@ -12,21 +12,33 @@ import androidx.core.view.children
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
+import woowacourse.movie.KEY_RESERVATION_MONEY
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.Movie
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.databinding.ActivitySeatSelectBinding
+import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
+import woowacourse.movie.entity.Money
 import woowacourse.movie.entity.Seat
 import woowacourse.movie.entity.SeatRank
 import woowacourse.movie.entity.ViewingDate
 import woowacourse.movie.entity.ViewingTime
 import woowacourse.movie.utils.getParcelableCompat
 import java.lang.IllegalArgumentException
+import java.time.LocalDateTime
+import kotlin.properties.Delegates
 
 class SeatSelectActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySeatSelectBinding
-    var chosenSeats = mutableListOf<Seat>()
+
+    private var chosenSeats = mutableListOf<Seat>()
+    private lateinit var movie: Movie
+    private var reservationCount by Delegates.notNull<Int>()
+    private lateinit var date: ViewingDate
+    private lateinit var time: ViewingTime
+    private lateinit var dateTime: LocalDateTime
+    private var totalMoney = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +47,11 @@ class SeatSelectActivity : AppCompatActivity() {
         setContentView(view)
         Log.v("hi", "test")
 
-        val movie = intent.getParcelableCompat<Movie>(KEY_MOVIE)!!
-        val reservationCount = intent.getParcelableCompat<Count>(KEY_RESERVATION_COUNT)!!
-        val date = intent.getParcelableCompat<ViewingDate>(KEY_RESERVATION_DATE)!!
-        val time = intent.getParcelableCompat<ViewingTime>(KEY_RESERVATION_TIME)!!
+        movie = intent.getParcelableCompat(KEY_MOVIE)!!
+        reservationCount = intent.getIntExtra(KEY_RESERVATION_COUNT, 0)
+        date = intent.getParcelableCompat(KEY_RESERVATION_DATE)!!
+        time = intent.getParcelableCompat(KEY_RESERVATION_TIME)!!
+        dateTime = LocalDateTime.of(date.value, time.value)
 
         binding.selectTitle.text = movie.title
 
@@ -61,33 +74,19 @@ class SeatSelectActivity : AppCompatActivity() {
                         view.setBackgroundColor(Color.parseColor("#FAFF00"))
                     }
 
-                    if (chosenSeats.size == 3) {
+                    if (chosenSeats.size == reservationCount) {
                         binding.selectConfrimBtn.isEnabled = true
                         binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#6200EE"))
                     } else {
                         binding.selectConfrimBtn.isEnabled = false
                         binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
                     }
+
+                    addMoney()
                 }
             }
 
-        binding.selectConfrimBtn.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
-                    val intent = Intent(this, ReservationConfirmActivity::class.java)
-                    intent.putExtra(KEY_MOVIE, movie)
-                    intent.putExtra(KEY_RESERVATION_COUNT, reservationCount)
-                    intent.putExtra(KEY_RESERVATION_DATE, date)
-                    intent.putExtra(KEY_RESERVATION_TIME, time)
-                    startActivity(intent)
-                }
-                .setNegativeButton("취소") { dialog, _ ->
-                    dialog.dismiss()
-                }.setCancelable(false)
-                .show()
-        }
+        retryConfirm()
     }
 
     fun positionFind(index: Int): Seat {
@@ -103,6 +102,35 @@ class SeatSelectActivity : AppCompatActivity() {
             else -> throw IllegalArgumentException("[ERROR]")
         }
         return Seat(rank, row)
+    }
+
+    private fun addMoney() {
+        totalMoney = 0
+        chosenSeats.map {
+            totalMoney += DiscountCalculator().discount(Money(it.rank.money), dateTime).value
+        }
+        binding.selectMoney.text = ReservationConfirmActivity.DECIMAL_FORMATTER.format(totalMoney)
+    }
+
+    fun retryConfirm() {
+        binding.selectConfrimBtn.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    val intent = Intent(this, ReservationConfirmActivity::class.java)
+                    intent.putExtra(KEY_MOVIE, movie)
+                    intent.putExtra(KEY_RESERVATION_COUNT, Count(reservationCount))
+                    intent.putExtra(KEY_RESERVATION_MONEY, Money(totalMoney))
+                    intent.putExtra(KEY_RESERVATION_DATE, date)
+                    intent.putExtra(KEY_RESERVATION_TIME, time)
+                    startActivity(intent)
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }.setCancelable(false)
+                .show()
+        }
     }
 
     companion object {

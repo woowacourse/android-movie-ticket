@@ -1,9 +1,9 @@
 package woowacourse.movie.entity
 
-enum class SeatRank(val column: Int) {
-    A(1),
-    B(2),
-    C(3),
-    D(4),
-    E(5)
+enum class SeatRank(val money: Int) {
+    A(10000),
+    B(10000),
+    C(15000),
+    D(15000),
+    E(12000)
 }

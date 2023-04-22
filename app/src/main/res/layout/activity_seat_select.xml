@@ -282,7 +282,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView4" />
 
         <TextView
-            android:text="TextView"
+            android:text="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/select_money"
