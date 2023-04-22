@@ -19,7 +19,7 @@ object DummyData {
     }
 
     private val ads = List(5) {
-        MovieListData.ADData(R.drawable.ad_img)
+        MovieListData.ADData(R.drawable.ad_img, "https://woowacourse.github.io/")
     }
 
     fun getItems(): List<MovieListData> {

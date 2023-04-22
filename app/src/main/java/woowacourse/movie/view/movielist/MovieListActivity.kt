@@ -1,8 +1,8 @@
 package woowacourse.movie.view.movielist
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,15 +35,16 @@ class MovieListActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             },
-            ::click
+            ::clickAdvertisement
         )
 
         movieListView.layoutManager = LinearLayoutManager(this)
         movieListView.adapter = movieAdapter
     }
 
-    private fun click(ad: ADData) {
-        Log.d("heeae", "${ad.id} clicked!")
+    private fun clickAdvertisement(ad: ADData) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ad.url))
+        startActivity(intent)
     }
 
     companion object {
