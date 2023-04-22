@@ -25,7 +25,6 @@ import woowacourse.movie.ui.model.seat.SeatsModel
 import woowacourse.movie.ui.model.seat.mapToSeat
 
 class SeatPickerActivity : AppCompatActivity() {
-    private var count = 0
     private val seats = SeatsModel().getAll()
     private lateinit var ticket: MovieTicket
 
@@ -40,13 +39,11 @@ class SeatPickerActivity : AppCompatActivity() {
         val ticketModel = mapToMovieTicketModel(ticket)
         setSeatViews(ticketModel)
         setTicketViews(ticketModel)
-        setDoneButton(ticketModel)
+        setDoneButton()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        outState.putInt("count", count)
         outState.putParcelable("ticket", mapToMovieTicketModelWithOriginalPrice(ticket))
     }
 
@@ -78,22 +75,21 @@ class SeatPickerActivity : AppCompatActivity() {
                 view.setBackgroundColor(getColor(R.color.seat_selected))
             }
             view.setOnClickListener {
-                selectSeat(view, ticketModel, seat)
-                updateDoneButtonState(ticketModel)
+                selectSeat(view, seat)
+                updateDoneButtonState()
             }
         }
     }
 
     private fun selectSeat(
         view: TextView,
-        ticketModel: MovieTicketModel,
         seat: SeatModel
     ) {
         if (view.isSelected) {
             removeSeat(view, seat)
             return
         }
-        selectEmptySeat(ticketModel, view, seat)
+        selectEmptySeat(view, seat)
     }
 
     private fun removeSeat(
@@ -104,7 +100,6 @@ class SeatPickerActivity : AppCompatActivity() {
         ticket.cancelSeat(mapToSeat(seat))
         val priceView = findViewById<TextView>(R.id.seat_picker_price)
         priceView.text = mapToPriceModel(ticket.getDiscountPrice()).format()
-        count--
     }
 
     private fun updateEmptySeatView(view: TextView) {
@@ -113,19 +108,15 @@ class SeatPickerActivity : AppCompatActivity() {
     }
 
     private fun selectEmptySeat(
-        ticketModel: MovieTicketModel,
         view: TextView,
         seat: SeatModel
     ) {
-        if (canAddSeat(ticketModel)) {
+        if (ticket.canReserveSeat()) {
             addSeat(view, seat)
             return
         }
         notifyUnableToAddSeat()
     }
-
-    private fun canAddSeat(ticketModel: MovieTicketModel) =
-        count < ticketModel.peopleCount.count
 
     private fun addSeat(
         view: TextView,
@@ -135,7 +126,6 @@ class SeatPickerActivity : AppCompatActivity() {
         ticket.reserveSeat(mapToSeat(seat))
         val priceView = findViewById<TextView>(R.id.seat_picker_price)
         priceView.text = mapToPriceModel(ticket.getDiscountPrice()).format()
-        count++
     }
 
     private fun updateFullSeatView(view: TextView) {
@@ -153,12 +143,12 @@ class SeatPickerActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun updateDoneButtonState(ticket: MovieTicketModel) {
+    private fun updateDoneButtonState() {
         val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
-        if (count == ticket.peopleCount.count) {
-            activateDoneButton(doneButton)
-        } else {
+        if (ticket.canReserveSeat()) {
             deactivateDoneButton(doneButton)
+        } else {
+            activateDoneButton(doneButton)
         }
     }
 
@@ -179,12 +169,12 @@ class SeatPickerActivity : AppCompatActivity() {
         priceView.text = ticketModel.price.format()
     }
 
-    private fun setDoneButton(ticketModel: MovieTicketModel) {
+    private fun setDoneButton() {
         val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
         doneButton.setOnClickListener {
             showReservationCheckDialog()
         }
-        updateDoneButtonState(ticketModel)
+        updateDoneButtonState()
     }
 
     private fun showReservationCheckDialog() {
@@ -208,7 +198,6 @@ class SeatPickerActivity : AppCompatActivity() {
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
-        count = savedInstanceState?.getInt("count") ?: 0
         val ticketModel = savedInstanceState?.getParcelableByKey<MovieTicketModel>("ticket")
             ?: intent.getParcelable("ticket")!!
         ticket = mapToMovieTicket(ticketModel)
