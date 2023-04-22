@@ -166,7 +166,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 )
             ),
             mapToPeopleCountModel(peopleCount),
-            emptySet(),
+            seats = emptySet(),
             PriceModel(0)
         )
 

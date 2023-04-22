@@ -23,14 +23,10 @@ class MainActivity : AppCompatActivity() {
     private fun setMovieList() {
         val moviesView = findViewById<RecyclerView>(R.id.main_movie_list)
         moviesView.adapter = MovieAdapter(
-            Movies().getAll(),
-            Ads().getAll(),
-            {
-                moveToDetailActivity(it)
-            },
-            {
-                openAdvertiseUrl(it)
-            }
+            movies = Movies().getAll(),
+            ads = Ads().getAll(),
+            onMovieItemClick = { moveToDetailActivity(it) },
+            onAdItemClick = { openAdvertiseUrl(it) }
         )
     }
 
