@@ -6,22 +6,23 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MovieRepository
 import woowacourse.movie.R
-import woowacourse.movie.Ticket
 import woowacourse.movie.formatScreenDateTime
-import woowacourse.movie.util.getSerializable
+import woowacourse.movie.model.ReservationUiModel
+import woowacourse.movie.movie.MovieRepository
+import woowacourse.movie.util.getParcelable
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_completed)
 
-        val ticket: Ticket = getTicket()
-        initView(ticket)
+        val reservation = getResult()
+        initView(reservation)
     }
 
-    private fun getTicket(): Ticket = intent.getSerializable(TICKET, Ticket::class.java)
+    private fun getResult(): ReservationUiModel =
+        intent.getParcelable(RESERVATION, ReservationUiModel::class.java)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
@@ -31,15 +32,15 @@ class CompletedActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initView(ticket: Ticket) {
-        val movie = MovieRepository.getMovie(ticket.movieId)
+    private fun initView(reservation: ReservationUiModel) {
+        val movie = MovieRepository.getMovie(reservation.movieId)
         findViewById<TextView>(R.id.textCompletedTitle).text = movie.title
         findViewById<TextView>(R.id.textCompletedScreeningDate).text =
-            ticket.bookedDateTime.formatScreenDateTime()
+            reservation.bookedDateTime.formatScreenDateTime()
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
-            getString(R.string.normal_ticket_count, ticket.count)
+            getString(R.string.ticket_count_seat_info, reservation.count, reservation.seatPosition)
         findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount, ticket.getPaymentAmount())
+            getString(R.string.payment_amount, reservation.payment)
         showBackButton()
     }
 
@@ -48,11 +49,11 @@ class CompletedActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TICKET = "TICKET"
+        private const val RESERVATION = "RESERVATION"
 
-        fun getIntent(context: Context, ticket: Ticket): Intent {
+        fun getIntent(context: Context, reservation: ReservationUiModel): Intent {
             return Intent(context, CompletedActivity::class.java).apply {
-                putExtra(TICKET, ticket)
+                putExtra(RESERVATION, reservation)
             }
         }
     }
