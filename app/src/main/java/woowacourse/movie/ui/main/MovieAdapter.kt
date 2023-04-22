@@ -8,19 +8,18 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.MovieMapper.thumbnail
 import woowacourse.movie.R
 import woowacourse.movie.formatScreenDate
-import woowacourse.movie.movie.Movie
+import woowacourse.movie.model.movie.MovieUiModel
 
 class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) : BaseAdapter() {
-    private val movies = mutableListOf<Movie>()
+    private val movies = mutableListOf<MovieUiModel>()
     private val layoutInflater = LayoutInflater.from(context)
     private val viewHolders = mutableMapOf<Int, MovieViewHolder>()
 
     override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): MovieUiModel = movies[position]
 
     override fun getItemId(position: Int): Long = movies[position].id
 
@@ -31,7 +30,7 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) : Ba
         return view
     }
 
-    private fun onBindViewHolder(movie: Movie, key: Int, view: View) {
+    private fun onBindViewHolder(movie: MovieUiModel, key: Int, view: View) {
         if (viewHolders[key] == null) {
             viewHolders[key] = MovieViewHolder(view)
         }
@@ -39,7 +38,7 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) : Ba
         viewHolders[key]?.clickBookButton(movie, clickBook)
     }
 
-    fun initMovies(items: List<Movie>) {
+    fun initMovies(items: List<MovieUiModel>) {
         movies.clear()
         movies.addAll(items)
         notifyDataSetChanged()
@@ -52,7 +51,7 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) : Ba
         private val runningTime: TextView = view.findViewById(R.id.textBookingRunningTime)
         private val button: Button = view.findViewById(R.id.buttonItemBook)
 
-        fun onBind(movie: Movie) {
+        fun onBind(movie: MovieUiModel) {
             thumbnail.setImageResource(movie.thumbnail)
             title.text = movie.title
             date.text = view.context.getString(
@@ -63,7 +62,7 @@ class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) : Ba
             runningTime.text = view.context.getString(R.string.running_time, movie.runningTime)
         }
 
-        fun clickBookButton(movie: Movie, clickBook: (Long) -> Unit) {
+        fun clickBookButton(movie: MovieUiModel, clickBook: (Long) -> Unit) {
             button.setOnClickListener {
                 clickBook(movie.id)
             }

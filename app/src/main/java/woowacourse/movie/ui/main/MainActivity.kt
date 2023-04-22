@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.model.movie.MovieMapper.toUiModel
 import woowacourse.movie.movie.MovieRepository
 import woowacourse.movie.ui.booking.BookingActivity
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private fun initAdapter() {
         val movieAdapter = MovieAdapter(this) { clickBook(it) }
         findViewById<ListView>(R.id.listMainMovie).adapter = movieAdapter
-        movieAdapter.initMovies(MovieRepository.getMovies())
+        movieAdapter.initMovies(MovieRepository.getMovies().map { it.toUiModel() })
     }
 
     private fun clickBook(movieId: Long) {
