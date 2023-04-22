@@ -18,20 +18,20 @@ class MovieAdapter(
     private val onAdItemViewClick: (Int) -> Unit = { onAdItemClick(getAd(it)) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return when (viewType) {
-            MovieListViewType.MovieViewType.value -> {
+        val types = MovieListViewType.values()
+        return when (types[viewType]) {
+            MovieListViewType.MOVIE_VIEW -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.movie_item, parent, false)
 
                 MovieViewHolder(view, onMovieItemViewClick)
             }
-            MovieListViewType.AdViewType.value -> {
+            MovieListViewType.AD_VIEW -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.advertise_item, parent, false)
 
                 AdViewHolder(view, onAdItemViewClick)
             }
-            else -> throw IllegalArgumentException("Wrong View Type")
         }
     }
 
@@ -45,8 +45,8 @@ class MovieAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (isAdTime(position)) return MovieListViewType.AdViewType.value
-        return MovieListViewType.MovieViewType.value
+        if (isAdTime(position)) return MovieListViewType.AD_VIEW.ordinal
+        return MovieListViewType.MOVIE_VIEW.ordinal
     }
 
     private fun isAdTime(position: Int) = (position + 1) % 4 == 0
