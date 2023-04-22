@@ -1,13 +1,11 @@
 package woowacourse.movie.util
 
-import movie.Name
-import movie.ScreeningPeriod
 import woowacourse.movie.R
 import woowacourse.movie.uimodel.MovieModel
 import java.time.LocalDate
 
 object Mock {
-    fun getMovieModels() = listOf(
+    fun getMovieModels(): List<MovieModel> = listOf(
         MovieModel(
             name = movie.Name("해리포터1"),
             posterImage = R.drawable.image_movie_poster_harry_potter,

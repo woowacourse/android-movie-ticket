@@ -3,6 +3,8 @@ package woowacourse.movie.uimodel
 import movie.Movie
 import reservation.Reservation
 import seat.Seat
+import woowacourse.movie.item.ItemType
+import woowacourse.movie.item.MovieItem
 
 fun Movie.toMovieModel(): MovieModel =
     MovieModel(
@@ -11,6 +13,12 @@ fun Movie.toMovieModel(): MovieModel =
         screeningPeriod = this.screeningPeriod,
         runningTime = this.runningTime,
         description = this.description
+    )
+
+fun MovieModel.toMovieItem(): MovieItem =
+    MovieItem(
+        movieModel = this,
+        itemType = ItemType.Movie
     )
 
 fun Reservation.toReservationModel(): ReservationModel =

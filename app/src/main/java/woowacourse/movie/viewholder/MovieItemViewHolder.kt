@@ -4,13 +4,17 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.activity.movieinformation.ReservationActivity
+import woowacourse.movie.item.ModelItem
+import woowacourse.movie.item.MovieItem
 import woowacourse.movie.uimodel.MovieModel
 import java.time.format.DateTimeFormatter
 
-class MovieItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class MovieItemViewHolder(
+    private val view: View
+) : ItemViewHolder(view) {
+
     private val moviePosterImageView: ImageView = view.findViewById(R.id.movie_poster_image_view)
     private val movieNameTextView: TextView = view.findViewById(R.id.movie_name_text_view)
     private val screeningDateTextView: TextView =
@@ -18,14 +22,20 @@ class MovieItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view
     private val runningTimeTextView: TextView = view.findViewById(R.id.movie_running_time_text_view)
     private val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-    fun bind(movieModel: MovieModel) {
-        setItemClickListener(movieModel)
+    override fun bind(modelItem: ModelItem) {
+        val movieItem: MovieItem = modelItem as MovieItem
 
-        setPosterResource(movieModel)
-        setMovieNameText(movieModel)
-        setScreeningDateText(movieModel)
-        setRunningTimeText(movieModel)
+        setItemClickListener(movieItem.movieModel)
+
+        setPosterResource(movieItem.movieModel)
+        setMovieNameText(movieItem.movieModel)
+        setScreeningDateText(movieItem.movieModel)
+        setRunningTimeText(movieItem.movieModel)
     }
+
+    override fun isMovieItemViewHolder() = true
+
+    override fun isAdvertisingItemViewHolder() = false
 
     private fun setItemClickListener(movieModel: MovieModel) {
         itemView.setOnClickListener {

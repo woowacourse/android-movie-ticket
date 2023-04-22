@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.databinding.ActivityMoviesBinding
-import woowacourse.movie.uimodel.MovieModel
+import woowacourse.movie.item.AdvertisingItem
+import woowacourse.movie.item.ModelItem
+import woowacourse.movie.uimodel.toMovieItem
 import woowacourse.movie.util.Mock
 
 class MoviesActivity : AppCompatActivity() {
@@ -22,7 +24,15 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun initMovieListView(movieListView: RecyclerView) {
-        val movieModels: List<MovieModel> = Mock.getMovieModels()
+        val movieModels: MutableList<ModelItem> =
+            Mock.getMovieModels().map { it.toMovieItem() }.toMutableList()
+
+        var position = 0
+        while (position < movieModels.size) {
+            if ((position + 1) % 4 == 0) movieModels.add(position, AdvertisingItem())
+            position++
+        }
+
         movieListView.adapter = MoviesAdapter(movieModels)
     }
 }
