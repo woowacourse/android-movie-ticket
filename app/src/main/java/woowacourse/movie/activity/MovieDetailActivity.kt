@@ -3,8 +3,6 @@ package woowacourse.movie.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -15,6 +13,7 @@ import com.example.domain.model.model.Payment
 import com.example.domain.model.model.PlayingTimes
 import com.example.domain.model.model.ReservationInfo
 import woowacourse.movie.R
+import woowacourse.movie.listener.DateSpinnerListener
 import woowacourse.movie.mapper.toMovie
 import woowacourse.movie.mapper.toReservationInfoModel
 import woowacourse.movie.model.MovieListItem
@@ -33,18 +32,21 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDateSpinnerIndex = getSavedDateSpinnerIndex(savedInstanceState)
         val savedTimeSpinnerIndex = getSavedTimeSpinnerIndex(savedInstanceState)
 
-        val movieModel: MovieListItem.MovieModel = getIntentMovieDate()
+        val movieModel: MovieListItem.MovieModel = getReceivedIntent()
         initMovieDataView(movieModel)
-        initTicketingButton(movieModel.title)
-
-        val movie = movieModel.toMovie()
-        initSpinner(savedDateSpinnerIndex, savedTimeSpinnerIndex, movie.startDate, movie.endDate)
-
+        initSpinner(
+            savedDateSpinnerIndex,
+            savedTimeSpinnerIndex,
+            movieModel.toMovie().startDate,
+            movieModel.toMovie().endDate
+        )
         initCountView(savedCount)
+        initTicketingButton(movieModel.title)
         setActionBar()
     }
 
-    private fun getIntentMovieDate(): MovieListItem.MovieModel = intent.customGetSerializable(MOVIE_KEY)
+    private fun getReceivedIntent(): MovieListItem.MovieModel =
+        intent.customGetSerializable(MOVIE_KEY)
 
     private fun initMovieDataView(movie: MovieListItem.MovieModel) {
         initImageView(movie.image)
@@ -73,11 +75,15 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initTicketingButton(movieTitle: String) {
         val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
         ticketingButton.setOnClickListener {
-            val intent = Intent(this, ReserveSeatActivity::class.java)
-            val reservationInfoModel = getReservationInfoModel(movieTitle)
-            intent.putExtra(RESERVATION_INFO_KEY, reservationInfoModel)
-            startActivity(intent)
+            startActivity(getIntentToSend(movieTitle))
         }
+    }
+
+    private fun getIntentToSend(movieTitle: String): Intent {
+        val intent = Intent(this, ReserveSeatActivity::class.java)
+        val reservationInfoModel = getReservationInfoModel(movieTitle)
+        intent.putExtra(RESERVATION_INFO_KEY, reservationInfoModel)
+        return intent
     }
 
     private fun setActionBar() {
@@ -192,29 +198,10 @@ class MovieDetailActivity : AppCompatActivity() {
             }
 
         spinnerDate.setSelection(savedDateSpinnerIndex, false)
-        spinnerDate.onItemSelectedListener = SpinnerListener(playingTimes, dates, spinnerTime)
+        spinnerDate.onItemSelectedListener = DateSpinnerListener(playingTimes, dates, spinnerTime)
     }
 
     private fun getCount(): Int = findViewById<TextView>(R.id.text_count).text.toString().toInt()
-
-    class SpinnerListener(
-        private val playingTimes: PlayingTimes,
-        private val dates: List<LocalDate>,
-        private val spinnerTime: Spinner
-    ) : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(
-            adapterView: AdapterView<*>?,
-            view: View?,
-            index: Int,
-            p3: Long
-        ) {
-            val times = playingTimes.getTimes(dates[index])
-            spinnerTime.adapter =
-                ArrayAdapter(spinnerTime.context, android.R.layout.simple_spinner_item, times)
-        }
-
-        override fun onNothingSelected(p0: AdapterView<*>?) = Unit
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
