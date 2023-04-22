@@ -3,18 +3,7 @@ package domain.discountPolicy
 import domain.Price
 import domain.Ticket
 
-class DisCountPolicies(list: List<DiscountPolicy>) {
-    private val _list = list.toMutableList()
-    private val list = _list.toList()
-
-    fun addPolicy(discountPolicy: DiscountPolicy) {
-        _list.add(discountPolicy)
-    }
-
-    fun deletePolicy(discountPolicy: DiscountPolicy) {
-        _list.remove(discountPolicy)
-    }
-
+data class DisCountPolicies(private val list: List<DiscountPolicy> = DEFAULT_DISCOUNT_POLICIES) {
     fun calculate(
         ticket: Ticket,
         price: Price
@@ -24,5 +13,9 @@ class DisCountPolicies(list: List<DiscountPolicy>) {
             presentPrice = item.discount(ticket, presentPrice)
         }
         return presentPrice
+    }
+
+    companion object {
+        private val DEFAULT_DISCOUNT_POLICIES = listOf(MovieDay(), OffTime())
     }
 }

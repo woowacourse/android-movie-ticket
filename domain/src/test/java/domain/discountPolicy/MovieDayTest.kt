@@ -3,6 +3,7 @@ package domain.discountPolicy
 import domain.Price
 import domain.Seat
 import domain.Ticket
+import domain.seatPolicy.SeatPolicies
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
@@ -15,7 +16,8 @@ class MovieDayTest {
         val date = LocalDateTime.of(2023, 1, 10, 0, 0)
         val ticket = Ticket(
             date,
-            Seat(1,3)
+            Seat(1,3,SeatPolicies()),
+            DisCountPolicies()
         )
 
         // when
@@ -32,7 +34,8 @@ class MovieDayTest {
         val date = LocalDateTime.of(2023, 1, 11, 0, 0)
         val ticket = Ticket(
             date,
-            Seat(1,3)
+            Seat(1,3, SeatPolicies()),
+            DisCountPolicies()
         )
 
         // when

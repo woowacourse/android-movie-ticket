@@ -3,15 +3,14 @@ package domain.seatPolicy
 import domain.Price
 import domain.Seat
 
-class SeatPolicies(private val seatPolicies: List<SeatPolicy>) {
-    fun getPrice(seat: Seat): Price {
-        for (policy in seatPolicies) {
-            if (policy.checkCondition(seat)) return policy.price
-        }
-        return Price(DEFAULT_PRICE)
+data class SeatPolicies(private val seatPolicies: List<SeatPolicy> = DEFAULT_SEAT_POLICIES) {
+    fun getSeatRank(seat: Seat): SeatRank {
+        for (policy in seatPolicies) if (policy.checkCondition(seat)) return policy.seatRank
+        return DEFAULT_RANK
     }
 
     companion object {
-        private const val DEFAULT_PRICE = 10_000
+        private val DEFAULT_RANK = SeatRank.B
+        private val DEFAULT_SEAT_POLICIES = listOf(RankAPolicy(), RankBPolicy(), RankSPolicy())
     }
 }

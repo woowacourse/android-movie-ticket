@@ -10,7 +10,7 @@ class RankAPolicyTest {
     @Test
     internal fun `좌석이 5열이면 true 이다`() {
         // given
-        val seat = Seat(row = 5, 5)
+        val seat = Seat(row = 5, 5,SeatPolicies())
         val rankAPolicy = RankAPolicy()
         // when
         val actual = rankAPolicy.checkCondition(seat)
@@ -22,7 +22,7 @@ class RankAPolicyTest {
     @ValueSource(ints = [1, 2, 3])
     internal fun `좌석이 5열이 아니면 false 이다`(row: Int) {
         // given
-        val seat = Seat(row = row, 5)
+        val seat = Seat(row = row, 5,SeatPolicies())
         val rankAPolicy = RankAPolicy()
         // when
         val actual = rankAPolicy.checkCondition(seat)

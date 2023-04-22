@@ -8,8 +8,8 @@ import java.time.LocalDateTime
 data class Ticket(
     val date: LocalDateTime,
     val seat: Seat,
+    val disCountPolicies: DisCountPolicies
 ) {
-    fun getDiscountPrice(disCountPolicies: DisCountPolicies, seatPolicies: SeatPolicies): Price =
-        disCountPolicies.calculate(this, getSeatPrice(seatPolicies))
-    fun getSeatPrice(seatPolicies: SeatPolicies): Price = seat.getPrice(seatPolicies)
+    val discountPrice: Price
+        get() = disCountPolicies.calculate(this, seat.rank.price)
 }

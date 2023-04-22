@@ -10,7 +10,7 @@ class RankBPolicyTest {
     @ValueSource(ints = [1, 2])
     fun `좌석이 1열 또는 2열이면, true 이다`(row: Int) {
         // given
-        val seat = Seat(row, 5)
+        val seat = Seat(row, 5,SeatPolicies())
         // when
         val actual = RankBPolicy().checkCondition(seat)
         // then
@@ -21,7 +21,7 @@ class RankBPolicyTest {
     @ValueSource(ints = [3, 4])
     fun `좌석이 1열 또는 2열이 아니라면, false 이다`(row: Int) {
         // given
-        val seat = Seat(row, 5)
+        val seat = Seat(row, 5,SeatPolicies())
         // when
         val actual = RankBPolicy().checkCondition(seat)
         // then
