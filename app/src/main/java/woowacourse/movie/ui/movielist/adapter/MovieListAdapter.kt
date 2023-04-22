@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieUI
+import kotlin.math.min
 
 class MovieListAdapter(
     private val movies: List<MovieUI>,
@@ -21,5 +22,9 @@ class MovieListAdapter(
         holder.bind(movies[position], onBookClick)
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = min(movies.size, LIMIT_ITEM_COUNT)
+
+    companion object {
+        private const val LIMIT_ITEM_COUNT = 10_000
+    }
 }
