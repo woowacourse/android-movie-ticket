@@ -1,6 +1,5 @@
 package woowacourse.movie.reservation
 
-import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -12,9 +11,6 @@ import domain.reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.model.DisplayItem
 import woowacourse.movie.model.SeatSelectionInfo
-import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_DATE_POSITION_KEY
-import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_TIME_POSITION_KEY
-import woowacourse.movie.reservation.ReservationActivity.Companion.TICKET_COUNT_KEY
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -23,16 +19,22 @@ class NavigationView(
     private val movieInfo: DisplayItem.MovieInfo,
     private val navigationBar: LinearLayout
 ) {
-    private val ticketCountTextView = findViewConfiguration<TextView>(R.id.reservation_ticket_count_text_view)
+    private val ticketCountTextView =
+        findViewConfiguration<TextView>(R.id.reservation_ticket_count_text_view)
     private val screeningDateSpinner = findViewConfiguration<Spinner>(R.id.screening_date_spinner)
     private val screeningTimeSpinner = findViewConfiguration<Spinner>(R.id.screening_time_spinner)
 
-    fun setDateSpinner(savedInstanceState: Bundle?) {
-        val defaultScreeningDatePosition =
-            savedInstanceState?.getInt(SCREENING_DATE_POSITION_KEY) ?: 0
-        val defaultScreeningTimePosition =
-            savedInstanceState?.getInt(SCREENING_TIME_POSITION_KEY) ?: 0
+    val state: NavigationViewState
+        get() = NavigationViewState(
+            ticketCountTextView.text.toString().toInt(),
+            screeningDateSpinner.selectedItemPosition,
+            screeningTimeSpinner.selectedItemPosition
+        )
 
+    fun setDateSpinner(
+        defaultScreeningDatePosition: Int = 0,
+        defaultScreeningTimePosition: Int = 0
+    ) {
         screeningDateSpinner.applyArrayAdapter(movieInfo.screeningPeriod)
         screeningDateSpinner.onItemSelectedListener = SpinnerItemSelectedListener(
             defaultScreeningTimePosition,
@@ -42,7 +44,8 @@ class NavigationView(
     }
 
     fun setMinusButtonClickedListener(alertError: () -> Unit) {
-        val minusButton = findViewConfiguration<TextView>(R.id.reservation_ticket_count_minus_button)
+        val minusButton =
+            findViewConfiguration<TextView>(R.id.reservation_ticket_count_minus_button)
 
         minusButton.setOnClickListener {
             runCatching {
@@ -84,19 +87,8 @@ class NavigationView(
         }
     }
 
-    fun setTicketCountTextView(savedInstanceState: Bundle?) {
-        if (savedInstanceState == null) {
-            ticketCountTextView.text = TicketCount.MINIMUM.toString()
-            return
-        }
-        val ticketCount: Int = savedInstanceState.getInt(TICKET_COUNT_KEY)
+    fun setTicketCountTextView(ticketCount: Int = 1) {
         ticketCountTextView.text = ticketCount.toString()
-    }
-
-    fun saveState(outState: Bundle) {
-        outState.putInt(TICKET_COUNT_KEY, ticketCountTextView.text.toString().toInt())
-        outState.putInt(SCREENING_DATE_POSITION_KEY, screeningDateSpinner.selectedItemPosition)
-        outState.putInt(SCREENING_TIME_POSITION_KEY, screeningTimeSpinner.selectedItemPosition)
     }
 
     private fun onScreeningDateSelected(date: ScreeningDate?, defaultPosition: Int = 0) {

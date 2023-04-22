@@ -11,6 +11,7 @@ import woowacourse.movie.model.DisplayItem
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.movies.MoviesActivity.Companion.MOVIE_KEY
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity
+import woowacourse.movie.util.getSerializableExtraByKey
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -22,15 +23,28 @@ class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
+
         movieInfo = this.getIntentData(MOVIE_KEY) ?: DisplayItem.MovieInfo.ofError()
         setMovieInfoView()
-        setNavigationBar(savedInstanceState)
+        setNavigationBar()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        navigationView.saveState(outState)
+        outState.putSerializable(NAVIGATION_VIEW_STATE_KEY, navigationView.state)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.getSerializableExtraByKey<NavigationViewState>(NAVIGATION_VIEW_STATE_KEY)
+            ?.apply {
+                navigationView.setDateSpinner(
+                    dateSpinnerPosition,
+                    timeSpinnerPosition
+                )
+            }
     }
 
     private fun setMovieInfoView() {
@@ -39,13 +53,13 @@ class ReservationActivity : AppCompatActivity() {
         movieInfoView.bind(movieInfo)
     }
 
-    private fun setNavigationBar(savedInstanceState: Bundle?) {
+    private fun setNavigationBar() {
         with(navigationView) {
-            setDateSpinner(savedInstanceState)
+            setDateSpinner()
             setMinusButtonClickedListener { alertTicketCountError() }
             setPlusButtonClickedListener()
-            setOnCompleteButtonClickedListener(::onFinished)
-            setTicketCountTextView(savedInstanceState)
+            setOnCompleteButtonClickedListener(::onCompleted)
+            setTicketCountTextView()
         }
     }
 
@@ -57,7 +71,7 @@ class ReservationActivity : AppCompatActivity() {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-    private fun onFinished(seatSelectionInfo: SeatSelectionInfo) {
+    private fun onCompleted(seatSelectionInfo: SeatSelectionInfo) {
         val intent = Intent(this, ScreeningSeatSelectionActivity::class.java)
 
         intent.putExtra(SEAT_SELECTION_KEY, seatSelectionInfo)
@@ -66,9 +80,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val TICKET_COUNT_KEY = "ticket_key"
-        const val SCREENING_DATE_POSITION_KEY = "screening_date_key"
-        const val SCREENING_TIME_POSITION_KEY = "screening_time_key"
+        private const val NAVIGATION_VIEW_STATE_KEY = "navigation_view_state_key"
         const val SEAT_SELECTION_KEY = "reservation_key"
     }
 }

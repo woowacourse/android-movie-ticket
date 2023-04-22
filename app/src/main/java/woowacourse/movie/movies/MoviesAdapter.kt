@@ -24,10 +24,10 @@ class MoviesAdapter(
 
         return when (viewType) {
             MOVIE -> MovieItemViewHolder(
-                layoutInflater.inflate(R.layout.item_movie, parent)
+                layoutInflater.inflate(R.layout.item_movie, parent, false)
             )
             ADVERTISEMENT -> AdvertisementViewHolder(
-                layoutInflater.inflate(R.layout.item_movie, parent)
+                layoutInflater.inflate(R.layout.item_advertisement, parent, false)
             )
             else -> throw IllegalArgumentException(
                 parent.context.getString(R.string.view_type_error_msg)
