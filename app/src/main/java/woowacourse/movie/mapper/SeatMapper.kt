@@ -4,7 +4,7 @@ import com.example.domain.model.model.Seat
 import woowacourse.movie.model.RowSeat
 import woowacourse.movie.model.SeatModel
 
-const val NOT_NUMBER_ERROR = "숫자가 아닙니다."
+private const val NOT_NUMBER_ERROR = "숫자가 아닙니다."
 
 fun Seat.toSeatModel() = SeatModel(
     RowSeat.of(row),

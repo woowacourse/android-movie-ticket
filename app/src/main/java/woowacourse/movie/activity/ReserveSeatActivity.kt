@@ -134,7 +134,6 @@ class ReserveSeatActivity : AppCompatActivity() {
     companion object {
         private const val RESERVATION_INFO_KEY = "reservationInfo"
         private const val TICKET_KEY = "ticket"
-        const val ROW_COUNT = 5
         const val COLUMN_COUNT = 4
     }
 }
