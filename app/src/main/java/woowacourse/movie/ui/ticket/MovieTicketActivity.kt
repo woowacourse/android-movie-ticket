@@ -53,7 +53,7 @@ class MovieTicketActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.ticket_price).text =
             getString(
                 R.string.price_with_payment,
-                DecimalFormat("#,###").format(ticket.seats.toDomain().getAllPrice())
+                DecimalFormat("#,###").format(ticket.seats.toDomain().getAllPrice(ticket.time))
             )
     }
 

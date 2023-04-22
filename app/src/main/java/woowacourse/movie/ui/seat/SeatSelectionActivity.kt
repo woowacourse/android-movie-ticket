@@ -123,7 +123,7 @@ class SeatSelectionActivity : AppCompatActivity() {
             seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
             selectedSeats.add(seat)
         }
-        updatePriceText(selectedSeats.getAllPrice())
+        updatePriceText(selectedSeats.getAllPrice(movieTime))
         selectButton.isEnabled = selectedSeats.isSelectionDone(peopleCount.count)
     }
 

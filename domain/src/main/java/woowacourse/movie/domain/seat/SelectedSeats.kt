@@ -1,12 +1,20 @@
 package woowacourse.movie.domain.seat
 
+import woowacourse.movie.domain.PeopleCount
+import woowacourse.movie.domain.discount.TicketDiscount
+import java.time.LocalDateTime
+
 data class SelectedSeats(
     val seats: Set<Seat> = emptySet()
 ) {
-    fun getAllPrice(): Int {
-        return seats.fold(0) { price, seat ->
+    fun getAllPrice(time: LocalDateTime): Int {
+        var price = seats.fold(0) { price, seat ->
             price + seat.getPriceByClass()
         }
+
+        price = TicketDiscount(time, PeopleCount(seats.size)).getDiscountPrice(price)
+
+        return price
     }
 
     fun add(seat: Seat): SelectedSeats = SelectedSeats(seats + seat)
