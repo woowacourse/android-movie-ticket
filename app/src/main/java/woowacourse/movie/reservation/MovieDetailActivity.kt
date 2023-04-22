@@ -7,6 +7,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import woowacourse.movie.BackKeyActionBarActivity
 import woowacourse.movie.KEY_MOVIE
+import woowacourse.movie.KEY_RESERVATION_COUNT
+import woowacourse.movie.KEY_RESERVATION_DATE
+import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.KEY_RESTORE_COUNT
 import woowacourse.movie.KEY_RESTORE_DATE
 import woowacourse.movie.KEY_RESTORE_TIME
@@ -16,6 +19,7 @@ import woowacourse.movie.Toaster
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
 import woowacourse.movie.domain.RunningDates
 import woowacourse.movie.domain.RunningTimes
+import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.ViewingDate
 import woowacourse.movie.entity.ViewingTime
 import woowacourse.movie.selection.SeatSelectActivity
@@ -85,14 +89,12 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         }
 
         binding.reservationConfirm.setOnClickListener {
-            // val intent = Intent(this, ReservationConfirmActivity::class.java)
-            // intent.putExtra(KEY_MOVIE, movie)
-            // intent.putExtra(KEY_RESERVATION_COUNT, Count(binding.count.text.toString().toInt()))
-            // intent.putExtra(KEY_RESERVATION_DATE, selectDate)
-            // intent.putExtra(KEY_RESERVATION_TIME, selectTime)
-            // startActivity(intent)
-
             val intent = Intent(this, SeatSelectActivity::class.java)
+            intent.putExtra(KEY_MOVIE, movie)
+            intent.putExtra(KEY_RESERVATION_COUNT, Count(binding.count.text.toString().toInt()))
+            intent.putExtra(KEY_RESERVATION_DATE, selectDate)
+            intent.putExtra(KEY_RESERVATION_TIME, selectTime)
+            startActivity(intent)
             startActivity(intent)
         }
     }

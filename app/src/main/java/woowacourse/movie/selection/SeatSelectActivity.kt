@@ -7,9 +7,18 @@ import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import woowacourse.movie.KEY_MOVIE
+import woowacourse.movie.KEY_RESERVATION_COUNT
+import woowacourse.movie.KEY_RESERVATION_DATE
+import woowacourse.movie.KEY_RESERVATION_TIME
+import woowacourse.movie.Movie
 import woowacourse.movie.databinding.ActivitySeatSelectBinding
+import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.Seat
 import woowacourse.movie.entity.SeatRank
+import woowacourse.movie.entity.ViewingDate
+import woowacourse.movie.entity.ViewingTime
+import woowacourse.movie.utils.getParcelableCompat
 import java.lang.IllegalArgumentException
 
 class SeatSelectActivity : AppCompatActivity() {
@@ -23,6 +32,13 @@ class SeatSelectActivity : AppCompatActivity() {
         setContentView(view)
         Log.v("hi", "test")
 
+        val movie = intent.getParcelableCompat<Movie>(KEY_MOVIE)!!
+        val reservationCount = intent.getParcelableCompat<Count>(KEY_RESERVATION_COUNT)!!
+        val date = intent.getParcelableCompat<ViewingDate>(KEY_RESERVATION_DATE)!!
+        val time = intent.getParcelableCompat<ViewingTime>(KEY_RESERVATION_TIME)!!
+
+        binding.selectTitle.text = movie.title
+
         binding.selectConfrimBtn.isEnabled = false
         binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
 
@@ -33,12 +49,21 @@ class SeatSelectActivity : AppCompatActivity() {
             .forEachIndexed { index, view ->
                 view.setOnClickListener {
                     Log.v("hi", "ihi $index / $view")
-                    chosenSeats.add(positionFind(index))
-                    view.setBackgroundColor(Color.parseColor("#FAFF00"))
+
+                    if (chosenSeats.contains(positionFind(index))) {
+                        chosenSeats.remove(positionFind(index))
+                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                    } else {
+                        chosenSeats.add(positionFind(index))
+                        view.setBackgroundColor(Color.parseColor("#FAFF00"))
+                    }
 
                     if (chosenSeats.size == 3) {
                         binding.selectConfrimBtn.isEnabled = true
                         binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#6200EE"))
+                    } else {
+                        binding.selectConfrimBtn.isEnabled = false
+                        binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
                     }
                 }
             }
