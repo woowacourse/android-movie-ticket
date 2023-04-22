@@ -6,11 +6,11 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieDateTimePicker(
-    val dateSpinner: DateSpinner,
-    val timeSpinner: TimeSpinner,
+    private val dateSpinner: DateSpinner,
+    private val timeSpinner: TimeSpinner,
 ) {
 
-    fun makeView(movie: domain.Movie, savedInstanceState: Bundle?) {
+    fun makeView(movie: Movie, savedInstanceState: Bundle?) {
         dateSpinner.make(savedInstanceState, movie, timeSpinner)
     }
 

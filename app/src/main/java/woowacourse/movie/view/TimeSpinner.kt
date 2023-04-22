@@ -11,8 +11,8 @@ import java.time.LocalTime
 class TimeSpinner(spinner: Spinner, savedStateKey: String) :
     SaveStateSpinner(savedStateKey, spinner) {
     fun make(savedInstanceState: Bundle?, date: LocalDate) {
-        val times = domain.movieTimePolicy.MovieTime(
-            listOf(domain.movieTimePolicy.WeekdayMovieTime, domain.movieTimePolicy.WeekendMovieTime)
+        val times = MovieTime(
+            listOf(WeekdayMovieTime, WeekendMovieTime)
         ).determine(date).map { LocalFormattedTime(it) }
         setArrayAdapter(times)
         load(savedInstanceState)

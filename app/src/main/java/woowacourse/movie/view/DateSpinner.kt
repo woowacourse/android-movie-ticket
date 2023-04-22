@@ -11,7 +11,7 @@ class DateSpinner(spinner: Spinner, savedStateKey: String) :
     SaveStateSpinner(savedStateKey, spinner) {
     fun make(
         savedInstanceState: Bundle?,
-        movie: domain.Movie,
+        movie: Movie,
         timeSpinner: TimeSpinner
     ) {
         val dates = movie.date.toList().map { LocalFormattedDate(it) }

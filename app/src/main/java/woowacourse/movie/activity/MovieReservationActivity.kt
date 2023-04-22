@@ -7,20 +7,16 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.R
 import domain.Movie
-import domain.Ticket
-import domain.discountPolicy.DisCountPolicies
-import domain.discountPolicy.MovieDay
-import domain.discountPolicy.OffTime
+import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
 import woowacourse.movie.view.MovieDateTimePicker
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.TimeSpinner
-import woowacourse.movie.view.model.MovieDomainViewMapper
-import woowacourse.movie.view.model.MovieViewModel
+import woowacourse.movie.view.mapper.MovieMapper
+import woowacourse.movie.view.model.*
 import java.time.LocalDateTime
 
 class MovieReservationActivity : AppCompatActivity() {
@@ -61,7 +57,7 @@ class MovieReservationActivity : AppCompatActivity() {
             val movie = getMovie(movieViewModel)
             counter.load(savedInstanceState)
             movieDateTimePicker.makeView(movie, savedInstanceState)
-            reservationButtonClick(movie)
+            reservationButtonClick(movieViewModel)
         }
     }
 
@@ -84,26 +80,20 @@ class MovieReservationActivity : AppCompatActivity() {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
     }
 
-    private fun getMovie(movieViewModel: MovieViewModel): domain.Movie {
-        return MovieDomainViewMapper().toDomain(movieViewModel)
+    private fun getMovie(movieViewModel: MovieViewModel): Movie {
+        return MovieMapper.toDomain(movieViewModel)
     }
 
-    private fun reservationButtonClick(movie: domain.Movie) {
+    private fun reservationButtonClick(movieViewModel: MovieViewModel) {
         reservationButton.setOnClickListener {
-            val date = LocalDateTime.of(
-                movieDateTimePicker.getSelectedDate(),
-                movieDateTimePicker.getSelectedTime()
-            )
-            val discountPolicies = domain.discountPolicy.DisCountPolicies(
-                listOf(
-                    domain.discountPolicy.MovieDay(),
-                    domain.discountPolicy.OffTime()
+            val dateTime = TicketDateTimeViewModel(
+                LocalDateTime.of(
+                    movieDateTimePicker.getSelectedDate(),
+                    movieDateTimePicker.getSelectedTime()
                 )
             )
             val peopleCount = counter.getCount()
-            val ticket = domain.Ticket(date, peopleCount, discountPolicies)
-            val reservation = movie.makeReservation(ticket)
-            ReservationResultActivity.start(this, reservation)
+            SelectSeatActivity.start(this, peopleCount, dateTime, movieViewModel)
         }
     }
 
@@ -122,14 +112,14 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context, movie: domain.Movie) {
+        private const val MOVIE_KEY_VALUE = "movie"
+        fun start(context: Context, movie: Movie) {
             val intent = Intent(context, MovieReservationActivity::class.java)
-            val movieDto = MovieDomainViewMapper().toView(movie)
+            val movieDto = MovieMapper.toView(movie)
             intent.putExtra(MOVIE_KEY_VALUE, movieDto)
             context.startActivity(intent)
         }
 
-        private const val MOVIE_KEY_VALUE = "movie"
         private const val COUNTER_SAVE_STATE_KEY = "counter"
         private const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
         private const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"

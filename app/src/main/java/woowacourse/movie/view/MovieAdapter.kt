@@ -13,8 +13,8 @@ import domain.Movies
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    private val movies: domain.Movies,
-    private val onClickEvent: (domain.Movie) -> Unit
+    private val movies: Movies,
+    private val onClickEvent: (Movie) -> Unit
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.value.size
 
@@ -52,7 +52,7 @@ class MovieAdapter(
         var runningTime: TextView?,
         var reservationButton: Button?
     ) {
-        fun setView(movie: domain.Movie) {
+        fun setView(movie: Movie) {
             poster?.setImageResource(movie.imagePath.toInt())
             val dateFormat =
                 DateTimeFormatter.ofPattern(movieDate?.context?.getString(R.string.movie_date_format))
@@ -66,7 +66,7 @@ class MovieAdapter(
             title?.text = movie.title
         }
 
-        fun setButtonClickListener(movie: domain.Movie, onClickEvent: (domain.Movie) -> Unit) {
+        fun setButtonClickListener(movie: Movie, onClickEvent: (Movie) -> Unit) {
             reservationButton?.setOnClickListener {
                 onClickEvent(movie)
             }
