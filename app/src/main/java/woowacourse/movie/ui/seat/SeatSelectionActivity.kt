@@ -40,7 +40,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_seat_selection)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initData()
+        setBookingInfo()
         initSeatTable()
         initBottomField()
         initSelectButton()
@@ -56,10 +56,13 @@ class SeatSelectionActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initData() {
-        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: return failLoadingData()
-        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME) ?: return failLoadingData()
-        peopleCount = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: return failLoadingData()
+    private fun setBookingInfo() {
+        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE)
+            ?: return failLoadingData()
+        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME)
+            ?: return failLoadingData()
+        peopleCount = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT)
+            ?: return failLoadingData()
     }
 
     private fun initSeatTable() {
@@ -80,31 +83,23 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun initSelectButton() {
         selectButton.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle(getString(R.string.seat_dialog_title))
-                .setMessage(getString(R.string.seat_dialog_message))
-                .setPositiveButton(getString(R.string.seat_dialog_submit_button)) { _, _ ->
-                    moveToTicketActivity()
-                }
-                .setNegativeButton(getString(R.string.seat_dialog_cancel_button)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setCancelable(false)
-                .show()
+            makeDialog().show()
         }
     }
 
     private fun getSeatView(row: Int, column: Int): View {
         val seatView = LayoutInflater.from(this).inflate(R.layout.item_seat, null, false)
         val seat = SeatModel(row, column)
-        seatView.setOnClickListener {
-            clickSeat(seat.toDomain(), it)
+        seatView.apply {
+            isSelected = false
+            setOnClickListener {
+                clickSeat(seat.toDomain(), it)
+            }
         }
         seatView.findViewById<TextView>(R.id.seat_view).apply {
             text = seat.toString()
             setTextColor(getColor(SeatClassModel.getColorId(row)))
         }
-        seatView.isSelected = false
         return seatView
     }
 
@@ -115,24 +110,41 @@ class SeatSelectionActivity : AppCompatActivity() {
         }
 
         seatView.isSelected = !seatView.isSelected
-        selectedSeats = if (seatView.isSelected) {
-            seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
-            selectedSeats.add(seat)
-        } else {
-            seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
-            selectedSeats.delete(seat)
+        selectedSeats = when (seatView.isSelected) {
+            true -> {
+                seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
+                selectedSeats.add(seat)
+            }
+            false -> {
+                seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
+                selectedSeats.delete(seat)
+            }
         }
         updatePriceText(selectedSeats.getAllPrice(movieTime))
-
-        selectButton.isEnabled = selectedSeats.isSelectionDone(peopleCount.count)
+        updateButtonEnablement()
     }
+
+    private fun makeDialog(): AlertDialog.Builder = AlertDialog.Builder(this)
+        .setTitle(getString(R.string.seat_dialog_title))
+        .setMessage(getString(R.string.seat_dialog_message))
+        .setPositiveButton(getString(R.string.seat_dialog_submit_button)) { _, _ ->
+            moveToTicketActivity()
+        }
+        .setNegativeButton(getString(R.string.seat_dialog_cancel_button)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .setCancelable(false)
+
+    private fun canSelectMoreSeat(seatView: View) =
+        !(!seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
 
     private fun updatePriceText(price: Int) {
         priceTextView.text = getString(R.string.price_with_unit, price)
     }
 
-    private fun canSelectMoreSeat(seatView: View) =
-        !(!seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
+    private fun updateButtonEnablement() {
+        selectButton.isEnabled = selectedSeats.isSelectionDone(peopleCount.count)
+    }
 
     private fun moveToTicketActivity() {
         val ticket = MovieTicketModel(

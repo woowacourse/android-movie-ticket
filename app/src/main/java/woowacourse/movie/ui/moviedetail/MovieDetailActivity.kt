@@ -103,8 +103,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 timeSpinnerAdapter.notifyDataSetChanged()
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
