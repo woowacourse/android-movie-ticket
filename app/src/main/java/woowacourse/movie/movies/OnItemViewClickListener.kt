@@ -1,10 +1,8 @@
 package woowacourse.movie.movies
 
-import woowacourse.movie.model.Advertisement
-import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.DisplayItem
 
 interface OnItemViewClickListener {
 
-    fun onMovieItemClicked(movieInfo: MovieInfo)
-    fun onAdvertisementClicked(advertisement: Advertisement)
+    fun onDisplayItemClicked(displayItem: DisplayItem)
 }

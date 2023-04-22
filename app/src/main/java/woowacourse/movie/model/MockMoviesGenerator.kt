@@ -5,6 +5,7 @@ import domain.movie.MovieName
 import domain.movie.RunningTime
 import domain.movie.ScreeningPeriod
 import woowacourse.movie.R
+import woowacourse.movie.util.toDomainModel
 import java.time.LocalDate
 
 class MockMoviesGenerator {

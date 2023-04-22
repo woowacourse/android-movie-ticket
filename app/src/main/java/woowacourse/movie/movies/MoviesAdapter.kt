@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.Advertisement
-import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.DisplayItem
 
 class MoviesAdapter(
-    private val moviesInfo: List<MovieInfo>,
-    private val advertisement: Advertisement,
+    private val moviesInfo: List<DisplayItem.MovieInfo>,
+    private val advertisement: DisplayItem.Advertisement,
     private val onItemViewClickListener: OnItemViewClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -53,13 +52,14 @@ class MoviesAdapter(
         when (holder) {
             is MovieItemViewHolder -> {
                 val moviesPosition = position - position / CYCLE
-
                 holder.bind(
-                    moviesInfo[moviesPosition], onItemViewClickListener::onMovieItemClicked
+                    moviesInfo[moviesPosition],
+                    onItemViewClickListener::onDisplayItemClicked
                 )
             }
             is AdvertisementViewHolder -> holder.bind(
-                advertisement, onItemViewClickListener::onAdvertisementClicked
+                advertisement,
+                onItemViewClickListener::onDisplayItemClicked
             )
         }
     }

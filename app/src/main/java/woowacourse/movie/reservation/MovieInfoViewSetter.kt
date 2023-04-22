@@ -5,14 +5,14 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.DisplayItem
 import java.time.format.DateTimeFormatter
 
 class MovieInfoViewSetter(
     private val movieInformationView: ScrollView
 ) {
 
-    fun setView(movie: MovieInfo) {
+    fun setView(movie: DisplayItem.MovieInfo) {
         val posterImageView =
             findViewConfiguration<ImageView>(R.id.reservation_movie_image_view)
         val movieNameTextView =

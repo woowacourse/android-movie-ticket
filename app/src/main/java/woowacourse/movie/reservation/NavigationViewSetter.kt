@@ -10,7 +10,7 @@ import android.widget.TextView
 import domain.movie.ScreeningDate
 import domain.reservation.TicketCount
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.DisplayItem
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_DATE_POSITION_KEY
 import woowacourse.movie.reservation.ReservationActivity.Companion.SCREENING_TIME_POSITION_KEY
@@ -20,7 +20,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class NavigationViewSetter(
-    private val movieInfo: MovieInfo,
+    private val movieInfo: DisplayItem.MovieInfo,
     private val navigationBar: LinearLayout
 ) {
     private val ticketCountTextView = findViewConfiguration<TextView>(R.id.reservation_ticket_count_text_view)

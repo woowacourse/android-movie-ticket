@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import domain.reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.getIntentData
-import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.DisplayItem
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.movies.MoviesActivity.Companion.MOVIE_KEY
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity
@@ -17,12 +17,12 @@ class ReservationActivity : AppCompatActivity() {
     private val navigationViewSetter: NavigationViewSetter by lazy {
         NavigationViewSetter(movieInfo, findViewById(R.id.reservation_navigation_bar))
     }
-    private lateinit var movieInfo: MovieInfo
+    private lateinit var movieInfo: DisplayItem.MovieInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-        movieInfo = this.getIntentData(MOVIE_KEY) ?: MovieInfo.ofError()
+        movieInfo = this.getIntentData(MOVIE_KEY) ?: DisplayItem.MovieInfo.ofError()
         setMovieInfoView()
         setNavigationBar(savedInstanceState)
     }

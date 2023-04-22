@@ -6,10 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.Advertisement
+import woowacourse.movie.model.DisplayItem
 import woowacourse.movie.model.MockAdvertisementGenerator
 import woowacourse.movie.model.MockMoviesGenerator
-import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {
@@ -28,24 +27,23 @@ class MoviesActivity : AppCompatActivity() {
             moviesInfo = MockMoviesGenerator().generate(),
             advertisement = MockAdvertisementGenerator().generate(),
             onItemViewClickListener = object : OnItemViewClickListener {
-                override fun onMovieItemClicked(movieInfo: MovieInfo) {
-                    onReservationButtonClicked(movieInfo)
-                }
-
-                override fun onAdvertisementClicked(advertisement: Advertisement) {
-                    onAdClicked(advertisement)
+                override fun onDisplayItemClicked(displayItem: DisplayItem) {
+                    when (displayItem) {
+                        is DisplayItem.Advertisement -> onAdClicked(displayItem)
+                        is DisplayItem.MovieInfo -> onReservationButtonClicked(displayItem)
+                    }
                 }
             }
         )
     }
 
-    private fun onAdClicked(advertisement: Advertisement) {
+    private fun onAdClicked(advertisement: DisplayItem.Advertisement) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(advertisement.url))
 
         startActivity(intent)
     }
 
-    private fun onReservationButtonClicked(movieInfo: MovieInfo) {
+    private fun onReservationButtonClicked(movieInfo: DisplayItem.MovieInfo) {
         val intent = Intent(this, ReservationActivity::class.java)
 
         intent.putExtra(MOVIE_KEY, movieInfo)
