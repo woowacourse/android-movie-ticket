@@ -22,6 +22,7 @@ class MovieSelectSeatActivity : AppCompatActivity() {
 
         initExtraData()
         SeatView(findViewById(R.id.table_seat))
+        SeatConfirmView(findViewById(R.id.layout_total_information), movieData)
     }
 
     private fun initExtraData() {
