@@ -8,6 +8,8 @@ import woowacourse.movie.movieList.ItemViewType.Companion.ITEM_VIEW_TYPE_MAX
 import woowacourse.movie.movieList.ItemViewType.ITEM_VIEW_TYPE_AD
 import woowacourse.movie.movieList.ItemViewType.ITEM_VIEW_TYPE_MOVIE
 import woowacourse.movie.uimodel.MovieModelUi
+import woowacourse.movie.viewholder.AdViewHolder
+import woowacourse.movie.viewholder.MovieViewHolder
 
 class MovieListAdapter(
     private val movieModelUi: List<MovieModelUi>,
