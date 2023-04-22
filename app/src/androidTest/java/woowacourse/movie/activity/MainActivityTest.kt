@@ -1,9 +1,10 @@
 package woowacourse.movie.activity
 
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -17,13 +18,57 @@ class MainActivityTest {
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun 영화_리스트의_첫번째_요소의_제목은_해리_포터이다() {
+    fun 영화가_3번_출력되면_광고가_1번_출력된다() {
         // given
 
         // when
 
         // then
-        val expect = "해리 포터"
-        onView(withId(R.id.item_movie_title)).check(matches(withText(expect)))
+        onView(withId(R.id.main_movie_list)).check(
+            matches(
+                atPosition(
+                    0,
+                    withId(R.id.root_movie_item)
+                )
+            )
+        )
+        onView(withId(R.id.main_movie_list)).check(
+            matches(
+                atPosition(
+                    1,
+                    withId(R.id.root_movie_item)
+                )
+            )
+        )
+        onView(withId(R.id.main_movie_list)).check(
+            matches(
+                atPosition(
+                    2,
+                    withId(R.id.root_movie_item)
+                )
+            )
+        )
+        onView(withId(R.id.main_movie_list)).check(
+            matches(
+                atPosition(
+                    3,
+                    withId(R.id.root_advertisement_item)
+                )
+            )
+        )
+    }
+
+    @Test
+    fun 영화_목록은_10000개가_넘게_표시된다() {
+        // given
+
+        // when
+
+        // then
+        onView(withId(R.id.main_movie_list)).perform(
+            RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
+                10000
+            )
+        )
     }
 }

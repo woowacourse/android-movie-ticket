@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun makeMovieList() {
-        val movies = MovieMock.createMovies() + MovieMock.createMovies()
+        val movies = List(2500) { MovieMock.createMovies() }.flatten()
         val advertisementDatas = AdvertisementMock.createAdvertisements()
-        val advertisementPolicy = MovieAdvertisementPolicy
+        val advertisementPolicy = MovieAdvertisementPolicy(3, 1)
 
         val movieList = findViewById<RecyclerView>(R.id.main_movie_list)
         movieList.adapter =
