@@ -1,5 +1,7 @@
 package woowacourse.movie.ui.activity
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
@@ -44,7 +46,7 @@ class MovieTicketActivity : AppCompatActivity() {
         val reservedSeatsView: TextView by lazy { findViewById(R.id.ticket_reserved_seats) }
         val priceView: TextView by lazy { findViewById(R.id.ticket_price) }
 
-        intent.getParcelable<MovieTicketModel>("ticket")?.let { ticketModel ->
+        intent.getParcelable<MovieTicketModel>(TICKET_EXTRA_KEY)?.let { ticketModel ->
             titleView.text = ticketModel.title
             dateView.text = ticketModel.time.format()
             reservedSeatsView.text =
@@ -66,4 +68,14 @@ class MovieTicketActivity : AppCompatActivity() {
     private fun SeatModel.format(): String = getString(R.string.seat, row.letter, column.value)
 
     private fun PriceModel.format(): String = getString(R.string.price, amount)
+
+    companion object {
+        private const val TICKET_EXTRA_KEY = "ticket"
+
+        fun createIntent(context: Context, ticket: MovieTicketModel): Intent {
+            val intent = Intent(context, MovieTicketActivity::class.java)
+            intent.putExtra(TICKET_EXTRA_KEY, ticket)
+            return intent
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -39,7 +40,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        intent.getParcelable<MovieModel>("movie")?.let {
+        intent.getParcelable<MovieModel>(MOVIE_EXTRA_KEY)?.let {
             setMovieInfo(it)
             setDateSpinner(it)
             setBookingButton(it)
@@ -174,8 +175,7 @@ class MovieDetailActivity : AppCompatActivity() {
             PriceModel(0)
         )
 
-        val intent = Intent(this, SeatPickerActivity::class.java)
-        intent.putExtra("ticket", ticket)
+        val intent = SeatPickerActivity.createIntent(this, ticket)
         startActivity(intent)
     }
 
@@ -186,5 +186,15 @@ class MovieDetailActivity : AppCompatActivity() {
         dateSpinner.setSelection(datePosition)
         timeSpinner.setSelection(timePosition)
         peopleCount = PeopleCount(count)
+    }
+
+    companion object {
+        private const val MOVIE_EXTRA_KEY = "movie"
+
+        fun createIntent(context: Context, movie: MovieModel): Intent {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(MOVIE_EXTRA_KEY, movie)
+            return intent
+        }
     }
 }

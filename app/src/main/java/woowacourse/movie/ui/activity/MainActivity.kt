@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun moveToDetailActivity(movie: MovieModel) {
-        val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra("movie", movie)
+        val intent = MovieDetailActivity.createIntent(this, movie)
         startActivity(intent)
     }
 

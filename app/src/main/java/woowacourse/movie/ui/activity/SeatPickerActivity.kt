@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -44,7 +45,7 @@ class SeatPickerActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable("ticket", ticket.mapToMovieTicketModelWithOriginalPrice())
+        outState.putParcelable(TICKET_INSTANCE_KEY, ticket.mapToMovieTicketModelWithOriginalPrice())
     }
 
     private fun PriceModel.format(): String = getString(R.string.price, amount)
@@ -192,14 +193,24 @@ class SeatPickerActivity : AppCompatActivity() {
     }
 
     private fun moveToTicketActivity() {
-        val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("ticket", ticket.mapToMovieTicketModel())
+        val intent = MovieTicketActivity.createIntent(this, ticket.mapToMovieTicketModel())
         startActivity(intent)
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
-        val ticketModel = savedInstanceState?.getParcelableByKey<MovieTicketModel>("ticket")
-            ?: intent.getParcelable("ticket")!!
+        val ticketModel = savedInstanceState?.getParcelableByKey<MovieTicketModel>(TICKET_INSTANCE_KEY)
+            ?: intent.getParcelable(TICKET_EXTRA_KEY)!!
         ticket = ticketModel.mapToMovieTicket()
+    }
+
+    companion object {
+        private const val TICKET_EXTRA_KEY = "ticket_extra"
+        private const val TICKET_INSTANCE_KEY = "ticket_instance"
+
+        fun createIntent(context: Context, ticket: MovieTicketModel): Intent {
+            val intent = Intent(context, SeatPickerActivity::class.java)
+            intent.putExtra(TICKET_EXTRA_KEY, ticket)
+            return intent
+        }
     }
 }
