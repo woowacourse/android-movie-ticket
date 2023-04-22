@@ -1,11 +1,14 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.model.Movie
 import woowacourse.movie.R
+import woowacourse.movie.adapter.ItemClickListener
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.mapper.toMovieModel
 import woowacourse.movie.model.MovieListItem
@@ -21,7 +24,23 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        val adapter = MovieListAdapter(getMovieListData())
+        val adapter = MovieListAdapter(
+            getMovieListData(),
+            object : ItemClickListener {
+                override fun onClick(item: MovieListItem) {
+                    val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
+                    intent.putExtra(MOVIE_KEY, item)
+                    this@MovieListActivity.startActivity(intent)
+                }
+            },
+            object : ItemClickListener {
+                override fun onClick(item: MovieListItem) {
+                    item as MovieListItem.AdModel
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
+                    this@MovieListActivity.startActivity(intent)
+                }
+            }
+        )
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
     }
@@ -60,5 +79,6 @@ class MovieListActivity : AppCompatActivity() {
 
     companion object {
         private const val AD_CYCLE = 3
+        private const val MOVIE_KEY = "movie"
     }
 }

@@ -9,7 +9,11 @@ import woowacourse.movie.adapter.viewholder.CustomViewHolder
 import woowacourse.movie.adapter.viewholder.MovieViewHolder
 import woowacourse.movie.model.MovieListItem
 
-class MovieListAdapter(private val items: List<MovieListItem>) :
+class MovieListAdapter(
+    private val items: List<MovieListItem>,
+    private val movieClickListener: ItemClickListener,
+    private val adClickListener: ItemClickListener
+) :
     RecyclerView.Adapter<CustomViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
@@ -36,7 +40,14 @@ class MovieListAdapter(private val items: List<MovieListItem>) :
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.bind(items[position])
+        when (holder) {
+            is MovieViewHolder -> {
+                holder.bind(items[position], movieClickListener)
+            }
+            is AdViewHolder -> {
+                holder.bind(items[position], adClickListener)
+            }
+        }
     }
 
     override fun getItemCount(): Int = items.size
