@@ -16,7 +16,13 @@ object MovieDrawableData {
         3L to R.drawable.suzume_thumbnail,
     )
 
-    fun getMoviePoster(movieId: Long) = moviePosters[movieId]
+    fun getMoviePoster(movieId: Long): Int? {
+        if (movieId > 3L) return moviePosters[1L]
+        return moviePosters[movieId]
+    }
 
-    fun getMovieThumbnail(movieId: Long) = movieThumbnails[movieId]
+    fun getMovieThumbnail(movieId: Long): Int? {
+        if (movieId > 3L) return movieThumbnails[1L]
+        return movieThumbnails[movieId]
+    }
 }
