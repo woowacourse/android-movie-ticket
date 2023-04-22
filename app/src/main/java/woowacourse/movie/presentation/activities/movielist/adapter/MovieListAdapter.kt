@@ -37,13 +37,13 @@ class MovieListAdapter(
         is Ad -> MovieViewType.AD.type
     }
 
-    fun appendAll(newMovies: List<ListItem>) {
+    fun appendAll(newItems: List<ListItem>) {
         var newAdSize = 0
-        newMovies.forEach { newMovie ->
+        newItems.forEach { newMovie ->
             newAdSize += appendAd()
             items.add(newMovie)
         }
-        notifyItemRangeChanged(items.size, newMovies.size + newAdSize)
+        notifyItemRangeChanged(items.size, newItems.size + newAdSize)
     }
 
     private fun appendAd(): Int {
