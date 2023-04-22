@@ -13,4 +13,7 @@
     <color name="woowa_gray">#494949</color>
     <color name="woowa_text_gray">#727272</color>
     <color name="woowa_backgorund">#EAEAEA</color>
+    <color name="woowa_grade_s">#19D358</color>
+    <color name="woowa_grade_a">#1B48E9</color>
+    <color name="woowa_grade_b">#8E13EF</color>
 </resources>

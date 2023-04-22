@@ -7,6 +7,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.Dimension
 import woowacourse.movie.R
+import woowacourse.movie.domain.grade.Grade
 import woowacourse.movie.domain.grade.Position
 import woowacourse.movie.util.getColor
 
@@ -51,10 +52,21 @@ class SeatView(private val view: TableLayout) {
             gravity = Gravity.CENTER
             setTextSize(Dimension.SP, 22f)
             text = String.format("%s%d", convertIndexToAlphabet(rowIndex), columnIndex + 1)
+            setTextColor(view.getColor(getSeatTextColor(rowIndex)))
         }
     }
 
-    private fun convertIndexToAlphabet(index: Int): Char {
+    private fun getSeatTextColor(rowIndex: Int): Int {
+        return when (Grade.getGrade(rowIndex)) {
+            Grade.S -> R.color.woowa_grade_s
+            Grade.A -> R.color.woowa_grade_a
+            Grade.B -> R.color.woowa_grade_b
+        }
+    }
+
+    private
+
+    fun convertIndexToAlphabet(index: Int): Char {
         val baseNumber = 65
         return (index + baseNumber).toChar()
     }
