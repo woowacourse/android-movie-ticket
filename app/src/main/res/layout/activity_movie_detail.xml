@@ -24,7 +24,7 @@
                 android:layout_height="341dp"
                 android:contentDescription="@string/movie_image_description"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/img" />
+                tools:src="@drawable/movie_poster" />
 
             <TextView
                 android:id="@+id/text_title"

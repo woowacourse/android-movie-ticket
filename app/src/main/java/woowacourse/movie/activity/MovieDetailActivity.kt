@@ -17,7 +17,7 @@ import com.example.domain.model.model.ReservationInfo
 import woowacourse.movie.R
 import woowacourse.movie.mapper.toMovie
 import woowacourse.movie.mapper.toReservationInfoModel
-import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.MovieListItem
 import woowacourse.movie.model.ReservationInfoModel
 import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
@@ -33,7 +33,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val savedDateSpinnerIndex = getSavedDateSpinnerIndex(savedInstanceState)
         val savedTimeSpinnerIndex = getSavedTimeSpinnerIndex(savedInstanceState)
 
-        val movieModel: MovieModel = getIntentMovieDate()
+        val movieModel: MovieListItem.MovieModel = getIntentMovieDate()
         initMovieDataView(movieModel)
         initTicketingButton(movieModel.title)
 
@@ -44,9 +44,9 @@ class MovieDetailActivity : AppCompatActivity() {
         setActionBar()
     }
 
-    private fun getIntentMovieDate(): MovieModel = intent.customGetSerializable(MOVIE_KEY)
+    private fun getIntentMovieDate(): MovieListItem.MovieModel = intent.customGetSerializable(MOVIE_KEY)
 
-    private fun initMovieDataView(movie: MovieModel) {
+    private fun initMovieDataView(movie: MovieListItem.MovieModel) {
         initImageView(movie.image)
         initTitle(movie.title)
         initPlayingDate(movie.startDate, movie.endDate)

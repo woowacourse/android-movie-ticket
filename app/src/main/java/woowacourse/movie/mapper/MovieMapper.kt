@@ -2,11 +2,11 @@ package woowacourse.movie.mapper
 
 import com.example.domain.model.model.Movie
 import woowacourse.movie.formatter.DateFormatter
-import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.MovieListItem
 
 const val movieDateFormat: String = "yyyy.M.d"
 
-fun MovieModel.toMovie() = Movie(
+fun MovieListItem.MovieModel.toMovie() = Movie(
     image,
     title,
     DateFormatter.formatToOriginal(startDate, movieDateFormat),
@@ -15,7 +15,7 @@ fun MovieModel.toMovie() = Movie(
     description
 )
 
-fun Movie.toMovieModel() = MovieModel(
+fun Movie.toMovieModel() = MovieListItem.MovieModel(
     image,
     title,
     DateFormatter.formatToString(startDate, movieDateFormat),

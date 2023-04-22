@@ -1,12 +1,15 @@
 package woowacourse.movie.activity
 
 import android.os.Bundle
-import android.widget.ListView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.model.Movie
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.mapper.toMovieModel
+import woowacourse.movie.model.MovieListItem
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
@@ -14,27 +17,42 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
-        initListView()
+        initRecyclerView()
     }
 
-    private fun initListView() {
-        val listView = findViewById<ListView>(R.id.list_view)
-        val movieUiModels = getMovieData().map { it.toMovieModel() }
-        val adapter = MovieListAdapter(movieUiModels)
-        listView.adapter = adapter
+    private fun initRecyclerView() {
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val adapter = MovieListAdapter(getMovieData())
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
     }
 
-    private fun getMovieData(): List<Movie> {
+    private fun getMovieData(): List<MovieListItem> {
         val movies = List(1000) {
             Movie(
-                R.drawable.img,
-                "해리포터와 마법사의 돌",
+                R.drawable.movie_poster,
+                "해리포터 $it",
                 LocalDate.of(2023, 3, 1),
                 LocalDate.of(2023, 3, 31),
                 152,
                 "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다."
-            )
+            ).toMovieModel()
         }
-        return movies
+        val ads = List(500) {
+            MovieListItem.AdModel(R.drawable.advertisement)
+        }
+        val items = mutableListOf<MovieListItem>()
+        var movieIndex = 0
+        var adIndex = 0
+        while (movieIndex < movies.size) {
+            Log.d("혜경 movieIndex", movieIndex.toString())
+            Log.d("혜경 adIndex", adIndex.toString())
+            items.add(movies[movieIndex++])
+            if (movieIndex % 3 == 0) {
+                items.add(ads[adIndex++ % ads.size])
+                Log.d("혜경 광고 들어감", "")
+            }
+        }
+        return items
     }
 }

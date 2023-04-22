@@ -40,4 +40,5 @@
     <string name="dialog_message">정말 예매하시겠습니까?</string>
     <string name="dialog_no">취소</string>
     <string name="dialog_yes">예매 완료</string>
+    <string name="advertisemend_image_description">광고 이미지</string>
 </resources>

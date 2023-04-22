@@ -16,7 +16,7 @@
         android:contentDescription="@string/movie_image_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/img" />
+        tools:src="@drawable/movie_poster" />
 
     <TextView
         android:id="@+id/text_title"
