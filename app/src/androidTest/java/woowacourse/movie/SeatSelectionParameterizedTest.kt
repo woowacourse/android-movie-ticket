@@ -11,13 +11,14 @@ import domain.seat.SeatRow
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import woowacourse.movie.SeatSelectionActivityTestUtil.SeatSelectionInfo
 import woowacourse.movie.SeatSelectionActivityTestUtil.toText
 
 @RunWith(Parameterized::class)
 class SeatSelectionParameterizedTest(private val seatData: ScreeningSeat) {
     @Test
     fun `특정_등급의_좌석을_선택하면_해당_좌석_등급의_금액으로_갱신된다`() {
-        SeatSelectionActivityTestUtil.startTest(1)
+        SeatSelectionActivityTestUtil.startTest(SeatSelectionInfo(seatCount = 1))
         // given
         val seat = Espresso.onView(ViewMatchers.withText(seatData.toText()))
 

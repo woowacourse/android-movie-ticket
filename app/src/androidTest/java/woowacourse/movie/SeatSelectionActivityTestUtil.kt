@@ -19,13 +19,14 @@ object SeatSelectionActivityTestUtil {
     )
     lateinit var scenario: ActivityScenario<ScreeningSeatSelectionActivity>
 
-    fun startTest(seatCount: Int) {
-        val seatSelectionInfo = SeatSelectionInfo(seatCount)
-        intent.putExtra(ReservationActivity.SEAT_SELECTION_KEY, seatSelectionInfo)
+    fun startTest(seatSelectionInfo: SeatSelectionInfo?) {
+        seatSelectionInfo?.let {
+            intent.putExtra(ReservationActivity.SEAT_SELECTION_KEY, it)
+        }
         scenario = ActivityScenario.launch(intent)
     }
 
-    private fun SeatSelectionInfo(seatCount: Int): SeatSelectionInfo = SeatSelectionInfo(
+    fun SeatSelectionInfo(seatCount: Int): SeatSelectionInfo = SeatSelectionInfo(
         movieName = "harrypoter",
         screeningTime = LocalDateTime.of(
             LocalDate.MIN,
