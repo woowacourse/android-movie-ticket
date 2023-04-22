@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.base
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,7 @@ class BaseRecyclerView {
 
         override fun getItemCount(): Int = items.size
 
-        protected fun inflate(context: Context, parent: ViewGroup, @LayoutRes resId: Int): View =
-            LayoutInflater.from(context).inflate(resId, parent, false)
+        protected fun inflate(parent: ViewGroup, @LayoutRes resId: Int): View =
+            LayoutInflater.from(parent.context).inflate(resId, parent, false)
     }
 }
