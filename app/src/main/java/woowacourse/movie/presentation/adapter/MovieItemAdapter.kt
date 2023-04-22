@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation
+package woowacourse.movie.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,8 @@ import woowacourse.movie.R
 import woowacourse.movie.presentation.model.AdModel
 import woowacourse.movie.presentation.model.MovieItemModel
 import woowacourse.movie.presentation.model.MovieModel
+import woowacourse.movie.presentation.viewholder.AdViewHolder
+import woowacourse.movie.presentation.viewholder.MovieViewHolder
 
 class MovieItemAdapter(
     private val movieItems: List<MovieItemModel>,

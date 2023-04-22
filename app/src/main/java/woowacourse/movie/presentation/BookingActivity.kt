@@ -15,6 +15,7 @@ import woowacourse.movie.MovieData
 import woowacourse.movie.R
 import woowacourse.movie.ScreeningTimes
 import woowacourse.movie.TicketCount
+import woowacourse.movie.presentation.adapter.SpinnerAdapter
 import woowacourse.movie.presentation.model.MovieModel
 import woowacourse.movie.presentation.model.toPresentation
 import woowacourse.movie.util.formatScreenDate

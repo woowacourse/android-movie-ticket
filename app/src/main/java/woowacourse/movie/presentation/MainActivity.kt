@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.MovieItemData
 import woowacourse.movie.R
+import woowacourse.movie.presentation.adapter.MovieItemAdapter
 
 class MainActivity : AppCompatActivity() {
     private val movieItemAdapter by lazy { MovieItemAdapter(MOVIE_ITEM_MODELS) { clickBook(it) } }
