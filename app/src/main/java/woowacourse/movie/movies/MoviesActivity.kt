@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Advertisement
@@ -25,11 +24,6 @@ class MoviesActivity : AppCompatActivity() {
     private fun applyMoviesAdapter() {
         val moviesRecyclerView: RecyclerView = findViewById(R.id.movies_recycler_view)
 
-        moviesRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
         moviesRecyclerView.adapter = MoviesAdapter(
             moviesInfo = MockMoviesGenerator().generate(),
             advertisement = MockAdvertisementGenerator().generate(),
