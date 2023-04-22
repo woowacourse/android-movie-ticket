@@ -52,7 +52,7 @@ class ReserveSeatActivity : AppCompatActivity() {
         seatViews.forEachIndexed { index, button ->
             button.setOnClickListener {
                 val seat = convertToSeat(index)
-                val seatRank = Rank.map(seat.row + 1)
+                val seatRank = Rank.map(seat.row)
                 val seatPrice = PriceCalculator.calculate(
                     seatRank.price,
                     reservationInfo.playingDate,

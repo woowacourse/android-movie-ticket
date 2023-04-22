@@ -8,9 +8,9 @@ enum class Rank(val price: Price) {
     companion object {
         fun map(row: Int): Rank {
             return when (row) {
-                1, 2 -> B
-                3, 4 -> S
-                5 -> A
+                0, 1 -> B
+                2, 3 -> S
+                4 -> A
                 else -> throw IllegalArgumentException(CANT_MATCHING_RANK_ERROR)
             }
         }
