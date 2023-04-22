@@ -38,5 +38,5 @@
 - [x] 할인 조건에 따른 금액 할인 정책이 적용된다.
 
 ### Step 4
-- [ ] ListView를 RecyclerView로 수정한다.
+- [x] ListView를 RecyclerView로 수정한다.
 - [ ] 영화가 세 번 노출될 때마다 광고를 한 번 노출한다.
