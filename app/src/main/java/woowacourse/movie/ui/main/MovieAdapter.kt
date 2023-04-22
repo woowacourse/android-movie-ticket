@@ -8,10 +8,10 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.Movie
 import woowacourse.movie.MovieMapper.thumbnail
 import woowacourse.movie.R
 import woowacourse.movie.formatScreenDate
+import woowacourse.movie.movie.Movie
 
 class MovieAdapter(context: Context, private val clickBook: (Long) -> Unit) : BaseAdapter() {
     private val movies = mutableListOf<Movie>()

@@ -1,5 +1,7 @@
 package woowacourse.movie
 
+import woowacourse.movie.movie.Movie
+
 object MovieMapper {
 
     val Movie.thumbnail: Int get() = getThumbnail(this.id)

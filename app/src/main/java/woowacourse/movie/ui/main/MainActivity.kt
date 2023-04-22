@@ -3,8 +3,8 @@ package woowacourse.movie.ui.main
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MovieRepository
 import woowacourse.movie.R
+import woowacourse.movie.movie.MovieRepository
 import woowacourse.movie.ui.booking.BookingActivity
 
 class MainActivity : AppCompatActivity() {
