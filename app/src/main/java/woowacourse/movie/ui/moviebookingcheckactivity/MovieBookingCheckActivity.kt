@@ -6,6 +6,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
 import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.grade.Position
+import woowacourse.movie.domain.price.TicketPrice
 import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.ui.model.PositionUIModel
 import woowacourse.movie.ui.model.PositionUIModel.Companion.toPosition
@@ -26,7 +27,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_booking_check)
 
         initExtraData()
-//        initBookingCheckView()
+        initBookingCheckView()
     }
 
     private fun initExtraData() {
@@ -48,14 +49,15 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         ticketTotalPrice = intent.getIntExtra(TICKET_TOTAL_PRICE, -1)
     }
 
-//    private fun initBookingCheckView() {
-//        BookingCheckView(
-//            findViewById(R.id.layout_booking_check),
-//            movieData,
-//            bookedScreeningDateTime,
-//            ticketCount
-//        )
-//    }
+    private fun initBookingCheckView() {
+        BookingCheckView(
+            findViewById(R.id.layout_booking_check),
+            movieData,
+            bookedScreeningDateTime,
+            seatPositions,
+            TicketPrice(ticketTotalPrice)
+        )
+    }
 
     companion object {
         const val MOVIE_DATA = "movieData"
