@@ -37,25 +37,10 @@ class SeatPickerActivity : AppCompatActivity() {
 
         loadSavedData(savedInstanceState)
 
-        val seatViews = findViewById<TableLayout>(R.id.layout_seat)
-            .children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
-            .toList()
         val ticketModel = mapToMovieTicketModel(ticket)
-        setSeatViews(seatViews, ticketModel)
-
-        val titleView = findViewById<TextView>(R.id.seat_picker_title)
-        val priceView = findViewById<TextView>(R.id.seat_picker_price)
-        titleView.text = ticketModel.title
-        priceView.text = ticketModel.price.format()
-
-        val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
-        doneButton.setOnClickListener {
-            showReservationCheckDialog()
-        }
-        updateDoneButtonState(ticketModel)
+        setSeatViews(ticketModel)
+        setTicketViews(ticketModel)
+        setDoneButton(ticketModel)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -77,7 +62,14 @@ class SeatPickerActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setSeatViews(seatViews: List<TextView>, ticketModel: MovieTicketModel) {
+    private fun setSeatViews(ticketModel: MovieTicketModel) {
+        val seatViews = findViewById<TableLayout>(R.id.layout_seat)
+            .children
+            .filterIsInstance<TableRow>()
+            .flatMap { it.children }
+            .filterIsInstance<TextView>()
+            .toList()
+
         seatViews.zip(seats) { view, seat ->
             view.text = getString(R.string.seat, seat.row.letter, seat.column.value)
             view.setTextColor(getColor(seat.rank.color))
@@ -178,6 +170,21 @@ class SeatPickerActivity : AppCompatActivity() {
     private fun deactivateDoneButton(doneButton: TextView) {
         doneButton.setBackgroundColor(getColor(R.color.seat_picker_done_button_off))
         doneButton.isClickable = false
+    }
+
+    private fun setTicketViews(ticketModel: MovieTicketModel) {
+        val titleView = findViewById<TextView>(R.id.seat_picker_title)
+        val priceView = findViewById<TextView>(R.id.seat_picker_price)
+        titleView.text = ticketModel.title
+        priceView.text = ticketModel.price.format()
+    }
+
+    private fun setDoneButton(ticketModel: MovieTicketModel) {
+        val doneButton = findViewById<TextView>(R.id.seat_picker_done_button)
+        doneButton.setOnClickListener {
+            showReservationCheckDialog()
+        }
+        updateDoneButtonState(ticketModel)
     }
 
     private fun showReservationCheckDialog() {
