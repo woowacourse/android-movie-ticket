@@ -10,9 +10,14 @@ import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.grade.Grade
 import woowacourse.movie.domain.grade.Position
+import woowacourse.movie.domain.price.TicketCount
 import woowacourse.movie.util.getColor
+import woowacourse.movie.util.setOnSingleClickListener
 
-class SeatView(private val view: TableLayout) {
+class SeatView(
+    private val view: TableLayout,
+    private val selectedSeats: List<Position> = listOf(),
+) {
 
     init {
         initTableLayoutItem()
@@ -55,7 +60,11 @@ class SeatView(private val view: TableLayout) {
             text = String.format("%s%d", convertIndexToAlphabet(rowIndex), columnIndex + 1)
             setTextColor(view.getColor(getSeatTextColor(rowIndex)))
             background = ContextCompat.getDrawable(view.context, R.drawable.seat_background_color)
+            setOnSingleClickListener { seatClickListener() }
         }
+    }
+
+    private fun seatClickListener() {
     }
 
     private fun getSeatTextColor(rowIndex: Int): Int {

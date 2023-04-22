@@ -1,8 +1,10 @@
 package woowacourse.movie.ui.movieselectseatactivity
 
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.MovieUIModel
 
@@ -17,5 +19,18 @@ class SeatConfirmView(private val view: ViewGroup, movieData: MovieUIModel) {
 
     private fun initMovieData(movieData: MovieUIModel) {
         tvMovieTitle.text = movieData.title
+    }
+
+    fun updateMovieTotalPrice(price: Int) {
+        tvMovieTotalPrice.text = price.toString()
+    }
+
+    fun updateBtnCheckState(readyState: Boolean) {
+        btnCheck.isSelected = readyState
+        btnCheck.isClickable = readyState
+    }
+
+    companion object {
+        private const val MOVIE_TOTAL_PRICE_FORMAT = "%d원"
     }
 }

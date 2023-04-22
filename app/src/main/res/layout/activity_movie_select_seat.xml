@@ -70,11 +70,11 @@
             tools:text="0원" />
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_check"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="@color/woowa_purple"
+            android:background="@drawable/btn_seat_confirm_check_color"
             android:text="@string/btn_check"
             android:textColor="@color/white"
             android:textSize="18sp"

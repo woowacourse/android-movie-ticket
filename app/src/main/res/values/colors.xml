@@ -17,4 +17,5 @@
     <color name="woowa_grade_a">#1B48E9</color>
     <color name="woowa_grade_b">#8E13EF</color>
     <color name="woowa_seat_selected">#FAFF00</color>
+    <color name="woowa_btn_check_not_ready">#B7B7B7</color>
 </resources>
