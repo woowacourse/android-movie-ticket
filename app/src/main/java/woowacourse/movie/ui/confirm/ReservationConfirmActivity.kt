@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import com.example.domain.usecase.DiscountApplyUseCase
 import woowacourse.movie.R
-import woowacourse.movie.model.ReservationSeat
+import woowacourse.movie.model.TicketsState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.model.mapper.asPresentation
 import woowacourse.movie.ui.BackKeyActionBarActivity
@@ -23,28 +23,28 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
-        val reservationSeat = intent.getParcelableExtraCompat<ReservationSeat>(KEY_TICKETS)
+        val tickets = intent.getParcelableExtraCompat<TicketsState>(KEY_TICKETS)
             ?: return keyError(KEY_TICKETS)
-        setInitReservationData(reservationSeat)
+        setInitReservationData(tickets)
     }
 
     private fun setInitReservationData(
-        reservationSeat: ReservationSeat
+        tickets: TicketsState
     ) {
-        titleTextView.text = reservationSeat.reservationState.movieState.title
+        titleTextView.text = tickets.movieState.title
         dateTextView.text =
-            DateTimeFormatters.convertToDateTime(reservationSeat.reservationState.dateTime)
+            DateTimeFormatters.convertToDateTime(tickets.dateTime)
         reservationCountTextView.text =
             getString(
                 R.string.person_count_and_seat,
-                reservationSeat.reservationState.countState.value,
-                reservationSeat.seats.joinToString { it.toString() }
+                tickets.positions.size,
+                tickets.positions.joinToString { it.toString() }
             )
-        setDiscountApplyMoney(reservationSeat)
+        setDiscountApplyMoney(tickets)
     }
 
-    private fun setDiscountApplyMoney(reservationSeat: ReservationSeat) =
-        discountApplyUseCase(reservationSeat.asDomain()) {
+    private fun setDiscountApplyMoney(tickets: TicketsState) =
+        discountApplyUseCase(tickets.asDomain()) {
             moneyTextView.text = DecimalFormatters.convertToMoneyFormat(it.asPresentation())
         }
 }

@@ -10,7 +10,7 @@ import woowacourse.movie.model.CountState
 import woowacourse.movie.model.SeatPositionState
 import woowacourse.movie.ui.customView.SeatView
 
-class SeatTableViewSet(
+class SeatTable(
     root: View,
     private val maxSelectCount: CountState
 ) : Subject {
@@ -29,7 +29,7 @@ class SeatTableViewSet(
     init {
         getAllSeatView().forEachIndexed { _, view ->
             view.setOnClickListener {
-                onClick(view)
+                clickSeat(view)
             }
         }
     }
@@ -50,14 +50,14 @@ class SeatTableViewSet(
         return SeatPositionState(row, column)
     }
 
-    private fun onClick(view: SeatView) {
-        val oldChoosedCount = chosenSeatInfo.size
-        if (view.isChosen.not() && oldChoosedCount >= maxSelectCount.value) return
+    private fun clickSeat(view: SeatView) {
+        val oldChosenCount = chosenSeatInfo.size
+        if (view.isChosen.not() && oldChosenCount >= maxSelectCount.value) return
         view.toggle()
         notifyObserver(chosenSeatInfo)
     }
 
-    fun chooseSeatUpdate(newChosenPositions: List<SeatPositionState>) {
+    fun chosenSeatUpdate(newChosenPositions: List<SeatPositionState>) {
         clear()
         getAllSeatView().filterIndexed { index, _ ->
             convertIndexToPosition(index) in newChosenPositions

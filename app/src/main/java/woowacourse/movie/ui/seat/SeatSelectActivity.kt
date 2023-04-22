@@ -2,15 +2,14 @@ package woowacourse.movie.ui.seat
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import com.example.domain.model.Ticket
 import com.example.domain.model.Tickets
 import com.example.domain.usecase.DiscountApplyUseCase
 import woowacourse.movie.R
-import woowacourse.movie.model.ReservationSeat
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.SeatPositionState
+import woowacourse.movie.model.TicketsState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.model.mapper.asPresentation
 import woowacourse.movie.ui.BackKeyActionBarActivity
@@ -31,8 +30,8 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
     private val confirmView: ConfirmView by lazy { findViewById(R.id.reservation_confirm) }
     private lateinit var reservationState: ReservationState
 
-    private val seatTableViewSet: SeatTableViewSet by lazy {
-        SeatTableViewSet(
+    private val seatTable: SeatTable by lazy {
+        SeatTable(
             window.decorView.rootView,
             reservationState.countState
         )
@@ -46,8 +45,8 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
 
         titleTextView.text = reservationState.movieState.title
 
-        seatTableViewSet.registerObserver(this)
-        confirmView.setOnClickListener { navigateShowDialog(seatTableViewSet.chosenSeatInfo) }
+        seatTable.registerObserver(this)
+        confirmView.setOnClickListener { navigateShowDialog(seatTable.chosenSeatInfo) }
         confirmView.isClickable = false // 클릭리스너를 설정하면 clickable이 자동으로 참이 되기 때문
     }
 
@@ -59,17 +58,15 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
             savedInstanceState.getParcelableArrayListCompat(SEAT_RESTORE_KEY) ?: return keyError(
                 SEAT_RESTORE_KEY
             )
-        Log.d("mendel", "restore: ${restoreState.joinToString { it.toString() }}")
-        seatTableViewSet.chooseSeatUpdate(restoreState.toList())
+        seatTable.chosenSeatUpdate(restoreState.toList())
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(
             SEAT_RESTORE_KEY,
-            ArrayList(seatTableViewSet.chosenSeatInfo)
+            ArrayList(seatTable.chosenSeatInfo)
         )
-        Log.d("mendel", "store: ${seatTableViewSet.chosenSeatInfo.joinToString { it.toString() }}")
     }
 
     private fun navigateShowDialog(seats: List<SeatPositionState>) {
@@ -85,17 +82,17 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
 
     private fun navigateReservationConfirmActivity(seats: List<SeatPositionState>) {
         val intent = Intent(this, ReservationConfirmActivity::class.java)
-        val reservationSeat = ReservationSeat(reservationState, seats)
-        intent.putExtra(KEY_TICKETS, reservationSeat)
+        val tickets = TicketsState.from(reservationState, seats)
+        intent.putExtra(KEY_TICKETS, tickets)
         startActivity(intent)
     }
 
-    override fun updateSelectSeats(positionState: List<SeatPositionState>) {
-        confirmView.isClickable = (positionState.size == reservationState.countState.value)
+    override fun updateSelectSeats(positionStates: List<SeatPositionState>) {
+        confirmView.isClickable = (positionStates.size == reservationState.countState.value)
 
         // 이걸 어떻게 해줄 것인지...
         val tickets = Tickets(
-            positionState.map {
+            positionStates.map {
                 Ticket(
                     reservationState.movieState.asDomain(),
                     reservationState.dateTime,

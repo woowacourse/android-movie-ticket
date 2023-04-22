@@ -1,7 +1,6 @@
 package com.example.domain
 
 import com.example.domain.discountPolicy.condition.MovieDayCondition
-import com.example.domain.model.Count
 import com.example.domain.model.Movie
 import com.example.domain.model.Ticket
 import com.example.domain.model.seat.SeatPosition
@@ -14,7 +13,6 @@ import java.time.LocalTime
 class MovieDayConditionTest {
     @Test
     fun `무비 데이이면 할인을 받을 수 있다`() {
-        val count = Count(2)
         val date = LocalDate.of(2023, 4, 10)
         val time = LocalTime.of(16, 0)
         val dateTime = LocalDateTime.of(date, time)

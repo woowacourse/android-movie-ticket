@@ -4,6 +4,6 @@ import woowacourse.movie.model.SeatPositionState
 
 interface Observer {
     fun updateSelectSeats(
-        positionState: List<SeatPositionState>
+        positionStates: List<SeatPositionState>
     )
 }
