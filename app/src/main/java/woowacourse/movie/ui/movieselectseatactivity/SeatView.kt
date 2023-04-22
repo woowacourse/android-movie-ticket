@@ -1,9 +1,11 @@
 package woowacourse.movie.ui.movieselectseatactivity
 
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.annotation.Dimension
 import woowacourse.movie.R
 import woowacourse.movie.domain.grade.Position
 import woowacourse.movie.util.getColor
@@ -14,29 +16,30 @@ class SeatView(private val view: TableLayout) {
         initTableLayoutItem()
     }
 
-    fun initTableLayoutItem() {
+    private fun initTableLayoutItem() {
         (Position.START_INDEX..Position.MAXIMUM_ROW_INDEX).forEach {
-            view.addView(getTableRow())
+            view.addView(getTableRow(it))
         }
     }
 
-    private fun getTableRow(): TableRow {
+    private fun getTableRow(rowIndex: Int): TableRow {
         val tableRowParams: TableLayout.LayoutParams =
             TableLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                1f
             )
 
         return TableRow(view.context).apply {
             layoutParams = tableRowParams
             (Position.START_INDEX..Position.MAXIMUM_COLUMN_INDEX).forEach {
                 setBackgroundColor(view.getColor(R.color.white))
-                addView(getSeatTextView())
+                addView(getSeatTextView(rowIndex, it))
             }
         }
     }
 
-    private fun getSeatTextView(): TextView {
+    private fun getSeatTextView(rowIndex: Int, columnIndex: Int): TextView {
         val seatTextViewParams: TableRow.LayoutParams =
             TableRow.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -45,7 +48,14 @@ class SeatView(private val view: TableLayout) {
 
         return TextView(view.context).apply {
             layoutParams = seatTextViewParams
-            text = "1"
+            gravity = Gravity.CENTER
+            setTextSize(Dimension.SP, 22f)
+            text = String.format("%s%d", convertIndexToAlphabet(rowIndex), columnIndex + 1)
         }
+    }
+
+    private fun convertIndexToAlphabet(index: Int): Char {
+        val baseNumber = 65
+        return (index + baseNumber).toChar()
     }
 }
