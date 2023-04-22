@@ -8,11 +8,11 @@ import woowacourse.movie.R
 import woowacourse.movie.model.DisplayItem
 import java.time.format.DateTimeFormatter
 
-class MovieInfoViewSetter(
+class MovieInfoView(
     private val movieInformationView: ScrollView
 ) {
 
-    fun setView(movie: DisplayItem.MovieInfo) {
+    fun bind(movie: DisplayItem.MovieInfo) {
         val posterImageView =
             findViewConfiguration<ImageView>(R.id.reservation_movie_image_view)
         val movieNameTextView =

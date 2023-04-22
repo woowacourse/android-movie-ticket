@@ -43,7 +43,7 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
     private fun setSeatTableView() {
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table_layout)
 
-        ScreeningSeatViewSetter(seatTableLayout, seatSelection).apply {
+        ScreeningSeatView(seatTableLayout, seatSelection).apply {
             setSeatViewClickedListener(::setPaymentAmountTextView, ::setButtonState)
         }
     }

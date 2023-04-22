@@ -19,7 +19,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class NavigationViewSetter(
+class NavigationView(
     private val movieInfo: DisplayItem.MovieInfo,
     private val navigationBar: LinearLayout
 ) {

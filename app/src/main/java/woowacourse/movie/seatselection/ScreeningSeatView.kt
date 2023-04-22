@@ -17,7 +17,7 @@ import woowacourse.movie.model.ScreeningSeatInfo
 import woowacourse.movie.util.toColor
 import woowacourse.movie.util.toScreeningSeat
 
-class ScreeningSeatViewSetter(
+class ScreeningSeatView(
     private val seatTable: TableLayout,
     private val seatSelection: SeatSelection
 ) {
@@ -33,10 +33,10 @@ class ScreeningSeatViewSetter(
 
     init {
         configureSeatTable()
-        setSeatView()
+        bind()
     }
 
-    private fun setSeatView() {
+    private fun bind() {
         seatTableConfiguration.forEachIndexed { seatPosition, seatView ->
             val seat = seatPosition.toScreeningSeat()
 
