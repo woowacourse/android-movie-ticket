@@ -11,12 +11,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SelectedSeats
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.mapper.toModel
 import woowacourse.movie.model.MovieTicketModel
+import woowacourse.movie.model.PeopleCountModel
 import woowacourse.movie.model.SeatClassModel
 import woowacourse.movie.model.SeatModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
@@ -33,7 +33,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private var selectedSeats = SelectedSeats()
     private lateinit var movieTitle: String
     private lateinit var movieTime: LocalDateTime
-    private var peopleCount = PeopleCount()
+    private lateinit var peopleCount: PeopleCountModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,9 +59,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun initData() {
         movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: return failLoadingData()
         movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME) ?: return failLoadingData()
-        peopleCount = PeopleCount(
-            intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: return failLoadingData()
-        )
+        peopleCount = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: return failLoadingData()
     }
 
     private fun initSeatTable() {
@@ -140,7 +138,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         val ticket = MovieTicketModel(
             title = movieTitle,
             time = movieTime,
-            peopleCount = peopleCount.toModel(),
+            peopleCount = peopleCount,
             seats = selectedSeats.toModel()
         )
 

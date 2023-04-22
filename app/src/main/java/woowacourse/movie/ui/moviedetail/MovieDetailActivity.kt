@@ -16,6 +16,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.mapper.toDomain
+import woowacourse.movie.mapper.toModel
 import woowacourse.movie.model.MovieModel
 import woowacourse.movie.ui.movielist.MainActivity
 import woowacourse.movie.ui.seat.SeatSelectionActivity
@@ -164,7 +165,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     timeSpinner.selectedItem as LocalTime
                 ),
             )
-            putExtra(KEY_PEOPLE_COUNT, peopleCount.count)
+            putExtra(KEY_PEOPLE_COUNT, peopleCount.toModel())
         }
         startActivity(intent)
     }
