@@ -36,4 +36,8 @@
     <string name="e3">E3</string>
     <string name="e4">E4</string>
     <string name="okay">확인</string>
+    <string name="reserve_dialog_title">예매 확인</string>
+    <string name="reserve_dialog_detail">정말 예매하시겠습니까?</string>
+    <string name="reserve_dialog_submit">예매 완료</string>
+    <string name="reserve_dialog_cancel">취소</string>
 </resources>

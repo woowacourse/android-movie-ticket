@@ -6,6 +6,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.activity.InjectedModelListener
@@ -51,7 +52,22 @@ class SeatSelectView(
 
     private fun setNextButton(title: String, dateTime: LocalDateTime) {
         nextButton.setOnClickListener {
-            clickListener.onClick(Ticket(title, dateTime, seatSystem.seats, price).toPresentation())
+            with(getDialog(Ticket(title, dateTime, seatSystem.seats, price).toPresentation())) {
+                setCanceledOnTouchOutside(false)
+                show()
+            }
+        }
+    }
+
+    private fun getDialog(ticketModel: TicketModel): AlertDialog {
+        return AlertDialog.Builder(viewGroup.context).run {
+            setTitle(context.getString(R.string.reserve_dialog_title))
+            setMessage(context.getString(R.string.reserve_dialog_detail))
+            setPositiveButton(context.getString(R.string.reserve_dialog_submit)) { _, _ ->
+                clickListener.onClick(ticketModel)
+            }
+            setNegativeButton(context.getString(R.string.reserve_dialog_cancel), null)
+            create()
         }
     }
 
@@ -100,7 +116,8 @@ class SeatSelectView(
         }
     }
 
-    private fun indexToRowCol(index: Int): Pair<Int, Int> = Pair((index) / Theater.col, (index) % Theater.col)
+    private fun indexToRowCol(index: Int): Pair<Int, Int> =
+        Pair((index) / Theater.col, (index) % Theater.col)
 
     companion object {
         private const val SELECT_ALL_SEAT_MESSAGE = "좌석을 이미 다 선택하셨습니다."
