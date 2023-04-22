@@ -5,9 +5,8 @@ import woowacourse.movie.formatter.DateFormatter
 import woowacourse.movie.formatter.TimeFormatter
 import woowacourse.movie.model.PaymentModel
 import woowacourse.movie.model.ReservationInfoModel
-
-const val ticketDateFormat: String = "yyyy.M.d"
-const val ticketTimeFormat: String = "HH:mm"
+import woowacourse.movie.model.ticketDateFormat
+import woowacourse.movie.model.ticketTimeFormat
 
 fun ReservationInfoModel.toReservationInfo() = ReservationInfo(
     title,

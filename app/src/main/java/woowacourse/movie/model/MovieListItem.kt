@@ -10,7 +10,11 @@ sealed class MovieListItem : java.io.Serializable {
         val endDate: String,
         val runningTime: Int,
         val description: String
-    ) : MovieListItem()
+    ) : MovieListItem() {
+        companion object {
+            const val MOVIE_DATE_FORMAT: String = "yyyy.M.d"
+        }
+    }
 
     data class AdModel(
         @DrawableRes val image: Int
