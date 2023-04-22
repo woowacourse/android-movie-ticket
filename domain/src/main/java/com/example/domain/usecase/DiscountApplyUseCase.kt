@@ -10,7 +10,7 @@ class DiscountApplyUseCase(private val discountPolicy: DiscountPolicy = DefaultD
         tickets: Tickets,
         onResult: (Money) -> Unit
     ) {
-        val discountApplyTotalMoney = tickets.getDiscountApplyTotalMoney(discountPolicy)
+        val discountApplyTotalMoney = tickets.getTotalDiscountApplyMoney(discountPolicy)
         onResult(discountApplyTotalMoney)
     }
 }

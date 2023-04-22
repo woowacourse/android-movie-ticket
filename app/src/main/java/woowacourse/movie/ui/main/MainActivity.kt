@@ -16,8 +16,8 @@ import woowacourse.movie.ui.reservation.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
     private val movieListView: RecyclerView by lazy { findViewById(R.id.listView) }
-    private val adapter: MovieAdapter by lazy {
-        MovieAdapter(
+    private val adapter: MainPageAdapter by lazy {
+        MainPageAdapter(
             MovieRepository.allMovies().map {
                 it.convertToItemModel { position ->
                     navigateMovieDetail((adapter.items[position] as MovieItemModel).movieState)

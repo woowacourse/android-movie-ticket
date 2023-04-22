@@ -9,6 +9,11 @@ data class ReservationSeat(
     val seats: List<SeatPositionState>
 ) : Parcelable {
     init {
-        require(reservationState.countState.value == seats.size) {}
+        require(reservationState.countState.value == seats.size) {
+        }
     }
+//
+//    companion object {
+//        private const val
+//    }
 }

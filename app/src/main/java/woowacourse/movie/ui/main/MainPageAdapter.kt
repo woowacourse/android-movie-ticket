@@ -11,7 +11,7 @@ import woowacourse.movie.ui.main.viewHolder.AdbViewHolder
 import woowacourse.movie.ui.main.viewHolder.ItemViewHolder
 import woowacourse.movie.ui.main.viewHolder.MovieViewHolder
 
-class MovieAdapter(
+class MainPageAdapter(
     movie: List<MovieItemModel>,
     adb: List<AdbItemModel>
 ) : RecyclerView.Adapter<ItemViewHolder>() {
@@ -20,25 +20,17 @@ class MovieAdapter(
     val items: List<ItemModel>
         get() = _items.toList()
 
-    private val adbSize = adb.size
-    private var curAdbIndex: Int = 0
-        set(value) {
-            if (value >= adbSize || value < 0) {
-                field = 0
-                return
-            }
-            field = value
-        }
-
     init {
         _items = if (adb.isEmpty()) {
             movie.toList()
         } else {
+            var curAdbIndex = 0
+            val adbSize = adb.size
             val allowAdbMaxCount: Int = movie.size / 3
             mutableListOf<ItemModel>().apply {
                 addAll(movie.toList())
                 for (index in 3..(movie.size + allowAdbMaxCount) step 4) {
-                    add(index, adb[curAdbIndex++])
+                    add(index, adb[(curAdbIndex++) % adbSize])
                 }
             }
         }

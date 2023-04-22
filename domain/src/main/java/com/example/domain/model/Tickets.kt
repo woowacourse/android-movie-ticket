@@ -7,8 +7,8 @@ class Tickets(tickets: List<Ticket>) {
     val tickets: List<Ticket>
         get() = _tickets.toList()
 
-    fun getAllOriginMoney(): Money = Money(tickets.sumOf { it.originMoney.value })
+    fun getTotalOriginMoney(): Money = Money(tickets.sumOf { it.originMoney.value })
 
-    fun getDiscountApplyTotalMoney(discountPolicy: DiscountPolicy): Money =
+    fun getTotalDiscountApplyMoney(discountPolicy: DiscountPolicy): Money =
         Money(tickets.sumOf { it.getDiscountMoney(discountPolicy).value })
 }
