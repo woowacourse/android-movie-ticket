@@ -50,7 +50,7 @@ internal class MovieSeatActivityTest {
 
     @Test
     fun 선택되지_않은_좌석인_A1을_클릭하면_선택된다() {
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
             .check(matches(isSelected()))
     }
@@ -58,22 +58,22 @@ internal class MovieSeatActivityTest {
     @Test
     fun 선택된_좌석인_A1을_클릭하면_선택해제된다() {
         // given
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
 
         // when
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
 
         // then
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .check(matches(isNotSelected()))
     }
 
     @Test
     fun 선택되지_않은_좌석인_A1을_클릭하면_금액이_10_000원으로_변경된다() {
         // when
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
 
         // then
@@ -84,9 +84,9 @@ internal class MovieSeatActivityTest {
     @Test
     fun 선택되지_않은_좌석인_A1과_C1_을_클릭하면_금액이_25_000원으로_변경된다() {
         // when
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
-        onView(withId(R.id.textViewC1))
+        onView(withText("C1"))
             .perform(click())
 
         // then
@@ -97,24 +97,24 @@ internal class MovieSeatActivityTest {
     @Test
     fun 선택되지_않은_A1과_C1_을_클릭하고_D1을_클릭해도_선택되지_않는다() {
         // given
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
-        onView(withId(R.id.textViewC1))
+        onView(withText("C1"))
             .perform(click())
 
         // when
-        onView(withId(R.id.textViewD1))
+        onView(withText("D1"))
             .perform(click())
 
         // then
-        onView(withId(R.id.textViewD1))
+        onView(withText("D1"))
             .check(matches(isNotSelected()))
     }
 
     @Test
     fun 티켓의_수가_2장일_때_한_좌석만_선택되면_확인_버튼을_클릭할_수_없다() {
         // given
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
 
         // then
@@ -125,9 +125,9 @@ internal class MovieSeatActivityTest {
     @Test
     fun 티켓의_수가_2장일_때_두_좌석이_선택되면_확인_버튼을_클릭할_수_있다() {
         // given
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
-        onView(withId(R.id.textViewC1))
+        onView(withText("C1"))
             .perform(click())
 
         // then
@@ -136,11 +136,11 @@ internal class MovieSeatActivityTest {
     }
 
     @Test
-    fun 두_자리가_선택되어있고_확인버튼_클릭시_다이얼로그가_뜬다() {
+    fun 티켓의_수가_2장이고_두_자리가_선택되어을_때_확인버튼_클릭시_다이얼로그가_뜬다() {
         // given
-        onView(withId(R.id.textViewA1))
+        onView(withText("A1"))
             .perform(click())
-        onView(withId(R.id.textViewC1))
+        onView(withText("C1"))
             .perform(click())
 
         // when

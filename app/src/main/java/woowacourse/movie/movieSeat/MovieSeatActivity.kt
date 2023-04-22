@@ -6,20 +6,17 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import movie.discountpolicy.NormalDiscountPolicy
 import movie.seat.Seat
-import movie.seat.SeatColumn
-import movie.seat.SeatRow
 import woowacourse.movie.R
 import woowacourse.movie.extension.getSerializableMovieDetailOrNull
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.uimodel.MovieDetailUi
 import woowacourse.movie.uimodel.MovieTicketUi
+import woowacourse.movie.utils.SeatUtil
 import woowacourse.movie.utils.toDomain
 
 class MovieSeatActivity : AppCompatActivity() {
@@ -47,6 +44,9 @@ class MovieSeatActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
+        val seatTableLayout = findViewById<TableLayout>(R.id.seat_table)
+        MovieSeatView(seatTableLayout, ::selectSeat)
+
         val movieTitleView = findViewById<TextView>(R.id.seat_movie_title)
         movieTitleView.text = movieDetail.title
 
@@ -88,25 +88,11 @@ class MovieSeatActivity : AppCompatActivity() {
     }
 
     private fun makeMovieTicketUi(): MovieTicketUi {
-        return MovieTicketUi.of(totalPrice, movieDetail.toDomain(), selectedSeats.map { getSeatPosition(it) })
+        return MovieTicketUi.of(totalPrice, movieDetail.toDomain(), selectedSeats.map { SeatUtil.getSeatPosition(it) })
     }
 
     private fun initListener() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val seatTableLayout = findViewById<TableLayout>(R.id.seat_table)
-        val seats = seatTableLayout.children.filterIsInstance<TableRow>()
-            .map { it.children.filterIsInstance<TextView>().toList() }.toList()
-
-        seats.forEachIndexed { rowIndex, row ->
-            row.forEachIndexed { columnIndex, textView ->
-                textView.setOnClickListener {
-                    val seatRow = SeatRow.of(rowIndex)
-                    val seatColumn = SeatColumn.of(columnIndex)
-                    selectSeat(Seat(seatRow, seatColumn), textView)
-                }
-            }
-        }
     }
 
     private fun selectSeat(seat: Seat, position: TextView) {
@@ -145,29 +131,6 @@ class MovieSeatActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun getSeatRow(seat: Seat): String {
-        return when (seat.row) {
-            SeatRow.A -> "A"
-            SeatRow.B -> "B"
-            SeatRow.C -> "C"
-            SeatRow.D -> "D"
-            SeatRow.E -> "E"
-        }
-    }
-
-    private fun getSeatColumn(seat: Seat): String {
-        return when (seat.col) {
-            SeatColumn.ONE -> "1"
-            SeatColumn.TWO -> "2"
-            SeatColumn.THREE -> "3"
-            SeatColumn.FOUR -> "4"
-        }
-    }
-
-    private fun getSeatPosition(seat: Seat): String {
-        return getSeatRow(seat) + getSeatColumn(seat)
     }
 
     companion object {
