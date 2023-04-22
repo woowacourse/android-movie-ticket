@@ -16,7 +16,7 @@ class MovieTicket(
     val price: Price
         get() = Price(_price.amount)
 
-    fun canReserveSeat(): Boolean = _seats.size < peopleCount.count
+    fun canReserveSeat(): Boolean = _seats.size < peopleCount.value
 
     fun reserveSeat(seat: Seat) {
         _seats.add(seat)

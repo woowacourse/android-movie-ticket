@@ -6,7 +6,7 @@ import woowacourse.movie.domain.PeopleCount
 
 fun PeopleCountModel.mapToPeopleCount() = PeopleCount(count)
 
-fun PeopleCount.mapToPeopleCountModel() = PeopleCountModel(count)
+fun PeopleCount.mapToPeopleCountModel() = PeopleCountModel(value)
 
 @Parcelize
 data class PeopleCountModel(val count: Int) : Parcelable

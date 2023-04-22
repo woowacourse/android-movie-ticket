@@ -54,9 +54,9 @@ class MovieDetailActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt("date_position", dateSpinner.selectedItemPosition)
-        outState.putInt("time_position", timeSpinner.selectedItemPosition)
-        outState.putInt("count", peopleCount.count)
+        outState.putInt(DATE_SPINNER_POSITION_INSTANCE_KEY, dateSpinner.selectedItemPosition)
+        outState.putInt(TIME_SPINNER_POSITION_INSTANCE_KEY, timeSpinner.selectedItemPosition)
+        outState.putInt(PEOPLE_COUNT_VALUE_INSTANCE_KEY, peopleCount.value)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -134,7 +134,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setPeopleCountView(peopleCountView: TextView) {
-        peopleCountView.text = "${peopleCount.count}"
+        peopleCountView.text = "${peopleCount.value}"
     }
 
     private fun setMinusButton(peopleCountView: TextView) {
@@ -180,16 +180,19 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
-        val datePosition = savedInstanceState?.getInt("date_position") ?: 0
-        val timePosition = savedInstanceState?.getInt("time_position") ?: 0
-        val count = savedInstanceState?.getInt("count") ?: 1
+        val datePosition = savedInstanceState?.getInt(DATE_SPINNER_POSITION_INSTANCE_KEY) ?: 0
+        val timePosition = savedInstanceState?.getInt(TIME_SPINNER_POSITION_INSTANCE_KEY) ?: 0
+        val count = savedInstanceState?.getInt(PEOPLE_COUNT_VALUE_INSTANCE_KEY) ?: 1
         dateSpinner.setSelection(datePosition)
         timeSpinner.setSelection(timePosition)
         peopleCount = PeopleCount(count)
     }
 
     companion object {
+        private const val DATE_SPINNER_POSITION_INSTANCE_KEY = "date_position"
         private const val MOVIE_EXTRA_KEY = "movie"
+        private const val PEOPLE_COUNT_VALUE_INSTANCE_KEY = "count"
+        private const val TIME_SPINNER_POSITION_INSTANCE_KEY = "time_position"
 
         fun createIntent(context: Context, movie: MovieModel): Intent {
             val intent = Intent(context, MovieDetailActivity::class.java)
