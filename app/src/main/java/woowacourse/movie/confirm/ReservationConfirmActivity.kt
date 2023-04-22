@@ -7,11 +7,13 @@ import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_MONEY
+import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.Movie
 import woowacourse.movie.databinding.ActivityReservationConfirmBinding
 import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.Money
+import woowacourse.movie.entity.Seats
 import woowacourse.movie.entity.ViewingDate
 import woowacourse.movie.entity.ViewingTime
 import woowacourse.movie.utils.getParcelableCompat
@@ -32,26 +34,24 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         val date = intent.getParcelableCompat<ViewingDate>(KEY_RESERVATION_DATE)!!
         val time = intent.getParcelableCompat<ViewingTime>(KEY_RESERVATION_TIME)!!
         val dateTime = LocalDateTime.of(date.value, time.value)
+        val seats = intent.getParcelableCompat<Seats>(KEY_RESERVATION_SEATS)!!
         Log.d(LOG_TAG, "$movie , $reservationCount")
-        setInitReservationData(movie, dateTime, reservationCount, totalMoney)
+        setInitReservationData(movie, dateTime, reservationCount, totalMoney, seats)
     }
 
     private fun setInitReservationData(
         movie: Movie,
         dateTime: LocalDateTime,
         reservationCount: Count,
-        totalMoney: Money
+        totalMoney: Money,
+        seats: Seats
     ) {
         binding.reservationTitle.text = movie.title
         binding.reservationDate.text = dateTime.format(DATE_TIME_FORMATTER)
-        binding.reservationMoney.text = totalMoney.value.toString()
+        binding.reservationMoney.text = DECIMAL_FORMATTER.format(totalMoney.value).toString()
         binding.reservationCount.text = reservationCount.value.toString()
+        binding.seatsInfo.text = seats.toStringSeats().joinToString(", ")
     }
-
-    // private fun formattingMoney(reservationCount: Count, dateTime: LocalDateTime): String {
-    //     val money = DiscountCalculator().discount(reservationCount, dateTime).value
-    //     return DECIMAL_FORMATTER.format(money)
-    // }
 
     companion object {
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm")

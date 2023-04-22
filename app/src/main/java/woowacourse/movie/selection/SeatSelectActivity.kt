@@ -13,6 +13,7 @@ import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_MONEY
+import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.Movie
 import woowacourse.movie.confirm.ReservationConfirmActivity
@@ -22,6 +23,7 @@ import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.Money
 import woowacourse.movie.entity.Seat
 import woowacourse.movie.entity.SeatRank
+import woowacourse.movie.entity.Seats
 import woowacourse.movie.entity.ViewingDate
 import woowacourse.movie.entity.ViewingTime
 import woowacourse.movie.utils.getParcelableCompat
@@ -123,6 +125,7 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
                     intent.putExtra(KEY_RESERVATION_MONEY, Money(totalMoney))
                     intent.putExtra(KEY_RESERVATION_DATE, date)
                     intent.putExtra(KEY_RESERVATION_TIME, time)
+                    intent.putExtra(KEY_RESERVATION_SEATS, Seats(chosenSeats))
                     startActivity(intent)
                 }
                 .setNegativeButton("취소") { dialog, _ ->
