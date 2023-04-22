@@ -100,7 +100,7 @@ class SeatPickerActivity : AppCompatActivity() {
         if (view.isSelected) {
             removeSeat(view, seat)
             count--
-        } else if (count < ticketModel.peopleCount.count) {
+        } else if (canAddSeat(ticketModel)) {
             addSeat(view, seat)
             count++
         } else {
@@ -124,6 +124,9 @@ class SeatPickerActivity : AppCompatActivity() {
         view.setBackgroundColor(getColor(R.color.white))
         view.isSelected = false
     }
+
+    private fun canAddSeat(ticketModel: MovieTicketModel) =
+        count < ticketModel.peopleCount.count
 
     private fun addSeat(
         view: TextView,
