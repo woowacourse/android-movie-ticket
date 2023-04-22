@@ -20,16 +20,31 @@ class MovieListAdapter(
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_item, parent, false)
-
-        return ViewHolder(view)
+        return when (viewType) {
+            1 -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.ad_item, parent, false)
+                ViewHolder(view)
+            }
+            else -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_item, parent, false)
+                ViewHolder(view)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.set(movies[position]) {
             clickListener.onClick(movies[position])
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if (position != 0 && position % 3 == 0) {
+            return 1
+        }
+        return 0
     }
 
     override fun getItemId(position: Int): Long = position.toLong()
