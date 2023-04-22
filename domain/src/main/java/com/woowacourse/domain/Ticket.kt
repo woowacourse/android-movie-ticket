@@ -1,27 +1,31 @@
 package com.woowacourse.domain
 
-class Ticket {
-    var price: Int = TICKET_PRICE
-        private set
-
-    fun getTicketPrice(date: String, time: String): Int {
-        calculateMovieDaySale(date)
-        calculateTimeBasedSale(time)
-        return price
+@JvmInline
+value class Ticket(private val price: Int) {
+    fun getCalculatedTicketPrice(date: String, time: String): Int {
+        var amount = price
+        amount = calculateMovieDaySale(amount, date)
+        amount = calculateTimeBasedSale(amount, time)
+        return amount
     }
 
-    private fun calculateMovieDaySale(date: String) {
+    private fun calculateMovieDaySale(amount: Int, date: String): Int {
         val day = date.split(SEPARATOR).last().toInt()
-        if (day in MOVIE_DAYS) price = (price * MOVIE_DAY_DISCOUNT_RATE).toInt()
+        if (day in MOVIE_DAYS) {
+            return (amount * MOVIE_DAY_DISCOUNT_RATE).toInt()
+        }
+        return amount
     }
 
-    private fun calculateTimeBasedSale(time: String) {
+    private fun calculateTimeBasedSale(amount: Int, time: String): Int {
         val hour = time.take(HOUR).toInt()
-        if (hour < EARLY_BIRD_TIME || hour >= LATE_NIGHT_TIME) price -= TIME_BASED_DISCOUNT
+        if (hour < EARLY_BIRD_TIME || hour >= LATE_NIGHT_TIME) {
+            return amount - TIME_BASED_DISCOUNT
+        }
+        return amount
     }
 
     companion object {
-        private const val TICKET_PRICE = 13_000
         private const val SEPARATOR = "."
         private const val HOUR = 2
         private val MOVIE_DAYS = listOf(10, 20, 30)
