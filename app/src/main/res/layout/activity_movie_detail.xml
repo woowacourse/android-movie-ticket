@@ -114,7 +114,7 @@
             android:text="@string/button_minus"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
+            app:layout_constraintBottom_toTopOf="@+id/bt_to_seat_picker"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -127,7 +127,7 @@
             android:text="@string/button_plus"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
+            app:layout_constraintBottom_toTopOf="@+id/bt_to_seat_picker"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
@@ -144,13 +144,13 @@
             app:layout_constraintTop_toTopOf="@+id/bt_ticket_count_minus" />
 
         <Button
-            android:id="@+id/bt_book_complete"
+            android:id="@+id/bt_to_seat_picker"
             android:layout_width="0dp"
             android:layout_height="47dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="20dp"
             android:background="@color/design_default_color_primary"
-            android:text="@string/button_book_complete"
+            android:text="@string/button_to_seat_picker"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"

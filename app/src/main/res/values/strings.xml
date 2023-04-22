@@ -2,8 +2,8 @@
     <string name="app_name">Movie</string>
     <string name="movie_booking_button">지금 예매</string>
     <string name="book_can_cancel_before_start_movie">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="book_person_count">일반 %d명</string>
-    <string name="book_total_pay">%d원 (현장 결제)</string>
+    <string name="book_person_count">일반 %d명 | %s</string>
+    <string name="book_total_pay">%s (현장 결제)</string>
     <string name="cant_get_movie_booking_data">영화 예약 정보를 불러오지 못했습니다. 다시 시도해 주세요.</string>
     <string name="cant_lower_one">1장 이상의 표를 선택해 주세요.</string>
     <string name="cant_get_movie_data">영화 정보를 불러오지 못했습니다. 다시 시도해 주세요.</string>
@@ -11,7 +11,16 @@
     <string name="button_minus">-</string>
     <string name="button_plus">+</string>
     <string name="default_ticket_count">1</string>
-    <string name="button_book_complete">예매완료</string>
+    <string name="button_to_seat_picker">좌석 선택</string>
     <string name="movie_screening_period">상영일: %s ~ %s</string>
     <string name="movie_running_time">러닝타임: %d분</string>
+    <string name="screen">SCREEN</string>
+    <string name="seat_name">%c%d</string>
+    <string name="seat_picker_done_button">확인</string>
+    <string name="ticket_price_init_value">0원</string>
+    <string name="ticket_price_format">%d원</string>
+    <string name="alert_dialog_book_confirm">예매 확인</string>
+    <string name="alert_dialog_book_re_confirm">정말 예매하시겠습니까?</string>
+    <string name="alert_dialog_book_done">예매 완료</string>
+    <string name="alert_dialog_book_cancel">취소</string>
 </resources>
