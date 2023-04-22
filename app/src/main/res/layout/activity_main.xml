@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".presentation.MainActivity">
 
-    <ListView
-        android:id="@+id/listMainMovie"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerMainMovie"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/movie_list_item" />

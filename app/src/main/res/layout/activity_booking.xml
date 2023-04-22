@@ -44,7 +44,7 @@
             android:text="@string/minus"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/textBookingTicketCount"
-            app:layout_constraintStart_toStartOf="@+id/buttonBookingComplete"
+            app:layout_constraintStart_toStartOf="@+id/buttonBookingChooseSeat"
             app:layout_constraintTop_toTopOf="@+id/textBookingTicketCount" />
 
         <Button
@@ -56,7 +56,7 @@
             android:text="@string/plus"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/textBookingTicketCount"
-            app:layout_constraintEnd_toEndOf="@+id/buttonBookingComplete"
+            app:layout_constraintEnd_toEndOf="@+id/buttonBookingChooseSeat"
             app:layout_constraintTop_toTopOf="@+id/textBookingTicketCount" />
 
         <TextView
@@ -67,14 +67,14 @@
             android:fontFamily="@font/roboto_medium"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonBookingComplete"
+            app:layout_constraintBottom_toTopOf="@+id/buttonBookingChooseSeat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="1" />
 
 
         <Button
-            android:id="@+id/buttonBookingComplete"
+            android:id="@+id/buttonBookingChooseSeat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
