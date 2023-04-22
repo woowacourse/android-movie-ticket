@@ -92,7 +92,7 @@ class MovieDetailActivity : AppCompatActivity() {
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            mapToMovie(movie).getDatesBetweenTwoDates()
+            movie.mapToMovie().getDatesBetweenTwoDates()
         )
         dateSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dateSpinner.adapter = dateSpinnerAdapter
@@ -169,7 +169,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     timeSpinner.selectedItem as LocalTime
                 )
             ),
-            mapToPeopleCountModel(peopleCount),
+            peopleCount.mapToPeopleCountModel(),
             seats = emptySet(),
             PriceModel(0)
         )

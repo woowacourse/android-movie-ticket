@@ -36,7 +36,7 @@ class SeatPickerActivity : AppCompatActivity() {
 
         loadSavedData(savedInstanceState)
 
-        val ticketModel = mapToMovieTicketModel(ticket)
+        val ticketModel = ticket.mapToMovieTicketModel()
         setSeatViews(ticketModel)
         setTicketViews(ticketModel)
         setDoneButton()
@@ -44,7 +44,7 @@ class SeatPickerActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable("ticket", mapToMovieTicketModelWithOriginalPrice(ticket))
+        outState.putParcelable("ticket", ticket.mapToMovieTicketModelWithOriginalPrice())
     }
 
     private fun PriceModel.format(): String = getString(R.string.price, amount)
@@ -97,9 +97,9 @@ class SeatPickerActivity : AppCompatActivity() {
         seat: SeatModel
     ) {
         updateEmptySeatView(view)
-        ticket.cancelSeat(mapToSeat(seat))
+        ticket.cancelSeat(seat.mapToSeat())
         val priceView = findViewById<TextView>(R.id.seat_picker_price)
-        priceView.text = mapToPriceModel(ticket.getDiscountPrice()).format()
+        priceView.text = ticket.getDiscountPrice().mapToPriceModel().format()
     }
 
     private fun updateEmptySeatView(view: TextView) {
@@ -123,9 +123,9 @@ class SeatPickerActivity : AppCompatActivity() {
         seat: SeatModel
     ) {
         updateFullSeatView(view)
-        ticket.reserveSeat(mapToSeat(seat))
+        ticket.reserveSeat(seat.mapToSeat())
         val priceView = findViewById<TextView>(R.id.seat_picker_price)
-        priceView.text = mapToPriceModel(ticket.getDiscountPrice()).format()
+        priceView.text = ticket.getDiscountPrice().mapToPriceModel().format()
     }
 
     private fun updateFullSeatView(view: TextView) {
@@ -193,13 +193,13 @@ class SeatPickerActivity : AppCompatActivity() {
 
     private fun moveToTicketActivity() {
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("ticket", mapToMovieTicketModel(ticket))
+        intent.putExtra("ticket", ticket.mapToMovieTicketModel())
         startActivity(intent)
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
         val ticketModel = savedInstanceState?.getParcelableByKey<MovieTicketModel>("ticket")
             ?: intent.getParcelable("ticket")!!
-        ticket = mapToMovieTicket(ticketModel)
+        ticket = ticketModel.mapToMovieTicket()
     }
 }

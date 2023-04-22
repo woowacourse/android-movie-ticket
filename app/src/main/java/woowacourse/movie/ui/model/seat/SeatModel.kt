@@ -4,19 +4,19 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.seat.Seat
 
-fun mapToSeat(seat: SeatModel): Seat {
+fun SeatModel.mapToSeat(): Seat {
     return Seat(
-        seat.row.value,
-        seat.column.value,
-        mapToRank(seat.rank)
+        row.value,
+        column.value,
+        rank.mapToRank()
     )
 }
 
-fun mapToSeatModel(seat: Seat): SeatModel {
+fun Seat.mapToSeatModel(): SeatModel {
     return SeatModel(
-        mapToRowModel(seat.row),
-        mapToColumnModel(seat.column),
-        mapToRankModel(seat.rank)
+        row.mapToRowModel(),
+        column.mapToColumnModel(),
+        rank.mapToRankModel()
     )
 }
 

@@ -6,13 +6,13 @@ import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
-fun mapToMovie(movie: MovieModel): Movie {
+fun MovieModel.mapToMovie(): Movie {
     return Movie(
-        movie.title,
-        movie.startDate,
-        movie.endDate,
-        movie.runningTime,
-        movie.description
+        title,
+        startDate,
+        endDate,
+        runningTime,
+        description
     )
 }
 

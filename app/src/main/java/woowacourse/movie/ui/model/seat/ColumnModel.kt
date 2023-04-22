@@ -3,7 +3,7 @@ package woowacourse.movie.ui.model.seat
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-fun mapToColumnModel(column: Int): ColumnModel = ColumnModel.of(column)
+internal fun Int.mapToColumnModel(): ColumnModel = ColumnModel.of(this)
 
 @Parcelize
 data class ColumnModel(val value: Int) : Parcelable {

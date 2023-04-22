@@ -3,7 +3,7 @@ package woowacourse.movie.ui.model.seat
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-fun mapToRowModel(row: Int): RowModel = RowModel.of(row)
+internal fun Int.mapToRowModel(): RowModel = RowModel.of(this)
 
 @Parcelize
 data class RowModel(val value: Int, val letter: Char) : Parcelable {

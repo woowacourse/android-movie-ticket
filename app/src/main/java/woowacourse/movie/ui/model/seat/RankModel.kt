@@ -4,16 +4,16 @@ import androidx.annotation.ColorRes
 import woowacourse.movie.R
 import woowacourse.movie.domain.seat.Rank
 
-fun mapToRank(rank: RankModel): Rank {
-    return when (rank) {
+fun RankModel.mapToRank(): Rank {
+    return when (this) {
         RankModel.A -> Rank.A
         RankModel.B -> Rank.B
         RankModel.S -> Rank.S
     }
 }
 
-fun mapToRankModel(rank: Rank): RankModel {
-    return when (rank) {
+fun Rank.mapToRankModel(): RankModel {
+    return when (this) {
         Rank.A -> RankModel.A
         Rank.B -> RankModel.B
         Rank.S -> RankModel.S

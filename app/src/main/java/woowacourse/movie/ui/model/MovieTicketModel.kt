@@ -7,33 +7,33 @@ import woowacourse.movie.ui.model.seat.SeatModel
 import woowacourse.movie.ui.model.seat.mapToSeat
 import woowacourse.movie.ui.model.seat.mapToSeatModel
 
-fun mapToMovieTicket(movieTicket: MovieTicketModel): MovieTicket {
+fun MovieTicketModel.mapToMovieTicket(): MovieTicket {
     return MovieTicket(
-        movieTicket.title,
-        mapToTicketTime(movieTicket.time),
-        mapToPeopleCount(movieTicket.peopleCount),
-        movieTicket.seats.map { mapToSeat(it) }.toMutableSet(),
-        mapToPrice(movieTicket.price)
+        title,
+        time.mapToTicketTime(),
+        peopleCount.mapToPeopleCount(),
+        seats.map { it.mapToSeat() }.toMutableSet(),
+        price.mapToPrice()
     )
 }
 
-fun mapToMovieTicketModel(movieTicket: MovieTicket): MovieTicketModel {
+fun MovieTicket.mapToMovieTicketModel(): MovieTicketModel {
     return MovieTicketModel(
-        movieTicket.title,
-        mapToTicketTimeModel(movieTicket.time),
-        mapToPeopleCountModel(movieTicket.peopleCount),
-        movieTicket.seats.map { mapToSeatModel(it) }.toSet(),
-        mapToPriceModel(movieTicket.getDiscountPrice())
+        title,
+        time.mapToTicketTimeModel(),
+        peopleCount.mapToPeopleCountModel(),
+        seats.map { it.mapToSeatModel() }.toSet(),
+        getDiscountPrice().mapToPriceModel()
     )
 }
 
-fun mapToMovieTicketModelWithOriginalPrice(movieTicket: MovieTicket): MovieTicketModel {
+fun MovieTicket.mapToMovieTicketModelWithOriginalPrice(): MovieTicketModel {
     return MovieTicketModel(
-        movieTicket.title,
-        mapToTicketTimeModel(movieTicket.time),
-        mapToPeopleCountModel(movieTicket.peopleCount),
-        movieTicket.seats.map { mapToSeatModel(it) }.toSet(),
-        mapToPriceModel(movieTicket.price)
+        title,
+        time.mapToTicketTimeModel(),
+        peopleCount.mapToPeopleCountModel(),
+        seats.map { it.mapToSeatModel() }.toSet(),
+        price.mapToPriceModel()
     )
 }
 
