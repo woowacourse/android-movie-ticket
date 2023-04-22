@@ -23,9 +23,9 @@ object DummyData {
     }
 
     fun getItems(): List<MovieListData> {
-        var j = 0
+        var adIndex = 0
         return dummyData.flatMapIndexed { index, movie ->
-            if (index % 3 == 2) listOf(movie, ads[j++ % ads.size]) else listOf(movie)
+            if (index % 3 == 2) listOf(movie, ads[adIndex++ % ads.size]) else listOf(movie)
         }
     }
 }
