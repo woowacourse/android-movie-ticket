@@ -12,19 +12,7 @@ data class ReservationInfo(
     val paymentAmount: Int,
     val seats: List<ScreeningSeatInfo>,
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
-) : Serializable {
-
-    companion object {
-        fun ofError() = ReservationInfo(
-            "",
-            LocalDateTime.MIN,
-            0,
-            0,
-            listOf(),
-            PaymentType.ERROR_PAID
-        )
-    }
-}
+) : Serializable
 
 fun Reservation.toUIModel() = ReservationInfo(
     movieName.value,

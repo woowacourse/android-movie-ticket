@@ -24,16 +24,7 @@ data class SeatSelectionInfo(
         }.associateWith {
             SeatState.AVAILABLE
         }
-) : Serializable {
-
-    companion object {
-        fun ofError() = SeatSelectionInfo(
-            "",
-            LocalDateTime.MIN,
-            0,
-        )
-    }
-}
+) : Serializable
 
 fun SeatSelectionInfo.toDomainModel() = SeatSelection(
     movieName = MovieName(movieName),

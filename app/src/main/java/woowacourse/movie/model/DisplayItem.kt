@@ -14,20 +14,7 @@ sealed class DisplayItem : Serializable {
         val screeningPeriod: List<LocalDate>,
         val runningTime: Int,
         val description: String
-    ) : DisplayItem() {
-
-        companion object {
-            fun ofError() = MovieInfo(
-                "",
-                null,
-                LocalDate.MIN,
-                LocalDate.MIN,
-                listOf(),
-                0,
-                ""
-            )
-        }
-    }
+    ) : DisplayItem()
 
     data class Advertisement(
         @DrawableRes val adImageSrc: Int?,
