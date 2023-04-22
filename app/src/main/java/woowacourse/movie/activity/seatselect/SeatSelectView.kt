@@ -85,6 +85,7 @@ class SeatSelectView(
                 when (result) {
                     is SelectResult.Success.Selection -> {
                         textView.setBackgroundColor(textView.context.getColor(R.color.select_seat))
+                        textView.isSelected = true
                         if (result.isSelectAll) {
                             nextButton.isEnabled = true
                         }
@@ -92,6 +93,7 @@ class SeatSelectView(
                     is SelectResult.Success.Deselection -> {
                         textView.setBackgroundColor(textView.context.getColor(R.color.white))
                         nextButton.isEnabled = false
+                        textView.isSelected = false
                         setPrice(result.seatPrice.toPresentation())
                     }
                     is SelectResult.MaxSelection -> {
