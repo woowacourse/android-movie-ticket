@@ -17,6 +17,7 @@ sealed class MovieListItem : java.io.Serializable {
     }
 
     data class AdModel(
-        @DrawableRes val image: Int
+        @DrawableRes val image: Int,
+        val url: String
     ) : MovieListItem()
 }

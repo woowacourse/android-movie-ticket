@@ -55,7 +55,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun getAdData() = List(500) {
-        MovieListItem.AdModel(R.drawable.advertisement)
+        MovieListItem.AdModel(R.drawable.advertisement, "https://techcourse.woowahan.com/")
     }
 
     companion object {
