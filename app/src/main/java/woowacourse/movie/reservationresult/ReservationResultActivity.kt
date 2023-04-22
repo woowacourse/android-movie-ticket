@@ -5,9 +5,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import domain.payment.PaymentType
 import woowacourse.movie.R
-import woowacourse.movie.activity.appCompatGetSerializable
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity.Companion.RESERVATION_RESULT_KEY
+import woowacourse.movie.util.appCompatGetSerializable
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 

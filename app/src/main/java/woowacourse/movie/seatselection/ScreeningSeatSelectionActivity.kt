@@ -12,12 +12,12 @@ import domain.movie.MovieName
 import domain.reservation.Reservation
 import domain.reservation.SeatSelection
 import woowacourse.movie.R
-import woowacourse.movie.activity.appCompatGetSerializable
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.model.toDomainModel
 import woowacourse.movie.model.toUIModel
 import woowacourse.movie.reservation.ReservationActivity.Companion.SEAT_SELECTION_KEY
 import woowacourse.movie.reservationresult.ReservationResultActivity
+import woowacourse.movie.util.appCompatGetSerializable
 
 class ScreeningSeatSelectionActivity : AppCompatActivity() {
 

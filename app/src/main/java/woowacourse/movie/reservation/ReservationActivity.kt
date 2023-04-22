@@ -6,11 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import domain.reservation.TicketCount
 import woowacourse.movie.R
-import woowacourse.movie.activity.appCompatGetSerializable
 import woowacourse.movie.model.DisplayItem
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.movies.MoviesActivity.Companion.MOVIE_KEY
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity
+import woowacourse.movie.util.appCompatGetSerializable
 import woowacourse.movie.util.getSerializableExtraByKey
 
 class ReservationActivity : AppCompatActivity() {
