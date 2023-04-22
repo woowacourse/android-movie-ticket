@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.base
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.presentation.model.movieitem.ListItem
 
@@ -24,7 +23,7 @@ class BaseRecyclerView {
 
         override fun getItemCount(): Int = items.size
 
-        protected fun inflate(parent: ViewGroup, @LayoutRes resId: Int): View =
-            LayoutInflater.from(parent.context).inflate(resId, parent, false)
+        protected fun ViewGroup.inflate(resId: Int, attach: Boolean = false): View =
+            LayoutInflater.from(context).inflate(resId, this, attach)
     }
 }

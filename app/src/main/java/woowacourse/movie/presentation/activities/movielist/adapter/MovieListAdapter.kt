@@ -21,12 +21,12 @@ class MovieListAdapter(
         viewType: Int,
     ): BaseRecyclerView.BaseViewHolder = when (MovieViewType.get(viewType)) {
         MovieViewType.MOVIE -> {
-            val movieView = inflate(parent, R.layout.item_movie)
+            val movieView = parent.inflate(R.layout.item_movie)
             MovieViewHolder(movieView, onItemViewClick)
         }
 
         MovieViewType.AD -> {
-            val adView = inflate(parent, R.layout.item_native_ad)
+            val adView = parent.inflate(R.layout.item_native_ad)
             NativeAdViewHolder(adView, onItemViewClick)
         }
     }
