@@ -1,9 +1,7 @@
 package woowacourse.movie.movies
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.DisplayItem
@@ -14,8 +12,6 @@ class MoviesAdapter(
     private val onItemViewClickListener: OnItemViewClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private lateinit var layoutInflater: LayoutInflater
-
     override fun getItemViewType(position: Int): Int {
         return when (position % CYCLE) {
             ADVERTISEMENT_TURN -> ADVERTISEMENT
@@ -24,28 +20,19 @@ class MoviesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+
         return when (viewType) {
             MOVIE -> MovieItemViewHolder(
-                inflateView(R.layout.item_movie, parent)
+                layoutInflater.inflate(R.layout.item_movie, parent)
             )
             ADVERTISEMENT -> AdvertisementViewHolder(
-                inflateView(R.layout.item_advertisement, parent)
+                layoutInflater.inflate(R.layout.item_movie, parent)
             )
             else -> throw IllegalArgumentException(
                 parent.context.getString(R.string.view_type_error_msg)
             )
         }
-    }
-
-    private fun inflateView(
-        @LayoutRes resourceId: Int,
-        parent: ViewGroup
-    ): View {
-        if (!::layoutInflater.isInitialized) {
-            layoutInflater = LayoutInflater.from(parent.context)
-        }
-
-        return layoutInflater.inflate(resourceId, parent, false)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
