@@ -15,7 +15,7 @@ class MovieListViewHolder(private val view: View) : RecyclerView.ViewHolder(view
     private val tvRunningTime: TextView = view.findViewById(R.id.tv_running_time)
     private val btnBook: Button = view.findViewById(R.id.btn_book)
 
-    fun bind(item: MovieUI, onBookClick: (MovieUI) -> Unit) {
+    fun bind(item: MovieUI, onItemClick: (MovieUI) -> Unit) {
         with(item) {
             thumbnail?.let { ivPoster.setImageResource(it) }
             tvTitle.text = title
@@ -26,7 +26,7 @@ class MovieListViewHolder(private val view: View) : RecyclerView.ViewHolder(view
             )
             tvRunningTime.text =
                 view.context.getString(R.string.movie_running_time, runningTime)
-            btnBook.setOnClickListener { onBookClick(item) }
+            btnBook.setOnClickListener { onItemClick(item) }
         }
     }
 }

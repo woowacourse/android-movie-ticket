@@ -4,27 +4,81 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.model.AdvertisementUI
+import woowacourse.movie.model.ItemUI
 import woowacourse.movie.model.MovieUI
+import woowacourse.movie.ui.movielist.OnItemClick
 import kotlin.math.min
 
 class MovieListAdapter(
     private val movies: List<MovieUI>,
-    private val onBookClick: (MovieUI) -> Unit
-) : RecyclerView.Adapter<MovieListViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
+    private val advertisements: List<AdvertisementUI>,
+    private val onItemClick: OnItemClick
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val _items: List<ItemUI> = if (advertisements.isEmpty()) {
+        movies.toList()
+    } else {
+        var curAdIdx = DEFAULT_ADVERTISEMENT_IDX
+        val displayAdCount: Int = movies.size / ADVERTISEMENT_POSITION
+        mutableListOf<ItemUI>().apply {
+            addAll(movies.toList())
+            for (index in ADVERTISEMENT_POSITION..(movies.size + displayAdCount) step MOVIE_LIST_CYCLE) {
+                add(index, advertisements[(curAdIdx++) % advertisements.size])
+            }
+        }
+    }
+    private lateinit var layoutInflater: LayoutInflater
 
-        return MovieListViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (!::layoutInflater.isInitialized) {
+            layoutInflater = LayoutInflater.from(parent.context)
+        }
+
+        return when (viewType) {
+            ItemViewType.MOVIE -> {
+                val view = layoutInflater.inflate(R.layout.item_movie, parent, false)
+                MovieListViewHolder(view)
+            }
+            ItemViewType.ADVERTISEMENT -> {
+                val view = layoutInflater.inflate(R.layout.item_advertisement, parent, false)
+                AdvertisementViewHolder(view)
+            }
+            else -> throw IllegalArgumentException()
+        }
     }
 
-    override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
-        holder.bind(movies[position], onBookClick)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MovieListViewHolder -> {
+                holder.bind(
+                    _items[position] as MovieUI,
+                    onItemClick::onBookClick
+                )
+            }
+            is AdvertisementViewHolder -> {
+                holder.bind(
+                    _items[position] as AdvertisementUI,
+                    onItemClick::onAdvertisementClick
+                )
+            }
+        }
     }
 
-    override fun getItemCount(): Int = min(movies.size, LIMIT_ITEM_COUNT)
+    override fun getItemViewType(position: Int): Int {
+        return when (position % MOVIE_LIST_CYCLE) {
+            ADVERTISEMENT_POSITION -> ItemViewType.ADVERTISEMENT
+            else -> ItemViewType.MOVIE
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return min(_items.size, LIMIT_ITEM_COUNT)
+    }
 
     companion object {
+        private const val MOVIE_LIST_CYCLE = 4
+        private const val ADVERTISEMENT_POSITION = 3
+        private const val DEFAULT_ADVERTISEMENT_IDX = 0
         private const val LIMIT_ITEM_COUNT = 10_000
     }
 }

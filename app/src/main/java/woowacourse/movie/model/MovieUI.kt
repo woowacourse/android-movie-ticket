@@ -15,7 +15,7 @@ data class MovieUI(
     val runningTime: Int,
     val introduce: String,
     @DrawableRes val thumbnail: Int?,
-) : Parcelable {
+) : Parcelable, ItemUI {
     val LocalDate.formattedDate: String
         get() = this.format(DateTimeFormatter.ofPattern(MOVIE_DATE_PATTERN))
 
