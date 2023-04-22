@@ -12,8 +12,6 @@ import woowacourse.movie.Movie
 import woowacourse.movie.MovieMapper.poster
 import woowacourse.movie.MovieRepository
 import woowacourse.movie.R
-import woowacourse.movie.ScreeningTimes
-import woowacourse.movie.TicketCount
 import woowacourse.movie.formatScreenDate
 import woowacourse.movie.ui.completed.CompletedActivity
 import java.time.LocalDate
@@ -115,13 +113,13 @@ class BookingActivity : AppCompatActivity() {
 
     private fun initDateTimes(movie: Movie) {
         val dates: List<LocalDate> = movie.screeningDates
-        val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
+        val times: List<LocalTime> = Movie.getScreeningTime(dates[0])
         dateTimeSpinner.initDateItems(dates)
         dateTimeSpinner.initTimeItems(times)
     }
 
     private fun initSpinnerListener() {
-        dateTimeSpinner.initDateSelectedListener { ScreeningTimes.getScreeningTime(it) }
+        dateTimeSpinner.initDateSelectedListener { Movie.getScreeningTime(it) }
     }
 
     companion object {
