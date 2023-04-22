@@ -9,6 +9,8 @@ import discount.Discount
 import discount.EarlyNightDiscount
 import discount.MovieDayDiscount
 import payment.PaymentAmount
+import seat.Column
+import seat.Row
 import seat.Seat
 import seat.SeatType
 import woowacourse.movie.R
@@ -41,8 +43,8 @@ class SeatsView(
         seats.forEachIndexed { rowIndex, it ->
             it.forEachIndexed() { columnIndex, seat ->
                 if (seat.isSelected) {
-                    val row: Char = rowIndex.toChar() + Seat.MIN_ROW.toInt()
-                    val column: Int = columnIndex + Seat.MIN_COLUMN
+                    val row: Char = rowIndex.toChar() + Row.MINIMUM.toInt()
+                    val column: Int = columnIndex + Column.MINIMUM
                     selectedSeat.add(Seat.from(row, column))
                 }
             }
@@ -54,14 +56,14 @@ class SeatsView(
     private fun createSeatViews(): List<List<TextView>> {
         val seats: MutableList<MutableList<TextView>> = mutableListOf()
 
-        for (row in Seat.MIN_ROW..Seat.MAX_ROW) {
+        for (row in Row.MINIMUM..Row.MAXIMUM) {
             val tableRow = TableRow(context)
             tableRow.layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT, 180, 1f
             )
             seats.add(mutableListOf())
 
-            for (col in Seat.MIN_COLUMN..Seat.MAX_COLUMN) {
+            for (col in Column.MINIMUM..Column.MAXIMUM) {
                 val textView = TextView(context)
                 textView.layoutParams = TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT, 180, 1f
@@ -73,7 +75,7 @@ class SeatsView(
                 getSeatColorID(Seat.getSeatType(row)).let { if (it != null) textView.setTextColor(it) }
                 textView.gravity = Gravity.CENTER
 
-                seats[row - Seat.MIN_ROW].add(textView)
+                seats[Row.toNumber(row)].add(textView)
                 tableRow.addView(textView)
             }
 

@@ -1,7 +1,7 @@
 package seat
 
-enum class SeatType(val paymentAmount: Int, val targetRows: List<Char>) {
-    S(15_000, listOf('C', 'D')),
-    A(12_000, listOf('E')),
-    B(10_000, listOf('A', 'B'))
+enum class SeatType(val paymentAmount: Int, val targetRows: List<Row>) {
+    S(15_000, listOf(Row('C'), Row('D'))),
+    A(12_000, listOf(Row('E'))),
+    B(10_000, listOf(Row('A'), Row('B')))
 }

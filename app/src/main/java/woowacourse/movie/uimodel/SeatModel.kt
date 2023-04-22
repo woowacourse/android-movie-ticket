@@ -1,10 +1,11 @@
 package woowacourse.movie.uimodel
 
+import seat.Row
 import seat.SeatType
 import java.io.Serializable
 
 data class SeatModel(
-    val row: Char,
+    val row: Row,
     val column: Int,
     val seatType: SeatType?
 ) : Serializable {
