@@ -1,7 +1,6 @@
-package woowacourse.movie.ui.movieselectseatactivity
+package woowacourse.movie.domain.grade
 
 import woowacourse.movie.domain.datetime.ScreeningDateTime
-import woowacourse.movie.domain.grade.Position
 import woowacourse.movie.domain.price.TicketCount
 import woowacourse.movie.domain.price.TicketPrice
 import woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy

@@ -11,13 +11,14 @@ import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.grade.Grade
 import woowacourse.movie.domain.grade.Position
+import woowacourse.movie.domain.grade.SelectedSeats
 import woowacourse.movie.domain.price.TicketPrice
 import woowacourse.movie.util.getColor
 import woowacourse.movie.util.setOnSingleClickListener
 
 class SeatView(
     private val view: TableLayout,
-    private val selectedSeats: SelectedSeats,
+    val selectedSeats: SelectedSeats,
     private val updateTotalPrice: (TicketPrice) -> Unit,
     private val updateButtonState: (Boolean) -> Unit
 
@@ -66,7 +67,16 @@ class SeatView(
             setTextColor(view.getColor(getSeatTextColor(rowIndex)))
             background = ContextCompat.getDrawable(view.context, R.drawable.seat_background_color)
             setOnSingleClickListener { seatClickListener(rowIndex, columnIndex, it) }
+            recoverSeatViewData(rowIndex, columnIndex, this)
         }
+    }
+
+    private fun recoverSeatViewData(
+        rowIndex: Int,
+        columnIndex: Int,
+        view: TextView
+    ) {
+        if (Position.from(rowIndex, columnIndex) in selectedSeats.seats) view.isSelected = true
     }
 
     private fun seatClickListener(rowIndex: Int, columnIndex: Int, seatView: View) {
