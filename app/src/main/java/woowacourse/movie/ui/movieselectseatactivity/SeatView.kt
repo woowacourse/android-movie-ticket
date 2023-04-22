@@ -6,6 +6,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.Dimension
+import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.grade.Grade
 import woowacourse.movie.domain.grade.Position
@@ -53,6 +54,7 @@ class SeatView(private val view: TableLayout) {
             setTextSize(Dimension.SP, 22f)
             text = String.format("%s%d", convertIndexToAlphabet(rowIndex), columnIndex + 1)
             setTextColor(view.getColor(getSeatTextColor(rowIndex)))
+            background = ContextCompat.getDrawable(view.context, R.drawable.seat_background_color)
         }
     }
 
@@ -64,9 +66,7 @@ class SeatView(private val view: TableLayout) {
         }
     }
 
-    private
-
-    fun convertIndexToAlphabet(index: Int): Char {
+    private fun convertIndexToAlphabet(index: Int): Char {
         val baseNumber = 65
         return (index + baseNumber).toChar()
     }
