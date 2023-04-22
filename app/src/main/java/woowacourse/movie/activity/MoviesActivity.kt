@@ -5,13 +5,12 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MockMoviesFactory
 import woowacourse.movie.R
-import domain.Movie
 import woowacourse.movie.view.MovieAdapter
 
-class MainActivity : AppCompatActivity() {
+class MoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movies)
         val movies = MockMoviesFactory.generateMovies()
         val movieList = findViewById<ListView>(R.id.main_movie_list)
         movieList.adapter = MovieAdapter(movies, ::reservationButtonClick)
