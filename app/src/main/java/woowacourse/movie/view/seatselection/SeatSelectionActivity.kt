@@ -68,6 +68,7 @@ class SeatSelectionActivity : BaseActivity() {
             .setNegativeButton(RESERVATION_CANCEL) { dialog, _ ->
                 dialog.dismiss()
             }
+            .setCancelable(false)
             .show()
     }
 
