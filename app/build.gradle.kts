@@ -49,4 +49,6 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.1.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0")
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.2.0")
+
+    implementation(project(":domain"))
 }

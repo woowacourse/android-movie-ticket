@@ -2,9 +2,9 @@ package woowacourse.movie.view.seatselection
 
 import android.content.Context
 import android.widget.TextView
+import com.example.domain.DiscountPrice
+import com.example.domain.seat.Seat
 import woowacourse.movie.R
-import woowacourse.movie.domain.DiscountPrice
-import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDateTime
 
 class SeatState(

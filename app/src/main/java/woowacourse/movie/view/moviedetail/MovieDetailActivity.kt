@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import com.example.domain.CountNumberOfPeople
 import woowacourse.movie.R
-import woowacourse.movie.domain.CountNumberOfPeople
 import woowacourse.movie.view.BaseActivity
 import woowacourse.movie.view.seatselection.SeatSelectionActivity
 import woowacourse.movie.view.viewmodel.MovieUIModel

@@ -1,7 +1,7 @@
 package woowacourse.movie.view.viewmodel
 
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.seat.SeatPosition
+import com.example.domain.Ticket
+import com.example.domain.seat.SeatPosition
 import java.io.Serializable
 import java.time.LocalDateTime
 

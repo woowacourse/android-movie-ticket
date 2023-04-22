@@ -9,9 +9,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import com.example.domain.Movie
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.moviedetail.MovieDetailActivity
 import woowacourse.movie.view.movielist.MovieListActivity
 import woowacourse.movie.view.viewmodel.toUIModel
