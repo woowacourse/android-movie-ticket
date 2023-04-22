@@ -7,7 +7,7 @@
     tools:context=".ui.reservation.MovieDetailActivity">
 
     <ScrollView
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
         android:minHeight="591dp"
@@ -27,7 +27,7 @@
                 android:layout_height="341dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="340dp"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
