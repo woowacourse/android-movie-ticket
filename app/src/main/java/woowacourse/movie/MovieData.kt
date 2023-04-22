@@ -4,6 +4,18 @@ import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
 object MovieData {
+
+    private val movieSamples = List(10000) {
+        Movie(
+            (4 + it).toLong(),
+            "해리 포터와 마법사의 돌",
+            LocalDate.of(2024, 3, 1),
+            LocalDate.of(2024, 3, 31),
+            152,
+            "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
+        )
+    }
+
     val movies = listOf<Movie>(
         Movie(
             1,
@@ -31,7 +43,7 @@ object MovieData {
             122,
             "몽환적인 밤하늘 아래, 펼쳐진 초원 속의 폐허를 숨가쁘게 돌아다니며 어머니를 찾는 어린 시절의 스즈메를 보여 주면서 영화가 시작된다. 한창을 어머니를 찾다 지친 어린 스즈메는 자리에 주저 앉고, 그런 스즈메 앞에 한 여성이 이름을 부르며 다가오자 그 순간 스즈메는 잠에서 깬다.",
         ),
-    )
+    ) + movieSamples
 
     fun findMovieById(id: Long): Movie {
         return movies.find { it.id == id } ?: throw NoSuchElementException()
