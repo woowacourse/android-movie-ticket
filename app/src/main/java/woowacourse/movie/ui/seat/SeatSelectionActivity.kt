@@ -106,6 +106,7 @@ class SeatSelectionActivity : AppCompatActivity() {
             text = seat.toString()
             setTextColor(getColor(SeatClassModel.getColorId(row)))
         }
+        seatView.isSelected = false
         return seatView
     }
 
@@ -117,13 +118,14 @@ class SeatSelectionActivity : AppCompatActivity() {
 
         seatView.isSelected = !seatView.isSelected
         selectedSeats = if (seatView.isSelected) {
-            seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
-            selectedSeats.delete(seat)
-        } else {
             seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
             selectedSeats.add(seat)
+        } else {
+            seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
+            selectedSeats.delete(seat)
         }
         updatePriceText(selectedSeats.getAllPrice(movieTime))
+
         selectButton.isEnabled = selectedSeats.isSelectionDone(peopleCount.count)
     }
 
@@ -132,7 +134,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun canSelectMoreSeat(seatView: View) =
-        !(seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
+        !(!seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
 
     private fun moveToTicketActivity() {
         val ticket = MovieTicketModel(
