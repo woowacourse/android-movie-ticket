@@ -1,5 +1,3 @@
-package woowacourse.movie
-
 import com.example.domain.model.price.Price
 import org.junit.Test
 

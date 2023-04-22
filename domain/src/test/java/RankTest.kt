@@ -1,5 +1,3 @@
-package woowacourse.movie
-
 import com.example.domain.model.model.Rank
 import org.junit.Assert.assertEquals
 import org.junit.Test
