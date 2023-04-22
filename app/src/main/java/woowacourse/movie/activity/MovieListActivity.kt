@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.model.Movie
 import woowacourse.movie.R
-import woowacourse.movie.adapter.ItemClickListener
 import woowacourse.movie.adapter.MovieListAdapter
+import woowacourse.movie.listener.ItemClickListener
 import woowacourse.movie.mapper.toMovieModel
 import woowacourse.movie.model.MovieListItem
 import java.time.LocalDate

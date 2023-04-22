@@ -1,4 +1,4 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.listener
 
 import woowacourse.movie.model.MovieListItem
 

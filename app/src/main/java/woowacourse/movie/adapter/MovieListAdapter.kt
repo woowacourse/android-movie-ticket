@@ -7,6 +7,7 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.viewholder.AdViewHolder
 import woowacourse.movie.adapter.viewholder.CustomViewHolder
 import woowacourse.movie.adapter.viewholder.MovieViewHolder
+import woowacourse.movie.listener.ItemClickListener
 import woowacourse.movie.model.MovieListItem
 
 class MovieListAdapter(

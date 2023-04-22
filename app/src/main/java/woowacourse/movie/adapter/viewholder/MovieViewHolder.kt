@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.adapter.ItemClickListener
+import woowacourse.movie.listener.ItemClickListener
 import woowacourse.movie.model.MovieListItem
 
 class MovieViewHolder(view: View) : CustomViewHolder(view) {
