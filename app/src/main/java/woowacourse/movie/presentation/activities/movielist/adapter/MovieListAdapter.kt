@@ -19,18 +19,17 @@ class MovieListAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): BaseRecyclerView.BaseViewHolder =
-        when (MovieViewType.get(viewType)) {
-            MovieViewType.MOVIE -> {
-                val movieView = inflate(parent, R.layout.item_movie)
-                MovieViewHolder(movieView, onItemViewClick)
-            }
-
-            MovieViewType.AD -> {
-                val adView = inflate(parent, R.layout.item_native_ad)
-                NativeAdViewHolder(adView, onItemViewClick)
-            }
+    ): BaseRecyclerView.BaseViewHolder = when (MovieViewType.get(viewType)) {
+        MovieViewType.MOVIE -> {
+            val movieView = inflate(parent, R.layout.item_movie)
+            MovieViewHolder(movieView, onItemViewClick)
         }
+
+        MovieViewType.AD -> {
+            val adView = inflate(parent, R.layout.item_native_ad)
+            NativeAdViewHolder(adView, onItemViewClick)
+        }
+    }
 
     override fun getItemViewType(position: Int): Int = when (items[position]) {
         is Movie -> MovieViewType.MOVIE.type
