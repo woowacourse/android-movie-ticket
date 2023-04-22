@@ -78,7 +78,6 @@ class MainActivityTest {
 
     @Test
     fun `광고아이템을_클릭하면_광고화면으로_이동한다`() {
-        // when
         onView(withId(R.id.rv_main))
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
@@ -100,7 +99,7 @@ class MainActivityTest {
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     1,
                     object : ViewAction {
-                        override fun getDescription(): String = "id를 기반으로 아이템을 클릭한다."
+                        override fun getDescription(): String = "지금 예매 버튼을 클릭한다"
 
                         override fun getConstraints(): Matcher<View>? = null
 

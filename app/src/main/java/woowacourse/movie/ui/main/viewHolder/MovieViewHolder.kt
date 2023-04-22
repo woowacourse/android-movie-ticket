@@ -38,6 +38,6 @@ class MovieViewHolder(
             )
         time.text = time.context.getString(R.string.running_time, item.movieState.runningTime)
 
-        reservation.setOnClickListener { item.onClick(adapterPosition) }
+        reservation.setOnClickListener { item.onClick(bindingAdapterPosition) }
     }
 }
