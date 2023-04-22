@@ -19,7 +19,7 @@ class TicketResultActivity : AppCompatActivity() {
     }
 
     private fun initTicketDataView() {
-        val ticketModel: TicketModel = intent.customGetSerializable(TICKET_KEY)
+        val ticketModel: TicketModel = getReceivedIntentData()
         initTitle(ticketModel.reservationInfoModel.title)
         initPlayingDate(
             ticketModel.reservationInfoModel.playingDate,
@@ -28,6 +28,8 @@ class TicketResultActivity : AppCompatActivity() {
         initCountAndSeat(ticketModel.reservationInfoModel.count, ticketModel.seats)
         initPricePayment(ticketModel.price, ticketModel.reservationInfoModel.payment)
     }
+
+    private fun getReceivedIntentData(): TicketModel = intent.customGetSerializable(TICKET_KEY)
 
     private fun initTitle(title: String) {
         val titleView = findViewById<TextView>(R.id.text_title)
