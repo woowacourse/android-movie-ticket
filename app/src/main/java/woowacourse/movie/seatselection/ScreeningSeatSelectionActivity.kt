@@ -12,7 +12,7 @@ import domain.movie.MovieName
 import domain.reservation.Reservation
 import domain.reservation.SeatSelection
 import woowacourse.movie.R
-import woowacourse.movie.getIntentData
+import woowacourse.movie.activity.appCompatGetSerializable
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.model.toDomainModel
 import woowacourse.movie.model.toUIModel
@@ -21,14 +21,15 @@ import woowacourse.movie.reservationresult.ReservationResultActivity
 
 class ScreeningSeatSelectionActivity : AppCompatActivity() {
 
-    private lateinit var seatReservationInfo: SeatSelectionInfo
-    private val seatSelection: SeatSelection by lazy { seatReservationInfo.toDomainModel() }
+    private lateinit var seatSelectionInfo: SeatSelectionInfo
+    private val seatSelection: SeatSelection by lazy { seatSelectionInfo.toDomainModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_seat_selection)
 
-        seatReservationInfo = getIntentData(SEAT_SELECTION_KEY) ?: SeatSelectionInfo.ofError()
+        seatSelectionInfo =
+            intent.appCompatGetSerializable(SEAT_SELECTION_KEY) ?: return finish()
         setMovieNameTextView()
         setSeatTableView()
         setOnCompleteButtonClickedListener()
@@ -37,7 +38,7 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
     private fun setMovieNameTextView() {
         val movieNamTextView = findViewById<TextView>(R.id.seat_selection_movie_name_text)
 
-        movieNamTextView.text = seatReservationInfo.movieName
+        movieNamTextView.text = seatSelectionInfo.movieName
     }
 
     private fun setSeatTableView() {
@@ -78,7 +79,7 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.reservation_check_text))
             .setMessage(getString(R.string.asking_reserve_text))
-            .setPositiveButton(getString(R.string.yes)) { _, _ -> onFinished() }
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> onCompleted() }
             .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()
             }
@@ -86,11 +87,11 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun onFinished() {
+    private fun onCompleted() {
         runCatching {
             val intent = Intent(this, ReservationResultActivity::class.java)
             val reservation = Reservation.of(
-                MovieName(seatReservationInfo.movieName),
+                MovieName(seatSelectionInfo.movieName),
                 seatSelection.seatCount,
                 seatSelection.screeningDateTime,
                 seatSelection.getTotalPaymentAmount(),

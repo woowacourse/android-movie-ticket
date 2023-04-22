@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import domain.reservation.TicketCount
 import woowacourse.movie.R
-import woowacourse.movie.getIntentData
+import woowacourse.movie.activity.appCompatGetSerializable
 import woowacourse.movie.model.DisplayItem
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.movies.MoviesActivity.Companion.MOVIE_KEY
@@ -24,7 +24,7 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
-        movieInfo = this.getIntentData(MOVIE_KEY) ?: DisplayItem.MovieInfo.ofError()
+        movieInfo = intent.appCompatGetSerializable(MOVIE_KEY) ?: return finish()
         setMovieInfoView()
         setNavigationBar()
     }
