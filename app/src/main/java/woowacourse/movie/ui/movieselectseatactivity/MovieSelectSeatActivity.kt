@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.movieselectseatactivity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -85,14 +86,14 @@ class MovieSelectSeatActivity : AppCompatActivity() {
         movieData =
             intent.getSerializableExtraCompat(MovieBookingCheckActivity.MOVIE_DATA)
                 ?: return this.intentDataNullProcess(
-                    MovieBookingCheckActivity.MOVIE_DATA
+                    MOVIE_DATA
                 )
         ticketCount =
-            TicketCount(intent.getIntExtra(MovieBookingCheckActivity.TICKET_COUNT, -1))
+            TicketCount(intent.getIntExtra(TICKET_COUNT, -1))
         bookedScreeningDateTime =
             ScreeningDateTime(
-                intent.getSerializableExtraCompat(MovieBookingCheckActivity.BOOKED_SCREENING_DATE_TIME)
-                    ?: return this.intentDataNullProcess(MovieBookingCheckActivity.BOOKED_SCREENING_DATE_TIME),
+                intent.getSerializableExtraCompat(BOOKED_SCREENING_DATE_TIME)
+                    ?: return this.intentDataNullProcess(BOOKED_SCREENING_DATE_TIME),
                 ScreeningPeriod(
                     movieData.screeningStartDay,
                     movieData.screeningEndDay
@@ -105,6 +106,7 @@ class MovieSelectSeatActivity : AppCompatActivity() {
             .setTitle(R.string.dialog_title)
             .setMessage(R.string.dialog_message)
             .setPositiveButton(R.string.dialog_positive) { _, _ ->
+                initDialogPositiveButtonClickListener()
             }
             .setNegativeButton(R.string.dialog_negative) { dialog, _ ->
                 dialog.dismiss()
@@ -112,6 +114,25 @@ class MovieSelectSeatActivity : AppCompatActivity() {
             .setCancelable(false)
             .create()
             .show()
+    }
+
+    private fun initDialogPositiveButtonClickListener() {
+        val intent = Intent(this, MovieBookingCheckActivity::class.java).apply {
+            putExtra(MovieBookingCheckActivity.MOVIE_DATA, movieData)
+            putExtra(
+                MovieBookingCheckActivity.SEAT_POSITIONS,
+                seatView.selectedSeats.seats.map { it.toPositionUIModel() }.toCollection(ArrayList())
+            )
+            putExtra(
+                MovieBookingCheckActivity.BOOKED_SCREENING_DATE_TIME,
+                bookedScreeningDateTime.time
+            )
+            putExtra(
+                MovieBookingCheckActivity.TICKET_TOTAL_PRICE,
+                seatView.selectedSeats.calculateTotalPrice().value
+            )
+        }
+        this.startActivity(intent)
     }
 
     companion object {

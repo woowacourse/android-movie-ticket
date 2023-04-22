@@ -34,6 +34,15 @@ inline fun <reified T : Parcelable> Bundle.getParcelableArrayListCompat(key: Str
 }
 
 @Suppress("DEPRECATION")
+inline fun <reified T : Parcelable> Intent.getParcelableArrayListExtraCompat(key: String): ArrayList<T>? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        getParcelableArrayListExtra(key, T::class.java)
+    } else {
+        getParcelableArrayListExtra(key)
+    }
+}
+
+@Suppress("DEPRECATION")
 inline fun <reified T : Serializable> Intent.getSerializableExtraCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getSerializableExtra(key, T::class.java)
