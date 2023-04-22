@@ -42,24 +42,24 @@ class BookingCheckView(
             view.context.getString(R.string.tv_booking_check_person_count).format(ticketCount.value)
         tvBookingCheckTotalMoney.text =
             view.context.getString(R.string.tv_booking_check_total_money)
-                .format(
-                    applyDisCount(
-                        woowacourse.movie.domain.price.TicketPrice(woowacourse.movie.domain.price.TicketPrice.STANDARD_TICKET_PRICE),
-                        ticketCount,
-                        bookedScreeningDateTime
-                    ).value
-                )
+//                .format(
+//                    applyDisCount(
+//                        woowacourse.movie.domain.price.TicketPrice(woowacourse.movie.domain.price.TicketPrice.STANDARD_TICKET_PRICE),
+//                        ticketCount,
+//                        bookedScreeningDateTime
+//                    ).value
+//                )
     }
 
-    private fun applyDisCount(
-        ticketPrice: woowacourse.movie.domain.price.TicketPrice,
-        ticketCount: woowacourse.movie.domain.price.TicketCount,
-        bookedScreeningDateTime: woowacourse.movie.domain.datetime.ScreeningDateTime
-    ): woowacourse.movie.domain.price.TicketPrice =
-        woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator(
-            woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy(
-                bookedScreeningDateTime
-            ).getDiscountPolicies()
-        )
-            .totalPriceCalculate(ticketPrice, ticketCount)
+//    private fun applyDisCount(
+//        ticketPrice: woowacourse.movie.domain.price.TicketPrice,
+//        ticketCount: woowacourse.movie.domain.price.TicketCount,
+//        bookedScreeningDateTime: woowacourse.movie.domain.datetime.ScreeningDateTime
+//    ): woowacourse.movie.domain.price.TicketPrice =
+//        woowacourse.movie.domain.price.pricecalculate.PricePolicyCalculator(
+//            woowacourse.movie.domain.price.discount.runningpolicy.TimeMovieDayDiscountPolicy(
+//                bookedScreeningDateTime
+//            ).getDiscountPolicies()
+//        )
+//            .totalPriceCalculate(ticketPrice, ticketCount)
 }

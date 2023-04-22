@@ -16,13 +16,31 @@ class MovieSelectSeatActivity : AppCompatActivity() {
     lateinit var movieData: MovieUIModel
     lateinit var ticketCount: TicketCount
     lateinit var bookedScreeningDateTime: ScreeningDateTime
+    lateinit var seatConfirmView: SeatConfirmView
+    lateinit var seatView: SeatView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_select_seat)
 
         initExtraData()
-        SeatView(findViewById(R.id.table_seat))
-        SeatConfirmView(findViewById(R.id.layout_total_information), movieData)
+        initSeatConfirmView()
+        initSeatView()
+    }
+
+    private fun initSeatView() {
+        seatView = SeatView(
+            findViewById(R.id.table_seat),
+            SelectedSeats(
+                ticketCount = ticketCount,
+                bookedScreeningDateTime = bookedScreeningDateTime
+            ),
+            seatConfirmView::updateMovieTotalPrice,
+            seatConfirmView::updateBtnCheckState
+        )
+    }
+
+    private fun initSeatConfirmView() {
+        seatConfirmView = SeatConfirmView(findViewById(R.id.layout_total_information), movieData)
     }
 
     private fun initExtraData() {

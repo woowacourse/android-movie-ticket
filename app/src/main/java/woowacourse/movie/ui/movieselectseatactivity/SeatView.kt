@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.movieselectseatactivity
 
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -10,13 +11,16 @@ import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.grade.Grade
 import woowacourse.movie.domain.grade.Position
-import woowacourse.movie.domain.price.TicketCount
+import woowacourse.movie.domain.price.TicketPrice
 import woowacourse.movie.util.getColor
 import woowacourse.movie.util.setOnSingleClickListener
 
 class SeatView(
     private val view: TableLayout,
-    private val selectedSeats: List<Position> = listOf(),
+    private val selectedSeats: SelectedSeats,
+    private val priceClickListener: (TicketPrice) -> Unit,
+    private val buttonStateClickListener: (Boolean) -> Unit
+
 ) {
 
     init {
@@ -60,11 +64,23 @@ class SeatView(
             text = String.format("%s%d", convertIndexToAlphabet(rowIndex), columnIndex + 1)
             setTextColor(view.getColor(getSeatTextColor(rowIndex)))
             background = ContextCompat.getDrawable(view.context, R.drawable.seat_background_color)
-            setOnSingleClickListener { seatClickListener() }
+            setOnSingleClickListener { seatClickListener(rowIndex, columnIndex, it) }
         }
     }
 
-    private fun seatClickListener() {
+    private fun seatClickListener(rowIndex: Int, columnIndex: Int, seatView: View) {
+        val selectedPosition = Position.from(rowIndex, columnIndex)
+        if (selectedSeats.checkAlreadySelect(selectedPosition)) {
+            seatView.isSelected = false
+            selectedSeats.seats.remove(selectedPosition)
+        } else {
+            if (selectedSeats.checkAddAvailability()) {
+                seatView.isSelected = true
+                selectedSeats.seats.add(selectedPosition)
+            }
+        }
+        priceClickListener(selectedSeats.calculateTotalPrice())
+        buttonStateClickListener(selectedSeats.checkFull())
     }
 
     private fun getSeatTextColor(rowIndex: Int): Int {

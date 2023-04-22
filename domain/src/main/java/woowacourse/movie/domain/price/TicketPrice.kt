@@ -13,6 +13,8 @@ value class TicketPrice(val value: Int) {
 
     operator fun plus(other: Int): TicketPrice = TicketPrice(value + other)
 
+    operator fun plus(other: TicketPrice): TicketPrice = TicketPrice(value + other.value)
+
     operator fun minus(other: Int): TicketPrice = TicketPrice(value - other)
 
     operator fun div(other: Int): TicketPrice = TicketPrice(value / other)

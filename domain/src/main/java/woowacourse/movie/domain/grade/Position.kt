@@ -1,6 +1,8 @@
 package woowacourse.movie.domain.grade
 
-class Position private constructor(val rowIndex: Int, val columnIndex: Int) {
+import woowacourse.movie.domain.price.TicketPrice
+
+data class Position private constructor(val rowIndex: Int, val columnIndex: Int) {
     init {
         validateCoordinate(columnIndex)
     }
@@ -10,10 +12,10 @@ class Position private constructor(val rowIndex: Int, val columnIndex: Int) {
         require(columnIndex in START_INDEX..MAXIMUM_COLUMN_INDEX) { OVER_MAXIMUM_INDEX }
     }
 
-    fun getGradePrice(): Int {
+    fun getGradePrice(): TicketPrice {
         var price: Int = 0
         Grade.values().forEach { if (rowIndex in it.rowIndexRange) price = it.price }
-        return price
+        return TicketPrice(price)
     }
 
     companion object {
