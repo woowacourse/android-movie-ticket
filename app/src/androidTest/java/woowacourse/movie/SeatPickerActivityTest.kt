@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -31,9 +30,7 @@ class SeatPickerActivityTest {
         emptySet(),
         PriceModel(0)
     )
-    private val intent =
-        Intent(ApplicationProvider.getApplicationContext(), SeatPickerActivity::class.java)
-            .putExtra("ticket", ticket)
+    private val intent = SeatPickerActivity.createIntent(ApplicationProvider.getApplicationContext(), ticket)
 
     @get:Rule
     val activityRule = ActivityScenarioRule<SeatPickerActivity>(intent)
