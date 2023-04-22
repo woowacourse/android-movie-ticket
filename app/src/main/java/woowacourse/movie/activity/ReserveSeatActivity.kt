@@ -30,12 +30,16 @@ class ReserveSeatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reserve_seat)
 
         val reservationInfoModel: ReservationInfoModel = getReceivedIntentData()
-        initTitle(reservationInfoModel.title)
-        initPrice()
-        val reserveButton = findViewById<Button>(R.id.btn_reserve)
+        initTicketInfoView(reservationInfoModel.title)
         initSeatViews(reservationInfoModel)
+        val reserveButton = findViewById<Button>(R.id.btn_reserve)
         reserveButton.setOnClickListener(ReserveButtonListener(reservationInfoModel))
         setActionBar()
+    }
+
+    private fun initTicketInfoView(title: String) {
+        initTitle(title)
+        initPrice()
     }
 
     private fun initSeatViews(
