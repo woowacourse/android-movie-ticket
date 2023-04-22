@@ -75,7 +75,7 @@ class MovieListActivityTest {
     }
 
     @Test
-    fun `지금_예매_버튼을_누르면_다음_액티비티로_이동한다`() {
+    fun `지금_예매_버튼을_누르면_티켓팅_화면으로_이동한다`() {
         onView(withId(R.id.recycler_movies))
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
