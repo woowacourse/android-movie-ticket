@@ -5,9 +5,6 @@ import domain.reservation.SeatSelection
 import domain.reservation.TicketCount
 import domain.seat.ScreeningSeat
 import domain.seat.ScreeningSeats
-import domain.seat.SeatColumn
-import domain.seat.SeatRow
-import domain.seat.SeatState
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -15,15 +12,7 @@ data class SeatSelectionInfo(
     val movieName: String,
     val screeningTime: LocalDateTime,
     val seatCount: Int,
-    val screeningSeats: Map<Pair<SeatRow, SeatColumn>, SeatState> = SeatRow
-        .values()
-        .flatMap { row ->
-            SeatColumn.values().map { column ->
-                row to column
-            }
-        }.associateWith {
-            SeatState.AVAILABLE
-        }
+    val screeningPlace: ScreeningPlace = ScreeningPlace.Default
 ) : Serializable
 
 fun SeatSelectionInfo.toDomainModel() = SeatSelection(
@@ -31,8 +20,8 @@ fun SeatSelectionInfo.toDomainModel() = SeatSelection(
     screeningDateTime = screeningTime,
     seatCount = TicketCount(seatCount),
     screeningSeats = ScreeningSeats(
-        screeningSeats.map {
-            Pair(ScreeningSeat.valueOf(it.key.first, it.key.second), it.value)
+        screeningPlace.seats.map {
+            ScreeningSeat.valueOf(it.key.row, it.key.column) to it.value
         }.toMap()
     )
 )
