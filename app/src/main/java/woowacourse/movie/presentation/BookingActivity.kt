@@ -144,7 +144,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun clickBookingComplete() {
-        findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
+        findViewById<Button>(R.id.buttonBookingChooseSeat).setOnClickListener {
             bookMovie()
         }
     }
