@@ -33,6 +33,7 @@ class MovieSeatActivity : AppCompatActivity() {
     }
 
     private val nextButton by lazy { findViewById<Button>(R.id.seat_next_button) }
+    private val priceTextView by lazy { findViewById<TextView>(R.id.seat_ticket_price) }
 
     private val selectedSeats: MutableList<Seat> = mutableListOf()
     private var totalPrice: Int = 0
@@ -132,9 +133,7 @@ class MovieSeatActivity : AppCompatActivity() {
     }
 
     private fun updateBottomView() {
-        val priceTextView = findViewById<TextView>(R.id.seat_ticket_price)
         priceTextView.text = getString(R.string.total_price).format(totalPrice)
-
         nextButton.isEnabled = movieDetail.count.toInt() == selectedSeats.size
     }
 
