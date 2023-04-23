@@ -23,18 +23,12 @@ class MovieAdapter2(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVi
         return when (viewType) {
             1 -> {
                 adView = LayoutInflater.from(parent.context).inflate(R.layout.ad_item_layout, parent, false)
-                AdViewHolder(adView).apply {
-                    itemView.setOnClickListener {
-                    }
-                }
+                AdViewHolder(adView)
             }
             else -> {
                 movieView = LayoutInflater.from(parent.context).inflate(R.layout.movie_item_layout, parent, false)
                 MovieViewHolder(movieView).apply {
-                    reservation.setOnClickListener {
-                        val curPos: Int = adapterPosition
-                        clickListener?.onClick(curPos)
-                    }
+                    reservation.setOnClickListener { clickListener?.onClick(adapterPosition) }
                 }
             }
         }
