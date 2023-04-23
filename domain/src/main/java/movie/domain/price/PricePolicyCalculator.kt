@@ -4,7 +4,7 @@ import movie.domain.seat.Seat
 
 class PricePolicyCalculator(private val discountPolicies: List<DiscountPolicy>) : PricePolicy {
 
-    override fun totalPriceCalculate(selectedSeats: List<Seat>): Int {
+    override fun totalPriceCalculate(selectedSeats: Set<Seat>): Int {
         return selectedSeats.fold(0) { totalPrice, seat ->
             totalPrice + discountCalculate(seat.rank.price)
         }

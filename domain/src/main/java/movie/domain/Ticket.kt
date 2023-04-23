@@ -12,7 +12,7 @@ class Ticket(
     val movieData: MovieData,
     val screeningDateTime: ScreeningDateTime,
     price: Int,
-    val seatSelection: MutableList<Seat> = mutableListOf()
+    val seatSelection: MutableSet<Seat> = mutableSetOf()
 ) {
     val price
         get() = calculatePrice()

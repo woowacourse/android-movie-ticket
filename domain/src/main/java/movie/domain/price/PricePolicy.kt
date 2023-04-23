@@ -4,7 +4,7 @@ import movie.domain.seat.Seat
 
 interface PricePolicy {
 
-    fun totalPriceCalculate(selectedSeats: List<Seat>): Int
+    fun totalPriceCalculate(selectedSeats: Set<Seat>): Int
 
     fun discountCalculate(price: Int): Int
 }

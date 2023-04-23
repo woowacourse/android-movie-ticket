@@ -3,9 +3,9 @@ package woowacourse.movie.model.mapper
 import movie.domain.seat.Seat
 import woowacourse.movie.model.SeatState
 
-fun MutableList<SeatState>.toDomain(): MutableList<Seat> = map { it.toDomain() }.toMutableList()
+fun MutableSet<SeatState>.toDomain(): MutableSet<Seat> = map { it.toDomain() }.toMutableSet()
 
-fun MutableList<Seat>.toPresentation(): MutableList<SeatState> = map { it.toPresentation() }.toMutableList()
+fun MutableSet<Seat>.toPresentation(): MutableSet<SeatState> = map { it.toPresentation() }.toMutableSet()
 
 fun SeatState.toDomain(): Seat = Seat(index)
 
