@@ -20,7 +20,7 @@ import woowacourse.movie.mapper.toModel
 import woowacourse.movie.model.MovieListModel
 import woowacourse.movie.ui.movielist.MainActivity
 import woowacourse.movie.ui.seat.SeatSelectionActivity
-import woowacourse.movie.utils.getSerializableExtraCompat
+import woowacourse.movie.utils.getParcelableCompat
 import woowacourse.movie.utils.showToast
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -40,7 +40,7 @@ class MovieDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movie: MovieListModel.MovieModel =
-            intent.getSerializableExtraCompat(MainActivity.KEY_MOVIE) ?: return failLoadingData()
+            intent.getParcelableCompat(MainActivity.KEY_MOVIE) ?: return failLoadingData()
 
         setMovieInfo(movie)
         setDateSpinner(movie)

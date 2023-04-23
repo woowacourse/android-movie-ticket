@@ -1,11 +1,13 @@
 package woowacourse.movie.model
 
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
 sealed class MovieListModel {
 
+    @Parcelize
     data class MovieModel(
         @DrawableRes val poster: Int,
         val title: String,
@@ -13,7 +15,7 @@ sealed class MovieListModel {
         val endDate: LocalDate,
         val runningTime: Int,
         val description: String,
-    ) : MovieListModel(), Serializable
+    ) : MovieListModel(), Parcelable
 
     data class AdModel(
         @DrawableRes val banner: Int,
