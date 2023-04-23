@@ -10,7 +10,7 @@ import woowacourse.movie.advertisement.AdvertisementRepository
 import woowacourse.movie.model.main.MainMapper.toUiModel
 import woowacourse.movie.movie.MovieRepository
 import woowacourse.movie.ui.booking.BookingActivity
-import woowacourse.movie.ui.main.adapter.MovieAdapter
+import woowacourse.movie.ui.main.adapter.listview.MovieAdapter
 
 class MainActivity : AppCompatActivity() {
 

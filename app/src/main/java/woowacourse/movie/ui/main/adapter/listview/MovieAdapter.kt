@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.main.adapter
+package woowacourse.movie.ui.main.adapter.listview
 
 import android.content.Context
 import android.content.Intent
