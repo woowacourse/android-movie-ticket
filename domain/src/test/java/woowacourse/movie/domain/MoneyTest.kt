@@ -55,4 +55,12 @@ class MoneyTest {
         val expected = Money(130_000)
         assertThat(actual).isEqualTo(expected)
     }
+
+    @Test
+    fun `돈은 금액으로 비교된다`() {
+        val oneMoney = Money(10_000)
+        val otherMoney = Money(20_000)
+
+        assertThat(oneMoney.compareTo(otherMoney)).isEqualTo(oneMoney.amount.compareTo(otherMoney.amount))
+    }
 }
