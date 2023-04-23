@@ -6,28 +6,40 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.MovieListModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
+import woowacourse.movie.ui.movielist.adapter.ItemClickListener
+import woowacourse.movie.ui.movielist.adapter.MovieListAdapter
 import woowacourse.movie.utils.MockData
+import woowacourse.movie.utils.showToast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val movies = MockData.movies
-        setMovieList(movies)
+        val movieItems = MockData.getMoviesWithAds()
+        setMovieList(movieItems)
     }
 
-    private fun setMovieList(movies: List<MovieModel>) {
+    private fun setMovieList(movies: List<MovieListModel>) {
         val moviesView = findViewById<RecyclerView>(R.id.main_movie_list)
         moviesView.layoutManager = LinearLayoutManager(this)
-        moviesView.adapter = MovieListAdapter(movies) {
-            moveToDetailActivity(movies[it])
-        }
+        moviesView.adapter = MovieListAdapter(
+            movies,
+            object : ItemClickListener {
+                override fun onMovieItemClick(movie: MovieListModel.MovieModel) {
+                    moveToDetailActivity(movie)
+                }
+
+                override fun onAdItemClick(ad: MovieListModel.AdModel) {
+                    showToast("it's ad!")
+                }
+            }
+        )
     }
 
-    private fun moveToDetailActivity(movie: MovieModel) {
+    private fun moveToDetailActivity(movie: MovieListModel.MovieModel) {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra(KEY_MOVIE, movie)
         startActivity(intent)

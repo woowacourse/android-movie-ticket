@@ -1,9 +1,9 @@
 package woowacourse.movie.mapper
 
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.MovieListModel
 
-fun MovieModel.toDomain(): Movie = Movie(
+fun MovieListModel.MovieModel.toDomain(): Movie = Movie(
     title = title,
     startDate = startDate,
     endDate = endDate,

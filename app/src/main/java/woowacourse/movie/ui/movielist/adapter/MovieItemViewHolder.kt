@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.movielist
+package woowacourse.movie.ui.movielist.adapter
 
 import android.view.View
 import android.widget.Button
@@ -6,11 +6,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.MovieListModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MovieListViewHolder(
+class MovieItemViewHolder(
     private val view: View,
     private val onItemClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(view) {
@@ -26,7 +26,7 @@ class MovieListViewHolder(
         button.setOnClickListener { onItemClick(adapterPosition) }
     }
 
-    fun bind(movie: MovieModel) {
+    fun bind(movie: MovieListModel.MovieModel) {
         poster.setImageResource(movie.poster)
         title.text = movie.title
         date.text = view.context.getString(R.string.screening_date, movie.startDate.format(), movie.endDate.format())

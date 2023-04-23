@@ -17,7 +17,7 @@ import woowacourse.movie.domain.PeopleCount
 import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.mapper.toModel
-import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.MovieListModel
 import woowacourse.movie.ui.movielist.MainActivity
 import woowacourse.movie.ui.seat.SeatSelectionActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
@@ -39,7 +39,7 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie: MovieModel =
+        val movie: MovieListModel.MovieModel =
             intent.getSerializableExtraCompat(MainActivity.KEY_MOVIE) ?: return failLoadingData()
 
         setMovieInfo(movie)
@@ -68,7 +68,7 @@ class MovieDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setMovieInfo(movie: MovieModel) {
+    private fun setMovieInfo(movie: MovieListModel.MovieModel) {
         findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.detail_title).text = movie.title
         findViewById<TextView>(R.id.detail_date).text =
@@ -81,7 +81,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun LocalDate.format(): String =
         format(DateTimeFormatter.ofPattern(getString(R.string.date_format)))
 
-    private fun setDateSpinner(movie: MovieModel) {
+    private fun setDateSpinner(movie: MovieListModel.MovieModel) {
         dateSpinner = findViewById(R.id.detail_date_spinner)
         val dateSpinnerAdapter = ArrayAdapter(
             this,
@@ -146,7 +146,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setBookingButton(movie: MovieModel) {
+    private fun setBookingButton(movie: MovieListModel.MovieModel) {
         val bookingButton = findViewById<Button>(R.id.detail_booking_button)
 
         bookingButton.setOnClickListener {
@@ -154,7 +154,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun moveToSeatSelectionActivity(movie: MovieModel) {
+    private fun moveToSeatSelectionActivity(movie: MovieListModel.MovieModel) {
         val intent = Intent(this, SeatSelectionActivity::class.java).apply {
             putExtra(KEY_TITLE, movie.title)
             putExtra(
