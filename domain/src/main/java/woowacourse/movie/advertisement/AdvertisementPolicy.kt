@@ -1,5 +1,7 @@
 package woowacourse.movie.advertisement
 
+import woowacourse.movie.advertisement.Advertisement.Companion.CYCLE
+
 object AdvertisementPolicy {
 
     fun <T> mergeAdvertisement(data: List<T>, ads: List<T>): List<T> {
@@ -15,6 +17,4 @@ object AdvertisementPolicy {
         }
         return newList
     }
-
-    private const val CYCLE = 3
 }
