@@ -47,19 +47,52 @@ class SeatPickerActivity : BackButtonActivity() {
         reloadData(savedInstanceState)
 
         setPickDoneButtonClickListener()
+        setSeatsOnClickListener(movieBookingInfo)
+    }
 
+    private fun getMovieBookingInfo(): MovieBookingInfo {
+        return intent.getSerializableCompat(BundleKeys.MOVIE_BOOKING_INFO_KEY)
+            ?: MovieBookingInfo.dummyData
+    }
+
+    private fun initSeatName() {
+        getRowSeats().forEachIndexed { index, rowSeat ->
+            rowSeat.children
+                .filterIsInstance<TextView>()
+                .forEachIndexed { rowIndex, seat ->
+                    seat.text = formatSeatName(index, rowIndex)
+                }
+        }
+    }
+
+    private fun formatSeatName(index: Int, rowIndex: Int) =
+        getString(R.string.seat_name).format(ALPHABET[index], rowIndex + 1)
+
+    private fun initSeatNameColor() {
         getSeats().forEachIndexed { index, seat ->
-            seat.setOnClickListener {
-                val newSeat = Seat(SeatRow(index / 4), SeatColumn(index % 4))
-                if (seatGroup.seats.contains(newSeat)) {
-                    progressRemoveSeat(newSeat, seat, movieBookingInfo)
-                    return@setOnClickListener
-                }
-                if (seatGroup.canAdd(ticketBundle.count) && !seatGroup.seats.contains(newSeat)) {
-                    progressAddSeat(newSeat, seat, movieBookingInfo)
-                }
+            when (index) {
+                in SEAT_B -> seat.setTextColor(getColor(R.color.seat_color_b))
+                in SEAT_S -> seat.setTextColor(getColor(R.color.seat_color_s))
+                in SEAT_A -> seat.setTextColor(getColor(R.color.seat_color_a))
+                else -> throw IllegalArgumentException("잘못된 값: $index 분류될 수 없는 값입니다.")
             }
         }
+    }
+
+    private fun getRowSeats() =
+        seatTableLayout.children
+            .filterIsInstance<TableRow>()
+            .toList()
+
+    private fun getSeats() =
+        seatTableLayout.children
+            .filterIsInstance<TableRow>()
+            .flatMap { it.children }
+            .filterIsInstance<TextView>()
+            .toList()
+
+    private fun initMovieTitle(movieBookingInfo: MovieBookingInfo) {
+        movieTitle.text = movieBookingInfo.movieInfo.title
     }
 
     private fun reloadData(savedInstanceState: Bundle?) {
@@ -83,11 +116,49 @@ class SeatPickerActivity : BackButtonActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(MOVIE_TITLE, movieTitle.text.toString())
-        outState.putString(TICKET_PRICE, seatPickerTicketPrice.text.toString())
-        outState.putSerializable(PICKED_SEAT, seatGroup.toPresentation())
+    private fun setPickDoneButtonClickListener() {
+        pickDoneButton.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.alert_dialog_book_confirm))
+                .setMessage(getString(R.string.alert_dialog_book_re_confirm))
+                .setPositiveButton(
+                    getString(R.string.alert_dialog_book_done)
+                ) { _, _ ->
+                    val intent = BookCompleteActivity.intent(this)
+                    intent.putExtra(
+                        BundleKeys.MOVIE_BOOKING_SEAT_INFO_KEY,
+                        MovieBookingSeatInfo(
+                            getMovieBookingInfo(),
+                            seatGroup.sorted().seats.map {
+                                formatSeatName(it.row.value, it.column.value)
+                            },
+                            seatPickerTicketPrice.text.toString()
+                        )
+                    )
+                    startActivity(intent)
+                }.setNegativeButton(
+                    getString(R.string.alert_dialog_book_cancel)
+                ) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setCancelable(false)
+                .show()
+        }
+    }
+
+    private fun setSeatsOnClickListener(movieBookingInfo: MovieBookingInfo) {
+        getSeats().forEachIndexed { index, seat ->
+            seat.setOnClickListener {
+                val newSeat = Seat(SeatRow(index / 4), SeatColumn(index % 4))
+                if (seatGroup.seats.contains(newSeat)) {
+                    progressRemoveSeat(newSeat, seat, movieBookingInfo)
+                    return@setOnClickListener
+                }
+                if (seatGroup.canAdd(ticketBundle.count) && !seatGroup.seats.contains(newSeat)) {
+                    progressAddSeat(newSeat, seat, movieBookingInfo)
+                }
+            }
+        }
     }
 
     private fun progressAddSeat(
@@ -128,40 +199,6 @@ class SeatPickerActivity : BackButtonActivity() {
                 )
     }
 
-    private fun setPickDoneButtonClickListener() {
-        pickDoneButton.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle(getString(R.string.alert_dialog_book_confirm))
-                .setMessage(getString(R.string.alert_dialog_book_re_confirm))
-                .setPositiveButton(
-                    getString(R.string.alert_dialog_book_done)
-                ) { _, _ ->
-                    val intent = BookCompleteActivity.intent(this)
-                    intent.putExtra(
-                        BundleKeys.MOVIE_BOOKING_SEAT_INFO_KEY,
-                        MovieBookingSeatInfo(
-                            getMovieBookingInfo(),
-                            seatGroup.sorted().seats.map {
-                                formatSeatName(it.row.value, it.column.value)
-                            },
-                            seatPickerTicketPrice.text.toString()
-                        )
-                    )
-                    startActivity(intent)
-                }.setNegativeButton(
-                    getString(R.string.alert_dialog_book_cancel)
-                ) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setCancelable(false)
-                .show()
-        }
-    }
-
-    private fun initMovieTitle(movieBookingInfo: MovieBookingInfo) {
-        movieTitle.text = movieBookingInfo.movieInfo.title
-    }
-
     private fun setPickDoneButtonColor() {
         if (!seatGroup.canAdd(ticketBundle.count)) ablePickDoneButton() else disablePickDoneButton()
     }
@@ -180,45 +217,11 @@ class SeatPickerActivity : BackButtonActivity() {
         )
     }
 
-    private fun initSeatNameColor() {
-        getSeats().forEachIndexed { index, seat ->
-            when (index) {
-                in SEAT_B -> seat.setTextColor(getColor(R.color.seat_color_b))
-                in SEAT_S -> seat.setTextColor(getColor(R.color.seat_color_s))
-                in SEAT_A -> seat.setTextColor(getColor(R.color.seat_color_a))
-                else -> throw IllegalArgumentException("잘못된 값: $index 분류될 수 없는 값입니다.")
-            }
-        }
-    }
-
-    private fun initSeatName() {
-        getRowSeats().forEachIndexed { index, rowSeat ->
-            rowSeat.children
-                .filterIsInstance<TextView>()
-                .forEachIndexed { rowIndex, seat ->
-                    seat.text = formatSeatName(index, rowIndex)
-                }
-        }
-    }
-
-    private fun formatSeatName(index: Int, rowIndex: Int) =
-        getString(R.string.seat_name).format(ALPHABET[index], rowIndex + 1)
-
-    private fun getRowSeats() =
-        seatTableLayout.children
-            .filterIsInstance<TableRow>()
-            .toList()
-
-    private fun getSeats() =
-        seatTableLayout.children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
-            .toList()
-
-    private fun getMovieBookingInfo(): MovieBookingInfo {
-        return intent.getSerializableCompat(BundleKeys.MOVIE_BOOKING_INFO_KEY)
-            ?: MovieBookingInfo.dummyData
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(MOVIE_TITLE, movieTitle.text.toString())
+        outState.putString(TICKET_PRICE, seatPickerTicketPrice.text.toString())
+        outState.putSerializable(PICKED_SEAT, seatGroup.toPresentation())
     }
 
     companion object {
