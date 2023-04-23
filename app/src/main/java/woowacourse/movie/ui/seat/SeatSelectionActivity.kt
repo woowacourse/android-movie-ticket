@@ -53,7 +53,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putSerializable("seats", selectedSeats.toModel())
+        outState.putSerializable(KEY_SEATS, selectedSeats.toModel())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -78,10 +78,10 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun loadSavedData(savedInstanceState: Bundle?) {
         (
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState?.getSerializable("seats", SelectedSeatsModel::class.java)
+                savedInstanceState?.getSerializable(KEY_SEATS, SelectedSeatsModel::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                savedInstanceState?.getSerializable("seats")
+                savedInstanceState?.getSerializable(KEY_SEATS)
             } as SelectedSeatsModel?
             )?.let {
             selectedSeats = it.toDomain()
@@ -198,5 +198,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         const val ROW_SIZE = 5
         const val COLUMN_SIZE = 4
         const val KEY_TICKET = "ticket"
+        private const val KEY_SEATS = "seats"
     }
 }
