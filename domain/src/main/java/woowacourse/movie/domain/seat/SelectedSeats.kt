@@ -8,6 +8,8 @@ data class SelectedSeats(
     val seats: Set<Seat> = emptySet()
 ) {
     fun getAllPrice(time: LocalDateTime): Int {
+        if (seats.isEmpty()) return 0
+
         var price = seats.fold(0) { price, seat ->
             price + seat.getPriceByClass()
         }

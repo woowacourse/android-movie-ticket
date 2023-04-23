@@ -7,20 +7,20 @@ import android.os.Parcelable
 import android.widget.Toast
 import java.io.Serializable
 
-@Suppress("DEPRECATION")
 inline fun <reified T : Serializable> Intent.getSerializableExtraCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getSerializableExtra(key, T::class.java)
     } else {
+        @Suppress("DEPRECATION")
         getSerializableExtra(key) as? T
     }
 }
 
-@Suppress("DEPRECATION")
 inline fun <reified T : Parcelable> Intent.getParcelableCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getParcelableExtra(key, T::class.java)
     } else {
+        @Suppress("DEPRECATION")
         getParcelableExtra(key)
     }
 }

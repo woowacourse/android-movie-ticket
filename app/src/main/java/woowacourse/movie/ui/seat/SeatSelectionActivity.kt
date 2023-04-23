@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.seat
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -19,6 +20,7 @@ import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.model.PeopleCountModel
 import woowacourse.movie.model.SeatClassModel
 import woowacourse.movie.model.SeatModel
+import woowacourse.movie.model.SelectedSeatsModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import woowacourse.movie.ui.ticket.MovieTicketActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
@@ -41,9 +43,16 @@ class SeatSelectionActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setBookingInfo()
+        loadSavedData(savedInstanceState)
         initSeatTable()
         initBottomField()
         initSelectButton()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putSerializable("seats", selectedSeats.toModel())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -65,6 +74,19 @@ class SeatSelectionActivity : AppCompatActivity() {
             ?: return failLoadingData()
     }
 
+    private fun loadSavedData(savedInstanceState: Bundle?) {
+        (
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                savedInstanceState?.getSerializable("seats", SelectedSeatsModel::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                savedInstanceState?.getSerializable("seats")
+            } as SelectedSeatsModel?
+            )?.let {
+            selectedSeats = it.toDomain()
+        }
+    }
+
     private fun initSeatTable() {
         val seatTable = findViewById<TableLayout>(R.id.seat_table_layout)
         for (row in 1..ROW_SIZE) {
@@ -78,10 +100,11 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun initBottomField() {
         findViewById<TextView>(R.id.seat_movie_title).text = movieTitle
-        updatePriceText(0)
+        updatePriceText(selectedSeats.getAllPrice(movieTime))
     }
 
     private fun initSelectButton() {
+        updateButtonEnablement()
         selectButton.setOnClickListener {
             makeDialog().show()
         }
@@ -91,7 +114,8 @@ class SeatSelectionActivity : AppCompatActivity() {
         val seatView = LayoutInflater.from(this).inflate(R.layout.item_seat, null, false)
         val seat = SeatModel(row, column)
         seatView.apply {
-            isSelected = false
+            isSelected = selectedSeats.contains(seat.toDomain())
+            updateBackgroundColor(this)
             setOnClickListener {
                 clickSeat(seat.toDomain(), it)
             }
@@ -112,14 +136,13 @@ class SeatSelectionActivity : AppCompatActivity() {
         seatView.isSelected = !seatView.isSelected
         selectedSeats = when (seatView.isSelected) {
             true -> {
-                seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
                 selectedSeats.add(seat)
             }
             false -> {
-                seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
                 selectedSeats.delete(seat)
             }
         }
+        updateBackgroundColor(seatView)
         updatePriceText(selectedSeats.getAllPrice(movieTime))
         updateButtonEnablement()
     }
@@ -137,6 +160,17 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun canSelectMoreSeat(seatView: View) =
         !(!seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
+
+    private fun updateBackgroundColor(seatView: View) {
+        when (seatView.isSelected) {
+            true -> {
+                seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
+            }
+            false -> {
+                seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
+            }
+        }
+    }
 
     private fun updatePriceText(price: Int) {
         priceTextView.text = getString(R.string.price_with_unit, price)
