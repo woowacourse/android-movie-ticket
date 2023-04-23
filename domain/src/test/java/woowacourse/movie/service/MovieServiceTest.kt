@@ -18,9 +18,9 @@ class MovieServiceTest {
 
         val movie = MovieRepository.findById(movieId)
         assertAll(
-            { assertThat(movie.title).isEqualTo(title) },
-            { assertThat(movie.runningTime.value).isEqualTo(runningTime) },
-            { assertThat(movie.summary).isEqualTo(summary) }
+            { assertThat(movie!!.title).isEqualTo(title) },
+            { assertThat(movie!!.runningTime.value).isEqualTo(runningTime) },
+            { assertThat(movie!!.summary).isEqualTo(summary) }
         )
     }
 }

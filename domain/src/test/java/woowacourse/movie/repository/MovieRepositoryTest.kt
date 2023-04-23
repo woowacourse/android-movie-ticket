@@ -90,13 +90,4 @@ class MovieRepositoryTest {
 
         assertThat(actual).isEqualTo(otherMovie)
     }
-
-    @Test
-    fun `저장되지 않는 영화의 아이디로 영화를 조회하면 에러가 발생한다`() {
-        val notExistMovieId = 100L
-
-        assertThatIllegalArgumentException().isThrownBy {
-            MovieRepository.findById(notExistMovieId)
-        }.withMessage("아이디가 ${notExistMovieId}인 영화가 존재하지 않습니다.")
-    }
 }
