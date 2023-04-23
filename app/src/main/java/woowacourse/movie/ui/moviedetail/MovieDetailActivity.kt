@@ -13,6 +13,7 @@ import woowacourse.movie.model.MovieListModel
 import woowacourse.movie.model.PeopleCountModel
 import woowacourse.movie.ui.movielist.MainActivity
 import woowacourse.movie.ui.seat.SeatSelectionActivity
+import woowacourse.movie.utils.failLoadingData
 import woowacourse.movie.utils.getParcelableCompat
 import woowacourse.movie.utils.getSerializableExtraCompat
 import java.time.LocalDate
@@ -121,11 +122,6 @@ class MovieDetailActivity : AppCompatActivity() {
         peopleCountControllerView.setPeopleCountNumber(
             savedInstanceState?.getSerializableExtraCompat<PeopleCountModel>(KEY_PEOPLE_COUNT)?.count ?: 1
         )
-    }
-
-    private fun failLoadingData() {
-        showToast(getString(R.string.error_loading))
-        finish()
     }
 
     companion object {

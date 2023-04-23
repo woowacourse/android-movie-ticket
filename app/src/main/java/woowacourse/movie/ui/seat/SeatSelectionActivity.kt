@@ -23,6 +23,7 @@ import woowacourse.movie.model.SeatModel
 import woowacourse.movie.model.SelectedSeatsModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import woowacourse.movie.ui.ticket.MovieTicketActivity
+import woowacourse.movie.utils.failLoadingData
 import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.utils.showToast
 import java.time.LocalDateTime
@@ -191,11 +192,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         val intent = Intent(this, MovieTicketActivity::class.java)
         intent.putExtra(KEY_TICKET, ticket)
         startActivity(intent)
-    }
-
-    private fun failLoadingData() {
-        showToast(getString(R.string.error_loading))
-        finish()
     }
 
     companion object {

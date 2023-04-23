@@ -1,11 +1,13 @@
 package woowacourse.movie.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Toast
+import woowacourse.movie.R
 import java.io.Serializable
 
 inline fun <reified T : Serializable> Bundle.getSerializableExtraCompat(key: String): T? {
@@ -37,4 +39,9 @@ inline fun <reified T : Parcelable> Intent.getParcelableCompat(key: String): T? 
 
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun Activity.failLoadingData() {
+    showToast(getString(R.string.error_loading))
+    finish()
 }

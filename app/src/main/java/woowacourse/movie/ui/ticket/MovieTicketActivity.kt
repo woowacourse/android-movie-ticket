@@ -9,8 +9,8 @@ import woowacourse.movie.R
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
+import woowacourse.movie.utils.failLoadingData
 import woowacourse.movie.utils.getSerializableExtraCompat
-import woowacourse.movie.utils.showToast
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -59,9 +59,4 @@ class MovieTicketActivity : AppCompatActivity() {
 
     private fun LocalDateTime.format(): String =
         format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
-
-    private fun failLoadingData() {
-        showToast(getString(R.string.error_loading))
-        finish()
-    }
 }
