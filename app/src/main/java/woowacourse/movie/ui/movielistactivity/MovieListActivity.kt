@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.movielistactivity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +14,8 @@ import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
 
-    lateinit var movieDataAdapter: MovieDataAdapter
-    lateinit var movieRecyclerView: RecyclerView
+    private lateinit var movieDataAdapter: MovieDataAdapter
+    private lateinit var movieRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initMovieListAdapter() {
-        val tempMovies = List(100) { index ->
+        val tempMovies = List(10) { index ->
             MovieDataState(
                 posterImage = R.drawable.harrypotter_poster,
                 title = "해리 포터와 마법사의 돌 $index",
@@ -42,20 +43,25 @@ class MovieListActivity : AppCompatActivity() {
                 description = getString(R.string.dummy_data)
             )
         }
-        movieDataAdapter = MovieDataAdapter(this, tempMovies, ::onButtonClickListener)
+        val advertisementImage = R.drawable.img_ad
+        movieDataAdapter = MovieDataAdapter(tempMovies, advertisementImage, ::onMovieClickListener, ::onAdvertisementClickListener)
+    }
+
+    private fun onMovieClickListener(item: MovieDataState) {
+        val intent = Intent(this, MovieBookingActivity::class.java)
+            .putExtra(MOVIE_DATA, item)
+        startActivity(intent)
+    }
+
+    private fun onAdvertisementClickListener() {
+        val url = "https://www.woowahan.com/"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     private fun initMovieListView() {
         movieRecyclerView.adapter = movieDataAdapter
         movieRecyclerView.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun onButtonClickListener(item: MovieDataState) {
-        val intent = Intent(this, MovieBookingActivity::class.java).putExtra(
-            MOVIE_DATA,
-            item
-        )
-        startActivity(intent)
     }
 
     companion object {
