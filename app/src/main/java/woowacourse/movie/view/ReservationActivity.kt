@@ -1,7 +1,5 @@
 package woowacourse.movie.view
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -160,19 +158,8 @@ class ReservationActivity : AppCompatActivity() {
                 LocalDateTime.of(selectedScreeningDate, selectedScreeningTime),
                 peopleCountSaved
             )
-            toSeatSelectionActivity(this, reservationOptions, movie)
+            startActivity(SeatSelectionActivity.newIntent(this, reservationOptions, movie))
         }
-    }
-
-    private fun toSeatSelectionActivity(
-        context: Context,
-        reservationOptions: ReservationOptions,
-        movie: MovieUiModel
-    ) {
-        val intent = Intent(context, SeatSelectionActivity::class.java)
-        intent.putExtra(RESERVATION_OPTIONS, reservationOptions)
-        intent.putExtra(MOVIE, movie)
-        startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -208,8 +195,6 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val RESERVATION_OPTIONS = "RESERVATION_OPTIONS"
-        const val MOVIE = "MOVIE"
         private const val PEOPLE_COUNT = "PEOPLE_COUNT"
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"

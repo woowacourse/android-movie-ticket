@@ -29,7 +29,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySeatSelectionBinding
     private val reservationOptions by lazy {
-        intent.getParcelableCompat<ReservationOptions>(ReservationActivity.RESERVATION_OPTIONS)
+        intent.getParcelableCompat<ReservationOptions>(RESERVATION_OPTIONS)
     }
     private lateinit var reservationAgency: ReservationAgency
     private var selectedSeatCount = 0
@@ -147,7 +147,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun initReservationAgency() {
         val movie =
-            intent.getParcelableCompat<MovieUiModel>(ReservationActivity.MOVIE)?.toDomainModel()
+            intent.getParcelableCompat<MovieUiModel>(MOVIE)?.toDomainModel()
 
         if (movie != null && reservationOptions != null) {
             reservationAgency = ReservationAgency(
@@ -191,6 +191,19 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     companion object {
         const val RESERVATION = "RESERVATION"
+        private const val RESERVATION_OPTIONS = "RESERVATION_OPTIONS"
+        private const val MOVIE = "MOVIE"
         private val DECIMAL_FORMAT = DecimalFormat("#,###")
+
+        fun newIntent(
+            context: Context,
+            reservationOptions: ReservationOptions,
+            movie: MovieUiModel
+        ): Intent {
+            val intent = Intent(context, SeatSelectionActivity::class.java)
+            intent.putExtra(RESERVATION_OPTIONS, reservationOptions)
+            intent.putExtra(MOVIE, movie)
+            return intent
+        }
     }
 }
