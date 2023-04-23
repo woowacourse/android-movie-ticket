@@ -16,7 +16,6 @@ class AllRepositories {
                 index++
             }
         }
-
         return allRepositories.toList()
     }
 }

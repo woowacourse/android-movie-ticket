@@ -3,6 +3,7 @@ package woowacourse.movie.selection
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AlertDialog
@@ -47,45 +48,54 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
         binding = ActivitySeatSelectBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        getData()
+        initBind()
+        retryConfirm()
+    }
 
+    private fun getData() {
         movie = intent.getParcelableCompat(KEY_MOVIE)!!
         reservationCount = intent.getIntExtra(KEY_RESERVATION_COUNT, 0)
         date = intent.getParcelableCompat(KEY_RESERVATION_DATE)!!
         time = intent.getParcelableCompat(KEY_RESERVATION_TIME)!!
         dateTime = LocalDateTime.of(date.value, time.value)
+    }
 
+    private fun initBind() {
         binding.selectTitle.text = movie.title
-
         binding.selectConfrimBtn.isEnabled = false
         binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
-
         binding.seatTable.children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
             .filterIsInstance<Button>()
             .forEachIndexed { index, view ->
                 view.setOnClickListener {
-                    if (chosenSeats.contains(positionFind(index))) {
-                        chosenSeats.remove(positionFind(index))
-                        view.setBackgroundColor(Color.parseColor("#FFFFFF"))
-                    } else {
-                        chosenSeats.add(positionFind(index))
-                        view.setBackgroundColor(Color.parseColor("#FAFF00"))
-                    }
-
-                    if (chosenSeats.size == reservationCount) {
-                        binding.selectConfrimBtn.isEnabled = true
-                        binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#6200EE"))
-                    } else {
-                        binding.selectConfrimBtn.isEnabled = false
-                        binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
-                    }
-
+                    selectSeat(index, view)
+                    activeConfirmBtn()
                     addMoney()
                 }
             }
+    }
 
-        retryConfirm()
+    private fun selectSeat(index: Int, view: View) {
+        if (chosenSeats.contains(positionFind(index))) {
+            chosenSeats.remove(positionFind(index))
+            view.setBackgroundColor(Color.parseColor("#FFFFFF"))
+        } else {
+            chosenSeats.add(positionFind(index))
+            view.setBackgroundColor(Color.parseColor("#FAFF00"))
+        }
+    }
+
+    private fun activeConfirmBtn() {
+        if (chosenSeats.size == reservationCount) {
+            binding.selectConfrimBtn.isEnabled = true
+            binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#6200EE"))
+        } else {
+            binding.selectConfrimBtn.isEnabled = false
+            binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
+        }
     }
 
     private fun positionFind(index: Int): Seat {
@@ -114,20 +124,21 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
             AlertDialog.Builder(this)
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
-                    val intent = Intent(this, ReservationConfirmActivity::class.java)
-                    intent.putExtra(KEY_MOVIE, movie)
-                    intent.putExtra(KEY_RESERVATION_COUNT, CountMapper(reservationCount))
-                    intent.putExtra(KEY_RESERVATION_MONEY, MoneyMapper(totalMoney))
-                    intent.putExtra(KEY_RESERVATION_DATE, date)
-                    intent.putExtra(KEY_RESERVATION_TIME, time)
-                    intent.putExtra(KEY_RESERVATION_SEATS, Seats(chosenSeats))
-                    startActivity(intent)
-                }
-                .setNegativeButton("취소") { dialog, _ ->
-                    dialog.dismiss()
-                }.setCancelable(false)
+                .setPositiveButton("예매 완료") { _, _ -> putIntent() }
+                .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
+                .setCancelable(false)
                 .show()
         }
+    }
+
+    private fun putIntent() {
+        val intent = Intent(this, ReservationConfirmActivity::class.java)
+        intent.putExtra(KEY_MOVIE, movie)
+        intent.putExtra(KEY_RESERVATION_COUNT, CountMapper(reservationCount))
+        intent.putExtra(KEY_RESERVATION_MONEY, MoneyMapper(totalMoney))
+        intent.putExtra(KEY_RESERVATION_DATE, date)
+        intent.putExtra(KEY_RESERVATION_TIME, time)
+        intent.putExtra(KEY_RESERVATION_SEATS, Seats(chosenSeats))
+        startActivity(intent)
     }
 }
