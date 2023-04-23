@@ -12,6 +12,17 @@ class MoneyTest {
     }
 
     @Test
+    fun `돈을 다른 돈으로 더하면 두 돈의 금액의 합의 금액을 가진 돈을 반환한다`() {
+        val oneMoney = Money(13_000)
+        val otherMoney = Money(2_000)
+
+        val actual = oneMoney + otherMoney
+
+        val expected = Money(15_000)
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
     fun `기존 금액보다 큰 금액의 돈을 빼면 에러가 발생한다`() {
         assertThatIllegalArgumentException().isThrownBy {
             Money(5000) - Money(10000)

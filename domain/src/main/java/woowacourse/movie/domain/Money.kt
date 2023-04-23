@@ -8,6 +8,8 @@ value class Money(val amount: Int) : Comparable<Money> {
 
     private fun Int.isNotNegative(): Boolean = this >= 0
 
+    operator fun plus(money: Money): Money = Money(amount + money.amount)
+
     operator fun minus(money: Money): Money = Money(amount - money.amount)
 
     operator fun div(number: Int): Money = Money(amount / number)
