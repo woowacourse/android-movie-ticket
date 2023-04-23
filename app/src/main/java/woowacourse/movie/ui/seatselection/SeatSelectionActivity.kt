@@ -71,7 +71,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initMovieData() {
-        ticketsUI = TicketsUI(listOf(), reservation)
+        ticketsUI = TicketsUI(setOf(), reservation)
         seatTable
         findViewById<TextView>(R.id.tv_title).text = reservation.movie.title
         setMoviePrice(moviePrice)
@@ -116,7 +116,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun setTicket(seatPosition: SeatPositionUI) {
         val tickets = ticketsUI.toTickets()
         val targetTicket = TicketUI(seatPosition).toTicket()
-        if (tickets.find(targetTicket)) {
+        if (tickets.find(targetTicket) != null) {
             tickets.removeTicket(targetTicket)
         } else {
             tickets.addTicket(targetTicket)

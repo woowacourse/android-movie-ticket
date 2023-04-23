@@ -2,10 +2,10 @@ package com.woowacourse.movie.domain
 
 import com.woowacourse.movie.domain.policy.DiscountDecorator
 
-class Tickets(tickets: List<Ticket>, val reservation: Reservation) {
-    private val _tickets = tickets.toMutableList()
-    val tickets: List<Ticket>
-        get() = _tickets.toList()
+class Tickets(tickets: Set<Ticket>, val reservation: Reservation) {
+    private val _tickets = tickets.toMutableSet()
+    val tickets: Set<Ticket>
+        get() = _tickets.toSet()
 
     val size: Int
         get() = _tickets.size
@@ -14,16 +14,11 @@ class Tickets(tickets: List<Ticket>, val reservation: Reservation) {
         require(size >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
 
-    fun addTicket(ticket: Ticket) {
-        if (_tickets.find { it == ticket } == null)
-            _tickets.add(ticket)
-    }
+    fun addTicket(ticket: Ticket): Boolean = _tickets.add(ticket)
 
-    fun removeTicket(ticket: Ticket) {
-        _tickets.remove(ticket)
-    }
+    fun removeTicket(ticket: Ticket): Boolean = _tickets.remove(ticket)
 
-    fun find(ticket: Ticket): Boolean = _tickets.find { it == ticket } != null
+    fun find(ticket: Ticket): Ticket? = _tickets.find { it == ticket }
 
     fun isEmpty(): Boolean = _tickets.isEmpty()
 
