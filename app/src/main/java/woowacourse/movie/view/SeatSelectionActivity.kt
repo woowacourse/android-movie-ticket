@@ -177,9 +177,9 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun reserveSeats() {
         val reservation = reservationAgency.reserve(selectedSeats)
-        val intent = Intent(this, ReservationCompletedActivity::class.java)
-        intent.putExtra(RESERVATION, reservation?.toUiModel())
-        startActivity(intent)
+        reservation?.let {
+            startActivity(ReservationCompletedActivity.newIntent(this, reservation.toUiModel()))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -190,7 +190,6 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val RESERVATION = "RESERVATION"
         private const val RESERVATION_OPTIONS = "RESERVATION_OPTIONS"
         private const val MOVIE = "MOVIE"
         private val DECIMAL_FORMAT = DecimalFormat("#,###")

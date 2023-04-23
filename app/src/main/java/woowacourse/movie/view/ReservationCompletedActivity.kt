@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -22,7 +23,7 @@ class ReservationCompletedActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val reservation =
-            intent.getParcelableCompat<ReservationUiModel>(SeatSelectionActivity.RESERVATION)
+            intent.getParcelableCompat<ReservationUiModel>(RESERVATION)
         reservation?.let { initViewData(it) }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         onBackPressedDispatcher.addCallback(
@@ -65,6 +66,13 @@ class ReservationCompletedActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val RESERVATION = "RESERVATION"
         private val DECIMAL_FORMAT = DecimalFormat("#,###")
+
+        fun newIntent(context: Context, reservation: ReservationUiModel): Intent {
+            val intent = Intent(context, ReservationCompletedActivity::class.java)
+            intent.putExtra(RESERVATION, reservation)
+            return intent
+        }
     }
 }
