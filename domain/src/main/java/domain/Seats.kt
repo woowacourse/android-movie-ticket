@@ -21,7 +21,7 @@ class Seats(seats: List<Seat> = emptyList()) {
         return seats.size < count
     }
 
-    fun checkSeatCountAndSizeMatch(count: Int): Boolean{
+    fun checkSeatSizeMatch(count: Int): Boolean{
         return seats.size == count
     }
 

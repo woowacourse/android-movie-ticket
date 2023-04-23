@@ -28,6 +28,8 @@ import java.time.LocalTime
 class SeatSelectionActivity : AppCompatActivity() {
 
     private var seats = Seats()
+    private val seatRowSize = 5
+    private val seatColSize = 4
     private val date by lazy { intent.getSerializableExtra(DATE_KEY) as MovieDateDto }
     private val time by lazy { intent.getSerializableExtra(TIME_KEY) as MovieTimeDto }
     private val movie by lazy { intent.getSerializableExtra(MOVIE_KEY) as MovieDto }
@@ -46,6 +48,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         val movieTtile = findViewById<TextView>(R.id.movie_title)
         movieTtile.text = movie.title
     }
+
 
     private fun setUpState(savedInstanceState: Bundle?) {
         setUpSeatView()
@@ -147,7 +150,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun isPossibleEnter(count: Int): Boolean {
-        return seats.checkSeatCountAndSizeMatch(count)
+        return seats.checkSeatSizeMatch(count)
     }
 
     private fun isPossibleSelect(seat: Seat, count: Int): Boolean {
