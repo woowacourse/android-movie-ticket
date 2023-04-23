@@ -51,7 +51,7 @@ object MainMapper {
         )
     }
 
-    fun List<Movie>.toUiModel(): List<MovieUiModel> = map { it.toUiModel() }
+    fun List<Movie>.toUiMovies(): List<MovieUiModel> = map { it.toUiModel() }
 
     fun Advertisement.toUiModel(): AdvertisementUiModel {
         return AdvertisementUiModel(
@@ -61,5 +61,5 @@ object MainMapper {
         )
     }
 
-    fun List<Advertisement>.toUiModel(): List<AdvertisementUiModel> = map { it.toUiModel() }
+    fun List<Advertisement>.toUiAdvertisements(): List<AdvertisementUiModel> = map { it.toUiModel() }
 }
