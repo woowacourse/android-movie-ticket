@@ -4,9 +4,13 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieAndAd
 
 class AdRepositories {
-    val ads = List(10) {
+    val ads = List(AD_NUMBER) {
         MovieAndAd.Advertisement(
             R.drawable.woowa
         )
+    }
+
+    companion object {
+        private const val AD_NUMBER = 10
     }
 }

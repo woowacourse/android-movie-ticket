@@ -21,7 +21,7 @@ class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVie
         val adView: View?
 
         return when (viewType) {
-            1 -> {
+            AD_TYPE -> {
                 adView = LayoutInflater.from(parent.context).inflate(R.layout.ad_item_layout, parent, false)
                 AdViewHolder(adView)
             }
@@ -47,8 +47,8 @@ class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVie
 
     override fun getItemViewType(position: Int): Int {
         return when (_allData[position]) {
-            is MovieAndAd.Movie -> 0
-            is MovieAndAd.Advertisement -> 1
+            is MovieAndAd.Movie -> MOVIE_TYPE
+            is MovieAndAd.Advertisement -> AD_TYPE
         }
     }
 
@@ -58,5 +58,7 @@ class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVie
 
     companion object {
         val DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+        private const val MOVIE_TYPE = 0
+        private const val AD_TYPE = 1
     }
 }

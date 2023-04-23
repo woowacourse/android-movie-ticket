@@ -76,7 +76,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         binding.minus.setOnClickListener {
             var previous = binding.count.text.toString().toInt()
             previous--
-            if (previous <= 0) {
+            if (previous <= MINIMUM_TICKET_NUMBER) {
                 Toaster.showToast(this, getString(R.string.error_reservation_min_count))
                 return@setOnClickListener
             }
@@ -179,6 +179,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     companion object {
+        private const val MINIMUM_TICKET_NUMBER = 0
         private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
     }
 }

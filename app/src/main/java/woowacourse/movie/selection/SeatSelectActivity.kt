@@ -64,7 +64,7 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     private fun initBind() {
         binding.selectTitle.text = movie.title
         binding.selectConfrimBtn.isEnabled = false
-        binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
+        binding.selectConfrimBtn.setBackgroundColor(Color.parseColor(INACTIVATE_BUTTON_COLOR))
         binding.seatTable.children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
@@ -81,32 +81,32 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     private fun selectSeat(index: Int, view: View) {
         if (chosenSeats.contains(positionFind(index))) {
             chosenSeats.remove(positionFind(index))
-            view.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            view.setBackgroundColor(Color.parseColor(INACTIVATE_SEAT_COLOR))
         } else {
             chosenSeats.add(positionFind(index))
-            view.setBackgroundColor(Color.parseColor("#FAFF00"))
+            view.setBackgroundColor(Color.parseColor(ACTIVATE_SEAT_COLOR))
         }
     }
 
     private fun activeConfirmBtn() {
         if (chosenSeats.size == reservationCount) {
             binding.selectConfrimBtn.isEnabled = true
-            binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#6200EE"))
+            binding.selectConfrimBtn.setBackgroundColor(Color.parseColor(ACTIVATE_BUTTON_COLOR))
         } else {
             binding.selectConfrimBtn.isEnabled = false
-            binding.selectConfrimBtn.setBackgroundColor(Color.parseColor("#B7B7B7"))
+            binding.selectConfrimBtn.setBackgroundColor(Color.parseColor(INACTIVATE_BUTTON_COLOR))
         }
     }
 
     private fun positionFind(index: Int): Seat {
         val row = index % 4 + 1
         val rank = when (index / 4 + 1) {
-            1 -> SeatRank.A
-            2 -> SeatRank.B
-            3 -> SeatRank.C
-            4 -> SeatRank.D
-            5 -> SeatRank.E
-            else -> throw IllegalArgumentException("[ERROR]")
+            COLUMN_ONE -> SeatRank.A
+            COLUMN_TWO -> SeatRank.B
+            COLUMN_THREE -> SeatRank.C
+            COLUMN_FOUR -> SeatRank.D
+            COLUMN_FIVE -> SeatRank.E
+            else -> throw IllegalArgumentException(ERROR_MESSAGE)
         }
         return Seat(rank, row)
     }
@@ -122,10 +122,10 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     private fun retryConfirm() {
         binding.selectConfrimBtn.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ -> putIntent() }
-                .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
+                .setTitle(DIALOG_TITLE)
+                .setMessage(DIALOG_MESSAGE)
+                .setPositiveButton(DIALOG_POSITIVE_MESSAGE) { _, _ -> putIntent() }
+                .setNegativeButton(DIALOG_NEGATIVE_MESSAGE) { dialog, _ -> dialog.dismiss() }
                 .setCancelable(false)
                 .show()
         }
@@ -140,5 +140,25 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
         intent.putExtra(KEY_RESERVATION_TIME, time)
         intent.putExtra(KEY_RESERVATION_SEATS, Seats(chosenSeats))
         startActivity(intent)
+    }
+
+    companion object {
+        private const val INACTIVATE_BUTTON_COLOR = "#B7B7B7"
+        private const val ACTIVATE_BUTTON_COLOR = "#6200EE"
+        private const val INACTIVATE_SEAT_COLOR = "#FFFFFF"
+        private const val ACTIVATE_SEAT_COLOR = "#FAFF00"
+
+        private const val ERROR_MESSAGE = "[ERROR]"
+
+        private const val COLUMN_ONE = 1
+        private const val COLUMN_TWO = 2
+        private const val COLUMN_THREE = 3
+        private const val COLUMN_FOUR = 4
+        private const val COLUMN_FIVE = 5
+
+        private const val DIALOG_TITLE = "예매 확인"
+        private const val DIALOG_MESSAGE = "정말 예매하시겠습니까?"
+        private const val DIALOG_POSITIVE_MESSAGE = "예매 완료"
+        private const val DIALOG_NEGATIVE_MESSAGE = "취소"
     }
 }

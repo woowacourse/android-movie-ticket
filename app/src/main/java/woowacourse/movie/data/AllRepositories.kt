@@ -11,11 +11,17 @@ class AllRepositories {
 
         movieRepositories.forEachIndexed { movieIndex, movie ->
             allRepositories.add(movie)
-            if ((movieIndex + 1) % 3 == 0) {
+            if ((movieIndex + PLUS_INDEX) % RULE_AD == ZERO) {
                 allRepositories.add(adRepositories[index % adRepositories.size])
                 index++
             }
         }
         return allRepositories.toList()
+    }
+
+    companion object {
+        private const val PLUS_INDEX = 1
+        private const val RULE_AD = 3
+        private const val ZERO = 0
     }
 }
