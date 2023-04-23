@@ -1,13 +1,22 @@
 package woowacourse.movie.viewholder
 
-import android.view.View
+import android.content.Context
+import android.view.LayoutInflater
 import android.widget.ImageView
+import android.widget.LinearLayout
 import woowacourse.movie.R
 import woowacourse.movie.uimodel.MovieModelUi
+
 class AdViewHolder(
-    view: View,
-) {
-    private val adImageView = view.findViewById<ImageView>(R.id.ad_image_view)
+    context: Context,
+) : LinearLayout(context) {
+
+    private val adImageView: ImageView
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.item_ad_list, this)
+        adImageView = findViewById(R.id.ad_image_view)
+    }
 
     fun bind(adUi: MovieModelUi.AdUi) {
         adImageView.setImageResource(adUi.addPoster)
