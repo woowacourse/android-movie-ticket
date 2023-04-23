@@ -9,7 +9,10 @@ value class PeopleCount(
         return PeopleCount(count - 1)
     }
 
-    fun plusCount(): PeopleCount = PeopleCount(count + 1)
+    fun plusCount(): PeopleCount {
+        if (count == MAXIMUM_COUNT) return this
+        return PeopleCount(count + 1)
+    }
 
     companion object {
         const val MINIMUM_COUNT = 1
