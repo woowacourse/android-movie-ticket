@@ -14,5 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "android-movie-ticket"
 include(":app")
-include(":lib")
 include(":domain")

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.presentation.model.MovieModel
-import woowacourse.movie.util.formatScreenDate
+import woowacourse.movie.presentation.util.formatScreenDate
 
 class MovieViewHolder(private val view: View, clickBook: (Long) -> Unit) :
     RecyclerView.ViewHolder(view) {
