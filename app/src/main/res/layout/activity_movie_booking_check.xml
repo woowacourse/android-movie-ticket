@@ -53,7 +53,7 @@
         android:textColor="@color/woowa_black"
         android:includeFontPadding="false"
         android:layout_marginTop="69dp"
-        android:id="@+id/tv_booking_check_person_count"
+        android:id="@+id/tv_booked_ticket_info"
         app:layout_constraintTop_toBottomOf="@+id/tv_booking_check_screening_day"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -67,7 +67,7 @@
         android:includeFontPadding="false"
         android:layout_height="wrap_content"
         android:id="@+id/tv_booking_check_total_money"
-        app:layout_constraintTop_toBottomOf="@+id/tv_booking_check_person_count"
+        app:layout_constraintTop_toBottomOf="@+id/tv_booked_ticket_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

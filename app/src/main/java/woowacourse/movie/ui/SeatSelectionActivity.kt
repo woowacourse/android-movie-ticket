@@ -11,15 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import movie.domain.Count
-import movie.domain.price.DiscountPolicy
-import movie.domain.price.EarlyMorningLateNightDiscount
-import movie.domain.price.MovieDayDiscount
-import movie.domain.price.PricePolicyCalculator
-import movie.domain.seat.Seat
 import woowacourse.movie.R
 import woowacourse.movie.model.CountState
 import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.model.ScreeningDateTimeState
+import woowacourse.movie.model.SeatState
+import woowacourse.movie.model.TicketState
 import woowacourse.movie.model.mapper.toDomain
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
@@ -27,12 +24,9 @@ import kotlin.properties.Delegates
 
 class SeatSelectionActivity : AppCompatActivity() {
 
-    private lateinit var movieDataState: MovieDataState
-    private lateinit var ticketCount: Count
+    private lateinit var ticketState: TicketState
     private lateinit var seatView: List<TextView>
     private var selectedSeatCount: Count = Count(0)
-    private lateinit var selectedScreeningDateTimeState: ScreeningDateTimeState
-    private val selectedSeats: MutableList<Seat> = mutableListOf()
     private lateinit var tvSeatSelectionPrice: TextView
     private lateinit var btnSeatSelection: Button
 
@@ -47,7 +41,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         initView()
         initMovieData()
         initMovieInformation()
-        initTicketCount()
         initSeatSelectionView()
         initSeatSelectionClickListener()
         initReservationButtonClickListener()
@@ -59,13 +52,15 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initMovieData() {
-        movieDataState =
-            intent.customGetParcelableExtra<MovieDataState>(MOVIE_DATA) ?: return notFoundData(
-                MOVIE_DATA
-            )
-        selectedScreeningDateTimeState =
-            intent.customGetParcelableExtra(SELECTED_SCREENING_DATE_TIME)
+        val countState = intent.customGetParcelableExtra<CountState>(TICKET_COUNT)
+            ?: return notFoundData(TICKET_COUNT)
+        val movieDataState =
+            intent.customGetParcelableExtra<MovieDataState>(MOVIE_DATA)
+                ?: return notFoundData(MOVIE_DATA)
+        val screeningDateTimeState =
+            intent.customGetParcelableExtra<ScreeningDateTimeState>(SELECTED_SCREENING_DATE_TIME)
                 ?: return notFoundData(SELECTED_SCREENING_DATE_TIME)
+        ticketState = TicketState(countState, movieDataState, screeningDateTimeState)
     }
 
     private fun notFoundData(key: String) {
@@ -76,25 +71,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun initMovieInformation() {
         val tvSeatSelectionTitle = findViewById<TextView>(R.id.tv_seat_selection_title)
 
-        tvSeatSelectionTitle.text = movieDataState.title
-    }
-
-    private fun calculatePrice(): Int {
-        val discountPolicies = mutableListOf<DiscountPolicy>()
-        if (selectedScreeningDateTimeState.toDomain().checkMovieDay()) {
-            discountPolicies.add(MovieDayDiscount())
-        }
-        if (selectedScreeningDateTimeState.toDomain().checkEarlyMorningLateNight()) {
-            discountPolicies.add(EarlyMorningLateNightDiscount())
-        }
-        return PricePolicyCalculator(discountPolicies).totalPriceCalculate(selectedSeats)
-    }
-
-    private fun initTicketCount() {
-        val tmpCount = intent.customGetParcelableExtra<CountState>(TICKET_COUNT) ?: return notFoundData(
-            TICKET_COUNT
-        )
-        ticketCount = tmpCount.toDomain()
+        tvSeatSelectionTitle.text = ticketState.movieData.title
     }
 
     private fun initSeatSelectionView() {
@@ -109,24 +86,23 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun initSeatSelectionClickListener() {
         seatView.forEachIndexed { index, view ->
             view.setOnSingleClickListener {
-                Log.d("링링", index.toString())
                 when (view.isSelected) {
                     true -> cancelSeat(view, index)
                     false -> selectSeat(view, index)
                 }
-                price = calculatePrice()
+                price = ticketState.toDomain().price
             }
         }
     }
 
     private fun selectSeat(seatView: TextView, index: Int) {
-        if (selectedSeatCount == ticketCount) {
+        if (selectedSeatCount == ticketState.count.toDomain()) {
             return
         }
         selectedSeatCount++
         seatView.isSelected = true
-        selectedSeats.add(Seat(index))
-        if (selectedSeatCount == ticketCount) {
+        ticketState.seatSelection.add(SeatState(index))
+        if (selectedSeatCount == ticketState.count.toDomain()) {
             btnSeatSelection.isEnabled = true
         }
     }
@@ -136,7 +112,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         if (selectedSeatCount == Count(0)) return
         selectedSeatCount--
         seatView.isSelected = false
-        selectedSeats.remove(Seat(index))
+        ticketState.seatSelection.remove(SeatState(index))
     }
 
     private fun initReservationButtonClickListener() {
@@ -145,11 +121,9 @@ class SeatSelectionActivity : AppCompatActivity() {
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
+                    ticketState.price = price
                     val intent = Intent(this, MovieBookingCheckActivity::class.java)
-                        .putExtra(MOVIE_DATA, movieDataState)
-                        .putExtra(TOTAL_PRICE, price)
-                        .putExtra(SEAT_SELECTION, selectedSeats.map { it.toString() }.toTypedArray())
-                        .putExtra(SELECTED_SCREENING_DATE_TIME, selectedScreeningDateTimeState)
+                        .putExtra(TICKET, ticketState)
                     startActivity(intent)
                 }
                 .setNegativeButton("취소") { dialog, _ ->
@@ -161,10 +135,10 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val TICKET = "ticket"
         private const val MOVIE_DATA = "movieData"
         private const val TICKET_COUNT = "ticketCount"
         private const val SEAT_SELECTION = "SeatSelection"
-        private const val TOTAL_PRICE = "price"
         private const val SELECTED_SCREENING_DATE_TIME = "selectedScreeningDateTime"
         private const val DATA_NOT_FOUNT_ERROR_MSG = "%s를 찾을 수 없습니다."
     }
