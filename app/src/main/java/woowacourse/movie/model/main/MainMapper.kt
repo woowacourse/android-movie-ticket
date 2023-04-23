@@ -1,9 +1,10 @@
-package woowacourse.movie.model.movie
+package woowacourse.movie.model.main
 
 import woowacourse.movie.R
+import woowacourse.movie.advertisement.Advertisement
 import woowacourse.movie.movie.Movie
 
-object MovieMapper {
+object MainMapper {
 
     private val thumbnailMap: Map<Long, Int> = mapOf(
         1L to R.drawable.harry_potter_thumbnail,
@@ -49,4 +50,16 @@ object MovieMapper {
             description = this.description,
         )
     }
+
+    fun List<Movie>.toUiModel(): List<MovieUiModel> = map { it.toUiModel() }
+
+    fun Advertisement.toUiModel(): AdvertisementUiModel {
+        return AdvertisementUiModel(
+            id = this.id,
+            link = this.link,
+            image = R.drawable.woowa_advertisement,
+        )
+    }
+
+    fun List<Advertisement>.toUiModel(): List<AdvertisementUiModel> = map { it.toUiModel() }
 }
