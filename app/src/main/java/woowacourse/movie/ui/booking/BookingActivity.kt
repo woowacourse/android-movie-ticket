@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.formatScreenDate
 import woowacourse.movie.model.BookedMovie
-import woowacourse.movie.model.movie.MovieMapper.toUiModel
-import woowacourse.movie.model.movie.MovieUiModel
+import woowacourse.movie.model.main.MainMapper.toUiModel
+import woowacourse.movie.model.main.MovieUiModel
 import woowacourse.movie.movie.Movie
 import woowacourse.movie.movie.MovieRepository
 import woowacourse.movie.ticket.TicketCount
