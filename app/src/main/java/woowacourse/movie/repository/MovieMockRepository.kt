@@ -1,8 +1,8 @@
 package woowacourse.movie.repository
 
+import woowacourse.movie.R
 import woowacourse.movie.domain.Minute
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.R
 import java.time.LocalDate
 
 object MovieMockRepository : MovieRepository {

@@ -1,8 +1,8 @@
 package woowacourse.movie.view.mapper
 
+import woowacourse.movie.R
 import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.SeatType
-import woowacourse.movie.R
 import woowacourse.movie.view.model.SeatUiModel
 
 fun Seat.toUiModel(): SeatUiModel = SeatUiModel(

@@ -5,8 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.repository.MovieMockRepository
 import woowacourse.movie.view.mapper.toUiModel
 import woowacourse.movie.view.model.MovieListModel
@@ -32,7 +32,6 @@ class MovieListActivity : AppCompatActivity() {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ad.url))
                     startActivity(intent)
                 }
-
             }
         )
         val movieListView = findViewById<RecyclerView>(R.id.movie_recyclerview)

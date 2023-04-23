@@ -1,10 +1,10 @@
 package woowacourse.movie.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationCompletedBinding
 import woowacourse.movie.util.DATE_TIME_FORMATTER
@@ -25,14 +25,17 @@ class ReservationCompletedActivity : AppCompatActivity() {
             intent.getParcelableCompat<ReservationUiModel>(SeatSelectionActivity.RESERVATION)
         reservation?.let { initViewData(it) }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val intent =
-                    Intent(this@ReservationCompletedActivity, MovieListActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                startActivity(intent)
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val intent =
+                        Intent(this@ReservationCompletedActivity, MovieListActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    startActivity(intent)
+                }
             }
-        })
+        )
     }
 
     private fun initViewData(reservation: ReservationUiModel) {
