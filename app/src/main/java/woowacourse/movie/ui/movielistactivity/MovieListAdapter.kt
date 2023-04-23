@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDataState
-import woowacourse.movie.ui.viewHolder.AdvertisementHolder
-import woowacourse.movie.ui.viewHolder.MovieViewHolder
+import woowacourse.movie.ui.viewholder.AdvertisementViewHolder
+import woowacourse.movie.ui.viewholder.MovieViewHolder
 
 class MovieListAdapter(
     private val movies: List<MovieDataState>,
@@ -21,14 +21,14 @@ class MovieListAdapter(
 
         return when (ItemViewType.of(viewType)) {
             ItemViewType.MOVIE -> MovieViewHolder(view.inflate(R.layout.movie_list_item, viewGroup, false))
-            ItemViewType.ADVERTISEMENT -> AdvertisementHolder(view.inflate(R.layout.advertisement_lsit_item, viewGroup, false))
+            ItemViewType.ADVERTISEMENT -> AdvertisementViewHolder(view.inflate(R.layout.advertisement_lsit_item, viewGroup, false))
         }
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         when (viewHolder) {
             is MovieViewHolder -> viewHolder.bind(movies[position - (position / 4)], onMovieClickListener)
-            is AdvertisementHolder -> viewHolder.bind(advertisementImage, onAdClickListener)
+            is AdvertisementViewHolder -> viewHolder.bind(advertisementImage, onAdClickListener)
         }
     }
 

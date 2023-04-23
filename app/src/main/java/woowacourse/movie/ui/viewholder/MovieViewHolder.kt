@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.viewHolder
+package woowacourse.movie.ui.viewholder
 
 import android.view.View
 import android.widget.Button

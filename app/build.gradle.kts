@@ -55,4 +55,8 @@ dependencies {
 
     // recycler view
     implementation("androidx.recyclerview:recyclerview:1.3.0")
+
+    // ui test
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
+    implementation("androidx.test.espresso:espresso-intents:3.5.1")
 }
