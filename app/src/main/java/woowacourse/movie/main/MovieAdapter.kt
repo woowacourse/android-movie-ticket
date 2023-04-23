@@ -8,7 +8,7 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieAndAd
 import java.time.format.DateTimeFormatter
 
-class MovieAdapter2(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val _allData: List<MovieAndAd> = allData.toList()
     val allData: List<MovieAndAd>

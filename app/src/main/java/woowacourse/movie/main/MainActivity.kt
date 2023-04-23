@@ -13,7 +13,7 @@ import woowacourse.movie.reservation.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
     private val movieRecyclerView: RecyclerView by lazy { findViewById(R.id.recyclerView) }
-    private val adapter: MovieAdapter2 by lazy { MovieAdapter2(initMovieData()) }
+    private val adapter: MovieAdapter by lazy { MovieAdapter(initMovieData()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         movieRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         movieRecyclerView.setHasFixedSize(true)
         movieRecyclerView.adapter = adapter
-        adapter.clickListener = object : MovieAdapter2.ReservationClickListener {
+        adapter.clickListener = object : MovieAdapter.ReservationClickListener {
             override fun onClick(position: Int) {
                 val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
                 intent.putExtra(KEY_MOVIE, adapter.allData[position])

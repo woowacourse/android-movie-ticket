@@ -19,8 +19,8 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(movie: MovieAndAd.Movie) {
         image.setImageResource(movie.imgResourceId)
         title.text = movie.title
-        startDate.text = movie.startDate.format(MovieAdapter2.DATE_TIME_FORMATTER)
-        endDate.text = movie.endDate.format(MovieAdapter2.DATE_TIME_FORMATTER)
+        startDate.text = movie.startDate.format(MovieAdapter.DATE_TIME_FORMATTER)
+        endDate.text = movie.endDate.format(MovieAdapter.DATE_TIME_FORMATTER)
         time.text = movie.runningTime.value.toString()
     }
 }
