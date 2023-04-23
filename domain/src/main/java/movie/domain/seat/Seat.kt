@@ -1,6 +1,6 @@
 package movie.domain.seat
 
-data class Seat(private val index: Int) {
+data class Seat(val index: Int) {
     val rank = SeatRank.valueOf(index / 8)
 
     override fun toString(): String {
