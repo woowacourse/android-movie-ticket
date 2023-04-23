@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.book_complete
+package woowacourse.movie.presentation.view.bookcomplete
 
 import android.os.Bundle
 import android.widget.Toast

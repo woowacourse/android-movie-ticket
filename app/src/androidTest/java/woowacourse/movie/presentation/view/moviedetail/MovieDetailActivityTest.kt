@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.movie_detail
+package woowacourse.movie.presentation.view.moviedetail
 
 import android.content.Intent
 import android.widget.TextView
@@ -21,7 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.presentation.view.movie_detail.MovieDetailActivity.Companion.MOVIE_DATA_INTENT_KEY
+import woowacourse.movie.presentation.view.moviedetail.MovieDetailActivity.Companion.MOVIE_DATA_INTENT_KEY
 import java.time.LocalDate
 
 class MovieDetailActivityTest {

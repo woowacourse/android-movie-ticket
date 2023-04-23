@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.seat_pick
+package woowacourse.movie.presentation.view.seatpick
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider

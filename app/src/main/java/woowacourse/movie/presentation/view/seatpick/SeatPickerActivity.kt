@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.seat_pick
+package woowacourse.movie.presentation.view.seatpick
 
 import android.content.Intent
 import android.graphics.Color
@@ -18,7 +18,7 @@ import woowacourse.movie.databinding.ActivitySeatPickerBinding
 import woowacourse.movie.model.BookingCompleteInfo
 import woowacourse.movie.model.MovieBookingInfo
 import woowacourse.movie.presentation.extension.getParcelableCompat
-import woowacourse.movie.presentation.view.book_complete.BookCompleteActivity
+import woowacourse.movie.presentation.view.bookcomplete.BookCompleteActivity
 import woowacourse.movie.presentation.view.common.BackButtonActivity
 
 class SeatPickerActivity : BackButtonActivity() {

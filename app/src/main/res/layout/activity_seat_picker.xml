@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA"
-    tools:context=".presentation.view.seat_pick.SeatPickerActivity">
+    tools:context=".presentation.view.seatpick.SeatPickerActivity">
 
     <TextView
         android:id="@+id/tv_seat_picker_screen"

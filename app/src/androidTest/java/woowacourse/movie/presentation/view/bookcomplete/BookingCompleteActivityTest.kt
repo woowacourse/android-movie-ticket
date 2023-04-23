@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.booking_complete
+package woowacourse.movie.presentation.view.bookcomplete
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -13,7 +13,6 @@ import woowacourse.movie.R
 import woowacourse.movie.model.BookingCompleteInfo
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieBookingInfo
-import woowacourse.movie.presentation.view.book_complete.BookCompleteActivity
 import java.time.LocalDate
 
 class BookingCompleteActivityTest {
