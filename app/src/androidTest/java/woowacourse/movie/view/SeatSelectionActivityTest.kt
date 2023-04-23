@@ -57,31 +57,31 @@ class SeatSelectionActivityTest {
     val activityRule = ActivityScenarioRule<SeatSelectionActivity>(intent)
 
     @Test
-    fun movieTitle() {
+    fun 영화_제목을_표시한다() {
         onView(withId(R.id.movie_title_textview))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
-    fun selectSeat() {
+    fun 한_번_클릭하면_좌석이_선택된다() {
         onView(withText("A1")).perform(click()).check(matches(isSelected()))
     }
 
     @Test
-    fun deselectSeat() {
+    fun 두_번_클릭하면_좌석_선택이_해제된다() {
         onView(withText("A1")).perform(click())
         onView(withText("A1")).perform(click()).check(matches(isNotSelected()))
     }
 
     @Test
-    fun seatSelectionNotComplete() {
+    fun 인원수에_해당하는_좌석이_모두_선택되지_않았다면_확인_버튼은_비활성화_상태다() {
         onView(withText("A1")).perform(click())
         onView(withId(R.id.confirm_reservation_button))
             .check(matches(isNotEnabled()))
     }
 
     @Test
-    fun seatSelectionComplete() {
+    fun 인원수에_해당하는_좌석이_모두_선택되었다면_확인_버튼은_활성화_상태다() {
         onView(withText("A1")).perform(click())
         onView(withText("A2")).perform(click())
         onView(withId(R.id.confirm_reservation_button))
@@ -89,15 +89,16 @@ class SeatSelectionActivityTest {
     }
 
     @Test
-    fun whenSeatsAllSelectedExpectReservationFee() {
+    fun 인원수에_해당하는_좌석이_모두_선택되었다면_최종_금액이_표시된다() {
         onView(withText("A1")).perform(click())
         onView(withText("A2")).perform(click())
         onView(withId(R.id.reservation_fee_textview)).check(matches(withText("20,000원")))
     }
 
     @Test
-    fun whenDeselectSeatThenResetReservationFee() {
+    fun 좌석_선택을_해제하여_인원수에_해당하는_좌석이_모두_선택되지_않았다면_최종_금액은_0원으로_표시된다() {
         onView(withText("A1")).perform(click())
+        onView(withText("A2")).perform(click())
         onView(withText("A1")).perform(click())
         onView(withId(R.id.reservation_fee_textview)).check(matches(withText("0원")))
     }
