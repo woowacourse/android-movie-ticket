@@ -28,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="5dp"
             android:textSize="22sp"
-            android:text="SCREEN"
+            android:text="@string/screen"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:gravity="center"
@@ -51,7 +51,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:text="A1"
+                android:text="@string/a1"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -60,7 +60,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="A2"
+                android:text="@string/a2"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -69,7 +69,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="A3"
+                android:text="@string/a3"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -78,49 +78,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="A4"
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#8E13EF"
-                android:background="#FFFFFF" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:text="B1"
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#8E13EF"
-                android:background="#FFFFFF" />
-
-            <Button
-                android:text="B2"
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#8E13EF"
-                android:background="#FFFFFF" />
-
-            <Button
-                android:text="B3"
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#8E13EF"
-                android:background="#FFFFFF" />
-
-            <Button
-                android:text="B4"
+                android:text="@string/a4"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -135,7 +93,49 @@
             android:layout_height="match_parent">
 
             <Button
-                android:text="C1"
+                android:text="@string/b1"
+                android:layout_width="73dp"
+                android:layout_height="80dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#8E13EF"
+                android:background="#FFFFFF" />
+
+            <Button
+                android:text="@string/b2"
+                android:layout_width="73dp"
+                android:layout_height="80dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#8E13EF"
+                android:background="#FFFFFF" />
+
+            <Button
+                android:text="@string/b3"
+                android:layout_width="73dp"
+                android:layout_height="80dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#8E13EF"
+                android:background="#FFFFFF" />
+
+            <Button
+                android:text="@string/b4"
+                android:layout_width="73dp"
+                android:layout_height="80dp"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#8E13EF"
+                android:background="#FFFFFF" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:text="@string/c1"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -144,7 +144,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="C2"
+                android:text="@string/c2"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -153,7 +153,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="C3"
+                android:text="@string/c3"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -162,7 +162,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="C4"
+                android:text="@string/c4"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -177,7 +177,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:text="D1"
+                android:text="@string/d1"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -186,7 +186,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="D2"
+                android:text="@string/d2"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -195,7 +195,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="D3"
+                android:text="@string/d3"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -204,7 +204,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="D4"
+                android:text="@string/d4"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -217,7 +217,7 @@
         <TableRow>
 
             <Button
-                android:text="B1"
+                android:text="@string/e1"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -226,7 +226,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="B2"
+                android:text="@string/e2"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -235,7 +235,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="B3"
+                android:text="@string/e3"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -244,7 +244,7 @@
                 android:background="#FFFFFF" />
 
             <Button
-                android:text="B4"
+                android:text="@string/e4"
                 android:layout_width="73dp"
                 android:layout_height="80dp"
                 android:textSize="22sp"
@@ -281,7 +281,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView4" />
 
         <TextView
-            android:text="0"
+            android:text="@string/seatDefaultMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/select_money"
@@ -293,7 +293,7 @@
             android:layout_marginTop="2dp" />
 
         <TextView
-            android:text="원"
+            android:text="@string/won"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
@@ -302,7 +302,7 @@
             app:layout_constraintTop_toBottomOf="@+id/select_title" />
 
         <Button
-            android:text="확인"
+            android:text="@string/confirm"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
