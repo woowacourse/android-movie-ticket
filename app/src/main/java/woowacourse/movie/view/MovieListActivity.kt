@@ -45,7 +45,7 @@ class MovieListActivity : AppCompatActivity() {
             "https://woowacourse.github.io/"
         )
         movies.forEachIndexed { index, movie ->
-            if (index % 3 == 2) {
+            if (index % AD_POST_INTERVAL == AD_POST_INTERVAL - 1) {
                 dataList.add(movie.toUiModel())
                 dataList.add(ad)
                 return@forEachIndexed
@@ -57,5 +57,6 @@ class MovieListActivity : AppCompatActivity() {
 
     companion object {
         const val MOVIE_ITEM = "MOVIE_ITEM"
+        private const val AD_POST_INTERVAL = 3
     }
 }
