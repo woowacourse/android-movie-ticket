@@ -4,13 +4,14 @@ import woowacourse.movie.domain.discount.MovieDiscountPolicy
 import woowacourse.movie.domain.discount.discountpolicy.DiscountPolicyAdapter
 import woowacourse.movie.domain.tools.Money
 import java.time.LocalDateTime
+import java.util.SortedSet
 
-class Seats(seats: List<Seat> = listOf()) {
+class Seats(seats: SortedSet<Seat> = sortedSetOf()) {
 
-    private val _value = seats.toMutableList()
+    private val _value = seats.toMutableSet()
 
     val value
-        get() = _value.toList()
+        get() = _value.toSortedSet()
 
     val size
         get() = value.size
@@ -24,8 +25,6 @@ class Seats(seats: List<Seat> = listOf()) {
     }
 
     fun contains(seat: Seat): Boolean = value.contains(seat)
-
-    fun sorted(): Seats = Seats(_value.sorted())
 
     fun getPaymentMoney(dateTime: LocalDateTime): Money {
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)

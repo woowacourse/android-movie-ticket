@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import woowacourse.movie.domain.tools.TicketCount
 import woowacourse.movie.domain.tools.seat.Seat
 import java.time.LocalDate
+import java.util.SortedSet
 
 data class MovieModel(
     val id: Long,
@@ -15,7 +16,7 @@ data class MovieModel(
     @DrawableRes val thumbnail: Int?,
     @DrawableRes val poster: Int?,
 ) : MovieItemModel() {
-    fun reserve(reservation: ReservationModel, seats: List<Seat>): TicketModel =
+    fun reserve(reservation: ReservationModel, seats: SortedSet<Seat>): TicketModel =
         toDomainModel().reserve(reservation.bookedDateTime, TicketCount(reservation.count), seats)
             .toPresentation()
 

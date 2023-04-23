@@ -24,7 +24,7 @@ import woowacourse.movie.presentation.model.toPresentation
 
 class ChoiceSeatActivity : AppCompatActivity() {
 
-    private var seats: Seats = Seats()
+    private val seats: Seats = Seats()
     private var paymentAmount: Money = Money(INITIAL_PAYMENT_AMOUNT)
     private val reservation by lazy {
         initReservation()
@@ -63,8 +63,7 @@ class ChoiceSeatActivity : AppCompatActivity() {
 
     private fun confirmBookMovie() {
         val movie = MovieData.findMovieById(reservation.movieId).toPresentation()
-        val sortedSeats = seats.sorted()
-        val ticketModel = movie.reserve(reservation, sortedSeats.value)
+        val ticketModel = movie.reserve(reservation, seats.value)
         startActivity(CompletedActivity.getIntent(this, ticketModel))
     }
 

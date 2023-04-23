@@ -9,4 +9,4 @@ fun List<String>.formatSeatsCombine(): String {
 }
 
 fun List<Location>.formatLocationToString(): List<String> =
-    this.map { "${it.row}${it.number}" }
+    this.map { "${it.row}${(it.number + 1)}" }
