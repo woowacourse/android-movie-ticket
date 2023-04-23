@@ -36,6 +36,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         val dateTime = LocalDateTime.of(date.value, time.value)
         val seats = intent.getParcelableCompat<Seats>(KEY_RESERVATION_SEATS)!!
         Log.d(LOG_TAG, "$movie , $reservationCount")
+
         setInitReservationData(movie, dateTime, reservationCount, totalMoney, seats)
     }
 
