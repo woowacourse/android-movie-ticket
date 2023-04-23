@@ -1,8 +1,6 @@
 package com.example.domain
 
 class Ticket(private val seat: Seat) {
-    var price: Int = seat.getSeatGrade().price
-        private set
 
     fun getTicketPrice(date: String, time: String): Int {
         var price = seat.getSeatGrade().price
