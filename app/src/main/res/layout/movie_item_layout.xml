@@ -126,15 +126,13 @@
 
     <Button
         android:id="@+id/reservation"
-        android:layout_width="88dp"
-        android:layout_height="36dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:padding="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/now_reservation"
         android:textSize="14sp"
+        android:minHeight="40dp"
+        android:background="#6200EE"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
