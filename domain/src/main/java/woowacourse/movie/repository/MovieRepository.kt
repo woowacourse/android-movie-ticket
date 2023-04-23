@@ -18,7 +18,7 @@ object MovieRepository {
     }
 
     fun findById(id: Long): Movie {
-        return movies[id] ?: throw NoSuchElementException(NOT_EXIST_MOVIE_ERROR.format(id))
+        return movies[id] ?: throw IllegalArgumentException(NOT_EXIST_MOVIE_ERROR.format(id))
     }
 
     fun findAll(): List<Movie> {

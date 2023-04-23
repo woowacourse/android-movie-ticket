@@ -22,13 +22,7 @@ object MovieService {
 
     fun addScreening(movieId: Long, screeningDateTime: LocalDateTime) {
         val movie = MovieRepository.findById(movieId)
-        movie.addScreening(Screening(screeningDateTime))
-        MovieRepository.save(movie)
-    }
-
-    fun reserve(movieId: Long, screeningDateTime: LocalDateTime, audienceCount: Int) {
-        val movie = MovieRepository.findById(movieId)
-        movie.reserve(screeningDateTime, audienceCount)
+        movie.addScreening(ScreeningInfoOfMovie(screeningDateTime))
         MovieRepository.save(movie)
     }
 }
