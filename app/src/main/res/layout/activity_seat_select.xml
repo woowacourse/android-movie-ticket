@@ -57,7 +57,8 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="#8E13EF"
-                android:background="#FFFFFF" />
+                android:background="#FFFFFF"
+                android:id="@+id/a1" />
 
             <Button
                 android:text="@string/a2"
