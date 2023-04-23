@@ -3,8 +3,6 @@ package woowacourse.movie.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import woowacourse.movie.R
-import woowacourse.movie.databinding.EmptyItemBinding
 import woowacourse.movie.databinding.MovieAdItemBinding
 import woowacourse.movie.databinding.MovieItemBinding
 import woowacourse.movie.view.model.MovieListModel
@@ -31,15 +29,23 @@ class MovieListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        return when (viewType) {
-            R.layout.movie_item -> MovieItemViewHolder(MovieItemBinding.bind(view)) {
-                onMovieViewClick(it)
+        return when (MovieListViewType.values()[viewType]) {
+            MovieListViewType.MOVIE_ITEM -> {
+                val view = LayoutInflater.from(parent.context).inflate(
+                    MovieListViewType.MOVIE_ITEM.id, parent, false
+                )
+                MovieItemViewHolder(MovieItemBinding.bind(view)) {
+                    onMovieViewClick(it)
+                }
             }
-            R.layout.movie_ad_item -> MovieAdViewHolder(MovieAdItemBinding.bind(view)) {
-                onAdViewClick(it)
+            MovieListViewType.AD_ITEM -> {
+                val view = LayoutInflater.from(parent.context).inflate(
+                    MovieListViewType.AD_ITEM.id, parent, false
+                )
+                MovieAdViewHolder(MovieAdItemBinding.bind(view)) {
+                    onAdViewClick(it)
+                }
             }
-            else -> EmptyViewHolder(EmptyItemBinding.bind(view))
         }
     }
 
@@ -58,7 +64,7 @@ class MovieListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int = when (dataList[position]) {
-        is MovieUiModel -> R.layout.movie_item
-        is MovieAdModel -> R.layout.movie_ad_item
+        is MovieUiModel -> MovieListViewType.MOVIE_ITEM.ordinal
+        is MovieAdModel -> MovieListViewType.AD_ITEM.ordinal
     }
 }
