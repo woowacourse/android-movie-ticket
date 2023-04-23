@@ -1,6 +1,7 @@
 package woowacourse.movie.data
 
 import woowacourse.movie.R
+import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.RunningTime
 import java.time.LocalDate
 

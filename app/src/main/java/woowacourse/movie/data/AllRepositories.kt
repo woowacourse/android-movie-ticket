@@ -1,5 +1,7 @@
 package woowacourse.movie.data
 
+import woowacourse.movie.model.MovieAndAd
+
 class AllRepositories {
     fun restoreRepositories(): List<MovieAndAd> {
         val movieRepositories = MovieRepositories().movies

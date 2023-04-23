@@ -10,10 +10,10 @@ import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_MONEY
 import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
-import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.databinding.ActivityReservationConfirmBinding
 import woowacourse.movie.mapper.CountMapper
 import woowacourse.movie.mapper.MoneyMapper
+import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.Seats
 import woowacourse.movie.model.ViewingDate
 import woowacourse.movie.model.ViewingTime

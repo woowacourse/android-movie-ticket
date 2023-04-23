@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.R
 import woowacourse.movie.data.AllRepositories
-import woowacourse.movie.data.MovieAndAd
+import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.reservation.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {

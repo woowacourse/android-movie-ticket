@@ -15,8 +15,8 @@ import woowacourse.movie.KEY_RESTORE_COUNT
 import woowacourse.movie.KEY_RESTORE_DATE
 import woowacourse.movie.KEY_RESTORE_TIME
 import woowacourse.movie.R
-import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
+import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.ViewingDate
 import woowacourse.movie.model.ViewingTime
 import woowacourse.movie.selection.SeatSelectActivity
