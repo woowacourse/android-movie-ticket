@@ -1,8 +1,8 @@
 package woowacourse.movie.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -13,14 +13,15 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.domain.PeopleCount
-import woowacourse.movie.domain.TicketTime
 import woowacourse.movie.domain.TimesGenerator
 import woowacourse.movie.ui.getParcelable
 import woowacourse.movie.ui.model.MovieModel
+import woowacourse.movie.ui.model.MovieTicketModel
+import woowacourse.movie.ui.model.PriceModel
+import woowacourse.movie.ui.model.TicketTimeModel
 import woowacourse.movie.ui.model.mapToMovie
-import woowacourse.movie.ui.model.mapToMovieTicketModel
+import woowacourse.movie.ui.model.mapToPeopleCountModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -28,8 +29,8 @@ import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity() {
     private var peopleCount = PeopleCount()
-    private lateinit var dateSpinner: Spinner
-    private lateinit var timeSpinner: Spinner
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.detail_date_spinner) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.detail_time_spinner) }
     private lateinit var timeSpinnerAdapter: ArrayAdapter<LocalTime>
     private val times = mutableListOf<LocalTime>()
 
@@ -39,7 +40,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        intent.getParcelable<MovieModel>("movie")?.let {
+        intent.getParcelable<MovieModel>(MOVIE_EXTRA_KEY)?.let {
             setMovieInfo(it)
             setDateSpinner(it)
             setBookingButton(it)
@@ -50,12 +51,12 @@ class MovieDetailActivity : AppCompatActivity() {
         loadSavedData(savedInstanceState)
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 
-        outState.putInt("date_position", dateSpinner.selectedItemPosition)
-        outState.putInt("time_position", timeSpinner.selectedItemPosition)
-        outState.putInt("count", peopleCount.count)
+        outState.putInt(DATE_SPINNER_POSITION_INSTANCE_KEY, dateSpinner.selectedItemPosition)
+        outState.putInt(TIME_SPINNER_POSITION_INSTANCE_KEY, timeSpinner.selectedItemPosition)
+        outState.putInt(PEOPLE_COUNT_VALUE_INSTANCE_KEY, peopleCount.value)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,11 +70,17 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setMovieInfo(movie: MovieModel) {
-        findViewById<ImageView>(R.id.detail_poster).setImageResource(movie.poster)
-        findViewById<TextView>(R.id.detail_title).text = movie.title
-        findViewById<TextView>(R.id.detail_date).text = movie.getScreenDate()
-        findViewById<TextView>(R.id.detail_running_time).text = movie.getRunningTime()
-        findViewById<TextView>(R.id.detail_description).text = movie.description
+        val posterView = findViewById<ImageView>(R.id.detail_poster)
+        val titleView = findViewById<TextView>(R.id.detail_title)
+        val dateView = findViewById<TextView>(R.id.detail_date)
+        val runningTimeView = findViewById<TextView>(R.id.detail_running_time)
+        val descriptionView = findViewById<TextView>(R.id.detail_description)
+
+        posterView.setImageResource(movie.poster)
+        titleView.text = movie.title
+        dateView.text = movie.getScreenDate()
+        runningTimeView.text = movie.getRunningTime()
+        descriptionView.text = movie.description
     }
 
     private fun MovieModel.getScreenDate(): String = getString(R.string.screen_date, startDate.format(), endDate.format())
@@ -83,11 +90,10 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun MovieModel.getRunningTime(): String = getString(R.string.running_time, runningTime)
 
     private fun setDateSpinner(movie: MovieModel) {
-        dateSpinner = findViewById(R.id.detail_date_spinner)
         val dateSpinnerAdapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            mapToMovie(movie).getDatesBetweenTwoDates()
+            movie.mapToMovie().getDatesBetweenTwoDates()
         )
         dateSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dateSpinner.adapter = dateSpinnerAdapter
@@ -110,7 +116,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setTimeSpinner() {
-        timeSpinner = findViewById(R.id.detail_time_spinner)
         times.addAll(TimesGenerator.getTimesByDate(dateSpinner.selectedItem as LocalDate))
         timeSpinnerAdapter = ArrayAdapter(
             this,
@@ -129,7 +134,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setPeopleCountView(peopleCountView: TextView) {
-        peopleCountView.text = "${peopleCount.count}"
+        peopleCountView.text = "${peopleCount.value}"
     }
 
     private fun setMinusButton(peopleCountView: TextView) {
@@ -152,33 +157,47 @@ class MovieDetailActivity : AppCompatActivity() {
         val bookingButton = findViewById<Button>(R.id.detail_booking_button)
 
         bookingButton.setOnClickListener {
-            moveToTicketActivity(movie)
+            moveToSeatPickerActivity(movie)
         }
     }
 
-    private fun moveToTicketActivity(movie: MovieModel) {
-        val ticket = MovieTicket(
+    private fun moveToSeatPickerActivity(movie: MovieModel) {
+        val ticket = MovieTicketModel(
             movie.title,
-            TicketTime(
+            TicketTimeModel(
                 LocalDateTime.of(
                     dateSpinner.selectedItem as LocalDate,
                     timeSpinner.selectedItem as LocalTime
                 )
             ),
-            peopleCount
+            peopleCount.mapToPeopleCountModel(),
+            seats = emptySet(),
+            PriceModel(0)
         )
 
-        val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("ticket", mapToMovieTicketModel(ticket))
+        val intent = SeatPickerActivity.createIntent(this, ticket)
         startActivity(intent)
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
-        val datePosition = savedInstanceState?.getInt("date_position") ?: 0
-        val timePosition = savedInstanceState?.getInt("time_position") ?: 0
-        val count = savedInstanceState?.getInt("count") ?: 1
+        val datePosition = savedInstanceState?.getInt(DATE_SPINNER_POSITION_INSTANCE_KEY) ?: 0
+        val timePosition = savedInstanceState?.getInt(TIME_SPINNER_POSITION_INSTANCE_KEY) ?: 0
+        val count = savedInstanceState?.getInt(PEOPLE_COUNT_VALUE_INSTANCE_KEY) ?: 1
         dateSpinner.setSelection(datePosition)
         timeSpinner.setSelection(timePosition)
         peopleCount = PeopleCount(count)
+    }
+
+    companion object {
+        private const val DATE_SPINNER_POSITION_INSTANCE_KEY = "date_position"
+        private const val MOVIE_EXTRA_KEY = "movie"
+        private const val PEOPLE_COUNT_VALUE_INSTANCE_KEY = "count"
+        private const val TIME_SPINNER_POSITION_INSTANCE_KEY = "time_position"
+
+        fun createIntent(context: Context, movie: MovieModel): Intent {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(MOVIE_EXTRA_KEY, movie)
+            return intent
+        }
     }
 }

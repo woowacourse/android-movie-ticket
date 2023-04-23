@@ -9,4 +9,12 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="ticket_guide_background">#9160F9</color>
+    <color name="screen_background">#494949</color>
+    <color name="seat_picker_background">#EAEAEA</color>
+    <color name="seat_picker_done_button_on">#6200EE</color>
+    <color name="seat_picker_done_button_off">#B7B7B7</color>
+    <color name="b_rank">#8E13EF</color>
+    <color name="s_rank">#19D358</color>
+    <color name="a_rank">#1B48E9</color>
+    <color name="seat_selected">#FAFF00</color>
 </resources>

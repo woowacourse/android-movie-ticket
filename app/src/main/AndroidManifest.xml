@@ -12,13 +12,16 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.SeatPickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.MovieTicketActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.MovieDetailActivity"
             android:configChanges="screenSize|orientation"
-            android:screenOrientation="sensor"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="sensor" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
