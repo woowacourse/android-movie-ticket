@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.seat
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -52,7 +51,6 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
         outState.putSerializable(KEY_SEATS, selectedSeats.toModel())
     }
 
@@ -67,23 +65,13 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun setBookingInfo() {
-        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE)
-            ?: return failLoadingData()
-        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME)
-            ?: return failLoadingData()
-        peopleCount = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT)
-            ?: return failLoadingData()
+        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: return failLoadingData()
+        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME) ?: return failLoadingData()
+        peopleCount = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: return failLoadingData()
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
-        (
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState?.getSerializable(KEY_SEATS, SelectedSeatsModel::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                savedInstanceState?.getSerializable(KEY_SEATS)
-            } as SelectedSeatsModel?
-            )?.let {
+        savedInstanceState?.getSerializableExtraCompat<SelectedSeatsModel>(KEY_SEATS)?.let {
             selectedSeats = it.toDomain()
         }
     }
@@ -136,12 +124,8 @@ class SeatSelectionActivity : AppCompatActivity() {
 
         seatView.isSelected = !seatView.isSelected
         selectedSeats = when (seatView.isSelected) {
-            true -> {
-                selectedSeats.add(seat)
-            }
-            false -> {
-                selectedSeats.delete(seat)
-            }
+            true -> { selectedSeats.add(seat) }
+            false -> { selectedSeats.delete(seat) }
         }
         updateBackgroundColor(seatView)
         updatePriceText(selectedSeats.getAllPrice(movieTime))
@@ -164,12 +148,8 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun updateBackgroundColor(seatView: View) {
         when (seatView.isSelected) {
-            true -> {
-                seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
-            }
-            false -> {
-                seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
-            }
+            true -> { seatView.setBackgroundColor(getColor(R.color.seat_selected_background)) }
+            false -> { seatView.setBackgroundColor(getColor(R.color.seat_unselected_background)) }
         }
     }
 
