@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.TicketState
-import woowacourse.movie.model.mapper.toDomain
 import woowacourse.movie.ui.DateTimeFormatters.dateDotTimeColonFormatter
 import woowacourse.movie.util.customGetParcelableExtra
 
@@ -24,10 +23,10 @@ class MovieBookingCheckActivity : AppCompatActivity() {
 
     private fun initExtraData() {
         ticketState = intent.customGetParcelableExtra(TICKET)
-            ?: return finishActivity(TICKET)
+            ?: return notFoundData(TICKET)
     }
 
-    private fun finishActivity(key: String) {
+    private fun notFoundData(key: String) {
         Log.d(MOIVE_BOOKING_CHECK_LOG_MSG, DATA_NOT_FOUNT_ERROR_MSG.format(key))
         finish()
     }
@@ -42,7 +41,7 @@ class MovieBookingCheckActivity : AppCompatActivity() {
         tvBookingCheckScreeningDay.text =
             ticketState.screeningDateTime.dateTime.format(dateDotTimeColonFormatter)
         tvBookedTicketInfo.text =
-            getString(R.string.tv_booking_check_person_count).format(ticketState.count.value, ticketState.seatSelection.joinToString { it.toDomain().toString() })
+            getString(R.string.tv_booking_check_person_count).format(ticketState.count.value, ticketState.seatSelection.map { it.toString() }.sorted().joinToString(", "))
         tvBookingCheckTotalMoney.text =
             getString(R.string.tv_booking_check_total_money).format(ticketState.price)
     }

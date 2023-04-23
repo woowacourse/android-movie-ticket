@@ -26,14 +26,15 @@ import kotlin.properties.Delegates
 
 class MovieBookingActivity : AppCompatActivity() {
 
-    lateinit var movieDataState: MovieDataState
-    lateinit var tvTicketCount: TextView
+    private lateinit var btnPlus: Button
+    private lateinit var btnMinus: Button
+    private lateinit var movieDataState: MovieDataState
+    private lateinit var tvTicketCount: TextView
     lateinit var dateSpinner: Spinner
-    lateinit var timeSpinner: Spinner
-    lateinit var dateSpinnerAdapter: DateSpinnerAdapter
+    private lateinit var timeSpinner: Spinner
+    private lateinit var dateSpinnerAdapter: DateSpinnerAdapter
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
-    var timeSpinnerRecoverState: Int = -1
-
+    private var timeSpinnerRecoverState: Int = -1
     private var ticketCount: Count by Delegates.observable(Count(1)) { _, _, new ->
         tvTicketCount.text = new.toString()
     }
@@ -48,8 +49,7 @@ class MovieBookingActivity : AppCompatActivity() {
         initExtraData()
         initMovieInformation()
         initTicketCount()
-        initMinusButtonClickListener()
-        initPlusButtonClickListener()
+        initButtonClickListener()
         initBookingCompleteButtonClickListener()
         initSpinnerAdapter()
     }
@@ -94,7 +94,12 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun initExtraData() {
         movieDataState =
             intent.customGetParcelableExtra<MovieDataState>(MOVIE_DATA)
-                ?: return finishActivity(MOVIE_DATA)
+                ?: return notFoundData(MOVIE_DATA)
+    }
+
+    private fun notFoundData(key: String) {
+        Log.d(MOVIE_BOOKING, DATA_NOT_FOUNT_ERROR_MSG.format(key))
+        finish()
     }
 
     private fun setOnItemSelectedListener() {
@@ -110,11 +115,6 @@ class MovieBookingActivity : AppCompatActivity() {
 
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
-    }
-
-    private fun finishActivity(key: String) {
-        Log.d(MOVIE_BOOKING, DATA_NOT_FOUNT_ERROR_MSG.format(key))
-        finish()
     }
 
     private fun initMovieInformation() {
@@ -142,16 +142,15 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun initTicketCountView() {
         tvTicketCount = findViewById(R.id.tv_ticket_count)
+        btnPlus = findViewById<Button>(R.id.btn_ticket_plus)
+        btnMinus = findViewById<Button>(R.id.btn_ticket_minus)
     }
 
-    private fun initPlusButtonClickListener() {
-        findViewById<Button>(R.id.btn_ticket_plus).setOnSingleClickListener {
+    private fun initButtonClickListener() {
+        btnPlus.setOnSingleClickListener {
             ticketCount++
         }
-    }
-
-    private fun initMinusButtonClickListener() {
-        findViewById<Button>(R.id.btn_ticket_minus).setOnSingleClickListener {
+        btnMinus.setOnSingleClickListener {
             ticketCount--
             if (ticketCount == Count(0)) {
                 ticketCount = Count(1)
