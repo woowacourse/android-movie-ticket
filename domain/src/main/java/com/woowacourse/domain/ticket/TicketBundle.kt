@@ -1,4 +1,4 @@
-package com.woowacourse.domain
+package com.woowacourse.domain.ticket
 
 class TicketBundle(val count: Int, private val tickets: List<Ticket> = emptyList()) {
 

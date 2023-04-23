@@ -15,10 +15,10 @@ import com.woowacourse.domain.MovieSchedule
 import woowacourse.movie.BundleKeys.MOVIE_BOOKING_INFO_KEY
 import woowacourse.movie.BundleKeys.MOVIE_DATA_KEY
 import woowacourse.movie.DateFormatter
-import woowacourse.movie.Movie
-import woowacourse.movie.MovieBookingInfo
 import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
+import woowacourse.movie.movie.Movie
+import woowacourse.movie.movie.MovieBookingInfo
 import java.time.LocalDate
 
 class MovieDetailActivity : BackButtonActivity() {

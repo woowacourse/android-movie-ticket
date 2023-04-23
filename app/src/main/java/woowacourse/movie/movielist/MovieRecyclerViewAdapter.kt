@@ -1,13 +1,13 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.movielist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.Ad
-import woowacourse.movie.AdOnClickListener
-import woowacourse.movie.Movie
-import woowacourse.movie.MovieOnClickListener
 import woowacourse.movie.R
+import woowacourse.movie.movie.Movie
+import woowacourse.movie.movielist.listener.AdOnClickListener
+import woowacourse.movie.movielist.listener.MovieOnClickListener
 
 class MovieRecyclerViewAdapter(
     private val movies: List<Movie>,

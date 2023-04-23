@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.movielist.listener
 
 interface OnClickListener<T> {
 

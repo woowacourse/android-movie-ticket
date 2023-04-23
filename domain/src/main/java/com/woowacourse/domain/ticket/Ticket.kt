@@ -1,4 +1,4 @@
-package com.woowacourse.domain
+package com.woowacourse.domain.ticket
 
 @JvmInline
 value class Ticket(private val price: Int) {

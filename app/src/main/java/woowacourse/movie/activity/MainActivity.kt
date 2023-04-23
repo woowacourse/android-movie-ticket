@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.Ad
-import woowacourse.movie.AdOnClickListener
-import woowacourse.movie.MovieMockData
-import woowacourse.movie.MovieOnClickListener
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieRecyclerViewAdapter
+import woowacourse.movie.movie.MovieMockData
+import woowacourse.movie.movielist.MovieRecyclerViewAdapter
+import woowacourse.movie.movielist.listener.AdOnClickListener
+import woowacourse.movie.movielist.listener.MovieOnClickListener
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

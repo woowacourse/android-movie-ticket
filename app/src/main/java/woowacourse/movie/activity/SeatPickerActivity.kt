@@ -11,20 +11,20 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import com.woowacourse.domain.Ticket
-import com.woowacourse.domain.TicketBundle
 import com.woowacourse.domain.seat.Seat
 import com.woowacourse.domain.seat.SeatColumn
 import com.woowacourse.domain.seat.SeatGroup
 import com.woowacourse.domain.seat.SeatRow
+import com.woowacourse.domain.ticket.Ticket
+import com.woowacourse.domain.ticket.TicketBundle
 import woowacourse.movie.BundleKeys
-import woowacourse.movie.MovieBookingInfo
-import woowacourse.movie.MovieBookingSeatInfo
 import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.mapper.toPresentation
 import woowacourse.movie.model.SeatGroupModel
+import woowacourse.movie.movie.MovieBookingInfo
+import woowacourse.movie.movie.MovieBookingSeatInfo
 
 class SeatPickerActivity : BackButtonActivity() {
     private val seatTableLayout: TableLayout by lazy { findViewById(R.id.tl_seats) }

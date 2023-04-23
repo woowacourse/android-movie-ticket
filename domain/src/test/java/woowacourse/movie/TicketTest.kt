@@ -1,6 +1,6 @@
 package woowacourse.movie
 
-import com.woowacourse.domain.Ticket
+import com.woowacourse.domain.ticket.Ticket
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest

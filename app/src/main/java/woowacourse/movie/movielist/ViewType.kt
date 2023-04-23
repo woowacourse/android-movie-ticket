@@ -1,4 +1,4 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.movielist
 
 enum class ViewType {
     MOVIE, AD

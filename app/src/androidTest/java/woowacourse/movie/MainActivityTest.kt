@@ -13,6 +13,7 @@ import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.activity.MainActivity
+import woowacourse.movie.movie.MovieMockData
 
 class MainActivityTest {
     @get:Rule

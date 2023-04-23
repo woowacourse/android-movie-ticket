@@ -1,4 +1,4 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.movielist
 
 import android.view.View
 import android.widget.Button
@@ -6,9 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.DateFormatter
-import woowacourse.movie.Movie
-import woowacourse.movie.OnClickListener
 import woowacourse.movie.R
+import woowacourse.movie.movie.Movie
+import woowacourse.movie.movielist.listener.OnClickListener
 
 class MovieRecyclerViewHolder(
     private val view: View,

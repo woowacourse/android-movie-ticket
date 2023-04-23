@@ -1,7 +1,7 @@
 package woowacourse.movie
 
-import com.woowacourse.domain.Ticket
-import com.woowacourse.domain.TicketBundle
+import com.woowacourse.domain.ticket.Ticket
+import com.woowacourse.domain.ticket.TicketBundle
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

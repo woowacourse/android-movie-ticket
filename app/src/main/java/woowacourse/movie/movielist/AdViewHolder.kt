@@ -1,11 +1,11 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.movielist
 
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.Ad
-import woowacourse.movie.OnClickListener
 import woowacourse.movie.R
+import woowacourse.movie.movielist.listener.OnClickListener
 
 class AdViewHolder(private val view: View, private val listener: OnClickListener<Ad>) :
     RecyclerView.ViewHolder(view) {
