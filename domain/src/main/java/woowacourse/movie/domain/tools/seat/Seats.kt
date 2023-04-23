@@ -17,25 +17,15 @@ class Seats(seats: List<Seat> = listOf()) {
 
     fun addSeat(seat: Seat) {
         _value.add(seat)
-        println(_value)
     }
 
     fun removeSeat(seat: Seat) {
         _value.remove(seat)
-        println(_value)
     }
 
     fun contains(seat: Seat): Boolean = value.contains(seat)
 
-    fun sorted(): Seats {
-        val sortedValue = value.sortedWith(
-            compareBy(
-                { it.location.row },
-                { it.location.number },
-            ),
-        )
-        return Seats(sortedValue)
-    }
+    fun sorted(): Seats = Seats(_value.sorted())
 
     fun getPaymentMoney(dateTime: LocalDateTime): Money {
         val discountPolicy = DiscountPolicyAdapter(MovieDiscountPolicy.policies)
