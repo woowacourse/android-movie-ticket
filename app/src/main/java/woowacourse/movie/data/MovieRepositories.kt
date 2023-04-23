@@ -1,7 +1,7 @@
 package woowacourse.movie.data
 
 import woowacourse.movie.R
-import woowacourse.movie.entity.RunningTime
+import woowacourse.movie.model.RunningTime
 import java.time.LocalDate
 
 class MovieRepositories {

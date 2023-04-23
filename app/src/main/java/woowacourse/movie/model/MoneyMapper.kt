@@ -1,26 +1,26 @@
-package woowacourse.movie.entity
+package woowacourse.movie.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @JvmInline
 @Parcelize
-value class Money(val value: Int) : Parcelable {
+value class MoneyMapper(val value: Int) : Parcelable {
     init {
         require(value > MIN_MONEY_RANGE) { MONEY_ERROR_MESSAGE }
     }
 
-    operator fun times(other: Float): Money {
+    operator fun times(other: Float): MoneyMapper {
         val result = (value * other).toInt()
-        return Money(result)
+        return MoneyMapper(result)
     }
 
-    operator fun times(other: Count): Money {
-        return Money(value * other.value)
+    operator fun times(other: CountMapper): MoneyMapper {
+        return MoneyMapper(value * other.value)
     }
 
-    operator fun minus(other: Money): Money {
-        return Money(value - other.value)
+    operator fun minus(other: MoneyMapper): MoneyMapper {
+        return MoneyMapper(value - other.value)
     }
 
     companion object {

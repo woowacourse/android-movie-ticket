@@ -3,7 +3,7 @@ package woowacourse.movie.data
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.entity.RunningTime
+import woowacourse.movie.model.RunningTime
 import java.time.LocalDate
 
 @Parcelize

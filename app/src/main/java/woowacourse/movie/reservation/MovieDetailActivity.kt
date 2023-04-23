@@ -19,8 +19,8 @@ import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
 import woowacourse.movie.domain.RunningDates
 import woowacourse.movie.domain.RunningTimes
-import woowacourse.movie.entity.ViewingDate
-import woowacourse.movie.entity.ViewingTime
+import woowacourse.movie.model.ViewingDate
+import woowacourse.movie.model.ViewingTime
 import woowacourse.movie.selection.SeatSelectActivity
 import woowacourse.movie.utils.getParcelableCompat
 import java.time.LocalDate
@@ -28,7 +28,12 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : BackKeyActionBarActivity() {
-    private val runningDateSetter: RunningDates by lazy { RunningDates(movie.startDate, movie.endDate) }
+    private val runningDateSetter: RunningDates by lazy {
+        RunningDates(
+            movie.startDate,
+            movie.endDate
+        )
+    }
     private val runningTimeSetter: RunningTimes = RunningTimes()
     private lateinit var selectDate: ViewingDate
     private lateinit var selectTime: ViewingTime
@@ -61,16 +66,13 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         binding.description.text = movie.description
     }
 
-    private fun setDateSpinnerAdapter() {
-        val dateSpinnerAdapter = ArrayAdapter(
-            this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-            runningDates.map { it.toString() }
-        )
-        binding.dateSpinner.adapter = dateSpinnerAdapter
+    private fun initSetOnClickListener() {
+        onMinusClick()
+        onPlusClick()
+        onConfirmClick()
     }
 
-    private fun initSetOnClickListener() {
+    private fun onMinusClick() {
         binding.minus.setOnClickListener {
             var previous = binding.count.text.toString().toInt()
             previous--
@@ -80,13 +82,17 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
             }
             binding.count.text = previous.toString()
         }
+    }
 
+    private fun onPlusClick() {
         binding.plus.setOnClickListener {
             var previous = binding.count.text.toString().toInt()
             previous++
             binding.count.text = previous.toString()
         }
+    }
 
+    private fun onConfirmClick() {
         binding.reservationConfirm.setOnClickListener {
             val intent = Intent(this, SeatSelectActivity::class.java)
             intent.putExtra(KEY_MOVIE, movie)
@@ -96,40 +102,6 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
             startActivity(intent)
             startActivity(intent)
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(KEY_RESTORE_DATE, selectDate)
-        outState.putParcelable(KEY_RESTORE_TIME, selectTime)
-        outState.putInt(KEY_RESTORE_COUNT, binding.count.text.toString().toInt())
-    }
-
-    fun setTimeSpinnerAdapter() {
-        runningTimes = runningTimeSetter.getRunningTimes(selectDate.value)
-        val timeSpinnerAdapter = ArrayAdapter(
-            this,
-            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-            runningTimes.map { it.toString() }
-        )
-        binding.timeSpinner.adapter = timeSpinnerAdapter
-    }
-
-    private fun initInstanceState() {
-        selectDate = ViewingDate(movie.startDate)
-        setTimeSpinnerAdapter()
-        runningTimes = runningTimeSetter.getRunningTimes(selectDate.value)
-        selectTime = ViewingTime(runningTimes[0])
-    }
-
-    private fun restoreInstanceState(savedInstanceState: Bundle) {
-        selectDate = savedInstanceState.getParcelableCompat(KEY_RESTORE_DATE)!!
-        setTimeSpinnerAdapter()
-        selectTime = savedInstanceState.getParcelableCompat(KEY_RESTORE_TIME)!!
-        runningTimes = RunningTimes().getRunningTimes(selectDate.value)
-        binding.dateSpinner.setSelection(runningDates.indexOf(selectDate.value), false)
-        binding.timeSpinner.setSelection(runningTimes.indexOf(selectTime.value), false)
-        binding.count.text = savedInstanceState.getInt(KEY_RESTORE_COUNT).toString()
     }
 
     private fun setOnClickDateListener() {
@@ -148,6 +120,25 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         }
     }
 
+    private fun setDateSpinnerAdapter() {
+        val dateSpinnerAdapter = ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            runningDates.map { it.toString() }
+        )
+        binding.dateSpinner.adapter = dateSpinnerAdapter
+    }
+
+    fun setTimeSpinnerAdapter() {
+        runningTimes = runningTimeSetter.getRunningTimes(selectDate.value)
+        val timeSpinnerAdapter = ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+            runningTimes.map { it.toString() }
+        )
+        binding.timeSpinner.adapter = timeSpinnerAdapter
+    }
+
     private fun setOnClickTimeListener() {
         binding.timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -161,6 +152,30 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
+    }
+
+    private fun initInstanceState() {
+        selectDate = ViewingDate(movie.startDate)
+        setTimeSpinnerAdapter()
+        runningTimes = runningTimeSetter.getRunningTimes(selectDate.value)
+        selectTime = ViewingTime(runningTimes[0])
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(KEY_RESTORE_DATE, selectDate)
+        outState.putParcelable(KEY_RESTORE_TIME, selectTime)
+        outState.putInt(KEY_RESTORE_COUNT, binding.count.text.toString().toInt())
+    }
+
+    private fun restoreInstanceState(savedInstanceState: Bundle) {
+        selectDate = savedInstanceState.getParcelableCompat(KEY_RESTORE_DATE)!!
+        setTimeSpinnerAdapter()
+        selectTime = savedInstanceState.getParcelableCompat(KEY_RESTORE_TIME)!!
+        runningTimes = RunningTimes().getRunningTimes(selectDate.value)
+        binding.dateSpinner.setSelection(runningDates.indexOf(selectDate.value), false)
+        binding.timeSpinner.setSelection(runningTimes.indexOf(selectTime.value), false)
+        binding.count.text = savedInstanceState.getInt(KEY_RESTORE_COUNT).toString()
     }
 
     companion object {

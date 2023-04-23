@@ -1,11 +1,11 @@
-package woowacourse.movie.entity
+package woowacourse.movie.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @JvmInline
 @Parcelize
-value class Count(val value: Int) : Parcelable {
+value class CountMapper(val value: Int) : Parcelable {
     init {
         require(value >= MIN_COUNT_RANGE) { COUNT_ERROR_MESSAGE }
     }

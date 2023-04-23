@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
+import com.example.domain.model.SeatRank
 import woowacourse.movie.BackKeyActionBarActivity
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
@@ -19,13 +20,12 @@ import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.databinding.ActivitySeatSelectBinding
 import woowacourse.movie.domain.DiscountCalculator
-import woowacourse.movie.entity.Count
-import woowacourse.movie.entity.Money
-import woowacourse.movie.entity.Seat
-import woowacourse.movie.entity.SeatRank
-import woowacourse.movie.entity.Seats
-import woowacourse.movie.entity.ViewingDate
-import woowacourse.movie.entity.ViewingTime
+import woowacourse.movie.model.CountMapper
+import woowacourse.movie.model.MoneyMapper
+import woowacourse.movie.model.Seat
+import woowacourse.movie.model.Seats
+import woowacourse.movie.model.ViewingDate
+import woowacourse.movie.model.ViewingTime
 import woowacourse.movie.utils.getParcelableCompat
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
@@ -108,7 +108,7 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     private fun addMoney() {
         totalMoney = 0
         chosenSeats.map {
-            totalMoney += DiscountCalculator().discount(Money(it.rank.money), dateTime).value
+            totalMoney += DiscountCalculator().discount(MoneyMapper(it.rank.money), dateTime).value
         }
         binding.selectMoney.text = ReservationConfirmActivity.DECIMAL_FORMATTER.format(totalMoney)
     }
@@ -121,8 +121,8 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
                 .setPositiveButton("예매 완료") { _, _ ->
                     val intent = Intent(this, ReservationConfirmActivity::class.java)
                     intent.putExtra(KEY_MOVIE, movie)
-                    intent.putExtra(KEY_RESERVATION_COUNT, Count(reservationCount))
-                    intent.putExtra(KEY_RESERVATION_MONEY, Money(totalMoney))
+                    intent.putExtra(KEY_RESERVATION_COUNT, CountMapper(reservationCount))
+                    intent.putExtra(KEY_RESERVATION_MONEY, MoneyMapper(totalMoney))
                     intent.putExtra(KEY_RESERVATION_DATE, date)
                     intent.putExtra(KEY_RESERVATION_TIME, time)
                     intent.putExtra(KEY_RESERVATION_SEATS, Seats(chosenSeats))

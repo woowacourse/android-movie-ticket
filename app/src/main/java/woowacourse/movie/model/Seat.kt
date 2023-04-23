@@ -1,6 +1,7 @@
-package woowacourse.movie.entity
+package woowacourse.movie.model
 
 import android.os.Parcelable
+import com.example.domain.model.SeatRank
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
