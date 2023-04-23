@@ -1,5 +1,7 @@
 package woowacourse.movie.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -13,7 +15,6 @@ import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.util.DATE_FORMATTER
 import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.util.getSerializableCompat
-import woowacourse.movie.view.MovieListActivity.Companion.MOVIE_ITEM
 import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 import woowacourse.movie.view.model.ReservationOptions
 import java.time.LocalDate
@@ -48,7 +49,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieFromIntent(): MovieUiModel {
-        val movie = intent.getParcelableCompat<MovieUiModel>(MOVIE_ITEM)
+        val movie = intent.getParcelableCompat<MovieUiModel>(MOVIE)
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         return movie
     }
@@ -199,5 +200,11 @@ class ReservationActivity : AppCompatActivity() {
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"
         private const val SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
+        private const val MOVIE = "MOVIE"
+        fun newIntent(context: Context, movie: MovieUiModel): Intent {
+            val intent = Intent(context, ReservationActivity::class.java)
+            intent.putExtra(MOVIE, movie)
+            return intent
+        }
     }
 }

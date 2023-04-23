@@ -23,8 +23,7 @@ class MovieListActivity : AppCompatActivity() {
             dataList = dataList,
             onItemClick = object : MovieListAdapter.OnItemClick {
                 override fun onMovieClick(movie: MovieListModel.MovieUiModel) {
-                    val intent = Intent(this@MovieListActivity, ReservationActivity::class.java)
-                    intent.putExtra(MOVIE_ITEM, movie)
+                    val intent = ReservationActivity.newIntent(this@MovieListActivity, movie)
                     startActivity(intent)
                 }
 
@@ -56,7 +55,6 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val MOVIE_ITEM = "MOVIE_ITEM"
         private const val AD_POST_INTERVAL = 3
     }
 }
