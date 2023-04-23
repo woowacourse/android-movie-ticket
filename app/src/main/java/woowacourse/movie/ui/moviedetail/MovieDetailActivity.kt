@@ -130,6 +130,5 @@ class MovieDetailActivity : AppCompatActivity() {
         const val KEY_TITLE = "title"
         const val KEY_TIME = "time"
         const val KEY_PEOPLE_COUNT = "count"
-        const val KEY_TICKET = "ticket"
     }
 }
