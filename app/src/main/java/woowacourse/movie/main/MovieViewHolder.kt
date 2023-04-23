@@ -9,10 +9,10 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieAndAd
 
 class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val image: ImageView = itemView.findViewById(R.id.image)
-    val title: TextView = itemView.findViewById(R.id.title)
-    val startDate: TextView = itemView.findViewById(R.id.start_date)
-    val endDate: TextView = itemView.findViewById(R.id.end_date)
+    private val image: ImageView = itemView.findViewById(R.id.image)
+    private val title: TextView = itemView.findViewById(R.id.title)
+    private val startDate: TextView = itemView.findViewById(R.id.start_date)
+    private val endDate: TextView = itemView.findViewById(R.id.end_date)
     val time: TextView = itemView.findViewById(R.id.time)
     val reservation: Button = itemView.findViewById(R.id.reservation)
 

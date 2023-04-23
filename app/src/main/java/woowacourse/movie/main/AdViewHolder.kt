@@ -7,7 +7,7 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieAndAd
 
 class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val image: ImageView = itemView.findViewById(R.id.ad_image)
+    private val image: ImageView = itemView.findViewById(R.id.ad_image)
 
     fun bind(ad: MovieAndAd.Advertisement) {
         image.setImageResource(ad.imgResourceId)
