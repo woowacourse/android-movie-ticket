@@ -4,8 +4,8 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
-object MovieDummyData {
-    val values = List(1000) {
+object MovieData {
+    private val values = List(1000) {
         Movie(
             R.drawable.harry_potter,
             "해리포터 - 1편",

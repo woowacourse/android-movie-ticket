@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityMainBinding
-import woowacourse.movie.presentation.view.main.data.MovieDummyData
+import woowacourse.movie.presentation.view.main.data.MovieData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setListView() {
         val listView = binding.rvMovieList
-        val movies = MovieDummyData.getData()
+        val movies = MovieData.getData()
         val adapter = MovieListAdapter(movies, getDrawable(R.drawable.advertise_wooteco)!!)
         listView.adapter = adapter
     }
