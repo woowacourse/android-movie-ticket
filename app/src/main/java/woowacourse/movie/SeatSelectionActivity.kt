@@ -49,7 +49,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         movieTtile.text = movie.title
     }
 
-
     private fun setUpState(savedInstanceState: Bundle?) {
         setUpSeatView()
         if (savedInstanceState != null) {
@@ -95,7 +94,8 @@ class SeatSelectionActivity : AppCompatActivity() {
                 when {
                     isPossibleSelect(seat, ticketCount.numberOfPeople) -> selectSeat(textView, seat)
                     isSeatCancelable(seat) -> unselectSeat(textView, seat)
-                    else -> Toast.makeText(this, R.string.seats_size_over_error, Toast.LENGTH_LONG).show()
+                    else -> Toast.makeText(this, R.string.seats_size_over_error, Toast.LENGTH_LONG)
+                        .show()
                 }
                 setPrice(seats.caculateSeatPrice(LocalDateTime.of(date, time)))
                 setEnterBtnClickable()
@@ -105,15 +105,12 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun setEnterBtnClickable() {
         val enterBtn = findViewById<TextView>(R.id.enterBtn)
-        when {
-            isPossibleEnter(ticketCount.numberOfPeople) -> {
-                enterBtn.setBackgroundColor(getColor(R.color.enter))
-                OnEnterBtnClickListener(enterBtn)
-            }
-            else -> {
-                enterBtn.setBackgroundColor(getColor(R.color.not_enter))
-                enterBtn.setOnClickListener(null)
-            }
+        if (isPossibleEnter(ticketCount.numberOfPeople)) {
+            enterBtn.setBackgroundColor(getColor(R.color.enter))
+            OnEnterBtnClickListener(enterBtn)
+        } else {
+            enterBtn.setBackgroundColor(getColor(R.color.not_enter))
+            enterBtn.setOnClickListener(null)
         }
     }
 
