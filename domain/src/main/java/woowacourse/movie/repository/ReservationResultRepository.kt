@@ -11,4 +11,8 @@ object ReservationResultRepository {
         reservationResults[nextId] = reservationResult
         return nextId++
     }
+
+    fun findById(id: Long): ReservationResult? {
+        return reservationResults[id]
+    }
 }
