@@ -1,17 +1,22 @@
 package woowacourse.movie.view
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningTime
+import woowacourse.movie.util.DATE_FORMATTER
 import woowacourse.movie.util.getParcelableCompat
 import woowacourse.movie.util.getSerializableCompat
-import woowacourse.movie.view.MovieListActivity.Companion.MOVIE_ITEM
+import woowacourse.movie.view.model.MovieListModel.MovieUiModel
+import woowacourse.movie.view.model.ReservationOptions
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -29,14 +34,13 @@ class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReservationBinding.inflate(layoutInflater)
-
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         initViewData()
         initSpinner()
         initPeopleCountAdjustButtonClickListener()
         initReserveButtonClickListener()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onResume() {
@@ -45,7 +49,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieFromIntent(): MovieUiModel {
-        val movie = intent.getParcelableCompat<MovieUiModel>(MOVIE_ITEM)
+        val movie = intent.getParcelableCompat<MovieUiModel>(MOVIE)
         requireNotNull(movie) { "인텐트로 받아온 데이터가 널일 수 없습니다." }
         return movie
     }
@@ -148,19 +152,14 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-
     private fun initReserveButtonClickListener() {
         binding.reservationButton.setOnClickListener {
-
-            val reservation = Reservation(
-                movie.toDomainModel(),
-                peopleCountSaved,
-                LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
+            val reservationOptions = ReservationOptions(
+                movie.title,
+                LocalDateTime.of(selectedScreeningDate, selectedScreeningTime),
+                peopleCountSaved
             )
-
-            val intent = Intent(this, ReservationCompletedActivity::class.java)
-            intent.putExtra(RESERVATION, reservation.toUiModel())
-            startActivity(intent)
+            startActivity(SeatSelectionActivity.newIntent(this, reservationOptions, movie))
         }
     }
 
@@ -189,12 +188,23 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     companion object {
-        const val RESERVATION = "RESERVATION"
         private const val PEOPLE_COUNT = "PEOPLE_COUNT"
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"
         private const val SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
+        private const val MOVIE = "MOVIE"
+        fun newIntent(context: Context, movie: MovieUiModel): Intent {
+            val intent = Intent(context, ReservationActivity::class.java)
+            intent.putExtra(MOVIE, movie)
+            return intent
+        }
     }
 }

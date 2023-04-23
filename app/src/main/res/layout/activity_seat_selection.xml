@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    tools:context=".view.SeatSelectionActivity">
+
+    <TextView
+        android:id="@+id/screen_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:background="@color/dark_gray"
+        android:gravity="center_horizontal"
+        android:text="@string/screen"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/seat_tablelayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginVertical="96dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/reserve_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TableLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reserve_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/movie_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/reserve_layout"
+            app:layout_constraintTop_toTopOf="@id/reserve_layout"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/reservation_fee_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/reserve_layout"
+            app:layout_constraintStart_toStartOf="@id/reserve_layout"
+            app:layout_constraintTop_toBottomOf="@id/movie_title_textview"
+            tools:text="25,000원" />
+
+        <Button
+            android:id="@+id/confirm_reservation_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_confirm_button"
+            android:padding="24dp"
+            android:text="@string/confirm"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/reserve_layout"
+            app:layout_constraintEnd_toEndOf="@id/reserve_layout"
+            app:layout_constraintTop_toTopOf="@id/reserve_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
