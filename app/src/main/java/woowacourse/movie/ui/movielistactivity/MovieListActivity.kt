@@ -14,7 +14,7 @@ import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
 
-    private lateinit var movieDataAdapter: MovieDataAdapter
+    private lateinit var movieListAdapter: MovieListAdapter
     private lateinit var movieRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class MovieListActivity : AppCompatActivity() {
             )
         }
         val advertisementImage = R.drawable.img_ad
-        movieDataAdapter = MovieDataAdapter(tempMovies, advertisementImage, ::onMovieClickListener, ::onAdvertisementClickListener)
+        movieListAdapter = MovieListAdapter(tempMovies, advertisementImage, ::onMovieClickListener, ::onAdvertisementClickListener)
     }
 
     private fun onMovieClickListener(item: MovieDataState) {
@@ -60,7 +60,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initMovieListView() {
-        movieRecyclerView.adapter = movieDataAdapter
+        movieRecyclerView.adapter = movieListAdapter
         movieRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 

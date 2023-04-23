@@ -9,7 +9,7 @@ import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.ui.viewHolder.AdvertisementHolder
 import woowacourse.movie.ui.viewHolder.MovieViewHolder
 
-class MovieDataAdapter(
+class MovieListAdapter(
     private val movies: List<MovieDataState>,
     private val advertisementImage: Int,
     private val onMovieClickListener: (item: MovieDataState) -> Unit,
