@@ -22,18 +22,20 @@ class MovieListAdapter(private val movies: List<Movie>, private val ad: Drawable
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if ((position + 1) % 4 == 0 && position > 0) VIEW_TYPE_AD else VIEW_TYPE_MOVIE
+        return if (isAdCondition(position)) VIEW_TYPE_AD else VIEW_TYPE_MOVIE
     }
 
     override fun getItemCount() = (movies.size) + (movies.size / 3)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if ((position + 1) % 4 == 0 && position > 0) {
+        if (isAdCondition(position)) {
             (holder as AdListViewHolder).bind(ad)
         } else {
             (holder as MovieListViewHolder).bind(movies[position - (position / 3)])
         }
     }
+
+    private fun isAdCondition(position: Int) = (position + 1) % 4 == 0 && position > 0
 
     companion object {
         const val VIEW_TYPE_AD = 0
