@@ -26,6 +26,25 @@ object MovieService {
         return MovieDto.from(movie)
     }
 
+    fun calculateReservationFee(
+        movieId: Long,
+        screeningDateTime: LocalDateTime,
+        seatPoints: Set<Pair<Int, Int>>,
+        movieHouseId: Long = 1
+    ): Int {
+        val movie = MovieRepository.findById(movieId)
+            ?: throw IllegalArgumentException(NOT_EXIST_MOVIE_ERROR.format(movieId))
+        val movieHouse = MovieHouseRepository.findById(movieHouseId)
+            ?: throw IllegalArgumentException(NOT_EXIST_MOVIE_HOUSE_ERROR.format(movieHouseId))
+
+        val fee = movie.calculateReservationFee(
+            ScreeningInfoOfMovie(screeningDateTime, movieHouse),
+            seatPoints.map { Point(it.first, it.second) }.toSet()
+        )
+
+        return fee.amount
+    }
+
     fun reserve(
         movieId: Long,
         screeningDateTime: LocalDateTime,
