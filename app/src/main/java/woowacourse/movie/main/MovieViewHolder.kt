@@ -4,31 +4,23 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.Movie
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.data.MovieAndAd
 
-class MovieViewHolder(root: View) {
-    var image: ImageView
-    var title: TextView
-    var startDate: TextView
-    var endDate: TextView
-    var time: TextView
-    var reservation: Button
+class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    val image: ImageView = itemView.findViewById(R.id.image)
+    val title: TextView = itemView.findViewById(R.id.title)
+    val startDate: TextView = itemView.findViewById(R.id.start_date)
+    val endDate: TextView = itemView.findViewById(R.id.end_date)
+    val time: TextView = itemView.findViewById(R.id.time)
+    val reservation: Button = itemView.findViewById(R.id.reservation)
 
-    init {
-        image = root.findViewById(R.id.image)
-        title = root.findViewById(R.id.title)
-        startDate = root.findViewById(R.id.start_date)
-        endDate = root.findViewById(R.id.end_date)
-        time = root.findViewById(R.id.time)
-        reservation = root.findViewById(R.id.reservation)
-    }
-
-    fun initSet(movie: Movie) {
+    fun bind(movie: MovieAndAd.Movie) {
         image.setImageResource(movie.imgResourceId)
         title.text = movie.title
-        startDate.text = movie.startDate.format(MovieAdapter.DATE_TIME_FORMATTER)
-        endDate.text = movie.endDate.format(MovieAdapter.DATE_TIME_FORMATTER)
+        startDate.text = movie.startDate.format(MovieAdapter2.DATE_TIME_FORMATTER)
+        endDate.text = movie.endDate.format(MovieAdapter2.DATE_TIME_FORMATTER)
         time.text = movie.runningTime.value.toString()
     }
 }

@@ -13,9 +13,9 @@ import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.KEY_RESTORE_COUNT
 import woowacourse.movie.KEY_RESTORE_DATE
 import woowacourse.movie.KEY_RESTORE_TIME
-import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.Toaster
+import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
 import woowacourse.movie.domain.RunningDates
 import woowacourse.movie.domain.RunningTimes
@@ -32,7 +32,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     private val runningTimeSetter: RunningTimes = RunningTimes()
     private lateinit var selectDate: ViewingDate
     private lateinit var selectTime: ViewingTime
-    private lateinit var movie: Movie
+    private lateinit var movie: MovieAndAd.Movie
     private val runningDates: List<LocalDate> by lazy { runningDateSetter.getRunningDates() }
     private lateinit var runningTimes: List<LocalTime>
 

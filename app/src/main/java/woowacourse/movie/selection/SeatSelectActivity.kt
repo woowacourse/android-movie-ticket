@@ -15,8 +15,8 @@ import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_MONEY
 import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
-import woowacourse.movie.Movie
 import woowacourse.movie.confirm.ReservationConfirmActivity
+import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.databinding.ActivitySeatSelectBinding
 import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.entity.Count
@@ -35,7 +35,7 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     private lateinit var binding: ActivitySeatSelectBinding
 
     private var chosenSeats = mutableListOf<Seat>()
-    private lateinit var movie: Movie
+    private lateinit var movie: MovieAndAd.Movie
     private var reservationCount by Delegates.notNull<Int>()
     private lateinit var date: ViewingDate
     private lateinit var time: ViewingTime

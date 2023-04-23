@@ -1,13 +1,12 @@
 package woowacourse.movie.data
 
-import woowacourse.movie.Movie
 import woowacourse.movie.R
 import woowacourse.movie.entity.RunningTime
 import java.time.LocalDate
 
 class MovieRepositories {
-    val movieRepositories: List<Movie> = List(30) {
-        Movie(
+    val movies = List(30) {
+        MovieAndAd.Movie(
             R.drawable.slamdunk,
             "더 퍼스트 슬램덩크 시즌${it + 1}",
             LocalDate.of(2023, 1, 4),

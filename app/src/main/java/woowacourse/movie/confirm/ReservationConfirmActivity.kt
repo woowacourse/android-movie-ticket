@@ -9,7 +9,7 @@ import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_MONEY
 import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
-import woowacourse.movie.Movie
+import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.databinding.ActivityReservationConfirmBinding
 import woowacourse.movie.entity.Count
 import woowacourse.movie.entity.Money
@@ -28,7 +28,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         binding = ActivityReservationConfirmBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        val movie = intent.getParcelableCompat<Movie>(KEY_MOVIE)!!
+        val movie = intent.getParcelableCompat<MovieAndAd.Movie>(KEY_MOVIE)!!
         val reservationCount = intent.getParcelableCompat<Count>(KEY_RESERVATION_COUNT)!!
         val totalMoney = intent.getParcelableCompat<Money>(KEY_RESERVATION_MONEY)!!
         val date = intent.getParcelableCompat<ViewingDate>(KEY_RESERVATION_DATE)!!
@@ -40,7 +40,7 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     }
 
     private fun setInitReservationData(
-        movie: Movie,
+        movie: MovieAndAd.Movie,
         dateTime: LocalDateTime,
         reservationCount: Count,
         totalMoney: Money,

@@ -2,36 +2,39 @@ package woowacourse.movie.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.KEY_MOVIE
-import woowacourse.movie.Movie
 import woowacourse.movie.R
-import woowacourse.movie.data.MovieRepositories
+import woowacourse.movie.data.AllRepositories
+import woowacourse.movie.data.MovieAndAd
 import woowacourse.movie.reservation.MovieDetailActivity
 
 class MainActivity : AppCompatActivity() {
-    private val movieListView: ListView by lazy { findViewById(R.id.listView) }
-    private val adapter: MovieAdapter by lazy { MovieAdapter(initMovieData()) }
+    private val movieRecyclerView: RecyclerView by lazy { findViewById(R.id.recyclerView) }
+    private val adapter: MovieAdapter2 by lazy { MovieAdapter2(initMovieData()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initMovieListView()
+        initMovieRecyclerView()
     }
 
-    private fun initMovieListView() {
-        movieListView.adapter = adapter
-        adapter.clickListener = object : MovieAdapter.ReservationClickListener {
+    private fun initMovieRecyclerView() {
+        movieRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        movieRecyclerView.setHasFixedSize(true)
+        movieRecyclerView.adapter = adapter
+        adapter.clickListener = object : MovieAdapter2.ReservationClickListener {
             override fun onClick(position: Int) {
                 val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
-                intent.putExtra(KEY_MOVIE, adapter.movie[position])
+                intent.putExtra(KEY_MOVIE, adapter.allData[position])
                 startActivity(intent)
             }
         }
     }
 
-    private fun initMovieData(): List<Movie> {
-        return MovieRepositories().movieRepositories
+    private fun initMovieData(): List<MovieAndAd> {
+        return AllRepositories().restoreRepositories()
     }
 }
