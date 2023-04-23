@@ -1,23 +1,24 @@
 package woowacourse.movie.ui.movielistactivity
 
-import android.widget.ListView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.model.MovieUIModel
 import woowacourse.movie.ui.model.MovieUIModel.Companion.movieToMovieUiModel
 import woowacourse.movie.util.getString
 import java.time.LocalDate
 
-class MovieListView(private val view: ListView) {
+class MovieListView(private val view: RecyclerView, clickListener: (MovieUIModel) -> Unit) {
 
-    lateinit var movieListAdapter: MovieListAdapter
+    lateinit var movieListAdapter: MovieListRecyclerAdapter
 
     init {
-        initMovieListAdapter()
+        initMovieListAdapter(clickListener)
         initMovieListView()
     }
 
-    private fun initMovieListAdapter() {
+    private fun initMovieListAdapter(clickListener: (MovieUIModel) -> Unit) {
         // temp Movies 는 서버 어딘가에서 받아오는 것이라 가정
         val tempMovies = List(1000) {
             woowacourse.movie.domain.model.Movie(
@@ -31,8 +32,10 @@ class MovieListView(private val view: ListView) {
             )
         }
 
-        val movieUIModels = tempMovies.map { movie: woowacourse.movie.domain.model.Movie -> movie.movieToMovieUiModel() }
-        movieListAdapter = MovieListAdapter(movieUIModels)
+        val movieUIModels =
+            tempMovies.map { movie: woowacourse.movie.domain.model.Movie -> movie.movieToMovieUiModel() }
+        movieListAdapter = MovieListRecyclerAdapter(clickListener)
+        movieListAdapter.submitList(movieUIModels)
     }
 
     private fun initMovieListView() {
