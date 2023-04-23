@@ -2,7 +2,6 @@ package woowacourse.movie.ui.seat
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TableLayout
@@ -17,7 +16,6 @@ import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.mapper.toModel
 import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.model.PeopleCountModel
-import woowacourse.movie.model.SeatClassModel
 import woowacourse.movie.model.SeatModel
 import woowacourse.movie.model.SelectedSeatsModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
@@ -100,20 +98,13 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun getSeatView(row: Int, column: Int): View {
-        val seatView = LayoutInflater.from(this).inflate(R.layout.item_seat, null, false)
         val seat = SeatModel(row, column)
-        seatView.apply {
-            isSelected = selectedSeats.contains(seat.toDomain())
-            updateBackgroundColor(this)
-            setOnClickListener {
-                clickSeat(seat.toDomain(), it)
-            }
+        return seat.getView(
+            this,
+            selectedSeats.contains(seat.toDomain())
+        ) {
+            clickSeat(seat.toDomain(), this)
         }
-        seatView.findViewById<TextView>(R.id.seat_view).apply {
-            text = seat.toString()
-            setTextColor(getColor(SeatClassModel.getColorId(row)))
-        }
-        return seatView
     }
 
     private fun clickSeat(seat: Seat, seatView: View) {
