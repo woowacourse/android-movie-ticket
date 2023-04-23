@@ -1,4 +1,4 @@
-package com.example.domain
+package woowacourse.movie.domain
 
 @JvmInline
 value class Minute(val value: Int) {

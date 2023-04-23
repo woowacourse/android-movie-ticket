@@ -1,6 +1,5 @@
 package woowacourse.movie.domain
 
-import com.example.domain.Minute
 import org.junit.Assert.assertThrows
 import org.junit.Test
 

@@ -1,7 +1,7 @@
 package woowacourse.movie.repository
 
-import com.example.domain.Minute
-import com.example.domain.Movie
+import woowacourse.movie.domain.Minute
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.R
 import java.time.LocalDate
 

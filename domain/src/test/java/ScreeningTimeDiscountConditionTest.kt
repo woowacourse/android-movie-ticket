@@ -1,7 +1,5 @@
 package woowacourse.movie.domain
 
-import com.example.domain.ScreeningTimeDiscountCondition
-import com.example.domain.TimeRange
 import org.junit.Test
 import java.time.LocalDateTime
 import java.time.LocalTime

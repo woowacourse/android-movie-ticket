@@ -1,7 +1,7 @@
 package woowacourse.movie.view.mapper
 
-import com.example.domain.Seat
-import com.example.domain.SeatType
+import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.SeatType
 import woowacourse.movie.R
 import woowacourse.movie.view.model.SeatUiModel
 

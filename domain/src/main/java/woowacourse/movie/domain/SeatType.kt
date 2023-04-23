@@ -1,4 +1,4 @@
-package com.example.domain
+package woowacourse.movie.domain
 
 enum class SeatType(val price: Int) {
     BType(10_000),

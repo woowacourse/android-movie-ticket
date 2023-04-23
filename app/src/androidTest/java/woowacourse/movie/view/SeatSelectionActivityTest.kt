@@ -9,8 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.example.domain.Minute
-import com.example.domain.Movie
+import woowacourse.movie.domain.Minute
+import woowacourse.movie.domain.Movie
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

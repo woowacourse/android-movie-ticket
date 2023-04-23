@@ -5,7 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.Movie
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.R
 import woowacourse.movie.repository.MovieMockRepository
 import woowacourse.movie.view.mapper.toUiModel

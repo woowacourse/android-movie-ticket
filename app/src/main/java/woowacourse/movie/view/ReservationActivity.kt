@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import com.example.domain.Reservation
-import com.example.domain.ScreeningTime
+import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.util.DATE_FORMATTER

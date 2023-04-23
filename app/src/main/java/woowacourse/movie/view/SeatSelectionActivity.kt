@@ -13,8 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.children
-import com.example.domain.ReservationAgency
-import com.example.domain.Seat
+import woowacourse.movie.domain.ReservationAgency
+import woowacourse.movie.domain.Seat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.util.getParcelableCompat

@@ -1,7 +1,7 @@
 package woowacourse.movie.view.mapper
 
-import com.example.domain.Minute
-import com.example.domain.Movie
+import woowacourse.movie.domain.Minute
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.model.MovieListModel.MovieUiModel
 
 fun Movie.toUiModel(): MovieUiModel = MovieUiModel(

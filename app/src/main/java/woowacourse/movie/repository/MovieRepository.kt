@@ -1,6 +1,6 @@
 package woowacourse.movie.repository
 
-import com.example.domain.Movie
+import woowacourse.movie.domain.Movie
 
 interface MovieRepository {
 

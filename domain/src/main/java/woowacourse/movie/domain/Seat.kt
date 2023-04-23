@@ -1,4 +1,4 @@
-package com.example.domain
+package woowacourse.movie.domain
 
 data class Seat(val column: Int, val row: Int) {
 
