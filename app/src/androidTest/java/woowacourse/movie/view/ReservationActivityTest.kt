@@ -39,23 +39,23 @@ class ReservationActivityTest {
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
 
     @Test
-    fun movieTitle() {
+    fun 영화_제목을_표시한다() {
         onView(withId(R.id.movie_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
-    fun initialPeopleCount() {
+    fun 처음_표시되는_인원수는_1이다() {
         onView(withId(R.id.people_count)).check(matches(withText("1")))
     }
 
     @Test
-    fun plusPeopleCount() {
+    fun 플러스_버튼을_한_번_클릭하면_인원수는_2이다() {
         onView(withId(R.id.plus_button)).perform(click())
         onView(withId(R.id.people_count)).check(matches(withText("2")))
     }
 
     @Test
-    fun minusButtonWhenPeopleCountIsOne() {
+    fun 초기_인원_1인_경우_마이너스_버튼을_눌러도_인원수는_1이다() {
         onView(withId(R.id.minus_button)).perform(click())
         onView(withId(R.id.people_count)).check(matches(withText("1")))
     }
