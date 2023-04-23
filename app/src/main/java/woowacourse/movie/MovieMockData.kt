@@ -47,4 +47,5 @@ object MovieMockData {
             LocalDate.of(2023, 7, 28),
         )
     )
+    val movies10000 = List(10000) { index -> movies[index % movies.size] }
 }
