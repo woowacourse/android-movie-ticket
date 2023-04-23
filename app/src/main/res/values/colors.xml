@@ -10,7 +10,7 @@
     <color name="toolbar">#6200EE</color>
     <color name="ticket_purple">#9160f9</color>
     <color name="screen">#494949</color>
-    <color name="seat_activity">#EAEAEA</color>
+    <color name="seat_background">#EAEAEA</color>
     <color name="b_seat_color">#8E13EF</color>
     <color name="s_seat_color">#19D358</color>
     <color name="a_seat_color">#1B48E9</color>
