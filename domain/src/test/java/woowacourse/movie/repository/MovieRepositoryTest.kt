@@ -2,92 +2,22 @@ package woowacourse.movie.repository
 
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.Minute
-import woowacourse.movie.domain.Movie
+import org.junit.jupiter.api.assertAll
+import java.time.Month
 
 class MovieRepositoryTest {
 
     @Test
-    fun `영화의 아이디가 1보다 작은 영화를 저장하면 에러가 발생한다`() {
-        val movie = Movie(
-            -1,
-            "title",
-            Minute(1),
-            "summary"
+    fun `영화 저장소가 생성되면 아이디가 1이고 상영일이 2024년 3월인 영화가 추가된다`() {
+        val movieId = 1L
+        val movie = MovieRepository.findById(movieId)
+
+
+        val screeningDates =
+            movie!!.screeningInfos.map { it.screeningDateTime.toLocalDate() }.toSet()
+        assertAll(
+            { assertThat(screeningDates).hasSize(31) },
+            { assertThat(screeningDates).allMatch { it.year == 2024 && it.month == Month.MARCH } }
         )
-
-        assertThatIllegalArgumentException().isThrownBy {
-            MovieRepository.save(movie)
-        }.withMessage("순서에 맞는 아이디의 영화만 저장할 수 있습니다.")
-    }
-
-    @Test
-    fun `영화의 아이디가 다음 아이디보다 큰 영화를 저장하면 에러가 발생한다`() {
-        val nextId = MovieRepository.nextId
-        val movie = Movie(
-            nextId + 1,
-            "title",
-            Minute(1),
-            "summary"
-        )
-
-        assertThatIllegalArgumentException().isThrownBy {
-            MovieRepository.save(movie)
-        }.withMessage("순서에 맞는 아이디의 영화만 저장할 수 있습니다.")
-    }
-
-    @Test
-    fun `이미 저장되지 않은 영화를 저장하면 영화가 저장된 후 다음 아이디가 1 올라간다`() {
-        val initId = MovieRepository.nextId
-        val movie = Movie(
-            initId,
-            "title",
-            Minute(1),
-            "summary"
-        )
-        MovieRepository.save(movie)
-
-        val actual = MovieRepository.nextId
-
-        val expected = initId + 1
-        assertThat(actual).isEqualTo(expected)
-    }
-
-    @Test
-    fun `순서에 맞는 아이디를 가진 영화를 저장하면 저장된다`() {
-        val initId = MovieRepository.nextId
-        val movie = Movie(
-            initId,
-            "title",
-            Minute(1),
-            "summary"
-        )
-        MovieRepository.save(movie)
-
-        val actual = MovieRepository.findById(movie.id)
-
-        assertThat(actual).isEqualTo(movie)
-    }
-
-    @Test
-    fun `이미 저장된 영화를 다시 저장하면 대체된다`() {
-        val movie = Movie(
-            MovieRepository.nextId,
-            "title",
-            Minute(1),
-            "summary"
-        )
-        MovieRepository.save(movie)
-        val otherMovie = Movie(
-            movie.id,
-            "otherMovieTitle",
-            Minute(1),
-            "summary"
-        )
-        MovieRepository.save(otherMovie)
-
-        val actual = MovieRepository.findById(movie.id)
-
-        assertThat(actual).isEqualTo(otherMovie)
     }
 }
