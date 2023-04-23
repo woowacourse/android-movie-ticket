@@ -11,6 +11,8 @@ import woowacourse.movie.KEY_RESERVATION_MONEY
 import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.databinding.ActivityReservationConfirmBinding
+import woowacourse.movie.fomatter.DateAndTimeFormatter
+import woowacourse.movie.fomatter.MoneyFormatter
 import woowacourse.movie.mapper.CountMapper
 import woowacourse.movie.mapper.MoneyMapper
 import woowacourse.movie.model.MovieAndAd
@@ -19,9 +21,7 @@ import woowacourse.movie.model.ViewingDate
 import woowacourse.movie.model.ViewingTime
 import woowacourse.movie.utils.BackKeyActionBarActivity
 import woowacourse.movie.utils.getParcelableCompat
-import java.text.DecimalFormat
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ReservationConfirmActivity : BackKeyActionBarActivity() {
     private lateinit var binding: ActivityReservationConfirmBinding
@@ -50,15 +50,13 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
         seats: Seats
     ) {
         binding.reservationTitle.text = movie.title
-        binding.reservationDate.text = dateTime.format(DATE_TIME_FORMATTER)
-        binding.reservationMoney.text = DECIMAL_FORMATTER.format(totalMoney.value).toString()
+        binding.reservationDate.text = DateAndTimeFormatter().active(dateTime)
+        binding.reservationMoney.text = MoneyFormatter().active(totalMoney)
         binding.reservationCount.text = reservationCount.value.toString()
         binding.seatsInfo.text = seats.toStringSeats().joinToString(", ")
     }
 
     companion object {
-        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d HH:mm")
-        val DECIMAL_FORMATTER = DecimalFormat("#,###")
         private const val LOG_TAG = "mendel and bbotto"
     }
 }

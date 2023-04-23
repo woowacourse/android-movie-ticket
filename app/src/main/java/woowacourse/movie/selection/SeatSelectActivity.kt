@@ -3,7 +3,6 @@ package woowacourse.movie.selection
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +18,7 @@ import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.databinding.ActivitySeatSelectBinding
+import woowacourse.movie.fomatter.MoneyFormatter
 import woowacourse.movie.mapper.CountMapper
 import woowacourse.movie.mapper.MoneyMapper
 import woowacourse.movie.model.MovieAndAd
@@ -47,7 +47,6 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
         binding = ActivitySeatSelectBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        Log.v("hi", "test")
 
         movie = intent.getParcelableCompat(KEY_MOVIE)!!
         reservationCount = intent.getIntExtra(KEY_RESERVATION_COUNT, 0)
@@ -66,8 +65,6 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
             .filterIsInstance<Button>()
             .forEachIndexed { index, view ->
                 view.setOnClickListener {
-                    Log.v("hi", "ihi $index / $view")
-
                     if (chosenSeats.contains(positionFind(index))) {
                         chosenSeats.remove(positionFind(index))
                         view.setBackgroundColor(Color.parseColor("#FFFFFF"))
@@ -93,9 +90,7 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
 
     private fun positionFind(index: Int): Seat {
         val row = index % 4 + 1
-        val column = index / 4 + 1
-        Log.v("hi", "rank: $column , row: $row")
-        val rank = when (column) {
+        val rank = when (index / 4 + 1) {
             1 -> SeatRank.A
             2 -> SeatRank.B
             3 -> SeatRank.C
@@ -111,7 +106,7 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
         chosenSeats.map {
             totalMoney += DiscountCalculator().discount(Money(it.rank.money), dateTime).value
         }
-        binding.selectMoney.text = ReservationConfirmActivity.DECIMAL_FORMATTER.format(totalMoney)
+        binding.selectMoney.text = MoneyFormatter().active(Money(totalMoney))
     }
 
     private fun retryConfirm() {
