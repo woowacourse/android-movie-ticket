@@ -1,9 +1,9 @@
 package woowacourse.movie.model.main
 
 import android.view.View
-import woowacourse.movie.ui.main.AdvertisementViewHolder
-import woowacourse.movie.ui.main.MainViewHolder
-import woowacourse.movie.ui.main.MovieViewHolder
+import woowacourse.movie.ui.main.adapter.AdvertisementViewHolder
+import woowacourse.movie.ui.main.adapter.MainViewHolder
+import woowacourse.movie.ui.main.adapter.MovieViewHolder
 
 enum class MainViewType {
     CONTENT {
