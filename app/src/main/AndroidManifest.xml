@@ -21,9 +21,9 @@
         <activity
             android:name=".ui.booking.BookingActivity"
             android:exported="false"
-            android:parentActivityName=".ui.home.MainActivity" />
+            android:parentActivityName=".ui.home.HomeActivity" />
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name=".ui.home.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
