@@ -19,7 +19,7 @@ data class Movie(
     ): Reservation? {
         if (reserveDateTime.toLocalDate() !in getRunningDates(startDate)
         ) return null
-        return Reservation(this, reserveDateTime, ticketCount)
+        return Reservation(this, reserveDateTime, Tickets(setOf()), ticketCount)
     }
 
     fun getRunningDates(

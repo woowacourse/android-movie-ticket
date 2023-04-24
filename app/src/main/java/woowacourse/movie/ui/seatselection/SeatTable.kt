@@ -5,15 +5,15 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
+import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
-import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.seat.ColUI
 import woowacourse.movie.model.seat.RowUI
 import woowacourse.movie.model.seat.SeatPositionUI
 
 class SeatTable(
     value: TableLayout,
-    private val tickets: TicketsUI,
+    private val reservation: ReservationUI,
     val setButtonEnabled: (Boolean) -> Unit,
     val setTicket: (SeatPositionUI) -> Unit
 ) {
@@ -46,7 +46,7 @@ class SeatTable(
                 setButtonEnabled(false)
             }
             else -> {
-                if (selectedCount != tickets.reservation.ticketCount) {
+                if (selectedCount != reservation.ticketCount) {
                     setSeatPosition(seatPosition)
                 }
             }
@@ -58,7 +58,7 @@ class SeatTable(
             if (isSelected) --selectedCount else ++selectedCount
             isSelected = !isSelected
             setTicket(seatPosition)
-            if (selectedCount == tickets.reservation.ticketCount) {
+            if (selectedCount == reservation.ticketCount) {
                 setButtonEnabled(true)
             }
         }

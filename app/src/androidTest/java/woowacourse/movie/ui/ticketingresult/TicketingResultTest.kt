@@ -26,19 +26,19 @@ import woowacourse.movie.model.seat.SeatPositionUI
 import java.time.LocalDateTime
 
 class TicketingResultTest {
+    private val tickets = TicketsUI(
+        setOf(
+            TicketUI(SeatPositionUI(RowUI(0), ColUI(0))),
+            TicketUI(SeatPositionUI(RowUI(1), ColUI(0))),
+        )
+    )
+
     // 해리포터
     private val reservation = ReservationUI(
         Movie.provideDummy()[0].toMovieUI(),
         LocalDateTime.of(2023, 4, 21, 12, 0),
+        tickets,
         TicketCountUI(2)
-    )
-
-    private val tickets = TicketsUI(
-        listOf(
-            TicketUI(SeatPositionUI(RowUI(0), ColUI(0))),
-            TicketUI(SeatPositionUI(RowUI(1), ColUI(0))),
-        ),
-        reservation
     )
 
     private val intent =
@@ -46,7 +46,7 @@ class TicketingResultTest {
             ApplicationProvider.getApplicationContext(),
             TicketingResultActivity::class.java
         ).apply {
-            putExtra(TICKETS_KEY, tickets)
+            putExtra(RESERVATION_KEY, reservation)
         }
 
     @get:Rule
@@ -56,12 +56,12 @@ class TicketingResultTest {
     @Test
     fun `이전_화면에서_예매한_해리포터가_예매_영화_제목으로_보여진다`() {
         onView(withId(R.id.tv_title))
-            .check(matches(withText(tickets.reservation.movie.title)))
+            .check(matches(withText(reservation.movie.title)))
     }
 
     @Test
     fun `이전_화면에서_예매한_예매_일자_및_시간이_보여진다`() {
-        val dateTime = tickets.reservation.dateTime
+        val dateTime = reservation.dateTime
         onView(withId(R.id.tv_date))
             .check(
                 matches(
@@ -97,7 +97,7 @@ class TicketingResultTest {
 
     @Test
     fun `이전_화면에서_예매한_B등급_2장의_가격이_보여진다`() {
-        val decorator = DiscountDecorator(tickets.reservation.dateTime)
+        val decorator = DiscountDecorator(reservation.dateTime)
 
         onView(withId(R.id.tv_pay_result))
             .check(
@@ -114,6 +114,6 @@ class TicketingResultTest {
     }
 
     companion object {
-        private const val TICKETS_KEY = "tickets"
+        private const val RESERVATION_KEY = "reservation"
     }
 }

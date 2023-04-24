@@ -25,6 +25,7 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
+import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.mapper.toMovieUI
 import woowacourse.movie.ui.ticketingresult.TicketingResultActivity
 import java.time.LocalDateTime
@@ -34,6 +35,7 @@ class SeatSelectionActivityTest {
     private val reservation = ReservationUI(
         Movie.provideDummy()[0].toMovieUI(),
         LocalDateTime.of(2023, 4, 21, 12, 0),
+        TicketsUI(setOf()),
         TicketCountUI(2)
     )
 

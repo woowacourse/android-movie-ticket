@@ -5,8 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class TicketsUI(
-    val tickets: Set<TicketUI>,
-    val reservation: ReservationUI
+    val tickets: Set<TicketUI>
 ) : Parcelable {
     fun getSeatPositionUIFormat() =
         tickets.joinToString(", ") { it.seatPosition.getSeatPositionUIFormat() }

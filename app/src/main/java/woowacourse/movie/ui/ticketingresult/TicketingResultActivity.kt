@@ -8,9 +8,10 @@ import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
+import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.mapper.toTickets
-import woowacourse.movie.ui.seatselection.SeatSelectionActivity
+import woowacourse.movie.ui.ticketing.TicketingActivity
 import java.time.LocalDateTime
 
 class TicketingResultActivity : AppCompatActivity() {
@@ -24,17 +25,17 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation() {
-        val tickets =
-            intent.getParcelableCompat<TicketsUI>(SeatSelectionActivity.TICKETS_KEY)
+        val reservation =
+            intent.getParcelableCompat<ReservationUI>(TicketingActivity.RESERVATION_KEY)
                 ?: return exitForUnNormalCase(MESSAGE_EMPTY_RESERVATION)
-        setReservationInfo(tickets)
+        setReservationInfo(reservation)
     }
 
-    private fun setReservationInfo(tickets: TicketsUI) {
-        with(tickets) {
-            findViewById<TextView>(R.id.tv_title).text = reservation.movie.title
+    private fun setReservationInfo(reservation: ReservationUI) {
+        with(reservation) {
+            findViewById<TextView>(R.id.tv_title).text = movie.title
             setDateTime(reservation.dateTime)
-            setTicketCount(this)
+            setTicketCount(ticketsUI)
             setPayment(this)
         }
     }
@@ -62,18 +63,18 @@ class TicketingResultActivity : AppCompatActivity() {
             )
     }
 
-    private fun setPayment(tickets: TicketsUI) {
+    private fun setPayment(reservation: ReservationUI) {
         findViewById<TextView>(R.id.tv_pay_result).text =
             getString(
                 R.string.movie_pay_result,
-                calculateTicketPrice(tickets),
+                calculateTicketPrice(reservation),
                 getString(R.string.on_site_payment)
             )
     }
 
-    private fun calculateTicketPrice(tickets: TicketsUI): Int {
-        val decorator = DiscountDecorator(tickets.reservation.dateTime)
-        return tickets.toTickets().calculatePrice(decorator)
+    private fun calculateTicketPrice(reservation: ReservationUI): Int {
+        val decorator = DiscountDecorator(reservation.dateTime)
+        return reservation.ticketsUI.toTickets().calculatePrice(decorator)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

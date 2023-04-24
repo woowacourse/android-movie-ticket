@@ -8,5 +8,6 @@ import java.time.LocalDateTime
 data class ReservationUI(
     val movie: MovieUI,
     val dateTime: LocalDateTime,
+    val ticketsUI: TicketsUI,
     val ticketCount: TicketCountUI
 ) : Parcelable

@@ -2,10 +2,10 @@ package com.woowacourse.movie.domain
 
 import com.woowacourse.movie.domain.policy.DiscountDecorator
 
-class Tickets(tickets: Set<Ticket>, val reservation: Reservation) {
+class Tickets(tickets: Set<Ticket>) {
     private val _tickets = tickets.toMutableSet()
     val tickets: Set<Ticket>
-        get() = _tickets.toSet()
+        get() = _tickets.toSortedSet()
 
     val size: Int
         get() = _tickets.size

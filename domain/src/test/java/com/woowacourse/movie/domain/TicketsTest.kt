@@ -6,7 +6,6 @@ import com.woowacourse.movie.domain.seat.Row
 import com.woowacourse.movie.domain.seat.SeatPosition
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class TicketsTest {
@@ -65,6 +64,27 @@ class TicketsTest {
     }
 
     @Test
+    fun `(1,3), (1,0), (0,0) 좌석을 가진 티켓이 있을 때 행, 열로 각각 정렬된 티켓을 가질 수 있다`() {
+        val actual = Tickets(
+            setOf(
+                Ticket(1, 3),
+                Ticket(1, 0),
+                Ticket(0, 0)
+            )
+        )
+
+        val expected = Tickets(
+            setOf(
+                Ticket(0, 0),
+                Ticket(1, 0),
+                Ticket(1, 3)
+            )
+        )
+
+        assertThat(actual.tickets).isEqualTo(expected.tickets)
+    }
+
+    @Test
     fun `S좌석 1개, A좌석 1개, B좌석 1개인 티켓의 총 가격은 37_000원이다`() {
         val tickets = Tickets(
             setOf(
@@ -83,15 +103,8 @@ class TicketsTest {
     }
 
     companion object {
-        private val DUMMY_RESERVATION = Reservation(
-            Movie(0, "", LocalDate.now(), LocalDate.now(), 0, ""),
-            LocalDateTime.now(),
-            TicketCount()
-        )
-
         fun SeatPosition(row: Int, col: Int): SeatPosition = SeatPosition(Row(row), Col(col))
         fun Ticket(row: Int, col: Int): Ticket = Ticket(SeatPosition(row, col))
-        fun Tickets(ticket: Ticket): Tickets = Tickets(setOf(ticket), DUMMY_RESERVATION)
-        fun Tickets(tickets: Set<Ticket>): Tickets = Tickets(tickets, DUMMY_RESERVATION)
+        fun Tickets(ticket: Ticket): Tickets = Tickets(setOf(ticket))
     }
 }

@@ -25,13 +25,14 @@ import woowacourse.movie.ui.ticketingresult.TicketingResultActivity
 class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var reservation: ReservationUI
     private lateinit var ticketsUI: TicketsUI
+
     private var moviePrice = DEFAULT_MOVIE_PRICE
 
     private val seatTableLayout: TableLayout by lazy {
         findViewById(R.id.table_seat)
     }
     private val seatTable: SeatTable by lazy {
-        SeatTable(seatTableLayout, ticketsUI, ::setButtonEnable, ::setTicket)
+        SeatTable(seatTableLayout, reservation, ::setButtonEnable, ::setTicket)
     }
 
     private val okButton: Button by lazy {
@@ -71,7 +72,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initMovieData() {
-        ticketsUI = TicketsUI(setOf(), reservation)
+        ticketsUI = reservation.ticketsUI
         seatTable
         findViewById<TextView>(R.id.tv_title).text = reservation.movie.title
         setMoviePrice(moviePrice)
@@ -103,8 +104,14 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun reserveMovie() {
+        reservation = ReservationUI(
+            reservation.movie,
+            reservation.dateTime,
+            ticketsUI,
+            reservation.ticketCount
+        )
         val intent = Intent(this@SeatSelectionActivity, TicketingResultActivity::class.java)
-        intent.putExtra(TICKETS_KEY, ticketsUI)
+        intent.putExtra(TicketingActivity.RESERVATION_KEY, reservation)
         startActivity(intent)
         finish()
     }
@@ -154,7 +161,6 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        internal const val TICKETS_KEY = "tickets"
         private const val TICKETS_STATE_KEY = "tickets_state_key"
         private const val MESSAGE_EMPTY_RESERVATION = "예매 정보가 없습니다"
         private const val DEFAULT_MOVIE_PRICE = 0
