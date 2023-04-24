@@ -93,11 +93,10 @@ class ChoiceSeatActivity : AppCompatActivity() {
     private fun setSeat(index: Int, view: TextView, theater: Theater) {
         val column = index % THEATER_COLUMN
         val location = Location(indexToRow(index), column)
-        val grade = requireNotNull(theater.getSeatGrade(location))
-        val seat = Seat(location, grade)
+        val seat = requireNotNull(theater.findSeat(location))
 
         setSeatText(view, location)
-        setSeatTextColor(view, grade)
+        setSeatTextColor(view, seat.grade)
         view.setOnClickListener {
             clickSeat(seat, view)
         }

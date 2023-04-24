@@ -18,7 +18,11 @@ class Seats(seats: Set<Seat> = setOf()) {
         _value.remove(seat)
     }
 
-    fun contains(seat: Seat): Boolean = value.contains(seat)
+    fun contains(seat: Seat): Boolean = _value.contains(seat)
+
+    fun findSeatByLocation(location: Location): Seat? = _value.find {
+        it.location == location
+    }
 
     override fun equals(other: Any?): Boolean {
         if (other is Seats) {
