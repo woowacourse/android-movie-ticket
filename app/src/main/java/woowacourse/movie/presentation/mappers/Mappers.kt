@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.model
 
+import woowacourse.movie.R
 import woowacourse.movie.data.MovieDrawableData
 import woowacourse.movie.domain.model.tools.Movie
 import woowacourse.movie.domain.model.tools.Ticket
@@ -21,8 +22,10 @@ fun Movie.toPresentation() = MovieModel(
     screeningEndDate = screeningEndDate,
     runningTime = runningTime,
     description = description,
-    thumbnail = MovieDrawableData.getMovieThumbnail(id),
-    poster = MovieDrawableData.getMoviePoster(id),
+    thumbnail =
+    MovieDrawableData.getMovieThumbnail(id) ?: R.drawable.default_thumbnail,
+    poster =
+    MovieDrawableData.getMoviePoster(id) ?: R.drawable.default_poster,
 )
 
 fun Ticket.toPresentation() = TicketModel(

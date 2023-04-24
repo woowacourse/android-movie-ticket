@@ -27,8 +27,7 @@ class MovieViewHolder(private val view: View, clickBook: (Long) -> Unit) :
         title.text = movie.title
         runningTime.text = view.context.getString(R.string.running_time)
             .format(movie.runningTime)
-        movie.thumbnail?.let { thumbnail.setImageResource(it) }
-
+        thumbnail.setImageResource(movie.thumbnail)
         screeningDate.apply {
             text = context.getString(R.string.screening_date)
                 .format(

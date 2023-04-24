@@ -17,12 +17,10 @@ object MovieDrawableData {
     )
 
     fun getMoviePoster(movieId: Long): Int? {
-        if (movieId > 3L) return moviePosters[1L]
         return moviePosters[movieId]
     }
 
     fun getMovieThumbnail(movieId: Long): Int? {
-        if (movieId > 3L) return movieThumbnails[1L]
         return movieThumbnails[movieId]
     }
 }
