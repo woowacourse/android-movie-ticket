@@ -1,5 +1,7 @@
 package woowacourse.movie.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
@@ -40,5 +42,11 @@ class TicketActivity : BaseActivity() {
         private const val TICKET_KEY = "ticket"
         private const val MOVIE_KEY = "movie"
         private const val FORMATTER = "yyyy.M.d HH:mm"
+        fun newIntent(context: Context, ticket: TicketUIModel, movie: MovieUIModel): Intent {
+            val intent = Intent(context, TicketActivity::class.java)
+            intent.putExtra(TICKET_KEY, ticket)
+            intent.putExtra(MOVIE_KEY, movie)
+            return intent
+        }
     }
 }

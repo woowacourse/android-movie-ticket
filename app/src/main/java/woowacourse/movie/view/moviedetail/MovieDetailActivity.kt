@@ -1,5 +1,6 @@
 package woowacourse.movie.view.moviedetail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -97,10 +98,13 @@ class MovieDetailActivity : BaseActivity() {
         bookBtn.setOnClickListener {
             val selectedDate = LocalDate.parse(selectDateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(selectTimeSpinner.selectedItem.toString())
-            val intent = Intent(this, SeatSelectionActivity::class.java)
-            intent.putExtra(DATE_KEY, LocalDateTime.of(selectedDate, selectedTime))
-            intent.putExtra(NUMBER_OF_PEOPLE_KEY, numberOfBooker)
-            intent.putExtra(MOVIE_KEY, movie)
+            val intent = SeatSelectionActivity.newIntent(
+                this,
+                movie,
+                LocalDateTime.of(selectedDate, selectedTime),
+                numberOfBooker
+            )
+
             startActivity(intent)
         }
     }
@@ -154,10 +158,14 @@ class MovieDetailActivity : BaseActivity() {
 
     companion object {
         private const val MOVIE_KEY = "movie"
-        private const val DATE_KEY = "date"
-        private const val NUMBER_OF_PEOPLE_KEY = "numberOfPeople"
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
+
+        fun newIntent(context: Context, movie: MovieUIModel): Intent {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(MOVIE_KEY, movie)
+            return intent
+        }
     }
 }

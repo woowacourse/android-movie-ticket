@@ -1,6 +1,7 @@
 package woowacourse.movie.view.seatselection
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -37,7 +38,12 @@ class SeatSelectionActivity : BaseActivity() {
         clickCheckButton(goToTicketBtn, seatInfo, selectedDate, movieUI)
     }
 
-    private fun clickCheckButton(goToTicketBtn: Button, seatInfo: SeatInfo, selectedDate: LocalDateTime, movieUI: MovieUIModel) {
+    private fun clickCheckButton(
+        goToTicketBtn: Button,
+        seatInfo: SeatInfo,
+        selectedDate: LocalDateTime,
+        movieUI: MovieUIModel
+    ) {
         goToTicketBtn.setOnClickListener {
             val seats = seatInfo.getSelectedSeats()
             val ticket = Ticket(seatInfo.priceNum, selectedDate, seatInfo.countPeople, seats)
@@ -78,9 +84,7 @@ class SeatSelectionActivity : BaseActivity() {
             .setTitle(RESERVATION_CHECK)
             .setMessage(ARE_YOU_SURE)
             .setPositiveButton(RESERVATION_COMPLETE) { _, _ ->
-                val intent = Intent(this, TicketActivity::class.java)
-                intent.putExtra(MOVIE_KEY, movieUI)
-                intent.putExtra(TICKET_KEY, ticket.toUIModel())
+                val intent = TicketActivity.newIntent(this, ticket.toUIModel(), movieUI)
                 startActivity(intent)
             }
             .setNegativeButton(RESERVATION_CANCEL) { dialog, _ ->
@@ -93,11 +97,23 @@ class SeatSelectionActivity : BaseActivity() {
     companion object {
         private const val MOVIE_KEY = "movie"
         private const val DATE_KEY = "date"
-        private const val TICKET_KEY = "ticket"
         private const val NUMBER_OF_PEOPLE_KEY = "numberOfPeople"
         private const val RESERVATION_CHECK = "예매 확인"
         private const val ARE_YOU_SURE = "정말 예매하시겠습니까?"
         private const val RESERVATION_COMPLETE = "예매 완료"
         private const val RESERVATION_CANCEL = "취소"
+
+        fun newIntent(
+            context: Context,
+            movie: MovieUIModel,
+            selectedDateTime: LocalDateTime,
+            numberOfPeople: Int
+        ): Intent {
+            val intent = Intent(context, SeatSelectionActivity::class.java)
+            intent.putExtra(DATE_KEY, selectedDateTime)
+            intent.putExtra(NUMBER_OF_PEOPLE_KEY, numberOfPeople)
+            intent.putExtra(MOVIE_KEY, movie)
+            return intent
+        }
     }
 }

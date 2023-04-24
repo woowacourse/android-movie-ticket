@@ -26,8 +26,7 @@ class MovieListActivity : AppCompatActivity() {
             DummyData.getItems(),
             object : MovieRecyclerAdapter.OnClickItem {
                 override fun onClick(movie: MovieUIModel) {
-                    val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
-                    intent.putExtra(MOVIE_KEY, movie)
+                    val intent = MovieDetailActivity.newIntent(this@MovieListActivity, movie)
                     startActivity(intent)
                 }
             },
@@ -41,9 +40,5 @@ class MovieListActivity : AppCompatActivity() {
     private fun clickAdvertisement(ad: ADData) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ad.url))
         startActivity(intent)
-    }
-
-    companion object {
-        private const val MOVIE_KEY = "movie"
     }
 }
