@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_100"
+    tools:context=".presentation.choiceSeat.ChoiceSeatActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:id="@+id/tableSeats"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginBottom="200dp"
+                android:background="@color/white"
+                android:stretchColumns="*"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textScreen">
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+                        android:padding="20dp"
+                        tools:text="A1" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+                        android:padding="20dp"
+                        tools:text="A2" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+                        android:padding="20dp"
+                        tools:text="A3" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+                        android:padding="20dp"
+                        tools:text="A4" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="B1" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="B2" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="B3" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="B4" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="C1" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="C2" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="C3" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="C4" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="D1" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="D2" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="D3" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="D4" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="0dp"
+                    android:layout_height="0dp">
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="E1" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="E2" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="E3" />
+
+                    <TextView
+                        style="@style/Text_RobotoMedium_22"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_seat_item"
+
+                        android:padding="20dp"
+                        tools:text="E4" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textScreen"
+                style="@style/Text_RobotoMedium_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:background="@color/gray_500"
+                android:text="@string/text_screen"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textChoiceTitle"
+            style="@style/Text_RobotoBoldBLACK"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+
+            app:layout_constraintEnd_toStartOf="@id/buttonChoiceConfirm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/textChoicePaymentAmount"
+            style="@style/Text_RobotoMediumBLACK_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/gray_500"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textChoiceTitle"
+            app:layout_constraintTop_toBottomOf="@id/textChoiceTitle"
+            tools:text="13000원" />
+
+        <Button
+            android:id="@+id/buttonChoiceConfirm"
+            android:drawable = "@drawable/selector_confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="30dp"
+            android:text="@string/confirm"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraintLayoutBottomBar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

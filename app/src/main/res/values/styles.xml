@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Text_RobotoBoldBLACK" parent="@style/TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="Text_RobotoBLACK_16" parent="@style/TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textColor">@color/black</item>
@@ -15,10 +17,17 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="Text_RobotoMediumBLACK_20" parent="@style/TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">20sp</item>
     </style>
-    Text_RobotoMediumBLACK
+
+    <style name="Text_RobotoMedium_22" parent="@style/TextAppearance.AppCompat">
+        android:gravity="center"
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.CompletedActivity">
+    tools:context=".presentation.complete.CompleteActivity">
 
     <TextView
         android:id="@+id/textCompletedDescription"
@@ -24,10 +24,10 @@
 
     <TextView
         android:id="@+id/textCompletedTitle"
+        style="@style/Text_RobotoBoldBLACK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        style="@style/Text_RobotoBoldBLACK"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,10 +36,10 @@
 
     <TextView
         android:id="@+id/textCompletedScreeningDate"
+        style="@style/Text_RobotoMediumBLACK_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        style="@style/Text_RobotoMediumBLACK_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCompletedTitle"
@@ -47,21 +47,21 @@
 
     <TextView
         android:id="@+id/textCompletedTicketCount"
+        style="@style/Text_RobotoMediumBLACK_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
-        style="@style/Text_RobotoMediumBLACK_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCompletedScreeningDate"
-        tools:text="일반 1명" />
+        tools:text="일반 1명 | B3, D2" />
 
     <TextView
         android:id="@+id/textCompletedPaymentAmount"
+        style="@style/Text_RobotoMediumBLACK_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        style="@style/Text_RobotoMediumBLACK_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCompletedTicketCount"
