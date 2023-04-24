@@ -30,6 +30,7 @@ class MovieListAdapter(private val movies: List<Movie>, private val ad: Drawable
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (isAdCondition(position)) {
             (holder as AdListViewHolder).bind(ad)
+            return
         }
         (holder as MovieListViewHolder).bind(movies[position - (position / AD_PER_ROW)])
     }
