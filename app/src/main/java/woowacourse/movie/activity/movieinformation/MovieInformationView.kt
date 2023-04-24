@@ -10,8 +10,6 @@ class MovieInformationView(
     private val movieModel: MovieModel
 ) {
 
-    // step1, 2를 하던 중에는 Activity를 어떻게 나누어야할지 감이 오지 않았습니다.
-    // 그리고 잭슨님께서 주신 피드백을 계속해서 고민하고 있던 와중에 이에 대해 칭찬을 받은 크루가 있어 참고하였습니다!! ♡◝(・▿・)◜♡
     fun set() {
         setPosterImageView()
         setNameTextView()
