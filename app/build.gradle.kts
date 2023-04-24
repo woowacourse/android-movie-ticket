@@ -51,4 +51,8 @@ dependencies {
 
     // 도메인 모듈 분리
     implementation(project(":domain"))
+
+    // espresso
+    // Intents
+    implementation("androidx.test.espresso:espresso-intents:3.5.1")
 }
