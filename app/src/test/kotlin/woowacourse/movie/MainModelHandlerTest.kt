@@ -1,10 +1,10 @@
-package woowacourse.movie.advertisement
+package woowacourse.movie
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import woowacourse.movie.advertisement.AdvertisementPolicy.mergeAdvertisement
+import org.junit.Test
+import woowacourse.movie.model.main.MainModelHandler
 
-class AdvertisementPolicyTest {
+class MainModelHandlerTest {
     @Test
     fun `20개의 데이터에 3개의 광고가 CYCLE 당 한 개씩 들어간다`() {
         // given: 20개의 데이터, 3개의 광고, CYCLE은 3이다.
@@ -21,7 +21,7 @@ class AdvertisementPolicyTest {
         )
 
         // when
-        val actual = mergeAdvertisement(data, ads)
+        val actual = MainModelHandler.mergeAdvertisement(data, ads)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -40,7 +40,7 @@ class AdvertisementPolicyTest {
         )
 
         // when
-        val actual = mergeAdvertisement(data, ads)
+        val actual = MainModelHandler.mergeAdvertisement(data, ads)
 
         // then
         assertThat(actual).isEqualTo(expected)

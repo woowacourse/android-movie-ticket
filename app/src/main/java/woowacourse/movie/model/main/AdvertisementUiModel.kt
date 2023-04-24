@@ -3,6 +3,7 @@ package woowacourse.movie.model.main
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.DrawableRes
+import woowacourse.movie.ui.main.adapter.MainViewType
 
 data class AdvertisementUiModel(
     override val id: Long,

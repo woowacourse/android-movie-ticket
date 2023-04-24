@@ -6,7 +6,7 @@ import android.widget.ImageView
 import woowacourse.movie.R
 import woowacourse.movie.model.main.AdvertisementUiModel
 import woowacourse.movie.model.main.MainData
-import woowacourse.movie.model.main.MainViewType
+import woowacourse.movie.ui.main.adapter.MainViewType
 
 class AdvertisementViewHolder(view: View) : MainViewHolder(view) {
     private val poster: ImageView = view.findViewById(R.id.imageAdvertisement)

@@ -5,11 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.advertisement.AdvertisementPolicy
-import woowacourse.movie.advertisement.AdvertisementRepository
-import woowacourse.movie.model.main.MainMapper.toUiAdvertisements
-import woowacourse.movie.model.main.MainMapper.toUiMovies
-import woowacourse.movie.movie.MovieRepository
+import woowacourse.movie.model.main.MainModelHandler
 import woowacourse.movie.ui.booking.BookingActivity
 import woowacourse.movie.ui.main.adapter.recyclerview.MainAdapter
 
@@ -22,22 +18,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        /*val movieAdapter = MovieAdapter(
-            this,
-            { clickBook(it) },
-            { clickAdvertisement(it) },
-        )*/
         val mainAdapter = MainAdapter(
             this,
             { clickBook(it) },
             { clickAdvertisement(it) },
         )
         findViewById<RecyclerView>(R.id.listMainMovie).adapter = mainAdapter
-
-        val movies = MovieRepository.getMovies().toUiMovies()
-        val advertisements = AdvertisementRepository.getAdvertisements().toUiAdvertisements()
-        val data = AdvertisementPolicy.mergeAdvertisement(movies, advertisements)
-        mainAdapter.initMovies(data)
+        mainAdapter.initMovies(MainModelHandler.getMainData())
     }
 
     private fun clickBook(movieId: Long) {

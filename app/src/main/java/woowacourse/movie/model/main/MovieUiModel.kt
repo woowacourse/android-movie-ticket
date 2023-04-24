@@ -1,9 +1,10 @@
 package woowacourse.movie.model.main
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.model.main.MainMapper.toDomainModel
+import woowacourse.movie.model.main.MovieMapper.toDomainModel
 import woowacourse.movie.ticket.Seat
 import woowacourse.movie.ticket.Ticket
+import woowacourse.movie.ui.main.adapter.MainViewType
 import java.time.LocalDate
 import java.time.LocalDateTime
 

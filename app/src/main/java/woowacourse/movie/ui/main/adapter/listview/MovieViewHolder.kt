@@ -7,8 +7,8 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.formatScreenDate
 import woowacourse.movie.model.main.MainData
-import woowacourse.movie.model.main.MainViewType
 import woowacourse.movie.model.main.MovieUiModel
+import woowacourse.movie.ui.main.adapter.MainViewType
 
 class MovieViewHolder(view: View) : MainViewHolder(view) {
     private val thumbnail: ImageView = view.findViewById(R.id.imageItemThumbnail)

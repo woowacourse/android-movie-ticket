@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.main.MainData
-import woowacourse.movie.model.main.MainViewType
+import woowacourse.movie.ui.main.adapter.MainViewType
 
 class MainAdapter(
     context: Context,

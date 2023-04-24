@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.model.main.MainData
-import woowacourse.movie.model.main.MainViewType
+import woowacourse.movie.ui.main.adapter.MainViewType
 
 class MovieAdapter(
     context: Context,

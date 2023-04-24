@@ -1,4 +1,4 @@
-package woowacourse.movie.model.main
+package woowacourse.movie.ui.main.adapter
 
 import android.view.View
 import woowacourse.movie.ui.main.adapter.listview.AdvertisementViewHolder
