@@ -66,6 +66,7 @@ class SeatTable(
 
     private fun clear() {
         getAllSeatView().filter { it.isChosen }.forEach { it.toggle() } // 원본 상태로 되돌림
+        update(chosenSeatInfo)
     }
 
     companion object {
