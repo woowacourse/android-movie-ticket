@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
@@ -120,26 +121,35 @@ class SeatPickerActivity : BackButtonActivity() {
         movieBookingInfo: MovieBookingInfo,
     ) {
         textView.setOnClickListener {
-            if (it.isSelected) {
-                it.isSelected = false
-                ticketBundle.popTicket(Seat(seatIndex))
-                it.setBackgroundColor(Color.WHITE)
-            } else if (!it.isSelected) {
-                if (ticketBundle.tickets.size == movieBookingInfo.ticketCount) {
-                    Toast.makeText(
-                        this,
-                        getString(R.string.error_seat_picker_selected_max).format(movieBookingInfo.ticketCount),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-                it.isSelected = true
-                ticketBundle.putTicket(Seat(seatIndex))
-                it.setBackgroundColor(Color.parseColor("#FAFF00"))
-            }
+            setSeatViewStatus(it, seatIndex, movieBookingInfo)
+
             binding.tvSeatPickerTotalPrice.text =
                 ticketBundle.calculateTotalPrice(movieBookingInfo.date, movieBookingInfo.time)
                     .toString()
+        }
+    }
+
+    private fun setSeatViewStatus(
+        it: View,
+        seatIndex: Int,
+        movieBookingInfo: MovieBookingInfo
+    ) {
+        if (it.isSelected) {
+            it.isSelected = false
+            ticketBundle.popTicket(Seat(seatIndex))
+            it.setBackgroundColor(Color.WHITE)
+        } else if (!it.isSelected) {
+            if (ticketBundle.tickets.size == movieBookingInfo.ticketCount) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.error_seat_picker_selected_max).format(movieBookingInfo.ticketCount),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return
+            }
+            it.isSelected = true
+            ticketBundle.putTicket(Seat(seatIndex))
+            it.setBackgroundColor(Color.parseColor("#FAFF00"))
         }
     }
 
