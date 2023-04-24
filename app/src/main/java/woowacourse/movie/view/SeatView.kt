@@ -4,6 +4,9 @@ import android.view.Gravity
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import domain.Seat
+import domain.discountPolicy.DisCountPolicies
+import domain.seatPolicy.SeatPolicies
 import woowacourse.movie.R
 import woowacourse.movie.setBackgroundColorId
 import woowacourse.movie.view.mapper.SeatMapper
@@ -23,13 +26,8 @@ class SeatView(val view: TextView, val row: Char, val col: Int, onClick: (SeatVi
         initTextColor()
         view.setOnClickListener { onClick(this) }
     }
-
-    private fun getSeatViewModel(): SeatUiModel {
-        return SeatUiModel(row, col)
-    }
-
     private fun initTextColor() {
-        val seat = SeatMapper.toDomain(getSeatViewModel())
+        val seat = Seat(SeatUiModel.toNumber(row), col, SeatPolicies())
         val seatRankViewModel = SeatRankMapper.toUi(seat.rank)
         view.setTextColor(
             ContextCompat.getColor(

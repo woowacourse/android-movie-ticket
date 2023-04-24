@@ -17,7 +17,6 @@ import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.TimeSpinner
 import woowacourse.movie.view.mapper.MovieMapper
 import woowacourse.movie.view.model.*
-import java.time.LocalDateTime
 
 class MovieReservationActivity : AppCompatActivity() {
     private val counter: Counter by lazy {
@@ -50,7 +49,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
         val movieViewModel = getMovieModelView()
         if (movieViewModel == null) {
-            finishActivity()
+            finishActivityWithMessage(getString(R.string.movie_data_null_error))
         } else {
             renderMovieView(movieViewModel)
             counter.load(savedInstanceState)
@@ -69,17 +68,13 @@ class MovieReservationActivity : AppCompatActivity() {
         ).render(movieUiModel)
     }
 
-    private fun finishActivity() {
-        Toast.makeText(this, getString(R.string.movie_data_null_error), Toast.LENGTH_LONG).show()
+    private fun finishActivityWithMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finish()
     }
 
     private fun getMovieModelView(): MovieUiModel? {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
-    }
-
-    private fun getMovie(movieUiModel: MovieUiModel): Movie {
-        return MovieMapper.toDomain(movieUiModel)
     }
 
     private fun reservationButtonClick(movieUiModel: MovieUiModel) {
@@ -108,8 +103,8 @@ class MovieReservationActivity : AppCompatActivity() {
         private const val MOVIE_KEY_VALUE = "movie"
         fun start(context: Context, movie: Movie) {
             val intent = Intent(context, MovieReservationActivity::class.java)
-            val movieDto = MovieMapper.toUi(movie)
-            intent.putExtra(MOVIE_KEY_VALUE, movieDto)
+            val movieUiModel = MovieMapper.toUi(movie)
+            intent.putExtra(MOVIE_KEY_VALUE, movieUiModel)
             context.startActivity(intent)
         }
 
