@@ -28,14 +28,14 @@ class ReservationResultActivity : AppCompatActivity() {
     private val priceTextView: TextView by lazy { findViewById(R.id.movie_reservation_result_price) }
     private val ticketOfficeUiModel: TicketOfficeUiModel by lazy {
         receiveTicketOfficeViewModel() ?: run {
-            finishActivityWithMessage(RESERVATION_DATA_NULL_ERROR)
+            finishActivityWithMessage(getString(R.string.reservation_data_null_error))
             TicketOfficeUiModel(TicketsUiModel(listOf()), 0)
         }
     }
 
     private val movieUiModel: MovieUiModel by lazy {
         receiveMovieViewModel() ?: run {
-            finishActivityWithMessage(RESERVATION_DATA_NULL_ERROR)
+            finishActivityWithMessage(getString(R.string.reservation_data_null_error))
             MovieUiModel(0, "qwe", LocalDate.MAX, LocalDate.MAX, 0, "")
         }
     }
@@ -109,7 +109,6 @@ class ReservationResultActivity : AppCompatActivity() {
     companion object {
         private const val MOVIE_KEY_VALUE = "movie"
         private const val TICKET_OFFICE_KEY_VALUE = "ticket_office"
-        private const val RESERVATION_DATA_NULL_ERROR = "예약 정보를 받지 못하였습니다!"
         fun start(
             context: Context,
             movieUiModel: MovieUiModel,

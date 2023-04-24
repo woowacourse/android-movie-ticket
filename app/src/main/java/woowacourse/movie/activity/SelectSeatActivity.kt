@@ -34,14 +34,14 @@ class SelectSeatActivity : AppCompatActivity() {
 
     private val ticketDateTime: LocalDateTime by lazy {
         receiveTicketDateTimeData() ?: run {
-            finishActivityWithToast(DATA_ERROR_MESSAGE)
+            finishActivityWithToast(getString(R.string.reservation_data_null_error))
             LocalDateTime.now()
         }
     }
 
     private val movieUiModel: MovieUiModel by lazy {
         receiveMovieViewModelData() ?: run {
-            finishActivityWithToast(DATA_ERROR_MESSAGE)
+            finishActivityWithToast(getString(R.string.reservation_data_null_error))
             MovieUiModel(0, "", LocalDate.MAX, LocalDate.MAX, 0, "")
         }
     }
@@ -157,7 +157,7 @@ class SelectSeatActivity : AppCompatActivity() {
 
     private fun receiveTicketOfficeData(): TicketOffice {
         val peopleCount = intent.getIntExtra(PEOPLE_COUNT_KEY, 0)
-        if (peopleCount == 0) finishActivityWithToast(DATA_ERROR_MESSAGE)
+        if (peopleCount == 0) finishActivityWithToast(getString(R.string.reservation_data_null_error))
         return TicketOffice(peopleCount = peopleCount)
     }
 
@@ -180,7 +180,6 @@ class SelectSeatActivity : AppCompatActivity() {
         private const val PEOPLE_COUNT_KEY = "peopleCount"
         private const val TICKET_KEY = "ticket"
         private const val MOVIE_KEY_VALUE = "movie"
-        private const val DATA_ERROR_MESSAGE = "유효한 데이터를 받지 못했습니다"
         fun start(
             context: Context,
             peopleCount: Int,
