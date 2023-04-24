@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.MoviesRecyclerItem
+import woowacourse.movie.model.MovieRecyclerItem
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -26,8 +26,8 @@ data class MovieItemViewHolder(
         itemView.findViewById(R.id.reservation_button)
 
     fun bind(
-        movie: MoviesRecyclerItem.MovieInfo,
-        onReservationButtonClicked: (movie: MoviesRecyclerItem.MovieInfo) -> Unit
+        movie: MovieRecyclerItem.MovieInfo,
+        onReservationButtonClicked: (movie: MovieRecyclerItem.MovieInfo) -> Unit
     ) {
         movieNameTextView.text = movie.movieName
         movieImageView.setImageResource(movie.posterImage)

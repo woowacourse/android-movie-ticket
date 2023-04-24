@@ -1,6 +1,5 @@
 package woowacourse.movie.reservation
 
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.LinearLayout
@@ -9,20 +8,20 @@ import android.widget.TextView
 import domain.movie.ScreeningDate
 import domain.reservation.TicketCount
 import woowacourse.movie.R
-import woowacourse.movie.model.MoviesRecyclerItem
+import woowacourse.movie.model.MovieRecyclerItem
 import woowacourse.movie.model.SeatSelectionInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class NavigationView(
-    private val movieInfo: MoviesRecyclerItem.MovieInfo,
+    private val movieInfo: MovieRecyclerItem.MovieInfo,
     private val navigationBar: LinearLayout
 ) {
     private val ticketCountTextView =
-        findViewConfiguration<TextView>(R.id.reservation_ticket_count_text_view)
-    private val screeningDateSpinner = findViewConfiguration<Spinner>(R.id.screening_date_spinner)
-    private val screeningTimeSpinner = findViewConfiguration<Spinner>(R.id.screening_time_spinner)
+        navigationBar.findViewById<TextView>(R.id.reservation_ticket_count_text_view)
+    private val screeningDateSpinner = navigationBar.findViewById<Spinner>(R.id.screening_date_spinner)
+    private val screeningTimeSpinner = navigationBar.findViewById<Spinner>(R.id.screening_time_spinner)
 
     val state: NavigationViewState
         get() = NavigationViewState(
@@ -45,7 +44,7 @@ class NavigationView(
 
     fun setMinusButtonClickedListener(alertError: () -> Unit) {
         val minusButton =
-            findViewConfiguration<TextView>(R.id.reservation_ticket_count_minus_button)
+            navigationBar.findViewById<TextView>(R.id.reservation_ticket_count_minus_button)
 
         minusButton.setOnClickListener {
             runCatching {
@@ -58,7 +57,7 @@ class NavigationView(
     }
 
     fun setPlusButtonClickedListener() {
-        val plusButton = findViewConfiguration<TextView>(R.id.reservation_ticket_count_plus_button)
+        val plusButton = navigationBar.findViewById<TextView>(R.id.reservation_ticket_count_plus_button)
 
         plusButton.setOnClickListener {
             val ticketCount = TicketCount(ticketCountTextView.text.toString().toInt() + 1)
@@ -67,7 +66,7 @@ class NavigationView(
     }
 
     fun setOnCompleteButtonClickedListener(onCompleted: (seatSelectionInfo: SeatSelectionInfo) -> Unit) {
-        val completeButton = findViewConfiguration<Button>(R.id.reservation_complete_button)
+        val completeButton = navigationBar.findViewById<Button>(R.id.reservation_complete_button)
 
         completeButton.setOnClickListener {
             val seatCount = ticketCountTextView
@@ -96,10 +95,6 @@ class NavigationView(
 
         screeningTimeSpinner.applyArrayAdapter(times)
         screeningTimeSpinner.setSelection(defaultPosition)
-    }
-
-    private fun <T : View?> findViewConfiguration(resourceId: Int): T {
-        return navigationBar.findViewById<T>(resourceId)
     }
 
     private fun <T> Spinner.applyArrayAdapter(inputData: List<T>) {

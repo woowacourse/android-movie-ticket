@@ -4,29 +4,26 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.MoviesRecyclerItem
+import woowacourse.movie.model.MovieRecyclerItem
+import woowacourse.movie.model.MovieRecyclerItemViewType
 
 class MoviesAdapter(
-    private val moviesInfo: List<MoviesRecyclerItem.MovieInfo>,
-    private val advertisement: MoviesRecyclerItem.Advertisement,
+    private val moviesRecyclerItems: List<MovieRecyclerItem>,
     private val onItemViewClickListener: OnItemViewClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return when (position % CYCLE) {
-            ADVERTISEMENT_TURN -> ADVERTISEMENT
-            else -> MOVIE
-        }
+        return MovieRecyclerItemViewType.valueOf(position).ordinal
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            MOVIE -> MovieItemViewHolder(
+            MovieRecyclerItemViewType.MOVIE.ordinal -> MovieItemViewHolder(
                 layoutInflater.inflate(R.layout.item_movie, parent, false)
             )
-            ADVERTISEMENT -> AdvertisementViewHolder(
+            MovieRecyclerItemViewType.ADVERTISEMENT.ordinal -> AdvertisementViewHolder(
                 layoutInflater.inflate(R.layout.item_advertisement, parent, false)
             )
             else -> throw IllegalArgumentException(
@@ -38,25 +35,17 @@ class MoviesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is MovieItemViewHolder -> {
-                val moviesPosition = position - position / CYCLE
                 holder.bind(
-                    moviesInfo[moviesPosition],
+                    moviesRecyclerItems[position] as MovieRecyclerItem.MovieInfo,
                     onItemViewClickListener::onDisplayItemClicked
                 )
             }
             is AdvertisementViewHolder -> holder.bind(
-                advertisement,
+                moviesRecyclerItems[position] as MovieRecyclerItem.Advertisement,
                 onItemViewClickListener::onDisplayItemClicked
             )
         }
     }
 
-    override fun getItemCount(): Int = moviesInfo.size
-
-    companion object {
-        private const val MOVIE = 1
-        private const val ADVERTISEMENT = 2
-        private const val ADVERTISEMENT_TURN = 3
-        private const val CYCLE = 4
-    }
+    override fun getItemCount(): Int = moviesRecyclerItems.size
 }

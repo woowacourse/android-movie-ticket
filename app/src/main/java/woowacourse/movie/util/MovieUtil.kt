@@ -1,9 +1,9 @@
 package woowacourse.movie.util
 
 import domain.movie.Movie
-import woowacourse.movie.model.MoviesRecyclerItem
+import woowacourse.movie.model.MovieRecyclerItem
 
-fun Movie.toDomainModel(posterImage: Int) = MoviesRecyclerItem.MovieInfo(
+fun Movie.toDomainModel(posterImage: Int) = MovieRecyclerItem.MovieInfo(
     movieName.value,
     posterImage,
     screeningPeriod.startDate.value,

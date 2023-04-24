@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import java.io.Serializable
 import java.time.LocalDate
 
-sealed class MoviesRecyclerItem : Serializable {
+sealed class MovieRecyclerItem : Serializable {
 
     data class MovieInfo(
         val movieName: String,
@@ -14,10 +14,10 @@ sealed class MoviesRecyclerItem : Serializable {
         val screeningPeriod: List<LocalDate>,
         val runningTime: Int,
         val description: String
-    ) : MoviesRecyclerItem()
+    ) : MovieRecyclerItem()
 
     data class Advertisement(
         @DrawableRes val adImageSrc: Int,
         val url: String,
-    ) : MoviesRecyclerItem()
+    ) : MovieRecyclerItem()
 }

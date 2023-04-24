@@ -7,8 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MockAdvertisementGenerator
-import woowacourse.movie.model.MockMoviesGenerator
-import woowacourse.movie.model.MoviesRecyclerItem
+import woowacourse.movie.model.MockMovieGenerator
+import woowacourse.movie.model.MovieRecyclerItem
+import woowacourse.movie.model.MovieRecyclerItemViewType
 import woowacourse.movie.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {
@@ -20,30 +21,38 @@ class MoviesActivity : AppCompatActivity() {
         applyMoviesAdapter()
     }
 
+    private fun getMovieRecyclerItems(movieRecyclerItemsSize: Int): List<MovieRecyclerItem> {
+        val adGenerator = MockAdvertisementGenerator()
+        val movieGenerator = MockMovieGenerator()
+
+        return List(movieRecyclerItemsSize) { position ->
+            when (MovieRecyclerItemViewType.valueOf(position)) {
+                MovieRecyclerItemViewType.MOVIE -> movieGenerator.generate()
+                MovieRecyclerItemViewType.ADVERTISEMENT -> adGenerator.generate()
+            }
+        }
+    }
+
     private fun applyMoviesAdapter() {
         val moviesRecyclerView: RecyclerView = findViewById(R.id.movies_recycler_view)
 
         moviesRecyclerView.adapter = MoviesAdapter(
-            moviesInfo = MockMoviesGenerator().generate(),
-            advertisement = MockAdvertisementGenerator().generate(),
-            onItemViewClickListener = object : OnItemViewClickListener {
-                override fun onDisplayItemClicked(moviesRecyclerItem: MoviesRecyclerItem) {
-                    when (moviesRecyclerItem) {
-                        is MoviesRecyclerItem.Advertisement -> onAdClicked(moviesRecyclerItem)
-                        is MoviesRecyclerItem.MovieInfo -> onReservationButtonClicked(moviesRecyclerItem)
-                    }
-                }
+            moviesRecyclerItems = getMovieRecyclerItems(100)
+        ) { movieRecyclerItem ->
+            when (movieRecyclerItem) {
+                is MovieRecyclerItem.Advertisement -> onAdClicked(movieRecyclerItem)
+                is MovieRecyclerItem.MovieInfo -> onReservationButtonClicked(movieRecyclerItem)
             }
-        )
+        }
     }
 
-    private fun onAdClicked(advertisement: MoviesRecyclerItem.Advertisement) {
+    private fun onAdClicked(advertisement: MovieRecyclerItem.Advertisement) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(advertisement.url))
 
         startActivity(intent)
     }
 
-    private fun onReservationButtonClicked(movieInfo: MoviesRecyclerItem.MovieInfo) {
+    private fun onReservationButtonClicked(movieInfo: MovieRecyclerItem.MovieInfo) {
         val intent = Intent(this, ReservationActivity::class.java)
 
         intent.putExtra(MOVIE_KEY, movieInfo)
