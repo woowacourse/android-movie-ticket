@@ -1,6 +1,5 @@
 package woowacourse.movie.reservation
 
-import android.view.View
 import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
@@ -14,15 +13,15 @@ class MovieInfoView(
 
     fun bind(movie: MovieRecyclerItem.MovieInfo) {
         val posterImageView =
-            findViewConfiguration<ImageView>(R.id.reservation_movie_image_view)
+            movieInformationView.findViewById<ImageView>(R.id.reservation_movie_image_view)
         val movieNameTextView =
-            findViewConfiguration<TextView>(R.id.reservation_movie_name_text_view)
+            movieInformationView.findViewById<TextView>(R.id.reservation_movie_name_text_view)
         val screeningDateTextView =
-            findViewConfiguration<TextView>(R.id.reservation_movie_screening_date_text_view)
+            movieInformationView.findViewById<TextView>(R.id.reservation_movie_screening_date_text_view)
         val runningTimeTextView =
-            findViewConfiguration<TextView>(R.id.reservation_movie_running_time_text_view)
+            movieInformationView.findViewById<TextView>(R.id.reservation_movie_running_time_text_view)
         val descriptionTextView =
-            findViewConfiguration<TextView>(R.id.reservation_movie_description_text_view)
+            movieInformationView.findViewById<TextView>(R.id.reservation_movie_description_text_view)
         val screeningPeriodForm =
             movieInformationView.context.getString(R.string.screening_period_form)
         val runningTimeFormat =
@@ -38,10 +37,6 @@ class MovieInfoView(
             runningTimeTextView.text = runningTimeFormat.format(runningTime)
             descriptionTextView.text = description
         }
-    }
-
-    private fun <T : View?> findViewConfiguration(resourceId: Int): T {
-        return movieInformationView.findViewById<T>(resourceId)
     }
 
     companion object {
