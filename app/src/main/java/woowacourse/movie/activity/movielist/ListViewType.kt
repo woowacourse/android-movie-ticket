@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.activity.movielist
 
 enum class ListViewType {
     AD_VIEWTYPE, NORMAL_VIEWTYPE;

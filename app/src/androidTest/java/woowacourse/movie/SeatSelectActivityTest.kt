@@ -24,14 +24,16 @@ import org.hamcrest.Matcher
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.activity.seatselect.SeatSelectActivity
+import woowacourse.movie.model.ReserveInfoModel
 import java.time.LocalDateTime
 
 class SeatSelectActivityTest {
     private val intent =
         Intent(ApplicationProvider.getApplicationContext(), SeatSelectActivity::class.java).apply {
-            putExtra(SeatSelectActivity.TITLE_KEY, "해리포터와 마법사의 돌 1")
-            putExtra(SeatSelectActivity.DATETIME_KEY, LocalDateTime.of(2023, 3, 12, 12, 0, 0))
-            putExtra(SeatSelectActivity.COUNT_KEY, 20)
+            putExtra(
+                SeatSelectActivity.INFO_KEY,
+                ReserveInfoModel("해리포터와 마법사의 돌 1", LocalDateTime.of(2023, 3, 12, 12, 0, 0), 20),
+            )
         }
 
     @get:Rule
