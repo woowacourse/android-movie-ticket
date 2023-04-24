@@ -32,15 +32,32 @@
         app:layout_constraintTop_toBottomOf="@id/tv_info"
         tools:text="해리 포터와 마법사의 돌" />
 
-    <TextView
-        android:id="@+id/tv_date"
-        style="@style/TicketingResultTextStyle"
+    <LinearLayout
+        android:id="@+id/linear_layout_date_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:textSize="20sp"
+        android:gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="2024.3.1" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/TicketingResultTextStyle"
+            android:layout_marginHorizontal="0dp"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            tools:text="2024.03.01" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/TicketingResultTextStyle"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            tools:text="12:00" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_regular_count"
@@ -49,7 +66,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tv_pay_result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_date_time"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="일반 1명" />
 

@@ -34,18 +34,25 @@ class TicketingResultActivity : AppCompatActivity() {
     private fun setReservationInfo(reservation: ReservationUI) {
         with(reservation) {
             findViewById<TextView>(R.id.tv_title).text = movie.title
-            setDateTime(reservation.dateTime)
+            setDate(reservation.dateTime)
+            setTime(reservation.dateTime)
             setTicketCount(ticketsUI)
             setPayment(this)
         }
     }
 
-    private fun setDateTime(dateTime: LocalDateTime) {
+    private fun setDate(dateTime: LocalDateTime) {
         findViewById<TextView>(R.id.tv_date).text = getString(
-            R.string.book_date_time,
+            R.string.book_date,
             dateTime.year,
             dateTime.monthValue,
             dateTime.dayOfMonth,
+        )
+    }
+
+    private fun setTime(dateTime: LocalDateTime) {
+        findViewById<TextView>(R.id.tv_time).text = getString(
+            R.string.book_time,
             dateTime.hour,
             dateTime.minute
         )
