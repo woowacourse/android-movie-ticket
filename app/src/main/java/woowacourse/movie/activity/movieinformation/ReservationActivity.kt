@@ -34,7 +34,7 @@ class ReservationActivity : AppCompatActivity() {
             finish()
         }
 
-        MovieInformationView(binding, movieModel!!).set()
+        MovieInformationView(binding).set(movieModel!!)
         TicketCountSelectorView(binding).set(savedInstanceState)
         dateTimeSpinnerView.set(movieModel, savedInstanceState)
         binding.seatSelectionButton.setOnClickListener { seatSelectionButtonClickEvent(movieModel) }
