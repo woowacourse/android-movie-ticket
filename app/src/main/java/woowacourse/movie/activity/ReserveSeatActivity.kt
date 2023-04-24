@@ -13,7 +13,6 @@ import androidx.core.view.children
 import com.example.domain.model.model.Rank
 import com.example.domain.model.model.ReservationInfo
 import com.example.domain.model.model.Seat
-import com.example.domain.model.price.PriceCalculator
 import woowacourse.movie.R
 import woowacourse.movie.mapper.toReservationInfo
 import woowacourse.movie.mapper.toSeatModel
@@ -52,8 +51,7 @@ class ReserveSeatActivity : BaseActivity() {
             button.setOnClickListener {
                 val seat = convertToSeat(index)
                 val seatRank = Rank.map(seat.row)
-                val seatPrice = PriceCalculator.calculate(
-                    seatRank.price,
+                val seatPrice = seatRank.price.calculate(
                     reservationInfo.playingDate,
                     reservationInfo.playingTime
                 ).price
