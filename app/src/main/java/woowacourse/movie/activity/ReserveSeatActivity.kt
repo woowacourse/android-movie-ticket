@@ -3,14 +3,12 @@ package woowacourse.movie.activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import com.example.domain.model.model.Rank
 import com.example.domain.model.model.ReservationInfo
@@ -24,12 +22,12 @@ import woowacourse.movie.model.SeatModel
 import woowacourse.movie.model.TicketModel
 import woowacourse.movie.util.customGetSerializable
 
-class ReserveSeatActivity : AppCompatActivity() {
+class ReserveSeatActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserve_seat)
 
-        val reservationInfoModel: ReservationInfoModel = getReceivedIntentData()
+        val reservationInfoModel: ReservationInfoModel = intent.customGetSerializable(RESERVATION_INFO_KEY)
         initTicketInfoView(reservationInfoModel.title)
         initSeatViews(reservationInfoModel)
         val reserveButton = findViewById<Button>(R.id.btn_reserve)
@@ -38,8 +36,8 @@ class ReserveSeatActivity : AppCompatActivity() {
     }
 
     private fun initTicketInfoView(title: String) {
-        initTitle(title)
-        initPrice()
+        InitView.initTextView(findViewById(R.id.text_title), title)
+        InitView.initTextView(findViewById(R.id.text_price), "0")
     }
 
     private fun initSeatViews(
@@ -95,19 +93,6 @@ class ReserveSeatActivity : AppCompatActivity() {
         }
     }
 
-    private fun initPrice() {
-        val priceTextView = findViewById<TextView>(R.id.text_price)
-        priceTextView.text = "0"
-    }
-
-    private fun initTitle(titleText: String) {
-        val title = findViewById<TextView>(R.id.text_title)
-        title.text = titleText
-    }
-
-    private fun getReceivedIntentData(): ReservationInfoModel =
-        intent.customGetSerializable(RESERVATION_INFO_KEY)
-
     private fun getSeatViews() = findViewById<TableLayout>(R.id.table_seat)
         .children
         .filterIsInstance<TableRow>()
@@ -124,10 +109,6 @@ class ReserveSeatActivity : AppCompatActivity() {
             dialog.dismiss()
         }
 
-    private fun setActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
     private fun convertToSeat(index: Int): Seat {
         val row = index / COLUMN_COUNT
         val column = index % COLUMN_COUNT
@@ -138,18 +119,6 @@ class ReserveSeatActivity : AppCompatActivity() {
         val intent = Intent(this, TicketResultActivity::class.java)
         intent.putExtra(TICKET_KEY, ticketModel)
         return intent
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
-        }
     }
 
     inner class ReserveButtonListener(

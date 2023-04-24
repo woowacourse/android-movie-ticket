@@ -2,13 +2,9 @@ package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.example.domain.model.model.Movie
 import com.example.domain.model.model.Payment
 import com.example.domain.model.model.PlayingTimes
@@ -23,7 +19,7 @@ import woowacourse.movie.util.customGetSerializable
 import java.time.LocalDate
 import java.time.LocalTime
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,15 +47,24 @@ class MovieDetailActivity : AppCompatActivity() {
         intent.customGetSerializable(MOVIE_KEY)
 
     private fun initMovieDataView(movie: MovieListItem.MovieModel) {
-        initImageView(movie.image)
-        initTitle(movie.title)
-        initPlayingDate(movie.startDate, movie.endDate)
-        initRunningTime(movie.runningTime)
-        initDescription(movie.description)
+        InitView.initImageView(findViewById(R.id.img_movie), movie.image)
+        InitView.initTextView(findViewById(R.id.text_title), movie.title)
+        InitView.initTextView(
+            findViewById(R.id.text_playing_date),
+            getString(
+                R.string.playing_time, movie.startDate,
+                movie.endDate
+            )
+        )
+        InitView.initTextView(
+            findViewById(R.id.text_running_time),
+            getString(R.string.running_time, movie.runningTime)
+        )
+        InitView.initTextView(findViewById(R.id.text_description), movie.description)
     }
 
     private fun initCountView(savedCount: Int) {
-        initCount(savedCount)
+        InitView.initTextView(findViewById(R.id.text_count), savedCount.toString())
         initMinusButton()
         initPlusButton()
     }
@@ -75,9 +80,12 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun initTicketingButton(movieTitle: String) {
-        val ticketingButton = findViewById<Button>(R.id.btn_ticketing)
-        ticketingButton.setOnClickListener {
-            startActivity(getIntentToSend(movieTitle))
+        InitView.initButton(findViewById(R.id.btn_ticketing)) {
+            startActivity(
+                getIntentToSend(
+                    movieTitle
+                )
+            )
         }
     }
 
@@ -88,57 +96,17 @@ class MovieDetailActivity : AppCompatActivity() {
         return intent
     }
 
-    private fun setActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun initImageView(imageResource: Int) {
-        val imageView = findViewById<ImageView>(R.id.img_movie)
-        imageView.setImageResource(imageResource)
-    }
-
-    private fun initTitle(title: String) {
-        val titleView = findViewById<TextView>(R.id.text_title)
-        titleView.text = title
-    }
-
-    private fun initPlayingDate(startDate: String, endDate: String) {
-        val playingDateView = findViewById<TextView>(R.id.text_playing_date)
-        playingDateView.text = getString(
-            R.string.playing_time, startDate,
-            endDate
-        )
-    }
-
-    private fun initRunningTime(runningTime: Int) {
-        val runningTimeView = findViewById<TextView>(R.id.text_running_time)
-        runningTimeView.text =
-            getString(R.string.running_time, runningTime)
-    }
-
-    private fun initDescription(description: String) {
-        val descriptionView = findViewById<TextView>(R.id.text_description)
-        descriptionView.text = description
-    }
-
-    private fun initCount(savedCount: Int) {
-        val countText = findViewById<TextView>(R.id.text_count)
-        countText.text = savedCount.toString()
-    }
-
     private fun initMinusButton() {
-        val minusButton = findViewById<Button>(R.id.btn_minus)
-        val countView = findViewById<TextView>(R.id.text_count)
-        minusButton.setOnClickListener {
+        InitView.initButton(findViewById(R.id.btn_minus)) {
+            val countView = findViewById<TextView>(R.id.text_count)
             val count = getCount()
             if (count > 1) countView.text = (count.minus(1)).toString()
         }
     }
 
     private fun initPlusButton() {
-        val plusButton = findViewById<Button>(R.id.btn_plus)
-        val countView = findViewById<TextView>(R.id.text_count)
-        plusButton.setOnClickListener {
+        InitView.initButton(findViewById(R.id.btn_plus)) {
+            val countView = findViewById<TextView>(R.id.text_count)
             val count = getCount()
             countView.text = (count.plus(1)).toString()
         }
@@ -204,18 +172,6 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun getCount(): Int = findViewById<TextView>(R.id.text_count).text.toString().toInt()
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
-        }
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
