@@ -53,7 +53,7 @@ class MainActivityTest {
                 viewType =
                     it.findViewById<RecyclerView>(R.id.rv_main).adapter!!.getItemViewType(index)
             }
-            assertEquals(R.layout.adb_item_layout, viewType)
+            assertEquals(R.layout.adv_item_layout, viewType)
         }
     }
 

@@ -40,13 +40,17 @@ class MainPageAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ItemViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-
-        return when (viewType) {
-            R.layout.movie_item_layout -> MovieViewHolder(itemView)
-            R.layout.adb_item_layout -> AdvViewHolder(itemView)
-            else -> throw IllegalArgumentException()
+        return when (ViewType.of(viewType)) {
+            ViewType.MOVIE -> {
+                val itemView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_item_layout, parent, false)
+                MovieViewHolder(itemView)
+            }
+            ViewType.ADV -> {
+                val itemView = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.adv_item_layout, parent, false)
+                AdvViewHolder(itemView)
+            }
         }
     }
 
@@ -60,6 +64,6 @@ class MainPageAdapter(
     override fun getItemCount(): Int = _items.size
 
     override fun getItemViewType(position: Int): Int {
-        return _items[position].layoutId
+        return _items[position].viewType.id
     }
 }

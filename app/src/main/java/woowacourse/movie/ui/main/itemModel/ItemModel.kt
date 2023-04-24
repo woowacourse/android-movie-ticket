@@ -1,9 +1,8 @@
 package woowacourse.movie.ui.main.itemModel
 
-import androidx.annotation.LayoutRes
+import woowacourse.movie.ui.main.ViewType
 
 interface ItemModel {
-    @get:LayoutRes
-    val layoutId: Int
+    val viewType: ViewType
     val onClick: (position: Int) -> Unit
 }
