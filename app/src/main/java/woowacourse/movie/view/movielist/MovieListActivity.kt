@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.view.moviedetail.MovieDetailActivity
 import woowacourse.movie.view.viewmodel.DummyData
-import woowacourse.movie.view.viewmodel.MovieListData
 import woowacourse.movie.view.viewmodel.MovieListData.ADData
 import woowacourse.movie.view.viewmodel.MovieUIModel
 
@@ -18,16 +17,13 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
-        setUpMovieDatas()
+        setUpMovieRecyclerView()
     }
 
-    private fun setMovieData(): List<MovieListData> = DummyData.getItems()
-
-    private fun setUpMovieDatas() {
-
-        val movieListView = findViewById<RecyclerView>(R.id.movie_recyclerView)
+    private fun setUpMovieRecyclerView() {
+        val movieRecyclerView = findViewById<RecyclerView>(R.id.movie_recyclerView)
         val movieAdapter = MovieRecyclerAdapter(
-            setMovieData(),
+            DummyData.getItems(),
             object : MovieRecyclerAdapter.OnClickItem {
                 override fun onClick(movie: MovieUIModel) {
                     val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
@@ -38,8 +34,8 @@ class MovieListActivity : AppCompatActivity() {
             ::clickAdvertisement
         )
 
-        movieListView.layoutManager = LinearLayoutManager(this)
-        movieListView.adapter = movieAdapter
+        movieRecyclerView.layoutManager = LinearLayoutManager(this)
+        movieRecyclerView.adapter = movieAdapter
     }
 
     private fun clickAdvertisement(ad: ADData) {
