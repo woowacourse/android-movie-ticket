@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.seatreservation.domain
+package woowacourse.movie.ui.seatreservation.uimodel
 
 class Calculator {
     var totalAmount: Int = 0

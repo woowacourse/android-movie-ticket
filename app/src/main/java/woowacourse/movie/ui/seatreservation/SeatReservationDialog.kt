@@ -1,11 +1,10 @@
-package woowacourse.movie.ui.seatreservation.domain
+package woowacourse.movie.ui.seatreservation
 
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.ui.completed.CompletedActivity
-import woowacourse.movie.ui.seatreservation.SeatReservationActivity
 
 class SeatReservationDialog {
 

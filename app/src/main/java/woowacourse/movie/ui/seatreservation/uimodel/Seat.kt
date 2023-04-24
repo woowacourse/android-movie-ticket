@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.seatreservation.domain
+package woowacourse.movie.ui.seatreservation.uimodel
 
 enum class Seat(private val index: Int, val rank: String, val price: Int) {
     A1(0, "B등급", 10000),

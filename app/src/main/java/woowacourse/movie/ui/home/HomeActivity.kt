@@ -7,6 +7,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.ui.booking.BookingActivity
+import woowacourse.movie.ui.home.adapter.HomeAdapter
 
 class HomeActivity : AppCompatActivity() {
     private val homeAdapter: HomeAdapter by lazy { HomeAdapter(::setClickEventOnSelectedMovie) }

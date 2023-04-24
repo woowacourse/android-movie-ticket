@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.seatreservation.domain
+package woowacourse.movie.ui.seatreservation.uimodel
 
 @JvmInline
 value class Money private constructor(

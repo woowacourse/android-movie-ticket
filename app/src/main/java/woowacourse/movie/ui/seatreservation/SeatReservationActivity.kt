@@ -10,12 +10,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.ABLE
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.DISABLE
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.MAX
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.REABLE
-import woowacourse.movie.ui.seatreservation.domain.SeatReservationDialog
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.ABLE
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.DISABLE
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.MAX
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.REABLE
 import woowacourse.movie.util.shortToast
 
 class SeatReservationActivity : AppCompatActivity() {

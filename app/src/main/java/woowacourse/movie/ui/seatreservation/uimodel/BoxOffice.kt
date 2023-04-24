@@ -1,10 +1,10 @@
-package woowacourse.movie.ui.seatreservation.domain
+package woowacourse.movie.ui.seatreservation.uimodel
 
 import android.view.View
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.ABLE
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.DISABLE
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.MAX
-import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.REABLE
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.ABLE
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.DISABLE
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.MAX
+import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.REABLE
 
 class BoxOffice {
     private val calculator: Calculator by lazy { Calculator.create() }
