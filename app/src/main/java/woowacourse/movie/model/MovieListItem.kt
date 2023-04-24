@@ -1,11 +1,15 @@
 package woowacourse.movie.model
 
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
+import kotlinx.parcelize.Parcelize
 
-sealed interface MovieListItem : java.io.Serializable {
+@Parcelize
+sealed interface MovieListItem : Parcelable {
 
     val image: Int
 
+    @Parcelize
     data class MovieModel(
         @DrawableRes override val image: Int,
         val title: String,
@@ -19,6 +23,7 @@ sealed interface MovieListItem : java.io.Serializable {
         }
     }
 
+    @Parcelize
     data class AdModel(
         @DrawableRes override val image: Int,
         val url: String

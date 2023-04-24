@@ -15,7 +15,7 @@ import woowacourse.movie.mapper.toMovie
 import woowacourse.movie.mapper.toReservationInfoModel
 import woowacourse.movie.model.MovieListItem
 import woowacourse.movie.model.ReservationInfoModel
-import woowacourse.movie.util.customGetSerializable
+import woowacourse.movie.util.parcelable
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -29,7 +29,7 @@ class MovieDetailActivity : BaseActivity() {
         val savedDateSpinnerIndex = getSavedDateSpinnerIndex(savedInstanceState)
         val savedTimeSpinnerIndex = getSavedTimeSpinnerIndex(savedInstanceState)
 
-        val movieModel: MovieListItem.MovieModel = getReceivedIntentData()
+        val movieModel: MovieListItem.MovieModel = getIntentMovieModel()
         initMovieDataView(movieModel)
         val movie: Movie = movieModel.toMovie()
         initSpinner(
@@ -43,8 +43,7 @@ class MovieDetailActivity : BaseActivity() {
         setActionBar()
     }
 
-    private fun getReceivedIntentData(): MovieListItem.MovieModel =
-        intent.customGetSerializable(MOVIE_KEY)
+    private fun getIntentMovieModel(): MovieListItem.MovieModel = intent.parcelable(MOVIE_KEY)
 
     private fun initMovieDataView(movie: MovieListItem.MovieModel) {
         InitView.initImageView(findViewById(R.id.img_movie), movie.image)

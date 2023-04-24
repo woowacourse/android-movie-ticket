@@ -19,7 +19,7 @@ import woowacourse.movie.mapper.toSeatModel
 import woowacourse.movie.model.ReservationInfoModel
 import woowacourse.movie.model.SeatModel
 import woowacourse.movie.model.TicketModel
-import woowacourse.movie.util.customGetSerializable
+import woowacourse.movie.util.parcelable
 
 class ReserveSeatActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +27,15 @@ class ReserveSeatActivity : BaseActivity() {
         setContentView(R.layout.activity_reserve_seat)
 
         val reservationInfoModel: ReservationInfoModel =
-            intent.customGetSerializable(RESERVATION_INFO_KEY)
+            getIntentReserveInfoModel()
         initTicketInfoView(reservationInfoModel.title)
         initSeatViews(reservationInfoModel)
         val reserveButton = findViewById<Button>(R.id.btn_reserve)
         reserveButton.setOnClickListener(ReserveButtonListener(reservationInfoModel))
         setActionBar()
     }
+
+    private fun getIntentReserveInfoModel(): ReservationInfoModel = intent.parcelable(RESERVATION_INFO_KEY)
 
     private fun initTicketInfoView(title: String) {
         InitView.initTextView(findViewById(R.id.text_title), title)

@@ -3,7 +3,7 @@ package woowacourse.movie.activity
 import android.os.Bundle
 import woowacourse.movie.R
 import woowacourse.movie.model.TicketModel
-import woowacourse.movie.util.customGetSerializable
+import woowacourse.movie.util.parcelable
 
 class TicketResultActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +15,7 @@ class TicketResultActivity : BaseActivity() {
     }
 
     private fun initTicketDataView() {
-        val ticketModel: TicketModel = intent.customGetSerializable(TICKET_KEY)
+        val ticketModel: TicketModel = getIntentTicketModel()
         InitView.initTextView(findViewById(R.id.text_title), ticketModel.reservationInfoModel.title)
         InitView.initTextView(
             findViewById(R.id.text_playing_date),
@@ -42,6 +42,8 @@ class TicketResultActivity : BaseActivity() {
             )
         )
     }
+
+    private fun getIntentTicketModel(): TicketModel = intent.parcelable(TICKET_KEY)
 
     companion object {
         private const val TICKET_KEY = "ticket"
