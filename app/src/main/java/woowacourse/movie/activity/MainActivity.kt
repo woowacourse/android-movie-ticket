@@ -44,8 +44,7 @@ class MainActivity : AppCompatActivity() {
                 MovieReservationActivity.from(this, data as MovieViewData).run {
                     startActivity(this)
                 }
-            MovieListViewType.ADVERTISEMENT -> {
-            }
+            MovieListViewType.ADVERTISEMENT -> Unit
         }
     }
 
