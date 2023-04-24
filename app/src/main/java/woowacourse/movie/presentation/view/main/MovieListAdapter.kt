@@ -11,7 +11,7 @@ import woowacourse.movie.model.Movie
 class MovieListAdapter(private val movies: List<Movie>, private val ad: Drawable) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_TYPE_AD) {
+        if (viewType == ViewType.AD.ordinal) {
             val binding =
                 ItemAdvertiseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return AdListViewHolder(binding)
@@ -22,7 +22,7 @@ class MovieListAdapter(private val movies: List<Movie>, private val ad: Drawable
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (isAdCondition(position)) VIEW_TYPE_AD else VIEW_TYPE_MOVIE
+        return if (isAdCondition(position)) ViewType.AD.ordinal else ViewType.MOVIE.ordinal
     }
 
     override fun getItemCount() = (movies.size) + (movies.size / AD_PER_ROW)
@@ -39,8 +39,6 @@ class MovieListAdapter(private val movies: List<Movie>, private val ad: Drawable
         (position + 1) % (AD_PER_ROW + 1) == 0 && position > 0
 
     companion object {
-        const val VIEW_TYPE_AD = 0
-        const val VIEW_TYPE_MOVIE = 1
         const val AD_PER_ROW = 3
     }
 }
