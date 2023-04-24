@@ -22,13 +22,15 @@
 
     <TableLayout
         android:id="@+id/seat_selection"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="34dp"
         android:layout_marginTop="56dp"
         android:background="@color/white"
         android:stretchColumns="*"
         app:layout_constraintTop_toBottomOf="@id/seat_selection_screen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteX="34dp">
 
         <TableRow>
@@ -195,7 +197,7 @@
         android:gravity="center_vertical"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/seat_selection_check"
+        app:layout_constraintEnd_toStartOf="@id/seat_selection_check"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
@@ -223,7 +225,7 @@
         android:layout_height="78dp"
         android:background="@drawable/rectangle_button"
         android:enabled="false"
-        android:text="확인"
+        android:text="@string/check_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
