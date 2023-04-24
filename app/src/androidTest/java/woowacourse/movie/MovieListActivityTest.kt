@@ -20,6 +20,7 @@ class MovieListActivityTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieListActivity::class.java)
+
     @get:Rule
     val intentsTestRule = IntentsTestRule(MovieListActivity::class.java)
 
@@ -29,7 +30,12 @@ class MovieListActivityTest {
 
         // when: 영화 리스트를 클릭했을 때
         onView(withId(R.id.movie_recyclerView))
-            .perform(RecyclerViewActions.actionOnItemAtPosition<ViewHolder>(0, click()))
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<ViewHolder>(
+                    MOVIE_POSITION,
+                    click()
+                )
+            )
 
         // then: 아무런 일도 일어나지 않는다.
         onView(withId(R.id.movie_recyclerView)).check(matches(isDisplayed()))
@@ -41,9 +47,14 @@ class MovieListActivityTest {
 
         // when: 광고를 클릭했을 때
         onView(withId(R.id.movie_recyclerView))
-            .perform(RecyclerViewActions.actionOnItemAtPosition<ViewHolder>(3, click()))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<ViewHolder>(AD_POSITION, click()))
 
         // then: 웹페이지를 띄운다.
         intended(hasAction(Intent.ACTION_VIEW))
+    }
+
+    companion object {
+        private const val MOVIE_POSITION = 0
+        private const val AD_POSITION = 3
     }
 }
