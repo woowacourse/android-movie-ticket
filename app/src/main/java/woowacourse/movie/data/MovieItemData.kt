@@ -1,19 +1,19 @@
 package woowacourse.movie.data
 
-import woowacourse.movie.presentation.model.MovieItemModel
+import woowacourse.movie.presentation.main.MovieItem
 import woowacourse.movie.presentation.model.toPresentation
 
 object MovieItemData {
-    private val movieModels = MovieData.movies.map { it.toPresentation() }
-    private val adModels = AdData.ads
+    private val movies = MovieData.movies.map { MovieItem.Movie(it.toPresentation()) }
+    private val ads = AdData.ads
 
-    fun getMovieModelList(): List<MovieItemModel> {
-        val movieItemModels = mutableListOf<MovieItemModel>()
-        val mutableMovieModel = movieModels.toMutableList()
-        val mutableAdModel = adModels.toMutableList()
+    fun getMovieItems(): List<MovieItem> {
+        val movieItemModels = mutableListOf<MovieItem>()
+        val mutableMovieModel = movies.toMutableList()
+        val mutableAdModel = ads.toMutableList()
 
         repeat(10000) { position ->
-            val target: MovieItemModel = if (position % 4 == 3) {
+            val target: MovieItem = if (position % 4 == 3) {
                 mutableAdModel.removeFirst()
             } else {
                 mutableMovieModel.removeFirst()

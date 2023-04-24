@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.viewholder
+package woowacourse.movie.presentation.main.viewholder
 
 import android.view.View
 import android.widget.Button
@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.presentation.model.MovieModel
+import woowacourse.movie.presentation.main.MovieItem
 import woowacourse.movie.presentation.util.formatScreenDate
 
 class MovieViewHolder(private val view: View, clickBook: (Long) -> Unit) :
@@ -22,7 +22,8 @@ class MovieViewHolder(private val view: View, clickBook: (Long) -> Unit) :
         itemBook.setOnClickListener { clickBook((adapterPosition + ADDITIONAL_POSITION).toLong()) }
     }
 
-    fun bind(movie: MovieModel) {
+    fun bind(item: MovieItem.Movie) {
+        val movie = item.movie
         title.text = movie.title
         runningTime.text = view.context.getString(R.string.running_time)
             .format(movie.runningTime)

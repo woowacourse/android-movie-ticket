@@ -14,7 +14,7 @@ data class MovieModel(
     val description: String,
     @DrawableRes val thumbnail: Int?,
     @DrawableRes val poster: Int?,
-) : MovieItemModel() {
+) {
     fun reserve(reservation: ReservationModel, seats: Seats): TicketModel =
         toDomainModel().reserve(reservation.bookedDateTime, TicketCount(reservation.count), seats)
             .toPresentation()

@@ -1,8 +1,8 @@
 package woowacourse.movie.data
 
 import woowacourse.movie.R
-import woowacourse.movie.presentation.model.AdModel
+import woowacourse.movie.presentation.main.MovieItem
 
 object AdData {
-    val ads = List(10000) { AdModel(R.drawable.woowa_ad) }
+    val ads = List(10000) { MovieItem.Ad(R.drawable.woowa_ad) }
 }

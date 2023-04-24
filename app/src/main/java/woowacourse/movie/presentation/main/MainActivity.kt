@@ -1,14 +1,14 @@
-package woowacourse.movie.presentation.activity
+package woowacourse.movie.presentation.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieItemData
-import woowacourse.movie.presentation.adapter.MovieItemAdapter
+import woowacourse.movie.presentation.booking.BookingActivity
 
 class MainActivity : AppCompatActivity() {
-    private val movieItemAdapter by lazy { MovieItemAdapter(MOVIE_ITEM_MODELS) { clickBook(it) } }
+    private val movieItemAdapter by lazy { MovieItemAdapter(MOVIE_ITEMS) { clickBook(it) } }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,6 +25,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val MOVIE_ITEM_MODELS = MovieItemData.getMovieModelList()
+        private val MOVIE_ITEMS = MovieItemData.getMovieItems()
     }
 }
