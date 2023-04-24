@@ -1,14 +1,14 @@
 package woowacourse.movie.view.widget
 
 import woowacourse.movie.R
-import woowacourse.movie.view.MovieViewData
+import woowacourse.movie.view.data.MovieViewData
 import java.time.format.DateTimeFormatter
 
-class MovieController(
-    private val movie: MovieViewData,
-    private val movieView: MovieView
-) {
-    fun render() {
+object MovieController {
+    fun bind(
+        movie: MovieViewData,
+        movieView: MovieView
+    ) {
         movieView.poster?.setImageResource(movie.poster.resource)
         movieView.title?.text = movie.title
 

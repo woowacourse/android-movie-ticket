@@ -2,6 +2,7 @@ package woowacourse.movie.view
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import woowacourse.movie.view.data.DateRangeViewData
 import java.time.LocalDate
 
 class DateRangeViewDataTest {

@@ -1,66 +1,84 @@
 package woowacourse.movie.view
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.BaseAdapter
-import android.widget.Button
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.activity.MovieReservationActivity
-import woowacourse.movie.view.widget.MovieController
-import woowacourse.movie.view.widget.MovieView
+import woowacourse.movie.domain.Advertisement
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.advertismentPolicy.AdvertisementPolicy
+import woowacourse.movie.view.data.AdvertisementViewHolder
+import woowacourse.movie.view.data.MovieInfoViewHolder
+import woowacourse.movie.view.data.MovieListViewData
+import woowacourse.movie.view.data.MovieListViewType
+import woowacourse.movie.view.data.MovieViewData
+import woowacourse.movie.view.data.MovieViewDatas
+import woowacourse.movie.view.mapper.AdvertisementMapper.toView
+import woowacourse.movie.view.mapper.MovieMapper.toView
 
-class MovieAdapter(private val movieViewDatas: MovieViewDatas) : BaseAdapter() {
-    class ViewHolder(
-        val movieView: MovieView,
-        val reservation: Button
-    )
+class MovieAdapter(
+    movie: List<Movie>,
+    advertisement: List<Advertisement>,
+    advertisementPolicy: AdvertisementPolicy,
+    val onClickItem: (data: MovieListViewData) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var movieViewDatas: MovieViewDatas =
+        makeMovieListViewData(movie, advertisement, advertisementPolicy)
 
-    override fun getCount(): Int = movieViewDatas.value.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (MovieListViewType.values()[viewType]) {
+            MovieListViewType.MOVIE -> MovieInfoViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_movie, parent, false
+                )
+            ) {
+                onClickItem(movieViewDatas.value[it])
+            }
 
-    override fun getItem(position: Int): Any = movieViewDatas.value[position]
-
-    override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = if (convertView == null) {
-            val view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, null)
-            val viewHolder = ViewHolder(
-                MovieView(
-                    poster = view.findViewById(R.id.item_movie_poster),
-                    title = view.findViewById(R.id.item_movie_title),
-                    date = view.findViewById(R.id.item_movie_date),
-                    runningTime = view.findViewById(R.id.item_movie_running_time)
-                ),
-                view.findViewById(R.id.item_movie_reservation_button)
-            )
-            view.tag = viewHolder
-            view
-        } else {
-            convertView
+            MovieListViewType.ADVERTISEMENT -> AdvertisementViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.item_advertisement, parent, false
+                )
+            ) {
+                onClickItem(movieViewDatas.value[it])
+            }
         }
-
-        MovieController(
-            getItem(position) as MovieViewData, (view.tag as ViewHolder).movieView
-        ).render()
-
-        (view.tag as ViewHolder).reservation.setOnClickListener {
-            (parent as AdapterView<*>).performItemClick(it, position, getItemId(position))
-        }
-
-        (parent as AdapterView<*>).setOnItemClickListener { parent, _, position, _ ->
-            reserveMovie(parent.context, parent.getItemAtPosition(position) as MovieViewData)
-        }
-
-        return view
     }
 
-    private fun reserveMovie(context: Context, movie: MovieViewData) {
-        val intent = Intent(context, MovieReservationActivity::class.java)
-        intent.putExtra(MovieViewData.MOVIE_EXTRA_NAME, movie)
-        context.startActivity(intent)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (MovieListViewType.values()[getItemViewType(position)]) {
+            MovieListViewType.MOVIE -> (holder as MovieInfoViewHolder).bind(movieViewDatas.value[position] as MovieViewData)
+            MovieListViewType.ADVERTISEMENT -> (holder as AdvertisementViewHolder)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int =
+        movieViewDatas.value[position].viewType.ordinal
+
+    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemCount(): Int = movieViewDatas.value.size
+
+    private fun updateMovieListViewData(
+        movie: List<Movie>,
+        advertisement: List<Advertisement>,
+        advertisementPolicy: AdvertisementPolicy
+    ) {
+        movieViewDatas = makeMovieListViewData(movie, advertisement, advertisementPolicy)
+        notifyDataSetChanged()
+    }
+
+    private fun makeMovieListViewData(
+        movie: List<Movie>,
+        advertisement: List<Advertisement>,
+        advertisementPolicy: AdvertisementPolicy
+    ): MovieViewDatas {
+        return mutableListOf<MovieListViewData>().apply {
+            for (index in movie.indices) {
+                if (index > 0 && index % advertisementPolicy.movieCount == 0) add(advertisement[0].toView())
+                add(movie[index].toView())
+            }
+        }.let {
+            MovieViewDatas(it)
+        }
     }
 }
