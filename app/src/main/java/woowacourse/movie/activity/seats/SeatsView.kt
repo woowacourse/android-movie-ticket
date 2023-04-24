@@ -1,7 +1,6 @@
 package woowacourse.movie.activity.seats
 
 import android.content.Context
-import android.content.Intent
 import android.view.Gravity
 import android.widget.TableRow
 import android.widget.TextView
@@ -12,14 +11,13 @@ import woowacourse.movie.domain.seat.Column
 import woowacourse.movie.domain.seat.Row
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SeatType
-import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_TIME_INTENT_KEY
-import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INTENT_KEY
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 
 class SeatsView(
     private val binding: ActivitySeatSelectionBinding,
-    private val intent: Intent
+    private val ticketCount: Int,
+    private val screeningDateTime: LocalDateTime
 ) {
 
     private val context: Context = binding.root.context
@@ -107,7 +105,6 @@ class SeatsView(
 
     private fun setReservationCompleteTextView() {
         val selectedSeatCount: Int = getSelectedCount()
-        val ticketCount: Int = intent.getIntExtra(TICKET_COUNT_INTENT_KEY, 1)
 
         if (ticketCount <= selectedSeatCount) {
             seats.forEachIndexed { index, it ->
@@ -129,9 +126,6 @@ class SeatsView(
     }
 
     private fun updatePaymentAmount() {
-        val screeningDateTime: LocalDateTime =
-            intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
-
         val paymentAmount: PaymentAmount = PaymentAmount.applyDiscount(getSelectedSeats(), screeningDateTime)
 
         binding.paymentAmountTextView.text =

@@ -21,14 +21,16 @@ import java.time.LocalDateTime
 class SeatSelectionActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySeatSelectionBinding.inflate(layoutInflater) }
-    private val seatsView by lazy { SeatsView(binding, intent) }
+    private val seatsView by lazy { SeatsView(binding, ticketCount, screeningDateTime) }
+
+    private val movieModel by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel }
+    private val ticketCount by lazy { intent.getIntExtra(TICKET_COUNT_INTENT_KEY, TicketCount.MINIMUM) }
+    private val screeningDateTime: LocalDateTime by lazy { intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val movieModel: MovieModel = intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel
-        val ticketCount: Int = intent.getIntExtra(TICKET_COUNT_INTENT_KEY, TicketCount.MINIMUM)
         binding.movieNameTextView.text = movieModel.name.value
 
         seatsView.set()
@@ -55,11 +57,6 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun positiveButtonClickEvent(ticketCount: Int) {
-        val movieModel: MovieModel =
-            intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel
-        val screeningDateTime: LocalDateTime =
-            intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
-
         val nextIntent = Intent(this, ReservationResultActivity::class.java)
         val paymentAmountText = binding.paymentAmountTextView.text.toString()
         val paymentAmountString = paymentAmountText.replace(",", "").replace("원", "")
