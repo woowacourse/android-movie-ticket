@@ -33,7 +33,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         findViewById(R.id.table_seat)
     }
     private val seatTable: SeatTable by lazy {
-        SeatTable(seatTableLayout, reservation, ::setButtonEnable, ::setTicket)
+        SeatTable(seatTableLayout, reservation.ticketCount, ::setButtonEnable, ::setTicket)
     }
 
     private val okButton: Button by lazy {

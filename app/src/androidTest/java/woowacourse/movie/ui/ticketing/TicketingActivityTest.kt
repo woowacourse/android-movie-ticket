@@ -66,7 +66,7 @@ class TicketingActivityTest {
             .performClick()
 
         onView(withId(R.id.tv_ticket_count))
-            .checkMatches(withText("1"))
+            .checkMatches(withText("2"))
     }
 
     @Test

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.core.view.children
 import com.woowacourse.movie.domain.seat.Rank
 import woowacourse.movie.R
-import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.mapper.seat.toSeatPosition
 import woowacourse.movie.model.seat.ColUI
@@ -17,7 +16,7 @@ import woowacourse.movie.model.seat.SeatPositionUI
 
 class SeatTable(
     value: TableLayout,
-    private val reservation: ReservationUI,
+    private val ticketCount: TicketCountUI,
     val setButtonEnabled: (Boolean) -> Unit,
     val setTicket: (SeatPositionUI) -> Unit
 ) {
@@ -26,7 +25,7 @@ class SeatTable(
             .filterIsInstance<TableRow>()
             .map { it.children.filterIsInstance<TextView>().toList() }.toList()
 
-    private var selectedCount = TicketCountUI()
+    private val seat = mutableSetOf<SeatPositionUI>()
 
     init {
         initSeatTable()
@@ -70,7 +69,7 @@ class SeatTable(
                 setButtonEnabled(false)
             }
             else -> {
-                if (selectedCount != reservation.ticketCount) {
+                if (seat.size != ticketCount.count) {
                     setSeatPosition(seatPosition)
                 }
             }
@@ -79,10 +78,13 @@ class SeatTable(
 
     fun setSeatPosition(seatPosition: SeatPositionUI) {
         with(seatView[seatPosition.row.x][seatPosition.col.y]) {
-            selectedCount = if (isSelected) selectedCount.decreaseTicketCount() else selectedCount.increaseTicketCount()
+            if (isSelected)
+                seat.remove(seatPosition)
+            else
+                seat.add(seatPosition)
             isSelected = !isSelected
             setTicket(seatPosition)
-            if (selectedCount == reservation.ticketCount) {
+            if (seat.size == ticketCount.count) {
                 setButtonEnabled(true)
             }
         }

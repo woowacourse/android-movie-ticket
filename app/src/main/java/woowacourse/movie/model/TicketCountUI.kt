@@ -12,6 +12,6 @@ value class TicketCountUI(val count: Int = MIN_TICKET_COUNT) : Parcelable {
     fun increaseTicketCount(): TicketCountUI = toTicketCount().inc().toTicketCountUI()
 
     companion object {
-        private const val MIN_TICKET_COUNT = 0
+        private const val MIN_TICKET_COUNT = 1
     }
 }
