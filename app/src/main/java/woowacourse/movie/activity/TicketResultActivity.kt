@@ -30,7 +30,7 @@ class TicketResultActivity : BaseActivity() {
             getString(
                 R.string.count_seat_info,
                 ticketModel.reservationInfoModel.count,
-                ticketModel.seats.joinToString(", ") { it.row + it.column }
+                ticketModel.seats.joinToString { it.row + it.column }
             )
         )
         InitView.initTextView(

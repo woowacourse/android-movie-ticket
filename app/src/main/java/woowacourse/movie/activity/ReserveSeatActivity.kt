@@ -27,7 +27,8 @@ class ReserveSeatActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserve_seat)
 
-        val reservationInfoModel: ReservationInfoModel = intent.customGetSerializable(RESERVATION_INFO_KEY)
+        val reservationInfoModel: ReservationInfoModel =
+            intent.customGetSerializable(RESERVATION_INFO_KEY)
         initTicketInfoView(reservationInfoModel.title)
         initSeatViews(reservationInfoModel)
         val reserveButton = findViewById<Button>(R.id.btn_reserve)
@@ -86,7 +87,7 @@ class ReserveSeatActivity : BaseActivity() {
         }
         return if (checkReserveAvailable(selectCount, goalCount)) selectCount
         else {
-            setBackgroundColor(Color.parseColor(SELECTED_SEAT_COLOR))
+            setBackgroundColor(getColor(R.color.selected_seat_color))
             isSelected = true
             priceTextView.text = currentPrice.plus(price).toString()
             selectCount.plus(1)
@@ -155,6 +156,5 @@ class ReserveSeatActivity : BaseActivity() {
         private const val RESERVATION_INFO_KEY = "reservationInfo"
         private const val TICKET_KEY = "ticket"
         const val COLUMN_COUNT = 4
-        private const val SELECTED_SEAT_COLOR = "#FAFF00"
     }
 }
