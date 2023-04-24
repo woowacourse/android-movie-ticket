@@ -56,17 +56,7 @@ class SeatsView(
             seats.add(mutableListOf())
 
             for (col in Column.MINIMUM..Column.MAXIMUM) {
-                val textView = TextView(context)
-                textView.layoutParams = TableRow.LayoutParams(
-                    TableRow.LayoutParams.MATCH_PARENT, 180, 1f
-                )
-
-                textView.text = context.getString(R.string.seat_name_form).format(row, col)
-                textView.textSize = context.resources.getDimension(R.dimen.text_very_small)
-                textView.setBackgroundColor(context.getColor(R.color.not_selected_seat_color))
-                getSeatColorID(Seat.getSeatType(row)).let { if (it != null) textView.setTextColor(it) }
-                textView.gravity = Gravity.CENTER
-
+                val textView: TextView = createSeatView(row, col)
                 seats[Row.toNumber(row)].add(textView)
                 tableRow.addView(textView)
             }
@@ -77,11 +67,16 @@ class SeatsView(
         return seats
     }
 
-    private fun getSeatColorID(seatType: SeatType?): Int? = when (seatType) {
-        SeatType.S -> context.getColor(R.color.seat_s)
-        SeatType.A -> context.getColor(R.color.seat_a)
-        SeatType.B -> context.getColor(R.color.seat_b)
-        else -> null
+    private fun createSeatView(row: Char, col: Int): TextView {
+        val textView = TextView(context)
+        textView.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 180, 1f)
+
+        textView.text = context.getString(R.string.seat_name_form).format(row, col)
+        textView.textSize = context.resources.getDimension(R.dimen.text_very_small)
+        textView.setSeatColor(row)
+        textView.gravity = Gravity.CENTER
+
+        return textView
     }
 
     private fun setSeatSelectEvent() {
@@ -142,5 +137,17 @@ class SeatsView(
         binding.paymentAmountTextView.text =
             context.getString(R.string.payment_amount_form)
                 .format(DecimalFormat("#,###").format(paymentAmount.value))
+    }
+
+    private fun TextView.setSeatColor(row: Char) {
+        this.setBackgroundColor(context.getColor(R.color.not_selected_seat_color))
+        this.setTextColor(getSeatColorID(Seat.getSeatType(row)))
+    }
+
+    private fun getSeatColorID(seatType: SeatType): Int = when (seatType) {
+        SeatType.S -> context.getColor(R.color.seat_s)
+        SeatType.A -> context.getColor(R.color.seat_a)
+        SeatType.B -> context.getColor(R.color.seat_b)
+        else -> throw IllegalArgumentException()
     }
 }
