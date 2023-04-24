@@ -1,5 +1,7 @@
 package woowacourse.movie.domain.model.tools.seat
 
+import woowacourse.movie.domain.model.rules.SeatGradeRules
+
 class Theater(private val seats: Map<Location, SeatGrade>) {
 
     fun getSeatGrade(location: Location) = seats[location]
@@ -9,7 +11,7 @@ class Theater(private val seats: Map<Location, SeatGrade>) {
             val locations = rows.flatMap { seatRow ->
                 setLocation(seatRow, columns)
             }
-            val seats = locations.associateWith { SeatGrade.from(it) }
+            val seats = locations.associateWith { SeatGradeRules.getSeatGradeByRow(it) }
             return Theater(seats)
         }
 
