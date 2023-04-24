@@ -17,6 +17,7 @@ class MovieListActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         val adapter = MovieListAdapter(
+            3,
             DummyData.movies.map { it.toPresentation(R.drawable.img) },
             ::onClick,
         )

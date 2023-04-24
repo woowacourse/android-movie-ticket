@@ -48,7 +48,7 @@ class MovieListActivityTest {
         DummyData.movies.forEachIndexed { index, _ ->
             if (index != 0 && index % 3 == 0) {
                 onView(withId(R.id.recycler_view))
-                    .perform(scrollToPosition<MovieListAdapter.ViewHolder>(index))
+                    .perform(scrollToPosition<MovieListAdapter.MovieItemViewHolder>(index))
                 onView(withId(R.id.img_ad)).check(matches(isDisplayed()))
             }
         }
@@ -58,7 +58,7 @@ class MovieListActivityTest {
     fun 모든_아이템은_제목을_띄운다() {
         dummyDataToPresentation.forEachIndexed { index, movie ->
             onView(withId(R.id.recycler_view))
-                .perform(scrollToPosition<MovieListAdapter.ViewHolder>(index))
+                .perform(scrollToPosition<MovieListAdapter.MovieItemViewHolder>(index))
                 .check(matches(hasDescendant(withText(movie.title))))
         }
     }
@@ -70,7 +70,7 @@ class MovieListActivityTest {
             val text =
                 "상영일: ${formatter.format(movie.startDate)} ~ ${formatter.format(movie.endDate)}"
             onView(withId(R.id.recycler_view))
-                .perform(scrollToPosition<MovieListAdapter.ViewHolder>(index))
+                .perform(scrollToPosition<MovieListAdapter.MovieItemViewHolder>(index))
                 .check(matches(hasDescendant(withText(text))))
         }
     }
@@ -80,7 +80,7 @@ class MovieListActivityTest {
         dummyDataToPresentation.forEachIndexed { index, movie ->
             val text = "러닝타임: ${movie.runningTime}분"
             onView(withId(R.id.recycler_view))
-                .perform(scrollToPosition<MovieListAdapter.ViewHolder>(index))
+                .perform(scrollToPosition<MovieListAdapter.MovieItemViewHolder>(index))
                 .check(matches(hasDescendant(withText(text))))
         }
     }
@@ -89,7 +89,7 @@ class MovieListActivityTest {
     fun 예매_버튼을_누르면_상세_액티비티를_띄운다() {
         onView(withId(R.id.recycler_view))
             .perform(
-                actionOnItemAtPosition<MovieListAdapter.ViewHolder>(
+                actionOnItemAtPosition<MovieListAdapter.MovieItemViewHolder>(
                     0,
                     clickChildViewWithId(R.id.btn_reserve),
                 ),

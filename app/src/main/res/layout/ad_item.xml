@@ -12,5 +12,4 @@
         android:adjustViewBounds="true"
         android:src="@drawable/ad"
         />
-    <include layout="@layout/movie_item" />
 </LinearLayout>
