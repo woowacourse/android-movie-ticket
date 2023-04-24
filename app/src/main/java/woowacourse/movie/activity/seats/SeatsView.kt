@@ -5,9 +5,6 @@ import android.content.Intent
 import android.view.Gravity
 import android.widget.TableRow
 import android.widget.TextView
-import discount.Discount
-import discount.EarlyNightDiscount
-import discount.MovieDayDiscount
 import payment.PaymentAmount
 import seat.Column
 import seat.Row
@@ -145,11 +142,8 @@ class SeatsView(
     private fun updatePaymentAmount() {
         val screeningDateTime: LocalDateTime =
             intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
-        val discount: Discount = Discount(MovieDayDiscount(), EarlyNightDiscount())
 
-        val basePaymentAmount: PaymentAmount = PaymentAmount.from(getSelectedSeats())
-        val paymentAmount: PaymentAmount =
-            discount.getPaymentAmountResult(basePaymentAmount, screeningDateTime)
+        val paymentAmount: PaymentAmount = PaymentAmount.from(getSelectedSeats(), screeningDateTime)
 
         binding.paymentAmountTextView.text =
             context.getString(R.string.payment_amount_form)
