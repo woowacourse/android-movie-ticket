@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
@@ -51,3 +52,5 @@ fun ViewInteraction.checkDisplayed(text: String): ViewInteraction =
 
 fun ViewInteraction.checkMatches(matcher: Matcher<View>): ViewInteraction =
     check(matches(matcher))
+
+fun ViewInteraction.performClick(): ViewInteraction = perform(click())
