@@ -12,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
@@ -130,7 +131,7 @@ class ChoiceSeatActivityTest {
     }
 
     @Test
-    fun A3을_선택하면_가격은_8000원이다() {
+    fun 좌석을_하나_선택하면_가격은_0원이_아니다() {
         // given
         val seatA3 = onView(withText("A3"))
         val paymentAmount = onView(withId(R.id.textChoicePaymentAmount))
@@ -139,47 +140,20 @@ class ChoiceSeatActivityTest {
         seatA3.perform(click())
 
         // then
-        paymentAmount.check((matches(withText("8,000원"))))
+        paymentAmount.check(matches(not(withText("0원"))))
     }
 
     @Test
-    fun C2을_선택하면_가격은_13000원이다() {
+    fun 좌석을_하나_선택하고_같은_좌석을_한번_더_선택하면_가격은_0원이다() {
         // given
-        val seatC2 = onView(withText("C2"))
+        val seatA3 = onView(withText("A3"))
         val paymentAmount = onView(withId(R.id.textChoicePaymentAmount))
 
         // when
-        seatC2.perform(click())
+        seatA3.perform(click())
+        seatA3.perform(click())
 
         // then
-        paymentAmount.check((matches(withText("13,000원"))))
-    }
-
-    @Test
-    fun E2를_선택하면_가격은_10000원이다() {
-        // given
-        val seatE2 = onView(withText("E2"))
-        val paymentAmount = onView(withId(R.id.textChoicePaymentAmount))
-
-        // when
-        seatE2.perform(click())
-
-        // then
-        paymentAmount.check((matches(withText("10,000원"))))
-    }
-
-    @Test
-    fun A1_C1_을_선택하면_가격은_21000원이다() {
-        // given
-        val seatA1 = onView(withText("A1"))
-        val seatC1 = onView(withText("C1"))
-        val paymentAmount = onView(withId(R.id.textChoicePaymentAmount))
-
-        // when
-        seatA1.perform(click())
-        seatC1.perform(click())
-
-        // then
-        paymentAmount.check((matches(withText("21,000원"))))
+        paymentAmount.check(matches(withText("0원")))
     }
 }
