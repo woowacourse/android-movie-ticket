@@ -27,12 +27,12 @@ class MovieListAdapter(
             MOVIE_ITEM_VIEW_TYPE -> {
                 val view =
                     LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-                MovieViewHolder(view)
+                MovieViewHolder(view, items, onItemClick)
             }
             AD_ITEM_VIEW_TYPE -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.ad_item, parent, false)
-                AdViewHolder(view)
+                AdViewHolder(view, items, onItemClick)
             }
             else -> throw IllegalArgumentException(VIEW_TYPE_ERROR)
         }
@@ -41,10 +41,10 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         when (holder) {
             is MovieViewHolder -> {
-                holder.bind(items[position], onItemClick)
+                holder.bind(items[position])
             }
             is AdViewHolder -> {
-                holder.bind(items[position], onItemClick)
+                holder.bind(items[position])
             }
         }
     }
