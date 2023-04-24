@@ -12,8 +12,9 @@ import woowacourse.movie.ui.customView.SeatView
 
 class SeatTable(
     root: View,
-    private val maxSelectCount: CountState
-) : Subject {
+    private val maxSelectCount: CountState,
+    private val update: (List<SeatPositionState>) -> Unit
+) {
     private val seats: TableLayout = root.findViewById(R.id.seats)
     val chosenSeatInfo: List<SeatPositionState>
         get() {
@@ -23,8 +24,6 @@ class SeatTable(
                 }
             }
         }
-
-    private val observers: MutableList<Observer> = mutableListOf()
 
     init {
         getAllSeatView().forEachIndexed { _, view ->
@@ -54,7 +53,7 @@ class SeatTable(
         val oldChosenCount = chosenSeatInfo.size
         if (view.isChosen.not() && oldChosenCount >= maxSelectCount.value) return
         view.toggle()
-        notifyObserver(chosenSeatInfo)
+        update(chosenSeatInfo)
     }
 
     fun chosenSeatUpdate(newChosenPositions: List<SeatPositionState>) {
@@ -62,23 +61,11 @@ class SeatTable(
         getAllSeatView().filterIndexed { index, _ ->
             convertIndexToPosition(index) in newChosenPositions
         }.forEach { it.toggle() }
-        notifyObserver(chosenSeatInfo)
+        update(chosenSeatInfo)
     }
 
     private fun clear() {
         getAllSeatView().filter { it.isChosen }.forEach { it.toggle() } // 원본 상태로 되돌림
-    }
-
-    override fun registerObserver(observer: Observer) {
-        observers.add(observer)
-    }
-
-    override fun removeObserver(observer: Observer) {
-        observers.remove(observer)
-    }
-
-    override fun notifyObserver(positionState: List<SeatPositionState>) {
-        observers.forEach { it.updateSelectSeats(positionState) }
     }
 
     companion object {

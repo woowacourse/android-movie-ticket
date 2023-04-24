@@ -20,7 +20,7 @@ import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.keyError
 import woowacourse.movie.util.showAskDialog
 
-class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
+class SeatSelectActivity : BackKeyActionBarActivity() {
     private val discountApplyUseCase = DiscountApplyUseCase()
 
     private val titleTextView: TextView by lazy { findViewById(R.id.reservation_title) }
@@ -28,12 +28,7 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
     private val confirmView: ConfirmView by lazy { findViewById(R.id.reservation_confirm) }
     private lateinit var reservationState: ReservationState
 
-    private val seatTable: SeatTable by lazy {
-        SeatTable(
-            window.decorView.rootView,
-            reservationState.countState
-        )
-    }
+    private lateinit var seatTable: SeatTable
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_seat_select)
@@ -43,9 +38,12 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
 
         titleTextView.text = reservationState.movieState.title
 
-        seatTable.registerObserver(this)
         confirmView.setOnClickListener { navigateShowDialog(seatTable.chosenSeatInfo) }
         confirmView.isClickable = false // 클릭리스너를 설정하면 clickable이 자동으로 참이 되기 때문
+
+        seatTable = SeatTable(window.decorView.rootView, reservationState.countState) {
+            updateSelectSeats(it)
+        }
     }
 
     override fun onRestoreInstanceState(
@@ -85,7 +83,7 @@ class SeatSelectActivity : BackKeyActionBarActivity(), Observer {
         startActivity(intent)
     }
 
-    override fun updateSelectSeats(positionStates: List<SeatPositionState>) {
+    private fun updateSelectSeats(positionStates: List<SeatPositionState>) {
         confirmView.isClickable = (positionStates.size == reservationState.countState.value)
 
         val tickets = TicketsState(
