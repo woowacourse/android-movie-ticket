@@ -16,8 +16,8 @@ import woowacourse.movie.extension.getSerializableMovieDetailOrNull
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.uimodel.MovieDetailUi
 import woowacourse.movie.uimodel.MovieTicketUi
-import woowacourse.movie.utils.SeatUtil
 import woowacourse.movie.utils.toDomain
+import woowacourse.movie.utils.toUi
 
 class MovieSeatActivity : AppCompatActivity() {
 
@@ -88,7 +88,13 @@ class MovieSeatActivity : AppCompatActivity() {
     }
 
     private fun makeMovieTicketUi(): MovieTicketUi {
-        return MovieTicketUi.of(totalPrice, movieDetail.toDomain(), selectedSeats.map { SeatUtil.getSeatPosition(it) })
+        return MovieTicketUi.of(
+            totalPrice,
+            movieDetail.toDomain(),
+            selectedSeats.map { seat ->
+                seat.toUi().getSeatPosition()
+            },
+        )
     }
 
     private fun initListener() {

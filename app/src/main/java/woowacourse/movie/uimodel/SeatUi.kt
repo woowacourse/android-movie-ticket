@@ -1,17 +1,19 @@
-package woowacourse.movie.utils
+package woowacourse.movie.uimodel
 
-import movie.seat.Seat
 import movie.seat.SeatColumn
 import movie.seat.SeatRow
 
-object SeatUtil {
+data class SeatUi(
+    val row: SeatRow,
+    val col: SeatColumn,
+) {
 
-    fun getSeatPosition(seat: Seat): String {
-        return getSeatRow(seat) + getSeatColumn(seat)
+    fun getSeatPosition(): String {
+        return getSeatRow() + getSeatColumn()
     }
 
-    private fun getSeatRow(seat: Seat): String {
-        return when (seat.row) {
+    private fun getSeatRow(): String {
+        return when (row) {
             SeatRow.A -> "A"
             SeatRow.B -> "B"
             SeatRow.C -> "C"
@@ -20,8 +22,8 @@ object SeatUtil {
         }
     }
 
-    private fun getSeatColumn(seat: Seat): String {
-        return when (seat.col) {
+    private fun getSeatColumn(): String {
+        return when (col) {
             SeatColumn.ONE -> "1"
             SeatColumn.TWO -> "2"
             SeatColumn.THREE -> "3"

@@ -10,7 +10,7 @@ import movie.seat.Seat
 import movie.seat.SeatColumn
 import movie.seat.SeatRow
 import woowacourse.movie.R
-import woowacourse.movie.utils.SeatUtil
+import woowacourse.movie.utils.toUi
 
 class MovieSeatView(
     private val seatTableLayout: TableLayout,
@@ -49,7 +49,7 @@ class MovieSeatView(
         val seat = Seat(SeatRow.of(row), SeatColumn.of(col))
 
         return TextView(seatTableLayout.context).apply {
-            text = SeatUtil.getSeatPosition(seat)
+            text = seat.toUi().getSeatPosition()
             setBackgroundResource(R.drawable.select_background)
             gravity = Gravity.CENTER
             layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, TABLE_COL_WEIGHT)
