@@ -33,8 +33,7 @@ class MovieReservationActivity : AppCompatActivity() {
             DateSpinner(
                 findViewById(R.id.movie_reservation_date_spinner),
                 DATE_SPINNER_SAVE_STATE_KEY,
-            ),
-            TimeSpinner(
+            ), TimeSpinner(
                 findViewById(R.id.movie_reservation_time_spinner),
                 TIME_SPINNER_SAVE_STATE_KEY,
             )
@@ -85,12 +84,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun reservationButtonClick(movieUiModel: MovieUiModel) {
         reservationButton.setOnClickListener {
-            val dateTime = TicketDateUiModel(
-                LocalDateTime.of(
-                    movieDateTimePicker.getSelectedDate(),
-                    movieDateTimePicker.getSelectedTime()
-                )
-            )
+            val dateTime = TicketDateUiModel(movieDateTimePicker.getSelectedDateTime())
             val peopleCount = counter.getCount()
             SelectSeatActivity.start(this, peopleCount, dateTime, movieUiModel)
         }
