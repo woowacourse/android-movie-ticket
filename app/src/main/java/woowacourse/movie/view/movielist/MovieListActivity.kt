@@ -22,15 +22,21 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun setUpMovieRecyclerView() {
         val movieRecyclerView = findViewById<RecyclerView>(R.id.movie_recyclerView)
+        val data = DummyData.getItems()
         val movieAdapter = MovieRecyclerAdapter(
-            DummyData.getItems(),
+            data,
             object : MovieRecyclerAdapter.OnClickItem {
-                override fun onClick(movie: MovieUIModel) {
-                    val intent = MovieDetailActivity.newIntent(this@MovieListActivity, movie)
+                override fun onClickMovie(position: Int) {
+                    val intent = MovieDetailActivity.newIntent(this@MovieListActivity, data[position] as MovieUIModel)
                     startActivity(intent)
                 }
-            },
-            ::clickAdvertisement
+
+                override fun onClickAD(position: Int) {
+                    val ad = data[position] as ADData
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ad.url))
+                    startActivity(intent)
+                }
+            }
         )
 
         movieRecyclerView.layoutManager = LinearLayoutManager(this)

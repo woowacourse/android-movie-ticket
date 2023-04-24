@@ -7,9 +7,8 @@ import woowacourse.movie.R
 import woowacourse.movie.view.viewmodel.MovieListData.ADData
 
 class ADHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val ad = view.findViewById<ImageView>(R.id.advertisement)
-    fun bind(adData: ADData, onClickListener: (ADData) -> Unit) {
+    val ad: ImageView = view.findViewById(R.id.advertisement)
+    fun bind(adData: ADData) {
         ad.setBackgroundResource(adData.id)
-        ad.setOnClickListener { onClickListener(adData) }
     }
 }

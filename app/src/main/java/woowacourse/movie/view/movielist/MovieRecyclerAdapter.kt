@@ -10,21 +10,30 @@ import woowacourse.movie.view.viewmodel.MovieUIModel
 
 class MovieRecyclerAdapter(
     private val listData: List<MovieListData>,
-    private val onBookListener: OnClickItem,
-    private val onClick: (ADData) -> Unit
+    private val onClick: OnClickItem
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface OnClickItem {
-        fun onClick(movie: MovieUIModel)
+        fun onClickMovie(position: Int)
+        fun onClickAD(position: Int)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         val layoutInflater = LayoutInflater.from(viewGroup.context)
         return if (viewType == MOVIE_TYPE) {
-            MovieViewHolder(layoutInflater.inflate(R.layout.movie_item, viewGroup, false))
+            val movieHolder =
+                MovieViewHolder(layoutInflater.inflate(R.layout.movie_item, viewGroup, false))
+            movieHolder.apply {
+                bookBtn.setOnClickListener {
+                    onClick.onClickMovie(adapterPosition)
+                }
+            }
         } else {
-            ADHolder(layoutInflater.inflate(R.layout.advertisement, viewGroup, false))
+            val adHoler = ADHolder(layoutInflater.inflate(R.layout.advertisement, viewGroup, false))
+            adHoler.apply {
+                ad.setOnClickListener { onClick.onClickAD(adapterPosition) }
+            }
         }
     }
 
@@ -39,9 +48,9 @@ class MovieRecyclerAdapter(
         val item = listData[position]
 
         if (holder is MovieViewHolder) {
-            holder.bind(item as MovieUIModel, onBookListener)
+            holder.bind(item as MovieUIModel)
         } else if (holder is ADHolder) {
-            holder.bind(item as ADData, onClick)
+            holder.bind(item as ADData)
         }
     }
 

@@ -15,11 +15,11 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val movieTitleView: TextView = view.findViewById(R.id.movie_title)
     private val screeningDateView: TextView = view.findViewById(R.id.movieList_screening_date)
     private val runningTimeView: TextView = view.findViewById(R.id.movieList_running_time)
-    private val bookBtn: Button = view.findViewById(R.id.book_button)
+    val bookBtn: Button = view.findViewById(R.id.book_button)
 
     private val context: Context = moviePosterView.context
 
-    fun bind(item: MovieUIModel, onClickItem: MovieRecyclerAdapter.OnClickItem) {
+    fun bind(item: MovieUIModel) {
         with(item) {
             moviePosterView.setImageResource(moviePoster)
             movieTitleView.text = title
@@ -27,9 +27,6 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val endDate = endDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.date_format)))
             screeningDateView.text = context.getString(R.string.screen_date, startDate, endDate)
             runningTimeView.text = context.getString(R.string.running_time, item.runningTime)
-            bookBtn.setOnClickListener {
-                onClickItem.onClick(item)
-            }
         }
     }
 }
