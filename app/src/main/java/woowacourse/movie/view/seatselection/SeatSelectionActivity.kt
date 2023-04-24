@@ -9,7 +9,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
 import com.example.domain.Ticket
-import com.example.domain.seat.indexToPosition
+import com.example.domain.seat.SeatInfo
 import woowacourse.movie.R
 import woowacourse.movie.view.BaseActivity
 import woowacourse.movie.view.TicketActivity
@@ -26,33 +26,51 @@ class SeatSelectionActivity : BaseActivity() {
         val selectedDate = intent.getSerializableExtra(DATE_KEY) as LocalDateTime
         val selectedNumberOfPeople = intent.getIntExtra(NUMBER_OF_PEOPLE_KEY, 0)
         val movieUI = intent.getSerializableExtra(MOVIE_KEY) as MovieUIModel
-
         findViewById<TextView>(R.id.seat_selection_title).text = movieUI.title
+
         val price = findViewById<TextView>(R.id.seat_selection_price)
         val goToTicketBtn = findViewById<Button>(R.id.seat_selection_check)
+
+        price.text = this.getString(R.string.price, 0)
+        val seatInfo = SeatInfo(selectedDate)
+        setSeatView(seatInfo, price, goToTicketBtn, selectedNumberOfPeople)
+        clickCheckButton(goToTicketBtn, seatInfo, selectedDate, movieUI)
+    }
+
+    private fun clickCheckButton(goToTicketBtn: Button, seatInfo: SeatInfo, selectedDate: LocalDateTime, movieUI: MovieUIModel) {
+        goToTicketBtn.setOnClickListener {
+            val seats = seatInfo.getSelectedSeats()
+            val ticket = Ticket(seatInfo.priceNum, selectedDate, seatInfo.countPeople, seats)
+            checkAgain(ticket, movieUI)
+        }
+    }
+
+    private fun setSeatView(
+        seatState: SeatInfo,
+        price: TextView,
+        goToTicketBtn: Button,
+        selectedNumberOfPeople: Int
+    ) {
         val seatsView = findViewById<TableLayout>(R.id.seat_selection)
             .children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
             .filterIsInstance<TextView>().toList()
 
-        price.text = this.getString(R.string.price, 0)
-        val seatState = SeatState(selectedDate)
-
         seatsView.forEachIndexed { index, view ->
             view.setOnClickListener {
-                seatState.setSeatState(index, view, this)
+                val isSelected = seatState.setSeatState(index)
+                view.setBackgroundColor(getColorSeat(isSelected))
                 price.text = getString(R.string.price, seatState.priceNum)
-
                 goToTicketBtn.isEnabled = (selectedNumberOfPeople == seatState.countPeople)
             }
         }
+    }
 
-        goToTicketBtn.setOnClickListener {
-            val seats = seatsView.withIndex().filter { it.value.isSelected }.map { indexToPosition(it.index) }
-            val ticket = Ticket(seatState.priceNum, selectedDate, seatState.countPeople, seats)
-            checkAgain(ticket, movieUI)
-        }
+    private fun getColorSeat(isSelected: Boolean): Int {
+        if (isSelected)
+            return getColor(R.color.seat_select_state)
+        return getColor(R.color.white)
     }
 
     private fun checkAgain(ticket: Ticket, movieUI: MovieUIModel) {

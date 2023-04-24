@@ -29,4 +29,10 @@ class SeatInfo(
             true
         }
     }
+
+    fun getSelectedSeats(): List<SeatPosition> {
+        return seats.filter {
+            it.value.isSelected
+        }.map { it.key }
+    }
 }
