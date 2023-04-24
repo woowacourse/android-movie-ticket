@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import woowacourse.movie.R
@@ -108,11 +109,27 @@ class SeatActivity : AppCompatActivity() {
 
     private fun clickConfirmButton() {
         buttonConfirm.setOnClickListener {
-            val tickets: List<Ticket> =
-                selectedSeat.seats.map { movie.reserve(bookedMovie.bookedDateTime, it) }
-            val reservation = Reservation(tickets.toSet()).toUiModel()
-            startActivity(CompletedActivity.getIntent(this, reservation))
+            showDialog()
         }
+    }
+
+    private fun completeBooking() {
+        val tickets: List<Ticket> =
+            selectedSeat.seats.map { movie.reserve(bookedMovie.bookedDateTime, it) }
+        val reservation = Reservation(tickets.toSet()).toUiModel()
+        startActivity(CompletedActivity.getIntent(this, reservation))
+        finish()
+    }
+
+    private fun showDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("예매 확인")
+            .setMessage("정말 예매하시겠습니까?")
+            .setPositiveButton("예") { _, _ -> completeBooking() }
+            .setNegativeButton("아니요") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun setPayment(seats: Set<Seat>) {
