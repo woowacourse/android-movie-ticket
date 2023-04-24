@@ -22,16 +22,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        makeMovieList()
+        makeMovieRecyclerView()
     }
 
-    private fun makeMovieList() {
+    private fun makeMovieRecyclerView() {
         val movies = List(2500) { MovieMock.createMovies() }.flatten()
         val advertisementDatas = AdvertisementMock.createAdvertisements()
         val advertisementPolicy = MovieAdvertisementPolicy(3, 1)
 
-        val movieList = findViewById<RecyclerView>(R.id.main_movie_list)
-        movieList.adapter =
+        val movieRecyclerView = findViewById<RecyclerView>(R.id.main_movie_list)
+        movieRecyclerView.adapter =
             MovieAdapter(
                 makeMovieListViewData(movies, advertisementDatas, advertisementPolicy),
                 ::onClickItem
