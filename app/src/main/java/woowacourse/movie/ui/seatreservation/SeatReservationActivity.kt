@@ -42,7 +42,7 @@ class SeatReservationActivity : AppCompatActivity() {
         val seatReservationDialog = SeatReservationDialog()
 
         checkButton.setOnClickListener {
-            seatReservationDialog.init(this)
+            seatReservationDialog.init(this@SeatReservationActivity)
         }
     }
 

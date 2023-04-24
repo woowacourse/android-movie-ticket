@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.ui.completed.CompletedActivity
+import woowacourse.movie.ui.seatreservation.SeatReservationActivity
 
 class SeatReservationDialog {
 
@@ -23,12 +24,12 @@ class SeatReservationDialog {
     }
 
     private fun setEventOnPositiveButton(context: Context) {
-        context.startActivity(
-            Intent(
-                context,
-                CompletedActivity::class.java,
-            ),
-        )
+        val intentToCompletedActivity = Intent(context, CompletedActivity::class.java)
+
+        context.apply {
+            startActivity(intentToCompletedActivity)
+            (this as SeatReservationActivity).finish()
+        }
     }
 
     private fun setEventOnNegativeButton(dialog: DialogInterface) {

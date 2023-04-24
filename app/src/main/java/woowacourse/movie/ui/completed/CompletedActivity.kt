@@ -2,7 +2,6 @@ package woowacourse.movie.ui.completed
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -17,15 +16,15 @@ class CompletedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_completed)
 
-        val ticket: Ticket = getTicket()
-        initView(ticket)
+        //   val ticket: Ticket = getTicket()
+        //  initView(ticket)
     }
 
-    private fun getTicket() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getParcelableExtra(TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
-    } else {
-        intent.getParcelableExtra(TICKET) ?: throw IllegalArgumentException()
-    }
+//    private fun getTicket() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//        intent.getParcelableExtra(TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
+//    } else {
+//        intent.getParcelableExtra(TICKET) ?: throw IllegalArgumentException()
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
