@@ -11,7 +11,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-private val intent = Intent(
+val intent = Intent(
     ApplicationProvider.getApplicationContext(),
     ScreeningSeatSelectionActivity::class.java
 )

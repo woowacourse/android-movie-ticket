@@ -8,9 +8,15 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import domain.seat.ScreeningSeat
+import domain.seat.SeatColumn
+import domain.seat.SeatRate
+import domain.seat.SeatRow
 import junit.framework.TestCase.assertTrue
 import org.hamcrest.Matchers.not
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
 class SeatSelectionActivityTest {
 
@@ -93,5 +99,33 @@ class SeatSelectionActivityTest {
 
         // then
         paymentAmount.check(matches(withText("22000")))
+    }
+}
+
+@RunWith(Parameterized::class)
+class SeatSelectionParameterizedTest(private val seatData: ScreeningSeat) {
+    @Test
+    fun `특정_등급의_좌석을_선택하면_해당_좌석_등급의_금액으로_갱신된다`() {
+        startTest(SeatSelectionInfo(seatCount = 1))
+        // given
+        val seat = onView(withText(seatData.toText()))
+
+        // when
+        seat.perform(click())
+        val paymentAmount =
+            onView(withId(R.id.seat_selection_payment_amount_text))
+
+        // then
+        paymentAmount.check(matches(withText(seatData.paymentAmount.value.toString())))
+    }
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters
+        fun data(): List<ScreeningSeat> = listOf(
+            ScreeningSeat(SeatRow.A, SeatColumn.FIRST, SeatRate.B),
+            ScreeningSeat(SeatRow.C, SeatColumn.FIRST, SeatRate.S),
+            ScreeningSeat(SeatRow.E, SeatColumn.FIRST, SeatRate.A)
+        )
     }
 }
