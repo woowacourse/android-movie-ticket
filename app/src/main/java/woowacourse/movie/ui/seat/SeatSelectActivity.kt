@@ -67,10 +67,10 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
 
     private fun navigateShowDialog(seats: List<SeatPositionState>) {
         showAskDialog(
-            R.string.reservation_confirm,
-            R.string.ask_really_reservation,
-            R.string.reservation_cancel,
-            R.string.reservation_complete
+            titleId = R.string.reservation_confirm,
+            messageId = R.string.ask_really_reservation,
+            negativeStringId = R.string.reservation_cancel,
+            positiveStringId = R.string.reservation_complete
         ) {
             navigateReservationConfirmActivity(seats)
         }
