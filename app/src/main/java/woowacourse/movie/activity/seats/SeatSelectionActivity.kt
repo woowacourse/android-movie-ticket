@@ -9,6 +9,8 @@ import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.domain.payment.PaymentAmount
 import woowacourse.movie.domain.reservation.TicketCount
+import woowacourse.movie.domain.seat.Column
+import woowacourse.movie.domain.seat.Row
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel
@@ -21,7 +23,7 @@ import java.time.LocalDateTime
 class SeatSelectionActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySeatSelectionBinding.inflate(layoutInflater) }
-    private val seatsView by lazy { SeatsView(binding, ticketCount, screeningDateTime) }
+    private val seatsView by lazy { SeatsView(binding, seatsRowRange, seatsColumnRange, ticketCount, screeningDateTime) }
 
     private val movieModel by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel }
     private val ticketCount by lazy { intent.getIntExtra(TICKET_COUNT_INTENT_KEY, TicketCount.MINIMUM) }
@@ -73,5 +75,10 @@ class SeatSelectionActivity : AppCompatActivity() {
         nextIntent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
         startActivity(nextIntent)
         finish()
+    }
+
+    companion object {
+        val seatsRowRange: CharRange = Row.MINIMUM..Row.MAXIMUM
+        val seatsColumnRange: IntRange = Column.MINIMUM..Column.MAXIMUM
     }
 }

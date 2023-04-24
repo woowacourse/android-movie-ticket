@@ -16,6 +16,8 @@ import java.time.LocalDateTime
 
 class SeatsView(
     private val binding: ActivitySeatSelectionBinding,
+    private val seatsRowRange: CharRange,
+    private val seatsColumnRange: IntRange,
     private val ticketCount: Int,
     private val screeningDateTime: LocalDateTime
 ) {
@@ -46,14 +48,14 @@ class SeatsView(
     private fun createSeatViews(): List<List<TextView>> {
         val seats: MutableList<MutableList<TextView>> = mutableListOf()
 
-        for (row in Row.MINIMUM..Row.MAXIMUM) {
+        for (row in seatsRowRange) {
             val tableRow = TableRow(context)
             tableRow.layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT, 180, 1f
             )
             seats.add(mutableListOf())
 
-            for (col in Column.MINIMUM..Column.MAXIMUM) {
+            for (col in seatsColumnRange) {
                 val textView: TextView = createSeatView(row, col)
                 seats[Row.toNumber(row)].add(textView)
                 tableRow.addView(textView)
