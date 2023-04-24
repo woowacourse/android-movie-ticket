@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.fomatter.DateFormatter
 import woowacourse.movie.model.MovieAndAd
 
 class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,8 +20,8 @@ class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(movie: MovieAndAd.Movie) {
         image.setImageResource(movie.imgResourceId)
         title.text = movie.title
-        startDate.text = movie.startDate.format(MovieAdapter.DATE_TIME_FORMATTER)
-        endDate.text = movie.endDate.format(MovieAdapter.DATE_TIME_FORMATTER)
+        startDate.text = DateFormatter().active(movie.startDate)
+        endDate.text = DateFormatter().active(movie.endDate)
         time.text = movie.runningTime.value.toString()
     }
 }

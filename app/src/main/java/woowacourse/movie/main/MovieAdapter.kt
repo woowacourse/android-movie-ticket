@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieAndAd
-import java.time.format.DateTimeFormatter
 
 class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -57,7 +56,6 @@ class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVie
     }
 
     companion object {
-        val DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.M.d")
         private const val MOVIE_TYPE = 0
         private const val AD_TYPE = 1
     }
