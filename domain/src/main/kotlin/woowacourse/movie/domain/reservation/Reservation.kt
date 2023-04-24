@@ -1,9 +1,9 @@
-package reservation
+package woowacourse.movie.domain.reservation
 
-import movie.Movie
-import payment.PaymentAmount
-import payment.PaymentType
-import seat.Seat
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.payment.PaymentAmount
+import woowacourse.movie.domain.payment.PaymentType
+import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDateTime
 
 data class Reservation(

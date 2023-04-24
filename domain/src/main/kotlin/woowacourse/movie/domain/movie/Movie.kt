@@ -1,4 +1,4 @@
-package movie
+package woowacourse.movie.domain.movie
 
 data class Movie(
     val name: Name,

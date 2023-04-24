@@ -1,11 +1,12 @@
 package reservation
 
-import movie.Movie
-import movie.Name
-import movie.ScreeningPeriod
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import payment.PaymentAmount
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.movie.Name
+import woowacourse.movie.domain.movie.ScreeningPeriod
+import woowacourse.movie.domain.payment.PaymentAmount
+import woowacourse.movie.domain.reservation.Reservation
 import java.time.LocalDate
 import java.time.LocalDateTime
 

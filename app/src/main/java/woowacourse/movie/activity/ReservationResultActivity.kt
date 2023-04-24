@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationResultBinding
+import woowacourse.movie.domain.payment.PaymentType
 import woowacourse.movie.uimodel.ReservationModel
 import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_KEY
 import java.text.DecimalFormat
@@ -46,8 +47,8 @@ class ReservationResultActivity : AppCompatActivity() {
         )
     }
 
-    private fun getPaymentTypeString(paymentType: payment.PaymentType): String =
+    private fun getPaymentTypeString(paymentType: PaymentType): String =
         when (paymentType) {
-            payment.PaymentType.LOCAL_PAYMENT -> getString(R.string.payment_type_local_text)
+            PaymentType.LOCAL_PAYMENT -> getString(R.string.payment_type_local_text)
         }
 }

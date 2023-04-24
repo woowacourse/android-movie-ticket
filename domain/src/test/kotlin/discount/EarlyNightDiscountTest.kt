@@ -3,7 +3,8 @@ package discount
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import payment.PaymentAmount
+import woowacourse.movie.domain.discount.EarlyNightDiscount
+import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 internal class EarlyNightDiscountTest {
@@ -29,12 +30,12 @@ internal class EarlyNightDiscountTest {
 
     @Test
     fun `11시_이전인_경우_2000원_할인이_적용된다`() {
-        val paymentAmount = payment.PaymentAmount(13000)
+        val paymentAmount = PaymentAmount(13000)
         val resultDiscountedPaymentAmount = earlyNightDiscount.getPaymentAmountResult(
             paymentAmount,
             LocalDateTime.of(2023, 4, 13, 10, 59)
         )
-        val expectedDiscountedPaymentAmount = payment.PaymentAmount(11000)
+        val expectedDiscountedPaymentAmount = PaymentAmount(11000)
 
         assertThat(resultDiscountedPaymentAmount).isEqualTo(expectedDiscountedPaymentAmount)
     }

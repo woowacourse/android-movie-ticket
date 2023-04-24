@@ -1,9 +1,9 @@
-package payment
+package woowacourse.movie.domain.payment
 
-import discount.Discount
-import discount.EarlyNightDiscount
-import discount.MovieDayDiscount
-import seat.Seat
+import woowacourse.movie.domain.discount.Discount
+import woowacourse.movie.domain.discount.EarlyNightDiscount
+import woowacourse.movie.domain.discount.MovieDayDiscount
+import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDateTime
 
 @JvmInline

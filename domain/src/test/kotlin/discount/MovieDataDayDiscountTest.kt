@@ -3,7 +3,8 @@ package discount
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import payment.PaymentAmount
+import woowacourse.movie.domain.discount.MovieDayDiscount
+import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 internal class MovieDataDayDiscountTest {
@@ -51,7 +52,7 @@ internal class MovieDataDayDiscountTest {
 
     @Test
     fun `10일_20일_30일이_아닌_경우_할인이_적용되지_않는다`() {
-        val paymentAmount = payment.PaymentAmount(13000)
+        val paymentAmount = PaymentAmount(13000)
         val resultDiscountedPaymentAmount = movieDayDiscount.getPaymentAmountResult(
             paymentAmount,
             LocalDateTime.of(2023, 4, 13, 15, 0)

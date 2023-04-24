@@ -1,4 +1,4 @@
-package seat
+package woowacourse.movie.domain.seat
 
 data class Seat(
     val row: Row,

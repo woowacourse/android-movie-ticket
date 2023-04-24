@@ -3,13 +3,14 @@ package woowacourse.movie.activity.movieinformation
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationBinding
+import woowacourse.movie.domain.reservation.TicketCount
 
 class TicketCountSelectorView(
     private val binding: ActivityReservationBinding
 ) {
 
     fun set() {
-        binding.ticketCountTextView.text = reservation.TicketCount.MINIMUM.toString()
+        binding.ticketCountTextView.text = TicketCount.MINIMUM.toString()
         binding.ticketCountMinusButton.setOnClickListener { ticketCountMinusButtonClickEvent() }
         binding.ticketCountPlusButton.setOnClickListener { ticketCountPlusButtonClickEvent() }
     }
@@ -17,13 +18,13 @@ class TicketCountSelectorView(
     private fun ticketCountMinusButtonClickEvent() {
         runCatching {
             val ticketCount =
-                reservation.TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
+                TicketCount(binding.ticketCountTextView.text.toString().toInt() - 1)
             binding.ticketCountTextView.text = ticketCount.value.toString()
         }.onFailure {
             val ticketCountConditionMessage =
                 binding.root.context
                     .getString(R.string.ticket_count_condition_message_form)
-                    .format(reservation.TicketCount.MINIMUM)
+                    .format(TicketCount.MINIMUM)
             Toast.makeText(
                 binding.root.context,
                 ticketCountConditionMessage,
@@ -34,7 +35,7 @@ class TicketCountSelectorView(
 
     private fun ticketCountPlusButtonClickEvent() {
         val ticketCount =
-            reservation.TicketCount(binding.ticketCountTextView.text.toString().toInt() + 1)
+            TicketCount(binding.ticketCountTextView.text.toString().toInt() + 1)
         binding.ticketCountTextView.text = ticketCount.value.toString()
     }
 }

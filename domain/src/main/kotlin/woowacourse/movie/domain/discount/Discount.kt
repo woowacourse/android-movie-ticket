@@ -1,6 +1,6 @@
-package discount
+package woowacourse.movie.domain.discount
 
-import payment.PaymentAmount
+import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 class Discount(

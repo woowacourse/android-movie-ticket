@@ -1,4 +1,4 @@
-package seat
+package woowacourse.movie.domain.seat
 
 @JvmInline
 value class Row(val value: Char) {

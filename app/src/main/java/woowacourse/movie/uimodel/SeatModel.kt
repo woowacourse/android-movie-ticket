@@ -1,7 +1,7 @@
 package woowacourse.movie.uimodel
 
-import seat.Row
-import seat.SeatType
+import woowacourse.movie.domain.seat.Row
+import woowacourse.movie.domain.seat.SeatType
 import java.io.Serializable
 
 data class SeatModel(

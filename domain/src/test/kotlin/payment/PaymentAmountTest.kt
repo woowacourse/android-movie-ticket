@@ -3,6 +3,7 @@ package payment
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
+import woowacourse.movie.domain.payment.PaymentAmount
 
 class PaymentAmountTest {
 

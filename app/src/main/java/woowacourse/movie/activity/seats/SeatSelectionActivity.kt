@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import payment.PaymentAmount
-import reservation.TicketCount
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
+import woowacourse.movie.domain.payment.PaymentAmount
+import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel

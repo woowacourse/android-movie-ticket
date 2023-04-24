@@ -1,4 +1,4 @@
-package reservation
+package woowacourse.movie.domain.reservation
 
 @JvmInline
 value class TicketCount(val value: Int) {

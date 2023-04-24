@@ -3,7 +3,10 @@ package discount
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import payment.PaymentAmount
+import woowacourse.movie.domain.discount.Discount
+import woowacourse.movie.domain.discount.EarlyNightDiscount
+import woowacourse.movie.domain.discount.MovieDayDiscount
+import woowacourse.movie.domain.payment.PaymentAmount
 import java.time.LocalDateTime
 
 internal class DiscountTest {

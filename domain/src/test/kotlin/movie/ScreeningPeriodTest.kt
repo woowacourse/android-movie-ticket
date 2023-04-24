@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
+import woowacourse.movie.domain.movie.ScreeningPeriod
 import java.time.LocalDate
 import java.time.LocalTime
 

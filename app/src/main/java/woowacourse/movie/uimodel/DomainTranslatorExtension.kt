@@ -1,8 +1,8 @@
 package woowacourse.movie.uimodel
 
-import movie.Movie
-import reservation.Reservation
-import seat.Seat
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.reservation.Reservation
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.item.ItemType
 import woowacourse.movie.item.MovieItem
 
