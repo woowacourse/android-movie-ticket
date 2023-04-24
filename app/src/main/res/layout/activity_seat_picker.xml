@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/seat_picker_background"
+    tools:context=".activity.SeatPickerActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="@color/screen_background"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="@string/screen"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tl_seats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="A1" />
+        </TableRow>
+
+
+    </TableLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bt_seat_picker_done"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bt_seat_picker_done">
+
+        <TextView
+            android:id="@+id/tv_seat_picker_movie"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:includeFontPadding="false"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="해리포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/tv_seat_picker_ticket_price"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:includeFontPadding="false"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/ticket_price_init_value" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/bt_seat_picker_done"
+        android:layout_width="88dp"
+        android:layout_height="77dp"
+        android:background="@color/color_seat_picker"
+        android:text="@string/seat_picker_done_button"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="확인" />
+</androidx.constraintlayout.widget.ConstraintLayout>

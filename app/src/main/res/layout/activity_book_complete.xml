@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookCompleteActivity">
+    tools:context=".activity.BookCompleteActivity">
 
     <TextView
         android:id="@+id/tv_book_complete"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
         android:background="@color/book_complete_info_background"
@@ -33,7 +33,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_book_complete" />
+        app:layout_constraintTop_toBottomOf="@id/tv_book_complete" />
 
     <TextView
         android:id="@+id/tv_book_date"

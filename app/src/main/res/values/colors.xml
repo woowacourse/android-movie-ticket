@@ -9,4 +9,14 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="book_complete_info_background">#9160f9</color>
+    <color name="screen_background">#494949</color>
+    <color name="seat_picker_background">#EAEAEA</color>
+    <color name="seat_picker_button_disable">#B7B7B7</color>
+    <color name="seat_picker_button_able">#6200EE</color>
+    <color name="seat_color_b">#8E13EF</color>
+    <color name="seat_color_a">#1B48E9</color>
+    <color name="seat_color_s">#19D358</color>
+    <color name="picked_seat_color">#FAFF00</color>
+    <color name="unpicked_seat_color">#FFFFFF</color>
+
 </resources>

@@ -12,13 +12,16 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".BookCompleteActivity"
+            android:name=".activity.SeatPickerActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieDetailActivity"
+            android:name=".activity.BookCompleteActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MovieDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
