@@ -24,10 +24,14 @@ class TicketOfficeTest {
     @Test
     internal fun `티켓을 삭제할 수 있다`() {
         // given
-        val ticketOffice = TicketOffice(tickets = Tickets(listOf()), peopleCount = 3)
+        val ticketOffice = TicketOffice(
+            tickets = Tickets(
+                listOf(
+                    makeTestTicket(3, 3), makeTestTicket(3, 4)
+                ),
+            ), peopleCount = 3
+        )
         // when
-        ticketOffice.addTicket(makeTestTicket(3, 3))
-        ticketOffice.addTicket(makeTestTicket(3, 4))
         ticketOffice.deleteTicket(makeTestTicket(3, 4))
         val actual = ticketOffice.tickets.list.size
         // then
@@ -38,10 +42,15 @@ class TicketOfficeTest {
     @Test
     internal fun `티켓 개수가 사람 수보다 적으면 true 이다`() {
         // given
-        val ticketOffice = TicketOffice(tickets = Tickets(listOf()), peopleCount = 3)
+        val ticketOffice = TicketOffice(
+            tickets = Tickets(
+                listOf(
+                    makeTestTicket(3, 3),
+                    makeTestTicket(3, 4)
+                )
+            ), peopleCount = 3
+        )
         // when
-        ticketOffice.addTicket(makeTestTicket(3, 3))
-        ticketOffice.addTicket(makeTestTicket(3, 4))
         val actual = ticketOffice.isAvailableAddTicket()
         // then
         assertThat(actual).isTrue
@@ -50,11 +59,16 @@ class TicketOfficeTest {
     @Test
     internal fun `티켓 개수가 사람 수와 같으면 false 이다`() {
         // given
-        val ticketOffice = TicketOffice(tickets = Tickets(listOf()), peopleCount = 3)
+        val ticketOffice = TicketOffice(
+            tickets = Tickets(
+                listOf(
+                    makeTestTicket(3, 3),
+                    makeTestTicket(3, 4),
+                    makeTestTicket(4, 4)
+                )
+            ), peopleCount = 3
+        )
         // when
-        ticketOffice.addTicket(makeTestTicket(3, 3))
-        ticketOffice.addTicket(makeTestTicket(3, 4))
-        ticketOffice.addTicket(makeTestTicket(3, 5))
         val actual = ticketOffice.isAvailableAddTicket()
         // then
         assertThat(actual).isFalse
@@ -63,12 +77,17 @@ class TicketOfficeTest {
     @Test
     internal fun `티켓 개수가 사람 수보다 많으면 false 이다`() {
         // given
-        val ticketOffice = TicketOffice(tickets = Tickets(listOf()), peopleCount = 3)
+        val ticketOffice = TicketOffice(
+            tickets = Tickets(
+                listOf(
+                    makeTestTicket(3, 3),
+                    makeTestTicket(3, 4),
+                    makeTestTicket(4, 4),
+                    makeTestTicket(2, 4)
+                )
+            ), peopleCount = 3
+        )
         // when
-        ticketOffice.addTicket(makeTestTicket(3, 1))
-        ticketOffice.addTicket(makeTestTicket(3, 2))
-        ticketOffice.addTicket(makeTestTicket(3, 3))
-        ticketOffice.addTicket(makeTestTicket(3, 4))
         val actual = ticketOffice.isAvailableAddTicket()
         // then
         assertThat(actual).isFalse
