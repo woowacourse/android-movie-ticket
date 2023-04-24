@@ -20,10 +20,6 @@ class MainActivityTest {
     @Test
     fun 영화가_3번_출력되면_광고가_1번_출력된다() {
         // given
-
-        // when
-
-        // then
         onView(withId(R.id.main_movie_list)).check(
             matches(
                 atPosition(
@@ -48,6 +44,10 @@ class MainActivityTest {
                 )
             )
         )
+
+        // when
+
+        // then
         onView(withId(R.id.main_movie_list)).check(
             matches(
                 atPosition(
