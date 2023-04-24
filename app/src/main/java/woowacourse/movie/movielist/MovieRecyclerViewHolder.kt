@@ -25,13 +25,13 @@ class MovieRecyclerViewHolder(
     fun bind(movieData: Movie) {
         poster.setImageResource(movieData.poster)
         title.text = movieData.title
-        screeningPeriod.text = view.context.getString(R.string.movie_screening_period)
-            .format(
-                DateFormatter.format(movieData.startDate),
-                DateFormatter.format(movieData.endDate)
-            )
+        screeningPeriod.text = view.context.getString(
+            R.string.movie_screening_period,
+            DateFormatter.format(movieData.startDate),
+            DateFormatter.format(movieData.endDate)
+        )
         runningTime.text =
-            view.context.getString(R.string.movie_running_time).format(movieData.runningTime)
+            view.context.getString(R.string.movie_running_time, movieData.runningTime)
 
         bookButton.setOnClickListener {
             listener.onClick(movieData)

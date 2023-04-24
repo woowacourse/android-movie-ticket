@@ -149,7 +149,8 @@ class SeatPickerActivity : BackButtonActivity() {
     private fun setSeatsOnClickListener(movieBookingInfo: MovieBookingInfo) {
         getSeats().forEachIndexed { index, seat ->
             seat.setOnClickListener {
-                val newSeat = Seat(SeatRow(index / 4), SeatColumn(index % 4))
+                val newSeat =
+                    Seat(SeatRow(index / SEAT_ROW_INTERVAL), SeatColumn(index % SEAT_ROW_INTERVAL))
                 if (seatGroup.seats.contains(newSeat)) {
                     progressRemoveSeat(newSeat, seat, movieBookingInfo)
                     return@setOnClickListener
@@ -171,13 +172,13 @@ class SeatPickerActivity : BackButtonActivity() {
         seat.setBackgroundColor(getColor(R.color.picked_seat_color))
         setPickDoneButtonColor()
         seatPickerTicketPrice.text =
-            getString(R.string.ticket_price_format)
-                .format(
-                    ticketBundle.calculateTotalPrice(
-                        movieBookingInfo.date,
-                        movieBookingInfo.time
-                    )
+            getString(
+                R.string.ticket_price_format,
+                ticketBundle.calculateTotalPrice(
+                    movieBookingInfo.date,
+                    movieBookingInfo.time
                 )
+            )
     }
 
     private fun progressRemoveSeat(
@@ -190,13 +191,13 @@ class SeatPickerActivity : BackButtonActivity() {
         seat.setBackgroundColor(getColor(R.color.unpicked_seat_color))
         setPickDoneButtonColor()
         seatPickerTicketPrice.text =
-            getString(R.string.ticket_price_format)
-                .format(
-                    ticketBundle.calculateTotalPrice(
-                        movieBookingInfo.date,
-                        movieBookingInfo.time
-                    )
+            getString(
+                R.string.ticket_price_format,
+                ticketBundle.calculateTotalPrice(
+                    movieBookingInfo.date,
+                    movieBookingInfo.time
                 )
+            )
     }
 
     private fun setPickDoneButtonColor() {
@@ -232,7 +233,7 @@ class SeatPickerActivity : BackButtonActivity() {
         private const val MOVIE_TITLE = "movieTitle"
         private const val TICKET_PRICE = "ticketPrice"
         private const val PICKED_SEAT = "prickedSeat"
-
+        private const val SEAT_ROW_INTERVAL = 4
         fun intent(context: Context) = Intent(context, SeatPickerActivity::class.java)
     }
 }

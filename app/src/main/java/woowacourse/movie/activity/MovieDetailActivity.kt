@@ -33,7 +33,7 @@ class MovieDetailActivity : BackButtonActivity() {
         needSpinnerInitialize = true
 
         val movieData = getMovieData()
-        processMovieNullData(movieData)
+        finishIfDummyData(movieData)
 
         initView(movieData)
 
@@ -52,7 +52,7 @@ class MovieDetailActivity : BackButtonActivity() {
             ?: Movie.dummyData
         )
 
-    private fun processMovieNullData(movieData: Movie) {
+    private fun finishIfDummyData(movieData: Movie) {
         if (movieData == Movie.dummyData) {
             Toast.makeText(this, getString(R.string.cant_get_movie_data), Toast.LENGTH_SHORT).show()
             this.finish()
@@ -63,13 +63,13 @@ class MovieDetailActivity : BackButtonActivity() {
         findViewById<ImageView>(R.id.iv_movie_poster).setImageResource(movieData.poster)
         findViewById<TextView>(R.id.tv_movie_title).text = movieData.title
         findViewById<TextView>(R.id.tv_movie_screening_period).text =
-            getString(R.string.movie_screening_period)
-                .format(
-                    DateFormatter.format(movieData.startDate),
-                    DateFormatter.format(movieData.endDate)
-                )
+            getString(
+                R.string.movie_screening_period,
+                DateFormatter.format(movieData.startDate),
+                DateFormatter.format(movieData.endDate)
+            )
         findViewById<TextView>(R.id.tv_movie_running_time).text =
-            getString(R.string.movie_running_time).format(movieData.runningTime)
+            getString(R.string.movie_running_time, movieData.runningTime)
         findViewById<TextView>(R.id.tv_movie_synopsis).text = movieData.synopsis
     }
 
@@ -127,8 +127,7 @@ class MovieDetailActivity : BackButtonActivity() {
                     timeSpinner.setSelection(
                         (
                             savedInstanceState.getString(TIME_KEY)
-                                ?: movieSchedule.getScheduleTimes(dateSpinner.selectedItem.toString())
-                                    .first()
+                                ?: movieSchedule.getScheduleTimes(dateSpinner.selectedItem.toString()).first()
                             ).toInt()
                     )
                     needSpinnerInitialize = false

@@ -41,12 +41,13 @@ class BookCompleteActivity : BackButtonActivity() {
         findViewById<TextView>(R.id.tv_book_date).text =
             movieBookingSeatInfo.movieBookingInfo.formatBookingTime()
         findViewById<TextView>(R.id.tv_book_person_count).text =
-            getString(R.string.book_person_count).format(
+            getString(
+                R.string.book_person_count,
                 movieBookingSeatInfo.movieBookingInfo.ticketCount,
                 movieBookingSeatInfo.seats.joinToString(", ")
             )
         findViewById<TextView>(R.id.tv_book_total_pay).text =
-            getString(R.string.book_total_pay).format(movieBookingSeatInfo.totalPrice)
+            getString(R.string.book_total_pay, movieBookingSeatInfo.totalPrice)
     }
 
     companion object {
