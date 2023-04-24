@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/advertisement"
     android:layout_width="match_parent"
     android:layout_height="132dp"
     android:background="@drawable/ad_img">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ImageView>
