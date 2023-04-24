@@ -3,6 +3,7 @@ package woowacourse.movie.model
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.ui.movielist.model.ItemUI
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

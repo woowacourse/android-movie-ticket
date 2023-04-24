@@ -1,6 +1,5 @@
-package woowacourse.movie.ui.movielist
+package woowacourse.movie.ui.movielist.model
 
-import woowacourse.movie.model.AdvertisementUI
 import woowacourse.movie.model.MovieUI
 
 interface OnItemClick {

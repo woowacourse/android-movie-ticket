@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.AdvertisementUI
-import woowacourse.movie.model.ItemUI
 import woowacourse.movie.model.MovieUI
-import woowacourse.movie.ui.movielist.OnItemClick
+import woowacourse.movie.ui.movielist.model.AdvertisementUI
+import woowacourse.movie.ui.movielist.model.ItemUI
+import woowacourse.movie.ui.movielist.model.OnItemClick
 import kotlin.math.min
 
 class MovieListAdapter(

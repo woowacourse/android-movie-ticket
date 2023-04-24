@@ -8,10 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.woowacourse.movie.domain.Movie
 import woowacourse.movie.R
-import woowacourse.movie.model.AdvertisementUI
 import woowacourse.movie.model.MovieUI
 import woowacourse.movie.model.mapper.toMovieUI
 import woowacourse.movie.ui.movielist.adapter.MovieListAdapter
+import woowacourse.movie.ui.movielist.model.AdvertisementUI
+import woowacourse.movie.ui.movielist.model.OnItemClick
 import woowacourse.movie.ui.ticketing.TicketingActivity
 
 class MovieListActivity : AppCompatActivity() {
