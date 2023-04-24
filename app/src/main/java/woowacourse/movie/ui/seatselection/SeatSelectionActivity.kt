@@ -14,6 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.model.ReservationUI
+import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.TicketUI
 import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.mapper.toTicket
@@ -29,11 +30,15 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private var moviePrice = DEFAULT_MOVIE_PRICE
 
+    private val ticketCountUI: TicketCountUI? by lazy {
+        intent.getParcelableCompat(TicketingActivity.TICKET_COUNT_KEY)
+    }
+
     private val seatTableLayout: TableLayout by lazy {
         findViewById(R.id.table_seat)
     }
     private val seatTable: SeatTable by lazy {
-        SeatTable(seatTableLayout, reservation.ticketCount, ::setButtonEnable, ::setTicket)
+        SeatTable(seatTableLayout, ticketCountUI!!, ::setButtonEnable, ::setTicket)
     }
 
     private val okButton: Button by lazy {
@@ -108,8 +113,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         reservation = ReservationUI(
             reservation.movie,
             reservation.dateTime,
-            ticketsUI,
-            reservation.ticketCount
+            ticketsUI
         )
 
         val intent = TicketingResultActivity.getIntent(this@SeatSelectionActivity, reservation)
@@ -166,9 +170,10 @@ class SeatSelectionActivity : AppCompatActivity() {
         private const val MESSAGE_EMPTY_RESERVATION = "예매 정보가 없습니다"
         private const val DEFAULT_MOVIE_PRICE = 0
 
-        internal fun getIntent(context: Context, reservationUI: ReservationUI): Intent {
+        internal fun getIntent(context: Context, reservationUI: ReservationUI, ticketCountUI: TicketCountUI): Intent {
             val intent = Intent(context, SeatSelectionActivity::class.java)
             intent.putExtra(TicketingActivity.RESERVATION_KEY, reservationUI)
+            intent.putExtra(TicketingActivity.TICKET_COUNT_KEY, ticketCountUI)
             return intent
         }
     }

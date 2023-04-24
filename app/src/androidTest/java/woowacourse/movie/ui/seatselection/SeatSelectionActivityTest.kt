@@ -33,13 +33,13 @@ class SeatSelectionActivityTest {
     private val reservation = ReservationUI(
         Movie.provideDummy()[0].toMovieUI(),
         LocalDateTime.of(2023, 4, 21, 12, 0),
-        TicketsUI(setOf()),
-        TicketCountUI(2)
+        TicketsUI(setOf())
     )
 
     private val intent = SeatSelectionActivity.getIntent(
         ApplicationProvider.getApplicationContext(),
-        reservation
+        reservation,
+        TicketCountUI(2)
     )
 
     @get:Rule

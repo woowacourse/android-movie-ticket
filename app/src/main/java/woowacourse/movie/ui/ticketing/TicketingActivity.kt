@@ -22,7 +22,6 @@ import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.mapper.toMovie
 import woowacourse.movie.model.mapper.toReservationUI
-import woowacourse.movie.model.mapper.toTicketCount
 import woowacourse.movie.ui.movielist.MovieListActivity
 import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import java.time.LocalDate
@@ -201,7 +200,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             return
         }
         reservation = reserveMovie()?.apply {
-            val intent = SeatSelectionActivity.getIntent(this@TicketingActivity, this@apply)
+            val intent = SeatSelectionActivity.getIntent(this@TicketingActivity, this@apply, movieTicket)
             startActivity(intent)
         }
     }
@@ -211,7 +210,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             movieDates[selectedDateIdx],
             movieTimes[selectedTimeIdx]
         )
-        return movie.toMovie().reserveMovie(reservationDateTime, movieTicket.toTicketCount())
+        return movie.toMovie().reserveMovie(reservationDateTime)
             ?.toReservationUI()
     }
 
@@ -240,7 +239,9 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         private const val MOVIE_DATE_PATTERN = "yyyy.MM.dd"
         private const val MOVIE_TIME_PATTERN = "HH:mm"
 
+        internal const val TICKET_COUNT_KEY = "ticketCount"
         internal const val RESERVATION_KEY = "reservation"
+
         internal const val TICKET_STATE_KEY = "ticket"
         internal const val MOVIE_DATE_INDEX_STATE_KEY = "movieDate"
         internal const val MOVIE_TIME_INDEX_STATE_KEY = "movieTime"

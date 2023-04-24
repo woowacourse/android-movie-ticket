@@ -10,7 +10,6 @@ import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationUI
-import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.TicketUI
 import woowacourse.movie.model.TicketsUI
 import woowacourse.movie.model.mapper.toMovieUI
@@ -32,8 +31,7 @@ class TicketingResultActivityTest {
     private val reservation = ReservationUI(
         Movie.provideDummy()[0].toMovieUI(),
         LocalDateTime.of(2023, 4, 21, 12, 0),
-        tickets,
-        TicketCountUI(2)
+        tickets
     )
 
     private val intent = TicketingResultActivity.getIntent(

@@ -19,14 +19,12 @@ class MovieTest {
             "전국 제패를 꿈꾸는 북산고 농구부 5인방의 꿈과 열정, 멈추지 않는 도전을 그린 만화"
         )
         val reserveDateTime = LocalDateTime.of(2023, 4, 22, 11, 0)
-        val ticketCount = TicketCount(1)
 
-        val actual = movie.reserveMovie(reserveDateTime, ticketCount)!!
+        val actual = movie.reserveMovie(reserveDateTime)!!
 
         assertAll(
             { assertThat(actual.movie).isEqualTo(movie) },
             { assertThat(actual.dateTime.compareTo(reserveDateTime)).isEqualTo(0) },
-            { assertThat(actual.ticketCount.count).isEqualTo(1) },
         )
     }
 
@@ -37,9 +35,8 @@ class MovieTest {
             endDate = LocalDate.of(2023, 4, 30)
         )
         val reserveDateTime = LocalDateTime.of(2023, 3, 22, 11, 0)
-        val ticketCount = TicketCount(1)
 
-        assertThat(movie.reserveMovie(reserveDateTime, ticketCount)).isNull()
+        assertThat(movie.reserveMovie(reserveDateTime)).isNull()
     }
 
     @Test

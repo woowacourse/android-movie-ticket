@@ -15,11 +15,10 @@ data class Movie(
 ) {
     fun reserveMovie(
         reserveDateTime: LocalDateTime,
-        ticketCount: TicketCount,
     ): Reservation? {
         if (reserveDateTime.toLocalDate() !in getRunningDates(startDate)
         ) return null
-        return Reservation(this, reserveDateTime, Tickets(setOf()), ticketCount)
+        return Reservation(this, reserveDateTime, Tickets(setOf()))
     }
 
     fun getRunningDates(
