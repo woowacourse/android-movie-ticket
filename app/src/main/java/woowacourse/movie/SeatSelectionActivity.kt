@@ -2,17 +2,12 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
-import domain.Position
 import domain.Seat
 import domain.Seats
-import domain.TicketPrice
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto
@@ -20,28 +15,32 @@ import woowacourse.movie.dto.SeatsDto
 import woowacourse.movie.dto.TicketCountDto
 import woowacourse.movie.mapper.mapToSeats
 import woowacourse.movie.mapper.mapToSeatsDto
-import woowacourse.movie.mapper.mapToUIModel
-import java.time.LocalDate
+import woowacourse.movie.view.SeatSelectView
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 class SeatSelectionActivity : AppCompatActivity() {
 
     private var seats = Seats()
-    private val seatRowSize = 5
-    private val seatColSize = 4
+
     private val date by lazy { intent.getSerializableExtra(DATE_KEY) as MovieDateDto }
     private val time by lazy { intent.getSerializableExtra(TIME_KEY) as MovieTimeDto }
     private val movie by lazy { intent.getSerializableExtra(MOVIE_KEY) as MovieDto }
     private val ticketCount by lazy { intent.getSerializableExtra(TICKET_KEY) as TicketCountDto }
+    private val enterBtn by lazy { findViewById<TextView>(R.id.enterBtn) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
         setUpState(savedInstanceState)
         setMovieTitle()
+    }
 
-        onSeatClickListener(date.date, time.time)
+    private fun setUpSeatsView() {
+        SeatSelectView(
+            findViewById(R.id.seat_layout),
+            ::onSeatClick,
+            seats,
+        )
     }
 
     private fun setMovieTitle() {
@@ -50,61 +49,32 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun setUpState(savedInstanceState: Bundle?) {
-        setUpSeatView()
         if (savedInstanceState != null) {
             val seatsDto = savedInstanceState.getSerializable(SEATS_POSITION) as SeatsDto
             seats = seatsDto.mapToSeats()
-            setUpSelectSeats()
+            setPrice(seats.caculateSeatPrice(LocalDateTime.of(date.date, time.time)))
         } else {
             setPrice(0)
         }
+        setUpSeatsView()
+        setEnterBtnClickable()
     }
 
-    private fun setUpSelectSeats() {
-        getSeatView().forEachIndexed { index, textView ->
-            val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
-            if (seats.containsSeat(seat)) {
-                textView.setBackgroundColor(getColor(R.color.select_seat))
-            }
+    private fun onSeatClick(seat: Seat, textView: TextView) {
+        when {
+            isPossibleSelect(seat, ticketCount.numberOfPeople) -> selectSeat(
+                textView,
+                seat,
+            )
+            isSeatCancelable(seat) -> unselectSeat(textView, seat)
+            else -> Toast.makeText(this, R.string.seats_size_over_error, Toast.LENGTH_LONG)
+                .show()
         }
         setPrice(seats.caculateSeatPrice(LocalDateTime.of(date.date, time.time)))
-    }
-
-    private fun setUpSeatView() {
-        getSeatView().forEachIndexed { index, textView ->
-            val position = Position.of(index)
-            textView.text = position.mapToUIModel().getPosition()
-            textView.setTextColor(getColor(position.mapToUIModel().getColor()))
-        }
-    }
-
-    private fun getSeatView(): List<TextView> {
-        return findViewById<TableLayout>(R.id.seat)
-            .children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
-            .toList()
-    }
-
-    private fun onSeatClickListener(date: LocalDate, time: LocalTime) {
-        getSeatView().forEachIndexed { index, textView ->
-            textView.setOnClickListener {
-                val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
-                when {
-                    isPossibleSelect(seat, ticketCount.numberOfPeople) -> selectSeat(textView, seat)
-                    isSeatCancelable(seat) -> unselectSeat(textView, seat)
-                    else -> Toast.makeText(this, R.string.seats_size_over_error, Toast.LENGTH_LONG)
-                        .show()
-                }
-                setPrice(seats.caculateSeatPrice(LocalDateTime.of(date, time)))
-                setEnterBtnClickable()
-            }
-        }
+        setEnterBtnClickable()
     }
 
     private fun setEnterBtnClickable() {
-        val enterBtn = findViewById<TextView>(R.id.enterBtn)
         if (isPossibleEnter(ticketCount.numberOfPeople)) {
             enterBtn.setBackgroundColor(getColor(R.color.enter))
             OnEnterBtnClickListener(enterBtn)
@@ -130,16 +100,6 @@ class SeatSelectionActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .show()
-    }
-
-    private fun moveActivity() {
-        val intent = Intent(this, TicketActivity::class.java)
-        intent.putExtra(MOVIE_KEY, movie)
-        intent.putExtra(SEATS_KEY, seats.mapToSeatsDto())
-        intent.putExtra(DATE_KEY, date)
-        intent.putExtra(TIME_KEY, time)
-        intent.putExtra(TICKET_KEY, ticketCount)
-        startActivity(intent)
     }
 
     private fun isSeatCancelable(seat: Seat): Boolean {
@@ -172,6 +132,16 @@ class SeatSelectionActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putSerializable(SEATS_POSITION, seats.mapToSeatsDto())
         super.onSaveInstanceState(outState)
+    }
+
+    private fun moveActivity() {
+        val intent = Intent(this, TicketActivity::class.java)
+        intent.putExtra(MOVIE_KEY, movie)
+        intent.putExtra(SEATS_KEY, seats.mapToSeatsDto())
+        intent.putExtra(DATE_KEY, date)
+        intent.putExtra(TIME_KEY, time)
+        intent.putExtra(TICKET_KEY, ticketCount)
+        startActivity(intent)
     }
 
     companion object {
