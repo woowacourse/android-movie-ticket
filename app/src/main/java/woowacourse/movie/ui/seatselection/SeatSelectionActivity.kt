@@ -38,7 +38,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         findViewById(R.id.table_seat)
     }
     private val seatTable: SeatTable by lazy {
-        SeatTable(seatTableLayout, ticketCountUI!!, ::setButtonEnable, ::setTicket)
+        SeatTable(seatTableLayout, ticketCountUI!!, ::onEnabledChange, ::onTicketCreated)
     }
 
     private val okButton: Button by lazy {
@@ -116,11 +116,11 @@ class SeatSelectionActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun setButtonEnable(enabled: Boolean) {
+    private fun onEnabledChange(enabled: Boolean) {
         okButton.isEnabled = enabled
     }
 
-    private fun setTicket(seatPosition: SeatPositionUI) {
+    private fun onTicketCreated(seatPosition: SeatPositionUI) {
         val tickets = ticketsUI.toTickets()
         val targetTicket = TicketUI(seatPosition).toTicket()
         tickets.addOrRemoveTicket(targetTicket)

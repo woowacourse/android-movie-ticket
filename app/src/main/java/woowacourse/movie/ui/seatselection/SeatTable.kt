@@ -17,8 +17,8 @@ import woowacourse.movie.model.seat.SeatPositionUI
 class SeatTable(
     value: TableLayout,
     private val ticketCount: TicketCountUI,
-    val setButtonEnabled: (Boolean) -> Unit,
-    val setTicket: (SeatPositionUI) -> Unit
+    val onEnabledChange: (Boolean) -> Unit,
+    val onTicketCreated: (SeatPositionUI) -> Unit
 ) {
     private val seatView: List<List<TextView>> =
         value.children
@@ -49,24 +49,19 @@ class SeatTable(
     }
 
     private fun getTextColor(rank: Rank, context: Context): Int {
-        return when (rank) {
-            Rank.B -> {
-                context.getColor(R.color.seat_b_rank_color)
-            }
-            Rank.A -> {
-                context.getColor(R.color.seat_a_rank_color)
-            }
-            Rank.S -> {
-                context.getColor(R.color.seat_s_rank_color)
-            }
+        val colorResId = when (rank) {
+            Rank.B -> R.color.seat_b_rank_color
+            Rank.A -> R.color.seat_a_rank_color
+            Rank.S -> R.color.seat_s_rank_color
         }
+        return context.getColor(colorResId)
     }
 
     private fun View.setSeatOnClick(seatPosition: SeatPositionUI) {
         when (isSelected) {
             true -> {
                 setSeatPosition(seatPosition)
-                setButtonEnabled(false)
+                onEnabledChange(false)
             }
             else -> {
                 if (seat.size != ticketCount.count) {
@@ -83,9 +78,9 @@ class SeatTable(
             else
                 seat.add(seatPosition)
             isSelected = !isSelected
-            setTicket(seatPosition)
+            onTicketCreated(seatPosition)
             if (seat.size == ticketCount.count) {
-                setButtonEnabled(true)
+                onEnabledChange(true)
             }
         }
     }
