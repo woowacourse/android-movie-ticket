@@ -48,14 +48,14 @@ class SeatGroupTest {
     }
 
     @Test
-    fun `주어진 인자보다 작으면 좌석을 추가할 수 있다`() {
+    fun `구매할 티켓의 갯수보다 작으면 좌석을 추가할 수 있다`() {
         val actual = SeatGroup().canAdd(1)
         assertThat(actual).isTrue
     }
 
     @ParameterizedTest
     @ValueSource(ints = [1, 2])
-    fun `주어진 인자보다 같거나 많다면 좌석을 추가할 수 없다`(count: Int) {
+    fun `구매할 티켓의 갯수보다 같거나 많다면 좌석을 추가할 수 없다`(count: Int) {
         val actual = SeatGroup(List(2) { Seat(SeatRow(1), SeatColumn(1)) }).canAdd(count)
         assertThat(actual).isFalse
     }
