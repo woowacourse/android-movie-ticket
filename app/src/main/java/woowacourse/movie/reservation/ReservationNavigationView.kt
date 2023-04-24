@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class NavigationView(
+class ReservationNavigationView(
     private val movieInfo: MovieRecyclerItem.MovieInfo,
     private val navigationBar: LinearLayout
 ) {

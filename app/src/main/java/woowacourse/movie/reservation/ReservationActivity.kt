@@ -17,8 +17,8 @@ import woowacourse.movie.util.getSerializableExtraByKey
 
 class ReservationActivity : AppCompatActivity() {
 
-    private val navigationView: NavigationView by lazy {
-        NavigationView(movieInfo, findViewById(R.id.reservation_navigation_bar))
+    private val reservationNavigationView: ReservationNavigationView by lazy {
+        ReservationNavigationView(movieInfo, findViewById(R.id.reservation_navigation_bar))
     }
     private lateinit var movieInfo: MovieRecyclerItem.MovieInfo
 
@@ -36,7 +36,7 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putSerializable(NAVIGATION_VIEW_STATE_KEY, navigationView.state)
+        outState.putSerializable(NAVIGATION_VIEW_STATE_KEY, reservationNavigationView.state)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -44,7 +44,7 @@ class ReservationActivity : AppCompatActivity() {
 
         savedInstanceState.getSerializableExtraByKey<NavigationViewState>(NAVIGATION_VIEW_STATE_KEY)
             ?.apply {
-                navigationView.setDateSpinner(
+                reservationNavigationView.setDateSpinner(
                     dateSpinnerPosition,
                     timeSpinnerPosition
                 )
@@ -58,7 +58,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setNavigationBar() {
-        with(navigationView) {
+        with(reservationNavigationView) {
             setDateSpinner()
             setMinusButtonClickedListener(::minusTicketTextCount)
             setPlusButtonClickedListener(::plusTicketTextCount)

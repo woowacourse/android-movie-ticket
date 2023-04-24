@@ -76,8 +76,7 @@ class ScreeningSeatView(
     }
 
     fun setSeatViewClickedListener(
-        updatePaymentAmountView: (paymentAmount: Int) -> Unit,
-        updateButtonState: (isCompleted: Boolean) -> Unit
+        updateSeatNavigation: (seatSelection: SeatSelection) -> Unit
     ) {
         seatTableConfiguration.forEachIndexed { seatPosition, seatView ->
             seatView.setOnClickListener {
@@ -90,8 +89,7 @@ class ScreeningSeatView(
                         Toast.makeText(seatTable.context, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
-                updatePaymentAmountView(seatSelection.getTotalPaymentAmount().value)
-                updateButtonState(seatSelection.isCompleted)
+                updateSeatNavigation(seatSelection)
             }
         }
     }

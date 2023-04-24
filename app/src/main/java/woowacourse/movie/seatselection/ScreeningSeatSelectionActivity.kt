@@ -3,6 +3,7 @@ package woowacourse.movie.seatselection
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -24,15 +25,16 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
 
     private lateinit var seatSelectionInfo: SeatSelectionInfo
     private val seatSelection: SeatSelection by lazy { seatSelectionInfo.toDomainModel() }
-
+    private val screeningSeatNavigationView: ScreeningSeatNavigationView by lazy {
+        ScreeningSeatNavigationView(findViewById<LinearLayout>(R.id.seat_selection_navigation_bar))
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_seat_selection)
 
-        seatSelectionInfo =
-            intent.getSerializableCompat(SEAT_SELECTION_KEY) ?: return failedToCreate(
-                getString(R.string.seat_selecting_data_error)
-            )
+        seatSelectionInfo = intent.getSerializableCompat(SEAT_SELECTION_KEY) ?: return failedToCreate(
+            getString(R.string.seat_selecting_data_error)
+        )
         setMovieNameTextView()
         setSeatTableView()
         setOnCompleteButtonClickedListener()
@@ -48,26 +50,12 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
         val seatTableLayout = findViewById<TableLayout>(R.id.seat_table_layout)
 
         ScreeningSeatView(seatTableLayout, seatSelection).apply {
-            setSeatViewClickedListener(::setPaymentAmountTextView, ::setButtonState)
+            setSeatViewClickedListener(::updateScreeningNavigation)
         }
     }
 
-    private fun setButtonState(isCompleted: Boolean) {
-        val seatSelectionCompleteButton = findViewById<Button>(R.id.seat_selection_complete_button)
-
-        if (isCompleted) {
-            seatSelectionCompleteButton.setBackgroundResource(R.drawable.rectangle_clickable_button)
-            seatSelectionCompleteButton.isEnabled = true
-            return
-        }
-        seatSelectionCompleteButton.setBackgroundResource(R.drawable.rectangle_not_clickable_button)
-        seatSelectionCompleteButton.isEnabled = false
-    }
-
-    private fun setPaymentAmountTextView(paymentAmount: Int) {
-        val paymentAmountText: TextView = findViewById(R.id.seat_selection_payment_amount_text)
-
-        paymentAmountText.text = paymentAmount.toString()
+    private fun updateScreeningNavigation(seatSelection: SeatSelection) {
+        screeningSeatNavigationView.bind(seatSelection)
     }
 
     private fun setOnCompleteButtonClickedListener() {
