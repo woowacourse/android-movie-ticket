@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
-import domain.Movie
+import woowacourse.movie.view.model.MovieUiModel
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class DateSpinner(spinner: Spinner, savedStateKey: String) :
     SaveStateSpinner(savedStateKey, spinner) {
     fun make(
         savedInstanceState: Bundle?,
-        movie: Movie,
+        movieUiModel: MovieUiModel,
         timeSpinner: TimeSpinner
     ) {
-        val dates = movie.date.toList().map { LocalFormattedDate(it) }
+        val dates = movieUiModel.getDateList().map { LocalFormattedDate(it) }
         setArrayAdapter(dates)
         load(savedInstanceState)
 

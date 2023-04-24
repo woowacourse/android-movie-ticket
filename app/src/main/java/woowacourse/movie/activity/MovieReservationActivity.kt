@@ -54,9 +54,8 @@ class MovieReservationActivity : AppCompatActivity() {
             finishActivity()
         } else {
             renderMovieView(movieViewModel)
-            val movie = getMovie(movieViewModel)
             counter.load(savedInstanceState)
-            movieDateTimePicker.makeView(movie, savedInstanceState)
+            movieDateTimePicker.makeView(movieViewModel, savedInstanceState)
             reservationButtonClick(movieViewModel)
         }
     }
