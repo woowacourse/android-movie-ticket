@@ -2,18 +2,16 @@ package woowacourse.movie.domain.model.tools.seat
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.tools.seat.Location
-import woowacourse.movie.domain.model.tools.seat.SeatGrade
-import woowacourse.movie.domain.model.tools.seat.SeatRow
+import woowacourse.movie.domain.model.rules.SeatGradeRules
 
-class SeatGradeTest {
+class SeatGradeRulesTest {
     @Test
     fun `위치가 A행 이면 좌석 등급이 A이다`() {
         // given
         val location = Location(SeatRow.A, 1)
 
         // when
-        val actual = SeatGrade.from(location)
+        val actual = SeatGradeRules.getSeatGradeByRow(location)
 
         // then
         assertThat(actual).isEqualTo(SeatGrade.GRADE_B)
@@ -25,7 +23,7 @@ class SeatGradeTest {
         val location = Location(SeatRow.C, 1)
 
         // when
-        val actual = SeatGrade.from(location)
+        val actual = SeatGradeRules.getSeatGradeByRow(location)
 
         // then
         assertThat(actual).isEqualTo(SeatGrade.GRADE_S)
@@ -37,7 +35,7 @@ class SeatGradeTest {
         val location = Location(SeatRow.E, 1)
 
         // when
-        val actual = SeatGrade.from(location)
+        val actual = SeatGradeRules.getSeatGradeByRow(location)
 
         // then
         assertThat(actual).isEqualTo(SeatGrade.GRADE_A)

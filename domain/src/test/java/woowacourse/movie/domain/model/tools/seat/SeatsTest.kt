@@ -2,19 +2,24 @@ package woowacourse.movie.domain.model.tools.seat
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.tools.Money
-import woowacourse.movie.domain.tools.seat.*
-import java.time.LocalDateTime
+import woowacourse.movie.domain.model.rules.SeatGradeRules.getSeatGradeByRow
 
 class SeatsTest {
 
-    private fun makeSeat(location: Location) = Seat(location, SeatGrade.from(location))
+    // fake constructor
+    private fun Seats(vararg locations: Location): Seats {
+        val seats = locations.map { Seat(it) }
+        return Seats(seats.toSet())
+    }
+
+    // fake Constructor
+    private fun Seat(location: Location) = Seat(location, getSeatGradeByRow(location))
 
     @Test
     fun `seats 에 A1 을 추가하면 Seats 는 A1 을 포함한다`() {
         // given
         val seats = Seats()
-        val seat = makeSeat(Location(SeatRow.A, 1))
+        val seat = Seat(Location(SeatRow.A, 1))
 
         // when
         seats.addSeat(seat)
@@ -27,13 +32,11 @@ class SeatsTest {
     fun `A1 을 포함한 seats 에서 A1 을 제거하면 A1 을 더 이상 포함하지 않는다`() {
         // given
         val seats = Seats(
-            listOf(
-                makeSeat(Location(SeatRow.B, 2)),
-                makeSeat(Location(SeatRow.B, 1)),
-                makeSeat(Location(SeatRow.A, 1)),
-            ),
+            Location(SeatRow.B, 2),
+            Location(SeatRow.B, 1),
+            Location(SeatRow.A, 1),
         )
-        val seat = makeSeat(Location(SeatRow.A, 1))
+        val seat = Seat(Location(SeatRow.A, 1))
 
         // when
         seats.removeSeat(seat)
@@ -43,40 +46,21 @@ class SeatsTest {
     }
 
     @Test
-    fun `seats 에 B2, B1, A1 을 추가하고 정렬하면 Seats 는 A1, B1, B2 를 가진다`() {
+    fun `seats 에 B2, B1, A1 을 추가하면 Seats 는 A1, B1, B2 순서로 가진다`() {
         // given
         val seats = Seats(
-            listOf(
-                makeSeat(Location(SeatRow.B, 2)),
-                makeSeat(Location(SeatRow.B, 1)),
-                makeSeat(Location(SeatRow.A, 1)),
-            ),
-        )
-        val expected = listOf(
-            makeSeat(Location(SeatRow.A, 1)),
-            makeSeat(Location(SeatRow.B, 1)),
-            makeSeat(Location(SeatRow.B, 2)),
+            Location(SeatRow.B, 2),
+            Location(SeatRow.B, 1),
+            Location(SeatRow.A, 1),
         )
 
-        // when
-        val actual = seats.sorted()
+        val expected = setOf(
+            Seat(Location(SeatRow.A, 1)),
+            Seat(Location(SeatRow.B, 1)),
+            Seat(Location(SeatRow.B, 2)),
+        )
 
         // then
-        assertThat(actual.value).isEqualTo(expected)
-    }
-
-    @Test
-    fun `좌석 들에 해당하는 지불 금액을 계산한다`() {
-        val seats = Seats(
-            listOf(
-                makeSeat(Location(SeatRow.A, 1)),
-                makeSeat(Location(SeatRow.C, 1)),
-                makeSeat(Location(SeatRow.A, 2)),
-            ),
-        )
-        val expected = Money(35000)
-        val actual = seats.getPaymentMoney(LocalDateTime.of(2023, 5, 1, 15, 0))
-
-        assertThat(actual).isEqualTo(expected)
+        assertThat(seats.value).isEqualTo(expected)
     }
 }

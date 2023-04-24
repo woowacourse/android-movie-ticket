@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieData
+import woowacourse.movie.domain.model.rules.SeatsPayment
 import woowacourse.movie.domain.model.tools.Money
 import woowacourse.movie.domain.model.tools.seat.Location
 import woowacourse.movie.domain.model.tools.seat.Seat
@@ -63,7 +64,7 @@ class ChoiceSeatActivity : AppCompatActivity() {
 
     private fun confirmBookMovie() {
         val movie = MovieData.findMovieById(reservation.movieId).toPresentation()
-        val ticketModel = movie.reserve(reservation, seats.value)
+        val ticketModel = movie.reserve(reservation, seats)
         startActivity(CompletedActivity.getIntent(this, ticketModel))
     }
 
@@ -122,14 +123,16 @@ class ChoiceSeatActivity : AppCompatActivity() {
 
     private fun addSeat(seat: Seat) {
         seats.addSeat(seat)
-        val paymentMoney = seats.getPaymentMoney(reservation.bookedDateTime)
+        val paymentMoney =
+            SeatsPayment(seats).getDiscountedMoneyByDateTime(reservation.bookedDateTime)
         setPaymentAmount(paymentMoney)
         checkCountEqual()
     }
 
     private fun removeSeat(seat: Seat) {
         seats.removeSeat(seat)
-        val paymentMoney = seats.getPaymentMoney(reservation.bookedDateTime)
+        val paymentMoney =
+            SeatsPayment(seats).getDiscountedMoneyByDateTime(reservation.bookedDateTime)
         setPaymentAmount(paymentMoney)
         checkCountEqual()
     }

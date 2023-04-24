@@ -30,5 +30,5 @@ fun Ticket.toPresentation() = TicketModel(
     bookedDateTime = bookedDateTime,
     count = count,
     paymentMoney = getPaymentMoney().value,
-    seats = seats.map { it.location }.formatLocationToString(),
+    seats = seats.value.map { it.location }.formatLocationToString(),
 )

@@ -3,16 +3,23 @@ package woowacourse.movie.domain.model.tools
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import woowacourse.movie.domain.model.rules.SeatGradeRules
 import woowacourse.movie.domain.model.tools.seat.Location
 import woowacourse.movie.domain.model.tools.seat.Seat
-import woowacourse.movie.domain.model.tools.seat.SeatGrade
 import woowacourse.movie.domain.model.tools.seat.SeatRow
+import woowacourse.movie.domain.model.tools.seat.Seats
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MovieTest {
 
-    fun makeSeat(location: Location) = Seat(location, SeatGrade.from(location))
+    // fake constructor
+    private fun Seats(vararg locations: Location): Seats {
+        val seats = locations.map {
+            Seat(it, SeatGradeRules.getSeatGradeByRow(it))
+        }
+        return Seats(seats.toSet())
+    }
 
     @Test
     fun `무비에 해당하는 티켓을 반환한다`() {
@@ -23,10 +30,10 @@ class MovieTest {
             1L,
             screeningDate,
             3,
-            seats = sortedSetOf(
-                makeSeat(Location(SeatRow.A, 1)),
-                makeSeat(Location(SeatRow.B, 1)),
-                makeSeat(Location(SeatRow.C, 1)),
+            Seats(
+                Location(SeatRow.A, 1),
+                Location(SeatRow.B, 1),
+                Location(SeatRow.C, 1),
             ),
         )
 
@@ -42,10 +49,10 @@ class MovieTest {
         val actual = movie.reserve(
             screeningDate,
             TicketCount(3),
-            sortedSetOf(
-                makeSeat(Location(SeatRow.A, 1)),
-                makeSeat(Location(SeatRow.B, 1)),
-                makeSeat(Location(SeatRow.C, 1)),
+            Seats(
+                Location(SeatRow.A, 1),
+                Location(SeatRow.B, 1),
+                Location(SeatRow.C, 1),
             ),
         )
 
@@ -61,10 +68,10 @@ class MovieTest {
             1L,
             screeningDate,
             3,
-            sortedSetOf(
-                makeSeat(Location(SeatRow.A, 1)),
-                makeSeat(Location(SeatRow.B, 1)),
-                makeSeat(Location(SeatRow.C, 1)),
+            Seats(
+                Location(SeatRow.A, 1),
+                Location(SeatRow.B, 1),
+                Location(SeatRow.C, 1),
             ),
         )
 
@@ -81,10 +88,10 @@ class MovieTest {
             movie.reserve(
                 screeningDate,
                 TicketCount(3),
-                sortedSetOf(
-                    makeSeat(Location(SeatRow.A, 1)),
-                    makeSeat(Location(SeatRow.B, 1)),
-                    makeSeat(Location(SeatRow.C, 1)),
+                Seats(
+                    Location(SeatRow.A, 1),
+                    Location(SeatRow.B, 1),
+                    Location(SeatRow.C, 1),
                 ),
             )
         }

@@ -1,9 +1,8 @@
 package woowacourse.movie.domain.model.tools
 
-import woowacourse.movie.domain.model.tools.seat.Seat
+import woowacourse.movie.domain.model.tools.seat.Seats
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.SortedSet
 
 data class Movie(
     val id: Long,
@@ -13,7 +12,7 @@ data class Movie(
     val runningTime: Int,
     val description: String,
 ) {
-    fun reserve(dateTime: LocalDateTime, ticketCount: TicketCount, ticketSeats: SortedSet<Seat>): Ticket {
+    fun reserve(dateTime: LocalDateTime, ticketCount: TicketCount, ticketSeats: Seats): Ticket {
         if (dateTime.toLocalDate() !in getScreeningDates()) throw IllegalArgumentException()
         return Ticket(id, dateTime, ticketCount.value, ticketSeats)
     }
