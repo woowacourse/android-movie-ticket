@@ -9,22 +9,32 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.dto.MovieDto
 
 class MovieListAdapter(
     private val context: Context,
-    private val movies: List<MovieDto>
+    private val movies: List<MovieOrAdvertise>
 ) : BaseAdapter() {
 
     override fun getView(position: Int, view: View?, parent: ViewGroup?): View {
         val convertView =
             view ?: LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
-        val movie = movies[position]
-        initMovieItemView(convertView, movie)
+        val movie = movies[position].movie
+        if (movie == null){
+            initAdvertiseView(convertView)
+        } else {
+            initMovieItemView(convertView, movie)
+        }
 
         return convertView
+    }
+
+    private fun initAdvertiseView(convertView: View) {
+        convertView.background = getDrawable(context, R.drawable.ad_image)
+        convertView.findViewById<Button>(R.id.reserve_now_button).visibility = View.GONE
     }
 
     private fun initMovieItemView(

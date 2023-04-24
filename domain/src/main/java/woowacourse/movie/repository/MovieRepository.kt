@@ -21,6 +21,13 @@ object MovieRepository {
     }
 
     private fun addSampleData() {
+        addHarryPorter1()
+        addHarryPorter2()
+        addHarryPorter3()
+        addHarryPorter4()
+    }
+
+    private fun addHarryPorter1() {
         val movieId = nextId++
         val movie = Movie(
             movieId,
@@ -28,14 +35,63 @@ object MovieRepository {
             Minute(152),
             "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다."
         )
-        createScreeningInfos().forEach { movie.addScreening(it) }
+        createScreeningInfos(
+            LocalDate.of(2024, 3, 1),
+            LocalDate.of(2024, 3, 31)
+        ).forEach { movie.addScreening(it) }
         movies[movieId] = movie
     }
 
-    private fun createScreeningInfos(): List<ScreeningInfoOfMovie> {
+    private fun addHarryPorter2() {
+        val movieId = nextId++
+        val movie = Movie(
+            movieId,
+            "해리 포터와 비밀의 방",
+            Minute(162),
+            "《해리 포터와 비밀의 방》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다."
+        )
+        createScreeningInfos(
+            LocalDate.of(2024, 4, 1),
+            LocalDate.of(2024, 4, 28)
+        ).forEach { movie.addScreening(it) }
+        movies[movieId] = movie
+    }
+
+    private fun addHarryPorter3() {
+        val movieId = nextId++
+        val movie = Movie(
+            movieId,
+            "해리 포터와 아즈카반의 죄수",
+            Minute(141),
+            "《해리 포터와 아즈카반의 죄수》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다."
+        )
+        createScreeningInfos(
+            LocalDate.of(2024, 5, 1),
+            LocalDate.of(2024, 5, 31)
+        ).forEach { movie.addScreening(it) }
+        movies[movieId] = movie
+    }
+
+    private fun addHarryPorter4() {
+        val movieId = nextId++
+        val movie = Movie(
+            movieId,
+            "해리 포터와 불의 잔",
+            Minute(157),
+            "《해리 포터와 불의 잔》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다."
+        )
+        createScreeningInfos(
+            LocalDate.of(2024, 6, 1),
+            LocalDate.of(2024, 6, 30)
+        ).forEach { movie.addScreening(it) }
+        movies[movieId] = movie
+    }
+
+    private fun createScreeningInfos(
+        screeningStartDate: LocalDate,
+        screeningEndDate: LocalDate
+    ): List<ScreeningInfoOfMovie> {
         val movieHouse = MovieHouseRepository.findById(1)
-        val screeningStartDate = LocalDate.of(2024, 3, 1)
-        val screeningEndDate = LocalDate.of(2024, 3, 31)
         return createScreeningDateTimes(
             screeningStartDate,
             screeningEndDate
