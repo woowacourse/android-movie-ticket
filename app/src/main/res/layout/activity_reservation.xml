@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ReservationActivity">
+    tools:context=".reservation.ReservationActivity">
 
     <ScrollView
         android:id="@+id/movie_information_view"
@@ -63,6 +63,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/reservation_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

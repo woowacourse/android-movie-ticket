@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/movies_list_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movies_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MoviesActivity"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    tools:context=".movies.MoviesActivity"
     tools:ignore="AdapterViewChildren"
     tools:listitem="@layout/item_movie" />

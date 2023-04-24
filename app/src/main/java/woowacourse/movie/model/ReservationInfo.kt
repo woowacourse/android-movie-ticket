@@ -10,25 +10,15 @@ data class ReservationInfo(
     val screeningDateTime: LocalDateTime,
     val ticketCount: Int,
     val paymentAmount: Int,
+    val seats: List<ScreeningSeatInfo>,
     val paymentType: PaymentType = PaymentType.LOCAL_PAYMENT
-) : Serializable {
-
-    companion object {
-
-        fun ofError() = ReservationInfo(
-            "",
-            LocalDateTime.MIN,
-            0,
-            0,
-            PaymentType.ERROR_PAID
-        )
-    }
-}
+) : Serializable
 
 fun Reservation.toUIModel() = ReservationInfo(
     movieName.value,
     screeningDateTime,
-    ticketCount,
+    ticketCount.value,
     paymentAmount.value,
+    seats.map { it.toUIModel() },
     paymentType
 )
