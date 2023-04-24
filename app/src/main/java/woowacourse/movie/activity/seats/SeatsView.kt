@@ -36,19 +36,13 @@ class SeatsView(
     }
 
     fun getSelectedSeats(): List<Seat> {
-        val selectedSeat: MutableList<Seat> = mutableListOf()
-
-        seats.forEachIndexed { rowIndex, it ->
-            it.forEachIndexed() { columnIndex, seat ->
-                if (seat.isSelected) {
-                    val row: Char = rowIndex.toChar() + Row.MINIMUM.toInt()
-                    val column: Int = columnIndex + Column.MINIMUM
-                    selectedSeat.add(Seat.from(row, column))
-                }
+        return seats.flatMapIndexed { rowIndex, it ->
+            List(it.filter { it.isSelected }.size) { columnIndex ->
+                val row: Row = Row.of(rowIndex)
+                val column: Column = Column.of(columnIndex)
+                Seat.from(row.value, column.value)
             }
         }
-
-        return selectedSeat
     }
 
     private fun createSeatViews(): List<List<TextView>> {
