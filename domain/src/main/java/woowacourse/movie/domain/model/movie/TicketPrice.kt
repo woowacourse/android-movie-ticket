@@ -17,6 +17,8 @@ value class TicketPrice(val amount: Int = DEFAULT_TICKET_PRICE) {
 
     operator fun times(operand: Int): TicketPrice = TicketPrice(amount * operand)
 
+    operator fun plus(operand: TicketPrice): TicketPrice = TicketPrice(amount + operand.amount)
+
     companion object {
         private const val DEFAULT_TICKET_PRICE = 13_000
     }

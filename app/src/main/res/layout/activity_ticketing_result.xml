@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="@id/ticketing_header_container" />
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/title_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -43,7 +43,7 @@
         tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/date_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -54,27 +54,53 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/title_tv"
         tools:text="2024.3.1" />
 
     <TextView
-        android:id="@+id/tv_regular_count"
+        android:id="@+id/regular_count_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
-        android:gravity="center"
+        android:gravity="center|end"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tv_pay_result"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/ticket_count_and_seat_divider"
+        app:layout_constraintEnd_toStartOf="@+id/seats_tv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        app:layout_constraintTop_toTopOf="@+id/ticket_count_and_seat_divider"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="일반 1명" />
 
+    <View
+        android:id="@+id/ticket_count_and_seat_divider"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/seats_tv"
+        app:layout_constraintEnd_toStartOf="@id/seats_tv"
+        app:layout_constraintStart_toEndOf="@+id/regular_count_tv"
+        app:layout_constraintTop_toTopOf="@+id/seats_tv" />
+
     <TextView
-        android:id="@+id/tv_pay_result"
+        android:id="@+id/seats_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:gravity="center|start"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/pay_result_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/regular_count_tv"
+        app:layout_constraintTop_toBottomOf="@+id/date_tv"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="B3, D2, D1, E2, E5, E1" />
+
+    <TextView
+        android:id="@+id/pay_result_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
@@ -85,7 +111,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_regular_count"
+        app:layout_constraintTop_toBottomOf="@id/seats_tv"
         tools:text="13,000원 (현장 결제)" />
 
 
