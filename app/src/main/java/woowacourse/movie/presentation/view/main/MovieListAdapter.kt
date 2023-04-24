@@ -11,14 +11,18 @@ import woowacourse.movie.model.Movie
 class MovieListAdapter(private val movies: List<Movie>, private val ad: Drawable) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == ViewType.AD.ordinal) {
-            val binding =
-                ItemAdvertiseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return AdListViewHolder(binding)
+        return when (ViewType.values()[viewType]) {
+            ViewType.AD -> {
+                val binding =
+                    ItemAdvertiseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                AdListViewHolder(binding)
+            }
+            ViewType.MOVIE -> {
+                val binding =
+                    ItemMovieListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MovieListViewHolder(binding)
+            }
         }
-        val binding =
-            ItemMovieListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieListViewHolder(binding)
     }
 
     override fun getItemViewType(position: Int): Int {
