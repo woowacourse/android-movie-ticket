@@ -15,14 +15,14 @@ import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.ABLE
 import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.DISABLE
 import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.MAX
 import woowacourse.movie.ui.seatreservation.domain.BoxOffice.SelectState.REABLE
+import woowacourse.movie.ui.seatreservation.domain.SeatReservationDialog
 import woowacourse.movie.util.shortToast
 
 class SeatReservationActivity : AppCompatActivity() {
-    private val seatingChart: Sequence<TextView> by lazy { createSeatingChart() }
     private val totalPrice: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_price) }
     private val movieName: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_title) }
-    private val boxOffice: BoxOffice by lazy { BoxOffice.create() }
     private val checkButton: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_check_btn) }
+    private val boxOffice: BoxOffice by lazy { BoxOffice.create() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +39,16 @@ class SeatReservationActivity : AppCompatActivity() {
     }
 
     private fun setClickEventOnCheck() {
-        val button = findViewById<TextView>(R.id.tv_seat_reservation_check_btn)
-        button.setOnClickListener { view ->
+        val seatReservationDialog = SeatReservationDialog()
 
-            // dialog
+        checkButton.setOnClickListener {
+            seatReservationDialog.init(this)
         }
     }
 
     private fun setClickEventOnSeat() {
+        val seatingChart: Sequence<TextView> = createSeatingChart()
+
         seatingChart.forEachIndexed { seatLocation, view ->
             view.setOnClickListener { seat ->
                 updateViewSelected(seat, seatLocation)
