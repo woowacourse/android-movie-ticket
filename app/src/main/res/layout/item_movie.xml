@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/movie_item_title_text_style"
+        style="@style/MovieItemTitleTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/tv_date"
-        style="@style/movie_item_runningDateTime_text_style"
+        style="@style/MovieItemRunningDateTimeTexStyle"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
@@ -35,14 +35,14 @@
 
     <TextView
         android:id="@+id/tv_running_time"
-        style="@style/movie_item_runningDateTime_text_style"
+        style="@style/MovieItemRunningDateTimeTexStyle"
         app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_date"
         tools:text="러닝타임: 152분" />
 
     <Button
         android:id="@+id/btn_book"
-        style="@style/ticketing_button_style"
+        style="@style/TicketingButtonStyle"
         android:text="@string/ticket_now"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

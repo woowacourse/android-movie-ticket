@@ -51,22 +51,22 @@
             <TableRow>
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="A1"
                     android:textColor="@color/seat_b_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="A2"
                     android:textColor="@color/seat_b_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="A3"
                     android:textColor="@color/seat_b_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="A4"
                     android:textColor="@color/seat_b_rank_color" />
             </TableRow>
@@ -74,22 +74,22 @@
             <TableRow>
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="B1"
                     android:textColor="@color/seat_b_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="B2"
                     android:textColor="@color/seat_b_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="B3"
                     android:textColor="@color/seat_b_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="B4"
                     android:textColor="@color/seat_b_rank_color" />
             </TableRow>
@@ -97,22 +97,22 @@
             <TableRow>
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="C1"
                     android:textColor="@color/seat_a_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="C2"
                     android:textColor="@color/seat_a_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="C3"
                     android:textColor="@color/seat_a_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="C4"
                     android:textColor="@color/seat_a_rank_color" />
             </TableRow>
@@ -120,22 +120,22 @@
             <TableRow>
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="D1"
                     android:textColor="@color/seat_a_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="D2"
                     android:textColor="@color/seat_a_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="D3"
                     android:textColor="@color/seat_a_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="D4"
                     android:textColor="@color/seat_a_rank_color" />
             </TableRow>
@@ -143,22 +143,22 @@
             <TableRow>
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="E1"
                     android:textColor="@color/seat_s_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="E2"
                     android:textColor="@color/seat_s_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="E3"
                     android:textColor="@color/seat_s_rank_color" />
 
                 <TextView
-                    style="@style/seatSelection_seat_text_style"
+                    style="@style/SeatSelectionSeatTextStyle"
                     android:text="E4"
                     android:textColor="@color/seat_s_rank_color" />
             </TableRow>
@@ -180,7 +180,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            style="@style/seatSelection_title_price_text_style"
+            style="@style/SeatSelectionTitlePriceTextStyle"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -188,7 +188,7 @@
 
         <TextView
             android:id="@+id/tv_price"
-            style="@style/seatSelection_title_price_text_style"
+            style="@style/SeatSelectionTitlePriceTextStyle"
             android:textColor="@color/seat_selection_price_color"
             android:textSize="18sp"
             tools:text="0원" />

@@ -8,7 +8,7 @@
 
     <ScrollView
         android:id="@+id/sv_movie_info"
-        style="@style/scrollView_style"
+        style="@style/ScrollViewStyle"
         app:layout_constraintBottom_toTopOf="@id/ticketing_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,23 +29,23 @@
 
             <TextView
                 android:id="@+id/tv_title"
-                style="@style/ticketing_title_text_style"
+                style="@style/TicketingTitleTextStyle"
                 tools:text="해리 포터와 마법사의 돌" />
 
             <TextView
                 android:id="@+id/tv_date"
-                style="@style/ticketing_content_text_style"
+                style="@style/TicketingContentTextStyle"
                 android:layout_marginTop="34dp"
                 tools:text="상영일: 2024.3.1" />
 
             <TextView
                 android:id="@+id/tv_running_time"
-                style="@style/ticketing_content_text_style"
+                style="@style/TicketingContentTextStyle"
                 tools:text="러닝타임: 152분" />
 
             <TextView
                 android:id="@+id/tv_introduce"
-                style="@style/ticketing_content_text_style"
+                style="@style/TicketingContentTextStyle"
                 android:layout_marginTop="20dp"
                 tools:text="《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다." />
 
@@ -62,7 +62,7 @@
 
         <Spinner
             android:id="@+id/spinner_movie_date"
-            style="@style/ticketing_spinner_style"
+            style="@style/TicketingSpinnerStyle"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toTopOf="@id/btn_minus"
             app:layout_constraintEnd_toStartOf="@id/spinner_movie_time"
@@ -70,7 +70,7 @@
 
         <Spinner
             android:id="@+id/spinner_movie_time"
-            style="@style/ticketing_spinner_style"
+            style="@style/TicketingSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/spinner_movie_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spinner_movie_date" />
@@ -78,7 +78,7 @@
 
         <Button
             android:id="@+id/btn_minus"
-            style="@style/ticketing_button_style"
+            style="@style/TicketingButtonStyle"
             android:layout_marginBottom="20dp"
             android:text="@string/minus_button"
             android:textSize="25sp"
@@ -87,7 +87,7 @@
 
         <Button
             android:id="@+id/btn_plus"
-            style="@style/ticketing_button_style"
+            style="@style/TicketingButtonStyle"
             android:text="@string/plus_button"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_minus"
@@ -95,7 +95,7 @@
 
         <TextView
             android:id="@+id/tv_ticket_count"
-            style="@style/ticketing_ticketCount_text_style"
+            style="@style/TicketingTicketCountTextStyle"
             android:text="@string/ticket_default_count"
             app:layout_constraintBottom_toBottomOf="@id/btn_minus"
             app:layout_constraintEnd_toStartOf="@id/btn_plus"
@@ -104,7 +104,7 @@
 
         <Button
             android:id="@+id/btn_ticketing"
-            style="@style/ticketing_button_style"
+            style="@style/TicketingButtonStyle"
             android:layout_width="match_parent"
             android:text="@string/seat_select"
             android:textSize="20sp"

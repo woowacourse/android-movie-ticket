@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/ticketingResult_text_style"
+        style="@style/TicketingResultTextStyle"
         android:layout_marginTop="15dp"
         android:paddingVertical="10dp"
         android:textSize="25sp"
@@ -40,7 +40,7 @@
 
     <TextView
         android:id="@+id/tv_date"
-        style="@style/ticketingResult_text_style"
+        style="@style/TicketingResultTextStyle"
         android:paddingVertical="5dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
 
     <TextView
         android:id="@+id/tv_regular_count"
-        style="@style/ticketingResult_text_style"
+        style="@style/TicketingResultTextStyle"
         android:paddingVertical="5dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_pay_result"
@@ -62,7 +62,7 @@
 
     <TextView
         android:id="@+id/tv_pay_result"
-        style="@style/ticketingResult_text_style"
+        style="@style/TicketingResultTextStyle"
         android:paddingVertical="5dp"
         android:textSize="20sp"
         android:textStyle="normal"
