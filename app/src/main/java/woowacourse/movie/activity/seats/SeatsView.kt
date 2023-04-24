@@ -132,7 +132,7 @@ class SeatsView(
         val screeningDateTime: LocalDateTime =
             intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
 
-        val paymentAmount: PaymentAmount = PaymentAmount.from(getSelectedSeats(), screeningDateTime)
+        val paymentAmount: PaymentAmount = PaymentAmount.applyDiscount(getSelectedSeats(), screeningDateTime)
 
         binding.paymentAmountTextView.text =
             context.getString(R.string.payment_amount_form)
