@@ -1,13 +1,13 @@
 package woowacourse.movie.data
 
 import woowacourse.movie.R
-import woowacourse.movie.model.AdbState
+import woowacourse.movie.model.AdvState
 
-object AdbRepository {
-    fun allAdb(): List<AdbState> = adbs.toList()
+object AdvRepository {
+    fun allAdv(): List<AdvState> = adbs.toList()
 
-    private val adbs: List<AdbState> = List(3) {
-        AdbState(
+    private val adbs: List<AdvState> = List(3) {
+        AdvState(
             R.drawable.adv_wooteco,
             "배달의민족 운영사인 우아한형제들에서 운영하는 개발자 교육 프로그램.\n" +
                 "\n" +

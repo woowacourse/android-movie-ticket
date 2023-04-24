@@ -4,16 +4,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.ui.main.itemModel.AdbItemModel
+import woowacourse.movie.ui.main.itemModel.AdvItemModel
 import woowacourse.movie.ui.main.itemModel.ItemModel
 import woowacourse.movie.ui.main.itemModel.MovieItemModel
-import woowacourse.movie.ui.main.viewHolder.AdbViewHolder
+import woowacourse.movie.ui.main.viewHolder.AdvViewHolder
 import woowacourse.movie.ui.main.viewHolder.ItemViewHolder
 import woowacourse.movie.ui.main.viewHolder.MovieViewHolder
 
 class MainPageAdapter(
     movie: List<MovieItemModel>,
-    adb: List<AdbItemModel>
+    adv: List<AdvItemModel>
 ) : RecyclerView.Adapter<ItemViewHolder>() {
 
     private val _items: List<ItemModel>
@@ -21,16 +21,16 @@ class MainPageAdapter(
         get() = _items.toList()
 
     init {
-        _items = if (adb.isEmpty()) {
+        _items = if (adv.isEmpty()) {
             movie.toList()
         } else {
-            var curAdbIndex = 0
-            val adbSize = adb.size
-            val allowAdbMaxCount: Int = movie.size / 3
+            var curAdvIndex = 0
+            val advSize = adv.size
+            val allowAdvMaxCount: Int = movie.size / 3
             mutableListOf<ItemModel>().apply {
                 addAll(movie.toList())
-                for (index in 3..(movie.size + allowAdbMaxCount) step 4) {
-                    add(index, adb[(curAdbIndex++) % adbSize])
+                for (index in 3..(movie.size + allowAdvMaxCount) step 4) {
+                    add(index, adv[(curAdvIndex++) % advSize])
                 }
             }
         }
@@ -45,7 +45,7 @@ class MainPageAdapter(
 
         return when (viewType) {
             R.layout.movie_item_layout -> MovieViewHolder(itemView)
-            R.layout.adb_item_layout -> AdbViewHolder(itemView)
+            R.layout.adb_item_layout -> AdvViewHolder(itemView)
             else -> throw IllegalArgumentException()
         }
     }

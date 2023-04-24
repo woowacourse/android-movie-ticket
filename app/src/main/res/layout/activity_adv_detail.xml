@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.adb.AdbDetailActivity">
+    tools:context=".ui.adb.AdvDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,23 +16,23 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/adb_detail_img"
+                android:id="@+id/adv_detail_img"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
-                app:layout_constraintBottom_toTopOf="@id/adb_description"
+                app:layout_constraintBottom_toTopOf="@id/adv_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/adb_description"
+                android:id="@+id/adv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/adb_detail_img" />
+                app:layout_constraintTop_toBottomOf="@id/adv_detail_img" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

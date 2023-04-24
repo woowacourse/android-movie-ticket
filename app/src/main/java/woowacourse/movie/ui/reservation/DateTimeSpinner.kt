@@ -45,12 +45,8 @@ class DateTimeSpinner(
 
         initLocalDateTime?.let { updateSelectDateTime(it.toLocalDate(), it.toLocalTime()) }
 
-        dateSpinner.setClickListener({ position ->
-            selectDate = runningDates[position]
-        })
-        timeSpinner.setClickListener({ position ->
-            selectTime = runningTimes[position]
-        })
+        dateSpinner.setClickListener({ position -> selectDate = runningDates[position] })
+        timeSpinner.setClickListener({ position -> selectTime = runningTimes[position] })
     }
 
     fun getSelectDateTime(): LocalDateTime = LocalDateTime.of(selectDate, selectTime)

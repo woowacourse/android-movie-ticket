@@ -26,7 +26,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.ui.adb.AdbDetailActivity
+import woowacourse.movie.ui.adb.AdvDetailActivity
 import woowacourse.movie.ui.reservation.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
@@ -86,10 +86,10 @@ class MainActivityTest {
                 )
             )
 
-        onView(withId(R.id.adb_detail_img))
+        onView(withId(R.id.adv_detail_img))
             .check(matches(isDisplayed()))
 
-        intended(hasComponent(AdbDetailActivity::class.java.name))
+        intended(hasComponent(AdvDetailActivity::class.java.name))
     }
 
     @Test

@@ -1,10 +1,10 @@
 package woowacourse.movie.ui.main.itemModel
 
 import woowacourse.movie.R
-import woowacourse.movie.model.AdbState
+import woowacourse.movie.model.AdvState
 
-class AdbItemModel(
-    val adbState: AdbState,
+class AdvItemModel(
+    val advState: AdvState,
     override val onClick: (position: Int) -> Unit
 ) : ItemModel {
     override val layoutId: Int = R.layout.adb_item_layout
