@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.model.Movie
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.listener.ItemClickListener
 import woowacourse.movie.mapper.toMovieModel
 import woowacourse.movie.model.MovieListItem
 import java.time.LocalDate
@@ -24,22 +23,20 @@ class MovieListActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         val adapter = MovieListAdapter(
-            getMovieListData(),
-            object : ItemClickListener {
-                override fun onClick(item: MovieListItem) {
+            getMovieListData()
+        ) { item ->
+            when (item) {
+                is MovieListItem.MovieModel -> {
                     val intent = Intent(this@MovieListActivity, MovieDetailActivity::class.java)
                     intent.putExtra(MOVIE_KEY, item)
                     this@MovieListActivity.startActivity(intent)
                 }
-            },
-            object : ItemClickListener {
-                override fun onClick(item: MovieListItem) {
-                    item as MovieListItem.AdModel
+                is MovieListItem.AdModel -> {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
                     this@MovieListActivity.startActivity(intent)
                 }
             }
-        )
+        }
         recyclerView.adapter = adapter
     }
 

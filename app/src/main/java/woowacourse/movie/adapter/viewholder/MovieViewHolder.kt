@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.listener.ItemClickListener
 import woowacourse.movie.model.MovieListItem
 
 class MovieViewHolder(view: View) : CustomViewHolder(view) {
@@ -15,7 +14,7 @@ class MovieViewHolder(view: View) : CustomViewHolder(view) {
     private val runningTime: TextView = view.findViewById(R.id.text_running_time)
     private val ticketingButton: Button = view.findViewById(R.id.btn_ticketing)
 
-    override fun bind(item: MovieListItem, clickListener: ItemClickListener) {
+    override fun bind(item: MovieListItem, onItemClick: (item: MovieListItem) -> Unit) {
         item as MovieListItem.MovieModel
         val context = itemView.context
         image.setImageResource(item.image)
@@ -26,7 +25,7 @@ class MovieViewHolder(view: View) : CustomViewHolder(view) {
         runningTime.text = runningTimeText
 
         ticketingButton.setOnClickListener {
-            clickListener.onClick(item)
+            onItemClick(item)
         }
     }
 }

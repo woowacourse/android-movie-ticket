@@ -7,13 +7,11 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.viewholder.AdViewHolder
 import woowacourse.movie.adapter.viewholder.CustomViewHolder
 import woowacourse.movie.adapter.viewholder.MovieViewHolder
-import woowacourse.movie.listener.ItemClickListener
 import woowacourse.movie.model.MovieListItem
 
 class MovieListAdapter(
     private val items: List<MovieListItem>,
-    private val movieClickListener: ItemClickListener,
-    private val adClickListener: ItemClickListener
+    private val onItemClick: (item: MovieListItem) -> Unit
 ) :
     RecyclerView.Adapter<CustomViewHolder>() {
 
@@ -43,10 +41,10 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         when (holder) {
             is MovieViewHolder -> {
-                holder.bind(items[position], movieClickListener)
+                holder.bind(items[position], onItemClick)
             }
             is AdViewHolder -> {
-                holder.bind(items[position], adClickListener)
+                holder.bind(items[position], onItemClick)
             }
         }
     }
