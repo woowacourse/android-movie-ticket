@@ -40,7 +40,7 @@ class ReservationResultActivity : AppCompatActivity() {
                     reservationModel!!.seats.joinToString(", ")
                 )
 
-        binding.paymentAmountTextView.text = getString(R.string.payment_amount_form).format(
+        binding.paymentAmountTextView.text = getString(R.string.payment_amount_and_type_form).format(
             DecimalFormat("#,###").format(reservationModel!!.paymentAmount.value),
             getPaymentTypeString(reservationModel!!.paymentType)
         )

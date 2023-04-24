@@ -17,6 +17,7 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_TIME_INTENT_KEY
 import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INTENT_KEY
+import java.text.DecimalFormat
 import java.time.LocalDateTime
 
 class SeatsView(
@@ -145,7 +146,11 @@ class SeatsView(
         val discount: Discount = Discount(MovieDayDiscount(), EarlyNightDiscount())
 
         val basePaymentAmount: PaymentAmount = PaymentAmount.from(getSelectedSeats())
+        val paymentAmount: PaymentAmount =
+            discount.getPaymentAmountResult(basePaymentAmount, screeningDateTime)
+
         binding.paymentAmountTextView.text =
-            discount.getPaymentAmountResult(basePaymentAmount, screeningDateTime).toString()
+            context.getString(R.string.payment_amount_form)
+                .format(DecimalFormat("#,###").format(paymentAmount.value))
     }
 }
