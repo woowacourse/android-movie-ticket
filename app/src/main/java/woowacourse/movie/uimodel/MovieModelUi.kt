@@ -26,6 +26,6 @@ sealed interface MovieModelUi : Serializable {
     }
 
     class AdUi(
-        @DrawableRes val addPoster: Int,
+        @DrawableRes val adPoster: Int,
     ) : Serializable, MovieModelUi
 }

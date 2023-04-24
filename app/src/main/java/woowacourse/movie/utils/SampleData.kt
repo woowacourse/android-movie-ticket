@@ -38,7 +38,7 @@ object SampleData {
                 poster = R.drawable.poster_sorcerers_stone,
             ),
             MovieModelUi.AdUi(
-                addPoster = R.drawable.img_ad_banner1,
+                adPoster = R.drawable.img_ad_banner1,
             ),
             MovieModelUi.MovieScheduleUi(
                 title = "해리 포터와 마법사의 돌4",
@@ -71,7 +71,7 @@ object SampleData {
                 poster = R.drawable.poster_sorcerers_stone,
             ),
             MovieModelUi.AdUi(
-                addPoster = R.drawable.img_ad_banner2,
+                adPoster = R.drawable.img_ad_banner2,
             ),
             MovieModelUi.MovieScheduleUi(
                 title = "해리 포터와 마법사의 돌7",
