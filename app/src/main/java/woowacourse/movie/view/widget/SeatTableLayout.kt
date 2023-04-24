@@ -23,8 +23,8 @@ class SeatTableLayout(
 
     fun selectedSeats(): SeatsViewData {
         return tableLayout.children.flatMap { tableRow ->
-            ((tableRow as TableRow).children as Sequence<SeatView>).filter { seatView ->
-                seatView.isSeatSelected
+            (tableRow as TableRow).children.filterIsInstance<SeatView>().filter {
+                it.isSeatSelected
             }
         }.map {
             it.data
@@ -79,8 +79,8 @@ class SeatTableLayout(
 
     private fun findSeatViewByRowAndColumn(row: Int, column: Int): SeatView? {
         return tableLayout.children.flatMap { tableRow ->
-            ((tableRow as TableRow).children as Sequence<SeatView>)
-        }.find {
+            (tableRow as TableRow).children
+        }.filterIsInstance<SeatView>().find {
             it.data.row == row && it.data.column == column
         }
     }
