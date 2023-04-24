@@ -8,7 +8,10 @@ import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.movielist.OnClickListener
 import java.time.format.DateTimeFormatter
 
-class MovieViewHolder(private val view: View, private val listener: OnClickListener<MovieDto>) :
+class MovieViewHolder(
+    private val view: View,
+    private val onMovieClickListener: OnClickListener<MovieDto>,
+) :
     RecyclerView.ViewHolder(view) {
     val moviePoster: ImageView = itemView.findViewById(R.id.movie_poster)
     val movieTitle: TextView = itemView.findViewById(R.id.movie_title)
@@ -23,7 +26,7 @@ class MovieViewHolder(private val view: View, private val listener: OnClickListe
         runningTime.text = formatMovieRunningTime(movie)
 
         bookButton.setOnClickListener {
-            listener.onClick(movie)
+            onMovieClickListener.onClick(movie)
         }
     }
 

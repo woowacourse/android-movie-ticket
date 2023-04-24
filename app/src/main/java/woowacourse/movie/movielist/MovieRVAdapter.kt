@@ -12,21 +12,23 @@ import woowacourse.movie.dto.MovieDto
 class MovieRVAdapter(
     private val movies: List<MovieDto>,
     private val ad: AdDto,
-    private val onMovieClicklistener: OnClickListener<MovieDto>,
-    private val onAdClickListener: OnClickListener<AdDto>,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    lateinit var itemMovieClick: OnClickListener<MovieDto>
+    lateinit var itemAdClick: OnClickListener<AdDto>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (ViewType.values()[viewType]) {
             ViewType.MOVIE_VIEW -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.movie_item, parent, false)
-                MovieViewHolder(view, onMovieClicklistener)
+                MovieViewHolder(view, itemMovieClick)
             }
             ViewType.AD_VIEW -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.ad_item, parent, false)
-                AdViewHolder(view, onAdClickListener)
+                AdViewHolder(view, itemAdClick)
             }
         }
     }
