@@ -9,14 +9,14 @@ import android.widget.TextView
 import domain.movie.ScreeningDate
 import domain.reservation.TicketCount
 import woowacourse.movie.R
-import woowacourse.movie.model.DisplayItem
+import woowacourse.movie.model.MoviesRecyclerItem
 import woowacourse.movie.model.SeatSelectionInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class NavigationView(
-    private val movieInfo: DisplayItem.MovieInfo,
+    private val movieInfo: MoviesRecyclerItem.MovieInfo,
     private val navigationBar: LinearLayout
 ) {
     private val ticketCountTextView =

@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.DisplayItem
+import woowacourse.movie.model.MoviesRecyclerItem
 
 class MoviesAdapter(
-    private val moviesInfo: List<DisplayItem.MovieInfo>,
-    private val advertisement: DisplayItem.Advertisement,
+    private val moviesInfo: List<MoviesRecyclerItem.MovieInfo>,
+    private val advertisement: MoviesRecyclerItem.Advertisement,
     private val onItemViewClickListener: OnItemViewClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

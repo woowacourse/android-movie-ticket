@@ -4,20 +4,20 @@ import androidx.annotation.DrawableRes
 import java.io.Serializable
 import java.time.LocalDate
 
-sealed class DisplayItem : Serializable {
+sealed class MoviesRecyclerItem : Serializable {
 
     data class MovieInfo(
         val movieName: String,
-        @DrawableRes val posterImage: Int?,
+        @DrawableRes val posterImage: Int,
         val startDate: LocalDate,
         val endDate: LocalDate,
         val screeningPeriod: List<LocalDate>,
         val runningTime: Int,
         val description: String
-    ) : DisplayItem()
+    ) : MoviesRecyclerItem()
 
     data class Advertisement(
-        @DrawableRes val adImageSrc: Int?,
+        @DrawableRes val adImageSrc: Int,
         val url: String,
-    ) : DisplayItem()
+    ) : MoviesRecyclerItem()
 }

@@ -1,8 +1,8 @@
 package woowacourse.movie.movies
 
-import woowacourse.movie.model.DisplayItem
+import woowacourse.movie.model.MoviesRecyclerItem
 
 interface OnItemViewClickListener {
 
-    fun onDisplayItemClicked(displayItem: DisplayItem)
+    fun onDisplayItemClicked(moviesRecyclerItem: MoviesRecyclerItem)
 }

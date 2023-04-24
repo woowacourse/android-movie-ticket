@@ -4,7 +4,7 @@ import woowacourse.movie.R
 
 class MockAdvertisementGenerator {
 
-    fun generate() = DisplayItem.Advertisement(
+    fun generate() = MoviesRecyclerItem.Advertisement(
         adImageSrc = R.drawable.image_advertisement,
         url = "https://techcourse.woowahan.com/"
     )

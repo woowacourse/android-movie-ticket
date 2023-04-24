@@ -5,14 +5,14 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.DisplayItem
+import woowacourse.movie.model.MoviesRecyclerItem
 import java.time.format.DateTimeFormatter
 
 class MovieInfoView(
     private val movieInformationView: ScrollView
 ) {
 
-    fun bind(movie: DisplayItem.MovieInfo) {
+    fun bind(movie: MoviesRecyclerItem.MovieInfo) {
         val posterImageView =
             findViewConfiguration<ImageView>(R.id.reservation_movie_image_view)
         val movieNameTextView =
@@ -29,7 +29,7 @@ class MovieInfoView(
             movieInformationView.context.getString(R.string.running_time_form)
 
         with(movie) {
-            posterImage?.let { id -> posterImageView.setImageResource(id) }
+            posterImageView.setImageResource(posterImage)
             movieNameTextView.text = movieName
             screeningDateTextView.text = screeningPeriodForm.format(
                 startDate.format(DATE_TIME_FORMAT),
