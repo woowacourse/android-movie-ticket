@@ -72,18 +72,18 @@ class ReservationResultActivity : AppCompatActivity() {
             DateTimeFormatter.ofPattern(date.context.getString(R.string.reservation_datetime_format))
         date.text = dateFormat.format(reservationDetail.date)
 
-        peopleCount.text = peopleCount.context.getString(R.string.reservation_people_count)
-            .format(reservationDetail.peopleCount, formatSeats(seats))
+        peopleCount.text = peopleCount.context.getString(
+            R.string.reservation_people_count, reservationDetail.peopleCount, formatSeats(seats)
+        )
 
         val formattedPrice = NumberFormat.getNumberInstance(Locale.US).format(price.value)
 
-        priceText.text =
-            priceText.context.getString(R.string.reservation_price).format(formattedPrice)
+        priceText.text = priceText.context.getString(R.string.reservation_price, formattedPrice)
     }
 
     private fun formatSeats(seats: SeatsViewData): String {
         return seats.seats.joinToString {
-            getString(R.string.seat_row_column).format(it.rowCharacter, it.column + 1)
+            getString(R.string.seat_row_column, it.rowCharacter, it.column + 1)
         }
     }
 
