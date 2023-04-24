@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation
 
-import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -30,9 +29,7 @@ class ChoiceSeatActivityTest {
         )
 
     private val intent =
-        Intent(ApplicationProvider.getApplicationContext(), ChoiceSeatActivity::class.java).apply {
-            this.putExtra("RESERVATION", reservation)
-        }
+        ChoiceSeatActivity.getIntent(ApplicationProvider.getApplicationContext(), reservation)
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ChoiceSeatActivity>(intent)
@@ -40,19 +37,19 @@ class ChoiceSeatActivityTest {
     @Test
     fun 현재_영화_이름을_확인한다() {
         // given
-        val title = onView(withId(R.id.textChoiceTitle))
+        // 해리 포터와 마법사의 돌
 
-        // then
-        title.check(matches(withText("해리 포터와 마법사의 돌")))
+        // when & then
+        onView(withId(R.id.textChoiceTitle)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun 좌석을_선택하지_않으면_가격은_0원이다() {
         // given
-        val paymentAmount = onView(withId(R.id.textChoicePaymentAmount))
+        // nothing
 
-        // then
-        paymentAmount.check(matches(withText("0원")))
+        // when & then
+        onView(withId(R.id.textChoicePaymentAmount)).check(matches(withText("0원")))
     }
 
     @Test
