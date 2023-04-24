@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.util
 
-import woowacourse.movie.domain.tools.seat.Location
+import woowacourse.movie.domain.model.tools.seat.Location
 
 fun List<String>.formatSeatsCombine(): String {
     val stringBuilder = StringBuilder()

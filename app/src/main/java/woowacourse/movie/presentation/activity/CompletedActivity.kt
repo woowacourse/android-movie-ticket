@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieData
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.tools.Movie
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.util.formatScreenDateTime
 import woowacourse.movie.presentation.util.formatSeatsCombine

@@ -12,13 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieData
-import woowacourse.movie.domain.tools.Money
-import woowacourse.movie.domain.tools.seat.Location
-import woowacourse.movie.domain.tools.seat.Seat
-import woowacourse.movie.domain.tools.seat.SeatGrade
-import woowacourse.movie.domain.tools.seat.SeatRow
-import woowacourse.movie.domain.tools.seat.Seats
-import woowacourse.movie.domain.tools.seat.Theater
+import woowacourse.movie.domain.model.tools.Money
+import woowacourse.movie.domain.model.tools.seat.Location
+import woowacourse.movie.domain.model.tools.seat.Seat
+import woowacourse.movie.domain.model.tools.seat.SeatGrade
+import woowacourse.movie.domain.model.tools.seat.SeatRow
+import woowacourse.movie.domain.model.tools.seat.Seats
+import woowacourse.movie.domain.model.tools.seat.Theater
 import woowacourse.movie.presentation.model.ReservationModel
 import woowacourse.movie.presentation.model.toPresentation
 

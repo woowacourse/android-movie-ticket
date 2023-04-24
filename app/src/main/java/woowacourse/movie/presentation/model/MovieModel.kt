@@ -1,8 +1,8 @@
 package woowacourse.movie.presentation.model
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.domain.tools.TicketCount
-import woowacourse.movie.domain.tools.seat.Seat
+import woowacourse.movie.domain.model.tools.TicketCount
+import woowacourse.movie.domain.model.tools.seat.Seat
 import java.time.LocalDate
 import java.util.SortedSet
 

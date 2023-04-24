@@ -1,8 +1,8 @@
 package woowacourse.movie.presentation.model
 
 import woowacourse.movie.data.MovieDrawableData
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.domain.model.tools.Movie
+import woowacourse.movie.domain.model.tools.Ticket
 import woowacourse.movie.presentation.util.formatLocationToString
 
 fun MovieModel.toDomainModel() = Movie(
