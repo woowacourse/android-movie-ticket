@@ -2,6 +2,7 @@ package woowacourse.movie.reservation
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import domain.reservation.TicketCount
@@ -56,10 +57,26 @@ class ReservationActivity : AppCompatActivity() {
     private fun setNavigationBar() {
         with(navigationView) {
             setDateSpinner()
-            setMinusButtonClickedListener { alertTicketCountError() }
-            setPlusButtonClickedListener()
+            setMinusButtonClickedListener(::minusTicketTextCount)
+            setPlusButtonClickedListener(::plusTicketTextCount)
             setOnCompleteButtonClickedListener(::onCompleted)
             setTicketCountTextView()
+        }
+    }
+
+    private fun plusTicketTextCount(textView: TextView) {
+        val count = TicketCount(textView.text.toString().toInt() + 1)
+
+        textView.text = count.value.toString()
+    }
+
+    private fun minusTicketTextCount(textView: TextView) {
+        runCatching {
+            val count = TicketCount(textView.text.toString().toInt() - 1)
+
+            textView.text = count.value.toString()
+        }.onFailure {
+            alertTicketCountError()
         }
     }
 
