@@ -20,6 +20,7 @@ import woowacourse.movie.view.SeatTable
 import woowacourse.movie.view.SeatView
 import woowacourse.movie.view.mapper.TicketOfficeMapper
 import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.SeatUiModel
 import woowacourse.movie.view.model.TicketDateUiModel
 import java.text.NumberFormat
 import java.time.LocalDate
@@ -107,7 +108,11 @@ class SelectSeatActivity : AppCompatActivity() {
 
     private fun changeSeatViewState(seatView: SeatView) {
         val ticket =
-            ticketOffice.generateTicket(ticketDateTime, seatView.seat.row, seatView.seat.col)
+            ticketOffice.generateTicket(
+                ticketDateTime,
+                SeatUiModel.toNumber(seatView.row),
+                seatView.col
+            )
         if (ticketOffice.tickets.isContainSameTicket(ticket)) {
             setViewNotSelected(seatView, ticket)
         } else {
@@ -162,12 +167,6 @@ class SelectSeatActivity : AppCompatActivity() {
 
     private fun receiveTicketDateTimeData(): LocalDateTime? {
         return intent.extras?.getSerializableCompat<TicketDateUiModel>(TICKET_KEY)?.date
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        Log.d("wooseok", "실")
-        outState.putSerializable("ticketOffice", TicketOfficeMapper.toUi(ticketOffice))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

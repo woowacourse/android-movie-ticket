@@ -79,7 +79,7 @@ class ReservationResultActivity : AppCompatActivity() {
     private fun renderSeatInformation() {
         ticketOfficeUiModel.ticketsUiModel.list.forEachIndexed { index, ticket ->
             seatTextView.text =
-                (seatTextView.text.toString() + ticket.seat.row.name + ticket.seat.col)
+                (seatTextView.text.toString() + ticket.seat.row + ticket.seat.col)
             if (index != ticketOfficeUiModel.ticketCount - 1) seatTextView.text =
                 seatTextView.text.toString() + ", "
         }

@@ -3,7 +3,7 @@ package woowacourse.movie.view
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import woowacourse.movie.view.model.SeatRowUiModel
+import woowacourse.movie.view.model.SeatUiModel
 
 class SeatTable(
     private val tableLayout: TableLayout,
@@ -11,27 +11,27 @@ class SeatTable(
     private val colSize: Int = DEFAULT_COL_SIZE,
     private val onClick: (SeatView) -> Unit
 ) {
-
-
-    private fun makeTableRow(): TableRow {
-        val tableRow = TableRow(tableLayout.context)
-        tableRow.layoutParams = TableLayout.LayoutParams(
-            TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT, TABLE_WEIGHT
-        )
-        return tableRow
-    }
-
     fun makeSeatTable() {
-        repeat (rowSize) {row->
+        repeat(rowSize) { row ->
             val tableRow = makeTableRow()
-            repeat(colSize) {col->
+            repeat(colSize) { col ->
                 val seatView = SeatView(
-                    TextView(tableLayout.context), SeatRowUiModel.numberToSeatRow(row+1), col+1, onClick
+                    TextView(tableLayout.context), SeatUiModel.toChar(row), col + 1, onClick
                 )
                 tableRow.addView(seatView.view)
             }
             tableLayout.addView(tableRow)
         }
+    }
+
+    private fun makeTableRow(): TableRow {
+        val tableRow = TableRow(tableLayout.context)
+        tableRow.layoutParams = TableLayout.LayoutParams(
+            TableLayout.LayoutParams.MATCH_PARENT,
+            TableLayout.LayoutParams.MATCH_PARENT,
+            TABLE_WEIGHT
+        )
+        return tableRow
     }
 
     companion object {
