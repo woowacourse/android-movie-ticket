@@ -12,7 +12,7 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".ui.adb.AdvDetailActivity"
+            android:name=".ui.adv.AdvDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.seat.SeatSelectActivity"

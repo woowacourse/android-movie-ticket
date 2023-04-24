@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.adb
+package woowacourse.movie.ui.adv
 
 import android.os.Bundle
 import android.widget.ImageView
