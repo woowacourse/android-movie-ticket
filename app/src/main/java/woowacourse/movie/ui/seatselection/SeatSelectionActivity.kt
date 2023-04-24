@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.seatselection
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -110,8 +111,8 @@ class SeatSelectionActivity : AppCompatActivity() {
             ticketsUI,
             reservation.ticketCount
         )
-        val intent = Intent(this@SeatSelectionActivity, TicketingResultActivity::class.java)
-        intent.putExtra(TicketingActivity.RESERVATION_KEY, reservation)
+
+        val intent = TicketingResultActivity.getIntent(this@SeatSelectionActivity, reservation)
         startActivity(intent)
         finish()
     }
@@ -164,5 +165,11 @@ class SeatSelectionActivity : AppCompatActivity() {
         private const val TICKETS_STATE_KEY = "tickets_state_key"
         private const val MESSAGE_EMPTY_RESERVATION = "예매 정보가 없습니다"
         private const val DEFAULT_MOVIE_PRICE = 0
+
+        internal fun getIntent(context: Context, reservationUI: ReservationUI): Intent {
+            val intent = Intent(context, SeatSelectionActivity::class.java)
+            intent.putExtra(TicketingActivity.RESERVATION_KEY, reservationUI)
+            return intent
+        }
     }
 }

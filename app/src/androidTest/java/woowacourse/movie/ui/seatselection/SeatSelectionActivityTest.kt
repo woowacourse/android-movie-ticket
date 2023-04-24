@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.seatselection
 
-import android.content.Context
-import android.content.Intent
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.intent.Intents
@@ -15,7 +14,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
 import com.woowacourse.movie.domain.Movie
 import org.junit.After
 import org.junit.Before
@@ -39,8 +37,13 @@ class SeatSelectionActivityTest {
         TicketCountUI(2)
     )
 
+    private val intent = SeatSelectionActivity.getIntent(
+        ApplicationProvider.getApplicationContext(),
+        reservation
+    )
+
     @get:Rule
-    val activityScenarioRule = ActivityScenarioRule<SeatSelectionActivity>(getIntent(reservation))
+    val activityScenarioRule = ActivityScenarioRule<SeatSelectionActivity>(intent)
 
     @Before
     fun setup() {
@@ -116,15 +119,6 @@ class SeatSelectionActivityTest {
     }
 
     companion object {
-        private const val RESERVATION_KEY = "reservation"
-
-        private fun getIntent(reservationUI: ReservationUI): Intent {
-            val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
-            val intent = Intent(context, SeatSelectionActivity::class.java)
-            intent.putExtra(RESERVATION_KEY, reservationUI)
-            return intent
-        }
-
         fun performTextClicks(vararg text: String) {
             text.forEach {
                 onView(withText(it))

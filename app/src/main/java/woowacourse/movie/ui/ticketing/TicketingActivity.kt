@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.ticketing
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -206,8 +207,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             return
         }
         reservation = reserveMovie()?.apply {
-            val intent = Intent(this@TicketingActivity, SeatSelectionActivity::class.java)
-            intent.putExtra(RESERVATION_KEY, this)
+            val intent = SeatSelectionActivity.getIntent(this@TicketingActivity, this@apply)
             startActivity(intent)
         }
     }
@@ -217,7 +217,8 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             movieDates[selectedDateIdx],
             movieTimes[selectedTimeIdx]
         )
-        return movie.toMovie().reserveMovie(reservationDateTime, movieTicket.toTicketCount())?.toReservationUI()
+        return movie.toMovie().reserveMovie(reservationDateTime, movieTicket.toTicketCount())
+            ?.toReservationUI()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -249,5 +250,11 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         internal const val TICKET_STATE_KEY = "ticket"
         internal const val MOVIE_DATE_INDEX_STATE_KEY = "movieDate"
         internal const val MOVIE_TIME_INDEX_STATE_KEY = "movieTime"
+
+        internal fun getIntent(context: Context, movie: MovieUI): Intent {
+            val intent = Intent(context, TicketingActivity::class.java)
+            intent.putExtra(MovieListActivity.MOVIE_KEY, movie)
+            return intent
+        }
     }
 }

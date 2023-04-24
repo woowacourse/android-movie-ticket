@@ -1,5 +1,7 @@
 package woowacourse.movie.ui.ticketingresult
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -94,7 +96,13 @@ class TicketingResultActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private companion object {
+    companion object {
         private const val MESSAGE_EMPTY_RESERVATION = "예약 정보가 없습니다"
+
+        internal fun getIntent(context: Context, reservationUI: ReservationUI): Intent {
+            val intent = Intent(context, TicketingResultActivity::class.java)
+            intent.putExtra(TicketingActivity.RESERVATION_KEY, reservationUI)
+            return intent
+        }
     }
 }

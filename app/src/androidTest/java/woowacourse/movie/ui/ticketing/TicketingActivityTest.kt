@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.ticketing
 
-import android.content.Context
-import android.content.Intent
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
@@ -9,14 +8,12 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
 import com.woowacourse.movie.domain.Movie
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieUI
 import woowacourse.movie.model.mapper.toMovieUI
 import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import woowacourse.movie.ui.util.checkMatches
@@ -26,8 +23,13 @@ class TicketingActivityTest {
     // 해리포터
     private val movie = Movie.provideDummy()[0].toMovieUI()
 
+    private val intent = TicketingActivity.getIntent(
+        ApplicationProvider.getApplicationContext(),
+        movie
+    )
+
     @get:Rule
-    val activityScenarioRule = ActivityScenarioRule<TicketingActivity>(getIntent(movie))
+    val activityScenarioRule = ActivityScenarioRule<TicketingActivity>(intent)
 
     @Before
     fun setup() {
@@ -78,16 +80,5 @@ class TicketingActivityTest {
             .performClick()
 
         Intents.intended(IntentMatchers.hasComponent(SeatSelectionActivity::class.java.name))
-    }
-
-    companion object {
-        private const val MOVIE_KEY = "movie"
-
-        private fun getIntent(movie: MovieUI): Intent {
-            val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
-            val intent = Intent(context, TicketingActivity::class.java)
-            intent.putExtra(MOVIE_KEY, movie)
-            return intent
-        }
     }
 }

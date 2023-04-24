@@ -1,12 +1,10 @@
 package woowacourse.movie.ui.ticketingresult
 
-import android.content.Context
-import android.content.Intent
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
 import com.woowacourse.movie.domain.Movie
 import org.junit.Rule
 import org.junit.Test
@@ -38,8 +36,13 @@ class TicketingResultActivityTest {
         TicketCountUI(2)
     )
 
+    private val intent = TicketingResultActivity.getIntent(
+        ApplicationProvider.getApplicationContext(),
+        reservation
+    )
+
     @get:Rule
-    val activityRule = ActivityScenarioRule<TicketingResultActivity>(getIntent(reservation))
+    val activityRule = ActivityScenarioRule<TicketingResultActivity>(intent)
 
     @Test
     fun `이전_화면에서_예매한_해리포터가_예매_영화_제목으로_보여진다`() {
@@ -69,16 +72,5 @@ class TicketingResultActivityTest {
     fun `이전_화면에서_예매한_B등급_2장의_가격이_보여진다`() {
         onView(withId(R.id.tv_pay_result))
             .checkMatches(withText("20,000원 (현장 결제)"))
-    }
-
-    companion object {
-        private const val RESERVATION_KEY = "reservation"
-
-        private fun getIntent(reservationUI: ReservationUI): Intent {
-            val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
-            val intent = Intent(context, TicketingResultActivity::class.java)
-            intent.putExtra(RESERVATION_KEY, reservationUI)
-            return intent
-        }
     }
 }

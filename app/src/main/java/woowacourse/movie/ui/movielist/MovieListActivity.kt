@@ -63,8 +63,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun onBookClick(item: MovieUI) {
-        val intent = Intent(this@MovieListActivity, TicketingActivity::class.java)
-        intent.putExtra(MOVIE_KEY, item)
+        val intent = TicketingActivity.getIntent(this, item)
         startActivity(intent)
     }
 
