@@ -8,8 +8,7 @@ import woowacourse.movie.model.MovieState
 import woowacourse.movie.ui.DateTimeFormatters
 
 class MovieInfo(
-    view: View,
-    movie: MovieState
+    view: View
 ) {
     private val image: ImageView = view.findViewById(R.id.detail_image)
     private val title: TextView = view.findViewById(R.id.detail_title)
@@ -17,7 +16,7 @@ class MovieInfo(
     private val detailTime: TextView = view.findViewById(R.id.detail_time)
     private val description: TextView = view.findViewById(R.id.description)
 
-    init {
+    fun setMovieState(movie: MovieState) {
         image.setImageResource(movie.imgId)
         title.text = movie.title
         detailDate.text =

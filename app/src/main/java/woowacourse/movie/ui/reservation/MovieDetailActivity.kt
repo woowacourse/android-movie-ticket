@@ -36,7 +36,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
         setContentView(R.layout.activity_movie_detail)
         val rootView = window.decorView.rootView
         movie = intent.getParcelableExtraCompat(KEY_MOVIE) ?: return keyError(KEY_MOVIE)
-        movieInfo = MovieInfo(rootView, movie)
+        movieInfo = MovieInfo(rootView).also { it.setMovieState(movie) }
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState)
         } else {
