@@ -17,12 +17,12 @@ class CompletedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_completed)
 
-        val reservation = getResult()
-        initView(reservation)
+        getResult()?.let { initView(it) } ?: finish()
     }
 
-    private fun getResult(): ReservationUiModel =
-        intent.getParcelable(RESERVATION, ReservationUiModel::class.java)
+    private fun getResult(): ReservationUiModel? {
+        return intent.getParcelable(RESERVATION, ReservationUiModel::class.java)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {

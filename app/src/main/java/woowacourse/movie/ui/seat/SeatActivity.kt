@@ -63,7 +63,7 @@ class SeatActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        bookedMovie = intent.getParcelable(BOOKED_MOVIE, BookedMovie::class.java)
+        bookedMovie = intent.getParcelable(BOOKED_MOVIE, BookedMovie::class.java) ?: return finish()
         movie = MovieRepository.getMovie(bookedMovie.movieId)
         theater = TheaterRepository.getTheater(bookedMovie.theaterId)
         selectedSeat = SelectedSeat(bookedMovie.ticketCount)

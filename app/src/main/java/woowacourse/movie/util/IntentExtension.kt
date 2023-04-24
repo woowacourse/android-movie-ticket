@@ -13,11 +13,11 @@ inline fun <reified T : Serializable> Intent.getSerializable(key: String, data: 
     }
 }
 
-fun <T> Intent.getParcelable(key: String, data: Class<T>): T {
+fun <T> Intent.getParcelable(key: String, data: Class<T>): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        getParcelableExtra(key, data) ?: throw IllegalArgumentException()
+        getParcelableExtra(key, data)
     } else {
-        getParcelableExtra(key) as T? ?: throw IllegalArgumentException()
+        getParcelableExtra(key) as T?
     }
 }
 
