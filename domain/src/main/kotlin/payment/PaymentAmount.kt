@@ -3,7 +3,7 @@ package payment
 import seat.Seat
 
 @JvmInline
-value class PaymentAmount(val value: Int) {
+value class PaymentAmount(val value: Int = 0) {
     init {
         require(value >= MINIMUM)
     }
@@ -13,9 +13,9 @@ value class PaymentAmount(val value: Int) {
     }
 
     companion object {
-        private const val MINIMUM = 0
+        const val MINIMUM = 0
 
         fun from(seats: List<Seat>): PaymentAmount =
-            PaymentAmount(seats.sumOf { it.seatType!!.paymentAmount })
+            PaymentAmount(seats.sumOf { it.seatType.paymentAmount })
     }
 }

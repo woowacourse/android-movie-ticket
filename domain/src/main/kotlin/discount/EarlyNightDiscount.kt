@@ -11,6 +11,7 @@ class EarlyNightDiscount(
 
     override fun getPaymentAmountResult(paymentAmount: PaymentAmount, screeningDateTime: LocalDateTime): PaymentAmount {
         if (!isDiscountCondition(screeningDateTime)) return paymentAmount
+        if (paymentAmount.value - amount < PaymentAmount.MINIMUM) return PaymentAmount(PaymentAmount.MINIMUM)
         return PaymentAmount(paymentAmount.value - amount)
     }
 

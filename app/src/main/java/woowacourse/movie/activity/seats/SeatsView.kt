@@ -124,7 +124,6 @@ class SeatsView(
                         if (!seat.isSelected) seat.isClickable = false
                         binding.reservationCompleteTextView.isClickable = true
                         binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.clickable_button_color))
-                        updatePaymentAmount()
                     }
                 }
             }
@@ -138,6 +137,7 @@ class SeatsView(
                 }
             }
         }
+        updatePaymentAmount()
     }
 
     private fun updatePaymentAmount() {
