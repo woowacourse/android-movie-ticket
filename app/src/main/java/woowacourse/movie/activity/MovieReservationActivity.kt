@@ -70,7 +70,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun finishActivity() {
-        Toast.makeText(this, MOVIE_DATA_NULL_ERROR, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.movie_data_null_error), Toast.LENGTH_LONG).show()
         finish()
     }
 
@@ -116,6 +116,5 @@ class MovieReservationActivity : AppCompatActivity() {
         private const val COUNTER_SAVE_STATE_KEY = "counter"
         private const val DATE_SPINNER_SAVE_STATE_KEY = "date_spinner"
         private const val TIME_SPINNER_SAVE_STATE_KEY = "time_spinner"
-        private const val MOVIE_DATA_NULL_ERROR = "영화 데이터가 들어오지 않았어요!!"
     }
 }
