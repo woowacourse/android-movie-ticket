@@ -39,9 +39,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun restoreData(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            with(savedInstanceState) {
-                ticketCount = TicketCount(getInt(TICKET_COUNT))
-            }
+            ticketCount = TicketCount(savedInstanceState.getInt(TICKET_COUNT))
         }
     }
 
