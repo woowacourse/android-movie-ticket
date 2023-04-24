@@ -33,7 +33,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_book_complete" />
+        app:layout_constraintTop_toBottomOf="@id/tv_book_complete" />
 
     <TextView
         android:id="@+id/tv_book_date"
