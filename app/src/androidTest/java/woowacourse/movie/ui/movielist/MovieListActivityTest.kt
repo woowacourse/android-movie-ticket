@@ -1,30 +1,24 @@
 package woowacourse.movie.ui.movielist
 
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
-import androidx.test.espresso.ViewInteraction
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.ui.ticketing.TicketingActivity
+import woowacourse.movie.ui.util.checkDisplayed
+import woowacourse.movie.ui.util.performAction
+import woowacourse.movie.ui.util.performScrollTo
 
 class MovieListActivityTest {
     @get:Rule
@@ -76,35 +70,5 @@ class MovieListActivityTest {
                     v.performClick()
                 }
             }
-
-        fun ViewInteraction.performScrollTo(position: Int): ViewInteraction =
-            perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(position))
-
-        fun ViewInteraction.performAction(position: Int, viewAction: ViewAction): ViewInteraction =
-            perform(actionOnItemAtPosition<RecyclerView.ViewHolder>(position, viewAction))
-
-        fun ViewInteraction.checkDisplayed(id: Int): ViewInteraction =
-            check(
-                matches(
-                    hasDescendant(
-                        allOf(
-                            withId(id),
-                            isDisplayed()
-                        ),
-                    ),
-                ),
-            )
-
-        fun ViewInteraction.checkDisplayed(text: String): ViewInteraction =
-            check(
-                matches(
-                    hasDescendant(
-                        allOf(
-                            withText(text),
-                            isDisplayed()
-                        ),
-                    ),
-                ),
-            )
     }
 }
