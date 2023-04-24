@@ -7,7 +7,7 @@ import android.os.Parcelable
 import java.io.Serializable
 
 @Suppress("DEPRECATION")
-inline fun <reified T : Parcelable> Intent.customGetParcelableExtra(key: String): T? {
+inline fun <reified T : Parcelable> Intent.getParcelableExtraCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getParcelableExtra(key, T::class.java)
     } else {
@@ -16,7 +16,7 @@ inline fun <reified T : Parcelable> Intent.customGetParcelableExtra(key: String)
 }
 
 @Suppress("DEPRECATION")
-inline fun <reified T : Parcelable> Bundle.customGetParcelable(key: String): T? {
+inline fun <reified T : Parcelable> Bundle.getParcelableCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getParcelable(key, T::class.java)
     } else {
@@ -25,7 +25,25 @@ inline fun <reified T : Parcelable> Bundle.customGetParcelable(key: String): T? 
 }
 
 @Suppress("DEPRECATION")
-inline fun <reified T : Serializable> Intent.customGetSerializableExtra(key: String): T? {
+inline fun <reified T : Parcelable> Bundle.getParcelableArrayListCompat(key: String): ArrayList<T>? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        getParcelableArrayList(key, T::class.java)
+    } else {
+        getParcelableArrayList(key)
+    }
+}
+
+@Suppress("DEPRECATION")
+inline fun <reified T : Parcelable> Intent.getParcelableArrayListExtraCompat(key: String): ArrayList<T>? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        getParcelableArrayListExtra(key, T::class.java)
+    } else {
+        getParcelableArrayListExtra(key)
+    }
+}
+
+@Suppress("DEPRECATION")
+inline fun <reified T : Serializable> Intent.getSerializableExtraCompat(key: String): T? {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getSerializableExtra(key, T::class.java)
     } else {

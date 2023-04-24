@@ -7,9 +7,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
+import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.price.TicketCount
-import woowacourse.movie.ui.moviebookingcheckactivity.MovieBookingCheckActivity
 import woowacourse.movie.ui.model.MovieUIModel
+import woowacourse.movie.ui.moviebookingcheckactivity.MovieBookingCheckActivity
+import woowacourse.movie.ui.movieselectseatactivity.MovieSelectSeatActivity
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -21,7 +23,7 @@ class MovieBookingInputView(private val view: ViewGroup) {
     lateinit var timeSpinner: Spinner
     lateinit var dateSpinnerAdapter: DateSpinnerAdapter
     lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
-    val ticketCount = TicketCount(1)
+    val ticketCount = woowacourse.movie.domain.price.TicketCount(1)
 
     init {
         initTicketCountView()
@@ -47,7 +49,10 @@ class MovieBookingInputView(private val view: ViewGroup) {
         timeSpinnerAdapter =
             TimeSpinnerAdapter(
                 timeSpinner,
-                movieData.screeningDay,
+                woowacourse.movie.domain.datetime.ScreeningPeriod(
+                    movieData.screeningStartDay,
+                    movieData.screeningEndDay
+                ),
                 timeSpinnerRecoverState,
                 view.context
             )
@@ -55,7 +60,10 @@ class MovieBookingInputView(private val view: ViewGroup) {
             DateSpinnerAdapter(
                 dateSpinner,
                 timeSpinnerAdapter::updateTimeTable,
-                movieData.screeningDay,
+                woowacourse.movie.domain.datetime.ScreeningPeriod(
+                    movieData.screeningStartDay,
+                    movieData.screeningEndDay
+                ),
                 view.context
             )
     }
@@ -79,22 +87,28 @@ class MovieBookingInputView(private val view: ViewGroup) {
         }
     }
 
-    private fun getScreeningDateTime(movieData: MovieUIModel): ScreeningDateTime {
+    private fun getScreeningDateTime(movieData: MovieUIModel): woowacourse.movie.domain.datetime.ScreeningDateTime {
         val date = dateSpinner.selectedItem as LocalDate
         val time = timeSpinner.selectedItem as LocalTime
 
-        return ScreeningDateTime(LocalDateTime.of(date, time), movieData.screeningDay)
+        return woowacourse.movie.domain.datetime.ScreeningDateTime(
+            LocalDateTime.of(date, time),
+            woowacourse.movie.domain.datetime.ScreeningPeriod(
+                movieData.screeningStartDay,
+                movieData.screeningEndDay
+            )
+        )
     }
 
     // timespinner 초기화 관련 방어코드 고려
     fun initBookingCompleteButtonClickListener(movieData: MovieUIModel) {
         view.findViewById<Button>(R.id.btn_booking_complete).setOnSingleClickListener {
-            val intent = Intent(view.context, MovieBookingCheckActivity::class.java).apply {
-                putExtra(MovieBookingCheckActivity.MOVIE_DATA, movieData)
-                putExtra(MovieBookingCheckActivity.TICKET_COUNT, ticketCount)
+            val intent = Intent(view.context, MovieSelectSeatActivity::class.java).apply {
+                putExtra(MovieSelectSeatActivity.MOVIE_DATA, movieData)
+                putExtra(MovieSelectSeatActivity.TICKET_COUNT, ticketCount.value)
                 putExtra(
-                    MovieBookingCheckActivity.BOOKED_SCREENING_DATE_TIME,
-                    getScreeningDateTime(movieData)
+                    MovieSelectSeatActivity.BOOKED_SCREENING_DATE_TIME,
+                    getScreeningDateTime(movieData).time
                 )
             }
             view.context.startActivity(intent)

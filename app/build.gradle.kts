@@ -48,4 +48,11 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("androidx.test:core:1.5.0")
     testImplementation("org.mockito:mockito-core:3.12.4")
+
+    // 도메인 모듈 분리
+    implementation(project(":domain"))
+
+    // espresso
+    // Intents
+    implementation("androidx.test.espresso:espresso-intents:3.5.1")
 }

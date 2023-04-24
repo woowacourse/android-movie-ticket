@@ -4,15 +4,23 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.datetime.ScreeningDateTime
-import woowacourse.movie.domain.price.TicketCount
+import woowacourse.movie.domain.datetime.ScreeningPeriod
+import woowacourse.movie.domain.grade.Position
+import woowacourse.movie.domain.price.TicketPrice
 import woowacourse.movie.ui.model.MovieUIModel
-import woowacourse.movie.util.customGetSerializableExtra
+import woowacourse.movie.ui.model.PositionUIModel
+import woowacourse.movie.ui.model.PositionUIModel.Companion.toPosition
+import woowacourse.movie.util.getParcelableArrayListExtraCompat
+import woowacourse.movie.util.getSerializableExtraCompat
+import woowacourse.movie.util.intentDataNullProcess
+import kotlin.properties.Delegates
 
 class MovieBookingCheckActivity : AppCompatActivity() {
 
     lateinit var movieData: MovieUIModel
-    lateinit var ticketCount: TicketCount
     lateinit var bookedScreeningDateTime: ScreeningDateTime
+    lateinit var seatPositions: List<Position>
+    var ticketTotalPrice by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,16 +31,22 @@ class MovieBookingCheckActivity : AppCompatActivity() {
     }
 
     private fun initExtraData() {
-        movieData = intent.customGetSerializableExtra(MOVIE_DATA) ?: throw IllegalStateException(
-            INTENT_EXTRA_INITIAL_ERROR
-        )
-        ticketCount =
-            intent.customGetSerializableExtra(TICKET_COUNT) ?: throw IllegalStateException(
-                INTENT_EXTRA_INITIAL_ERROR
+        movieData =
+            intent.getSerializableExtraCompat(MOVIE_DATA) ?: return this.intentDataNullProcess(
+                MOVIE_DATA
             )
         bookedScreeningDateTime =
-            intent.customGetSerializableExtra(BOOKED_SCREENING_DATE_TIME)
-                ?: throw IllegalStateException(INTENT_EXTRA_INITIAL_ERROR)
+            ScreeningDateTime(
+                intent.getSerializableExtraCompat(BOOKED_SCREENING_DATE_TIME)
+                    ?: return this.intentDataNullProcess(BOOKED_SCREENING_DATE_TIME),
+                ScreeningPeriod(
+                    movieData.screeningStartDay,
+                    movieData.screeningEndDay
+                )
+            )
+        seatPositions = intent.getParcelableArrayListExtraCompat<PositionUIModel>(SEAT_POSITIONS)
+            ?.map { it.toPosition() } ?: return this.intentDataNullProcess(SEAT_POSITIONS)
+        ticketTotalPrice = intent.getIntExtra(TICKET_TOTAL_PRICE, -1)
     }
 
     private fun initBookingCheckView() {
@@ -40,15 +54,15 @@ class MovieBookingCheckActivity : AppCompatActivity() {
             findViewById(R.id.layout_booking_check),
             movieData,
             bookedScreeningDateTime,
-            ticketCount
+            seatPositions,
+            TicketPrice(ticketTotalPrice)
         )
     }
 
     companion object {
         const val MOVIE_DATA = "movieData"
-        const val TICKET_COUNT = "ticketCount"
         const val BOOKED_SCREENING_DATE_TIME = "bookedScreeningDateTime"
-
-        private const val INTENT_EXTRA_INITIAL_ERROR = "intent 의 데이터 이동시 data가 null으로 넘어오고 있습니다"
+        const val SEAT_POSITIONS = "seat_postitions"
+        const val TICKET_TOTAL_PRICE = "ticket_total_price"
     }
 }

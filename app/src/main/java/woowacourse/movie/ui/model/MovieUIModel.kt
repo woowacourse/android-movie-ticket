@@ -3,17 +3,18 @@ package woowacourse.movie.ui.model
 import android.util.Log
 import androidx.annotation.DrawableRes
 import woowacourse.movie.R
-import woowacourse.movie.domain.datetime.ScreeningPeriod
 import woowacourse.movie.domain.model.Movie
 import java.io.IOException
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.Serializable
+import java.time.LocalDate
 
 data class MovieUIModel(
     @DrawableRes var posterImage: Int = R.drawable.harrypotter_poster,
     var title: String,
-    var screeningDay: ScreeningPeriod,
+    var screeningStartDay: LocalDate,
+    var screeningEndDay: LocalDate,
     var runningTime: Int,
     var description: String = ""
 ) : Serializable {
@@ -23,7 +24,8 @@ data class MovieUIModel(
         out.apply {
             writeInt(posterImage)
             writeUTF(title)
-            writeObject(screeningDay)
+            writeObject(screeningStartDay)
+            writeObject(screeningEndDay)
             writeInt(runningTime)
             writeUTF(description)
         }
@@ -36,7 +38,8 @@ data class MovieUIModel(
         `in`.run {
             posterImage = readInt()
             title = readUTF()
-            screeningDay = readObject() as ScreeningPeriod
+            screeningStartDay = readObject() as LocalDate
+            screeningEndDay = readObject() as LocalDate
             runningTime = readInt()
             description = readUTF()
         }
@@ -45,10 +48,11 @@ data class MovieUIModel(
     }
 
     companion object {
-        fun Movie.movieToMovieUiModel(): MovieUIModel =
+        fun woowacourse.movie.domain.model.Movie.movieToMovieUiModel(): MovieUIModel =
             MovieUIModel(
                 title = this.title,
-                screeningDay = this.screeningDay,
+                screeningStartDay = this.screeningDay.start,
+                screeningEndDay = this.screeningDay.end,
                 runningTime = this.runningTime,
                 description = this.description
             )
