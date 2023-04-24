@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import java.io.Serializable
 import java.time.LocalDate
 
-sealed class MovieModelUi : Serializable {
+sealed interface MovieModelUi : Serializable {
     class MovieScheduleUi(
         val title: String,
         val runningTime: Int,
@@ -12,7 +12,7 @@ sealed class MovieModelUi : Serializable {
         val startDate: LocalDate,
         val endDate: LocalDate,
         @DrawableRes val poster: Int,
-    ) : Serializable, MovieModelUi() {
+    ) : Serializable, MovieModelUi {
         companion object {
             val EMPTY = MovieScheduleUi(
                 title = "",
@@ -27,5 +27,5 @@ sealed class MovieModelUi : Serializable {
 
     class AdUi(
         @DrawableRes val addPoster: Int,
-    ) : Serializable, MovieModelUi()
+    ) : Serializable, MovieModelUi
 }

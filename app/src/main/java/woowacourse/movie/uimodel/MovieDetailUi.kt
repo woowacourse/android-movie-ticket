@@ -5,7 +5,7 @@ import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalTime
 
-class MovieDetailUi(
+data class MovieDetailUi(
     val title: String,
     val count: TicketCount,
     val date: LocalDate,
