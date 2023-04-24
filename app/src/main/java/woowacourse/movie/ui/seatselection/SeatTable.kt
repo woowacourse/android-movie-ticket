@@ -79,7 +79,7 @@ class SeatTable(
 
     fun setSeatPosition(seatPosition: SeatPositionUI) {
         with(seatView[seatPosition.row.x][seatPosition.col.y]) {
-            if (isSelected) --selectedCount else ++selectedCount
+            selectedCount = if (isSelected) selectedCount.decreaseTicketCount() else selectedCount.increaseTicketCount()
             isSelected = !isSelected
             setTicket(seatPosition)
             if (selectedCount == reservation.ticketCount) {

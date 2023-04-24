@@ -180,22 +180,16 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.btn_minus -> {
-                minusTicketCount()
+                setTicketCount(movieTicket.decreaseTicketCount())
             }
             R.id.btn_plus -> {
-                plusTicketCount()
+                setTicketCount(movieTicket.increaseTicketCount())
             }
             R.id.btn_ticketing -> {
                 onClickTicketing()
             }
         }
     }
-
-    private fun minusTicketCount() =
-        setTicketCount(--movieTicket)
-
-    private fun plusTicketCount() =
-        setTicketCount(++movieTicket)
 
     private fun onClickTicketing() {
         if (selectedTimeIdx == -1) {

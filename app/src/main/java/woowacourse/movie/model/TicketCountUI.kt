@@ -2,17 +2,16 @@ package woowacourse.movie.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.model.mapper.toTicketCount
+import woowacourse.movie.model.mapper.toTicketCountUI
 
 @JvmInline
 @Parcelize
 value class TicketCountUI(val count: Int = MIN_TICKET_COUNT) : Parcelable {
-    operator fun dec(): TicketCountUI =
-        TicketCountUI((count - TICKET_UP_DOWN_UNIT).coerceAtLeast(MIN_TICKET_COUNT))
-
-    operator fun inc(): TicketCountUI = TicketCountUI(count + TICKET_UP_DOWN_UNIT)
+    fun decreaseTicketCount(): TicketCountUI = toTicketCount().dec().toTicketCountUI()
+    fun increaseTicketCount(): TicketCountUI = toTicketCount().inc().toTicketCountUI()
 
     companion object {
         private const val MIN_TICKET_COUNT = 0
-        private const val TICKET_UP_DOWN_UNIT = 1
     }
 }
