@@ -1,7 +1,7 @@
 package woowacourse.movie.data
 
 import woowacourse.movie.presentation.main.MovieItem
-import woowacourse.movie.presentation.model.toPresentation
+import woowacourse.movie.presentation.mappers.toPresentation
 
 object MovieItemData {
     private val movies = MovieData.movies.map { MovieItem.Movie(it.toPresentation()) }

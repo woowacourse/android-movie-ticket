@@ -12,7 +12,6 @@ import woowacourse.movie.data.MovieData
 import woowacourse.movie.domain.model.tools.Movie
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.util.formatScreenDateTime
-import woowacourse.movie.presentation.util.formatSeatsCombine
 
 class CompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,7 +61,7 @@ class CompleteActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textCompletedTicketCount).text =
             getString(R.string.normal_ticket_count_seat).format(
                 ticket.count,
-                ticket.seats.formatSeatsCombine(),
+                ticket.formatSeatsCombine(),
             )
     }
 
@@ -78,6 +77,12 @@ class CompleteActivity : AppCompatActivity() {
             return Intent(context, CompleteActivity::class.java).apply {
                 putExtra(TICKET, ticketModel)
             }
+        }
+
+        private fun TicketModel.formatSeatsCombine(): String {
+            val stringBuilder = StringBuilder()
+            this.seats.forEach { stringBuilder.append("$it ") }
+            return stringBuilder.toString()
         }
     }
 }
