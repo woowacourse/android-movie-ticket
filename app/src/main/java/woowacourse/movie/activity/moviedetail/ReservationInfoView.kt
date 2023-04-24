@@ -1,7 +1,5 @@
 package woowacourse.movie.activity.moviedetail
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
@@ -11,7 +9,6 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.activity.seatselect.SeatSelectActivity
 import woowacourse.movie.model.MovieModel
 import woowacourse.movie.util.getKeyFromIndex
 import woowacourse.movie.util.getOrEmptyList
@@ -19,7 +16,10 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationInfoView(private val viewGroup: ViewGroup) {
+class ReservationInfoView(
+    private val viewGroup: ViewGroup,
+    private val onClick: (String, LocalDateTime, Int) -> Unit,
+) {
     private val reserveButton = viewGroup.findViewById<Button>(R.id.btn_reserve)
     private val timeSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_time)
     private val dateSpinner = viewGroup.findViewById<Spinner>(R.id.spinner_date)
@@ -27,13 +27,7 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
     private val countView = viewGroup.findViewById<TextView>(R.id.text_count)
     private val plusButton = viewGroup.findViewById<Button>(R.id.btn_plus)
 
-    fun set(savedInstanceState: Bundle?, movie: MovieModel) {
-        val savedCount = savedInstanceState?.getInt(MovieDetailActivity.COUNT_KEY) ?: DEFAULT_COUNT
-        val savedDate =
-            savedInstanceState?.getInt(MovieDetailActivity.SPINNER_DATE_KEY) ?: DEFAULT_POSITION
-        val savedTime =
-            savedInstanceState?.getInt(MovieDetailActivity.SPINNER_TIME_KEY) ?: DEFAULT_POSITION
-
+    fun set(savedDate: Int, savedTime: Int, savedCount: Int, movie: MovieModel) {
         setCount(savedCount)
         setMinusButton()
         setPlusButton()
@@ -47,14 +41,10 @@ class ReservationInfoView(private val viewGroup: ViewGroup) {
 
     private fun setReserveButton(title: String) {
         reserveButton.setOnClickListener {
-            val intent = Intent(it.context, SeatSelectActivity::class.java)
-            val date = viewGroup.findViewById<Spinner>(R.id.spinner_date).selectedItem as LocalDate
-            val time = viewGroup.findViewById<Spinner>(R.id.spinner_time).selectedItem as LocalTime
-            val count = viewGroup.findViewById<TextView>(R.id.text_count).text.toString().toInt()
-            intent.putExtra(SeatSelectActivity.TITLE_KEY, title)
-            intent.putExtra(SeatSelectActivity.DATETIME_KEY, LocalDateTime.of(date, time))
-            intent.putExtra(SeatSelectActivity.COUNT_KEY, count)
-            it.context.startActivity(intent)
+            val date = dateSpinner.selectedItem as LocalDate
+            val time = timeSpinner.selectedItem as LocalTime
+            val count = countView.text.toString().toInt()
+            onClick(title, LocalDateTime.of(date, time), count)
         }
     }
 

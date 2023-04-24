@@ -37,9 +37,8 @@ class SeatSelectSystemTest {
     @Test
     fun `선택 후 선택한 자리의 가격을 함께 반환한다`() {
         val actual = system.select(0, 0)
-        if (actual is SelectResult.Success.Selection) {
-            assertEquals(actual.seatPrice, Grade.B.price)
-        }
+        assertTrue(actual is SelectResult.Success.Selection)
+        assertEquals((actual as SelectResult.Success.Selection).seatPrice, Grade.B.price)
     }
 
     @Test
@@ -47,18 +46,16 @@ class SeatSelectSystemTest {
         system.select(1, 3)
         system.select(1, 2)
         val actual = system.select(0, 0)
-        if (actual is SelectResult.Success.Selection) {
-            assertTrue(actual.isSelectAll)
-        }
+        assertTrue(actual is SelectResult.Success.Selection)
+        assertTrue((actual as SelectResult.Success.Selection).isSelectAll)
     }
 
     @Test
     fun `선택 후 모든 자리 선택을 완료하기 전이라면 거짓을 함께 반환한다`() {
         system.select(1, 3)
         val actual = system.select(0, 0)
-        if (actual is SelectResult.Success.Selection) {
-            assertFalse(actual.isSelectAll)
-        }
+        assertTrue(actual is SelectResult.Success.Selection)
+        assertFalse((actual as SelectResult.Success.Selection).isSelectAll)
     }
 
     @Test

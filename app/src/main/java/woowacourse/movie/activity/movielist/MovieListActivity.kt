@@ -3,7 +3,6 @@ package woowacourse.movie.activity.movielist
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
@@ -22,7 +21,6 @@ class MovieListActivity : AppCompatActivity() {
             ::onClick,
         )
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun onClick(model: MovieModel) {
