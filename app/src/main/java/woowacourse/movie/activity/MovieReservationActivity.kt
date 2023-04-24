@@ -13,6 +13,8 @@ import woowacourse.movie.view.data.LocalFormattedDate
 import woowacourse.movie.view.data.LocalFormattedTime
 import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.data.ReservationDetailViewData
+import woowacourse.movie.view.error.ActivityError.finishWithError
+import woowacourse.movie.view.error.ViewError
 import woowacourse.movie.view.getSerializable
 import woowacourse.movie.view.mapper.ReservationDetailMapper.toView
 import woowacourse.movie.view.widget.Counter
@@ -65,7 +67,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun initMovieReservationView(savedInstanceState: Bundle?) {
         makeBackButton()
         val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
-            ?: return finish()
+            ?: return finishWithError(ViewError.ActivityMissingExtras(MovieViewData.MOVIE_EXTRA_NAME))
         makeCounter(savedInstanceState)
         makeSpinners(savedInstanceState, movie)
         renderMovie(movie)

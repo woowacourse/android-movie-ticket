@@ -11,6 +11,8 @@ import woowacourse.movie.view.data.MovieViewData
 import woowacourse.movie.view.data.PriceViewData
 import woowacourse.movie.view.data.ReservationDetailViewData
 import woowacourse.movie.view.data.SeatsViewData
+import woowacourse.movie.view.error.ActivityError.finishWithError
+import woowacourse.movie.view.error.ViewError
 import woowacourse.movie.view.getSerializable
 import woowacourse.movie.view.widget.MovieController
 import woowacourse.movie.view.widget.MovieView
@@ -31,15 +33,15 @@ class ReservationResultActivity : AppCompatActivity() {
 
         val reservationDetail =
             intent.extras?.getSerializable<ReservationDetailViewData>(ReservationDetailViewData.RESERVATION_DETAIL_EXTRA_NAME)
-                ?: return finish()
+                ?: return finishWithError(ViewError.ActivityMissingExtras(ReservationDetailViewData.RESERVATION_DETAIL_EXTRA_NAME))
         val seats = intent.extras?.getSerializable<SeatsViewData>(SeatsViewData.SEATS_EXTRA_NAME)
-            ?: return finish()
+            ?: return finishWithError(ViewError.ActivityMissingExtras(SeatsViewData.SEATS_EXTRA_NAME))
         val price = intent.extras?.getSerializable<PriceViewData>(PriceViewData.PRICE_EXTRA_NAME)
-            ?: return finish()
+            ?: return finishWithError(ViewError.ActivityMissingExtras(PriceViewData.PRICE_EXTRA_NAME))
         renderReservationDetail(reservationDetail, seats, price)
 
         val movie = intent.extras?.getSerializable<MovieViewData>(MovieViewData.MOVIE_EXTRA_NAME)
-            ?: return finish()
+            ?: return finishWithError(ViewError.ActivityMissingExtras(MovieViewData.MOVIE_EXTRA_NAME))
         renderMovie(movie)
     }
 
