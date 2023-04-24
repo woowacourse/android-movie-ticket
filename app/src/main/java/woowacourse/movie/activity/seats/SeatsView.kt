@@ -115,29 +115,31 @@ class SeatsView(
             }
         }
 
+        setReservationCompleteTextView()
+        updatePaymentAmount()
+    }
+
+    private fun setReservationCompleteTextView() {
         val selectedSeatCount: Int = getSelectedCount()
         val ticketCount: Int = intent.getIntExtra(TICKET_COUNT_INTENT_KEY, 1)
-        when {
-            ticketCount <= selectedSeatCount -> {
-                seats.forEachIndexed { index, it ->
-                    it.forEach { seat ->
-                        if (!seat.isSelected) seat.isClickable = false
-                        binding.reservationCompleteTextView.isClickable = true
-                        binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.clickable_button_color))
-                    }
+
+        if (ticketCount <= selectedSeatCount) {
+            seats.forEachIndexed { index, it ->
+                it.forEach { seat ->
+                    if (!seat.isSelected) seat.isClickable = false
+                    binding.reservationCompleteTextView.isClickable = true
+                    binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.clickable_button_color))
                 }
             }
-            else -> {
-                seats.forEach {
-                    it.forEach { seat ->
-                        if (!seat.isSelected) seat.isClickable = true
-                        binding.reservationCompleteTextView.isClickable = false
-                        binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.not_clickable_button_color))
-                    }
+        } else {
+            seats.forEach {
+                it.forEach { seat ->
+                    if (!seat.isSelected) seat.isClickable = true
+                    binding.reservationCompleteTextView.isClickable = false
+                    binding.reservationCompleteTextView.setBackgroundColor(context.getColor(R.color.not_clickable_button_color))
                 }
             }
         }
-        updatePaymentAmount()
     }
 
     private fun updatePaymentAmount() {
