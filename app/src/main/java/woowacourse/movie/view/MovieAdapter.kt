@@ -1,12 +1,14 @@
 package woowacourse.movie.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import domain.Movie
 import domain.Movies
 import woowacourse.movie.view.model.AdvertisementUiModel
+import woowacourse.movie.view.model.MovieAdapterViewType
 import woowacourse.movie.viewholder.AdvertisementItemViewHolder
 import woowacourse.movie.viewholder.MovieItemViewHolder
 
@@ -19,30 +21,32 @@ class MovieAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (position % CYCLE) {
-            ADVERTISEMENT_TURN -> ADVERTISEMENT
-            else -> MOVIE
+            ADVERTISEMENT_TURN -> MovieAdapterViewType.ADVERTISEMENT.value
+            else -> MovieAdapterViewType.MOVIE.value
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == MOVIE) {
-            val movieView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_movie, parent, false)
-            return MovieItemViewHolder(movieView)
+        return when (MovieAdapterViewType.find(viewType)) {
+            MovieAdapterViewType.MOVIE -> MovieItemViewHolder(
+                inflateView(parent, R.layout.item_movie)
+            )
+            MovieAdapterViewType.ADVERTISEMENT -> AdvertisementItemViewHolder(
+                inflateView(parent, R.layout.item_advertisement)
+            )
         }
-        val advertisementView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_advertisement, parent, false)
-        return AdvertisementItemViewHolder(advertisementView)
+    }
+
+    private fun inflateView(viewGroup: ViewGroup, layoutId: Int): View {
+        return LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         if (viewHolder is AdvertisementItemViewHolder) viewHolder.bind(
-            advertisementUiModel,
-            advertisementClickEvent
+            advertisementUiModel, advertisementClickEvent
         )
         if (viewHolder is MovieItemViewHolder) viewHolder.bind(
-            movies.value[position],
-            movieListClickEvent
+            movies.value[position], movieListClickEvent
         )
     }
 
@@ -51,8 +55,6 @@ class MovieAdapter(
     }
 
     companion object {
-        private const val MOVIE = 1
-        private const val ADVERTISEMENT = 2
         private const val ADVERTISEMENT_TURN = 3
         private const val CYCLE = 4
     }
