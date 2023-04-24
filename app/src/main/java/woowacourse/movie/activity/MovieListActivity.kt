@@ -40,27 +40,14 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun getMovieListData(): List<MovieListItem> {
         val movies = MockDataRepository.getData(MovieListItem.MovieModel::class)
-        val items = mutableListOf<MovieListItem>()
-
-        movies.foldIndexed(0) { movieIndex, adIndex, movie ->
-            items.add(movie)
-            addAdItemByCondition(items, movieIndex, adIndex)
-        }
-
-        return items
-    }
-
-    private fun addAdItemByCondition(
-        items: MutableList<MovieListItem>,
-        movieIndex: Int,
-        adIndex: Int
-    ): Int {
         val ads = MockDataRepository.getData(MovieListItem.AdModel::class)
-        if ((movieIndex + 1) % AD_CYCLE == 0) {
-            items.add(ads[adIndex % ads.size])
-            return adIndex + 1
+        var adIndex = 0
+        return movies.flatMapIndexed { index, movie ->
+            if (index % AD_CYCLE == AD_CYCLE - 1) listOf(
+                movie,
+                ads[adIndex++ % ads.size]
+            ) else listOf(movie)
         }
-        return adIndex
     }
 
     companion object {

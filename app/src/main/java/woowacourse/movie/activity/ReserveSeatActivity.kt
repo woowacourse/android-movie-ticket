@@ -141,14 +141,11 @@ class ReserveSeatActivity : BaseActivity() {
         }
 
         private fun getSelectedSeats(): MutableList<SeatModel> {
-            val selectedSeats = mutableListOf<SeatModel>()
-            getSeatViews().forEachIndexed { index, button ->
-                if (button.isSelected) {
-                    val seat = convertToSeat(index)
-                    selectedSeats.add(seat.toSeatModel())
-                }
-            }
-            return selectedSeats
+            return getSeatViews()
+                .withIndex()
+                .filter { it.value.isSelected }
+                .map { convertToSeat(it.index).toSeatModel() }
+                .toMutableList()
         }
     }
 
