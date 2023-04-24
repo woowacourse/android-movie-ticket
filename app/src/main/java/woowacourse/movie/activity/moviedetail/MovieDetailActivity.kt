@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.activity.seatselect.SeatSelectActivity
 import woowacourse.movie.model.MovieModel
+import woowacourse.movie.model.ReserveInfoModel
 import woowacourse.movie.util.getSerializableExtraCompat
 import java.time.LocalDateTime
 
@@ -40,9 +41,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun onClick(title: String, dateTime: LocalDateTime, count: Int) {
         val intent = Intent(this, SeatSelectActivity::class.java)
-        intent.putExtra(SeatSelectActivity.TITLE_KEY, title)
-        intent.putExtra(SeatSelectActivity.DATETIME_KEY, dateTime)
-        intent.putExtra(SeatSelectActivity.COUNT_KEY, count)
+        intent.putExtra(SeatSelectActivity.INFO_KEY, ReserveInfoModel(title, dateTime, count))
         startActivity(intent)
     }
 
