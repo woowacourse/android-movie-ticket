@@ -25,20 +25,22 @@ class MovieListAdapter(private val movies: List<Movie>, private val ad: Drawable
         return if (isAdCondition(position)) VIEW_TYPE_AD else VIEW_TYPE_MOVIE
     }
 
-    override fun getItemCount() = (movies.size) + (movies.size / 3)
+    override fun getItemCount() = (movies.size) + (movies.size / AD_PER_ROW)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (isAdCondition(position)) {
             (holder as AdListViewHolder).bind(ad)
         } else {
-            (holder as MovieListViewHolder).bind(movies[position - (position / 3)])
+            (holder as MovieListViewHolder).bind(movies[position - (position / AD_PER_ROW)])
         }
     }
 
-    private fun isAdCondition(position: Int) = (position + 1) % 4 == 0 && position > 0
+    private fun isAdCondition(position: Int) =
+        (position + 1) % (AD_PER_ROW + 1) == 0 && position > 0
 
     companion object {
         const val VIEW_TYPE_AD = 0
         const val VIEW_TYPE_MOVIE = 1
+        const val AD_PER_ROW = 3
     }
 }
