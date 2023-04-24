@@ -12,5 +12,5 @@ data class MovieModel(
     val endDate: LocalDate,
     val playingDateTimes: TreeMap<LocalDate, List<LocalTime>>,
     val runningTime: Int,
-    val description: String
+    val description: String,
 ) : java.io.Serializable

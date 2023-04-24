@@ -9,13 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.activity.InjectedModelListener
 import woowacourse.movie.model.MovieModel
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val movies: List<MovieModel>,
-    private val clickListener: InjectedModelListener<MovieModel>,
+    private val onClick: (MovieModel) -> Unit,
 ) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
@@ -36,7 +35,7 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.set(movies[position]) {
-            clickListener.onClick(movies[position])
+            onClick(movies[position])
         }
     }
 

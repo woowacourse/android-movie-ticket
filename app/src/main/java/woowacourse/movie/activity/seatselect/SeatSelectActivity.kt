@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.activity.InjectedModelListener
 import woowacourse.movie.activity.ticketresult.TicketResultActivity
 import woowacourse.movie.domain.price.PriceCalculator
 import woowacourse.movie.domain.system.PriceSystem
@@ -16,7 +15,7 @@ import woowacourse.movie.util.Theater
 import woowacourse.movie.util.getSerializableExtraCompat
 import java.time.LocalDateTime
 
-class SeatSelectActivity : AppCompatActivity(), InjectedModelListener<TicketModel> {
+class SeatSelectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_select)
@@ -38,7 +37,7 @@ class SeatSelectActivity : AppCompatActivity(), InjectedModelListener<TicketMode
                 findViewById(R.id.layout_select_seat),
                 seatSelectSystem,
                 priceSystem,
-                this,
+                ::onClick,
             )
 
         seatView.set(title!!, dateTime)
@@ -50,7 +49,7 @@ class SeatSelectActivity : AppCompatActivity(), InjectedModelListener<TicketMode
         return title == null || dateTime == null || count == -1
     }
 
-    override fun onClick(model: TicketModel) {
+    private fun onClick(model: TicketModel) {
         val intent = Intent(this, TicketResultActivity::class.java)
         intent.putExtra(TicketResultActivity.INFO_KEY, model)
         startActivity(intent)

@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.activity.InjectedModelListener
 import woowacourse.movie.domain.price.Price
 import woowacourse.movie.domain.system.PriceSystem
 import woowacourse.movie.domain.system.SeatSelectSystem
@@ -25,7 +24,7 @@ class SeatSelectView(
     private val viewGroup: ViewGroup,
     private val seatSystem: SeatSelectSystem,
     private val priceSystem: PriceSystem,
-    private val clickListener: InjectedModelListener<TicketModel>,
+    private val onClick: (TicketModel) -> Unit,
 ) {
     private val seatViews: List<TextView> = viewGroup.findViewById<TableLayout>(R.id.layout_seats)
         .children
@@ -64,7 +63,7 @@ class SeatSelectView(
             setTitle(context.getString(R.string.reserve_dialog_title))
             setMessage(context.getString(R.string.reserve_dialog_detail))
             setPositiveButton(context.getString(R.string.reserve_dialog_submit)) { _, _ ->
-                clickListener.onClick(ticketModel)
+                onClick(ticketModel)
             }
             setNegativeButton(context.getString(R.string.reserve_dialog_cancel)) { dialog, _ ->
                 dialog.dismiss()
