@@ -1,14 +1,14 @@
 package woowacourse.movie.view.mapper
 
 import domain.seatPolicy.SeatRank
-import woowacourse.movie.view.model.SeatRankViewModel
+import woowacourse.movie.view.model.SeatRankUiModel
 
-object SeatRankMapper : DomainViewMapper<SeatRank, SeatRankViewModel> {
-    override fun toDomain(viewModel: SeatRankViewModel): SeatRank {
-        return SeatRank.valueOf(viewModel.name)
+object SeatRankMapper : DomainViewMapper<SeatRank, SeatRankUiModel> {
+    override fun toDomain(seatRankUiModel: SeatRankUiModel): SeatRank {
+        return SeatRank.valueOf(seatRankUiModel.name)
     }
 
-    override fun toView(domainModel: SeatRank): SeatRankViewModel {
-        return SeatRankViewModel.valueOf(domainModel.name)
+    override fun toUi(domainModel: SeatRank): SeatRankUiModel {
+        return SeatRankUiModel.valueOf(domainModel.name)
     }
 }

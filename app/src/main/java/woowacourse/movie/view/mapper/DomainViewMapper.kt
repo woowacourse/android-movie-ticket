@@ -1,8 +1,8 @@
 package woowacourse.movie.view.mapper
 
-import woowacourse.movie.view.model.ViewModel
+import woowacourse.movie.view.model.UiModel
 
-interface DomainViewMapper<T, U : ViewModel> {
+interface DomainViewMapper<T, U : UiModel> {
     fun toDomain(viewModel: U): T
-    fun toView(domainModel: T): U
+    fun toUi(domainModel: T): U
 }

@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import domain.Movie
 import domain.Movies
-import woowacourse.movie.view.model.AdvertisementViewModel
+import woowacourse.movie.view.model.AdvertisementUiModel
 import woowacourse.movie.viewholder.AdvertisementItemViewHolder
 import woowacourse.movie.viewholder.MovieItemViewHolder
 
 class MovieAdapter(
     private val movies: Movies,
-    private val advertisementViewModel: AdvertisementViewModel,
-    private val advertisementClickEvent: (AdvertisementViewModel) -> Unit,
+    private val advertisementUiModel: AdvertisementUiModel,
+    private val advertisementClickEvent: (AdvertisementUiModel) -> Unit,
     private val movieListClickEvent: (Movie) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -37,7 +37,7 @@ class MovieAdapter(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         if (viewHolder is AdvertisementItemViewHolder) viewHolder.bind(
-            advertisementViewModel,
+            advertisementUiModel,
             advertisementClickEvent
         )
         if (viewHolder is MovieItemViewHolder) viewHolder.bind(
@@ -47,7 +47,7 @@ class MovieAdapter(
     }
 
     override fun getItemCount(): Int {
-        return movies.value.size
+        return 10_000
     }
 
     companion object {

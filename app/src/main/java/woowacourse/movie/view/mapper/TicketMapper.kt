@@ -2,20 +2,20 @@ package woowacourse.movie.view.mapper
 
 import domain.Ticket
 import domain.discountPolicy.DisCountPolicies
-import woowacourse.movie.view.model.TicketViewModel
+import woowacourse.movie.view.model.TicketUiModel
 
-object TicketMapper : DomainViewMapper<Ticket, TicketViewModel> {
-    override fun toView(domainModel: Ticket): TicketViewModel {
-        return TicketViewModel(
+object TicketMapper : DomainViewMapper<Ticket, TicketUiModel> {
+    override fun toUi(domainModel: Ticket): TicketUiModel {
+        return TicketUiModel(
             date = domainModel.date,
-            seat = SeatMapper.toView(domainModel.seat)
+            seat = SeatMapper.toUi(domainModel.seat)
         )
     }
 
-    override fun toDomain(viewModel: TicketViewModel): Ticket {
+    override fun toDomain(ticketUiModel: TicketUiModel): Ticket {
         return Ticket(
-            viewModel.date,
-            SeatMapper.toDomain(viewModel.seat),
+            ticketUiModel.date,
+            SeatMapper.toDomain(ticketUiModel.seat),
             DisCountPolicies()
         )
     }

@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.view.model.AdvertisementViewModel
+import woowacourse.movie.view.model.AdvertisementUiModel
 
 class AdvertisementItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val image: ImageView
@@ -13,10 +13,10 @@ class AdvertisementItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         image = view.findViewById(R.id.advertisement_image)
     }
 
-    fun bind(advertisementViewModel: AdvertisementViewModel, onClickEvent: (AdvertisementViewModel) -> Unit) {
-        image.setImageResource(advertisementViewModel.image)
+    fun bind(advertisementUiModel: AdvertisementUiModel, onClickEvent: (AdvertisementUiModel) -> Unit) {
+        image.setImageResource(advertisementUiModel.image)
         image.setOnClickListener {
-            onClickEvent(advertisementViewModel)
+            onClickEvent(advertisementUiModel)
         }
     }
 }

@@ -2,21 +2,21 @@ package woowacourse.movie.view.mapper
 
 import domain.Seat
 import domain.seatPolicy.SeatPolicies
-import woowacourse.movie.view.model.SeatRowViewModel
-import woowacourse.movie.view.model.SeatViewModel
+import woowacourse.movie.view.model.SeatRowUiModel
+import woowacourse.movie.view.model.SeatUiModel
 
-object SeatMapper : DomainViewMapper<Seat, SeatViewModel> {
-    override fun toDomain(viewModel: SeatViewModel): Seat {
+object SeatMapper : DomainViewMapper<Seat, SeatUiModel> {
+    override fun toDomain(seatUiModel: SeatUiModel): Seat {
         return Seat(
-            SeatRowViewModel.toNumber(viewModel.row),
-            viewModel.col,
+            SeatRowUiModel.toNumber(seatUiModel.row),
+            seatUiModel.col,
             SeatPolicies()
         )
     }
 
-    override fun toView(domainModel: Seat): SeatViewModel {
-        return SeatViewModel(
-            SeatRowViewModel.numberToSeatRow(domainModel.row),
+    override fun toUi(domainModel: Seat): SeatUiModel {
+        return SeatUiModel(
+            SeatRowUiModel.numberToSeatRow(domainModel.row),
             domainModel.col
         )
     }

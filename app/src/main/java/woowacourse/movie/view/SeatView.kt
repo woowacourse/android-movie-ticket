@@ -9,10 +9,10 @@ import woowacourse.movie.R
 import woowacourse.movie.setBackgroundColorId
 import woowacourse.movie.view.mapper.SeatMapper
 import woowacourse.movie.view.mapper.SeatRankMapper
-import woowacourse.movie.view.model.SeatRowViewModel
-import woowacourse.movie.view.model.SeatViewModel
+import woowacourse.movie.view.model.SeatRowUiModel
+import woowacourse.movie.view.model.SeatUiModel
 
-class SeatView(val view: TextView, row: SeatRowViewModel, col: Int, onClick: (SeatView) -> Unit) {
+class SeatView(val view: TextView, row: SeatRowUiModel, col: Int, onClick: (SeatView) -> Unit) {
     val seat: Seat
         get() = getSeat()
 
@@ -35,14 +35,14 @@ class SeatView(val view: TextView, row: SeatRowViewModel, col: Int, onClick: (Se
         return SeatMapper.toDomain(seatViewModel)
     }
 
-    private fun getSeatViewModel(): SeatViewModel {
+    private fun getSeatViewModel(): SeatUiModel {
         val row = view.text.substring(0, 1)
         val col = view.text.substring(1).toInt()
-        return SeatViewModel(SeatRowViewModel.find(row), col)
+        return SeatUiModel(SeatRowUiModel.find(row), col)
     }
 
     private fun initTextColor() {
-        val seatRankViewModel = SeatRankMapper.toView(seat.rank)
+        val seatRankViewModel = SeatRankMapper.toUi(seat.rank)
         view.setTextColor(
             ContextCompat.getColor(
                 view.context, seatRankViewModel.color

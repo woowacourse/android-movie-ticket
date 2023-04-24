@@ -61,14 +61,14 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun renderMovieView(movieViewModel: MovieViewModel) {
+    private fun renderMovieView(movieUiModel: MovieUiModel) {
         MovieView(
             poster = findViewById(R.id.movie_reservation_poster),
             title = findViewById(R.id.movie_reservation_title),
             date = findViewById(R.id.movie_reservation_date),
             runningTime = findViewById(R.id.movie_reservation_running_time),
             description = findViewById(R.id.movie_reservation_description)
-        ).render(movieViewModel)
+        ).render(movieUiModel)
     }
 
     private fun finishActivity() {
@@ -76,24 +76,24 @@ class MovieReservationActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getMovieModelView(): MovieViewModel? {
+    private fun getMovieModelView(): MovieUiModel? {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
     }
 
-    private fun getMovie(movieViewModel: MovieViewModel): Movie {
-        return MovieMapper.toDomain(movieViewModel)
+    private fun getMovie(movieUiModel: MovieUiModel): Movie {
+        return MovieMapper.toDomain(movieUiModel)
     }
 
-    private fun reservationButtonClick(movieViewModel: MovieViewModel) {
+    private fun reservationButtonClick(movieUiModel: MovieUiModel) {
         reservationButton.setOnClickListener {
-            val dateTime = TicketDateTimeViewModel(
+            val dateTime = TicketDateUiModel(
                 LocalDateTime.of(
                     movieDateTimePicker.getSelectedDate(),
                     movieDateTimePicker.getSelectedTime()
                 )
             )
             val peopleCount = counter.getCount()
-            SelectSeatActivity.start(this, peopleCount, dateTime, movieViewModel)
+            SelectSeatActivity.start(this, peopleCount, dateTime, movieUiModel)
         }
     }
 
@@ -115,7 +115,7 @@ class MovieReservationActivity : AppCompatActivity() {
         private const val MOVIE_KEY_VALUE = "movie"
         fun start(context: Context, movie: Movie) {
             val intent = Intent(context, MovieReservationActivity::class.java)
-            val movieDto = MovieMapper.toView(movie)
+            val movieDto = MovieMapper.toUi(movie)
             intent.putExtra(MOVIE_KEY_VALUE, movieDto)
             context.startActivity(intent)
         }

@@ -13,7 +13,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.MovieReservationActivity
 import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.activity.SelectSeatActivity
 import woowacourse.movie.view.model.*
@@ -23,17 +22,17 @@ import java.time.LocalTime
 
 @RunWith(AndroidJUnit4::class)
 class SelectSeatActivityTest {
-    private val movieViewModel = MovieViewModel(0, "해리포터", LocalDate.MAX, LocalDate.MIN, 0, "")
+    private val movieUiModel = MovieUiModel(0, "해리포터", LocalDate.MAX, LocalDate.MIN, 0, "")
     private val date = LocalDate.of(2023, 4, 22)
     private val time = LocalTime.of(9, 0)
     private val dateTime: LocalDateTime = LocalDateTime.of(date, time)
-    private val ticketDateTimeViewModel = TicketDateTimeViewModel(dateTime)
+    private val ticketDateUiModel = TicketDateUiModel(dateTime)
 
     private val intent =
         Intent(ApplicationProvider.getApplicationContext(), SelectSeatActivity::class.java).apply {
-            putExtra("movie", movieViewModel)
+            putExtra("movie", movieUiModel)
             putExtra("peopleCount", 3)
-            putExtra("ticket", ticketDateTimeViewModel)
+            putExtra("ticket", ticketDateUiModel)
         }
 
     @get:Rule

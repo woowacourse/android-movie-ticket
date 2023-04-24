@@ -19,8 +19,8 @@ import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.SeatTable
 import woowacourse.movie.view.SeatView
 import woowacourse.movie.view.mapper.TicketOfficeMapper
-import woowacourse.movie.view.model.MovieViewModel
-import woowacourse.movie.view.model.TicketDateTimeViewModel
+import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.TicketDateUiModel
 import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -38,10 +38,10 @@ class SelectSeatActivity : AppCompatActivity() {
         }
     }
 
-    private val movieViewModel: MovieViewModel by lazy {
+    private val movieUiModel: MovieUiModel by lazy {
         receiveMovieViewModelData() ?: run {
             finishActivityWithToast(DATA_ERROR_MESSAGE)
-            MovieViewModel(0, "", LocalDate.MAX, LocalDate.MAX, 0, "")
+            MovieUiModel(0, "", LocalDate.MAX, LocalDate.MAX, 0, "")
         }
     }
 
@@ -67,7 +67,7 @@ class SelectSeatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_select_seat)
         seatTable.makeSeatTable()
         MovieView(title = findViewById(R.id.select_seat_movie_title_text_view)).render(
-            movieViewModel
+            movieUiModel
         )
         changePriceTextView()
         checkButtonClick()
@@ -89,8 +89,8 @@ class SelectSeatActivity : AppCompatActivity() {
         builder.setPositiveButton(R.string.select_seat_dialog_positive_button_text) { dialog, _ ->
             ReservationResultActivity.start(
                 this,
-                movieViewModel,
-                TicketOfficeMapper.toView(ticketOffice)
+                movieUiModel,
+                TicketOfficeMapper.toUi(ticketOffice)
             )
         }
         builder.setNegativeButton(R.string.select_seat_dialog_negative_button_text) { dialog, _ ->
@@ -156,18 +156,18 @@ class SelectSeatActivity : AppCompatActivity() {
         return TicketOffice(peopleCount = peopleCount)
     }
 
-    private fun receiveMovieViewModelData(): MovieViewModel? {
+    private fun receiveMovieViewModelData(): MovieUiModel? {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
     }
 
     private fun receiveTicketDateTimeData(): LocalDateTime? {
-        return intent.extras?.getSerializableCompat<TicketDateTimeViewModel>(TICKET_KEY)?.date
+        return intent.extras?.getSerializableCompat<TicketDateUiModel>(TICKET_KEY)?.date
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         Log.d("wooseok", "실")
-        outState.putSerializable("ticketOffice", TicketOfficeMapper.toView(ticketOffice))
+        outState.putSerializable("ticketOffice", TicketOfficeMapper.toUi(ticketOffice))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -185,13 +185,13 @@ class SelectSeatActivity : AppCompatActivity() {
         fun start(
             context: Context,
             peopleCount: Int,
-            ticketDateTimeViewModel: TicketDateTimeViewModel,
-            movieViewModel: MovieViewModel
+            ticketDateUiModel: TicketDateUiModel,
+            movieUiModel: MovieUiModel
         ) {
             val intent = Intent(context, SelectSeatActivity::class.java)
             intent.putExtra(PEOPLE_COUNT_KEY, peopleCount)
-            intent.putExtra(TICKET_KEY, ticketDateTimeViewModel)
-            intent.putExtra(MOVIE_KEY_VALUE, movieViewModel)
+            intent.putExtra(TICKET_KEY, ticketDateUiModel)
+            intent.putExtra(MOVIE_KEY_VALUE, movieUiModel)
             context.startActivity(intent)
         }
     }

@@ -26,7 +26,7 @@ class MovieItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     fun bind(movie: Movie, onClickEvent: (Movie) -> Unit) {
-        val movieViewModel = MovieMapper.toView(movie)
+        val movieViewModel = MovieMapper.toUi(movie)
         posterImageView.setImageResource(movieViewModel.picture)
         val dateFormat =
             DateTimeFormatter.ofPattern(movieDateTextView.context.getString(R.string.movie_date_format))

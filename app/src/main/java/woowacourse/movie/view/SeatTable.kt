@@ -3,7 +3,7 @@ package woowacourse.movie.view
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import woowacourse.movie.view.model.SeatRowViewModel
+import woowacourse.movie.view.model.SeatRowUiModel
 
 class SeatTable(
     private val tableLayout: TableLayout,
@@ -26,7 +26,7 @@ class SeatTable(
             val tableRow = makeTableRow()
             repeat(colSize) {col->
                 val seatView = SeatView(
-                    TextView(tableLayout.context), SeatRowViewModel.numberToSeatRow(row+1), col+1, onClick
+                    TextView(tableLayout.context), SeatRowUiModel.numberToSeatRow(row+1), col+1, onClick
                 )
                 tableRow.addView(seatView.view)
             }

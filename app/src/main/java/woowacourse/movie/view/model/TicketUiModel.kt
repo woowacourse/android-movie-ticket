@@ -3,7 +3,7 @@ package woowacourse.movie.view.model
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class TicketViewModel(
+data class TicketUiModel(
     val date: LocalDateTime,
-    val seat: SeatViewModel
-) : ViewModel, Serializable
+    val seat: SeatUiModel
+) : UiModel, Serializable

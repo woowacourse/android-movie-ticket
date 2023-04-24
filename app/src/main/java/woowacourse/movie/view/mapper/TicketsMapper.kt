@@ -1,13 +1,13 @@
 package woowacourse.movie.view.mapper
 import domain.Tickets
-import woowacourse.movie.view.model.TicketsViewModel
+import woowacourse.movie.view.model.TicketsUiModel
 
-object TicketsMapper : DomainViewMapper<Tickets, TicketsViewModel> {
-    override fun toView(domainModel: Tickets): TicketsViewModel {
-        return TicketsViewModel(domainModel.list.map { TicketMapper.toView(it) })
+object TicketsMapper : DomainViewMapper<Tickets, TicketsUiModel> {
+    override fun toUi(domainModel: Tickets): TicketsUiModel {
+        return TicketsUiModel(domainModel.list.map { TicketMapper.toUi(it) })
     }
 
-    override fun toDomain(viewModel: TicketsViewModel): Tickets {
-        return Tickets(viewModel.list.map { TicketMapper.toDomain(it) })
+    override fun toDomain(ticketsUiModel: TicketsUiModel): Tickets {
+        return Tickets(ticketsUiModel.list.map { TicketMapper.toDomain(it) })
     }
 }

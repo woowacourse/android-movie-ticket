@@ -1,10 +1,9 @@
 package woowacourse.movie
 
-import domain.Movies
-import woowacourse.movie.view.model.AdvertisementViewModel
+import woowacourse.movie.view.model.AdvertisementUiModel
 
 object MockAdvertisementFactory {
-    fun generateAdvertisement(): AdvertisementViewModel {
-        return AdvertisementViewModel(R.drawable.advertisement, "https://www.naver.com")
+    fun generateAdvertisement(): AdvertisementUiModel {
+        return AdvertisementUiModel(R.drawable.advertisement, "https://www.naver.com")
     }
 }
