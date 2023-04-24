@@ -10,9 +10,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.example.domain.model.model.Movie
-import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.instanceOf
-import org.hamcrest.Matchers.`is`
+import org.hamcrest.core.AllOf.allOf
+import org.hamcrest.core.Is.`is`
+import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.activity.MovieDetailActivity

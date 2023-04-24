@@ -18,7 +18,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.allOf
+import org.hamcrest.core.AllOf.allOf
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Rule
