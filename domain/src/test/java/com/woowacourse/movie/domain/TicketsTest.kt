@@ -13,19 +13,19 @@ class TicketsTest {
     fun `티켓을 하나 추가할 수 있다`() {
         val tickets = Tickets(Ticket(1, 0))
         val anotherTicket = Ticket(1, 1)
-        tickets.addTicket(anotherTicket)
+        tickets.addOrRemoveTicket(anotherTicket)
 
         assertThat(tickets.size).isEqualTo(2)
     }
 
     @Test
-    fun `중복된 티켓은 추가할 수 없다`() {
+    fun `티켓이 중복되면 해당 티켓을 제거한다`() {
         val tickets = Tickets(Ticket(1, 0))
         val anotherTicket = Ticket(1, 0)
 
-        val actual = tickets.addTicket(anotherTicket)
+        tickets.addOrRemoveTicket(anotherTicket)
 
-        assertThat(actual).isFalse
+        assertThat(tickets.size).isEqualTo(0)
     }
 
     @Test
@@ -46,21 +46,6 @@ class TicketsTest {
         val tickets = Tickets(setOf())
 
         assertThat(tickets.isEmpty()).isTrue
-    }
-
-    @Test
-    fun `기존 티켓을 하나 제거할 수 있다`() {
-        val tickets = Tickets(
-            setOf(
-                Ticket(1, 0),
-                Ticket(1, 1)
-            )
-        )
-        val targetTicket = Ticket(1, 1)
-
-        val actual = tickets.removeTicket(targetTicket)
-
-        assertThat(actual).isTrue
     }
 
     @Test

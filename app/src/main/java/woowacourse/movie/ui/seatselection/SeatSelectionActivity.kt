@@ -7,12 +7,12 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
+import woowacourse.movie.extensions.showDialog
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.TicketUI
@@ -69,12 +69,10 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun setRestoreTickets(ticketsUI: TicketsUI) {
-        val tickets = ticketsUI.toTickets()
         ticketsUI.tickets.forEach {
             seatTable.setSeatPosition(it.seatPosition)
-            tickets.addTicket(it.toTicket())
         }
-        this.ticketsUI = tickets.toTicketsUI()
+        this.ticketsUI = ticketsUI
     }
 
     private fun initMovieData() {
@@ -95,28 +93,25 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dialog_reservation_title))
-            .setMessage(getString(R.string.dialog_reservation_message))
-            .setNegativeButton(getString(R.string.dialog_reservation_negative_button)) { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton(
-                getString(R.string.dialog_reservation_positive_button)
-            ) { dialog, _ ->
-                reserveMovie()
-                dialog.dismiss()
-            }
-            .setCancelable(false)
-            .show()
+        showDialog(
+            getString(R.string.dialog_reservation_title),
+            getString(R.string.dialog_reservation_message),
+            getString(R.string.dialog_reservation_negative_button),
+            getString(R.string.dialog_reservation_positive_button),
+            {},
+            { reserveMovie() }
+        )
     }
 
     private fun reserveMovie() {
-        reservation = ReservationUI(
-            reservation.movie,
-            reservation.dateTime,
-            ticketsUI
+        val intent = TicketingResultActivity.getIntent(
+            this@SeatSelectionActivity,
+            ReservationUI(
+                reservation.movie,
+                reservation.dateTime,
+                ticketsUI
+            )
         )
-
-        val intent = TicketingResultActivity.getIntent(this@SeatSelectionActivity, reservation)
         startActivity(intent)
         finish()
     }
@@ -128,11 +123,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private fun setTicket(seatPosition: SeatPositionUI) {
         val tickets = ticketsUI.toTickets()
         val targetTicket = TicketUI(seatPosition).toTicket()
-        if (tickets.find(targetTicket) != null) {
-            tickets.removeTicket(targetTicket)
-        } else {
-            tickets.addTicket(targetTicket)
-        }
+        tickets.addOrRemoveTicket(targetTicket)
         ticketsUI = tickets.toTicketsUI()
         changeTicketPrice()
     }
@@ -170,7 +161,11 @@ class SeatSelectionActivity : AppCompatActivity() {
         private const val MESSAGE_EMPTY_RESERVATION = "예매 정보가 없습니다"
         private const val DEFAULT_MOVIE_PRICE = 0
 
-        internal fun getIntent(context: Context, reservationUI: ReservationUI, ticketCountUI: TicketCountUI): Intent {
+        internal fun getIntent(
+            context: Context,
+            reservationUI: ReservationUI,
+            ticketCountUI: TicketCountUI
+        ): Intent {
             val intent = Intent(context, SeatSelectionActivity::class.java)
             intent.putExtra(TicketingActivity.RESERVATION_KEY, reservationUI)
             intent.putExtra(TicketingActivity.TICKET_COUNT_KEY, ticketCountUI)

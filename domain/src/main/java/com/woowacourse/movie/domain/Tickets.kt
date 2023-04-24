@@ -14,9 +14,17 @@ class Tickets(tickets: Set<Ticket>) {
         require(size >= MIN_TICKET_COUNT) { INVALID_TICKET_COUNT_EXCEPTION_MESSAGE }
     }
 
-    fun addTicket(ticket: Ticket): Boolean = _tickets.add(ticket)
+    fun addOrRemoveTicket(ticket: Ticket) {
+        if (find(ticket) != null) {
+            removeTicket(ticket)
+        } else {
+            addTicket(ticket)
+        }
+    }
 
-    fun removeTicket(ticket: Ticket): Boolean = _tickets.remove(ticket)
+    private fun addTicket(ticket: Ticket) = _tickets.add(ticket)
+
+    private fun removeTicket(ticket: Ticket) = _tickets.remove(ticket)
 
     fun find(ticket: Ticket): Ticket? = _tickets.find { it == ticket }
 
