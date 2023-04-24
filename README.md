@@ -2,23 +2,33 @@
 
 ## 액티비티
 - MovieListActivity
-- TicketingActivity
-- MovieTicketActivity
+- MovieDetailActivity
+- SeatSelectActivity
+- TicketResultActivity
 
 ## 어댑터
-- MoviesAdapter
+- MovieListAdapter
 
-## 데이터
+## 모델
 - Movie 
   - 이미지, 제목, 상영일(PlayingTimes), 러닝타임, 소개
-- TicketingInfo
-  - 영화 이름, 상영일, 몇명, 가격, 무슨 결제
+- PlayingDateTimes
+- Ticket
+  - 영화 이름, 상영일, 몇명, 가격
+- DiscountPolicy (다형성을 위한 추상 클래스)
+  - MorningPolicy (조조)
+  - MovieDayPolicy (무비데이)
+  - NightPolicy (야간)
 - Price
-  - 음수 체크
-  - 티켓 한 장의 가격은 13000원
-  - 영화 가격에 할인을 적용한다.
-    - Discount 구현 클래스를 리스트로 받는다.
-- PlayingTimes
-  - 날짜-상영시간 map 타입으로 가지고 있다.
-- Discount (인터페이스)
-  - calculate 메소드
+- Grade (enum class)
+  - price (등급별 가격)
+- Seat
+  - row, col (범위 0 이상)
+- TheaterInfo
+  - 등급별 가격, 좌석 정보
+
+## 서비스
+- PriceSystem (SelectResult에 따른 가격 변화 계산기)
+- PriceCalculator (정책에 따른 가격 계산기)
+- SeatSelectSystem
+- SelectResult (결과를 나타내는 sealed class)

@@ -1,17 +1,13 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.movie
 
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-class PlayingDateTimes(startDate: LocalDate, endDate: LocalDate) { // 뷰를 위한 이 데이터 클래스를 만들 것인가?
+class PlayingDateTimes(startDate: LocalDate, endDate: LocalDate) {
     private val _times: Map<LocalDate, List<LocalTime>> = makeDates(startDate, endDate).associateWith { date -> makeTimes(date) }
     val times: Map<LocalDate, List<LocalTime>>
         get() = _times.toMap()
-    // val startDate: LocalDate
-    //     get() = times.keys.max()
-    // val endDate: LocalDate
-    //     get() = times.keys.min()
 
     private fun makeDates(startDate: LocalDate, endDate: LocalDate): List<LocalDate> {
         var date = startDate

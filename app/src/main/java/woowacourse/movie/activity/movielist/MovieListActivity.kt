@@ -2,9 +2,8 @@ package woowacourse.movie.activity.movielist
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.activity.moviedetail.MovieDetailActivity
 import woowacourse.movie.model.MovieModel
@@ -16,17 +15,18 @@ class MovieListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
-        val listView = findViewById<ListView>(R.id.list_view)
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         val adapter = MovieListAdapter(
+            3,
             DummyData.movies.map { it.toPresentation(R.drawable.img) },
-            object : MovieListItemListener {
-                override fun onClick(movie: MovieModel, view: View) {
-                    val intent = Intent(view.context, MovieDetailActivity::class.java)
-                    intent.putExtra(MovieDetailActivity.MOVIE_KEY, movie)
-                    view.context.startActivity(intent)
-                }
-            }
+            ::onClick,
         )
-        listView.adapter = adapter
+        recyclerView.adapter = adapter
+    }
+
+    private fun onClick(model: MovieModel) {
+        val intent = Intent(this, MovieDetailActivity::class.java)
+        intent.putExtra(MovieDetailActivity.MOVIE_KEY, model)
+        startActivity(intent)
     }
 }

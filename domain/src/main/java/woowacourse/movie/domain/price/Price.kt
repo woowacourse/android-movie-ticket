@@ -1,9 +1,17 @@
-package woowacourse.movie.domain.ticket
+package woowacourse.movie.domain.price
 
 @JvmInline
 value class Price(val price: Int = DEFAULT) {
     init {
         require(price >= 0) { MINUS_ERROR }
+    }
+
+    operator fun plus(price: Price): Price {
+        return Price(this.price + price.price)
+    }
+
+    operator fun minus(price: Price): Price {
+        return Price(this.price - price.price)
     }
 
     companion object {

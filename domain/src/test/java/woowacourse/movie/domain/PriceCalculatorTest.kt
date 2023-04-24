@@ -2,26 +2,22 @@ package woowacourse.movie.domain
 
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import woowacourse.movie.domain.policy.DiscountPolicy
 import woowacourse.movie.domain.policy.MorningPolicy
 import woowacourse.movie.domain.policy.MovieDayPolicy
 import woowacourse.movie.domain.policy.NightPolicy
-import woowacourse.movie.domain.ticket.Price
-import woowacourse.movie.domain.ticket.Ticket
-import java.time.LocalDate
-import java.time.LocalTime
+import woowacourse.movie.domain.price.Price
+import woowacourse.movie.domain.price.PriceCalculator
+import java.time.LocalDateTime
 
-class TicketTest {
+class PriceCalculatorTest {
     @Test
     fun `조조에 해당하지만 무비데이면 무비데이 할인이 선적용된다`() {
         val policies = listOf(
             MovieDayPolicy(),
-            MorningPolicy()
+            MorningPolicy(),
         )
-        val actual = Ticket(
-            policies, LocalDate.of(2023, 4, 30), LocalTime.of(9, 0),
-            Price()
-        ).price
+        val calculator = PriceCalculator(policies)
+        val actual = calculator.calculate(Price(13000), LocalDateTime.of(2023, 4, 30, 9, 0))
         val expected = Price(9700)
         assertEquals(actual, expected)
     }
@@ -30,16 +26,11 @@ class TicketTest {
     fun `야간에 해당하지만 무비데이면 무비데이 할인이 선적용된다`() {
         val policies = listOf(
             MovieDayPolicy(),
-            NightPolicy()
+            NightPolicy(),
         )
-        val actual = Ticket(
-            policies, LocalDate.of(2023, 4, 30), LocalTime.of(21, 0),
-            Price()
-        ).price
+        val calculator = PriceCalculator(policies)
+        val actual = calculator.calculate(Price(13000), LocalDateTime.of(2023, 4, 30, 21, 0))
         val expected = Price(9700)
         assertEquals(actual, expected)
     }
-
-    private fun Ticket(policies: List<DiscountPolicy>, playingDate: LocalDate, playingTime: LocalTime, price: Price): Ticket =
-        Ticket.of(policies, "해리포터와 마법사의 돌", playingDate, playingTime, 1, price)
 }

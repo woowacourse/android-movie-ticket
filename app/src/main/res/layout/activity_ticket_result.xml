@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ticketresult.TicketResultActivity">
+    tools:context=".activity.ticketresult.TicketResultActivity"
+    android:id="@+id/layout_ticket">
 
     <TextView
         android:id="@+id/text_notice"
@@ -49,17 +50,17 @@
 
 
     <TextView
-        android:id="@+id/text_person_count"
+        android:id="@+id/text_person_count_seats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="69dp"
-        android:text="@string/normal_count"
+        android:text="@string/normal_count_seat"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_playing_date"
-        tools:text="일반 1명" />
+        tools:text="일반 1명 | A3, B4" />
 
 
     <TextView
@@ -73,7 +74,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_person_count" />
+        app:layout_constraintTop_toBottomOf="@id/text_person_count_seats" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

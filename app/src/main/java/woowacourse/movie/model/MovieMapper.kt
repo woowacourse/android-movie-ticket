@@ -1,8 +1,8 @@
 package woowacourse.movie.model
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.domain.PlayingDateTimes
 import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.movie.PlayingDateTimes
 import java.util.TreeMap
 
 fun MovieModel.toDomain(): Movie {

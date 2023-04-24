@@ -33,7 +33,7 @@
         <TextView
             android:id="@+id/text_playing_date"
             android:layout_marginTop="10dp"
-            android:text="상영일: 2024.3.1 ~ 2024.3.31 "
+            tools:text="상영일: 2024.3.1 ~ 2024.3.31 "
             android:textSize="12sp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/text_running_time"
-            android:text="러닝타임: 152분"
+            tools:text="러닝타임: 152분"
             android:textSize="12sp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"

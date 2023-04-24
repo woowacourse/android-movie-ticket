@@ -1,27 +1,12 @@
 package woowacourse.movie.domain.ticket
 
-import woowacourse.movie.domain.policy.DiscountPolicy
-import java.time.LocalDate
-import java.time.LocalTime
+import woowacourse.movie.domain.price.Price
+import woowacourse.movie.domain.seat.Seat
+import java.time.LocalDateTime
 
-data class Ticket private constructor(
+data class Ticket(
     val title: String,
-    val playingDate: LocalDate,
-    val playingTime: LocalTime,
-    val count: Int,
-    val price: Price
-) {
-    companion object {
-        fun of(
-            policies: List<DiscountPolicy>,
-            title: String,
-            playingDate: LocalDate,
-            playingTime: LocalTime,
-            count: Int,
-            price: Price
-        ): Ticket {
-            val calculatedPrice = PriceCalculator(policies, price).calculate(playingDate, playingTime, count)
-            return Ticket(title, playingDate, playingTime, count, calculatedPrice)
-        }
-    }
-}
+    val playingDateTime: LocalDateTime,
+    val seats: List<Seat>,
+    val price: Price,
+)
