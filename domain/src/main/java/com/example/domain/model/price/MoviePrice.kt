@@ -6,7 +6,7 @@ import com.example.domain.model.policy.NightPolicy
 import java.time.LocalDate
 import java.time.LocalTime
 
-data class Price(val price: Int = DEFAULT) {
+data class MoviePrice(val price: Int = DEFAULT) {
     private val policies = listOf(MovieDayPolicy(), MorningPolicy(), NightPolicy())
 
     init {
@@ -16,8 +16,8 @@ data class Price(val price: Int = DEFAULT) {
     fun calculate(
         playingDate: LocalDate,
         playingTime: LocalTime
-    ): Price {
-        val calculatePrice = policies.fold(Price(price)) { calculatePrice, policy ->
+    ): MoviePrice {
+        val calculatePrice = policies.fold(MoviePrice(price)) { calculatePrice, policy ->
             policy.calculate(playingDate, playingTime, calculatePrice)
         }
         return calculatePrice

@@ -1,5 +1,5 @@
 import com.example.domain.model.policy.MorningPolicy
-import com.example.domain.model.price.Price
+import com.example.domain.model.price.MoviePrice
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import java.time.LocalDate
@@ -11,9 +11,9 @@ class MorningPolicyTest {
         val actual = MorningPolicy()
             .calculate(
                 LocalDate.of(2023, 4, 11), LocalTime.of(9, 0),
-                Price()
+                MoviePrice()
             )
-        val expected = Price(11000)
+        val expected = MoviePrice(11000)
         assertEquals(actual, expected)
     }
 }

@@ -1,4 +1,4 @@
-import com.example.domain.model.price.Price
+import com.example.domain.model.price.MoviePrice
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import java.time.LocalDate
@@ -11,9 +11,9 @@ class MovieDayPolicyTest {
         val actual = com.example.domain.model.policy.MovieDayPolicy()
             .calculate(
                 LocalDate.of(2023, 4, 10), LocalTime.of(9, 0),
-                Price()
+                MoviePrice()
             )
-        val expected = Price(11700)
+        val expected = MoviePrice(11700)
         assertEquals(actual, expected)
     }
 
@@ -22,9 +22,9 @@ class MovieDayPolicyTest {
         val actual = com.example.domain.model.policy.MovieDayPolicy()
             .calculate(
                 LocalDate.of(2023, 4, 20), LocalTime.of(9, 0),
-                Price()
+                MoviePrice()
             )
-        val expected = Price(11700)
+        val expected = MoviePrice(11700)
         assertEquals(actual, expected)
     }
 
@@ -33,9 +33,9 @@ class MovieDayPolicyTest {
         val actual = com.example.domain.model.policy.MovieDayPolicy()
             .calculate(
                 LocalDate.of(2023, 4, 30), LocalTime.of(9, 0),
-                Price()
+                MoviePrice()
             )
-        val expected = Price(11700)
+        val expected = MoviePrice(11700)
         assertEquals(actual, expected)
     }
 }
