@@ -12,6 +12,10 @@
     <string name="not_exist_seat_point">좌석 없음</string>
     <string name="fee_format">%s원</string>
     <string name="reservation_complete">확인</string>
+    <string name="reservation_dialog_title">예매 확인</string>
+    <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="confirm_reservation">예매 완료</string>
+    <string name="cancel">취소</string>
     <string name="poster_image_description">movie poster</string>
     <string name="movie_start_notification">영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다.</string>
     <string name="general_person">일반</string>

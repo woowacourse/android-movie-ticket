@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import woowacourse.movie.R
 import woowacourse.movie.dto.SeatDto
@@ -48,6 +49,35 @@ class SeatSelectionActivity : AppCompatActivity() {
             intent.putExtra(RESERVATION_ID, reservationResultId)
             startActivity(intent)
         }
+        initReservationButtonOnClickListener()
+    }
+
+    private fun initReservationButtonOnClickListener() {
+        reservationButton.setOnClickListener {
+            val alertDialog: AlertDialog = AlertDialog.Builder(this).apply {
+                setTitle(getString(R.string.reservation_dialog_title))
+                setMessage(getString(R.string.reservation_dialog_message))
+                setPositiveButton(getString(R.string.confirm_reservation)) { _, _ ->
+                    onReservationButtonClick()
+                }
+                setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                setCancelable(false)
+            }.create()
+            alertDialog.show()
+        }
+    }
+
+    private fun onReservationButtonClick() {
+        val reservationResultId = MovieService.reserve(
+            reservationInfo.movieId,
+            reservationInfo.screeningDateTime,
+            selectedSeats
+        )
+        val intent = Intent(this, ReservationResultActivity::class.java)
+        intent.putExtra(RESERVATION_ID, reservationResultId)
+        startActivity(intent)
     }
 
     private fun initReservationInfoFromIntent(): ReservationInfo {
