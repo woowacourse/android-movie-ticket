@@ -11,4 +11,5 @@
     <string name="payment_amount">%,d원 (현장 결제)</string>
     <string name="screen">SCREEN</string>
     <string name="confirm">확인</string>
+    <string name="seat_table_row">좌석 테이블 행</string>
 </resources>

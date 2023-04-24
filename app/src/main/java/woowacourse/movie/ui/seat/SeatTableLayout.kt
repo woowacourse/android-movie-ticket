@@ -34,7 +34,7 @@ class SeatTableLayout(context: Context, attrs: AttributeSet) : TableLayout(conte
     // 테이블 로우 생성
     private fun addRow(rowSize: Int, columnSize: Int) {
         repeat(rowSize) {
-            addView(makeRow(columnSize))
+            addView(makeRow(columnSize).apply { id = R.string.seat_table_row + it })
         }
     }
 
