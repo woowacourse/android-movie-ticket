@@ -20,7 +20,6 @@ class MoviesActivity : AppCompatActivity() {
         val movies = MockMoviesFactory.generateMovies()
         val advertisementViewModel = MockAdvertisementFactory.generateAdvertisement()
         val movieList = findViewById<RecyclerView>(R.id.main_movie_list)
-        movieList.layoutManager = LinearLayoutManager(this).apply { LinearLayoutManager.VERTICAL }
         movieList.adapter = MovieAdapter(
             movies,
             advertisementViewModel,
