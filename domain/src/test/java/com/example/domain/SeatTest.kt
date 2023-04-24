@@ -2,36 +2,21 @@ package com.example.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
 class SeatTest {
-    @Test
-    fun `1열에 대해 좌석 인덱스 번호가 주어졌을 때, 열의 문자와 행의 숫자를 이름으로 반환한다`() {
-        val actual = Seat(0).getSeatName()
-        assertEquals(actual, "A1")
-    }
-
-    @Test
-    fun `2열에 대해 좌석 인덱스 번호가 주어졌을 때, 열의 문자와 행의 숫자를 이름으로 반환한다`() {
-        val actual = Seat(5).getSeatName()
-        assertEquals(actual, "B2")
-    }
-
-    @Test
-    fun `3열에 대해 좌석 인덱스 번호가 주어졌을 때, 열의 문자와 행의 숫자를 이름으로 반환한다`() {
-        val actual = Seat(10).getSeatName()
-        assertEquals(actual, "C3")
-    }
-
-    @Test
-    fun `4열에 대해 좌석 인덱스 번호가 주어졌을 때, 열의 문자와 행의 숫자를 이름으로 반환한다`() {
-        val actual = Seat(12).getSeatName()
-        assertEquals(actual, "D1")
-    }
-
-    @Test
-    fun `5열에 대해 좌석 인덱스 번호가 주어졌을 때, 열의 문자와 행의 숫자를 이름으로 반환한다`() {
-        val actual = Seat(17).getSeatName()
-        assertEquals(actual, "E2")
+    @ParameterizedTest
+    @CsvSource(
+        "0, A1",
+        "5, B2",
+        "10, C3",
+        "12, D1",
+        "17, E2"
+    )
+    fun `좌석 인덱스 번호가 주어졌을 때, 열의 문자와 행의 숫자를 이름으로 반환한다`(index: Int, seatName: String) {
+        val actual = Seat(index).getSeatName()
+        assertEquals(actual, seatName)
     }
 
     @Test
