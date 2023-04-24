@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.activity
+package woowacourse.movie.presentation.choiceSeat
 
 import android.content.Context
 import android.content.Intent
@@ -20,6 +20,7 @@ import woowacourse.movie.domain.model.tools.seat.SeatGrade
 import woowacourse.movie.domain.model.tools.seat.SeatRow
 import woowacourse.movie.domain.model.tools.seat.Seats
 import woowacourse.movie.domain.model.tools.seat.Theater
+import woowacourse.movie.presentation.complete.CompleteActivity
 import woowacourse.movie.presentation.model.ReservationModel
 import woowacourse.movie.presentation.model.toPresentation
 
@@ -65,7 +66,7 @@ class ChoiceSeatActivity : AppCompatActivity() {
     private fun confirmBookMovie() {
         val movie = MovieData.findMovieById(reservation.movieId).toPresentation()
         val ticketModel = movie.reserve(reservation, seats)
-        startActivity(CompletedActivity.getIntent(this, ticketModel))
+        startActivity(CompleteActivity.getIntent(this, ticketModel))
     }
 
     private fun setTitle(title: String) {

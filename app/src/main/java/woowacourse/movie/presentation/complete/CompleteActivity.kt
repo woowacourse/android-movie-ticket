@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.activity
+package woowacourse.movie.presentation.complete
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,7 @@ import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.util.formatScreenDateTime
 import woowacourse.movie.presentation.util.formatSeatsCombine
 
-class CompletedActivity : AppCompatActivity() {
+class CompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_completed)
@@ -75,7 +75,7 @@ class CompletedActivity : AppCompatActivity() {
         private const val TICKET = "TICKET"
 
         fun getIntent(context: Context, ticketModel: TicketModel): Intent {
-            return Intent(context, CompletedActivity::class.java).apply {
+            return Intent(context, CompleteActivity::class.java).apply {
                 putExtra(TICKET, ticketModel)
             }
         }

@@ -15,7 +15,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.presentation.activity.ChoiceSeatActivity
+import woowacourse.movie.presentation.choiceSeat.ChoiceSeatActivity
 import woowacourse.movie.presentation.model.ReservationModel
 import java.time.LocalDateTime
 

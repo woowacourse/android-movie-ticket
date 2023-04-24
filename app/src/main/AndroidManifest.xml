@@ -12,21 +12,21 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.activity.ChoiceSeatActivity"
+            android:name=".presentation.choiceSeat.ChoiceSeatActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.activity.MainActivity">
+            android:parentActivityName=".presentation.main.MainActivity">
         </activity>
 
         <activity
-            android:name=".presentation.activity.CompletedActivity"
+            android:name=".presentation.complete.CompleteActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.activity.MainActivity" />
+            android:parentActivityName=".presentation.main.MainActivity" />
         <activity
-            android:name=".presentation.activity.BookingActivity"
+            android:name=".presentation.booking.BookingActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.activity.MainActivity" />
+            android:parentActivityName=".presentation.main.MainActivity" />
         <activity
-            android:name=".presentation.activity.MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

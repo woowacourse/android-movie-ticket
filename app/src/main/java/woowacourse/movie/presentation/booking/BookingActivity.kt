@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.activity
+package woowacourse.movie.presentation.booking
 
 import android.content.Context
 import android.content.Intent
@@ -15,7 +15,7 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieData
 import woowacourse.movie.domain.model.rules.ScreeningTimes
 import woowacourse.movie.domain.model.tools.TicketCount
-import woowacourse.movie.presentation.adapter.SpinnerAdapter
+import woowacourse.movie.presentation.choiceSeat.ChoiceSeatActivity
 import woowacourse.movie.presentation.model.MovieModel
 import woowacourse.movie.presentation.model.ReservationModel
 import woowacourse.movie.presentation.model.toPresentation
