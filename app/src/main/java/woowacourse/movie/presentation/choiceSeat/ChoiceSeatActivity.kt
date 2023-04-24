@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
@@ -58,9 +59,23 @@ class ChoiceSeatActivity : AppCompatActivity() {
 
     private fun setConfirmButton() {
         confirmButton.setOnClickListener {
-            confirmBookMovie()
+            showConfirmCheckDialog()
         }
         confirmButton.isEnabled = false
+    }
+
+    private fun showConfirmCheckDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dialog_choice_confirm_title))
+            .setMessage(getString(R.string.dialog_choice_confirm_message))
+            .setPositiveButton(getString(R.string.dialog_choice_positive_button)) { _, _ ->
+                confirmBookMovie()
+            }
+            .setNegativeButton(getString(R.string.dialog_choice_negative_button)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
     }
 
     private fun confirmBookMovie() {
