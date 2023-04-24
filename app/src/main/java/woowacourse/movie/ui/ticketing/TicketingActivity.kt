@@ -42,7 +42,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, mutableListOf())
     }
-    private var reservation: ReservationUI? = null
 
     private var selectedDateIdx: Int = DEFAULT_DATE_SELECTED_IDX
     private var selectedTimeIdx: Int = DEFAULT_TIME_SELECTED_IDX
@@ -153,7 +152,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             movieTimeAdapter.addAll(
                 movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
             )
-            movieTimeAdapter.notifyDataSetChanged()
         }
     }
 
@@ -199,8 +197,9 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             showToast(getString(R.string.select_ticket_count))
             return
         }
-        reservation = reserveMovie()?.apply {
-            val intent = SeatSelectionActivity.getIntent(this@TicketingActivity, this@apply, movieTicket)
+        reserveMovie()?.let {
+            val intent =
+                SeatSelectionActivity.getIntent(this@TicketingActivity, it, movieTicket)
             startActivity(intent)
         }
     }
@@ -242,9 +241,9 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         internal const val TICKET_COUNT_KEY = "ticketCount"
         internal const val RESERVATION_KEY = "reservation"
 
-        internal const val TICKET_STATE_KEY = "ticket"
-        internal const val MOVIE_DATE_INDEX_STATE_KEY = "movieDate"
-        internal const val MOVIE_TIME_INDEX_STATE_KEY = "movieTime"
+        private const val TICKET_STATE_KEY = "ticket"
+        private const val MOVIE_DATE_INDEX_STATE_KEY = "movieDate"
+        private const val MOVIE_TIME_INDEX_STATE_KEY = "movieTime"
 
         internal fun getIntent(context: Context, movie: MovieUI): Intent {
             val intent = Intent(context, TicketingActivity::class.java)
