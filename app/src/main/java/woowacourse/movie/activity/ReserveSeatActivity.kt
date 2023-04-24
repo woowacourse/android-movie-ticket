@@ -59,7 +59,7 @@ class ReserveSeatActivity : AppCompatActivity() {
                     reservationInfo.playingTime
                 ).price
                 selectCount = button.manageSelectedCondition(
-                    priceTextView, selectCount, seatPrice
+                    priceTextView, selectCount, reservationInfo.count, seatPrice
                 )
                 changeReserveEnabledCondition(selectCount, reservationInfo.count)
             }
@@ -68,21 +68,26 @@ class ReserveSeatActivity : AppCompatActivity() {
 
     private fun changeReserveEnabledCondition(selectCount: Int, goalCount: Int) {
         val reserveButton: Button = findViewById(R.id.btn_reserve)
-        reserveButton.isEnabled = selectCount == goalCount
+        reserveButton.isEnabled = checkReserveAvailable(selectCount, goalCount)
     }
+
+    private fun checkReserveAvailable(selectCount: Int, goalCount: Int) = selectCount == goalCount
 
     private fun Button.manageSelectedCondition(
         priceTextView: TextView,
         selectCount: Int,
+        goalCount: Int,
         price: Int
     ): Int {
         val currentPrice = priceTextView.text.toString().toInt()
-        return if (isSelected) {
+        if (isSelected) {
             setBackgroundColor(Color.WHITE)
             isSelected = false
             priceTextView.text = currentPrice.minus(price).toString()
-            selectCount.minus(1)
-        } else {
+            return selectCount.minus(1)
+        }
+        return if (checkReserveAvailable(selectCount, goalCount)) selectCount
+        else {
             setBackgroundColor(Color.parseColor(SELECTED_SEAT_COLOR))
             isSelected = true
             priceTextView.text = currentPrice.plus(price).toString()
