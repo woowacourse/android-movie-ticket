@@ -30,4 +30,8 @@ class Seats(seats: Set<Seat> = setOf()) {
         }
         return false
     }
+
+    override fun hashCode(): Int {
+        return _value.hashCode()
+    }
 }
