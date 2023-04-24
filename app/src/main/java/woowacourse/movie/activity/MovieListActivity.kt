@@ -45,19 +45,27 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun getMovieListData(): List<MovieListItem> {
         val movies = getMovieData()
-        val ads = getAdData()
         val items = mutableListOf<MovieListItem>()
-        var adIndex = 0
 
-        movies.forEachIndexed { movieIndex, movie ->
+        movies.foldIndexed(0) { movieIndex, adIndex, movie ->
             items.add(movie)
-            if ((movieIndex + 1) % AD_CYCLE == 0) {
-                items.add(ads[adIndex % ads.size])
-                adIndex++
-            }
+            addAdItemByCondition(items, movieIndex, adIndex)
         }
 
         return items
+    }
+
+    private fun addAdItemByCondition(
+        items: MutableList<MovieListItem>,
+        movieIndex: Int,
+        adIndex: Int
+    ): Int {
+        val ads = getAdData()
+        if ((movieIndex + 1) % AD_CYCLE == 0) {
+            items.add(ads[adIndex % ads.size])
+            return adIndex + 1
+        }
+        return adIndex
     }
 
     private fun getMovieData() = List(1000) {
