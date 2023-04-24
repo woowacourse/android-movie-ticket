@@ -1,24 +1,13 @@
 import com.example.domain.model.model.Rank
+import com.example.domain.model.price.MoviePrice
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class RankTest {
 
     @Test
-    fun `0 또는 1 번째 열이면 B 등급이다`() {
-        val actual: Rank = Rank.map(0)
-        assertEquals(actual, Rank.B)
-    }
-
-    @Test
-    fun `2 또는 3 번째 열이면 S 등급이다`() {
-        val actual: Rank = Rank.map(2)
-        assertEquals(actual, Rank.S)
-    }
-
-    @Test
-    fun `4 번째 열이면 A 등급이다`() {
-        val actual: Rank = Rank.map(4)
-        assertEquals(actual, Rank.A)
+    fun `Rank는 등급에 해당하는 금액으르 가진다`() {
+        val actual: MoviePrice = Rank.A.price
+        assertEquals(actual, MoviePrice(12000))
     }
 }

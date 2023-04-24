@@ -1,20 +1,7 @@
 package com.example.domain.model.model
 
-import com.example.domain.model.price.Price
+import com.example.domain.model.price.MoviePrice
 
-enum class Rank(val price: Price) {
-    A(Price(12000)), S(Price(15000)), B(Price(10000));
-
-    companion object {
-        fun map(row: Int): Rank {
-            return when (row) {
-                0, 1 -> B
-                2, 3 -> S
-                4 -> A
-                else -> throw IllegalArgumentException(CANT_MATCHING_RANK_ERROR)
-            }
-        }
-
-        const val CANT_MATCHING_RANK_ERROR = "해당 열에 해당하는 등급이 없습니다."
-    }
+enum class Rank(val price: MoviePrice) {
+    A(MoviePrice(12000)), S(MoviePrice(15000)), B(MoviePrice(10000))
 }

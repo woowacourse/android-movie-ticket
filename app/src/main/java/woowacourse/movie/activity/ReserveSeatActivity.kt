@@ -10,7 +10,6 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
-import com.example.domain.model.model.Rank
 import com.example.domain.model.model.ReservationInfo
 import com.example.domain.model.model.Seat
 import woowacourse.movie.R
@@ -35,7 +34,8 @@ class ReserveSeatActivity : BaseActivity() {
         setActionBar()
     }
 
-    private fun getIntentReserveInfoModel(): ReservationInfoModel = intent.parcelable(RESERVATION_INFO_KEY)
+    private fun getIntentReserveInfoModel(): ReservationInfoModel =
+        intent.parcelable(RESERVATION_INFO_KEY)
 
     private fun initTicketInfoView(title: String) {
         InitView.initTextView(findViewById(R.id.text_title), title)
@@ -52,8 +52,7 @@ class ReserveSeatActivity : BaseActivity() {
         seatViews.forEachIndexed { index, button ->
             button.setOnClickListener {
                 val seat = convertToSeat(index)
-                val seatRank = Rank.map(seat.row)
-                val seatPrice = seatRank.price.calculate(
+                val seatPrice = seat.calculatePrice(
                     reservationInfo.playingDate,
                     reservationInfo.playingTime
                 ).price
