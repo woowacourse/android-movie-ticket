@@ -61,8 +61,9 @@ class SeatSelectionActivity : AppCompatActivity() {
             intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime
 
         val nextIntent = Intent(this, ReservationResultActivity::class.java)
-        val paymentAmount =
-            PaymentAmount(binding.paymentAmountTextView.text.toString().toInt())
+        val paymentAmountText = binding.paymentAmountTextView.text.toString()
+        val paymentAmountString = paymentAmountText.replace(",", "").replace("원", "")
+        val paymentAmount = PaymentAmount(paymentAmountString.toInt())
 
         val reservationModel = ReservationModel(
             movie = movieModel,
