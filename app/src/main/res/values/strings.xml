@@ -19,7 +19,7 @@
     <string name="seat_name">%c%d</string>
     <string name="seat_picker_done_button">확인</string>
     <string name="ticket_price_init_value">0원</string>
-    <string name="ticket_price_format">%d원</string>
+    <string name="ticket_price_format">%,d원</string>
     <string name="alert_dialog_book_confirm">예매 확인</string>
     <string name="alert_dialog_book_re_confirm">정말 예매하시겠습니까?</string>
     <string name="alert_dialog_book_done">예매 완료</string>
