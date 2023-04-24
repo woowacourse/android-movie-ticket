@@ -11,7 +11,8 @@ import woowacourse.movie.model.MovieRecyclerItem
 import woowacourse.movie.model.SeatSelectionInfo
 import woowacourse.movie.movies.MoviesActivity.Companion.MOVIE_KEY
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity
-import woowacourse.movie.util.appCompatGetSerializable
+import woowacourse.movie.util.failedToCreate
+import woowacourse.movie.util.getSerializableCompat
 import woowacourse.movie.util.getSerializableExtraByKey
 
 class ReservationActivity : AppCompatActivity() {
@@ -25,7 +26,9 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
-        movieInfo = intent.appCompatGetSerializable(MOVIE_KEY) ?: return finish()
+        movieInfo = intent.getSerializableCompat(MOVIE_KEY) ?: return failedToCreate(
+            getString(R.string.movie_data_error_message)
+        )
         setMovieInfoView()
         setNavigationBar()
     }

@@ -7,7 +7,8 @@ import domain.payment.PaymentType
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.seatselection.ScreeningSeatSelectionActivity.Companion.RESERVATION_RESULT_KEY
-import woowacourse.movie.util.appCompatGetSerializable
+import woowacourse.movie.util.failedToCreate
+import woowacourse.movie.util.getSerializableCompat
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
@@ -19,7 +20,9 @@ class ReservationResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
-        reservationInfo = intent.appCompatGetSerializable(RESERVATION_RESULT_KEY) ?: return finish()
+        reservationInfo = intent.getSerializableCompat(RESERVATION_RESULT_KEY) ?: return failedToCreate(
+            getString(R.string.reservation_data_error_message)
+        )
         initReservationResultView()
     }
 

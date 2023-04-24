@@ -21,7 +21,7 @@ class MoviesActivity : AppCompatActivity() {
         applyMoviesAdapter()
     }
 
-    private fun getMovieRecyclerItems(movieRecyclerItemsSize: Int): List<MovieRecyclerItem> {
+    private fun getMovieRecyclerItems(movieRecyclerItemsSize: Int = 100): List<MovieRecyclerItem> {
         val adGenerator = MockAdvertisementGenerator()
         val movieGenerator = MockMovieGenerator()
 
@@ -37,7 +37,7 @@ class MoviesActivity : AppCompatActivity() {
         val moviesRecyclerView: RecyclerView = findViewById(R.id.movies_recycler_view)
 
         moviesRecyclerView.adapter = MoviesAdapter(
-            moviesRecyclerItems = getMovieRecyclerItems(100)
+            moviesRecyclerItems = getMovieRecyclerItems()
         ) { movieRecyclerItem ->
             when (movieRecyclerItem) {
                 is MovieRecyclerItem.Advertisement -> onAdClicked(movieRecyclerItem)

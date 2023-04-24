@@ -17,7 +17,8 @@ import woowacourse.movie.model.toDomainModel
 import woowacourse.movie.model.toUIModel
 import woowacourse.movie.reservation.ReservationActivity.Companion.SEAT_SELECTION_KEY
 import woowacourse.movie.reservationresult.ReservationResultActivity
-import woowacourse.movie.util.appCompatGetSerializable
+import woowacourse.movie.util.failedToCreate
+import woowacourse.movie.util.getSerializableCompat
 
 class ScreeningSeatSelectionActivity : AppCompatActivity() {
 
@@ -29,7 +30,9 @@ class ScreeningSeatSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_screening_seat_selection)
 
         seatSelectionInfo =
-            intent.appCompatGetSerializable(SEAT_SELECTION_KEY) ?: return finish()
+            intent.getSerializableCompat(SEAT_SELECTION_KEY) ?: return failedToCreate(
+                getString(R.string.seat_selecting_data_error)
+            )
         setMovieNameTextView()
         setSeatTableView()
         setOnCompleteButtonClickedListener()
