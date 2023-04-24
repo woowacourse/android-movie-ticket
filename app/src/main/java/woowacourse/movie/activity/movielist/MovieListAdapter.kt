@@ -1,6 +1,5 @@
 package woowacourse.movie.activity.movielist
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +16,10 @@ class MovieListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         return when (ListViewType.values()[viewType]) {
             ListViewType.AD_VIEWTYPE -> {
-                Log.d("Type", "AD")
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.ad_item, parent, false)
                 CustomViewHolder.AdItemViewHolder(view)
             }
             else -> {
-                Log.d("Type", "MOVIE")
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
                 CustomViewHolder.MovieItemViewHolder(view)
             }
