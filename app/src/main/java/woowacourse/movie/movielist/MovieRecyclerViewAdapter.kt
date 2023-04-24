@@ -6,14 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.Ad
 import woowacourse.movie.R
 import woowacourse.movie.movie.Movie
-import woowacourse.movie.movielist.listener.AdOnClickListener
-import woowacourse.movie.movielist.listener.MovieOnClickListener
 
 class MovieRecyclerViewAdapter(
     private val movies: List<Movie>,
     private val ad: Ad,
-    private val movieOnClickListener: MovieOnClickListener,
-    private val adOnClickListener: AdOnClickListener,
+    private val movieOnItemClicked: (Int) -> Unit,
+    private val adOnItemClicked: (Ad) -> Unit,
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -22,12 +20,12 @@ class MovieRecyclerViewAdapter(
             ViewType.MOVIE -> {
                 val view = LayoutInflater.from(viewGroup.context)
                     .inflate(R.layout.item_movie_list, viewGroup, false)
-                MovieRecyclerViewHolder(view, movieOnClickListener)
+                MovieRecyclerViewHolder(view, movieOnItemClicked)
             }
             ViewType.AD -> {
                 val view = LayoutInflater.from(viewGroup.context)
                     .inflate(R.layout.item_ad_list, viewGroup, false)
-                AdViewHolder(view, adOnClickListener)
+                AdViewHolder(view, adOnItemClicked, ad)
             }
         }
     }

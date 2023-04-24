@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.DateFormatter
 import woowacourse.movie.R
 import woowacourse.movie.movie.Movie
-import woowacourse.movie.movielist.listener.OnClickListener
 
 class MovieRecyclerViewHolder(
     private val view: View,
-    private val listener: OnClickListener<Movie>
+    private val listener: (Int) -> Unit
 ) :
     RecyclerView.ViewHolder(view) {
 
@@ -21,6 +20,12 @@ class MovieRecyclerViewHolder(
     val screeningPeriod: TextView = view.findViewById(R.id.tv_movie_screening_period)
     val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
     val bookButton: Button = view.findViewById(R.id.bt_book_now)
+
+    init {
+        bookButton.setOnClickListener {
+            listener(bindingAdapterPosition)
+        }
+    }
 
     fun bind(movieData: Movie) {
         poster.setImageResource(movieData.poster)
@@ -32,9 +37,5 @@ class MovieRecyclerViewHolder(
         )
         runningTime.text =
             view.context.getString(R.string.movie_running_time, movieData.runningTime)
-
-        bookButton.setOnClickListener {
-            listener.onClick(movieData)
-        }
     }
 }
