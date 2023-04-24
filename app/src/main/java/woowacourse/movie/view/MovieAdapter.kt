@@ -48,7 +48,7 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (MovieListViewType.values()[getItemViewType(position)]) {
             MovieListViewType.MOVIE -> (holder as MovieInfoViewHolder).bind(movieViewDatas.value[position] as MovieViewData)
-            MovieListViewType.ADVERTISEMENT -> (holder as AdvertisementViewHolder).bind()
+            MovieListViewType.ADVERTISEMENT -> (holder as AdvertisementViewHolder)
         }
     }
 
