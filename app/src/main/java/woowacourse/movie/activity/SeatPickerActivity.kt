@@ -9,7 +9,6 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import com.woowacourse.domain.seat.Seat
 import com.woowacourse.domain.seat.SeatColumn
@@ -201,21 +200,7 @@ class SeatPickerActivity : BackButtonActivity() {
     }
 
     private fun setPickDoneButtonColor() {
-        if (!seatGroup.canAdd(ticketBundle.count)) ablePickDoneButton() else disablePickDoneButton()
-    }
-
-    private fun ablePickDoneButton() {
-        pickDoneButton.isClickable = true
-        pickDoneButton.setBackgroundColor(
-            ContextCompat.getColor(this, R.color.seat_picker_button_able)
-        )
-    }
-
-    private fun disablePickDoneButton() {
-        pickDoneButton.isClickable = false
-        pickDoneButton.setBackgroundColor(
-            ContextCompat.getColor(this, R.color.seat_picker_button_disable)
-        )
+        pickDoneButton.isEnabled = !seatGroup.canAdd(ticketBundle.count)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
