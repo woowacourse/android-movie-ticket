@@ -1,45 +1,42 @@
 package woowacourse.movie.view
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.service.MovieQueryService
-import java.text.DecimalFormat
-import java.time.LocalDateTime
+import woowacourse.movie.service.ReservationService
 
 class ReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
-        val reservationInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(ReservationActivity.RESERVATION_INFO, ReservationInfo::class.java)
-        } else {
-            intent.getSerializableExtra(ReservationActivity.RESERVATION_INFO) as? ReservationInfo
-        }
-        requireNotNull(reservationInfo) { "인텐트로 받아온 예약 정보 데이터가 널일 수 없습니다." }
-        initViewData(reservationInfo.movieId, reservationInfo.screeningDateTime)
+        val reservationId = intent.getLongExtra(RESERVATION_ID, 0)
+        initViewData(reservationId)
     }
 
-    private fun initViewData(movieId: Long, screeningDateTime: LocalDateTime) {
-        val reservation = MovieQueryService.getReservation(movieId, screeningDateTime)
+    private fun initViewData(reservationId: Long) {
+        val reservationResult = ReservationService.findReservationResultById(reservationId)
 
         val titleView = findViewById<TextView>(R.id.movie_title)
-        titleView.text = reservation.movieTitle
+        titleView.text = reservationResult.movieTitle
         val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
         screeningDateView.text =
-            reservation.screeningDateTime.format(DATE_TIME_FORMATTER)
+            reservationResult.screeningDateTime.format(DATE_TIME_FORMATTER)
         val peopleCountView = findViewById<TextView>(R.id.people_count)
         peopleCountView.text = getString(R.string.reservation_people_count_format)
-            .format(getString(R.string.general_person), reservation.audienceCount)
+            .format(
+                getString(R.string.general_person),
+                reservationResult.seatPoints.size,
+                reservationResult.seatPoints.map { it.getSeatName() }.sorted().joinToString { it })
         val totalPriceView = findViewById<TextView>(R.id.total_price)
         totalPriceView.text =
-            getString(R.string.total_price_format).format(DECIMAL_FORMAT.format(reservation.fee))
+            getString(R.string.total_price_format).format(DECIMAL_FORMAT.format(reservationResult.fee))
     }
 
+    private fun Pair<Int, Int>.getSeatName(): String = ('A' + (first - 1)).toString() + second
+
     companion object {
-        private val DECIMAL_FORMAT = DecimalFormat("#,###")
+        const val RESERVATION_ID = "RESERVATION_ID"
     }
 }

@@ -8,16 +8,15 @@ import android.view.View
 import android.widget.*
 import woowacourse.movie.R
 import woowacourse.movie.dto.MovieDto
-import woowacourse.movie.service.MovieQueryService
 import woowacourse.movie.service.MovieService
 import woowacourse.movie.view.MovieListAdapter.Companion.MOVIE_ID
+import woowacourse.movie.view.SeatSelectionActivity.Companion.RESERVATION_INFO
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
 
-    private var selectedAudienceCount = 1
     private lateinit var selectedScreeningDate: LocalDate
     private lateinit var selectedScreeningTime: LocalTime
     private val movie: MovieDto by lazy { initMovieFromIntent() }
@@ -29,28 +28,17 @@ class ReservationActivity : AppCompatActivity() {
 
         initViewData()
         initSpinner()
-        initPeopleCountAdjustButtonClickListener()
-        initReserveButtonClickListener()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setAudienceCount()
-    }
-
-    private fun setAudienceCount() {
-        val peopleCountView = findViewById<TextView>(R.id.people_count)
-        peopleCountView.text = selectedAudienceCount.toString()
+        initSeatSelectionButtonClickListener()
     }
 
     private fun initMovieFromIntent(): MovieDto {
         val movieId = intent.getLongExtra(MOVIE_ID, 0)
-        return MovieQueryService.findMovieById(movieId)
+        return MovieService.findMovieById(movieId)
     }
 
     private fun initViewData() {
         val posterView = findViewById<ImageView>(R.id.movie_poster)
-        posterView.setImageResource(MovieMockDateInitiator.getImageResourceIdOf(movie.id))
+        posterView.setImageResource(PosterRepository.getPosterResourceId(movie.id))
         val titleView = findViewById<TextView>(R.id.movie_title)
         titleView.text = movie.title
         val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
@@ -121,54 +109,40 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun initPeopleCountAdjustButtonClickListener() {
-        val audienceCountView = findViewById<TextView>(R.id.people_count)
-        val minAudienceCount = MovieQueryService.getMinAudienceCount()
-        val maxAudienceCount = MovieQueryService.getMaxAudienceCount()
-
-        findViewById<Button>(R.id.minus_button).setOnClickListener {
-            minusSelectedAudienceCount(audienceCountView, minAudienceCount)
-        }
-        findViewById<Button>(R.id.plus_button).setOnClickListener {
-            plusSelectedAudienceCount(audienceCountView, maxAudienceCount)
+    private fun initSeatSelectionButtonClickListener() {
+        findViewById<Button>(R.id.seat_selection_button).setOnClickListener {
+            startSeatSelectionActivity()
         }
     }
 
-    private fun minusSelectedAudienceCount(audienceCountView: TextView, minAudienceCount: Int) {
-        if (selectedAudienceCount > minAudienceCount) {
-            selectedAudienceCount--
-            audienceCountView.text = selectedAudienceCount.toString()
-        }
-    }
-
-    private fun plusSelectedAudienceCount(audienceCountView: TextView, maxAudienceCount: Int) {
-        if (selectedAudienceCount < maxAudienceCount) {
-            selectedAudienceCount++
-            audienceCountView.text = selectedAudienceCount.toString()
-        }
-    }
-
-    private fun initReserveButtonClickListener() {
-        findViewById<Button>(R.id.reservation_button).setOnClickListener {
-            reserveBySelectedReservationOptions()
-            startReservationResultActivity()
-        }
-    }
-
-    private fun reserveBySelectedReservationOptions() {
-        val selectedScreeningDateTime =
-            LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
-        MovieService.reserve(movie.id, selectedScreeningDateTime, selectedAudienceCount)
-    }
-
-    private fun startReservationResultActivity() {
-        val intent = Intent(this, ReservationResultActivity::class.java)
+    private fun startSeatSelectionActivity() {
+        val intent = Intent(this, SeatSelectionActivity::class.java)
         val selectedScreeningDateTime =
             LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
         intent.putExtra(RESERVATION_INFO, ReservationInfo(movie.id, selectedScreeningDateTime))
         startActivity(intent)
     }
+
+//    private fun initReserveButtonClickListener() {
+//        findViewById<Button>(R.id.reservation_button).setOnClickListener {
+//            reserveBySelectedReservationOptions()
+//            startReservationResultActivity()
+//        }
+//    }
+
+//    private fun reserveBySelectedReservationOptions() {
+//        val selectedScreeningDateTime =
+//            LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
+//        MovieService.reserve(movie.id, selectedScreeningDateTime, selectedAudienceCount)
+//    }
+//
+//    private fun startReservationResultActivity() {
+//        val intent = Intent(this, ReservationResultActivity::class.java)
+//        val selectedScreeningDateTime =
+//            LocalDateTime.of(selectedScreeningDate, selectedScreeningTime)
+//        intent.putExtra(RESERVATION_INFO, ReservationInfo(movie.id, selectedScreeningDateTime))
+//        startActivity(intent)
+//    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -176,7 +150,6 @@ class ReservationActivity : AppCompatActivity() {
         val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
 
         outState.apply {
-            putInt(PEOPLE_COUNT, selectedAudienceCount)
             putSerializable(SELECTED_DATE, selectedScreeningDate)
             putSerializable(SELECTED_TIME, selectedScreeningTime)
             putInt(SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
@@ -186,7 +159,6 @@ class ReservationActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        selectedAudienceCount = savedInstanceState.getInt(PEOPLE_COUNT)
         timeSpinnerPosition = savedInstanceState.getInt(SELECTED_TIME_POSITION)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -206,10 +178,7 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-
     companion object {
-        const val RESERVATION_INFO = "RESERVATION_INFO"
-        private const val PEOPLE_COUNT = "PEOPLE_COUNT"
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"
         private const val SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"

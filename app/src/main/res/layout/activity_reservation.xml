@@ -92,44 +92,14 @@
             app:layout_constraintTop_toTopOf="@id/reservation_layout" />
 
         <Button
-            android:id="@+id/minus_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/minus"
-            android:textSize="25sp"
-            app:layout_constraintStart_toStartOf="@id/reservation_layout"
-            app:layout_constraintTop_toBottomOf="@id/date_spinner" />
-
-        <Button
-            android:id="@+id/plus_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/plus"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="@id/reservation_layout"
-            app:layout_constraintTop_toBottomOf="@id/date_spinner" />
-
-        <TextView
-            android:id="@+id/people_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/initial_people_count"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/minus_button"
-            app:layout_constraintEnd_toStartOf="@id/plus_button"
-            app:layout_constraintStart_toEndOf="@id/minus_button"
-            app:layout_constraintTop_toTopOf="@+id/minus_button"
-            tools:text="1" />
-
-        <Button
-            android:id="@+id/reservation_button"
+            android:id="@+id/seat_selection_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16.75dp"
-            android:text="@string/reservation_complete"
+            android:text="@string/seat_selection"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/reservation_layout"
-            app:layout_constraintTop_toBottomOf="@id/minus_button" />
+            app:layout_constraintTop_toBottomOf="@id/date_spinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

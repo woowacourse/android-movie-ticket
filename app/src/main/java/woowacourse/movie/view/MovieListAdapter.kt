@@ -32,7 +32,7 @@ class MovieListAdapter(
         movie: MovieDto
     ) {
         convertView.findViewById<ImageView>(R.id.movie_poster)
-            ?.setImageResource(MovieMockDateInitiator.getImageResourceIdOf(movie.id))
+            ?.setImageResource(PosterRepository.getPosterResourceId(movie.id))
         convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
         convertView.findViewById<TextView>(R.id.movie_screening_date)?.text =
             if (movie.screenings.isEmpty())
