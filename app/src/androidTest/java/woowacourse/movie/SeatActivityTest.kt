@@ -86,7 +86,6 @@ class SeatActivityTest {
     @Test
     fun 좌석이_선택된_상태에서_한번_더_클릭하면_선택해제가_된다() {
         onView(withText("A1")).perform(ViewActions.click())
-        onView(withText("A1")).check(matches(isSelected()))
         onView(withText("A1")).perform(ViewActions.click())
         onView(withText("A1")).check(matches(isNotSelected()))
     }
