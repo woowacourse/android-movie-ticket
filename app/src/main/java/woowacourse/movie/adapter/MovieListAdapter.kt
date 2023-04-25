@@ -1,81 +1,59 @@
 package woowacourse.movie.adapter
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.activity.MovieDetailActivity
-import woowacourse.movie.model.Movie
+import woowacourse.movie.adapter.viewholder.AdViewHolder
+import woowacourse.movie.adapter.viewholder.CustomViewHolder
+import woowacourse.movie.adapter.viewholder.MovieViewHolder
+import woowacourse.movie.model.MovieListItem
 
-class MovieListAdapter(private val movies: List<Movie>) :
-    BaseAdapter() {
-    private val viewHolder: MutableMap<View, ViewHolder> = mutableMapOf()
-    override fun getCount(): Int {
-        return movies.size
-    }
+class MovieListAdapter(
+    private val items: List<MovieListItem>,
+    private val onItemClick: (item: MovieListItem) -> Unit
+) :
+    RecyclerView.Adapter<CustomViewHolder>() {
 
-    override fun getItem(position: Int): Any {
-        return movies[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View =
-            convertView ?: LayoutInflater.from(parent?.context)
-                .inflate(R.layout.movie_item, parent, false)
-        val currentViewHolder = viewHolder.getOrPut(view) { getViewHolder(view) }
-        setViewHolder(
-            view.context,
-            currentViewHolder,
-            movies[position]
-        )
-        return view
-    }
-
-    private fun getViewHolder(view: View): ViewHolder {
-        val image: ImageView = view.findViewById(R.id.img_movie)
-        val title: TextView = view.findViewById(R.id.text_title)
-        val playingDate: TextView = view.findViewById(R.id.text_playing_date)
-        val runningTime: TextView = view.findViewById(R.id.text_running_time)
-        val ticketingButton: Button = view.findViewById(R.id.btn_ticketing)
-
-        return ViewHolder(image, title, playingDate, runningTime, ticketingButton)
-    }
-
-    private fun setViewHolder(context: Context, holder: ViewHolder, movie: Movie) {
-        holder.image.setImageResource(movie.image)
-        holder.title.text = movie.title
-        holder.playingDate.text = context.getString(
-            R.string.playing_time, movie.playingTimes.startDateString,
-            movie.playingTimes.endDateString
-        )
-        holder.runningTime.text = context.getString(R.string.running_time, movie.runningTime)
-        holder.ticketingButton.setOnClickListener {
-            val intent = Intent(context, MovieDetailActivity::class.java).apply {
-                putExtra(MOVIE_KEY, movie)
-            }
-            context.startActivity(intent)
+    override fun getItemViewType(position: Int): Int {
+        return when (items[position]) {
+            is MovieListItem.MovieModel -> MOVIE_ITEM_VIEW_TYPE
+            is MovieListItem.AdModel -> AD_ITEM_VIEW_TYPE
         }
     }
 
-    private class ViewHolder(
-        val image: ImageView,
-        val title: TextView,
-        val playingDate: TextView,
-        val runningTime: TextView,
-        val ticketingButton: Button
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
+        return when (viewType) {
+            MOVIE_ITEM_VIEW_TYPE -> {
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+                MovieViewHolder(view, items, onItemClick)
+            }
+            AD_ITEM_VIEW_TYPE -> {
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.ad_item, parent, false)
+                AdViewHolder(view, items, onItemClick)
+            }
+            else -> throw IllegalArgumentException(VIEW_TYPE_ERROR)
+        }
+    }
+
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+        when (holder) {
+            is MovieViewHolder -> {
+                holder.bind(items[position])
+            }
+            is AdViewHolder -> {
+                holder.bind(items[position])
+            }
+        }
+    }
+
+    override fun getItemCount(): Int = items.size
 
     companion object {
-        private const val MOVIE_KEY = "movie"
+        private const val MOVIE_ITEM_VIEW_TYPE = 0
+        private const val AD_ITEM_VIEW_TYPE = 1
+        private const val VIEW_TYPE_ERROR = "알 수 없는 뷰타입"
     }
 }
