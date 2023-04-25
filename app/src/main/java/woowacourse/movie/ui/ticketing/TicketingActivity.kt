@@ -30,15 +30,13 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class TicketingActivity : AppCompatActivity(), OnClickListener {
+    private lateinit var movie: MovieUI
     private var movieTicket: TicketCountUI = TicketCountUI()
 
-    private lateinit var movie: MovieUI
     private val movieDates: List<LocalDate> by lazy {
         movie.toMovie().getRunningDates()
     }
-
     private val movieTimes = mutableListOf<LocalTime>()
-
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, mutableListOf())
     }
@@ -68,9 +66,8 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         initMovieInfo()
         initButtonOnClickListener()
         initMovieDateSpinnerAdapter()
-        initMovieTimeSpinnerAdapter()
         initMovieDateSpinnerItemClick()
-        initMovieTimeSpinnerItemClick()
+        initMovieTimeSpinner()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -144,6 +141,12 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
+    private fun initMovieTimeSpinner() {
+        spinnerMovieTime.adapter = movieTimeAdapter
+        initMovieTimes()
+        initMovieTimeSpinnerItemClick()
+    }
+
     private fun initMovieTimes() {
         with(movie) {
             movieTimes.clear()
@@ -153,10 +156,6 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
                 movieTimes.map { it.format(DateTimeFormatter.ofPattern(MOVIE_TIME_PATTERN)) }
             )
         }
-    }
-
-    private fun initMovieTimeSpinnerAdapter() {
-        spinnerMovieTime.adapter = movieTimeAdapter
     }
 
     private fun initMovieTimeSpinnerItemClick() {
