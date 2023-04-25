@@ -3,7 +3,6 @@ package woowacourse.movie.ui.movielist
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.woowacourse.movie.domain.Movie
@@ -19,55 +18,35 @@ class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
-        initMovieData()
+        initAdapter()
     }
 
-    private fun initMovieData() {
-        val movieData = initMovieThumbnail()
-        Log.d("sunny", "movieData Size: ${movieData.size}")
-        val advertisements = initAdvertisement()
-        Log.d("sunny", "advertisements Size: ${advertisements.size}")
-        setAdapter(movieData, advertisements)
-    }
-
-    private fun initMovieThumbnail(): List<MovieUI> =
-        runCatching {
-            Movie.provideDummy().map { it.toMovieUI() }
-        }
-            .getOrDefault(emptyList())
-
-    private fun initAdvertisement(): List<AdvertisementUI> =
-        runCatching {
-            AdvertisementUI.provideDummy().map { it }
-        }
-            .getOrDefault(emptyList())
-
-    private fun setAdapter(movies: List<MovieUI>, advertisements: List<AdvertisementUI>) {
+    private fun initAdapter() {
         val recyclerMovies: RecyclerView = findViewById(R.id.recycler_movies)
         val movieListAdapter =
             MovieListAdapter(
-                movies, advertisements,
+                Movie.provideDummy().map { it.toMovieUI() },
+                AdvertisementUI.provideDummy().map { it },
                 object : OnItemClick {
                     override fun onBookClick(item: MovieUI) {
-                        this@MovieListActivity.onBookClick(item)
+                        moveToTicketing(item)
                     }
 
                     override fun onAdvertisementClick(item: AdvertisementUI) {
-                        this@MovieListActivity.onAdvertisementClick(item)
+                        moveToAdvertisement(item)
                     }
                 }
             )
 
         recyclerMovies.adapter = movieListAdapter
-        Log.d("sunny", "movieListAdapter Size: ${movieListAdapter.itemCount}")
     }
 
-    private fun onBookClick(item: MovieUI) {
+    private fun moveToTicketing(item: MovieUI) {
         val intent = TicketingActivity.getIntent(this, item)
         startActivity(intent)
     }
 
-    private fun onAdvertisementClick(item: AdvertisementUI) {
+    private fun moveToAdvertisement(item: AdvertisementUI) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
         startActivity(intent)
     }
