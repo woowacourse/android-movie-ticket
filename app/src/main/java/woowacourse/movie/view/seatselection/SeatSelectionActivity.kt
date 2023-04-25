@@ -10,7 +10,6 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
 import com.example.domain.Ticket
-import com.example.domain.seat.SeatInfo
 import woowacourse.movie.R
 import woowacourse.movie.view.BaseActivity
 import woowacourse.movie.view.TicketActivity
@@ -34,18 +33,19 @@ class SeatSelectionActivity : BaseActivity() {
 
         price.text = this.getString(R.string.price, 0)
         val seatInfo = SeatInfo(selectedDate)
-        setSeatView(seatInfo, price, goToTicketBtn, selectedNumberOfPeople)
-        clickCheckButton(goToTicketBtn, seatInfo, selectedDate, movieUI)
+        val seats = setSeatView(seatInfo, price, goToTicketBtn, selectedNumberOfPeople)
+        clickCheckButton(seats, goToTicketBtn, seatInfo, selectedDate, movieUI)
     }
 
     private fun clickCheckButton(
+        seats: List<TextView>,
         goToTicketBtn: Button,
         seatInfo: SeatInfo,
         selectedDate: LocalDateTime,
         movieUI: MovieUIModel
     ) {
         goToTicketBtn.setOnClickListener {
-            val seats = seatInfo.getSelectedSeats()
+            val seats = seatInfo.getSelectedSeats(seats)
             val ticket = Ticket(seatInfo.priceNum, selectedDate, seatInfo.countPeople, seats)
             checkAgain(ticket, movieUI)
         }
@@ -56,7 +56,7 @@ class SeatSelectionActivity : BaseActivity() {
         price: TextView,
         goToTicketBtn: Button,
         selectedNumberOfPeople: Int
-    ) {
+    ): List<TextView> {
         val seatsView = findViewById<TableLayout>(R.id.seat_selection)
             .children
             .filterIsInstance<TableRow>()
@@ -65,12 +65,13 @@ class SeatSelectionActivity : BaseActivity() {
 
         seatsView.forEachIndexed { index, view ->
             view.setOnClickListener {
-                val isSelected = seatState.setSeatState(index)
+                val isSelected = seatState.setSeatState(view, index)
                 view.setBackgroundColor(getColorSeat(isSelected))
                 price.text = getString(R.string.price, seatState.priceNum)
                 goToTicketBtn.isEnabled = (selectedNumberOfPeople == seatState.countPeople)
             }
         }
+        return seatsView
     }
 
     private fun getColorSeat(isSelected: Boolean): Int {

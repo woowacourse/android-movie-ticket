@@ -2,16 +2,16 @@ package com.example.domain.seat
 
 object Seats {
 
-    fun makeSeats(): Map<SeatPosition, SeatState> {
+    fun makeSeats(): Map<SeatPosition, SeatRank> {
         val position = makeSeatPosition()
-        val result = mutableMapOf<SeatPosition, SeatState>()
+        val result = mutableMapOf<SeatPosition, SeatRank>()
         position.map {
             val rank = when (it.row) {
                 SeatRow.A, SeatRow.B -> SeatRank.B
                 SeatRow.C, SeatRow.D -> SeatRank.S
                 SeatRow.E -> SeatRank.A
             }
-            result.put(it, SeatState(false, rank))
+            result.put(it, rank)
         }
         return result
     }
