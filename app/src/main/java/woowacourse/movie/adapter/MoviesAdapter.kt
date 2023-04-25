@@ -1,6 +1,5 @@
 package woowacourse.movie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +18,6 @@ class MoviesAdapter(
     override fun getItemCount(): Int = modelItems.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val context: Context = parent.context
         val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return when (viewType) {
             R.layout.item_movie -> MovieItemViewHolder(view)

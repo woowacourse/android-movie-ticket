@@ -11,6 +11,7 @@ import woowacourse.movie.domain.payment.PaymentAmount
 import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.domain.seat.Column
 import woowacourse.movie.domain.seat.Row
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel
@@ -68,7 +69,7 @@ class SeatSelectionActivity : AppCompatActivity() {
             movie = movieModel,
             screeningDateTime = screeningDateTime,
             ticketCount = ticketCount,
-            seats = seatsView.getSelectedSeats().map { it.toSeatModel() },
+            seats = seatsView.getSelectedSeats().map(Seat::toSeatModel),
             paymentAmount = paymentAmount
         )
 

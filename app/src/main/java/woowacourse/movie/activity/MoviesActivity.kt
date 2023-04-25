@@ -8,6 +8,7 @@ import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.databinding.ActivityMoviesBinding
 import woowacourse.movie.item.AdvertisingItem
 import woowacourse.movie.item.ModelItem
+import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.toMovieItem
 import woowacourse.movie.util.Mock
 
@@ -25,7 +26,7 @@ class MoviesActivity : AppCompatActivity() {
 
     private fun initMovieListView(movieListView: RecyclerView) {
         val movieModels: MutableList<ModelItem> =
-            Mock.getMovieModels().map { it.toMovieItem() }.toMutableList()
+            Mock.getMovieModels().map(MovieModel::toMovieItem).toMutableList()
 
         var position = 0
         while (position < movieModels.size) {
