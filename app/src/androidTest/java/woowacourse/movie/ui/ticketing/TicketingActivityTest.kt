@@ -8,20 +8,19 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.woowacourse.movie.domain.Movie
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.model.mapper.toMovieUI
+import woowacourse.movie.ui.movielist.data.MovieRepository
 import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import woowacourse.movie.ui.util.checkMatches
 import woowacourse.movie.ui.util.performClick
 
 class TicketingActivityTest {
     // 해리포터
-    private val movie = Movie.provideDummy()[0].toMovieUI()
+    private val movie = MovieRepository.allMovies()[0]
 
     private val intent = TicketingActivity.getIntent(
         ApplicationProvider.getApplicationContext(),

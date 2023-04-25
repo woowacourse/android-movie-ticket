@@ -14,7 +14,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.woowacourse.movie.domain.Movie
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -23,7 +22,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.TicketsUI
-import woowacourse.movie.model.mapper.toMovieUI
+import woowacourse.movie.ui.movielist.data.MovieRepository
 import woowacourse.movie.ui.ticketingresult.TicketingResultActivity
 import woowacourse.movie.ui.util.checkMatches
 import java.time.LocalDateTime
@@ -31,7 +30,7 @@ import java.time.LocalDateTime
 class SeatSelectionActivityTest {
     // 해리포터
     private val reservation = ReservationUI(
-        Movie.provideDummy()[0].toMovieUI(),
+        MovieRepository.allMovies()[0],
         LocalDateTime.of(2023, 4, 21, 12, 0),
         TicketsUI(setOf())
     )

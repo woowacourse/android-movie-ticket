@@ -5,17 +5,16 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.woowacourse.movie.domain.Movie
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketUI
 import woowacourse.movie.model.TicketsUI
-import woowacourse.movie.model.mapper.toMovieUI
 import woowacourse.movie.model.seat.ColUI
 import woowacourse.movie.model.seat.RowUI
 import woowacourse.movie.model.seat.SeatPositionUI
+import woowacourse.movie.ui.movielist.data.MovieRepository
 import woowacourse.movie.ui.util.checkMatches
 import java.time.LocalDateTime
 
@@ -29,7 +28,7 @@ class TicketingResultActivityTest {
 
     // 해리포터
     private val reservation = ReservationUI(
-        Movie.provideDummy()[0].toMovieUI(),
+        MovieRepository.allMovies()[0],
         LocalDateTime.of(2023, 4, 21, 12, 0),
         tickets
     )

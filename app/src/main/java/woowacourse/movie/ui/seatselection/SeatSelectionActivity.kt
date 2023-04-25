@@ -17,6 +17,8 @@ import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.TicketUI
 import woowacourse.movie.model.TicketsUI
+import woowacourse.movie.model.mapper.toMovie
+import woowacourse.movie.model.mapper.toReservationUI
 import woowacourse.movie.model.mapper.toTicket
 import woowacourse.movie.model.mapper.toTickets
 import woowacourse.movie.model.mapper.toTicketsUI
@@ -96,16 +98,15 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun reserveMovie() {
-        val intent = TicketingResultActivity.getIntent(
-            this@SeatSelectionActivity,
-            ReservationUI(
-                reservation.movie,
-                reservation.dateTime,
-                ticketsUI
-            )
-        )
-        startActivity(intent)
-        finish()
+        reservation.movie.toMovie()
+            .reserveMovie(reservation.dateTime, ticketsUI.toTickets().tickets)?.let {
+                val intent = TicketingResultActivity.getIntent(
+                    this@SeatSelectionActivity,
+                    it.toReservationUI()
+                )
+                startActivity(intent)
+                finish()
+            }
     }
 
     private fun onEnabledChange(enabled: Boolean) {

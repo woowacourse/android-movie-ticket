@@ -209,7 +209,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
             movieDates[selectedDateIdx],
             movieTimes[selectedTimeIdx]
         )
-        return movie.toMovie().reserveMovie(reservationDateTime)
+        return movie.toMovie().reserveMovie(reservationDateTime, setOf())
             ?.toReservationUI()
     }
 

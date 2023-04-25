@@ -20,7 +20,7 @@ class MovieTest {
         )
         val reserveDateTime = LocalDateTime.of(2023, 4, 22, 11, 0)
 
-        val actual = movie.reserveMovie(reserveDateTime)!!
+        val actual = movie.reserveMovie(reserveDateTime, dummyTickets)!!
 
         assertAll(
             { assertThat(actual.movie).isEqualTo(movie) },
@@ -36,7 +36,7 @@ class MovieTest {
         )
         val reserveDateTime = LocalDateTime.of(2023, 3, 22, 11, 0)
 
-        assertThat(movie.reserveMovie(reserveDateTime)).isNull()
+        assertThat(movie.reserveMovie(reserveDateTime, dummyTickets)).isNull()
     }
 
     @Test
@@ -151,6 +151,7 @@ class MovieTest {
     }
 
     companion object {
+        private val dummyTickets = setOf<Ticket>()
         fun Movie(startDate: LocalDate, endDate: LocalDate): Movie = Movie(
             1,
             "더 퍼스트 슬램덩크",
