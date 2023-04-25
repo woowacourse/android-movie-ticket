@@ -7,4 +7,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 value class RowUI(
     val x: Int
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String = (START_SEAT_POSITION + x).toString()
+
+    companion object {
+        private const val START_SEAT_POSITION = 'A'
+    }
+}

@@ -44,7 +44,7 @@ class SeatTable(
     }
 
     private fun setText(seatPosition: SeatPositionUI, view: TextView) {
-        view.text = seatPosition.getSeatPositionUIFormat()
+        view.text = seatPosition.getSeatPositionDisplay()
         view.setTextColor(getTextColor(Rank.valueOf(seatPosition.toSeatPosition()), view.context))
     }
 

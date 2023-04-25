@@ -7,4 +7,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 value class ColUI(
     val y: Int
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String = (y + COLUMN_UI_CONDITION).toString()
+
+    companion object {
+        private const val COLUMN_UI_CONDITION = 1
+    }
+}

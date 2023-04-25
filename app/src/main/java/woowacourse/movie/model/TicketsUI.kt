@@ -8,5 +8,5 @@ class TicketsUI(
     val tickets: Set<TicketUI>
 ) : Parcelable {
     fun getSeatPositionUIFormat() =
-        tickets.joinToString(", ") { it.seatPosition.getSeatPositionUIFormat() }
+        tickets.joinToString(", ") { it.seatPosition.getSeatPositionDisplay() }
 }
