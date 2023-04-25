@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initAdapter() {
         val mainAdapter = MainAdapter(
-            this,
             { clickBook(it) },
             { clickAdvertisement(it) },
         )

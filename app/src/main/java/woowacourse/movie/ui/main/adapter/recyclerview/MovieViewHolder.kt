@@ -1,6 +1,8 @@
 package woowacourse.movie.ui.main.adapter.recyclerview
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,7 +12,8 @@ import woowacourse.movie.model.main.MainData
 import woowacourse.movie.model.main.MovieUiModel
 import woowacourse.movie.ui.main.adapter.MainViewType
 
-class MovieViewHolder(view: View) : MainViewHolder(view) {
+class MovieViewHolder(parent: ViewGroup, clickBook: (Int) -> Unit) :
+    MainViewHolder(makeView(parent)) {
     private val thumbnail: ImageView = view.findViewById(R.id.imageItemThumbnail)
     private val title: TextView = view.findViewById(R.id.textItemTitle)
     private val date: TextView = view.findViewById(R.id.textBookingScreeningDate)
@@ -18,10 +21,13 @@ class MovieViewHolder(view: View) : MainViewHolder(view) {
     private val button: Button = view.findViewById(R.id.buttonItemBook)
 
     override val mainViewType: MainViewType = MainViewType.CONTENT
-    private lateinit var movie: MovieUiModel
+
+    init {
+        button.setOnClickListener { clickBook(adapterPosition) }
+    }
 
     override fun onBind(data: MainData) {
-        movie = data as MovieUiModel
+        val movie = data as MovieUiModel
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
         date.text = view.context.getString(
@@ -32,9 +38,10 @@ class MovieViewHolder(view: View) : MainViewHolder(view) {
         runningTime.text = view.context.getString(R.string.running_time, movie.runningTime)
     }
 
-    fun setBookingClick(clickBook: (Long) -> Unit) {
-        button.setOnClickListener {
-            clickBook(movie.id)
+    companion object {
+        private fun makeView(parent: ViewGroup): View {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            return layoutInflater.inflate(R.layout.movie_list_item, parent, false)
         }
     }
 }
