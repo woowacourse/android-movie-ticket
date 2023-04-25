@@ -5,8 +5,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieUI
-import woowacourse.movie.ui.movielist.model.ItemUI
+import woowacourse.movie.model.MovieItem
+import woowacourse.movie.ui.formattedDate
 
 class MovieListViewHolder(private val view: View, onBookClick: (Int) -> Unit) :
     ItemViewHolder(view) {
@@ -20,8 +20,8 @@ class MovieListViewHolder(private val view: View, onBookClick: (Int) -> Unit) :
         btnBook.setOnClickListener { onBookClick(adapterPosition) }
     }
 
-    override fun bind(item: ItemUI) {
-        with(item as MovieUI) {
+    override fun bind(item: MovieItem) {
+        with(item as MovieItem.MovieUI) {
             thumbnail?.let { ivPoster.setImageResource(it) }
             tvTitle.text = title
             tvDate.text = view.context.getString(

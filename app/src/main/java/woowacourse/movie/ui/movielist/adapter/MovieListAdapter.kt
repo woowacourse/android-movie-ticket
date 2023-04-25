@@ -4,31 +4,31 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieUI
-import woowacourse.movie.ui.movielist.model.AdvertisementUI
-import woowacourse.movie.ui.movielist.model.ItemUI
+import woowacourse.movie.model.MovieItem
 import woowacourse.movie.ui.movielist.model.OnItemClick
 import kotlin.math.min
 
 class MovieListAdapter(
-    private val movies: List<MovieUI>,
-    private val advertisements: List<AdvertisementUI>,
+    private val movies: List<MovieItem.MovieUI>,
+    private val advertisements: List<MovieItem.AdvertisementUI>,
     private val onItemClick: OnItemClick
 ) : RecyclerView.Adapter<ItemViewHolder>() {
-    private val _items: List<ItemUI> = if (advertisements.isEmpty()) {
+    private val _items: List<MovieItem> = if (advertisements.isEmpty()) {
         movies.toList()
     } else {
         var curAdIdx = DEFAULT_ADVERTISEMENT_IDX
         val displayAdCount: Int = movies.size / ADVERTISEMENT_POSITION
-        mutableListOf<ItemUI>().apply {
+        mutableListOf<MovieItem>().apply {
             addAll(movies.toList())
             for (index in ADVERTISEMENT_POSITION..(movies.size + displayAdCount) step MOVIE_LIST_CYCLE) {
                 add(index, advertisements[(curAdIdx++) % advertisements.size])
             }
         }
     }
-    private val onBookClick: (Int) -> Unit = { onItemClick.onBookClick(_items[it] as MovieUI) }
-    private val onAdvertisementClick: (Int) -> Unit = { onItemClick.onAdvertisementClick(_items[it] as AdvertisementUI) }
+    private val onBookClick: (Int) -> Unit =
+        { onItemClick.onBookClick(_items[it] as MovieItem.MovieUI) }
+    private val onAdvertisementClick: (Int) -> Unit =
+        { onItemClick.onAdvertisementClick(_items[it] as MovieItem.AdvertisementUI) }
     private lateinit var layoutInflater: LayoutInflater
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -52,10 +52,10 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         when (holder) {
             is MovieListViewHolder -> {
-                holder.bind(_items[position] as MovieUI)
+                holder.bind(_items[position] as MovieItem.MovieUI)
             }
             is AdvertisementViewHolder -> {
-                holder.bind(_items[position] as AdvertisementUI)
+                holder.bind(_items[position] as MovieItem.AdvertisementUI)
             }
         }
     }

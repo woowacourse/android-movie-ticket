@@ -17,11 +17,12 @@ import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
 import woowacourse.movie.extensions.showToast
-import woowacourse.movie.model.MovieUI
+import woowacourse.movie.model.MovieItem
 import woowacourse.movie.model.ReservationUI
 import woowacourse.movie.model.TicketCountUI
 import woowacourse.movie.model.mapper.toMovie
 import woowacourse.movie.model.mapper.toReservationUI
+import woowacourse.movie.ui.formattedDate
 import woowacourse.movie.ui.movielist.MovieListActivity
 import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import java.time.LocalDate
@@ -30,7 +31,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class TicketingActivity : AppCompatActivity(), OnClickListener {
-    private lateinit var movie: MovieUI
+    private lateinit var movie: MovieItem.MovieUI
     private var movieTicket: TicketCountUI = TicketCountUI()
 
     private val movieDates: List<LocalDate> by lazy {
@@ -244,7 +245,7 @@ class TicketingActivity : AppCompatActivity(), OnClickListener {
         private const val MOVIE_DATE_INDEX_STATE_KEY = "movieDate"
         private const val MOVIE_TIME_INDEX_STATE_KEY = "movieTime"
 
-        internal fun getIntent(context: Context, movie: MovieUI): Intent {
+        internal fun getIntent(context: Context, movie: MovieItem.MovieUI): Intent {
             val intent = Intent(context, TicketingActivity::class.java)
             intent.putExtra(MovieListActivity.MOVIE_KEY, movie)
             return intent

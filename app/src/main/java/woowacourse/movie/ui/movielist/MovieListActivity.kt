@@ -5,12 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.woowacourse.movie.domain.Movie
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieUI
-import woowacourse.movie.model.mapper.toMovieUI
+import woowacourse.movie.model.MovieItem
 import woowacourse.movie.ui.movielist.adapter.MovieListAdapter
-import woowacourse.movie.ui.movielist.model.AdvertisementUI
+import woowacourse.movie.ui.movielist.data.AdRepository
+import woowacourse.movie.ui.movielist.data.MovieRepository
 import woowacourse.movie.ui.movielist.model.OnItemClick
 import woowacourse.movie.ui.ticketing.TicketingActivity
 
@@ -25,14 +24,14 @@ class MovieListActivity : AppCompatActivity() {
         val recyclerMovies: RecyclerView = findViewById(R.id.recycler_movies)
         val movieListAdapter =
             MovieListAdapter(
-                Movie.provideDummy().map { it.toMovieUI() },
-                AdvertisementUI.provideDummy().map { it },
+                MovieRepository.allMovies(),
+                AdRepository.allAds(),
                 object : OnItemClick {
-                    override fun onBookClick(item: MovieUI) {
+                    override fun onBookClick(item: MovieItem.MovieUI) {
                         moveToTicketing(item)
                     }
 
-                    override fun onAdvertisementClick(item: AdvertisementUI) {
+                    override fun onAdvertisementClick(item: MovieItem.AdvertisementUI) {
                         moveToAdvertisement(item)
                     }
                 }
@@ -41,12 +40,12 @@ class MovieListActivity : AppCompatActivity() {
         recyclerMovies.adapter = movieListAdapter
     }
 
-    private fun moveToTicketing(item: MovieUI) {
+    private fun moveToTicketing(item: MovieItem.MovieUI) {
         val intent = TicketingActivity.getIntent(this, item)
         startActivity(intent)
     }
 
-    private fun moveToAdvertisement(item: AdvertisementUI) {
+    private fun moveToAdvertisement(item: MovieItem.AdvertisementUI) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
         startActivity(intent)
     }

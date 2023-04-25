@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class ReservationUI(
-    val movie: MovieUI,
+    val movie: MovieItem.MovieUI,
     val dateTime: LocalDateTime,
     val ticketsUI: TicketsUI
 ) : Parcelable
