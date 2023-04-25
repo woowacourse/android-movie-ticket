@@ -81,13 +81,13 @@ class SeatSelectionActivity : BaseActivity() {
 
     private fun checkAgain(ticket: Ticket, movieUI: MovieUIModel) {
         AlertDialog.Builder(this)
-            .setTitle(RESERVATION_CHECK)
-            .setMessage(ARE_YOU_SURE)
-            .setPositiveButton(RESERVATION_COMPLETE) { _, _ ->
+            .setTitle(getString(R.string.reservation_check))
+            .setMessage(getString(R.string.are_you_sure))
+            .setPositiveButton(getString(R.string.reservation_complete)) { _, _ ->
                 val intent = TicketActivity.newIntent(this, ticket.toUIModel(), movieUI)
                 startActivity(intent)
             }
-            .setNegativeButton(RESERVATION_CANCEL) { dialog, _ ->
+            .setNegativeButton(getString(R.string.reservation_cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(false)
@@ -98,10 +98,6 @@ class SeatSelectionActivity : BaseActivity() {
         private const val MOVIE_KEY = "movie"
         private const val DATE_KEY = "date"
         private const val NUMBER_OF_PEOPLE_KEY = "numberOfPeople"
-        private const val RESERVATION_CHECK = "예매 확인"
-        private const val ARE_YOU_SURE = "정말 예매하시겠습니까?"
-        private const val RESERVATION_COMPLETE = "예매 완료"
-        private const val RESERVATION_CANCEL = "취소"
 
         fun newIntent(
             context: Context,
