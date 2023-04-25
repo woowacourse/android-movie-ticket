@@ -4,19 +4,19 @@ import woowacourse.movie.policy.Policy
 
 class TimePolicy(policy: Policy) : PolicyDecorator(policy) {
     override fun cost(): Int {
-        var payment = defaultPayment
+        var payment = payment
         payment = earlyBirdDiscount(payment)
         payment = lateNightTimeDiscount(payment)
         return payment
     }
 
     private fun earlyBirdDiscount(price: Int): Int {
-        if (bookedDateTime.hour in EARLY_TIMES) return (price - DISCOUNT_PRICE)
+        if (ticket.bookedDateTime.hour in EARLY_TIMES) return (price - DISCOUNT_PRICE)
         return price
     }
 
     private fun lateNightTimeDiscount(price: Int): Int {
-        if (bookedDateTime.hour in LATE_TIMES) return (price - DISCOUNT_PRICE)
+        if (ticket.bookedDateTime.hour in LATE_TIMES) return (price - DISCOUNT_PRICE)
         return price
     }
 

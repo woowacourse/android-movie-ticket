@@ -1,8 +1,8 @@
 package woowacourse.movie.policy
 
-import java.time.LocalDateTime
+import woowacourse.movie.ticket.Ticket
 
-abstract class Policy(val bookedDateTime: LocalDateTime) {
-    abstract val defaultPayment: Int
+abstract class Policy(val ticket: Ticket) {
+    abstract val payment: Int
     abstract fun cost(): Int
 }

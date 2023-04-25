@@ -8,14 +8,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.Movie
-import woowacourse.movie.MovieMapper.poster
-import woowacourse.movie.MovieRepository
 import woowacourse.movie.R
-import woowacourse.movie.ScreeningTimes
-import woowacourse.movie.TicketCount
 import woowacourse.movie.formatScreenDate
-import woowacourse.movie.ui.completed.CompletedActivity
+import woowacourse.movie.model.BookedMovie
+import woowacourse.movie.model.main.MovieMapper.toUiModel
+import woowacourse.movie.model.main.MovieUiModel
+import woowacourse.movie.movie.Movie
+import woowacourse.movie.movie.MovieRepository
+import woowacourse.movie.ticket.TicketCount
+import woowacourse.movie.ui.seat.SeatActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -38,9 +39,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun restoreData(savedInstanceState: Bundle?) {
         if (savedInstanceState != null) {
-            with(savedInstanceState) {
-                ticketCount = TicketCount(getInt(TICKET_COUNT))
-            }
+            ticketCount = TicketCount(savedInstanceState.getInt(TICKET_COUNT))
         }
     }
 
@@ -51,18 +50,18 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun getMovie(): Movie {
+    private fun getMovie(): MovieUiModel {
         val movieId = intent.getLongExtra(MOVIE_ID, -1)
-        return MovieRepository.getMovie(movieId)
+        return MovieRepository.getMovie(movieId).toUiModel()
     }
 
-    private fun gatherClickListeners(movie: Movie) {
+    private fun gatherClickListeners(movie: MovieUiModel) {
         clickMinus()
         clickPlus()
         clickBookingComplete(movie)
     }
 
-    private fun initView(movie: Movie) {
+    private fun initView(movie: MovieUiModel) {
         findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
@@ -104,24 +103,24 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickBookingComplete(movie: Movie) {
+    private fun clickBookingComplete(movie: MovieUiModel) {
         findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
             val dateTime = dateTimeSpinner.selectedDateTime
-            val ticket = movie.reserve(dateTime, ticketCount.value)
-            startActivity(CompletedActivity.getIntent(this, ticket))
+            val bookedMovie = BookedMovie(movie.id, 0, ticketCount.value, dateTime)
+            startActivity(SeatActivity.getIntent(this, bookedMovie))
             finish()
         }
     }
 
-    private fun initDateTimes(movie: Movie) {
+    private fun initDateTimes(movie: MovieUiModel) {
         val dates: List<LocalDate> = movie.screeningDates
-        val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
+        val times: List<LocalTime> = Movie.getScreeningTime(dates[0])
         dateTimeSpinner.initDateItems(dates)
         dateTimeSpinner.initTimeItems(times)
     }
 
     private fun initSpinnerListener() {
-        dateTimeSpinner.initDateSelectedListener { ScreeningTimes.getScreeningTime(it) }
+        dateTimeSpinner.initDateSelectedListener { Movie.getScreeningTime(it) }
     }
 
     companion object {
