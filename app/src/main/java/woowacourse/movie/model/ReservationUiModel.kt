@@ -15,5 +15,5 @@ data class ReservationUiModel(
     val count: Int,
 ) : Parcelable {
     val seatPosition: String
-        get() = tickets.joinToString(", ") { it.coordinate }
+        get() = tickets.joinToString { it.coordinate }
 }
