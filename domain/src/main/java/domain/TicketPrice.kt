@@ -35,16 +35,5 @@ data class TicketPrice(
 
     companion object {
         private const val TICKET_PRICE = 13000
-        private const val B_GRADE_TICKET_PRICE = 10000
-        private const val S_GRADE_TICKET_PRICE = 15000
-        private const val A_GRADE_TICKET_PRICE = 12000
-
-        fun of(position: Position): TicketPrice {
-            return when (Grade.checkGrade(position)) {
-                Grade.B -> TicketPrice(B_GRADE_TICKET_PRICE)
-                Grade.S -> TicketPrice(S_GRADE_TICKET_PRICE)
-                Grade.A -> TicketPrice(A_GRADE_TICKET_PRICE)
-            }
-        }
     }
 }
