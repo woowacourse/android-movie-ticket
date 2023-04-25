@@ -8,12 +8,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import domain.TicketOffice
+import domain.Tickets
 import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.mapper.TicketOfficeMapper
+import woowacourse.movie.view.mapper.TicketsMapper
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketOfficeUiModel
+import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.TicketsUiModel
 import java.text.NumberFormat
 import java.time.LocalDate
@@ -26,10 +29,10 @@ class ReservationResultActivity : AppCompatActivity() {
     private val peopleCountTextView: TextView by lazy { findViewById(R.id.movie_reservation_result_people_count) }
     private val seatTextView: TextView by lazy { findViewById(R.id.movie_reservation_result_seat) }
     private val priceTextView: TextView by lazy { findViewById(R.id.movie_reservation_result_price) }
-    private val ticketOfficeUiModel: TicketOfficeUiModel by lazy {
-        receiveTicketOfficeViewModel() ?: run {
+    private val ticketsUiModel: TicketsUiModel by lazy {
+        receiveTicketsUiModel() ?: run {
             finishActivityWithMessage(getString(R.string.reservation_data_null_error))
-            TicketOfficeUiModel(TicketsUiModel(listOf()), 0)
+            TicketsUiModel(listOf())
         }
     }
 
@@ -58,41 +61,41 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun renderReservationDetailView() {
-        val ticketOffice = TicketOfficeMapper.toDomain(ticketOfficeUiModel)
         renderDate()
         renderPeopleCount()
         renderSeatInformation()
-        renderPrice(ticketOffice)
+        renderPrice(ticketsUiModel)
     }
 
     private fun renderDate() {
         val dateFormat =
             DateTimeFormatter.ofPattern(getString(R.string.reservation_datetime_format))
-        dateTextView.text = dateFormat.format(ticketOfficeUiModel.ticketsUiModel.list[0].date)
+        dateTextView.text = dateFormat.format(ticketsUiModel.list[0].date)
     }
 
     private fun renderPeopleCount() {
         peopleCountTextView.text =
-            getString(R.string.reservation_people_count).format(ticketOfficeUiModel.ticketCount)
+            getString(R.string.reservation_people_count).format(ticketsUiModel.list.size)
     }
 
     private fun renderSeatInformation() {
-        ticketOfficeUiModel.ticketsUiModel.list.forEachIndexed { index, ticket ->
+        ticketsUiModel.list.forEachIndexed { index, ticket ->
             seatTextView.text =
                 (seatTextView.text.toString() + ticket.seat.row + ticket.seat.col)
-            if (index != ticketOfficeUiModel.ticketCount - 1) seatTextView.text =
+            if (index != ticketsUiModel.list.size - 1) seatTextView.text =
                 seatTextView.text.toString() + ", "
         }
     }
 
-    private fun renderPrice(ticketOffice: TicketOffice) {
+    private fun renderPrice(ticketsUiModel: TicketsUiModel) {
+        val tickets = TicketsMapper.toDomain(ticketsUiModel)
         val formattedPrice =
-            NumberFormat.getNumberInstance(Locale.US).format(ticketOffice.tickets.price.value)
+            NumberFormat.getNumberInstance(Locale.US).format(tickets.price.value)
         priceTextView.text = getString(R.string.reservation_price).format(formattedPrice)
     }
 
-    private fun receiveTicketOfficeViewModel(): TicketOfficeUiModel? {
-        return intent.extras?.getSerializableCompat(TICKET_OFFICE_KEY_VALUE)
+    private fun receiveTicketsUiModel(): TicketsUiModel? {
+        return intent.extras?.getSerializableCompat(TICKETS_VALUE)
     }
 
     private fun receiveMovieViewModel(): MovieUiModel? {
@@ -108,15 +111,15 @@ class ReservationResultActivity : AppCompatActivity() {
 
     companion object {
         private const val MOVIE_KEY_VALUE = "movie"
-        private const val TICKET_OFFICE_KEY_VALUE = "ticket_office"
+        private const val TICKETS_VALUE = "tickets"
         fun start(
             context: Context,
             movieUiModel: MovieUiModel,
-            ticketOfficeUiModel: TicketOfficeUiModel
+            ticketsUiModel: TicketsUiModel
         ) {
             val intent = Intent(context, ReservationResultActivity::class.java)
             intent.putExtra(MOVIE_KEY_VALUE, movieUiModel)
-            intent.putExtra(TICKET_OFFICE_KEY_VALUE, ticketOfficeUiModel)
+            intent.putExtra(TICKETS_VALUE, ticketsUiModel)
             context.startActivity(intent)
         }
     }
