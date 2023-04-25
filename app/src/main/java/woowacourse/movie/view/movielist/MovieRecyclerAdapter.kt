@@ -38,10 +38,10 @@ class MovieRecyclerAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (listData[position] is MovieUIModel) return MOVIE_TYPE
-        else if (listData[position] is ADData) return AD_TYPE
-
-        return super.getItemViewType(position)
+        return when (listData[position]) {
+            is MovieUIModel -> MOVIE_TYPE
+            is ADData -> AD_TYPE
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
