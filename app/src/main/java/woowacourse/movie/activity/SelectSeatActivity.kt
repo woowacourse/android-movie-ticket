@@ -14,7 +14,6 @@ import domain.TicketOffice
 import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.setBackgroundColorId
-import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.SeatTable
 import woowacourse.movie.view.SeatView
 import woowacourse.movie.view.mapper.TicketsMapper
@@ -66,9 +65,7 @@ class SelectSeatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_seat)
         seatTable.makeSeatTable()
-        MovieView(title = findViewById(R.id.select_seat_movie_title_text_view)).render(
-            movieUiModel
-        )
+        movieUiModel.renderMovie(titleTextView = findViewById(R.id.select_seat_movie_title_text_view))
         changePriceTextView()
         checkButtonClick()
     }

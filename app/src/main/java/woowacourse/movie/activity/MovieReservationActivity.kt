@@ -13,7 +13,6 @@ import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.Counter
 import woowacourse.movie.view.DateSpinner
 import woowacourse.movie.view.MovieDateTimePicker
-import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.TimeSpinner
 import woowacourse.movie.view.mapper.MovieMapper
 import woowacourse.movie.view.model.*
@@ -47,7 +46,7 @@ class MovieReservationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieViewModel = getMovieModelView()
+        val movieViewModel = getMovieUiModel()
         if (movieViewModel == null) {
             finishActivityWithMessage(getString(R.string.movie_data_null_error))
         } else {
@@ -59,13 +58,13 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun renderMovieView(movieUiModel: MovieUiModel) {
-        MovieView(
-            poster = findViewById(R.id.movie_reservation_poster),
-            title = findViewById(R.id.movie_reservation_title),
-            date = findViewById(R.id.movie_reservation_date),
-            runningTime = findViewById(R.id.movie_reservation_running_time),
-            description = findViewById(R.id.movie_reservation_description)
-        ).render(movieUiModel)
+        movieUiModel.renderMovie(
+            posterImageView = findViewById(R.id.movie_reservation_poster),
+            titleTextView = findViewById(R.id.movie_reservation_title),
+            dateTextView = findViewById(R.id.movie_reservation_date),
+            runningTimeTextView = findViewById(R.id.movie_reservation_running_time),
+            descriptionTextView = findViewById(R.id.movie_reservation_description)
+        )
     }
 
     private fun finishActivityWithMessage(message: String) {
@@ -73,7 +72,7 @@ class MovieReservationActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getMovieModelView(): MovieUiModel? {
+    private fun getMovieUiModel(): MovieUiModel? {
         return intent.extras?.getSerializableCompat(MOVIE_KEY_VALUE)
     }
 

@@ -9,14 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
-import woowacourse.movie.view.MovieView
-import woowacourse.movie.view.mapper.TicketsMapper
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketsUiModel
-import java.text.NumberFormat
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 class ReservationResultActivity : AppCompatActivity() {
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.movie_reservation_result_title) }
@@ -42,7 +37,7 @@ class ReservationResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        renderMovieView()
+        movieUiModel.renderMovie(titleTextView = movieTitleTextView)
         renderReservationDetailView()
     }
 
@@ -51,16 +46,13 @@ class ReservationResultActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun renderMovieView() {
-        MovieView(title = movieTitleTextView).render(movieUiModel)
-    }
-
     private fun renderReservationDetailView() {
         ticketsUiModel.renderDate(dateTextView)
         ticketsUiModel.renderPeopleCount(peopleCountTextView)
         ticketsUiModel.renderSeatsInformation(seatTextView)
         ticketsUiModel.renderPrice(priceTextView)
     }
+
     private fun receiveTicketsUiModel(): TicketsUiModel? {
         return intent.extras?.getSerializableCompat(TICKETS_VALUE)
     }
