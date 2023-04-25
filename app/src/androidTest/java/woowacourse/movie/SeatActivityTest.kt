@@ -38,34 +38,53 @@ class SeatActivityTest {
     }
 
     @Test
-    fun 올바른_영화제목인지_확인한다() {
+    fun 영화_제목이_일치하는지_확인한다() {
+        // 영화 제목은 "해리 포터와 마법사의 돌"
         val title: String = "해리 포터와 마법사의 돌"
         onView(withId(R.id.textSeatMovieTitle)).check(matches(withText(title)))
     }
 
     @Test
-    fun 좌석_행의_개수가_올바른지_확인한다() {
-        onView(withId(R.id.seatTableLayout)).check(matches(hasChildCount(5)))
+    fun 좌석_행의_개수가_일치하는지_확인한다() {
+        // 행의 개수는 5
+        val rowSize: Int = 5
+        onView(withId(R.id.seatTableLayout)).check(matches(hasChildCount(rowSize)))
     }
 
     @Test
-    fun 좌석_열의_개수가_올바른지_확인한다() {
+    fun 좌석_열의_개수가_일치하는지_확인한다() {
         // row의 아이디는 commonId ~ commonId+4
         val commonId: Int = R.string.seat_table_row
-        onView(withId(commonId + 4)).check(matches(hasChildCount(4)))
+        // 열의 개수는 4
+        val columnSize: Int = 4
+        onView(withId(commonId + 4)).check(matches(hasChildCount(columnSize)))
     }
 
     @Test
-    fun 좌석등급에_따라_맞는_색이_들어갔는지_확인한다() {
+    fun A열_B열_B등급_좌석으로_퍼플이다() {
         onView(withText("A1")).check(matches(hasTextColor(R.color.purple_400)))
         onView(withText("B1")).check(matches(hasTextColor(R.color.purple_400)))
+    }
+
+    @Test
+    fun C열_D열_S등급_좌석으로_그린이다() {
         onView(withText("C1")).check(matches(hasTextColor(R.color.green_400)))
         onView(withText("D1")).check(matches(hasTextColor(R.color.green_400)))
+    }
+
+    @Test
+    fun E열은_A등급_좌석으로_블루이다() {
         onView(withText("E1")).check(matches(hasTextColor(R.color.blue_500)))
     }
 
     @Test
-    fun 좌석을_클릭하면_selected가_true이고_한번_더_클릭하면_selected가_false이다() {
+    fun 좌석을_클릭하면_selected가_true이다() {
+        onView(withText("A1")).perform(ViewActions.click())
+        onView(withText("A1")).check(matches(isSelected()))
+    }
+
+    @Test
+    fun 좌석이_선택된_상태에서_한번_더_클릭하면_선택해제가_된다() {
         onView(withText("A1")).perform(ViewActions.click())
         onView(withText("A1")).check(matches(isSelected()))
         onView(withText("A1")).perform(ViewActions.click())
