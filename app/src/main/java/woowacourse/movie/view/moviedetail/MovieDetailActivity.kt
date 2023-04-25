@@ -1,5 +1,6 @@
 package woowacourse.movie.view.moviedetail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,13 +9,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import com.example.domain.CountNumberOfPeople
 import woowacourse.movie.R
-import woowacourse.movie.domain.CountNumberOfPeople
-import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.BaseActivity
-import woowacourse.movie.view.TicketActivity
+import woowacourse.movie.view.seatselection.SeatSelectionActivity
 import woowacourse.movie.view.viewmodel.MovieUIModel
-import woowacourse.movie.view.viewmodel.toUIModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -31,9 +30,7 @@ class MovieDetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-
-        setBackToBefore(R.id.movie_detail_toolbar)
-
+        setBackToBefore()
         if (savedInstanceState != null) {
             numberOfBooker = savedInstanceState.getInt(NUMBER_OF_PEOPLE)
             dateSpinnerPosition = savedInstanceState.getInt(DATE_SPINNER_POSITION)
@@ -82,7 +79,7 @@ class MovieDetailActivity : BaseActivity() {
         val minusBtn = findViewById<Button>(R.id.minus_people)
 
         minusBtn.setOnClickListener {
-            numberOfBooker = countNumberOfPeople.minusNumberOfPeople(numberOfBooker)
+            numberOfBooker = countNumberOfPeople.minus(numberOfBooker)
             booker.text = numberOfBooker.toString()
         }
     }
@@ -91,7 +88,7 @@ class MovieDetailActivity : BaseActivity() {
         val plusBtn = findViewById<Button>(R.id.plus_people)
 
         plusBtn.setOnClickListener {
-            numberOfBooker = countNumberOfPeople.plusNumberOfPeople(numberOfBooker)
+            numberOfBooker = countNumberOfPeople.plus(numberOfBooker)
             booker.text = numberOfBooker.toString()
         }
     }
@@ -101,15 +98,13 @@ class MovieDetailActivity : BaseActivity() {
         bookBtn.setOnClickListener {
             val selectedDate = LocalDate.parse(selectDateSpinner.selectedItem.toString())
             val selectedTime = LocalTime.parse(selectTimeSpinner.selectedItem.toString())
-            val ticket =
-                Ticket(
-                    TICKET_PRICE,
-                    LocalDateTime.of(selectedDate, selectedTime),
-                    numberOfBooker,
-                )
-            val intent = Intent(this, TicketActivity::class.java)
-            intent.putExtra(TICKET_KEY, ticket.toUIModel())
-            intent.putExtra(MOVIE_KEY, movie)
+            val intent = SeatSelectionActivity.newIntent(
+                this,
+                movie,
+                LocalDateTime.of(selectedDate, selectedTime),
+                numberOfBooker
+            )
+
             startActivity(intent)
         }
     }
@@ -162,11 +157,15 @@ class MovieDetailActivity : BaseActivity() {
     }
 
     companion object {
-        private const val TICKET_KEY = "ticket"
         private const val MOVIE_KEY = "movie"
         private const val NUMBER_OF_PEOPLE = "booker_number"
         private const val DATE_SPINNER_POSITION = "date_spinner_position"
         private const val TIME_SPINNER_POSITION = "time_spinner_position"
-        private const val TICKET_PRICE = 13000
+
+        fun newIntent(context: Context, movie: MovieUIModel): Intent {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra(MOVIE_KEY, movie)
+            return intent
+        }
     }
 }

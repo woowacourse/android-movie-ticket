@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="toolbar">#6200EE</color>
     <color name="ticket_guide">#9160f9</color>
+    <color name="seat_selection_bg">#EAEAEA</color>
+    <color name="seat_selection_screen">#494949</color>
+    <color name="seat_A_B">#8E13EF</color>
+    <color name="seat_C_D">#19D358</color>
+    <color name="seat_E">#1B48E9</color>
+    <color name="seat_select_state">#FAFF00</color>
 </resources>

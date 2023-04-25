@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.movielist.MovieListActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@color/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Movie"
-        app:titleTextColor="@color/white" />
-
     <ListView
         android:id="@+id/movie_listView"
         android:layout_width="0dp"
@@ -24,6 +13,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

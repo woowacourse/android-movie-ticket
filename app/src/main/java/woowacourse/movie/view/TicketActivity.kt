@@ -1,42 +1,52 @@
 package woowacourse.movie.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.viewmodel.MovieUIModel
 import woowacourse.movie.view.viewmodel.TicketUIModel
-import woowacourse.movie.view.viewmodel.toTicket
 import java.time.format.DateTimeFormatter
 
 class TicketActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
+        setBackToBefore()
 
         val ticketUI = intent.getSerializableExtra(TICKET_KEY) as TicketUIModel
         val movieUI = intent.getSerializableExtra(MOVIE_KEY) as MovieUIModel
 
-        setUpView(ticketUI.toTicket(), movieUI)
-
-        setBackToBefore(R.id.ticket_toolbar)
+        setUpView(ticketUI, movieUI)
     }
 
-    private fun setUpView(ticket: Ticket, movie: MovieUIModel) {
+    private fun setUpView(ticket: TicketUIModel, movie: MovieUIModel) {
         val movieTitle = findViewById<TextView>(R.id.ticket_title)
         val movieDate = findViewById<TextView>(R.id.ticket_date)
         val numberOfPeople = findViewById<TextView>(R.id.ticket_numberOfPeople)
         val price = findViewById<TextView>(R.id.ticket_price)
 
         movieTitle.text = movie.title
-        movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
+        movieDate.text = ticket.date.format(DateTimeFormatter.ofPattern(FORMATTER))
         numberOfPeople.text =
-            this.getString(R.string.ticket_number_of_people, ticket.numberOfPeople)
-        price.text = this.getString(R.string.ticket_price, ticket.calculateTotalPrice())
+            getString(
+                R.string.ticket_number_of_people_seats,
+                ticket.numberOfPeople,
+                ticket.getSeats()
+            )
+        price.text = getString(R.string.ticket_price, ticket.price)
     }
 
     companion object {
         private const val TICKET_KEY = "ticket"
         private const val MOVIE_KEY = "movie"
+        private const val FORMATTER = "yyyy.M.d HH:mm"
+        fun newIntent(context: Context, ticket: TicketUIModel, movie: MovieUIModel): Intent {
+            val intent = Intent(context, TicketActivity::class.java)
+            intent.putExtra(TICKET_KEY, ticket)
+            intent.putExtra(MOVIE_KEY, movie)
+            return intent
+        }
     }
 }

@@ -6,20 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".view.TicketActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/ticket_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Movie"
-        app:titleTextColor="@color/white" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ticket_guide_text"
         android:layout_width="0dp"
         android:layout_height="114dp"
-        android:layout_marginTop="56dp"
         android:background="@color/ticket_guide"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

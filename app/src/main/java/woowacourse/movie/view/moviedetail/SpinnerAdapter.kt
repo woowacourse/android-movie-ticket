@@ -2,9 +2,9 @@ package woowacourse.movie.view.moviedetail
 
 import android.content.Context
 import android.widget.ArrayAdapter
-import woowacourse.movie.domain.DayOfWeek
-import woowacourse.movie.domain.screeningschedule.ReservationDate
-import woowacourse.movie.domain.screeningschedule.ReservationTime
+import com.example.domain.DayOfWeek
+import com.example.domain.screeningschedule.ReservationDate
+import com.example.domain.screeningschedule.ReservationTime
 import java.time.LocalDate
 
 class SpinnerAdapter(private val context: Context) {
@@ -20,11 +20,11 @@ class SpinnerAdapter(private val context: Context) {
         return dateAdapter
     }
 
-    fun getTimeSpinnerAdapter(selectedDay: LocalDate): ArrayAdapter<CharSequence> {
-        val timeAdapter = ArrayAdapter.createFromResource(
+    fun getTimeSpinnerAdapter(selectedDay: LocalDate): ArrayAdapter<String> {
+        val timeAdapter = ArrayAdapter(
             context,
-            ReservationTime(DayOfWeek.checkDayOfWeek(selectedDay)).getIntervalTimes(),
             android.R.layout.simple_spinner_item,
+            ReservationTime(DayOfWeek.checkDayOfWeek(selectedDay)).getIntervalTimes(),
         )
 
         timeAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item)

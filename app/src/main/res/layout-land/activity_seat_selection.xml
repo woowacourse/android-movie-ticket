@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/seat_selection_bg"
+    tools:context=".view.seatselection.SeatSelectionActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/seat_selection_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/seat_selection_screen"
+                android:layout_width="292dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center"
+                android:background="@color/seat_selection_screen"
+                android:gravity="center"
+                android:text="SCREEN"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <TableLayout
+                android:id="@+id/seat_selection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="34dp"
+                android:layout_marginTop="56dp"
+                android:background="@color/white"
+                android:stretchColumns="*"
+                app:layout_constraintTop_toBottomOf="@id/seat_selection_screen"
+                tools:layout_editor_absoluteX="34dp">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="A1"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="A2"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="A3"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="A4"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="B1"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="B2"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="B3"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="B4"
+                        android:textColor="@color/seat_A_B"
+                        android:textSize="22sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="C1"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="C2"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="C3"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="C4"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="D1"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="D2"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="D3"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="D4"
+                        android:textColor="@color/seat_C_D"
+                        android:textSize="22sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="E1"
+                        android:textColor="@color/seat_E"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="E2"
+                        android:textColor="@color/seat_E"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="E3"
+                        android:textColor="@color/seat_E"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:text="E4"
+                        android:textColor="@color/seat_E"
+                        android:textSize="22sp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/seat_selection_info"
+        android:layout_width="0dp"
+        android:layout_height="78dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/seat_selection_check"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/seat_selection_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            tools:text="해리포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/seat_selection_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textSize="18sp"
+            tools:text="0원" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/seat_selection_check"
+        android:layout_width="wrap_content"
+        android:layout_height="78dp"
+        android:background="@drawable/rectangle_button"
+        android:enabled="false"
+        android:text="확인"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 package woowacourse.movie.view.viewmodel
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.domain.movieinfo.Movie
+import com.example.domain.Movie
 import java.io.Serializable
 import java.time.LocalDate
 
@@ -21,4 +21,4 @@ class MovieUIModel(
     val description: String,
     @DrawableRes
     val moviePoster: Int,
-) : Serializable
+) : Serializable, MovieListData
