@@ -1,94 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".activities.ticketingresult.TicketingResultActivity">
+    tools:context=".ui.ticketingresult.TicketingResultActivity">
 
-    <LinearLayout
-        android:id="@+id/ticketing_header_container"
+    <TextView
+        android:id="@+id/tv_info"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/ticketing_header_color"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="100dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center"
-            android:text="@string/ticketing_cancel_info"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-    </LinearLayout>
+        android:gravity="center|bottom"
+        android:paddingBottom="12dp"
+        android:text="@string/ticketing_cancel_info"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintDimensionRatio="8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingVertical="10dp"
-        android:gravity="center"
-        android:layout_marginHorizontal="15dp"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
+        style="@style/TicketingResultTextStyle"
         android:layout_marginTop="15dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/ticketing_header_container"
+        android:paddingVertical="10dp"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_info"
         tools:text="해리 포터와 마법사의 돌" />
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        android:paddingVertical="5dp"
-        android:layout_marginHorizontal="15dp"
+    <LinearLayout
+        android:id="@+id/linear_layout_date_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="2024.3.1" />
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/TicketingResultTextStyle"
+            android:layout_marginHorizontal="0dp"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            tools:text="2024.03.01" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/TicketingResultTextStyle"
+            android:layout_marginStart="10dp"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            tools:text="12:00" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_regular_count"
-        android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
+        style="@style/TicketingResultTextStyle"
         android:paddingVertical="5dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@+id/tv_pay_result"
-        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="일반 1명" />
 
     <TextView
         android:id="@+id/tv_pay_result"
-        android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
+        style="@style/TicketingResultTextStyle"
         android:paddingVertical="5dp"
-        android:layout_marginHorizontal="15dp"
-        android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/tv_regular_count"
-        tools:text="13,000원 (현장 결제)"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="13,000원 (현장 결제)" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,13 +12,16 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".activities.ticketingresult.TicketingResultActivity"
+            android:name=".ui.seatselection.SeatSelectionActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.ticketing.TicketingActivity"
+            android:name=".ui.ticketingresult.TicketingResultActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.movielist.MovieListActivity"
+            android:name=".ui.ticketing.TicketingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.movielist.MovieListActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

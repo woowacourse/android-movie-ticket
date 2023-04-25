@@ -6,12 +6,7 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class ReservationUI(
-    val movie: MovieUI,
+    val movie: MovieItem.MovieUI,
     val dateTime: LocalDateTime,
-    val ticket: TicketUI,
-    val totalPrice: Int = DEFAULT_TOTAL_PRICE
-) : Parcelable {
-    companion object {
-        private const val DEFAULT_TOTAL_PRICE = 0
-    }
-}
+    val ticketsUI: TicketsUI
+) : Parcelable

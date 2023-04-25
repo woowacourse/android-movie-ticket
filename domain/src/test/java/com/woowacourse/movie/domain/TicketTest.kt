@@ -1,39 +1,27 @@
 package com.woowacourse.movie.domain
 
+import com.woowacourse.movie.domain.seat.Col
+import com.woowacourse.movie.domain.seat.Rank
+import com.woowacourse.movie.domain.seat.Row
+import com.woowacourse.movie.domain.seat.SeatPosition
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
+import java.time.LocalDateTime
 
 class TicketTest {
     @Test
-    fun `티켓은 1장 이상이다`() {
-        assertThrows<IllegalArgumentException> { Ticket(0) }
-    }
+    fun `좌석 등급과 현재 시간을 알면 티켓 가격을 계산할 수 있다`() {
+        val ticket = Ticket(0, 0)
+        val currentDateTime = LocalDateTime.of(2023, 4, 11, 12, 0)
 
-    @Test
-    fun `티켓을 하나 감소한다`() {
-        var ticket = Ticket(5)
-        val actual = --ticket
-        val expected = Ticket(4)
+        val actual = ticket.calculatePrice(Rank.valueOf(ticket.seatPosition), currentDateTime)
+
+        val expected = 10_000
 
         assertThat(actual).isEqualTo(expected)
     }
 
-    @Test
-    fun `티켓을 하나 증가한다`() {
-        var ticket = Ticket(5)
-        val actual = ++ticket
-        val expected = Ticket(6)
-
-        assertThat(actual).isEqualTo(expected)
-    }
-
-    @Test
-    fun `티켓이 두 장, 티켓 가격이 13_000원이면 최종 가격은 26_000원이다`() {
-        val ticket = Ticket(2)
-        val actual = ticket.calculatePrice(13_000)
-        val expected = 26_000
-
-        assertThat(actual).isEqualTo(expected)
+    companion object {
+        fun Ticket(row: Int, col: Int): Ticket = Ticket(SeatPosition(Row(row), Col(col)))
     }
 }

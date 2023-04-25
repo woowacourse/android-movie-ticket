@@ -1,5 +1,6 @@
 package com.woowacourse.movie.domain.policy
 
+import com.woowacourse.movie.domain.seat.Rank
 import java.time.LocalDateTime
 
 class DiscountDecorator(movieDateTime: LocalDateTime) {
@@ -8,12 +9,8 @@ class DiscountDecorator(movieDateTime: LocalDateTime) {
         EarlyAndLatePolicy(movieDateTime.toLocalTime())
     )
 
-    fun calculatePrice(): Int =
-        policies.fold(DEFAULT_TICKET_PRICE) { acc, discountPolicy ->
+    fun calculatePrice(rank: Rank): Int =
+        policies.fold(rank.price) { acc, discountPolicy ->
             discountPolicy.calculatePrice(acc)
         }
-
-    companion object {
-        private const val DEFAULT_TICKET_PRICE = 13_000
-    }
 }

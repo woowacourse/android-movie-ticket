@@ -11,59 +11,41 @@
         android:id="@+id/iv_poster"
         android:layout_width="76dp"
         android:layout_height="108dp"
-        android:src="@drawable/img_default_movie_thumbnail1"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_default_movie_thumbnail1" />
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        tools:text="해리 포터와 마법사의 돌"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:maxLines="1"
-        android:ellipsize="end"
+        style="@style/MovieItemTitleTextStyle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster" />
+        tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
         android:id="@+id/tv_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        tools:text="상영일: 2024.3.1"
-        android:textSize="12sp"
+        style="@style/MovieItemRunningDateTimeTexStyle"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster" />
+        tools:text="상영일: 2024.3.1 ~ 2024.3.30" />
 
 
     <TextView
         android:id="@+id/tv_running_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:text="러닝타임: 152분"
-        android:textSize="12sp"
-        android:textColor="@color/black"
-        android:layout_marginStart="12dp"
+        style="@style/MovieItemRunningDateTimeTexStyle"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
         app:layout_constraintTop_toBottomOf="@+id/tv_date"
-        app:layout_constraintStart_toEndOf="@+id/iv_poster" />
+        tools:text="러닝타임: 152분" />
 
     <Button
         android:id="@+id/btn_book"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TicketingButtonStyle"
         android:text="@string/ticket_now"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

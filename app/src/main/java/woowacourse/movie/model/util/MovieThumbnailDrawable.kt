@@ -1,4 +1,4 @@
-package woowacourse.movie.model.utill
+package woowacourse.movie.model.util
 
 import woowacourse.movie.R
 
