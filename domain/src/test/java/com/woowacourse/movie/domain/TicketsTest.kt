@@ -1,6 +1,5 @@
 package com.woowacourse.movie.domain
 
-import com.woowacourse.movie.domain.policy.DiscountDecorator
 import com.woowacourse.movie.domain.seat.Col
 import com.woowacourse.movie.domain.seat.Row
 import com.woowacourse.movie.domain.seat.SeatPosition
@@ -79,9 +78,8 @@ class TicketsTest {
             )
         )
         val dateTime = LocalDateTime.of(2023, 4, 19, 14, 0)
-        val discountDecorator = DiscountDecorator(dateTime)
 
-        val actual = tickets.calculatePrice(discountDecorator)
+        val actual = tickets.getTotalPrice(dateTime)
         val expected = 37_000
 
         assertThat(actual).isEqualTo(expected)

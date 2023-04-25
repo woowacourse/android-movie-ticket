@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.woowacourse.movie.domain.policy.DiscountDecorator
 import woowacourse.movie.R
 import woowacourse.movie.extensions.exitForUnNormalCase
 import woowacourse.movie.extensions.getParcelableCompat
@@ -82,8 +81,7 @@ class TicketingResultActivity : AppCompatActivity() {
     }
 
     private fun calculateTicketPrice(reservation: ReservationUI): Int {
-        val decorator = DiscountDecorator(reservation.dateTime)
-        return reservation.ticketsUI.toTickets().calculatePrice(decorator)
+        return reservation.ticketsUI.toTickets().getTotalPrice(reservation.dateTime)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

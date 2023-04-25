@@ -1,6 +1,6 @@
 package com.woowacourse.movie.domain
 
-import com.woowacourse.movie.domain.policy.DiscountDecorator
+import java.time.LocalDateTime
 
 class Tickets(tickets: Set<Ticket>) {
     private val _tickets = tickets.toMutableSet()
@@ -30,10 +30,10 @@ class Tickets(tickets: Set<Ticket>) {
 
     fun isEmpty(): Boolean = _tickets.isEmpty()
 
-    fun calculatePrice(decorator: DiscountDecorator): Int {
+    fun getTotalPrice(currentDateTime: LocalDateTime): Int {
         var money = 0
         tickets.forEach {
-            money += decorator.calculatePrice(it.rank)
+            money += it.calculatePrice(it.rank, currentDateTime)
         }
         return money
     }
