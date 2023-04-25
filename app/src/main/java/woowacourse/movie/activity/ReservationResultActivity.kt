@@ -14,9 +14,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityReservationResultBinding.inflate(layoutInflater) }
     private val reservationModel: ReservationModel? by lazy {
-        intent.getSerializableExtra(
-            RESERVATION_INTENT_KEY
-        ) as? ReservationModel
+        intent.getSerializableExtra(RESERVATION_INTENT_KEY) as? ReservationModel
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,21 +28,17 @@ class ReservationResultActivity : AppCompatActivity() {
         if (reservationModel == null) return
         val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
-        binding.movieNameTextView.text = reservationModel!!.movie.name.value
-        binding.screeningDateTimeTextView.text =
-            reservationModel!!.screeningDateTime.format(dateFormat)
-
-        binding.ticketCountTextView.text =
-            getString(R.string.ticket_count_and_seats_form)
+        reservationModel?.let {
+            binding.movieNameTextView.text = it.movie.name.value
+            binding.screeningDateTimeTextView.text = it.screeningDateTime.format(dateFormat)
+            binding.ticketCountTextView.text = getString(R.string.ticket_count_and_seats_form)
+                .format(it.ticketCount, it.seats.joinToString(", "))
+            binding.paymentAmountTextView.text = getString(R.string.payment_amount_and_type_form)
                 .format(
-                    reservationModel!!.ticketCount,
-                    reservationModel!!.seats.joinToString(", ")
+                    DecimalFormat("#,###").format(it.paymentAmount.value),
+                    getPaymentTypeString(reservationModel!!.paymentType)
                 )
-
-        binding.paymentAmountTextView.text = getString(R.string.payment_amount_and_type_form).format(
-            DecimalFormat("#,###").format(reservationModel!!.paymentAmount.value),
-            getPaymentTypeString(reservationModel!!.paymentType)
-        )
+        }
     }
 
     private fun getPaymentTypeString(paymentType: PaymentType): String =
