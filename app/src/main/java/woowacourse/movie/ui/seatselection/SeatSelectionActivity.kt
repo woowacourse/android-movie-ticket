@@ -28,8 +28,6 @@ class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var reservation: ReservationUI
     private lateinit var ticketsUI: TicketsUI
 
-    private var moviePrice = DEFAULT_MOVIE_PRICE
-
     private val ticketCountUI: TicketCountUI? by lazy {
         intent.getParcelableCompat(TicketingActivity.TICKET_COUNT_KEY)
     }
@@ -79,17 +77,11 @@ class SeatSelectionActivity : AppCompatActivity() {
         ticketsUI = reservation.ticketsUI
         seatTable
         findViewById<TextView>(R.id.tv_title).text = reservation.movie.title
-        setMoviePrice(moviePrice)
-    }
-
-    private fun setMoviePrice(price: Int) {
-        findViewById<TextView>(R.id.tv_price).text = getString(R.string.movie_price, price)
+        changeTicketPrice()
     }
 
     private fun initButtonClickListener() {
-        okButton.setOnClickListener {
-            initDialog()
-        }
+        okButton.setOnClickListener { initDialog() }
     }
 
     private fun initDialog() {
@@ -135,9 +127,6 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun calculateTicketPrice(): Int {
         val tickets = ticketsUI.toTickets()
-        if (tickets.isEmpty()) {
-            return DEFAULT_MOVIE_PRICE
-        }
         val decorator = DiscountDecorator(reservation.dateTime)
         return tickets.calculatePrice(decorator)
     }
@@ -159,7 +148,6 @@ class SeatSelectionActivity : AppCompatActivity() {
     companion object {
         private const val TICKETS_STATE_KEY = "tickets_state_key"
         private const val MESSAGE_EMPTY_RESERVATION = "예매 정보가 없습니다"
-        private const val DEFAULT_MOVIE_PRICE = 0
 
         internal fun getIntent(
             context: Context,
