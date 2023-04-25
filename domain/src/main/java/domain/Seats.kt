@@ -11,7 +11,7 @@ class Seats(seats: List<Seat> = emptyList()) {
         _seats.add(seat)
     }
 
-    fun containsSeat(seat: Seat): Boolean = seats.map { it.position }.contains(seat.position)
+    fun containsSeat(seat: Seat): Boolean = seats.contains(seat)
 
     fun remove(seat: Seat) {
         _seats.remove(seat)

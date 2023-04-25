@@ -11,8 +11,10 @@ import domain.Seats
 import woowacourse.movie.dto.MovieDateDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieTimeDto
+import woowacourse.movie.dto.SeatDto
 import woowacourse.movie.dto.SeatsDto
 import woowacourse.movie.dto.TicketCountDto
+import woowacourse.movie.mapper.mapToSeat
 import woowacourse.movie.mapper.mapToSeats
 import woowacourse.movie.mapper.mapToSeatsDto
 import woowacourse.movie.view.SeatSelectView

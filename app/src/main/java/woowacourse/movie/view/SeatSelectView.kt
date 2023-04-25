@@ -7,12 +7,15 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.children
-import domain.Position
 import domain.Seat
+import domain.SeatCol
+import domain.SeatRow
 import domain.Seats
-import domain.TicketPrice
 import woowacourse.movie.R
-import woowacourse.movie.mapper.mapToUIModel
+import woowacourse.movie.dto.SeatColDto
+import woowacourse.movie.dto.SeatDto
+import woowacourse.movie.dto.SeatRowDto
+import woowacourse.movie.mapper.mapToSeat
 
 class SeatSelectView(
     val viewGroup: ViewGroup,
@@ -22,7 +25,7 @@ class SeatSelectView(
 
     private val tableLayout = viewGroup.findViewById<TableLayout>(R.id.seat)
 
-    var seatsView: List<TextView> = mutableListOf()
+    var seatsView: List<List<TextView>> = mutableListOf()
 
     init {
         setSeatsView()
@@ -35,7 +38,7 @@ class SeatSelectView(
             tableRow.layoutParams = TableLayout.LayoutParams(0, 0, SEAT_WEIGHT)
 
             repeat(TABLE_COL) { col ->
-                tableRow.addView(setSeat(row + 1, col + 1))
+                tableRow.addView(getSeat(row + 1, col + 1))
             }
             tableLayout.addView(tableRow)
         }
@@ -46,27 +49,26 @@ class SeatSelectView(
         seatsView = tableLayout
             .children
             .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
+            .map { it.children.filterIsInstance<TextView>().toList() }
             .toList()
     }
 
-    private fun setSeat(row: Int, col: Int): TextView {
-        val position = Position(row, col)
+    private fun getSeat(row: Int, col: Int): TextView {
+        val seat = SeatDto(SeatRowDto.of(row), SeatColDto(col))
         val textView = TextView(tableLayout.context)
-        textView.text = position.mapToUIModel().getPosition()
-        textView.setTextColor(tableLayout.context.getColor(position.mapToUIModel().getColor()))
+        textView.text = seat.getString()
+        textView.setTextColor(tableLayout.context.getColor(seat.row.getColor()))
         textView.gravity = Gravity.CENTER
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, SEAT_TEXT_SIZE)
-        setSeatColor(position, textView)
+        setSeatColor(seat.mapToSeat(), textView)
         textView.layoutParams =
             TableRow.LayoutParams(0, TableRow.LayoutParams.MATCH_PARENT, SEAT_WEIGHT)
 
         return textView
     }
 
-    private fun setSeatColor(position: Position, textView: TextView) {
-        if (seats.containsSeat(Seat(position, TicketPrice.of(position)))) {
+    private fun setSeatColor(seat: Seat, textView: TextView) {
+        if (seats.containsSeat(seat)) {
             textView.setBackgroundColor(viewGroup.context.getColor(R.color.select_seat))
         } else {
             textView.setBackgroundColor(viewGroup.context.getColor(R.color.white))
@@ -74,10 +76,15 @@ class SeatSelectView(
     }
 
     private fun onSeatClickListener() {
-        seatsView.forEachIndexed { index, textView ->
-            textView.setOnClickListener {
-                val seat = Seat(Position.of(index), TicketPrice.of(Position.of(index)))
-                onSeatClick(seat, textView)
+        seatsView.forEachIndexed { rowIndex, rowView ->
+            rowView.forEachIndexed { colIndex, textView ->
+                textView.setOnClickListener {
+                    val seat = Seat(
+                        SeatRow(rowIndex + 1),
+                        SeatCol(colIndex + 1),
+                    )
+                    onSeatClick(seat, textView)
+                }
             }
         }
     }
