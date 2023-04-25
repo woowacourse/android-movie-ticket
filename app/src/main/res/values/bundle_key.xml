@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="MOVIE_INFO_DATE_BUNDLE_KEY">MOVIE_INFO_DATE_KEY</string>
-    <string name="MOVIE_INFO_TIME_BUNDLE_KEY">MOVIE_INFO_TIME_KEY</string>
-    <string name="USER_TICKET_COUNT_BUNDLE_KEY">USER_TICKET_COUNT_KEY</string>
-</resources>

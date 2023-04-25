@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieDetailActivity">
+    tools:context=".presentation.view.moviedetail.MovieDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_movie_booking"
@@ -48,7 +48,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="19dp"
             android:background="@color/design_default_color_primary"
-            android:text="-"
+            android:text="@string/ticket_count_minus"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/bt_book_complete"
