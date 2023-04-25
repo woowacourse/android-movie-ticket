@@ -7,16 +7,11 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import domain.TicketOffice
-import domain.Tickets
 import woowacourse.movie.R
 import woowacourse.movie.getSerializableCompat
 import woowacourse.movie.view.MovieView
-import woowacourse.movie.view.mapper.TicketOfficeMapper
 import woowacourse.movie.view.mapper.TicketsMapper
 import woowacourse.movie.view.model.MovieUiModel
-import woowacourse.movie.view.model.TicketOfficeUiModel
-import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.TicketsUiModel
 import java.text.NumberFormat
 import java.time.LocalDate
@@ -61,39 +56,11 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun renderReservationDetailView() {
-        renderDate()
-        renderPeopleCount()
-        renderSeatInformation()
-        renderPrice(ticketsUiModel)
+        ticketsUiModel.renderDate(dateTextView)
+        ticketsUiModel.renderPeopleCount(peopleCountTextView)
+        ticketsUiModel.renderSeatsInformation(seatTextView)
+        ticketsUiModel.renderPrice(priceTextView)
     }
-
-    private fun renderDate() {
-        val dateFormat =
-            DateTimeFormatter.ofPattern(getString(R.string.reservation_datetime_format))
-        dateTextView.text = dateFormat.format(ticketsUiModel.list[0].date)
-    }
-
-    private fun renderPeopleCount() {
-        peopleCountTextView.text =
-            getString(R.string.reservation_people_count).format(ticketsUiModel.list.size)
-    }
-
-    private fun renderSeatInformation() {
-        ticketsUiModel.list.forEachIndexed { index, ticket ->
-            seatTextView.text =
-                (seatTextView.text.toString() + ticket.seat.row + ticket.seat.col)
-            if (index != ticketsUiModel.list.size - 1) seatTextView.text =
-                seatTextView.text.toString() + ", "
-        }
-    }
-
-    private fun renderPrice(ticketsUiModel: TicketsUiModel) {
-        val tickets = TicketsMapper.toDomain(ticketsUiModel)
-        val formattedPrice =
-            NumberFormat.getNumberInstance(Locale.US).format(tickets.price.value)
-        priceTextView.text = getString(R.string.reservation_price).format(formattedPrice)
-    }
-
     private fun receiveTicketsUiModel(): TicketsUiModel? {
         return intent.extras?.getSerializableCompat(TICKETS_VALUE)
     }

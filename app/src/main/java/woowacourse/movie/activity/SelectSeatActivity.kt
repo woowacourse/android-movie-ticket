@@ -3,7 +3,6 @@ package woowacourse.movie.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
@@ -18,7 +17,7 @@ import woowacourse.movie.setBackgroundColorId
 import woowacourse.movie.view.MovieView
 import woowacourse.movie.view.SeatTable
 import woowacourse.movie.view.SeatView
-import woowacourse.movie.view.mapper.TicketOfficeMapper
+import woowacourse.movie.view.mapper.TicketsMapper
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.SeatUiModel
 import woowacourse.movie.view.model.TicketDateUiModel
@@ -91,7 +90,7 @@ class SelectSeatActivity : AppCompatActivity() {
             ReservationResultActivity.start(
                 this,
                 movieUiModel,
-                TicketOfficeMapper.toUi(ticketOffice)
+                TicketsMapper.toUi(ticketOffice.tickets)
             )
         }
         builder.setNegativeButton(R.string.select_seat_dialog_negative_button_text) { dialog, _ ->

@@ -30,4 +30,7 @@
 
     <string name="movie_data_null_error">영화 데이터가 들어오지 않았어요!!</string>
     <string name="reservation_data_null_error">예약 정보를 받지 못하였습니다!</string>
+
+    <string name="comma">,</string>
+    <string name="single_space"> </string>
 </resources>
