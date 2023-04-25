@@ -89,7 +89,7 @@ class SeatActivity : AppCompatActivity() {
         val view = table[seat.position.row][seat.position.column]
         val result = selectedSeat.clickSeat(seat)
         when (result) {
-            SelectResult.Select.Full -> shortToast("더 이상 좌석을 선택할 수 없습니다.")
+            SelectResult.Select.Full -> shortToast(R.string.no_more_seat)
             SelectResult.Select.Success -> view.isSelected = !view.isSelected
             SelectResult.Unselect -> view.isSelected = !view.isSelected
         }
