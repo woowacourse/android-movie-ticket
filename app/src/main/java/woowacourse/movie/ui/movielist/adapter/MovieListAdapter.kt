@@ -14,7 +14,7 @@ class MovieListAdapter(
     private val movies: List<MovieUI>,
     private val advertisements: List<AdvertisementUI>,
     private val onItemClick: OnItemClick
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<ItemViewHolder>() {
     private val _items: List<ItemUI> = if (advertisements.isEmpty()) {
         movies.toList()
     } else {
@@ -27,9 +27,11 @@ class MovieListAdapter(
             }
         }
     }
+    private val onBookClick: (Int) -> Unit = { onItemClick.onBookClick(_items[it] as MovieUI) }
+    private val onAdvertisementClick: (Int) -> Unit = { onItemClick.onAdvertisementClick(_items[it] as AdvertisementUI) }
     private lateinit var layoutInflater: LayoutInflater
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         if (!::layoutInflater.isInitialized) {
             layoutInflater = LayoutInflater.from(parent.context)
         }
@@ -37,29 +39,23 @@ class MovieListAdapter(
         return when (viewType) {
             ItemViewType.MOVIE -> {
                 val view = layoutInflater.inflate(R.layout.item_movie, parent, false)
-                MovieListViewHolder(view)
+                MovieListViewHolder(view, onBookClick)
             }
             ItemViewType.ADVERTISEMENT -> {
                 val view = layoutInflater.inflate(R.layout.item_advertisement, parent, false)
-                AdvertisementViewHolder(view)
+                AdvertisementViewHolder(view, onAdvertisementClick)
             }
             else -> throw IllegalArgumentException()
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         when (holder) {
             is MovieListViewHolder -> {
-                holder.bind(
-                    _items[position] as MovieUI,
-                    onItemClick::onBookClick
-                )
+                holder.bind(_items[position] as MovieUI)
             }
             is AdvertisementViewHolder -> {
-                holder.bind(
-                    _items[position] as AdvertisementUI,
-                    onItemClick::onAdvertisementClick
-                )
+                holder.bind(_items[position] as AdvertisementUI)
             }
         }
     }

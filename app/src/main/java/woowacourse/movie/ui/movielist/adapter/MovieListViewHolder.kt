@@ -4,19 +4,24 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieUI
+import woowacourse.movie.ui.movielist.model.ItemUI
 
-class MovieListViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class MovieListViewHolder(private val view: View, onBookClick: (Int) -> Unit) :
+    ItemViewHolder(view) {
     private val ivPoster: ImageView = view.findViewById(R.id.iv_poster)
     private val tvTitle: TextView = view.findViewById(R.id.tv_title)
     private val tvDate: TextView = view.findViewById(R.id.tv_date)
     private val tvRunningTime: TextView = view.findViewById(R.id.tv_running_time)
     private val btnBook: Button = view.findViewById(R.id.btn_book)
 
-    fun bind(item: MovieUI, onItemClick: (MovieUI) -> Unit) {
-        with(item) {
+    init {
+        btnBook.setOnClickListener { onBookClick(adapterPosition) }
+    }
+
+    override fun bind(item: ItemUI) {
+        with(item as MovieUI) {
             thumbnail?.let { ivPoster.setImageResource(it) }
             tvTitle.text = title
             tvDate.text = view.context.getString(
@@ -26,7 +31,6 @@ class MovieListViewHolder(private val view: View) : RecyclerView.ViewHolder(view
             )
             tvRunningTime.text =
                 view.context.getString(R.string.movie_running_time, runningTime)
-            btnBook.setOnClickListener { onItemClick(item) }
         }
     }
 }
