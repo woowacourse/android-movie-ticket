@@ -9,17 +9,14 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import movie.TicketCount
-import movie.discountpolicy.DiscountPolicy
-import movie.discountpolicy.NormalDiscountPolicy
+import movie.data.TicketCount
 import movie.screening.ScreeningTime
 import woowacourse.movie.R
 import woowacourse.movie.extension.getSerializableScheduleOrNull
-import woowacourse.movie.movieTicket.MovieTicketActivity
-import woowacourse.movie.uimodel.MovieScheduleUi
-import woowacourse.movie.uimodel.MovieTicketUi
+import woowacourse.movie.movieSeat.MovieSeatActivity
+import woowacourse.movie.uimodel.MovieDetailUi
+import woowacourse.movie.uimodel.MovieModelUi
 import woowacourse.movie.utils.DateUtil
 import woowacourse.movie.utils.toDomain
 import java.time.LocalDate
@@ -31,10 +28,10 @@ class MovieReservationActivity : AppCompatActivity() {
         intent.getSerializableScheduleOrNull()
             ?: run {
                 finish()
-                Toast.makeText(this, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()
-                MovieScheduleUi.EMPTY_STATE
+                MovieModelUi.MovieScheduleUi.EMPTY
             }
     }
+
     private var ticketCount = TicketCount(1)
     private var selectedPosition = 0
 
@@ -46,12 +43,12 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        updateMovieView()
-        registerListener()
-        updateInstanceState(savedInstanceState)
+        initMovieView()
+        initListener()
+        initInstanceState(savedInstanceState)
     }
 
-    private fun updateInstanceState(savedInstanceState: Bundle?) {
+    private fun initInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             ticketCount = TicketCount(it.getInt(KEY_COUNT))
             ticketCountView.text = it.getInt(KEY_COUNT).toString()
@@ -78,7 +75,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateMovieView() {
+    private fun initMovieView() {
         ticketCountView.text = ticketCount.toInt().toString()
         val moviePosterView = findViewById<ImageView>(R.id.reservation_movie_poster)
         val movieTitleView = findViewById<TextView>(R.id.reservation_movie_title)
@@ -97,7 +94,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerListener() {
+    private fun initListener() {
         registerCountButton()
         registerReservationButton()
         registerSpinnerListener()
@@ -144,34 +141,29 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun registerReservationButton() {
         val reservationButton = findViewById<TextView>(R.id.reservation_complete_button)
-        reservationButton.setOnClickListener {
-            val intent = Intent(this, MovieTicketActivity::class.java)
-            val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
-            val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
-            val eachPrice = decideEachPrice(NormalDiscountPolicy(selectedDate, selectedTime))
-
-            kotlin.runCatching {
-                val movieTicketUi = MovieTicketUi(
-                    eachPrice = eachPrice,
-                    count = ticketCount,
-                    title = movieScheduleUi.title,
-                    date = selectedDate,
-                    time = selectedTime,
-                )
-                intent.putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicketUi)
-                startActivity(intent)
-            }.onFailure {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-            }
-        }
+        reservationButton.setOnClickListener { startActivity(makeIntent()) }
     }
 
-    private fun decideEachPrice(discountPolicy: DiscountPolicy): Int {
-        return discountPolicy.getDiscountPrice(MOVIE_TICKET_PRICE)
+    private fun makeIntent(): Intent {
+        val intent = Intent(this, MovieSeatActivity::class.java)
+        val movieDetailUi = makeMovieDetailUi()
+        intent.putExtra(MovieSeatActivity.KEY_MOVIE_DETAIL, movieDetailUi)
+        return intent
+    }
+
+    private fun makeMovieDetailUi(): MovieDetailUi {
+        val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
+        val selectedTime = LocalTime.parse(timeSpinner.selectedItem.toString())
+
+        return MovieDetailUi(
+            title = movieScheduleUi.title,
+            count = ticketCount,
+            date = selectedDate,
+            time = selectedTime,
+        )
     }
 
     companion object {
-        private const val MOVIE_TICKET_PRICE = 13_000
         private const val KEY_COUNT = "count"
         private const val KEY_TIME = "time"
         const val KEY_MOVIE_SCHEDULE = "movieScheduleUi"

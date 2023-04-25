@@ -1,76 +1,71 @@
 package woowacourse.movie.movieList
 
-import android.content.Context
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.uimodel.MovieScheduleUi
-import woowacourse.movie.utils.DateUtil
+import woowacourse.movie.movieList.ItemViewType.ITEM_VIEW_TYPE_AD
+import woowacourse.movie.movieList.ItemViewType.ITEM_VIEW_TYPE_MOVIE
+import woowacourse.movie.uimodel.MovieModelUi
+import woowacourse.movie.viewholder.AdViewHolder
+import woowacourse.movie.viewholder.MovieViewHolder
 
 class MovieListAdapter(
-    private val movieScheduleUi: List<MovieScheduleUi>,
-    private val onReservationClickListener: (MovieScheduleUi) -> Unit,
-) : BaseAdapter() {
-    override fun getCount(): Int {
-        return movieScheduleUi.size
-    }
+    private val movieModelUi: List<MovieModelUi>,
+    private val onReservationClickListener: (MovieModelUi.MovieScheduleUi) -> Unit,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun getItem(position: Int): MovieScheduleUi {
-        return movieScheduleUi[position]
-    }
+    lateinit var layoutInflater: LayoutInflater
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val viewHolder: ViewHolder
-
-        val view = if (convertView != null) {
-            convertView.also { viewHolder = it.tag as ViewHolder }
-        } else {
-            val v = View.inflate(
-                parent?.context,
-                R.layout.item_movie_list,
-                null,
-            )
-            viewHolder = makeViewHolder(v)
-            v.tag = viewHolder
-            v
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        if (!::layoutInflater.isInitialized) {
+            layoutInflater = LayoutInflater.from(parent.context)
         }
 
-        viewHolder.bind(view.context, movieScheduleUi[position])
-        return view
+        when (ItemViewType.of(viewType)) {
+            ITEM_VIEW_TYPE_MOVIE -> {
+                return MovieViewHolder(
+                    view = layoutInflater.inflate(
+                        R.layout.item_movie_list,
+                        parent,
+                        false,
+                    ),
+                    onReservationClickListener,
+                )
+            }
+            ITEM_VIEW_TYPE_AD -> {
+                return AdViewHolder(
+                    view = layoutInflater.inflate(
+                        R.layout.item_ad_list,
+                        parent,
+                        false,
+                    ),
+                )
+            }
+        }
     }
 
-    private fun makeViewHolder(view: View): ViewHolder {
-        return ViewHolder(
-            view.findViewById(R.id.movie_poster),
-            view.findViewById(R.id.movie_title),
-            view.findViewById(R.id.movie_release_date),
-            view.findViewById(R.id.movie_running_time),
-            view.findViewById(R.id.movie_reservation_button),
-        )
+    override fun getItemCount(): Int {
+        return movieModelUi.size
     }
 
-    private inner class ViewHolder(
-        val posterView: ImageView,
-        val titleView: TextView,
-        val releaseDateView: TextView,
-        val runningTimeView: TextView,
-        val reservationButton: Button,
-    ) {
+    override fun getItemViewType(position: Int): Int {
+        return when (movieModelUi[position]) {
+            is MovieModelUi.MovieScheduleUi -> ITEM_VIEW_TYPE_MOVIE.value
+            is MovieModelUi.AdUi -> ITEM_VIEW_TYPE_AD.value
+        }
+    }
 
-        fun bind(context: Context, movieScheduleUi: MovieScheduleUi) {
-            posterView.setImageResource(movieScheduleUi.poster)
-            titleView.text = movieScheduleUi.title
-            releaseDateView.text = DateUtil(context).getDateRange(movieScheduleUi.startDate, movieScheduleUi.endDate)
-            runningTimeView.text = context.getString(R.string.movie_running_time).format(movieScheduleUi.runningTime)
-            reservationButton.setOnClickListener { onReservationClickListener(movieScheduleUi) }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (ItemViewType.of(getItemViewType(position))) {
+            ITEM_VIEW_TYPE_MOVIE -> {
+                val item = movieModelUi[position] as MovieModelUi.MovieScheduleUi
+                (holder as MovieViewHolder).bind(item)
+            }
+            ITEM_VIEW_TYPE_AD -> {
+                val item = movieModelUi[position] as MovieModelUi.AdUi
+                (holder as AdViewHolder).bind(item)
+            }
         }
     }
 }
