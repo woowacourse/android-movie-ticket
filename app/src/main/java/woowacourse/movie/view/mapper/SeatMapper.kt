@@ -8,8 +8,7 @@ object SeatMapper : DomainViewMapper<Seat, SeatUiModel> {
     override fun toDomain(seatUiModel: SeatUiModel): Seat {
         return Seat(
             SeatUiModel.toNumber(seatUiModel.row),
-            seatUiModel.col,
-            SeatPolicies()
+            seatUiModel.col
         )
     }
 

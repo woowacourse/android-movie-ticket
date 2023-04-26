@@ -27,7 +27,7 @@ class SeatView(val view: TextView, val row: Char, val col: Int, onClick: (SeatVi
         view.setOnClickListener { onClick(this) }
     }
     private fun initTextColor() {
-        val seat = Seat(SeatUiModel.toNumber(row), col, SeatPolicies())
+        val seat = Seat(SeatUiModel.toNumber(row), col)
         val seatRankViewModel = SeatRankMapper.toUi(seat.rank)
         view.setTextColor(
             ContextCompat.getColor(

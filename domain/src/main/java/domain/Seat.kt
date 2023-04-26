@@ -1,9 +1,8 @@
 package domain
 
-import domain.seatPolicy.SeatPolicies
 import domain.seatPolicy.SeatRank
 
-data class Seat(val row: Int, val col: Int, val seatPolicies: SeatPolicies) {
+data class Seat(val row: Int, val col: Int) {
     val rank: SeatRank
-        get() = seatPolicies.getSeatRank(this)
+        get() = SeatRank.getRank(row = row)
 }

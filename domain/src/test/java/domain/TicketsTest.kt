@@ -9,8 +9,6 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class TicketsTest {
-    private val ticketOffice = TicketOffice(peopleCount = 3)
-
     @Test
     internal fun `좌석이 3행 3열이고, 상영시간이 무비데이이고, 목요일 10시인 티켓이 2장 있을 때, 가격은 23_000원이다`() {
         // given
@@ -37,6 +35,6 @@ class TicketsTest {
         val date = LocalDate.of(2023, 4, 20)
         val time = LocalTime.of(10, 0)
         val dateTime = LocalDateTime.of(date, time)
-        return Ticket(dateTime, Seat(3, 3, SeatPolicies()), DisCountPolicies())
+        return Ticket(dateTime, Seat(3, 3), DisCountPolicies())
     }
 }

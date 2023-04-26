@@ -7,13 +7,12 @@ import java.time.LocalDateTime
 class TicketOffice(
     val tickets: Tickets = Tickets(listOf()),
     private val disCountPolicies: DisCountPolicies = DisCountPolicies(),
-    private val seatPolicies: SeatPolicies = SeatPolicies(),
     private val date: LocalDateTime,
     val peopleCount: Int
 ) {
 
     fun generateTicket(seatRow: Int, seatCol: Int): Ticket {
-        val seat = Seat(seatRow, seatCol, seatPolicies)
+        val seat = Seat(seatRow, seatCol)
         return Ticket(date, seat, disCountPolicies)
     }
 
