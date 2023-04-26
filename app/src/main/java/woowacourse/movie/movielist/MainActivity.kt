@@ -1,15 +1,18 @@
 package woowacourse.movie.movielist
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.dto.AdDto
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.MovieDummy
 import woowacourse.movie.moviedetail.MovieDetailActivity
 
-class MainActivity : AppCompatActivity(), OnMovieClickListener {
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,17 +20,38 @@ class MainActivity : AppCompatActivity(), OnMovieClickListener {
         setUpMovieDatas()
     }
 
-    override fun onMovieClick(movie: MovieDto) {
-        val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(MOVIE_KEY, movie)
-        startActivity(intent)
+    private fun setUpMovieDatas() {
+        val movieRV = findViewById<RecyclerView>(R.id.movie_rv)
+        val movieRVAdapter = MovieRVAdapter(
+            MovieDummy.movieDatas,
+            AdDto.getAdData(),
+        )
+
+        movieRV.adapter = movieRVAdapter
+
+        onMovieItemClickListener(movieRVAdapter)
+        onAdItemClickListener(movieRVAdapter)
+
+        movieRVAdapter.notifyDataSetChanged()
     }
 
-    private fun setUpMovieDatas() {
-        val movieListView = findViewById<ListView>(R.id.movie_listView)
-        val movieListViewAdapter = MovieListViewAdapter(MovieDummy.movieDatas, this)
+    private fun onMovieItemClickListener(adapter: MovieRVAdapter) {
+        adapter.itemMovieClick = object : OnClickListener<MovieDto> {
+            override fun onClick(item: MovieDto) {
+                val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
+                intent.putExtra(MOVIE_KEY, item)
+                startActivity(intent)
+            }
+        }
+    }
 
-        movieListView.adapter = movieListViewAdapter
+    private fun onAdItemClickListener(adapter: MovieRVAdapter) {
+        adapter.itemAdClick = object : OnClickListener<AdDto> {
+            override fun onClick(item: AdDto) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.url))
+                startActivity(intent)
+            }
+        }
     }
 
     companion object {
