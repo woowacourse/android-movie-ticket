@@ -64,7 +64,7 @@ class SelectSeatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_seat)
-        seatTable.makeSeatTable()
+        seatTable
         movieUiModel.renderMovie(titleTextView = findViewById(R.id.select_seat_movie_title_text_view))
         changePriceTextView()
         checkButtonClick()
@@ -85,9 +85,7 @@ class SelectSeatActivity : AppCompatActivity() {
         builder.setMessage(R.string.select_seat_dialog_message)
         builder.setPositiveButton(R.string.select_seat_dialog_positive_button_text) { dialog, _ ->
             ReservationResultActivity.start(
-                this,
-                movieUiModel,
-                TicketsMapper.toUi(ticketOffice.tickets)
+                this, movieUiModel, TicketsMapper.toUi(ticketOffice.tickets)
             )
         }
         builder.setNegativeButton(R.string.select_seat_dialog_negative_button_text) { dialog, _ ->
@@ -103,31 +101,12 @@ class SelectSeatActivity : AppCompatActivity() {
     }
 
     private fun changeSeatViewState(seatView: SeatView) {
-        val ticket =
-            ticketOffice.generateTicket(
-                ticketDateTime,
-                SeatUiModel.toNumber(seatView.row),
-                seatView.col
-            )
-        if (ticketOffice.tickets.isContainSameTicket(ticket)) {
-            setViewNotSelected(seatView, ticket)
-        } else {
-            setViewSelected(seatView, ticket)
-        }
-    }
-
-    private fun setViewNotSelected(seatView: SeatView, ticket: Ticket) {
-        ticketOffice.deleteTicket(ticket)
-        seatView.view.isSelected = false
-        seatView.setBackgroundColorId(color = R.color.white)
-    }
-
-    private fun setViewSelected(seatView: SeatView, ticket: Ticket) {
-        if (ticketOffice.isAvailableAddTicket()) {
-            ticketOffice.addTicket(ticket)
-            seatView.view.isSelected = true
-            seatView.setBackgroundColorId(color = R.color.seat_selection_selected_seat_color)
-        }
+        val ticket = ticketOffice.generateTicket(
+            SeatUiModel.toNumber(seatView.row), seatView.col
+        )
+        ticketOffice.updateTickets(ticket)
+        val ticketsUiModel = TicketsMapper.toUi(ticketOffice.tickets)
+        seatTable.updateTable(ticketsUiModel)
     }
 
     private fun changePriceTextView() {
@@ -154,7 +133,7 @@ class SelectSeatActivity : AppCompatActivity() {
     private fun receiveTicketOfficeData(): TicketOffice {
         val peopleCount = intent.getIntExtra(PEOPLE_COUNT_KEY, 0)
         if (peopleCount == 0) finishActivityWithToast(getString(R.string.reservation_data_null_error))
-        return TicketOffice(peopleCount = peopleCount)
+        return TicketOffice(peopleCount = peopleCount, date = ticketDateTime)
     }
 
     private fun receiveMovieViewModelData(): MovieUiModel? {
