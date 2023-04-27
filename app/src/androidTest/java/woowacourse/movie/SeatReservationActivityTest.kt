@@ -6,6 +6,8 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
+import androidx.test.espresso.matcher.ViewMatchers.isNotSelected
 import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -36,7 +38,7 @@ class SeatReservationActivityTest {
     }
 
     @Test
-    fun A1을_선택하면_Selected가_변경된다() {
+    fun A1을_선택하면_Selected가_활성화된다() {
         // given: A1
         val seatA1 = onView(withText(R.string.tv_seat_reservation_a1))
 
@@ -47,6 +49,22 @@ class SeatReservationActivityTest {
         actual.check(
             matches(
                 isSelected(),
+            ),
+        )
+    }
+
+    @Test
+    fun A1을_다시_선택하면_Selected가_비활성화_된다() {
+        // given: A1 클릭 된 상태
+        val seatA1 = onView(withText(R.string.tv_seat_reservation_a1)).perform(click())
+
+        // when: 좌석 클릭 시
+        val actual = seatA1.perform(click())
+
+        // then: 좌석 색상이 변경 된다
+        actual.check(
+            matches(
+                isNotSelected(),
             ),
         )
     }
@@ -83,6 +101,25 @@ class SeatReservationActivityTest {
         checkButton.check(
             matches(
                 isEnabled(),
+            ),
+        )
+    }
+
+    @Test
+    fun 확인_버튼이_활성화_되었을_때_선택된_좌석을_해제하면_다시_비활성화_된다() {
+        // given: 확인 버튼 활성화
+        val checkButton = onView(withId(R.id.tv_seat_reservation_check_btn))
+        val seatA1 = onView(withText(R.string.tv_seat_reservation_a1)).perform(click())
+        onView(withText(R.string.tv_seat_reservation_a2)).perform(click())
+        onView(withText(R.string.tv_seat_reservation_a3)).perform(click())
+
+        // when: A1 좌석 선택 해제 시
+        seatA1.perform(click())
+
+        // then: 확인 버튼이 비활성화 된다
+        checkButton.check(
+            matches(
+                isNotEnabled(),
             ),
         )
     }
