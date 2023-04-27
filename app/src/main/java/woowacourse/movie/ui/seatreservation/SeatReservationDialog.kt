@@ -13,7 +13,7 @@ class SeatReservationDialog {
             .setCancelable(false)
             .setTitle(TITLE)
             .setMessage(CONTENT)
-            .setPositiveButton(YES) { dialog, _ ->
+            .setPositiveButton(YES) { _, _ ->
                 setEventOnPositiveButton(context)
             }
             .setNegativeButton(NO) { dialog, _ ->
