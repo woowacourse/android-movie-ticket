@@ -1,5 +1,8 @@
 package woowacourse.movie.domain.seat
 
+/**
+ * 1..4에 해당하는 숫자를 가집니다.
+ */
 @JvmInline
 value class Column(val value: Int) {
 
@@ -11,6 +14,10 @@ value class Column(val value: Int) {
         const val MINIMUM = 1
         const val MAXIMUM = 4
 
+        /**
+         * 문자 1..5로 표현된 숫자를
+         * 숫자 0..4로 표현된 숫자로 변경합니다.
+         */
         fun of(number: Int): Column = Column(number + MINIMUM)
     }
 }
