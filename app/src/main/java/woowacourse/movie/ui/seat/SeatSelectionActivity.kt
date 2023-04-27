@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +15,6 @@ import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.mapper.toModel
 import woowacourse.movie.model.MovieTicketModel
 import woowacourse.movie.model.PeopleCountModel
-import woowacourse.movie.model.SeatModel
 import woowacourse.movie.model.SelectedSeatsModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
 import woowacourse.movie.ui.ticket.MovieTicketActivity
@@ -78,14 +76,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun initSeatTable() {
-        val seatTable = findViewById<TableLayout>(R.id.seat_table_layout)
-        for (row in 1..ROW_SIZE) {
-            val tableRow = TableRow(this)
-            for (column in 1..COLUMN_SIZE) {
-                tableRow.addView(getSeatView(row, column))
-            }
-            seatTable.addView(tableRow)
-        }
+        SeatTableView(findViewById<TableLayout>(R.id.seat_table_layout), this::clickSeat).init()
     }
 
     private fun initBottomField() {
@@ -100,15 +91,16 @@ class SeatSelectionActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSeatView(row: Int, column: Int): View {
-        val seat = SeatModel(row, column)
-        return seat.getView(
-            this,
-            selectedSeats.contains(seat.toDomain()),
-        ) {
-            clickSeat(seat.toDomain(), this)
+    private fun makeDialog(): AlertDialog.Builder = AlertDialog.Builder(this)
+        .setTitle(getString(R.string.seat_dialog_title))
+        .setMessage(getString(R.string.seat_dialog_message))
+        .setPositiveButton(getString(R.string.seat_dialog_submit_button)) { _, _ ->
+            moveToTicketActivity()
         }
-    }
+        .setNegativeButton(getString(R.string.seat_dialog_cancel_button)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        .setCancelable(false)
 
     private fun clickSeat(seat: Seat, seatView: View) {
         if (!canSelectMoreSeat(seatView)) {
@@ -129,17 +121,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         updatePriceText(selectedSeats.getAllPrice(movieTime))
         updateButtonEnablement()
     }
-
-    private fun makeDialog(): AlertDialog.Builder = AlertDialog.Builder(this)
-        .setTitle(getString(R.string.seat_dialog_title))
-        .setMessage(getString(R.string.seat_dialog_message))
-        .setPositiveButton(getString(R.string.seat_dialog_submit_button)) { _, _ ->
-            moveToTicketActivity()
-        }
-        .setNegativeButton(getString(R.string.seat_dialog_cancel_button)) { dialog, _ ->
-            dialog.dismiss()
-        }
-        .setCancelable(false)
 
     private fun canSelectMoreSeat(seatView: View) =
         !(!seatView.isSelected && selectedSeats.isSelectionDone(peopleCount.count))
