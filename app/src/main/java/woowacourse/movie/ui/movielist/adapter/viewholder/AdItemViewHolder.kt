@@ -1,15 +1,14 @@
-package woowacourse.movie.ui.movielist.adapter
+package woowacourse.movie.ui.movielist.adapter.viewholder
 
 import android.view.View
 import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieListModel
 
 class AdItemViewHolder(
     view: View,
-    private val onItemClick: (Int) -> Unit
-) : RecyclerView.ViewHolder(view) {
+    private val onItemClick: (Int) -> Unit,
+) : ItemViewHolder(view) {
 
     private val banner = view.findViewById<ImageView>(R.id.item_banner)
 
@@ -17,7 +16,8 @@ class AdItemViewHolder(
         banner.setOnClickListener { onItemClick(adapterPosition) }
     }
 
-    fun bind(ad: MovieListModel.AdModel) {
+    override fun bind(model: MovieListModel) {
+        val ad = model as MovieListModel.AdModel
         banner.setImageResource(ad.banner)
     }
 }

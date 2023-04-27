@@ -5,24 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieListModel
+import woowacourse.movie.ui.movielist.adapter.viewholder.AdItemViewHolder
+import woowacourse.movie.ui.movielist.adapter.viewholder.ItemViewHolder
+import woowacourse.movie.ui.movielist.adapter.viewholder.MovieItemViewHolder
 
 class MovieListAdapter(
     private val modelItems: List<MovieListModel>,
-    private val onItemClick: ItemClickListener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val onItemClick: ItemClickListener,
+) : RecyclerView.Adapter<ItemViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return when (viewType) {
             MovieListViewType.MOVIE.value ->
                 MovieItemViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false),
                 ) {
                     onItemClick.onMovieItemClick(modelItems[it] as MovieListModel.MovieModel)
                 }
             MovieListViewType.AD.value ->
                 AdItemViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_ad, parent, false)
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_ad, parent, false),
                 ) {
                     onItemClick.onAdItemClick(modelItems[it] as MovieListModel.AdModel)
                 }
@@ -39,7 +41,7 @@ class MovieListAdapter(
 
     override fun getItemCount(): Int = modelItems.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         when (holder) {
             is MovieItemViewHolder -> holder.bind(modelItems[position] as MovieListModel.MovieModel)
             is AdItemViewHolder -> holder.bind(modelItems[position] as MovieListModel.AdModel)
