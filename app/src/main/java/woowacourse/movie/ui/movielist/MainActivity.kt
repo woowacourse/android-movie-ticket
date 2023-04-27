@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieListModel
@@ -24,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setMovieList(movies: List<MovieListModel>) {
         val moviesView = findViewById<RecyclerView>(R.id.main_movie_list)
-        moviesView.layoutManager = LinearLayoutManager(this)
         moviesView.adapter = MovieListAdapter(
             movies,
             object : ItemClickListener {
@@ -35,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onAdItemClick(ad: MovieListModel.AdModel) {
                     moveToWebPage(ad)
                 }
-            }
+            },
         )
     }
 

@@ -63,9 +63,12 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun setBookingInfo() {
-        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE) ?: return failLoadingData()
-        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME) ?: return failLoadingData()
-        peopleCount = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT) ?: return failLoadingData()
+        movieTitle = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TITLE)
+            ?: return failLoadingData()
+        movieTime = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_TIME)
+            ?: return failLoadingData()
+        peopleCount = intent.getSerializableExtraCompat(MovieDetailActivity.KEY_PEOPLE_COUNT)
+            ?: return failLoadingData()
     }
 
     private fun loadSavedData(savedInstanceState: Bundle?) {
@@ -101,7 +104,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         val seat = SeatModel(row, column)
         return seat.getView(
             this,
-            selectedSeats.contains(seat.toDomain())
+            selectedSeats.contains(seat.toDomain()),
         ) {
             clickSeat(seat.toDomain(), this)
         }
@@ -109,14 +112,18 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun clickSeat(seat: Seat, seatView: View) {
         if (!canSelectMoreSeat(seatView)) {
-            showToast("이미 인원수만큼 좌석이 선택되었습니다")
+            showToast(getString(R.string.seat_selected_all_message))
             return
         }
 
         seatView.isSelected = !seatView.isSelected
         selectedSeats = when (seatView.isSelected) {
-            true -> { selectedSeats.add(seat) }
-            false -> { selectedSeats.delete(seat) }
+            true -> {
+                selectedSeats.add(seat)
+            }
+            false -> {
+                selectedSeats.delete(seat)
+            }
         }
         updateBackgroundColor(seatView)
         updatePriceText(selectedSeats.getAllPrice(movieTime))
@@ -139,8 +146,12 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun updateBackgroundColor(seatView: View) {
         when (seatView.isSelected) {
-            true -> { seatView.setBackgroundColor(getColor(R.color.seat_selected_background)) }
-            false -> { seatView.setBackgroundColor(getColor(R.color.seat_unselected_background)) }
+            true -> {
+                seatView.setBackgroundColor(getColor(R.color.seat_selected_background))
+            }
+            false -> {
+                seatView.setBackgroundColor(getColor(R.color.seat_unselected_background))
+            }
         }
     }
 
@@ -157,7 +168,7 @@ class SeatSelectionActivity : AppCompatActivity() {
             title = movieTitle,
             time = movieTime,
             peopleCount = peopleCount,
-            seats = selectedSeats.toModel()
+            seats = selectedSeats.toModel(),
         )
 
         val intent = Intent(this, MovieTicketActivity::class.java)

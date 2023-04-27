@@ -7,6 +7,7 @@
 
     <string name="date_format">yyyy.MM.dd</string>
     <string name="date_time_format">yyyy.MM.dd HH:mm</string>
+
     <string name="ticket_cancel_guide">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
     <string name="screening_date">상영일: %s ~ %s</string>
     <string name="running_time">러닝타임: %d분</string>
@@ -22,4 +23,5 @@
     <string name="seat_dialog_message">정말 예매하시겠습니까?</string>
     <string name="seat_dialog_cancel_button">취소</string>
     <string name="seat_dialog_submit_button">예매 완료</string>
+    <string name="seat_selected_all_message">이미 인원수만큼 좌석이 선택되었습니다</string>
 </resources>
