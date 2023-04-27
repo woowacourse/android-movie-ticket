@@ -1,9 +1,10 @@
 package com.example.domain.domain
 
-import com.example.domain.model.Money
-import com.example.domain.model.SeatRank
 import org.junit.Assert
 import org.junit.Test
+import woowacourse.movie.domain.DiscountCalculator
+import woowacourse.movie.model.Money
+import woowacourse.movie.model.SeatRank
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

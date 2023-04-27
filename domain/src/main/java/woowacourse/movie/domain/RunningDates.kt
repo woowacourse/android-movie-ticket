@@ -1,4 +1,4 @@
-package com.example.domain.domain
+package woowacourse.movie.domain
 
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit.DAYS

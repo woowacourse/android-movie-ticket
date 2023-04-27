@@ -1,6 +1,6 @@
 package woowacourse.movie.fomatter
 
-import com.example.domain.model.Money
+import woowacourse.movie.model.Money
 import java.text.DecimalFormat
 
 class MoneyFormatter {

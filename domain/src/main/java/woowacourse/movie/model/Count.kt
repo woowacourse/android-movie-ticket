@@ -1,4 +1,4 @@
-package com.example.domain.model
+package woowacourse.movie.model
 
 @JvmInline
 value class Count(val value: Int) {

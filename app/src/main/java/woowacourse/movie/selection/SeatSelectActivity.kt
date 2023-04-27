@@ -8,9 +8,6 @@ import android.widget.Button
 import android.widget.TableRow
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.children
-import com.example.domain.domain.DiscountCalculator
-import com.example.domain.model.Money
-import com.example.domain.model.SeatRank
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
@@ -19,11 +16,14 @@ import woowacourse.movie.KEY_RESERVATION_SEATS
 import woowacourse.movie.KEY_RESERVATION_TIME
 import woowacourse.movie.confirm.ReservationConfirmActivity
 import woowacourse.movie.databinding.ActivitySeatSelectBinding
+import woowacourse.movie.domain.DiscountCalculator
 import woowacourse.movie.fomatter.MoneyFormatter
 import woowacourse.movie.mapper.CountMapper
 import woowacourse.movie.mapper.MoneyMapper
+import woowacourse.movie.model.Money
 import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.Seat
+import woowacourse.movie.model.SeatRank
 import woowacourse.movie.model.Seats
 import woowacourse.movie.model.ViewingDate
 import woowacourse.movie.model.ViewingTime

@@ -1,6 +1,6 @@
-package com.example.domain.domain
+package woowacourse.movie.domain
 
-import com.example.domain.model.Money
+import woowacourse.movie.model.Money
 import java.time.LocalDateTime
 
 class DiscountCalculator {

@@ -2,8 +2,6 @@ package woowacourse.movie.confirm
 
 import android.os.Bundle
 import android.util.Log
-import com.example.domain.model.Count
-import com.example.domain.model.Money
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
@@ -15,6 +13,8 @@ import woowacourse.movie.fomatter.DateAndTimeFormatter
 import woowacourse.movie.fomatter.MoneyFormatter
 import woowacourse.movie.mapper.CountMapper
 import woowacourse.movie.mapper.MoneyMapper
+import woowacourse.movie.model.Count
+import woowacourse.movie.model.Money
 import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.Seats
 import woowacourse.movie.model.ViewingDate

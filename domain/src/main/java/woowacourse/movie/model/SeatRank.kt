@@ -1,4 +1,4 @@
-package com.example.domain.model
+package woowacourse.movie.model
 
 enum class SeatRank(val money: Int) {
     A(10000),

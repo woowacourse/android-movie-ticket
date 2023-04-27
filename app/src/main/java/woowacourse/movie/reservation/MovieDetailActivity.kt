@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.example.domain.domain.RunningDates
-import com.example.domain.domain.RunningTimes
 import woowacourse.movie.KEY_MOVIE
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
@@ -16,6 +14,8 @@ import woowacourse.movie.KEY_RESTORE_DATE
 import woowacourse.movie.KEY_RESTORE_TIME
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityMovieDetailBinding
+import woowacourse.movie.domain.RunningDates
+import woowacourse.movie.domain.RunningTimes
 import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.ViewingDate
 import woowacourse.movie.model.ViewingTime
