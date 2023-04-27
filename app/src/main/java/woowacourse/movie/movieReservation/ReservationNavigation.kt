@@ -23,7 +23,7 @@ class ReservationNavigation(
     private val ticketQuantityView = ReservationTicketQuantity(view)
     private val submitButton: Button = view.findViewById(R.id.reservation_complete_button)
 
-    val ticketQuantity: TicketQuantity
+    val ticketQuantity: Int
         get() = ticketQuantityView.quantity
 
     val selectedDateTime: LocalDateTime
@@ -31,7 +31,6 @@ class ReservationNavigation(
 
     init {
         timeSpinner.initTimeSpinner(ScreeningDate.getScreeningTimes(dateSpinner.selectedDate))
-        ticketQuantityView.initTicketQuantity(ticketQuantity)
         submitButton.setOnClickListener { onReservationButtonClicked() }
     }
 

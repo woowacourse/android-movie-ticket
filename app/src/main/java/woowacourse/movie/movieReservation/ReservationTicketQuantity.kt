@@ -13,17 +13,19 @@ class ReservationTicketQuantity(
     private val increaseButton: Button = view.findViewById(R.id.reservation_increase_ticket_button)
     private val ticketQuantityTextView: TextView = view.findViewById(R.id.reservation_ticket_count)
 
-    val quantity: TicketQuantity
-        get() = TicketQuantity(ticketQuantityTextView.text.toString().toInt())
+    var quantity: Int = 1
+        set(value) {
+            field = value
+            if (field < 1) field = 1
+            ticketQuantityTextView.text = field.toString()
+        }
 
     init {
         decreaseButton.setOnClickListener {
-            val count = quantity.dec()
-            ticketQuantityTextView.text = count.toString()
+            quantity -= 1
         }
         increaseButton.setOnClickListener {
-            val count = quantity.inc()
-            ticketQuantityTextView.text = count.toString()
+            quantity += 1
         }
     }
 
