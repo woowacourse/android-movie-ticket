@@ -1,14 +1,15 @@
 package woowacourse.movie.ui.movielist
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.mapper.toModel
-import woowacourse.movie.ui.const.KEY_MOVIE
+import woowacourse.movie.model.MovieListModel
 import woowacourse.movie.ui.moviedetail.MovieDetailActivity
+import woowacourse.movie.ui.movielist.adapter.ItemClickListener
+import woowacourse.movie.ui.movielist.adapter.MovieListAdapter
 import woowacourse.movie.utils.MockData
 
 class MainActivity : AppCompatActivity() {
@@ -16,28 +17,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val movies = MockData.movies
-        setMovieList(movies)
+        val movieItems = MockData.getMoviesWithAds()
+        setMovieList(movieItems)
     }
 
-    private fun setMovieList(movies: List<Movie>) {
-        val moviesView = findViewById<ListView>(R.id.main_movie_list)
+    private fun setMovieList(movies: List<MovieListModel>) {
+        val moviesView = findViewById<RecyclerView>(R.id.main_movie_list)
         moviesView.adapter = MovieListAdapter(
             movies,
-            object : MovieListAdapter.ItemButtonClickListener {
-                override fun onClick(position: Int) {
-                    moveToDetailActivity(movies[position])
+            object : ItemClickListener {
+                override fun onMovieItemClick(movie: MovieListModel.MovieModel) {
+                    moveToDetailActivity(movie)
                 }
-            }
+
+                override fun onAdItemClick(ad: MovieListModel.AdModel) {
+                    moveToWebPage(ad)
+                }
+            },
         )
-        moviesView.setOnItemClickListener { parent, view, position, id ->
-            moveToDetailActivity(movies[position])
-        }
     }
 
-    private fun moveToDetailActivity(movie: Movie) {
+    private fun moveToDetailActivity(movie: MovieListModel.MovieModel) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(KEY_MOVIE, movie.toModel())
+        intent.putExtra(KEY_MOVIE, movie)
         startActivity(intent)
+    }
+
+    private fun moveToWebPage(ad: MovieListModel.AdModel) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(ad.url))
+        startActivity(intent)
+    }
+
+    companion object {
+        const val KEY_MOVIE = "movie"
     }
 }

@@ -52,12 +52,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/ticket_title"
+        app:layout_constraintEnd_toStartOf="@id/ticket_seats"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="textEnd"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="5dp"/>
+
+    <TextView
+        android:id="@+id/ticket_seats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/ticket_people_count"
         app:layout_constraintEnd_toEndOf="@id/ticket_title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textSize="20sp"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:layout_marginStart="5dp"/>
 
     <TextView
         android:id="@+id/ticket_price"

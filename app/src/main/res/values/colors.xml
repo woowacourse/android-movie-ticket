@@ -9,4 +9,15 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="ticket_guide_background">#9160F9</color>
+    <color name="seat_layout_background">#EAEAEA</color>
+    <color name="seat_selected_background">#FAFF00</color>
+    <color name="seat_unselected_background">#FFFFFF</color>
+    <color name="seat_screen">#494949</color>
+    <color name="seat_color_b">#8E13EF</color>
+    <color name="seat_color_s">#19D358</color>
+    <color name="seat_color_a">#1B48E9</color>
+
+    <color name="seat_enable_button">#6200EE</color>
+    <color name="seat_disable_button">#B7B7B7</color>
+
 </resources>
