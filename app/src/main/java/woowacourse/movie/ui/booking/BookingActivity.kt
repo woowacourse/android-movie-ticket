@@ -3,7 +3,6 @@ package woowacourse.movie.ui.booking
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -16,13 +15,10 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.ScreeningTimes
-import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
-import woowacourse.movie.ui.completed.CompletedActivity
 import woowacourse.movie.ui.seatreservation.SeatReservationActivity
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
@@ -84,7 +80,6 @@ class BookingActivity : AppCompatActivity() {
     private fun gatherClickListeners() {
         clickMinus()
         clickPlus()
-        // clickBookingComplete()
     }
 
     private fun setClickEventOnSeatSelectButton(movie: Movie) {
@@ -92,7 +87,6 @@ class BookingActivity : AppCompatActivity() {
 
         selectSeatButton.setOnClickListener {
             val intent = SeatReservationActivity.getIntent(this, movie.title, ticketCount.value)
-            Log.d("123123", ticketCount.value.toString())
             startActivity(intent)
         }
     }
@@ -122,18 +116,6 @@ class BookingActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonBookingPlus).setOnClickListener {
             ticketCount = ticketCount.plus()
             findViewById<TextView>(R.id.textBookingTicketCount).text = ticketCount.value.toString()
-        }
-    }
-
-    private fun clickBookingComplete() {
-        findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
-            val movieId = intent.getLongExtra(MOVIE_ID, -1)
-            val dateTime = LocalDateTime.of(
-                dateSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItemPosition),
-                timeSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItemPosition),
-            )
-            val ticket = Ticket(movieId, dateTime, ticketCount.value)
-            startActivity(CompletedActivity.getIntent(this, ticket))
         }
     }
 
