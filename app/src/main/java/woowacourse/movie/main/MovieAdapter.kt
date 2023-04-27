@@ -8,9 +8,7 @@ import woowacourse.movie.model.MovieAndAd
 
 class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val _allData: List<MovieAndAd> = allData.toList()
-    val allData: List<MovieAndAd>
-        get() = _allData.toList()
+    private val allData: List<MovieAndAd> = allData.toList()
 
     var clickListener: ReservationClickListener? = null
 
@@ -23,7 +21,7 @@ class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVie
             else -> {
                 val movieView = LayoutInflater.from(parent.context).inflate(R.layout.movie_item_layout, parent, false)
                 MovieViewHolder(movieView).apply {
-                    reservation.setOnClickListener { clickListener?.onClick(adapterPosition) }
+                    reservation.setOnClickListener { clickListener?.onClick(allData[adapterPosition]) }
                 }
             }
         }
@@ -31,24 +29,24 @@ class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVie
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MovieViewHolder -> holder.bind(_allData[position] as MovieAndAd.Movie)
-            is AdViewHolder -> holder.bind(_allData[position] as MovieAndAd.Advertisement)
+            is MovieViewHolder -> holder.bind(allData[position] as MovieAndAd.Movie)
+            is AdViewHolder -> holder.bind(allData[position] as MovieAndAd.Advertisement)
         }
     }
 
     override fun getItemCount(): Int {
-        return _allData.size
+        return allData.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (_allData[position]) {
+        return when (allData[position]) {
             is MovieAndAd.Movie -> MOVIE_TYPE
             is MovieAndAd.Advertisement -> AD_TYPE
         }
     }
 
     interface ReservationClickListener {
-        fun onClick(position: Int)
+        fun onClick(item: MovieAndAd)
     }
 
     companion object {

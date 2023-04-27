@@ -26,9 +26,9 @@ class MainActivity : AppCompatActivity() {
         movieRecyclerView.setHasFixedSize(true)
         movieRecyclerView.adapter = adapter
         adapter.clickListener = object : MovieAdapter.ReservationClickListener {
-            override fun onClick(position: Int) {
+            override fun onClick(item: MovieAndAd) {
                 val intent = Intent(this@MainActivity, MovieDetailActivity::class.java)
-                intent.putExtra(KEY_MOVIE, adapter.allData[position])
+                intent.putExtra(KEY_MOVIE, item)
                 startActivity(intent)
             }
         }
