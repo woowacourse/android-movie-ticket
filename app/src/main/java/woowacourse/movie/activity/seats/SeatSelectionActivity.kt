@@ -16,19 +16,12 @@ import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_K
 import woowacourse.movie.uimodel.ReservationOptionModel
 import woowacourse.movie.uimodel.ReservationOptionModel.Companion.RESERVATION_OPTION_INTENT_KEY
 import woowacourse.movie.uimodel.toSeatModel
+import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySeatSelectionBinding.inflate(layoutInflater) }
-    private val seatsView by lazy {
-        SeatsView(
-            binding,
-            seatsRowRange,
-            seatsColumnRange,
-            reservationOptionModel.ticketCount,
-            reservationOptionModel.screeningDateTime
-        )
-    }
+    private val seatsView by lazy { SeatsView(binding, reservationOptionModel.ticketCount, reservationOptionModel.screeningDateTime) }
 
     private val reservationOptionModel by lazy {
         intent.getSerializableExtra(
@@ -42,7 +35,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
         binding.movieNameTextView.text = reservationOptionModel.movieModel.name.value
 
-        seatsView.set()
+        seatsView.set(Row.toNumber(Row.MAXIMUM), Column.MAXIMUM)
         binding.reservationCompleteTextView.setOnClickListener {
             completeButtonClickEvent(reservationOptionModel.ticketCount)
         }
@@ -84,8 +77,12 @@ class SeatSelectionActivity : AppCompatActivity() {
         finish()
     }
 
-    companion object {
-        val seatsRowRange: CharRange = Row.MINIMUM..Row.MAXIMUM
-        val seatsColumnRange: IntRange = Column.MINIMUM..Column.MAXIMUM
+    private fun updatePaymentAmount() {
+        val paymentAmount: PaymentAmount =
+            PaymentAmount.applyDiscount(seatsView.getSelectedSeats(), reservationOptionModel.screeningDateTime)
+
+        binding.paymentAmountTextView.text =
+            getString(R.string.payment_amount_form)
+                .format(DecimalFormat("#,###").format(paymentAmount.value))
     }
 }

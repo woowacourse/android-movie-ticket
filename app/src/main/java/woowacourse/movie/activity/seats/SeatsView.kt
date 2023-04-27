@@ -16,16 +16,15 @@ import java.time.LocalDateTime
 
 class SeatsView(
     private val binding: ActivitySeatSelectionBinding,
-    private val seatsRowRange: CharRange,
-    private val seatsColumnRange: IntRange,
     private val ticketCount: Int,
     private val screeningDateTime: LocalDateTime
 ) {
 
     private val context: Context = binding.root.context
-    private val seats: List<List<TextView>> by lazy { createSeatViews() }
+    private lateinit var seats: List<List<TextView>>
 
-    fun set() {
+    fun set(rowSize: Int, columnSize: Int) {
+        seats = createSeatViews(rowSize, columnSize)
         setSeatSelectEvent()
     }
 
@@ -45,17 +44,17 @@ class SeatsView(
         }
     }
 
-    private fun createSeatViews(): List<List<TextView>> {
+    private fun createSeatViews(rowSize: Int, columnSize: Int): List<List<TextView>> {
         val seats: MutableList<MutableList<TextView>> = mutableListOf()
 
-        for (row in seatsRowRange) {
+        for (row in Row.MINIMUM..Row.MINIMUM + rowSize) {
             val tableRow = TableRow(context)
             tableRow.layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT, 180, 1f
             )
             seats.add(mutableListOf())
 
-            for (col in seatsColumnRange) {
+            for (col in Column.MINIMUM..Column.MINIMUM + columnSize) {
                 val textView: TextView = createSeatView(row, col)
                 seats[Row.toNumber(row)].add(textView)
                 tableRow.addView(textView)
@@ -128,7 +127,8 @@ class SeatsView(
     }
 
     private fun updatePaymentAmount() {
-        val paymentAmount: PaymentAmount = PaymentAmount.applyDiscount(getSelectedSeats(), screeningDateTime)
+        val paymentAmount: PaymentAmount =
+            PaymentAmount.applyDiscount(getSelectedSeats(), screeningDateTime)
 
         binding.paymentAmountTextView.text =
             context.getString(R.string.payment_amount_form)
