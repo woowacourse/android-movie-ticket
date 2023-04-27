@@ -1,7 +1,6 @@
 package woowacourse.movie.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
@@ -16,16 +15,13 @@ class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerVie
     var clickListener: ReservationClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val movieView: View?
-        val adView: View?
-
         return when (viewType) {
             AD_TYPE -> {
-                adView = LayoutInflater.from(parent.context).inflate(R.layout.ad_item_layout, parent, false)
+                val adView = LayoutInflater.from(parent.context).inflate(R.layout.ad_item_layout, parent, false)
                 AdViewHolder(adView)
             }
             else -> {
-                movieView = LayoutInflater.from(parent.context).inflate(R.layout.movie_item_layout, parent, false)
+                val movieView = LayoutInflater.from(parent.context).inflate(R.layout.movie_item_layout, parent, false)
                 MovieViewHolder(movieView).apply {
                     reservation.setOnClickListener { clickListener?.onClick(adapterPosition) }
                 }
