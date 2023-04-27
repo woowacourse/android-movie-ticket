@@ -42,4 +42,13 @@
     <string name="confirm">확인</string>
     <string name="adImageDescripion">광고 이미지 삽입</string>
     <string name="movieImageDescription">영화 포스터 이미지 삽입</string>
+    <string name="columnOne">1</string>
+    <string name="columnTwo">2</string>
+    <string name="columnThree">3</string>
+    <string name="columnFour">4</string>
+    <string name="columnFive">5</string>
+    <string name="dialogTitle">예매 확인</string>
+    <string name="dialogMessage">정말 예매하시겠습니까?</string>
+    <string name="dialogPositive">예매 완료</string>
+    <string name="dialogNegative">취소</string>
 </resources>
