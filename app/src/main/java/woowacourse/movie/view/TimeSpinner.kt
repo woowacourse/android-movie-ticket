@@ -2,9 +2,9 @@ package woowacourse.movie.view
 
 import android.os.Bundle
 import android.widget.Spinner
-import woowacourse.movie.domain.movieTimePolicy.MovieTime
-import woowacourse.movie.domain.movieTimePolicy.WeekdayMovieTime
-import woowacourse.movie.domain.movieTimePolicy.WeekendMovieTime
+import domain.movieTimePolicy.MovieTime
+import domain.movieTimePolicy.WeekdayMovieTime
+import domain.movieTimePolicy.WeekendMovieTime
 import java.time.LocalDate
 import java.time.LocalTime
 
