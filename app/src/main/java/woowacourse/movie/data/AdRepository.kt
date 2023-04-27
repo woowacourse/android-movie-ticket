@@ -3,7 +3,7 @@ package woowacourse.movie.data
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieAndAd
 
-class AdRepositories {
+class AdRepository {
     val ads = List(AD_NUMBER) {
         MovieAndAd.Advertisement(
             R.drawable.woowa

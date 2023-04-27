@@ -5,7 +5,7 @@ import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.RunningTime
 import java.time.LocalDate
 
-class MovieRepositories {
+class MovieRepository {
     val movies = List(MOVIE_NUMBER) {
         MovieAndAd.Movie(
             R.drawable.slamdunk,
