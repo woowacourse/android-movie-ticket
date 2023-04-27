@@ -14,9 +14,6 @@ import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_TIME_
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_TIME_INSTANCE_KEY
 import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INSTANCE_KEY
 import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INTENT_KEY
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -47,13 +44,11 @@ class ReservationActivity : AppCompatActivity() {
             TICKET_COUNT_INSTANCE_KEY,
             binding.ticketCountTextView.text.toString().toInt()
         )
-        outState.putLong(SCREENING_DATE_INSTANCE_KEY, dateTimeSpinnerView.getSelectedDate().toEpochDay())
-        outState.putString(SCREENING_TIME_INSTANCE_KEY, dateTimeSpinnerView.getSelectedTime().toString())
+        outState.putLong(SCREENING_DATE_INSTANCE_KEY, dateTimeSpinnerView.selectedDate.toEpochDay())
+        outState.putString(SCREENING_TIME_INSTANCE_KEY, dateTimeSpinnerView.selectedTime.toString())
     }
 
     private fun seatSelectionButtonClickEvent(movieModel: MovieModel) {
-        val selectedDate: LocalDate = dateTimeSpinnerView.getSelectedDate()
-        val selectedTime: LocalTime = dateTimeSpinnerView.getSelectedTime()
 
         val intent = Intent(this, SeatSelectionActivity::class.java)
         intent.putExtra(MOVIE_INTENT_KEY, movieModel)
@@ -63,7 +58,7 @@ class ReservationActivity : AppCompatActivity() {
         )
         intent.putExtra(
             SCREENING_DATE_TIME_INTENT_KEY,
-            LocalDateTime.of(selectedDate, selectedTime)
+            dateTimeSpinnerView.selectedDateTime
         )
 
         startActivity(intent)

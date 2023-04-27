@@ -9,15 +9,19 @@ import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.ReservationModel
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class DateTimeSpinnerView(
     private val binding: ActivityReservationBinding
 ) {
 
-    fun getSelectedDate() = binding.screeningDateSpinner.selectedItem as LocalDate
-
-    fun getSelectedTime() = binding.screeningTimeSpinner.selectedItem as LocalTime
+    val selectedDate: LocalDate
+        get() = binding.screeningDateSpinner.selectedItem as LocalDate
+    val selectedTime: LocalTime
+        get() = binding.screeningTimeSpinner.selectedItem as LocalTime
+    val selectedDateTime: LocalDateTime
+        get() = LocalDateTime.of(selectedDate, selectedTime)
 
     fun set(movieModel: MovieModel, savedInstanceState: Bundle?) {
         initSpinner(movieModel, savedInstanceState)
