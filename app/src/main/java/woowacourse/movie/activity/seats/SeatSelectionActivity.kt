@@ -8,37 +8,43 @@ import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
 import woowacourse.movie.domain.payment.PaymentAmount
-import woowacourse.movie.domain.reservation.TicketCount
 import woowacourse.movie.domain.seat.Column
 import woowacourse.movie.domain.seat.Row
 import woowacourse.movie.domain.seat.Seat
-import woowacourse.movie.uimodel.MovieModel
-import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel
 import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_KEY
-import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_TIME_INTENT_KEY
-import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INTENT_KEY
+import woowacourse.movie.uimodel.ReservationOptionModel
+import woowacourse.movie.uimodel.ReservationOptionModel.Companion.RESERVATION_OPTION_INTENT_KEY
 import woowacourse.movie.uimodel.toSeatModel
-import java.time.LocalDateTime
 
 class SeatSelectionActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySeatSelectionBinding.inflate(layoutInflater) }
-    private val seatsView by lazy { SeatsView(binding, seatsRowRange, seatsColumnRange, ticketCount, screeningDateTime) }
+    private val seatsView by lazy {
+        SeatsView(
+            binding,
+            seatsRowRange,
+            seatsColumnRange,
+            reservationOptionModel.ticketCount,
+            reservationOptionModel.screeningDateTime
+        )
+    }
 
-    private val movieModel by lazy { intent.getSerializableExtra(MOVIE_INTENT_KEY) as MovieModel }
-    private val ticketCount by lazy { intent.getIntExtra(TICKET_COUNT_INTENT_KEY, TicketCount.MINIMUM) }
-    private val screeningDateTime: LocalDateTime by lazy { intent.getSerializableExtra(SCREENING_DATE_TIME_INTENT_KEY) as LocalDateTime }
+    private val reservationOptionModel by lazy {
+        intent.getSerializableExtra(
+            RESERVATION_OPTION_INTENT_KEY
+        ) as ReservationOptionModel
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.movieNameTextView.text = movieModel.name.value
+        binding.movieNameTextView.text = reservationOptionModel.movieModel.name.value
 
         seatsView.set()
         binding.reservationCompleteTextView.setOnClickListener {
-            completeButtonClickEvent(ticketCount)
+            completeButtonClickEvent(reservationOptionModel.ticketCount)
         }
     }
 
@@ -66,8 +72,8 @@ class SeatSelectionActivity : AppCompatActivity() {
         val paymentAmount = PaymentAmount(paymentAmountString.toInt())
 
         val reservationModel = ReservationModel(
-            movie = movieModel,
-            screeningDateTime = screeningDateTime,
+            movie = reservationOptionModel.movieModel,
+            screeningDateTime = reservationOptionModel.screeningDateTime,
             ticketCount = ticketCount,
             seats = seatsView.getSelectedSeats().map(Seat::toSeatModel),
             paymentAmount = paymentAmount

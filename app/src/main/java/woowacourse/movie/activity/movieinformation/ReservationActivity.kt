@@ -10,10 +10,10 @@ import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.uimodel.MovieModel
 import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_INSTANCE_KEY
-import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_DATE_TIME_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationModel.Companion.SCREENING_TIME_INSTANCE_KEY
+import woowacourse.movie.uimodel.ReservationOptionModel
+import woowacourse.movie.uimodel.ReservationOptionModel.Companion.RESERVATION_OPTION_INTENT_KEY
 import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INSTANCE_KEY
-import woowacourse.movie.uimodel.TicketCountModel.Companion.TICKET_COUNT_INTENT_KEY
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -51,16 +51,12 @@ class ReservationActivity : AppCompatActivity() {
     private fun seatSelectionButtonClickEvent(movieModel: MovieModel) {
 
         val intent = Intent(this, SeatSelectionActivity::class.java)
-        intent.putExtra(MOVIE_INTENT_KEY, movieModel)
-        intent.putExtra(
-            TICKET_COUNT_INTENT_KEY,
-            binding.ticketCountTextView.text.toString().toInt()
-        )
-        intent.putExtra(
-            SCREENING_DATE_TIME_INTENT_KEY,
+        val reservationOptionModel = ReservationOptionModel(
+            movieModel,
+            binding.ticketCountTextView.text.toString().toInt(),
             dateTimeSpinnerView.selectedDateTime
         )
-
+        intent.putExtra(RESERVATION_OPTION_INTENT_KEY, reservationOptionModel)
         startActivity(intent)
         finish()
     }
