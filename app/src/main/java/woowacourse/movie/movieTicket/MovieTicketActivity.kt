@@ -1,5 +1,7 @@
 package woowacourse.movie.movieTicket
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -50,7 +52,16 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
-        const val KEY_MOVIE_TICKET = "movieTicket"
+        private const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
+        private const val KEY_MOVIE_TICKET = "key_movie_ticket"
+
+        fun start(context: Context, ticket: MovieTicketModel) {
+            context.startActivity(
+                Intent(context, MovieTicketActivity::class.java).apply {
+                    putExtra(KEY_MOVIE_TICKET, ticket)
+                },
+                null,
+            )
+        }
     }
 }

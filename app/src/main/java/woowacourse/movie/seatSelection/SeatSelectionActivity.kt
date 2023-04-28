@@ -33,17 +33,8 @@ class SeatSelectionActivity : AppCompatActivity() {
         .setCancelable(false)
         .setTitle(getString(R.string.seat_selection_confirm_dialog_title))
         .setMessage(getString(R.string.seat_selection_confirm_dialog_contents))
-        .setPositiveButton(getString(R.string.seat_selection_confirm_dialog_yes)) { _, _ ->
-            startActivity(
-                Intent(this, MovieTicketActivity::class.java).apply {
-                    putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicketModel)
-                },
-                null,
-            )
-        }
-        .setNegativeButton(getString(R.string.seat_selection_confirm_dialog_no)) { dialog, _ ->
-            dialog.dismiss()
-        }
+        .setPositiveButton(getString(R.string.seat_selection_confirm_dialog_yes)) { _, _ -> MovieTicketActivity.start(this, movieTicketModel) }
+        .setNegativeButton(getString(R.string.seat_selection_confirm_dialog_no)) { dialog, _ -> dialog.dismiss() }
         .show()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +68,15 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val INVALID_MOVIE_SCREENING = "잘못된 영화 상영 정보입니다."
-        const val KEY_SEAT_SELECTION = "seat_selection"
+        private const val INVALID_MOVIE_SCREENING = "잘못된 영화 상영 정보입니다."
+        private const val KEY_SEAT_SELECTION = "key_seat_selection"
+
+        fun start(context: AppCompatActivity, seatSelection: SeatSelectionModel) {
+            context.startActivity(
+                Intent(context, SeatSelectionActivity::class.java).apply {
+                    putExtra(KEY_SEAT_SELECTION, seatSelection)
+                },
+            )
+        }
     }
 }

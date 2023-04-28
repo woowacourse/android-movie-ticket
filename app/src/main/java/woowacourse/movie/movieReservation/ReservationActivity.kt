@@ -1,5 +1,6 @@
 package woowacourse.movie.movieReservation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,12 +12,11 @@ import model.SeatSelectionModel
 import movie.TicketQuantity
 import woowacourse.movie.R
 import woowacourse.movie.seatSelection.SeatSelectionActivity
-import woowacourse.movie.seatSelection.SeatSelectionActivity.Companion.KEY_SEAT_SELECTION
 import woowacourse.movie.utils.getSerializableExtraCompat
 
 class ReservationActivity : AppCompatActivity() {
     private val reservationModel by lazy {
-        intent.getSerializableExtraCompat(KEY_MOVIE_Screening) as? ReservationModel
+        intent.getSerializableExtraCompat(KEY_MOVIE_SCREENING) as? ReservationModel
             ?: run {
                 finish()
                 Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
@@ -43,7 +43,7 @@ class ReservationActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        navigation.ticketQuantity.let { outState.putInt(KEY_COUNT, it.toInt()) }
+        navigation.ticketQuantity.let { outState.putInt(KEY_COUNT, it) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -70,20 +70,24 @@ class ReservationActivity : AppCompatActivity() {
         val seatSelectionModel = SeatSelectionModel(
             title = reservationModel.title,
             reserveTime = navigation.selectedDateTime,
-            Quantity = navigation.ticketQuantity.toInt(),
+            Quantity = navigation.ticketQuantity,
         )
-        startActivity(
-            Intent(this, SeatSelectionActivity::class.java).apply {
-                putExtra(KEY_SEAT_SELECTION, seatSelectionModel)
-            },
-            null,
-        )
+        SeatSelectionActivity.start(this, seatSelectionModel)
     }
 
     companion object {
         private const val KEY_COUNT = "count"
         private const val DEFAULT_TICKET_QUANTITY = 1
         private const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
-        const val KEY_MOVIE_Screening = "movieScreening"
+        private const val KEY_MOVIE_SCREENING = "key_movie_screening"
+
+        fun start(context: Context, reservationModel: ReservationModel) {
+            context.startActivity(
+                Intent(context, ReservationActivity::class.java).apply {
+                    putExtra(KEY_MOVIE_SCREENING, reservationModel)
+                },
+                null,
+            )
+        }
     }
 }

@@ -1,10 +1,8 @@
 package woowacourse.movie.movieList
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import model.ItemViewType
 import model.ReservationModel
@@ -31,9 +29,7 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun onMovieItemClick(movieItem: ItemViewType.MOVIE) {
         val reservationModel = ReservationModel(movieItem)
-        val intent = Intent(this, ReservationActivity::class.java)
-        intent.putExtra(ReservationActivity.KEY_MOVIE_Screening, reservationModel)
-        ContextCompat.startActivity(this, intent, null)
+        ReservationActivity.start(this, reservationModel)
     }
 
     private fun onMovieAdItemClick(adItem: ItemViewType.AD) {
