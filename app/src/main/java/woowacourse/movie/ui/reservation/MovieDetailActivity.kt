@@ -3,7 +3,6 @@ package woowacourse.movie.ui.reservation
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import com.example.domain.usecase.GetMovieRunningDateUseCase
 import com.example.domain.usecase.GetMovieRunningTimeUseCase
 import woowacourse.movie.R
 import woowacourse.movie.model.CountState
@@ -22,7 +21,6 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieDetailActivity : BackKeyActionBarActivity() {
-    private val getMovieRunningDateUseCase = GetMovieRunningDateUseCase()
     private val getMovieRunningTimeUseCase = GetMovieRunningTimeUseCase()
 
     private lateinit var movie: MovieState
@@ -86,7 +84,7 @@ class MovieDetailActivity : BackKeyActionBarActivity() {
     }
 
     private fun getMovieRunningDates(movie: MovieState) =
-        getMovieRunningDateUseCase(movie.asDomain())
+        movie.asDomain().runningDates
 
     private fun getMovieRunningTimes(date: LocalDate) =
         getMovieRunningTimeUseCase(date)
