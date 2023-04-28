@@ -7,8 +7,4 @@ import woowacourse.movie.item.ModelItem
 abstract class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     abstract fun bind(modelItem: ModelItem)
-
-    abstract fun isMovieItemViewHolder(): Boolean
-
-    abstract fun isAdvertisingItemViewHolder(): Boolean
 }

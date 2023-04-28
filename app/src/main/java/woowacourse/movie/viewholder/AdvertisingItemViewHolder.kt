@@ -14,8 +14,4 @@ class AdvertisingItemViewHolder(
     override fun bind(modelItem: ModelItem) {
         advertisingImageView.setImageResource(R.drawable.image_advertising)
     }
-
-    override fun isAdvertisingItemViewHolder() = true
-
-    override fun isMovieItemViewHolder() = false
 }

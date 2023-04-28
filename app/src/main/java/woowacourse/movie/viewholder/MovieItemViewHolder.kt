@@ -33,10 +33,6 @@ class MovieItemViewHolder(
         setRunningTimeText(movieItem.movieModel)
     }
 
-    override fun isMovieItemViewHolder() = true
-
-    override fun isAdvertisingItemViewHolder() = false
-
     private fun setItemClickListener(movieModel: MovieModel) {
         itemView.setOnClickListener {
             val intent = Intent(view.context, ReservationActivity::class.java)
