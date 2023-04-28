@@ -33,22 +33,22 @@ object SampleData {
     val CINEMA_SAMPLE =
         (0..10000).flatMap {
             listOf(
-                ItemViewType.MOVIE(
+                ItemViewType.Movie(
                     movie = MOVIE_SAMPLE[0],
                     startDate = LocalDate.of(2023, 4, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
-                ItemViewType.MOVIE(
+                ItemViewType.Movie(
                     movie = MOVIE_SAMPLE[1],
                     startDate = LocalDate.of(2023, 4, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
-                ItemViewType.MOVIE(
+                ItemViewType.Movie(
                     movie = MOVIE_SAMPLE[1],
                     startDate = LocalDate.of(2023, 3, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
-                ItemViewType.AD(
+                ItemViewType.Ad(
                     image = R.drawable.list_ad_example,
                 ),
             )

@@ -16,7 +16,7 @@ class AdViewHolder(
         imageView.setOnClickListener { onAdClick(adapterPosition) }
     }
     fun bind(
-        movieAdItem: ItemViewType.AD,
+        movieAdItem: ItemViewType.Ad,
     ) {
         imageView.setImageResource(movieAdItem.image)
     }

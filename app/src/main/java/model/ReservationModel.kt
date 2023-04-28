@@ -14,7 +14,7 @@ data class ReservationModel(
     @DrawableRes
     val poster: Int,
 ) : Serializable {
-    constructor(movie: ItemViewType.MOVIE) : this(
+    constructor(movie: ItemViewType.Movie) : this(
         title = movie.title,
         runTime = movie.runTime,
         summary = movie.summary,

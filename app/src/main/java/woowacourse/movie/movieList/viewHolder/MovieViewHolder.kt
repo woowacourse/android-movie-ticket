@@ -25,7 +25,7 @@ class MovieViewHolder(
     }
 
     fun bind(
-        movieListItem: ItemViewType.MOVIE,
+        movieListItem: ItemViewType.Movie,
     ) {
         posterView.setImageResource(movieListItem.poster)
         titleView.text = movieListItem.title
