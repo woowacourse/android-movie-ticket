@@ -12,6 +12,10 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".selection.SeatSelectActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+        <activity
             android:name=".confirm.ReservationConfirmActivity"
             android:exported="false" />
         <activity

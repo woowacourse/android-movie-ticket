@@ -1,9 +1,9 @@
-package woowacourse.movie.entity
+package woowacourse.movie.model
 
 @JvmInline
 value class Money(val value: Int) {
     init {
-        require(value > MIN_MONEY_RANGE) { MONEY_ERROR_MESSAGE }
+        require(value >= MIN_MONEY_RANGE) { MONEY_ERROR_MESSAGE }
     }
 
     operator fun times(other: Float): Money {

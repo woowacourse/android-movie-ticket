@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="soft_purple">#FF9160F9</color>
+    <color name="inactivate_btn">#B7B7B7</color>
+    <color name="activate_btn">#6200EE</color>
+    <color name="inactivate_seat">#FFFFFF</color>
+    <color name="activate_seat">#FAFF00</color>
 </resources>

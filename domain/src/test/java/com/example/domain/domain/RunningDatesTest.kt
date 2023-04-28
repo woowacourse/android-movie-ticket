@@ -1,7 +1,8 @@
-package woowacourse.movie.domain
+package com.example.domain.domain
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import woowacourse.movie.domain.RunningDates
 import java.time.LocalDate
 
 class RunningDatesTest {

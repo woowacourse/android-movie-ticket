@@ -1,64 +1,56 @@
 package woowacourse.movie.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import woowacourse.movie.Movie
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.model.MovieAndAd
 
-class MovieAdapter(
-    movie: List<Movie>
-) : BaseAdapter() {
+class MovieAdapter(allData: List<MovieAndAd>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val _movie: List<Movie> = movie.toList()
-    val movie: List<Movie>
-        get() = _movie.toList()
+    private val allData: List<MovieAndAd> = allData.toList()
 
     var clickListener: ReservationClickListener? = null
 
-    override fun getCount(): Int {
-        return _movie.size
-    }
-
-    override fun getItem(position: Int): Movie {
-        return _movie[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertview: View?, parent: ViewGroup?): View {
-        val view: View
-        val viewHolder: MovieViewHolder
-
-        if (convertview != null) {
-            viewHolder = convertview.tag as MovieViewHolder
-            view = convertview
-        } else {
-            view = LayoutInflater
-                .from(parent?.context)
-                .inflate(R.layout.movie_item_layout, parent, false)
-            viewHolder = MovieViewHolder(view)
-            view.tag = viewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            AD_TYPE -> {
+                val adView = LayoutInflater.from(parent.context).inflate(R.layout.ad_item_layout, parent, false)
+                AdViewHolder(adView)
+            }
+            else -> {
+                val movieView = LayoutInflater.from(parent.context).inflate(R.layout.movie_item_layout, parent, false)
+                MovieViewHolder(movieView).apply {
+                    reservation.setOnClickListener { clickListener?.onClick(allData[adapterPosition]) }
+                }
+            }
         }
+    }
 
-        viewHolder.image.setImageResource(_movie[position].imgResourceId)
-        viewHolder.title.text = _movie[position].title
-        viewHolder.startDate.text = _movie[position].startDate.format(DATE_TIME_FORMATTER)
-        viewHolder.endDate.text = _movie[position].endDate.format(DATE_TIME_FORMATTER)
-        viewHolder.time.text = _movie[position].runningTime.value.toString()
-        viewHolder.reservation.setOnClickListener { clickListener?.onClick(position) }
-        return view
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MovieViewHolder -> holder.bind(allData[position] as MovieAndAd.Movie)
+            is AdViewHolder -> holder.bind(allData[position] as MovieAndAd.Advertisement)
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return allData.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (allData[position]) {
+            is MovieAndAd.Movie -> MOVIE_TYPE
+            is MovieAndAd.Advertisement -> AD_TYPE
+        }
     }
 
     interface ReservationClickListener {
-        fun onClick(position: Int)
+        fun onClick(item: MovieAndAd)
     }
 
     companion object {
-        private val DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy.M.d")
+        private const val MOVIE_TYPE = 0
+        private const val AD_TYPE = 1
     }
 }

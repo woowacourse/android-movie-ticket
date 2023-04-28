@@ -120,6 +120,24 @@
                     android:text="@string/person_unit_text"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/line"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/seats_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    tools:text="A1, B3"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
