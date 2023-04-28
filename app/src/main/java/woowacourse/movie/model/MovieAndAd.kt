@@ -20,5 +20,6 @@ sealed class MovieAndAd : Parcelable {
     class Advertisement constructor(
         @DrawableRes
         val imgResourceId: Int,
+        val url: String,
     ) : MovieAndAd()
 }

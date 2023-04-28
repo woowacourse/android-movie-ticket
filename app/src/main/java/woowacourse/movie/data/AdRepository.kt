@@ -6,7 +6,8 @@ import woowacourse.movie.model.MovieAndAd
 class AdRepository {
     val ads = List(AD_NUMBER) {
         MovieAndAd.Advertisement(
-            R.drawable.woowa
+            R.drawable.woowa,
+            "https://woowacourse.github.io/"
         )
     }
 
