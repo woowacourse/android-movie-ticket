@@ -17,6 +17,7 @@ import org.junit.Test
 import woowacourse.movie.KEY_RESERVATION_COUNT
 import woowacourse.movie.KEY_RESERVATION_DATE
 import woowacourse.movie.KEY_RESERVATION_TIME
+import woowacourse.movie.R
 import woowacourse.movie.model.MovieAndAd
 import woowacourse.movie.model.RunningTime
 import woowacourse.movie.model.ViewingDate
@@ -24,7 +25,6 @@ import woowacourse.movie.model.ViewingTime
 import woowacourse.movie.selection.SeatSelectActivity
 import java.time.LocalDate
 import java.time.LocalTime
-import woowacourse.movie.R
 
 class SeatSelectActivityUITest {
     private val movie: MovieAndAd.Movie = MovieAndAd.Movie(
@@ -53,24 +53,24 @@ class SeatSelectActivityUITest {
     val activityRule = ActivityScenarioRule<SeatSelectActivity>(intent)
 
     @Test
-    fun `좌석_선택_화면에_들어가면_좌석_화면이_나온다`(){
+    fun 좌석_선택_화면에_들어가면_좌석_화면이_나온다() {
         onView(withId(R.id.seat_table)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun `좌석을_선택하면_좌석이_선택된다`() {
+    fun 좌석을_선택하면_좌석이_선택된다() {
         // Given
         val seat = onView(withText("A1"))
 
-        //when
+        // when
         seat.perform(click())
 
-        //then
+        // then
         seat.check(matches(isSelected()))
     }
 
     @Test
-    fun `선택된_좌석을_재선택하면_좌석선택이_해제된다`() {
+    fun 선택된_좌석을_재선택하면_좌석선택이_해제된다() {
         // Given
         val seat = onView(withText("A1"))
         seat.perform(click())
@@ -83,16 +83,16 @@ class SeatSelectActivityUITest {
     }
 
     @Test
-    fun `구매를_원하는_좌석만큼_좌석을_선택하면_예매_버튼이_활성화된다`(){
+    fun 구매를_원하는_좌석만큼_좌석을_선택하면_예매_버튼이_활성화된다() {
         // Given
         val seat1 = onView(withText("A1"))
         val seat2 = onView(withText("A2"))
 
-        //when
+        // when
         seat1.perform(click())
         seat2.perform(click())
 
-        //then
+        // then
         onView(withId(R.id.select_confrim_btn)).check(matches(isEnabled()))
     }
 }
