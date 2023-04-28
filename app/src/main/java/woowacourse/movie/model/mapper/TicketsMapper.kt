@@ -13,3 +13,9 @@ fun TicketsState.asDomain(): Tickets = Tickets(
         )
     }
 )
+
+fun Tickets.asPresentation(): TicketsState = TicketsState(
+    tickets[0].movie.asPresentation(),
+    tickets[0].dateTime,
+    tickets.map { it.position.asPresentation() }
+)

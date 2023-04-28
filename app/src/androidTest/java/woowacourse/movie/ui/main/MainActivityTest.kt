@@ -1,10 +1,7 @@
 package woowacourse.movie.ui.main
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.UiController
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -18,7 +15,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import org.hamcrest.Matcher
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -27,6 +23,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.ui.adv.AdvDetailActivity
+import woowacourse.movie.ui.main.util.oneLayerFindViewClickAction
 import woowacourse.movie.ui.reservation.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
@@ -47,13 +44,20 @@ class MainActivityTest {
 
     @Test
     fun `광고_아이템_레이아웃이_세번째_인덱스에_위치한다`() {
-        for (index in 3..33 step 4) {
+        var size = 0
+        activityRule.scenario.onActivity {
+            size = it.findViewById<RecyclerView>(R.id.rv_main).adapter!!.itemCount
+        }
+        if (size <= 3) {
+            return
+        }
+        for (index in 3..size step 4) {
             var viewType = 0
             activityRule.scenario.onActivity {
                 viewType =
                     it.findViewById<RecyclerView>(R.id.rv_main).adapter!!.getItemViewType(index)
             }
-            assertEquals(R.layout.adv_item_layout, viewType)
+            assertEquals(1, viewType)
         }
     }
 
@@ -64,7 +68,7 @@ class MainActivityTest {
             viewType =
                 it.findViewById<RecyclerView>(R.id.rv_main).adapter!!.getItemViewType(2)
         }
-        assertEquals(R.layout.movie_item_layout, viewType)
+        assertEquals(0, viewType)
     }
 
     @Test
@@ -98,16 +102,7 @@ class MainActivityTest {
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     1,
-                    object : ViewAction {
-                        override fun getDescription(): String = "지금 예매 버튼을 클릭한다"
-
-                        override fun getConstraints(): Matcher<View>? = null
-
-                        override fun perform(uiController: UiController, view: View) {
-                            val v = view.findViewById<View>(R.id.reservation)
-                            v.performClick()
-                        }
-                    }
+                    oneLayerFindViewClickAction("지금 예매 버튼을 클릭한다", R.id.reservation)
                 )
             )
 

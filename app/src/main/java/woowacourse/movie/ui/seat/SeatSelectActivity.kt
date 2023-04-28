@@ -3,6 +3,7 @@ package woowacourse.movie.ui.seat
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import com.example.domain.model.Tickets
 import com.example.domain.usecase.DiscountApplyUseCase
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationState
@@ -86,13 +87,13 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     private fun updateSelectSeats(positionStates: List<SeatPositionState>) {
         confirmView.isClickable = (positionStates.size == reservationState.countState.value)
 
-        val tickets = TicketsState(
-            reservationState.movieState,
-            reservationState.dateTime,
-            positionStates.toList()
+        val discountApplyMoney = discountApplyUseCase(
+            Tickets.from(
+                reservationState.asDomain(),
+                positionStates.map { it.asDomain() }
+            )
         )
 
-        val discountApplyMoney = discountApplyUseCase(tickets.asDomain())
         moneyTextView.text = getString(
             R.string.discount_money,
             DecimalFormatters.convertToMoneyFormat(discountApplyMoney.asPresentation())
