@@ -20,12 +20,12 @@ class MovieListAdapter(
             ItemViewType.TYPE_MOVIE -> {
                 MovieViewHolder(
                     layoutInflater.inflate(R.layout.item_movie_movie_list, parent, false),
-                )
+                ) { position -> onClickButton(items[position] as ItemViewType.MOVIE) }
             }
             ItemViewType.TYPE_AD -> {
                 AdViewHolder(
                     layoutInflater.inflate(R.layout.item_ad_movie_list, parent, false),
-                )
+                ) { position -> onAdClick(items[position] as ItemViewType.AD) }
             }
             else -> throw IllegalArgumentException(ERROR_INVALID_VIEW_TYPE)
         }
@@ -33,8 +33,8 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MovieViewHolder -> holder.bind(items[position] as ItemViewType.MOVIE, onClickButton)
-            is AdViewHolder -> holder.bind(items[position] as ItemViewType.AD, onAdClick)
+            is MovieViewHolder -> holder.bind(items[position] as ItemViewType.MOVIE)
+            is AdViewHolder -> holder.bind(items[position] as ItemViewType.AD)
         }
     }
 
