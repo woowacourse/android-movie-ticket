@@ -30,7 +30,6 @@ import woowacourse.movie.model.ViewingDate
 import woowacourse.movie.model.ViewingTime
 import woowacourse.movie.utils.BackKeyActionBarActivity
 import woowacourse.movie.utils.getParcelableCompat
-import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
@@ -84,9 +83,11 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     private fun selectSeat(index: Int, view: View) {
         if (chosenSeats.contains(positionFind(index))) {
             chosenSeats.remove(positionFind(index))
+            view.isSelected = false
             view.setBackgroundColor(R.color.inactivate_seat)
         } else {
             chosenSeats.add(positionFind(index))
+            view.isSelected = true
             view.setBackgroundColor(R.color.activate_seat)
         }
     }
@@ -109,8 +110,7 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
             R.string.columnTwo -> SeatRank.B
             R.string.columnThree -> SeatRank.C
             R.string.columnFour -> SeatRank.D
-            R.string.columnFive -> SeatRank.E
-            else -> throw IllegalArgumentException(ERROR_MESSAGE)
+            else -> SeatRank.E
         }
         return Seat(rank, row)
     }
