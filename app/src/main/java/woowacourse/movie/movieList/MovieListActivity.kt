@@ -27,12 +27,14 @@ class MovieListActivity : AppCompatActivity() {
         )
     }
 
-    private fun onMovieItemClick(movieItem: ItemViewType.Movie) {
+    private fun onMovieItemClick(itemViewType: ItemViewType) {
+        val movieItem = itemViewType as? ItemViewType.Movie ?: return
+
         val reservationModel = ReservationModel(movieItem)
         ReservationActivity.start(this, reservationModel)
     }
 
-    private fun onMovieAdItemClick(adItem: ItemViewType.Ad) {
+    private fun onMovieAdItemClick(itemViewType: ItemViewType) {
         Log.d("MovieListRecycler", "ad")
     }
 }

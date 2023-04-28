@@ -3,7 +3,6 @@ package woowacourse.movie.movieList.viewHolder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import model.ItemViewType
 import woowacourse.movie.R
 import java.time.LocalDate
@@ -13,7 +12,7 @@ class MovieViewHolder(
     private val view: View,
     onClickButton: (Int) -> Unit,
 
-) : RecyclerView.ViewHolder(view) {
+) : ItemViewHolder(view) {
     private val posterView: ImageView = view.findViewById(R.id.movie_poster)
     private val titleView: TextView = view.findViewById(R.id.movie_title)
     private val releaseDateView: TextView = view.findViewById(R.id.movie_release_date)
@@ -24,9 +23,9 @@ class MovieViewHolder(
         reservationButton.setOnClickListener { onClickButton(adapterPosition) }
     }
 
-    fun bind(
-        movieListItem: ItemViewType.Movie,
-    ) {
+    override fun bind(itemViewType: ItemViewType) {
+        val movieListItem = itemViewType as? ItemViewType.Movie ?: return
+
         posterView.setImageResource(movieListItem.poster)
         titleView.text = movieListItem.title
         releaseDateView.text = getScreeningDate(movieListItem.startDate, movieListItem.endDate)
