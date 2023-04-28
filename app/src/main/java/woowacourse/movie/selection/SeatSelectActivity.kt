@@ -1,6 +1,7 @@
 package woowacourse.movie.selection
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -136,17 +137,28 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     }
 
     private fun putIntent() {
-        val intent = Intent(this, ReservationConfirmActivity::class.java)
-        intent.putExtra(KEY_MOVIE, movie)
-        intent.putExtra(KEY_RESERVATION_COUNT, CountMapper(reservationCount))
-        intent.putExtra(KEY_RESERVATION_MONEY, MoneyMapper(totalMoney))
-        intent.putExtra(KEY_RESERVATION_DATE, date)
-        intent.putExtra(KEY_RESERVATION_TIME, time)
-        intent.putExtra(KEY_RESERVATION_SEATS, Seats(chosenSeats))
+        val intent = getCustomIntent(this, movie, reservationCount, totalMoney, date, time, chosenSeats)
         startActivity(intent)
     }
 
     companion object {
-        private const val ERROR_MESSAGE = "[ERROR]"
+        fun getCustomIntent(
+            context: Context,
+            movie: MovieAndAd.Movie,
+            reservationCount: Int,
+            totalMoney: Int,
+            date: ViewingDate,
+            time: ViewingTime,
+            chosenSeats: MutableList<Seat>
+        ): Intent {
+            val intent = Intent(context, ReservationConfirmActivity::class.java)
+            intent.putExtra(KEY_MOVIE, movie)
+            intent.putExtra(KEY_RESERVATION_COUNT, CountMapper(reservationCount))
+            intent.putExtra(KEY_RESERVATION_MONEY, MoneyMapper(totalMoney))
+            intent.putExtra(KEY_RESERVATION_DATE, date)
+            intent.putExtra(KEY_RESERVATION_TIME, time)
+            intent.putExtra(KEY_RESERVATION_SEATS, Seats(chosenSeats))
+            return intent
+        }
     }
 }
