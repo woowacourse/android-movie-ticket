@@ -4,28 +4,25 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import model.MovieTicketModel
 import woowacourse.movie.R
 import woowacourse.movie.utils.getSerializableExtraCompat
+import woowacourse.movie.utils.keyError
 
 class MovieTicketActivity : AppCompatActivity() {
-    private val ticket: MovieTicketModel by lazy {
-        intent.getSerializableExtraCompat(KEY_MOVIE_TICKET) as? MovieTicketModel ?: run {
-            finish()
-            Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
-            MovieTicketModel.EMPTY
-        }
-    }
-
     private val activityView by lazy { window.decorView.rootView }
 
-    private val ticketView by lazy { MovieTicketView(activityView) }
+    private lateinit var ticket: MovieTicketModel
+    private lateinit var ticketView: MovieTicketView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
+
+        ticket = intent.getSerializableExtraCompat(KEY_MOVIE_TICKET) ?: return keyError(KEY_MOVIE_TICKET)
+        ticketView = MovieTicketView(activityView)
 
         initToolbar()
         initTicketView()
@@ -52,7 +49,6 @@ class MovieTicketActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
         private const val KEY_MOVIE_TICKET = "key_movie_ticket"
 
         fun start(context: Context, ticket: MovieTicketModel) {

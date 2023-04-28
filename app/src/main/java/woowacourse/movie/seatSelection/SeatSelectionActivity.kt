@@ -3,7 +3,6 @@ package woowacourse.movie.seatSelection
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -12,22 +11,11 @@ import model.SeatSelectionModel
 import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
+import woowacourse.movie.utils.keyError
 
 class SeatSelectionActivity : AppCompatActivity() {
-    private val seatSelection: SeatSelectionModel by lazy {
-        intent.getSerializableExtraCompat(KEY_SEAT_SELECTION) as? SeatSelectionModel ?: run {
-            finish()
-            Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
-            SeatSelectionModel.EMPTY
-        }
-    }
-
-    private val seatSelectionView by lazy {
-        SeatSelectionTable(
-            window.decorView.rootView,
-            seatSelection,
-        ) { ticketModel -> onConfirmClick(ticketModel) }
-    }
+    private lateinit var seatSelection: SeatSelectionModel
+    private lateinit var seatSelectionView: SeatSelectionTable
 
     private fun onConfirmClick(movieTicketModel: MovieTicketModel) = AlertDialog.Builder(this)
         .setCancelable(false)
@@ -41,15 +29,23 @@ class SeatSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
+        seatSelection = intent.getSerializableExtraCompat(KEY_SEAT_SELECTION) ?: return keyError(KEY_SEAT_SELECTION)
+
         initToolbar()
 
-        savedInstanceState?.let { seatSelectionView.loadSeatSelection(it) } ?: seatSelectionView
+        seatSelectionView = createSeatSelectionView()
+        savedInstanceState?.let { seatSelectionView.loadSeatSelection(it) }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         seatSelectionView.saveInstanceState(outState)
     }
+
+    private fun createSeatSelectionView(): SeatSelectionTable = SeatSelectionTable(
+        window.decorView.rootView,
+        seatSelection,
+    ) { ticketModel -> onConfirmClick(ticketModel) }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -68,7 +64,6 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val INVALID_MOVIE_SCREENING = "잘못된 영화 상영 정보입니다."
         private const val KEY_SEAT_SELECTION = "key_seat_selection"
 
         fun start(context: AppCompatActivity, seatSelection: SeatSelectionModel) {

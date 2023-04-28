@@ -10,8 +10,4 @@ data class MovieModel(
 
     @DrawableRes
     val poster: Int,
-) : Serializable {
-    companion object {
-        val EMPTY = MovieModel("", 0, "", 0)
-    }
-}
+) : Serializable

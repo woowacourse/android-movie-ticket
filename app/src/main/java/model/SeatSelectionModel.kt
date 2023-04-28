@@ -7,8 +7,4 @@ class SeatSelectionModel(
     val title: String,
     val reserveTime: LocalDateTime,
     val Quantity: Int,
-) : Serializable {
-    companion object {
-        val EMPTY = SeatSelectionModel("", LocalDateTime.MIN, 0)
-    }
-}
+) : Serializable

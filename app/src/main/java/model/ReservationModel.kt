@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import java.io.Serializable
 import java.time.LocalDate
 
-class ReservationModel(
+data class ReservationModel(
     val title: String,
     val runTime: Int,
     val summary: String,
@@ -22,8 +22,4 @@ class ReservationModel(
         endDate = movie.endDate,
         poster = movie.poster,
     )
-
-    companion object {
-        val EMPTY = ReservationModel("", 0, "", LocalDate.MIN, LocalDate.MIN, 0)
-    }
 }

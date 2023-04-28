@@ -17,8 +17,4 @@ data class MovieTicketModel(
         seatSelection.getTotalPrice(seatSelectionModel.reserveTime),
         seatSelection.selection.map { it.toSeatModel() },
     )
-
-    companion object {
-        val EMPTY = MovieTicketModel("", LocalDateTime.MIN, 0, emptyList())
-    }
 }
