@@ -1,7 +1,6 @@
 package woowacourse.movie.utils
 
-import model.MovieAdItem
-import model.MovieListItem
+import model.ItemViewType
 import model.MovieModel
 import woowacourse.movie.R
 import java.time.LocalDate
@@ -34,22 +33,22 @@ object SampleData {
     val CINEMA_SAMPLE =
         (0..10000).flatMap {
             listOf(
-                MovieListItem(
+                ItemViewType.MOVIE(
                     movie = MOVIE_SAMPLE[0],
                     startDate = LocalDate.of(2023, 4, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
-                MovieListItem(
+                ItemViewType.MOVIE(
                     movie = MOVIE_SAMPLE[1],
                     startDate = LocalDate.of(2023, 4, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
-                MovieListItem(
+                ItemViewType.MOVIE(
                     movie = MOVIE_SAMPLE[1],
                     startDate = LocalDate.of(2023, 3, 1),
                     endDate = LocalDate.of(2023, 4, 30),
                 ),
-                MovieAdItem(
+                ItemViewType.AD(
                     image = R.drawable.list_ad_example,
                 ),
             )

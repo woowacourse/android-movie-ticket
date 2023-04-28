@@ -14,13 +14,13 @@ class ReservationModel(
     @DrawableRes
     val poster: Int,
 ) : Serializable {
-    constructor(MovieListItem: MovieListItem) : this(
-        title = MovieListItem.title,
-        runTime = MovieListItem.runTime,
-        summary = MovieListItem.summary,
-        startDate = MovieListItem.startDate,
-        endDate = MovieListItem.endDate,
-        poster = MovieListItem.poster,
+    constructor(movie: ItemViewType.MOVIE) : this(
+        title = movie.title,
+        runTime = movie.runTime,
+        summary = movie.summary,
+        startDate = movie.startDate,
+        endDate = movie.endDate,
+        poster = movie.poster,
     )
 
     companion object {

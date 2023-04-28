@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import model.MovieListItem
+import model.ItemViewType
 import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -17,8 +17,8 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     private val reservationButton: View = view.findViewById(R.id.movie_reservation_button)
 
     fun bind(
-        movieListItem: MovieListItem,
-        onClickButton: (MovieListItem) -> Unit,
+        movieListItem: ItemViewType.MOVIE,
+        onClickButton: (ItemViewType.MOVIE) -> Unit,
     ) {
         posterView.setImageResource(movieListItem.poster)
         titleView.text = movieListItem.title
