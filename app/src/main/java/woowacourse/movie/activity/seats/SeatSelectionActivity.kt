@@ -16,7 +16,6 @@ import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_K
 import woowacourse.movie.uimodel.ReservationOptionModel
 import woowacourse.movie.uimodel.ReservationOptionModel.Companion.RESERVATION_OPTION_INTENT_KEY
 import woowacourse.movie.uimodel.toSeatModel
-import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity() {
 
@@ -75,14 +74,5 @@ class SeatSelectionActivity : AppCompatActivity() {
         nextIntent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
         startActivity(nextIntent)
         finish()
-    }
-
-    private fun updatePaymentAmount() {
-        val paymentAmount: PaymentAmount =
-            PaymentAmount.applyDiscount(seatsView.getSelectedSeats(), reservationOptionModel.screeningDateTime)
-
-        binding.paymentAmountTextView.text =
-            getString(R.string.payment_amount_form)
-                .format(DecimalFormat("#,###").format(paymentAmount.value))
     }
 }

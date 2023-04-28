@@ -1,6 +1,13 @@
 package woowacourse.movie.item
 
-enum class ItemType(val typeNumber: Int) {
-    Advertising(0),
-    Movie(1);
+import androidx.annotation.LayoutRes
+import woowacourse.movie.R
+
+enum class ItemType(@LayoutRes val layoutRes: Int) {
+    ADVERTISING(R.layout.item_advertising),
+    MOVIE(R.layout.item_movie);
+
+    companion object {
+        fun of(ordinal: Int): ItemType = values()[ordinal]
+    }
 }

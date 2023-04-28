@@ -1,3 +1,5 @@
 package woowacourse.movie.item
 
-interface ModelItem
+interface ModelItem {
+    val itemType: ItemType
+}

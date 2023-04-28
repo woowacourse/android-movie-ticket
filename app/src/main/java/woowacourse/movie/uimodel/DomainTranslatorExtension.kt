@@ -18,7 +18,7 @@ fun Movie.toMovieModel(): MovieModel =
 fun MovieModel.toMovieItem(): MovieItem =
     MovieItem(
         movieModel = this,
-        itemType = ItemType.Movie
+        itemType = ItemType.MOVIE
     )
 
 fun Reservation.toReservationModel(): ReservationModel =
