@@ -1,16 +1,13 @@
 package com.example.domain.usecase
 
-import com.example.domain.discountPolicy.DefaultDiscountPolicy
-import com.example.domain.discountPolicy.DiscountPolicy
 import com.example.domain.model.Money
-import com.example.domain.model.Reservation
+import com.example.domain.model.Movie
+import com.example.domain.model.seat.SeatPosition
+import com.example.domain.ticketSeller.TicketSeller
+import java.time.LocalDateTime
 
-class DiscountApplyUseCase(private val discountPolicy: DiscountPolicy = DefaultDiscountPolicy()) {
-    operator fun invoke(
-        reservation: Reservation,
-        onResult: (Money) -> Unit
-    ) {
-        val discountApplyMoney = discountPolicy.discount(reservation)
-        onResult(discountApplyMoney)
+class DiscountApplyUseCase(private val ticketSeller: TicketSeller = TicketSeller()) {
+    operator fun invoke(movie: Movie, dateTime: LocalDateTime, seats: List<SeatPosition>): Money {
+        return ticketSeller.predictMoney(movie, dateTime, seats)
     }
 }

@@ -1,10 +1,12 @@
 package com.example.domain.discountPolicy.condition
 
-import com.example.domain.model.Reservation
+import com.example.domain.model.Movie
+import com.example.domain.model.seat.SeatPosition
+import java.time.LocalDateTime
 
 class MovieDayCondition : DiscountCondition {
-    override fun isDiscountable(reservation: Reservation): Boolean {
-        return reservation.dateTime.dayOfMonth in MOVIE_DAYS
+    override fun isDiscountable(movie: Movie, dateTime: LocalDateTime, seatPosition: SeatPosition): Boolean {
+        return dateTime.dayOfMonth in MOVIE_DAYS
     }
 
     companion object {

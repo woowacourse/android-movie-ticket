@@ -7,10 +7,17 @@
     <string name="error_reservation_min_count">예약 인원은 최소 한명 이상이어야 합니다</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
-    <string name="reservation_confirm">예매 완료</string>
+    <string name="reservation_cancel">취소</string>
+    <string name="reservation_complete">예매 완료</string>
     <string name="guide_reservation_cancel_condition">영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다.</string>
     <string name="movie_title">영화 제목</string>
     <string name="reservation_pay_text">원 (현장 결제)</string>
-    <string name="person_count_text">일반 %d명</string>
+    <string name="person_count_and_seat">일반 %d명 | %s</string>
     <string name="no_key_exist_error">%s 에 해당하는 value를 전달받지 않았기에 강제종료합니다</string>
+    <string name="screen">SCREEN</string>
+
+    <string name="confirm">확인</string>
+    <string name="discount_money">%s원</string>
+    <string name="reservation_confirm">예매 확인</string>
+    <string name="ask_really_reservation">정말 예매하시겠습니까?</string>
 </resources>

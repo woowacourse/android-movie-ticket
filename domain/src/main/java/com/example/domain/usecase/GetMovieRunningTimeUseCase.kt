@@ -5,11 +5,5 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class GetMovieRunningTimeUseCase(private val runningTime: RunningTime = RunningTime()) {
-    operator fun invoke(
-        date: LocalDate,
-        onResult: (List<LocalTime>) -> Unit = {}
-    ) {
-        val times = runningTime.getRunningTimes(date)
-        onResult(times)
-    }
+    operator fun invoke(date: LocalDate): List<LocalTime> = runningTime.getRunningTimes(date)
 }

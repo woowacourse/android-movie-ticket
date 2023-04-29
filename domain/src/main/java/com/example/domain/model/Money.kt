@@ -11,10 +11,6 @@ value class Money(val value: Int) {
         return Money(result)
     }
 
-    operator fun times(other: Count): Money {
-        return Money(value * other.value)
-    }
-
     operator fun minus(other: Money): Money {
         return Money(value - other.value)
     }

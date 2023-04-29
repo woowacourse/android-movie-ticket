@@ -7,15 +7,8 @@ import android.widget.Spinner
 import androidx.appcompat.R
 
 fun Spinner.setClickListener(
-    onClick: (
-        parent: AdapterView<*>?,
-        view: View?,
-        position: Int,
-        id: Long
-    ) -> Unit = { _, _, _, _ -> },
-    onNothing: (
-        parent: AdapterView<*>?
-    ) -> Unit = {}
+    onClick: (position: Int) -> Unit = { },
+    onNothing: (parent: AdapterView<*>?) -> Unit = {}
 ) {
     onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(
@@ -24,7 +17,7 @@ fun Spinner.setClickListener(
             position: Int,
             id: Long
         ) {
-            onClick(parent, view, position, id)
+            onClick(position)
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -33,11 +26,11 @@ fun Spinner.setClickListener(
     }
 }
 
-fun <T> Spinner.setDefaultAdapter(itmes: List<T>) {
+fun <T> Spinner.setDefaultAdapter(items: List<T>) {
     val spinnerAdapter = ArrayAdapter(
         this.context,
         R.layout.support_simple_spinner_dropdown_item,
-        itmes.toList()
+        items.toList()
     )
     adapter = spinnerAdapter
 }

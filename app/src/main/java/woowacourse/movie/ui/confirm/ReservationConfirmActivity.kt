@@ -2,48 +2,47 @@ package woowacourse.movie.ui.confirm
 
 import android.os.Bundle
 import android.widget.TextView
-import com.example.domain.usecase.DiscountApplyUseCase
 import woowacourse.movie.R
-import woowacourse.movie.model.ReservationState
-import woowacourse.movie.model.mapper.asDomain
+import woowacourse.movie.model.TicketsState
 import woowacourse.movie.ui.BackKeyActionBarActivity
 import woowacourse.movie.ui.DateTimeFormatters
-import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_RESERVATION
+import woowacourse.movie.ui.DecimalFormatters
+import woowacourse.movie.ui.reservation.MovieDetailActivity.Companion.KEY_TICKETS
 import woowacourse.movie.util.getParcelableExtraCompat
 import woowacourse.movie.util.keyError
-import java.text.DecimalFormat
 
 class ReservationConfirmActivity : BackKeyActionBarActivity() {
-    private val discountApplyUseCase = DiscountApplyUseCase()
-
     private val titleTextView: TextView by lazy { findViewById(R.id.reservation_title) }
     private val dateTextView: TextView by lazy { findViewById(R.id.reservation_date) }
     private val moneyTextView: TextView by lazy { findViewById(R.id.reservation_money) }
-    private val reservationCountTextView: TextView by lazy { findViewById(R.id.reservation_count) }
+    private val reservationCountTextView: TextView by lazy { findViewById(R.id.reservation_count_and_seat) }
 
     override fun onCreateView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_reservation_confirm)
-        val reservationRes = intent.getParcelableExtraCompat<ReservationState>(KEY_RESERVATION)
-            ?: return keyError(KEY_RESERVATION)
-        setInitReservationData(reservationRes)
+        val tickets = intent.getParcelableExtraCompat<TicketsState>(KEY_TICKETS)
+            ?: return keyError(KEY_TICKETS)
+        setInitReservationData(tickets)
     }
 
     private fun setInitReservationData(
-        reservationState: ReservationState
+        tickets: TicketsState
     ) {
-        titleTextView.text = reservationState.movieState.title
-        dateTextView.text = DateTimeFormatters.convertToDateTime(reservationState.dateTime)
+        titleTextView.text = tickets.movieState.title
+        dateTextView.text =
+            DateTimeFormatters.convertToDateTime(tickets.dateTime)
         reservationCountTextView.text =
-            getString(R.string.person_count_text, reservationState.countState.value)
-        setDiscountApplyMoney(reservationState)
+            getString(
+                R.string.person_count_and_seat,
+                tickets.tickets.size,
+                tickets.tickets.map { it.seatPositionState }.joinToString { it.toString() }
+            )
+        setDiscountApplyMoney(tickets)
     }
 
-    private fun setDiscountApplyMoney(reservationState: ReservationState) =
-        discountApplyUseCase(reservationState.asDomain()) {
-            moneyTextView.text = DECIMAL_FORMATTER.format(it.value)
-        }
+    private fun setDiscountApplyMoney(tickets: TicketsState) {
+        val discountApplyMoney = tickets.totalDiscountedMoneyState
 
-    companion object {
-        private val DECIMAL_FORMATTER = DecimalFormat("#,###")
+        moneyTextView.text =
+            DecimalFormatters.convertToMoneyFormat(discountApplyMoney)
     }
 }

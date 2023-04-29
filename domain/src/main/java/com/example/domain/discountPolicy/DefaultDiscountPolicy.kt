@@ -1,31 +1,30 @@
 package com.example.domain.discountPolicy
 
-import com.example.domain.discountPolicy.apply.Discount
-import com.example.domain.discountPolicy.apply.JoJoNightDiscount
-import com.example.domain.discountPolicy.apply.MovieDayDiscount
-import com.example.domain.discountPolicy.condition.DiscountCondition
-import com.example.domain.discountPolicy.condition.JoJoNightCondition
-import com.example.domain.discountPolicy.condition.MovieDayCondition
+import com.example.domain.discountPolicy.policy.Policy
 import com.example.domain.model.Money
-import com.example.domain.model.Reservation
+import com.example.domain.model.Movie
+import com.example.domain.model.seat.SeatPosition
+import com.example.domain.model.seat.SeatRank
+import java.time.LocalDateTime
 
-class DefaultDiscountPolicy : DiscountPolicy {
-    private val policy: Map<DiscountCondition, Discount> = mapOf(
-        MovieDayCondition() to MovieDayDiscount(),
-        JoJoNightCondition() to JoJoNightDiscount()
+class DefaultDiscountPolicy(
+    private val policies: List<Policy> = listOf(
+        Policy.MovieDayPolicy(),
+        Policy.JoJoNightPolicy()
     )
+) : DiscountPolicy {
 
-    override fun discount(reservation: Reservation): Money {
-        val discountApplyMoney = policy.keys.fold(TICKET_MONEY) { money, condition ->
-            if (condition.isDiscountable(reservation)) {
-                return@fold policy[condition]?.discount(money) ?: money
+    override fun discount(
+        movie: Movie,
+        dateTime: LocalDateTime,
+        seatPosition: SeatPosition
+    ): Money {
+        val originMoney = SeatRank.from(seatPosition).money
+        return policies.fold(originMoney) { money, policy ->
+            if (policy.discountCondition.isDiscountable(movie, dateTime, seatPosition)) {
+                return@fold policy.discount.discount(money)
             }
             money
         }
-        return discountApplyMoney * reservation.count
-    }
-
-    companion object {
-        private val TICKET_MONEY = Money(13000)
     }
 }

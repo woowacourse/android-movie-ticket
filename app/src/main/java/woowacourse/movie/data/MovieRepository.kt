@@ -4,7 +4,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieState
 import java.time.LocalDate
 
-object MovieRepositoryImpl {
+object MovieRepository {
     fun allMovies(): List<MovieState> = movies.toList()
 
     private val movies: List<MovieState> = List(25) {
