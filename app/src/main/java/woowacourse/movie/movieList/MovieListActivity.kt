@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import model.ItemViewType
 import model.ReservationModel
+import repository.MovieListRepository.movieList
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.ReservationActivity
-import woowacourse.movie.utils.SampleData.CINEMA_SAMPLE
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MovieListActivity : AppCompatActivity() {
     private fun initMovieList() {
         val movieListView = findViewById<RecyclerView>(R.id.movie_list)
         movieListView.adapter = MovieListAdapter(
-            items = CINEMA_SAMPLE,
+            items = movieList,
             onClickButton = ::onMovieItemClick,
             onAdClick = ::onMovieAdItemClick,
         )
