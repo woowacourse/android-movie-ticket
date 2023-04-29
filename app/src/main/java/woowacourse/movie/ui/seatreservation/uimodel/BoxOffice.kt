@@ -13,7 +13,7 @@ class BoxOffice private constructor(
     private val calculator: Calculator by lazy { Calculator.create(bookedDateTime) }
     private val _seats: MutableList<Seat> = mutableListOf()
     val seats: List<Seat> get() = _seats.toList()
-    var count: Int = 0
+    private var count: Int = 0
 
     fun calculate(view: View, seatLocation: Int): Int {
         val seatGrade = Seat.valueOf(seatLocation)

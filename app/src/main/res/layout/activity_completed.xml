@@ -71,9 +71,9 @@
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintEnd_toStartOf="@+id/textCompletedSeat"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCompletedScreeningDate"
         tools:text="일반 1명" />
