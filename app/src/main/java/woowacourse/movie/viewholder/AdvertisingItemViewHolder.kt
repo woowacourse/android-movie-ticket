@@ -14,4 +14,6 @@ class AdvertisingItemViewHolder(
     override fun bind(modelItem: ModelItem) {
         advertisingImageView.setImageResource(R.drawable.image_advertising)
     }
+
+    override fun itemClickEvent(model: ModelItem) { }
 }

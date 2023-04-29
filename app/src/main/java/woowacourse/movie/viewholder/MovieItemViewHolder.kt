@@ -25,12 +25,18 @@ class MovieItemViewHolder(
     override fun bind(modelItem: ModelItem) {
         val movieItem: MovieItem = modelItem as MovieItem
 
-        setItemClickListener(movieItem.movieModel)
+        itemView.setOnClickListener { itemClickEvent(movieItem) }
 
         setPosterResource(movieItem.movieModel)
         setMovieNameText(movieItem.movieModel)
         setScreeningDateText(movieItem.movieModel)
         setRunningTimeText(movieItem.movieModel)
+    }
+
+    override fun itemClickEvent(model: ModelItem) {
+        val intent = Intent(view.context, ReservationActivity::class.java)
+        intent.putExtra(MovieModel.MOVIE_INTENT_KEY, (model as MovieItem).movieModel)
+        view.context.startActivity(intent)
     }
 
     private fun setItemClickListener(movieModel: MovieModel) {
