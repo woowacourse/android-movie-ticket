@@ -47,16 +47,16 @@ class SeatsView(
     private fun createSeatViews(rowSize: Int, columnSize: Int): List<List<TextView>> {
         val seats: MutableList<MutableList<TextView>> = mutableListOf()
 
-        for (row in Row.MINIMUM..Row.MINIMUM + rowSize) {
+        for (row in Row.INDEX_MINIMUM until Row.INDEX_MINIMUM + rowSize) {
             val tableRow = TableRow(context)
             tableRow.layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.MATCH_PARENT, 180, 1f
             )
             seats.add(mutableListOf())
 
-            for (col in Column.MINIMUM..Column.MINIMUM + columnSize) {
-                val textView: TextView = createSeatView(row, col)
-                seats[Row.toNumber(row)].add(textView)
+            for (col in Column.INDEX_MINIMUM until Column.INDEX_MINIMUM + columnSize) {
+                val textView: TextView = createSeatView(Row.of(row).value, col)
+                seats[row].add(textView)
                 tableRow.addView(textView)
             }
 

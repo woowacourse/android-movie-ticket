@@ -38,7 +38,7 @@ class SeatSelectionActivity : AppCompatActivity() {
 
         binding.movieNameTextView.text = reservationOptionModel.movieModel.name.value
 
-        seatsView.set(Row.toNumber(Row.MAXIMUM), Column.MAXIMUM)
+        seatsView.set(Row.INDEX_MAXIMUM + 1, Column.INDEX_MAXIMUM + 1)
         binding.reservationCompleteTextView.setOnClickListener {
             completeButtonClickEvent(reservationOptionModel.ticketCount)
         }

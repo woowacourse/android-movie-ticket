@@ -11,10 +11,12 @@ value class Column(val value: Int) {
     }
 
     override fun toString(): String = value.toString()
-
     companion object {
         const val MINIMUM = 1
         const val MAXIMUM = 4
+
+        const val INDEX_MINIMUM = 0
+        const val INDEX_MAXIMUM = 3
 
         /**
          * 문자 1..5로 표현된 숫자를
