@@ -38,8 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateMovieDetail(movie: MovieState) {
-        val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(KEY_MOVIE, movie)
+        val intent = MovieDetailActivity.getIntent(this, movie)
         startActivity(intent)
     }
 
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        internal const val KEY_MOVIE = "key_movie"
         internal const val KEY_ADV = "key_adb"
     }
 }

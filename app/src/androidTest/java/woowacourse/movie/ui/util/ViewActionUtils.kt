@@ -1,12 +1,14 @@
-package woowacourse.movie.ui.main.util
+package woowacourse.movie.ui.util
 
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
+import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import org.hamcrest.Matcher
 
-fun oneLayerFindViewClickAction(description: String, @IdRes findId: Int): ViewAction {
+fun findViewByIdAndClickAction(description: String, @IdRes findId: Int): ViewAction {
     return object : ViewAction {
         override fun getDescription(): String = description
 
@@ -18,3 +20,6 @@ fun oneLayerFindViewClickAction(description: String, @IdRes findId: Int): ViewAc
         }
     }
 }
+
+fun ViewInteraction.checkMatches(matcher: Matcher<View>): ViewInteraction =
+    check(matches(matcher))

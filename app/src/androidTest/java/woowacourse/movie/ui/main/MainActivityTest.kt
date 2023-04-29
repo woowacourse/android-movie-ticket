@@ -23,8 +23,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.ui.adv.AdvDetailActivity
-import woowacourse.movie.ui.main.util.oneLayerFindViewClickAction
 import woowacourse.movie.ui.reservation.MovieDetailActivity
+import woowacourse.movie.ui.util.findViewByIdAndClickAction
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -102,7 +102,7 @@ class MainActivityTest {
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     1,
-                    oneLayerFindViewClickAction("지금 예매 버튼을 클릭한다", R.id.reservation)
+                    findViewByIdAndClickAction("지금 예매 버튼을 클릭한다", R.id.reservation)
                 )
             )
 

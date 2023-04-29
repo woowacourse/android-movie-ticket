@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.seat
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
@@ -100,6 +101,12 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
     }
 
     companion object {
+        fun getIntent(context: Context, reservationState: ReservationState): Intent {
+            val intent = Intent(context, SeatSelectActivity::class.java)
+            intent.putExtra(KEY_TICKETS, reservationState)
+            return intent
+        }
+
         private const val SEAT_RESTORE_KEY = "seat_restore_key"
     }
 }
