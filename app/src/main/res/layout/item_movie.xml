@@ -34,7 +34,7 @@
         android:layout_marginTop="10dp"
         android:text="상영일: 0000.00.00"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_medium"
+        android:textSize="@dimen/text_small"
         app:layout_constraintLeft_toRightOf="@id/movie_poster_image_view"
         app:layout_constraintTop_toBottomOf="@id/movie_name_text_view" />
 
@@ -45,7 +45,7 @@
         android:layout_marginStart="15dp"
         android:text="러닝타임: 000분"
         android:textColor="@color/black"
-        android:textSize="@dimen/text_medium"
+        android:textSize="@dimen/text_small"
         app:layout_constraintLeft_toRightOf="@+id/movie_poster_image_view"
         app:layout_constraintTop_toBottomOf="@+id/movie_screening_period_text_view" />
 

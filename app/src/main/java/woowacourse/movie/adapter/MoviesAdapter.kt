@@ -1,41 +1,37 @@
 package woowacourse.movie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import woowacourse.movie.R
-import woowacourse.movie.uimodel.MovieModel
+import androidx.recyclerview.widget.RecyclerView
+import woowacourse.movie.item.ItemType
+import woowacourse.movie.item.ModelItem
+import woowacourse.movie.viewholder.AdvertisingItemViewHolder
+import woowacourse.movie.viewholder.ItemViewHolder
 import woowacourse.movie.viewholder.MovieItemViewHolder
 
 class MoviesAdapter(
-    private val movieModels: List<MovieModel>
-) : BaseAdapter() {
+    private val modelItems: MutableList<ModelItem>
+) : RecyclerView.Adapter<ItemViewHolder>() {
 
-    override fun getCount(): Int = movieModels.size
+    override fun getItemCount(): Int = modelItems.size
 
-    override fun getItem(position: Int): MovieModel = movieModels[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val itemType: ItemType = ItemType.of(viewType)
+        val view = LayoutInflater.from(parent.context).inflate(itemType.layoutRes, parent, false)
 
-    override fun getItemId(position: Int): Long = 0
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val context: Context? = parent?.context
-        val movieModel: MovieModel = movieModels[position]
-
-        val movieItemViewHolder: MovieItemViewHolder
-        val view: View
-
-        if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_movie, null)
-            movieItemViewHolder = MovieItemViewHolder(view)
-            view.tag = movieItemViewHolder
-        } else {
-            view = convertView
-            movieItemViewHolder = view.tag as MovieItemViewHolder
+        return when (itemType) {
+            ItemType.MOVIE -> MovieItemViewHolder(view)
+            ItemType.ADVERTISING -> AdvertisingItemViewHolder(view)
         }
-
-        movieItemViewHolder.setViewContents(movieModel)
-        return view
     }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val item = modelItems[position]
+        when (holder) {
+            is MovieItemViewHolder -> holder.bind(item)
+            is AdvertisingItemViewHolder -> holder.bind(item)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int = modelItems[position].itemType.ordinal
 }

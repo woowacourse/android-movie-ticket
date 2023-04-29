@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ReservationActivity">
+    tools:context=".activity.movieinformation.ReservationActivity">
 
     <ScrollView
-        android:id="@+id/movie_information_view"
+        android:id="@+id/movie_information_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -64,12 +64,14 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/movie_reservation_linear_layout_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/schedule_selection_linear_layout_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -90,6 +92,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ticket_count_linear_layout_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -101,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ticket_count_minus_button_text"
-                android:textSize="@dimen/text_large" />
+                android:textSize="@dimen/text_medium" />
 
             <TextView
                 android:id="@+id/ticket_count_text_view"
@@ -117,15 +120,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/ticket_count_plus_button_text"
-                android:textSize="@dimen/text_large" />
+                android:textSize="@dimen/text_medium" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/reservation_complete_button"
+            android:id="@+id/seat_selection_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/reservation_complete_button_text"
-            android:textSize="@dimen/text_large" />
+            android:text="@string/select_seat_button_text"
+            android:textSize="@dimen/text_medium" />
     </LinearLayout>
 
 </LinearLayout>

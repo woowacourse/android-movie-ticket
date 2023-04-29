@@ -1,13 +1,14 @@
 package woowacourse.movie.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.adapter.MoviesAdapter
 import woowacourse.movie.databinding.ActivityMoviesBinding
+import woowacourse.movie.item.AdvertisingItem
+import woowacourse.movie.item.ModelItem
 import woowacourse.movie.uimodel.MovieModel
-import woowacourse.movie.uimodel.MovieModel.Companion.MOVIE_INTENT_KEY
 import woowacourse.movie.util.Mock
 
 class MoviesActivity : AppCompatActivity() {
@@ -16,19 +17,22 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val binding: ActivityMoviesBinding = ActivityMoviesBinding.inflate(layoutInflater)
-        val moviesListView: ListView = binding.root
-        setContentView(moviesListView)
+        val movieListView: LinearLayout = binding.root
+        setContentView(movieListView)
 
-        initMoviesView(moviesListView)
+        initMovieListView(binding.moviesListView)
     }
 
-    private fun initMoviesView(moviesListView: ListView) {
-        val movieModels: List<MovieModel> = Mock.getMovieModels()
-        moviesListView.adapter = MoviesAdapter(movieModels)
-        moviesListView.setOnItemClickListener { adapterView, view, position, id ->
-            val intent = Intent(this, ReservationActivity::class.java)
-            intent.putExtra(MOVIE_INTENT_KEY, movieModels[position])
-            this.startActivity(intent)
+    private fun initMovieListView(movieListView: RecyclerView) {
+        val movieModels: MutableList<ModelItem> =
+            Mock.getMovieModels().map(MovieModel::toItem).toMutableList()
+
+        var position = 0
+        while (position < movieModels.size) {
+            if ((position + 1) % 4 == 0) movieModels.add(position, AdvertisingItem())
+            position++
         }
+
+        movieListView.adapter = MoviesAdapter(movieModels)
     }
 }

@@ -3,6 +3,11 @@
     <dimen name="title_large">25sp</dimen>
     <dimen name="title_medium">16sp</dimen>
 
-    <dimen name="text_large">20sp</dimen>
-    <dimen name="text_medium">12sp</dimen>
+    <dimen name="text_large">26sp</dimen>
+    <dimen name="text_medium">20sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_very_small">8sp</dimen>
+
+    <dimen name="margin_large">34dp</dimen>
+    <dimen name="margin_small">16dp</dimen>
 </resources>

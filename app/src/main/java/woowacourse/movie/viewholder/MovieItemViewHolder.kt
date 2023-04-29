@@ -1,26 +1,50 @@
 package woowacourse.movie.viewholder
 
+import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.activity.movieinformation.ReservationActivity
+import woowacourse.movie.item.ModelItem
+import woowacourse.movie.item.MovieItem
 import woowacourse.movie.uimodel.MovieModel
 import java.time.format.DateTimeFormatter
 
 class MovieItemViewHolder(
-    private val view: View,
-) {
+    private val view: View
+) : ItemViewHolder(view) {
+
     private val moviePosterImageView: ImageView = view.findViewById(R.id.movie_poster_image_view)
     private val movieNameTextView: TextView = view.findViewById(R.id.movie_name_text_view)
-    private val screeningDateTextView: TextView = view.findViewById(R.id.movie_screening_period_text_view)
+    private val screeningDateTextView: TextView =
+        view.findViewById(R.id.movie_screening_period_text_view)
     private val runningTimeTextView: TextView = view.findViewById(R.id.movie_running_time_text_view)
     private val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-    fun setViewContents(movieModel: MovieModel) {
-        setPosterResource(movieModel)
-        setMovieNameText(movieModel)
-        setScreeningDateText(movieModel)
-        setRunningTimeText(movieModel)
+    override fun bind(modelItem: ModelItem) {
+        val movieItem: MovieItem = modelItem as MovieItem
+
+        itemView.setOnClickListener { itemClickEvent(movieItem) }
+
+        setPosterResource(movieItem.movieModel)
+        setMovieNameText(movieItem.movieModel)
+        setScreeningDateText(movieItem.movieModel)
+        setRunningTimeText(movieItem.movieModel)
+    }
+
+    override fun itemClickEvent(model: ModelItem) {
+        val intent = Intent(view.context, ReservationActivity::class.java)
+        intent.putExtra(MovieModel.MOVIE_INTENT_KEY, (model as MovieItem).movieModel)
+        view.context.startActivity(intent)
+    }
+
+    private fun setItemClickListener(movieModel: MovieModel) {
+        itemView.setOnClickListener {
+            val intent = Intent(view.context, ReservationActivity::class.java)
+            intent.putExtra(MovieModel.MOVIE_INTENT_KEY, movieModel)
+            view.context.startActivity(intent)
+        }
     }
 
     private fun setPosterResource(movieModel: MovieModel) {
