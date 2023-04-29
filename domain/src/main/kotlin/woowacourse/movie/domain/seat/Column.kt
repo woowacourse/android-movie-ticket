@@ -10,6 +10,8 @@ value class Column(val value: Int) {
         require(value in MINIMUM..MAXIMUM)
     }
 
+    override fun toString(): String = value.toString()
+
     companion object {
         const val MINIMUM = 1
         const val MAXIMUM = 4
