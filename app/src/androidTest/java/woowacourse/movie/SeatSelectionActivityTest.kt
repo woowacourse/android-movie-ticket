@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
@@ -21,7 +20,6 @@ import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.seatSelection.SeatSelectionActivity
-import woowacourse.movie.seatSelection.SeatSelectionActivity.Companion.KEY_SEAT_SELECTION
 import java.time.LocalDateTime
 
 class SeatSelectionActivityTest {
@@ -39,27 +37,21 @@ class SeatSelectionActivityTest {
     @get:Rule
     val activityScenarioRule: ActivityScenarioRule<SeatSelectionActivity> =
         ActivityScenarioRule(
-            Intent(
+            SeatSelectionActivity.getIntent(
                 ApplicationProvider.getApplicationContext(),
-                SeatSelectionActivity::class.java,
-            ).apply {
-                val seatSelectionModel = SeatSelectionModel(
+                SeatSelectionModel(
                     title = "해리포터와 마법사의 돌",
                     reserveTime = LocalDateTime.of(2021, 1, 1, 1, 1),
                     Quantity = 3,
-                )
-                putExtra(KEY_SEAT_SELECTION, seatSelectionModel)
-            },
+                ),
+            ),
         )
 
     @Test
-    fun 전달_받은_정보들로_영화_제목을_설정한다() {
+    fun 전달_받은_영화_제목을_설정하고_최초_가격은_0원이다() {
         onView(withId(R.id.seat_selection_title))
             .check(matches(withText("해리포터와 마법사의 돌")))
-    }
 
-    @Test
-    fun 최종_가격은_0원으로_설정된다() {
         onView(withId(R.id.seat_selection_price))
             .check(matches(withText("0원")))
     }

@@ -1,5 +1,6 @@
 package woowacourse.movie.seatSelection
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -66,7 +67,12 @@ class SeatSelectionActivity : AppCompatActivity() {
     companion object {
         private const val KEY_SEAT_SELECTION = "key_seat_selection"
 
-        fun start(context: AppCompatActivity, seatSelection: SeatSelectionModel) {
+        fun <T : Context> getIntent(context: T, seatSelection: SeatSelectionModel) =
+            Intent(context, SeatSelectionActivity::class.java).apply {
+                putExtra(KEY_SEAT_SELECTION, seatSelection)
+            }
+
+        fun <T : Context> start(context: T, seatSelection: SeatSelectionModel) {
             context.startActivity(
                 Intent(context, SeatSelectionActivity::class.java).apply {
                     putExtra(KEY_SEAT_SELECTION, seatSelection)
