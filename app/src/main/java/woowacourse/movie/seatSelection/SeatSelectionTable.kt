@@ -13,6 +13,7 @@ import model.SeatModel
 import model.SeatSelectionModel
 import movie.SeatSelection
 import woowacourse.movie.R
+import woowacourse.movie.utils.getSerializableCompat
 import java.io.Serializable
 
 class SeatSelectionTable(
@@ -73,9 +74,9 @@ class SeatSelectionTable(
     }
 
     fun loadSeatSelection(savedInstanceState: Bundle) {
-        (savedInstanceState.getSerializable(KEY_SEAT_SELECTION_SEATS) as ArrayList<*>)
-            .filterIsInstance<SeatModel>()
-            .forEach { onSeatClick(it.row, it.column) }
+        (savedInstanceState.getSerializableCompat(KEY_SEAT_SELECTION_SEATS) as ArrayList<*>?)
+            ?.filterIsInstance<SeatModel>()
+            ?.forEach { onSeatClick(it.row, it.column) }
     }
 
     fun saveInstanceState(outState: Bundle) {
