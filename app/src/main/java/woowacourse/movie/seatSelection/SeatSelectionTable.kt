@@ -1,11 +1,11 @@
 package woowacourse.movie.seatSelection
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import androidx.core.view.children
 import data.SeatPosition
 import mapper.toSeatModel
 import model.MovieTicketModel
@@ -20,34 +20,47 @@ class SeatSelectionTable(
     private val selectionInfo: SeatSelectionModel,
     private val onConfirmClick: (MovieTicketModel) -> Unit,
 ) {
-    private val movieTitle by lazy { view.findViewById<TextView>(R.id.seat_selection_title) }
-    private val ticketTotalPrice by lazy { view.findViewById<TextView>(R.id.seat_selection_price) }
-    private val seatSelectionConfirm by lazy { view.findViewById<TextView>(R.id.seat_selection_confirm) }
+    private val movieTitle = view.findViewById<TextView>(R.id.seat_selection_title)
+    private val ticketTotalPrice = view.findViewById<TextView>(R.id.seat_selection_price)
+    private val seatSelectionConfirm = view.findViewById<TextView>(R.id.seat_selection_confirm)
     private val seatSelection = SeatSelection()
 
-    private val seatSelectionTableBoxes by lazy {
-        view.findViewById<TableLayout>(R.id.seat_selection_table).children.filterIsInstance<TableRow>()
-            .flatMapIndexed { rowIndex, row ->
-                row.children.filterIsInstance<TextView>().mapIndexed { colIndex, item ->
-                    Triple(rowIndex, colIndex, item)
-                }
-            }
-    }
+    private val seatViews = mutableMapOf<SeatPosition, TextView>()
 
     init {
-        seatSelectionTableBoxes.forEach { (row, col, item) ->
-            item.setOnClickListener {
-                onSeatClick(row, col)
-            }
-        }
-
         movieTitle.text = selectionInfo.title
 
         seatSelectionConfirm.setOnClickListener {
             onConfirmClick(MovieTicketModel(selectionInfo, seatSelection))
         }
 
+        createTableLayout()
         updateInfo()
+    }
+    private fun createTableLayout() {
+        val tableLayout = view.findViewById<TableLayout>(R.id.seat_selection_table)
+        (0..4).forEach { row -> tableLayout.addView(createTableRows(row)) }
+    }
+
+    private fun createTableRows(row: Int): TableRow {
+        val tableRow = TableRow(view.context)
+        tableRow.gravity = View.TEXT_ALIGNMENT_CENTER
+        tableRow.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT, 1f)
+        (0..3).forEach { col -> tableRow.addView(createTextView(row, col)) }
+        return tableRow
+    }
+
+    private fun createTextView(row: Int, col: Int): TextView {
+        val textView = TextView(view.context)
+        textView.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1f)
+        textView.text = "%s%d".format('A' + row, col + 1)
+        textView.gravity = Gravity.VERTICAL_GRAVITY_MASK + Gravity.CENTER_HORIZONTAL
+        textView.textSize = 20f
+        textView.setOnClickListener {
+            onSeatClick(row, col)
+        }
+        seatViews[SeatPosition(row, col)] = textView
+        return textView
     }
 
     private fun onSeatClick(row: Int, col: Int) {
@@ -75,12 +88,12 @@ class SeatSelectionTable(
         seatSelectionConfirm.isEnabled = seatSelection.sizeOfSelection == selectionInfo.Quantity
     }
 
-    private fun drawSeatSelection() = seatSelectionTableBoxes.forEach { (row, col, box) ->
-        when (seatSelection[SeatPosition(row, col)]) {
+    private fun drawSeatSelection() = seatViews.forEach { (position, view) ->
+        when (seatSelection[position]) {
             true -> R.color.seat_selection_seat_selected
             else -> R.color.seat_selection_seat_unselected
         }.let { seatColor ->
-            box.setBackgroundResource(seatColor)
+            view.setBackgroundResource(seatColor)
         }
     }
 
