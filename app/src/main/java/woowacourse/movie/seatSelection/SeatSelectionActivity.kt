@@ -15,7 +15,7 @@ import woowacourse.movie.utils.showAskDialog
 
 class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var seatSelection: SeatSelectionModel
-    private lateinit var seatSelectionView: SeatSelectionTable
+    private lateinit var seatSelectionView: SeatSelectionView
 
     private fun onConfirmClick(movieTicketModel: MovieTicketModel) = showAskDialog(
         title = getString(R.string.seat_selection_confirm_dialog_title),
@@ -34,7 +34,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         initToolbar()
 
         seatSelectionView = createSeatSelectionView()
-        savedInstanceState?.let { seatSelectionView.loadSeatSelection(it) }
+        savedInstanceState?.let { seatSelectionView.restoreInstanceState(it) }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -42,7 +42,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         seatSelectionView.saveInstanceState(outState)
     }
 
-    private fun createSeatSelectionView(): SeatSelectionTable = SeatSelectionTable(
+    private fun createSeatSelectionView(): SeatSelectionView = SeatSelectionView(
         window.decorView.rootView,
         seatSelection,
     ) { ticketModel -> onConfirmClick(ticketModel) }
