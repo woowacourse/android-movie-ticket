@@ -3,7 +3,6 @@ package woowacourse.movie.seatSelection
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import model.MovieTicketModel
@@ -12,18 +11,19 @@ import woowacourse.movie.R
 import woowacourse.movie.movieTicket.MovieTicketActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.utils.keyError
+import woowacourse.movie.utils.showAskDialog
 
 class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var seatSelection: SeatSelectionModel
     private lateinit var seatSelectionView: SeatSelectionTable
 
-    private fun onConfirmClick(movieTicketModel: MovieTicketModel) = AlertDialog.Builder(this)
-        .setCancelable(false)
-        .setTitle(getString(R.string.seat_selection_confirm_dialog_title))
-        .setMessage(getString(R.string.seat_selection_confirm_dialog_contents))
-        .setPositiveButton(getString(R.string.seat_selection_confirm_dialog_yes)) { _, _ -> MovieTicketActivity.start(this, movieTicketModel) }
-        .setNegativeButton(getString(R.string.seat_selection_confirm_dialog_no)) { dialog, _ -> dialog.dismiss() }
-        .show()
+    private fun onConfirmClick(movieTicketModel: MovieTicketModel) = showAskDialog(
+        title = getString(R.string.seat_selection_confirm_dialog_title),
+        message = getString(R.string.seat_selection_confirm_dialog_contents),
+        positiveString = getString(R.string.seat_selection_confirm_dialog_yes),
+        negativeString = getString(R.string.seat_selection_confirm_dialog_no),
+        actionPositive = { MovieTicketActivity.start(this, movieTicketModel) },
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
