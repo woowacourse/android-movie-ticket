@@ -1,7 +1,10 @@
 package woowacourse.movie.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
+@Parcelize
 data class Movie(
     val id: Long,
     val title: String,
@@ -11,4 +14,4 @@ data class Movie(
     val description: String,
     val thumbnail: Int,
     val poster: Int,
-)
+) : Parcelable

@@ -2,19 +2,19 @@ package woowacourse.movie.ui.seatreservation
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import androidx.appcompat.app.AlertDialog
+import woowacourse.movie.domain.ReservationInfo
 import woowacourse.movie.ui.completed.CompletedActivity
 
 class SeatReservationDialog {
 
-    fun init(context: Context) {
+    fun init(context: Context, reservationInfo: ReservationInfo) {
         AlertDialog.Builder(context)
             .setCancelable(false)
             .setTitle(TITLE)
             .setMessage(CONTENT)
             .setPositiveButton(YES) { _, _ ->
-                setEventOnPositiveButton(context)
+                setEventOnPositiveButton(context, reservationInfo)
             }
             .setNegativeButton(NO) { dialog, _ ->
                 setEventOnNegativeButton(dialog)
@@ -22,8 +22,8 @@ class SeatReservationDialog {
             .show()
     }
 
-    private fun setEventOnPositiveButton(context: Context) {
-        val intentToCompletedActivity = Intent(context, CompletedActivity::class.java)
+    private fun setEventOnPositiveButton(context: Context, reservationInfo: ReservationInfo) {
+        val intentToCompletedActivity = CompletedActivity.getIntent(context, reservationInfo)
 
         context.apply {
             startActivity(intentToCompletedActivity)

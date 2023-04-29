@@ -2,6 +2,7 @@ package woowacourse.movie.ui.seatreservation
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TableLayout
@@ -10,18 +11,21 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.domain.MovieData
+import woowacourse.movie.domain.ReservationInfo
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice
-import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.ABLE
-import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.DISABLE
-import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.MAX
-import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice.SelectState.REABLE
+import woowacourse.movie.ui.seatreservation.uimodel.SelectState.ABLE
+import woowacourse.movie.ui.seatreservation.uimodel.SelectState.DISABLE
+import woowacourse.movie.ui.seatreservation.uimodel.SelectState.MAX
+import woowacourse.movie.ui.seatreservation.uimodel.SelectState.REABLE
 import woowacourse.movie.util.shortToast
 
 class SeatReservationActivity : AppCompatActivity() {
     private val totalPrice: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_price) }
     private val movieName: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_title) }
     private val checkButton: TextView by lazy { findViewById<TextView>(R.id.tv_seat_reservation_check_btn) }
-    private val boxOffice: BoxOffice by lazy { BoxOffice.create() }
+    private val boxOffice: BoxOffice by lazy { BoxOffice.create(getTicket().bookedDateTime) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,9 @@ class SeatReservationActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        movieName.text = intent.getStringExtra(MOVIE_TITLE)
+        val movieId = intent.getLongExtra(TICKET_MOVIE_NAME, ZERO.toLong())
+
+        movieName.text = MovieData.findMovieById(movieId).title
         totalPrice.text = getString(R.string.tv_seat_reservation_price).format(ZERO)
     }
 
@@ -41,8 +47,21 @@ class SeatReservationActivity : AppCompatActivity() {
         val seatReservationDialog = SeatReservationDialog()
 
         checkButton.setOnClickListener {
-            seatReservationDialog.init(this@SeatReservationActivity)
+            seatReservationDialog.init(this@SeatReservationActivity, setReservationInfo())
         }
+    }
+
+    private fun setReservationInfo(): ReservationInfo {
+        val price = findViewById<TextView>(R.id.tv_seat_reservation_price).text
+
+        return ReservationInfo(getTicket(), price.toString(), boxOffice.seats)
+    }
+
+    private fun getTicket() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        intent.getParcelableExtra(TICKET, Ticket::class.java)
+            ?: throw IllegalArgumentException()
+    } else {
+        intent.getParcelableExtra(TICKET) ?: throw IllegalArgumentException()
     }
 
     private fun setClickEventOnSeat() {
@@ -56,9 +75,9 @@ class SeatReservationActivity : AppCompatActivity() {
     }
 
     private fun updateViewSelected(seat: View, seatLocation: Int) {
-        val ticketCount = intent.getIntExtra(TICKET_COUNT, ZERO)
+        val count = intent.getIntExtra(TICKET_COUNT, ZERO)
 
-        when (boxOffice.select(ticketCount, seat)) {
+        when (boxOffice.select(count, seat)) {
             ABLE -> updateAbleState(seat, seatLocation)
             REABLE -> updateReableState(seat, seatLocation)
             DISABLE -> shortToast(R.string.st_seat_reservation_over)
@@ -94,20 +113,20 @@ class SeatReservationActivity : AppCompatActivity() {
     }
 
     private fun createSeatingChart() =
-        findViewById<TableLayout>(R.id.tl_seat_reservation_seat).children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
+        findViewById<TableLayout>(R.id.tl_seat_reservation_seat).children.filterIsInstance<TableRow>()
+            .flatMap { it.children }.filterIsInstance<TextView>()
 
     companion object {
-        private const val MOVIE_TITLE = "Title"
+        private const val TICKET_MOVIE_NAME = "Movie"
+        private const val TICKET = "Ticket"
         private const val TICKET_COUNT = "Count"
         private const val ZERO = 0
 
-        fun getIntent(context: Context, title: String, ticketCount: Int): Intent =
+        fun getIntent(context: Context, ticket: Ticket): Intent =
             Intent(context, SeatReservationActivity::class.java).apply {
-                putExtra(MOVIE_TITLE, title)
-                putExtra(TICKET_COUNT, ticketCount)
+                putExtra(TICKET, ticket)
+                putExtra(TICKET_COUNT, ticket.count)
+                putExtra(TICKET_MOVIE_NAME, ticket.movieId)
             }
     }
 }

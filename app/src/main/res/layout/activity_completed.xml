@@ -49,6 +49,21 @@
         tools:text="2024.3.1 17:00" />
 
     <TextView
+        android:id="@+id/textCompletedSeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textCompletedTicketCount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textCompletedTicketCount"
+        app:layout_constraintTop_toTopOf="@+id/textCompletedTicketCount"
+        tools:text="D12" />
+
+    <TextView
         android:id="@+id/textCompletedTicketCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +71,9 @@
         android:fontFamily="@font/roboto_medium"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@+id/textCompletedSeat"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textCompletedScreeningDate"
         tools:text="일반 1명" />

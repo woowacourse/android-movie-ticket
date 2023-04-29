@@ -3,6 +3,7 @@ package woowacourse.movie.ui.booking
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -15,10 +16,12 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.ScreeningTimes
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
 import woowacourse.movie.ui.seatreservation.SeatReservationActivity
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
@@ -40,7 +43,7 @@ class BookingActivity : AppCompatActivity() {
         initDateTimes(movie)
         restoreData(savedInstanceState)
         initView(movie)
-        setClickEventOnSeatSelectButton(movie)
+        setClickEventOnSeatSelectButton()
         gatherClickListeners()
         initDateSpinnerSelectedListener(movie)
     }
@@ -82,11 +85,23 @@ class BookingActivity : AppCompatActivity() {
         clickPlus()
     }
 
-    private fun setClickEventOnSeatSelectButton(movie: Movie) {
+    private fun setTicket(): Ticket {
+        val date: LocalDate = dateSpinnerAdapter.getItem(dateSpinner.selectedItemPosition)
+            ?: throw IllegalArgumentException()
+
+        val time: LocalTime = timeSpinnerAdapter.getItem(timeSpinner.selectedItemPosition)
+            ?: throw IllegalArgumentException()
+
+        val dateTime: LocalDateTime = LocalDateTime.of(date, time)
+
+        return Ticket(getMovie().id, dateTime, ticketCount.value)
+    }
+
+    private fun setClickEventOnSeatSelectButton() {
         val selectSeatButton = findViewById<Button>(R.id.buttonBookingComplete)
 
         selectSeatButton.setOnClickListener {
-            val intent = SeatReservationActivity.getIntent(this, movie.title, ticketCount.value)
+            val intent = SeatReservationActivity.getIntent(this, setTicket())
             startActivity(intent)
         }
     }
@@ -128,6 +143,7 @@ class BookingActivity : AppCompatActivity() {
         val dates: List<LocalDate> =
             ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
         val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
+
         dateSpinnerAdapter.initItems(dates)
         timeSpinnerAdapter.initItems(times)
     }
