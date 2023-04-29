@@ -8,7 +8,6 @@ import com.example.domain.usecase.DiscountApplyUseCase
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.SeatPositionState
-import woowacourse.movie.model.TicketsState
 import woowacourse.movie.model.mapper.asDomain
 import woowacourse.movie.model.mapper.asPresentation
 import woowacourse.movie.ui.BackKeyActionBarActivity
@@ -79,7 +78,8 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
 
     private fun navigateReservationConfirmActivity(seats: List<SeatPositionState>) {
         val intent = Intent(this, ReservationConfirmActivity::class.java)
-        val tickets = TicketsState.from(reservationState, seats)
+        val tickets =
+            Tickets.from(reservationState.asDomain(), seats.map { it.asDomain() }).asPresentation()
         intent.putExtra(KEY_TICKETS, tickets)
         startActivity(intent)
     }
@@ -88,15 +88,14 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
         confirmView.isClickable = (positionStates.size == reservationState.countState.value)
 
         val discountApplyMoney = discountApplyUseCase(
-            Tickets.from(
-                reservationState.asDomain(),
-                positionStates.map { it.asDomain() }
-            )
-        )
+            reservationState.movieState.asDomain(),
+            reservationState.dateTime,
+            positionStates.map { it.asDomain() }
+        ).asPresentation()
 
         moneyTextView.text = getString(
             R.string.discount_money,
-            DecimalFormatters.convertToMoneyFormat(discountApplyMoney.asPresentation())
+            DecimalFormatters.convertToMoneyFormat(discountApplyMoney)
         )
     }
 

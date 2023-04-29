@@ -1,17 +1,12 @@
 package woowacourse.movie.model.mapper
 
-import com.example.domain.model.Ticket
+import com.example.domain.model.Reservation
 import com.example.domain.model.Tickets
 import woowacourse.movie.model.TicketsState
 
-fun TicketsState.asDomain(): Tickets = Tickets(
-    positions.map {
-        Ticket(
-            movieState.asDomain(),
-            dateTime,
-            it.asDomain()
-        )
-    }
+fun TicketsState.asDomain(): Tickets = Tickets.from(
+    Reservation(movieState.asDomain(), dateTime, positions.size),
+    positions.map { it.asDomain() }
 )
 
 fun Tickets.asPresentation(): TicketsState = TicketsState(

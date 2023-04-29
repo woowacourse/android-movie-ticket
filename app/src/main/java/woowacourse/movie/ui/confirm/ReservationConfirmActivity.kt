@@ -44,8 +44,13 @@ class ReservationConfirmActivity : BackKeyActionBarActivity() {
     }
 
     private fun setDiscountApplyMoney(tickets: TicketsState) {
-        val discountApplyMoney = discountApplyUseCase(tickets.asDomain())
+        val discountApplyMoney = discountApplyUseCase(
+            tickets.movieState.asDomain(),
+            tickets.dateTime,
+            tickets.positions.map { it.asDomain() }
+        ).asPresentation()
+
         moneyTextView.text =
-            DecimalFormatters.convertToMoneyFormat(discountApplyMoney.asPresentation())
+            DecimalFormatters.convertToMoneyFormat(discountApplyMoney)
     }
 }
