@@ -7,20 +7,24 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationResultActivity
 import woowacourse.movie.databinding.ActivitySeatSelectionBinding
-import woowacourse.movie.domain.payment.PaymentAmount
+import woowacourse.movie.domain.reservation.TicketOffice
 import woowacourse.movie.domain.seat.Column
 import woowacourse.movie.domain.seat.Row
-import woowacourse.movie.domain.seat.Seat
-import woowacourse.movie.uimodel.ReservationModel
 import woowacourse.movie.uimodel.ReservationModel.Companion.RESERVATION_INTENT_KEY
 import woowacourse.movie.uimodel.ReservationOptionModel
 import woowacourse.movie.uimodel.ReservationOptionModel.Companion.RESERVATION_OPTION_INTENT_KEY
-import woowacourse.movie.uimodel.toSeatModel
+import woowacourse.movie.uimodel.toReservationModel
 
 class SeatSelectionActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivitySeatSelectionBinding.inflate(layoutInflater) }
-    private val seatsView by lazy { SeatsView(binding, reservationOptionModel.ticketCount, reservationOptionModel.screeningDateTime) }
+    private val seatsView by lazy {
+        SeatsView(
+            binding,
+            reservationOptionModel.ticketCount,
+            reservationOptionModel.screeningDateTime
+        )
+    }
 
     private val reservationOptionModel by lazy {
         intent.getSerializableExtra(
@@ -59,17 +63,12 @@ class SeatSelectionActivity : AppCompatActivity() {
 
     private fun positiveButtonClickEvent(ticketCount: Int) {
         val nextIntent = Intent(this, ReservationResultActivity::class.java)
-        val paymentAmountText = binding.paymentAmountTextView.text.toString()
-        val paymentAmountString = paymentAmountText.replace(",", "").replace("원", "")
-        val paymentAmount = PaymentAmount(paymentAmountString.toInt())
 
-        val reservationModel = ReservationModel(
-            movie = reservationOptionModel.movieModel,
-            screeningDateTime = reservationOptionModel.screeningDateTime,
-            ticketCount = ticketCount,
-            seats = seatsView.getSelectedSeats().map(Seat::toSeatModel),
-            paymentAmount = paymentAmount
-        )
+        val reservationModel = TicketOffice.generateTicket(
+            reservationOptionModel.movieModel.toDomain(),
+            reservationOptionModel.screeningDateTime,
+            seatsView.getSelectedSeats()
+        ).toReservationModel()
 
         nextIntent.putExtra(RESERVATION_INTENT_KEY, reservationModel)
         startActivity(nextIntent)
