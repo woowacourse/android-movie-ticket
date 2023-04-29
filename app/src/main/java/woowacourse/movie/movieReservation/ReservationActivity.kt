@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import model.ReservationModel
 import model.SeatSelectionModel
-import movie.TicketQuantity
 import woowacourse.movie.R
 import woowacourse.movie.seatSelection.SeatSelectionActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
@@ -40,7 +39,9 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun loadInstanceState(savedInstanceState: Bundle?) {
-        navigation.setTicketQuantity(TicketQuantity(savedInstanceState?.getInt(KEY_COUNT) ?: DEFAULT_TICKET_QUANTITY))
+        savedInstanceState?.let {
+            navigation.setTicketQuantity(it.getInt(KEY_COUNT))
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -79,7 +80,6 @@ class ReservationActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_COUNT = "count"
-        private const val DEFAULT_TICKET_QUANTITY = 1
         private const val KEY_MOVIE_SCREENING = "key_movie_screening"
 
         fun start(context: Context, reservationModel: ReservationModel) {

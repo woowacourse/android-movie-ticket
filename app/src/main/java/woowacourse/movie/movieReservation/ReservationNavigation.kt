@@ -3,7 +3,6 @@ package woowacourse.movie.movieReservation
 import android.view.View
 import android.widget.Button
 import movie.ScreeningDate
-import movie.TicketQuantity
 import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -34,7 +33,7 @@ class ReservationNavigation(
         submitButton.setOnClickListener { onReservationButtonClicked() }
     }
 
-    fun setTicketQuantity(ticketQuantity: TicketQuantity) {
-        ticketQuantityView.initTicketQuantity(ticketQuantity)
+    fun setTicketQuantity(quantity: Int) {
+        ticketQuantityView.quantity = quantity
     }
 }

@@ -3,7 +3,6 @@ package woowacourse.movie.movieReservation
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import movie.TicketQuantity
 import woowacourse.movie.R
 
 class ReservationTicketQuantity(
@@ -27,9 +26,5 @@ class ReservationTicketQuantity(
         increaseButton.setOnClickListener {
             quantity += 1
         }
-    }
-
-    fun initTicketQuantity(ticketQuantity: TicketQuantity) {
-        ticketQuantityTextView.text = ticketQuantity.toString()
     }
 }
