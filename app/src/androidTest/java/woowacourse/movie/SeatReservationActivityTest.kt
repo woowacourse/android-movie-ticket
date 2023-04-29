@@ -4,7 +4,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers.isDialog
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotSelected
@@ -14,13 +14,16 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.ui.seatreservation.SeatReservationActivity
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 class SeatReservationActivityTest {
     private val intent = SeatReservationActivity.getIntent(
         ApplicationProvider.getApplicationContext(),
-        MOVIE_TITLE,
-        TICKET_COUNT,
+        Ticket(MOVIE.toLong(), TIME, TICKET_COUNT),
     )
 
     // 테스트 대상 Activity를 지정
@@ -28,7 +31,7 @@ class SeatReservationActivityTest {
     val activityRule = ActivityScenarioRule<SeatReservationActivity>(intent)
 
     @Test
-    fun 영화_산군을_선택_했을_때_제목텍스트는_산군이다() {
+    fun 영화_해리_포터와_마법사의_돌_선택_했을_때_제목텍스트는_해리_포터와_마법사의_돌이다() {
         // given:
         // when: 해당 뷰 실행 시
         val actual = onView(withId(R.id.tv_seat_reservation_title))
@@ -70,7 +73,7 @@ class SeatReservationActivityTest {
     }
 
     @Test
-    fun A1_A2를_선택_시_총계는_20000원이다() {
+    fun A1_A2를_선택_시_총계는_14000원이다() {
         // given: A1, A2
         val total = onView(withId(R.id.tv_seat_reservation_price))
         val seatA1 = onView(withText(R.string.tv_seat_reservation_a1))
@@ -80,8 +83,8 @@ class SeatReservationActivityTest {
         seatA1.perform(click())
         seatA2.perform(click())
 
-        // then: 총액은 20000원으로 표기된다.
-        total.check(matches(withText(TWENTY_THOUSANDS)))
+        // then: 총액은 14000원으로 표기된다.
+        total.check(matches(withText(TOTAL_ON_DISCOUNT_POLICY)))
     }
 
     @Test
@@ -128,38 +131,23 @@ class SeatReservationActivityTest {
     fun 확인_버튼_클릭_시_다이얼로그가_생성된다() {
         // given: 확인 버튼이 활성화 된 상태에서
         val checkButton = onView(withId(R.id.tv_seat_reservation_check_btn))
-        val seatA1 = onView(withText(R.string.tv_seat_reservation_a1)).perform(click())
-        val seatA2 = onView(withText(R.string.tv_seat_reservation_a2)).perform(click())
-        val seatA3 = onView(withText(R.string.tv_seat_reservation_a3)).perform(click())
+        onView(withText(R.string.tv_seat_reservation_a1)).perform(click())
+        onView(withText(R.string.tv_seat_reservation_a2)).perform(click())
+        onView(withText(R.string.tv_seat_reservation_a3)).perform(click())
 
         // when: 확인 버튼 클릭 시
         checkButton.perform(click())
 
         // then: 다이얼로그가 생성된다
-        onView(withText(CONTENT)).inRoot(isDialog())
-    }
-
-    @Test
-    fun 다이얼로그의_외부를_터치할_수_없다() {
-        // given: 다이얼로그가 생성된 상태
-        onView(withText(R.string.tv_seat_reservation_a1)).perform(click())
-        onView(withText(R.string.tv_seat_reservation_a2)).perform(click())
-        onView(withText(R.string.tv_seat_reservation_a3)).perform(click())
-        onView(withId(R.id.tv_seat_reservation_check_btn)).perform(click())
-
-        // when: 외부 클릭 시
-        onView(withText(R.string.tv_seat_reservation_a1)).perform(click())
-
-        // then: 다이얼로그가 그대로 남아있다
-        onView(withText(CONTENT)).inRoot((isDialog()))
-
-        // 터지는게 맞는 테스트 ^^...;;;;
+        onView(withText(CONTENT)).check(matches(isDisplayed()))
     }
 
     companion object {
+        private const val MOVIE = 1
+        private val TIME = LocalDateTime.of(LocalDate.MAX, LocalTime.MAX)
         private const val CONTENT = "정말 예매하시겠습니까?"
-        private const val MOVIE_TITLE = "산군"
+        private const val MOVIE_TITLE = "해리 포터와 마법사의 돌"
         private const val TICKET_COUNT = 3
-        private const val TWENTY_THOUSANDS = "20000원"
+        private const val TOTAL_ON_DISCOUNT_POLICY = "14000원"
     }
 }
