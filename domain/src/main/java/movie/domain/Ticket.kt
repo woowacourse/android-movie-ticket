@@ -16,8 +16,13 @@ class Ticket(
 ) {
     val price
         get() = calculatePrice()
+    private val discountPolicies = getDiscountPolicies()
 
     private fun calculatePrice(): Int {
+        return PricePolicyCalculator(discountPolicies).totalPriceCalculate(seatSelection)
+    }
+
+    private fun getDiscountPolicies(): List<DiscountPolicy> {
         val discountPolicies = mutableListOf<DiscountPolicy>()
         if (screeningDateTime.checkMovieDay()) {
             discountPolicies.add(MovieDayDiscount())
@@ -25,6 +30,6 @@ class Ticket(
         if (screeningDateTime.checkEarlyMorningLateNight()) {
             discountPolicies.add(EarlyMorningLateNightDiscount())
         }
-        return PricePolicyCalculator(discountPolicies).totalPriceCalculate(seatSelection)
+        return discountPolicies
     }
 }

@@ -30,7 +30,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var tvSeatSelectionPrice: TextView
     private lateinit var btnSeatSelection: Button
 
-    private var price: Int by Delegates.observable(0) { _, _, new ->
+    private var price: Int by Delegates.observable(0) { _ , _, new ->
         tvSeatSelectionPrice.text = "%s원".format(new)
     }
 
@@ -72,6 +72,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         val tvSeatSelectionTitle = findViewById<TextView>(R.id.tv_seat_selection_title)
 
         tvSeatSelectionTitle.text = ticketState.movieData.title
+        tvSeatSelectionPrice.text = "%s원".format(0)
     }
 
     private fun initSeatSelectionView() {
