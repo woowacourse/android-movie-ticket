@@ -2,7 +2,6 @@ package com.example.domain
 
 import com.example.domain.discountPolicy.condition.MovieDayCondition
 import com.example.domain.model.Movie
-import com.example.domain.model.Ticket
 import com.example.domain.model.seat.SeatPosition
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -25,10 +24,9 @@ class MovieDayConditionTest {
             ""
         )
         val position = SeatPosition(3, 1) // 15000원
-        val ticket = Ticket(mockMovie, dateTime, position)
 
         val movieDayCondition = MovieDayCondition()
-        val actual = movieDayCondition.isDiscountable(ticket)
+        val actual = movieDayCondition.isDiscountable(mockMovie, dateTime, position)
         assertThat(actual).isTrue
     }
 }

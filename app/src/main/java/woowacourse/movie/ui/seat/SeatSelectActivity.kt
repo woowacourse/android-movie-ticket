@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import com.example.domain.model.Tickets
 import com.example.domain.usecase.DiscountApplyUseCase
+import com.example.domain.usecase.GetIssuedTicketsUseCase
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationState
 import woowacourse.movie.model.SeatPositionState
@@ -23,6 +23,7 @@ import woowacourse.movie.util.showAskDialog
 
 class SeatSelectActivity : BackKeyActionBarActivity() {
     private val discountApplyUseCase = DiscountApplyUseCase()
+    private val getIssuedTicketsUseCase = GetIssuedTicketsUseCase()
 
     private val titleTextView: TextView by lazy { findViewById(R.id.reservation_title) }
     private val moneyTextView: TextView by lazy { findViewById(R.id.reservation_money) }
@@ -79,8 +80,11 @@ class SeatSelectActivity : BackKeyActionBarActivity() {
 
     private fun navigateReservationConfirmActivity(seats: List<SeatPositionState>) {
         val intent = Intent(this, ReservationConfirmActivity::class.java)
-        val tickets =
-            Tickets.from(reservationState.asDomain(), seats.map { it.asDomain() }).asPresentation()
+        val tickets = getIssuedTicketsUseCase(
+            reservationState.movieState.asDomain(),
+            reservationState.dateTime,
+            seats.map { it.asDomain() }
+        ).asPresentation()
         intent.putExtra(KEY_TICKETS, tickets)
         startActivity(intent)
     }

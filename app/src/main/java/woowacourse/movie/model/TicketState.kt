@@ -5,9 +5,9 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class TicketsState(
+data class TicketState(
     val movieState: MovieState,
     val dateTime: LocalDateTime,
-    val totalDiscountedMoneyState: MoneyState,
-    val tickets: List<TicketState>
+    val seatPositionState: SeatPositionState,
+    val discountedMoneyState: MoneyState
 ) : Parcelable
