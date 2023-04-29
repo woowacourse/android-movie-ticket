@@ -2,6 +2,6 @@ package data
 
 data class Seat(
     val position: SeatPosition,
-    val seatClass: SeatClass,
+    val seatRank: SeatRank,
     val isReserved: Boolean,
 )

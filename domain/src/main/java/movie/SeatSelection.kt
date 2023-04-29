@@ -5,10 +5,11 @@ import data.Seat
 import data.SeatPosition
 import movie.pricePolicy.NormalPricePolicy
 import movie.pricePolicy.PricePolicy
+import repository.SeatRepository
 import java.time.LocalDateTime
 
 class SeatSelection(
-    private val cinemaConfigure: CinemaConfigure = CinemaConfigure,
+    private val cinemaConfigure: SeatRepository = SeatRepository,
     private val pricePolicy: PricePolicy = NormalPricePolicy(),
 ) {
     private val seats = mutableMapOf<Seat, Boolean>().apply {
@@ -27,6 +28,10 @@ class SeatSelection(
         return seats[findByPosition(seatPosition)] ?: throw IllegalArgumentException()
     }
 
+    fun getSeat(seatPosition: SeatPosition): Seat {
+        return findByPosition(seatPosition)
+    }
+
     fun selectSeat(position: SeatPosition) {
         val seat = findByPosition(position)
         seats[seat]?.let {
@@ -36,7 +41,7 @@ class SeatSelection(
 
     fun getTotalPrice(localDateTime: LocalDateTime): Int = seats
         .filter { it.value }
-        .map { PricePolicyInfo(cinemaConfigure.getPriceOf(it.key.seatClass), localDateTime) }
+        .map { PricePolicyInfo(cinemaConfigure.getPriceOf(it.key.seatRank), localDateTime) }
         .sumOf { pricePolicy.calculatePrice(it).price }
 
     private fun findByPosition(seatPosition: SeatPosition): Seat {

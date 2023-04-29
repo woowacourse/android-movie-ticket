@@ -7,6 +7,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import data.SeatPosition
+import mapper.toSeatClassModel
 import mapper.toSeatModel
 import model.MovieTicketModel
 import model.SeatModel
@@ -56,9 +57,10 @@ class SeatSelectionTable(
         textView.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1f)
         textView.text = "%s%d".format('A' + row, col + 1)
         textView.gravity = Gravity.VERTICAL_GRAVITY_MASK + Gravity.CENTER_HORIZONTAL
-        textView.textSize = 20f
-        textView.setOnClickListener {
-            onSeatClick(row, col)
+        textView.setOnClickListener { onSeatClick(row, col) }
+        seatSelection.getSeat(SeatPosition(row, col)).seatRank.toSeatClassModel().let {
+            textView.textSize = it.size.toFloat()
+            textView.setTextColor(it.color)
         }
         seatViews[SeatPosition(row, col)] = textView
         return textView

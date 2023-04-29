@@ -5,6 +5,6 @@ import java.io.Serializable
 data class SeatModel(
     val row: Int,
     val column: Int,
-    val seatClass: String,
+    val rank: SeatRankModel,
     val isReserved: Boolean,
 ) : Serializable

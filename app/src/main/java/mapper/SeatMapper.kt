@@ -1,32 +1,34 @@
 package mapper
 
 import data.Seat
-import data.SeatClass
 import data.SeatPosition
+import data.SeatRank
 import model.SeatModel
+import model.SeatRankModel
+import repository.SeatClassRepository
 
 fun Seat.toSeatModel() = SeatModel(
     row = this.position.row,
     column = this.position.col,
-    seatClass = seatClass.toSeatClassModel(),
+    rank = seatRank.toSeatClassModel(),
     isReserved = isReserved,
 )
 
 fun SeatModel.toSeat() = Seat(
     position = SeatPosition(row, column),
-    seatClass = seatClass.toSeatClass(),
+    seatRank = rank.toSeatClass(),
     isReserved = isReserved,
 )
 
-fun SeatClass.toSeatClassModel() = when (this) {
-    SeatClass.SClass -> "SClass"
-    SeatClass.AClass -> "AClass"
-    SeatClass.BClass -> "BClass"
-}
+fun SeatRank.toSeatClassModel() = when (this) {
+    SeatRank.SRank -> SeatClassRepository.SRank
+    SeatRank.ARank -> SeatClassRepository.ARank
+    SeatRank.BRank -> SeatClassRepository.BRank
+}.let { SeatClassRepository.seatRankMap[it] ?: throw IllegalArgumentException() }
 
-fun String.toSeatClass() = when (this) {
-    "SClass" -> SeatClass.SClass
-    "AClass" -> SeatClass.AClass
-    "BClass" -> SeatClass.BClass
+fun SeatRankModel.toSeatClass() = when (this.name) {
+    SeatClassRepository.SRank -> SeatRank.SRank
+    SeatClassRepository.ARank -> SeatRank.ARank
+    SeatClassRepository.BRank -> SeatRank.BRank
     else -> throw IllegalArgumentException()
 }
