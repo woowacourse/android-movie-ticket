@@ -19,12 +19,12 @@ class ReservationContents(
     private val summaryView: TextView = view.findViewById(R.id.reservation_movie_summary)
 
     init {
-        with(reservationModel) {
-            posterView.setImageResource(this.poster)
-            titleView.text = this.title
-            screeningDateView.text = getScreeningDate(this.startDate, this.endDate)
-            runTimeView.text = view.context.getString(R.string.movie_running_time).format(this.runTime)
-            summaryView.text = this.summary
+        reservationModel.let {
+            posterView.setImageResource(it.poster)
+            titleView.text = it.title
+            screeningDateView.text = getScreeningDate(it.startDate, it.endDate)
+            runTimeView.text = view.context.getString(R.string.movie_running_time).format(it.runTime)
+            summaryView.text = it.summary
         }
     }
 
