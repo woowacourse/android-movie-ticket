@@ -4,11 +4,9 @@ data class Count(val value: Int) {
     operator fun inc() = Count(value + 1)
 
     operator fun dec(): Count {
-        var tmpCount = value - 1
-        if (tmpCount <= MINIMUM_TICKET_COUNT) {
-            tmpCount = MINIMUM_TICKET_COUNT
-        }
-        return Count(tmpCount)
+        val decCount = value - 1
+        decCount.coerceAtLeast(MINIMUM_TICKET_COUNT)
+        return Count(decCount)
     }
 
     override fun toString() = value.toString()
