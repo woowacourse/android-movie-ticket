@@ -5,12 +5,8 @@ import kotlinx.parcelize.Parcelize
 import movie.domain.seat.RowSeat
 
 @Parcelize
-data class SeatState(val index: Int) : Parcelable {
+data class SeatState(val row: Int, val col: Int) : Parcelable {
     override fun toString(): String {
-        return RowSeat.valueOf(index / COLUMN_SEAT_COUNT).toString() + (index % COLUMN_SEAT_COUNT + 1).toString()
-    }
-
-    companion object {
-        private const val COLUMN_SEAT_COUNT = 4
+        return RowSeat.valueOf(row).name + col.toString()
     }
 }

@@ -1,9 +1,9 @@
 package movie.domain.seat
 
-data class Seat(val index: Int) {
-    val rank = SeatRank.valueOf(index / RANK_DIVIDER_STANDARD)
+data class Seat(val row: Int, val col: Int) {
+    val rank = SeatRank.valueOf(row / ROW_DIVIDER )
 
     companion object {
-        private const val RANK_DIVIDER_STANDARD = 8
+        private const val ROW_DIVIDER = 2
     }
 }

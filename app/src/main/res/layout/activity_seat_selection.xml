@@ -8,6 +8,7 @@
     tools:context=".ui.SeatSelectionActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lo_seat_table"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,130 +37,6 @@
             android:layout_height="400dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:text="A1"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_a1" />
-
-                <TextView
-                    android:text="A2"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_a2" />
-
-                <TextView
-                    android:text="A3"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_a3" />
-
-                <TextView
-                    android:text="A4"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_a4" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:text="B1"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_b1" />
-
-                <TextView
-                    android:text="B2"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_b2" />
-
-                <TextView
-                    android:text="B3"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_b3" />
-
-                <TextView
-                    android:text="B4"
-                    style="@style/purple_seat"
-                    android:id="@+id/tv_seat_b4" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:text="C1"
-                    style="@style/green_seat"
-                    android:id="@+id/tv_seat_c1" />
-
-                <TextView
-                    android:text="C2"
-                    style="@style/green_seat"
-                    android:id="@+id/tv_seat_c2" />
-
-                <TextView
-                    android:text="C3"
-                    style="@style/green_seat"
-                    android:id="@+id/tv_seat_c3" />
-
-                <TextView
-                    android:text="C4"
-                    style="@style/green_seat"
-                    android:id="@+id/tv_seat_c4" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-            <TextView
-                android:text="D1"
-                style="@style/green_seat"
-                android:id="@+id/tv_seat_d1" />
-
-            <TextView
-                android:text="D2"
-                style="@style/green_seat"
-                android:id="@+id/tv_seat_d2" />
-
-            <TextView
-                android:text="D3"
-                style="@style/green_seat"
-                android:id="@+id/tv_seat_d3" />
-
-            <TextView
-                android:text="D4"
-                style="@style/green_seat"
-                android:id="@+id/tv_seat_D4" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-                <TextView
-                    android:text="E1"
-                    style="@style/blue_seat"
-                    android:id="@+id/tv_seat_e1" />
-
-                <TextView
-                    android:text="E2"
-                    style="@style/blue_seat"
-                    android:id="@+id/tv_seat_e2" />
-
-                <TextView
-                    android:text="E3"
-                    style="@style/blue_seat"
-                    android:id="@+id/tv_seat_e3" />
-
-                <TextView
-                    android:text="E4"
-                    style="@style/blue_seat"
-                    android:id="@+id/tv_seat_e4" />
-            </TableRow>
 
         </TableLayout>
 

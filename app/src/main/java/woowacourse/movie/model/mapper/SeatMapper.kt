@@ -7,6 +7,6 @@ fun MutableSet<SeatState>.toDomain(): MutableSet<Seat> = map { it.toDomain() }.t
 
 fun MutableSet<Seat>.toPresentation(): MutableSet<SeatState> = map { it.toPresentation() }.toMutableSet()
 
-fun SeatState.toDomain(): Seat = Seat(index)
+fun SeatState.toDomain(): Seat = Seat(row, col)
 
-fun Seat.toPresentation(): SeatState = SeatState(index)
+fun Seat.toPresentation(): SeatState = SeatState(row, col)

@@ -4,19 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import movie.domain.Count
 import woowacourse.movie.R
-import woowacourse.movie.model.CountState
-import woowacourse.movie.model.MovieDataState
-import woowacourse.movie.model.ScreeningDateTimeState
-import woowacourse.movie.model.SeatState
-import woowacourse.movie.model.TicketState
+import woowacourse.movie.SeatTable
+import woowacourse.movie.model.*
 import woowacourse.movie.model.mapper.toDomain
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
@@ -34,6 +28,8 @@ class SeatSelectionActivity : AppCompatActivity() {
         tvSeatSelectionPrice.text = "%s원".format(new)
     }
 
+    private lateinit var seatTable: SeatTable
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
@@ -41,8 +37,9 @@ class SeatSelectionActivity : AppCompatActivity() {
         initView()
         initMovieData()
         initMovieInformation()
-        initSeatSelectionView()
-        initSeatSelectionClickListener()
+        initSeatView()
+//        initSeatSelectionView()
+//        initSeatSelectionClickListener()
         initReservationButtonClickListener()
     }
 
@@ -75,45 +72,44 @@ class SeatSelectionActivity : AppCompatActivity() {
         tvSeatSelectionPrice.text = "%s원".format(0)
     }
 
-    private fun initSeatSelectionView() {
-        seatView = findViewById<TableLayout>(R.id.lo_seat)
-            .children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
-            .toList()
+    private fun initSeatView() {
+        seatTable = SeatTable(
+            tableLayout = findViewById(R.id.lo_seat),
+            row = 5,
+            col = 4,
+            ::seatSelectionClickListener
+        )
+        seatTable.setView()
     }
 
-    private fun initSeatSelectionClickListener() {
-        seatView.forEachIndexed { index, view ->
-            view.setOnSingleClickListener {
-                when (view.isSelected) {
-                    true -> cancelSeat(view, index)
-                    false -> selectSeat(view, index)
-                }
-                price = ticketState.toDomain().price
+    private fun seatSelectionClickListener(seatView: SeatView) {
+        seatView.view.setOnSingleClickListener {
+            when (seatView.view.isSelected) {
+                true -> cancelSeat(seatView)
+                false -> selectSeat(seatView)
             }
+            price = ticketState.toDomain().price
         }
     }
 
-    private fun selectSeat(seatView: TextView, index: Int) {
+    private fun selectSeat(seatView: SeatView) {
         if (selectedSeatCount == ticketState.count.toDomain()) {
             return
         }
         selectedSeatCount++
-        seatView.isSelected = true
-        ticketState.seatSelection.add(SeatState(index))
+        seatView.view.isSelected = true
+        ticketState.seatSelection.add(SeatState(seatView.row, seatView.col))
         if (selectedSeatCount == ticketState.count.toDomain()) {
             btnSeatSelection.isEnabled = true
         }
     }
 
-    private fun cancelSeat(seatView: TextView, index: Int) {
+    private fun cancelSeat(seatView: SeatView) {
         btnSeatSelection.isEnabled = false
         if (selectedSeatCount == Count(0)) return
         selectedSeatCount--
-        seatView.isSelected = false
-        ticketState.seatSelection.remove(SeatState(index))
+        seatView.view.isSelected = false
+        ticketState.seatSelection.remove(SeatState(seatView.row, seatView.col))
     }
 
     private fun initReservationButtonClickListener() {
