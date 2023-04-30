@@ -1,40 +1,39 @@
 package woowacourse.movie.movieReservation
 
-import android.os.Bundle
 import android.view.View
-import model.ScreeningModel
-import movie.TicketCount
+import android.widget.Button
+import movie.ScreeningDate
+import woowacourse.movie.R
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ReservationNavigation(
     view: View,
-    screeningModel: ScreeningModel,
+    startDate: LocalDate,
+    endDate: LocalDate,
     onReservationButtonClicked: () -> Unit,
 ) {
-    private val timeSpinner: ReservationTimeSpinner = ReservationTimeSpinner(view)
-    private val dateSpinner: ReservationDateSpinner = ReservationDateSpinner(view) { timeSpinner.initTimeSpinner(it) }
-    private val ticketNumberView: ReservationTicketCount = ReservationTicketCount(view)
+    private val dateSpinner = ReservationDateSpinner(
+        view,
+        ScreeningDate.getScreeningDates(startDate, endDate),
+    ) { timeSpinner.initTimeSpinner(ScreeningDate.getScreeningTimes(it)) }
 
-    val ticketCount: TicketCount
-        get() = TicketCount(ticketNumberView.count)
+    private val timeSpinner = ReservationTimeSpinner(view)
+    private val ticketQuantityView = ReservationTicketQuantity(view)
+    private val submitButton: Button = view.findViewById(R.id.reservation_complete_button)
+
+    val ticketQuantity: Int
+        get() = ticketQuantityView.quantity
 
     val selectedDateTime: LocalDateTime
         get() = LocalDateTime.of(dateSpinner.selectedDate, timeSpinner.selectedTime)
 
     init {
-        dateSpinner.initDateSpinner(screeningModel)
-        ReservationSubmit(view) { onReservationButtonClicked() }
+        timeSpinner.initTimeSpinner(ScreeningDate.getScreeningTimes(dateSpinner.selectedDate))
+        submitButton.setOnClickListener { onReservationButtonClicked() }
     }
 
-    fun load(savedInstanceState: Bundle) {
-        ticketNumberView.load(savedInstanceState)
-        dateSpinner.load(savedInstanceState)
-        timeSpinner.load(savedInstanceState)
-    }
-
-    fun save(outState: Bundle) {
-        ticketNumberView.save(outState)
-        timeSpinner.save(outState)
-        dateSpinner.save(outState)
+    fun setTicketQuantity(quantity: Int) {
+        ticketQuantityView.quantity = quantity
     }
 }

@@ -18,6 +18,9 @@
             android:name=".movieReservation.ReservationActivity"
             android:exported="false" />
         <activity
+            android:name=".seatSelection.SeatSelectionActivity"
+            android:exported="false"/>
+        <activity
             android:name=".movieList.MovieListActivity"
             android:exported="true">
             <intent-filter>

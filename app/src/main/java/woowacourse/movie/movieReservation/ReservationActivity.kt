@@ -1,54 +1,52 @@
 package woowacourse.movie.movieReservation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import mapper.toScreening
-import mapper.toTicketModel
-import model.ScreeningModel
-import movie.Cinema
+import model.ReservationModel
+import model.SeatSelectionModel
 import woowacourse.movie.R
-import woowacourse.movie.movieTicket.MovieTicketActivity
+import woowacourse.movie.seatSelection.SeatSelectionActivity
 import woowacourse.movie.utils.getSerializableExtraCompat
+import woowacourse.movie.utils.keyError
 
 class ReservationActivity : AppCompatActivity() {
-    private val screeningModel by lazy {
-        intent.getSerializableExtraCompat(KEY_MOVIE_Screening) as? ScreeningModel
-            ?: run {
-                finish()
-                Toast.makeText(this, INVALID_MOVIE_SCREENING, Toast.LENGTH_LONG).show()
-                ScreeningModel.EMPTY
-            }
-    }
-
     private val activityView by lazy { window.decorView.rootView }
 
-    private val contents by lazy { ReservationContents(activityView) }
-    private val navigate by lazy { ReservationNavigation(activityView, screeningModel, ::onReservationButtonClicked) }
+    private lateinit var reservationModel: ReservationModel
+    private lateinit var navigation: ReservationNavigation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
+        reservationModel = intent.getSerializableExtraCompat(KEY_MOVIE_SCREENING) ?: return keyError(KEY_MOVIE_SCREENING)
+
+        navigation = ReservationNavigation(
+            activityView,
+            reservationModel.startDate,
+            reservationModel.endDate,
+            ::onReservationButtonClicked,
+        )
+
         initToolbar()
         initMovieView()
-        initNavigate()
 
         loadInstanceState(savedInstanceState)
     }
 
     private fun loadInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
-            navigate.load(it)
+            navigation.setTicketQuantity(it.getInt(KEY_COUNT))
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        navigate.save(outState)
+        navigation.ticketQuantity.let { outState.putInt(KEY_COUNT, it) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -68,28 +66,29 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieView() {
-        contents.update(screeningModel)
-    }
-
-    private fun initNavigate() {
-        run { navigate }
+        ReservationContents(activityView, reservationModel)
     }
 
     private fun onReservationButtonClicked() {
-        val movieTicket = Cinema()
-            .reserveMovieTicket(screeningModel.toScreening(), navigate.ticketCount, navigate.selectedDateTime)
-            .toTicketModel()
-
-        startActivity(
-            Intent(this, MovieTicketActivity::class.java).apply {
-                putExtra(MovieTicketActivity.KEY_MOVIE_TICKET, movieTicket)
-            },
-            null,
+        val seatSelectionModel = SeatSelectionModel(
+            title = reservationModel.title,
+            reserveTime = navigation.selectedDateTime,
+            Quantity = navigation.ticketQuantity,
         )
+        SeatSelectionActivity.start(this, seatSelectionModel)
     }
 
     companion object {
-        const val INVALID_MOVIE_SCREENING = "잘못된 접근입니다."
-        const val KEY_MOVIE_Screening = "movieScreening"
+        private const val KEY_COUNT = "count"
+        private const val KEY_MOVIE_SCREENING = "key_movie_screening"
+
+        fun start(context: Context, reservationModel: ReservationModel) {
+            context.startActivity(
+                Intent(context, ReservationActivity::class.java).apply {
+                    putExtra(KEY_MOVIE_SCREENING, reservationModel)
+                },
+                null,
+            )
+        }
     }
 }

@@ -19,7 +19,7 @@ class ScreeningDateTest {
         val expect = ScreeningDate.getScreeningDates(
             LocalDate.of(2021, 1, 1),
             LocalDate.of(2021, 1, 3),
-        )
+        ).map { it.toString() }
 
         // then
         assertThat(expect).isEqualTo(actual)

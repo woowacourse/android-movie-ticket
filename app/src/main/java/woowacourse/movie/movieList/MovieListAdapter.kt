@@ -1,61 +1,52 @@
 package woowacourse.movie.movieList
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import model.ReservationModel
-import model.ScreeningModel
+import androidx.recyclerview.widget.RecyclerView
+import model.ItemViewType
 import woowacourse.movie.R
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.movieList.viewHolder.AdViewHolder
+import woowacourse.movie.movieList.viewHolder.ItemViewHolder
+import woowacourse.movie.movieList.viewHolder.MovieViewHolder
 
 class MovieListAdapter(
-    private val items: List<ScreeningModel>,
-    private val onClickButton: (ScreeningModel) -> Unit,
-) : BaseAdapter() {
-    private val viewHolder: MutableMap<View, MovieListViewHolder> = mutableMapOf()
+    private val items: List<ItemViewType>,
+    private val onClickButton: (ItemViewType) -> Unit,
+    private val onAdClick: (ItemViewType) -> Unit,
+) : RecyclerView.Adapter<ItemViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
 
-    override fun getCount(): Int {
-        return items.size
+        return when (viewType) {
+            ItemViewType.Movie.type -> {
+                MovieViewHolder(
+                    layoutInflater.inflate(R.layout.item_movie_movie_list, parent, false),
+                ) { position -> onClickButton(items[position]) }
+            }
+            ItemViewType.Ad.type -> {
+                AdViewHolder(
+                    layoutInflater.inflate(R.layout.item_ad_movie_list, parent, false),
+                ) { position -> onAdClick(items[position]) }
+            }
+            else -> throw IllegalArgumentException(ERROR_INVALID_VIEW_TYPE)
+        }
     }
 
-    override fun getItem(position: Int): ScreeningModel {
-        return items[position]
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        when (items[position]) {
+            is ItemViewType.Movie -> holder.bind(items[position])
+            is ItemViewType.Ad -> holder.bind(items[position])
+        }
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+    override fun getItemCount(): Int = items.size
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: initItemView(parent)
-        val screening = items[position]
-
-        bindViewHolder(view, screening)
-        return view
-    }
-
-    private fun initItemView(parent: ViewGroup?): View = View.inflate(
-        parent?.context,
-        R.layout.item_movie_list,
-        null,
-    )
-
-    private fun bindViewHolder(view: View, screeningModel: ScreeningModel) {
-        viewHolder.getOrPut(view) { MovieListViewHolder(view) }
-            .bind(
-                posterResource = screeningModel.poster,
-                title = screeningModel.title,
-                date = getScreeningDate(screeningModel.reservationModel),
-                runningTime = view.context.getString(R.string.movie_running_time).format(screeningModel.runTime),
-                onClickButton = { onClickButton(screeningModel) },
-            )
-    }
-
-    private fun getScreeningDate(reservationModel: ReservationModel): String {
-        return "${reservationModel.startDate.format(dateTimeFormatter)} ~ ${reservationModel.endDate.format(dateTimeFormatter)}"
+    override fun getItemViewType(position: Int): Int = when (items[position]) {
+        is ItemViewType.Movie -> ItemViewType.Movie.type
+        is ItemViewType.Ad -> ItemViewType.Ad.type
     }
 
     companion object {
-        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        private const val ERROR_INVALID_VIEW_TYPE = "해당 뷰 타입은 존재하지 않습니다."
     }
 }

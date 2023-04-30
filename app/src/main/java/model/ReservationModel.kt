@@ -1,13 +1,25 @@
 package model
 
+import androidx.annotation.DrawableRes
 import java.io.Serializable
 import java.time.LocalDate
 
-class ReservationModel(
+data class ReservationModel(
+    val title: String,
+    val runTime: Int,
+    val summary: String,
     val startDate: LocalDate,
     val endDate: LocalDate,
+
+    @DrawableRes
+    val poster: Int,
 ) : Serializable {
-    companion object {
-        val EMPTY = ReservationModel(LocalDate.MIN, LocalDate.MIN)
-    }
+    constructor(movie: ItemViewType.Movie) : this(
+        title = movie.title,
+        runTime = movie.runTime,
+        summary = movie.summary,
+        startDate = movie.startDate,
+        endDate = movie.endDate,
+        poster = movie.poster,
+    )
 }

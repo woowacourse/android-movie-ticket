@@ -9,11 +9,6 @@ class NormalPricePolicy() : PricePolicy {
         EveningPricePolicy(2000, 20),
     )
 
-    override fun calculatePrice(price: PricePolicyInfo): PricePolicyInfo {
-        var priceTemp = price
-        policyList.forEach {
-            priceTemp = it.calculatePrice(priceTemp)
-        }
-        return priceTemp
-    }
+    override fun calculatePrice(price: PricePolicyInfo): PricePolicyInfo =
+        policyList.fold(price) { acc, pricePolicy -> pricePolicy.calculatePrice(acc) }
 }

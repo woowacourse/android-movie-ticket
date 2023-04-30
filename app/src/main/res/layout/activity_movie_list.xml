@@ -16,12 +16,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Movie" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movie_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reservation_toolbar"
-        tools:listitem="@layout/item_movie_list"/>
+        tools:listitem="@layout/item_movie_movie_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

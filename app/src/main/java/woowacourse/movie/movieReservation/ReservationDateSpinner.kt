@@ -1,50 +1,34 @@
 package woowacourse.movie.movieReservation
 
-import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import model.ScreeningModel
-import movie.ScreeningDate
 import woowacourse.movie.R
 import java.time.LocalDate
 
 class ReservationDateSpinner(
-    private val view: View,
-    private val onDateSelected: (LocalDate) -> Unit,
+    view: View,
+    dateList: List<LocalDate>,
+    onDateSelected: (LocalDate) -> Unit,
 ) {
+    private val dateList: List<LocalDate> = dateList.toMutableList()
     private val dateSpinner: Spinner = view.findViewById(R.id.reservation_screening_date_spinner)
 
     val selectedDate: LocalDate
-        get() = LocalDate.parse(dateSpinner.selectedItem.toString())
+        get() = dateList[dateSpinner.selectedItemPosition]
 
     init {
+        dateSpinner.adapter = ArrayAdapter(
+            view.context,
+            android.R.layout.simple_spinner_item,
+            dateList,
+        )
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 onDateSelected(selectedDate)
             }
         }
-    }
-
-    fun save(outState: Bundle) {
-        outState.putInt(KEY_DATE, dateSpinner.selectedItemPosition)
-    }
-
-    fun load(savedInstanceState: Bundle) {
-        dateSpinner.setSelection(savedInstanceState.getInt(KEY_DATE))
-    }
-
-    fun initDateSpinner(screeningModel: ScreeningModel) {
-        dateSpinner.adapter = ArrayAdapter(
-            view.context,
-            android.R.layout.simple_spinner_item,
-            ScreeningDate.getScreeningDates(screeningModel.startDate, screeningModel.endDate),
-        )
-    }
-
-    companion object {
-        private const val KEY_DATE = "dateSpinner"
     }
 }

@@ -1,14 +1,14 @@
 package woowacourse.movie.movieList
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import model.ScreeningModel
+import androidx.recyclerview.widget.RecyclerView
+import model.ItemViewType
+import model.ReservationModel
+import repository.MovieListRepository.movieList
 import woowacourse.movie.R
 import woowacourse.movie.movieReservation.ReservationActivity
-import woowacourse.movie.utils.SampleData.CINEMA_SAMPLE
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,16 +19,22 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initMovieList() {
-        val movieListView = findViewById<ListView>(R.id.movie_list)
+        val movieListView = findViewById<RecyclerView>(R.id.movie_list)
         movieListView.adapter = MovieListAdapter(
-            items = CINEMA_SAMPLE,
-            onClickButton = ::navigateToReservation,
+            items = movieList,
+            onClickButton = ::onMovieItemClick,
+            onAdClick = ::onMovieAdItemClick,
         )
     }
 
-    private fun navigateToReservation(screeningModel: ScreeningModel) {
-        val intent = Intent(this, ReservationActivity::class.java)
-        intent.putExtra(ReservationActivity.KEY_MOVIE_Screening, screeningModel)
-        ContextCompat.startActivity(this, intent, null)
+    private fun onMovieItemClick(itemViewType: ItemViewType) {
+        val movieItem = itemViewType as? ItemViewType.Movie ?: return
+
+        val reservationModel = ReservationModel(movieItem)
+        ReservationActivity.start(this, reservationModel)
+    }
+
+    private fun onMovieAdItemClick(itemViewType: ItemViewType) {
+        Log.d("MovieListRecycler", "ad")
     }
 }
