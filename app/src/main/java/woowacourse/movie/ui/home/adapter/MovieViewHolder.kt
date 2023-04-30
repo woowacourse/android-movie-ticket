@@ -21,6 +21,7 @@ class MovieViewHolder(
     private val bookButton: Button by lazy { itemView.findViewById(R.id.buttonItemBook) }
 
     init {
+        itemView.setOnClickListener { onClick(adapterPosition) }
         bookButton.setOnClickListener { onClick(adapterPosition) }
     }
 
