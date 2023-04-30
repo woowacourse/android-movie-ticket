@@ -7,28 +7,25 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.formatScreenDate
 
 class MovieViewHolder(
     itemView: View,
-    private val onClick: (Movie) -> Unit,
-) :
-    RecyclerView.ViewHolder(itemView) {
+    private val onClick: (Int) -> Unit,
+) : RecyclerView.ViewHolder(itemView) {
     private val thumbNailView by lazy { itemView.findViewById<ImageView>(R.id.imageItemThumbnail) }
     private val titleView by lazy { itemView.findViewById<TextView>(R.id.textItemTitle) }
     private val dateView by lazy { itemView.findViewById<TextView>(R.id.textBookingScreeningDate) }
     private val runningTimeView by lazy { itemView.findViewById<TextView>(R.id.textBookingRunningTime) }
     private val bookButton: Button by lazy { itemView.findViewById(R.id.buttonItemBook) }
 
-    fun onBind(movieData: Movie) {
-        initView(movieData)
-        setEventOnBookButton(movieData)
+    init {
+        bookButton.setOnClickListener { onClick(adapterPosition) }
     }
 
-    private fun setEventOnBookButton(movieData: Movie) {
-        bookButton.setOnClickListener {
-            onClick(movieData)
-        }
+    fun onBind(movieUnit: MovieInfo.MovieUnit) {
+        initView(movieUnit.movie)
     }
 
     private fun initView(movieData: Movie) {
