@@ -7,6 +7,10 @@ import movie.domain.seat.RowSeat
 @Parcelize
 data class SeatState(val index: Int) : Parcelable {
     override fun toString(): String {
-        return RowSeat.valueOf(index / 4).toString() + (index % 4 + 1).toString()
+        return RowSeat.valueOf(index / COLUMN_SEAT_COUNT).toString() + (index % COLUMN_SEAT_COUNT + 1).toString()
+    }
+
+    companion object {
+        private const val COLUMN_SEAT_COUNT = 4
     }
 }

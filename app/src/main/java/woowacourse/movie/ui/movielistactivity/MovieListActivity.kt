@@ -6,11 +6,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import woowacourse.movie.MockMovies
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDataState
-import woowacourse.movie.model.ScreeningPeriodState
 import woowacourse.movie.ui.moviebookingactivity.MovieBookingActivity
-import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
 
@@ -31,20 +30,9 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun initMovieListAdapter() {
-        val tempMovies = List(10) { index ->
-            MovieDataState(
-                posterImage = R.drawable.harrypotter_poster,
-                title = "해리 포터와 마법사의 돌 $index",
-                screeningDay = ScreeningPeriodState(
-                    LocalDate.parse("2023-04-01"),
-                    LocalDate.parse("2023-04-28")
-                ),
-                runningTime = 152,
-                description = getString(R.string.dummy_data)
-            )
-        }
+        val mockMovies = MockMovies.generate()
         val advertisementImage = R.drawable.img_ad
-        movieListAdapter = MovieListAdapter(tempMovies, advertisementImage, ::onMovieClickListener, ::onAdvertisementClickListener)
+        movieListAdapter = MovieListAdapter(mockMovies, advertisementImage, ::onMovieClickListener, ::onAdvertisementClickListener)
     }
 
     private fun onMovieClickListener(item: MovieDataState) {
@@ -54,7 +42,7 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun onAdvertisementClickListener() {
-        val url = "https://www.woowahan.com/"
+        val url = getString(R.string.advertisement_url)
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
