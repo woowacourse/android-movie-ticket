@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="green_seat" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/green_seat</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/selector_seat</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="blue_seat" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/blue_seat</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/selector_seat</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="purple_seat" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/purple_seat</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:background">@drawable/selector_seat </item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

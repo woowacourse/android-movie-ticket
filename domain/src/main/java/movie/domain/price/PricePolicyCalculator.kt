@@ -1,16 +1,18 @@
 package movie.domain.price
 
-class PricePolicyCalculator(private val discountPolicies: List<DiscountPolicy> = listOf()) :
-    PricePolicy {
-    override fun totalPriceCalculate(ticketPrice: Int, ticketCount: Int): Int =
-        discountCalculate(ticketPrice) * ticketCount
+import movie.domain.seat.Seat
+
+class PricePolicyCalculator(private val discountPolicies: List<DiscountPolicy>) : PricePolicy {
+
+    override fun totalPriceCalculate(selectedSeats: Set<Seat>): Int {
+        return selectedSeats.fold(0) { totalPrice, seat ->
+            totalPrice + discountCalculate(seat.rank.price)
+        }
+    }
 
     override fun discountCalculate(price: Int): Int {
-        var processedPrice = price
-        if (discountPolicies.isEmpty()) {
-            return price
+        return discountPolicies.fold(price) { discountedPrice, discountPolicy ->
+            discountPolicy.discount(discountedPrice)
         }
-        discountPolicies.forEach { processedPrice = it.discount(processedPrice) }
-        return processedPrice
     }
 }

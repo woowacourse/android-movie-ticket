@@ -10,4 +10,12 @@
     <color name="woowa_black">#000000</color>
     <color name="woowa_button">#6200EE</color>
     <color name="woowa_purple">#9160F9</color>
+    <color name="seat_background">#EAEAEA</color>
+    <color name="screen_background">#494949</color>
+    <color name="inactivate_button">#B7B7B7</color>
+    <color name="seat_price">#727272</color>
+    <color name="green_seat">#19D358</color>
+    <color name="blue_seat">#1B48E9</color>
+    <color name="purple_seat">#8E13EF</color>
+    <color name="seat_selected">#FAFF00</color>
 </resources>
