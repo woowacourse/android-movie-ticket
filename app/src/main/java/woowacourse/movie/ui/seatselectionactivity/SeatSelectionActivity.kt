@@ -38,8 +38,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         initMovieData()
         initMovieInformation()
         initSeatView()
-//        initSeatSelectionView()
-//        initSeatSelectionClickListener()
         initReservationButtonClickListener()
     }
 

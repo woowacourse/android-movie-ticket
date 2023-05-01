@@ -13,24 +13,24 @@ class SeatTable(
 
     fun setView() {
         repeat(row) { row ->
-            val tableRow = makeTableRow()
-            repeat(col) { col ->
-                val seatView = SeatView(
-                    TextView(tableLayout.context), row, col + 1, onClick
-                )
-                tableRow.addView(seatView.view)
-            }
+            val tableRow = makeTableRow(row, col)
             tableLayout.addView(tableRow)
         }
     }
 
-    private fun makeTableRow(): TableRow {
+    private fun makeTableRow(row: Int, col: Int): TableRow {
         val tableRow = TableRow(tableLayout.context)
-        tableRow.layoutParams = TableLayout.LayoutParams(
-            TableLayout.LayoutParams.MATCH_PARENT,
-            TableLayout.LayoutParams.MATCH_PARENT,
-            TABLE_WEIGHT
-        )
+        repeat(col) { column ->
+            tableRow.layoutParams = TableLayout.LayoutParams(
+                TableLayout.LayoutParams.MATCH_PARENT,
+                TableLayout.LayoutParams.MATCH_PARENT,
+                TABLE_WEIGHT
+            )
+            val seatView = SeatView(
+                TextView(tableLayout.context), row, column + 1, onClick
+            )
+            tableRow.addView(seatView.view)
+        }
         return tableRow
     }
 
