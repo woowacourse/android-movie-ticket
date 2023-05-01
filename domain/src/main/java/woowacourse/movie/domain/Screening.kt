@@ -3,7 +3,7 @@ package woowacourse.movie.domain
 import kotlin.properties.Delegates
 
 class Screening(
-    private val screeningDateRange: ScreeningDateRange,
+    private val screeningRange: ScreeningRange,
     private val movieHouse: MovieHouse,
     private val movie: Movie
 ) {
