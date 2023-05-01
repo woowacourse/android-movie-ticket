@@ -2,7 +2,9 @@ package woowacourse.movie.domain
 
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 internal class ScreeningRangeTest {
@@ -56,6 +58,20 @@ internal class ScreeningRangeTest {
             LocalTime.of(19, 0),
             LocalTime.of(21, 0),
             LocalTime.of(23, 0)
+        )
+    }
+
+    @Test
+    fun `특정 시각에 상영 하는지 알 수 있다`() {
+        val startDate = LocalDate.of(2021, 3, 1)
+        val endDate = LocalDate.of(2021, 3, 31)
+        val screeningRange = ScreeningRange(startDate, endDate)
+        val notScreeningDateTime = LocalDateTime.of(2021, 4, 1, 0, 0)
+        val screeningDateTime = LocalDateTime.of(2021, 3, 1, 10, 0)
+
+        assertAll(
+            { assertThat(screeningRange.screenOn(notScreeningDateTime)).isFalse },
+            { assertThat(screeningRange.screenOn(screeningDateTime)).isTrue }
         )
     }
 }

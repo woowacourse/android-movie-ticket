@@ -27,6 +27,8 @@ class Theater(seatRows: Int, seatColumns: Int) {
             else -> SeatClass.A
         }
 
+    fun hasSeatOn(point: Point): Boolean = point in seats.keys
+
     companion object {
         private const val SEAT_ROWS_OR_COLUMNS_NOT_POSITIVE_ERROR = "좌석들의 행과 열의 개수는 양수여야 합니다."
     }

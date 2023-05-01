@@ -4,7 +4,8 @@ import java.time.*
 
 data class ScreeningRange(val startDate: LocalDate, val endDate: LocalDate) {
 
-    val screeningDateTimes: Map<LocalDate, List<LocalTime>> = createScreeningDateTimes(startDate, endDate)
+    val screeningDateTimes: Map<LocalDate, List<LocalTime>> =
+        createScreeningDateTimes(startDate, endDate)
 
     init {
         require(startDate <= endDate) { START_DATE_AFTER_END_DATE_ERROR }
@@ -22,9 +23,14 @@ data class ScreeningRange(val startDate: LocalDate, val endDate: LocalDate) {
     }
 
     private fun getScreeningTimesOf(date: LocalDate): List<LocalTime> {
-        val startTime = if (date.isWeekend()) SCREENING_START_TIME_AT_WEEKEND else SCREENING_START_TIME_AT_WEEKDAY
+        val startTime =
+            if (date.isWeekend()) SCREENING_START_TIME_AT_WEEKEND else SCREENING_START_TIME_AT_WEEKDAY
         return startTime.getAllTimesToMidNight(SCREENING_TIME_INTERVAL)
     }
+
+    fun screenOn(dateTime: LocalDateTime): Boolean = dateTime in screeningDateTimes
+            .flatMap { it.value.map { time -> LocalDateTime.of(it.key, time) } }
+
 
     companion object {
         private const val START_DATE_AFTER_END_DATE_ERROR = "시작 날짜는 마지막 날짜 이후일 수 없습니다."

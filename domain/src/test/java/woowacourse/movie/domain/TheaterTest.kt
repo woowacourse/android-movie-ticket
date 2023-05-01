@@ -8,7 +8,7 @@ import org.junit.jupiter.api.assertAll
 internal class TheaterTest {
 
     @Test
-    fun `극장의 아이디가 설정된 상태에서 아이디를 다시 변경하려하면 변경되지 않는다`() {
+    fun `극장의 아이디가 설정된 상태에서 아이디를 다시 변경하면 변경되지 않는다`() {
         val theater = Theater(4, 5)
         theater.id = 1L
 
@@ -36,6 +36,19 @@ internal class TheaterTest {
             { assertThat(theater.seats.keys).hasSize(20) },
             { assertThat(theater.seats.keys).contains(Point(1, 1), Point(seatRows, seatColumns)) }
         )
+    }
 
+    @Test
+    fun `특정 좌표에 좌석이 존재하는지 알 수 있다`() {
+        val seatRows = 5
+        val seatColumns = 4
+        val theater = Theater(seatRows, seatColumns)
+        val notExistSeatPoint = Point (6, 6)
+        val existSeatPoint = Point(2, 2)
+
+        assertAll(
+            { assertThat(theater.hasSeatOn(notExistSeatPoint)).isFalse },
+            { assertThat(theater.hasSeatOn(existSeatPoint)).isTrue }
+        )
     }
 }
