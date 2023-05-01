@@ -1,10 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.ui.seatselectionactivity
 
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import movie.domain.seat.RowSeat
-import woowacourse.movie.ui.SeatView
 
 class SeatTable(
     private val tableLayout: TableLayout,

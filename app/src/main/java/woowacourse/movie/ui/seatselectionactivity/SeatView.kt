@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.seatselectionactivity
 
 import android.view.Gravity
 import android.widget.TableRow

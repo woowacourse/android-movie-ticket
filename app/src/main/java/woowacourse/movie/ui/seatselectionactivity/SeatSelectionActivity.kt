@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.seatselectionactivity
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,9 +9,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import movie.domain.Count
 import woowacourse.movie.R
-import woowacourse.movie.SeatTable
 import woowacourse.movie.model.*
 import woowacourse.movie.model.mapper.toDomain
+import woowacourse.movie.ui.MovieBookingCheckActivity
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import kotlin.properties.Delegates

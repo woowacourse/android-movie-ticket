@@ -16,7 +16,7 @@ import woowacourse.movie.model.MovieDataState
 import woowacourse.movie.model.ScreeningDateTimeState
 import woowacourse.movie.model.mapper.toPresentation
 import woowacourse.movie.ui.DateTimeFormatters
-import woowacourse.movie.ui.SeatSelectionActivity
+import woowacourse.movie.ui.seatselectionactivity.SeatSelectionActivity
 import woowacourse.movie.util.customGetParcelableExtra
 import woowacourse.movie.util.setOnSingleClickListener
 import java.time.LocalDate
