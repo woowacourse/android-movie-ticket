@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieInfo
 
-class AdViewHolder(
+class AdvertisementViewHolder(
     view: View,
     private val onClick: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
