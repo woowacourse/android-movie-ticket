@@ -11,7 +11,6 @@ sealed class ScreeningListViewItemUIState {
         val screeningStartDate: LocalDate,
         val screeningEndDate: LocalDate,
         val runningTime: Int,
-        val summary: String,
         val screeningId: Long
     ) : ScreeningListViewItemUIState() {
 
@@ -27,7 +26,6 @@ sealed class ScreeningListViewItemUIState {
                     screening.screeningRange.startDate,
                     screening.screeningRange.endDate,
                     movie.runningTime.value,
-                    movie.summary,
                     screeningId
                 )
             }
