@@ -6,8 +6,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Screening
-import woowacourse.movie.view.*
-import woowacourse.movie.view.ReservationActivity.Companion.SCREENING_ID
+import woowacourse.movie.view.activities.screeningdetail.ScreeningDetailActivity
+import woowacourse.movie.view.activities.screeningdetail.ScreeningDetailActivity.Companion.SCREENING_ID
 
 class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
 
@@ -24,7 +24,7 @@ class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
     override fun setScreeningList(screenings: List<Screening>) {
         val screeningListViewUIStates = createScreeningListViewUIStates(screenings)
         screeningListView.adapter = ScreeningListAdapter(screeningListViewUIStates) { screeningId ->
-            val intent = Intent(this, ReservationActivity::class.java)
+            val intent = Intent(this, ScreeningDetailActivity::class.java)
             intent.putExtra(SCREENING_ID, screeningId)
             startActivity(intent)
         }
