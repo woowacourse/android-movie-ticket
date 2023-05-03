@@ -36,22 +36,30 @@ class CompletedActivity : AppCompatActivity() {
     }
 
     private fun initView(reservationInfo: ReservationInfo) {
-        val movie = MovieData.findMovieById(reservationInfo.ticket.movieId)
-        findViewById<TextView>(R.id.textCompletedTitle).text = movie.title
-        findViewById<TextView>(R.id.textCompletedScreeningDate).text =
-            reservationInfo.ticket.bookedDateTime.formatScreenDateTime()
-        findViewById<TextView>(R.id.textCompletedTicketCount).text =
-            getString(R.string.normal_ticket_count).format(reservationInfo.ticket.count)
-        findViewById<TextView>(R.id.textCompletedPaymentAmount).text =
-            getString(R.string.payment_amount).format(reservationInfo.total)
-        findViewById<TextView>(R.id.textCompletedSeat).text =
-            reservationInfo.seat.toFormattedString()
+        val ticket = reservationInfo.ticket
+        val title = MovieData.findMovieById(ticket.movieId).title
+        val ticketCount = getString(R.string.normal_ticket_count).format(ticket.count)
+        val payment = getString(R.string.payment_amount).format(reservationInfo.total)
+        val screeningDate = ticket.bookedDateTime.formatScreenDateTime()
+        val seats = reservationInfo.seat.toFormattedString()
+
+        R.id.textCompletedTitle.setText(title)
+        R.id.textCompletedScreeningDate.setText(screeningDate)
+        R.id.textCompletedTicketCount.setText(ticketCount)
+        R.id.textCompletedPaymentAmount.setText(payment)
+        R.id.textCompletedSeat.setText(seats)
+    }
+
+    private fun Int.setText(content: String) {
+        findViewById<TextView>(this).text = content
     }
 
     private fun List<String>.toFormattedString(): String =
-        this.joinToString(prefix = "", separator = ",", postfix = "")
+        this.joinToString(BLANK, SEPARATOR, BLANK)
 
     companion object {
+        private const val BLANK = ""
+        private const val SEPARATOR = ","
         private const val RESERVATION_INFO = "RESERVATION_INFO"
 
         fun getIntent(context: Context, reservationInfo: ReservationInfo): Intent {
