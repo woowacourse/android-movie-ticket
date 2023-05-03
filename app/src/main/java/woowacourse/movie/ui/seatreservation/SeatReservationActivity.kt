@@ -18,7 +18,7 @@ import woowacourse.movie.ui.seatreservation.uimodel.BoxOffice
 import woowacourse.movie.ui.seatreservation.uimodel.SelectState.ABLE
 import woowacourse.movie.ui.seatreservation.uimodel.SelectState.DISABLE
 import woowacourse.movie.ui.seatreservation.uimodel.SelectState.MAX
-import woowacourse.movie.ui.seatreservation.uimodel.SelectState.REABLE
+import woowacourse.movie.ui.seatreservation.uimodel.SelectState.RETRY
 import woowacourse.movie.util.shortToast
 
 class SeatReservationActivity : AppCompatActivity() {
@@ -79,7 +79,7 @@ class SeatReservationActivity : AppCompatActivity() {
 
         when (boxOffice.select(count, seat)) {
             ABLE -> updateAbleState(seat, seatLocation)
-            REABLE -> updateReableState(seat, seatLocation)
+            RETRY -> updateRetryState(seat, seatLocation)
             DISABLE -> shortToast(R.string.st_seat_reservation_over)
             MAX -> updateMaxState(seat, seatLocation)
         }
@@ -90,7 +90,7 @@ class SeatReservationActivity : AppCompatActivity() {
         seat.isSelected = true
     }
 
-    private fun updateReableState(seat: View, seatLocation: Int) {
+    private fun updateRetryState(seat: View, seatLocation: Int) {
         updateTotalView(seat, seatLocation)
         seat.isSelected = false
         if (checkButton.isSelected) {

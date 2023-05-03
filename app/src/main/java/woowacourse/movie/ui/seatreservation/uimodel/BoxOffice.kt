@@ -4,7 +4,7 @@ import android.view.View
 import woowacourse.movie.ui.seatreservation.uimodel.SelectState.ABLE
 import woowacourse.movie.ui.seatreservation.uimodel.SelectState.DISABLE
 import woowacourse.movie.ui.seatreservation.uimodel.SelectState.MAX
-import woowacourse.movie.ui.seatreservation.uimodel.SelectState.REABLE
+import woowacourse.movie.ui.seatreservation.uimodel.SelectState.RETRY
 import java.time.LocalDateTime
 
 class BoxOffice private constructor(
@@ -39,24 +39,24 @@ class BoxOffice private constructor(
     }
 
     private fun isNonMaxState(view: View): SelectState {
-        if (view.isSelected) return isReableState()
+        if (view.isSelected) return isRetryState()
         return ABLE
     }
 
     private fun isMaxState(view: View): SelectState {
-        if (view.isSelected) return isReableState()
+        if (view.isSelected) return isRetryState()
         return MAX
     }
 
     private fun isOverState(view: View): SelectState {
-        if (view.isSelected) return isReableState()
+        if (view.isSelected) return isRetryState()
         count--
         return DISABLE
     }
 
-    private fun isReableState(): REABLE {
+    private fun isRetryState(): RETRY {
         count -= DOUBLE
-        return REABLE
+        return RETRY
     }
 
     private fun getTotalSum(view: View, seatGrade: SeatGrade) {
