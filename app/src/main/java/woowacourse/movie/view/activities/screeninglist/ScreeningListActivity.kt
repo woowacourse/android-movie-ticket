@@ -12,14 +12,14 @@ import woowacourse.movie.view.activities.screeningdetail.ScreeningDetailActivity
 
 class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
 
-    private lateinit var presenter: ScreeningListContract.Presenter
+    private val presenter: ScreeningListContract.Presenter = ScreeningListPresenter(this)
     private val screeningListView by lazy { findViewById<RecyclerView>(R.id.screening_list_view) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_list)
 
-        presenter = ScreeningListPresenter(this)
+        presenter.loadScreenings()
     }
 
     override fun setScreeningList(screenings: List<Screening>) {

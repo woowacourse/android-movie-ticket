@@ -4,6 +4,7 @@ import woowacourse.movie.domain.Screening
 
 interface ScreeningListContract {
     interface Presenter {
+        fun loadScreenings()
     }
 
     interface View {
