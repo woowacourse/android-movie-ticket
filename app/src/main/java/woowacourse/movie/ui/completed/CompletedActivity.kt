@@ -2,7 +2,6 @@ package woowacourse.movie.ui.completed
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -11,20 +10,14 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.ReservationInfo
 import woowacourse.movie.formatScreenDateTime
+import woowacourse.movie.util.parcelable
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_completed)
 
-        initView(getReservationInfo())
-    }
-
-    private fun getReservationInfo() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        intent.getParcelableExtra(RESERVATION_INFO, ReservationInfo::class.java)
-            ?: throw IllegalArgumentException()
-    } else {
-        intent.getParcelableExtra(RESERVATION_INFO) ?: throw IllegalArgumentException()
+        initView(intent.parcelable(RESERVATION_INFO))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
