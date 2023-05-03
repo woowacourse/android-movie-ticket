@@ -43,8 +43,8 @@ class ReservationActivity : AppCompatActivity() {
         titleView.text = movie.title
         val screeningDateView = findViewById<TextView>(R.id.movie_screening_date)
         screeningDateView.text =
-            if (movie.screenings.isEmpty()) getString(R.string.screening_date_is_empty) else
-                getString(R.string.screening_date_format).format(
+            if (movie.screenings.isEmpty()) getString(R.string.screening_range_is_empty) else
+                getString(R.string.screening_range_format).format(
                     movie.screenings.first().screeningDateTime.format(DATE_FORMATTER),
                     movie.screenings.last().screeningDateTime.format(DATE_FORMATTER)
                 )
@@ -179,6 +179,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val SCREENING_ID = "SCREENING_ID"
         private const val SELECTED_DATE = "SELECTED_DATE"
         private const val SELECTED_TIME = "SELECTED_TIME"
         private const val SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"

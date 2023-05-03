@@ -4,9 +4,9 @@ import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
 class Screening(
-    private val screeningRange: ScreeningRange,
+    val screeningRange: ScreeningRange,
     private val theater: Theater,
-    private val movie: MovieData
+    val movie: MovieData
 ) {
     var id: Long? by Delegates.vetoable(null) { _, old, new ->
         old == null && new != null

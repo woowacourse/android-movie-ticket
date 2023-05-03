@@ -46,9 +46,9 @@ class MovieListAdapter(
         convertView.findViewById<TextView>(R.id.movie_title)?.text = movie.title
         convertView.findViewById<TextView>(R.id.movie_screening_date)?.text =
             if (movie.screenings.isEmpty())
-                context.resources.getString(R.string.screening_date_is_empty)
+                context.resources.getString(R.string.screening_range_is_empty)
             else
-                context.resources.getString(R.string.screening_date_format).format(
+                context.resources.getString(R.string.screening_range_format).format(
                     movie.screenings.first().screeningDateTime.format(DATE_FORMATTER),
                     movie.screenings.last().screeningDateTime.format(DATE_FORMATTER)
                 )
