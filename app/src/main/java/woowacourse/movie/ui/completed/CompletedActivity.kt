@@ -11,7 +11,6 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.ReservationInfo
 import woowacourse.movie.formatScreenDateTime
-import woowacourse.movie.ui.seatreservation.uimodel.Seat
 
 class CompletedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +48,7 @@ class CompletedActivity : AppCompatActivity() {
             reservationInfo.seat.toFormattedString()
     }
 
-    private fun List<Seat>.toFormattedString(): String =
+    private fun List<String>.toFormattedString(): String =
         this.joinToString(prefix = "", separator = ",", postfix = "")
 
     companion object {

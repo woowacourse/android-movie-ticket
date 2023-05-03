@@ -1,36 +1,41 @@
 package woowacourse.movie.ui.seatreservation.uimodel
 
-enum class Seat(private val index: Int, val price: Int) {
-    A1(0, 10000),
-    A2(1, 10000),
-    A3(2, 10000),
-    A4(3, 10000),
-    B1(4, 10000),
-    B2(5, 10000),
-    B3(6, 10000),
-    B4(7, 10000),
-    C1(8, 15000),
-    C2(9, 15000),
-    C3(10, 15000),
-    C4(11, 15000),
-    D1(12, 15000),
-    D2(13, 15000),
-    D3(14, 15000),
-    D4(15, 15000),
-    E1(16, 12000),
-    E2(17, 12000),
-    E3(18, 12000),
-    E4(19, 12000),
-    ;
+import woowacourse.movie.ui.seatreservation.uimodel.SeatGrade.A_CLASS
+import woowacourse.movie.ui.seatreservation.uimodel.SeatGrade.B_CLASS
+import woowacourse.movie.ui.seatreservation.uimodel.SeatGrade.S_CLASS
 
-    private fun matchSeatGrade(index: Int) =
-        this.index == index
+class Seat {
+    fun getSeatPrice(locationIndex: Int): SeatGrade =
+        when (getSeatLocation(locationIndex).removeSeatLocation(locationIndex)) {
+            GRADE_A, GRADE_B -> B_CLASS
+            GRADE_C, GRADE_D -> S_CLASS
+            GRADE_E -> A_CLASS
+            else -> throw IllegalArgumentException()
+        }
+
+    fun getSeatLocation(locationIndex: Int): String = when (locationIndex / GRADE_UNIT) {
+        0 -> GRADE_A.toSeatLocation(locationIndex)
+        1 -> GRADE_B.toSeatLocation(locationIndex)
+        2 -> GRADE_C.toSeatLocation(locationIndex)
+        3 -> GRADE_D.toSeatLocation(locationIndex)
+        4 -> GRADE_E.toSeatLocation(locationIndex)
+        else -> throw IllegalArgumentException()
+    }
+
+    private fun String.removeSeatLocation(locationIndex: Int): String =
+        this.removeSuffix(locationIndex.toSeatNumber().toString())
+
+    private fun String.toSeatLocation(locationIndex: Int): String =
+        this.plus(locationIndex.toSeatNumber())
+
+    private fun Int.toSeatNumber(): Int = (this % GRADE_UNIT) + 1
 
     companion object {
-        private const val ERROR_ABNORMAL = "[ERROR] 비정상적인 접근입니다."
-        fun valueOf(index: Int): Seat =
-            values().find { seat ->
-                seat.matchSeatGrade(index)
-            } ?: throw IllegalStateException(ERROR_ABNORMAL)
+        private const val GRADE_A = "A"
+        private const val GRADE_B = "B"
+        private const val GRADE_C = "C"
+        private const val GRADE_D = "D"
+        private const val GRADE_E = "E"
+        private const val GRADE_UNIT = 4
     }
 }
