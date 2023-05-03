@@ -3,6 +3,7 @@ package woowacourse.movie.view.activities.screeningdetail
 import androidx.annotation.DrawableRes
 import woowacourse.movie.domain.Screening
 import java.time.LocalDate
+import java.time.LocalTime
 
 data class ScreeningDetailUIState(
     @DrawableRes val poster: Int,
@@ -11,6 +12,7 @@ data class ScreeningDetailUIState(
     val screeningEndDate: LocalDate,
     val runningTime: Int,
     val summary: String,
+    val screeningDateTimes: Map<LocalDate, List<LocalTime>>,
     val screeningId: Long
 ) {
 
@@ -27,6 +29,7 @@ data class ScreeningDetailUIState(
                 screening.screeningRange.endDate,
                 movie.runningTime.value,
                 movie.summary,
+                screening.screeningRange.screeningDateTimes,
                 screeningId
             )
         }

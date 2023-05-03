@@ -32,7 +32,6 @@ class ScreeningItemViewHolder(
     }
 
     companion object {
-        private val DATE_FORMATTER: DateTimeFormatter =
-            DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        private val DATE_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
