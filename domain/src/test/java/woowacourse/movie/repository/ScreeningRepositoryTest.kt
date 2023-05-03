@@ -18,4 +18,11 @@ internal class ScreeningRepositoryTest {
 
         assertThat(screening.id).isNotNull
     }
+
+    @Test
+    fun `생성되면 샘플 데이터 4개 이상 저장한다`() {
+        val actual = ScreeningRepository.findAll()
+
+        assertThat(actual).hasSizeGreaterThanOrEqualTo(4)
+    }
 }
