@@ -1,5 +1,6 @@
 package woowacourse.movie.view.activities.seatselection
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,8 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
+import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity2
+import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity2.Companion.RESERVATION_ID
 import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
@@ -33,6 +36,7 @@ class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
         )
 
         presenter.loadScreening()
+        initReservationButtonOnClickListener()
     }
 
     private fun getScreeningDateTimeFromIntent(): LocalDateTime =
@@ -42,6 +46,13 @@ class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
         } else {
             intent.getSerializableExtra(SCREENING_DATE_TIME) as LocalDateTime
         }
+
+    private fun initReservationButtonOnClickListener() {
+        val reservationButton = findViewById<Button>(R.id.reservation_btn)
+        reservationButton.setOnClickListener {
+            presenter.reserve(selectedSeatNames)
+        }
+    }
 
     override fun setSeats(seatUIStates: List<List<SeatUIState>>) {
         val seatsView = findViewById<TableLayout>(R.id.seat_table)
@@ -90,6 +101,12 @@ class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
     override fun setReservationFee(fee: Int) {
         val reservationFeeView = findViewById<TextView>(R.id.reservation_fee_tv)
         reservationFeeView.text = getString(R.string.fee_format).format(fee)
+    }
+
+    override fun startReservationResultActivity(reservationId: Long) {
+        val intent = Intent(this, ReservationResultActivity2::class.java)
+        intent.putExtra(RESERVATION_ID, reservationId)
+        startActivity(intent)
     }
 
     companion object {

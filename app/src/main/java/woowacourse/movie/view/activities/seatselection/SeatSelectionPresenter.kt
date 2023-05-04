@@ -5,6 +5,7 @@ import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Screening
 import woowacourse.movie.domain.SeatClass
 import woowacourse.movie.domain.Theater
+import woowacourse.movie.repository.ReservationRepository
 import woowacourse.movie.repository.ScreeningRepository
 import java.time.LocalDateTime
 
@@ -48,18 +49,30 @@ class SeatSelectionPresenter(
     }
 
     override fun setSelectedSeats(seatNames: Set<String>) {
-        fun convertSeatNameToSeatPoint(seatName: String): Point {
-            val row = seatName[0] - 'A' + 1
-            val column = seatName[1].toString().toInt()
-            return Point(row, column)
-        }
-
-        val selectedSeatPoints = seatNames.map { convertSeatNameToSeatPoint(it) }
-        if (selectedSeatPoints.isEmpty()) {
+        val seatPoints = seatNames.map { convertSeatNameToSeatPoint(it) }
+        if (seatPoints.isEmpty()) {
             view.setReservationFee(0)
             return
         }
-        val reservation = screening.reserve(screeningDateTime, selectedSeatPoints)
+        val reservation = screening.reserve(screeningDateTime, seatPoints)
         view.setReservationFee(reservation.fee.amount)
+    }
+
+    private fun convertSeatNameToSeatPoint(seatName: String): Point {
+        val row = seatName[0] - 'A' + 1
+        val column = seatName[1].toString().toInt()
+        return Point(row, column)
+    }
+
+    override fun reserve(seatNames: Set<String>) {
+        require(seatNames.isNotEmpty()) { "좌석 선택을 해야 예매할 수 있습니다." }
+
+        val seatPoints = seatNames.map { convertSeatNameToSeatPoint(it) }
+        val reservation = screening.reserve(screeningDateTime, seatPoints)
+        ReservationRepository.save(reservation)
+        view.startReservationResultActivity(
+            reservation.id
+                ?: throw IllegalArgumentException("만약 예매 아이디가 널이면 ReservationRepository의 로직이 잘못된 것입니다.")
+        )
     }
 }

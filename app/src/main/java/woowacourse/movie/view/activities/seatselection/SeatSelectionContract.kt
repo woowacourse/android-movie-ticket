@@ -5,6 +5,8 @@ interface SeatSelectionContract {
         fun loadScreening()
 
         fun setSelectedSeats(seatNames: Set<String>)
+
+        fun reserve(seatNames: Set<String>)
     }
 
     interface View {
@@ -13,5 +15,7 @@ interface SeatSelectionContract {
         fun setMovieTitle(title: String)
 
         fun setReservationFee(fee: Int)
+
+        fun startReservationResultActivity(reservationId: Long)
     }
 }
