@@ -17,7 +17,7 @@ class Screening(
             NOT_SCREEN_ON_INPUT_DATE_TIME_ERROR.format(screeningDateTime)
         }
 
-        return Reservation(screeningDateTime, theater, seatPoints)
+        return Reservation(movie, screeningDateTime, theater, seatPoints)
     }
 
     companion object {
