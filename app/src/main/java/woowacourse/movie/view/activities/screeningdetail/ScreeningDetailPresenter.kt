@@ -7,8 +7,7 @@ class ScreeningDetailPresenter(private val view: ScreeningDetailContract.View) :
     ScreeningDetailContract.Presenter {
 
     override fun loadScreeningData(screeningId: Long) {
-        val screening = ScreeningRepository.findById(screeningId)
-            ?: throw IllegalArgumentException("아이디가 ${screeningId}인 상영이 존재하지 않아서 프레젠터를 생성할 수 없습니다.")
+        val screening = ScreeningRepository.findById(screeningId) ?: return
         view.setScreening(
             ScreeningDetailUIState.of(
                 screening,
