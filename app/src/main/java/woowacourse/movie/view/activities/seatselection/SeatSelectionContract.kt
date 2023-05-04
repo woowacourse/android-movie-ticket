@@ -2,7 +2,9 @@ package woowacourse.movie.view.activities.seatselection
 
 interface SeatSelectionContract {
     interface Presenter {
-        fun loadScreening(screeningId: Long)
+        fun loadScreening()
+
+        fun setSelectedSeats(seatNames: Set<String>)
     }
 
     interface View {

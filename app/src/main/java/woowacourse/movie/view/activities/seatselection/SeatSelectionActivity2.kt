@@ -1,7 +1,9 @@
 package woowacourse.movie.view.activities.seatselection
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -9,19 +11,37 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
+import java.time.LocalDateTime
+import kotlin.properties.Delegates
 
 class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
 
-    private val presenter: SeatSelectionContract.Presenter = SeatSelectionPresenter(this)
+    private lateinit var presenter: SeatSelectionContract.Presenter
 
-    private val selectedSeatNames: MutableSet<String> = mutableSetOf()
+    private var selectedSeatNames: Set<String> by Delegates.observable(setOf()) { _, _, new ->
+        presenter.setSelectedSeats(new)
+        findViewById<Button>(R.id.reservation_btn).isEnabled = new.isNotEmpty()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection2)
+        presenter = SeatSelectionPresenter(
+            this,
+            intent.getLongExtra(SCREENING_ID, -1),
+            getScreeningDateTimeFromIntent()
+        )
 
-        presenter.loadScreening(intent.getLongExtra(SCREENING_ID, -1L))
+        presenter.loadScreening()
     }
+
+    private fun getScreeningDateTimeFromIntent(): LocalDateTime =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(SCREENING_DATE_TIME, LocalDateTime::class.java)
+                ?: throw IllegalArgumentException("이 액티비티는 인텐트에 상영 시각이 저장되어 있을 때만 실행될 수 있습니다.")
+        } else {
+            intent.getSerializableExtra(SCREENING_DATE_TIME) as LocalDateTime
+        }
 
     override fun setSeats(seatUIStates: List<List<SeatUIState>>) {
         val seatsView = findViewById<TableLayout>(R.id.seat_table)
@@ -49,12 +69,13 @@ class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
         fun deselect(button: AppCompatButton) {
             button.isSelected = false
             button.setBackgroundColor(getColor(R.color.unselected_seat_color))
-            selectedSeatNames.remove(button.text)
+            selectedSeatNames = selectedSeatNames - button.text.toString()
         }
+
         fun select(button: AppCompatButton) {
             button.isSelected = true
             button.setBackgroundColor(getColor(R.color.selected_seat_color))
-            selectedSeatNames.add(button.text.toString())
+            selectedSeatNames = selectedSeatNames + button.text.toString()
         }
 
         if (button.isSelected) deselect(button)
