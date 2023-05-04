@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter
 
 class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.View {
 
-    private val presenter: ScreeningDetailContract.Presenter = ScreeningDetailPresenter(this)
+    private lateinit var presenter: ScreeningDetailContract.Presenter
     private var timeSpinnerPosition: Int = 0
     private var savedInstanceState: Bundle? = null
 
@@ -24,13 +24,10 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         setContentView(R.layout.activity_screening_detail)
         this.savedInstanceState = savedInstanceState
 
-        val screeningId = getScreeningIdFromIntent()
-        presenter.loadScreeningData(screeningId)
+        val screeningId = intent.getLongExtra(SCREENING_ID, -1)
+        presenter = ScreeningDetailPresenter(this, screeningId)
+        presenter.loadScreeningData()
         initSeatSelectionButtonOnClickListener(screeningId)
-    }
-
-    private fun getScreeningIdFromIntent(): Long {
-        return intent.getLongExtra(SCREENING_ID, -1)
     }
 
     private fun initSeatSelectionButtonOnClickListener(screeningId: Long) {

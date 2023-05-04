@@ -2,7 +2,7 @@ package woowacourse.movie.view.activities.screeningdetail
 
 interface ScreeningDetailContract {
     interface Presenter {
-        fun loadScreeningData(screeningId: Long)
+        fun loadScreeningData()
     }
 
     interface View {
