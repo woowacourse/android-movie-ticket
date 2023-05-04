@@ -11,7 +11,7 @@ class ScreeningDetailPresenter(private val view: ScreeningDetailContract.View) :
         view.setScreening(
             ScreeningDetailUIState.of(
                 screening,
-                PosterResourceProvider.getPosterResourceId(screeningId)
+                PosterResourceProvider.getPosterResourceId(screening)
             )
         )
     }

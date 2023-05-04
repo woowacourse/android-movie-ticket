@@ -17,11 +17,10 @@ class ScreeningListPresenter(private val view: ScreeningListContract.View): Scre
         val screeningListViewUIStates = mutableListOf<ScreeningListViewItemUIState>()
 
         screenings.forEachIndexed { index, screening ->
-            val screeningId = screening.id ?: return@forEachIndexed
             screeningListViewUIStates.add(
                 ScreeningListViewItemUIState.ScreeningUIState.of(
                     screening,
-                    PosterResourceProvider.getPosterResourceId(screeningId)
+                    PosterResourceProvider.getPosterResourceId(screening)
                 )
             )
             if ((index + 1) % ADVERTISE_INTERVAL == 0)

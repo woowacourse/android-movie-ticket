@@ -34,9 +34,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         val runningTimeView = findViewById<TextView>(R.id.running_time_tv)
         val summaryView = findViewById<TextView>(R.id.movie_summary_tv)
 
-        posterView.setImageResource(
-            PosterResourceProvider.getPosterResourceId(screeningDetailUIState.screeningId)
-        )
+        posterView.setImageResource(screeningDetailUIState.poster)
         titleView.text = screeningDetailUIState.title
         screeningRangeView.text = getString(R.string.screening_range_format)
             .format(
