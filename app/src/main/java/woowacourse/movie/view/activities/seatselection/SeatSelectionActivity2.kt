@@ -14,6 +14,8 @@ class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
 
     private val presenter: SeatSelectionContract.Presenter = SeatSelectionPresenter(this)
 
+    private val selectedSeatNames: MutableSet<String> = mutableSetOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection2)
@@ -39,9 +41,25 @@ class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
             text = seatName
             setTextColor(getColor(textColor))
             setBackgroundColor(getColor(R.color.unselected_seat_color))
-            setOnClickListener {  }
+            setOnClickListener { onSeatButtonClick(this) }
             layoutParams = TableRow.LayoutParams(0, Toolbar.LayoutParams.MATCH_PARENT, 1f)
         }
+
+    private fun onSeatButtonClick(button: AppCompatButton) {
+        fun deselect(button: AppCompatButton) {
+            button.isSelected = false
+            button.setBackgroundColor(getColor(R.color.unselected_seat_color))
+            selectedSeatNames.remove(button.text)
+        }
+        fun select(button: AppCompatButton) {
+            button.isSelected = true
+            button.setBackgroundColor(getColor(R.color.selected_seat_color))
+            selectedSeatNames.add(button.text.toString())
+        }
+
+        if (button.isSelected) deselect(button)
+        else select(button)
+    }
 
     override fun setMovieTitle(title: String) {
         val titleView = findViewById<TextView>(R.id.movie_title_tv)
