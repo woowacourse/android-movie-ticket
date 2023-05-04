@@ -24,11 +24,33 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         setContentView(R.layout.activity_screening_detail)
         this.savedInstanceState = savedInstanceState
 
-        presenter.loadScreeningData(getScreeningIdFromIntent())
+        val screeningId = getScreeningIdFromIntent()
+        presenter.loadScreeningData(screeningId)
+        initSeatSelectionButtonOnClickListener(screeningId)
     }
 
     private fun getScreeningIdFromIntent(): Long {
         return intent.getLongExtra(SCREENING_ID, -1)
+    }
+
+    private fun initSeatSelectionButtonOnClickListener(screeningId: Long) {
+        val seatSelectionButton = findViewById<Button>(R.id.seat_selection_btn)
+        seatSelectionButton.setOnClickListener { startSeatSelectionActivity(screeningId) }
+    }
+
+    private fun startSeatSelectionActivity(screeningId: Long) {
+        fun getSelectedScreeningDateTime(): LocalDateTime {
+            val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
+            val selectedDate = dateSpinner.selectedItem as LocalDate
+            val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
+            val selectedTime = timeSpinner.selectedItem as LocalTime
+            return LocalDateTime.of(selectedDate, selectedTime)
+        }
+
+        val intent = Intent(this, SeatSelectionActivity2::class.java)
+        intent.putExtra(SeatSelectionActivity2.SCREENING_ID, screeningId)
+        intent.putExtra(SCREENING_DATE_TIME, getSelectedScreeningDateTime())
+        startActivity(intent)
     }
 
     override fun setScreening(screeningDetailUIState: ScreeningDetailUIState) {
@@ -50,11 +72,6 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         summaryView.text = screeningDetailUIState.summary
 
         initSpinners(screeningDetailUIState.screeningDateTimes)
-
-        val seatSelectionButton = findViewById<Button>(R.id.seat_selection_btn)
-        seatSelectionButton.setOnClickListener {
-            startSeatSelectionActivity(screeningDetailUIState.screeningId)
-        }
     }
 
     private fun initSpinners(screeningDateTimes: Map<LocalDate, List<LocalTime>>) {
@@ -105,21 +122,6 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
-    }
-
-    private fun startSeatSelectionActivity(screeningId: Long) {
-        fun getSelectedScreeningDateTime(): LocalDateTime {
-            val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
-            val selectedDate = dateSpinner.selectedItem as LocalDate
-            val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
-            val selectedTime = timeSpinner.selectedItem as LocalTime
-            return LocalDateTime.of(selectedDate, selectedTime)
-        }
-
-        val intent = Intent(this, SeatSelectionActivity2::class.java)
-        intent.putExtra(SeatSelectionActivity2.SCREENING_ID, screeningId)
-        intent.putExtra(SCREENING_DATE_TIME, getSelectedScreeningDateTime())
-        startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
