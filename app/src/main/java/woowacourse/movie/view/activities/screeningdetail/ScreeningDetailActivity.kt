@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import woowacourse.movie.R
-import woowacourse.movie.view.activities.seatselection.SeatSelectionActivity2
-import woowacourse.movie.view.activities.seatselection.SeatSelectionActivity2.Companion.SCREENING_DATE_TIME
+import woowacourse.movie.view.activities.seatselection.SeatSelectionActivity
+import woowacourse.movie.view.activities.seatselection.SeatSelectionActivity.Companion.SCREENING_DATE_TIME
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -44,8 +44,8 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
             return LocalDateTime.of(selectedDate, selectedTime)
         }
 
-        val intent = Intent(this, SeatSelectionActivity2::class.java)
-        intent.putExtra(SeatSelectionActivity2.SCREENING_ID, screeningId)
+        val intent = Intent(this, SeatSelectionActivity::class.java)
+        intent.putExtra(SeatSelectionActivity.SCREENING_ID, screeningId)
         intent.putExtra(SCREENING_DATE_TIME, getSelectedScreeningDateTime())
         startActivity(intent)
     }

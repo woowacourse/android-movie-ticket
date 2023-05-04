@@ -12,12 +12,12 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
-import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity2
-import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity2.Companion.RESERVATION_ID
+import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity
+import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity.Companion.RESERVATION_ID
 import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
-class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
+class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     private lateinit var presenter: SeatSelectionContract.Presenter
 
@@ -104,7 +104,7 @@ class SeatSelectionActivity2 : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun startReservationResultActivity(reservationId: Long) {
-        val intent = Intent(this, ReservationResultActivity2::class.java)
+        val intent = Intent(this, ReservationResultActivity::class.java)
         intent.putExtra(RESERVATION_ID, reservationId)
         startActivity(intent)
     }

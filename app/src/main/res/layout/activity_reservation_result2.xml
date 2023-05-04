@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activities.reservationresult.ReservationResultActivity2">
+    tools:context=".view.activities.reservationresult.ReservationResultActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

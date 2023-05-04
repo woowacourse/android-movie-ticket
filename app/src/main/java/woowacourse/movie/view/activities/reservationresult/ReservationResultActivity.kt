@@ -7,7 +7,7 @@ import woowacourse.movie.R
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
-class ReservationResultActivity2 : AppCompatActivity(), ReservationResultContract.View {
+class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
 
     private lateinit var presenter: ReservationResultContract.Presenter
 
