@@ -52,20 +52,23 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
 
     override fun setScreening(screeningDetailUIState: ScreeningDetailUIState) {
         val posterView = findViewById<ImageView>(R.id.movie_poster_iv)
-        val titleView = findViewById<TextView>(R.id.movie_title_tv)
-        val screeningRangeView = findViewById<TextView>(R.id.screening_range_tv)
-        val runningTimeView = findViewById<TextView>(R.id.running_time_tv)
-        val summaryView = findViewById<TextView>(R.id.movie_summary_tv)
-
         posterView.setImageResource(screeningDetailUIState.poster)
+
+        val titleView = findViewById<TextView>(R.id.movie_title_tv)
         titleView.text = screeningDetailUIState.title
+
+        val screeningRangeView = findViewById<TextView>(R.id.screening_range_tv)
         screeningRangeView.text = getString(R.string.screening_range_format)
             .format(
                 DATE_FORMATTER.format(screeningDetailUIState.screeningStartDate),
                 DATE_FORMATTER.format(screeningDetailUIState.screeningEndDate)
             )
+
+        val runningTimeView = findViewById<TextView>(R.id.running_time_tv)
         runningTimeView.text = getString(R.string.running_time_format)
             .format(screeningDetailUIState.runningTime)
+
+        val summaryView = findViewById<TextView>(R.id.movie_summary_tv)
         summaryView.text = screeningDetailUIState.summary
 
         initSpinners(screeningDetailUIState.screeningDateTimes)
