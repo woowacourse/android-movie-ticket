@@ -1,7 +1,7 @@
 package woowacourse.movie.view
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.domain.screening.Screening
 
 object PosterResourceProvider {
 

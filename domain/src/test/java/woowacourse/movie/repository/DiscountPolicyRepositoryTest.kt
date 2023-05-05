@@ -3,7 +3,7 @@ package woowacourse.movie.repository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.Money
+import woowacourse.movie.domain.discount.Money
 import java.time.LocalDateTime
 
 internal class DiscountPolicyRepositoryTest {

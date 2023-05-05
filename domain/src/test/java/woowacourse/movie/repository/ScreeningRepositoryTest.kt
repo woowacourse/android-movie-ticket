@@ -2,7 +2,11 @@ package woowacourse.movie.repository
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.*
+import woowacourse.movie.domain.screening.Minute
+import woowacourse.movie.domain.screening.Movie
+import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.domain.screening.ScreeningRange
+import woowacourse.movie.domain.theater.Theater
 import java.time.LocalDate
 
 internal class ScreeningRepositoryTest {

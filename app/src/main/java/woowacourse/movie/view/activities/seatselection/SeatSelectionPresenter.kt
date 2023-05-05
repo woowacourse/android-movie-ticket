@@ -1,10 +1,10 @@
 package woowacourse.movie.view.activities.seatselection
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Point
-import woowacourse.movie.domain.Screening
-import woowacourse.movie.domain.SeatClass
-import woowacourse.movie.domain.Theater
+import woowacourse.movie.domain.theater.Point
+import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.domain.theater.SeatClass
+import woowacourse.movie.domain.theater.Theater
 import woowacourse.movie.repository.ReservationRepository
 import woowacourse.movie.repository.ScreeningRepository
 import java.time.LocalDateTime

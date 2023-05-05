@@ -1,7 +1,7 @@
 package woowacourse.movie.view.activities.screeningdetail
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
 import java.time.LocalTime
 

@@ -1,6 +1,6 @@
 package woowacourse.movie.repository
 
-import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.screening.Reservation
 
 object ReservationRepository {
 
@@ -14,9 +14,5 @@ object ReservationRepository {
 
     fun findById(id: Long): Reservation? {
         return reservations[id]
-    }
-
-    fun findAll(): List<Reservation> {
-        return reservations.values.toList()
     }
 }

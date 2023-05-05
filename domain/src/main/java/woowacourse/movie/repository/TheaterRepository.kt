@@ -1,6 +1,6 @@
 package woowacourse.movie.repository
 
-import woowacourse.movie.domain.Theater
+import woowacourse.movie.domain.theater.Theater
 
 object TheaterRepository {
 
@@ -19,10 +19,6 @@ object TheaterRepository {
     fun save(theater: Theater) {
         if (theater.id == null) theater.id = next_id++
         theaters[theater.id!!] = theater
-    }
-
-    fun findById(id: Long): Theater? {
-        return theaters[id]
     }
 
     fun findAll(): List<Theater> {

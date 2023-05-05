@@ -1,6 +1,6 @@
 package woowacourse.movie.repository
 
-import woowacourse.movie.domain.*
+import woowacourse.movie.domain.discount.*
 import java.time.LocalTime
 
 object DiscountPolicyRepository {

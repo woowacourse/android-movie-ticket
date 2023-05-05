@@ -1,7 +1,7 @@
 package woowacourse.movie.view.activities.screeninglist
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
 
 sealed class ScreeningListViewItemUIState {

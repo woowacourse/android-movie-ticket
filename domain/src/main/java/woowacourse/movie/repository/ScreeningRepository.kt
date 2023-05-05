@@ -1,9 +1,9 @@
 package woowacourse.movie.repository
 
-import woowacourse.movie.domain.Minute
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Screening
-import woowacourse.movie.domain.ScreeningRange
+import woowacourse.movie.domain.screening.Minute
+import woowacourse.movie.domain.screening.Movie
+import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.domain.screening.ScreeningRange
 import java.time.LocalDate
 
 object ScreeningRepository {

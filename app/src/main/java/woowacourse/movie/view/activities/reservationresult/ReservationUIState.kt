@@ -1,6 +1,6 @@
 package woowacourse.movie.view.activities.reservationresult
 
-import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.screening.Reservation
 import java.time.LocalDateTime
 
 data class ReservationUIState(

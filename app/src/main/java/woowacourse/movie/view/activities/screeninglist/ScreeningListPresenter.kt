@@ -1,7 +1,7 @@
 package woowacourse.movie.view.activities.screeninglist
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.repository.ScreeningRepository
 import woowacourse.movie.view.PosterResourceProvider
 
