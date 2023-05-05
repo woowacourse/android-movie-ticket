@@ -6,7 +6,7 @@ import kotlin.properties.Delegates
 class Screening(
     val screeningRange: ScreeningRange,
     val theater: Theater,
-    val movie: MovieData
+    val movie: Movie
 ) {
     var id: Long? by Delegates.vetoable(null) { _, old, new ->
         old == null && new != null

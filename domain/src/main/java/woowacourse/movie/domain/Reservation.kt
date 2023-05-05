@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
 class Reservation(
-    val movie: MovieData,
+    val movie: Movie,
     val screeningDateTime: LocalDateTime,
     val theater: Theater,
     val seatPoints: List<Point>

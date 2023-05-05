@@ -10,7 +10,7 @@ internal class ReservationTest {
 
     @Test
     fun `예매를 생성할 때 어떠한 좌석도 예매하지 않으면 에러가 발생한다`() {
-        val movie = MovieData("제목", Minute(152), "요약")
+        val movie = Movie("제목", Minute(152), "요약")
         val theater = Theater(5, 5)
         val emptySeatPoints = listOf<Point>()
 
@@ -21,7 +21,7 @@ internal class ReservationTest {
 
     @Test
     fun `예매를 생성할 때 예매 좌석이 극장 내에 존재하지 않으면 에러가 발생한다`() {
-        val movie = MovieData("제목", Minute(152), "요약")
+        val movie = Movie("제목", Minute(152), "요약")
         val theater = Theater(5, 5)
         val notExistSeatPoint = Point(6, 6)
 
@@ -32,7 +32,7 @@ internal class ReservationTest {
 
     @Test
     fun `예매 요금은 각 예매 좌석 요금에 할인을 적용한 금액의 총 합이다`() {
-        val movie = MovieData("제목", Minute(152), "요약")
+        val movie = Movie("제목", Minute(152), "요약")
         val screeningDateTime = LocalDateTime.of(2024, 3, 10, 10, 0)
         val theater = Theater(5, 4)
         val seatPoints = listOf(Point(1, 1), Point(3, 1))

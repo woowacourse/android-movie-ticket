@@ -1,7 +1,7 @@
 package woowacourse.movie.repository
 
 import woowacourse.movie.domain.Minute
-import woowacourse.movie.domain.MovieData
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Screening
 import woowacourse.movie.domain.ScreeningRange
 import java.time.LocalDate
@@ -29,7 +29,7 @@ object ScreeningRepository {
     private fun createHarryPorter1Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 31))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 마법사의 돌",
             Minute(152),
             "오래전 사악한 마법사 볼드모트에게서 부모를 잃지만 그를 몰락시키고 살아남은 아이 해리 포터는 자신이 마법사라는 사실을 알지 못하고 친척인 더즐리 집안에서 자라게 된다. 친척들로부터 갖은 구박을 받ㅈ제임스든 나날을 보내던 도중, 11세가 되던 해에 해리에게로 마법 학교인 호그와트의 입학 통지서가 오게 된다. 이모부인 버넌 더즐리는 해리가 편지를 받지 못하게 방해하지만 해리는 우여곡절 끝에 자신이 마법사라는 사실을 알게 된다. 그리고 그를 맞이하러 온 호그와트의 숲지기 루비우스 해그리드의 안내로 호그와트에 입학하기 위한 준비를 하고, 마침내 학교로 가게 되는데..."
@@ -40,7 +40,7 @@ object ScreeningRepository {
     private fun createHarryPorter2Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 4, 1), LocalDate.of(2024, 4, 28))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 비밀의 방",
             Minute(162),
             "해리 포터는 이모부인 버넌 더즐리의 집에서 최악의 여름방학을 보내고 있었다. 이때 집요정 도비가 나타나 그에게 호그와트 마법학교로 돌아가지 말라고 하나, 해리는 무시한다. 그러자 도비는 더즐리 집의 손님[1]의 머리에 푸딩을 엎지르고 결국 해리는 본인이 마법을 사용했다는 누명을 뒤집어써서 더즐리 가족에게 비밀을 들키고[2]마법부의 편지(미성년 마법사 법률 위반에 대한 경고)를 받고, 2층의 방에 감금되는 수난을 겪는다.\n" +
@@ -57,7 +57,7 @@ object ScreeningRepository {
     private fun createHarryPorter3Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 5, 1), LocalDate.of(2024, 5, 31))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 아즈카반의 죄수",
             Minute(141),
             "13세가 된 해리 포터는 또 한번의 여름 방학을 이모 가족인 더즐리 일가와 우울하게 보내야 했다. 물론 마법을 쓰는 건 일체 금지. 하지만, 버넌 이모부의 누나인 마지 아줌마가 더즐리 가를 방문하면서 상황은 변한다. 위압적인 마지는 해리에겐 늘 공포의 대상. 마지 아줌마의 모욕 때문에 스트레스를 받던 해리는 급기야 '실수로' 그녀를 거대한 괴물 풍선으로 만들어 하늘 높이 띄워 보내버리고 만다. 이모와 이모부에게 벌을 받을 것도 두렵고, 머글 세상에선 마법 사용이 금지되어 있는 것을 어겼기 때문에 호그와트 마법학교와 마법 정부의 징계가 걱정된 해리는 밤의 어둠 속으로 도망치지만, 순식간에 나이트 버스에 태워져 한 술집으로 인도되어 간다. 그 술집의 이름은 '구멍난 냄비'란 뜻의 리키 콜드런. 그곳엔 마법 정부 총리인 코닐리어스 퍼지가 기다리고 있었다. 총리는 해리를 벌주는 대신, 호그와트 학교로 돌아가기 전에 주점에서 하룻밤을 보낼 것을 강권한다. 아즈카반의 감옥을 탈출한 시리우스 블랙이라는 위험한 마법사가 해리를 찾고 있다는 것. 해리가 들은 사실에 의하면 시리우스 블랙은 어둠의 마왕인 볼드모트 경을 해리의 부모가 있는 곳으로 이끌어 결국 부모님 살해를 조종한 배후. 그렇다면 해리 역시 시리우스 블랙의 표적이 될 가능성도 있다는 얘기. 설상가상으로 호그와트 마법학교엔 불청객들이 머물게 된다. 디멘터는 아즈카반의 무시무시한 간수들을 일컫는 말. 블랙으로부터 학생들을 보호한다는 명분으로 호그와트에 머물게 된 그들은 상대의 영혼을 빨아들이는 힘을 갖고 있었다. 불행히도, 그들의 그런 능력은 다른 학생들보다 해리에게 더 큰 영향력을 발휘하고 그들의 존재는 아직 어린 해리를 공포에 몰아넣어 무기력하게 만든다. 하지만 새로 부임한 어둠의 마법 방어법 교수 리머스 루핀이 해리에게 디멘터들의 마법을 막아낼 수 있는 패트로누스 마법을 가르쳐주면서 상황은 반전되는데..."
@@ -68,7 +68,7 @@ object ScreeningRepository {
     private fun createHarryPorter4Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 6, 1), LocalDate.of(2024, 6, 30))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 불의 잔",
             Minute(157),
             "호그와트 마법학교 4학년이 된 해리 포터는 여름방학 동안 위즐리 가족과 함께 퀴디치 월드컵을 관람한다.\n" +
@@ -87,7 +87,7 @@ object ScreeningRepository {
     private fun createHarryPorter5Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 7, 1), LocalDate.of(2024, 7, 31))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 불사조 기사단",
             Minute(157),
             "해리 포터는 호그와트 마법학교가 방학에 들어갈 때마다 어쩔 수 없이 이모의 집인 프리빗가 4번지에 머물러야 한다. 사사건건 해리를 괴롭히는 이모 피튜니아 더즐리, 이모부 버넌 더즐리, 이종사촌 더들리 더즐리를 마법을 쓴다는 협박으로 실컷 놀려먹던 해리는, 갑자기 뜻밖의 상황에 휘말리게 된다. 아즈카반 감옥의 간수들인 디멘터들이 프리빗가 4번지에 나타나 해리에게 덤벼든 것이다. 해리는 더들리와 자신을 보호하기 위해 마법을 사용하고, 미성년임에도 머글 앞에서 마법을 사용한 혐의로 청문회에 출두해야 하는 위기를 맞는다.\n" +
@@ -102,7 +102,7 @@ object ScreeningRepository {
     private fun createHarryPorter6Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 8, 1), LocalDate.of(2024, 8, 31))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 혼혈 왕자",
             Minute(157),
             "마법부의 미스테리 부서에서 발생한 죽음을 먹는 자들과 불사조 기사단 간의 혈투 후, 시리우스 블랙을 잃은 충격과 슬픔에 잠겨 있는 불사조 기사단과는 반대로 볼드모트와 죽음을 먹는 자들은 머글 세계의 영국 런던에서 죽음을 먹는 자들이 활개를 치며 질서를 어지럽힐 정도로 상기된 분위기를 만끽한다. 더불어 드레이코 말포이를 호그와트 내의 첩자로 삼음과 동시에 세베루스 스네이프로부터 말포이의 조력자로 일한다는 맹세를 받아 낸다.\n" +
@@ -119,7 +119,7 @@ object ScreeningRepository {
     private fun createHarryPorter7Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 9, 1), LocalDate.of(2024, 9, 30))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 죽음의 성물 - 1부",
             Minute(157),
             "덤블도어 교장의 죽음 이후, 마법부는 죽음을 먹는 자들에게 점령당하고 호그와트는 위기에 빠진다. 이에 해리와 론, 헤르미온느는 볼드모트를 물리칠 수 있는 유일한 단서이자 그의 영혼이 담긴 ‘성물’ 호크룩스를 찾기 위한 위험한 여정에 나선다. 그러나 영혼이 연결되어 있는 볼드모트와 해리. 볼드모트를 파괴하면 해리의 목숨 또한 위태로워질지 모른다! 죽느냐 죽이느냐, 이제 그 마지막 대결은 극한을 향해 치닫는데…"
@@ -130,7 +130,7 @@ object ScreeningRepository {
     private fun createHarryPorter8Screening(): Screening {
         val screeningRange = ScreeningRange(LocalDate.of(2024, 10, 1), LocalDate.of(2024, 10, 31))
         val theater = TheaterRepository.findAll().first()
-        val movie = MovieData(
+        val movie = Movie(
             "해리 포터와 죽음의 성물 - 2부",
             Minute(157),
             "이제 모든 것이 끝난다\n" +

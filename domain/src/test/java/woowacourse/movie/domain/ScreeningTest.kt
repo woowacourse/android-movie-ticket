@@ -13,7 +13,7 @@ internal class ScreeningTest {
         val screening = Screening(
             ScreeningRange(LocalDate.of(2021, 3, 1), LocalDate.of(2021, 3, 31)),
             Theater(5, 4),
-            MovieData("제목", Minute(152), "요약")
+            Movie("제목", Minute(152), "요약")
         )
         screening.id = 1L
 
@@ -27,7 +27,7 @@ internal class ScreeningTest {
         val screening = Screening(
             ScreeningRange(LocalDate.of(2021, 3, 1), LocalDate.of(2021, 3, 31)),
             Theater(5, 4),
-            MovieData("제목", Minute(152), "요약")
+            Movie("제목", Minute(152), "요약")
         )
         val notScreeningDateTime = LocalDateTime.of(2021, 4, 1, 0, 0)
 
