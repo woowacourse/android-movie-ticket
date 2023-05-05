@@ -1,5 +1,7 @@
 package woowacourse.movie.view.activities.reservationresult
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -41,8 +43,15 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
     }
 
     companion object {
-        const val RESERVATION_ID = "RESERVATION_ID"
+        private const val RESERVATION_ID = "RESERVATION_ID"
         val DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
         val DECIMAL_FORMAT = DecimalFormat("#,###")
+
+        fun startActivity(context: Context, reservationId: Long) {
+            val intent = Intent(context, ReservationResultActivity::class.java).apply {
+                putExtra(RESERVATION_ID, reservationId)
+            }
+            context.startActivity(intent)
+        }
     }
 }

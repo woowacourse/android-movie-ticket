@@ -1,5 +1,6 @@
 package woowacourse.movie.view.activities.seatselection
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
 import woowacourse.movie.R
 import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity
-import woowacourse.movie.view.activities.reservationresult.ReservationResultActivity.Companion.RESERVATION_ID
 import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
@@ -104,13 +104,19 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun startReservationResultActivity(reservationId: Long) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        intent.putExtra(RESERVATION_ID, reservationId)
-        startActivity(intent)
+        ReservationResultActivity.startActivity(this, reservationId)
     }
 
     companion object {
         const val SCREENING_ID = "SCREENING_ID"
         const val SCREENING_DATE_TIME = "SCREENING_DATE_TIME"
+
+        fun startActivity(context: Context, screeningId: Long, screeningDateTime: LocalDateTime) {
+            val intent = Intent(context, SeatSelectionActivity::class.java).apply {
+                putExtra(SCREENING_ID, screeningId)
+                putExtra(SCREENING_DATE_TIME, screeningDateTime)
+            }
+            context.startActivity(intent)
+        }
     }
 }

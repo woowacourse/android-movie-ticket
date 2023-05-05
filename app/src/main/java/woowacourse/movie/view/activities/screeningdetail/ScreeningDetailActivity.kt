@@ -1,5 +1,6 @@
 package woowacourse.movie.view.activities.screeningdetail
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +8,6 @@ import android.view.View
 import android.widget.*
 import woowacourse.movie.R
 import woowacourse.movie.view.activities.seatselection.SeatSelectionActivity
-import woowacourse.movie.view.activities.seatselection.SeatSelectionActivity.Companion.SCREENING_DATE_TIME
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -44,10 +44,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
             return LocalDateTime.of(selectedDate, selectedTime)
         }
 
-        val intent = Intent(this, SeatSelectionActivity::class.java)
-        intent.putExtra(SeatSelectionActivity.SCREENING_ID, screeningId)
-        intent.putExtra(SCREENING_DATE_TIME, getSelectedScreeningDateTime())
-        startActivity(intent)
+        SeatSelectionActivity.startActivity(this, screeningId, getSelectedScreeningDateTime())
     }
 
     override fun setScreening(screeningDetailUIState: ScreeningDetailUIState) {
@@ -136,5 +133,12 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         const val SCREENING_ID = "SCREENING_ID"
         private val DATE_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private const val TIME_SPINNER_POSITION = "TIME_SPINNER_POSITION"
+
+        fun startActivity(context: Context, screeningId: Long) {
+            val intent = Intent(context, ScreeningDetailActivity::class.java).apply {
+                putExtra(SCREENING_ID, screeningId)
+            }
+            context.startActivity(intent)
+        }
     }
 }
