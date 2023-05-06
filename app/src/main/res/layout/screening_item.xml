@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/movie_poster_iv"
+        android:layout_width="76dp"
+        android:layout_height="108dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/poster_image_description"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/movie_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/movie_poster_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="해리 포터와 마법사의 돌" />
+
+    <TextView
+        android:id="@+id/screening_range_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/movie_poster_iv"
+        app:layout_constraintTop_toBottomOf="@id/movie_title_tv"
+        tools:text="@string/screening_range_format" />
+
+    <TextView
+        android:id="@+id/running_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/movie_poster_iv"
+        app:layout_constraintTop_toBottomOf="@id/screening_range_tv"
+        tools:text="@string/running_time_format" />
+
+    <Button
+        android:id="@+id/reserve_now_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reserve_now"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
