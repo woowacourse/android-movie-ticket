@@ -12,8 +12,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieData
+import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.domain.ScreeningTimes
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
@@ -74,7 +74,7 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun getMovie(): Movie {
+    private fun getMovie(): MovieInfo.Movie {
         val movieId = intent.getLongExtra(MOVIE_ID, -1)
         return MovieData.findMovieById(movieId)
     }
@@ -105,7 +105,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun initView(movie: Movie) {
+    private fun initView(movie: MovieInfo.Movie) {
         findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
@@ -138,7 +138,7 @@ class BookingActivity : AppCompatActivity() {
         timeSpinner.adapter = timeSpinnerAdapter
     }
 
-    private fun initDateTimes(movie: Movie) {
+    private fun initDateTimes(movie: MovieInfo.Movie) {
         val dates: List<LocalDate> =
             ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
         val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
@@ -147,7 +147,7 @@ class BookingActivity : AppCompatActivity() {
         timeSpinnerAdapter.initItems(times)
     }
 
-    private fun initDateSpinnerSelectedListener(movie: Movie) {
+    private fun initDateSpinnerSelectedListener(movie: MovieInfo.Movie) {
         val dates: List<LocalDate> =
             ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
 

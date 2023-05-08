@@ -3,6 +3,6 @@ package woowacourse.movie.ui.home.adapter
 import woowacourse.movie.domain.MovieInfo
 
 interface ItemClickListener {
-    fun onMovieItemClick(movieUnit: MovieInfo.MovieUnit)
+    fun onMovieItemClick(movie: MovieInfo.Movie)
     fun onAdItemClick(ad: MovieInfo.Advertisement)
 }

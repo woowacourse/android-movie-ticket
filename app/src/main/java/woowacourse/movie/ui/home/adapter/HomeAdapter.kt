@@ -20,7 +20,7 @@ class HomeAdapter(
                 onItemClick.onAdItemClick(movieInfo[it] as MovieInfo.Advertisement)
             }
             MOVIE -> MovieViewHolder(createView(parent, R.layout.movie_list_item)) {
-                onItemClick.onMovieItemClick(movieInfo[it] as MovieInfo.MovieUnit)
+                onItemClick.onMovieItemClick(movieInfo[it] as MovieInfo.Movie)
             }
         }
 
@@ -29,14 +29,14 @@ class HomeAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (movieInfo[position]) {
-            is MovieInfo.MovieUnit -> MOVIE.value
+            is MovieInfo.Movie -> MOVIE.value
             is MovieInfo.Advertisement -> ADVERTISEMENT.value
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is MovieViewHolder -> holder.onBind(movieInfo[position] as MovieInfo.MovieUnit)
+            is MovieViewHolder -> holder.onBind(movieInfo[position] as MovieInfo.Movie)
             is AdvertisementViewHolder -> holder.onBind(movieInfo[position] as MovieInfo.Advertisement)
         }
     }

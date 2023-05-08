@@ -6,8 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.MockData
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieData
 import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.ui.booking.BookingActivity
 import woowacourse.movie.ui.home.adapter.HomeAdapter
@@ -26,21 +25,21 @@ class HomeActivity : AppCompatActivity() {
     private fun initHomeAdapter() {
         homeAdapter = HomeAdapter(
             object : ItemClickListener {
-                override fun onMovieItemClick(movieUnit: MovieInfo.MovieUnit) {
-                    setClickEventOnSelectedMovie(movieUnit.movie)
+                override fun onMovieItemClick(movie: MovieInfo.Movie) {
+                    setClickEventOnSelectedMovie(movie)
                 }
 
                 override fun onAdItemClick(ad: MovieInfo.Advertisement) {
                     setClickEventOnAdvertisement(ad)
                 }
             },
-            MockData.getMoviesWithAds(),
+            MovieData.getMoviesWithAds(),
         )
 
         findViewById<RecyclerView>(R.id.rv_main_movie_list).adapter = homeAdapter
     }
 
-    private fun setClickEventOnSelectedMovie(movie: Movie) {
+    private fun setClickEventOnSelectedMovie(movie: MovieInfo.Movie) {
         val intent = BookingActivity.getIntent(this, movie.id)
         startActivity(intent)
     }

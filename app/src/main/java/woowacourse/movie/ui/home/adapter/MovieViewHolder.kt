@@ -6,7 +6,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.formatScreenDate
 
@@ -25,11 +24,11 @@ class MovieViewHolder(
         bookButton.setOnClickListener { onClick(adapterPosition) }
     }
 
-    fun onBind(movieUnit: MovieInfo.MovieUnit) {
-        initView(movieUnit.movie)
+    fun onBind(movie: MovieInfo.Movie) {
+        initView(movie)
     }
 
-    private fun initView(movieData: Movie) {
+    private fun initView(movieData: MovieInfo.Movie) {
         with(movieData) {
             thumbNailView.setImageResource(poster)
             titleView.text = title
