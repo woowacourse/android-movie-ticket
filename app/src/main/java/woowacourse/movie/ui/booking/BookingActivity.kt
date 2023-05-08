@@ -42,9 +42,7 @@ class BookingActivity : AppCompatActivity() {
         initDateTimes(movie)
         restoreData(savedInstanceState)
         initView(movie)
-        setClickEventOnSeatSelectButton()
-        gatherClickListeners()
-        initDateSpinnerSelectedListener(movie)
+        gatherClickListeners(movie)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -79,9 +77,11 @@ class BookingActivity : AppCompatActivity() {
         return MovieData.findMovieById(movieId)
     }
 
-    private fun gatherClickListeners() {
+    private fun gatherClickListeners(movie: MovieInfo.Movie) {
         clickMinus()
         clickPlus()
+        setClickEventOnSeatSelectButton()
+        initDateSpinnerSelectedListener(movie)
     }
 
     private fun setTicket(): Ticket {
