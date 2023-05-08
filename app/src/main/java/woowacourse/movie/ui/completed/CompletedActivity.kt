@@ -48,7 +48,7 @@ class CompletedActivity : AppCompatActivity() {
     }
 
     private fun List<String>.toFormattedString(): String =
-        this.joinToString(BLANK, SEPARATOR, BLANK)
+        this.joinToString(SEPARATOR, BLANK, BLANK)
 
     companion object {
         private const val BLANK = ""
