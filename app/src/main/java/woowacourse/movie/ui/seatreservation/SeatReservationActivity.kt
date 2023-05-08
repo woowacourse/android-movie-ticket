@@ -54,7 +54,7 @@ class SeatReservationActivity : AppCompatActivity() {
     private fun setReservationInfo(): ReservationInfo {
         val price = findViewById<TextView>(R.id.tv_seat_reservation_price).text
 
-        return ReservationInfo(getTicket(), price.toString(), boxOffice.seats2)
+        return ReservationInfo(getTicket(), price.toString(), boxOffice.reservationSeats)
     }
 
     private fun getTicket() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

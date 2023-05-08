@@ -13,8 +13,8 @@ class BoxOffice private constructor(
     private val calculator: Calculator by lazy { Calculator.create(bookedDateTime) }
     private val seat: Seat by lazy { Seat() }
 
-    private val _seats: MutableList<String> = mutableListOf()
-    val seats2: List<String> get() = _seats.toList()
+    private val _reservationSeats: MutableList<String> = mutableListOf()
+    val reservationSeats: List<String> get() = _reservationSeats.toList()
 
     private var count: Int = 0
 
@@ -22,7 +22,7 @@ class BoxOffice private constructor(
         val seatPrice = seat.getSeatPrice(seatLocation)
         val seat = seat.getSeatLocation(seatLocation)
 
-        _seats.add(seat)
+        _reservationSeats.add(seat)
         getTotalSum(view, seatPrice)
 
         return calculator.totalAmount
