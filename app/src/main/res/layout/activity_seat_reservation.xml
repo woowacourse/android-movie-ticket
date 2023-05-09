@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_EAEAEA"
+    tools:context=".ui.seatreservation.SeatReservationActivity">
+
+    <TextView
+        android:id="@+id/tv_seat_reservation_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_494949"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:paddingStart="97dp"
+        android:paddingTop="9dp"
+        android:paddingEnd="97dp"
+        android:paddingBottom="9dp"
+        android:text="@string/tv_seat_reservation_screen"
+        android:textColor="@color/white_FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tl_seat_reservation_seat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="96dp"
+        android:background="@color/white_FFFFFF"
+        android:shrinkColumns="*"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toTopOf="@+id/cl_seat_reservation_movie_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_seat_reservation_screen">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_a1"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_a2"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_a3"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_a4"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_b1"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_b2"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_b3"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_b4"
+                android:textColor="@color/purple_8E13EF"
+                android:textSize="22sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_c1"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_c2"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_c3"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_c4"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_d1"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_d2"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_d3"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_d4"
+                android:textColor="@color/green_19D358"
+                android:textSize="22sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_e1"
+                android:textColor="@color/blue_1B48E9"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_e2"
+                android:textColor="@color/blue_1B48E9"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_e3"
+                android:textColor="@color/blue_1B48E9"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/selector_color_white_yellow"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:paddingStart="24dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="22dp"
+                android:paddingBottom="28dp"
+                android:text="@string/tv_seat_reservation_e4"
+                android:textColor="@color/blue_1B48E9"
+                android:textSize="22sp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_seat_reservation_movie_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white_FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_seat_reservation_check_btn"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_seat_reservation_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="37dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black_000000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/tv_seat_reservation_title" />
+
+        <TextView
+            android:id="@+id/tv_seat_reservation_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/tv_seat_reservation_price"
+            android:textColor="@color/grey_727272"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_seat_reservation_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_seat_reservation_title"
+            tools:text="@string/tv_seat_reservation_price" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_seat_reservation_check_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/selector_color_grey_purple"
+        android:enabled="false"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:paddingStart="28dp"
+        android:paddingEnd="29dp"
+        android:text="@string/tv_seat_reservation_check"
+        android:textColor="@color/white_FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cl_seat_reservation_movie_info" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

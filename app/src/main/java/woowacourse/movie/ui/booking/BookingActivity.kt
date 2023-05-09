@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.booking
 
 import android.content.Context
 import android.content.Intent
@@ -12,12 +12,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieData
+import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.domain.ScreeningTimes
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.formatScreenDate
+import woowacourse.movie.ui.seatreservation.SeatReservationActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -41,8 +42,7 @@ class BookingActivity : AppCompatActivity() {
         initDateTimes(movie)
         restoreData(savedInstanceState)
         initView(movie)
-        gatherClickListeners()
-        initDateSpinnerSelectedListener(movie)
+        gatherClickListeners(movie)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -72,18 +72,40 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun getMovie(): Movie {
+    private fun getMovie(): MovieInfo.Movie {
         val movieId = intent.getLongExtra(MOVIE_ID, -1)
         return MovieData.findMovieById(movieId)
     }
 
-    private fun gatherClickListeners() {
+    private fun gatherClickListeners(movie: MovieInfo.Movie) {
         clickMinus()
         clickPlus()
-        clickBookingComplete()
+        setClickEventOnSeatSelectButton()
+        initDateSpinnerSelectedListener(movie)
     }
 
-    private fun initView(movie: Movie) {
+    private fun setTicket(): Ticket {
+        val date: LocalDate = dateSpinnerAdapter.getItem(dateSpinner.selectedItemPosition)
+            ?: throw IllegalArgumentException()
+
+        val time: LocalTime = timeSpinnerAdapter.getItem(timeSpinner.selectedItemPosition)
+            ?: throw IllegalArgumentException()
+
+        val dateTime: LocalDateTime = LocalDateTime.of(date, time)
+
+        return Ticket(getMovie().id, dateTime, ticketCount.value)
+    }
+
+    private fun setClickEventOnSeatSelectButton() {
+        val selectSeatButton = findViewById<Button>(R.id.buttonBookingComplete)
+
+        selectSeatButton.setOnClickListener {
+            val intent = SeatReservationActivity.getIntent(this, setTicket())
+            startActivity(intent)
+        }
+    }
+
+    private fun initView(movie: MovieInfo.Movie) {
         findViewById<ImageView>(R.id.imageBookingPoster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.textBookingTitle).text = movie.title
         findViewById<TextView>(R.id.textBookingScreeningDate).text =
@@ -111,32 +133,21 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickBookingComplete() {
-        findViewById<Button>(R.id.buttonBookingComplete).setOnClickListener {
-            val movieId = intent.getLongExtra(MOVIE_ID, -1)
-            val dateTime = LocalDateTime.of(
-                dateSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningDate).selectedItemPosition),
-                timeSpinnerAdapter.getItem(findViewById<Spinner>(R.id.spinnerScreeningTime).selectedItemPosition),
-            )
-            val ticket = Ticket(movieId, dateTime, ticketCount.value)
-            startActivity(CompletedActivity.getIntent(this, ticket))
-        }
-    }
-
     private fun initAdapters() {
         dateSpinner.adapter = dateSpinnerAdapter
         timeSpinner.adapter = timeSpinnerAdapter
     }
 
-    private fun initDateTimes(movie: Movie) {
+    private fun initDateTimes(movie: MovieInfo.Movie) {
         val dates: List<LocalDate> =
             ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
         val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[0])
+
         dateSpinnerAdapter.initItems(dates)
         timeSpinnerAdapter.initItems(times)
     }
 
-    private fun initDateSpinnerSelectedListener(movie: Movie) {
+    private fun initDateSpinnerSelectedListener(movie: MovieInfo.Movie) {
         val dates: List<LocalDate> =
             ScreeningTimes.getScreeningDates(movie.screeningStartDate, movie.screeningEndDate)
 
@@ -147,8 +158,7 @@ class BookingActivity : AppCompatActivity() {
                 position: Int,
                 id: Long,
             ) {
-                val times: List<LocalTime> =
-                    ScreeningTimes.getScreeningTime(dates[position])
+                val times: List<LocalTime> = ScreeningTimes.getScreeningTime(dates[position])
                 timeSpinnerAdapter.initItems(times)
             }
 
