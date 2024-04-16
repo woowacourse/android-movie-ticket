@@ -33,10 +33,13 @@
 
             <ImageView
                 android:id="@+id/image_view_reservation_detail_poster"
-                android:layout_width="match_parent"
-                android:layout_height="341dp"
-                android:scaleType="centerCrop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:src="@drawable/ic_launcher_background"
+                app:layout_constraintBottom_toTopOf="@id/text_view_reservation_detail_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -52,7 +55,7 @@
                 app:layout_constraintTop_toBottomOf="@id/image_view_reservation_detail_poster" />
 
             <TextView
-                android:id="@+id/text_view_reservation_running_date"
+                android:id="@+id/text_view_reservation_screening_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="34dp"
@@ -67,8 +70,8 @@
                 android:layout_height="wrap_content"
                 android:text="러닝타임: 152분"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/text_view_reservation_running_date"
-                app:layout_constraintTop_toBottomOf="@id/text_view_reservation_running_date" />
+                app:layout_constraintStart_toStartOf="@id/text_view_reservation_screening_date"
+                app:layout_constraintTop_toBottomOf="@id/text_view_reservation_screening_date" />
 
             <TextView
                 android:id="@+id/text_view_reservation_summary"
