@@ -1,4 +1,6 @@
 package woowacourse.movie.model.schedule
 
-class Schedule {
-}
+import woowacourse.movie.model.theater.Theater
+import java.util.Date
+
+class Schedule(val theater: Theater, val date: Date)

@@ -23,4 +23,3 @@
 - Schedule
   - Theater
   - Day
-    - [ ] 년, 달, 일로 구성되어야함 (ex: YYYY.MM.DD)
