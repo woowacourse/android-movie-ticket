@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.movieInfo
 
 class Synopsis(private val content: String) {
     init {
