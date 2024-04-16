@@ -12,12 +12,15 @@
 ## Model
 - MovieInfo
   - 제목
-    - [ ] 빈 문자열 X
+    - [x] 빈 문자열 X
   - 러닝타임
-    - [ ] 영화 시간 1분 이상
+    - [x] 영화 시간 1분 이상
   - 시놉시스
-    - [ ] 빈 문자열 X
+    - [x] 빈 문자열 X
 - Theater
-  - 상영일
-    - [ ] 년, 달, 일로 구성되어야함 (ex: YYYY.MM.DD)
   - MovieInfo
+  - 가격
+- Schedule
+  - Theater
+  - Day
+    - [ ] 년, 달, 일로 구성되어야함 (ex: YYYY.MM.DD)
