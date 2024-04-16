@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +39,16 @@ class ReservationHomeActivity : AppCompatActivity() {
                 ),
             )
 
-        val movieCatalogAdapter = MovieCatalogAdapter(this, movies)
+        val movieCatalogAdapter =
+            MovieCatalogAdapter(this, movies) {
+                val intent = Intent(this, ReservationDetailActivity::class.java)
+                intent.putExtra("poster", it.poster)
+                intent.putExtra("title", it.title)
+                intent.putExtra("screeningDate", it.screeningDate)
+                intent.putExtra("runningTime", it.runningTime)
+                intent.putExtra("summary", it.summary)
+                startActivity(intent)
+            }
         findViewById<ListView>(R.id.list_view_reservation_home).apply { adapter = movieCatalogAdapter }
     }
 }
