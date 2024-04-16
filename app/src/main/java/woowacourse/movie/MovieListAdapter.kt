@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,25 +26,32 @@ class MovieListAdapter(
         parent: ViewGroup?,
     ): View {
         val view: View =
-            convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+            convertView ?: LayoutInflater.from(context)
+                .inflate(R.layout.movie_item, parent, false)
+        val movie = movieList[index]
 
         val posterImage = view.findViewById<ImageView>(R.id.posterImage)
         val title = view.findViewById<TextView>(R.id.title)
         val screeningDate = view.findViewById<TextView>(R.id.screeningDate)
         val runningTime = view.findViewById<TextView>(R.id.runningTime)
-        val resourceID =
-            context.resources.getIdentifier(
-                movieList[index].posterImage,
-                "drawable",
-                context.packageName,
-            )
+        val button = view.findViewById<TextView>(R.id.reserveButton)
 
-        posterImage.setImageResource(resourceID)
-        title.text = movieList[index].title
+        posterImage.setImageResource(movie.posterImageId)
+        title.text = movie.title
         screeningDate.text =
-            context.getString(R.string.screening_date_format, movieList[index].screeningDate)
+            context.getString(R.string.screening_date_format, movie.screeningDate)
         runningTime.text =
-            context.getString(R.string.running_time_format, movieList[index].runningTime)
+            context.getString(R.string.running_time_format, movie.runningTime)
+
+        button.setOnClickListener {
+            val intent = Intent(context, MovieDetailActivity::class.java)
+            intent.putExtra("posterImage", movie.posterImageId)
+            intent.putExtra("title", movie.title)
+            intent.putExtra("screeningDate", movie.screeningDate)
+            intent.putExtra("runningTime", movie.runningTime)
+            intent.putExtra("summary", movie.summary)
+            context.startActivity(intent)
+        }
 
         return view
     }

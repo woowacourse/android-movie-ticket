@@ -3,7 +3,6 @@
     <string name="reserve_button_text">지금 예매</string>
     <string name="screening_date_format">개봉일: %1$s</string>
     <string name="running_time_format">러닝타임: %1$d분</string>
-    <string name="harry_potter_image">harrypotter_poster</string>
     <string name="harry_potter_title">해리 포터와 마법사의 돌</string>
     <string name="harry_potter_screening_date">2024.3.1</string>
     <string name="harry_potter_running_time">152</string>

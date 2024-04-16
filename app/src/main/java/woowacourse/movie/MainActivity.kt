@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         val movieList =
             listOf(
                 Movie(
-                    posterImage = this.getString(R.string.harry_potter_image),
+                    posterImageId = R.drawable.harrypotter_poster,
                     title = this.getString(R.string.harry_potter_title),
                     screeningDate = this.getString(R.string.harry_potter_screening_date),
                     runningTime = this.getString(R.string.harry_potter_running_time).toInt(),
