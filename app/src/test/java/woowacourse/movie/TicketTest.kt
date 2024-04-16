@@ -7,7 +7,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class TicketTest {
-
     @Test
     fun `플러스 버튼을 누르면 티켓 매수가 1장 증가한다 `() {
         val ticket = Ticket()
@@ -47,5 +46,17 @@ class TicketTest {
         val actual = ticket.increaseCount()
 
         assertThat(actual).isInstanceOf(MaxTicketsBounds::class.java)
+    }
+
+    @Test
+    fun `티켓 매수에 따라 결제 금액을 계산한다`() {
+        val ticket = Ticket()
+
+        ticket.increaseCount()
+        ticket.increaseCount()
+
+        val actual = ticket.calculatePrice()
+
+        assertThat(actual).isEqualTo(39_000)
     }
 }
