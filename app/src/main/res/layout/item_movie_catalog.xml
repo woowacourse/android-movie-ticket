@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image_view_poster"
+        android:layout_width="76dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="해리 포터와 마법사의 돌"
+        app:layout_constraintStart_toEndOf="@id/image_view_poster"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_screening_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="12sp"
+        android:text="상영일: 2024.3.1"
+        app:layout_constraintStart_toStartOf="@id/text_view_title"
+        app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+    <TextView
+        android:id="@+id/text_view_running_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        android:text="러닝타임: 152분"
+        app:layout_constraintStart_toStartOf="@id/text_view_title"
+        app:layout_constraintTop_toBottomOf="@id/text_view_screening_date"
+        />
+
+    <Button
+        android:id="@+id/button_reservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="지금 예매"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_running_time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
