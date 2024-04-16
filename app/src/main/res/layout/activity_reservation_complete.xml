@@ -7,4 +7,102 @@
     android:layout_height="match_parent"
     tools:context=".ReservationCompleteActivity">
 
+
+    <TextView
+        android:id="@+id/completeAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#9160f9"
+        android:gravity="bottom|center"
+        android:paddingBottom="10dp"
+        android:text="영화 상영 시작 시간 15분 전까지\n취소가 가능합니다."
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/completeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:hint="해리포터와 마법사의 돌"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/completeAppBar" />
+
+    <TextView
+        android:id="@+id/completeDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="2024.3.1"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/completeTitle" />
+
+    <TextView
+        android:id="@+id/completeReservationCountType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="일반 "
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/completeReservationCount"
+        app:layout_constraintTop_toBottomOf="@id/completeDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/completeReservationCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="1명"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/completeReservationCountType"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/completeDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/completeReservationPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="13,000원"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/completeReservationType"
+        app:layout_constraintTop_toBottomOf="@id/completeReservationCount" />
+
+
+    <TextView
+        android:id="@+id/completeReservationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint=" (현장 결제)"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toRightOf="@id/completeReservationPrice"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/completeReservationCount" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.utils.formatTimestamp
 
-class MovieAdapter(private val context: Context, private val movieClickListener: MovieClickListener, private val movies: List<Movie>) : BaseAdapter() {
+class MovieAdapter(private val context: Context, private val movieClickListener: MovieClickListener, private val movies: List<Movie>) :
+    BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
     }
