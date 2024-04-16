@@ -27,7 +27,7 @@ class MovieContentListAdapter(
     ): View {
         val view =
             convertView ?: LayoutInflater.from(context)
-                .inflate(R.layout.movie_content_list_item, parent, false)
+                .inflate(R.layout.item_movie_content, parent, false)
 
         val posterImage = view.findViewById<ImageView>(R.id.poster_image)
         val titleText = view.findViewById<TextView>(R.id.title_text)
