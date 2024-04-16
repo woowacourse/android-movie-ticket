@@ -10,6 +10,8 @@ class ReservationDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_detail)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val poster = findViewById<ImageView>(R.id.image_view_reservation_detail_poster)
         val title = findViewById<TextView>(R.id.text_view_reservation_detail_title)
         val screeningDate = findViewById<TextView>(R.id.text_view_reservation_screening_date)
