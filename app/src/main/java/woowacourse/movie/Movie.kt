@@ -3,9 +3,9 @@ package woowacourse.movie
 import java.io.Serializable
 
 data class Movie(
-    val thumbnail: String,
+    val thumbnail: Int,
     val title: String,
     val description: String,
-    val date: Int,
+    val date: Long,
     val runningTime: Int,
 ) : Serializable
