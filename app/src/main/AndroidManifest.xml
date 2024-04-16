@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".TicketingResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".TicketingActivity"
             android:exported="false" />
         <activity
