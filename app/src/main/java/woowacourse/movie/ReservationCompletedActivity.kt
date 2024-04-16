@@ -22,7 +22,7 @@ class ReservationCompletedActivity : AppCompatActivity() {
     }
 
     private fun initializeTicketDetails(ticket: Ticket) {
-        findViewById<TextView>(R.id.title).text = ticket.getTitle()
+        findViewById<TextView>(R.id.movie_title).text = ticket.getTitle()
         findViewById<TextView>(R.id.opening_day).text = ticket.getOpeningDay()
         findViewById<TextView>(R.id.quantity).text = "일반 ${ticket.quantity}명"
         findViewById<TextView>(R.id.price).text =

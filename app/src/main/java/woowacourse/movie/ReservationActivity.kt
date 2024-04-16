@@ -29,7 +29,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initializeMovieDetails(movie: Movie) {
         findViewById<ImageView>(R.id.poster).setImageResource(movie.poster)
-        findViewById<TextView>(R.id.title).text = movie.title
+        findViewById<TextView>(R.id.movie_title).text = movie.title
         findViewById<TextView>(R.id.content).text = movie.content
         findViewById<TextView>(R.id.opening_day).text = "상영일: ${movie.openingDay}"
         findViewById<TextView>(R.id.running_time).text = "러닝타임: ${movie.runningTime}분"

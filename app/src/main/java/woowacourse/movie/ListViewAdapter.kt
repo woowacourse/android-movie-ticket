@@ -36,7 +36,7 @@ class ListViewAdapter(private val movies: MutableList<Movie>, private val itemCl
                 LayoutInflater.from(p2?.context).inflate(R.layout.listview_item, p2, false)
         }
         convertView!!.findViewById<ImageView>(R.id.img_poster).setImageResource(movies[p0].poster)
-        convertView!!.findViewById<TextView>(R.id.title).text = movies[p0].title
+        convertView!!.findViewById<TextView>(R.id.movie_title).text = movies[p0].title
         convertView!!.findViewById<TextView>(R.id.opening_day).text =
             "상영일: ${movies[p0].openingDay}"
         convertView!!.findViewById<TextView>(R.id.running_time).text =
