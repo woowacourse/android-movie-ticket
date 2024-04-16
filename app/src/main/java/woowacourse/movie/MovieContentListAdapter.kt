@@ -1,24 +1,29 @@
 package woowacourse.movie
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.model.Date
+import androidx.core.content.ContextCompat.startActivity
+import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.ui.DateUi
 
 class MovieContentListAdapter(
-    private val movieContents: List<MovieContent>,
     private val context: Context,
 ) : BaseAdapter() {
+    private val movieContents = MovieContentsImpl.findAll()
+
     override fun getCount(): Int = movieContents.size
 
     override fun getItem(position: Int): MovieContent = movieContents[position]
 
-    override fun getItemId(position: Int) = position.toLong()
+    override fun getItemId(position: Int) = movieContents[position].id
 
     override fun getView(
         position: Int,
@@ -33,19 +38,25 @@ class MovieContentListAdapter(
         val titleText = view.findViewById<TextView>(R.id.title_text)
         val screeningDateText = view.findViewById<TextView>(R.id.screening_date_text)
         val runningTimeText = view.findViewById<TextView>(R.id.running_time_text)
+        val reservationButton = view.findViewById<Button>(R.id.reservation_button)
 
         movieContents[position].run {
             posterImage.setImageResource(imageId)
             titleText.text = title
-            screeningDateText.text = screeningDate.format()
-            runningTimeText.text = stringFromId(R.string.running_time).format(runningTime)
+            screeningDateText.text = DateUi.format(screeningDate, context)
+            runningTimeText.text = context.resources.getString(R.string.running_time).format(runningTime)
         }
+
+        reservationButton.setOnClickListener {
+            startActivity(
+                context,
+                Intent(context, MovieReservationActivity::class.java).apply {
+                    putExtra(MovieContentKey.ID, movieContents[position].id)
+                },
+                null,
+            )
+        }
+
         return view
     }
-
-    private fun Date.format(): String {
-        return stringFromId(R.string.screening_date).format(year, month, day)
-    }
-
-    private fun stringFromId(stringId: Int) = context.resources.getString(stringId)
 }
