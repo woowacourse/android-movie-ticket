@@ -15,5 +15,9 @@ class MainActivity : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.list_view)
         listView.adapter = adapter
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 }
