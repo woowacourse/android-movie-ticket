@@ -4,10 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
-class ListViewAdapter(private val movies: MutableList<Movie>) : BaseAdapter() {
+class ListViewAdapter(private val movies: MutableList<Movie>, private val itemClickListener: OnItemClickListener) : BaseAdapter() {
+    fun interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
     override fun getCount(): Int {
         return movies.size
     }
@@ -37,6 +42,10 @@ class ListViewAdapter(private val movies: MutableList<Movie>) : BaseAdapter() {
         convertView!!.findViewById<TextView>(R.id.running_time).text =
             "러닝타임: ${movies[p0].runningTime}분"
 
+        val reservationButton = convertView.findViewById<Button>(R.id.btn_reservation)
+        reservationButton.setOnClickListener {
+            itemClickListener.onItemClick(p0)
+        }
         return convertView!!
     }
 }
