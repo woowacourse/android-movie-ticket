@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MovieDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/detailImage"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/titanic"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:hint="타이타닉"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailImage" />
+
+            <TextView
+                android:id="@+id/detailDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="상영일: "
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="@id/detailTitle"
+                app:layout_constraintTop_toBottomOf="@id/detailTitle" />
+
+            <TextView
+                android:id="@+id/detailDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:hint="2024.3.1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/detailDateTitle"
+                app:layout_constraintLeft_toRightOf="@id/detailDateTitle"
+                app:layout_constraintTop_toTopOf="@id/detailDateTitle" />
+
+            <TextView
+                android:id="@+id/detailRunningTimeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="러닝타임: "
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="@id/detailTitle"
+                app:layout_constraintTop_toBottomOf="@id/detailDateTitle" />
+
+            <TextView
+                android:id="@+id/detailRunningTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="152분"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/detailRunningTimeTitle"
+                app:layout_constraintLeft_toRightOf="@id/detailRunningTimeTitle"
+                app:layout_constraintTop_toTopOf="@id/detailRunningTimeTitle" />
+
+            <TextView
+                android:id="@+id/detailDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="a\nb\nc\nd\ne\n"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintLeft_toLeftOf="@id/detailRunningTimeTitle"
+                app:layout_constraintTop_toBottomOf="@id/detailRunningTime"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/minus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:textSize="25dp"
+            android:text="-"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/reservationComplete"/>
+
+        <TextView
+            android:id="@+id/reservationCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@id/reservationComplete"
+            app:layout_constraintEnd_toStartOf="@+id/plus"
+            app:layout_constraintStart_toEndOf="@+id/minus"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/plus"
+            android:layout_width="0dp"
+            android:textSize="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="+"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/reservationComplete"/>
+
+
+        <Button
+            android:id="@+id/reservationComplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="15dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:text="예매 완료"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
