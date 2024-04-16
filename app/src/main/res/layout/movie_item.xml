@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="80dp"
+        android:layout_height="130dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/harry_image1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image_view"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="해리포터와 마법사의 돌" />
+
+    <TextView
+        android:id="@+id/screen_date_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="상영일: "
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/screen_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/screen_date_header"
+        app:layout_constraintStart_toEndOf="@+id/screen_date_header"
+        app:layout_constraintTop_toTopOf="@+id/screen_date_header"
+        tools:text="2024.03.01일" />
+
+    <TextView
+        android:id="@+id/running_time_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="러닝타임: "
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@+id/screen_date" />
+
+    <TextView
+        android:id="@+id/running_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/running_time_header"
+        app:layout_constraintStart_toEndOf="@+id/running_time_header"
+        app:layout_constraintTop_toTopOf="@+id/running_time_header"
+        tools:text="152" />
+
+    <TextView
+        android:id="@+id/minute_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="분"
+        app:layout_constraintBottom_toBottomOf="@+id/running_time_header"
+        app:layout_constraintStart_toEndOf="@+id/running_time"
+        app:layout_constraintTop_toTopOf="@+id/running_time_header" />
+
+    <Button
+        android:id="@+id/reservation_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지금 예매"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/running_time" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
