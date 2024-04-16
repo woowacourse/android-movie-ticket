@@ -120,7 +120,7 @@
 
         <Button
             android:padding="11dp"
-            android:id="@+id/btn_reservation"
+            android:id="@+id/btn_reservation_completed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"

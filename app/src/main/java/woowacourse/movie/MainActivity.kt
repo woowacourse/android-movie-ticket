@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 movies,
             ) {
                 val intent = Intent(this@MainActivity, ReservationActivity::class.java)
-                intent.putExtra("data", movies[it])
+                intent.putExtra("movie", movies[it])
                 startActivity(intent)
             }
         movieListView.adapter = adapter
