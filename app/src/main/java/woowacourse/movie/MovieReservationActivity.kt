@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -48,6 +49,15 @@ class MovieReservationActivity : AppCompatActivity() {
         plusButton.setOnClickListener {
             reservationCountText.text = (++reservationCount).count.toString()
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
