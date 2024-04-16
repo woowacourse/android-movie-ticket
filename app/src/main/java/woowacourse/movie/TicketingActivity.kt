@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,23 @@ class TicketingActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.tv_date).apply { text = "$text ${it.date}" }
             findViewById<TextView>(R.id.tv_running_time).apply { text = "${text}${it.runningTime}" }
             findViewById<TextView>(R.id.tv_introduction).apply { text = it.introduction }
+        }
+
+        var count = 1
+        val minusButton = findViewById<Button>(R.id.btn_minus)
+        val plusButton = findViewById<Button>(R.id.btn_plus)
+        val countText = findViewById<TextView>(R.id.tv_count).apply { text = count.toString() }
+
+        minusButton.setOnClickListener {
+            if (count > 1) {
+                count--
+                countText.text = count.toString()
+            }
+        }
+
+        plusButton.setOnClickListener {
+            count++
+            countText.text = count.toString()
         }
     }
 }

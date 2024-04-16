@@ -21,6 +21,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val EXTRA_MOVIE_ID = "movie_id"
+        const val EXTRA_MOVIE_ID = "movie_id"
     }
 }
