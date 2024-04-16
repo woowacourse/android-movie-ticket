@@ -1,0 +1,12 @@
+package woowacourse.movie
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+
+class TicketingActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_ticketing)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+}

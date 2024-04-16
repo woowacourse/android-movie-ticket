@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
-class MovieAdapter(private val movies: List<Movie>) : BaseAdapter() {
+class MovieAdapter(private val movies: List<Movie>, private val onTicketingButtonClick: (Int) -> Unit) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Any = movies[position]
@@ -26,11 +27,13 @@ class MovieAdapter(private val movies: List<Movie>) : BaseAdapter() {
         val date = view.findViewById<TextView>(R.id.tv_date)
         val thumbnail = view.findViewById<ImageView>(R.id.iv_thumbnail)
         val runningTime = view.findViewById<TextView>(R.id.tv_running_time)
+        val ticketingButton = view.findViewById<Button>(R.id.btn_ticketing)
 
         val movie = movies[position]
         title.text = movie.title
         date.text = "${date.text} ${movie.date}"
         runningTime.text = "${runningTime.text} ${movie.runningTime}"
+        ticketingButton.setOnClickListener { onTicketingButtonClick(movie.id) }
 
         return view
     }

@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +10,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val moviesView = findViewById<ListView>(R.id.lv_movies)
-        moviesView.adapter = MovieAdapter(MOVIES)
+        moviesView.adapter =
+            MovieAdapter(MOVIES) {
+                Intent(this, TicketingActivity::class.java).apply {
+                    putExtra(EXTRA_MOVIE_ID, it)
+                    startActivity(this)
+                }
+            }
+    }
+
+    companion object {
+        private const val EXTRA_MOVIE_ID = "movie_id"
     }
 }
