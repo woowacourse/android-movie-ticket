@@ -5,6 +5,7 @@ import woowacourse.movie.model.Movie
 val MOVIES =
     listOf(
         Movie(
+            id = 0,
             title = "해리 포터와 마법사의 돌",
             thumbnail = "https://github.com/kmkim2689/codetree-TILs/assets/101035437/c57f8b0c-5b15-418c-88db-15f2ada4cdcf",
             date = "2024.3.1",
