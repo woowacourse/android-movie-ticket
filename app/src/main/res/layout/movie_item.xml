@@ -7,10 +7,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/picture1"
+        android:id="@+id/movie_poster"
         android:layout_width="76dp"
         android:layout_height="108dp"
-        android:src="@drawable/harry_potter_poster"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,9 +23,9 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:layout_marginLeft="15dp"
-        app:layout_constraintStart_toEndOf="@+id/picture1"
-        app:layout_constraintTop_toTopOf="@+id/picture1"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@+id/movie_poster"
+        app:layout_constraintTop_toTopOf="@+id/movie_poster"
         tools:text="해리 포터와 마법사의 돌"/>
 
     <TextView
