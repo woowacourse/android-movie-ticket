@@ -13,6 +13,7 @@ import woowacourse.movie.utils.formatTimestamp
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var reservationCompleteActivityResultLauncher: ActivityResultLauncher<Intent>
+    private var count: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,26 +26,29 @@ class MovieDetailActivity : AppCompatActivity() {
                 intent.getSerializableExtra("movie") as Movie
             }
 
-        reservationCompleteActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
+        reservationCompleteActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
 
-        movie?.let {
-            findViewById<ImageView>(R.id.detailImage).setImageResource(it.thumbnail)
-            findViewById<TextView>(R.id.detailTitle).text = it.title
-            findViewById<TextView>(R.id.detailDate).text = formatTimestamp(it.date)
-            findViewById<TextView>(R.id.detailRunningTime).text = "${it.runningTime}분"
-            findViewById<TextView>(R.id.detailDescription).text = it.description
-            findViewById<TextView>(R.id.reservationCount).text = "0"
+        movie?.let { movie ->
+            findViewById<ImageView>(R.id.detailImage).setImageResource(movie.thumbnail)
+            findViewById<TextView>(R.id.detailTitle).text = movie.title
+            findViewById<TextView>(R.id.detailDate).text = formatTimestamp(movie.date)
+            findViewById<TextView>(R.id.detailRunningTime).text = "${movie.runningTime}분"
+            findViewById<TextView>(R.id.detailDescription).text = movie.description
+            findViewById<TextView>(R.id.reservationCount).text = count.toString()
 
             findViewById<Button>(R.id.minus).setOnClickListener {
+                if (count <= 1) return@setOnClickListener
                 findViewById<TextView>(R.id.reservationCount).text =
-                    (findViewById<TextView>(R.id.reservationCount).text.toString().toInt() - 1).toString()
+                    (--count).toString()
             }
             findViewById<Button>(R.id.plus).setOnClickListener {
                 findViewById<TextView>(R.id.reservationCount).text =
-                    (findViewById<TextView>(R.id.reservationCount).text.toString().toInt() + 1).toString()
+                    (++count).toString()
             }
             findViewById<Button>(R.id.reservationComplete).setOnClickListener {
                 val intent = Intent(this, ReservationCompleteActivity::class.java)
+                intent.putExtra("ticket", Ticket(movie.title, movie.date, count))
                 reservationCompleteActivityResultLauncher.launch(intent)
             }
         }
