@@ -45,7 +45,7 @@ class MovieListAdapter(
 
         button.setOnClickListener {
             val intent = Intent(context, MovieDetailActivity::class.java)
-            intent.putExtra("posterImage", movie.posterImageId)
+            intent.putExtra("posterImageId", movie.posterImageId)
             intent.putExtra("title", movie.title)
             intent.putExtra("screeningDate", movie.screeningDate)
             intent.putExtra("runningTime", movie.runningTime)
