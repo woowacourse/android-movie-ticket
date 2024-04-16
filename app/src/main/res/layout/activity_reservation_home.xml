@@ -5,23 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ReservationHomeActivity">
-    
+
     <Toolbar
         android:id="@+id/toolbar_reservation_home"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:title="Movie"
         app:layout_constraintEnd_toEndOf="parent"
-        android:title="Movie" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        app:layout_constraintTop_toBottomOf="@id/toolbar_reservation_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/item_movie_catalog"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_reservation_home"
+        tools:listitem="@layout/item_movie_catalog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
