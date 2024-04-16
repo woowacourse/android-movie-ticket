@@ -1,7 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
