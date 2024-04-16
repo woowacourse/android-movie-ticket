@@ -11,10 +11,10 @@
         android:id="@+id/info_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/reservation_layout"
-        app:layout_constraintTop_toTopOf="parent"
+        android:overScrollMode="never"
         android:scrollbars="none"
-        android:overScrollMode="never">
+        app:layout_constraintBottom_toTopOf="@+id/reservation_layout"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -91,16 +91,22 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/minus_button"
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:text="@string/minus" />
 
             <TextView
+                android:id="@+id/reservation_count_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <Button
+                android:id="@+id/plus_button"
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:text="@string/plus" />
