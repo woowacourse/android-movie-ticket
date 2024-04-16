@@ -8,14 +8,14 @@ class MovieTest {
     fun `영화 정보를 생성한다`() {
         val movie =
             Movie(
-                posterImage = "posterImage",
+                posterImageId = 1,
                 title = "테넷",
                 screeningDate = "2020-08-26",
                 runningTime = 150,
                 summary = "시간을 건너뛰는 SF 영화",
             )
 
-        assertThat(movie.posterImage).isEqualTo("posterImage")
+        assertThat(movie.posterImageId).isEqualTo(1)
         assertThat(movie.title).isEqualTo("테넷")
         assertThat(movie.screeningDate).isEqualTo("2020-08-26")
         assertThat(movie.runningTime).isEqualTo(150)
