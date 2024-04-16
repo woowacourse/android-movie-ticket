@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -39,5 +40,10 @@ class TicketingActivity : AppCompatActivity() {
             count++
             countText.text = count.toString()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 }
