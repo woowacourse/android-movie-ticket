@@ -7,4 +7,68 @@
     android:layout_height="match_parent"
     tools:context=".ReservationResultActivity">
 
+    <TextView
+        android:id="@+id/reservation_cancel_info"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_114"
+        android:background="@color/purple_300"
+        android:paddingBottom="@dimen/size_10"
+        android:gravity="bottom"
+        android:textAlignment="center"
+        android:text="@string/reservation_cancel_info"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_36"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_25"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reservation_cancel_info" />
+
+    <TextView
+        android:id="@+id/screeningDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_36"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_20"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/reservationCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_80"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/screeningDate" />
+
+    <TextView
+        android:id="@+id/totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/size_32"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reservationCount" />
 </androidx.constraintlayout.widget.ConstraintLayout>
