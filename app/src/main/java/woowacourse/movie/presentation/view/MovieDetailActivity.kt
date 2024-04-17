@@ -1,9 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.view
 
 import android.content.Intent
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.presentation.contract.MovieDetailContract
+import woowacourse.movie.presentation.presenter.MovieDetailPresenterImpl
+import woowacourse.movie.R
+import woowacourse.movie.presentation.base.BaseActivity
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private lateinit var movieDetailPresenter: MovieDetailContract.Presenter

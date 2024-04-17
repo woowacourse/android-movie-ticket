@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.domain.model
 
 class MovieTicket(
     val movieTitle: String,

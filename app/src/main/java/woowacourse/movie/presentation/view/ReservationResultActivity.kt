@@ -1,6 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.view
 
 import android.widget.TextView
+import woowacourse.movie.R
+import woowacourse.movie.presentation.base.BaseActivity
 
 class ReservationResultActivity : BaseActivity() {
     override fun getLayoutResId(): Int = R.layout.activity_reservation_result

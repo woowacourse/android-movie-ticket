@@ -1,6 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.presenter
 
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.presentation.contract.MovieDetailContract
 
 class MovieDetailPresenterImpl(
     private val view: MovieDetailContract.View,

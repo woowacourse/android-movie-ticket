@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.base
 
 import android.os.Bundle
 import android.view.MenuItem

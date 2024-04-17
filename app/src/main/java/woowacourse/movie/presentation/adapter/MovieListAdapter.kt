@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.model.Movie
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presentation.contract.MainContract
 
 class MovieListAdapter(
     private val context: Context,
