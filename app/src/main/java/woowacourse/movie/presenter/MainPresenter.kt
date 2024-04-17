@@ -1,6 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.presenter
 
 import android.content.Intent
+import woowacourse.movie.contract.MainContract
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 

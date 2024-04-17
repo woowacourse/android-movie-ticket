@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReservationResultActivity">
+    tools:context=".view.ReservationResultActivity">
 
     <LinearLayout
         android:id="@+id/notification_linear_layout"

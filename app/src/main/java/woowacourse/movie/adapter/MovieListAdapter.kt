@@ -9,10 +9,10 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.MainContract
-import woowacourse.movie.MainPresenter
+import woowacourse.movie.contract.MainContract
+import woowacourse.movie.presenter.MainPresenter
 import woowacourse.movie.R
-import woowacourse.movie.ReservationActivity
+import woowacourse.movie.view.ReservationActivity
 
 class MovieListAdapter(
     private val context: Context,

@@ -1,10 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import java.text.DecimalFormat
 
 class ReservationResultActivity : AppCompatActivity() {
