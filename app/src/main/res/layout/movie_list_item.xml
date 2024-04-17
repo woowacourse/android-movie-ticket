@@ -29,7 +29,7 @@
         android:id="@+id/movie_release_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Release Date: 2024.3.1"
+        android:text="Date: YYYY.MM.DD"
         app:layout_constraintStart_toStartOf="@id/movie_title"
         app:layout_constraintTop_toBottomOf="@id/movie_title"
         app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
@@ -38,7 +38,7 @@
         android:id="@+id/movie_duration"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Duration: 152 minutes"
+        android:text="Duration: 00 minutes"
         app:layout_constraintStart_toStartOf="@id/movie_release_date"
         app:layout_constraintTop_toBottomOf="@id/movie_release_date"
         app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
