@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
@@ -21,9 +22,12 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        val id = intent.getLongExtra(MovieContentKey.ID, -1)
-        if (id == -1L) {
+        val movieContentId = intent.getLongExtra(MovieContentKey.ID, DEFAULT_VALUE)
+        if (movieContentId == DEFAULT_VALUE) {
             Log.e(TAG, "Invalid MovieContentKey")
+            Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
+            finish()
+            return
         }
 
         val posterImage = findViewById<ImageView>(R.id.poster_image)
@@ -36,7 +40,7 @@ class MovieReservationActivity : AppCompatActivity() {
         val plusButton = findViewById<Button>(R.id.plus_button)
         val reservationButton = findViewById<Button>(R.id.reservation_button)
 
-        MovieContentsImpl.find(id).run {
+        MovieContentsImpl.find(movieContentId).run {
             posterImage.setImageResource(imageId)
             titleText.text = title
             screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationActivity)
@@ -56,7 +60,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
         reservationButton.setOnClickListener {
             Intent(this, MovieReservationCompleteActivity::class.java).apply {
-                putExtra(MovieContentKey.ID, id)
+                putExtra(MovieContentKey.ID, movieContentId)
                 putExtra(MovieReservationKey.COUNT, reservationCount.count)
                 startActivity(this)
             }
@@ -74,5 +78,6 @@ class MovieReservationActivity : AppCompatActivity() {
 
     companion object {
         private val TAG = MovieReservationActivity::class.simpleName
+        private const val DEFAULT_VALUE = -1L
     }
 }

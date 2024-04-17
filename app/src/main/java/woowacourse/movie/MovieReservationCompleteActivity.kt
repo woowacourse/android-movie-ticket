@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
@@ -16,10 +17,13 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
 
-        val id = intent.getLongExtra(MovieContentKey.ID, -1)
-        val ticket = Ticket(intent.getIntExtra(MovieReservationKey.COUNT, -1))
-        if (id == -1L || ticket.count == -1) {
+        val movieContentId = intent.getLongExtra(MovieContentKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+        val ticket = Ticket(intent.getIntExtra(MovieReservationKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE))
+        if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || ticket.count == RESERVATION_COUNT_DEFAULT_VALUE) {
             Log.e(TAG, "Invalid Key")
+            Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
+            finish()
+            return
         }
 
         val titleText = findViewById<TextView>(R.id.title_text)
@@ -27,7 +31,7 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
         val reservationCountText = findViewById<TextView>(R.id.reservation_count_text)
         val reservationAmountText = findViewById<TextView>(R.id.reservation_amount_text)
 
-        MovieContentsImpl.find(id).run {
+        MovieContentsImpl.find(movieContentId).run {
             titleText.text = title
             screeningDateText.text =
                 DateUi.format(screeningDate, this@MovieReservationCompleteActivity)
@@ -47,5 +51,7 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
 
     companion object {
         private val TAG = MovieReservationCompleteActivity::class.simpleName
+        private const val MOVIE_CONTENT_ID_DEFAULT_VALUE = -1L
+        private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
     }
 }
