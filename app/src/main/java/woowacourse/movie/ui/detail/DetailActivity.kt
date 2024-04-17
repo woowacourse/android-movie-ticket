@@ -3,6 +3,7 @@ package woowacourse.movie.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initBinding() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val id = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_ID)
         handleState(detailViewModel.loadScreen(id))
     }
@@ -86,6 +88,11 @@ class DetailActivity : AppCompatActivity() {
             poster.setImageResource(movie.imageSrc)
             ticketCount.text = 1.toString()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
     }
 
     companion object {
