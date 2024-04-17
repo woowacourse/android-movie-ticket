@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MovieListActivity.Companion.EXTRA_MOVIE_ID
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
@@ -68,12 +67,11 @@ class TicketingActivity : AppCompatActivity(), TicketingContract {
     }
 
     override fun navigate(
-        movie: Movie,
+        movieId: Int,
         count: Int,
     ) {
         Intent(this, TicketingResultActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_TITLE, movie.title)
-            putExtra(EXTRA_MOVIE_DATE, movie.date)
+            putExtra(EXTRA_MOVIE_ID, movieId)
             putExtra(EXTRA_NUMBER_OF_PEOPLE, count)
             startActivity(this)
             finish()
@@ -81,8 +79,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract {
     }
 
     companion object {
-        const val EXTRA_MOVIE_TITLE = "movie_title"
-        const val EXTRA_MOVIE_DATE = "movie_date"
+        const val EXTRA_MOVIE_ID = "movie_id"
         const val EXTRA_NUMBER_OF_PEOPLE = "number_of_people"
     }
 }

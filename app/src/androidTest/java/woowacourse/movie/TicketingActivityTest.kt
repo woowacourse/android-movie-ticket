@@ -1,5 +1,7 @@
 package woowacourse.movie
 
+import android.content.Intent
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -12,7 +14,12 @@ import org.junit.Test
 
 class TicketingActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(TicketingActivity::class.java)
+    var activityRule: ActivityScenarioRule<TicketingActivity> =
+        ActivityScenarioRule<TicketingActivity>(
+            Intent(ApplicationProvider.getApplicationContext(), TicketingActivity::class.java).apply {
+                putExtra("movie_id", 0)
+            },
+        )
 
     @Test
     fun `증가_버튼을_누르면_숫자가_증가한다`() {
