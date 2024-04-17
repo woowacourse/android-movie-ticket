@@ -49,7 +49,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun MovieContent.setUpUi() {
         posterImage.setImageResource(imageId)
         titleText.text = title
-        screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationActivity)
+        screeningDateText.text = DateUi.screeningDateMessage(screeningDate, this@MovieReservationActivity)
         runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
         synopsisText.text = synopsis
     }

@@ -5,11 +5,19 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Date
 
 object DateUi {
-    fun format(
+    fun screeningDateMessage(
         date: Date,
         context: Context,
     ): String {
         return context.resources.getString(R.string.screening_date)
+            .format(date.year, date.month, date.day)
+    }
+
+    fun dateMessage(
+        date: Date,
+        context: Context,
+    ): String {
+        return context.resources.getString(R.string.date)
             .format(date.year, date.month, date.day)
     }
 }

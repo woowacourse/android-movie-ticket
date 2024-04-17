@@ -40,7 +40,7 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
 
     private fun MovieContent.setUpUi() {
         titleText.text = title
-        screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationCompleteActivity)
+        screeningDateText.text = DateUi.dateMessage(screeningDate, this@MovieReservationCompleteActivity)
     }
 
     private fun Ticket.setUpUi() {

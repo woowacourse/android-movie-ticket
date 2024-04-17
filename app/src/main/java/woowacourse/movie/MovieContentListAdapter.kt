@@ -44,7 +44,7 @@ class MovieContentListAdapter(
         getItem(position).run {
             posterImage.setImageResource(imageId)
             titleText.text = title
-            screeningDateText.text = DateUi.format(screeningDate, context)
+            screeningDateText.text = DateUi.screeningDateMessage(screeningDate, context)
             runningTimeText.text = context.resources.getString(R.string.running_time).format(runningTime)
         }
 
