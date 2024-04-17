@@ -11,15 +11,16 @@ class ReservationCompletedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_completed)
 
-        val ticket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("ticket", Ticket::class.java)
-            } else {
-                intent.getSerializableExtra("ticket") as? Ticket
-            } ?: return
-
+        val ticket = readTicketData() ?: return
         initializeTicketDetails(ticket)
     }
+
+    private fun readTicketData() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("ticket", Ticket::class.java)
+        } else {
+            intent.getSerializableExtra("ticket") as? Ticket
+        }
 
     private fun initializeTicketDetails(ticket: Ticket) {
         findViewById<TextView>(R.id.movie_title).text = ticket.getTitle()

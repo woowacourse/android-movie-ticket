@@ -9,23 +9,24 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class ReservationActivity : AppCompatActivity() {
-    private var ticketQuantity = 1
+    private var ticketQuantity = DEFAULT_QUANTITY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
-        val movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("movie", Movie::class.java)
-            } else {
-                intent.getSerializableExtra("movie") as? Movie
-            } ?: return
-
+        val movie = readMovieData() ?: return
         initializeMovieDetails(movie)
         setupReservationCompletedButton(movie)
         setupTicketQuantityControls()
     }
+
+    private fun readMovieData() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("movie", Movie::class.java)
+        } else {
+            intent.getSerializableExtra("movie") as? Movie
+        }
 
     private fun initializeMovieDetails(movie: Movie) {
         findViewById<ImageView>(R.id.poster).setImageResource(movie.poster)
@@ -49,7 +50,12 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun adjustTicketQuantity(change: Int) {
-        ticketQuantity = (ticketQuantity + change).coerceAtLeast(1)
+        ticketQuantity = (ticketQuantity + change).coerceAtLeast(MIN_QUANTITY)
         findViewById<TextView>(R.id.quantity).text = ticketQuantity.toString()
+    }
+
+    companion object {
+        private const val DEFAULT_QUANTITY = 1
+        private const val MIN_QUANTITY = 1
     }
 }
