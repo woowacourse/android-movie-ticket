@@ -52,10 +52,7 @@ class TicketTest {
     fun `티켓 매수에 따라 결제 금액을 계산한다`() {
         val ticket = Ticket()
 
-        ticket.increaseCount()
-        ticket.increaseCount()
-
-        val actual = ticket.calculatePrice(intent.getStringExtra("numberOfTickets").toInt())
+        val actual = ticket.calculatePrice(3)
 
         assertThat(actual).isEqualTo(39_000)
     }
