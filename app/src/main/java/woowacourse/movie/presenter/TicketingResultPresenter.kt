@@ -1,6 +1,7 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.MOVIES
+import woowacourse.movie.model.Tickets
 import woowacourse.movie.presenter.contract.TicketingResultContract
 
 class TicketingResultPresenter(
@@ -9,15 +10,15 @@ class TicketingResultPresenter(
     private val numberOfPeople: Int,
 ) {
     private val movie = MOVIES.find { it.id == movieId }
-    private val price = MOVIE_PRICE * numberOfPeople
 
     fun assignInitialView() {
         movie?.let {
-            ticketingResultView.assignInitialView(numberOfPeople, movie.title, movie.date, price)
+            ticketingResultView.assignInitialView(
+                numberOfPeople,
+                movie.title,
+                movie.date,
+                Tickets(numberOfPeople).totalPrice,
+            )
         }
-    }
-
-    companion object {
-        private const val MOVIE_PRICE = 13000
     }
 }
