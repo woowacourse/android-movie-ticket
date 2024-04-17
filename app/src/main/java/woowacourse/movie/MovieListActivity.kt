@@ -11,9 +11,9 @@ class MovieListActivity : AppCompatActivity() {
 
         val listView = findViewById<ListView>(R.id.movie_list_view)
 
-        var movieList =
+        val movieList =
             arrayListOf(
-                "해리포터",
+                Movie("해리포터1", "harry_potter_poster", "2024.3.1", 152, "재밋다"),
             )
 
         val movieAdapter = MovieListAdapter(this, movieList)
