@@ -8,23 +8,33 @@ import woowacourse.movie.utils.formatCurrency
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieReservationCompleteActivity : AppCompatActivity() {
+    private lateinit var completeTitleTextView: TextView
+    private lateinit var completeDateTextView: TextView
+    private lateinit var completeReservationCountTextView: TextView
+    private lateinit var completeReservationPriceTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
 
-        val movieTicket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("ticket", MovieTicket::class.java)
-            } else {
-                intent.getSerializableExtra("ticket") as MovieTicket
-            }
+        completeTitleTextView = findViewById(R.id.completeTitle)
+        completeDateTextView = findViewById(R.id.completeDate)
+        completeReservationCountTextView = findViewById(R.id.completeReservationCount)
+        completeReservationPriceTextView = findViewById(R.id.completeReservationPrice)
 
-        movieTicket?.let { ticket ->
-            findViewById<TextView>(R.id.completeTitle).text = ticket.title
-            findViewById<TextView>(R.id.completeDate).text = formatTimestamp(ticket.date)
-            findViewById<TextView>(R.id.completeReservationCount).text = "${ticket.count}명"
-            findViewById<TextView>(R.id.completeReservationPrice).text =
-                "${formatCurrency(ticket.price)}원"
+        getTicketData()?.let { ticket ->
+            completeTitleTextView.text = ticket.title
+            completeDateTextView.text = formatTimestamp(ticket.date)
+            completeReservationCountTextView.text = "${ticket.count}명"
+            completeReservationPriceTextView.text = "${formatCurrency(ticket.price)}원"
+        }
+    }
+
+    private fun getTicketData(): MovieTicket? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("ticket", MovieTicket::class.java)
+        } else {
+            intent.getSerializableExtra("ticket") as MovieTicket
         }
     }
 }
