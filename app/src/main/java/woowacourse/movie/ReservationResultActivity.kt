@@ -4,18 +4,18 @@ import android.widget.TextView
 
 class ReservationResultActivity : BaseActivity() {
     override fun getLayoutResId(): Int = R.layout.activity_reservation_result
-    
+
     override fun onCreateSetup() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setUpFromIntent()
     }
-    
+
     private fun setUpFromIntent() {
         val title = intent.getStringExtra("title") ?: ""
         val screeningDate = intent.getStringExtra("screeningDate") ?: ""
         val reservationCount = intent.getIntExtra("reservationCount", 0)
         val totalPrice = intent.getIntExtra("totalPrice", 0)
-        
+
         findViewById<TextView>(R.id.title).text = title
         findViewById<TextView>(R.id.screeningDate).text = screeningDate
         findViewById<TextView>(R.id.reservationCount).text =
