@@ -13,7 +13,13 @@ class MovieListActivity : AppCompatActivity() {
 
         val movieList =
             arrayListOf(
-                Movie("해리포터1", "harry_potter_poster", "2024.3.1", 152, "재밋다"),
+                Movie(
+                    "해리 포터와 마법사의 돌",
+                    "harry_potter_poster",
+                    "2024.3.1",
+                    152,
+                    getString(R.string.harry_potter_description),
+                ),
             )
 
         val movieAdapter = MovieListAdapter(this, movieList)
