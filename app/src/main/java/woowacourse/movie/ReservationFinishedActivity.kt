@@ -15,13 +15,20 @@ class ReservationFinishedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_finished)
 
+        val movie = intent.intentSerializable("movie", Movie::class.java)!!
+        val ticket = intent.intentSerializable("ticket", Ticket::class.java)!!
+
+        showReservationHistory(movie, ticket)
+    }
+
+    private fun showReservationHistory(
+        movie: Movie,
+        ticket: Ticket,
+    ) {
         val title = findViewById<TextView>(R.id.text_view_reservation_finished_title)
         val screeningDate = findViewById<TextView>(R.id.text_view_reservation_finished_screening_date)
         val numberOfTickets = findViewById<TextView>(R.id.text_view_reservation_finished_number_of_tickets)
         val ticketPrice = findViewById<TextView>(R.id.text_view_reservation_finished_ticket_price)
-
-        val movie = intent.intentSerializable("movie", Movie::class.java)!!
-        val ticket = intent.intentSerializable("ticket", Ticket::class.java)!!
 
         title.text = movie.title
         screeningDate.text = movie.screeningDate
