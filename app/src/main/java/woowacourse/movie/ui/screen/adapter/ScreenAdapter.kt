@@ -21,21 +21,19 @@ class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        var view = convertView
+        val view = convertView ?: LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
 
-        if (view == null) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
-        }
-
-        val poster = view!!.findViewById<ImageView>(R.id.iv_poster)
+        val poster = view.findViewById<ImageView>(R.id.iv_poster)
         val title = view.findViewById<TextView>(R.id.tv_title)
         val date = view.findViewById<TextView>(R.id.tv_screen_date)
         val runningTime = view.findViewById<TextView>(R.id.tv_screen_running_time)
 
-        poster.setImageResource(item[position].movie.imageSrc)
-        title.text = item[position].movie.title
-        date.text = item[position].date
-        runningTime.text = item[position].movie.runningTime.toString()
+        with(item[position]) {
+            poster.setImageResource(movie.imageSrc)
+            title.text = movie.title
+            date.text = this.date
+            runningTime.text = movie.runningTime.toString()
+        }
 
         return view
     }
