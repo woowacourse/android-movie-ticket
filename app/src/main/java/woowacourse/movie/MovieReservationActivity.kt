@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -7,6 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.constants.MovieContentKey
+import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.ui.DateUi
@@ -31,6 +34,7 @@ class MovieReservationActivity : AppCompatActivity() {
         val minusButton = findViewById<Button>(R.id.minus_button)
         val reservationCountText = findViewById<TextView>(R.id.reservation_count_text)
         val plusButton = findViewById<Button>(R.id.plus_button)
+        val reservationButton = findViewById<Button>(R.id.reservation_button)
 
         MovieContentsImpl.find(id).run {
             posterImage.setImageResource(imageId)
@@ -48,6 +52,14 @@ class MovieReservationActivity : AppCompatActivity() {
 
         plusButton.setOnClickListener {
             reservationCountText.text = (++reservationCount).count.toString()
+        }
+
+        reservationButton.setOnClickListener {
+            Intent(this, MovieReservationCompleteActivity::class.java).apply {
+                putExtra(MovieContentKey.ID, id)
+                putExtra(MovieReservationKey.COUNT, reservationCount.count)
+                startActivity(this)
+            }
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

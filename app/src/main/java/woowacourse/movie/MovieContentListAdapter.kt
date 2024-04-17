@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
+import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.MovieContent
 import woowacourse.movie.ui.DateUi
