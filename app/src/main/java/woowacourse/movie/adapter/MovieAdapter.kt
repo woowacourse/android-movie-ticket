@@ -34,6 +34,7 @@ class MovieAdapter(private val movies: List<Movie>, private val onTicketingButto
         date.text = parent?.context?.getString(R.string.title_date, movie.date)
         runningTime.text = parent?.context?.getString(R.string.title_running_time, movie.runningTime)
         ticketingButton.setOnClickListener { onTicketingButtonClick(movie.id) }
+        thumbnail.setImageResource(movie.thumbnail)
 
         return view
     }
