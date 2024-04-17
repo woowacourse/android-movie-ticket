@@ -55,7 +55,7 @@ class TicketTest {
         ticket.increaseCount()
         ticket.increaseCount()
 
-        val actual = ticket.calculatePrice()
+        val actual = ticket.calculatePrice(intent.getStringExtra("numberOfTickets").toInt())
 
         assertThat(actual).isEqualTo(39_000)
     }

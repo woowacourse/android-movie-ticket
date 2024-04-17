@@ -53,24 +53,60 @@
         app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_title" />
 
     <TextView
-        android:id="@+id/text_view_reservation_finished_number_of_tickets"
+        android:id="@+id/text_view_reservation_finished_viewing_class"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="일반 1명"
+        android:text="일반 "
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/text_view_reservation_finished_title"
-        app:layout_constraintStart_toStartOf="@id/text_view_reservation_finished_title"
+        app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_number_of_tickets"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_screening_date" />
 
     <TextView
+        android:id="@+id/text_view_reservation_finished_number_of_tickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_reservation_finished_viewing_class"
+        app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_person"
+        app:layout_constraintStart_toEndOf="@id/text_view_reservation_finished_viewing_class"
+        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_viewing_class" />
+
+    <TextView
+        android:id="@+id/text_view_reservation_finished_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="명"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_reservation_finished_viewing_class"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_view_reservation_finished_number_of_tickets"
+        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_viewing_class" />
+
+    <TextView
+        android:id="@+id/text_view_reservation_finished_ticket_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="13,000원 (현장 결제)"
+        android:text="0"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/text_view_reservation_finished_title"
-        app:layout_constraintStart_toStartOf="@id/text_view_reservation_finished_title"
+        app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_price_unit"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_number_of_tickets" />
+
+    <TextView
+        android:id="@+id/text_view_reservation_finished_price_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="원 (현장 결제)"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_reservation_finished_ticket_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_view_reservation_finished_ticket_price"
+        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_ticket_price" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

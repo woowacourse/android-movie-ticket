@@ -16,7 +16,7 @@ class Ticket {
         return Success
     }
 
-    fun calculatePrice(): Int = count * PRICE
+    fun calculatePrice(count: Int): Int = count * PRICE
 
     companion object {
         private const val PRICE = 13_000
