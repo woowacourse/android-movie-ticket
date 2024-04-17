@@ -18,8 +18,8 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_reservation_complete)
 
         val movieContentId = intent.getLongExtra(MovieContentKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
-        val ticket = Ticket(intent.getIntExtra(MovieReservationKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE))
-        if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || ticket.count == RESERVATION_COUNT_DEFAULT_VALUE) {
+        val reservationCount = intent.getIntExtra(MovieReservationKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
+        if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCount == RESERVATION_COUNT_DEFAULT_VALUE) {
             Log.e(TAG, "Invalid Key")
             Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
             finish()
@@ -33,12 +33,12 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
 
         MovieContentsImpl.find(movieContentId).run {
             titleText.text = title
-            screeningDateText.text =
-                DateUi.format(screeningDate, this@MovieReservationCompleteActivity)
+            screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationCompleteActivity)
         }
-        reservationCountText.text =
-            resources.getString(R.string.reservation_count).format(ticket.count)
-        reservationAmountText.text = resources.getString(R.string.reservation_amount).format(ticket.amount())
+        Ticket(reservationCount).run {
+            reservationCountText.text = resources.getString(R.string.reservation_count).format(count)
+            reservationAmountText.text = resources.getString(R.string.reservation_amount).format(amount())
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
