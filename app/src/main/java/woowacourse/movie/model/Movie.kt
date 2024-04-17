@@ -8,7 +8,7 @@ data class Movie(
     val screenDate: List<LocalDate>,
     val runningTime: Int,
     val description: String,
-    val img: String,
+    val img: Int,
 ) {
     fun screenDateToString(): String {
         if (screenDate.size == 1) return screenDate[0].format(DateTimeFormatter.ofPattern("yyyy.M.d "))
