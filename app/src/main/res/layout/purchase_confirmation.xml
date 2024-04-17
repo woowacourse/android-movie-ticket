@@ -9,18 +9,18 @@
         android:id="@+id/can_cancel_time"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/purple_200"
-        >
+        android:background="@color/purple_200">
+
         <TextView
             android:id="@+id/confirmation_message"
-            android:layout_margin="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="영화 상영 시작 시간 15분 전까지 취소가 가능합니다."
             android:layout_centerInParent="true"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:backgroundTint="@color/purple_700"/>
+            android:layout_margin="13dp"
+            android:backgroundTint="@color/purple_700"
+            android:text="영화 상영 시작 시간 15분 전까지 취소가 가능합니다."
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 
 
@@ -29,25 +29,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/can_cancel_time"
-        android:text="Movie Title"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="28dp"
+        android:text="Movie Title" />
 
     <TextView
         android:id="@+id/movie_screening_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/movie_title_confirmation"
-        android:text="Screen time"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="24dp"
+        android:text="Screen time" />
 
     <TextView
-        android:id="@+id/ticket_details"
+        android:id="@+id/ticket_charge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/movie_screening_day"
-        android:text="1 Ticket\n Price: 13,000₩"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/movie_screening_day"
+        android:text="@string/_1_ticket_n_price_13_000" />
+
 </RelativeLayout>
