@@ -52,7 +52,10 @@
 
     <Button
         android:id="@+id/movie_reservation_button"
-        android:layout_width="94dp"
+        android:layout_width="wrap_content"
+        android:paddingHorizontal="11dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="9dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textColor="@color/white"

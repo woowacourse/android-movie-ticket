@@ -150,7 +150,7 @@
             android:layout_height="19dp" />
 
         <Button
-            android:id="@+id/ticketting_button"
+            android:id="@+id/ticketing_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="11.08sp"
