@@ -16,9 +16,9 @@ import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.Movie
 
-class MainActivityTest {
+class MovieListActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieListActivity::class.java)
 
     @Test
     fun `예매_가능한_영화리스트를_보여준다`() {

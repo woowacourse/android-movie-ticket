@@ -6,10 +6,10 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.MovieAdapter
 
-class MainActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movie_list)
         val moviesView = findViewById<ListView>(R.id.lv_movies)
         moviesView.adapter =
             MovieAdapter(MOVIES) {

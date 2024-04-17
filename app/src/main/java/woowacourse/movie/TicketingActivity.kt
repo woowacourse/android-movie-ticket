@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MainActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.MovieListActivity.Companion.EXTRA_MOVIE_ID
 
 class TicketingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
