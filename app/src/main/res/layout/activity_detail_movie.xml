@@ -22,8 +22,9 @@
             <ImageView
                 android:id="@+id/iv_detail_poster"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="1:1"
                 android:src="@drawable/img_movie_poster"
                 app:layout_constraintTop_toTopOf="parent" />
 
