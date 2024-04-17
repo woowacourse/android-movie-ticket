@@ -118,7 +118,6 @@
         </LinearLayout>
 
         <Button
-            android:padding="11dp"
             android:id="@+id/btn_reservation_completed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,6 +125,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="21dp"
             android:layout_marginBottom="21dp"
+            android:padding="11dp"
             android:text="예매 완료"
             android:textSize="20sp"
             android:textStyle="bold" />
