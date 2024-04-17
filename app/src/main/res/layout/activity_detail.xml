@@ -86,6 +86,7 @@
                 tools:text="152분" />
 
             <TextView
+                android:id="@+id/tv_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"

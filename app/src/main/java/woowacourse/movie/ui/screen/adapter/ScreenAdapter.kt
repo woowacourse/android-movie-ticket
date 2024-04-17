@@ -1,13 +1,16 @@
 package woowacourse.movie.ui.screen.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Screen
+import woowacourse.movie.ui.detail.DetailActivity
 
 class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
     override fun getCount(): Int = item.size
@@ -22,7 +25,16 @@ class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
         parent: ViewGroup,
     ): View {
         val view = convertView ?: LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
+        initBinding(view, position)
+        initClickListener(view, parent.context, position)
 
+        return view
+    }
+
+    private fun initBinding(
+        view: View,
+        position: Int,
+    ) {
         val poster = view.findViewById<ImageView>(R.id.iv_poster)
         val title = view.findViewById<TextView>(R.id.tv_title)
         val date = view.findViewById<TextView>(R.id.tv_screen_date)
@@ -34,7 +46,17 @@ class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
             date.text = this.date
             runningTime.text = movie.runningTime.toString()
         }
+    }
 
-        return view
+    private fun initClickListener(
+        view: View,
+        context: Context,
+        position: Int,
+    ) {
+        val reserveButton = view.findViewById<Button>(R.id.btn_reserve_now)
+
+        reserveButton.setOnClickListener {
+            DetailActivity.startActivity(context, item[position].id)
+        }
     }
 }
