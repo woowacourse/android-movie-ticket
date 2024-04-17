@@ -1,6 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.presenter
 
-class MovieDetailPresenter(private val detailContractView: MovieDetailContract.View) : MovieDetailContract.Presenter {
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.ReservationCount
+
+class MovieDetailPresenter(private val detailContractView: MovieDetailContract.View) :
+    MovieDetailContract.Presenter {
     private var reservationCount = ReservationCount()
 
     override fun plusReservationCount() {

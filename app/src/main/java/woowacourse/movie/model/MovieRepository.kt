@@ -1,4 +1,6 @@
-package woowacourse.movie
+package woowacourse.movie.model
+
+import woowacourse.movie.R
 
 class MovieRepository() {
     private var _movies =

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Build
@@ -9,6 +9,11 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.presenter.MovieDetailContract
+import woowacourse.movie.presenter.MovieDetailPresenter
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {

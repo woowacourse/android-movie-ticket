@@ -1,8 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.presenter
 
 import android.content.Context
+import woowacourse.movie.model.MovieAdapter
+import woowacourse.movie.model.MovieRepository
 
-class MovieMainPresenter(private val movieChoiceContractView: MovieMainContract.View) : MovieMainContract.Presenter {
+class MovieMainPresenter(private val movieChoiceContractView: MovieMainContract.View) :
+    MovieMainContract.Presenter {
     private val movieRepository: MovieRepository = MovieRepository()
     private lateinit var movieAdapter: MovieAdapter
 
