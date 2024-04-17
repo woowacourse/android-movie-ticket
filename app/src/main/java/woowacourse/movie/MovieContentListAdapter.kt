@@ -24,7 +24,7 @@ class MovieContentListAdapter(
 
     override fun getItem(position: Int): MovieContent = movieContents[position]
 
-    override fun getItemId(position: Int) = movieContents[position].id
+    override fun getItemId(position: Int): Long = getItem(position).id
 
     override fun getView(
         position: Int,
@@ -41,7 +41,7 @@ class MovieContentListAdapter(
         val runningTimeText = view.findViewById<TextView>(R.id.running_time_text)
         val reservationButton = view.findViewById<Button>(R.id.reservation_button)
 
-        movieContents[position].run {
+        getItem(position).run {
             posterImage.setImageResource(imageId)
             titleText.text = title
             screeningDateText.text = DateUi.format(screeningDate, context)
@@ -52,7 +52,7 @@ class MovieContentListAdapter(
             startActivity(
                 context,
                 Intent(context, MovieReservationActivity::class.java).apply {
-                    putExtra(MovieContentKey.ID, movieContents[position].id)
+                    putExtra(MovieContentKey.ID, getItemId(position))
                 },
                 null,
             )

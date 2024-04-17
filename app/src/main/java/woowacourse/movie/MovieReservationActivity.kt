@@ -12,11 +12,21 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.dao.MovieContentsImpl
+import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.ui.DateUi
 
 class MovieReservationActivity : AppCompatActivity() {
     private var reservationCount = ReservationCount()
+    private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
+    private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
+    private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
+    private val runningTimeText by lazy { findViewById<TextView>(R.id.running_time_text) }
+    private val synopsisText by lazy { findViewById<TextView>(R.id.synopsis_text) }
+    private val minusButton by lazy { findViewById<Button>(R.id.minus_button) }
+    private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
+    private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
+    private val reservationButton by lazy { findViewById<Button>(R.id.reservation_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,24 +40,21 @@ class MovieReservationActivity : AppCompatActivity() {
             return
         }
 
-        val posterImage = findViewById<ImageView>(R.id.poster_image)
-        val titleText = findViewById<TextView>(R.id.title_text)
-        val screeningDateText = findViewById<TextView>(R.id.screening_date_text)
-        val runningTimeText = findViewById<TextView>(R.id.running_time_text)
-        val synopsisText = findViewById<TextView>(R.id.synopsis_text)
-        val minusButton = findViewById<Button>(R.id.minus_button)
-        val reservationCountText = findViewById<TextView>(R.id.reservation_count_text)
-        val plusButton = findViewById<Button>(R.id.plus_button)
-        val reservationButton = findViewById<Button>(R.id.reservation_button)
+        MovieContentsImpl.find(movieContentId).setUpUi()
+        setUpReservationCountUi(movieContentId)
 
-        MovieContentsImpl.find(movieContentId).run {
-            posterImage.setImageResource(imageId)
-            titleText.text = title
-            screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationActivity)
-            runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
-            synopsisText.text = synopsis
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
+    private fun MovieContent.setUpUi() {
+        posterImage.setImageResource(imageId)
+        titleText.text = title
+        screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationActivity)
+        runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
+        synopsisText.text = synopsis
+    }
+
+    private fun setUpReservationCountUi(movieContentId: Long) {
         reservationCountText.text = reservationCount.count.toString()
 
         minusButton.setOnClickListener {
@@ -65,8 +72,6 @@ class MovieReservationActivity : AppCompatActivity() {
                 startActivity(this)
             }
         }
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -9,10 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.dao.MovieContentsImpl
+import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.ui.DateUi
 
 class MovieReservationCompleteActivity : AppCompatActivity() {
+    private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
+    private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
+    private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
+    private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
@@ -26,20 +32,20 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
             return
         }
 
-        val titleText = findViewById<TextView>(R.id.title_text)
-        val screeningDateText = findViewById<TextView>(R.id.screening_date_text)
-        val reservationCountText = findViewById<TextView>(R.id.reservation_count_text)
-        val reservationAmountText = findViewById<TextView>(R.id.reservation_amount_text)
+        MovieContentsImpl.find(movieContentId).setUpUi()
+        Ticket(reservationCount).setUpUi()
 
-        MovieContentsImpl.find(movieContentId).run {
-            titleText.text = title
-            screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationCompleteActivity)
-        }
-        Ticket(reservationCount).run {
-            reservationCountText.text = resources.getString(R.string.reservation_count).format(count)
-            reservationAmountText.text = resources.getString(R.string.reservation_amount).format(amount())
-        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun MovieContent.setUpUi() {
+        titleText.text = title
+        screeningDateText.text = DateUi.format(screeningDate, this@MovieReservationCompleteActivity)
+    }
+
+    private fun Ticket.setUpUi() {
+        reservationCountText.text = resources.getString(R.string.reservation_count).format(count)
+        reservationAmountText.text = resources.getString(R.string.reservation_amount).format(amount())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
