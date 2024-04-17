@@ -11,46 +11,72 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.utils.formatTimestamp
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var reservationCompleteActivityResultLauncher: ActivityResultLauncher<Intent>
-    private var count: Int = 1
+    private lateinit var movieDetailPresenter: MovieDetailPresenter
+
+    private lateinit var detailImage: ImageView
+    private lateinit var detailTitle: TextView
+    private lateinit var detailDate: TextView
+    private lateinit var detailRunningTime: TextView
+    private lateinit var detailDescription: TextView
+    private lateinit var reservationCount: TextView
+    private lateinit var minusButton: Button
+    private lateinit var plusButton: Button
+    private lateinit var reservationCompleteButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        val movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("movie", Movie::class.java)
-            } else {
-                intent.getSerializableExtra("movie") as Movie
-            }
-
         reservationCompleteActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
+        movieDetailPresenter = MovieDetailPresenter(this)
 
-        movie?.let { movie ->
-            findViewById<ImageView>(R.id.detailImage).setImageResource(movie.thumbnail)
-            findViewById<TextView>(R.id.detailTitle).text = movie.title
-            findViewById<TextView>(R.id.detailDate).text = formatTimestamp(movie.date)
-            findViewById<TextView>(R.id.detailRunningTime).text = "${movie.runningTime}분"
-            findViewById<TextView>(R.id.detailDescription).text = movie.description
-            findViewById<TextView>(R.id.reservationCount).text = count.toString()
+        detailImage = findViewById(R.id.detailImage)
+        detailTitle = findViewById(R.id.detailTitle)
+        detailDate = findViewById(R.id.detailDate)
+        detailRunningTime = findViewById(R.id.detailRunningTime)
+        detailDescription = findViewById(R.id.detailDescription)
+        reservationCount = findViewById(R.id.reservationCount)
+        minusButton = findViewById(R.id.minus)
+        plusButton = findViewById(R.id.plus)
+        reservationCompleteButton = findViewById(R.id.reservationComplete)
 
-            findViewById<Button>(R.id.minus).setOnClickListener {
-                if (count <= 1) return@setOnClickListener
-                findViewById<TextView>(R.id.reservationCount).text =
-                    (--count).toString()
+        getMovieData()?.let { movie ->
+            detailImage.setImageResource(movie.thumbnail)
+            detailTitle.text = movie.title
+            detailDate.text = formatTimestamp(movie.date)
+            detailRunningTime.text = "${movie.runningTime}분"
+            detailDescription.text = movie.description
+
+            minusButton.setOnClickListener {
+                movieDetailPresenter.minusReservationCount()
             }
-            findViewById<Button>(R.id.plus).setOnClickListener {
-                findViewById<TextView>(R.id.reservationCount).text =
-                    (++count).toString()
+            plusButton.setOnClickListener {
+                movieDetailPresenter.plusReservationCount()
             }
-            findViewById<Button>(R.id.reservationComplete).setOnClickListener {
-                val intent = Intent(this, MovieReservationCompleteActivity::class.java)
-                intent.putExtra("ticket", MovieTicket(movie.title, movie.date, count))
-                reservationCompleteActivityResultLauncher.launch(intent)
+            reservationCompleteButton.setOnClickListener {
+                movieDetailPresenter.reservation(movie)
             }
         }
+    }
+
+    private fun getMovieData(): Movie? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("movie", Movie::class.java)
+        } else {
+            intent.getSerializableExtra("movie") as Movie
+        }
+    }
+
+    override fun onCountUpdate(count: Int) {
+        reservationCount.text = (count).toString()
+    }
+
+    override fun onReservationComplete(movieTicket: MovieTicket) {
+        val intent = Intent(this, MovieReservationCompleteActivity::class.java)
+        intent.putExtra("ticket", movieTicket)
+        reservationCompleteActivityResultLauncher.launch(intent)
     }
 }

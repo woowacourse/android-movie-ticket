@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.utils.formatTimestamp
 
-class MovieAdapter(private val context: Context, private val viewInterface: ViewInterface, private val movies: List<Movie>) :
+class MovieAdapter(
+    private val context: Context,
+    private val movieChoiceContractView: MovieMainContract.View,
+    private val movies: List<Movie>,
+) :
     BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
@@ -41,7 +46,7 @@ class MovieAdapter(private val context: Context, private val viewInterface: View
         }
 
         val movie = movies[position]
-        holder.bind(movie, viewInterface)
+        holder.bind(movie, movieChoiceContractView)
 
         return view!!
     }
@@ -56,14 +61,15 @@ class MovieViewHolder(itemView: View) {
 
     fun bind(
         movie: Movie,
-        viewInterface: ViewInterface,
+        movieChoiceContractView: MovieMainContract.View,
     ) {
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
         date.text = formatTimestamp(movie.date)
         runningTime.text = "${movie.runningTime}분"
+        Log.d("AAD", "DFD")
         reservation.setOnClickListener {
-            viewInterface.onMovieItemClick(movie)
+            movieChoiceContractView.onMovieItemClick(movie)
         }
     }
 }

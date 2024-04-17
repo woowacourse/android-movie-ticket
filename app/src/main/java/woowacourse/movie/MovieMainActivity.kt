@@ -7,9 +7,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 
-class MovieMainActivity : AppCompatActivity(), ViewInterface {
+class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     private lateinit var movieDetailActivityResultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var moviePresenter: MoviePresenter
+    private lateinit var movieMainPresenter: MovieMainPresenter
     private lateinit var movieList: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,15 +18,15 @@ class MovieMainActivity : AppCompatActivity(), ViewInterface {
 
         movieDetailActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
-        moviePresenter = MoviePresenter(this)
+        movieMainPresenter = MovieMainPresenter(this)
         movieList = findViewById<ListView>(R.id.movieList)
-        movieList.adapter = moviePresenter.getAdapter(this)
+        movieList.adapter = movieMainPresenter.getAdapter(this)
     }
 
     override fun onMovieItemClick(movie: Movie) {
         Intent(this, MovieDetailActivity::class.java).apply {
             putExtra("movie", movie)
-            movieDetailActivityResultLauncher.launch(intent)
+            movieDetailActivityResultLauncher.launch(this)
         }
     }
 }

@@ -1,10 +1,6 @@
 package woowacourse.movie
 
-interface ViewInterface {
-    fun onMovieItemClick(movie: Movie)
-}
-
-interface MovieChoiceContract {
+interface MovieMainContract {
     interface View {
         fun onMovieItemClick(movie: Movie)
     }
