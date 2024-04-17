@@ -19,8 +19,8 @@ class ReservationFinishedActivity : AppCompatActivity() {
 
         onBackPressed(this)
 
-        val movie = intent.intentSerializable("movie", Movie::class.java)!!
-        val ticket = intent.intentSerializable("ticket", Ticket::class.java)!!
+        val movie = intent.intentSerializable("movie", Movie::class.java) ?: Movie(0, 0, "", "", "", "")
+        val ticket = intent.intentSerializable("ticket", Ticket::class.java) ?: Ticket()
 
         showReservationHistory(movie, ticket)
     }
@@ -53,7 +53,7 @@ class ReservationFinishedActivity : AppCompatActivity() {
         }
     }
 
-    fun onBackPressed(context: Context) {
+    private fun onBackPressed(context: Context) {
         val callback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
