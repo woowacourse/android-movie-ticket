@@ -8,55 +8,76 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieListActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.model.Movie
+import woowacourse.movie.presenter.TicketingPresenter
+import woowacourse.movie.presenter.contract.TicketingContract
 
-class TicketingActivity : AppCompatActivity() {
+class TicketingActivity : AppCompatActivity(), TicketingContract {
+    private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
+    private lateinit var ticketingPresenter: TicketingPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
-        val movie = MOVIES.find { it.id == movieId }
-        movie?.let {
-            findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(it.thumbnail) }
-            findViewById<TextView>(R.id.tv_title).apply { text = it.title }
-            findViewById<TextView>(R.id.tv_date).apply { text = getString(R.string.title_date, it.date) }
-            findViewById<TextView>(R.id.tv_running_time).apply { text = getString(R.string.title_running_time, it.runningTime) }
-            findViewById<TextView>(R.id.tv_introduction).apply { text = it.introduction }
-        }
+        ticketingPresenter = TicketingPresenter(this, movieId)
+        ticketingPresenter.assignInitialView()
 
-        var count = 1
         val minusButton = findViewById<Button>(R.id.btn_minus)
         val plusButton = findViewById<Button>(R.id.btn_plus)
-        val countText = findViewById<TextView>(R.id.tv_count).apply { text = count.toString() }
         val completeButton = findViewById<Button>(R.id.btn_complete)
 
         minusButton.setOnClickListener {
-            if (count > 1) {
-                count--
-                countText.text = count.toString()
-            }
+            ticketingPresenter.decreaseCount()
         }
 
         plusButton.setOnClickListener {
-            count++
-            countText.text = count.toString()
+            ticketingPresenter.increaseCount()
         }
 
         completeButton.setOnClickListener {
-            Intent(this, TicketingResultActivity::class.java).apply {
-                putExtra(EXTRA_MOVIE_TITLE, movie?.title)
-                putExtra(EXTRA_MOVIE_DATE, movie?.date)
-                putExtra(EXTRA_NUMBER_OF_PEOPLE, count)
-                startActivity(this)
-                finish()
-            }
+            ticketingPresenter.navigate()
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun assignInitialView(
+        movie: Movie,
+        count: Int,
+    ) {
+        updateCount(count)
+        findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(movie.thumbnail) }
+        findViewById<TextView>(R.id.tv_title).apply { text = movie.title }
+        findViewById<TextView>(R.id.tv_date).apply {
+            text = getString(R.string.title_date, movie.date)
+        }
+        findViewById<TextView>(R.id.tv_running_time).apply {
+            text = getString(R.string.title_running_time, movie.runningTime)
+        }
+        findViewById<TextView>(R.id.tv_introduction).apply { text = movie.introduction }
+    }
+
+    override fun updateCount(count: Int) {
+        countText.text = count.toString()
+    }
+
+    override fun navigate(
+        movie: Movie,
+        count: Int,
+    ) {
+        Intent(this, TicketingResultActivity::class.java).apply {
+            putExtra(EXTRA_MOVIE_TITLE, movie.title)
+            putExtra(EXTRA_MOVIE_DATE, movie.date)
+            putExtra(EXTRA_NUMBER_OF_PEOPLE, count)
+            startActivity(this)
+            finish()
+        }
     }
 
     companion object {
