@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
 import woowacourse.movie.ui.reservation.ReservationActivity
-import woowacourse.movie.ui.screen.repository.DummyScreens
+import woowacourse.movie.domain.repository.DummyScreens
 
 class DetailActivity : AppCompatActivity() {
     private val detailViewModel: DetailViewModel by lazy { DetailViewModel(DummyScreens()) }

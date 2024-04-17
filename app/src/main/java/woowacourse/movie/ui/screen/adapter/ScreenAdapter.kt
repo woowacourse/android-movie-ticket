@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.Screen
+import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.ui.detail.DetailActivity
 
 class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {

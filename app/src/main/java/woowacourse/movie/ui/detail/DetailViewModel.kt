@@ -1,6 +1,6 @@
 package woowacourse.movie.ui.detail
 
-import woowacourse.movie.ui.screen.repository.ScreenRepository
+import woowacourse.movie.domain.repository.ScreenRepository
 
 class DetailViewModel(private val repository: ScreenRepository) {
     private var ticketCount: Int = MIN_TICKET_COUNT

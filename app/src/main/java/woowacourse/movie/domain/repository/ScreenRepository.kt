@@ -1,6 +1,6 @@
-package woowacourse.movie.ui.screen.repository
+package woowacourse.movie.domain.repository
 
-import woowacourse.movie.model.Screen
+import woowacourse.movie.domain.model.Screen
 
 interface ScreenRepository {
     fun load(): List<Screen>

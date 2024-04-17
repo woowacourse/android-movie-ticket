@@ -1,8 +1,8 @@
-package woowacourse.movie.ui.screen.repository
+package woowacourse.movie.domain.repository
 
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Screen
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Screen
 
 class DummyScreens : ScreenRepository {
     // TODO 더미 데이터

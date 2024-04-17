@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter
-import woowacourse.movie.ui.screen.repository.DummyScreens
+import woowacourse.movie.domain.repository.DummyScreens
 
 class ScreenActivity : AppCompatActivity() {
     private lateinit var adapter: ScreenAdapter

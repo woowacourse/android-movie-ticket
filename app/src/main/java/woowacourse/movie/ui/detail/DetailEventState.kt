@@ -1,6 +1,6 @@
 package woowacourse.movie.ui.detail
 
-import woowacourse.movie.model.Screen
+import woowacourse.movie.domain.model.Screen
 
 sealed interface DetailEventState {
     sealed interface Success : DetailEventState {

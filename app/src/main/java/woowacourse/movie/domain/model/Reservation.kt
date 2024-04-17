@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.domain.model
 
 data class Reservation(
     val screen: Screen,
