@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,10 +18,16 @@ class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         count = Count()
         fetchData(intent)
         setUpCount()
         bindReservationButton()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
     }
 
     private fun fetchData(intent: Intent) {
