@@ -20,8 +20,8 @@ class TicketingActivity : AppCompatActivity() {
         movie?.let {
             findViewById<ImageView>(R.id.iv_thumbnail).apply { }
             findViewById<TextView>(R.id.tv_title).apply { text = it.title }
-            findViewById<TextView>(R.id.tv_date).apply { text = "$text ${it.date}" }
-            findViewById<TextView>(R.id.tv_running_time).apply { text = "$text ${it.runningTime}" }
+            findViewById<TextView>(R.id.tv_date).apply { text = getString(R.string.title_date, it.date) }
+            findViewById<TextView>(R.id.tv_running_time).apply { text = getString(R.string.title_running_time, it.runningTime) }
             findViewById<TextView>(R.id.tv_introduction).apply { text = it.introduction }
         }
 

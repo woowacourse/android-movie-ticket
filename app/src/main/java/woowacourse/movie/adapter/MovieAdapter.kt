@@ -31,8 +31,8 @@ class MovieAdapter(private val movies: List<Movie>, private val onTicketingButto
 
         val movie = movies[position]
         title.text = movie.title
-        date.text = "${date.text} ${movie.date}"
-        runningTime.text = "${runningTime.text} ${movie.runningTime}"
+        date.text = parent?.context?.getString(R.string.title_date, movie.date)
+        runningTime.text = parent?.context?.getString(R.string.title_running_time, movie.runningTime)
         ticketingButton.setOnClickListener { onTicketingButtonClick(movie.id) }
 
         return view
