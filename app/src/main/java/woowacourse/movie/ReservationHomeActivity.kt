@@ -11,40 +11,46 @@ class ReservationHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_home)
 
-        val movies =
-            listOf(
-                Movie(
-                    1,
-                    R.drawable.img_sorcerers_stone,
-                    getString(R.string.sorcerers_stone_title),
-                    getString(R.string.sorcerers_stone_screening_date),
-                    getString(R.string.sorcerers_stone_running_time),
-                    getString(R.string.sorcerers_stone_summary),
-                ),
-                Movie(
-                    2,
-                    R.drawable.img_secret_room,
-                    getString(R.string.secret_room_title),
-                    getString(R.string.secret_room_screening_date),
-                    getString(R.string.secret_room_running_time),
-                    getString(R.string.secret_room_summary),
-                ),
-                Movie(
-                    3,
-                    R.drawable.img_prisoner_of_azkaban,
-                    getString(R.string.prisoner_of_azkaban_title),
-                    getString(R.string.prisoner_of_azkaban_screening_date),
-                    getString(R.string.prisoner_of_azkaban_running_time),
-                    getString(R.string.prisoner_of_azkaban_summary),
-                ),
-            )
+        val movies = obtainMovies()
 
         val movieCatalogAdapter =
             MovieCatalogAdapter(this, movies) {
-                val intent = Intent(this, ReservationDetailActivity::class.java)
-                intent.putExtra("movie", it)
-                startActivity(intent)
+                navigateToReservationDetail(it)
             }
         findViewById<ListView>(R.id.list_view_reservation_home).apply { adapter = movieCatalogAdapter }
+    }
+
+    private fun obtainMovies(): List<Movie> =
+        listOf(
+            Movie(
+                1,
+                R.drawable.img_sorcerers_stone,
+                getString(R.string.sorcerers_stone_title),
+                getString(R.string.sorcerers_stone_screening_date),
+                getString(R.string.sorcerers_stone_running_time),
+                getString(R.string.sorcerers_stone_summary),
+            ),
+            Movie(
+                2,
+                R.drawable.img_secret_room,
+                getString(R.string.secret_room_title),
+                getString(R.string.secret_room_screening_date),
+                getString(R.string.secret_room_running_time),
+                getString(R.string.secret_room_summary),
+            ),
+            Movie(
+                3,
+                R.drawable.img_prisoner_of_azkaban,
+                getString(R.string.prisoner_of_azkaban_title),
+                getString(R.string.prisoner_of_azkaban_screening_date),
+                getString(R.string.prisoner_of_azkaban_running_time),
+                getString(R.string.prisoner_of_azkaban_summary),
+            ),
+        )
+
+    private fun navigateToReservationDetail(movie: Movie) {
+        val intent = Intent(this, ReservationDetailActivity::class.java)
+        intent.putExtra("movie", movie)
+        startActivity(intent)
     }
 }
