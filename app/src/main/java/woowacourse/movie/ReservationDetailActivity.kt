@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -12,7 +11,6 @@ import domain.Movie
 import domain.Ticket
 import presenter.ReservationDetailPresenter
 import view.ReservationDetailContract
-import java.io.Serializable
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
     private val presenter = ReservationDetailPresenter(this)
@@ -23,15 +21,15 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = intent.intentSerializable("movie", Movie::class.java) ?: Movie(0, 0, "", "", "", "")
+        val movieId = intent.getIntExtra("movieId", 0)
 
-        showMovieInformation(movie)
-        initializeReservationButton(movie)
+        presenter.deliverMovie(movieId)
+        presenter.deliverReservationHistory(movieId)
         initializePlusButton()
         initializeMinusButton()
     }
 
-    private fun showMovieInformation(movie: Movie) {
+    override fun showMovieInformation(movie: Movie) {
         val poster = findViewById<ImageView>(R.id.image_view_reservation_detail_poster)
         val title = findViewById<TextView>(R.id.text_view_reservation_detail_title)
         val screeningDate = findViewById<TextView>(R.id.text_view_reservation_screening_date)
@@ -61,25 +59,14 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         }
     }
 
-    private fun initializeReservationButton(movie: Movie) {
+    override fun initializeReservationButton(movieId: Int) {
         val reservationButton = findViewById<Button>(R.id.button_reservation_detail_finished)
 
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationFinishedActivity::class.java)
-            intent.putExtra("movie", movie)
+            intent.putExtra("movieId", movieId)
             intent.putExtra("ticket", presenter.ticket)
             startActivity(intent)
-        }
-    }
-
-    private fun <T : Serializable> Intent.intentSerializable(
-        key: String,
-        clazz: Class<T>,
-    ): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.getSerializableExtra(key, clazz)
-        } else {
-            this.getSerializableExtra(key) as T?
         }
     }
 
