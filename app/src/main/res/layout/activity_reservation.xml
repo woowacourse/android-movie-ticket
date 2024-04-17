@@ -189,6 +189,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/reservation_complete_button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="예매 완료"

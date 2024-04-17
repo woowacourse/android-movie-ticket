@@ -11,6 +11,8 @@ import woowacourse.movie.model.Count
 class ReservationActivity : AppCompatActivity() {
     private lateinit var count: Count
     private lateinit var countTextView: TextView
+    private lateinit var titleTextView: TextView
+    private lateinit var screenDateTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,12 +20,13 @@ class ReservationActivity : AppCompatActivity() {
         count = Count()
         fetchData(intent)
         setUpCount()
+        bindReservationButton()
     }
 
     private fun fetchData(intent: Intent) {
         val imageView: ImageView = findViewById(R.id.reservation_imageview)
-        val titleTextView: TextView = findViewById(R.id.reservation_title_textview)
-        val screenDateTextView: TextView = findViewById(R.id.reservation_screen_date_textview)
+        titleTextView = findViewById(R.id.reservation_title_textview)
+        screenDateTextView = findViewById(R.id.reservation_screen_date_textview)
         val runningTimeTextView: TextView = findViewById(R.id.reservation_running_time_textview)
         val description: TextView = findViewById(R.id.reservation_description)
 
@@ -56,6 +59,19 @@ class ReservationActivity : AppCompatActivity() {
         subButton.setOnClickListener {
             count.sub()
             updateCountTextView()
+        }
+    }
+
+    private fun bindReservationButton() {
+        val reservationButton: Button = findViewById(R.id.reservation_complete_button)
+
+        reservationButton.setOnClickListener {
+            val intent = Intent(this, ReservationResultActivity::class.java)
+            intent.putExtra("title", titleTextView.text)
+            intent.putExtra("screenDate", screenDateTextView.text)
+            intent.putExtra("count", countTextView.text)
+
+            this.startActivity(intent)
         }
     }
 }
