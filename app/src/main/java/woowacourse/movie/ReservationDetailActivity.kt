@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import domain.Failure
 import domain.Movie
+import domain.Result
+import domain.Success
 import domain.Ticket
 import java.io.Serializable
 
@@ -47,8 +51,8 @@ class ReservationDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
 
         plusButton.setOnClickListener {
-            ticket.increaseCount()
-            numberOfTickets.text = ticket.count.toString()
+            val result = ticket.increaseCount()
+            handleNumberOfTicketsBounds(result, numberOfTickets, ticket)
         }
     }
 
@@ -58,8 +62,8 @@ class ReservationDetailActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
 
         minusButton.setOnClickListener {
-            ticket.decreaseCount()
-            numberOfTickets.text = ticket.count.toString()
+            val result = ticket.decreaseCount()
+            handleNumberOfTicketsBounds(result, numberOfTickets, ticket)
         }
     }
 
@@ -74,6 +78,17 @@ class ReservationDetailActivity : AppCompatActivity() {
             intent.putExtra("movie", movie)
             intent.putExtra("ticket", ticket)
             startActivity(intent)
+        }
+    }
+
+    private fun handleNumberOfTicketsBounds(
+        result: Result,
+        numberOfTickets: TextView,
+        ticket: Ticket,
+    ) {
+        when (result) {
+            is Success -> numberOfTickets.text = ticket.count.toString()
+            is Failure -> Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT).show()
         }
     }
 
