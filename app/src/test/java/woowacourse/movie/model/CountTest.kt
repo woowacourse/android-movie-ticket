@@ -2,6 +2,7 @@ package woowacourse.movie.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.Count.Companion.TICKET_PRICE
 
 class CountTest {
     @Test
@@ -29,5 +30,12 @@ class CountTest {
         count.add()
 
         assertThat(count.amount).isEqualTo(3)
+    }
+
+    @Test
+    fun `amount값에 비례하여 price값을 구할 수 있다`() {
+        val count = Count(3)
+
+        assertThat(count.price()).isEqualTo(3 * TICKET_PRICE)
     }
 }

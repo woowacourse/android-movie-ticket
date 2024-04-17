@@ -70,6 +70,7 @@ class ReservationActivity : AppCompatActivity() {
             intent.putExtra("title", titleTextView.text)
             intent.putExtra("screenDate", screenDateTextView.text)
             intent.putExtra("count", countTextView.text)
+            intent.putExtra("price", count.price())
 
             this.startActivity(intent)
         }
