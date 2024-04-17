@@ -1,9 +1,11 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import domain.Movie
 import domain.Ticket
@@ -14,6 +16,8 @@ class ReservationFinishedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_finished)
+
+        onBackPressed(this)
 
         val movie = intent.intentSerializable("movie", Movie::class.java)!!
         val ticket = intent.intentSerializable("ticket", Ticket::class.java)!!
@@ -47,5 +51,17 @@ class ReservationFinishedActivity : AppCompatActivity() {
         } else {
             this.getSerializableExtra(key) as T?
         }
+    }
+
+    fun onBackPressed(context: Context) {
+        val callback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val intent = Intent(context, ReservationHomeActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+        onBackPressedDispatcher.addCallback(this, callback)
     }
 }
