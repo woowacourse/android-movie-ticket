@@ -7,6 +7,8 @@ sealed interface DetailEventState {
         data class ScreenLoading(val screen: Screen) : Success
 
         data class UpdateTicket(val count: Int) : Success
+
+        data object NavigateToReservation : Success
     }
 
     sealed interface Failure : DetailEventState {

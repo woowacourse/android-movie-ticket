@@ -33,6 +33,8 @@ class DetailViewModel(private val repository: ScreenRepository) {
         return DetailEventState.Success.UpdateTicket(--ticketCount)
     }
 
+    fun clickReservationDone(): DetailEventState = DetailEventState.Success.NavigateToReservation
+
     companion object {
         private const val MAX_TICKET_COUNT = 10
         private const val MIN_TICKET_COUNT = 1

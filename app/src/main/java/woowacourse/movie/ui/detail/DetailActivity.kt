@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
+import woowacourse.movie.ui.reservation.ReservationActivity
 import woowacourse.movie.ui.screen.repository.DummyScreens
 
 class DetailActivity : AppCompatActivity() {
@@ -41,6 +42,11 @@ class DetailActivity : AppCompatActivity() {
         minusBtn.setOnClickListener {
             handleState(detailViewModel.minusTicket())
         }
+
+        val reserveDone = findViewById<Button>(R.id.btn_reserve_done)
+        reserveDone.setOnClickListener {
+            handleState(detailViewModel.clickReservationDone())
+        }
     }
 
     private fun handleState(state: DetailEventState) {
@@ -49,6 +55,7 @@ class DetailActivity : AppCompatActivity() {
                 when (state) {
                     is DetailEventState.Success.ScreenLoading -> bindScreen(state)
                     is DetailEventState.Success.UpdateTicket -> ticketCount.text = state.count.toString()
+                    is DetailEventState.Success.NavigateToReservation -> ReservationActivity.startActivity(this)
                 }
             }
 
