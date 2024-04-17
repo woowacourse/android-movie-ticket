@@ -2,7 +2,7 @@ package woowacourse.movie
 
 import java.io.Serializable
 
-class Ticket(
+class MovieTicket(
     val title: String,
     val date: Long,
     val count: Int,

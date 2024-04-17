@@ -47,8 +47,8 @@ class MovieDetailActivity : AppCompatActivity() {
                     (++count).toString()
             }
             findViewById<Button>(R.id.reservationComplete).setOnClickListener {
-                val intent = Intent(this, ReservationCompleteActivity::class.java)
-                intent.putExtra("ticket", Ticket(movie.title, movie.date, count))
+                val intent = Intent(this, MovieReservationCompleteActivity::class.java)
+                intent.putExtra("ticket", MovieTicket(movie.title, movie.date, count))
                 reservationCompleteActivityResultLauncher.launch(intent)
             }
         }

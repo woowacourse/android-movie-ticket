@@ -1,6 +1,6 @@
 package woowacourse.movie
 
-class SampleMovies() {
+class MovieRepository() {
     private var _movies =
         mutableListOf<Movie>(
             Movie(

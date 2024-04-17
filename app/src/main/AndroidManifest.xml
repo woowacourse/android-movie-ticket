@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".ReservationCompleteActivity"
+            android:name=".MovieReservationCompleteActivity"
             android:exported="false" />
         <activity
             android:name=".MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MovieMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
