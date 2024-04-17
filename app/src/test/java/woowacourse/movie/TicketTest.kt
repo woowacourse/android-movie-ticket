@@ -1,7 +1,6 @@
 package woowacourse.movie
 
-import domain.MaxTicketsBounds
-import domain.MinTicketsBounds
+import domain.Failure
 import domain.Ticket
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -27,16 +26,16 @@ class TicketTest {
     }
 
     @Test
-    fun `티켓이 1장일 때 마이너스 버튼을 누르면 MinTicketsBounds가 반환된다`() {
+    fun `티켓이 1장일 때 마이너스 버튼을 누르면 Failure가 반환된다`() {
         val ticket = Ticket()
 
         val actual = ticket.decreaseCount()
 
-        assertThat(actual).isInstanceOf(MinTicketsBounds::class.java)
+        assertThat(actual).isInstanceOf(Failure::class.java)
     }
 
     @Test
-    fun `티켓이 100장일 때 플러스 버튼을 누르면 MaxTicketsBounds가 반환된다`() {
+    fun `티켓이 100장일 때 플러스 버튼을 누르면 Failure가 반환된다`() {
         val ticket = Ticket()
 
         repeat(99) {
@@ -45,7 +44,7 @@ class TicketTest {
 
         val actual = ticket.increaseCount()
 
-        assertThat(actual).isInstanceOf(MaxTicketsBounds::class.java)
+        assertThat(actual).isInstanceOf(Failure::class.java)
     }
 
     @Test

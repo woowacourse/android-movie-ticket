@@ -7,13 +7,13 @@ class Ticket : Serializable {
         private set
 
     fun increaseCount(): Result {
-        if (count >= 100) return MaxTicketsBounds
+        if (count >= 100) return Failure
         count += 1
         return Success
     }
 
     fun decreaseCount(): Result {
-        if (count <= 1) return MinTicketsBounds
+        if (count <= 1) return Failure
         count -= 1
         return Success
     }
