@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.io.Serializable
 
-class MovieReservationActivity : AppCompatActivity() {
+class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private lateinit var context: Context
-    private var ticketCount = 1
     private lateinit var titleView: TextView
     private lateinit var screeningDateView: TextView
     private lateinit var runningDateView: TextView
@@ -22,6 +21,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private lateinit var minusNumberButton: Button
     private lateinit var plusNumberButton: Button
     private lateinit var ticketingButton: Button
+    private val presenter = MovieReservationPresenter(this@MovieReservationActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,46 +47,30 @@ class MovieReservationActivity : AppCompatActivity() {
         minusNumberButton = findViewById(R.id.minus_button)
         plusNumberButton = findViewById(R.id.plus_button)
         ticketingButton = findViewById(R.id.ticketing_button)
-
         movie?.let {
             titleView.text = it.title
             screeningDateView.text = "상영일: ${it.screeningDate}"
             runningDateView.text = "러닝타임: ${it.runningTime}분"
             descriptionView.text = it.description
 
-            val resourceId = context.resources.getIdentifier(movie.poster, "drawable", context.packageName)
+            val resourceId =
+                context.resources.getIdentifier(movie.poster, "drawable", context.packageName)
             posterView.setImageResource(resourceId)
         }
-        setTicketCountView()
+        showCurrentResultTicketCountView()
         setClickListener()
     }
 
     private fun setClickListener() {
         minusNumberButton.setOnClickListener {
-            minusNumber()
-            setTicketCountView()
+            presenter.clickMinusNumberButton()
         }
         plusNumberButton.setOnClickListener {
-            plusNumber()
-            setTicketCountView()
+            presenter.clickPlusNumberButton()
         }
         ticketingButton.setOnClickListener {
             ticketing()
         }
-    }
-
-    private fun setTicketCountView() {
-        ticketCountView.text = ticketCount.toString()
-    }
-
-    private fun minusNumber() {
-        if (ticketCount > 1) {
-            ticketCount--
-        }
-    }
-
-    private fun plusNumber() {
-        ticketCount++
     }
 
     private fun ticketing() {
@@ -94,12 +78,16 @@ class MovieReservationActivity : AppCompatActivity() {
             Ticket(
                 title = titleView.text.toString(),
                 screeningDate = screeningDateView.text.toString(),
-                price = ticketCount * 13000,
-                numberOfPeople = ticketCount,
+                price = presenter.getTicketCount() * 13000,
+                numberOfPeople = presenter.getTicketCount(),
             )
 
         val intent = Intent(context, MovieReservationCompleteActivity::class.java)
         intent.putExtra("ticket", ticket as Serializable)
         context.startActivity(intent)
+    }
+
+    override fun showCurrentResultTicketCountView() {
+        ticketCountView.text = presenter.getTicketCount().toString()
     }
 }
