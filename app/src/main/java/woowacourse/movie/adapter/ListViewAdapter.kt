@@ -11,7 +11,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
 class ListViewAdapter(
-    private val movies: MutableList<Movie>,
+    private val movies: List<Movie>,
     private val itemClickListener: OnItemClickListener,
 ) : BaseAdapter() {
     fun interface OnItemClickListener {

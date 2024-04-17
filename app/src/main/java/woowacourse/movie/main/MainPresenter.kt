@@ -13,8 +13,8 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         view.navigateToReservation(movie)
     }
 
-    private fun createMovieList(): MutableList<Movie> {
-        return mutableListOf(
+    private fun createMovieList(): List<Movie> {
+        return listOf(
             Movie(
                 R.drawable.poster,
                 "해리 포터와 마법사의 돌",

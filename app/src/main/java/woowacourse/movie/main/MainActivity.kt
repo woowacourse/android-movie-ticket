@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         mainPresenter.onViewCreated()
     }
 
-    override fun displayMovies(movies: MutableList<Movie>) {
+    override fun displayMovies(movies: List<Movie>) {
         val movieListView = findViewById<ListView>(R.id.list_view)
         movieListView.adapter =
             ListViewAdapter(movies) { position ->
