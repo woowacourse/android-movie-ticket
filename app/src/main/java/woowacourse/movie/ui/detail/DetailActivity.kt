@@ -3,6 +3,7 @@ package woowacourse.movie.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,14 +14,31 @@ import woowacourse.movie.ui.screen.repository.DummyScreens
 
 class DetailActivity : AppCompatActivity() {
     private val detailViewModel: DetailViewModel by lazy { DetailViewModel(DummyScreens()) }
+    private lateinit var ticketCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        initBinding()
+        initClickListener()
+    }
+
+    private fun initBinding() {
         val id = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_ID)
-        val state = detailViewModel.findById(id)
-        handleState(state)
+        handleState(detailViewModel.loadScreen(id))
+    }
+
+    private fun initClickListener() {
+        val plusBtn = findViewById<Button>(R.id.btn_plus)
+        plusBtn.setOnClickListener {
+            handleState(detailViewModel.plusTicket())
+        }
+
+        val minusBtn = findViewById<Button>(R.id.btn_minus)
+        minusBtn.setOnClickListener {
+            handleState(detailViewModel.minusTicket())
+        }
     }
 
     private fun handleState(state: DetailEventState) {
@@ -28,6 +46,7 @@ class DetailActivity : AppCompatActivity() {
             is DetailEventState.Success -> {
                 when (state) {
                     is DetailEventState.Success.ScreenLoading -> bindScreen(state)
+                    is DetailEventState.Success.UpdateTicket -> ticketCount.text = state.count.toString()
                 }
             }
 
@@ -42,6 +61,10 @@ class DetailActivity : AppCompatActivity() {
                         Snackbar.make(findViewById(android.R.id.content), state.message, Snackbar.LENGTH_SHORT).show()
                         finish()
                     }
+
+                    is DetailEventState.Failure.ShowToastMessage -> {
+                        Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -53,6 +76,7 @@ class DetailActivity : AppCompatActivity() {
         val runningTime = findViewById<TextView>(R.id.tv_screen_running_time)
         val description = findViewById<TextView>(R.id.tv_description)
         val poster = findViewById<ImageView>(R.id.iv_poster)
+        ticketCount = findViewById(R.id.tv_count)
 
         with(state.screen) {
             title.text = movie.title
@@ -60,6 +84,7 @@ class DetailActivity : AppCompatActivity() {
             runningTime.text = movie.runningTime.toString()
             description.text = movie.description
             poster.setImageResource(movie.imageSrc)
+            ticketCount.text = 1.toString()
         }
     }
 
