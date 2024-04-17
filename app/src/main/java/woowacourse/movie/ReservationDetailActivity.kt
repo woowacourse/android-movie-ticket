@@ -21,32 +21,53 @@ class ReservationDetailActivity : AppCompatActivity() {
         val ticket = Ticket()
         val movie = intent.intentSerializable("movie", Movie::class.java)!!
 
+        showMovieInformation(movie)
+        initializePlusButton(ticket)
+        initializeMinusButton(ticket)
+        initializeReservationButton(ticket, movie)
+    }
+
+    private fun showMovieInformation(movie: Movie) {
         val poster = findViewById<ImageView>(R.id.image_view_reservation_detail_poster)
         val title = findViewById<TextView>(R.id.text_view_reservation_detail_title)
         val screeningDate = findViewById<TextView>(R.id.text_view_reservation_screening_date)
         val runningTime = findViewById<TextView>(R.id.text_view_reservation_running_time)
         val summary = findViewById<TextView>(R.id.text_view_reservation_summary)
-        val reservationButton = findViewById<Button>(R.id.button_reservation_detail_finished)
-        val plusButton = findViewById<Button>(R.id.button_reservation_detail_plus)
-        val minusButton = findViewById<Button>(R.id.button_reservation_detail_minus)
-        val numberOfTickets =
-            findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
 
         poster.setImageResource(movie.poster)
         title.text = movie.title
         screeningDate.text = movie.screeningDate
         runningTime.text = movie.runningTime
         summary.text = movie.summary
+    }
+
+    private fun initializePlusButton(ticket: Ticket) {
+        val plusButton = findViewById<Button>(R.id.button_reservation_detail_plus)
+        val numberOfTickets =
+            findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
 
         plusButton.setOnClickListener {
             ticket.increaseCount()
             numberOfTickets.text = ticket.count.toString()
         }
+    }
+
+    private fun initializeMinusButton(ticket: Ticket) {
+        val minusButton = findViewById<Button>(R.id.button_reservation_detail_minus)
+        val numberOfTickets =
+            findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
 
         minusButton.setOnClickListener {
             ticket.decreaseCount()
             numberOfTickets.text = ticket.count.toString()
         }
+    }
+
+    private fun initializeReservationButton(
+        ticket: Ticket,
+        movie: Movie,
+    ) {
+        val reservationButton = findViewById<Button>(R.id.button_reservation_detail_finished)
 
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationFinishedActivity::class.java)
@@ -56,7 +77,7 @@ class ReservationDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun <T : Serializable> Intent.intentSerializable(
+    private fun <T : Serializable> Intent.intentSerializable(
         key: String,
         clazz: Class<T>,
     ): T? {
