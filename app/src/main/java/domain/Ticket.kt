@@ -1,6 +1,8 @@
 package domain
 
-class Ticket {
+import java.io.Serializable
+
+class Ticket : Serializable {
     var count: Int = 1
         private set
 
@@ -16,7 +18,7 @@ class Ticket {
         return Success
     }
 
-    fun calculatePrice(count: Int): Int = count * PRICE
+    fun calculatePrice(): Int = count * PRICE
 
     companion object {
         private const val PRICE = 13_000

@@ -72,7 +72,7 @@ class ReservationDetailActivity : AppCompatActivity() {
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationFinishedActivity::class.java)
             intent.putExtra("movie", movie)
-            intent.putExtra("numberOfTickets", ticket.count)
+            intent.putExtra("ticket", ticket)
             startActivity(intent)
         }
     }

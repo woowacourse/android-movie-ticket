@@ -21,15 +21,14 @@ class ReservationFinishedActivity : AppCompatActivity() {
         val ticketPrice = findViewById<TextView>(R.id.text_view_reservation_finished_ticket_price)
 
         val movie = intent.intentSerializable("movie", Movie::class.java)!!
-        val numberOfTicketDetail = intent.getIntExtra("numberOfTickets", 0)
+        val ticket = intent.intentSerializable("ticket", Ticket::class.java)!!
 
         title.text = movie.title
         screeningDate.text = movie.screeningDate
-        numberOfTickets.text = numberOfTicketDetail.toString()
+        numberOfTickets.text = ticket.count.toString()
 
-        val ticket = Ticket()
         val decimalFormat = DecimalFormat("#,###")
-        ticketPrice.text = decimalFormat.format(ticket.calculatePrice(numberOfTicketDetail))
+        ticketPrice.text = decimalFormat.format(ticket.calculatePrice())
     }
 
     fun <T : Serializable> Intent.intentSerializable(
