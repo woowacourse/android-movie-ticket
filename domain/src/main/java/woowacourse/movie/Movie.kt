@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie
 
 data class Movie(
     val id: Long,

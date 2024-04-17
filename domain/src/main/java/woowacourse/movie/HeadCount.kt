@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie
 
 class HeadCount(val count: Int) {
 
