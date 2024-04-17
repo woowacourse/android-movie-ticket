@@ -49,13 +49,10 @@ class MovieContentListAdapter(
         }
 
         reservationButton.setOnClickListener {
-            startActivity(
-                context,
-                Intent(context, MovieReservationActivity::class.java).apply {
-                    putExtra(MovieContentKey.ID, getItemId(position))
-                },
-                null,
-            )
+            Intent(context, MovieReservationActivity::class.java).apply {
+                putExtra(MovieContentKey.ID, getItemId(position))
+                startActivity(context, this, null)
+            }
         }
 
         return view
