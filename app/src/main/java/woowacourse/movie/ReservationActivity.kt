@@ -1,26 +1,26 @@
 package woowacourse.movie
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.model.Count
 
 class ReservationActivity : AppCompatActivity() {
+    private lateinit var count: Count
+    private lateinit var countTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-        Log.d("test", intent.getStringExtra("movieTitle").toString())
-
-        setUp(intent, this)
+        count = Count()
+        fetchData(intent)
+        setUpCount()
     }
 
-    fun setUp(
-        intent: Intent,
-        context: Context,
-    ) {
+    private fun fetchData(intent: Intent) {
         val imageView: ImageView = findViewById(R.id.reservation_imageview)
         val titleTextView: TextView = findViewById(R.id.reservation_title_textview)
         val screenDateTextView: TextView = findViewById(R.id.reservation_screen_date_textview)
@@ -32,5 +32,30 @@ class ReservationActivity : AppCompatActivity() {
         screenDateTextView.text = intent.getStringExtra("screenDate")
         runningTimeTextView.text = intent.getStringExtra("runningTime")
         description.text = intent.getStringExtra("description")
+    }
+
+    private fun setUpCount() {
+        countTextView = findViewById(R.id.reservation_count_textview)
+        updateCountTextView()
+        bindCountButtons()
+    }
+
+    private fun updateCountTextView() {
+        countTextView.text = count.amount.toString()
+    }
+
+    private fun bindCountButtons() {
+        val addButton: Button = findViewById(R.id.add_button)
+        val subButton: Button = findViewById(R.id.sub_button)
+
+        addButton.setOnClickListener {
+            count.add()
+            updateCountTextView()
+        }
+
+        subButton.setOnClickListener {
+            count.sub()
+            updateCountTextView()
+        }
     }
 }

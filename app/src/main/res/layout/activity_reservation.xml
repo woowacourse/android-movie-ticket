@@ -28,8 +28,8 @@
                 <ImageView
                     android:id="@+id/reservation_imageview"
                     android:layout_width="0dp"
-                    android:layout_height="340dp"
-                    android:scaleType="fitXY"
+                    android:layout_height="390dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/harry_image1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,22 +165,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/reservation_count_textview"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
-
-
             android:textColor="@color/black"
             android:textSize="23sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/sub_button"
-            app:layout_constraintEnd_toStartOf="@+id/button"
+            app:layout_constraintEnd_toStartOf="@+id/add_button"
             app:layout_constraintStart_toEndOf="@+id/sub_button"
             app:layout_constraintTop_toTopOf="@+id/sub_button"
             tools:text="1" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/add_button"
             android:layout_width="100dp"
             android:layout_height="60dp"
             android:gravity="center"
