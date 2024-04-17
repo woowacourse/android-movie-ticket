@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.completed
 
 import woowacourse.movie.model.Ticket
 

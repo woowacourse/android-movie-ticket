@@ -1,5 +1,6 @@
-package woowacourse.movie
+package woowacourse.movie.main
 
+import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {

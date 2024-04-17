@@ -1,10 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
+import woowacourse.movie.adapter.ListViewAdapter
 import woowacourse.movie.model.Movie
+import woowacourse.movie.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private val mainPresenter = MainPresenter(this)

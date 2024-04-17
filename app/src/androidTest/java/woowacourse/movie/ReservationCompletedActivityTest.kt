@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.completed.ReservationCompletedActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.reservation
 
 import android.content.Intent
 import android.os.Build
@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
+import woowacourse.movie.completed.ReservationCompletedActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 

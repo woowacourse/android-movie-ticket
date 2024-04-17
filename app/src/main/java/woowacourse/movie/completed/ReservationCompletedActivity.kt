@@ -1,9 +1,10 @@
-package woowacourse.movie
+package woowacourse.movie.completed
 
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.model.Ticket
 import java.text.DecimalFormat
 

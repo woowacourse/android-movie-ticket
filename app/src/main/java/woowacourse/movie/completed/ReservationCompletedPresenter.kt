@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.completed
 
 class ReservationCompletedPresenter(private val view: ReservationCompletedContract.View) :
     ReservationCompletedContract.Presenter {
