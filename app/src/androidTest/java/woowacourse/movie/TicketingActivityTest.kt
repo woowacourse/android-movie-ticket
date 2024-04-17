@@ -3,6 +3,7 @@ package woowacourse.movie
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -32,5 +33,11 @@ class TicketingActivityTest {
     fun `숫자가_예매_가능한_최솟값일_경우_감소_버튼을_누르면_숫자가_감소하지_않는다`() {
         onView(withId(R.id.btn_minus)).perform(click())
         onView(withId(R.id.tv_count)).check(matches(withText("1")))
+    }
+
+    @Test
+    fun `완료_버튼을_누르면_예매_결과_화면으로_이동한다`() {
+        onView(withId(R.id.btn_complete)).perform(click())
+        onView(withId(R.id.cl_ticketing_result_activity)).check(matches(ViewMatchers.isDisplayed()))
     }
 }
