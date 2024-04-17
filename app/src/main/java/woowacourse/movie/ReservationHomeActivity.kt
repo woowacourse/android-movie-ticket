@@ -42,11 +42,7 @@ class ReservationHomeActivity : AppCompatActivity() {
         val movieCatalogAdapter =
             MovieCatalogAdapter(this, movies) {
                 val intent = Intent(this, ReservationDetailActivity::class.java)
-                intent.putExtra("poster", it.poster)
-                intent.putExtra("title", it.title)
-                intent.putExtra("screeningDate", it.screeningDate)
-                intent.putExtra("runningTime", it.runningTime)
-                intent.putExtra("summary", it.summary)
+                intent.putExtra("movie", it)
                 startActivity(intent)
             }
         findViewById<ListView>(R.id.list_view_reservation_home).apply { adapter = movieCatalogAdapter }

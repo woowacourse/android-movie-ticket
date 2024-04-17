@@ -1,12 +1,15 @@
 package woowacourse.movie
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import domain.Movie
 import domain.Ticket
+import java.io.Serializable
 
 class ReservationDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +19,8 @@ class ReservationDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val ticket = Ticket()
+        val movie = intent.intentSerializable("movie", Movie::class.java)!!
+
         val poster = findViewById<ImageView>(R.id.image_view_reservation_detail_poster)
         val title = findViewById<TextView>(R.id.text_view_reservation_detail_title)
         val screeningDate = findViewById<TextView>(R.id.text_view_reservation_screening_date)
@@ -24,18 +29,14 @@ class ReservationDetailActivity : AppCompatActivity() {
         val reservationButton = findViewById<Button>(R.id.button_reservation_detail_finished)
         val plusButton = findViewById<Button>(R.id.button_reservation_detail_plus)
         val minusButton = findViewById<Button>(R.id.button_reservation_detail_minus)
-        val numberOfTickets = findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
+        val numberOfTickets =
+            findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
 
-        val titleDetail = intent.getStringExtra("title")
-        val screeningDateDetail = intent.getStringExtra("screeningDate")
-        val runningTimeDetail = intent.getStringExtra("runningTime")
-        val summaryDetail = intent.getStringExtra("summary")
-
-        poster.setImageResource(intent.getIntExtra("poster", 0))
-        title.text = titleDetail
-        screeningDate.text = screeningDateDetail
-        runningTime.text = runningTimeDetail
-        summary.text = summaryDetail
+        poster.setImageResource(movie.poster)
+        title.text = movie.title
+        screeningDate.text = movie.screeningDate
+        runningTime.text = movie.runningTime
+        summary.text = movie.summary
 
         plusButton.setOnClickListener {
             ticket.increaseCount()
@@ -49,11 +50,20 @@ class ReservationDetailActivity : AppCompatActivity() {
 
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationFinishedActivity::class.java)
-            intent.putExtra("title", titleDetail)
-            intent.putExtra("screeningDate", screeningDateDetail)
-            intent.putExtra("runningTime", runningTimeDetail)
+            intent.putExtra("movie", movie)
             intent.putExtra("numberOfTickets", ticket.count)
             startActivity(intent)
+        }
+    }
+
+    fun <T : Serializable> Intent.intentSerializable(
+        key: String,
+        clazz: Class<T>,
+    ): T? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.getSerializableExtra(key, clazz)
+        } else {
+            this.getSerializableExtra(key) as T?
         }
     }
 }

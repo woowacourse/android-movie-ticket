@@ -1,5 +1,7 @@
 package domain
 
+import java.io.Serializable
+
 data class Movie(
     val id: Int,
     val poster: Int,
@@ -7,4 +9,4 @@ data class Movie(
     val screeningDate: String,
     val runningTime: String,
     val summary: String,
-)
+) : Serializable
