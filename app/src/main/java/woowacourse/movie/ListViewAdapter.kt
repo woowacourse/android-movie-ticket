@@ -7,6 +7,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.model.Movie
 
 class ListViewAdapter(
     private val movies: MutableList<Movie>,

@@ -1,12 +1,14 @@
 package woowacourse.movie
 
-class MainPresenter(private val view: MainView) {
-    fun onViewCreated() {
+import woowacourse.movie.model.Movie
+
+class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+    override fun onViewCreated() {
         val movies = createMovieList()
         view.displayMovies(movies)
     }
 
-    fun onMovieSelected(movie: Movie) {
+    override fun onMovieSelected(movie: Movie) {
         view.navigateToReservation(movie)
     }
 

@@ -4,9 +4,10 @@ import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.model.Ticket
 import java.text.DecimalFormat
 
-class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedView {
+class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {

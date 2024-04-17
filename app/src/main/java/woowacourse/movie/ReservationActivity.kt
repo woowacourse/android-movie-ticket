@@ -7,8 +7,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
 
-class ReservationActivity : AppCompatActivity(), ReservationView {
+class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val reservationPresenter = ReservationPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
