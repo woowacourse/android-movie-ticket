@@ -19,11 +19,11 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/movie_large_poster"
+                android:id="@+id/movie_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/movie_making_poster" />
+                android:src="@drawable/black" />
 
             <TextView
                 android:id="@+id/movie_title_large"
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="하디와 차람의 여행기"
+                android:text="@string/title"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -41,7 +41,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:text="Release Date: 2024.3.1" />
+                android:text="@string/release_date_yyyy_mm_dd" />
+
+            <TextView
+                android:id="@+id/movie_running_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:text="@string/_0" />
 
             <TextView
                 android:id="@+id/movie_synopsis"
