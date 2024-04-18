@@ -8,5 +8,4 @@ data class Movie(
     val content: String,
     val openingDay: String,
     val runningTime: Int,
-    val price: Int = 13_000,
 ) : Serializable

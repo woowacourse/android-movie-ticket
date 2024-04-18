@@ -19,7 +19,7 @@ import woowacourse.movie.reservation.ReservationActivity
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {
     private val movie =
-        Movie(R.drawable.poster, "영화 제목", "영화 설명", "2024.3.1", 152, 13000)
+        Movie(R.drawable.poster, "영화 제목", "영화 설명", "2024.3.1", 152)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),

@@ -31,7 +31,7 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
         findViewById<TextView>(R.id.opening_day).text = ticket.getOpeningDay()
         findViewById<TextView>(R.id.quantity).text = "일반 ${ticket.quantity}명"
         findViewById<TextView>(R.id.price).text =
-            "${DecimalFormat("#,###").format(ticket.getPrice() * ticket.quantity)}원 (현장 결제)"
+            "${DecimalFormat("#,###").format(ticket.price * ticket.quantity)}원 (현장 결제)"
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

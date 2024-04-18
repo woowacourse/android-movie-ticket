@@ -5,6 +5,7 @@ import java.io.Serializable
 data class Ticket(
     val movie: Movie,
     val quantity: Int,
+    val price: Int = 13000,
 ) : Serializable {
     fun getTitle(): String {
         return movie.title
@@ -12,9 +13,5 @@ data class Ticket(
 
     fun getOpeningDay(): String {
         return movie.openingDay
-    }
-
-    fun getPrice(): Int {
-        return movie.price
     }
 }
