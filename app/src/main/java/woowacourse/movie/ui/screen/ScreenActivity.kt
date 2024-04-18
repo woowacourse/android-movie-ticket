@@ -3,8 +3,8 @@ package woowacourse.movie.ui.screen
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.ui.screen.adapter.ScreenAdapter
 import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.ui.screen.adapter.ScreenAdapter
 
 class ScreenActivity : AppCompatActivity() {
     private lateinit var adapter: ScreenAdapter

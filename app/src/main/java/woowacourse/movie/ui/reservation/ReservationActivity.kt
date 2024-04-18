@@ -3,10 +3,19 @@ package woowacourse.movie.ui.reservation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
+import woowacourse.movie.domain.repository.DummyReservation
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 class ReservationActivity : AppCompatActivity() {
+    private val viewModel: ReservationViewModel by lazy { ReservationViewModel(DummyReservation) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
