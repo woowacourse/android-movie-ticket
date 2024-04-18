@@ -8,7 +8,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 
-class DetailMovieActivityTest {
+class MovieReservationActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieReservationActivity::class.java)
 

@@ -20,7 +20,7 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.model.ScreenMovieUiModel
 
-class MainActivityTest {
+class ScreeningMovieActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(ScreeningMovieActivity::class.java)
 
