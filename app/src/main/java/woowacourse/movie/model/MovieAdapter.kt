@@ -67,7 +67,7 @@ class MovieViewHolder(itemView: View) {
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
         date.text = formatTimestamp(movie.date)
-        runningTime.text = "${movie.runningTime}분"
+        runningTime.text = "${movie.runningTime}"
         reservation.setOnClickListener {
             movieChoiceContractView.onMovieItemClick(movie.id)
         }

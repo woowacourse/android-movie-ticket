@@ -67,13 +67,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="152분"
+        android:hint="152"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@id/movieRunningTimeTitle"
         app:layout_constraintLeft_toRightOf="@id/movieRunningTimeTitle"
         app:layout_constraintTop_toBottomOf="@id/movieDateTitle" />
+
+    <TextView
+        android:id="@+id/movieRunningTimeFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="분"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/movieRunningTimeTitle"
+        app:layout_constraintLeft_toRightOf="@id/movieRunningTime"
+        app:layout_constraintTop_toBottomOf="@id/movieDateTitle" />
+
 
     <TextView
         android:id="@+id/movieTitle"

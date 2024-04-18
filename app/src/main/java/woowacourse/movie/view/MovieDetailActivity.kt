@@ -60,7 +60,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             detailImage.setImageResource(movie.thumbnail)
             detailTitle.text = movie.title
             detailDate.text = formatTimestamp(movie.date)
-            detailRunningTime.text = "${movie.runningTime}분"
+            detailRunningTime.text = "${movie.runningTime}"
             detailDescription.text = movie.description
 
             minusButton.setOnClickListener {

@@ -99,8 +99,8 @@
         android:hint="13,000"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/resultReservPriceFormat"
         app:layout_constraintTop_toBottomOf="@id/resultReservCount" />
 
@@ -108,25 +108,25 @@
         android:id="@+id/resultReservPriceFormat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:hint="원"
         android:textColor="@color/black"
         android:textSize="20dp"
 
+        app:layout_constraintBottom_toBottomOf="@+id/resultReservPrice"
         app:layout_constraintLeft_toRightOf="@id/resultReservPrice"
         app:layout_constraintRight_toLeftOf="@id/resultReservType"
-        app:layout_constraintTop_toBottomOf="@id/resultReservCount" />
+        app:layout_constraintTop_toTopOf="@+id/resultReservPrice" />
 
 
     <TextView
         android:id="@+id/resultReservType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:hint=" (현장 결제)"
         android:textColor="@color/black"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/resultReservPriceFormat"
         app:layout_constraintLeft_toRightOf="@id/resultReservPriceFormat"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resultReservCount" />
+        app:layout_constraintTop_toTopOf="@+id/resultReservPriceFormat" />
 </androidx.constraintlayout.widget.ConstraintLayout>

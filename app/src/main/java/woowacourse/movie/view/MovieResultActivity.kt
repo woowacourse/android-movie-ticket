@@ -35,8 +35,8 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         movieTicket?.let {
             completeTitleTextView.text = it.title
             completeDateTextView.text = formatTimestamp(it.date)
-            completeReservationCountTextView.text = "${it.count}명"
-            completeReservationPriceTextView.text = "${formatCurrency(it.price)}원"
+            completeReservationCountTextView.text = "${it.count}"
+            completeReservationPriceTextView.text = formatCurrency(it.price)
         } ?: {
             setResult(MovieErrorCode.INVALID_MOVIE_ID.value)
             finish()

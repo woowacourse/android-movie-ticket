@@ -80,12 +80,23 @@
                 android:id="@+id/detailRunningTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="152분"
+                android:hint="152"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/detailRunningTimeName"
                 app:layout_constraintLeft_toRightOf="@id/detailRunningTimeName"
+                app:layout_constraintTop_toTopOf="@id/detailRunningTimeName" />
+            <TextView
+                android:id="@+id/detailRunningTimeFormat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="분"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/detailRunningTime"
+                app:layout_constraintLeft_toRightOf="@id/detailRunningTime"
                 app:layout_constraintTop_toTopOf="@id/detailRunningTimeName" />
 
             <TextView
