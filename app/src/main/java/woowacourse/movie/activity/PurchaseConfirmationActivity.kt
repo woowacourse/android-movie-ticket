@@ -6,23 +6,24 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.presenter.PurchaseConfirmationActivityPresenter
 
 class PurchaseConfirmationActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.purchase_confirmation)
-        val theater = intent.getSerializableExtra("Theater", Theater::class.java)
-        val ticketNum = intent.getIntExtra("ticketNum", 0)
 
-        if(theater != null) {
-            val movie = theater.movie
-            findViewById<TextView>(R.id.movie_title_confirmation).text = movie.title.toString()
-            findViewById<TextView>(R.id.purchase_movie_running_time).text = movie.runningTime.toString()
-        }
+        val presenter = PurchaseConfirmationActivityPresenter(intent)
+        val movie = presenter.movie
+        findViewById<TextView>(R.id.movie_title_confirmation).text = movie?.title.toString()
+        findViewById<TextView>(R.id.purchase_movie_running_time).text =
+            movie?.runningTime.toString()
 
-        val charge = if(theater != null) theater.charge else 13000
-        findViewById<TextView>(R.id.ticket_charge).text = "price: ${ticketNum*charge}"
+        findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(presenter.calculate())
+    }
+
+    companion object{
+        const val PRICE="price: %d"
     }
 }
