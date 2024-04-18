@@ -10,7 +10,7 @@ import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.theater.Theater
 import java.time.LocalDate
 
-class Presenter(private val context: Context) {
+class MainActivityPresenter(private val context: Context) {
 
     val movieInfo = MovieInfo(
         Title("차람과 하디의 진지한 여행기"),
@@ -18,11 +18,8 @@ class Presenter(private val context: Context) {
         RunningTime(230),
         Synopsis("wow!")
     )
+
     val theater = Theater(movieInfo)
-    val theaterList = listOf(
-        theater
-    )
+    val theaterList = listOf(theater)
     val movieAdapter = MovieAdapter(context, theaterList)
-
-
 }

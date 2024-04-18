@@ -14,10 +14,23 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.activity.MainActivity
+import woowacourse.movie.model.movieInfo.MovieDate
+import woowacourse.movie.model.movieInfo.MovieInfo
+import woowacourse.movie.model.movieInfo.RunningTime
+import woowacourse.movie.model.movieInfo.Synopsis
+import woowacourse.movie.model.movieInfo.Title
+import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class MainActivityTest {
+    private val movie =
+        MovieInfo(
+            Title("차람과 하디의 진지한 여행기"),
+            MovieDate(LocalDate.of(2024, 2, 25)),
+            RunningTime(230),
+            Synopsis("wow!")
+        )
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
@@ -30,7 +43,7 @@ class MainActivityTest {
             .inAdapterView(withId(R.id.movies_list_item))
             .atPosition(0)
             .onChildView(withId(R.id.movie_title))
-            .check(matches(withText("차람과 하디의 진지한 여행기")))
+            .check(matches(withText(movie.title.toString())))
     }
 
     @Test
