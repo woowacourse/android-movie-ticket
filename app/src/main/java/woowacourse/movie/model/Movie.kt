@@ -12,9 +12,6 @@ data class Movie(
 ) {
     fun screenDateToString(): String {
         if (screenDate.size == 1) return screenDate[0].format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-
-        return screenDate
-            .map { it.format(DateTimeFormatter.ofPattern("yyyy.M.d")) }
-            .joinToString("~")
+        return screenDate.joinToString("~") { it.format(DateTimeFormatter.ofPattern("yyyy.M.d")) }
     }
 }

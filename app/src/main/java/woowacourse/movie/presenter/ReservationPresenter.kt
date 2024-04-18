@@ -30,7 +30,7 @@ class ReservationPresenter(private val view: ReservationContract.View) :
         intent.putExtra("price", totalPrice())
     }
 
-    override fun ticketCount(): Int = ticket.count
+    override fun ticketCount(): Int = ticket.count()
 
-    private fun totalPrice(): Int = TICKET_PRICE * ticket.count
+    private fun totalPrice(): Int = TICKET_PRICE * ticket.count()
 }

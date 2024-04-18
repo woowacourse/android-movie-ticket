@@ -26,13 +26,13 @@ class ReservationResultActivityTest {
             screenDate = listOf(LocalDate.of(2024, 3, 1)),
             runningTime = 152,
         )
-    private val ticket = Ticket(3)
+    private val ticket = Ticket()
 
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationResultActivity::class.java,
-        ).putExtra("count", ticket.count.toString())
+        ).putExtra("count", ticket.count().toString())
             .putExtra("title", movie.title)
             .putExtra("screenDate", movie.screenDateToString())
             .putExtra("price", ticket.price())
@@ -55,12 +55,12 @@ class ReservationResultActivityTest {
     @Test
     fun show_count_when_activity_starts() {
         onView(withId(R.id.result_count_textview))
-            .check(matches(withText("3")))
+            .check(matches(withText("1")))
     }
 
     @Test
     fun show_total_price_when_activity_starts() {
         onView(withId(R.id.result_price_textview))
-            .check(matches(withText("39,000")))
+            .check(matches(withText("13,000")))
     }
 }

@@ -1,6 +1,8 @@
 package woowacourse.movie.model
 
-data class Ticket(var count: Int = DEFAULT_AMOUNT) {
+class Ticket {
+    private var count: Int = DEFAULT_AMOUNT
+
     init {
         require(count > 0) {
             ERROR_AMOUNT_LESS_THAN_ONE
@@ -16,6 +18,8 @@ data class Ticket(var count: Int = DEFAULT_AMOUNT) {
     fun add() {
         count++
     }
+
+    fun count(): Int = count
 
     fun price(): Int = count * TICKET_PRICE
 
