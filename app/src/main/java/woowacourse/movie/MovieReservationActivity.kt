@@ -52,10 +52,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             screeningDateView.text = "상영일: ${it.screeningDate}"
             runningDateView.text = "러닝타임: ${it.runningTime}분"
             descriptionView.text = it.description
-
-            val resourceId =
-                context.resources.getIdentifier(movie.poster, "drawable", context.packageName)
-            posterView.setImageResource(resourceId)
+            posterView.setImageResource(it.posterResourceId)
         }
         showCurrentResultTicketCountView()
         setClickListener()

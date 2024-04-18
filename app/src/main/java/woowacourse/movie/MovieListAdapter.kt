@@ -35,16 +35,13 @@ class MovieListAdapter(
         val view: View = LayoutInflater.from(context).inflate(R.layout.movie_item, null)
 
         val movie = movieList[position]
-
-        val resourceId = context.resources.getIdentifier(movie.poster, "drawable", context.packageName)
-
         val title = view.findViewById<TextView>(R.id.movie_title)
         val poster = view.findViewById<ImageView>(R.id.movie_poster)
         val screeningDate = view.findViewById<TextView>(R.id.movie_screening_date)
         val runningTime = view.findViewById<TextView>(R.id.movie_running_date)
 
         title.text = movie.title
-        poster.setImageResource(resourceId)
+        poster.setImageResource(movie.posterResourceId)
         screeningDate.text = "상영일: ${movie.screeningDate}"
         runningTime.text = "러닝타임: ${movie.runningTime}분"
 
