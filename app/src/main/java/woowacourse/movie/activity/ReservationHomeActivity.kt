@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.adapter.MovieCatalogAdapter
 import woowacourse.movie.R
+import woowacourse.movie.adapter.MovieCatalogAdapter
 import woowacourse.movie.presenter.ReservationHomePresenter
 import woowacourse.movie.view.ReservationHomeContract
 
