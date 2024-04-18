@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="341dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/poster" />
+                    android:src="#FFCCCCCC" />
 
                 <TextView
                     android:id="@+id/movie_title"
@@ -57,7 +57,7 @@
                     android:layout_marginStart="21dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    tools:text="러닝타임" />
+                    tools:text="러닝 타임" />
 
                 <TextView
                     android:id="@+id/content"
@@ -67,7 +67,7 @@
                     android:layout_marginTop="20dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    tools:text="상세정보" />
+                    tools:text="영화 정보" />
 
 
             </LinearLayout>

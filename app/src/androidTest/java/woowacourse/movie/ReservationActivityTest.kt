@@ -19,7 +19,7 @@ import woowacourse.movie.reservation.ReservationActivity
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {
     private val movie =
-        Movie(R.drawable.poster, "해리 포터와 마법사의 돌", "description", "2024.3.1", 152, 13000)
+        Movie(R.drawable.poster, "영화 제목", "영화 설명", "2024.3.1", 152, 13000)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
@@ -32,7 +32,7 @@ class ReservationActivityTest {
     @Test
     fun `활동_시작시_영화_상세정보가_표시된다`() {
         onView(withId(R.id.movie_title))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+            .check(matches(withText("영화 제목")))
     }
 
     @Test
