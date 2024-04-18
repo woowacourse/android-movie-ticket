@@ -1,9 +1,12 @@
 package woowacourse.movie.activity
 
 import android.content.Intent
+import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -40,5 +43,12 @@ class ReservationFinishedActivityTest {
     @Test
     fun `예매한_영화의_총_결제금액을_보여준다`() {
         onView(withId(R.id.text_view_reservation_finished_ticket_price)).check(matches(withText("13,000")))
+    }
+
+    @Test
+    fun `영화_예매_완료_화면은_영화_상세_화면의_예매_완료_버튼을_누르면_보여진다`() {
+        ActivityScenario.launch(ReservationDetailActivity::class.java)
+        onView(withId(R.id.button_reservation_detail_finished)).perform(ViewActions.click())
+        onView(withId(R.id.constraint_layout_reservation_finished)).check(matches(ViewMatchers.isDisplayed()))
     }
 }
