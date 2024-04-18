@@ -38,7 +38,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
             completeReservationCountTextView.text = "${it.count}"
             completeReservationPriceTextView.text = formatCurrency(it.price)
         } ?: {
-            setResult(MovieErrorCode.INVALID_MOVIE_ID.value)
+            setResult(MovieErrorCode.INVALID_MOVIE_ID.key)
             finish()
         }
     }

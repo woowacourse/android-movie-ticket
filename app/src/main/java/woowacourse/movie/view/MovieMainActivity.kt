@@ -23,8 +23,8 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
 
         movieDetailActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.value) {
-                    Toast.makeText(this, "올바르지 않은 ID 입니다", Toast.LENGTH_SHORT).show()
+                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.key) {
+                    Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT).show()
                 }
             }
 
