@@ -1,7 +1,6 @@
 package woowacourse.movie.model
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,9 +68,8 @@ class MovieViewHolder(itemView: View) {
         title.text = movie.title
         date.text = formatTimestamp(movie.date)
         runningTime.text = "${movie.runningTime}분"
-        Log.d("AAD", "DFD")
         reservation.setOnClickListener {
-            movieChoiceContractView.onMovieItemClick(movie)
+            movieChoiceContractView.onMovieItemClick(movie.id)
         }
     }
 }

@@ -10,7 +10,7 @@ class MovieMainPresenter(private val movieChoiceContractView: MovieMainContract.
     private lateinit var movieAdapter: MovieAdapter
 
     fun getAdapter(context: Context): MovieAdapter {
-        movieAdapter = MovieAdapter(context, movieChoiceContractView, movieRepository.movies)
+        movieAdapter = MovieAdapter(context, movieChoiceContractView, movieRepository.getAll())
         return movieAdapter
     }
 }

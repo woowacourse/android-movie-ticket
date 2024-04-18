@@ -1,7 +1,5 @@
 package woowacourse.movie.model
 
-import java.io.Serializable
-
 data class Movie(
     val id: Long,
     val thumbnail: Int,
@@ -9,4 +7,4 @@ data class Movie(
     val description: String,
     val date: Long,
     val runningTime: Int,
-) : Serializable
+)

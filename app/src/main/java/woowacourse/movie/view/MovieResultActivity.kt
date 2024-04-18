@@ -1,19 +1,22 @@
 package woowacourse.movie.view
 
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.presenter.MovieResultContract
+import woowacourse.movie.presenter.MovieResultPresenter
+import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.formatCurrency
 import woowacourse.movie.utils.formatTimestamp
 
-class MovieReservationCompleteActivity : AppCompatActivity() {
+class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     private lateinit var completeTitleTextView: TextView
     private lateinit var completeDateTextView: TextView
     private lateinit var completeReservationCountTextView: TextView
     private lateinit var completeReservationPriceTextView: TextView
+    private lateinit var movieResultPresenter: MovieResultPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,19 +27,19 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
         completeReservationCountTextView = findViewById(R.id.completeReservationCount)
         completeReservationPriceTextView = findViewById(R.id.completeReservationPrice)
 
-        getTicketData()?.let { ticket ->
-            completeTitleTextView.text = ticket.title
-            completeDateTextView.text = formatTimestamp(ticket.date)
-            completeReservationCountTextView.text = "${ticket.count}명"
-            completeReservationPriceTextView.text = "${formatCurrency(ticket.price)}원"
-        }
+        movieResultPresenter = MovieResultPresenter(this)
+        movieResultPresenter.display(intent.getLongExtra("movieId", 0), intent.getIntExtra("movieReservationCount", 0))
     }
 
-    private fun getTicketData(): MovieTicket? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("ticket", MovieTicket::class.java)
-        } else {
-            intent.getSerializableExtra("ticket") as MovieTicket
+    override fun onInitView(movieTicket: MovieTicket?) {
+        movieTicket?.let {
+            completeTitleTextView.text = it.title
+            completeDateTextView.text = formatTimestamp(it.date)
+            completeReservationCountTextView.text = "${it.count}명"
+            completeReservationPriceTextView.text = "${formatCurrency(it.price)}원"
+        } ?: {
+            setResult(MovieErrorCode.INVALID_MOVIE_ID.value)
+            finish()
         }
     }
 }

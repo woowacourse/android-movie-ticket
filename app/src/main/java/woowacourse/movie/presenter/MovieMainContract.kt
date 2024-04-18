@@ -1,10 +1,8 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.model.Movie
-
 interface MovieMainContract {
     interface View {
-        fun onMovieItemClick(movie: Movie)
+        fun onMovieItemClick(id: Long)
     }
 
     interface Presenter

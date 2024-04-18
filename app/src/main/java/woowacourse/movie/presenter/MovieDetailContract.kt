@@ -1,20 +1,26 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieTicket
 
 interface MovieDetailContract {
     interface View {
         fun onCountUpdate(count: Int)
 
-        fun onReservationComplete(movieTicket: MovieTicket)
+        fun onInitView(movie: Movie?)
+
+        fun onReservationComplete(
+            id: Long,
+            count: Int,
+        )
     }
 
     interface Presenter {
+        fun display(id: Long)
+
         fun plusReservationCount()
 
         fun minusReservationCount()
 
-        fun reservation(movie: Movie)
+        fun reservation(id: Long)
     }
 }

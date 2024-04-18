@@ -1,12 +1,17 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.ReservationCount
 
 class MovieDetailPresenter(private val detailContractView: MovieDetailContract.View) :
     MovieDetailContract.Presenter {
+    private var movieRepository: MovieRepository = MovieRepository()
     private var reservationCount = ReservationCount()
+
+    override fun display(id: Long) {
+        val movie = movieRepository.getOneById(id)
+        detailContractView.onInitView(movie)
+    }
 
     override fun plusReservationCount() {
         reservationCount.plus()
@@ -18,7 +23,7 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
         detailContractView.onCountUpdate(reservationCount.count)
     }
 
-    override fun reservation(movie: Movie) {
-        detailContractView.onReservationComplete(MovieTicket(movie.title, movie.date, reservationCount.count))
+    override fun reservation(id: Long) {
+        detailContractView.onReservationComplete(id, reservationCount.count)
     }
 }
