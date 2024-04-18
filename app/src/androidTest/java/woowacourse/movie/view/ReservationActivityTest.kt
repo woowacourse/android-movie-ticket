@@ -25,16 +25,17 @@ class ReservationActivityTest {
             title = "해리 포터와 마법사의 돌",
             description = "해리 포터 1편입니다.",
             screenDate = listOf(LocalDate.of(2024, 3, 1)),
-            runningTime = 152
+            runningTime = 152,
         )
-    private val intent = Intent(
-        ApplicationProvider.getApplicationContext(),
-        ReservationActivity::class.java,
-    ).putExtra("img", movie.img)
-        .putExtra("title", movie.title)
-        .putExtra("description", movie.description)
-        .putExtra("screenDate", movie.screenDateToString())
-        .putExtra("runningTime", movie.runningTime.toString())
+    private val intent =
+        Intent(
+            ApplicationProvider.getApplicationContext(),
+            ReservationActivity::class.java,
+        ).putExtra("img", movie.img)
+            .putExtra("title", movie.title)
+            .putExtra("description", movie.description)
+            .putExtra("screenDate", movie.screenDateToString())
+            .putExtra("runningTime", movie.runningTime.toString())
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
@@ -74,37 +75,38 @@ class ReservationActivityTest {
 
     @Test
     fun count_decrease_when_sub_button_clicked() {
-        //given
+        // given
         onView(withId(R.id.add_button))
             .perform(click())
         onView(withId(R.id.reservation_count_textview))
             .check(matches(withText("2")))
 
-        //when
+        // when
         onView(withId(R.id.sub_button))
             .perform(click())
 
-        //then
+        // then
         onView(withId(R.id.reservation_count_textview))
             .check(matches(withText("1")))
     }
 
     @Test
     fun count_does_not_decrease_when_count_less_than_two() {
-        //when
+        // when
         onView(withId(R.id.sub_button))
             .perform(click())
 
-        //then
+        // then
         onView(withId(R.id.reservation_count_textview))
             .check(matches(withText("1")))
     }
 
     @Test
-    fun activity_stop_when_reservation_complete_button_clicked() {
+    fun layout_disappear_when_reservation_complete_button_clicked() {
         onView(withId(R.id.reservation_complete_button))
             .perform(click())
 
-        onView(withId(R.id.reservation_layout)).check(doesNotExist())
+        onView(withId(R.id.reservation_layout))
+            .check(doesNotExist())
     }
 }

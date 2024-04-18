@@ -24,17 +24,18 @@ class ReservationResultActivityTest {
             title = "해리 포터와 마법사의 돌",
             description = "해리 포터 1편입니다.",
             screenDate = listOf(LocalDate.of(2024, 3, 1)),
-            runningTime = 152
+            runningTime = 152,
         )
     private val ticket = Ticket(3)
 
-    private val intent = Intent(
-        ApplicationProvider.getApplicationContext(),
-        ReservationResultActivity::class.java
-    ).putExtra("count", ticket.count.toString())
-        .putExtra("title", movie.title)
-        .putExtra("screenDate", movie.screenDateToString())
-        .putExtra("price", ticket.price())
+    private val intent =
+        Intent(
+            ApplicationProvider.getApplicationContext(),
+            ReservationResultActivity::class.java,
+        ).putExtra("count", ticket.count.toString())
+            .putExtra("title", movie.title)
+            .putExtra("screenDate", movie.screenDateToString())
+            .putExtra("price", ticket.price())
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
@@ -46,7 +47,7 @@ class ReservationResultActivityTest {
     }
 
     @Test
-    fun show_screen_date_when_activity_starts(){
+    fun show_screen_date_when_activity_starts() {
         onView(withId(R.id.result_screen_date_textview))
             .check(matches(withText("2024.3.1")))
     }
