@@ -39,11 +39,7 @@ class MovieListAdapter(
     ): View {
         val reservationButton = view.findViewById<Button>(R.id.reservation_button)
 
-        titleTextView(position)
-        screenDateTextView(position)
-        runningTimeTextView(position)
-        titleTextView(position)
-        imageView(position)
+        setUpViews(position)
 
         reservationButton.setOnClickListener {
             startReservationActivity(position)
@@ -52,29 +48,36 @@ class MovieListAdapter(
         return view
     }
 
-    private fun startReservationActivity(position: Int) {
-        val intent = Intent(context, ReservationActivity::class.java)
-        presenter.putData(intent, position)
-        context.startActivity(intent)
+    override fun setUpViews(position: Int) {
+        initTitle(position)
+        initScreenDate(position)
+        initRunningTime(position)
+        initImage(position)
     }
 
-    override fun titleTextView(position: Int) {
+    private fun initTitle(position: Int) {
         val movieTitle = view.findViewById<TextView>(R.id.title)
         movieTitle.text = presenter.item(position).title
     }
 
-    override fun screenDateTextView(position: Int) {
+    private fun initScreenDate(position: Int) {
         val movieScreenDate = view.findViewById<TextView>(R.id.screen_date)
         movieScreenDate.text = presenter.item(position).screenDateToString()
     }
 
-    override fun runningTimeTextView(position: Int) {
+    private fun initRunningTime(position: Int) {
         val movieRunningTime = view.findViewById<TextView>(R.id.running_time)
         movieRunningTime.text = presenter.item(position).runningTime.toString()
     }
 
-    override fun imageView(position: Int) {
+    private fun initImage(position: Int) {
         val image = view.findViewById<ImageView>(R.id.image_view)
         image.setImageResource(presenter.item(position).img)
+    }
+
+    private fun startReservationActivity(position: Int) {
+        val intent = Intent(context, ReservationActivity::class.java)
+        presenter.putData(intent, position)
+        context.startActivity(intent)
     }
 }

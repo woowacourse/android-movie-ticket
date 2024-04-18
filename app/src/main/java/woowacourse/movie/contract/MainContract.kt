@@ -4,13 +4,7 @@ import android.content.Intent
 
 interface MainContract {
     interface View {
-        fun titleTextView(position: Int)
-
-        fun screenDateTextView(position: Int)
-
-        fun runningTimeTextView(position: Int)
-
-        fun imageView(position: Int)
+        fun setUpViews(position: Int)
     }
 
     interface Presenter {
