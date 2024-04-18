@@ -8,56 +8,45 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.repository.DummyReservation
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
-class ReservationActivity : AppCompatActivity() {
-    private val viewModel: ReservationViewModel by lazy { ReservationViewModel(DummyReservation) }
+class ReservationActivity : AppCompatActivity(), ReservationContract.View {
+    private val presenter: ReservationContract.Presenter by lazy { ReservationPresenter(this, DummyReservation) }
+
+    private lateinit var title: TextView
+    private lateinit var date: TextView
+    private lateinit var count: TextView
+    private lateinit var amount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
+        initBinding()
+        initView()
+    }
+
+    private fun initBinding() {
+        title = findViewById(R.id.tv_reservation_title)
+        date = findViewById(R.id.tv_reservation_date)
+        count = findViewById(R.id.tv_reservation_count)
+        amount = findViewById(R.id.tv_reservation_amount)
+    }
+
+    private fun initView() {
         val id = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_ID, DEFAULT_RESERVATION_ID)
-        handleState(viewModel.loadReservation(id))
+        presenter.loadReservation(id)
     }
 
-    private fun handleState(state: ReservationEventState) {
-        when (state) {
-            is ReservationEventState.Success -> {
-                when (state) {
-                    is ReservationEventState.Success.ReservationLoading -> initBinding(state)
-                }
-            }
-
-            is ReservationEventState.Failure -> {
-                when (state) {
-                    is ReservationEventState.Failure.GoToBack -> {
-                        Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
-                        finish()
-                    }
-
-                    is ReservationEventState.Failure.UnexpectedFinish -> {
-                        Snackbar.make(findViewById(android.R.id.content), state.message, Snackbar.LENGTH_SHORT).show()
-                        finish()
-                    }
-                }
-            }
-        }
-    }
-
-    private fun initBinding(state: ReservationEventState.Success.ReservationLoading) {
-        val title = findViewById<TextView>(R.id.tv_reservation_title)
-        val date = findViewById<TextView>(R.id.tv_reservation_date)
-        val count = findViewById<TextView>(R.id.tv_reservation_count)
-        val amount = findViewById<TextView>(R.id.tv_reservation_amount)
-
-        with(state.reservation) {
+    override fun showReservation(reservation: Reservation) {
+        with(reservation) {
             title.text = screen.movie.title
             date.text = screen.date
-            count.text = getString(R.string.reserve_count).format(this.ticket)
+            count.text = getString(R.string.reserve_count).format(this.ticket.count)
             amount.text =
                 getString(R.string.reserve_amount).format(
                     when (Locale.getDefault().country) {
@@ -68,6 +57,24 @@ class ReservationActivity : AppCompatActivity() {
                     },
                 )
         }
+    }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showSnackBar(message: String) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun goToBack(message: String) {
+        showToastMessage(message)
+        finish()
+    }
+
+    override fun unexpectedFinish(message: String) {
+        showSnackBar(message)
+        finish()
     }
 
     companion object {
