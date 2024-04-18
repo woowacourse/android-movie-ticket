@@ -49,7 +49,7 @@ class MovieListAdapter(
 
         movieReservationButton.setOnClickListener {
             val intent = Intent(context, MovieReservationActivity::class.java)
-            intent.putExtra("movie", getItem(position) as Serializable)
+            intent.putExtra(Movie.KEY_NAME_MOVIE, getItem(position) as Serializable)
             context.startActivity(intent)
         }
 

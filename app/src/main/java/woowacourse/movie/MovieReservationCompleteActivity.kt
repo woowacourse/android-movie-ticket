@@ -9,16 +9,16 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
     private lateinit var ticketTitle: TextView
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView
-    private lateinit var numberOfPeople: TextView
+    private lateinit var ticketCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
         val ticket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("ticket", Ticket::class.java)
+                intent.getSerializableExtra(Ticket.KEY_NAME_TICKET, Ticket::class.java)
             } else {
-                intent.getSerializableExtra("ticket") as? Ticket
+                intent.getSerializableExtra(Ticket.KEY_NAME_TICKET) as? Ticket
             }
         initView(ticket)
     }
@@ -27,14 +27,18 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
         ticketTitle = findViewById(R.id.ticket_title)
         ticketScreeningDate = findViewById(R.id.ticket_screening_date)
         ticketPrice = findViewById(R.id.ticket_price)
-        numberOfPeople = findViewById(R.id.ticket_number_of_people)
+        ticketCount = findViewById(R.id.ticket_number_of_people)
 
         ticket?.let {
             ticketTitle.text = it.title
             ticketScreeningDate.text = it.screeningDate
-            val formattedPrice = String.format("%,d원 (현장결제)", it.price)
-            ticketPrice.text = formattedPrice
-            numberOfPeople.text = "일반 ${it.count}명"
+            ticketPrice.text = String.format(TICKET_PRICE, it.price)
+            ticketCount.text = TICKET_COUNT.format(it.count)
         }
+    }
+
+    companion object {
+        private const val TICKET_PRICE = "%,d원 (현장결제)"
+        private const val TICKET_COUNT = "일반 %d명"
     }
 }

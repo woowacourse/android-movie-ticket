@@ -29,9 +29,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         context = this@MovieReservationActivity
         val movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("movie", Movie::class.java)
+                intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
             } else {
-                intent.getSerializableExtra("movie") as? Movie
+                intent.getSerializableExtra(Movie.KEY_NAME_MOVIE) as? Movie
             }
         initView(movie)
     }
@@ -79,7 +79,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             )
 
         val intent = Intent(context, MovieReservationCompleteActivity::class.java)
-        intent.putExtra("ticket", ticket as Serializable)
+        intent.putExtra(Ticket.KEY_NAME_TICKET, ticket as Serializable)
         context.startActivity(intent)
     }
 

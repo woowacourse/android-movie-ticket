@@ -8,4 +8,8 @@ data class Movie(
     val screeningDate: String,
     val runningTime: Int,
     val description: String,
-) : Serializable
+) : Serializable {
+    companion object {
+        const val KEY_NAME_MOVIE = "movie"
+    }
+}
