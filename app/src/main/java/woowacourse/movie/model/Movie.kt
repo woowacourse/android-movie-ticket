@@ -1,4 +1,4 @@
-package domain
+package woowacourse.movie.model
 
 data class Movie(
     val id: Int,

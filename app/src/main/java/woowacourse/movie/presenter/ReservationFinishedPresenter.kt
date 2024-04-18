@@ -1,8 +1,8 @@
-package presenter
+package woowacourse.movie.presenter
 
-import domain.Movies
-import domain.Ticket
-import view.ReservationFinishedContract
+import woowacourse.movie.model.Movies
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.view.ReservationFinishedContract
 
 class ReservationFinishedPresenter(private val contract: ReservationFinishedContract, private val ticket: Ticket) {
     val movies = Movies.obtainMovies()

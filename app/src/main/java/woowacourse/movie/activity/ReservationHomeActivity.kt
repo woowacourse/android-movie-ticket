@@ -1,11 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import presenter.ReservationHomePresenter
-import view.ReservationHomeContract
+import woowacourse.movie.adapter.MovieCatalogAdapter
+import woowacourse.movie.R
+import woowacourse.movie.presenter.ReservationHomePresenter
+import woowacourse.movie.view.ReservationHomeContract
 
 class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract {
     private val reservationHomePresenter = ReservationHomePresenter(this)

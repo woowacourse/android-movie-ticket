@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -7,9 +7,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import domain.Ticket
+import woowacourse.movie.model.Ticket
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.R
 
 class ReservationFinishedActivityTest {
     @get:Rule

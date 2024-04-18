@@ -1,7 +1,7 @@
-package view
+package woowacourse.movie.view
 
-import domain.Movie
-import domain.Ticket
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
 
 interface ReservationDetailContract {
     fun showMovieInformation(movie: Movie)

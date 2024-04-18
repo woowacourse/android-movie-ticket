@@ -1,4 +1,4 @@
-package domain
+package woowacourse.movie.model
 
 import woowacourse.movie.R
 

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,10 +7,11 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import domain.Movie
-import domain.Ticket
-import presenter.ReservationFinishedPresenter
-import view.ReservationFinishedContract
+import woowacourse.movie.R
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.presenter.ReservationFinishedPresenter
+import woowacourse.movie.view.ReservationFinishedContract
 import java.io.Serializable
 import java.text.DecimalFormat
 

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import domain.Movie
-import domain.Ticket
-import presenter.ReservationDetailPresenter
-import view.ReservationDetailContract
+import woowacourse.movie.R
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.presenter.ReservationDetailPresenter
+import woowacourse.movie.view.ReservationDetailContract
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
     private val presenter = ReservationDetailPresenter(this)

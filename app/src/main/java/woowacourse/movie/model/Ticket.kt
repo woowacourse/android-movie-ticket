@@ -1,4 +1,4 @@
-package domain
+package woowacourse.movie.model
 
 import java.io.Serializable
 

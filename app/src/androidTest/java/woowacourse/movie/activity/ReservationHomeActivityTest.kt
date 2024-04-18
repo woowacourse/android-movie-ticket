@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
@@ -13,6 +13,7 @@ import org.hamcrest.Matchers.anything
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 
 @RunWith(AndroidJUnit4::class)
 class ReservationHomeActivityTest {

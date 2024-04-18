@@ -1,7 +1,5 @@
-package woowacourse.movie
+package woowacourse.movie.model
 
-import domain.Failure
-import domain.Ticket
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

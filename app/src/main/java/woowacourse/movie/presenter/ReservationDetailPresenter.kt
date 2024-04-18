@@ -1,11 +1,11 @@
-package presenter
+package woowacourse.movie.presenter
 
-import domain.Failure
-import domain.Movies
-import domain.Result
-import domain.Success
-import domain.Ticket
-import view.ReservationDetailContract
+import woowacourse.movie.model.Failure
+import woowacourse.movie.model.Movies
+import woowacourse.movie.model.Result
+import woowacourse.movie.model.Success
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.view.ReservationDetailContract
 
 class ReservationDetailPresenter(private val contract: ReservationDetailContract) {
     val ticket = Ticket()

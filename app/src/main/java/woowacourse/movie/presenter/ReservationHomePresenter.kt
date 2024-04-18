@@ -1,7 +1,7 @@
-package presenter
+package woowacourse.movie.presenter
 
-import domain.Movies
-import view.ReservationHomeContract
+import woowacourse.movie.model.Movies
+import woowacourse.movie.view.ReservationHomeContract
 
 class ReservationHomePresenter(private val contract: ReservationHomeContract) {
     val movies = Movies.obtainMovies()

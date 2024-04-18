@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout_reservation_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReservationDetailActivity">
+    tools:context=".activity.ReservationDetailActivity">
 
     <ScrollView
         android:layout_width="0dp"

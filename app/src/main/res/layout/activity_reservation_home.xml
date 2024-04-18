@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout_reservation_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReservationHomeActivity">
+    tools:context=".activity.ReservationHomeActivity">
 
     <ListView
         android:id="@+id/list_view_reservation_home"

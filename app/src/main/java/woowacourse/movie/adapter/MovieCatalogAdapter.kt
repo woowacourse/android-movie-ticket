@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,8 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import domain.Movie
+import woowacourse.movie.R
+import woowacourse.movie.model.Movie
 
 class MovieCatalogAdapter(val context: Context, val movies: List<Movie>, val movie: (Movie) -> Unit) : BaseAdapter() {
     override fun getCount(): Int = movies.size

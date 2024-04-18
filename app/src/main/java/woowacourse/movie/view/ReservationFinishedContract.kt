@@ -1,6 +1,6 @@
-package view
+package woowacourse.movie.view
 
-import domain.Movie
+import woowacourse.movie.model.Movie
 
 interface ReservationFinishedContract {
     fun showMovieInformation(movie: Movie)
