@@ -7,10 +7,13 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import woowacourse.movie.activity.MovieDetailActivity
 
+@RunWith(AndroidJUnit4::class)
 class MovieDetailActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieDetailActivity::class.java)
@@ -39,7 +42,10 @@ class MovieDetailActivityTest {
     fun buyTicketButtonTest() {
         Espresso.onView(withId(R.id.buy_ticket_button))
             .check(matches(isDisplayed()))
+    }
 
+    @Test
+    fun buyTicketButtonClickTest() {
         Espresso.onView(withId(R.id.buy_ticket_button))
             .perform(click())
         Espresso.onView(withId(R.id.can_cancel_time))

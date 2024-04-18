@@ -2,6 +2,7 @@ package woowacourse.movie.presenter
 
 import android.content.Context
 import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.`interface`.MovieDetailView
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
