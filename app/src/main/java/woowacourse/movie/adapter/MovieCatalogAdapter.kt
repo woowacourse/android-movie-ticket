@@ -11,7 +11,11 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
-class MovieCatalogAdapter(private val context: Context, private val movies: List<Movie>, val movie: (Movie) -> Unit) : BaseAdapter() {
+class MovieCatalogAdapter(
+    private val context: Context,
+    private val movies: List<Movie>,
+    val movie: (Movie) -> Unit,
+) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Any = movies[position]
