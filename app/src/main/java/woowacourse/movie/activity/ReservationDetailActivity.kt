@@ -22,7 +22,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieId = intent.getIntExtra("movieId", 1)
+        val movieId = intent.getIntExtra("movieId", DEFAULT_MOVIE_ID)
 
         with(presenter) {
             deliverMovie(movieId)
@@ -83,5 +83,9 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     override fun showResultToast() {
         Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT)
             .show()
+    }
+
+    companion object {
+        const val DEFAULT_MOVIE_ID = 0
     }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.activity.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.ReservationFinishedPresenter
@@ -24,7 +25,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
         onBackPressed(this)
 
-        val movieId = intent.getIntExtra("movieId", 0)
+        val movieId = intent.getIntExtra("movieId", DEFAULT_MOVIE_ID)
         val ticket = intent.intentSerializable("ticket", Ticket::class.java) ?: Ticket()
 
         presenter =

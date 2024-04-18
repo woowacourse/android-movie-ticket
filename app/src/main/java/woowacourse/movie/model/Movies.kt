@@ -6,7 +6,7 @@ object Movies {
     fun obtainMovies(): List<Movie> =
         listOf(
             Movie(
-                1,
+                0,
                 R.drawable.img_sorcerers_stone,
                 "해리 포터와 마법사의 돌",
                 "2001.11.14",
@@ -34,7 +34,7 @@ object Movies {
                 """.trimIndent(),
             ),
             Movie(
-                2,
+                1,
                 R.drawable.img_secret_room,
                 "해리 포터와 비밀의 방",
                 "2002.11.15",
@@ -62,7 +62,7 @@ object Movies {
                 """.trimIndent(),
             ),
             Movie(
-                3,
+                2,
                 R.drawable.img_prisoner_of_azkaban,
                 "해리 포터와 아즈카반의 죄수",
                 "2004.5.31",

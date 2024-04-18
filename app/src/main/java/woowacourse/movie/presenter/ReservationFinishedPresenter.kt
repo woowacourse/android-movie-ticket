@@ -5,10 +5,10 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.view.ReservationFinishedContract
 
 class ReservationFinishedPresenter(private val contract: ReservationFinishedContract, private val ticket: Ticket) {
-    val movies = Movies.obtainMovies()
+    private val movies = Movies.obtainMovies()
 
     fun deliverMovieInformation(movieId: Int) {
-        contract.showMovieInformation(movies[movieId - 1])
+        contract.showMovieInformation(movies[movieId])
     }
 
     fun deliverReservationInformation() {

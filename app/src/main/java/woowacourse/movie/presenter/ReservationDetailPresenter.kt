@@ -30,7 +30,7 @@ class ReservationDetailPresenter(private val contract: ReservationDetailContract
     }
 
     fun deliverMovie(movieId: Int) {
-        contract.showMovieInformation(movies[movieId - 1])
+        contract.showMovieInformation(movies[movieId])
     }
 
     fun deliverReservationHistory(movieId: Int) {
