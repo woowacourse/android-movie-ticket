@@ -1,10 +1,11 @@
 package woowacourse.movie.reservation
 
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Quantity
 
 class ReservationPresenter(private val view: ReservationContract.View) :
     ReservationContract.Presenter {
-    private var quantity = MINIMUM_QUANTITY
+    private val quantity = Quantity()
 
     override fun onViewCreated() {
         val movie = view.readMovieData() ?: return
@@ -14,20 +15,16 @@ class ReservationPresenter(private val view: ReservationContract.View) :
     }
 
     override fun onClicked(movie: Movie) {
-        view.moveToCompletedActivity(movie, quantity)
+        view.moveToCompletedActivity(movie, quantity.value)
     }
 
     override fun plus() {
-        quantity++
-        view.setQuantityText("$quantity")
+        quantity.increase()
+        view.setQuantityText("${quantity.value}")
     }
 
     override fun minus() {
-        quantity = (quantity - 1).coerceAtLeast(MINIMUM_QUANTITY)
-        view.setQuantityText("$quantity")
-    }
-
-    companion object {
-        const val MINIMUM_QUANTITY = 1
+        quantity.decrease()
+        view.setQuantityText("${quantity.value}")
     }
 }
