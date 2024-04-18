@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +22,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MovieReservationActivity"
+            android:name=".view.MovieReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieReservationCompleteActivity"
+            android:name=".view.MovieReservationCompleteActivity"
             android:exported="false" />
     </application>
 

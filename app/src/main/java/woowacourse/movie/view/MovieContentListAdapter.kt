@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
+import woowacourse.movie.R
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.MovieContent

@@ -18,6 +18,7 @@ import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.view.MovieReservationCompleteActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
