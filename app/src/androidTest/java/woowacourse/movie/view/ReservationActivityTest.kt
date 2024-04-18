@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -100,13 +101,10 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun result_activity_started_when_reservation_complete_button_clicked() {
-        //when
+    fun activity_stop_when_reservation_complete_button_clicked() {
         onView(withId(R.id.reservation_complete_button))
             .perform(click())
 
-        //then
-        onView(withId(R.id.result_title_textview))
-            .check(matches(withText(movie.title)))
+        onView(withId(R.id.reservation_layout)).check(doesNotExist())
     }
 }
