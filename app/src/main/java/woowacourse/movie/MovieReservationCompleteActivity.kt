@@ -14,26 +14,31 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
-        val ticket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(Ticket.KEY_NAME_TICKET, Ticket::class.java)
-            } else {
-                intent.getSerializableExtra(Ticket.KEY_NAME_TICKET) as? Ticket
-            }
-        initView(ticket)
+        initView()
+        setTicketData()
     }
 
-    private fun initView(ticket: Ticket?) {
+    private fun initView() {
         ticketTitle = findViewById(R.id.ticket_title)
         ticketScreeningDate = findViewById(R.id.ticket_screening_date)
         ticketPrice = findViewById(R.id.ticket_price)
         ticketCount = findViewById(R.id.ticket_number_of_people)
+    }
 
-        ticket?.let {
-            ticketTitle.text = it.title
-            ticketScreeningDate.text = it.screeningDate
-            ticketPrice.text = String.format(TICKET_PRICE, it.price)
-            ticketCount.text = TICKET_COUNT.format(it.count)
+    private fun setTicketData() {
+        makeTicket()?.let { ticket ->
+            ticketTitle.text = ticket.title
+            ticketScreeningDate.text = ticket.screeningDate
+            ticketPrice.text = String.format(TICKET_PRICE, ticket.price)
+            ticketCount.text = TICKET_COUNT.format(ticket.count)
+        }
+    }
+
+    private fun makeTicket(): Ticket? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(Ticket.KEY_NAME_TICKET, Ticket::class.java)
+        } else {
+            intent.getSerializableExtra(Ticket.KEY_NAME_TICKET) as? Ticket
         }
     }
 
