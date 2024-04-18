@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.model.MovieItem
 
 class MovieAdapter(context: Context, private val movies: List<MovieItem>) : BaseAdapter() {
     private val inflater = LayoutInflater.from(context)
@@ -32,9 +33,9 @@ class MovieAdapter(context: Context, private val movies: List<MovieItem>) : Base
         val date = view.findViewById<TextView>(R.id.tv_movie_running_date)
         val runningTime = view.findViewById<TextView>(R.id.tv_movie_running_time)
 
-        postImageView.setImageResource(movie.res)
+        postImageView.setImageResource(movie.imageRes)
         title.text = movie.title
-        date.text = movie.runningDate
+        date.text = movie.screenDate
         runningTime.text = movie.runningTime
 
         view.findViewById<Button>(R.id.btn_movie_reservation).setOnClickListener {
