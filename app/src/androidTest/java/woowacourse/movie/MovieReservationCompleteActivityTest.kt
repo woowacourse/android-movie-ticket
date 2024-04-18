@@ -28,7 +28,7 @@ class MovieReservationCompleteActivityTest {
             MovieReservationCompleteActivity::class.java,
         ).run {
             putExtra(MovieContentKey.ID, 0L)
-            putExtra(MovieReservationKey.COUNT, 3)
+            putExtra(MovieReservationKey.COUNT, 1)
         }
 
     @get:Rule
@@ -52,14 +52,14 @@ class MovieReservationCompleteActivityTest {
     fun `화면이_띄워지면_예매_인원이_보인다`() {
         onView(withId(R.id.reservation_count_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("일반 3명")))
+            .check(matches(withText("일반 1명")))
     }
 
     @Test
     fun `화면이_띄워지면_예매_금액이_보인다`() {
         onView(withId(R.id.reservation_amount_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("39,000원 (현장 결제)")))
+            .check(matches(withText("13,000원 (현장 결제)")))
     }
 
     companion object {
