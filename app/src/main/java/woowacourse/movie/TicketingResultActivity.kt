@@ -11,19 +11,18 @@ import woowacourse.movie.TicketingActivity.Companion.EXTRA_TOTAL_PRICE
 import woowacourse.movie.presenter.TicketingResultPresenter
 import woowacourse.movie.presenter.contract.TicketingResultContract
 
-class TicketingResultActivity : AppCompatActivity(), TicketingResultContract {
-    private lateinit var ticketingResultPresenter: TicketingResultPresenter
-
+class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing_result)
-        val count = intent.getIntExtra(EXTRA_COUNT, 0)
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
-        val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, 0)
-
-        ticketingResultPresenter = TicketingResultPresenter(this, movieId, count, totalPrice)
-        ticketingResultPresenter.assignInitialView()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val count = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_COUNT)
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
+        val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
+
+        val ticketingResultPresenter = TicketingResultPresenter(this, movieId, count, totalPrice)
+        ticketingResultPresenter.assignInitialView()
     }
 
     override fun assignInitialView(
@@ -50,5 +49,11 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val EXTRA_DEFAULT_COUNT = 0
+        private const val EXTRA_DEFAULT_MOVIE_ID = -1
+        private const val EXTRA_DEFAULT_TOTAL_PRICE = 0
     }
 }

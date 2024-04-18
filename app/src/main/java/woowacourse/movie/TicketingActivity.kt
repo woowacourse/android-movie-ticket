@@ -12,7 +12,7 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
 
-class TicketingActivity : AppCompatActivity(), TicketingContract {
+class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
 
@@ -21,10 +21,14 @@ class TicketingActivity : AppCompatActivity(), TicketingContract {
         setContentView(R.layout.activity_ticketing)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         ticketingPresenter = TicketingPresenter(this, movieId)
         ticketingPresenter.assignInitialView()
 
+        initializeButtons()
+    }
+
+    private fun initializeButtons() {
         val minusButton = findViewById<Button>(R.id.btn_minus)
         val plusButton = findViewById<Button>(R.id.btn_plus)
         val completeButton = findViewById<Button>(R.id.btn_complete)
@@ -89,5 +93,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract {
         const val EXTRA_MOVIE_ID = "movie_id"
         const val EXTRA_COUNT = "number_of_people"
         const val EXTRA_TOTAL_PRICE = "total_price"
+        const val EXTRA_DEFAULT_MOVIE_ID = -1
     }
 }

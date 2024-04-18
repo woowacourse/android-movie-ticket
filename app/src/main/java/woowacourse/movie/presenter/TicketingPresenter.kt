@@ -1,19 +1,19 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.Result
 import woowacourse.movie.findMovieById
 import woowacourse.movie.model.Count
+import woowacourse.movie.model.Result
 import woowacourse.movie.model.Tickets
 import woowacourse.movie.presenter.contract.TicketingContract
 
 class TicketingPresenter(
-    private val ticketingContractView: TicketingContract,
+    private val ticketingContractView: TicketingContract.View,
     movieId: Int,
-) {
+) : TicketingContract.Presenter {
     private val movie = findMovieById(movieId)
-    private var count = Count()
+    private val count = Count()
 
-    fun assignInitialView() {
+    override fun assignInitialView() {
         when (movie) {
             is Result.Success -> {
                 ticketingContractView.assignInitialView(
@@ -21,28 +21,30 @@ class TicketingPresenter(
                     count.value,
                 )
             }
+
             is Result.Error -> {
                 ticketingContractView.showErrorMessage(movie.message)
             }
         }
     }
 
-    fun decreaseCount() {
+    override fun decreaseCount() {
         count.decrease()
         ticketingContractView.updateCount(count.value)
     }
 
-    fun increaseCount() {
+    override fun increaseCount() {
         count.increase()
         ticketingContractView.updateCount(count.value)
     }
 
-    fun navigate() {
+    override fun navigate() {
         val totalPrice = Tickets(count).totalPrice
         when (movie) {
             is Result.Success -> {
                 ticketingContractView.navigate(movie.data.id, count.value, totalPrice)
             }
+
             is Result.Error -> {
                 ticketingContractView.showErrorMessage(movie.message)
             }

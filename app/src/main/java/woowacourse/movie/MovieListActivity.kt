@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.presenter.MovieListPresenter
 import woowacourse.movie.presenter.contract.MovieListContract
 
-class MovieListActivity : AppCompatActivity(), MovieListContract {
+class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private val presenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
-        val moviesView = findViewById<ListView>(R.id.lv_movies)
-        moviesView.adapter = presenter.getAdapter()
+        val movies: ListView = findViewById(R.id.lv_movies)
+        movies.adapter = presenter.getAdapter()
     }
 
     override fun navigate(movieId: Int) {

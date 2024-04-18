@@ -1,18 +1,18 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.Result
 import woowacourse.movie.findMovieById
+import woowacourse.movie.model.Result
 import woowacourse.movie.presenter.contract.TicketingResultContract
 
 class TicketingResultPresenter(
-    private val ticketingResultView: TicketingResultContract,
+    private val ticketingResultView: TicketingResultContract.View,
     movieId: Int,
     private val count: Int,
     private val totalPrice: Int,
-) {
+) : TicketingResultContract.Presenter {
     private val movie = findMovieById(movieId)
 
-    fun assignInitialView() {
+    override fun assignInitialView() {
         when (movie) {
             is Result.Success -> {
                 ticketingResultView.assignInitialView(
