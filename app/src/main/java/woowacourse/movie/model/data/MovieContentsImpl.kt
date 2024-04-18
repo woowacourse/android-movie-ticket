@@ -1,6 +1,7 @@
 package woowacourse.movie.model.data
 
 import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.data.dto.nullMovieContent
 
 object MovieContentsImpl : MovieContents {
     private var id: Long = 0
@@ -12,7 +13,7 @@ object MovieContentsImpl : MovieContents {
     }
 
     override fun find(id: Long): MovieContent {
-        return movieContents[id]!!
+        return movieContents[id] ?: nullMovieContent
     }
 
     override fun findAll(): List<MovieContent> {
