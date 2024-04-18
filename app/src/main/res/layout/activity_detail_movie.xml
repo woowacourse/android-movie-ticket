@@ -5,7 +5,7 @@
     android:id="@+id/detail_movie"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailMovieActivity">
+    tools:context=".MovieReservationActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="1:1"
                 android:src="@drawable/img_movie_poster"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -42,7 +42,7 @@
                 tools:text="해리 포터와 마법사의 돌" />
 
             <TextView
-                android:id="@+id/tv_result_running_date"
+                android:id="@+id/tv_detail_running_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
@@ -61,17 +61,17 @@
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_result_running_date"
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_running_date"
                 tools:text="러닝타임: 152분" />
 
             <TextView
-                android:textColor="@color/black"
-                android:fontFamily="@font/roboto"
                 android:id="@+id/tv_detail_movie_desc"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="21dp"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_detail_running_time"
@@ -97,8 +97,8 @@
             android:layout_width="65dp"
             android:layout_height="41dp"
             android:layout_marginBottom="16dp"
-            android:text="-"
             android:fontFamily="@font/roboto_bold"
+            android:text="-"
             app:layout_constraintBottom_toTopOf="@id/btn_detail_complete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

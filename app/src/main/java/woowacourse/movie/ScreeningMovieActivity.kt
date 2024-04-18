@@ -2,14 +2,13 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.data.StubMovieRepository
 import woowacourse.movie.model.ScreenMovieUiModel
-import woowacourse.movie.model.toUiModel
 import woowacourse.movie.presenter.ScreenMoviePresenter
-import woowacourse.movie.repository.MovieRepository
 import woowacourse.movie.view.ScreeningMovieView
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
@@ -29,20 +28,18 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     override fun showMovies(movies: List<ScreenMovieUiModel>) {
         val listView = findViewById<ListView>(R.id.list_view)
         listView.adapter =
-            MovieAdapter(this, movies, ::onClickReservationButton)
+            MovieAdapter(this, movies) { presenter.startReservation(it) }
     }
 
-    override fun navigateToMovieReservationView(screenMovieId: Long) {
-        Intent(this, DetailMovieActivity::class.java).apply {
-            putExtra("screenMovieId", screenMovieId)
-        }.also { startActivity(it) }
-    }
-
-    private fun onClickReservationButton(id: Long) {
-        presenter.navigateToMovieReservationView(id)
+    override fun onClickReservationButton(screenMovieId: Long) {
+        Log.d(
+            "로그",
+            "ScreeningMovieActivity - navigateToMovieReservationView() called $screenMovieId",
+        )
+        val intent =
+            Intent(this, MovieReservationActivity::class.java).apply {
+                putExtra("screenMovieId", screenMovieId)
+            }
+        startActivity(intent)
     }
 }
-
-
-
-

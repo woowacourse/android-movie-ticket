@@ -23,7 +23,7 @@ object StubMovieRepository : MovieRepository {
         id: Long,
         dateTime: LocalDateTime,
         count: HeadCount,
-    ): Result<Unit> {
+    ): Result<Long> {
         return runCatching {
             reservations +=
                 MovieReservation(
@@ -32,6 +32,7 @@ object StubMovieRepository : MovieRepository {
                     screenDateTime = dateTime,
                     headCount = count,
                 )
+            reservationId
         }
     }
 

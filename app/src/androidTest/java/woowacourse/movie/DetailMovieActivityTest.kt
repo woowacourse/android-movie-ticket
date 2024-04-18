@@ -10,7 +10,7 @@ import org.junit.Test
 
 class DetailMovieActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(DetailMovieActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieReservationActivity::class.java)
 
     @Test
     fun test_isActivityInView() {

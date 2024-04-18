@@ -14,7 +14,7 @@ interface MovieRepository {
         id: Long,
         dateTime: LocalDateTime,
         count: HeadCount,
-    ): Result<Unit>
+    ): Result<Long>
 
     fun movieReservationById(id: Long): MovieReservation
 }
