@@ -20,12 +20,12 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_reservation_complete)
+        setContentView(R.layout.activity_movie_result)
 
-        completeTitleTextView = findViewById(R.id.completeTitle)
-        completeDateTextView = findViewById(R.id.completeDate)
-        completeReservationCountTextView = findViewById(R.id.completeReservationCount)
-        completeReservationPriceTextView = findViewById(R.id.completeReservationPrice)
+        completeTitleTextView = findViewById(R.id.resultTitle)
+        completeDateTextView = findViewById(R.id.resultDate)
+        completeReservationCountTextView = findViewById(R.id.resultReservationCount)
+        completeReservationPriceTextView = findViewById(R.id.resultReservationPrice)
 
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.display(intent.getLongExtra("movieId", 0), intent.getIntExtra("movieReservationCount", 0))

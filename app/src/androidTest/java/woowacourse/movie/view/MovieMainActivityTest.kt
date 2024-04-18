@@ -1,7 +1,6 @@
 package woowacourse.movie.view
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -18,8 +17,26 @@ class MovieMainActivityTest {
     val activityRule = ActivityScenarioRule(MovieMainActivity::class.java)
 
     @Test
-    fun testMovieListDisplayed() {
-        onView(withId(R.id.movieList)).check(matches(isDisplayed()))
-        onView(withId(R.id.movieReservation)).perform(click())
+    fun `영화_목록이_화면에_표시된다`() {
+        onView(withId(R.id.movieList))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `영화_아이템에_영화_제목이_표시된다`() {
+        onView(withId(R.id.movieTitle))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `영화_아이템에_영화_상영일이_표시된다`() {
+        onView(withId(R.id.movieDate))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `영화_아이템에_영화_러닝타임이_표시된다`() {
+        onView(withId(R.id.movieRunningTime))
+            .check(matches(isDisplayed()))
     }
 }

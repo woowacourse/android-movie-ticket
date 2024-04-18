@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/completeAppBar"
+        android:id="@+id/resultNotice"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="#9160f9"
@@ -24,7 +24,7 @@
 
 
     <TextView
-        android:id="@+id/completeTitle"
+        android:id="@+id/resultTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
@@ -35,10 +35,10 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/completeAppBar" />
+        app:layout_constraintTop_toBottomOf="@id/resultNotice" />
 
     <TextView
-        android:id="@+id/completeDate"
+        android:id="@+id/resultDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -48,10 +48,10 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/completeTitle" />
+        app:layout_constraintTop_toBottomOf="@id/resultTitle" />
 
     <TextView
-        android:id="@+id/completeReservationCountType"
+        android:id="@+id/resultReservationCountType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="일반 "
@@ -60,26 +60,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/completeReservationCount"
-        app:layout_constraintTop_toBottomOf="@id/completeDate"
+        app:layout_constraintRight_toLeftOf="@id/resultReservationCount"
+        app:layout_constraintTop_toBottomOf="@id/resultDate"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/completeReservationCount"
+        android:id="@+id/resultReservationCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="1명"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/completeReservationCountType"
+        app:layout_constraintLeft_toRightOf="@id/resultReservationCountType"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/completeDate"
+        app:layout_constraintTop_toBottomOf="@id/resultDate"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:id="@+id/completeReservationPrice"
+        android:id="@+id/resultReservationPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -88,21 +88,21 @@
         android:textSize="20dp"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/completeReservationType"
-        app:layout_constraintTop_toBottomOf="@id/completeReservationCount" />
+        app:layout_constraintRight_toLeftOf="@id/resultReservationType"
+        app:layout_constraintTop_toBottomOf="@id/resultReservationCount" />
 
 
     <TextView
-        android:id="@+id/completeReservationType"
+        android:id="@+id/resultReservationType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint=" (현장 결제)"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintLeft_toRightOf="@id/completeReservationPrice"
+        app:layout_constraintLeft_toRightOf="@id/resultReservationPrice"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/completeReservationCount" />
+        app:layout_constraintTop_toBottomOf="@id/resultReservationCount" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
