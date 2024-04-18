@@ -11,7 +11,7 @@ data class Movie(
     val img: Int,
 ) {
     fun screenDateToString(): String {
-        if (screenDate.size == 1) return screenDate[0].format(DateTimeFormatter.ofPattern("yyyy.M.d "))
+        if (screenDate.size == 1) return screenDate[0].format(DateTimeFormatter.ofPattern("yyyy.M.d"))
 
         return screenDate
             .map { it.format(DateTimeFormatter.ofPattern("yyyy.M.d")) }
