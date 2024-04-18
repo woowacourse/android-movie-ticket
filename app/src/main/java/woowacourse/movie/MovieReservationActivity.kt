@@ -75,8 +75,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             Ticket(
                 title = titleView.text.toString(),
                 screeningDate = screeningDateView.text.toString(),
-                price = presenter.getTicketCount() * 13000,
-                numberOfPeople = presenter.getTicketCount(),
+                count = presenter.ticketCount,
             )
 
         val intent = Intent(context, MovieReservationCompleteActivity::class.java)
@@ -85,6 +84,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun showCurrentResultTicketCountView() {
-        ticketCountView.text = presenter.getTicketCount().toString()
+        ticketCountView.text = presenter.ticketCount.toString()
     }
 }
