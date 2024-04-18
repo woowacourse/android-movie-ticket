@@ -12,6 +12,9 @@ import woowacourse.movie.R
 import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.model.theater.Theater
 
+//Adapter가 View에 속하는지 Presenter에 속하는지 헷갈립니다. 저희는 우선 presenter라고 생각해서 구현을했는데
+// 그러다 보니 View로직이 속해있어 어떻게 해야 할지 모르겠습니다.
+// 다시한번 말해 findViewById와 Text값을 바꾸는 로직이 Presenter에 들어가야 된다고 생각했습니다.
 class MovieAdapter(context: Context, theaters: List<Theater>) :
     ArrayAdapter<Theater>(context, 0, theaters) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
