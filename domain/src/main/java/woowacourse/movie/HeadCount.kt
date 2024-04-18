@@ -1,16 +1,22 @@
 package woowacourse.movie
 
-class HeadCount(val count: Int) {
+@JvmInline
+value class HeadCount(val count: Int) {
 
     init {
-        require(count > 0) {
-            "$count - 예매는 1장 이상 부터 가능합니다."
+        require(count >= MIN_COUNT) {
+            "$count - 예매는 ${MIN_COUNT}장 이상 부터 가능합니다."
         }
     }
 
-    fun canDecrease() = count > 1
+    fun canDecrease(): Boolean = count > MIN_COUNT
 
-    fun increase(): HeadCount = HeadCount(count + 1)
+    fun increase(): HeadCount = HeadCount(count + INCREASE_COUNT)
 
-    fun decrease(): HeadCount = HeadCount(count - 1)
+    fun decrease(): HeadCount = HeadCount(count - INCREASE_COUNT)
+
+    companion object {
+        private const val MIN_COUNT = 1
+        private const val INCREASE_COUNT = 1
+    }
 }
