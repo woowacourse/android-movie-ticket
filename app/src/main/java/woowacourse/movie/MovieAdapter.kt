@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,14 +8,19 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.model.MovieItem
+import woowacourse.movie.model.ScreenMovieUiModel
 
-class MovieAdapter(context: Context, private val movies: List<MovieItem>) : BaseAdapter() {
+class MovieAdapter(
+    context: Context,
+    private val movies: List<ScreenMovieUiModel>,
+    private val onClickReservationButton: (id: Long) -> Unit = {},
+) :
+    BaseAdapter() {
     private val inflater = LayoutInflater.from(context)
 
     override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): MovieItem = movies[position]
+    override fun getItem(position: Int): ScreenMovieUiModel = movies[position]
 
     override fun getItemId(position: Int): Long = movies[position].id
 
@@ -39,7 +43,7 @@ class MovieAdapter(context: Context, private val movies: List<MovieItem>) : Base
         runningTime.text = movie.runningTime
 
         view.findViewById<Button>(R.id.btn_movie_reservation).setOnClickListener {
-            view.context.startActivity(Intent(view.context, DetailMovieActivity::class.java))
+            onClickReservationButton(movie.id)
         }
 
         return view

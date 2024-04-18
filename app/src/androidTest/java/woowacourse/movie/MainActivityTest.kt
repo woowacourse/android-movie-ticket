@@ -18,17 +18,17 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.model.MovieItem
+import woowacourse.movie.model.ScreenMovieUiModel
 
 class MainActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(ScreeningMovieActivity::class.java)
 
     @Before
     fun setUp() {
         activityRule.scenario.onActivity { activity ->
             val listView = activity.findViewById<ListView>(R.id.list_view)
-            val items = listOf(MovieItem())
+            val items = listOf(ScreenMovieUiModel(1, title = "해리"))
             listView.adapter = MovieAdapter(activity, items)
         }
     }
@@ -61,10 +61,10 @@ class MainActivityTest {
         onView(withId(R.id.detail_movie)).check(matches(isDisplayed()))
     }
 
-    private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<MovieItem> {
-        return object : TypeSafeMatcher<MovieItem>(MovieItem::class.java) {
-            override fun matchesSafely(movieItem: MovieItem): Boolean {
-                return itemTextMatcher.matches(movieItem.title)
+    private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreenMovieUiModel> {
+        return object : TypeSafeMatcher<ScreenMovieUiModel>(ScreenMovieUiModel::class.java) {
+            override fun matchesSafely(screenMovieUiModel: ScreenMovieUiModel): Boolean {
+                return itemTextMatcher.matches(screenMovieUiModel.title)
             }
 
             override fun describeTo(description: Description) {

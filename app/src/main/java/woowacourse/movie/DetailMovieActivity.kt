@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
 class DetailMovieActivity : AppCompatActivity() {
+    // TODO 2) DetailMovieActivity -> MovieReservationActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_movie)
