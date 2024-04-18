@@ -27,35 +27,41 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
         context = this@MovieReservationActivity
-        val movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
-            } else {
-                intent.getSerializableExtra(Movie.KEY_NAME_MOVIE) as? Movie
-            }
-        initView(movie)
+
+        initView()
+        setMovieData()
+        showCurrentResultTicketCountView()
+        setClickListener()
     }
 
-    private fun initView(movie: Movie?) {
+    private fun getSerializableModel(): Movie? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
+        } else {
+            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE) as? Movie
+        }
+    }
+
+    private fun initView() {
         titleView = findViewById(R.id.movie_detail_title)
         screeningDateView = findViewById(R.id.movie_detail_screening_date)
         runningDateView = findViewById(R.id.movie_detail_running_date)
         descriptionView = findViewById(R.id.movie_detail_description)
         ticketCountView = findViewById(R.id.ticket_count)
         posterView = findViewById(R.id.movie_detail_poster)
-
         minusNumberButton = findViewById(R.id.minus_button)
         plusNumberButton = findViewById(R.id.plus_button)
         ticketingButton = findViewById(R.id.ticketing_button)
-        movie?.let {
-            titleView.text = it.title
-            screeningDateView.text = it.screeningDate
-            runningDateView.text = it.runningTime.toString()
-            descriptionView.text = it.description
-            posterView.setImageResource(it.posterResourceId)
+    }
+
+    private fun setMovieData() {
+        getSerializableModel()?.let { movie ->
+            titleView.text = movie.title
+            screeningDateView.text = movie.screeningDate
+            runningDateView.text = movie.runningTime.toString()
+            descriptionView.text = movie.description
+            posterView.setImageResource(movie.posterResourceId)
         }
-        showCurrentResultTicketCountView()
-        setClickListener()
     }
 
     private fun setClickListener() {
@@ -71,17 +77,19 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     private fun ticketing() {
-        val ticket =
-            Ticket(
-                title = titleView.text.toString(),
-                screeningDate = screeningDateView.text.toString(),
-                count = presenter.ticketCount,
-            )
+        val ticket = makeTicket()
 
         val intent = Intent(context, MovieReservationCompleteActivity::class.java)
         intent.putExtra(Ticket.KEY_NAME_TICKET, ticket as Serializable)
         context.startActivity(intent)
     }
+
+    private fun makeTicket() =
+        Ticket(
+            title = titleView.text.toString(),
+            screeningDate = screeningDateView.text.toString(),
+            count = presenter.ticketCount,
+        )
 
     override fun showCurrentResultTicketCountView() {
         ticketCountView.text = presenter.ticketCount.toString()
