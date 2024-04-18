@@ -12,9 +12,9 @@ import woowacourse.movie.contract.ReservationContract
 import woowacourse.movie.presenter.ReservationPresenter
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
+    private val reservationPresenter: ReservationContract.Presenter = ReservationPresenter(this)
     private lateinit var addButton: Button
     private lateinit var subButton: Button
-    private val reservationPresenter: ReservationContract.Presenter = ReservationPresenter(this)
     private lateinit var countTextView: TextView
     private lateinit var titleTextView: TextView
     private lateinit var screenDateTextView: TextView
