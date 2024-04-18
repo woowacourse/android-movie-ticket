@@ -12,38 +12,36 @@ interface MovieReservationContract {
     }
 }
 
-class MovieReservationModel() {
-    private var ticketCount = 1
+class MovieReservationModel {
+    var ticketCount = 1
+        private set
 
-    fun minusNumber() {
+    fun minusTicketCount() {
         if (ticketCount > 1) {
             ticketCount--
         }
     }
 
-    fun plusNumber() {
+    fun plusTicketCount() {
         ticketCount++
-    }
-
-    fun getTicketCount(): Int {
-        return ticketCount
     }
 }
 
 class MovieReservationPresenter(
-    private var view: MovieReservationContract.View,
+    private val view: MovieReservationContract.View,
 ) : MovieReservationContract.Presenter {
-    private var model: MovieReservationModel = MovieReservationModel()
+    private val model: MovieReservationModel = MovieReservationModel()
 
-    fun getTicketCount(): Int = model.getTicketCount()
+    val ticketCount
+        get() = model.ticketCount
 
     override fun clickMinusNumberButton() {
-        model.minusNumber()
+        model.minusTicketCount()
         view.showCurrentResultTicketCountView()
     }
 
     override fun clickPlusNumberButton() {
-        model.plusNumber()
+        model.plusTicketCount()
         view.showCurrentResultTicketCountView()
     }
 }

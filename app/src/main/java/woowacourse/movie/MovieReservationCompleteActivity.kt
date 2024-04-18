@@ -34,7 +34,7 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
             ticketScreeningDate.text = it.screeningDate
             val formattedPrice = String.format("%,d원 (현장결제)", it.price)
             ticketPrice.text = formattedPrice
-            numberOfPeople.text = "일반 ${it.numberOfPeople}명"
+            numberOfPeople.text = "일반 ${it.count}명"
         }
     }
 }
