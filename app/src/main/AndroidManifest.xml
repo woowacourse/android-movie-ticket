@@ -13,22 +13,25 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".activity.ReservationFinishedActivity"
-            android:parentActivityName=".activity.ReservationHomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.ReservationDetailActivity"
-            android:parentActivityName=".activity.ReservationHomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.ReservationHomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.ReservationFinishedActivity"
+            android:parentActivityName=".activity.ReservationHomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ReservationDetailActivity"
+            android:parentActivityName=".activity.ReservationHomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
