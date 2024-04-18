@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.activity
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -13,12 +13,12 @@ import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.view.activity.MovieReservationCompleteActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
