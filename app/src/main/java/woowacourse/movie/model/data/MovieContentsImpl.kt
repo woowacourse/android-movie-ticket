@@ -18,4 +18,8 @@ object MovieContentsImpl : MovieContents {
     override fun findAll(): List<MovieContent> {
         return movieContents.map { it.value }
     }
+
+    override fun deleteAll() {
+        movieContents.clear()
+    }
 }

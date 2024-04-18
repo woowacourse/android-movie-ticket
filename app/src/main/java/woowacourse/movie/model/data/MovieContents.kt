@@ -8,4 +8,6 @@ interface MovieContents {
     fun find(id: Long): MovieContent
 
     fun findAll(): List<MovieContent>
+
+    fun deleteAll()
 }
