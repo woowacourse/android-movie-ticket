@@ -7,7 +7,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import domain.Movie
 import domain.Ticket
 import org.junit.Rule
 import org.junit.Test
@@ -17,7 +16,7 @@ class ReservationFinishedActivityTest {
     var activityRule =
         ActivityScenarioRule<ReservationFinishedActivity>(
             Intent(ApplicationProvider.getApplicationContext(), ReservationFinishedActivity::class.java).apply {
-                putExtra("movie", Movie(0, 0, "해리 포터와 마법사의 돌", "2024.3.1", "", ""))
+                putExtra("movieId", 1)
                 putExtra("ticket", Ticket())
             },
         )
@@ -29,7 +28,7 @@ class ReservationFinishedActivityTest {
 
     @Test
     fun `예매한_영화의_상영일을_보여준다`() {
-        onView(withId(R.id.text_view_reservation_finished_screening_date)).check(matches(withText("2024.3.1")))
+        onView(withId(R.id.text_view_reservation_finished_screening_date)).check(matches(withText("2001.11.14")))
     }
 
     @Test
