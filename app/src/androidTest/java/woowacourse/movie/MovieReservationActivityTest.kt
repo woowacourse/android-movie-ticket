@@ -16,7 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.dao.MovieContentsImpl
+import woowacourse.movie.data.MovieContentsImpl
 import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
 import woowacourse.movie.view.MovieReservationActivity

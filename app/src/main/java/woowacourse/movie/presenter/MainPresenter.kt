@@ -2,7 +2,7 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.R
 import woowacourse.movie.conrtract.MainContract
-import woowacourse.movie.dao.MovieContentsImpl
+import woowacourse.movie.data.MovieContentsImpl
 import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
 
