@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -6,13 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.view.MovieReservationActivity
 import java.io.Serializable
 
 class MovieListAdapter(
     private val context: Context,
     private val movieList: ArrayList<Movie>,
 ) : BaseAdapter() {
-    private lateinit var viewHolder: ViewHolder
+    private lateinit var movieViewHolder: MovieViewHolder
 
     override fun getCount(): Int {
         return movieList.size
@@ -38,7 +41,7 @@ class MovieListAdapter(
             makeViewHolder(view)
         } else {
             view = convertView
-            viewHolder = convertView.tag as ViewHolder
+            movieViewHolder = convertView.tag as MovieViewHolder
         }
         setViewHolder(movie)
         setClickListener(movie)
@@ -46,26 +49,26 @@ class MovieListAdapter(
     }
 
     private fun makeViewHolder(view: View) {
-        viewHolder =
-            ViewHolder(
+        movieViewHolder =
+            MovieViewHolder(
                 view.findViewById(R.id.movie_title),
                 view.findViewById(R.id.movie_poster),
                 view.findViewById(R.id.movie_screening_date),
                 view.findViewById(R.id.movie_running_time),
                 view.findViewById(R.id.movie_reservation_button),
             )
-        view.tag = viewHolder
+        view.tag = movieViewHolder
     }
 
     private fun setViewHolder(movie: Movie) {
-        viewHolder.title.text = movie.title
-        viewHolder.poster.setImageResource(movie.posterResourceId)
-        viewHolder.screeningDate.text = movie.screeningDate
-        viewHolder.runningTime.text = movie.runningTime.toString()
+        movieViewHolder.title.text = movie.title
+        movieViewHolder.poster.setImageResource(movie.posterResourceId)
+        movieViewHolder.screeningDate.text = movie.screeningDate
+        movieViewHolder.runningTime.text = movie.runningTime.toString()
     }
 
     private fun setClickListener(movie: Movie) {
-        viewHolder.movieReservationButton.setOnClickListener {
+        movieViewHolder.movieReservationButton.setOnClickListener {
             val intent = Intent(context, MovieReservationActivity::class.java)
             intent.putExtra(Movie.KEY_NAME_MOVIE, movie as Serializable)
             context.startActivity(intent)

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
+import woowacourse.movie.domain.MovieReservationContract
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.presenter.MovieReservationPresenter
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {

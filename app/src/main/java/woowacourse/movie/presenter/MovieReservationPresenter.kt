@@ -1,4 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.presenter
+
+import woowacourse.movie.domain.MovieReservationContract
+import woowacourse.movie.domain.model.MovieReservationModel
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,

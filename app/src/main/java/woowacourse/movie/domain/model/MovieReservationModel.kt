@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.domain.model
 
 class MovieReservationModel {
     var ticketCount = 1

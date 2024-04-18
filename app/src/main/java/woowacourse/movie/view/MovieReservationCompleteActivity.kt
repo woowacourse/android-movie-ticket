@@ -1,9 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Ticket
 
 class MovieReservationCompleteActivity : AppCompatActivity() {
     private lateinit var ticketTitle: TextView
