@@ -8,17 +8,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.conrtract.MovieReservationContract
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
-import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.presenter.MovieReservationPresenter
 import woowacourse.movie.ui.DateUi
 
-class MovieReservationActivity : AppCompatActivity() {
-    private var reservationCount = ReservationCount()
+class MovieReservationActivity :
+    BaseActivity<MovieReservationContract.Presenter>(),
+    MovieReservationContract.View {
+    private val movieReservationPresenter: MovieReservationContract.Presenter by lazy { initializePresenter() }
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
@@ -33,46 +34,30 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        val movieContentId = intent.getLongExtra(MovieContentKey.ID, DEFAULT_VALUE)
+        val movieContentId = movieContentId()
         if (movieContentId == DEFAULT_VALUE) {
-            Log.e(TAG, "Invalid MovieContentKey")
-            Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
-            finish()
+            handleError()
             return
         }
 
-        MovieContentsImpl.find(movieContentId).setUpUi()
-        setUpReservationCountUi(movieContentId)
+        setUpUi(movieContentId)
+        setOnClickButtonListener()
+    }
 
+    override fun initializePresenter() = MovieReservationPresenter(this)
+
+    private fun movieContentId() = intent.getLongExtra(MovieContentKey.ID, DEFAULT_VALUE)
+
+    override fun handleError() {
+        Log.e(TAG, "Invalid MovieContentKey")
+        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
+        finish()
+    }
+
+    private fun setUpUi(movieContentId: Long) {
+        movieReservationPresenter.setUpMovieContent(movieContentId)
+        movieReservationPresenter.setUpReservationCount()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun MovieContent.setUpUi() {
-        posterImage.setImageResource(imageId)
-        titleText.text = title
-        screeningDateText.text = DateUi.screeningDateMessage(screeningDate, this@MovieReservationActivity)
-        runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
-        synopsisText.text = synopsis
-    }
-
-    private fun setUpReservationCountUi(movieContentId: Long) {
-        reservationCountText.text = reservationCount.count.toString()
-
-        minusButton.setOnClickListener {
-            reservationCountText.text = (--reservationCount).count.toString()
-        }
-
-        plusButton.setOnClickListener {
-            reservationCountText.text = (++reservationCount).count.toString()
-        }
-
-        reservationButton.setOnClickListener {
-            Intent(this, MovieReservationCompleteActivity::class.java).apply {
-                putExtra(MovieContentKey.ID, movieContentId)
-                putExtra(MovieReservationKey.COUNT, reservationCount.count)
-                startActivity(this)
-            }
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -80,6 +65,51 @@ class MovieReservationActivity : AppCompatActivity() {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setOnClickButtonListener() {
+        minusButton.setOnClickListener {
+            movieReservationPresenter.clickMinusButton()
+        }
+
+        plusButton.setOnClickListener {
+            movieReservationPresenter.clickPlusButton()
+        }
+
+        reservationButton.setOnClickListener {
+            movieReservationPresenter.clickReservationButton()
+        }
+    }
+
+    override fun setUpMovieContentUi(movieContent: MovieContent) {
+        movieContent.run {
+            posterImage.setImageResource(imageId)
+            titleText.text = title
+            screeningDateText.text =
+                DateUi.screeningDateMessage(screeningDate, this@MovieReservationActivity)
+            runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
+            synopsisText.text = synopsis
+        }
+    }
+
+    override fun setUpReservationCountUi(reservationCount: Int) {
+        reservationCountText.text = reservationCount.toString()
+    }
+
+    override fun bindDecreasedReservationCount(reservationCount: Int) {
+        reservationCountText.text = reservationCount.toString()
+    }
+
+    override fun bindIncreasedReservationCount(reservationCount: Int) {
+        reservationCountText.text = reservationCount.toString()
+    }
+
+    override fun moveMovieReservationCompleteView(reservationCount: Int) {
+        Intent(this, MovieReservationCompleteActivity::class.java).apply {
+            putExtra(MovieContentKey.ID, movieContentId())
+            putExtra(MovieReservationKey.COUNT, reservationCount)
+            startActivity(this)
+        }
     }
 
     companion object {
