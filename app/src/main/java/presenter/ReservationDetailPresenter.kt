@@ -9,14 +9,22 @@ import view.ReservationDetailContract
 
 class ReservationDetailPresenter(private val contract: ReservationDetailContract) {
     val ticket = Ticket()
-    val movies = Movies.obtainMovies()
+    private val movies = Movies.obtainMovies()
 
-    fun increaseTicketCount() {
+    fun detectIncreaseCount() {
+        contract.initializePlusButton(::increaseTicketCount)
+    }
+
+    fun detectDecreaseCount() {
+        contract.initializeMinusButton(::decreaseTicketCount)
+    }
+
+    private fun increaseTicketCount() {
         val result = ticket.increaseCount()
         handleNumberOfTicketsBounds(result, ticket)
     }
 
-    fun decreaseTicketCount() {
+    private fun decreaseTicketCount() {
         val result = ticket.decreaseCount()
         handleNumberOfTicketsBounds(result, ticket)
     }

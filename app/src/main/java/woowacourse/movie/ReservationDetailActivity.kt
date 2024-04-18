@@ -21,12 +21,14 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieId = intent.getIntExtra("movieId", 0)
+        val movieId = intent.getIntExtra("movieId", 1)
 
-        presenter.deliverMovie(movieId)
-        presenter.deliverReservationHistory(movieId)
-        initializePlusButton()
-        initializeMinusButton()
+        with(presenter) {
+            deliverMovie(movieId)
+            deliverReservationHistory(movieId)
+            detectIncreaseCount()
+            detectDecreaseCount()
+        }
     }
 
     override fun showMovieInformation(movie: Movie) {
@@ -43,19 +45,26 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         summary.text = movie.summary
     }
 
-    private fun initializePlusButton() {
+    override fun changeNumberOfTickets(ticket: Ticket) {
+        val numberOfTickets =
+            findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
+
+        numberOfTickets.text = ticket.count.toString()
+    }
+
+    override fun initializePlusButton(increaseTicketCount: () -> Unit) {
         val plusButton = findViewById<Button>(R.id.button_reservation_detail_plus)
 
         plusButton.setOnClickListener {
-            presenter.increaseTicketCount()
+            increaseTicketCount()
         }
     }
 
-    private fun initializeMinusButton() {
+    override fun initializeMinusButton(decreaseTicketCount: () -> Unit) {
         val minusButton = findViewById<Button>(R.id.button_reservation_detail_minus)
 
         minusButton.setOnClickListener {
-            presenter.decreaseTicketCount()
+            decreaseTicketCount()
         }
     }
 
@@ -71,13 +80,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     }
 
     override fun showResultToast() {
-        Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT).show()
-    }
-
-    override fun changeNumberOfTickets(ticket: Ticket) {
-        val numberOfTickets =
-            findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
-
-        numberOfTickets.text = ticket.count.toString()
+        Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT)
+            .show()
     }
 }
