@@ -11,94 +11,100 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.reservation.ReservationActivity
 
-class DetailActivity : AppCompatActivity() {
-    private val detailViewModel: DetailViewModel by lazy { DetailViewModel(DummyScreens(), DummyReservation) }
+class DetailActivity : AppCompatActivity(), DetailContract.View {
+    private val presenter: DetailContract.Presenter by lazy { DetailPresenter(this, DummyScreens(), DummyReservation) }
+
+    private lateinit var title: TextView
+    private lateinit var date: TextView
+    private lateinit var runningTime: TextView
+    private lateinit var description: TextView
+    private lateinit var poster: ImageView
     private lateinit var ticketCount: TextView
+    private lateinit var plusBtn: Button
+    private lateinit var minusBtn: Button
+    private lateinit var reserveDone: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
         initBinding()
+        initView()
         initClickListener()
     }
 
     private fun initBinding() {
+        title = findViewById(R.id.tv_title)
+        date = findViewById(R.id.tv_screen_date)
+        runningTime = findViewById(R.id.tv_screen_running_time)
+        description = findViewById(R.id.tv_description)
+        poster = findViewById(R.id.iv_poster)
+        ticketCount = findViewById(R.id.tv_count)
+        plusBtn = findViewById(R.id.btn_plus)
+        minusBtn = findViewById(R.id.btn_minus)
+        reserveDone = findViewById(R.id.btn_reserve_done)
+    }
+
+    private fun initView() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val id = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_ID)
-        handleState(detailViewModel.loadScreen(id))
+        presenter.loadScreen(id)
     }
 
     private fun initClickListener() {
-        val plusBtn = findViewById<Button>(R.id.btn_plus)
         plusBtn.setOnClickListener {
-            handleState(detailViewModel.plusTicket())
+            presenter.plusTicket()
         }
 
-        val minusBtn = findViewById<Button>(R.id.btn_minus)
         minusBtn.setOnClickListener {
-            handleState(detailViewModel.minusTicket())
+            presenter.minusTicket()
         }
 
-        val reserveDone = findViewById<Button>(R.id.btn_reserve_done)
         reserveDone.setOnClickListener {
-            handleState(detailViewModel.clickReservationDone())
+            presenter.reserve()
         }
     }
 
-    private fun handleState(state: DetailEventState) {
-        when (state) {
-            is DetailEventState.Success -> {
-                when (state) {
-                    is DetailEventState.Success.ScreenLoading -> bindScreen(state)
-                    is DetailEventState.Success.UpdateTicket -> ticketCount.text = state.count.toString()
-                    is DetailEventState.Success.NavigateToReservation -> {
-                        ReservationActivity.startActivity(this, state.id)
-                        finish()
-                    }
-                }
-            }
-
-            is DetailEventState.Failure -> {
-                when (state) {
-                    is DetailEventState.Failure.GoToBack -> {
-                        Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
-                        finish()
-                    }
-
-                    is DetailEventState.Failure.UnexpectedFinish -> {
-                        Snackbar.make(findViewById(android.R.id.content), state.message, Snackbar.LENGTH_SHORT).show()
-                        finish()
-                    }
-
-                    is DetailEventState.Failure.ShowToastMessage -> {
-                        Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
-    }
-
-    private fun bindScreen(state: DetailEventState.Success.ScreenLoading) {
-        val title = findViewById<TextView>(R.id.tv_title)
-        val date = findViewById<TextView>(R.id.tv_screen_date)
-        val runningTime = findViewById<TextView>(R.id.tv_screen_running_time)
-        val description = findViewById<TextView>(R.id.tv_description)
-        val poster = findViewById<ImageView>(R.id.iv_poster)
-        ticketCount = findViewById(R.id.tv_count)
-
-        with(state.screen) {
+    override fun showScreen(screen: Screen) {
+        with(screen) {
             title.text = movie.title
-            date.text = this.date
+            this@DetailActivity.date.text = date
             runningTime.text = movie.runningTime.toString()
             description.text = movie.description
             poster.setImageResource(movie.imageSrc)
-            ticketCount.text = 1.toString()
         }
+    }
+
+    override fun showTicket(count: Int) {
+        ticketCount.text = count.toString()
+    }
+
+    override fun navigateToReservation(id: Int) {
+        ReservationActivity.startActivity(this, id)
+        finish()
+    }
+
+    override fun goToBack(message: String) {
+        showToastMessage(message)
+        finish()
+    }
+
+    override fun unexpectedFinish(message: String) {
+        showSnackBar(message)
+        finish()
+    }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showSnackBar(message: String) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
