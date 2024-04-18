@@ -32,7 +32,7 @@ class ReservationActivityTest {
     @Test
     fun `활동_시작시_영화_상세정보가_표시된다`() {
         onView(withId(R.id.movie_title))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+            .check(matches(withText(movie.title)))
     }
 
     @Test

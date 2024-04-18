@@ -31,7 +31,7 @@ class ListViewAdapter(
     ): View {
         val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.listview_item, parent, false)
         bindData(view, position)
-        return view!!
+        return view
     }
 
     private fun bindData(
