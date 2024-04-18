@@ -2,12 +2,12 @@
 
 ## STEP 1
 
-### Count
+### Ticket
 
 - 1 이상의 값을 저장한다.
-    - [ ] 1 미만의 경우 예외를 던져야한다.
-    - [ ] add 함수를 호출시, count 의 값은 1 증가한다.
-    - [ ] sub 함수를 호출시, count 의 값은 1 감소한다.
+    - [x] 1 미만의 경우 예외를 던져야한다.
+    - [x] add 함수를 호출시, count 의 값은 1 증가한다.
+    - [x] sub 함수를 호출시, count 의 값은 1 감소한다.
 
 ### Movie
 
@@ -23,7 +23,7 @@
 
 ### Reservation
 
-- Seat 과 Count 를 가진다.
+- Seat 과 Ticket 를 가진다.
 
 ### Reservations
 
