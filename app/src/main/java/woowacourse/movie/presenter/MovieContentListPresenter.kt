@@ -1,8 +1,8 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.conrtract.MovieContentListContract
-import woowacourse.movie.data.MovieContentsImpl
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.data.MovieContentsImpl
 
 class MovieContentListPresenter(private val view: MovieContentListContract.View) :
     MovieContentListContract.Presenter {

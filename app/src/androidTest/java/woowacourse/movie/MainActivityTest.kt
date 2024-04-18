@@ -10,7 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.view.MainActivity
+import woowacourse.movie.view.activity.MainActivity
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {

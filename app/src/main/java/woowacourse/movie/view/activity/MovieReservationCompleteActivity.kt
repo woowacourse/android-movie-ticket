@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,7 @@ import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.MovieReservationCompletePresenter
-import woowacourse.movie.ui.DateUi
+import woowacourse.movie.view.ui.DateUi
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
