@@ -27,7 +27,7 @@ object StubMovieRepository : MovieRepository {
         return runCatching {
             reservations +=
                 MovieReservation(
-                    id = reservationId++,
+                    id = ++reservationId,
                     screeningMovie = screenMovieById(id),
                     screenDateTime = dateTime,
                     headCount = count,

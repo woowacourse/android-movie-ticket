@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tv_result_cancel_deadline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="65dp"
@@ -64,7 +65,7 @@
         android:fontFamily="@font/roboto"/>
 
     <TextView
-        android:id="@+id/tv_result_money"
+        android:id="@+id/tv_result_total_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="13,000원 (현장 결제)"

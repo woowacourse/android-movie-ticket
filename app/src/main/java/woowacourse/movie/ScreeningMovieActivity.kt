@@ -2,7 +2,6 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -32,10 +31,6 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     }
 
     override fun onClickReservationButton(screenMovieId: Long) {
-        Log.d(
-            "로그",
-            "ScreeningMovieActivity - navigateToMovieReservationView() called $screenMovieId",
-        )
         val intent =
             Intent(this, MovieReservationActivity::class.java).apply {
                 putExtra("screenMovieId", screenMovieId)
