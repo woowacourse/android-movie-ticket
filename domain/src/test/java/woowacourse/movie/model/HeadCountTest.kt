@@ -5,10 +5,8 @@ import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.HeadCount
 
 class HeadCountTest {
-
     @Test
     fun `HeadCount는 1 이상이어야 한다`() {
         assertSoftly {

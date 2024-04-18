@@ -20,7 +20,6 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.model.MovieItem
 
-
 class MainActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
@@ -61,7 +60,6 @@ class MainActivityTest {
 
         onView(withId(R.id.detail_movie)).check(matches(isDisplayed()))
     }
-
 
     private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<MovieItem> {
         return object : TypeSafeMatcher<MovieItem>(MovieItem::class.java) {

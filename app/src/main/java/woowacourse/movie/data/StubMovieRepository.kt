@@ -15,30 +15,29 @@ object StubMovieRepository : MovieRepository {
 
     override fun screenMovieById(id: Long): ScreeningMovie {
         return screenMovies.find { it.id == id } ?: error(
-            "$id : id에 해당 하는 영화가 없습니다."
+            "$id : id에 해당 하는 영화가 없습니다.",
         )
     }
 
     override fun reserveMovie(
         id: Long,
         dateTime: LocalDateTime,
-        count: HeadCount
+        count: HeadCount,
     ): Result<Unit> {
         return runCatching {
-            reservations += MovieReservation(
-                id = reservationId++,
-                screeningMovie = screenMovieById(id),
-                screenDateTime = dateTime,
-                headCount = count,
-            )
+            reservations +=
+                MovieReservation(
+                    id = reservationId++,
+                    screeningMovie = screenMovieById(id),
+                    screenDateTime = dateTime,
+                    headCount = count,
+                )
         }
     }
 
     override fun movieReservationById(id: Long): MovieReservation {
         return reservations.find { it.id == id } ?: error(
-            "$id : id에 해당 하는 예약 내역이 없습니다."
+            "$id : id에 해당 하는 예약 내역이 없습니다.",
         )
     }
 }
-
-

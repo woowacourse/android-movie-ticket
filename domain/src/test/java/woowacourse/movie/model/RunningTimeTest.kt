@@ -4,7 +4,6 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.RunningTime
 import kotlin.time.Duration.Companion.minutes
 
 class RunningTimeTest {

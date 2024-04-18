@@ -62,7 +62,7 @@
         android:minHeight="0dp"
         android:paddingHorizontal="11dp"
         android:paddingVertical="10dp"
-        android:text="지금 예매"
+        android:text="@string/reservation_action_button"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

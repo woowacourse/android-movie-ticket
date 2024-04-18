@@ -2,7 +2,6 @@ package woowacourse.movie.model
 
 @JvmInline
 value class HeadCount(val count: Int) {
-
     init {
         require(count >= MIN_COUNT) {
             "$count - 예매는 ${MIN_COUNT}장 이상 부터 가능합니다."

@@ -5,7 +5,6 @@ import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.Price
 
 class PriceTest {
     @Test

@@ -13,7 +13,7 @@ interface MovieRepository {
     fun reserveMovie(
         id: Long,
         dateTime: LocalDateTime,
-        count: HeadCount
+        count: HeadCount,
     ): Result<Unit>
 
     fun movieReservationById(id: Long): MovieReservation
