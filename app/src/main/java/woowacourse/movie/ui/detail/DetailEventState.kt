@@ -8,7 +8,7 @@ sealed interface DetailEventState {
 
         data class UpdateTicket(val count: Int) : Success
 
-        data object NavigateToReservation : Success
+        data class NavigateToReservation(val id: Int) : Success
     }
 
     sealed interface Failure : DetailEventState {

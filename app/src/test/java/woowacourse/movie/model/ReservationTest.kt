@@ -12,6 +12,7 @@ class ReservationTest {
         // given & when
         val screen =
             Screen(
+                id = 1,
                 Movie(
                     "해리 포터와 마법사의 돌",
                     152,
@@ -24,6 +25,7 @@ class ReservationTest {
             )
         val reservation =
             Reservation(
+                id = 1,
                 screen,
                 3,
             )

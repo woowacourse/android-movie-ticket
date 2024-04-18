@@ -1,12 +1,19 @@
 package woowacourse.movie.ui.detail
 
+import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 
-class DetailViewModel(private val repository: ScreenRepository) {
+class DetailViewModel(
+    private val screenRepository: ScreenRepository,
+    private val reservationRepository: ReservationRepository,
+) {
     private var ticketCount: Int = MIN_TICKET_COUNT
+    private lateinit var screen: Screen
 
     fun loadScreen(id: Int): DetailEventState {
-        repository.findById(id = id).onSuccess { screen ->
+        screenRepository.findById(id = id).onSuccess { screen ->
+            this.screen = screen
             return DetailEventState.Success.ScreenLoading(screen)
         }.onFailure { e ->
             when (e) {
@@ -33,7 +40,14 @@ class DetailViewModel(private val repository: ScreenRepository) {
         return DetailEventState.Success.UpdateTicket(--ticketCount)
     }
 
-    fun clickReservationDone(): DetailEventState = DetailEventState.Success.NavigateToReservation
+    fun clickReservationDone(): DetailEventState {
+        reservationRepository.save(screen, ticketCount)
+            .onSuccess { id ->
+                return DetailEventState.Success.NavigateToReservation(id)
+            }
+
+        return DetailEventState.Failure.UnexpectedFinish("예상치 못한 에러가 발생했습니다")
+    }
 
     companion object {
         private const val MAX_TICKET_COUNT = 10

@@ -11,11 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
-import woowacourse.movie.ui.reservation.ReservationActivity
+import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.ui.reservation.ReservationActivity
 
 class DetailActivity : AppCompatActivity() {
-    private val detailViewModel: DetailViewModel by lazy { DetailViewModel(DummyScreens()) }
+    private val detailViewModel: DetailViewModel by lazy { DetailViewModel(DummyScreens(), DummyReservation) }
     private lateinit var ticketCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +56,10 @@ class DetailActivity : AppCompatActivity() {
                 when (state) {
                     is DetailEventState.Success.ScreenLoading -> bindScreen(state)
                     is DetailEventState.Success.UpdateTicket -> ticketCount.text = state.count.toString()
-                    is DetailEventState.Success.NavigateToReservation -> ReservationActivity.startActivity(this)
+                    is DetailEventState.Success.NavigateToReservation -> {
+                        ReservationActivity.startActivity(this, state.id)
+                        finish()
+                    }
                 }
             }
 
