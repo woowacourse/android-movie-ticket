@@ -16,13 +16,14 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 
 @RunWith(AndroidJUnit4::class)
-class DetailActivityTest{
+class DetailActivityTest {
     @get:Rule
-    val activityRule: ActivityScenarioRule<DetailActivity> = ActivityScenarioRule<DetailActivity>(
-        Intent(ApplicationProvider.getApplicationContext(), DetailActivity::class.java).apply {
-            putExtra("screenId", 1)
-        }
-    )
+    val activityRule: ActivityScenarioRule<DetailActivity> =
+        ActivityScenarioRule<DetailActivity>(
+            Intent(ApplicationProvider.getApplicationContext(), DetailActivity::class.java).apply {
+                putExtra("screenId", 1)
+            },
+        )
 
     private val plusBtn: ViewInteraction = onView(withId(R.id.btn_plus))
     private val minusBtn: ViewInteraction = onView(withId(R.id.btn_minus))
@@ -49,7 +50,6 @@ class DetailActivityTest{
         onView(withId(R.id.tv_count))
             .check(matches(withText("1")))
     }
-
 
     @Test
     fun `카운트가_1일_때_마이너스_버튼_누르면_감소하지_않는다`() {
