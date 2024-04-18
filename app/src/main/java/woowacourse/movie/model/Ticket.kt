@@ -3,9 +3,12 @@ package woowacourse.movie.model
 import java.io.Serializable
 
 class Ticket(
-    val movie: Movie,
-    var quantity: Int = MINIMUM_QUANTITY,
+    private val movie: Movie,
+    initialQuantity: Int = MINIMUM_QUANTITY,
 ) : Serializable {
+    var quantity: Int = initialQuantity
+        private set
+
     fun getTitle(): String {
         return movie.title
     }
