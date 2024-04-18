@@ -2,6 +2,7 @@ package woowacourse.movie.domain.repository
 
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.Ticket
 
 object DummyReservation : ReservationRepository {
     private val reservations = mutableListOf<Reservation>()
@@ -12,7 +13,7 @@ object DummyReservation : ReservationRepository {
     ): Result<Int> {
         return runCatching {
             val id = reservations.size + 1
-            reservations.add(Reservation(id, screen, count))
+            reservations.add(Reservation(id, screen, Ticket(count)))
             id
         }
     }

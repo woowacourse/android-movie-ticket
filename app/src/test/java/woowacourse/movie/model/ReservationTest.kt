@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.Ticket
 
 class ReservationTest {
     @Test
@@ -27,7 +28,7 @@ class ReservationTest {
             Reservation(
                 id = 1,
                 screen,
-                3,
+                Ticket(3),
             )
 
         // then

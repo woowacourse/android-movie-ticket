@@ -3,8 +3,8 @@ package woowacourse.movie.domain.model
 data class Reservation(
     val id: Int,
     val screen: Screen,
-    val count: Int,
+    val ticket: Ticket,
 ) {
     val totalPrice: Int
-        get() = count * screen.price
+        get() = ticket.count * screen.price
 }

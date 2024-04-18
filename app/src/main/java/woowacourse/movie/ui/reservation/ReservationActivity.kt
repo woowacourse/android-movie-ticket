@@ -57,7 +57,7 @@ class ReservationActivity : AppCompatActivity() {
         with(state.reservation) {
             title.text = screen.movie.title
             date.text = screen.date
-            count.text = getString(R.string.reserve_count).format(this.count)
+            count.text = getString(R.string.reserve_count).format(this.ticket)
             amount.text =
                 getString(R.string.reserve_amount).format(
                     when (Locale.getDefault().country) {
