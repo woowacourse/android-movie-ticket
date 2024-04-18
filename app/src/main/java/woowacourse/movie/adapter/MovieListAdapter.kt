@@ -9,9 +9,9 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.R
 import woowacourse.movie.contract.MainContract
 import woowacourse.movie.presenter.MainPresenter
-import woowacourse.movie.R
 import woowacourse.movie.view.ReservationActivity
 
 class MovieListAdapter(

@@ -8,10 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Count
+import woowacourse.movie.contract.ReservationContract
+import woowacourse.movie.presenter.ReservationPresenter
 
-class ReservationActivity : AppCompatActivity() {
-    private lateinit var count: Count
+class ReservationActivity : AppCompatActivity(), ReservationContract.View {
+    private lateinit var addButton: Button
+    private lateinit var subButton: Button
+    private val reservationPresenter: ReservationContract.Presenter = ReservationPresenter(this)
     private lateinit var countTextView: TextView
     private lateinit var titleTextView: TextView
     private lateinit var screenDateTextView: TextView
@@ -20,10 +23,46 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        count = Count()
-        fetchData(intent)
+        setUpView()
         setUpCount()
         bindReservationButton()
+    }
+
+    override fun setUpView() {
+        initImage()
+        initTitle()
+        initScreenDate()
+        initRunningTime()
+        descriptionTextView()
+    }
+
+    override fun updateTicketCount() {
+        countTextView.text = reservationPresenter.ticketCount().toString()
+    }
+
+    private fun initImage() {
+        val imageView: ImageView = findViewById(R.id.reservation_imageview)
+        imageView.setImageResource(intent.getIntExtra("image", 0))
+    }
+
+    private fun initTitle() {
+        titleTextView = findViewById(R.id.reservation_title_textview)
+        titleTextView.text = intent.getStringExtra("title")
+    }
+
+    private fun initScreenDate() {
+        screenDateTextView = findViewById(R.id.reservation_screen_date_textview)
+        screenDateTextView.text = intent.getStringExtra("screenDate")
+    }
+
+    private fun initRunningTime() {
+        val runningTimeTextView: TextView = findViewById(R.id.reservation_running_time_textview)
+        runningTimeTextView.text = intent.getStringExtra("runningTime")
+    }
+
+    private fun descriptionTextView() {
+        val description: TextView = findViewById(R.id.reservation_description)
+        description.text = intent.getStringExtra("description")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -31,42 +70,21 @@ class ReservationActivity : AppCompatActivity() {
         return true
     }
 
-    private fun fetchData(intent: Intent) {
-        val imageView: ImageView = findViewById(R.id.reservation_imageview)
-        titleTextView = findViewById(R.id.reservation_title_textview)
-        screenDateTextView = findViewById(R.id.reservation_screen_date_textview)
-        val runningTimeTextView: TextView = findViewById(R.id.reservation_running_time_textview)
-        val description: TextView = findViewById(R.id.reservation_description)
-
-        imageView.setImageResource(intent.getIntExtra("image", 0))
-        titleTextView.text = intent.getStringExtra("title")
-        screenDateTextView.text = intent.getStringExtra("screenDate")
-        runningTimeTextView.text = intent.getStringExtra("runningTime")
-        description.text = intent.getStringExtra("description")
-    }
-
     private fun setUpCount() {
         countTextView = findViewById(R.id.reservation_count_textview)
-        updateCountTextView()
+        countTextView.text = reservationPresenter.ticketCount().toString()
         bindCountButtons()
     }
 
-    private fun updateCountTextView() {
-        countTextView.text = count.amount.toString()
-    }
-
     private fun bindCountButtons() {
-        val addButton: Button = findViewById(R.id.add_button)
-        val subButton: Button = findViewById(R.id.sub_button)
+        addButton = findViewById(R.id.add_button)
+        subButton = findViewById(R.id.sub_button)
 
         addButton.setOnClickListener {
-            count.add()
-            updateCountTextView()
+            reservationPresenter.addTicketCount()
         }
-
         subButton.setOnClickListener {
-            count.sub()
-            updateCountTextView()
+            reservationPresenter.subTicketCount()
         }
     }
 
@@ -75,11 +93,11 @@ class ReservationActivity : AppCompatActivity() {
 
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationResultActivity::class.java)
-            intent.putExtra("title", titleTextView.text)
-            intent.putExtra("screenDate", screenDateTextView.text)
-            intent.putExtra("count", countTextView.text)
-            intent.putExtra("price", count.price())
-
+            reservationPresenter.clickReservationCompleteButton(
+                titleTextView.text.toString(),
+                screenDateTextView.text.toString(),
+                intent,
+            )
             this.startActivity(intent)
         }
     }
