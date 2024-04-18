@@ -15,7 +15,7 @@ class MovieListAdapter(
     private val context: Context,
     private val presenter: MainContract.Presenter,
 ) : BaseAdapter() {
-    private val movieList: List<Movie> = presenter.createMovieList()
+    private val movieList: List<Movie> = presenter.movieList()
 
     override fun getCount(): Int = movieList.size
 
