@@ -1,7 +1,6 @@
 package woowacourse.movie.presenter
 
 import android.content.Context
-import android.widget.ListView
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
