@@ -33,7 +33,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     override fun onClickReservationButton(screenMovieId: Long) {
         val intent =
             Intent(this, MovieReservationActivity::class.java).apply {
-                putExtra("screenMovieId", screenMovieId)
+                putExtra(MovieReservationActivity.EXTRA_SCREEN_MOVIE_ID, screenMovieId)
             }
         startActivity(intent)
     }

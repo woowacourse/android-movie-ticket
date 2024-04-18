@@ -5,9 +5,9 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.data.StubMovieRepository
-import woowacourse.movie.presenter.toUiModel
-import woowacourse.movie.repository.MovieRepository
-import woowacourse.movie.view.ReservationResultUiModel
+import woowacourse.movie.model.ReservationResultUiModel
+import woowacourse.movie.presenter.ReservationResultPresenter
+import woowacourse.movie.view.ReservationResultView
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter
@@ -15,9 +15,12 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
+
+        this::class.java.canonicalName
+
         presenter =
             ReservationResultPresenter(
-                id = intent.getLongExtra("reservationResultId", 0),
+                id = intent.getLongExtra(EXTRA_RESERVATION_ID, INVALID_RESERVATION_ID),
                 repository = StubMovieRepository,
                 view = this,
             )
@@ -42,19 +45,9 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         findViewById<TextView>(R.id.tv_result_total_price).text =
             getString(R.string.reservation_total_price_format, totalPrice)
     }
-}
 
-interface ReservationResultView {
-    fun showResult(reservationResult: ReservationResultUiModel)
-}
-
-class ReservationResultPresenter(
-    id: Long,
-    private val repository: MovieRepository,
-    private val view: ReservationResultView,
-) {
-    init {
-        val reservationResult = repository.movieReservationById(id).toUiModel()
-        view.showResult(reservationResult)
+    companion object {
+        val EXTRA_RESERVATION_ID: String? = this::class.java.canonicalName
+        const val INVALID_RESERVATION_ID: Long = -1
     }
 }

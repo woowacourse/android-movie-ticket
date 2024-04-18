@@ -24,7 +24,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         initView()
         initClickListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val id = intent.getLongExtra("screenMovieId", -1)
+        val id = intent.getLongExtra(EXTRA_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
         presenter =
             MovieReservationPresenter(
                 id, this, StubMovieRepository,
@@ -71,7 +71,12 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun navigateToReservationResultView(reservationId: Long) {
         val intent = Intent(this, ReservationResultActivity::class.java)
-        intent.putExtra("reservationResultId", reservationId)
+        intent.putExtra(ReservationResultActivity.EXTRA_RESERVATION_ID, reservationId)
         startActivity(intent)
+    }
+
+    companion object {
+        val EXTRA_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
+        const val INVALID_SCREEN_MOVIE_ID = -1L
     }
 }

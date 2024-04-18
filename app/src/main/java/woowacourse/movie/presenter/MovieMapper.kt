@@ -2,9 +2,9 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.model.MovieReservation
 import woowacourse.movie.model.MovieReservationUiModel
+import woowacourse.movie.model.ReservationResultUiModel
 import woowacourse.movie.model.ScreenMovieUiModel
 import woowacourse.movie.model.ScreeningMovie
-import woowacourse.movie.view.ReservationResultUiModel
 import java.time.format.DateTimeFormatter
 
 fun ScreeningMovie.toScreenMovieUiModel(): ScreenMovieUiModel {
