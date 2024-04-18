@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter
 
-import android.util.Log
 import woowacourse.movie.repository.MovieRepository
 import woowacourse.movie.view.ScreeningMovieView
 
@@ -14,8 +13,6 @@ class ScreenMoviePresenter(
 
     fun startReservation(id: Long) {
         val screenMovie = repository.screenMovieById(id)
-        Log.d("로그", "ScreenMoviePresenter - navigateToMovieReservationView() called $id")
-        Log.d("로그", "ScreenMoviePresenter - navigateToMovieReservationView() called $screenMovie")
         view.onClickReservationButton(screenMovie.id)
     }
 }
