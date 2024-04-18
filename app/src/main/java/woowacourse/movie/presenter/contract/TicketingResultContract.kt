@@ -7,4 +7,6 @@ interface TicketingResultContract {
         movieDate: String,
         price: Int,
     )
+
+    fun showErrorMessage(message: String)
 }

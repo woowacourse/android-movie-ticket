@@ -1,24 +1,30 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.MOVIES
-import woowacourse.movie.model.Tickets
+import woowacourse.movie.Result
+import woowacourse.movie.findMovieById
 import woowacourse.movie.presenter.contract.TicketingResultContract
 
 class TicketingResultPresenter(
     private val ticketingResultView: TicketingResultContract,
-    private val movieId: Int,
-    private val numberOfPeople: Int,
+    movieId: Int,
+    private val count: Int,
+    private val totalPrice: Int,
 ) {
-    private val movie = MOVIES.find { it.id == movieId }
+    private val movie = findMovieById(movieId)
 
     fun assignInitialView() {
-        movie?.let {
-            ticketingResultView.assignInitialView(
-                numberOfPeople,
-                movie.title,
-                movie.date,
-                Tickets(numberOfPeople).totalPrice,
-            )
+        when (movie) {
+            is Result.Success -> {
+                ticketingResultView.assignInitialView(
+                    count,
+                    movie.data.title,
+                    movie.data.date,
+                    totalPrice,
+                )
+            }
+            is Result.Error -> {
+                ticketingResultView.showErrorMessage(movie.message)
+            }
         }
     }
 }

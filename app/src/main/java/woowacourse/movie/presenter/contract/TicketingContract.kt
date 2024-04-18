@@ -13,5 +13,8 @@ interface TicketingContract {
     fun navigate(
         movieId: Int,
         count: Int,
+        totalPrice: Int,
     )
+
+    fun showErrorMessage(message: String)
 }

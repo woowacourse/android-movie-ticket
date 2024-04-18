@@ -1,8 +1,8 @@
 package woowacourse.movie.model
 
-class Tickets(private val numberOfTickets: Int) {
+class Tickets(private val count: Count) {
     val totalPrice: Int
-        get() = numberOfTickets * TICKET_PRICE
+        get() = count.value * TICKET_PRICE
 
     companion object {
         private const val TICKET_PRICE = 13000

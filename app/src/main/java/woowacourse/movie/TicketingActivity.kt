@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.TicketingPresenter
@@ -69,17 +70,24 @@ class TicketingActivity : AppCompatActivity(), TicketingContract {
     override fun navigate(
         movieId: Int,
         count: Int,
+        totalPrice: Int,
     ) {
         Intent(this, TicketingResultActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, movieId)
-            putExtra(EXTRA_NUMBER_OF_PEOPLE, count)
+            putExtra(EXTRA_COUNT, count)
+            putExtra(EXTRA_TOTAL_PRICE, totalPrice)
             startActivity(this)
             finish()
         }
     }
 
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
     companion object {
         const val EXTRA_MOVIE_ID = "movie_id"
-        const val EXTRA_NUMBER_OF_PEOPLE = "number_of_people"
+        const val EXTRA_COUNT = "number_of_people"
+        const val EXTRA_TOTAL_PRICE = "total_price"
     }
 }

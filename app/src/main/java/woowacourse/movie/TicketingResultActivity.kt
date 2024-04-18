@@ -3,9 +3,11 @@ package woowacourse.movie
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.TicketingActivity.Companion.EXTRA_COUNT
 import woowacourse.movie.TicketingActivity.Companion.EXTRA_MOVIE_ID
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_NUMBER_OF_PEOPLE
+import woowacourse.movie.TicketingActivity.Companion.EXTRA_TOTAL_PRICE
 import woowacourse.movie.presenter.TicketingResultPresenter
 import woowacourse.movie.presenter.contract.TicketingResultContract
 
@@ -15,9 +17,11 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing_result)
-        val numberOfPeople = intent.getIntExtra(EXTRA_NUMBER_OF_PEOPLE, 0)
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        ticketingResultPresenter = TicketingResultPresenter(this, movieId, numberOfPeople)
+        val count = intent.getIntExtra(EXTRA_COUNT, 0)
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
+        val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, 0)
+
+        ticketingResultPresenter = TicketingResultPresenter(this, movieId, count, totalPrice)
         ticketingResultPresenter.assignInitialView()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -37,6 +41,10 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract {
         movieDateText.text = movieDate
         numberOfPeopleText.text = getString(R.string.text_number_of_people, numberOfPeople)
         priceText.text = getString(R.string.text_price, price)
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
