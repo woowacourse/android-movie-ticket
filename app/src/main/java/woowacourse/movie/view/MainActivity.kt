@@ -7,14 +7,14 @@ import woowacourse.movie.conrtract.MainContract
 import woowacourse.movie.presenter.MainPresenter
 
 class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
-    private val mainPresenter: MainContract.Presenter by lazy { initializePresenter() }
+    private val presenter: MainContract.Presenter by lazy { initializePresenter() }
     private val movieContentList: ListView by lazy { findViewById(R.id.movie_content_list) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainPresenter.saveMovieContent()
+        presenter.saveMovieContent()
         setUpMovieContentListAdapter()
     }
 

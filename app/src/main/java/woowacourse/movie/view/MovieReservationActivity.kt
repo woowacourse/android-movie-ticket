@@ -19,7 +19,7 @@ import woowacourse.movie.ui.DateUi
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
     MovieReservationContract.View {
-    private val movieReservationPresenter: MovieReservationContract.Presenter by lazy { initializePresenter() }
+    private val presenter: MovieReservationContract.Presenter by lazy { initializePresenter() }
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
@@ -55,8 +55,8 @@ class MovieReservationActivity :
     }
 
     private fun setUpUi(movieContentId: Long) {
-        movieReservationPresenter.setUpMovieContent(movieContentId)
-        movieReservationPresenter.setUpReservationCount()
+        presenter.setUpMovieContent(movieContentId)
+        presenter.setUpReservationCount()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -69,15 +69,15 @@ class MovieReservationActivity :
 
     private fun setOnClickButtonListener() {
         minusButton.setOnClickListener {
-            movieReservationPresenter.clickMinusButton()
+            presenter.clickMinusButton()
         }
 
         plusButton.setOnClickListener {
-            movieReservationPresenter.clickPlusButton()
+            presenter.clickPlusButton()
         }
 
         reservationButton.setOnClickListener {
-            movieReservationPresenter.clickReservationButton()
+            presenter.clickReservationButton()
         }
     }
 

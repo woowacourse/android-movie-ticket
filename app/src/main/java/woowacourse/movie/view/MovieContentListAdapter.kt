@@ -20,18 +20,18 @@ import woowacourse.movie.ui.DateUi
 class MovieContentListAdapter(
     private val context: Context,
 ) : BaseAdapter(), MovieContentListAdapterContract.View {
-    private val movieContentListAdapterPresenter: MovieContentListAdapterContract.Presenter = MovieContentListAdapterPresenter(this)
+    private val presenter: MovieContentListAdapterContract.Presenter = MovieContentListAdapterPresenter(this)
     private lateinit var posterImage: ImageView
     private lateinit var titleText: TextView
     private lateinit var screeningDateText: TextView
     private lateinit var runningTimeText: TextView
     private lateinit var reservationButton: Button
 
-    override fun getCount(): Int = movieContentListAdapterPresenter.count()
+    override fun getCount(): Int = presenter.count()
 
-    override fun getItem(position: Int): MovieContent = movieContentListAdapterPresenter.item(position)
+    override fun getItem(position: Int): MovieContent = presenter.item(position)
 
-    override fun getItemId(position: Int): Long = movieContentListAdapterPresenter.itemId(position)
+    override fun getItemId(position: Int): Long = presenter.itemId(position)
 
     override fun getView(
         position: Int,
@@ -48,10 +48,10 @@ class MovieContentListAdapter(
         runningTimeText = view.findViewById(R.id.running_time_text)
         reservationButton = view.findViewById(R.id.reservation_button)
 
-        movieContentListAdapterPresenter.setUpMovieContent(position)
+        presenter.setUpMovieContent(position)
 
         reservationButton.setOnClickListener {
-            movieContentListAdapterPresenter.clickReservationButton(position)
+            presenter.clickReservationButton(position)
         }
 
         return view
