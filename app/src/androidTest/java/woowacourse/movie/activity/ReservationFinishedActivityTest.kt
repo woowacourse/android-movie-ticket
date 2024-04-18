@@ -17,7 +17,7 @@ class ReservationFinishedActivityTest {
     var activityRule =
         ActivityScenarioRule<ReservationFinishedActivity>(
             Intent(ApplicationProvider.getApplicationContext(), ReservationFinishedActivity::class.java).apply {
-                putExtra("movieId", 1)
+                putExtra("movieId", 0)
                 putExtra("ticket", Ticket())
             },
         )
