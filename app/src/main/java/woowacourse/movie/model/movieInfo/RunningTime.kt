@@ -7,5 +7,5 @@ class RunningTime(val time: Int): Serializable {
         require(time>0){ "상영시간은 존재해야한다." }
     }
 
-    override fun toString() = time.toString()
+    override fun toString() = time.toString()+"분"
 }

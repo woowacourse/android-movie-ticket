@@ -19,7 +19,7 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
         if(theater != null) {
             val movie = theater.movie
             findViewById<TextView>(R.id.movie_title_confirmation).text = movie.title.toString()
-            findViewById<TextView>(R.id.movie_screening_day).text = movie.releaseDate.toString()
+            findViewById<TextView>(R.id.purchase_movie_running_time).text = movie.runningTime.toString()
         }
 
         val charge = if(theater != null) theater.charge else 13000

@@ -34,7 +34,7 @@
         android:text="Movie Title" />
 
     <TextView
-        android:id="@+id/movie_screening_day"
+        android:id="@+id/purchase_movie_running_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/movie_title_confirmation"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:layout_below="@id/movie_screening_day"
+        android:layout_below="@id/purchase_movie_running_time"
         android:text="@string/_1_ticket_n_price_13_000" />
 
 </RelativeLayout>
