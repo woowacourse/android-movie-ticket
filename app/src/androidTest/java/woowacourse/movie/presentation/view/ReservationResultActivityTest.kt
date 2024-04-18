@@ -15,10 +15,10 @@ import woowacourse.movie.R
 class ReservationResultActivityTest {
     private val testContext = ApplicationProvider.getApplicationContext<Context>()
     private val intent: Intent = reservationResultActivityIntent(testContext)
-    
+
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationResultActivity>(intent)
-    
+
     @Test
     fun `영화_상세_화면에서_전달_받은_예매_정보를_화면에_나타낸다`() {
         onView(withId(R.id.title)).check(matches(withText(TITLE)))
@@ -30,10 +30,10 @@ class ReservationResultActivityTest {
                 withText(
                     testContext.getString(
                         R.string.reservation_count_format,
-                        RESERVATION_COUNT
-                    )
-                )
-            )
+                        RESERVATION_COUNT,
+                    ),
+                ),
+            ),
         )
         onView(
             withId(R.id.totalPrice),
@@ -42,10 +42,10 @@ class ReservationResultActivityTest {
                 withText(
                     testContext.getString(
                         R.string.reservation_total_price_format,
-                        TOTAL_PRICE
-                    )
-                )
-            )
+                        TOTAL_PRICE,
+                    ),
+                ),
+            ),
         )
     }
 }
