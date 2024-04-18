@@ -1,6 +1,7 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.MOVIES
+import woowacourse.movie.model.Count
 import woowacourse.movie.presenter.contract.TicketingContract
 
 class TicketingPresenter(
@@ -8,25 +9,23 @@ class TicketingPresenter(
     private val movieId: Int,
 ) {
     private val movie = MOVIES.find { it.id == movieId }
-    private var count = 1
+    private var count = Count()
 
     fun assignInitialView() {
-        movie?.let { ticketingContractView.assignInitialView(movie, count) }
+        movie?.let { ticketingContractView.assignInitialView(movie, count.value) }
     }
 
     fun decreaseCount() {
-        if (count > 1) {
-            count--
-            ticketingContractView.updateCount(count)
-        }
+        count.decrease()
+        ticketingContractView.updateCount(count.value)
     }
 
     fun increaseCount() {
-        count++
-        ticketingContractView.updateCount(count)
+        count.increase()
+        ticketingContractView.updateCount(count.value)
     }
 
     fun navigate() {
-        movie?.let { ticketingContractView.navigate(it.id, count) }
+        movie?.let { ticketingContractView.navigate(it.id, count.value) }
     }
 }
