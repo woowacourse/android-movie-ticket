@@ -1,10 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.model
 
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.HeadCount
 
 class HeadCountTest {
 

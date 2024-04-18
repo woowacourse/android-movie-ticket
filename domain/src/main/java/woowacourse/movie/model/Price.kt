@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.model
 
 @JvmInline
 value class Price(val price: Long) {
