@@ -2,7 +2,7 @@ package woowacourse.movie.conrtract
 
 import woowacourse.movie.model.MovieContent
 
-interface MovieContentListAdapterContract {
+interface MovieContentListContract {
     interface View {
         fun setUpMovieContentUi(movieContent: MovieContent)
 

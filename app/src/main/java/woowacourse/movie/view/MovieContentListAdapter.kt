@@ -11,16 +11,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.conrtract.MovieContentListAdapterContract
+import woowacourse.movie.conrtract.MovieContentListContract
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.model.MovieContent
-import woowacourse.movie.presenter.MovieContentListAdapterPresenter
+import woowacourse.movie.presenter.MovieContentListPresenter
 import woowacourse.movie.ui.DateUi
 
 class MovieContentListAdapter(
     private val context: Context,
-) : BaseAdapter(), MovieContentListAdapterContract.View {
-    private val presenter: MovieContentListAdapterContract.Presenter = MovieContentListAdapterPresenter(this)
+) : BaseAdapter(), MovieContentListContract.View {
+    private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this)
     private lateinit var posterImage: ImageView
     private lateinit var titleText: TextView
     private lateinit var screeningDateText: TextView
