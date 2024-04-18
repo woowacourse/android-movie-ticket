@@ -2,7 +2,7 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.model.Failure
 import woowacourse.movie.model.Movies
-import woowacourse.movie.model.Result
+import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.view.ReservationDetailContract
@@ -38,7 +38,7 @@ class ReservationDetailPresenter(private val contract: ReservationDetailContract
     }
 
     private fun handleNumberOfTicketsBounds(
-        result: Result,
+        result: ChangeTicketCountResult,
         ticket: Ticket,
     ) {
         when (result) {

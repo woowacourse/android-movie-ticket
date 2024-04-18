@@ -6,13 +6,13 @@ class Ticket : Serializable {
     var count: Int = DEFAULT_TICKET_COUNT
         private set
 
-    fun increaseCount(): Result {
+    fun increaseCount(): ChangeTicketCountResult {
         if (count >= MAX_TICKET_COUNT) return Failure
         count++
         return Success
     }
 
-    fun decreaseCount(): Result {
+    fun decreaseCount(): ChangeTicketCountResult {
         if (count <= MIN_TICKET_COUNT) return Failure
         count--
         return Success
