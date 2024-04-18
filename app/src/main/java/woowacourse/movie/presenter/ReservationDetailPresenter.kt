@@ -1,15 +1,17 @@
 package woowacourse.movie.presenter
 
+import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Failure
 import woowacourse.movie.model.Movies
-import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.view.ReservationDetailContract
 
-class ReservationDetailPresenter(private val contract: ReservationDetailContract) {
-    val ticket = Ticket()
+class ReservationDetailPresenter(
+    private val contract: ReservationDetailContract,
+) {
     private val movies = Movies.obtainMovies()
+    val ticket = Ticket()
 
     fun detectIncreaseCount() {
         contract.initializePlusButton(::increaseTicketCount)
@@ -17,6 +19,14 @@ class ReservationDetailPresenter(private val contract: ReservationDetailContract
 
     fun detectDecreaseCount() {
         contract.initializeMinusButton(::decreaseTicketCount)
+    }
+
+    fun deliverMovie(movieId: Int) {
+        contract.showMovieInformation(movies[movieId])
+    }
+
+    fun deliverReservationHistory(movieId: Int) {
+        contract.initializeReservationButton(movieId)
     }
 
     private fun increaseTicketCount() {
@@ -27,14 +37,6 @@ class ReservationDetailPresenter(private val contract: ReservationDetailContract
     private fun decreaseTicketCount() {
         val result = ticket.decreaseCount()
         handleNumberOfTicketsBounds(result, ticket)
-    }
-
-    fun deliverMovie(movieId: Int) {
-        contract.showMovieInformation(movies[movieId])
-    }
-
-    fun deliverReservationHistory(movieId: Int) {
-        contract.initializeReservationButton(movieId)
     }
 
     private fun handleNumberOfTicketsBounds(
