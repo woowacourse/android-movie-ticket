@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    tools:text="해리 포터와 마법사의 돌"
+                    tools:text="@string/harry_potter_title"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
 
@@ -53,21 +53,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="34dp" />
 
-                <TextView
-                    android:id="@+id/movie_detail_screening_date"
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="상영일 : 2024.3.1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/movie_detail_running_date"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/screening_date_text"
+                        android:paddingEnd="4dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/movie_detail_screening_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/harry_potter_screening_date"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="러닝타임 : 152분"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/running_time_text"
+                        android:textColor="@color/black"
+                        android:paddingEnd="4dp"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/movie_detail_running_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/harry_potter_running_time"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/minute_text"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
 
                 <Space
                     android:layout_width="match_parent"

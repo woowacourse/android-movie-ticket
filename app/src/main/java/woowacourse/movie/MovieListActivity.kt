@@ -14,9 +14,9 @@ class MovieListActivity : AppCompatActivity() {
         val movieList =
             arrayListOf(
                 Movie(
-                    "해리 포터와 마법사의 돌",
+                    getString(R.string.harry_potter_title),
                     R.drawable.harry_potter_poster,
-                    "2024.3.1",
+                    getString(R.string.harry_potter_screening_date),
                     152,
                     getString(R.string.harry_potter_description),
                 ),

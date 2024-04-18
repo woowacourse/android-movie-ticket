@@ -38,12 +38,12 @@ class MovieListAdapter(
         val title = view.findViewById<TextView>(R.id.movie_title)
         val poster = view.findViewById<ImageView>(R.id.movie_poster)
         val screeningDate = view.findViewById<TextView>(R.id.movie_screening_date)
-        val runningTime = view.findViewById<TextView>(R.id.movie_running_date)
+        val runningTime = view.findViewById<TextView>(R.id.movie_running_time)
 
         title.text = movie.title
         poster.setImageResource(movie.posterResourceId)
-        screeningDate.text = "상영일: ${movie.screeningDate}"
-        runningTime.text = "러닝타임: ${movie.runningTime}분"
+        screeningDate.text = movie.screeningDate
+        runningTime.text = movie.runningTime.toString()
 
         val movieReservationButton = view.findViewById<Button>(R.id.movie_reservation_button)
 

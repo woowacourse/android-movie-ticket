@@ -49,8 +49,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketingButton = findViewById(R.id.ticketing_button)
         movie?.let {
             titleView.text = it.title
-            screeningDateView.text = "상영일: ${it.screeningDate}"
-            runningDateView.text = "러닝타임: ${it.runningTime}분"
+            screeningDateView.text = it.screeningDate
+            runningDateView.text = it.runningTime.toString()
             descriptionView.text = it.description
             posterView.setImageResource(it.posterResourceId)
         }
