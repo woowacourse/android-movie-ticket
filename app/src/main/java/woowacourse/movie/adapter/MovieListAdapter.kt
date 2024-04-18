@@ -37,7 +37,7 @@ class MovieListAdapter(
         val view: View
         val movie = movieList[position]
         if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent)
+            view = LayoutInflater.from(context).inflate(R.layout.movie_item, null)
             makeViewHolder(view)
         } else {
             view = convertView
