@@ -21,6 +21,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_result)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         completeTitleTextView = findViewById(R.id.resultTitle)
         completeDateTextView = findViewById(R.id.resultDate)
