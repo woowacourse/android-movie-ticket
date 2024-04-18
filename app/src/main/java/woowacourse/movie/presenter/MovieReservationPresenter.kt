@@ -10,7 +10,7 @@ class MovieReservationPresenter(private val view: MovieReservationContract.View)
 
     override fun setUpReservationCount() {
         reservationCount = ReservationCount()
-        view.setUpReservationCountUi(reservationCount.count)
+        view.updateReservationCountUi(reservationCount.count)
     }
 
     override fun setUpMovieContent(movieContentId: Long) {
@@ -20,12 +20,12 @@ class MovieReservationPresenter(private val view: MovieReservationContract.View)
 
     override fun clickMinusButton() {
         reservationCount = --reservationCount
-        view.bindDecreasedReservationCount(reservationCount.count)
+        view.updateReservationCountUi(reservationCount.count)
     }
 
     override fun clickPlusButton() {
         reservationCount = ++reservationCount
-        view.bindIncreasedReservationCount(reservationCount.count)
+        view.updateReservationCountUi(reservationCount.count)
     }
 
     override fun clickReservationButton() {

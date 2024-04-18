@@ -92,15 +92,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun setUpReservationCountUi(reservationCount: Int) {
-        reservationCountText.text = reservationCount.toString()
-    }
-
-    override fun bindDecreasedReservationCount(reservationCount: Int) {
-        reservationCountText.text = reservationCount.toString()
-    }
-
-    override fun bindIncreasedReservationCount(reservationCount: Int) {
+    override fun updateReservationCountUi(reservationCount: Int) {
         reservationCountText.text = reservationCount.toString()
     }
 

@@ -7,11 +7,7 @@ interface MovieReservationContract {
     interface View : BaseView {
         fun setUpMovieContentUi(movieContent: MovieContent)
 
-        fun setUpReservationCountUi(reservationCount: Int)
-
-        fun bindDecreasedReservationCount(reservationCount: Int)
-
-        fun bindIncreasedReservationCount(reservationCount: Int)
+        fun updateReservationCountUi(reservationCount: Int)
 
         fun moveMovieReservationCompleteView(reservationCount: Int)
     }
