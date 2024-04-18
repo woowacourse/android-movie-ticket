@@ -69,7 +69,7 @@ class MovieContentListAdapter(
     }
 
     override fun moveMovieReservationView(movieContentId: Long) {
-        Intent(context, MovieReservationActivity::class.java).apply {
+        Intent(context, MovieReservationActivity::class.java).run {
             putExtra(MovieContentKey.ID, movieContentId)
             startActivity(context, this, null)
         }

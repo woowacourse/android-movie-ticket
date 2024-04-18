@@ -97,7 +97,7 @@ class MovieReservationActivity :
     }
 
     override fun moveMovieReservationCompleteView(reservationCount: Int) {
-        Intent(this, MovieReservationCompleteActivity::class.java).apply {
+        Intent(this, MovieReservationCompleteActivity::class.java).run {
             putExtra(MovieContentKey.ID, movieContentId())
             putExtra(MovieReservationKey.COUNT, reservationCount)
             startActivity(this)
