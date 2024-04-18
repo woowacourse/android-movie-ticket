@@ -71,6 +71,12 @@ class MovieReservationActivityTest {
     }
 
     @Test
+    fun `초기_예매_인원은_1이다`() {
+        onView(withId(R.id.reservation_count_text))
+            .check(matches(withText("1")))
+    }
+
+    @Test
     fun `증가_버튼을_누르면_예매_인원_수가_증가한다`() {
         onView(withId(R.id.plus_button))
             .perform(click())
