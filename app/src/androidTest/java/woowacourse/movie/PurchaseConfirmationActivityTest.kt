@@ -43,6 +43,17 @@ class PurchaseConfirmationActivityTest {
     val activityScenarioRule = ActivityScenarioRule<PurchaseConfirmationActivity>(intent)
 
     @Test
+    fun titleTest() {
+        Espresso.onView(withId(R.id.movie_title_confirmation))
+            .check(matches(ViewMatchers.withText("차람과 하디의 진지한 여행기")))
+    }
+    @Test
+    fun runningTimeTest() {
+        Espresso.onView(withId(R.id.movie_screening_day))
+            .check(matches(ViewMatchers.withText("230")))
+    }
+
+    @Test
     fun getFeeTest() {
         Espresso.onView(withId(R.id.ticket_charge))
             .check(matches(ViewMatchers.withText("price: 30000")))
