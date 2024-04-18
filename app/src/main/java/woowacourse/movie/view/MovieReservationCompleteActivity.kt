@@ -76,7 +76,7 @@ class MovieReservationCompleteActivity :
     override fun setUpTicketUi(ticket: Ticket) {
         ticket.run {
             reservationCountText.text =
-                resources.getString(R.string.reservation_count).format(count)
+                resources.getString(R.string.reservation_count).format(reservationCount.count)
             reservationAmountText.text =
                 resources.getString(R.string.reservation_amount).format(amount())
         }

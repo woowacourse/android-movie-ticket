@@ -2,6 +2,7 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.conrtract.MovieReservationCompleteContract
 import woowacourse.movie.data.MovieContentsImpl
+import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Ticket
 
 class MovieReservationCompletePresenter(private val view: MovieReservationCompleteContract.View) :
@@ -12,7 +13,7 @@ class MovieReservationCompletePresenter(private val view: MovieReservationComple
     }
 
     override fun setUpTicket(reservationCount: Int) {
-        val ticket = Ticket(reservationCount)
+        val ticket = Ticket(ReservationCount(reservationCount))
         view.setUpTicketUi(ticket)
     }
 }
