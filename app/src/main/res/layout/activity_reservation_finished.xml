@@ -32,25 +32,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="해리 포터와 마법사의 돌"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_reservation_finished" />
+        app:layout_constraintTop_toBottomOf="@id/view_reservation_finished"
+        tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
         android:id="@+id/text_view_reservation_finished_screening_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="2024.3.1"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/text_view_reservation_finished_title"
         app:layout_constraintStart_toStartOf="@id/text_view_reservation_finished_title"
-        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_title" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_title"
+        tools:text="2024.3.1" />
 
     <TextView
         android:id="@+id/text_view_reservation_finished_viewing_class"
@@ -68,12 +68,12 @@
         android:id="@+id/text_view_reservation_finished_number_of_tickets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/text_view_reservation_finished_viewing_class"
         app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_person"
         app:layout_constraintStart_toEndOf="@id/text_view_reservation_finished_viewing_class"
-        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_viewing_class" />
+        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_viewing_class"
+        tools:text="0" />
 
     <TextView
         android:id="@+id/text_view_reservation_finished_person"
@@ -91,12 +91,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="0"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_price_unit"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_number_of_tickets" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_number_of_tickets"
+        tools:text="0" />
 
     <TextView
         android:id="@+id/text_view_reservation_finished_price_unit"
