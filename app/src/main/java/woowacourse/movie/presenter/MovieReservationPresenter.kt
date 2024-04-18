@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter
 
-import android.util.Log
 import woowacourse.movie.conrtract.MovieReservationContract
 import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.ReservationCount

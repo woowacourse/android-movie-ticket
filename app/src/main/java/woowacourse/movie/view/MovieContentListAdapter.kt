@@ -11,21 +11,27 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
+import woowacourse.movie.conrtract.MovieContentListAdapterContract
 import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.dao.MovieContentsImpl
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.presenter.MovieContentListAdapterPresenter
 import woowacourse.movie.ui.DateUi
 
 class MovieContentListAdapter(
     private val context: Context,
-) : BaseAdapter() {
-    private val movieContents = MovieContentsImpl.findAll()
+) : BaseAdapter(), MovieContentListAdapterContract.View {
+    private val movieContentListAdapterPresenter: MovieContentListAdapterContract.Presenter = MovieContentListAdapterPresenter(this)
+    private lateinit var posterImage: ImageView
+    private lateinit var titleText: TextView
+    private lateinit var screeningDateText: TextView
+    private lateinit var runningTimeText: TextView
+    private lateinit var reservationButton: Button
 
-    override fun getCount(): Int = movieContents.size
+    override fun getCount(): Int = movieContentListAdapterPresenter.count()
 
-    override fun getItem(position: Int): MovieContent = movieContents[position]
+    override fun getItem(position: Int): MovieContent = movieContentListAdapterPresenter.item(position)
 
-    override fun getItemId(position: Int): Long = getItem(position).id
+    override fun getItemId(position: Int): Long = movieContentListAdapterPresenter.itemId(position)
 
     override fun getView(
         position: Int,
@@ -36,26 +42,35 @@ class MovieContentListAdapter(
             convertView ?: LayoutInflater.from(context)
                 .inflate(R.layout.item_movie_content, parent, false)
 
-        val posterImage = view.findViewById<ImageView>(R.id.poster_image)
-        val titleText = view.findViewById<TextView>(R.id.title_text)
-        val screeningDateText = view.findViewById<TextView>(R.id.screening_date_text)
-        val runningTimeText = view.findViewById<TextView>(R.id.running_time_text)
-        val reservationButton = view.findViewById<Button>(R.id.reservation_button)
+        posterImage = view.findViewById(R.id.poster_image)
+        titleText = view.findViewById(R.id.title_text)
+        screeningDateText = view.findViewById(R.id.screening_date_text)
+        runningTimeText = view.findViewById(R.id.running_time_text)
+        reservationButton = view.findViewById(R.id.reservation_button)
 
-        getItem(position).run {
-            posterImage.setImageResource(imageId)
-            titleText.text = title
-            screeningDateText.text = DateUi.screeningDateMessage(screeningDate, context)
-            runningTimeText.text = context.resources.getString(R.string.running_time).format(runningTime)
-        }
+        movieContentListAdapterPresenter.setUpMovieContent(position)
 
         reservationButton.setOnClickListener {
-            Intent(context, MovieReservationActivity::class.java).apply {
-                putExtra(MovieContentKey.ID, getItemId(position))
-                startActivity(context, this, null)
-            }
+            movieContentListAdapterPresenter.clickReservationButton(position)
         }
 
         return view
+    }
+
+    override fun setUpMovieContentUi(movieContent: MovieContent) {
+        movieContent.run {
+            posterImage.setImageResource(imageId)
+            titleText.text = title
+            screeningDateText.text = DateUi.screeningDateMessage(screeningDate, context)
+            runningTimeText.text =
+                context.resources.getString(R.string.running_time).format(runningTime)
+        }
+    }
+
+    override fun moveMovieReservationView(movieContentId: Long) {
+        Intent(context, MovieReservationActivity::class.java).apply {
+            putExtra(MovieContentKey.ID, movieContentId)
+            startActivity(context, this, null)
+        }
     }
 }
