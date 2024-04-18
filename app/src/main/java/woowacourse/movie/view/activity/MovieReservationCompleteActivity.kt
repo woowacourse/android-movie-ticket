@@ -9,8 +9,8 @@ import woowacourse.movie.R
 import woowacourse.movie.conrtract.MovieReservationCompleteContract
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
-import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.presenter.MovieReservationCompletePresenter
 import woowacourse.movie.view.ui.DateUi
 

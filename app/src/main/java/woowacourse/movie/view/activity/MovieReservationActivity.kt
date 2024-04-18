@@ -12,7 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.conrtract.MovieReservationContract
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
-import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.presenter.MovieReservationPresenter
 import woowacourse.movie.view.ui.DateUi
 

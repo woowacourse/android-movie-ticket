@@ -1,6 +1,6 @@
 package woowacourse.movie.model.data
 
-import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.data.dto.MovieContent
 
 object MovieContentsImpl : MovieContents {
     private var id: Long = 0

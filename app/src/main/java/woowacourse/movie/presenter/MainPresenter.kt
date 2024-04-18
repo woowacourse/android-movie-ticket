@@ -2,9 +2,9 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.R
 import woowacourse.movie.conrtract.MainContract
-import woowacourse.movie.model.Date
-import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.data.dto.Date
+import woowacourse.movie.model.data.dto.MovieContent
 
 class MainPresenter : MainContract.Presenter {
     override fun saveMovieContent() {

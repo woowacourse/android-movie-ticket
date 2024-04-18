@@ -2,7 +2,7 @@ package woowacourse.movie.view.ui
 
 import android.content.Context
 import woowacourse.movie.R
-import woowacourse.movie.model.Date
+import woowacourse.movie.model.data.dto.Date
 
 object DateUi {
     fun screeningDateMessage(

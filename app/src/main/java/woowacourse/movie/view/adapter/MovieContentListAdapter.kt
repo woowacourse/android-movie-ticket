@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.conrtract.MovieContentListContract
 import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.presenter.MovieContentListPresenter
 import woowacourse.movie.view.activity.MovieReservationActivity
 import woowacourse.movie.view.ui.DateUi

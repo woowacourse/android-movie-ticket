@@ -1,7 +1,7 @@
 package woowacourse.movie.conrtract
 
-import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.view.BaseView
 
 interface MovieReservationCompleteContract {
