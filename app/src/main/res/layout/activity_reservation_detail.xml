@@ -36,8 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="27dp"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:textAppearance="@style/Bold24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_view_reservation_detail_poster"
                 tools:text="해리 포터와 마법사의 돌" />
@@ -100,8 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reservation_detail_minus"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/Bold20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,8 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reservation_detail_default_ticket_count"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/Bold20"
             app:layout_constraintBottom_toBottomOf="@id/button_reservation_detail_minus"
             app:layout_constraintEnd_toStartOf="@id/button_reservation_detail_plus"
             app:layout_constraintStart_toEndOf="@id/button_reservation_detail_minus"
@@ -122,8 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/reservation_detail_plus"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/Bold20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,8 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/reservation_detail_finished_reservation"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/Bold20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_view_reservation_detail_number_of_tickets" />
