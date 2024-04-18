@@ -29,7 +29,7 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
             }
 
         movieMainPresenter = MovieMainPresenter(this)
-        movieList = findViewById<ListView>(R.id.movieList)
+        movieList = findViewById<ListView>(R.id.mainList)
         movieList.adapter = movieMainPresenter.getAdapter(this)
     }
 

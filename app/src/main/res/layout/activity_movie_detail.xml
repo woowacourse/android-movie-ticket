@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toBottomOf="@id/detailImage" />
 
             <TextView
-                android:id="@+id/detailDateTitle"
+                android:id="@+id/detailDateName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -57,17 +57,16 @@
                 android:id="@+id/detailDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:hint="2024.3.1"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/detailDateTitle"
-                app:layout_constraintLeft_toRightOf="@id/detailDateTitle"
-                app:layout_constraintTop_toTopOf="@id/detailDateTitle" />
+                app:layout_constraintBottom_toBottomOf="@id/detailDateName"
+                app:layout_constraintLeft_toRightOf="@id/detailDateName"
+                app:layout_constraintTop_toTopOf="@id/detailDateName" />
 
             <TextView
-                android:id="@+id/detailRunningTimeTitle"
+                android:id="@+id/detailRunningTimeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -75,7 +74,7 @@
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintLeft_toLeftOf="@id/detailTitle"
-                app:layout_constraintTop_toBottomOf="@id/detailDateTitle" />
+                app:layout_constraintTop_toBottomOf="@id/detailDateName" />
 
             <TextView
                 android:id="@+id/detailRunningTime"
@@ -85,9 +84,9 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/detailRunningTimeTitle"
-                app:layout_constraintLeft_toRightOf="@id/detailRunningTimeTitle"
-                app:layout_constraintTop_toTopOf="@id/detailRunningTimeTitle" />
+                app:layout_constraintBottom_toBottomOf="@id/detailRunningTimeName"
+                app:layout_constraintLeft_toRightOf="@id/detailRunningTimeName"
+                app:layout_constraintTop_toTopOf="@id/detailRunningTimeName" />
 
             <TextView
                 android:id="@+id/detailDescription"
@@ -97,7 +96,7 @@
                 android:text="a\nb\nc\nd\ne\n"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
-                app:layout_constraintLeft_toLeftOf="@id/detailRunningTimeTitle"
+                app:layout_constraintLeft_toLeftOf="@id/detailRunningTimeName"
                 app:layout_constraintTop_toBottomOf="@id/detailRunningTime"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -111,7 +110,7 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/minus"
+            android:id="@+id/detailMinusBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -119,23 +118,23 @@
             android:text="-"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/reservationComplete"/>
+            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
 
         <TextView
-            android:id="@+id/reservationCount"
+            android:id="@+id/detailReservCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@id/reservationComplete"
-            app:layout_constraintEnd_toStartOf="@+id/plus"
-            app:layout_constraintStart_toEndOf="@+id/minus"
+            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
+            app:layout_constraintEnd_toStartOf="@+id/detailPlusBtn"
+            app:layout_constraintStart_toEndOf="@+id/detailMinusBtn"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/plus"
+            android:id="@+id/detailPlusBtn"
             android:layout_width="0dp"
             android:textSize="25dp"
             android:layout_height="wrap_content"
@@ -143,11 +142,11 @@
             android:text="+"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/reservationComplete"/>
+            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
 
 
         <Button
-            android:id="@+id/reservationComplete"
+            android:id="@+id/detailReservCompleteBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -18,7 +18,7 @@ class MovieMainActivityTest {
 
     @Test
     fun `영화_목록이_화면에_표시된다`() {
-        onView(withId(R.id.movieList))
+        onView(withId(R.id.mainList))
             .check(matches(isDisplayed()))
     }
 

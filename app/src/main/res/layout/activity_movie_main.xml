@@ -7,7 +7,7 @@
     tools:context=".view.MovieMainActivity">
 
     <ListView
-        android:id="@+id/movieList"
+        android:id="@+id/mainList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

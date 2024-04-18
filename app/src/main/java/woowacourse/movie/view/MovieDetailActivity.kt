@@ -47,10 +47,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         detailDate = findViewById(R.id.detailDate)
         detailRunningTime = findViewById(R.id.detailRunningTime)
         detailDescription = findViewById(R.id.detailDescription)
-        reservationCount = findViewById(R.id.reservationCount)
-        minusButton = findViewById(R.id.minus)
-        plusButton = findViewById(R.id.plus)
-        reservationCompleteButton = findViewById(R.id.reservationComplete)
+        reservationCount = findViewById(R.id.detailReservCount)
+        minusButton = findViewById(R.id.detailMinusBtn)
+        plusButton = findViewById(R.id.detailPlusBtn)
+        reservationCompleteButton = findViewById(R.id.detailReservCompleteBtn)
 
         movieDetailPresenter.display(intent.getLongExtra("movieId", 0))
     }

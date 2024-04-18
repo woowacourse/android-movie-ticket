@@ -58,30 +58,30 @@ class MovieDetailActivityTest {
 
     @Test
     fun `예매_인원수의_초기값은_1이다`() {
-        onView(withId(R.id.reservationCount))
+        onView(withId(R.id.detailReservCount))
             .check(matches(withText("1")))
     }
 
     @Test
     fun `플러스_버튼을_클릭하면_예매_인원수의_값이_1만큼_증가한다`() {
-        onView(withId(R.id.plus)).perform(click())
-        onView(withId(R.id.reservationCount))
+        onView(withId(R.id.detailPlusBtn)).perform(click())
+        onView(withId(R.id.detailReservCount))
             .check(matches(withText("2")))
     }
 
     @Test
     fun `예매_인원수가_1일떄_마이너스_버튼을_클릭하면_예매_인원수의_값이_유지된다`() {
-        onView(withId(R.id.minus)).perform(click())
-        onView(withId(R.id.reservationCount))
+        onView(withId(R.id.detailMinusBtn)).perform(click())
+        onView(withId(R.id.detailReservCount))
             .check(matches(withText("1")))
     }
 
     @Test
     fun `예매_인원수가_1초과일때_마이너스_버튼을_클릭하면_예매_인원수의_값이_1만큼_감소한다`() {
-        onView(withId(R.id.plus)).perform(click())
-        onView(withId(R.id.plus)).perform(click())
-        onView(withId(R.id.minus)).perform(click())
-        onView(withId(R.id.reservationCount))
+        onView(withId(R.id.detailPlusBtn)).perform(click())
+        onView(withId(R.id.detailPlusBtn)).perform(click())
+        onView(withId(R.id.detailMinusBtn)).perform(click())
+        onView(withId(R.id.detailReservCount))
             .check(matches(withText("2")))
     }
 }

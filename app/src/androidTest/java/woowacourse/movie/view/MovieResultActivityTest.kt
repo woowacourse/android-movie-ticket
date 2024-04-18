@@ -41,13 +41,13 @@ class MovieResultActivityTest {
 
     @Test
     fun `예매한_영화의_인원수_표시된다`() {
-        onView(withId(R.id.resultReservationCount))
+        onView(withId(R.id.resultReservCount))
             .check(matches(withText("3명")))
     }
 
     @Test
     fun `예매한_영화의_가격이_표시된다`() {
-        onView(withId(R.id.resultReservationPrice))
+        onView(withId(R.id.resultReservPrice))
             .check(matches(withText("39,000원")))
     }
 }

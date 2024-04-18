@@ -24,8 +24,8 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
 
         completeTitleTextView = findViewById(R.id.resultTitle)
         completeDateTextView = findViewById(R.id.resultDate)
-        completeReservationCountTextView = findViewById(R.id.resultReservationCount)
-        completeReservationPriceTextView = findViewById(R.id.resultReservationPrice)
+        completeReservationCountTextView = findViewById(R.id.resultReservCount)
+        completeReservationPriceTextView = findViewById(R.id.resultReservPrice)
 
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.display(intent.getLongExtra("movieId", 0), intent.getIntExtra("movieReservationCount", 0))

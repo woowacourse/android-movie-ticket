@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@id/resultTitle" />
 
     <TextView
-        android:id="@+id/resultReservationCountType"
+        android:id="@+id/resultReservCountType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="일반 "
@@ -60,49 +60,73 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/resultReservationCount"
+        app:layout_constraintRight_toLeftOf="@id/resultReservCount"
         app:layout_constraintTop_toBottomOf="@id/resultDate"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/resultReservationCount"
+        android:id="@+id/resultReservCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="1명"
+        android:hint="1"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/resultReservationCountType"
+        app:layout_constraintLeft_toRightOf="@id/resultReservCountType"
+        app:layout_constraintRight_toLeftOf="@id/resultReservCountFormat"
+        app:layout_constraintTop_toBottomOf="@id/resultDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultReservCountFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="명"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/resultReservCount"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/resultDate"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:id="@+id/resultReservationPrice"
+        android:id="@+id/resultReservPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:hint="13,000원"
+        android:hint="13,000"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/resultReservationType"
-        app:layout_constraintTop_toBottomOf="@id/resultReservationCount" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintRight_toLeftOf="@id/resultReservPriceFormat"
+        app:layout_constraintTop_toBottomOf="@id/resultReservCount" />
+
+    <TextView
+        android:id="@+id/resultReservPriceFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="원"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+
+        app:layout_constraintLeft_toRightOf="@id/resultReservPrice"
+        app:layout_constraintRight_toLeftOf="@id/resultReservType"
+        app:layout_constraintTop_toBottomOf="@id/resultReservCount" />
 
 
     <TextView
-        android:id="@+id/resultReservationType"
+        android:id="@+id/resultReservType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint=" (현장 결제)"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintLeft_toRightOf="@id/resultReservationPrice"
+        app:layout_constraintLeft_toRightOf="@id/resultReservPriceFormat"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resultReservationCount" />
-
-
+        app:layout_constraintTop_toBottomOf="@id/resultReservCount" />
 </androidx.constraintlayout.widget.ConstraintLayout>
