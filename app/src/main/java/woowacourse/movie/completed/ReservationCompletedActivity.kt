@@ -1,6 +1,7 @@
 package woowacourse.movie.completed
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -13,6 +14,7 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_completed)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter.onViewCreated(intent)
     }
 
@@ -27,5 +29,14 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
                 R.string.ticket_price,
                 FormatUtils.formatCurrency(ticket.getPrice() * ticket.quantity),
             )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -11,6 +11,6 @@ class MainPresenter(
     }
 
     override fun onMovieSelected(position: Int) {
-        view.navigateToReservation(movieRepository.getMovie(position))
+        view.navigateToReservation(movieRepository.getMovieAt(position))
     }
 }

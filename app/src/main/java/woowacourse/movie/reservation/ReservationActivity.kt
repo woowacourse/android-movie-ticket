@@ -2,6 +2,7 @@ package woowacourse.movie.reservation
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,6 +18,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         reservationPresenter.onViewCreated(intent)
         setupTicketQuantityControls()
     }
@@ -45,6 +47,15 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun setQuantityText(newText: String) {
         findViewById<TextView>(R.id.quantity).text = newText
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupTicketQuantityControls() {
