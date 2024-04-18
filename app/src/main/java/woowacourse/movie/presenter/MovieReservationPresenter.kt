@@ -19,12 +19,12 @@ class MovieReservationPresenter(private val view: MovieReservationContract.View)
     }
 
     override fun clickMinusButton() {
-        reservationCount = --reservationCount
+        reservationCount--
         view.updateReservationCountUi(reservationCount.count)
     }
 
     override fun clickPlusButton() {
-        reservationCount = ++reservationCount
+        reservationCount++
         view.updateReservationCountUi(reservationCount.count)
     }
 
