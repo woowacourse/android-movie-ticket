@@ -1,12 +1,11 @@
 package woowacourse.movie.completed
 
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Ticket
-import java.text.DecimalFormat
+import woowacourse.movie.utils.FormatUtils
 
 class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
@@ -14,21 +13,19 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_completed)
-        presenter.onViewCreated()
+        presenter.onViewCreated(intent)
     }
-
-    override fun readTicketData() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("ticket", Ticket::class.java)
-        } else {
-            intent.getSerializableExtra("ticket") as? Ticket
-        }
 
     override fun initializeTicketDetails(ticket: Ticket) {
         findViewById<TextView>(R.id.movie_title).text = ticket.getTitle()
-        findViewById<TextView>(R.id.opening_day).text = ticket.getOpeningDay()
-        findViewById<TextView>(R.id.quantity).text = "일반 ${ticket.quantity}명"
+        findViewById<TextView>(R.id.opening_day).text =
+            getString(R.string.movie_opening_day, ticket.getOpeningDay())
+        findViewById<TextView>(R.id.quantity).text =
+            getString(R.string.ticket_quantity, ticket.quantity)
         findViewById<TextView>(R.id.price).text =
-            "${DecimalFormat("#,###").format(ticket.getPrice() * ticket.quantity)}원 (현장 결제)"
+            getString(
+                R.string.ticket_price,
+                FormatUtils.formatCurrency(ticket.getPrice() * ticket.quantity),
+            )
     }
 }

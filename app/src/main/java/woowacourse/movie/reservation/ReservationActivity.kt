@@ -1,7 +1,6 @@
 package woowacourse.movie.reservation
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -18,22 +17,18 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-        reservationPresenter.onViewCreated()
+        reservationPresenter.onViewCreated(intent)
+        setupTicketQuantityControls()
     }
-
-    override fun readMovieData() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("movie", Movie::class.java)
-        } else {
-            intent.getSerializableExtra("movie") as? Movie
-        }
 
     override fun initializeMovieDetails(movie: Movie) {
         findViewById<ImageView>(R.id.poster).setImageResource(movie.poster)
         findViewById<TextView>(R.id.movie_title).text = movie.title
         findViewById<TextView>(R.id.content).text = movie.content
-        findViewById<TextView>(R.id.opening_day).text = "상영일: ${movie.openingDay}"
-        findViewById<TextView>(R.id.running_time).text = "러닝타임: ${movie.runningTime}분"
+        findViewById<TextView>(R.id.opening_day).text =
+            getString(R.string.movie_opening_day, movie.openingDay)
+        findViewById<TextView>(R.id.running_time).text =
+            getString(R.string.movie_running_time, movie.runningTime.toString())
     }
 
     override fun setupReservationCompletedButton(movie: Movie) {
@@ -42,21 +37,22 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
     }
 
-    override fun moveToCompletedActivity(
-        movie: Movie,
-        quantity: Int,
-    ) {
+    override fun moveToCompletedActivity(ticket: Ticket) {
         val intent = Intent(this@ReservationActivity, ReservationCompletedActivity::class.java)
-        intent.putExtra("ticket", Ticket(movie, quantity))
+        intent.putExtra(EXTRA_TICKET, ticket)
         startActivity(intent)
-    }
-
-    override fun setupTicketQuantityControls() {
-        findViewById<Button>(R.id.btn_minus).setOnClickListener { reservationPresenter.minus() }
-        findViewById<Button>(R.id.btn_plus).setOnClickListener { reservationPresenter.plus() }
     }
 
     override fun setQuantityText(newText: String) {
         findViewById<TextView>(R.id.quantity).text = newText
+    }
+
+    private fun setupTicketQuantityControls() {
+        findViewById<Button>(R.id.btn_minus).setOnClickListener { reservationPresenter.decreaseQuantity() }
+        findViewById<Button>(R.id.btn_plus).setOnClickListener { reservationPresenter.increaseQuantity() }
+    }
+
+    companion object {
+        const val EXTRA_TICKET = "ticket"
     }
 }

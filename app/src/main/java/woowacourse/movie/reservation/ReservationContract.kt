@@ -1,32 +1,29 @@
 package woowacourse.movie.reservation
 
+import android.content.Intent
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
 
 interface ReservationContract {
     interface View {
-        fun readMovieData(): Movie?
-
         fun setupReservationCompletedButton(movie: Movie)
-
-        fun setupTicketQuantityControls()
 
         fun setQuantityText(newText: String)
 
         fun initializeMovieDetails(movie: Movie)
 
-        fun moveToCompletedActivity(
-            movie: Movie,
-            quantity: Int,
-        )
+        fun moveToCompletedActivity(ticket: Ticket)
     }
 
     interface Presenter {
-        fun onViewCreated()
+        fun onViewCreated(intent: Intent)
+
+        fun getMovieDate(intent: Intent): Movie?
 
         fun onClicked(movie: Movie)
 
-        fun plus()
+        fun increaseQuantity()
 
-        fun minus()
+        fun decreaseQuantity()
     }
 }

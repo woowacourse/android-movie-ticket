@@ -2,9 +2,9 @@ package woowacourse.movie.model
 
 import java.io.Serializable
 
-data class Ticket(
+class Ticket(
     val movie: Movie,
-    val quantity: Int,
+    var quantity: Int = MINIMUM_QUANTITY,
 ) : Serializable {
     fun getTitle(): String {
         return movie.title
@@ -16,5 +16,15 @@ data class Ticket(
 
     fun getPrice(): Int {
         return movie.price
+    }
+
+    fun increaseQuantity() = quantity++
+
+    fun decreaseQuantity() {
+        quantity = (quantity - 1).coerceAtLeast(MINIMUM_QUANTITY)
+    }
+
+    companion object {
+        const val MINIMUM_QUANTITY = 1
     }
 }

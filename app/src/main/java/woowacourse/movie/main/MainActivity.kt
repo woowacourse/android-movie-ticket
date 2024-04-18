@@ -7,10 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.ListViewAdapter
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private val mainPresenter = MainPresenter(this)
+    private val mainPresenter = MainPresenter(this, MovieRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,14 +23,18 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val movieListView = findViewById<ListView>(R.id.list_view)
         movieListView.adapter =
             ListViewAdapter(movies) { position ->
-                mainPresenter.onMovieSelected(movies[position])
+                mainPresenter.onMovieSelected(position)
             }
     }
 
     override fun navigateToReservation(movie: Movie) {
         Intent(this, ReservationActivity::class.java).apply {
-            putExtra("movie", movie)
+            putExtra(EXTRA_MOVIE, movie)
             startActivity(this)
         }
+    }
+
+    companion object {
+        const val EXTRA_MOVIE = "movie"
     }
 }

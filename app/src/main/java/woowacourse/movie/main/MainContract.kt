@@ -12,6 +12,6 @@ interface MainContract {
     interface Presenter {
         fun onViewCreated()
 
-        fun onMovieSelected(movie: Movie)
+        fun onMovieSelected(position: Int)
     }
 }
