@@ -4,10 +4,10 @@ import android.content.Intent
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.presentation.contract.MovieDetailContract
-import woowacourse.movie.presentation.presenter.MovieDetailPresenterImpl
 import woowacourse.movie.R
 import woowacourse.movie.presentation.base.BaseActivity
+import woowacourse.movie.presentation.contract.MovieDetailContract
+import woowacourse.movie.presentation.presenter.MovieDetailPresenterImpl
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private lateinit var movieDetailPresenter: MovieDetailContract.Presenter
@@ -45,7 +45,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     ) {
         findViewById<ImageView>(R.id.posterImage).setImageResource(posterImageId)
         findViewById<TextView>(R.id.title).text = title
-        findViewById<TextView>(R.id.screeningDate).text = screeningDate
+        findViewById<TextView>(R.id.screeningDate).text = getString(R.string.screening_date_format, screeningDate)
         findViewById<TextView>(R.id.runningTime).text =
             getString(R.string.running_time_format, runningTime)
         findViewById<TextView>(R.id.summary).text = summary
