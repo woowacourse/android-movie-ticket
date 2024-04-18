@@ -21,8 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MovieDetailActivity" />
-        <activity android:name=".activity.PurchaseConfirmationActivity" />
+        <activity android:name=".activity.MovieDetailActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+        <activity android:name=".activity.PurchaseConfirmationActivity"
+            android:parentActivityName=".activity.MainActivity"/>
     </application>
 
 </manifest>

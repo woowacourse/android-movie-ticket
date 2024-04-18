@@ -56,6 +56,5 @@ class MainActivityTest {
 
         onView(withId(R.id.scroll_view))
             .check(matches(isDisplayed()))
-
     }
 }

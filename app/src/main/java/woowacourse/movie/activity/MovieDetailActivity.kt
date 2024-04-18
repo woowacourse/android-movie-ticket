@@ -3,7 +3,7 @@ package woowacourse.movie.activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,7 +22,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         presenter = MovieDetailActivityPresenter(this, intent)
+
         setupViews()
         val movie = presenter.movie
         if (movie != null) {
@@ -49,7 +52,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
             numberOfPurchases.text = ticketNum.toString()
         }
         ticketBuyButton.setOnClickListener {
-            presenter.onBuyTicketClicked(ticketNum,Intent(this, PurchaseConfirmationActivity::class.java))
+            presenter.onBuyTicketClicked(
+                ticketNum,
+                Intent(this, PurchaseConfirmationActivity::class.java)
+            )
         }
     }
 
@@ -60,5 +66,15 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
 
     override fun navigateToPurchaseConfirmation(sendingIntent: Intent) {
         startActivity(sendingIntent)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher
+                return true
+            }
+        }
+        return super.onContextItemSelected(item)
     }
 }
