@@ -1,16 +1,22 @@
 package woowacourse.movie.domain.model
 
 class MovieReservationModel {
-    var ticketCount = 1
+    var ticketCount = MIN_TICKET_COUNT
         private set
 
     fun minusTicketCount() {
-        if (ticketCount > 1) {
+        if (isTicketCountValid()) {
             ticketCount--
         }
     }
 
+    private fun isTicketCountValid() = ticketCount > MIN_TICKET_COUNT
+
     fun plusTicketCount() {
         ticketCount++
+    }
+
+    companion object {
+        private const val MIN_TICKET_COUNT = 1
     }
 }
