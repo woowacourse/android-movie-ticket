@@ -13,9 +13,9 @@ interface MovieDetailContract {
     }
 
     interface Presenter {
-        fun onPlusButtonClicked()
+        fun plusTicketNum()
 
-        fun onMinusButtonClicked()
+        fun minusTicketNum()
 
         fun onBuyButtonClicked()
     }

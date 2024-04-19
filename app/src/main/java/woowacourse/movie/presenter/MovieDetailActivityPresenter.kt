@@ -22,12 +22,12 @@ class MovieDetailActivityPresenter(
         view.displayMovie(theater.movie)
     }
 
-    override fun onPlusButtonClicked() {
+    override fun plusTicketNum() {
         ticketNum += 1
         view.displayTicketNum(ticketNum)
     }
 
-    override fun onMinusButtonClicked() {
+    override fun minusTicketNum() {
         if (ticketNum > 0) ticketNum -= 1
         view.displayTicketNum(ticketNum)
     }
