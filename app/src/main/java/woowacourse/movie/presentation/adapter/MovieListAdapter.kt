@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.contract.MainContract
@@ -28,9 +26,19 @@ class MovieListAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view: View = convertView ?: createView(parent!!)
+        val view: View
+        val movieViewHolder: MovieViewHolder
+        if(convertView == null) {
+            view = createView(parent!!)
+            movieViewHolder = MovieViewHolder(view)
+            view.tag = movieViewHolder
+        } else {
+            view = convertView
+            movieViewHolder = convertView.tag as MovieViewHolder
+        }
         val movie = movieList[index]
-        bindData(view, movie)
+        bindData(movieViewHolder, movie)
+
         return view
     }
 
@@ -39,21 +47,15 @@ class MovieListAdapter(
     }
 
     private fun bindData(
-        view: View,
+        movieViewHolder: MovieViewHolder,
         movie: Movie,
     ) {
-        val posterImage = view.findViewById<ImageView>(R.id.posterImage)
-        val title = view.findViewById<TextView>(R.id.title)
-        val screeningDate = view.findViewById<TextView>(R.id.screeningDate)
-        val runningTime = view.findViewById<TextView>(R.id.runningTime)
-        val reserveButton = view.findViewById<TextView>(R.id.reserveButton)
+        movieViewHolder.posterImage.setImageResource(movie.posterImageId)
+        movieViewHolder.title.text = movie.title
+        movieViewHolder.screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
+        movieViewHolder.runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)
 
-        posterImage.setImageResource(movie.posterImageId)
-        title.text = movie.title
-        screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
-        runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)
-
-        reserveButton.setOnClickListener {
+        movieViewHolder.reserveButton.setOnClickListener {
             presenter.onReserveButtonClicked(movie)
         }
     }
