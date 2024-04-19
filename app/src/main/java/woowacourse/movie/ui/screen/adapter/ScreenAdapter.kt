@@ -12,7 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 
-class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
+class ScreenAdapter(private var item: List<Screen>) : BaseAdapter() {
     override fun getCount(): Int = item.size
 
     override fun getItem(position: Int): Screen = item[position]
@@ -58,5 +58,10 @@ class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
         reserveButton.setOnClickListener {
             ScreenDetailActivity.startActivity(context, item[position].id)
         }
+    }
+
+    fun updateScreens(screens: List<Screen>) {
+        item = screens
+        notifyDataSetChanged()
     }
 }
