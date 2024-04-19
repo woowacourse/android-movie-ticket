@@ -23,7 +23,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     override fun onCreateSetup() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val posterImageId = intent.getIntExtra(INTENT_POSTER_IMAGE_ID, 0)
+        val posterImageId = intent.getIntExtra(INTENT_POSTER_IMAGE_ID, defaultPosterImageId)
         val title = intent.getStringExtra(INTENT_TITLE) ?: ""
         val screeningDate = intent.getStringExtra(INTENT_SCREENING_DATE) ?: ""
         val runningTime = intent.getIntExtra(INTENT_RUNNING_TIME, 0)
@@ -77,6 +77,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     }
 
     companion object {
+        val defaultPosterImageId = R.drawable.img_noimg
         const val INTENT_POSTER_IMAGE_ID = "posterImageId"
         const val INTENT_TITLE = "title"
         const val INTENT_SCREENING_DATE = "screeningDate"
