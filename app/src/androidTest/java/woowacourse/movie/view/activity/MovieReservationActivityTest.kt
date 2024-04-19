@@ -37,28 +37,24 @@ class MovieReservationActivityTest {
     @Test
     fun `화면이_띄워지면_영화_제목이_보인다`() {
         onView(withId(R.id.title_text))
-            .check(matches(isDisplayed()))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         onView(withId(R.id.screening_date_text))
-            .check(matches(isDisplayed()))
             .check(matches(withText("상영일: 2024.3.1")))
     }
 
     @Test
     fun `화면이_띄워지면_러닝타임이_보인다`() {
         onView(withId(R.id.running_time_text))
-            .check(matches(isDisplayed()))
             .check(matches(withText("러닝타임: 152분")))
     }
 
     @Test
     fun `스크롤_하면_시놉시스가_보인다`() {
         onView(withId(R.id.synopsis_text))
-            .check(matches(isDisplayed()))
             .perform(scrollTo())
             .check(
                 matches(

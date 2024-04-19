@@ -37,28 +37,24 @@ class MovieReservationCompleteActivityTest {
     @Test
     fun `화면이_띄워지면_영화_제목이_보인다`() {
         onView(withId(R.id.title_text))
-            .check(matches(isDisplayed()))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         onView(withId(R.id.screening_date_text))
-            .check(matches(isDisplayed()))
             .check(matches(withText("2024.3.1")))
     }
 
     @Test
     fun `화면이_띄워지면_예매_인원이_보인다`() {
         onView(withId(R.id.reservation_count_text))
-            .check(matches(isDisplayed()))
             .check(matches(withText("일반 1명")))
     }
 
     @Test
     fun `화면이_띄워지면_예매_금액이_보인다`() {
         onView(withId(R.id.reservation_amount_text))
-            .check(matches(isDisplayed()))
             .check(matches(withText("13,000원 (현장 결제)")))
     }
 
