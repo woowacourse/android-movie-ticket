@@ -11,6 +11,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mainactivity)
+        initAdapter()
+    }
+
+    private fun initAdapter() {
         val presenter = MainActivityPresenter(this)
         moviesListView = findViewById(R.id.movies_list_item)
         moviesListView.adapter = presenter.movieAdapter
