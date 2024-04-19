@@ -5,7 +5,7 @@ import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.repository.PseudoTheaterRepository
 import woowacourse.movie.repository.TheaterRepository
 
-class MovieListActivityPresenter(
+class MovieListPresenter(
     private val movieListView: MovieListContract.View,
     theaterRepository: TheaterRepository = PseudoTheaterRepository(),
     movieAdapter: MovieAdapter,

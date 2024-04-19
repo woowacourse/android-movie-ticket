@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.movieInfo.MovieInfo
-import woowacourse.movie.presenter.MovieDetailActivityPresenter
+import woowacourse.movie.presenter.MovieDetailPresenter
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private val numberOfPurchases by lazy {
@@ -26,7 +26,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
         val presenter =
-            MovieDetailActivityPresenter(
+            MovieDetailPresenter(
                 intent,
                 this,
             )

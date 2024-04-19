@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.PurchaseConfirmationContract
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.presenter.PurchaseConfirmationActivityPresenter
+import woowacourse.movie.presenter.PurchaseConfirmationPresenter
 
 class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationContract.View {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -17,7 +17,7 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
         super.onCreate(savedInstanceState)
         setContentView(R.layout.purchase_confirmation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val presenter = PurchaseConfirmationActivityPresenter(intent, this)
+        val presenter = PurchaseConfirmationPresenter(intent, this)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {

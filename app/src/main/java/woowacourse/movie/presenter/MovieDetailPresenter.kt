@@ -8,7 +8,7 @@ import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.theater.Theater
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-class MovieDetailActivityPresenter(
+class MovieDetailPresenter(
     intent: Intent,
     private val view: MovieDetailContract.View,
 ) : MovieDetailContract.Presenter {

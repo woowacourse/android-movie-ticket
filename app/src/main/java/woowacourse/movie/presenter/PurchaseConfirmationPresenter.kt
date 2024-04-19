@@ -8,7 +8,7 @@ import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.theater.Theater
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-class PurchaseConfirmationActivityPresenter(
+class PurchaseConfirmationPresenter(
     intent: Intent,
     view: PurchaseConfirmationContract.View,
 ) : PurchaseConfirmationContract.Presenter {
