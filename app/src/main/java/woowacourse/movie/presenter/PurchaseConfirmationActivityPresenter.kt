@@ -10,11 +10,12 @@ import woowacourse.movie.model.theater.Theater
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class PurchaseConfirmationActivityPresenter(
     intent: Intent,
-    view: PurchaseConfirmationContract.View
-): PurchaseConfirmationContract.Presenter {
+    view: PurchaseConfirmationContract.View,
+) : PurchaseConfirmationContract.Presenter {
     private val reservation =
         intent.getSerializableExtra("Reservation", Reservation::class.java)
             ?: Reservation(Theater.default, 1)
+
     init {
         view.displayReservation(reservation)
     }

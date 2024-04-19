@@ -7,7 +7,5 @@ interface PurchaseConfirmationContract {
         fun displayReservation(reservation: Reservation)
     }
 
-    interface Presenter {
-
-    }
+    interface Presenter
 }
