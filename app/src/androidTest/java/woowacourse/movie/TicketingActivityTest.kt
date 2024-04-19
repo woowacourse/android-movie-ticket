@@ -21,30 +21,32 @@ class TicketingActivityTest {
             },
         )
 
+    private fun performClick(viewId: Int) {
+        onView(withId(viewId)).perform(click())
+    }
+
     @Test
     fun `증가_버튼을_누르면_숫자가_증가한다`() {
-        onView(withId(R.id.btn_plus)).perform(click())
+        performClick(R.id.btn_plus)
         onView(withId(R.id.tv_count)).check(matches(withText("2")))
     }
 
     @Test
     fun `감소_버튼을_누르면_숫자가_감소한다`() {
-        onView(withId(R.id.btn_plus)).perform(click())
-        onView(withId(R.id.btn_plus)).perform(click())
-
-        onView(withId(R.id.btn_minus)).perform(click())
+        repeat(2) { performClick(R.id.btn_plus) }
+        performClick(R.id.btn_minus)
         onView(withId(R.id.tv_count)).check(matches(withText("2")))
     }
 
     @Test
     fun `숫자가_예매_가능한_최솟값일_경우_감소_버튼을_누르면_숫자가_감소하지_않는다`() {
-        onView(withId(R.id.btn_minus)).perform(click())
+        performClick(R.id.btn_minus)
         onView(withId(R.id.tv_count)).check(matches(withText("1")))
     }
 
     @Test
     fun `완료_버튼을_누르면_예매_결과_화면으로_이동한다`() {
-        onView(withId(R.id.btn_complete)).perform(click())
+        performClick(R.id.btn_complete)
         onView(withId(R.id.cl_ticketing_result_activity)).check(matches(ViewMatchers.isDisplayed()))
     }
 }

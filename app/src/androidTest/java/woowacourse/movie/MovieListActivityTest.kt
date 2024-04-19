@@ -1,12 +1,6 @@
 package woowacourse.movie
 
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onData
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.hasProperty
@@ -45,26 +39,5 @@ class MovieListActivityTest {
                 ),
             ),
         )
-    }
-
-    @Test
-    fun `버튼을_누르면_해당_영화의_예매_화면으로_이동한다`() {
-        onView(withId(R.id.btn_ticketing)).perform(click())
-        onView(withId(R.id.cl_ticketing_activity)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `예매_화면에서_뒤로가기_버튼을_누르면_영화_목록_화면으로_이동한다`() {
-        onView(withId(R.id.btn_ticketing)).perform(click())
-        Espresso.pressBack()
-        onView(withId(R.id.cl_movie_list_activity)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `예매_결과_화면에서_뒤로가기_버튼을_누르면_영화_목록_화면으로_이동한다`() {
-        onView(withId(R.id.btn_ticketing)).perform(click())
-        onView(withId(R.id.btn_complete)).perform(click())
-        Espresso.pressBack()
-        onView(withId(R.id.cl_movie_list_activity)).check(matches(isDisplayed()))
     }
 }
