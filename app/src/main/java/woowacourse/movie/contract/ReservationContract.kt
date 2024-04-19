@@ -1,7 +1,5 @@
 package woowacourse.movie.contract
 
-import android.content.Intent
-
 interface ReservationContract {
     interface View {
         fun updateTicketCount()
@@ -11,14 +9,5 @@ interface ReservationContract {
         fun subTicketCount()
 
         fun addTicketCount()
-
-        fun clickReservationCompleteButton(
-            intent: Intent,
-            title: String,
-            screenDate: String,
-            count: String,
-        )
-
-        fun ticketCount(): Int
     }
 }

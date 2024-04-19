@@ -12,7 +12,7 @@ import woowacourse.movie.contract.ReservationContract
 import woowacourse.movie.presenter.ReservationPresenter
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val reservationPresenter: ReservationContract.Presenter = ReservationPresenter(this)
+    private val reservationPresenter = ReservationPresenter(this)
     private lateinit var addButton: Button
     private lateinit var subButton: Button
     private lateinit var countTextView: TextView
@@ -42,11 +42,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         initTitle()
         initScreenDate()
         initRunningTime()
-        descriptionTextView()
-    }
-
-    override fun updateTicketCount() {
-        countTextView.text = reservationPresenter.ticketCount().toString()
+        initDescription()
     }
 
     private fun initImage() {
@@ -69,7 +65,11 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         runningTimeTextView.text = intent.getStringExtra("runningTime")
     }
 
-    private fun descriptionTextView() {
+    override fun updateTicketCount() {
+        countTextView.text = reservationPresenter.ticket.count.toString()
+    }
+
+    private fun initDescription() {
         val description: TextView = findViewById(R.id.reservation_description)
         description.text = intent.getStringExtra("description")
     }
@@ -102,12 +102,13 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationResultActivity::class.java)
-            reservationPresenter.clickReservationCompleteButton(
-                intent,
-                titleTextView.text.toString(),
-                screenDateTextView.text.toString(),
-                countTextView.text.toString(),
-            )
+
+            intent.putExtra("title", titleTextView.text.toString())
+            intent.putExtra("screenDate", screenDateTextView.text.toString())
+            intent.putExtra("count", countTextView.text.toString())
+            // is this right..?
+            intent.putExtra("price", reservationPresenter.ticket.price())
+
             this.startActivity(intent)
         }
     }
