@@ -13,48 +13,51 @@ import woowacourse.movie.presentation.contract.MainContract
 
 class MovieListAdapter(
     private val context: Context,
-    private val presenter: MainContract.Presenter,
+    private val movieList: List<Movie>,
+    private val onReserveButtonClickListener: (Movie) -> Unit
 ) : BaseAdapter() {
-    private val movieList: List<Movie> = presenter.movieList()
-
+    
     override fun getCount(): Int = movieList.size
-
+    
     override fun getItem(index: Int): Movie = movieList[index]
-
+    
     override fun getItemId(index: Int): Long = index.toLong()
-
+    
     override fun getView(
         index: Int,
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view: View = convertView ?: createView(parent!!)
+        val movieViewHolder: MovieViewHolder
+        val view: View
+        if (convertView == null){
+            view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+            movieViewHolder = MovieViewHolder(view)
+            view.tag = movieViewHolder
+        } else {
+            view = convertView
+            movieViewHolder = convertView.tag as MovieViewHolder
+        }
+        
         val movie = movieList[index]
-        bindData(view, movie)
+        with(movieViewHolder) {
+            posterImage.setImageResource(movie.posterImageId)
+            title.text = movie.title
+            screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
+            runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)
+            reserveButton.setOnClickListener {
+                onReserveButtonClickListener(movie)
+            }
+        }
+        
         return view
     }
-
-    private fun createView(parent: ViewGroup): View {
-        return LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
-    }
-
-    private fun bindData(
-        view: View,
-        movie: Movie,
-    ) {
-        val posterImage = view.findViewById<ImageView>(R.id.posterImage)
-        val title = view.findViewById<TextView>(R.id.title)
-        val screeningDate = view.findViewById<TextView>(R.id.screeningDate)
-        val runningTime = view.findViewById<TextView>(R.id.runningTime)
-        val reserveButton = view.findViewById<TextView>(R.id.reserveButton)
-
-        posterImage.setImageResource(movie.posterImageId)
-        title.text = movie.title
-        screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
-        runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)
-
-        reserveButton.setOnClickListener {
-            presenter.onReserveButtonClicked(movie)
-        }
+    
+    class MovieViewHolder(view: View) {
+        val posterImage: ImageView = view.findViewById(R.id.posterImage)
+        val title: TextView = view.findViewById(R.id.title)
+        val screeningDate: TextView = view.findViewById(R.id.screeningDate)
+        val runningTime: TextView = view.findViewById(R.id.runningTime)
+        val reserveButton: TextView = view.findViewById(R.id.reserveButton)
     }
 }
