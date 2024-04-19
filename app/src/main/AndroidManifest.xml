@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".ui.reservation.ReservationActivity"
+            android:name=".presentation.ui.reservation.ReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.detail.DetailActivity"
+            android:name=".presentation.ui.detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screen.ScreenActivity"
+            android:name=".presentation.ui.screen.ScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

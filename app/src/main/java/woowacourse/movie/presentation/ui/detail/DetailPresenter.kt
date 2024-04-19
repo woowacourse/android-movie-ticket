@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.detail
+package woowacourse.movie.presentation.ui.detail
 
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket

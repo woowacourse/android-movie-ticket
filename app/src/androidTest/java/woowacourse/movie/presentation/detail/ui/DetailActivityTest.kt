@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.detail
+package woowacourse.movie.presentation.detail.ui
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.presentation.ui.detail.DetailActivity
 
 @RunWith(AndroidJUnit4::class)
 class DetailActivityTest {

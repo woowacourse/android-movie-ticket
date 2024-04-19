@@ -1,25 +1,23 @@
-package woowacourse.movie.ui.detail
+package woowacourse.movie.presentation.ui.detail
 
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.presentation.base.BasePresenter
+import woowacourse.movie.presentation.base.BaseView
 
 interface DetailContract {
-    interface View {
+    interface View : BaseView {
         fun showScreen(screen: Screen)
 
         fun showTicket(count: Int)
 
         fun navigateToReservation(id: Int)
 
-        fun showToastMessage(message: String)
-
-        fun showSnackBar(message: String)
-
         fun goToBack(message: String)
 
         fun unexpectedFinish(message: String)
     }
 
-    interface Presenter {
+    interface Presenter : BasePresenter {
         fun loadScreen(id: Int)
 
         fun plusTicket()

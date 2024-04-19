@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.screen
+package woowacourse.movie.presentation.ui.screen
 
 import woowacourse.movie.domain.repository.ScreenRepository
 

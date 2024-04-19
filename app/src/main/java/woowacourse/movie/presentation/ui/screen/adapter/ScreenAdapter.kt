@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.screen.adapter
+package woowacourse.movie.presentation.ui.screen.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.ui.detail.DetailActivity
+import woowacourse.movie.presentation.ui.detail.DetailActivity
 
 class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
     override fun getCount(): Int = item.size
