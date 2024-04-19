@@ -1,4 +1,4 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.screen.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +29,9 @@ class ListViewAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.listview_item, parent, false)
+        val view =
+            convertView ?: LayoutInflater.from(parent?.context)
+                .inflate(R.layout.listview_item, parent, false)
         bindData(view, position)
         return view!!
     }

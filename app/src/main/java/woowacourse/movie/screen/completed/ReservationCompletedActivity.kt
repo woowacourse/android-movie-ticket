@@ -1,4 +1,4 @@
-package woowacourse.movie.completed
+package woowacourse.movie.screen.completed
 
 import android.os.Build
 import android.os.Bundle

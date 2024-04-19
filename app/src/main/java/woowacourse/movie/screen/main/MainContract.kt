@@ -1,4 +1,4 @@
-package woowacourse.movie.main
+package woowacourse.movie.screen.main
 
 import woowacourse.movie.model.Movie
 
