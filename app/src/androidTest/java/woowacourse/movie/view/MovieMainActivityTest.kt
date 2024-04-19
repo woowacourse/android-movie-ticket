@@ -18,25 +18,21 @@ class MovieMainActivityTest {
 
     @Test
     fun `영화_목록이_화면에_표시된다`() {
-        onView(withId(R.id.mainList))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.mainList)).check(matches(isDisplayed()))
     }
 
     @Test
     fun `영화_아이템에_영화_제목이_표시된다`() {
-        onView(withId(R.id.movieTitle))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.movieTitle)).check(matches(isDisplayed()))
     }
 
     @Test
     fun `영화_아이템에_영화_상영일이_표시된다`() {
-        onView(withId(R.id.movieDate))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.movieDate)).check(matches(isDisplayed()))
     }
 
     @Test
     fun `영화_아이템에_영화_러닝타임이_표시된다`() {
-        onView(withId(R.id.movieRunningTime))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.movieRunningTime)).check(matches(isDisplayed()))
     }
 }

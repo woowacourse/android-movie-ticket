@@ -29,7 +29,10 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         completeReservationPriceTextView = findViewById(R.id.resultReservPrice)
 
         movieResultPresenter = MovieResultPresenter(this)
-        movieResultPresenter.display(intent.getLongExtra("movieId", 0), intent.getIntExtra("movieReservationCount", 0))
+        movieResultPresenter.display(
+            intent.getLongExtra("movieId", 0),
+            intent.getIntExtra("movieReservationCount", 0)
+        )
     }
 
     override fun onInitView(movieTicket: MovieTicket?) {

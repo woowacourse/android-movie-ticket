@@ -24,7 +24,8 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
         movieDetailActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.key) {
-                    Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
 
