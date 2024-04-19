@@ -32,7 +32,7 @@ class ReservationResultActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationResultActivity::class.java,
-        ).putExtra("count", ticket.count().toString())
+        ).putExtra("count", ticket.count.toString())
             .putExtra("title", movie.title)
             .putExtra("screenDate", movie.screenDateToString())
             .putExtra("price", ticket.price())

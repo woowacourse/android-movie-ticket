@@ -81,7 +81,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     private fun setUpCount() {
         countTextView = findViewById(R.id.reservation_count_textview)
-        countTextView.text = reservationPresenter.ticketCount().toString()
+        countTextView.text = reservationPresenter.ticket.count.toString()
         bindCountButtons()
     }
 

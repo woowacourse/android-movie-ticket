@@ -7,15 +7,15 @@ import woowacourse.movie.model.Ticket.Companion.TICKET_PRICE
 
 class ReservationPresenter(private val view: ReservationContract.View) :
     ReservationContract.Presenter {
-    private var ticket: Ticket = Ticket()
+    var ticket: Ticket = Ticket()
 
     override fun subTicketCount() {
-        ticket.sub()
+        ticket.subCount()
         view.updateTicketCount()
     }
 
     override fun addTicketCount() {
-        ticket.add()
+        ticket.addCount()
         view.updateTicketCount()
     }
 
