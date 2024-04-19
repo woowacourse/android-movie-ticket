@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.reservation.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,8 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.presenter.ReservationDetailPresenter
-import woowacourse.movie.view.ReservationDetailContract
+import woowacourse.movie.reservation.finished.ReservationFinishedActivity
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }

@@ -1,7 +1,6 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.home
 
 import woowacourse.movie.model.Movies
-import woowacourse.movie.view.ReservationHomeContract
 
 class ReservationHomePresenter(
     private val contract: ReservationHomeContract,

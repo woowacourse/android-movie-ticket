@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.reservation.finished
 
 import woowacourse.movie.model.Movie
 

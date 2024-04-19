@@ -1,8 +1,7 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.reservation.finished
 
 import woowacourse.movie.model.Movies
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.view.ReservationFinishedContract
 
 class ReservationFinishedPresenter(
     private val contract: ReservationFinishedContract,
