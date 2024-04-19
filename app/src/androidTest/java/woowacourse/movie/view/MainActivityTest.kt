@@ -19,13 +19,13 @@ class MainActivityTest {
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun show_movie_list() {
+    fun 영화_리스트를_보여준다() {
         onView(withId(R.id.movie_list))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun layout_disappear_when_reservation_button_clicked() {
+    fun 예약버튼이_눌리면_mainlayout은_사라져야한다() {
         onView(withId(R.id.reservation_button))
             .perform(click())
 

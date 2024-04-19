@@ -41,25 +41,25 @@ class ReservationResultActivityTest {
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
 
     @Test
-    fun show_title_when_activity_starts() {
+    fun 액티비티가_시작하면_제목이_보인다() {
         onView(withId(R.id.result_title_textview))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
-    fun show_screen_date_when_activity_starts() {
+    fun 액티비티가_시작하면_상영일이_보인다() {
         onView(withId(R.id.result_screen_date_textview))
             .check(matches(withText("2024.3.1")))
     }
 
     @Test
-    fun show_count_when_activity_starts() {
+    fun 액티비티가_시작하면_count가_보인다() {
         onView(withId(R.id.result_count_textview))
             .check(matches(withText("1")))
     }
 
     @Test
-    fun show_total_price_when_activity_starts() {
+    fun 액티비티가_시작하면_지불금액이_보인다() {
         onView(withId(R.id.result_price_textview))
             .check(matches(withText("13,000")))
     }
