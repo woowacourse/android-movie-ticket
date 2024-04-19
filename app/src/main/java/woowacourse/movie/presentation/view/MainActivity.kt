@@ -17,24 +17,31 @@ class MainActivity : BaseActivity(), MainContract.View {
     
     override fun onCreateSetup() {
         presenter = MainPresenterImpl(this)
-        val movieList = presenter.movieList()
-        adapter = MovieListAdapter(this, movieList) { movie ->
-            presenter.onReserveButtonClicked(movie)
-        }
-        showMovieList()
+        presenter.loadMovieList()
     }
     
-    override fun showMovieList() {
+    override fun showMovieList(movieList: List<Movie>) {
+        adapter = MovieListAdapter(this, movieList) { movie ->
+            presenter.requestMovieDetail(movie)
+        }
         findViewById<ListView>(R.id.movieList).adapter = adapter
     }
     
     override fun moveToMovieDetail(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra("posterImageId", movie.posterImageId)
-        intent.putExtra("title", movie.title)
-        intent.putExtra("screeningDate", movie.screeningDate.toString())
-        intent.putExtra("runningTime", movie.runningTime)
-        intent.putExtra("summary", movie.summary)
+        intent.putExtra(EXTRA_POSTER_IMAGE_ID, movie.posterImageId)
+        intent.putExtra(EXTRA_TITLE, movie.title)
+        intent.putExtra(EXTRA_SCREENING_DATE, movie.screeningDate.toString())
+        intent.putExtra(EXTRA_RUNNING_TIME, movie.runningTime)
+        intent.putExtra(EXTRA_SUMMARY, movie.summary)
         startActivity(intent)
+    }
+    
+    companion object {
+        const val EXTRA_POSTER_IMAGE_ID = "posterImageId"
+        const val EXTRA_TITLE = "title"
+        const val EXTRA_SCREENING_DATE = "screeningDate"
+        const val EXTRA_RUNNING_TIME = "runningTime"
+        const val EXTRA_SUMMARY = "summary"
     }
 }

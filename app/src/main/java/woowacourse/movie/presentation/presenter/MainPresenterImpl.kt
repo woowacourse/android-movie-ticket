@@ -6,13 +6,13 @@ import woowacourse.movie.presentation.contract.MainContract
 
 class MainPresenterImpl(private val view: MainContract.View) : MainContract.Presenter {
     private val movies = Movies()
-
-    override fun movieList(): List<Movie> {
+    
+    override fun loadMovieList() {
         movies.initMovieList()
-        return movies.movies
+        view.showMovieList(movies.movies)
     }
-
-    override fun onReserveButtonClicked(movie: Movie) {
+    
+    override fun requestMovieDetail(movie: Movie) {
         view.moveToMovieDetail(movie)
     }
 }
