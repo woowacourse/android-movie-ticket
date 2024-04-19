@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.reservation
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -13,26 +13,36 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.model.Movie
-import woowacourse.movie.reservation.ReservationActivity
+import woowacourse.movie.R
+import woowacourse.movie.TestFixture.DUMMY_MOVIE
 
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {
-    private val movie =
-        Movie(R.drawable.poster, "영화 제목", "영화 설명", "2024.3.1", 152)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationActivity::class.java,
-        ).also { it.putExtra("movie", movie) }
+        ).also { it.putExtra("movie", DUMMY_MOVIE) }
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule<ReservationActivity>(intent)
 
     @Test
-    fun `활동_시작시_영화_상세정보가_표시된다`() {
+    fun `전달_받은_영화_제목이_표시된다`() {
         onView(withId(R.id.movie_title))
-            .check(matches(withText("영화 제목")))
+            .check(matches(withText("제목")))
+    }
+
+    @Test
+    fun `전달_받은_영화_설명이_표시된다`() {
+        onView(withId(R.id.content))
+            .check(matches(withText("설명")))
+    }
+
+    @Test
+    fun `수량의_기본_값은_0이다`() {
+        onView(withId(R.id.quantity))
+            .check(matches(withText("0")))
     }
 
     @Test
