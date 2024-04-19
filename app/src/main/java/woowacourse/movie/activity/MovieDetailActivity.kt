@@ -44,7 +44,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
         val numberOfPurchases = findViewById<TextView>(R.id.quantity_text_view)
         ticketPlusButton.setOnClickListener {
-            ticketNum += 1 //이건 뷰로 봤어요! 최종적으로 intent를 보내줄때만 사용되는거라서 +,-할때는 그저 뷰만 움직인다고 판하였습니다.
+            ticketNum += 1
             numberOfPurchases.text = ticketNum.toString()
         }
         ticketMinusButton.setOnClickListener {
