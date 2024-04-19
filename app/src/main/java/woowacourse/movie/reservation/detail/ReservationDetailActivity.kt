@@ -23,7 +23,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private val minusButton: Button by lazy { findViewById(R.id.button_reservation_detail_minus) }
     private val reservationButton: Button by lazy { findViewById(R.id.button_reservation_detail_finished) }
 
-    private val presenter = ReservationDetailPresenter(this)
+    private lateinit var presenter: ReservationDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +33,13 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         val movieId = intent.getIntExtra("movieId", DEFAULT_MOVIE_ID)
 
-        with(presenter) {
-            deliverMovie(movieId)
-            deliverReservationHistory(movieId)
-            detectIncreaseCount()
-            detectDecreaseCount()
-        }
+        presenter =
+            ReservationDetailPresenter(this, movieId).also {
+                it.deliverMovie()
+                it.deliverReservationHistory()
+                it.detectIncreaseCount()
+                it.detectDecreaseCount()
+            }
     }
 
     override fun showMovieInformation(movie: Movie) {

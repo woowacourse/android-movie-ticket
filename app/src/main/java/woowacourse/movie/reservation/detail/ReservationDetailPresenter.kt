@@ -8,6 +8,7 @@ import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
     private val contract: ReservationDetailContract,
+    private val movieId: Int,
 ) {
     private val movies = Movies.obtainMovies()
     val ticket = Ticket()
@@ -20,11 +21,11 @@ class ReservationDetailPresenter(
         contract.initializeMinusButton(::decreaseTicketCount)
     }
 
-    fun deliverMovie(movieId: Int) {
+    fun deliverMovie() {
         contract.showMovieInformation(movies[movieId])
     }
 
-    fun deliverReservationHistory(movieId: Int) {
+    fun deliverReservationHistory() {
         contract.initializeReservationButton(movieId)
     }
 
