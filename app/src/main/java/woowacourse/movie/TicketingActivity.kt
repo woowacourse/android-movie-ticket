@@ -28,21 +28,16 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         initializeButtons()
     }
 
-    private fun initializeButtons() {
-        val minusButton = findViewById<Button>(R.id.btn_minus)
-        val plusButton = findViewById<Button>(R.id.btn_plus)
-        val completeButton = findViewById<Button>(R.id.btn_complete)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("count", countText.text.toString().toInt())
+    }
 
-        minusButton.setOnClickListener {
-            ticketingPresenter.decreaseCount()
-        }
-
-        plusButton.setOnClickListener {
-            ticketingPresenter.increaseCount()
-        }
-
-        completeButton.setOnClickListener {
-            ticketingPresenter.navigate()
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val count = it.getInt("count", 1)
+            countText.text = count.toString()
         }
     }
 
@@ -87,6 +82,24 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
 
     override fun showErrorMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun initializeButtons() {
+        val minusButton = findViewById<Button>(R.id.btn_minus)
+        val plusButton = findViewById<Button>(R.id.btn_plus)
+        val completeButton = findViewById<Button>(R.id.btn_complete)
+
+        minusButton.setOnClickListener {
+            ticketingPresenter.decreaseCount()
+        }
+
+        plusButton.setOnClickListener {
+            ticketingPresenter.increaseCount()
+        }
+
+        completeButton.setOnClickListener {
+            ticketingPresenter.navigate()
+        }
     }
 
     companion object {
