@@ -57,6 +57,20 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(PUT_TICKET_STATE_KEY, ticketCount.text.toString().toInt())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.let {
+            val count = it.getInt(PUT_TICKET_STATE_KEY)
+            ticketCount.text = count.toString()
+        }
+    }
+
     override fun showScreen(screen: Screen) {
         with(screen) {
             title.text = movie.title
@@ -102,6 +116,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     companion object {
         private const val DEFAULT_ID = -1
         private const val PUT_EXTRA_KEY_ID = "screenId"
+        private const val PUT_TICKET_STATE_KEY = "ticketCount"
 
         fun startActivity(
             context: Context,
