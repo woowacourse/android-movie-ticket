@@ -83,7 +83,6 @@ class ScreenDetailActivityTest {
             .check(matches(withText("10")))
     }
 
-
     @Test
     fun `카운트가_2일_떄_화면을_가로로_회전해도_카운트가_유지된다`() {
         val activityScenario = activityRule.scenario

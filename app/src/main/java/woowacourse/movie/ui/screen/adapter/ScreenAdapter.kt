@@ -26,43 +26,56 @@ class ScreenAdapter(
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        val view = convertView ?: LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
-        initBinding(view, position)
-        initClickListener(view, position)
+        val view: View
+        val viewHolder: ScreenViewHolder
+
+        if (convertView == null) {
+            view = LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
+            viewHolder = ScreenViewHolder(view, onScreenClickListener)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as ScreenViewHolder
+        }
+
+        viewHolder.bind(item[position])
 
         return view
-    }
-
-    private fun initBinding(
-        view: View,
-        position: Int,
-    ) {
-        val poster = view.findViewById<ImageView>(R.id.iv_poster)
-        val title = view.findViewById<TextView>(R.id.tv_title)
-        val date = view.findViewById<TextView>(R.id.tv_screen_date)
-        val runningTime = view.findViewById<TextView>(R.id.tv_screen_running_time)
-
-        with(item[position]) {
-            poster.setImageResource(movie.imageSrc)
-            title.text = movie.title
-            date.text = this.date
-            runningTime.text = movie.runningTime.toString()
-        }
-    }
-
-    private fun initClickListener(
-        view: View,
-        position: Int,
-    ) {
-        val reserveButton = view.findViewById<Button>(R.id.btn_reserve_now)
-
-        reserveButton.setOnClickListener {
-            onScreenClickListener.onClick(item[position].id)
-        }
     }
 
     fun updateScreens(screens: List<Screen>) {
         item = screens
         notifyDataSetChanged()
+    }
+
+    class ScreenViewHolder(
+        view: View,
+        private val onScreenClickListener: OnScreenClickListener,
+    ) {
+        private val poster: ImageView = view.findViewById(R.id.iv_poster)
+        private val title: TextView = view.findViewById(R.id.tv_title)
+        private val date: TextView = view.findViewById(R.id.tv_screen_date)
+        private val runningTime: TextView = view.findViewById(R.id.tv_screen_running_time)
+        private val reserveButton: Button = view.findViewById(R.id.btn_reserve_now)
+
+        fun bind(screen: Screen) {
+            initView(screen)
+            initClickListener(screen)
+        }
+
+        private fun initClickListener(screen: Screen) {
+            reserveButton.setOnClickListener {
+                onScreenClickListener.onClick(screen.id)
+            }
+        }
+
+        private fun initView(screen: Screen) {
+            with(screen) {
+                poster.setImageResource(movie.imageSrc)
+                title.text = movie.title
+                this@ScreenViewHolder.date.text = this.date
+                runningTime.text = movie.runningTime.toString()
+            }
+        }
     }
 }
