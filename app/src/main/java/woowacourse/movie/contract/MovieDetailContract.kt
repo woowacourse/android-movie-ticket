@@ -1,0 +1,20 @@
+package woowacourse.movie.contract
+
+import android.content.Intent
+import woowacourse.movie.model.Reservation
+import woowacourse.movie.model.movieInfo.MovieInfo
+
+interface MovieDetailContract {
+    interface View {
+        fun displayMovie(movie: MovieInfo)
+        fun displayTicketNum(ticketNum: Int)
+
+        fun navigateToPurchaseConfirmation(reservation: Reservation)
+    }
+
+    interface Presenter {
+        fun onPlusButtonClicked()
+        fun onMinusButtonClicked()
+        fun onBuyButtonClicked()
+    }
+}

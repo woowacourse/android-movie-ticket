@@ -11,61 +11,42 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
-import woowacourse.movie.`interface`.MovieDetailView
+import woowacourse.movie.contract.MovieDetailContract
+import woowacourse.movie.model.Reservation
+import woowacourse.movie.model.movieInfo.MovieInfo
+import woowacourse.movie.model.theater.Theater
 import woowacourse.movie.presenter.MovieDetailActivityPresenter
 
-class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
-    private lateinit var presenter: MovieDetailActivityPresenter
-    private var ticketNum = 1
-
+class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
+    private val numberOfPurchases by lazy {
+        findViewById<TextView>(R.id.quantity_text_view)
+    }
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
+        val presenter = MovieDetailActivityPresenter(
+            intent,
+            this
+        )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = MovieDetailActivityPresenter(this, intent)
-
-        setupViews()
-        val movie = presenter.movie
-        if (movie != null) {
-            findViewById<TextView>(R.id.movie_title_large).text =
-                movie.title.toString()
-            findViewById<TextView>(R.id.movie_release_date_large).text =
-                movie.releaseDate.toString()
-            findViewById<TextView>(R.id.movie_running_time).text =
-                movie.runningTime.toString()
-            findViewById<TextView>(R.id.movie_synopsis).text =
-                movie.synopsis.toString()
-        }
+        findViewById<ImageView>(R.id.movie_thumbnail)
+            .setImageDrawable(ContextCompat.getDrawable(this, R.drawable.movie_making_poster))
 
         val ticketPlusButton = findViewById<Button>(R.id.plus_button)
         val ticketMinusButton = findViewById<Button>(R.id.minus_button)
         val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
-        val numberOfPurchases = findViewById<TextView>(R.id.quantity_text_view)
+
         ticketPlusButton.setOnClickListener {
-            ticketNum += 1
-            numberOfPurchases.text = ticketNum.toString()
+            presenter.onPlusButtonClicked()
         }
         ticketMinusButton.setOnClickListener {
-            if (ticketNum > 0) ticketNum -= 1
-            numberOfPurchases.text = ticketNum.toString()
+            presenter.onMinusButtonClicked()
         }
         ticketBuyButton.setOnClickListener {
-            presenter.onBuyTicketClicked(
-                ticketNum,
-                Intent(this, PurchaseConfirmationActivity::class.java),
-            )
+            presenter.onBuyButtonClicked()
         }
-    }
-
-    private fun setupViews() {
-        findViewById<ImageView>(R.id.movie_thumbnail)
-            .setImageDrawable(ContextCompat.getDrawable(this, R.drawable.movie_making_poster))
-    }
-
-    override fun navigateToPurchaseConfirmation(sendingIntent: Intent) {
-        startActivity(sendingIntent)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -76,5 +57,29 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
             }
         }
         return super.onContextItemSelected(item)
+    }
+
+    override fun displayMovie(movie: MovieInfo) {
+        if (movie != null) {
+            findViewById<TextView>(R.id.movie_title_large).text =
+                movie.title.toString()
+            findViewById<TextView>(R.id.movie_release_date_large).text =
+                movie.releaseDate.toString()
+            findViewById<TextView>(R.id.movie_running_time).text =
+                movie.runningTime.toString()
+            findViewById<TextView>(R.id.movie_synopsis).text =
+                movie.synopsis.toString()
+        }
+    }
+
+    override fun displayTicketNum(ticketNum: Int) {
+        numberOfPurchases.text = ticketNum.toString()
+    }
+
+    override fun navigateToPurchaseConfirmation(reservation: Reservation) {
+        val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
+            putExtra("Reservation", reservation)
+        }
+        startActivity(intent)
     }
 }
