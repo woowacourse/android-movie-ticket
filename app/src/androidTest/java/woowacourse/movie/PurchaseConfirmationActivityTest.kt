@@ -12,6 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.PurchaseConfirmationActivity
+import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
@@ -35,8 +36,7 @@ class PurchaseConfirmationActivityTest {
             ApplicationProvider.getApplicationContext(),
             PurchaseConfirmationActivity::class.java,
         ).also {
-            it.putExtra("Theater", theater)
-            it.putExtra("ticketNum", 3)
+            it.putExtra("Reservation", Reservation(theater, 3))
         }
 
     @get:Rule

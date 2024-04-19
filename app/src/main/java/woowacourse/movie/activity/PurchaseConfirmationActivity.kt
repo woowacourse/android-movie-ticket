@@ -23,7 +23,7 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.purchase_movie_running_time).text =
             movie?.runningTime.toString()
 
-        findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(presenter.calculate())
+        findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(presenter.charge)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
