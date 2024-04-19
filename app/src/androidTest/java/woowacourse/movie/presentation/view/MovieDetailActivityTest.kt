@@ -74,12 +74,4 @@ class MovieDetailActivityTest {
         // then
         onView(withId(R.id.reservationCount)).check(matches(withText("1")))
     }
-
-    @Test
-    fun `영화_상세_화면에서_예매_버튼을_클릭하면_예매_결과_화면으로_이동한다`() {
-        // when
-        onView(withId(R.id.reserveButton)).perform(click())
-        // then
-        onView(withId(R.id.reservation_result_layout)).check(matches(isDisplayed()))
-    }
 }

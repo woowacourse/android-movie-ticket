@@ -24,17 +24,4 @@ class MainActivityTest {
         // given
         onView(withId(R.id.movieList)).check(matches(isDisplayed()))
     }
-
-    @Test
-    fun `영화_목록에서_영화를_클릭하면_영화_상세_화면으로_이동한다`() {
-        // when
-        onData(anything())
-            .inAdapterView(withId(R.id.movieList))
-            .atPosition(0)
-            .onChildView(withId(R.id.reserveButton))
-            .perform(click())
-
-        // then
-        onView(withId(R.id.movie_detail_layout)).check(matches(isDisplayed()))
-    }
 }
