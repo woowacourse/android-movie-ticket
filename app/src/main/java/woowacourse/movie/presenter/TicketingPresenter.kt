@@ -9,9 +9,10 @@ import woowacourse.movie.presenter.contract.TicketingContract
 class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
     movieId: Int,
+    savedCount: Int?,
 ) : TicketingContract.Presenter {
     private val movie = MovieRepository.findMovieById(movieId)
-    private val count = Count()
+    private val count = savedCount?.let { Count(it) } ?: Count()
 
     override fun assignInitialView() {
         when (movie) {

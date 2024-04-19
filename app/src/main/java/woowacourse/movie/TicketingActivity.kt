@@ -22,9 +22,10 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
-        ticketingPresenter = TicketingPresenter(this, movieId)
-        ticketingPresenter.assignInitialView()
+        val savedCount = savedInstanceState?.getInt(KEY_COUNT)
 
+        ticketingPresenter = TicketingPresenter(this, movieId, savedCount)
+        ticketingPresenter.assignInitialView()
         initializeButtons()
     }
 
@@ -44,6 +45,11 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         completeButton.setOnClickListener {
             ticketingPresenter.navigate()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_COUNT, countText.text.toString().toInt())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -94,5 +100,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         const val EXTRA_COUNT = "number_of_people"
         const val EXTRA_TOTAL_PRICE = "total_price"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
+        const val KEY_COUNT = "count"
     }
 }

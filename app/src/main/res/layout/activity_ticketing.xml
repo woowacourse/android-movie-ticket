@@ -91,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_start"
@@ -114,6 +114,8 @@
         android:text="@string/text_minus_button"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_complete"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/gl_form" />
 
@@ -137,6 +139,8 @@
         android:text="@string/text_plus_button"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_complete"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintTop_toBottomOf="@id/gl_form" />
 
