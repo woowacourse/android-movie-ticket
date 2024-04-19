@@ -16,7 +16,7 @@ import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     private lateinit var movieDetailActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var movieMainPresenter: MovieMainPresenter
-    private lateinit var movieList: ListView
+    private val movieList: ListView by lazy { findViewById<ListView>(R.id.mainList) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,6 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
             }
 
         movieMainPresenter = MovieMainPresenter(this)
-        movieList = findViewById<ListView>(R.id.mainList)
         movieList.adapter = movieMainPresenter.getAdapter(this)
     }
 

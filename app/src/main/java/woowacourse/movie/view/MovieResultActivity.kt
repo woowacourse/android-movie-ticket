@@ -9,15 +9,15 @@ import woowacourse.movie.presenter.MovieResultContract
 import woowacourse.movie.presenter.MovieResultPresenter
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERV_COUNT
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatCurrency
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
-    private lateinit var completeTitleTextView: TextView
-    private lateinit var completeDateTextView: TextView
-    private lateinit var completeReservationCountTextView: TextView
-    private lateinit var completeReservationPriceTextView: TextView
+    private val completeTitleTextView: TextView by lazy { findViewById(R.id.resultTitle) }
+    private val completeDateTextView: TextView by lazy { findViewById(R.id.resultDate) }
+    private val completeReservationCountTextView: TextView by lazy { findViewById(R.id.resultReservCount) }
+    private val completeReservationPriceTextView: TextView by lazy { findViewById(R.id.resultReservPrice) }
     private lateinit var movieResultPresenter: MovieResultPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,16 +25,11 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         setContentView(R.layout.activity_movie_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        completeTitleTextView = findViewById(R.id.resultTitle)
-        completeDateTextView = findViewById(R.id.resultDate)
-        completeReservationCountTextView = findViewById(R.id.resultReservCount)
-        completeReservationPriceTextView = findViewById(R.id.resultReservPrice)
-
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.display(
             intent.getLongExtra(EXTRA_MOVIE_ID, 0),
             intent.getIntExtra(
-                EXTRA_MOVIE_RESERV_COUNT,
+                EXTRA_MOVIE_RESERVATION_COUNT,
                 0,
             ),
         )

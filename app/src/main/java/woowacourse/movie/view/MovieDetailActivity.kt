@@ -16,22 +16,22 @@ import woowacourse.movie.presenter.MovieDetailPresenter
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERV_COUNT
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var reservationCompleteActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var movieDetailPresenter: MovieDetailPresenter
 
-    private lateinit var detailImage: ImageView
-    private lateinit var detailTitle: TextView
-    private lateinit var detailDate: TextView
-    private lateinit var detailRunningTime: TextView
-    private lateinit var detailDescription: TextView
-    private lateinit var reservationCount: TextView
-    private lateinit var minusButton: Button
-    private lateinit var plusButton: Button
-    private lateinit var reservationCompleteButton: Button
+    private val detailImage: ImageView by lazy { findViewById(R.id.detailImage) }
+    private val detailTitle: TextView by lazy { findViewById(R.id.detailTitle) }
+    private val detailDate: TextView by lazy { findViewById(R.id.detailDate) }
+    private val detailRunningTime: TextView by lazy { findViewById(R.id.detailRunningTime) }
+    private val detailDescription: TextView by lazy { findViewById(R.id.detailDescription) }
+    private val reservationCount: TextView by lazy { findViewById(R.id.detailReservCount) }
+    private val minusButton: Button by lazy { findViewById(R.id.detailMinusBtn) }
+    private val plusButton: Button by lazy { findViewById(R.id.detailPlusBtn) }
+    private val reservationCompleteButton: Button by lazy { findViewById(R.id.detailReservCompleteBtn) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,16 +45,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 }
             }
         movieDetailPresenter = MovieDetailPresenter(this)
-
-        detailImage = findViewById(R.id.detailImage)
-        detailTitle = findViewById(R.id.detailTitle)
-        detailDate = findViewById(R.id.detailDate)
-        detailRunningTime = findViewById(R.id.detailRunningTime)
-        detailDescription = findViewById(R.id.detailDescription)
-        reservationCount = findViewById(R.id.detailReservCount)
-        minusButton = findViewById(R.id.detailMinusBtn)
-        plusButton = findViewById(R.id.detailPlusBtn)
-        reservationCompleteButton = findViewById(R.id.detailReservCompleteBtn)
 
         movieDetailPresenter.display(intent.getLongExtra(MovieIntentConstants.EXTRA_MOVIE_ID, 0))
     }
@@ -92,7 +82,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     ) {
         Intent(this, MovieResultActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, id)
-            putExtra(EXTRA_MOVIE_RESERV_COUNT, count)
+            putExtra(EXTRA_MOVIE_RESERVATION_COUNT, count)
             reservationCompleteActivityResultLauncher.launch(this)
         }
     }
