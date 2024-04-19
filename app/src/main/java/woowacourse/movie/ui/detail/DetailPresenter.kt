@@ -29,24 +29,24 @@ class DetailPresenter(
     }
 
     override fun plusTicket() {
-        val nextTicket = ticket.update(1)
+        val increasedTicket = ticket.increase()
 
-        if (nextTicket.isInvalidCount()) {
+        if (increasedTicket.isInvalidCount()) {
             view.showToastMessage("티켓 수량은 ${MAX_TICKET_COUNT}개 이하이어야 합니다.")
             return
         }
-        ticket = nextTicket
+        ticket = increasedTicket
         view.showTicket(ticket.count)
     }
 
     override fun minusTicket() {
-        val nextTicket = ticket.update(-1)
+        val decreasedTicket = ticket.decrease()
 
-        if (nextTicket.isInvalidCount()) {
+        if (decreasedTicket.isInvalidCount()) {
             view.showToastMessage("티켓 수량은 ${MIN_TICKET_COUNT}개 이상이어야 합니다.")
             return
         }
-        ticket = nextTicket
+        ticket = decreasedTicket
         view.showTicket(ticket.count)
     }
 

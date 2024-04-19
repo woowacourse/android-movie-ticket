@@ -1,19 +1,13 @@
 package woowacourse.movie.domain.model
 
 data class Ticket(val count: Int) {
-    fun increase(): Ticket = updateNew(count + DEFAULT_PLUS_QUANTITY)
+    fun increase(): Ticket = update(count + DEFAULT_PLUS_QUANTITY)
 
-    fun decrease(): Ticket = updateNew(count - DEFAULT_MINUS_QUANTITY)
+    fun decrease(): Ticket = update(count - DEFAULT_MINUS_QUANTITY)
 
-    private fun updateNew(quantity: Int): Ticket = copy(quantity)
+    private fun update(quantity: Int): Ticket = copy(count = quantity)
 
-    fun update(quantity: Int): Ticket {
-        return copy(count = count + quantity)
-    }
-
-    fun isInvalidCount(): Boolean {
-        return count < MIN_TICKET_COUNT || count > MAX_TICKET_COUNT
-    }
+    fun isInvalidCount(): Boolean = count < MIN_TICKET_COUNT || count > MAX_TICKET_COUNT
 
     companion object {
         const val MAX_TICKET_COUNT = 10

@@ -19,20 +19,6 @@ class TicketTest {
     }
 
     @Test
-    fun `티켓 개수가 1일 때 티켓 개수를 더한다`() {
-        val ticket = Ticket(1)
-        val nextTicket = ticket.update(1)
-        assertThat(nextTicket.count).isEqualTo(2)
-    }
-
-    @Test
-    fun `티켓 개수가 2일 때 티켓 개수를 뺄 수 있다`() {
-        val ticket = Ticket(2)
-        val nextTicket = ticket.update(-1)
-        assertThat(nextTicket.count).isEqualTo(1)
-    }
-
-    @Test
     fun `티켓 개수를 1 증가시킨다`() {
         val ticket = Ticket(1)
         val increasedTicket = ticket.increase()
