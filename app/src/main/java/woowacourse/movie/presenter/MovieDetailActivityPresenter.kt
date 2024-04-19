@@ -32,7 +32,7 @@ class MovieDetailActivityPresenter(
         view.displayTicketNum(ticketNum)
     }
 
-    override fun onBuyButtonClicked() {
+    fun onBuyButtonClicked() {
         view.navigateToPurchaseConfirmation(Reservation(theater, ticketNum))
     }
 }

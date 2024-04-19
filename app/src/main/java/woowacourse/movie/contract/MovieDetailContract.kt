@@ -16,7 +16,5 @@ interface MovieDetailContract {
         fun plusTicketNum()
 
         fun minusTicketNum()
-
-        fun onBuyButtonClicked()
     }
 }
