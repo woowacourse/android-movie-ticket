@@ -9,8 +9,8 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
     private var reservationCount = ReservationCount()
 
     override fun display(id: Long) {
-        val movie = movieRepository.getOneById(id)
-        detailContractView.onInitView(movie)
+        val movieData = movieRepository.getOneById(id)
+        detailContractView.onInitView(movieData)
     }
 
     override fun plusReservationCount() {

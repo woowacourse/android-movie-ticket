@@ -6,7 +6,7 @@ interface MovieDetailContract {
     interface View {
         fun onCountUpdate(count: Int)
 
-        fun onInitView(movie: Movie?)
+        fun onInitView(movieData: Movie?)
 
         fun onReservationComplete(
             id: Long,
