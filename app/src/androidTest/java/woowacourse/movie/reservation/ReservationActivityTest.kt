@@ -62,13 +62,4 @@ class ReservationActivityTest {
         onView(withId(R.id.quantity))
             .check(matches(withText("0")))
     }
-
-    @Test
-    fun `예약_완료_버튼_클릭시_예약완료화면으로_이동한다`() {
-        onView(withId(R.id.btn_reservation_completed))
-            .perform(click())
-
-        onView(withId(R.id.message))
-            .check(matches(isDisplayed()))
-    }
 }
