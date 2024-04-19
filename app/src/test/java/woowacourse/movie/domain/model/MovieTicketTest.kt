@@ -22,7 +22,7 @@ class MovieTicketTest {
 
     @Test
     fun `예매할 티켓의 초기 인원 수는 1명이다`() {
-        assertThat(movieTicket.count).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT)
+        assertThat(movieTicket.reservationCount).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT)
     }
 
     @Test
@@ -31,7 +31,7 @@ class MovieTicketTest {
         movieTicket.plusCount()
 
         // then
-        assertThat(movieTicket.count).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT + 1)
+        assertThat(movieTicket.reservationCount).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT + 1)
     }
 
     @Test
@@ -43,7 +43,7 @@ class MovieTicketTest {
         movieTicket.plusCount()
 
         // then
-        assertThat(movieTicket.count).isEqualTo(MovieTicket.MAX_RESERVATION_COUNT)
+        assertThat(movieTicket.reservationCount).isEqualTo(MovieTicket.MAX_RESERVATION_COUNT)
     }
 
     @Test
@@ -52,7 +52,7 @@ class MovieTicketTest {
         movieTicket.minusCount()
 
         // then
-        assertThat(movieTicket.count).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT)
+        assertThat(movieTicket.reservationCount).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT)
     }
 
     @Test
@@ -61,7 +61,7 @@ class MovieTicketTest {
         movieTicket.minusCount()
 
         // then
-        assertThat(movieTicket.count).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT)
+        assertThat(movieTicket.reservationCount).isEqualTo(MovieTicket.MIN_RESERVATION_COUNT)
     }
 
     @ParameterizedTest
