@@ -3,13 +3,11 @@ package woowacourse.movie
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.hamcrest.CoreMatchers
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,7 +27,7 @@ class PurchaseConfirmationActivityTest {
             Title("차람과 하디의 진지한 여행기"),
             MovieDate(LocalDate.of(2024, 2, 25)),
             RunningTime(230),
-            Synopsis("wow!")
+            Synopsis("wow!"),
         )
     private val theater = Theater(movie, 10000)
     private val intent =
@@ -49,6 +47,7 @@ class PurchaseConfirmationActivityTest {
         Espresso.onView(withId(R.id.movie_title_confirmation))
             .check(matches(ViewMatchers.withText("차람과 하디의 진지한 여행기")))
     }
+
     @Test
     fun runningTimeTest() {
         Espresso.onView(withId(R.id.purchase_movie_running_time))

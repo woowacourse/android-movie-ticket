@@ -54,7 +54,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         ticketBuyButton.setOnClickListener {
             presenter.onBuyTicketClicked(
                 ticketNum,
-                Intent(this, PurchaseConfirmationActivity::class.java)
+                Intent(this, PurchaseConfirmationActivity::class.java),
             )
         }
     }

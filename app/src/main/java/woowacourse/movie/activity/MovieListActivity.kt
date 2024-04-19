@@ -12,22 +12,24 @@ import woowacourse.movie.presenter.MovieListActivityPresenter
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private lateinit var moviesListView: ListView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_list_activity)
         val movieAdapter = MovieAdapter()
         MovieListActivityPresenter(
             movieListView = this,
-            movieAdapter = movieAdapter
+            movieAdapter = movieAdapter,
         )
         moviesListView = findViewById(R.id.movies_list_item)
         moviesListView.adapter = movieAdapter
     }
 
     override fun navigateToMovieDetail(theater: Theater) {
-        val intent = Intent(this, MovieDetailActivity::class.java).apply {
-            putExtra("Theater", theater)
-        }
+        val intent =
+            Intent(this, MovieDetailActivity::class.java).apply {
+                putExtra("Theater", theater)
+            }
         startActivity(intent)
     }
 }

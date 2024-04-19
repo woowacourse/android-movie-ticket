@@ -6,7 +6,6 @@ import androidx.annotation.RequiresApi
 import woowacourse.movie.model.theater.Theater
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-
 class PurchaseConfirmationActivityPresenter(intent: Intent) {
     private val theater = intent.getSerializableExtra("Theater", Theater::class.java)
     private val numberOfTicket = intent.getIntExtra("ticketNum", 0)
