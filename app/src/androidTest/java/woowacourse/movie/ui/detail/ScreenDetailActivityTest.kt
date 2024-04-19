@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.detail
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
@@ -80,5 +81,18 @@ class ScreenDetailActivityTest {
         // then
         onView(withId(R.id.tv_count))
             .check(matches(withText("10")))
+    }
+
+
+    @Test
+    fun `카운트가_2일_떄_화면을_가로로_회전해도_카운트가_유지된다`() {
+        val activityScenario = activityRule.scenario
+        plusBtn.perform(click())
+
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.tv_count)).check(matches(withText("2")))
     }
 }
