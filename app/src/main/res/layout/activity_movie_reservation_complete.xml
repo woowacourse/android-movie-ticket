@@ -15,7 +15,7 @@
         android:paddingBottom="10dp"
         android:text="@string/reservation_complete_guide"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/title_text"
@@ -23,7 +23,7 @@
         android:layout_height="73dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold"
         tools:text="해리 포터와 마법사의 돌" />
 
@@ -33,7 +33,7 @@
         android:layout_height="26dp"
         android:layout_marginBottom="80dp"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         tools:text="2024.3.1" />
 
@@ -43,7 +43,7 @@
         android:layout_height="26dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="20sp"
         tools:text="일반 1명" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="20sp"
         tools:text="13,000원 (현장 결제)" />
 
 </LinearLayout>
