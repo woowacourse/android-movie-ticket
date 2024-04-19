@@ -21,6 +21,21 @@ class DetailActivity : AppCompatActivity() {
         setupCounter()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val count = findViewById<TextView>(R.id.detail_person_counter).text.toString().toInt()
+        outState.putInt("count", count)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val count = it.getInt("count")
+            val countTextView = findViewById<TextView>(R.id.detail_person_counter)
+            countTextView.text = count.toString()
+        }
+    }
+
     private fun setupReserveButton() {
         val movie: Movie = intent?.parcelable("movie") ?: Movie(
             poster = R.drawable.poster,
