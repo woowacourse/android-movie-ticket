@@ -17,6 +17,11 @@ import java.io.Serializable
 import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract {
+    private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
+    private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_date) }
+    private val numberOfTickets: TextView by lazy { findViewById(R.id.text_view_reservation_finished_number_of_tickets) }
+    private val ticketPrice: TextView by lazy { findViewById(R.id.text_view_reservation_finished_ticket_price) }
+
     private lateinit var presenter: ReservationFinishedPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +41,6 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
     }
 
     override fun showMovieInformation(movie: Movie) {
-        val title = findViewById<TextView>(R.id.text_view_reservation_finished_title)
-        val screeningDate =
-            findViewById<TextView>(R.id.text_view_reservation_finished_screening_date)
-
         title.text = movie.title
         screeningDate.text = movie.screeningDate
     }
@@ -48,10 +49,6 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         ticketCount: Int,
         price: Int,
     ) {
-        val numberOfTickets =
-            findViewById<TextView>(R.id.text_view_reservation_finished_number_of_tickets)
-        val ticketPrice = findViewById<TextView>(R.id.text_view_reservation_finished_ticket_price)
-
         numberOfTickets.text = ticketCount.toString()
         ticketPrice.text = convertPriceFormat(price)
     }

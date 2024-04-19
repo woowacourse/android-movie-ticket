@@ -10,18 +10,15 @@ import woowacourse.movie.presenter.ReservationHomePresenter
 import woowacourse.movie.view.ReservationHomeContract
 
 class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract {
+    private val movies: ListView by lazy { findViewById(R.id.list_view_reservation_home) }
     private val reservationHomePresenter = ReservationHomePresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_home)
 
-        val movieCatalogAdapter =
-            MovieCatalogAdapter(this, reservationHomePresenter.movies) { movie ->
-                reservationHomePresenter.deliverMovie(movie.id)
-            }
-        findViewById<ListView>(R.id.list_view_reservation_home).apply {
-            adapter = movieCatalogAdapter
+        movies.adapter = MovieCatalogAdapter(this, reservationHomePresenter.movies) { movie ->
+            reservationHomePresenter.deliverMovie(movie.id)
         }
     }
 

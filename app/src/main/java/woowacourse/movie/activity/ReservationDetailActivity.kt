@@ -14,6 +14,16 @@ import woowacourse.movie.presenter.ReservationDetailPresenter
 import woowacourse.movie.view.ReservationDetailContract
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
+    private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }
+    private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_screening_date) }
+    private val runningTime: TextView by lazy { findViewById(R.id.text_view_reservation_running_time) }
+    private val summary: TextView by lazy { findViewById(R.id.text_view_reservation_summary) }
+    private val numberOfTickets: TextView by lazy { findViewById(R.id.text_view_reservation_detail_number_of_tickets) }
+    private val poster: ImageView by lazy { findViewById(R.id.image_view_reservation_detail_poster) }
+    private val plusButton: Button by lazy { findViewById(R.id.button_reservation_detail_plus) }
+    private val minusButton: Button by lazy { findViewById(R.id.button_reservation_detail_minus) }
+    private val reservationButton: Button by lazy { findViewById(R.id.button_reservation_detail_finished) }
+
     private val presenter = ReservationDetailPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,12 +43,6 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     }
 
     override fun showMovieInformation(movie: Movie) {
-        val poster = findViewById<ImageView>(R.id.image_view_reservation_detail_poster)
-        val title = findViewById<TextView>(R.id.text_view_reservation_detail_title)
-        val screeningDate = findViewById<TextView>(R.id.text_view_reservation_screening_date)
-        val runningTime = findViewById<TextView>(R.id.text_view_reservation_running_time)
-        val summary = findViewById<TextView>(R.id.text_view_reservation_summary)
-
         poster.setImageResource(movie.poster)
         title.text = movie.title
         screeningDate.text = movie.screeningDate
@@ -47,31 +51,22 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     }
 
     override fun changeNumberOfTickets(ticket: Ticket) {
-        val numberOfTickets =
-            findViewById<TextView>(R.id.text_view_reservation_detail_number_of_tickets)
-
         numberOfTickets.text = ticket.count.toString()
     }
 
     override fun initializePlusButton(increaseTicketCount: () -> Unit) {
-        val plusButton = findViewById<Button>(R.id.button_reservation_detail_plus)
-
         plusButton.setOnClickListener {
             increaseTicketCount()
         }
     }
 
     override fun initializeMinusButton(decreaseTicketCount: () -> Unit) {
-        val minusButton = findViewById<Button>(R.id.button_reservation_detail_minus)
-
         minusButton.setOnClickListener {
             decreaseTicketCount()
         }
     }
 
     override fun initializeReservationButton(movieId: Int) {
-        val reservationButton = findViewById<Button>(R.id.button_reservation_detail_finished)
-
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationFinishedActivity::class.java)
             intent.putExtra("movieId", movieId)
