@@ -4,7 +4,6 @@ import android.content.Intent
 
 interface MainContract {
     interface View {
-        fun setUpViews(position: Int)
     }
 
     interface Presenter {
