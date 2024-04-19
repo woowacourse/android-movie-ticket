@@ -17,7 +17,7 @@ class MovieListActivityPresenter(
         movieAdapter.setTheaters(theaterRepository.getTheaters())
     }
 
-    override fun onItemButtonClicked(position: Int) {
+    private fun onItemButtonClicked(position: Int) {
         movieListView.navigateToMovieDetail(theaters[position])
     }
 }

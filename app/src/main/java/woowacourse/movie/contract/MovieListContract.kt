@@ -8,6 +8,5 @@ interface MovieListContract {
     }
 
     interface Presenter {
-        fun onItemButtonClicked(position: Int)
     }
 }
