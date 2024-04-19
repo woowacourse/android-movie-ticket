@@ -2,7 +2,6 @@ package woowacourse.movie.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.Ticket.Companion.TICKET_PRICE
 
 class TicketTest {
     @Test
@@ -42,12 +41,5 @@ class TicketTest {
         ticket.sub()
 
         assertThat(ticket.count()).isEqualTo(1)
-    }
-
-    @Test
-    fun `count값에 비례하여 price값을 구할 수 있다`() {
-        val ticket = Ticket()
-
-        assertThat(ticket.price()).isEqualTo(ticket.count() * TICKET_PRICE)
     }
 }

@@ -13,6 +13,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 
@@ -27,6 +28,7 @@ class ReservationResultActivityTest {
             runningTime = 152,
         )
     private val ticket = Ticket()
+    private val payment = Payment()
 
     private val intent =
         Intent(
@@ -35,7 +37,7 @@ class ReservationResultActivityTest {
         ).putExtra("count", ticket.count().toString())
             .putExtra("title", movie.title)
             .putExtra("screenDate", movie.screenDateToString())
-            .putExtra("price", ticket.price())
+            .putExtra("price", payment.price(ticket.count()))
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
