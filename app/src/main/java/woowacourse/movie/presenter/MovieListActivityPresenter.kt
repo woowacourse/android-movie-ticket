@@ -2,7 +2,6 @@ package woowacourse.movie.presenter
 
 import android.content.Context
 import woowacourse.movie.adapter.MovieAdapter
-import woowacourse.movie.`interface`.MovieDetailView
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
@@ -11,7 +10,7 @@ import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.theater.Theater
 import java.time.LocalDate
 
-class MainActivityPresenter(private val context: Context) {
+class MovieListActivityPresenter(private val context: Context) {
 
     val movieInfo = MovieInfo(
         Title("차람과 하디의 진지한 여행기"),
