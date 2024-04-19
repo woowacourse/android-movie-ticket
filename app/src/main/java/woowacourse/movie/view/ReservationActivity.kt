@@ -37,7 +37,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
     }
 
-    override fun setUpView() {
+    private fun setUpView() {
         initImage()
         initTitle()
         initScreenDate()

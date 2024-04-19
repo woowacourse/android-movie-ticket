@@ -4,8 +4,6 @@ import android.content.Intent
 
 interface ReservationContract {
     interface View {
-        fun setUpView()
-
         fun updateTicketCount()
     }
 
