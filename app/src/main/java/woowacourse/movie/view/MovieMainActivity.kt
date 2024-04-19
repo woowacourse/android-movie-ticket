@@ -11,6 +11,7 @@ import woowacourse.movie.R
 import woowacourse.movie.presenter.MovieMainContract
 import woowacourse.movie.presenter.MovieMainPresenter
 import woowacourse.movie.utils.MovieErrorCode
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 
 class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     private lateinit var movieDetailActivityResultLauncher: ActivityResultLauncher<Intent>
@@ -23,7 +24,7 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
 
         movieDetailActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.key) {
+                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.code) {
                     Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -35,7 +36,7 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
 
     override fun onMovieItemClick(id: Long) {
         Intent(this, MovieDetailActivity::class.java).apply {
-            putExtra("movieId", id)
+            putExtra(EXTRA_MOVIE_ID, id)
             movieDetailActivityResultLauncher.launch(this)
         }
     }

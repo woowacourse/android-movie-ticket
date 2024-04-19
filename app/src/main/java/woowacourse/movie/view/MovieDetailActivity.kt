@@ -14,6 +14,9 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.MovieDetailContract
 import woowacourse.movie.presenter.MovieDetailPresenter
 import woowacourse.movie.utils.MovieErrorCode
+import woowacourse.movie.utils.MovieIntentConstants
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERV_COUNT
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
@@ -37,7 +40,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
         reservationCompleteActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.key) {
+                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.code) {
                     Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -53,7 +56,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         plusButton = findViewById(R.id.detailPlusBtn)
         reservationCompleteButton = findViewById(R.id.detailReservCompleteBtn)
 
-        movieDetailPresenter.display(intent.getLongExtra("movieId", 0))
+        movieDetailPresenter.display(intent.getLongExtra(MovieIntentConstants.EXTRA_MOVIE_ID, 0))
     }
 
     override fun onInitView(movieData: Movie?) {
@@ -74,7 +77,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 movieDetailPresenter.reservation(movie.id)
             }
         } ?: {
-            setResult(MovieErrorCode.INVALID_MOVIE_ID.key)
+            setResult(MovieErrorCode.INVALID_MOVIE_ID.code)
             finish()
         }
     }
@@ -88,8 +91,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         count: Int,
     ) {
         Intent(this, MovieResultActivity::class.java).apply {
-            putExtra("movieId", id)
-            putExtra("movieReservationCount", count)
+            putExtra(EXTRA_MOVIE_ID, id)
+            putExtra(EXTRA_MOVIE_RESERV_COUNT, count)
             reservationCompleteActivityResultLauncher.launch(this)
         }
     }
