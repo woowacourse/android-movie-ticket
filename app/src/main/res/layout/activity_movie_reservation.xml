@@ -27,7 +27,8 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toTopOf="@+id/text_layout"
                 app:layout_constraintDimensionRatio="360:340"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/movie_poster" />
 
             <LinearLayout
                 android:id="@+id/text_layout"
@@ -44,28 +45,32 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="27dp"
                     android:textSize="24dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="해리 포터와 마법사의 돌" />
 
                 <TextView
                     android:id="@+id/screening_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="34dp"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    tools:text="상영일: 2024.3.1" />
 
                 <TextView
                     android:id="@+id/running_time_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="19dp"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    tools:text="러닝타임: 152분" />
 
                 <TextView
                     android:id="@+id/synopsis_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    tools:text="시놉시스\n시놉시스\n시놉시스" />
 
             </LinearLayout>
 

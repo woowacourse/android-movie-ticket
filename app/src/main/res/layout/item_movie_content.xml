@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp">
@@ -14,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/info_layout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/movie_poster" />
 
     <LinearLayout
         android:id="@+id/info_layout"
@@ -33,7 +35,8 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
             android:textSize="16dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="해리 포터와 마법사의 돌" />
 
         <TextView
             android:id="@+id/screening_date_text"
@@ -41,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:gravity="center_vertical"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            tools:text="상영일: 2024.3.1" />
 
         <TextView
             android:id="@+id/running_time_text"
@@ -49,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:gravity="center_vertical"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            tools:text="러닝타임: 152분" />
 
     </LinearLayout>
 
