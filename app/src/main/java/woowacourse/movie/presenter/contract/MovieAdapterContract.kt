@@ -1,11 +1,11 @@
 package woowacourse.movie.presenter.contract
 
-import android.view.View
+import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.model.Movie
 
 interface MovieAdapterContract {
     fun assignInitialView(
         movie: Movie,
-        itemView: View,
+        itemView: MovieAdapter.MovieViewHolder,
     )
 }
