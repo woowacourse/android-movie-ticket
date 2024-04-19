@@ -14,6 +14,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presenter.MovieReservationPresenter
 import java.io.Serializable
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private lateinit var context: Context
@@ -68,7 +69,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private fun setMovieData() {
         getSerializableModel()?.let { movie ->
             titleView.text = movie.title
-            screeningDateView.text = movie.screeningDate
+
+            val formattedScreeningDate =
+                movie.screeningDate
+                    .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+            screeningDateView.text = formattedScreeningDate
             runningDateView.text = movie.runningTime.toString()
             descriptionView.text = movie.description
             posterView.setImageResource(movie.posterResourceId)

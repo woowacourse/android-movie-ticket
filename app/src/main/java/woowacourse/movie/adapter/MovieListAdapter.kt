@@ -10,6 +10,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.view.MovieReservationActivity
 import java.io.Serializable
+import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val context: Context,
@@ -63,7 +64,11 @@ class MovieListAdapter(
     private fun setViewHolder(movie: Movie) {
         movieViewHolder.title.text = movie.title
         movieViewHolder.poster.setImageResource(movie.posterResourceId)
-        movieViewHolder.screeningDate.text = movie.screeningDate
+
+        val formattedScreeningDate =
+            movie.screeningDate
+                .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        movieViewHolder.screeningDate.text = formattedScreeningDate
         movieViewHolder.runningTime.text = movie.runningTime.toString()
     }
 
