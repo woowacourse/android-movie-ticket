@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.screen.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.ui.detail.ScreenDetailActivity
+import woowacourse.movie.ui.screen.OnScreenClickListener
 
-class ScreenAdapter(private var item: List<Screen>) : BaseAdapter() {
+class ScreenAdapter(
+    private var item: List<Screen>,
+    private val onScreenClickListener: OnScreenClickListener,
+) : BaseAdapter() {
     override fun getCount(): Int = item.size
 
     override fun getItem(position: Int): Screen = item[position]
@@ -26,7 +28,7 @@ class ScreenAdapter(private var item: List<Screen>) : BaseAdapter() {
     ): View {
         val view = convertView ?: LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
         initBinding(view, position)
-        initClickListener(view, parent.context, position)
+        initClickListener(view, position)
 
         return view
     }
@@ -50,13 +52,12 @@ class ScreenAdapter(private var item: List<Screen>) : BaseAdapter() {
 
     private fun initClickListener(
         view: View,
-        context: Context,
         position: Int,
     ) {
         val reserveButton = view.findViewById<Button>(R.id.btn_reserve_now)
 
         reserveButton.setOnClickListener {
-            ScreenDetailActivity.startActivity(context, item[position].id)
+            onScreenClickListener.onClick(item[position].id)
         }
     }
 

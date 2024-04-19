@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter
 
 class ScreenActivity : AppCompatActivity(), ScreenContract.View {
@@ -23,7 +24,9 @@ class ScreenActivity : AppCompatActivity(), ScreenContract.View {
     }
 
     private fun initAdapter() {
-        adapter = ScreenAdapter(emptyList())
+        adapter = ScreenAdapter(emptyList()) { screenId ->
+            ScreenDetailActivity.startActivity(this, screenId)
+        }
         listView.adapter = adapter
     }
 
