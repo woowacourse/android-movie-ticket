@@ -7,6 +7,8 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.model.movieInfo.MovieDate
+import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.theater.Theater
 
 class MovieAdapter : BaseAdapter() {
@@ -37,9 +39,9 @@ class MovieAdapter : BaseAdapter() {
 
         listItemView.findViewById<TextView>(R.id.movie_title).text = movie.title.toString()
         listItemView.findViewById<TextView>(R.id.movie_release_date).text =
-            "상영일: ${movie.releaseDate}"
+            "상영일: ${movie.releaseDate.parse()}"
         listItemView.findViewById<TextView>(R.id.movie_duration).text =
-            "러닝타임: ${movie.runningTime}"
+            "러닝타임: ${movie.runningTime.parse()}"
         val detailsButton = listItemView.findViewById<Button>(R.id.movie_details_button)
 
         detailsButton.setOnClickListener {
@@ -47,4 +49,7 @@ class MovieAdapter : BaseAdapter() {
         }
         return listItemView
     }
+
+    private fun MovieDate.parse() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
+    private fun RunningTime.parse() = time.toString() + "분"
 }

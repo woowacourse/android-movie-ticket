@@ -30,15 +30,15 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
         return super.onContextItemSelected(item)
     }
 
-    companion object {
-        const val PRICE = "price: %d"
-    }
-
     override fun displayReservation(reservation: Reservation) {
         val movie = reservation.theater.movie
-        findViewById<TextView>(R.id.movie_title_confirmation).text = movie?.title.toString()
+        findViewById<TextView>(R.id.movie_title_confirmation).text = movie.title.content
         findViewById<TextView>(R.id.purchase_movie_running_time).text =
-            movie?.runningTime.toString()
+            movie.runningTime.time.toString() + "분"
         findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(reservation.getCharge())
+    }
+
+    companion object {
+        const val PRICE = "price: %d"
     }
 }
