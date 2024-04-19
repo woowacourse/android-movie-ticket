@@ -10,6 +10,8 @@ import woowacourse.movie.presenter.MovieResultPresenter
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatCurrency
 import woowacourse.movie.utils.formatTimestamp
 
@@ -27,10 +29,10 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
 
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.display(
-            intent.getLongExtra(EXTRA_MOVIE_ID, 0),
+            intent.getLongExtra(EXTRA_MOVIE_ID, NOT_FOUND_MOVIE_ID),
             intent.getIntExtra(
                 EXTRA_MOVIE_RESERVATION_COUNT,
-                0,
+                NOT_FOUND_MOVIE_RESERVATION_COUNT,
             ),
         )
     }
