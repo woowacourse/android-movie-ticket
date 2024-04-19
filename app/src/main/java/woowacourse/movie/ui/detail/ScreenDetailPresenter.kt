@@ -7,11 +7,11 @@ import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 
-class DetailPresenter(
-    private val view: DetailContract.View,
+class ScreenDetailPresenter(
+    private val view: ScreenDetailContract.View,
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
-) : DetailContract.Presenter {
+) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
     private lateinit var screen: Screen
 

@@ -16,8 +16,8 @@ import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.reservation.ReservationActivity
 
-class DetailActivity : AppCompatActivity(), DetailContract.View {
-    private val presenter: DetailContract.Presenter by lazy { DetailPresenter(this, DummyScreens(), DummyReservation) }
+class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
+    private val presenter: ScreenDetailContract.Presenter by lazy { ScreenDetailPresenter(this, DummyScreens(), DummyReservation) }
 
     private lateinit var title: TextView
     private lateinit var date: TextView
@@ -31,7 +31,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        setContentView(R.layout.activity_screen_detail)
 
         initBinding()
         initView()
@@ -73,7 +73,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     override fun showScreen(screen: Screen) {
         with(screen) {
             title.text = movie.title
-            this@DetailActivity.date.text = date
+            this@ScreenDetailActivity.date.text = date
             runningTime.text = movie.runningTime.toString()
             description.text = movie.description
             poster.setImageResource(movie.imageSrc)
@@ -120,7 +120,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
             context: Context,
             id: Int,
         ) {
-            val intent = Intent(context, DetailActivity::class.java)
+            val intent = Intent(context, ScreenDetailActivity::class.java)
             intent.putExtra(PUT_EXTRA_KEY_ID, id)
             context.startActivity(intent)
         }

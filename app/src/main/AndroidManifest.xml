@@ -16,7 +16,7 @@
             android:name=".ui.reservation.ReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.detail.DetailActivity"
+            android:name=".ui.detail.ScreenDetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.screen.ScreenActivity"

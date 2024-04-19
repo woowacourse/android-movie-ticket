@@ -16,11 +16,11 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 
 @RunWith(AndroidJUnit4::class)
-class DetailActivityTest {
+class ScreenDetailActivityTest {
     @get:Rule
-    val activityRule: ActivityScenarioRule<DetailActivity> =
-        ActivityScenarioRule<DetailActivity>(
-            Intent(ApplicationProvider.getApplicationContext(), DetailActivity::class.java).apply {
+    val activityRule: ActivityScenarioRule<ScreenDetailActivity> =
+        ActivityScenarioRule<ScreenDetailActivity>(
+            Intent(ApplicationProvider.getApplicationContext(), ScreenDetailActivity::class.java).apply {
                 putExtra("screenId", 1)
             },
         )

@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.ui.detail.DetailActivity
+import woowacourse.movie.ui.detail.ScreenDetailActivity
 
 class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
     override fun getCount(): Int = item.size
@@ -56,7 +56,7 @@ class ScreenAdapter(private val item: List<Screen>) : BaseAdapter() {
         val reserveButton = view.findViewById<Button>(R.id.btn_reserve_now)
 
         reserveButton.setOnClickListener {
-            DetailActivity.startActivity(context, item[position].id)
+            ScreenDetailActivity.startActivity(context, item[position].id)
         }
     }
 }

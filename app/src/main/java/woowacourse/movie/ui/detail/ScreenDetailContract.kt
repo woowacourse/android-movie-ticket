@@ -2,7 +2,7 @@ package woowacourse.movie.ui.detail
 
 import woowacourse.movie.domain.model.Screen
 
-interface DetailContract {
+interface ScreenDetailContract {
     interface View {
         fun showScreen(screen: Screen)
 
