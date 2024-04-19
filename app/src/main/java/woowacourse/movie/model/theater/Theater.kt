@@ -10,13 +10,14 @@ import java.time.LocalDate
 
 class Theater(val movie: MovieInfo, val charge: Int = 13000) : Serializable {
     companion object {
-        val default = Theater(
-            MovieInfo(
-                Title("default"),
-                MovieDate(LocalDate.of(2222, 2, 2)),
-                RunningTime(222),
-                Synopsis("defaultSynopsis")
+        val default =
+            Theater(
+                MovieInfo(
+                    Title("default"),
+                    MovieDate(LocalDate.of(2222, 2, 2)),
+                    RunningTime(222),
+                    Synopsis("defaultSynopsis"),
+                ),
             )
-        )
     }
 }

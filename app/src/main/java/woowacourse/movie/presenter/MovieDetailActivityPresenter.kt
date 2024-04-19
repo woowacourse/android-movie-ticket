@@ -15,8 +15,9 @@ class MovieDetailActivityPresenter(
     private var ticketNum = 1
     private val theater: Theater =
         intent.getSerializableExtra("Theater", Theater::class.java) ?: Theater.default
-    //TODO: have to notify that something went wrong and go back to movie selection
-    //e.g. view.notifyException()
+
+    // TODO: have to notify that something went wrong and go back to movie selection
+    // e.g. view.notifyException()
     init {
         view.displayMovie(theater.movie)
     }

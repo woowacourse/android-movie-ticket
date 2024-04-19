@@ -14,21 +14,22 @@ import woowacourse.movie.R
 import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.movieInfo.MovieInfo
-import woowacourse.movie.model.theater.Theater
 import woowacourse.movie.presenter.MovieDetailActivityPresenter
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private val numberOfPurchases by lazy {
         findViewById<TextView>(R.id.quantity_text_view)
     }
+
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
-        val presenter = MovieDetailActivityPresenter(
-            intent,
-            this
-        )
+        val presenter =
+            MovieDetailActivityPresenter(
+                intent,
+                this,
+            )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         findViewById<ImageView>(R.id.movie_thumbnail)
@@ -77,9 +78,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     override fun navigateToPurchaseConfirmation(reservation: Reservation) {
-        val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
-            putExtra("Reservation", reservation)
-        }
+        val intent =
+            Intent(this, PurchaseConfirmationActivity::class.java).apply {
+                putExtra("Reservation", reservation)
+            }
         startActivity(intent)
     }
 }

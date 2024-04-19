@@ -6,6 +6,6 @@ import java.io.Serializable
 class Reservation(
     val theater: Theater,
     val ticketNum: Int,
-): Serializable {
+) : Serializable {
     fun getCharge(): Int = theater.charge * ticketNum
 }
