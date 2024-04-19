@@ -36,7 +36,7 @@ class MainActivityTest {
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun listViewDisplaysMovieInfo() {
+    fun whenListViewItemIsVisible_thenDisplayMovieInfo() {
         onView(withId(R.id.movies_list_item)).check(matches(isDisplayed()))
 
         onData(anything())
@@ -47,7 +47,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickButtonInListViewItem_opensNewActivity() {
+    fun whenDetailsButtonClicked_inListViewItem_thenOpenNewActivity() {
         onData(anything())
             .inAdapterView(withId(R.id.movies_list_item))
             .atPosition(0)

@@ -19,7 +19,7 @@ class MovieDetailActivityTest {
     val activityRule = ActivityScenarioRule(MovieDetailActivity::class.java)
 
     @Test
-    fun minusButtonTest() {
+    fun `마이너스버튼클릭_티켓수량0표시`() {
         Espresso.onView(withId(R.id.minus_button))
             .check(matches(isDisplayed()))
 
@@ -29,7 +29,7 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun plusButtonTest() {
+    fun `플러스버튼클릭_티켓수량2표시`() {
         Espresso.onView(withId(R.id.plus_button))
             .check(matches(isDisplayed()))
 
@@ -39,13 +39,13 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun buyTicketButtonTest() {
+    fun `티켓구매버튼표시_화면에보임`() {
         Espresso.onView(withId(R.id.buy_ticket_button))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun buyTicketButtonClickTest() {
+    fun `티켓구매버튼클릭_취소가능시간표시`() {
         Espresso.onView(withId(R.id.buy_ticket_button))
             .perform(click())
         Espresso.onView(withId(R.id.can_cancel_time))
@@ -53,10 +53,9 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun pressBackTest() {
+    fun `뒤로가기버튼클릭_영화목록화면표시`() {
         Espresso.pressBack()
         Espresso.onView(withId(R.id.movies_list_item))
             .check(matches(isDisplayed()))
     }
-
 }
