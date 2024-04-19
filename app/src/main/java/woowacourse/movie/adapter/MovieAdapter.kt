@@ -28,24 +28,21 @@ class MovieAdapter : BaseAdapter() {
         position: Int,
         convertView: View?,
         parent: ViewGroup,
-    ): View? {
-        var listItemView = convertView
-        if (listItemView == null) {
-            listItemView =
-                LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
-        }
+    ): View {
+        val listItemView = convertView
+            ?: LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
 
-        val theater: Theater? = getItem(position)
-        val movie = theater?.movie
+        val theater: Theater = getItem(position)
+        val movie = theater.movie
 
-        listItemView?.findViewById<TextView>(R.id.movie_title)?.text = movie?.title.toString()
-        listItemView?.findViewById<TextView>(R.id.movie_release_date)?.text =
-            "상영일: ${movie?.releaseDate}"
-        listItemView?.findViewById<TextView>(R.id.movie_duration)?.text =
-            "러닝타임: ${movie?.runningTime}분"
-        val detailsButton = listItemView?.findViewById<Button>(R.id.movie_details_button)
+        listItemView.findViewById<TextView>(R.id.movie_title).text = movie.title.toString()
+        listItemView.findViewById<TextView>(R.id.movie_release_date).text =
+            "상영일: ${movie.releaseDate}"
+        listItemView.findViewById<TextView>(R.id.movie_duration).text =
+            "러닝타임: ${movie.runningTime}"
+        val detailsButton = listItemView.findViewById<Button>(R.id.movie_details_button)
 
-        detailsButton?.setOnClickListener {
+        detailsButton.setOnClickListener {
             onClick?.let { it(position) }
         }
         return listItemView
