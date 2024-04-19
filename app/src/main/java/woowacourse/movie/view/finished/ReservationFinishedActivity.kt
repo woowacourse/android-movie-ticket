@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.view.finished
 
 import android.content.Context
 import android.content.Intent
@@ -8,13 +8,14 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
-import woowacourse.movie.activity.ReservationDetailActivity.Companion.TICKET
-import woowacourse.movie.activity.ReservationHomeActivity.Companion.MOVIE_ID
+import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
+import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.TICKET
+import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.presenter.ReservationFinishedPresenter
-import woowacourse.movie.view.ReservationFinishedContract
+import woowacourse.movie.presenter.finished.ReservationFinishedContract
+import woowacourse.movie.presenter.finished.ReservationFinishedPresenter
+import woowacourse.movie.view.home.ReservationHomeActivity
 import java.io.Serializable
 import java.text.DecimalFormat
 

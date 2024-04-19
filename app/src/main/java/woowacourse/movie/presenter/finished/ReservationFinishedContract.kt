@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.presenter.finished
 
 import woowacourse.movie.model.Movie
 

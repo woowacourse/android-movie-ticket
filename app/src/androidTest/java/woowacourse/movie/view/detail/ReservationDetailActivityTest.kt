@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.view.detail
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.TestFixture.moviesFirstItem
+import woowacourse.movie.view.home.ReservationHomeActivity
 
 @RunWith(AndroidJUnit4::class)
 class ReservationDetailActivityTest {

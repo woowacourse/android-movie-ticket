@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.view.finished
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.view.detail.ReservationDetailActivity
 
 class ReservationFinishedActivityTest {
     @get:Rule

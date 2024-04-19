@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.presenter.home
 
 interface ReservationHomeContract {
     fun moveToReservationDetail(movieId: Int)
