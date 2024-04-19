@@ -1,8 +1,6 @@
 package woowacourse.movie.model
 
-class Ticket {
-    private var count: Int = DEFAULT_AMOUNT
-
+class Ticket(private var count: Int = DEFAULT_AMOUNT) {
     init {
         require(count > 0) {
             ERROR_AMOUNT_LESS_THAN_ONE

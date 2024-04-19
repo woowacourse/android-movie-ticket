@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -39,6 +40,19 @@ class ReservationActivityTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
+
+    @Test
+    fun count_remains_when_display_turned() {
+        val activityScenario = activityRule.scenario
+        onView(withId(R.id.add_button)).perform(click())
+
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.reservation_count_textview))
+            .check(matches(withText("2")))
+    }
 
     @Test
     fun show_title_when_activity_starts() {

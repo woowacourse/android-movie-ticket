@@ -23,9 +23,18 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         setUpView()
         setUpCount()
         bindReservationButton()
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val count = it.getInt("count")
+            countTextView.text = count.toString()
+        }
     }
 
     override fun setUpView() {
@@ -94,9 +103,10 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationResultActivity::class.java)
             reservationPresenter.clickReservationCompleteButton(
+                intent,
                 titleTextView.text.toString(),
                 screenDateTextView.text.toString(),
-                intent,
+                countTextView.text.toString(),
             )
             this.startActivity(intent)
         }

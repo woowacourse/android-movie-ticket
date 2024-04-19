@@ -20,12 +20,14 @@ class ReservationPresenter(private val view: ReservationContract.View) :
     }
 
     override fun clickReservationCompleteButton(
+        intent: Intent,
         title: String,
         screenDate: String,
-        intent: Intent,
+        count: String,
     ) {
         intent.putExtra("title", title)
         intent.putExtra("screenDate", screenDate)
+        ticket = Ticket(count.toInt())
         intent.putExtra("count", ticketCount().toString())
         intent.putExtra("price", totalPrice())
     }

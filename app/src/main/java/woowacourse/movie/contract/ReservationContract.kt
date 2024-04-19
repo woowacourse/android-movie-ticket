@@ -15,9 +15,10 @@ interface ReservationContract {
         fun addTicketCount()
 
         fun clickReservationCompleteButton(
+            intent: Intent,
             title: String,
             screenDate: String,
-            intent: Intent,
+            count: String,
         )
 
         fun ticketCount(): Int
