@@ -32,6 +32,8 @@ class PurchaseConfirmationActivityTest {
             Synopsis("wow!")
         )
     private val theater = Theater(movie, 10000)
+
+
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),

@@ -2,7 +2,6 @@ package woowacourse.movie.activity
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -27,14 +26,9 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(presenter.calculate())
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onContextItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
     }
 
     companion object {

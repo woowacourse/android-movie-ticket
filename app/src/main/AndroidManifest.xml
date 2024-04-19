@@ -22,9 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MovieDetailActivity"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:exported="false"/>
         <activity android:name=".activity.PurchaseConfirmationActivity"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:exported="false"/>
     </application>
 
 </manifest>

@@ -71,7 +71,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                onBackPressedDispatcher
+                finish()
                 return true
             }
         }
