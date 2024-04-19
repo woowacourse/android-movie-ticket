@@ -22,16 +22,12 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.movie_title_confirmation).text = movie?.title.toString()
         findViewById<TextView>(R.id.purchase_movie_running_time).text =
             movie?.runningTime.toString()
-
-        findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(presenter.calculate())
+        findViewById<TextView>(R.id.ticket_charge).text =
+            getString(R.string.price_format, presenter.calculate())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()
         return true
-    }
-
-    companion object {
-        const val PRICE = "price: %d"
     }
 }

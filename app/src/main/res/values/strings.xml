@@ -4,4 +4,7 @@
     <string name="_0">0분</string>
     <string name="title">Title</string>
     <string name="_1_ticket_n_price_13_000">1 Ticket\n Price: 13,000₩</string>
+    <string name="price_format">price: %d</string>
+    <string name="movie_release_date">상영일: %s</string>
+    <string name="movie_duration">러닝타임: %s분</string>
 </resources>
