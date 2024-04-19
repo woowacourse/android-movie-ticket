@@ -8,18 +8,13 @@ import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.repository.PseudoTheaterRepository
+import woowacourse.movie.repository.TheaterRepository
 import java.time.LocalDate
 
-class MovieListActivityPresenter(private val context: Context) {
-
-    val movieInfo = MovieInfo(
-        Title("차람과 하디의 진지한 여행기"),
-        MovieDate(LocalDate.of(2024, 2, 25)),
-        RunningTime(230),
-        Synopsis("wow!")
-    )
-
-    val theater = Theater(movieInfo)
-    val theaterList = listOf(theater)
-    val movieAdapter = MovieAdapter(context, theaterList)
+class MovieListActivityPresenter(
+    private val context: Context,
+    private val theaterRepository: TheaterRepository = PseudoTheaterRepository()
+) {
+    val movieAdapter = MovieAdapter(context, theaterRepository.getTheaters())
 }
