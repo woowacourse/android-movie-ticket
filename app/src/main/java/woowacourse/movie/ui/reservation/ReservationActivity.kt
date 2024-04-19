@@ -17,24 +17,16 @@ import java.util.Locale
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter: ReservationContract.Presenter by lazy { ReservationPresenter(this, DummyReservation) }
 
-    private lateinit var title: TextView
-    private lateinit var date: TextView
-    private lateinit var count: TextView
-    private lateinit var amount: TextView
+    private val title: TextView by lazy { findViewById(R.id.tv_reservation_title) }
+    private val date: TextView by lazy { findViewById(R.id.tv_reservation_date) }
+    private val count: TextView by lazy { findViewById(R.id.tv_reservation_count) }
+    private val amount: TextView by lazy { findViewById(R.id.tv_reservation_amount) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
 
-        initBinding()
         initView()
-    }
-
-    private fun initBinding() {
-        title = findViewById(R.id.tv_reservation_title)
-        date = findViewById(R.id.tv_reservation_date)
-        count = findViewById(R.id.tv_reservation_count)
-        amount = findViewById(R.id.tv_reservation_amount)
     }
 
     private fun initView() {
