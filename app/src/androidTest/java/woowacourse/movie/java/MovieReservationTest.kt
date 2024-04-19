@@ -1,9 +1,13 @@
 package woowacourse.movie.java
 
-import androidx.test.espresso.Espresso
+import android.content.pm.ActivityInfo
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -19,21 +23,33 @@ class MovieReservationTest {
 
     @Test
     fun `플러스_버튼을_누르면_개수가_늘어나야_한다`() {
-        Espresso.onView(ViewMatchers.withId(R.id.plus_button))
+        onView(withId(R.id.plus_button))
             .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.ticket_count))
+        onView(withId(R.id.ticket_count))
             .check(ViewAssertions.matches(ViewMatchers.withText("2")))
     }
 
     @Test
     fun `마이너스_버튼을_누르면_개수가_감소해야_한다`() {
-        Espresso.onView(ViewMatchers.withId(R.id.plus_button))
+        onView(withId(R.id.plus_button))
             .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.plus_button))
+        onView(withId(R.id.plus_button))
             .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.minus_button))
+        onView(withId(R.id.minus_button))
             .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.ticket_count))
+        onView(withId(R.id.ticket_count))
             .check(ViewAssertions.matches(ViewMatchers.withText("2")))
+    }
+
+    @Test
+    fun `인원수를_2로_증가시킨후_회전시_유지되어야_한다`() {
+        val activityScenario = activityRule.scenario
+        onView(withId(R.id.plus_button)).perform(click())
+
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.ticket_count)).check(matches(withText("2")))
     }
 }
