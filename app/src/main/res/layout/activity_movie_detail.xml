@@ -26,13 +26,14 @@
                 android:src="@drawable/titanic"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="포스터" />
 
             <TextView
                 android:id="@+id/detailTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 tools:text="타이타닉"
                 android:textColor="@color/black"
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="상영일: "
+                android:text="@string/screening_date"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintLeft_toLeftOf="@id/detailTitle"
@@ -70,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="러닝타임: "
+                android:text="@string/running_time"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintLeft_toLeftOf="@id/detailTitle"
@@ -91,7 +92,7 @@
                 android:id="@+id/detailRunningTimeFormat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="분"
+                android:text="@string/running_time_format"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="16dp"
@@ -126,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:textSize="25dp"
-            android:text="-"
+            android:text="@string/minus"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
@@ -135,7 +136,7 @@
             android:id="@+id/detailReservCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
+            android:text="@string/default_reservation_count"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="20dp"
@@ -150,7 +151,7 @@
             android:textSize="25dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:text="+"
+            android:text="@string/plus"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
@@ -167,7 +168,7 @@
             android:textSize="20dp"
             android:padding="10dp"
             android:textStyle="bold"
-            android:text="예매 완료"/>
+            android:text="@string/reserve_complete"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
