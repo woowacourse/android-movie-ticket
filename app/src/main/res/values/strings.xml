@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="poster">포스터</string>
+    <string name="reservation">예매 완료</string>
+    <string name="personnel">인원</string>
+    <string name="movie">영화</string>
+    <string name="date">날짜</string>
 </resources>
