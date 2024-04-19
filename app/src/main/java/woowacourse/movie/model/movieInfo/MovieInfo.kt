@@ -2,7 +2,7 @@ package woowacourse.movie.model.movieInfo
 
 import java.io.Serializable
 
-class MovieInfo(
+data class MovieInfo(
     val title: Title,
     val releaseDate: MovieDate,
     val runningTime: RunningTime,
