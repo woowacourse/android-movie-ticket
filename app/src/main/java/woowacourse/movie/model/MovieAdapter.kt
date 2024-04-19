@@ -39,7 +39,7 @@ class MovieAdapter(
         val holder: MovieViewHolder
 
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+            view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
             holder = MovieViewHolder(view)
             view.tag = holder
         } else {
