@@ -44,7 +44,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     }
 
     override fun showMovieInformation(movie: Movie) {
-        poster.setImageResource(movie.poster)
+        poster.setImageResource(movie.posterId)
         title.text = movie.title
         screeningDate.text = movie.screeningDate
         runningTime.text = movie.runningTime

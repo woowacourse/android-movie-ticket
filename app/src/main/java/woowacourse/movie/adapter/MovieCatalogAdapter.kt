@@ -36,7 +36,7 @@ class MovieCatalogAdapter(
 
         val item: Movie = movies[position]
         title.text = item.title
-        poster.setImageResource(item.poster)
+        poster.setImageResource(item.posterId)
         screeningDate.text = item.screeningDate
         runningTime.text = item.runningTime
         reservationButton.setOnClickListener {
