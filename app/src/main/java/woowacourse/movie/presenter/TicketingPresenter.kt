@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.findMovieById
+import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.model.Count
 import woowacourse.movie.model.Result
 import woowacourse.movie.model.Tickets
@@ -10,7 +10,7 @@ class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
     movieId: Int,
 ) : TicketingContract.Presenter {
-    private val movie = findMovieById(movieId)
+    private val movie = MovieRepository.findMovieById(movieId)
     private val count = Count()
 
     override fun assignInitialView() {

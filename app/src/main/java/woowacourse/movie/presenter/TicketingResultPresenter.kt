@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.findMovieById
+import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.model.Result
 import woowacourse.movie.presenter.contract.TicketingResultContract
 
@@ -10,7 +10,7 @@ class TicketingResultPresenter(
     private val count: Int,
     private val totalPrice: Int,
 ) : TicketingResultContract.Presenter {
-    private val movie = findMovieById(movieId)
+    private val movie = MovieRepository.findMovieById(movieId)
 
     override fun assignInitialView() {
         when (movie) {
