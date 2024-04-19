@@ -38,7 +38,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         reservationCompleteActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.key) {
-                    Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         movieDetailPresenter = MovieDetailPresenter(this)
@@ -54,6 +55,20 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         reservationCompleteButton = findViewById(R.id.detailReservCompleteBtn)
 
         movieDetailPresenter.display(intent.getLongExtra("movieId", 0))
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val count = reservationCount.text.toString().toInt()
+        outState.putInt("count", count)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val count = it.getInt("count")
+            reservationCount.text = count.toString()
+        }
     }
 
     override fun onInitView(movieData: Movie?) {
