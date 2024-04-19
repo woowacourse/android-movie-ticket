@@ -17,7 +17,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onCreateSetup() {
         presenter = MainPresenterImpl(this)
-        adapter = MovieListAdapter(this, presenter)
+        adapter = MovieListAdapter(presenter)
         showMovieList()
     }
 

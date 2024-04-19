@@ -10,7 +10,6 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.contract.MainContract
 
 class MovieListAdapter(
-    private val context: Context,
     private val presenter: MainContract.Presenter,
 ) : BaseAdapter() {
     private val movieList: List<Movie> = presenter.movieList()
@@ -37,23 +36,24 @@ class MovieListAdapter(
             movieViewHolder = convertView.tag as MovieViewHolder
         }
         val movie = movieList[index]
-        bindData(movieViewHolder, movie)
+        bindData(movieViewHolder, movie, parent!!)
 
         return view
     }
 
     private fun createView(parent: ViewGroup): View {
-        return LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+        return LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
     }
 
     private fun bindData(
         movieViewHolder: MovieViewHolder,
         movie: Movie,
+        parent: ViewGroup,
     ) {
         movieViewHolder.posterImage.setImageResource(movie.posterImageId)
         movieViewHolder.title.text = movie.title
-        movieViewHolder.screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
-        movieViewHolder.runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)
+        movieViewHolder.screeningDate.text = parent.context.getString(R.string.screening_date_format, movie.screeningDate)
+        movieViewHolder.runningTime.text = parent.context.getString(R.string.running_time_format, movie.runningTime)
 
         movieViewHolder.reserveButton.setOnClickListener {
             presenter.onReserveButtonClicked(movie)
