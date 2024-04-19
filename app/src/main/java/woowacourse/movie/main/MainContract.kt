@@ -10,7 +10,7 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun onViewCreated()
+        fun onStart()
 
         fun onMovieSelected(movie: Movie)
     }

@@ -16,7 +16,7 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_completed)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter.onViewCreated()
+        presenter.onStart()
     }
 
     override fun readTicketData(): Reservation? =

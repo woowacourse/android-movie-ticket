@@ -10,6 +10,6 @@ interface ReservationCompletedContract {
     }
 
     interface Presenter {
-        fun onViewCreated()
+        fun onStart()
     }
 }

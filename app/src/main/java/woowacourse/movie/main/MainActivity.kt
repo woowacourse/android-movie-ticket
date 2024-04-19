@@ -10,19 +10,19 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private val mainPresenter = MainPresenter(this)
+    private val presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainPresenter.onViewCreated()
+        presenter.onStart()
     }
 
     override fun displayMovies(movies: List<Movie>) {
         val movieListView = findViewById<ListView>(R.id.list_view)
         movieListView.adapter =
             ListViewAdapter(movies) { position ->
-                mainPresenter.onMovieSelected(movies[position])
+                presenter.onMovieSelected(movies[position])
             }
     }
 

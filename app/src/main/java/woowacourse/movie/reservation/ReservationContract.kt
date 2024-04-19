@@ -19,9 +19,9 @@ interface ReservationContract {
     }
 
     interface Presenter {
-        fun onViewCreated()
+        fun onStart()
 
-        fun onClicked(movie: Movie)
+        fun onReservationCompleted(movie: Movie)
 
         fun plus()
 

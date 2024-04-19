@@ -4,7 +4,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
-    override fun onViewCreated() {
+    override fun onStart() {
         val movies = createMovieList()
         view.displayMovies(movies)
     }

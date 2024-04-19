@@ -14,13 +14,13 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Reservation
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val reservationPresenter = ReservationPresenter(this)
+    private val presenter = ReservationPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        reservationPresenter.onViewCreated()
+        presenter.onStart()
     }
 
     override fun readMovieData() =
@@ -40,7 +40,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun setupReservationCompletedButton(movie: Movie) {
         findViewById<Button>(R.id.btn_reservation_completed).setOnClickListener {
-            reservationPresenter.onClicked(movie)
+            presenter.onReservationCompleted(movie)
         }
     }
 
@@ -51,8 +51,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     }
 
     override fun setupTicketQuantityControls() {
-        findViewById<Button>(R.id.btn_minus).setOnClickListener { reservationPresenter.minus() }
-        findViewById<Button>(R.id.btn_plus).setOnClickListener { reservationPresenter.plus() }
+        findViewById<Button>(R.id.btn_minus).setOnClickListener { presenter.minus() }
+        findViewById<Button>(R.id.btn_plus).setOnClickListener { presenter.plus() }
     }
 
     override fun setQuantityText(newText: String) {
