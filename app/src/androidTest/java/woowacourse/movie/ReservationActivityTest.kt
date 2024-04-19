@@ -41,7 +41,7 @@ class ReservationActivityTest {
             .perform(click())
 
         onView(withId(R.id.quantity))
-            .check(matches(withText("2")))
+            .check(matches(withText("1")))
     }
 
     @Test
@@ -50,7 +50,7 @@ class ReservationActivityTest {
         onView(withId(R.id.btn_minus)).perform(click())
 
         onView(withId(R.id.quantity))
-            .check(matches(withText("1")))
+            .check(matches(withText("0")))
     }
 
     @Test

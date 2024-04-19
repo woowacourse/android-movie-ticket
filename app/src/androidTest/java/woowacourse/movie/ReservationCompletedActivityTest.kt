@@ -12,18 +12,23 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.completed.ReservationCompletedActivity
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Quantity
+import woowacourse.movie.model.Reservation
+import woowacourse.movie.model.pricing.UniformPricingSystem
+import woowacourse.movie.model.screening.Schedule
+import woowacourse.movie.model.screening.Screening
 
 @RunWith(AndroidJUnit4::class)
 class ReservationCompletedActivityTest {
     private val movie =
         Movie(R.drawable.poster, "영화 제목", "영화 설명", "2024.3.1", 152)
-    private val ticket = Ticket(movie, 3)
+    private val screening = Screening(movie, Schedule("2024.3.1"), Quantity(3))
+    private val reservation = Reservation(screening, UniformPricingSystem(13000))
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationCompletedActivity::class.java,
-        ).also { it.putExtra("ticket", ticket) }
+        ).also { it.putExtra("reservation", reservation) }
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule<ReservationCompletedActivity>(intent)

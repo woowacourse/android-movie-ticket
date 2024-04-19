@@ -1,6 +1,7 @@
 package woowacourse.movie.reservation
 
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Reservation
 
 interface ReservationContract {
     interface View {
@@ -14,10 +15,7 @@ interface ReservationContract {
 
         fun initializeMovieDetails(movie: Movie)
 
-        fun moveToCompletedActivity(
-            movie: Movie,
-            quantity: Int,
-        )
+        fun moveToCompletedActivity(reservation: Reservation)
     }
 
     interface Presenter {

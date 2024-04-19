@@ -1,12 +1,12 @@
 package woowacourse.movie.completed
 
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Reservation
 
 interface ReservationCompletedContract {
     interface View {
-        fun readTicketData(): Ticket?
+        fun readTicketData(): Reservation?
 
-        fun initializeTicketDetails(ticket: Ticket)
+        fun initializeTicketDetails(reservation: Reservation)
     }
 
     interface Presenter {

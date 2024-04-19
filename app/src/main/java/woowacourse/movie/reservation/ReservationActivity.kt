@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.completed.ReservationCompletedActivity
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Reservation
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val reservationPresenter = ReservationPresenter(this)
@@ -44,12 +44,9 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
     }
 
-    override fun moveToCompletedActivity(
-        movie: Movie,
-        quantity: Int,
-    ) {
+    override fun moveToCompletedActivity(reservation: Reservation) {
         val intent = Intent(this@ReservationActivity, ReservationCompletedActivity::class.java)
-        intent.putExtra("ticket", Ticket(movie, quantity))
+        intent.putExtra("reservation", reservation)
         startActivity(intent)
     }
 
