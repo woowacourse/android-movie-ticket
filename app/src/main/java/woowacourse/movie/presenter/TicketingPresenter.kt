@@ -42,7 +42,7 @@ class TicketingPresenter(
         val totalPrice = Tickets(count).totalPrice
         when (movie) {
             is Result.Success -> {
-                ticketingContractView.navigate(movie.data.id, count.value, totalPrice)
+                ticketingContractView.navigateToTicketingResult(movie.data.id, count.value, totalPrice)
             }
 
             is Result.Error -> {

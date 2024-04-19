@@ -4,7 +4,7 @@ import woowacourse.movie.adapter.MovieAdapter
 
 interface MovieListContract {
     interface View {
-        fun navigate(movieId: Int)
+        fun navigateToTicketing(movieId: Int)
     }
 
     interface Presenter {

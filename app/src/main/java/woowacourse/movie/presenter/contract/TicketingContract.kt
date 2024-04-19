@@ -11,7 +11,7 @@ interface TicketingContract {
 
         fun updateCount(count: Int)
 
-        fun navigate(
+        fun navigateToTicketingResult(
             movieId: Int,
             count: Int,
             totalPrice: Int,

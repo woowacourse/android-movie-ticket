@@ -17,7 +17,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         movies.adapter = presenter.getAdapter()
     }
 
-    override fun navigate(movieId: Int) {
+    override fun navigateToTicketing(movieId: Int) {
         Intent(this, TicketingActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, movieId)
             startActivity(this)

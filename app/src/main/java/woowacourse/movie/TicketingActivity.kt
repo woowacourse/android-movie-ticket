@@ -66,7 +66,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         countText.text = count.toString()
     }
 
-    override fun navigate(
+    override fun navigateToTicketingResult(
         movieId: Int,
         count: Int,
         totalPrice: Int,
