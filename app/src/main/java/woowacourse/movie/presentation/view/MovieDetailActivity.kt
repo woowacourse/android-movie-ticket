@@ -23,11 +23,11 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     override fun onCreateSetup() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val posterImageId = intent.getIntExtra("posterImageId", 0)
-        val title = intent.getStringExtra("title") ?: ""
-        val screeningDate = intent.getStringExtra("screeningDate") ?: ""
-        val runningTime = intent.getIntExtra("runningTime", 0)
-        val summary = intent.getStringExtra("summary") ?: ""
+        val posterImageId = intent.getIntExtra(INTENT_POSTER_IMAGE_ID, 0)
+        val title = intent.getStringExtra(INTENT_TITLE) ?: ""
+        val screeningDate = intent.getStringExtra(INTENT_SCREENING_DATE) ?: ""
+        val runningTime = intent.getIntExtra(INTENT_RUNNING_TIME, 0)
+        val summary = intent.getStringExtra(INTENT_SUMMARY) ?: ""
 
         movieDetailPresenter = MovieDetailPresenterImpl(this, title, screeningDate)
 
@@ -68,11 +68,19 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     override fun moveToReservationResult() {
         reserveButton.setOnClickListener {
             val intent = Intent(this, ReservationResultActivity::class.java)
-            intent.putExtra("title", movieDetailPresenter.movieTicket.movieTitle)
-            intent.putExtra("screeningDate", movieDetailPresenter.movieTicket.screeningDate)
-            intent.putExtra("reservationCount", movieDetailPresenter.movieTicket.count)
-            intent.putExtra("totalPrice", movieDetailPresenter.movieTicket.totalPrice())
+            intent.putExtra(ReservationResultActivity.INTENT_TITLE, movieDetailPresenter.movieTicket.movieTitle)
+            intent.putExtra(ReservationResultActivity.INTENT_SCREENING_DATE, movieDetailPresenter.movieTicket.screeningDate)
+            intent.putExtra(ReservationResultActivity.INTENT_RESERVATION_COUNT, movieDetailPresenter.movieTicket.count)
+            intent.putExtra(ReservationResultActivity.INTENT_TOTAL_PRICE, movieDetailPresenter.movieTicket.totalPrice())
             startActivity(intent)
         }
+    }
+
+    companion object {
+        const val INTENT_POSTER_IMAGE_ID = "posterImageId"
+        const val INTENT_TITLE = "title"
+        const val INTENT_SCREENING_DATE = "screeningDate"
+        const val INTENT_RUNNING_TIME = "runningTime"
+        const val INTENT_SUMMARY = "summary"
     }
 }

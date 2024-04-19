@@ -27,11 +27,11 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun moveToMovieDetail(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra("posterImageId", movie.posterImageId)
-        intent.putExtra("title", movie.title)
-        intent.putExtra("screeningDate", movie.screeningDate)
-        intent.putExtra("runningTime", movie.runningTime)
-        intent.putExtra("summary", movie.summary)
+        intent.putExtra(MovieDetailActivity.INTENT_POSTER_IMAGE_ID, movie.posterImageId)
+        intent.putExtra(MovieDetailActivity.INTENT_TITLE, movie.title)
+        intent.putExtra(MovieDetailActivity.INTENT_SCREENING_DATE, movie.screeningDate)
+        intent.putExtra(MovieDetailActivity.INTENT_RUNNING_TIME, movie.runningTime)
+        intent.putExtra(MovieDetailActivity.INTENT_SUMMARY, movie.summary)
         startActivity(intent)
     }
 }
