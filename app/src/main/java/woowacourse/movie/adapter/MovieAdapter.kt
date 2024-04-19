@@ -6,19 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.model.theater.Theater
 
-class MovieAdapter(context: Context, theaters: List<Theater>) :
-    ArrayAdapter<Theater>(context, 0, theaters) {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+class MovieAdapter : BaseAdapter() {
+
+    private var theaters: List<Theater> = listOf()
+
+    var onClick: ((Int) -> Unit)? = null
+    fun setTheaters(theaters: List<Theater>) {
+        this.theaters = theaters
+    }
+
+    override fun getCount(): Int = theaters.size
+
+    override fun getItem(position: Int): Theater = theaters[position]
+
+    override fun getItemId(position: Int): Long = position.toLong()
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         var listItemView = convertView
         if (listItemView == null) {
             listItemView =
-                LayoutInflater.from(context).inflate(R.layout.movie_list_item, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
         }
 
         val theater: Theater? = getItem(position)
@@ -31,13 +45,9 @@ class MovieAdapter(context: Context, theaters: List<Theater>) :
             "러닝타임: ${movie?.runningTime}분"
         val detailsButton = listItemView?.findViewById<Button>(R.id.movie_details_button)
 
-        val intent = Intent(this.context, MovieDetailActivity::class.java).apply {
-            putExtra("Theater", theater)
-        }
-
         detailsButton?.setOnClickListener {
-            context.startActivity(intent)
+            onClick?.let { it(position) }
         }
-        return listItemView!!
+        return listItemView
     }
 }
