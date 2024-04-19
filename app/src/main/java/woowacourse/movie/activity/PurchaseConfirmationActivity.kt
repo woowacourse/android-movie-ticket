@@ -7,23 +7,17 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.contract.PurchaseConfirmationContract
+import woowacourse.movie.model.Reservation
 import woowacourse.movie.presenter.PurchaseConfirmationActivityPresenter
 
-class PurchaseConfirmationActivity : AppCompatActivity() {
+class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationContract.View {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.purchase_confirmation)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val presenter = PurchaseConfirmationActivityPresenter(intent)
-        val movie = presenter.movie
-        findViewById<TextView>(R.id.movie_title_confirmation).text = movie?.title.toString()
-        findViewById<TextView>(R.id.purchase_movie_running_time).text =
-            movie?.runningTime.toString()
-
-        findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(presenter.charge)
+        val presenter = PurchaseConfirmationActivityPresenter(intent, this)
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -38,5 +32,13 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
 
     companion object {
         const val PRICE = "price: %d"
+    }
+
+    override fun displayReservation(reservation: Reservation) {
+        val movie = reservation.theater.movie
+        findViewById<TextView>(R.id.movie_title_confirmation).text = movie?.title.toString()
+        findViewById<TextView>(R.id.purchase_movie_running_time).text =
+            movie?.runningTime.toString()
+        findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(reservation.getCharge())
     }
 }
