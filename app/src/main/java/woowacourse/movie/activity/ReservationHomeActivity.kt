@@ -27,7 +27,11 @@ class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract {
 
     override fun moveToReservationDetail(movieId: Int) {
         val intent = Intent(this, ReservationDetailActivity::class.java)
-        intent.putExtra("movieId", movieId)
+        intent.putExtra(MOVIE_ID, movieId)
         startActivity(intent)
+    }
+
+    companion object {
+        const val MOVIE_ID = "movieId"
     }
 }

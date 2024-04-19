@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.activity.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.ReservationDetailPresenter
@@ -32,7 +33,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieId = intent.getIntExtra("movieId", DEFAULT_MOVIE_ID)
+        val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
 
         with(presenter) {
             deliverMovie(movieId)
@@ -69,8 +70,8 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     override fun initializeReservationButton(movieId: Int) {
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationFinishedActivity::class.java)
-            intent.putExtra("movieId", movieId)
-            intent.putExtra("ticket", presenter.ticket)
+            intent.putExtra(MOVIE_ID, movieId)
+            intent.putExtra(TICKET, presenter.ticket)
             startActivity(intent)
         }
     }
@@ -82,5 +83,6 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     companion object {
         const val DEFAULT_MOVIE_ID = 0
+        const val TICKET = "ticket"
     }
 }
