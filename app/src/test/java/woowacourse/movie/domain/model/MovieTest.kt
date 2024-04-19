@@ -10,7 +10,7 @@ class MovieTest {
             Movie(
                 posterImageId = 1,
                 title = "테넷",
-                screeningDate = "2020-08-26",
+                screeningDate = Date.from("2020.08.26"),
                 runningTime = 150,
                 summary = "시간을 건너뛰는 SF 영화",
             )

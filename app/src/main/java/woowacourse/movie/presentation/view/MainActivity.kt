@@ -29,7 +29,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra("posterImageId", movie.posterImageId)
         intent.putExtra("title", movie.title)
-        intent.putExtra("screeningDate", movie.screeningDate)
+        intent.putExtra("screeningDate", movie.screeningDate.toString())
         intent.putExtra("runningTime", movie.runningTime)
         intent.putExtra("summary", movie.summary)
         startActivity(intent)

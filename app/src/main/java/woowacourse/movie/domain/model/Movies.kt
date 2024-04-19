@@ -13,7 +13,7 @@ class Movies : MainContract.Model {
             Movie(
                 posterImageId = R.drawable.harrypotter_poster,
                 title = "해리 포터와 마법사의 돌",
-                screeningDate = "2024.3.1",
+                screeningDate = Date.from("2024.3.1"),
                 runningTime = 152,
                 summary =
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, " +
