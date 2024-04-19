@@ -71,7 +71,7 @@ class MovieListAdapter(
     }
 
     private fun initImage(position: Int) {
-        val image = view.findViewById<ImageView>(R.id.image_view)
+        val image = view.findViewById<ImageView>(R.id.poster_image)
         image.setImageResource(presenter.item(position).img)
     }
 

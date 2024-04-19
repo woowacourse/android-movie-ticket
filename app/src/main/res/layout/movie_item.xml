@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/poster_image"
         android:layout_width="80dp"
         android:layout_height="130dp"
         android:scaleType="fitXY"
@@ -22,7 +22,7 @@
         android:layout_marginStart="10dp"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/image_view"
+        app:layout_constraintStart_toEndOf="@id/poster_image"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="해리포터와 마법사의 돌" />
 
