@@ -8,12 +8,12 @@ import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.presenter.MainPresenter
 import java.time.LocalDate
 
-class MainActivity : AppCompatActivity() {
+class ScreeningMovieActivity : AppCompatActivity() {
     private lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_screening_movie)
         mainPresenter = MainPresenter()
 
         mainPresenter.registerMovie(

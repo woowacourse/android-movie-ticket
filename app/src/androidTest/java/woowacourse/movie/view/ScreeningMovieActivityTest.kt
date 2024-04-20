@@ -14,9 +14,9 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class ScreeningMovieActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(ScreeningMovieActivity::class.java)
 
     @Test
     fun 영화_리스트를_보여준다() {
@@ -29,7 +29,7 @@ class MainActivityTest {
         onView(withId(R.id.reservation_button))
             .perform(click())
 
-        onView(withId(R.id.main_layout))
+        onView(withId(R.id.screening_layout))
             .check(doesNotExist())
     }
 }
