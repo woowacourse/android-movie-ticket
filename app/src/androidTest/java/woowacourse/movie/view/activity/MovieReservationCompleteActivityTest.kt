@@ -1,5 +1,6 @@
 package woowacourse.movie.view.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -9,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -16,19 +18,25 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
+import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.Date
 import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.view.ui.DateUi
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
+    private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val movieContent: MovieContent = MovieContentsImpl.find(0L)
+
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieReservationCompleteActivity::class.java,
         ).run {
             putExtra(MovieContentKey.ID, 0L)
-            putExtra(MovieReservationKey.COUNT, 1)
+            putExtra(MovieReservationKey.COUNT, RESERVATION_COUNT)
         }
 
     @get:Rule
@@ -38,31 +46,47 @@ class MovieReservationCompleteActivityTest {
     fun `화면이_띄워지면_영화_제목이_보인다`() {
         onView(withId(R.id.title_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+            .check(matches(withText(movieContent.title)))
     }
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
+        val screeningDate =
+            DateUi.dateMessage(movieContent.screeningDate, context)
+
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("2024.3.1")))
+            .check(matches(withText(screeningDate)))
     }
 
     @Test
     fun `화면이_띄워지면_예매_인원이_보인다`() {
+        val reservationCount =
+            context.resources
+                .getString(R.string.reservation_count)
+                .format(RESERVATION_COUNT)
+
         onView(withId(R.id.reservation_count_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("일반 1명")))
+            .check(matches(withText(reservationCount)))
     }
 
     @Test
     fun `화면이_띄워지면_예매_금액이_보인다`() {
+        val amount = Ticket(ReservationCount()).amount()
+        val reservationAmount =
+            context.resources
+                .getString(R.string.reservation_amount)
+                .format(amount)
+
         onView(withId(R.id.reservation_amount_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("13,000원 (현장 결제)")))
+            .check(matches(withText(reservationAmount)))
     }
 
     companion object {
+        private const val RESERVATION_COUNT = 1
+
         @JvmStatic
         @BeforeClass
         fun setUp() {

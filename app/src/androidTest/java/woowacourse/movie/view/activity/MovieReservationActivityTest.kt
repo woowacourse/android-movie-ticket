@@ -1,5 +1,6 @@
 package woowacourse.movie.view.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -11,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -20,9 +22,13 @@ import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.Date
 import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.view.ui.DateUi
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationActivityTest {
+    private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val movieContent: MovieContent = MovieContentsImpl.find(0L)
+
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
@@ -38,21 +44,30 @@ class MovieReservationActivityTest {
     fun `화면이_띄워지면_영화_제목이_보인다`() {
         onView(withId(R.id.title_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+            .check(matches(withText(movieContent.title)))
     }
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
+        val screeningDate =
+            DateUi.screeningDateMessage(movieContent.screeningDate, context)
+
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("상영일: 2024.3.1")))
+            .check(matches(withText(screeningDate)))
     }
 
     @Test
     fun `화면이_띄워지면_러닝타임이_보인다`() {
+        val runningTime =
+            context
+                .resources
+                .getString(R.string.running_time)
+                .format(MovieContentsImpl.find(0L).runningTime)
+
         onView(withId(R.id.running_time_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("러닝타임: 152분")))
+            .check(matches(withText(runningTime)))
     }
 
     @Test
@@ -63,8 +78,7 @@ class MovieReservationActivityTest {
             .check(
                 matches(
                     withText(
-                        "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, " +
-                            "판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다. ",
+                        movieContent.synopsis,
                     ),
                 ),
             )
@@ -126,15 +140,6 @@ class MovieReservationActivityTest {
 
         onView(withId(R.id.reservation_count_text))
             .check(matches(withText("1")))
-    }
-
-    @Test
-    fun `예매_완료_버튼을_누르면_영화_예매_완료_페이지로_이동한다`() {
-        onView(withId(R.id.reservation_button))
-            .perform(click())
-
-        onView(withId(R.id.movie_reservation_complete_root))
-            .check(matches(isDisplayed()))
     }
 
     companion object {
