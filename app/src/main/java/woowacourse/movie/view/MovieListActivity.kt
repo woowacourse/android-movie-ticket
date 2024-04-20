@@ -12,7 +12,7 @@ import woowacourse.movie.presenter.MovieListPresenter
 import java.io.Serializable
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
-    override lateinit var listView: ListView
+    private lateinit var listView: ListView
     override val presenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
