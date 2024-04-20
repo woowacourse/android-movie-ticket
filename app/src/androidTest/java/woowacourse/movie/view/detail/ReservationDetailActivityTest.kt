@@ -23,21 +23,28 @@ class ReservationDetailActivityTest {
     var activityRule = ActivityScenarioRule(ReservationDetailActivity::class.java)
 
     @Test
-    fun `빼기_버튼을_누르면_값이_감소한다`() {
-        onView(withId(R.id.button_reservation_detail_minus))
-            .perform(click())
-
+    fun `티켓의_기본_수량은_1장이다`() {
         onView(withId(R.id.text_view_reservation_detail_number_of_tickets))
             .check(matches(withText("1")))
     }
 
     @Test
-    fun `더하기_버튼을_누르면_값이_증가한다`() {
-        onView(withId(R.id.button_reservation_detail_plus))
-            .perform(click())
+    fun `빼기_버튼을_누르면_티켓_수량이_1장_감소한다`() {
+        // given
+        onView(withId(R.id.button_reservation_detail_plus)).perform(click())
 
-        onView(withId(R.id.text_view_reservation_detail_number_of_tickets))
-            .check(matches(withText("2")))
+        // when
+        onView(withId(R.id.button_reservation_detail_minus)).perform(click())
+
+        // then
+        onView(withId(R.id.text_view_reservation_detail_number_of_tickets)).check(matches(withText("1")))
+    }
+
+    @Test
+    fun `더하기_버튼을_누르면_티켓_수량이_1장_증가한다`() {
+        onView(withId(R.id.button_reservation_detail_plus)).perform(click())
+
+        onView(withId(R.id.text_view_reservation_detail_number_of_tickets)).check(matches(withText("2")))
     }
 
     @Test
@@ -56,7 +63,6 @@ class ReservationDetailActivityTest {
             withId(R.id.item_movie_catalog_button_reservation),
         ).perform(click())
 
-        onView(withId(R.id.constraint_layout_reservation_detail))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.constraint_layout_reservation_detail)).check(matches(isDisplayed()))
     }
 }
