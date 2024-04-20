@@ -38,11 +38,11 @@ class MovieAdapter : BaseAdapter() {
         val theater: Theater = getItem(position)
         val movie = theater.movie
 
-        listItemView.findViewById<TextView>(R.id.movie_title).text = movie.title.parse()
+        listItemView.findViewById<TextView>(R.id.movie_title).text = movie.title.format()
         listItemView.findViewById<TextView>(R.id.movie_release_date).text =
-            "상영일: ${movie.releaseDate.parse()}"
+            "상영일: ${movie.releaseDate.format()}"
         listItemView.findViewById<TextView>(R.id.movie_duration).text =
-            "러닝타임: ${movie.runningTime.parse()}"
+            "러닝타임: ${movie.runningTime.format()}"
         val detailsButton = listItemView.findViewById<Button>(R.id.movie_details_button)
 
         detailsButton.setOnClickListener {
@@ -51,7 +51,7 @@ class MovieAdapter : BaseAdapter() {
         return listItemView
     }
 
-    private fun Title.parse() = content
-    private fun MovieDate.parse() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
-    private fun RunningTime.parse() = time.toString() + "분"
+    private fun Title.format() = content
+    private fun MovieDate.format() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
+    private fun RunningTime.format() = time.toString() + "분"
 }
