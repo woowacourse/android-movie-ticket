@@ -6,6 +6,15 @@ class Ticket : Serializable {
     var count: Int = DEFAULT_TICKET_COUNT
         private set
 
+    private fun restoreCount(recordOfCount: Int) {
+        count = recordOfCount
+    }
+
+    fun restoreTicket(count: Int): Ticket {
+        restoreCount(count)
+        return this
+    }
+
     fun increaseCount(): ChangeTicketCountResult {
         if (count >= MAX_TICKET_COUNT) return Failure
         count++

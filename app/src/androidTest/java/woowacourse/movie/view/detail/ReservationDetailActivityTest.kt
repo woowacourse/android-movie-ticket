@@ -1,5 +1,6 @@
 package woowacourse.movie.view.detail
 
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
@@ -64,5 +65,19 @@ class ReservationDetailActivityTest {
         ).perform(click())
 
         onView(withId(R.id.constraint_layout_reservation_detail)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `티켓_수를_2로_중가시킨_후_화면_회전_시_티켓_수가_그대로_유지_된다`() {
+        // given
+        onView(withId(R.id.button_reservation_detail_plus)).perform(click())
+
+        // when
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // then
+        onView(withId(R.id.text_view_reservation_detail_number_of_tickets)).check(matches(withText("2")))
     }
 }

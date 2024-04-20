@@ -1,6 +1,7 @@
 package woowacourse.movie.view.detail
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -14,6 +15,7 @@ import woowacourse.movie.presenter.detail.ReservationDetailContract
 import woowacourse.movie.presenter.detail.ReservationDetailPresenter
 import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
+import java.io.Serializable
 
 typealias AdjustTicketCount = () -> Unit
 
@@ -43,6 +45,20 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             deliverReservationHistory(movieId)
             detectIncreaseCount()
             detectDecreaseCount()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(TICKET, presenter.ticket)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val ticket = it.bundleSerializable(TICKET, Ticket::class.java) ?: Ticket()
+            presenter.ticket.restoreTicket(ticket.count)
+            numberOfTickets.text = presenter.ticket.count.toString()
         }
     }
 
@@ -82,6 +98,17 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     override fun showResultToast() {
         Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT)
             .show()
+    }
+
+    private fun <T : Serializable> Bundle.bundleSerializable(
+        key: String,
+        clazz: Class<T>,
+    ): T? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.getSerializable(key, clazz)
+        } else {
+            this.getSerializable(key) as T?
+        }
     }
 
     companion object {
