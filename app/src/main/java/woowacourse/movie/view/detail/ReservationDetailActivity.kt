@@ -15,6 +15,8 @@ import woowacourse.movie.presenter.detail.ReservationDetailPresenter
 import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 
+typealias AdjustTicketCount = () -> Unit
+
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
     private val presenter = ReservationDetailPresenter(this)
 
@@ -56,13 +58,13 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         numberOfTickets.text = ticket.count.toString()
     }
 
-    override fun initializePlusButton(increaseTicketCount: () -> Unit) {
+    override fun initializePlusButton(increaseTicketCount: AdjustTicketCount) {
         plusButton.setOnClickListener {
             increaseTicketCount()
         }
     }
 
-    override fun initializeMinusButton(decreaseTicketCount: () -> Unit) {
+    override fun initializeMinusButton(decreaseTicketCount: AdjustTicketCount) {
         minusButton.setOnClickListener {
             decreaseTicketCount()
         }
