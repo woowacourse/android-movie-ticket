@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.presentation.ui.detail.DetailActivity
+import woowacourse.movie.repeatClick
 
 @RunWith(AndroidJUnit4::class)
 class DetailActivityTest {
@@ -65,7 +66,7 @@ class DetailActivityTest {
     @Test
     fun `카운트가_10일_때_마이너스_버튼_누르면_증가하지_않는다`() {
         // given - 카운트가 1 -> 10 일 때
-        repeatClickOnView(plusBtn, 9)
+        plusBtn.repeatClick(9)
 
         // when
         plusBtn.perform(click())
@@ -73,14 +74,5 @@ class DetailActivityTest {
         // then
         onView(withId(R.id.tv_count))
             .check(matches(withText("10")))
-    }
-}
-
-fun repeatClickOnView(
-    viewInteraction: ViewInteraction,
-    count: Int,
-) {
-    repeat(count) {
-        viewInteraction.perform(click())
     }
 }
