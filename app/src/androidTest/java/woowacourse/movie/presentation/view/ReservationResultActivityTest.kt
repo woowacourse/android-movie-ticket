@@ -11,6 +11,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 
 class ReservationResultActivityTest {
     private val testContext = ApplicationProvider.getApplicationContext<Context>()

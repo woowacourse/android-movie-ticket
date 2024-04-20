@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.contract
+package woowacourse.movie.presentation.ui.detail
 
 import android.os.Bundle
 import woowacourse.movie.presentation.dto.ReservationData

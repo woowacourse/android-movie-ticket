@@ -13,6 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.presentation.ui.main.MainActivity
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {

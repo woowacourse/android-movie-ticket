@@ -1,13 +1,12 @@
-package woowacourse.movie.presentation.view
+package woowacourse.movie.presentation.ui.main
 
 import android.content.Intent
 import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.adapter.MovieListAdapter
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.contract.MainContract
-import woowacourse.movie.presentation.presenter.MainPresenterImpl
+import woowacourse.movie.presentation.ui.main.adapter.MovieListAdapter
+import woowacourse.movie.presentation.ui.detail.MovieDetailActivity
 
 class MainActivity : BaseActivity(), MainContract.View {
     private lateinit var adapter: MovieListAdapter

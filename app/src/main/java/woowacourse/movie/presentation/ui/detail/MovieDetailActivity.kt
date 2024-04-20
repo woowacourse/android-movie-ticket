@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view
+package woowacourse.movie.presentation.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,8 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.repository.InMemoryMovieTicketRepository
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.contract.MovieDetailContract
 import woowacourse.movie.presentation.dto.ReservationData
-import woowacourse.movie.presentation.presenter.MovieDetailPresenterImpl
+import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private var movieDetailPresenter: MovieDetailContract.Presenter? = null

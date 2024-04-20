@@ -5,7 +5,7 @@
     android:id="@+id/movie_detail_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.view.MovieDetailActivity">
+    tools:context=".presentation.ui.detail.MovieDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"

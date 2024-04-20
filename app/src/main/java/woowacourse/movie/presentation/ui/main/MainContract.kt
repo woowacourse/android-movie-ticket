@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.contract
+package woowacourse.movie.presentation.ui.main
 
 import woowacourse.movie.domain.model.Movie
 

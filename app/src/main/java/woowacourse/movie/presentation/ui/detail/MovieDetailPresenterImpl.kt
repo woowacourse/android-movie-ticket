@@ -1,9 +1,8 @@
-package woowacourse.movie.presentation.presenter
+package woowacourse.movie.presentation.ui.detail
 
 import android.os.Bundle
 import woowacourse.movie.domain.model.MovieTicket.Companion.MIN_RESERVATION_COUNT
 import woowacourse.movie.domain.repository.MovieTicketRepository
-import woowacourse.movie.presentation.contract.MovieDetailContract
 import woowacourse.movie.presentation.dto.ReservationData
 
 class MovieDetailPresenterImpl(
