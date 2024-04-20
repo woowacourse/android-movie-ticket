@@ -5,25 +5,18 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieReservationCount
 import woowacourse.movie.presenter.MovieDetailContract
 import woowacourse.movie.presenter.MovieDetailPresenter
-import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
-    private lateinit var reservationCompleteActivityResultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var movieDetailPresenter: MovieDetailPresenter
-
     private lateinit var detailImage: ImageView
     private lateinit var detailTitle: TextView
     private lateinit var detailDate: TextView
@@ -34,25 +27,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var plusButton: Button
     private lateinit var reservationCompleteButton: Button
 
+    private lateinit var movieDetailPresenter: MovieDetailPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+        setUpViewById()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        reservationCompleteActivityResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.code) {
-                    Toast.makeText(
-                        this,
-                        MovieErrorCode.INVALID_MOVIE_ID.message,
-                        Toast.LENGTH_SHORT,
-                    ).show()
-                }
-            }
         movieDetailPresenter =
             MovieDetailPresenter(this, savedInstanceState?.getInt(KEY_MOVIE_RESERVATION_COUNT))
-        setUpViewById()
-
         movieDetailPresenter.display(intent.getLongExtra(KEY_MOVIE_ID, INVALID_VALUE_MOVIE_ID))
     }
 
@@ -83,9 +67,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             reservationCompleteButton.setOnClickListener {
                 movieDetailPresenter.reservation(movie.id)
             }
-        } ?: {
-            setResult(MovieErrorCode.INVALID_MOVIE_ID.code)
-            finish()
         }
     }
 
@@ -100,7 +81,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         Intent(this, MovieResultActivity::class.java).apply {
             putExtra(KEY_MOVIE_ID, id)
             putExtra(KEY_MOVIE_RESERVATION_COUNT, count)
-            reservationCompleteActivityResultLauncher.launch(this)
+            startActivity(this)
         }
     }
 
