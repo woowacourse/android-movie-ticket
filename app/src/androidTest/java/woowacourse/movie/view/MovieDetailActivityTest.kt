@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 
 @RunWith(AndroidJUnit4::class)
 class MovieDetailActivityTest {
@@ -21,7 +22,7 @@ class MovieDetailActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieDetailActivity::class.java,
-        ).apply { putExtra("movieId", 0) }
+        ).apply { putExtra(KEY_MOVIE_ID, 0L) }
 
     @get:Rule
     val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)

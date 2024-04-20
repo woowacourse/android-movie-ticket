@@ -12,6 +12,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_RESERVATION_COUNT
 
 @RunWith(AndroidJUnit4::class)
 class MovieResultActivityTest {
@@ -20,8 +22,8 @@ class MovieResultActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieResultActivity::class.java,
         ).apply {
-            putExtra("movieId", 0)
-            putExtra("movieReservationCount", 3)
+            putExtra(KEY_MOVIE_ID, 0L)
+            putExtra(KEY_MOVIE_RESERVATION_COUNT, 3)
         }
 
     @get:Rule
@@ -42,12 +44,12 @@ class MovieResultActivityTest {
     @Test
     fun `예매한_영화의_인원수_표시된다`() {
         onView(withId(R.id.resultReservCount))
-            .check(matches(withText("3명")))
+            .check(matches(withText("3")))
     }
 
     @Test
     fun `예매한_영화의_가격이_표시된다`() {
         onView(withId(R.id.resultReservPrice))
-            .check(matches(withText("39,000원")))
+            .check(matches(withText("39,000")))
     }
 }

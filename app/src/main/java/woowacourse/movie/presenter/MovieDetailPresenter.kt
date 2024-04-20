@@ -17,12 +17,12 @@ class MovieDetailPresenter(
     }
 
     override fun plusReservationCount() {
-        movieReservationCount.plus()
+        movieReservationCount = movieReservationCount.inc()
         detailContractView.onCountUpdate(movieReservationCount.count)
     }
 
     override fun minusReservationCount() {
-        movieReservationCount.minus()
+        movieReservationCount = movieReservationCount.dec()
         detailContractView.onCountUpdate(movieReservationCount.count)
     }
 

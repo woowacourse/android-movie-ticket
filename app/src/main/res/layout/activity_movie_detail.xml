@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="a\nb\nc\nd\ne\n"
+                android:hint="설명1\n설명2\n설명3\n설명4\n설명\n"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 app:layout_constraintLeft_toLeftOf="@id/detailRunningTimeName"
