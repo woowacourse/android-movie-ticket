@@ -8,9 +8,7 @@ interface ReservationContract {
     interface View : BaseView {
         fun showReservation(reservation: Reservation)
 
-        fun goToBack(message: String)
-
-        fun unexpectedFinish(message: String)
+        fun back()
     }
 
     interface Presenter : BasePresenter {

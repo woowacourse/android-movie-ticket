@@ -52,15 +52,7 @@ class ReservationActivity : BaseActivity(), View {
         }
     }
 
-    override fun goToBack(message: String) {
-        showToastMessage(message)
-        finish()
-    }
-
-    override fun unexpectedFinish(message: String) {
-        showSnackBar(message)
-        finish()
-    }
+    override fun back() = finish()
 
     companion object {
         private const val PUT_EXTRA_KEY_RESERVATION_ID = "reservationId"

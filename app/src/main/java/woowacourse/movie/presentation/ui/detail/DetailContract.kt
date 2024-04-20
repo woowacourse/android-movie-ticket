@@ -12,9 +12,7 @@ interface DetailContract {
 
         fun navigateToReservation(id: Int)
 
-        fun goToBack(message: String)
-
-        fun unexpectedFinish(message: String)
+        fun back()
     }
 
     interface Presenter : BasePresenter {

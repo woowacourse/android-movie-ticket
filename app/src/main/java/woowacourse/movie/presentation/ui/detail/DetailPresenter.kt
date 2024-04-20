@@ -6,6 +6,7 @@ import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
+import woowacourse.movie.presentation.model.MessageType
 
 class DetailPresenter(
     private val view: DetailContract.View,
@@ -22,8 +23,15 @@ class DetailPresenter(
             view.showTicket(ticket.count)
         }.onFailure { e ->
             when (e) {
-                is NoSuchElementException -> view.goToBack("해당하는 상영 정보가 없습니다.")
-                else -> view.unexpectedFinish("예상치 못한 에러가 발생했습니다")
+                is NoSuchElementException -> {
+                    view.showToastMessage(e)
+                    view.back()
+                }
+
+                else -> {
+                    view.showSnackBar(e)
+                    view.back()
+                }
             }
         }
     }
@@ -32,7 +40,7 @@ class DetailPresenter(
         val nextTicket = ticket.update(1)
 
         if (nextTicket.isInvalidCount()) {
-            view.showToastMessage("티켓 수량은 ${MAX_TICKET_COUNT}개 이하이어야 합니다.")
+            view.showToastMessage(MessageType.TicketMaxCountMessage(MAX_TICKET_COUNT))
             return
         }
         ticket = nextTicket
@@ -43,7 +51,7 @@ class DetailPresenter(
         val nextTicket = ticket.update(-1)
 
         if (nextTicket.isInvalidCount()) {
-            view.showToastMessage("티켓 수량은 ${MIN_TICKET_COUNT}개 이상이어야 합니다.")
+            view.showToastMessage(MessageType.TicketMinCountMessage(MIN_TICKET_COUNT))
             return
         }
         ticket = nextTicket
@@ -54,7 +62,8 @@ class DetailPresenter(
         reservationRepository.save(screen, ticket.count).onSuccess { id ->
             view.navigateToReservation(id)
         }.onFailure { e ->
-            view.unexpectedFinish("예상치 못한 에러가 발생했습니다")
+            view.showToastMessage(e)
+            view.back()
         }
     }
 }

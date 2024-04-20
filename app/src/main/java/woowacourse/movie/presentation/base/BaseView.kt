@@ -1,7 +1,13 @@
 package woowacourse.movie.presentation.base
 
-interface BaseView {
-    fun showToastMessage(message: String)
+import woowacourse.movie.presentation.model.MessageType
 
-    fun showSnackBar(message: String)
+interface BaseView {
+    fun showToastMessage(messageType: MessageType)
+
+    fun showSnackBar(messageType: MessageType)
+
+    fun showToastMessage(e: Throwable)
+
+    fun showSnackBar(e: Throwable)
 }

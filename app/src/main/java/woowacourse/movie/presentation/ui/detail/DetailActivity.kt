@@ -86,21 +86,13 @@ class DetailActivity : BaseActivity(), View {
 
     override fun navigateToReservation(id: Int) {
         ReservationActivity.startActivity(this, id)
-        finish()
+        back()
     }
 
-    override fun goToBack(message: String) {
-        showToastMessage(message)
-        finish()
-    }
-
-    override fun unexpectedFinish(message: String) {
-        showSnackBar(message)
-        finish()
-    }
+    override fun back() = finish()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        finish()
+        back()
         return true
     }
 

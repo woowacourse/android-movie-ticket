@@ -11,8 +11,15 @@ class ReservationPresenter(
             view.showReservation(screen)
         }.onFailure { e ->
             when (e) {
-                is NoSuchElementException -> view.goToBack("해당하는 상영 정보가 없습니다.")
-                else -> view.unexpectedFinish("예상치 못한 에러가 발생했습니다")
+                is NoSuchElementException -> {
+                    view.showToastMessage(e)
+                    view.back()
+                }
+
+                else -> {
+                    view.showSnackBar(e)
+                    view.back()
+                }
             }
         }
     }
