@@ -12,21 +12,22 @@ import woowacourse.movie.presentation.presenter.MainPresenterImpl
 class MainActivity : BaseActivity(), MainContract.View {
     private lateinit var adapter: MovieListAdapter
     private lateinit var presenter: MainContract.Presenter
-    
+
     override fun getLayoutResId(): Int = R.layout.activity_main
-    
+
     override fun onCreateSetup() {
         presenter = MainPresenterImpl(this)
         presenter.loadMovieList()
     }
-    
+
     override fun showMovieList(movieList: List<Movie>) {
-        adapter = MovieListAdapter(this, movieList) { movie ->
-            presenter.requestMovieDetail(movie)
-        }
+        adapter =
+            MovieListAdapter(this, movieList) { movie ->
+                presenter.requestMovieDetail(movie)
+            }
         findViewById<ListView>(R.id.movieList).adapter = adapter
     }
-    
+
     override fun moveToMovieDetail(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra(EXTRA_POSTER_IMAGE_SRC, movie.posterSrc)
@@ -36,7 +37,11 @@ class MainActivity : BaseActivity(), MainContract.View {
         intent.putExtra(EXTRA_SUMMARY, movie.summary)
         startActivity(intent)
     }
-    
+
+    override fun showMessage(message: String) {
+        showSnackBar(message)
+    }
+
     companion object {
         const val EXTRA_POSTER_IMAGE_SRC = "posterSrc"
         const val EXTRA_TITLE = "title"

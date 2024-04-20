@@ -13,15 +13,14 @@ import woowacourse.movie.domain.model.Movie
 class MovieListAdapter(
     private val context: Context,
     private val movieList: List<Movie>,
-    private val onReserveButtonClickListener: (Movie) -> Unit
+    private val onReserveButtonClickListener: (Movie) -> Unit,
 ) : BaseAdapter() {
-    
     override fun getCount(): Int = movieList.size
-    
+
     override fun getItem(index: Int): Movie = movieList[index]
-    
+
     override fun getItemId(index: Int): Long = index.toLong()
-    
+
     override fun getView(
         index: Int,
         convertView: View?,
@@ -29,15 +28,16 @@ class MovieListAdapter(
     ): View {
         val movieViewHolder: MovieViewHolder
         val view: View
-        if (convertView == null){
-            view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
-            movieViewHolder = MovieViewHolder(view)
-            view.tag = movieViewHolder
-        } else {
+        if (convertView == null)
+            {
+                view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+                movieViewHolder = MovieViewHolder(view)
+                view.tag = movieViewHolder
+            } else {
             view = convertView
             movieViewHolder = convertView.tag as MovieViewHolder
         }
-        
+
         val movie = movieList[index]
         with(movieViewHolder) {
             posterImage.setImageResource(movie.posterSrc)
@@ -48,10 +48,10 @@ class MovieListAdapter(
                 onReserveButtonClickListener(movie)
             }
         }
-        
+
         return view
     }
-    
+
     class MovieViewHolder(view: View) {
         val posterImage: ImageView = view.findViewById(R.id.posterImage)
         val title: TextView = view.findViewById(R.id.title)
