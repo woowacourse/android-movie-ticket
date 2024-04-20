@@ -2,7 +2,7 @@ package woowacourse.movie.model
 
 import woowacourse.movie.R
 
-object Movies {
+object MovieStorage {
     fun obtainMovies(): List<Movie> =
         listOf(
             Movie(

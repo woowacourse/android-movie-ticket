@@ -1,11 +1,11 @@
 package woowacourse.movie.presenter.home
 
-import woowacourse.movie.model.Movies
+import woowacourse.movie.model.MovieStorage
 
 class ReservationHomePresenter(
     private val contract: ReservationHomeContract,
 ) {
-    val movies = Movies.obtainMovies()
+    val movies = MovieStorage.obtainMovies()
 
     fun deliverMovie(movieId: Int) {
         contract.moveToReservationDetail(movieId)

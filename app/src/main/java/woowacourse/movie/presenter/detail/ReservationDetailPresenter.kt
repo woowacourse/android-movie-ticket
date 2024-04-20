@@ -2,14 +2,14 @@ package woowacourse.movie.presenter.detail
 
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Failure
-import woowacourse.movie.model.Movies
+import woowacourse.movie.model.MovieStorage
 import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
     private val contract: ReservationDetailContract,
 ) {
-    private val movies = Movies.obtainMovies()
+    private val movies = MovieStorage.obtainMovies()
     val ticket = Ticket()
 
     fun detectIncreaseCount() {
