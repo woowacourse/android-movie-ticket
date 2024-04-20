@@ -36,7 +36,7 @@ class ScreeningMovieActivityTest {
     }
 
     @Test
-    @DisplayName("MainActivity 가 화면에 보여지는지 테스트")
+    @DisplayName("ScreeningMovieActivity 가 화면에 보여지는지 테스트")
     fun test_isActivityInView() {
         onView(withId(R.id.main)).check(matches(isDisplayed()))
     }

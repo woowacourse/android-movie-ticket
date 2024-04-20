@@ -19,7 +19,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_movie)
+        setContentView(R.layout.activity_reservation_movie)
         initView()
         initClickListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -31,9 +31,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     }
 
     private fun initView() {
-        countView = findViewById(R.id.tv_detail_count)
-        plusButton = findViewById(R.id.btn_detail_plus)
-        minusButton = findViewById(R.id.btn_detail_minus)
+        countView = findViewById(R.id.tv_reservation_count)
+        plusButton = findViewById(R.id.btn_reservation_plus)
+        minusButton = findViewById(R.id.btn_reservation_minus)
     }
 
     private fun initClickListener() {
@@ -43,7 +43,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         minusButton.setOnClickListener {
             presenter.minusCount()
         }
-        findViewById<Button>(R.id.btn_detail_complete).setOnClickListener {
+        findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
             presenter.completeReservation()
         }
     }
@@ -57,11 +57,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun showMovieReservation(reservation: MovieReservationUiModel) {
         val (id, title, imageRes, screenDate, description, runningTime) = reservation
-        findViewById<ImageView>(R.id.iv_detail_poster).setImageResource(imageRes)
-        findViewById<TextView>(R.id.tv_detail_title).text = title
-        findViewById<TextView>(R.id.tv_detail_movie_desc).text = description
-        findViewById<TextView>(R.id.tv_detail_running_date).text = screenDate
-        findViewById<TextView>(R.id.tv_detail_running_time).text = runningTime
+        findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(imageRes)
+        findViewById<TextView>(R.id.tv_reservation_title).text = title
+        findViewById<TextView>(R.id.tv_reservation_movie_description).text = description
+        findViewById<TextView>(R.id.tv_reservation_running_date).text = screenDate
+        findViewById<TextView>(R.id.tv_reservation_running_time).text = runningTime
     }
 
     override fun updateHeadCount(count: Int) {

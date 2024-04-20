@@ -29,7 +29,7 @@ class ScreeningMovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view = convertView ?: inflater.inflate(R.layout.item_movie, null)
+        val view = convertView ?: inflater.inflate(R.layout.item_screening_movie, null)
 
         val movie = getItem(position)
         val postImageView = view.findViewById<ImageView>(R.id.iv_movie_post)

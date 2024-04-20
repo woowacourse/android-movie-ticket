@@ -10,17 +10,17 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/cl_detail_reservation"
+        app:layout_constraintBottom_toTopOf="@id/cl_reservation_count"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_detail_poster"
+                android:id="@+id/iv_reservation_poster"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_detail_title"
+                android:id="@+id/tv_reservation_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
@@ -38,11 +38,11 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_detail_poster"
+                app:layout_constraintTop_toBottomOf="@id/iv_reservation_poster"
                 tools:text="해리 포터와 마법사의 돌" />
 
             <TextView
-                android:id="@+id/tv_detail_running_date"
+                android:id="@+id/tv_reservation_running_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
@@ -50,22 +50,22 @@
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_reservation_title"
                 tools:text="상영일: 2024.3.1" />
 
             <TextView
-                android:id="@+id/tv_detail_running_time"
+                android:id="@+id/tv_reservation_running_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail_running_date"
+                app:layout_constraintTop_toBottomOf="@id/tv_reservation_running_date"
                 tools:text="러닝타임: 152분" />
 
             <TextView
-                android:id="@+id/tv_detail_movie_desc"
+                android:id="@+id/tv_reservation_movie_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="21dp"
@@ -74,7 +74,7 @@
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_detail_running_time"
+                app:layout_constraintTop_toBottomOf="@id/tv_reservation_running_time"
                 tools:text="《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다." />
 
 
@@ -83,7 +83,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_detail_reservation"
+        android:id="@+id/cl_reservation_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
@@ -93,41 +93,41 @@
 
 
         <Button
-            android:id="@+id/btn_detail_minus"
+            android:id="@+id/btn_reservation_minus"
             android:layout_width="65dp"
             android:layout_height="41dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/roboto_bold"
             android:text="-"
-            app:layout_constraintBottom_toTopOf="@id/btn_detail_complete"
+            app:layout_constraintBottom_toTopOf="@id/btn_reservation_complete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_detail_count"
+            android:id="@+id/tv_reservation_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_detail_minus"
-            app:layout_constraintEnd_toStartOf="@id/btn_detail_plus"
-            app:layout_constraintStart_toEndOf="@id/btn_detail_minus"
-            app:layout_constraintTop_toTopOf="@id/btn_detail_minus"
+            app:layout_constraintBottom_toBottomOf="@id/btn_reservation_minus"
+            app:layout_constraintEnd_toStartOf="@id/btn_reservation_plus"
+            app:layout_constraintStart_toEndOf="@id/btn_reservation_minus"
+            app:layout_constraintTop_toTopOf="@id/btn_reservation_minus"
             tools:text="1" />
 
         <Button
-            android:id="@+id/btn_detail_plus"
+            android:id="@+id/btn_reservation_plus"
             android:layout_width="65dp"
             android:layout_height="41dp"
             android:layout_marginBottom="16dp"
             android:text="+"
-            app:layout_constraintBottom_toTopOf="@id/btn_detail_complete"
+            app:layout_constraintBottom_toTopOf="@id/btn_reservation_complete"
             app:layout_constraintEnd_toEndOf="parent" />
 
 
         <Button
-            android:id="@+id/btn_detail_complete"
+            android:id="@+id/btn_reservation_complete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
