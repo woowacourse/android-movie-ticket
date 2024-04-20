@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.detail.ReservationDetailContract
@@ -18,7 +19,7 @@ import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
-    private val presenter: ReservationDetailPresenter = ReservationDetailPresenter(this)
+    private val presenter: ReservationDetailPresenter = ReservationDetailPresenter(this, MovieDao())
 
     private val poster: ImageView by lazy { findViewById(R.id.image_view_reservation_detail_poster) }
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }

@@ -1,9 +1,10 @@
-package woowacourse.movie.model
+package woowacourse.movie.db
 
 import woowacourse.movie.R
+import woowacourse.movie.model.Movie
 
-object MovieStorage {
-    fun obtainMovies(): List<Movie> =
+object MovieDatabase {
+    val movies: List<Movie> =
         listOf(
             Movie(
                 0,

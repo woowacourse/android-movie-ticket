@@ -1,20 +1,19 @@
 package woowacourse.movie.presenter.detail
 
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Failure
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieStorage
 import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
     private val view: ReservationDetailContract.View,
+    private val dao: MovieDao,
 ) : ReservationDetailContract.Presenter {
-    private val movies: List<Movie> = MovieStorage.obtainMovies()
     val ticket = Ticket()
 
     override fun loadMovie(movieId: Int) {
-        val movie = movies[movieId]
+        val movie = dao.find(movieId)
         view.showMovieInformation(movie)
     }
 

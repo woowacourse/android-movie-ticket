@@ -1,16 +1,15 @@
 package woowacourse.movie.presenter.finished
 
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieStorage
 import woowacourse.movie.model.Ticket
 
 class ReservationFinishedPresenter(
     private val view: ReservationFinishedContract.View,
+    private val dao: MovieDao,
 ) : ReservationFinishedContract.Presenter {
-    private val movies = MovieStorage.obtainMovies()
-
     override fun loadMovie(movieId: Int) {
-        val movie: Movie = movies[movieId]
+        val movie: Movie = dao.find(movieId)
         view.showMovieInformation(movie)
     }
 
