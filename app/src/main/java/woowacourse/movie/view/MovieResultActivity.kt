@@ -8,6 +8,10 @@ import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.presenter.MovieResultContract
 import woowacourse.movie.presenter.MovieResultPresenter
 import woowacourse.movie.utils.MovieErrorCode
+import woowacourse.movie.utils.MovieIntentConstant.INVALID_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.utils.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstant.NAME_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstant.NAME_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatCurrency
 import woowacourse.movie.utils.formatTimestamp
 
@@ -30,8 +34,8 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
 
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.display(
-            intent.getLongExtra("movieId", 0),
-            intent.getIntExtra("movieReservationCount", 0)
+            intent.getLongExtra(NAME_MOVIE_ID, INVALID_VALUE_MOVIE_ID),
+            intent.getIntExtra(NAME_MOVIE_RESERVATION_COUNT, INVALID_MOVIE_RESERVATION_COUNT),
         )
     }
 
@@ -42,7 +46,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
             completeReservationCountTextView.text = "${it.count}"
             completeReservationPriceTextView.text = formatCurrency(it.price)
         } ?: {
-            setResult(MovieErrorCode.INVALID_MOVIE_ID.key)
+            setResult(MovieErrorCode.INVALID_MOVIE_ID.code)
             finish()
         }
     }

@@ -1,6 +1,6 @@
 package woowacourse.movie.model
 
-class ReservationCount(count: Int = COUNT_UNIT) {
+class MovieReservationCount(count: Int = COUNT_UNIT) {
     private var _count: Int = count
     val count: Int
         get() = _count

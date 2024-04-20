@@ -1,7 +1,7 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.model.MovieReservationCount
 
 interface MovieDetailContract {
     interface View {
@@ -9,7 +9,7 @@ interface MovieDetailContract {
 
         fun onInitView(
             movieData: Movie?,
-            reservationCount: ReservationCount,
+            movieReservationCount: MovieReservationCount,
         )
 
         fun onReservationComplete(

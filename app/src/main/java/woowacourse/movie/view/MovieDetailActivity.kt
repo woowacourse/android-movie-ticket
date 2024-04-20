@@ -11,10 +11,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.model.MovieReservationCount
 import woowacourse.movie.presenter.MovieDetailContract
 import woowacourse.movie.presenter.MovieDetailPresenter
 import woowacourse.movie.utils.MovieErrorCode
+import woowacourse.movie.utils.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstant.NAME_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstant.NAME_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
@@ -38,26 +41,30 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
         reservationCompleteActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.key) {
-                    Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT)
-                        .show()
+                if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.code) {
+                    Toast.makeText(
+                        this,
+                        MovieErrorCode.INVALID_MOVIE_ID.message,
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 }
             }
-        movieDetailPresenter = MovieDetailPresenter(this, savedInstanceState?.getInt("count"))
+        movieDetailPresenter =
+            MovieDetailPresenter(this, savedInstanceState?.getInt(NAME_MOVIE_RESERVATION_COUNT))
         setUpViewById()
 
-        movieDetailPresenter.display(intent.getLongExtra("movieId", 0))
+        movieDetailPresenter.display(intent.getLongExtra(NAME_MOVIE_ID, INVALID_VALUE_MOVIE_ID))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val count = reservationCount.text.toString().toInt()
-        outState.putInt("count", count)
+        outState.putInt(NAME_MOVIE_RESERVATION_COUNT, count)
     }
 
     override fun onInitView(
         movieData: Movie?,
-        reservationCount: ReservationCount,
+        movieReservationCount: MovieReservationCount,
     ) {
         movieData?.let { movie ->
             detailImage.setImageResource(movie.thumbnail)
@@ -65,7 +72,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             detailDate.text = formatTimestamp(movie.date)
             detailRunningTime.text = "${movie.runningTime}"
             detailDescription.text = movie.description
-            onCountUpdate(reservationCount.count)
+            onCountUpdate(movieReservationCount.count)
 
             minusButton.setOnClickListener {
                 movieDetailPresenter.minusReservationCount()
@@ -77,7 +84,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 movieDetailPresenter.reservation(movie.id)
             }
         } ?: {
-            setResult(MovieErrorCode.INVALID_MOVIE_ID.key)
+            setResult(MovieErrorCode.INVALID_MOVIE_ID.code)
             finish()
         }
     }
@@ -91,8 +98,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         count: Int,
     ) {
         Intent(this, MovieResultActivity::class.java).apply {
-            putExtra("movieId", id)
-            putExtra("movieReservationCount", count)
+            putExtra(NAME_MOVIE_ID, id)
+            putExtra(NAME_MOVIE_RESERVATION_COUNT, count)
             reservationCompleteActivityResultLauncher.launch(this)
         }
     }
