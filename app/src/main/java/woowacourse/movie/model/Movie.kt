@@ -1,9 +1,10 @@
 package woowacourse.movie.model
 
+import androidx.annotation.DrawableRes
 import java.io.Serializable
 
 data class Movie(
-    val poster: Int,
+    @DrawableRes val poster: Int,
     val title: String,
     val content: String,
     val openingDay: String,
