@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.presenter.MovieDetailContract
 import woowacourse.movie.presenter.MovieDetailPresenter
 import woowacourse.movie.utils.MovieErrorCode
@@ -42,17 +43,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                         .show()
                 }
             }
-        movieDetailPresenter = MovieDetailPresenter(this)
-
-        detailImage = findViewById(R.id.detailImage)
-        detailTitle = findViewById(R.id.detailTitle)
-        detailDate = findViewById(R.id.detailDate)
-        detailRunningTime = findViewById(R.id.detailRunningTime)
-        detailDescription = findViewById(R.id.detailDescription)
-        reservationCount = findViewById(R.id.detailReservCount)
-        minusButton = findViewById(R.id.detailMinusBtn)
-        plusButton = findViewById(R.id.detailPlusBtn)
-        reservationCompleteButton = findViewById(R.id.detailReservCompleteBtn)
+        movieDetailPresenter = MovieDetailPresenter(this, savedInstanceState?.getInt("count"))
+        setUpViewById()
 
         movieDetailPresenter.display(intent.getLongExtra("movieId", 0))
     }
@@ -63,21 +55,17 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         outState.putInt("count", count)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.let {
-            val count = it.getInt("count")
-            reservationCount.text = count.toString()
-        }
-    }
-
-    override fun onInitView(movieData: Movie?) {
+    override fun onInitView(
+        movieData: Movie?,
+        reservationCount: ReservationCount,
+    ) {
         movieData?.let { movie ->
             detailImage.setImageResource(movie.thumbnail)
             detailTitle.text = movie.title
             detailDate.text = formatTimestamp(movie.date)
             detailRunningTime.text = "${movie.runningTime}"
             detailDescription.text = movie.description
+            onCountUpdate(reservationCount.count)
 
             minusButton.setOnClickListener {
                 movieDetailPresenter.minusReservationCount()
@@ -107,5 +95,17 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             putExtra("movieReservationCount", count)
             reservationCompleteActivityResultLauncher.launch(this)
         }
+    }
+
+    private fun setUpViewById() {
+        detailImage = findViewById(R.id.detailImage)
+        detailTitle = findViewById(R.id.detailTitle)
+        detailDate = findViewById(R.id.detailDate)
+        detailRunningTime = findViewById(R.id.detailRunningTime)
+        detailDescription = findViewById(R.id.detailDescription)
+        reservationCount = findViewById(R.id.detailReservCount)
+        minusButton = findViewById(R.id.detailMinusBtn)
+        plusButton = findViewById(R.id.detailPlusBtn)
+        reservationCompleteButton = findViewById(R.id.detailReservCompleteBtn)
     }
 }

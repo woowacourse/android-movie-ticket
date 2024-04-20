@@ -15,17 +15,16 @@
         <activity
             android:name=".view.MovieResultActivity"
             android:exported="false"
-            android:parentActivityName=".view.MovieDetailActivity"/>
+            android:parentActivityName=".view.MovieDetailActivity" />
         <activity
             android:name=".view.MovieDetailActivity"
             android:exported="false"
-            android:parentActivityName=".view.MovieMainActivity"/>
+            android:parentActivityName=".view.MovieMainActivity" />
         <activity
             android:name=".view.MovieMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

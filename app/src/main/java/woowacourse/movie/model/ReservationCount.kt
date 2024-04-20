@@ -1,15 +1,20 @@
 package woowacourse.movie.model
 
-class ReservationCount {
-    var count: Int = 1
-        private set
+class ReservationCount(count: Int = COUNT_UNIT) {
+    private var _count: Int = count
+    val count: Int
+        get() = _count
 
     fun plus() {
-        count++
+        _count++
     }
 
     fun minus() {
-        val result = count - 1
-        count = if (result <= 1) 1 else result
+        val result = count - COUNT_UNIT
+        _count = if (result <= COUNT_UNIT) COUNT_UNIT else result
+    }
+
+    companion object {
+        private const val COUNT_UNIT = 1
     }
 }
