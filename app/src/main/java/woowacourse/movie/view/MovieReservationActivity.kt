@@ -1,6 +1,5 @@
 package woowacourse.movie.view
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,7 +15,6 @@ import woowacourse.movie.presenter.MovieReservationPresenter
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
-    private lateinit var context: Context
     private lateinit var titleView: TextView
     private lateinit var screeningDateView: TextView
     private lateinit var runningDateView: TextView
@@ -31,20 +29,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
-        context = this@MovieReservationActivity
-
         initView()
         setMovieData()
         showCurrentResultTicketCountView()
         setClickListener()
-    }
-
-    private fun getSerializableModel(): Movie? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
-        } else {
-            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE) as? Movie
-        }
     }
 
     private fun initView() {
@@ -57,6 +45,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         minusNumberButton = findViewById(R.id.minus_button)
         plusNumberButton = findViewById(R.id.plus_button)
         ticketingButton = findViewById(R.id.ticketing_button)
+    }
+
+    private fun getSerializableModel(): Movie? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
+        } else {
+            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE) as? Movie
+        }
     }
 
     private fun setMovieData() {
@@ -86,9 +82,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     private fun ticketing() {
-        val intent = Intent(context, MovieTicketActivity::class.java)
+        val intent = Intent(this, MovieTicketActivity::class.java)
         intent.putExtra(Ticket.KEY_NAME_TICKET, presenter.ticketCount)
-        context.startActivity(intent)
+        this.startActivity(intent)
     }
 
     override fun showCurrentResultTicketCountView() {
