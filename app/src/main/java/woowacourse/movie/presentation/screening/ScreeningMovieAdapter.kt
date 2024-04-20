@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.screening
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,10 @@ import android.widget.TextView
 import woowacourse.movie.R
 
 class ScreeningMovieAdapter(
-    context: Context,
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) : BaseAdapter() {
     private var movies: List<ScreeningMovieUiModel> = emptyList()
-    private val inflater = LayoutInflater.from(context)
+    private lateinit var inflater: LayoutInflater
 
     override fun getCount(): Int = movies.size
 
@@ -28,6 +26,7 @@ class ScreeningMovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
+        if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent?.context)
         val view = convertView ?: inflater.inflate(R.layout.item_screening_movie, null)
 
         val movie = getItem(position)
