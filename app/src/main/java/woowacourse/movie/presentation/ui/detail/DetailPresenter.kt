@@ -48,7 +48,7 @@ class DetailPresenter(
     }
 
     override fun minusTicket() {
-        val nextTicket = ticket.decrease(-1)
+        val nextTicket = ticket.decrease(1)
 
         if (nextTicket.isInvalidCount()) {
             view.showToastMessage(MessageType.TicketMinCountMessage(MIN_TICKET_COUNT))
