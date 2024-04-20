@@ -31,22 +31,32 @@ class ListViewAdapter(
     ): View {
         val view =
             convertView ?: LayoutInflater.from(parent?.context)
-                .inflate(R.layout.listview_item, parent, false)
-        bindData(view, position)
-        return view!!
+                .inflate(R.layout.listview_item, parent, false).apply {
+                    tag = ViewHolder(this)
+                }
+        val holder = view.tag as ViewHolder
+        holder.bind(position)
+        return view
     }
 
-    private fun bindData(
-        view: View,
-        position: Int,
-    ) {
-        val movie = movies[position]
-        view.findViewById<ImageView>(R.id.img_poster).setImageResource(movie.poster)
-        view.findViewById<TextView>(R.id.movie_title).text = movie.title
-        view.findViewById<TextView>(R.id.opening_day).text = "상영일: ${movie.openingDay}"
-        view.findViewById<TextView>(R.id.running_time).text = "러닝타임: ${movie.runningTime}분"
-        view.findViewById<Button>(R.id.btn_reservation).setOnClickListener {
-            itemClickListener.onItemClick(position)
+    inner class ViewHolder(view: View) {
+        private val poster: ImageView = view.findViewById(R.id.img_poster)
+        private val title: TextView = view.findViewById(R.id.movie_title)
+        private val openingDay: TextView = view.findViewById(R.id.opening_day)
+        private val runningTime: TextView = view.findViewById(R.id.running_time)
+        private val reservationButton: Button = view.findViewById(R.id.btn_reservation)
+
+        fun bind(position: Int) {
+            val movie = movies[position]
+            with(this) {
+                poster.setImageResource(movie.poster)
+                title.text = movie.title
+                openingDay.text = "상영일: ${movie.openingDay}"
+                runningTime.text = "러닝타임: ${movie.runningTime}분"
+                reservationButton.setOnClickListener {
+                    itemClickListener.onItemClick(position)
+                }
+            }
         }
     }
 }
