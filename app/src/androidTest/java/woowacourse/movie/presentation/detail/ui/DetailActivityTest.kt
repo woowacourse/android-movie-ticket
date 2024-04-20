@@ -65,15 +65,7 @@ class DetailActivityTest {
     @Test
     fun `카운트가_10일_때_마이너스_버튼_누르면_증가하지_않는다`() {
         // given - 카운트가 1 -> 10 일 때
-        plusBtn.perform(click())
-        plusBtn.perform(click())
-        plusBtn.perform(click())
-        plusBtn.perform(click())
-        plusBtn.perform(click())
-        plusBtn.perform(click())
-        plusBtn.perform(click())
-        plusBtn.perform(click())
-        plusBtn.perform(click())
+        repeatClickOnView(plusBtn, 9)
 
         // when
         plusBtn.perform(click())
@@ -81,5 +73,14 @@ class DetailActivityTest {
         // then
         onView(withId(R.id.tv_count))
             .check(matches(withText("10")))
+    }
+}
+
+fun repeatClickOnView(
+    viewInteraction: ViewInteraction,
+    count: Int,
+) {
+    repeat(count) {
+        viewInteraction.perform(click())
     }
 }
