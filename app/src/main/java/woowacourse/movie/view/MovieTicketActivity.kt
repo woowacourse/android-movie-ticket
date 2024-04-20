@@ -18,7 +18,7 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_reservation_complete)
+        setContentView(R.layout.activity_movie_ticket)
         initViewById()
         presenter.setTicketInfo()
     }
