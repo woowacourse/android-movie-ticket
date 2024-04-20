@@ -1,6 +1,8 @@
 package woowacourse.movie.presenter
 
 import android.content.Context
+import android.content.Intent
+import woowacourse.movie.activity.MovieDetailActivity
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
@@ -21,5 +23,12 @@ class MainActivityPresenter(private val context: Context) {
 
     val theater = Theater(movieInfo)
     val theaterList = listOf(theater)
-    val movieAdapter = MovieAdapter(context, theaterList)
+    val movieAdapter = MovieAdapter(context, theaterList, this)
+
+    fun onDetailButtonClicked(theater: Theater) {
+        val intent = Intent(context, MovieDetailActivity::class.java).apply {
+            putExtra("Theater", theater)
+        }
+        context.startActivity(intent)
+    }
 }
