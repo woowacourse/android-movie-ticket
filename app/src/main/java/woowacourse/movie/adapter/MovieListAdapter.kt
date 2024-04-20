@@ -1,15 +1,12 @@
 package woowacourse.movie.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.MovieReservationActivity
-import java.io.Serializable
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
@@ -45,7 +42,6 @@ class MovieListAdapter(
             movieViewHolder = convertView.tag as MovieViewHolder
         }
         setViewHolder(movie)
-        setClickListener(movie)
         return view
     }
 
@@ -70,13 +66,5 @@ class MovieListAdapter(
                 .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
         movieViewHolder.screeningDate.text = formattedScreeningDate
         movieViewHolder.runningTime.text = movie.runningTime.toString()
-    }
-
-    private fun setClickListener(movie: Movie) {
-        movieViewHolder.movieReservationButton.setOnClickListener {
-            val intent = Intent(context, MovieReservationActivity::class.java)
-            intent.putExtra(Movie.KEY_NAME_MOVIE, movie as Serializable)
-            context.startActivity(intent)
-        }
     }
 }

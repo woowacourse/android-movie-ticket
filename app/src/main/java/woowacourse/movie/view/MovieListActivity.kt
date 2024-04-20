@@ -1,22 +1,37 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.domain.model.MovieData
+import woowacourse.movie.domain.MovieListContract
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presenter.MovieListPresenter
+import java.io.Serializable
 
-class MovieListActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+    override lateinit var listView: ListView
+    override val presenter = MovieListPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
+        listView = findViewById(R.id.movie_list_view)
+        presenter.setListViewInfo()
+        presenter.setListViewClickListenerInfo()
+    }
 
-        val listView = findViewById<ListView>(R.id.movie_list_view)
+    override fun showMovieInfo(info: ArrayList<Movie>) {
+        listView.adapter = MovieListAdapter(this, info)
+    }
 
-        val movieList = MovieData.movieList
-
-        val movieAdapter = MovieListAdapter(this, movieList)
-        listView.adapter = movieAdapter
+    override fun setOnListViewClickListener(info: ArrayList<Movie>) {
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val intent = Intent(this, MovieReservationActivity::class.java)
+            intent.putExtra(Movie.KEY_NAME_MOVIE, info[position] as Serializable)
+            this.startActivity(intent)
+        }
     }
 }
