@@ -1,5 +1,7 @@
 package woowacourse.movie.presentation.reservation.result
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -14,11 +16,9 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
-        this::class.java.canonicalName
-
         presenter =
             ReservationResultPresenter(
-                id = intent.getLongExtra(EXTRA_RESERVATION_ID, INVALID_RESERVATION_ID),
+                id = intent.getLongExtra(KEY_RESERVATION_ID, INVALID_RESERVATION_ID),
                 repository = StubMovieRepository,
                 view = this,
             )
@@ -45,7 +45,16 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     }
 
     companion object {
-        val EXTRA_RESERVATION_ID: String? = this::class.java.canonicalName
-        const val INVALID_RESERVATION_ID: Long = -1
+        private val KEY_RESERVATION_ID: String? = this::class.java.canonicalName
+        private const val INVALID_RESERVATION_ID: Long = -1
+
+        @JvmStatic
+        fun newIntent(
+            context: Context,
+            reservationId: Long,
+        ): Intent =
+            Intent(context, ReservationResultActivity::class.java).apply {
+                putExtra(KEY_RESERVATION_ID, reservationId)
+            }
     }
 }

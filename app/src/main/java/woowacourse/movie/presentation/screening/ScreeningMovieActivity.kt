@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.screening
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ListView
@@ -31,17 +30,15 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     }
 
     override fun navigateToReservationView(movieId: Long) {
-        val intent =
-            Intent(this, MovieReservationActivity::class.java).apply {
-                putExtra(MovieReservationActivity.EXTRA_SCREEN_MOVIE_ID, movieId)
-            }
+        val intent = MovieReservationActivity.newIntent(this, movieId)
         startActivity(intent)
     }
 
     private fun initViews() {
         moviesView = findViewById<ListView>(R.id.list_screening_movie)
-        adapter = ScreeningMovieAdapter(this) { id -> presenter.startReservation(id) }.also {
-            moviesView.adapter = it
-        }
+        adapter =
+            ScreeningMovieAdapter(this) { id -> presenter.startReservation(id) }.also {
+                moviesView.adapter = it
+            }
     }
 }

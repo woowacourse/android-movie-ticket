@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.reservation.booking
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -23,7 +24,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         initView()
         initClickListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val id = intent.getLongExtra(EXTRA_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
+        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
         presenter =
             MovieReservationPresenter(
                 id, this, StubMovieRepository,
@@ -69,13 +70,21 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     }
 
     override fun navigateToReservationResultView(reservationId: Long) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        intent.putExtra(ReservationResultActivity.EXTRA_RESERVATION_ID, reservationId)
+        val intent = ReservationResultActivity.newIntent(this, reservationId)
         startActivity(intent)
     }
 
     companion object {
-        val EXTRA_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
-        const val INVALID_SCREEN_MOVIE_ID = -1L
+        private val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
+        private const val INVALID_SCREEN_MOVIE_ID = -1L
+
+        @JvmStatic
+        fun newIntent(
+            context: Context,
+            movieId: Long,
+        ): Intent =
+            Intent(context, MovieReservationActivity::class.java).apply {
+                putExtra(KEY_SCREEN_MOVIE_ID, movieId)
+            }
     }
 }
