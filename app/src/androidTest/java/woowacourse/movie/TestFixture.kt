@@ -1,14 +1,20 @@
 package woowacourse.movie
 
+import androidx.test.espresso.DataInteraction
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.matcher.ViewMatchers
 import org.hamcrest.Matchers
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Movies
 
 object TestFixture {
-    val moviesFirstItem =
+    const val FIRST_ITEM_POSITION = 0
+    val movies: List<Movie> = Movies.obtainMovies()
+
+    val moviesFirstItem: DataInteraction =
         Espresso.onData(
             Matchers.anything(),
         ).inAdapterView(
             ViewMatchers.withId(R.id.list_view_reservation_home),
-        ).atPosition(0)
+        ).atPosition(FIRST_ITEM_POSITION)
 }

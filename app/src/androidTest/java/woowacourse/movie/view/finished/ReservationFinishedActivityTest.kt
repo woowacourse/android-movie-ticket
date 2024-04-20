@@ -13,6 +13,8 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.TestFixture.FIRST_ITEM_POSITION
+import woowacourse.movie.TestFixture.movies
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.view.detail.ReservationDetailActivity
 
@@ -21,19 +23,21 @@ class ReservationFinishedActivityTest {
     var activityRule =
         ActivityScenarioRule<ReservationFinishedActivity>(
             Intent(ApplicationProvider.getApplicationContext(), ReservationFinishedActivity::class.java).apply {
-                putExtra("movieId", 0)
+                putExtra("movieId", FIRST_ITEM_POSITION)
                 putExtra("ticket", Ticket())
             },
         )
 
     @Test
     fun `예매한_영화의_제목을_보여준다`() {
-        onView(withId(R.id.text_view_reservation_finished_title)).check(matches(withText("해리 포터와 마법사의 돌")))
+        onView(withId(R.id.text_view_reservation_finished_title)).check(matches(withText(movies[FIRST_ITEM_POSITION].title)))
     }
 
     @Test
     fun `예매한_영화의_상영일을_보여준다`() {
-        onView(withId(R.id.text_view_reservation_finished_screening_date)).check(matches(withText("2001.11.14")))
+        onView(
+            withId(R.id.text_view_reservation_finished_screening_date),
+        ).check(matches(withText(movies[FIRST_ITEM_POSITION].screeningDate)))
     }
 
     @Test
