@@ -19,7 +19,6 @@ import woowacourse.movie.view.ui.DateUi
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
     MovieReservationContract.View {
-    private val presenter: MovieReservationContract.Presenter by lazy { initializePresenter() }
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }

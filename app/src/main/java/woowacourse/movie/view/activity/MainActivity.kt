@@ -8,7 +8,6 @@ import woowacourse.movie.presenter.MainPresenter
 import woowacourse.movie.view.adapter.MovieContentListAdapter
 
 class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
-    private val presenter: MainContract.Presenter by lazy { initializePresenter() }
     private val movieContentList: ListView by lazy { findViewById(R.id.movie_content_list) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,13 +1,10 @@
 package woowacourse.movie.view.activity
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.presenter.BasePresenter
 
-abstract class BaseActivity<P> : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initializePresenter()
-    }
+abstract class BaseActivity<P : BasePresenter> : AppCompatActivity() {
+    val presenter: P by lazy { initializePresenter() }
 
     abstract fun initializePresenter(): P
 }

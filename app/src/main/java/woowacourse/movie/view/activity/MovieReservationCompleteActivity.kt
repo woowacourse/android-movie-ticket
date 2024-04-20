@@ -17,7 +17,6 @@ import woowacourse.movie.view.ui.DateUi
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
     MovieReservationCompleteContract.View {
-    private val presenter: MovieReservationCompleteContract.Presenter by lazy { initializePresenter() }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }

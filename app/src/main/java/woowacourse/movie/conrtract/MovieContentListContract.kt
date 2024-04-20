@@ -1,6 +1,7 @@
 package woowacourse.movie.conrtract
 
 import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.presenter.BasePresenter
 
 interface MovieContentListContract {
     interface View {
@@ -9,7 +10,7 @@ interface MovieContentListContract {
         fun moveMovieReservationView(movieContentId: Long)
     }
 
-    interface Presenter {
+    interface Presenter : BasePresenter {
         fun count(): Int
 
         fun item(position: Int): MovieContent
