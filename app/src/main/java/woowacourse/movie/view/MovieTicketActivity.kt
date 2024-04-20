@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Ticket
 
-class MovieReservationCompleteActivity : AppCompatActivity() {
+class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     private lateinit var ticketTitle: TextView
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView

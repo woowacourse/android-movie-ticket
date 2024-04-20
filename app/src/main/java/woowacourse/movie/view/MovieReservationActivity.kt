@@ -95,7 +95,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private fun ticketing() {
         val ticket = makeTicket()
 
-        val intent = Intent(context, MovieReservationCompleteActivity::class.java)
+        val intent = Intent(context, MovieTicketActivity::class.java)
         intent.putExtra(Ticket.KEY_NAME_TICKET, ticket as Serializable)
         context.startActivity(intent)
     }

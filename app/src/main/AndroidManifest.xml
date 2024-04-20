@@ -25,7 +25,7 @@
             android:name=".view.MovieReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".view.MovieReservationCompleteActivity"
+            android:name=".view.MovieTicketActivity"
             android:exported="false" />
     </application>
 
