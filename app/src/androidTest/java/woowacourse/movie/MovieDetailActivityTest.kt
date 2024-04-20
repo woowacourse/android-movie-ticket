@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.CoreMatchers
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,9 +54,10 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun `뒤로가기버튼클릭_영화목록화면표시`() {
+    fun 다음_화면에서_뒤로가기버튼클릭_영화디테일화면표시() {
+        Espresso.onView(withId(R.id.buy_ticket_button))
+            .perform(click())
         Espresso.pressBack()
-        Espresso.onView(withId(R.id.movies_list_item))
-            .check(matches(isDisplayed()))
+        Espresso.onView(withId(R.id.scroll_view)).check(matches(isDisplayed()))
     }
 }

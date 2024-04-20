@@ -1,5 +1,6 @@
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -56,5 +57,16 @@ class MainActivityTest {
 
         onView(withId(R.id.scroll_view))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun 다음_화면에서_뒤로가기버튼클릭_영화목록화면표시() {
+        onData(anything())
+            .inAdapterView(withId(R.id.movies_list_item))
+            .atPosition(0)
+            .onChildView(withId(R.id.movie_details_button))
+            .perform(click())
+        pressBack()
+        onView(withId(R.id.movies_list_item)).check(matches(isDisplayed()))
     }
 }

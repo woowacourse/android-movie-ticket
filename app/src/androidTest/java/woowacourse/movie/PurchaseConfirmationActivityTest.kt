@@ -61,11 +61,4 @@ class PurchaseConfirmationActivityTest {
         Espresso.onView(withId(R.id.ticket_charge))
             .check(matches(ViewMatchers.withText("price: 30000")))
     }
-
-    @Test
-    fun 뒤로가기버튼클릭_영화목록화면표시() {
-        Espresso.pressBack()
-        Espresso.onView(withId(R.id.movies_list_item))
-            .check(matches(ViewMatchers.isDisplayed()))
-    }
 }
