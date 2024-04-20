@@ -37,7 +37,7 @@ class DetailPresenter(
     }
 
     override fun plusTicket() {
-        val nextTicket = ticket.update(1)
+        val nextTicket = ticket.increase(1)
 
         if (nextTicket.isInvalidCount()) {
             view.showToastMessage(MessageType.TicketMaxCountMessage(MAX_TICKET_COUNT))
@@ -48,7 +48,7 @@ class DetailPresenter(
     }
 
     override fun minusTicket() {
-        val nextTicket = ticket.update(-1)
+        val nextTicket = ticket.decrease(-1)
 
         if (nextTicket.isInvalidCount()) {
             view.showToastMessage(MessageType.TicketMinCountMessage(MIN_TICKET_COUNT))
