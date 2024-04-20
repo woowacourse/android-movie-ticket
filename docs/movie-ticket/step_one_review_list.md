@@ -4,7 +4,7 @@
 - [ ] Presenter 객체 생성시 id 에 대한 의존성을 줄이기
 - [ ] Adapter ViewHolder 패턴 적용하기
 - [ ] Adapter context 주입 받는거 막기
-- [ ] Adapter submitList 함수 만들기
+- [x] ListView 의 item Update 기능 
 - [ ] Adapter itemClickListener 만들기
 - [x] 프로젝트 패키징 /feature/screen 단위로 리팩토링
 - [x] 네이밍 일치하지 않는 것들 고치기 (ex. MainActivity -> ScreeningMovieActivity)

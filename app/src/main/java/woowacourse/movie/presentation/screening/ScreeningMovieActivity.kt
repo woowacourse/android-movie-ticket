@@ -11,10 +11,13 @@ import woowacourse.movie.presentation.reservation.booking.MovieReservationActivi
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     private lateinit var presenter: ScreeningMoviePresenter
+    private lateinit var moviesView: ListView
+    private lateinit var adapter: ScreeningMovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_movie)
+        initViews()
         presenter = ScreeningMoviePresenter(this, StubMovieRepository)
     }
 
@@ -23,17 +26,22 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showMovies(movies: List<ScreeningMovieUiModel>) {
-        val listView = findViewById<ListView>(R.id.list_screening_movie)
-        listView.adapter =
-            ScreeningMovieAdapter(this, movies) { presenter.startReservation(it) }
+    override fun updateMovies(movies: List<ScreeningMovieUiModel>) {
+        adapter.updateMovies(movies)
     }
 
-    override fun onClickReservationButton(screenMovieId: Long) {
+    override fun navigateToReservationView(movieId: Long) {
         val intent =
             Intent(this, MovieReservationActivity::class.java).apply {
-                putExtra(MovieReservationActivity.EXTRA_SCREEN_MOVIE_ID, screenMovieId)
+                putExtra(MovieReservationActivity.EXTRA_SCREEN_MOVIE_ID, movieId)
             }
         startActivity(intent)
+    }
+
+    private fun initViews() {
+        moviesView = findViewById<ListView>(R.id.list_screening_movie)
+        adapter = ScreeningMovieAdapter(this) { id -> presenter.startReservation(id) }.also {
+            moviesView.adapter = it
+        }
     }
 }

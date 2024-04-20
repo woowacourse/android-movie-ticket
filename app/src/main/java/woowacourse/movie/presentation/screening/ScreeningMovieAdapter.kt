@@ -12,10 +12,9 @@ import woowacourse.movie.R
 
 class ScreeningMovieAdapter(
     context: Context,
-    private val movies: List<ScreeningMovieUiModel>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
-) :
-    BaseAdapter() {
+) : BaseAdapter() {
+    private var movies: List<ScreeningMovieUiModel> = emptyList()
     private val inflater = LayoutInflater.from(context)
 
     override fun getCount(): Int = movies.size
@@ -47,5 +46,10 @@ class ScreeningMovieAdapter(
         }
 
         return view
+    }
+
+    fun updateMovies(newMovies: List<ScreeningMovieUiModel>) {
+        movies = newMovies
+        notifyDataSetChanged()
     }
 }
