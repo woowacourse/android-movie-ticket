@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import woowacourse.movie.R
-import woowacourse.movie.utils.MovieIntentConstant.NAME_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.utils.formatTimestamp
 import woowacourse.movie.view.MovieDetailActivity
 
@@ -70,7 +70,7 @@ class MovieViewHolder(itemView: View) {
         runningTime.text = "${movie.runningTime}"
         reservation.setOnClickListener {
             Intent(view?.context, MovieDetailActivity::class.java).apply {
-                putExtra(NAME_MOVIE_ID, movie.id)
+                putExtra(KEY_MOVIE_ID, movie.id)
                 movieDetailActivityResultLauncher.launch(this)
             }
         }

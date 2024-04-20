@@ -16,8 +16,8 @@ import woowacourse.movie.presenter.MovieDetailContract
 import woowacourse.movie.presenter.MovieDetailPresenter
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstant.NAME_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstant.NAME_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
@@ -50,16 +50,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 }
             }
         movieDetailPresenter =
-            MovieDetailPresenter(this, savedInstanceState?.getInt(NAME_MOVIE_RESERVATION_COUNT))
+            MovieDetailPresenter(this, savedInstanceState?.getInt(KEY_MOVIE_RESERVATION_COUNT))
         setUpViewById()
 
-        movieDetailPresenter.display(intent.getLongExtra(NAME_MOVIE_ID, INVALID_VALUE_MOVIE_ID))
+        movieDetailPresenter.display(intent.getLongExtra(KEY_MOVIE_ID, INVALID_VALUE_MOVIE_ID))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val count = reservationCount.text.toString().toInt()
-        outState.putInt(NAME_MOVIE_RESERVATION_COUNT, count)
+        outState.putInt(KEY_MOVIE_RESERVATION_COUNT, count)
     }
 
     override fun onInitView(
@@ -98,8 +98,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         count: Int,
     ) {
         Intent(this, MovieResultActivity::class.java).apply {
-            putExtra(NAME_MOVIE_ID, id)
-            putExtra(NAME_MOVIE_RESERVATION_COUNT, count)
+            putExtra(KEY_MOVIE_ID, id)
+            putExtra(KEY_MOVIE_RESERVATION_COUNT, count)
             reservationCompleteActivityResultLauncher.launch(this)
         }
     }
