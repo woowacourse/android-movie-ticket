@@ -46,8 +46,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     private fun MessageType.toMessage(): String {
         return when (this) {
-            is TicketMaxCountMessage -> getString(R.string.ticke_max_count_message).format(this.count)
-            is TicketMinCountMessage -> getString(R.string.ticke_min_count_message).format(this.count)
+            is TicketMaxCountMessage -> getString(R.string.ticke_max_count_message, this.count)
+            is TicketMinCountMessage -> getString(R.string.ticke_min_count_message, this.count)
         }
     }
 

@@ -9,7 +9,6 @@ import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.Presenter
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.View
-import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -32,7 +31,7 @@ class ReservationActivity : BaseActivity(), View {
         with(reservation) {
             title.text = screen.movie.title
             date.text = screen.date
-            count.text = getString(R.string.reserve_count).format(this.ticket.count)
+            count.text = getString(R.string.reserve_count, this.ticket.count)
             amount.text = currency()
         }
     }
