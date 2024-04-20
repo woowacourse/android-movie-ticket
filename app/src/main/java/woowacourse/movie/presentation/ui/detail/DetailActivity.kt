@@ -23,39 +23,24 @@ class DetailActivity : BaseActivity(), View {
         DetailPresenter(this, DummyScreens(), DummyReservation)
     }
 
-    private lateinit var title: TextView
-    private lateinit var date: TextView
-    private lateinit var runningTime: TextView
-    private lateinit var description: TextView
-    private lateinit var poster: ImageView
-    private lateinit var ticketCount: TextView
-    private lateinit var plusBtn: Button
-    private lateinit var minusBtn: Button
-    private lateinit var reserveDone: Button
+    private val title: TextView by lazy { findViewById(R.id.tv_title) }
+    private val date: TextView by lazy { findViewById(R.id.tv_screen_date) }
+    private val runningTime: TextView by lazy { findViewById(R.id.tv_screen_running_time) }
+    private val description: TextView by lazy { findViewById(R.id.tv_description) }
+    private val poster: ImageView by lazy { findViewById(R.id.iv_poster) }
+    private val ticketCount: TextView by lazy { findViewById(R.id.tv_count) }
+    private val plusBtn: Button by lazy { findViewById(R.id.btn_plus) }
+    private val minusBtn: Button by lazy { findViewById(R.id.btn_minus) }
+    private val reserveDone: Button by lazy { findViewById(R.id.btn_reserve_done) }
 
     override fun initStartView() {
-        initView()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        val id = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_ID)
+        presenter.loadScreen(id)
         initClickListener()
     }
 
-    override fun initBinding() {
-        val id = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_ID)
-        presenter.loadScreen(id)
-    }
-
-    private fun initView() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        title = findViewById(R.id.tv_title)
-        date = findViewById(R.id.tv_screen_date)
-        runningTime = findViewById(R.id.tv_screen_running_time)
-        description = findViewById(R.id.tv_description)
-        poster = findViewById(R.id.iv_poster)
-        ticketCount = findViewById(R.id.tv_count)
-        plusBtn = findViewById(R.id.btn_plus)
-        minusBtn = findViewById(R.id.btn_minus)
-        reserveDone = findViewById(R.id.btn_reserve_done)
-    }
+    override fun initBinding() {}
 
     private fun initClickListener() {
         plusBtn.setOnClickListener {

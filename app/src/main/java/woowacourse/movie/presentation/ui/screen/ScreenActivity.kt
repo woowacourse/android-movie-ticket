@@ -15,15 +15,13 @@ class ScreenActivity : BaseActivity(), View {
     override val presenter: Presenter by lazy { ScreenPresenter(this, DummyScreens()) }
 
     private lateinit var adapter: ScreenAdapter
-    private lateinit var lvScreen: ListView
+    private val lvScreen: ListView by lazy { findViewById(R.id.lv_screen) }
 
     override fun initStartView() {
-        lvScreen = findViewById(R.id.lv_screen)
-    }
-
-    override fun initBinding() {
         presenter.loadScreens()
     }
+
+    override fun initBinding() {}
 
     override fun showScreens(screens: List<Screen>) {
         adapter = ScreenAdapter(screens)
