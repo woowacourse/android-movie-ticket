@@ -27,28 +27,51 @@ class ScreeningMovieAdapter(
         parent: ViewGroup?,
     ): View {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent?.context)
-        val view = convertView ?: inflater.inflate(R.layout.item_screening_movie, null)
+        val viewHolder: ViewHolder
 
-        val movie = getItem(position)
-        val postImageView = view.findViewById<ImageView>(R.id.iv_movie_post)
-        val title = view.findViewById<TextView>(R.id.tv_movie_title)
-        val date = view.findViewById<TextView>(R.id.tv_movie_running_date)
-        val runningTime = view.findViewById<TextView>(R.id.tv_movie_running_time)
-
-        postImageView.setImageResource(movie.imageRes)
-        title.text = movie.title
-        date.text = movie.screenDate
-        runningTime.text = movie.runningTime
-
-        view.findViewById<Button>(R.id.btn_movie_reservation).setOnClickListener {
-            onClickReservationButton(movie.id)
+        return if (convertView == null) {
+            inflater.inflate(R.layout.item_screening_movie, parent, false).also {
+                viewHolder = ViewHolder(it, onClickReservationButton)
+                it.tag = ViewHolder(it, onClickReservationButton)
+            }
+        } else {
+            viewHolder = convertView.tag as ViewHolder
+            convertView
+        }.apply {
+            viewHolder.bind(getItem(position))
         }
-
-        return view
     }
 
     fun updateMovies(newMovies: List<ScreeningMovieUiModel>) {
         movies = newMovies
         notifyDataSetChanged()
+    }
+
+    class ViewHolder(
+        view: View,
+        private val onClickReservationButton: (id: Long) -> Unit = {},
+    ) {
+        private val postView: ImageView = view.findViewById(R.id.iv_movie_post)
+        private val titleView: TextView = view.findViewById(R.id.tv_movie_title)
+        private val dateView: TextView = view.findViewById(R.id.tv_movie_running_date)
+        private val runningTimeView: TextView = view.findViewById(R.id.tv_movie_running_time)
+        private val reservationButton: Button = view.findViewById(R.id.btn_movie_reservation)
+        private var reservationButtonClickListener: (() -> Unit)? = null
+
+        init {
+            reservationButton.setOnClickListener {
+                reservationButtonClickListener?.invoke()
+                    ?: error("Reservation button click listener 는 초기화 되지 않았습니다.")
+            }
+        }
+
+        fun bind(movie: ScreeningMovieUiModel) {
+            val (id, title, imageRes, screenDate, runningTime) = movie
+            postView.setImageResource(imageRes)
+            titleView.text = title
+            dateView.text = screenDate
+            runningTimeView.text = runningTime
+            reservationButtonClickListener = { onClickReservationButton(id) }
+        }
     }
 }
