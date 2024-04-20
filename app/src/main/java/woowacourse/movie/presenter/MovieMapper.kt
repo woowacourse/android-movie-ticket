@@ -7,10 +7,12 @@ import woowacourse.movie.model.ScreenMovieUiModel
 import woowacourse.movie.model.ScreeningMovie
 import java.time.format.DateTimeFormatter
 
+private const val DATE_PATTERN = "yyyy.MM.dd"
+private val DateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
+
 fun ScreeningMovie.toScreenMovieUiModel(): ScreenMovieUiModel {
-    val pattern = "yyyy.MM.dd"
     val screenDate: String =
-        screenDateTimes.first().date.format(DateTimeFormatter.ofPattern(pattern))
+        screenDateTimes.first().date.format(DateFormatter)
     val runningTime = movie.runningTime.time.inWholeMinutes
     return ScreenMovieUiModel(
         id = id,
@@ -21,9 +23,8 @@ fun ScreeningMovie.toScreenMovieUiModel(): ScreenMovieUiModel {
 }
 
 fun ScreeningMovie.toMovieReservationUiModel(): MovieReservationUiModel {
-    val pattern = "yyyy.MM.dd"
     val screenDate: String =
-        screenDateTimes.first().date.format(DateTimeFormatter.ofPattern(pattern))
+        screenDateTimes.first().date.format(DateFormatter)
     val runningTime = movie.runningTime.time.inWholeMinutes
     return MovieReservationUiModel(
         id = id,
@@ -35,9 +36,8 @@ fun ScreeningMovie.toMovieReservationUiModel(): MovieReservationUiModel {
 }
 
 fun MovieReservation.toUiModel(): ReservationResultUiModel {
-    val pattern = "yyyy.MM.dd"
     val screenDate: String =
-        screenDateTime.toLocalDate().format(DateTimeFormatter.ofPattern(pattern))
+        screenDateTime.toLocalDate().format(DateFormatter)
     return ReservationResultUiModel(
         movie.title,
         cancelDeadLine.inWholeMinutes.toInt(),
