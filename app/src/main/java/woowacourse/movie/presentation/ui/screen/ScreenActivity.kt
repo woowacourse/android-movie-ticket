@@ -21,8 +21,6 @@ class ScreenActivity : BaseActivity(), View {
         presenter.loadScreens()
     }
 
-    override fun initBinding() {}
-
     override fun showScreens(screens: List<Screen>) {
         adapter = ScreenAdapter(screens)
         lvScreen.adapter = adapter

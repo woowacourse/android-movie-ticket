@@ -40,8 +40,6 @@ class DetailActivity : BaseActivity(), View {
         initClickListener()
     }
 
-    override fun initBinding() {}
-
     private fun initClickListener() {
         plusBtn.setOnClickListener {
             presenter.plusTicket()

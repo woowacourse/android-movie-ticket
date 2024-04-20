@@ -28,8 +28,6 @@ class ReservationActivity : BaseActivity(), View {
         presenter.loadReservation(id)
     }
 
-    override fun initBinding() {}
-
     override fun showReservation(reservation: Reservation) {
         with(reservation) {
             title.text = screen.movie.title

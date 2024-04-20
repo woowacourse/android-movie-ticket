@@ -16,12 +16,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         super.onCreate(savedInstanceState)
         setContentView(layoutResourceId)
         initStartView()
-        initBinding()
     }
 
     abstract fun initStartView()
-
-    abstract fun initBinding()
 
     override fun showToastMessage(messageType: MessageType) {
         Toast.makeText(this, messageType.toMessage(), Toast.LENGTH_SHORT).show()
