@@ -14,7 +14,7 @@ class ReservationPresenter(private val view: ReservationContract.View) :
         val movie = view.readMovieData() ?: return
         view.initializeMovieDetails(movie)
         view.setupReservationCompletedButton(movie)
-        view.setupTicketQuantityControls()
+        view.setupTicketQuantityControls(quantity)
     }
 
     override fun onReservationCompleted(movie: Movie) {

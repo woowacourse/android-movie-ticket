@@ -1,6 +1,7 @@
 package woowacourse.movie.screen.reservation
 
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Quantity
 import woowacourse.movie.model.Reservation
 
 interface ReservationContract {
@@ -9,7 +10,7 @@ interface ReservationContract {
 
         fun setupReservationCompletedButton(movie: Movie)
 
-        fun setupTicketQuantityControls()
+        fun setupTicketQuantityControls(quantity: Quantity)
 
         fun setQuantityText(newText: String)
 

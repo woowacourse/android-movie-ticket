@@ -29,19 +29,19 @@ class ReservationActivityTest {
 
     @Test
     fun `전달_받은_영화_제목이_표시된다`() {
-        onView(withId(R.id.movie_title))
+        onView(withId(R.id.reservation_movie_title))
             .check(matches(withText("제목")))
     }
 
     @Test
     fun `전달_받은_영화_설명이_표시된다`() {
-        onView(withId(R.id.content))
+        onView(withId(R.id.reservation_content))
             .check(matches(withText("설명")))
     }
 
     @Test
     fun `수량의_기본_값은_0이다`() {
-        onView(withId(R.id.quantity))
+        onView(withId(R.id.reservation_quantity))
             .check(matches(withText("0")))
     }
 
@@ -50,7 +50,7 @@ class ReservationActivityTest {
         onView(withId(R.id.btn_plus))
             .perform(click())
 
-        onView(withId(R.id.quantity))
+        onView(withId(R.id.reservation_quantity))
             .check(matches(withText("1")))
     }
 
@@ -59,7 +59,7 @@ class ReservationActivityTest {
         onView(withId(R.id.btn_plus)).perform(click())
         onView(withId(R.id.btn_minus)).perform(click())
 
-        onView(withId(R.id.quantity))
+        onView(withId(R.id.reservation_quantity))
             .check(matches(withText("0")))
     }
 }

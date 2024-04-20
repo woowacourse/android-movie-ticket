@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Quantity
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.screen.completed.ReservationCompletedActivity
 
@@ -31,11 +32,11 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
 
     override fun initializeMovieDetails(movie: Movie) {
-        findViewById<ImageView>(R.id.poster).setImageResource(movie.poster)
-        findViewById<TextView>(R.id.movie_title).text = movie.title
-        findViewById<TextView>(R.id.content).text = movie.content
-        findViewById<TextView>(R.id.opening_day).text = "상영일: ${movie.openingDay}"
-        findViewById<TextView>(R.id.running_time).text = "러닝타임: ${movie.runningTime}분"
+        findViewById<ImageView>(R.id.reservation_poster).setImageResource(movie.poster)
+        findViewById<TextView>(R.id.reservation_movie_title).text = movie.title
+        findViewById<TextView>(R.id.reservation_content).text = movie.content
+        findViewById<TextView>(R.id.reservation_opening_day).text = movie.openingDay
+        findViewById<TextView>(R.id.reservation_running_time).text = "${movie.runningTime}분"
     }
 
     override fun setupReservationCompletedButton(movie: Movie) {
@@ -50,13 +51,14 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         startActivity(intent)
     }
 
-    override fun setupTicketQuantityControls() {
+    override fun setupTicketQuantityControls(quantity: Quantity) {
+        setQuantityText(quantity.value.toString())
         findViewById<Button>(R.id.btn_minus).setOnClickListener { presenter.minus() }
         findViewById<Button>(R.id.btn_plus).setOnClickListener { presenter.plus() }
     }
 
     override fun setQuantityText(newText: String) {
-        findViewById<TextView>(R.id.quantity).text = newText
+        findViewById<TextView>(R.id.reservation_quantity).text = newText
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

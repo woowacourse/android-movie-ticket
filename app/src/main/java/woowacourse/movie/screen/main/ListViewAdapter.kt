@@ -40,10 +40,10 @@ class ListViewAdapter(
     }
 
     inner class ViewHolder(view: View) {
-        private val poster: ImageView = view.findViewById(R.id.img_poster)
-        private val title: TextView = view.findViewById(R.id.movie_title)
-        private val openingDay: TextView = view.findViewById(R.id.opening_day)
-        private val runningTime: TextView = view.findViewById(R.id.running_time)
+        private val poster: ImageView = view.findViewById(R.id.list_img_poster)
+        private val title: TextView = view.findViewById(R.id.list_movie_title)
+        private val openingDay: TextView = view.findViewById(R.id.list_opening_day)
+        private val runningTime: TextView = view.findViewById(R.id.list_running_time)
         private val reservationButton: Button = view.findViewById(R.id.btn_reservation)
 
         fun bind(position: Int) {
@@ -51,8 +51,8 @@ class ListViewAdapter(
             with(this) {
                 poster.setImageResource(movie.poster)
                 title.text = movie.title
-                openingDay.text = "상영일: ${movie.openingDay}"
-                runningTime.text = "러닝타임: ${movie.runningTime}분"
+                openingDay.text = movie.openingDay
+                runningTime.text = "${movie.runningTime}분"
                 reservationButton.setOnClickListener {
                     itemClickListener.onItemClick(position)
                 }

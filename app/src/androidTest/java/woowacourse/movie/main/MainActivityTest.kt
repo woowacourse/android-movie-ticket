@@ -22,4 +22,16 @@ class MainActivityTest {
         onView(withId(R.id.list_view))
             .check(matches(isDisplayed()))
     }
+
+    @Test
+    fun `포스터가_화면에_표시된다`() {
+        onView(withId(R.id.list_img_poster))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `영화_제목이_화면에_표시된다`() {
+        onView(withId(R.id.list_img_poster))
+            .check(matches(isDisplayed()))
+    }
 }
