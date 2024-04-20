@@ -11,7 +11,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.model.Ticket
 import woowacourse.movie.view.MovieReservationCompleteActivity
 
 @RunWith(AndroidJUnit4::class)

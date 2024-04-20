@@ -1,7 +1,7 @@
-package woowacourse.movie.domain
+package woowacourse.movie.contract
 
 import android.widget.ListView
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.MovieListPresenter
 
 interface MovieListContract {

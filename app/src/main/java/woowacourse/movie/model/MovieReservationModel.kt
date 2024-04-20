@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.model
 
 class MovieReservationModel {
     var ticketCount = MIN_TICKET_COUNT

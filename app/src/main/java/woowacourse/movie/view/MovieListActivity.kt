@@ -6,8 +6,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.domain.MovieListContract
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.contract.MovieListContract
+import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.MovieListPresenter
 import java.io.Serializable
 

@@ -1,8 +1,9 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.contract.MovieReservationContract
 import woowacourse.movie.presenter.MovieReservationPresenter
 
 class MovieReservationPresenterTest {
