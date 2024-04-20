@@ -59,7 +59,7 @@ class DetailPresenter(
     }
 
     override fun reserve() {
-        reservationRepository.save(screen, ticket.count).onSuccess { id ->
+        reservationRepository.saveReservation(screen, ticket.count).onSuccess { id ->
             view.navigateToReservation(id)
         }.onFailure { e ->
             view.showToastMessage(e)

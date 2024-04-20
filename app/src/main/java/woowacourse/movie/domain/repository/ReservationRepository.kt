@@ -4,7 +4,7 @@ import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 
 interface ReservationRepository {
-    fun save(
+    fun saveReservation(
         screen: Screen,
         count: Int,
     ): Result<Int>

@@ -7,7 +7,7 @@ import woowacourse.movie.domain.model.Ticket
 object DummyReservation : ReservationRepository {
     private val reservations = mutableListOf<Reservation>()
 
-    override fun save(
+    override fun saveReservation(
         screen: Screen,
         count: Int,
     ): Result<Int> {

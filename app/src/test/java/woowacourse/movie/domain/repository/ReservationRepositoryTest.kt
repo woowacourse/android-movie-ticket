@@ -35,7 +35,7 @@ class ReservationRepositoryTest {
         val count = 1
 
         // when
-        val result = repository.save(screen, count)
+        val result = repository.saveReservation(screen, count)
         val id = result.getOrThrow()
 
         // then
