@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Reservation
 import java.text.DecimalFormat
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
@@ -27,12 +29,22 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
         }
 
     override fun initializeTicketDetails(reservation: Reservation) {
+        val formattedDate = formatLocalDate(reservation)
+        val formattedPrice = formatPrice(reservation)
         findViewById<TextView>(R.id.completed_movie_title).text = reservation.getTitle()
-        findViewById<TextView>(R.id.completed_opening_day).text = reservation.getScreeningTime()
+        findViewById<TextView>(R.id.completed_reservation_date).text = formattedDate
         findViewById<TextView>(R.id.completed_quantity).text = "일반 ${reservation.getQuantity()}명"
-        findViewById<TextView>(R.id.completed_price).text =
-            "${DecimalFormat("#,###").format(reservation.price)}원 (현장 결제)"
+        findViewById<TextView>(R.id.completed_price).text = formattedPrice
     }
+
+    private fun formatLocalDate(reservation: Reservation): String {
+        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.getDefault())
+        return reservation.getScreeningSchedule().run {
+            format(formatter)
+        }
+    }
+
+    private fun formatPrice(reservation: Reservation) = "${DecimalFormat(DECIMAL_FORMAT).format(reservation.price)}원 (현장 결제)"
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -41,5 +53,10 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val DATE_FORMAT = "yyyy.M.d"
+        private const val DECIMAL_FORMAT = "#,###"
     }
 }

@@ -4,6 +4,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.pricing.PricingSystem
 import woowacourse.movie.model.screening.Schedule
 import woowacourse.movie.model.screening.Screening
+import java.time.LocalDate
 
 object TestFixture {
     private val DUMMY_MOVIE =
@@ -20,7 +21,7 @@ object TestFixture {
     fun screeningBuilder(quantityValue: Int) =
         Screening(
             DUMMY_MOVIE,
-            Schedule("2024.3.1"),
+            Schedule(LocalDate.of(2024, 3, 1)),
             Quantity(quantityValue),
         )
 }

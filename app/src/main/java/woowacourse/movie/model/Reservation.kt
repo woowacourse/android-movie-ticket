@@ -4,6 +4,7 @@ import woowacourse.movie.model.pricing.PricingSystem
 import woowacourse.movie.model.pricing.UniformPricingSystem
 import woowacourse.movie.model.screening.Screening
 import java.io.Serializable
+import java.time.LocalDate
 
 data class Reservation(
     private val screening: Screening,
@@ -15,7 +16,7 @@ data class Reservation(
         return screening.movie.title
     }
 
-    fun getScreeningTime(): String {
+    fun getScreeningSchedule(): LocalDate {
         return screening.schedule.date
     }
 

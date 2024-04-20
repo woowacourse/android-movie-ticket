@@ -3,7 +3,6 @@ package woowacourse.movie.screen.reservation
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Quantity
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.screening.Schedule
 import woowacourse.movie.model.screening.Screening
 
 class ReservationPresenter(private val view: ReservationContract.View) :
@@ -18,7 +17,7 @@ class ReservationPresenter(private val view: ReservationContract.View) :
     }
 
     override fun onReservationCompleted(movie: Movie) {
-        val screening = Screening(movie, Schedule("2024.3.1"), quantity)
+        val screening = Screening(movie, quantity = quantity)
         val reservation = Reservation(screening)
         view.moveToCompletedActivity(reservation)
     }
