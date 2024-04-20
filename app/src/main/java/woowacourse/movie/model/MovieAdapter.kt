@@ -8,14 +8,15 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import woowacourse.movie.R
 import woowacourse.movie.utils.formatTimestamp
 import woowacourse.movie.view.MovieDetailActivity
 
 class MovieAdapter(
     private val movies: List<Movie>,
-) :
-    BaseAdapter() {
+    private val movieDetailActivityResultLauncher: ActivityResultLauncher<Intent>,
+) : BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
     }
@@ -45,8 +46,7 @@ class MovieAdapter(
         }
 
         val movie = movies[position]
-        holder.bind(view, movie)
-
+        holder.bind(view, movie, movieDetailActivityResultLauncher)
         return view!!
     }
 }
@@ -61,17 +61,17 @@ class MovieViewHolder(itemView: View) {
     fun bind(
         view: View?,
         movie: Movie,
+        movieDetailActivityResultLauncher: ActivityResultLauncher<Intent>,
     ) {
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
         date.text = formatTimestamp(movie.date)
         runningTime.text = "${movie.runningTime}"
         reservation.setOnClickListener {
-            val intent =
-                Intent(view?.context, MovieDetailActivity::class.java).run {
-                    putExtra("movieId", movie.id)
-                }
-            view?.context?.startActivity(intent)
+            Intent(view?.context, MovieDetailActivity::class.java).apply {
+                putExtra("movieId", movie.id)
+                movieDetailActivityResultLauncher.launch(this)
+            }
         }
     }
 }

@@ -22,7 +22,6 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_main)
-        movieMainPresenter.loadMovies()
 
         movieDetailActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -31,10 +30,12 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
                         .show()
                 }
             }
+
+        movieMainPresenter.loadMovies()
     }
 
     override fun displayMovies(movies: List<Movie>) {
         movieList = findViewById(R.id.mainList)
-        movieList.adapter = MovieAdapter(movies)
+        movieList.adapter = MovieAdapter(movies, movieDetailActivityResultLauncher)
     }
 }
