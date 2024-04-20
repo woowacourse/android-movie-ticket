@@ -8,12 +8,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.detail.ReservationDetailContract
 import woowacourse.movie.presenter.detail.ReservationDetailPresenter
 import woowacourse.movie.view.finished.ReservationFinishedActivity
+import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
     private val presenter = ReservationDetailPresenter(this)

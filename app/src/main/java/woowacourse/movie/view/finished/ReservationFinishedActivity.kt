@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
-import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.TICKET
-import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.finished.ReservationFinishedContract
 import woowacourse.movie.presenter.finished.ReservationFinishedPresenter
+import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
+import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.TICKET
 import woowacourse.movie.view.home.ReservationHomeActivity
+import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable
 import java.text.DecimalFormat
 
