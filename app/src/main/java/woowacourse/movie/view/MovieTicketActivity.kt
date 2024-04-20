@@ -1,47 +1,44 @@
 package woowacourse.movie.view
 
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.contract.MovieTicketContract
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.presenter.MovieTicketPresenter
+import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     private lateinit var ticketTitle: TextView
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView
     private lateinit var ticketCount: TextView
+    override val presenter: MovieTicketPresenter = MovieTicketPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
-        initView()
-        setTicketData()
+        initViewById()
+        presenter.setTicketInfo()
     }
 
-    private fun initView() {
+    private fun initViewById() {
         ticketTitle = findViewById(R.id.ticket_title)
         ticketScreeningDate = findViewById(R.id.ticket_screening_date)
         ticketPrice = findViewById(R.id.ticket_price)
         ticketCount = findViewById(R.id.ticket_number_of_people)
     }
 
-    private fun setTicketData() {
-        makeTicket()?.let { ticket ->
-            ticketTitle.text = ticket.title
-            ticketScreeningDate.text = ticket.screeningDate
-            ticketPrice.text = String.format(TICKET_PRICE, ticket.price)
-            ticketCount.text = TICKET_COUNT.format(ticket.count)
-        }
-    }
+    override fun showTicketInfo(info: Ticket) {
+        val formattedScreeningDate =
+            info.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        val ticketCountData = intent.getIntExtra(Ticket.KEY_NAME_TICKET, 1)
 
-    private fun makeTicket(): Ticket? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(Ticket.KEY_NAME_TICKET, Ticket::class.java)
-        } else {
-            intent.getSerializableExtra(Ticket.KEY_NAME_TICKET) as? Ticket
-        }
+        ticketTitle.text = info.title
+        ticketScreeningDate.text = formattedScreeningDate
+        ticketPrice.text = TICKET_PRICE.format(info.price * ticketCountData)
+        ticketCount.text = TICKET_COUNT.format(ticketCountData)
     }
 
     companion object {
