@@ -29,10 +29,19 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movieResultPresenter = MovieResultPresenter(this)
-        movieResultPresenter.display(
+        movieResultPresenter.loadMovieTicket(
             intent.getLongExtra(KEY_MOVIE_ID, INVALID_VALUE_MOVIE_ID),
             intent.getIntExtra(KEY_MOVIE_RESERVATION_COUNT, INVALID_VALUE_MOVIE_RESERVATION_COUNT),
         )
+    }
+
+    override fun displayMovieTicket(movieTicketData: MovieTicket?) {
+        movieTicketData?.let { movieTicket ->
+            completeTitleTextView.text = movieTicket.title
+            completeDateTextView.text = formatTimestamp(movieTicket.date)
+            completeReservationCountTextView.text = "${movieTicket.count}"
+            completeReservationPriceTextView.text = formatCurrency(movieTicket.price)
+        }
     }
 
     private fun setUpViewById() {
@@ -40,14 +49,5 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         completeDateTextView = findViewById(R.id.resultDate)
         completeReservationCountTextView = findViewById(R.id.resultReservCount)
         completeReservationPriceTextView = findViewById(R.id.resultReservPrice)
-    }
-
-    override fun onInitView(movieTicket: MovieTicket?) {
-        movieTicket?.let {
-            completeTitleTextView.text = it.title
-            completeDateTextView.text = formatTimestamp(it.date)
-            completeReservationCountTextView.text = "${it.count}"
-            completeReservationPriceTextView.text = formatCurrency(it.price)
-        }
     }
 }

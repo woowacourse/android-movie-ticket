@@ -17,11 +17,11 @@ class MovieRepository {
             ),
         )
 
-    fun getAll(): List<Movie> {
+    fun getAllMovies(): List<Movie> {
         return movies
     }
 
-    fun getOneById(id: Long): Movie? {
+    fun getMovieById(id: Long): Movie? {
         return movies.firstOrNull { it.id == id }
     }
 }

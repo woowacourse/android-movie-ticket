@@ -4,11 +4,11 @@ import woowacourse.movie.model.MovieTicket
 
 interface MovieResultContract {
     interface View {
-        fun onInitView(movieTicket: MovieTicket?)
+        fun displayMovieTicket(movieTicketData: MovieTicket?)
     }
 
     interface Presenter {
-        fun display(
+        fun loadMovieTicket(
             id: Long,
             count: Int,
         )

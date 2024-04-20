@@ -7,7 +7,7 @@ class MovieMainPresenter(private val movieChoiceContractView: MovieMainContract.
     private val movieRepository: MovieRepository = MovieRepository()
 
     override fun loadMovies() {
-        val movies = movieRepository.getAll()
+        val movies = movieRepository.getAllMovies()
         movieChoiceContractView.displayMovies(movies)
     }
 }

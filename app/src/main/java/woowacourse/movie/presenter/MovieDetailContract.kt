@@ -5,26 +5,26 @@ import woowacourse.movie.model.MovieReservationCount
 
 interface MovieDetailContract {
     interface View {
-        fun onCountUpdate(count: Int)
+        fun updateCount(count: Int)
 
-        fun onInitView(
+        fun displayMovieDetail(
             movieData: Movie?,
             movieReservationCount: MovieReservationCount,
         )
 
-        fun onReservationComplete(
+        fun navigateToResultView(
             id: Long,
             count: Int,
         )
     }
 
     interface Presenter {
-        fun display(id: Long)
+        fun loadMovieDetail(id: Long)
 
         fun plusReservationCount()
 
         fun minusReservationCount()
 
-        fun reservation(id: Long)
+        fun reserveMovie(id: Long)
     }
 }

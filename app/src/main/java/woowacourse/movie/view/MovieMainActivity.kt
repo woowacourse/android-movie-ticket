@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieAdapter
 import woowacourse.movie.presenter.MovieMainContract
 import woowacourse.movie.presenter.MovieMainPresenter
+import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 
 class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     private lateinit var movieList: ListView
@@ -24,6 +26,13 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
 
     override fun displayMovies(movies: List<Movie>) {
         movieList = findViewById(R.id.mainList)
-        movieList.adapter = MovieAdapter(movies)
+        movieList.adapter = MovieAdapter(movies, ::navigateToDetailView)
+    }
+
+    override fun navigateToDetailView(id: Long) {
+        Intent(this, MovieDetailActivity::class.java).apply {
+            putExtra(KEY_MOVIE_ID, id)
+            startActivity(this)
+        }
     }
 }

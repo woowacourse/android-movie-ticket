@@ -5,7 +5,7 @@
     android:layout_height="132dp">
 
     <Button
-        android:id="@+id/movieReservation"
+        android:id="@+id/movieReservationBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
