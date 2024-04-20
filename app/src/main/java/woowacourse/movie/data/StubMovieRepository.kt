@@ -7,7 +7,8 @@ import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDateTime
 
 object StubMovieRepository : MovieRepository {
-    private val screenMovies: List<ScreeningMovie> = listOf(ScreeningMovie.STUB)
+    private val screenMovies: List<ScreeningMovie> =
+        List<ScreeningMovie>(1000) { ScreeningMovie.STUB.copy(id = it.toLong()) }
     private var reservations: List<MovieReservation> = emptyList()
     private var reservationId: Long = 0
 
