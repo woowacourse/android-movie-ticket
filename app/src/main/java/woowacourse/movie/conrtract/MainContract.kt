@@ -7,7 +7,5 @@ interface MainContract {
         fun setUpMovieContentListAdapter()
     }
 
-    interface Presenter : BasePresenter {
-        fun saveMovieContent()
-    }
+    interface Presenter : BasePresenter
 }

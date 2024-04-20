@@ -14,7 +14,6 @@ class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter.saveMovieContent()
         setUpMovieContentListAdapter()
     }
 
