@@ -12,7 +12,7 @@ import woowacourse.movie.contract.ReservationContract
 import woowacourse.movie.presenter.ReservationPresenter
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val reservationPresenter: ReservationContract.Presenter = ReservationPresenter(this)
+    private val presenter: ReservationContract.Presenter = ReservationPresenter(this)
     private lateinit var addButton: Button
     private lateinit var subButton: Button
     private lateinit var countTextView: TextView
@@ -23,46 +23,52 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        setUpView()
+        presenter.fetchMovieDetail(intent)
         setUpCount()
         bindReservationButton()
     }
 
-    override fun setUpView() {
-        initImage()
-        initTitle()
-        initScreenDate()
-        initRunningTime()
-        descriptionTextView()
+    override fun setUpView(
+        img: Int,
+        title: String,
+        screenDate: String,
+        runningTime: Int,
+        description: String,
+    ) {
+        initImage(img)
+        initTitle(title)
+        initScreenDate(screenDate)
+        initRunningTime(runningTime)
+        descriptionTextView(description)
     }
 
     override fun updateTicketCount() {
-        countTextView.text = reservationPresenter.ticketCount().toString()
+        countTextView.text = presenter.ticketCount().toString()
     }
 
-    private fun initImage() {
+    private fun initImage(img: Int) {
         val imageView: ImageView = findViewById(R.id.reservation_imageview)
-        imageView.setImageResource(intent.getIntExtra("image", 0))
+        imageView.setImageResource(img)
     }
 
-    private fun initTitle() {
+    private fun initTitle(title: String) {
         titleTextView = findViewById(R.id.reservation_title_textview)
-        titleTextView.text = intent.getStringExtra("title")
+        titleTextView.text = title
     }
 
-    private fun initScreenDate() {
+    private fun initScreenDate(localDate: String) {
         screenDateTextView = findViewById(R.id.reservation_screen_date_textview)
-        screenDateTextView.text = intent.getStringExtra("screenDate")
+        screenDateTextView.text = localDate
     }
 
-    private fun initRunningTime() {
+    private fun initRunningTime(runningTime: Int) {
         val runningTimeTextView: TextView = findViewById(R.id.reservation_running_time_textview)
-        runningTimeTextView.text = intent.getStringExtra("runningTime")
+        runningTimeTextView.text = runningTime.toString()
     }
 
-    private fun descriptionTextView() {
-        val description: TextView = findViewById(R.id.reservation_description)
-        description.text = intent.getStringExtra("description")
+    private fun descriptionTextView(description: String) {
+        val descriptionTextView: TextView = findViewById(R.id.reservation_description)
+        descriptionTextView.text = description
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -72,7 +78,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     private fun setUpCount() {
         countTextView = findViewById(R.id.reservation_count_textview)
-        countTextView.text = reservationPresenter.ticketCount().toString()
+        countTextView.text = presenter.ticketCount().toString()
         bindCountButtons()
     }
 
@@ -81,10 +87,10 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         subButton = findViewById(R.id.sub_button)
 
         addButton.setOnClickListener {
-            reservationPresenter.addTicketCount()
+            presenter.addTicketCount()
         }
         subButton.setOnClickListener {
-            reservationPresenter.subTicketCount()
+            presenter.subTicketCount()
         }
     }
 
@@ -93,9 +99,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationResultActivity::class.java)
-            reservationPresenter.clickReservationCompleteButton(
-                titleTextView.text.toString(),
-                screenDateTextView.text.toString(),
+            presenter.clickReservationCompleteButton(
                 intent,
             )
             this.startActivity(intent)

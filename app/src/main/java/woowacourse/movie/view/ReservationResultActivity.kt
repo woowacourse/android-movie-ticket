@@ -1,19 +1,22 @@
 package woowacourse.movie.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.contract.ReservationResultContract
+import woowacourse.movie.presenter.ReservationResultPresenter
 import java.text.DecimalFormat
 
-class ReservationResultActivity : AppCompatActivity() {
+class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
+    private val presenter: ReservationResultContract.Presenter = ReservationResultPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        fetchData(intent)
+        presenter.fetchReservationDetail(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -21,15 +24,35 @@ class ReservationResultActivity : AppCompatActivity() {
         return true
     }
 
-    private fun fetchData(intent: Intent) {
-        val titleTextView: TextView = findViewById(R.id.result_title_textview)
-        val screenDataTextView: TextView = findViewById(R.id.result_screen_date_textview)
-        val countTextView: TextView = findViewById(R.id.result_count_textview)
-        val priceTextView: TextView = findViewById(R.id.result_price_textview)
+    override fun setUpView(
+        title: String,
+        screenDate: String,
+        count: Int,
+        price: Int,
+    ) {
+        initTitle(title)
+        initScreenDate(screenDate)
+        initCount(count)
+        initPrice(price)
+    }
 
-        titleTextView.text = intent.getStringExtra("title")
-        screenDataTextView.text = intent.getStringExtra("screenDate")
-        countTextView.text = intent.getStringExtra("count")
-        priceTextView.text = DecimalFormat("#,###").format(intent.getIntExtra("price", 0))
+    private fun initTitle(title: String) {
+        val titleTextView: TextView = findViewById(R.id.result_title_textview)
+        titleTextView.text = title
+    }
+
+    private fun initScreenDate(screenDate: String) {
+        val screenDataTextView: TextView = findViewById(R.id.result_screen_date_textview)
+        screenDataTextView.text = screenDate
+    }
+
+    private fun initCount(count: Int) {
+        val countTextView: TextView = findViewById(R.id.result_count_textview)
+        countTextView.text = count.toString()
+    }
+
+    private fun initPrice(price: Int) {
+        val priceTextView: TextView = findViewById(R.id.result_price_textview)
+        priceTextView.text = DecimalFormat("#,###").format(price)
     }
 }

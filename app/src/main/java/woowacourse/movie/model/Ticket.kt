@@ -1,6 +1,8 @@
 package woowacourse.movie.model
 
-class Ticket {
+import java.io.Serializable
+
+class Ticket : Serializable {
     private var count: Int = DEFAULT_AMOUNT
 
     init {

@@ -1,6 +1,8 @@
 package woowacourse.movie.model
 
-class Payment {
+import java.io.Serializable
+
+class Payment : Serializable {
     fun price(count: Int) = count * TICKET_PRICE
 
     companion object {

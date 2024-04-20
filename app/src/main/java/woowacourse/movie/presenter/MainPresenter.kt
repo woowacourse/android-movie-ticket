@@ -13,11 +13,7 @@ class MainPresenter : MainContract.Presenter {
         position: Int,
     ) {
         val movie = item(position)
-        intent.putExtra("title", movie.title)
-        intent.putExtra("screenDate", movie.screenDateToString())
-        intent.putExtra("runningTime", movie.runningTime.toString())
-        intent.putExtra("description", movie.description)
-        intent.putExtra("image", movie.img)
+        intent.putExtra("movie", movie)
     }
 
     fun registerMovie(

@@ -2,6 +2,7 @@ package woowacourse.movie.presenter
 
 import android.content.Intent
 import woowacourse.movie.contract.ReservationContract
+import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
 
@@ -9,6 +10,20 @@ class ReservationPresenter(private val view: ReservationContract.View) :
     ReservationContract.Presenter {
     private var ticket: Ticket = Ticket()
     private val payment: Payment = Payment()
+    private lateinit var movie: Movie
+
+    override fun fetchMovieDetail(intent: Intent) {
+        movie = intent.getSerializableExtra("movie") as Movie
+        movie.let {
+            view.setUpView(
+                movie.img,
+                movie.title,
+                movie.screenDateToString(),
+                movie.runningTime,
+                movie.description,
+            )
+        }
+    }
 
     override fun subTicketCount() {
         ticket.sub()
@@ -20,15 +35,10 @@ class ReservationPresenter(private val view: ReservationContract.View) :
         view.updateTicketCount()
     }
 
-    override fun clickReservationCompleteButton(
-        title: String,
-        screenDate: String,
-        intent: Intent,
-    ) {
-        intent.putExtra("title", title)
-        intent.putExtra("screenDate", screenDate)
-        intent.putExtra("count", ticketCount().toString())
-        intent.putExtra("price", totalTicketPrice())
+    override fun clickReservationCompleteButton(intent: Intent) {
+        intent.putExtra("movie", movie)
+        intent.putExtra("ticket", ticket)
+        intent.putExtra("payment", payment)
     }
 
     override fun ticketCount(): Int = ticket.count()
