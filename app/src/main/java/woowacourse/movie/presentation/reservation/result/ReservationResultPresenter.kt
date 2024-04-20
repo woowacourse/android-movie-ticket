@@ -1,7 +1,7 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presentation.reservation.result
 
+import woowacourse.movie.presentation.reservation.booking.toUiModel
 import woowacourse.movie.repository.MovieRepository
-import woowacourse.movie.view.ReservationResultView
 
 class ReservationResultPresenter(
     id: Long,

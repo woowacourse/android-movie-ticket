@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.screening
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.model.ScreenMovieUiModel
+import woowacourse.movie.R
 
-class MovieAdapter(
+class ScreeningMovieAdapter(
     context: Context,
-    private val movies: List<ScreenMovieUiModel>,
+    private val movies: List<ScreeningMovieUiModel>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) :
     BaseAdapter() {
@@ -20,7 +20,7 @@ class MovieAdapter(
 
     override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): ScreenMovieUiModel = movies[position]
+    override fun getItem(position: Int): ScreeningMovieUiModel = movies[position]
 
     override fun getItemId(position: Int): Long = movies[position].id
 

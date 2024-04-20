@@ -1,8 +1,7 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presentation.reservation.booking
 
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.repository.MovieRepository
-import woowacourse.movie.view.MovieReservationView
 import java.time.LocalDate
 
 class MovieReservationPresenter(

@@ -1,6 +1,4 @@
-package woowacourse.movie.view
-
-import woowacourse.movie.model.ReservationResultUiModel
+package woowacourse.movie.presentation.reservation.result
 
 interface ReservationResultView {
     fun showResult(reservationResult: ReservationResultUiModel)

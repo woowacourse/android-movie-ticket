@@ -1,13 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.reservation.result
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.data.StubMovieRepository
-import woowacourse.movie.model.ReservationResultUiModel
-import woowacourse.movie.presenter.ReservationResultPresenter
-import woowacourse.movie.view.ReservationResultView
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter

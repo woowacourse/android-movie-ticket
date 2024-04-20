@@ -4,11 +4,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScreeningMovieActivity">
+    tools:context=".presentation.screening.ScreeningMovieActivity">
 
 
     <ListView
-        android:id="@+id/list_view"
+        android:id="@+id/list_screening_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

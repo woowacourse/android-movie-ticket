@@ -6,7 +6,7 @@
 - [ ] Adapter context 주입 받는거 막기
 - [ ] Adapter submitList 함수 만들기
 - [ ] Adapter itemClickListener 만들기
-- [ ] 패키징 screen 단위로 묶기
+- [x] 프로젝트 패키징 /feature/screen 단위로 리팩토링
 - [ ] 네이밍 일치하지 않는 것들 고치기 (ex. MainActivity -> ScreeningMovieActivity)
 - [x] pre-push hook 만들기 (test, lint)
 

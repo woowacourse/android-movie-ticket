@@ -18,7 +18,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.model.ScreenMovieUiModel
+import woowacourse.movie.presentation.screening.ScreeningMovieActivity
+import woowacourse.movie.presentation.screening.ScreeningMovieAdapter
+import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 
 class ScreeningMovieActivityTest {
     @get:Rule
@@ -27,9 +29,9 @@ class ScreeningMovieActivityTest {
     @Before
     fun setUp() {
         activityRule.scenario.onActivity { activity ->
-            val listView = activity.findViewById<ListView>(R.id.list_view)
-            val items = listOf(ScreenMovieUiModel(1, title = "해리"))
-            listView.adapter = MovieAdapter(activity, items)
+            val listView = activity.findViewById<ListView>(R.id.list_screening_movie)
+            val items = listOf(ScreeningMovieUiModel(1, title = "해리"))
+            listView.adapter = ScreeningMovieAdapter(activity, items)
         }
     }
 
@@ -43,7 +45,7 @@ class ScreeningMovieActivityTest {
     @DisplayName("ListView 가 화면에 보여 지는지 테스트")
     fun listviewTest() {
         onData(`is`(withItemContent(containsString("해리 포터와 마법사의 돌"))))
-            .inAdapterView(withId(R.id.list_view))
+            .inAdapterView(withId(R.id.list_screening_movie))
             .atPosition(0)
             .onChildView(withId(R.id.tv_movie_running_time))
             .check(matches(withText("러닝타임: 152분")))
@@ -53,7 +55,7 @@ class ScreeningMovieActivityTest {
     @DisplayName("예메 확인 버튼을 누르면 영화 예매 화면 으로 넘어감")
     fun listviewTest2() {
         onData(`is`(withItemContent(containsString("해리 포터와 마법사의 돌"))))
-            .inAdapterView(withId(R.id.list_view))
+            .inAdapterView(withId(R.id.list_screening_movie))
             .atPosition(0)
             .onChildView(withId(R.id.btn_movie_reservation))
             .perform(click())
@@ -61,10 +63,10 @@ class ScreeningMovieActivityTest {
         onView(withId(R.id.detail_movie)).check(matches(isDisplayed()))
     }
 
-    private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreenMovieUiModel> {
-        return object : TypeSafeMatcher<ScreenMovieUiModel>(ScreenMovieUiModel::class.java) {
-            override fun matchesSafely(screenMovieUiModel: ScreenMovieUiModel): Boolean {
-                return itemTextMatcher.matches(screenMovieUiModel.title)
+    private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreeningMovieUiModel> {
+        return object : TypeSafeMatcher<ScreeningMovieUiModel>(ScreeningMovieUiModel::class.java) {
+            override fun matchesSafely(screeningMovieUiModel: ScreeningMovieUiModel): Boolean {
+                return itemTextMatcher.matches(screeningMovieUiModel.title)
             }
 
             override fun describeTo(description: Description) {

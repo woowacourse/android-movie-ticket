@@ -1,22 +1,21 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.screening
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.data.StubMovieRepository
-import woowacourse.movie.model.ScreenMovieUiModel
-import woowacourse.movie.presenter.ScreenMoviePresenter
-import woowacourse.movie.view.ScreeningMovieView
+import woowacourse.movie.presentation.reservation.booking.MovieReservationActivity
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
-    private lateinit var presenter: ScreenMoviePresenter
+    private lateinit var presenter: ScreeningMoviePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        presenter = ScreenMoviePresenter(this, StubMovieRepository)
+        setContentView(R.layout.activity_screening_movie)
+        presenter = ScreeningMoviePresenter(this, StubMovieRepository)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -24,10 +23,10 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showMovies(movies: List<ScreenMovieUiModel>) {
-        val listView = findViewById<ListView>(R.id.list_view)
+    override fun showMovies(movies: List<ScreeningMovieUiModel>) {
+        val listView = findViewById<ListView>(R.id.list_screening_movie)
         listView.adapter =
-            MovieAdapter(this, movies) { presenter.startReservation(it) }
+            ScreeningMovieAdapter(this, movies) { presenter.startReservation(it) }
     }
 
     override fun onClickReservationButton(screenMovieId: Long) {

@@ -1,9 +1,8 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presentation.screening
 
 import woowacourse.movie.repository.MovieRepository
-import woowacourse.movie.view.ScreeningMovieView
 
-class ScreenMoviePresenter(
+class ScreeningMoviePresenter(
     private val view: ScreeningMovieView,
     private val repository: MovieRepository,
 ) {

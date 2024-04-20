@@ -9,6 +9,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.fixtures.context
+import woowacourse.movie.presentation.reservation.booking.MovieReservationActivity
 
 class MovieReservationActivityTest {
     @get:Rule

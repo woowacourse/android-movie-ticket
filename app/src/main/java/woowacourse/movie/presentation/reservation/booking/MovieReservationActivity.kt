@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.reservation.booking
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.data.StubMovieRepository
-import woowacourse.movie.model.MovieReservationUiModel
-import woowacourse.movie.presenter.MovieReservationPresenter
-import woowacourse.movie.view.MovieReservationView
+import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var presenter: MovieReservationPresenter

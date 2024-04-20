@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.presentation.reservation.booking
 
 import androidx.annotation.DrawableRes
 import woowacourse.movie.R
