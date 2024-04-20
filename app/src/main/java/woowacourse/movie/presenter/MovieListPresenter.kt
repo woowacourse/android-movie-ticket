@@ -7,13 +7,17 @@ import woowacourse.movie.repository.TheaterRepository
 
 class MovieListPresenter(
     private val movieListView: MovieListContract.View,
-    theaterRepository: TheaterRepository = PseudoTheaterRepository(),
-    movieAdapter: MovieAdapter,
+    private val theaterRepository: TheaterRepository = PseudoTheaterRepository(),
+    val movieAdapter: MovieAdapter,
 ) : MovieListContract.Presenter {
     private val theaters = theaterRepository.getTheaters()
 
     init {
         movieAdapter.onClick = ::onItemButtonClicked
+        loadTheaters()
+    }
+
+    override fun loadTheaters() {
         movieAdapter.setTheaters(theaterRepository.getTheaters())
     }
 

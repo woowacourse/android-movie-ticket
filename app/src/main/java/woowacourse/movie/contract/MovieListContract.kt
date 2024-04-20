@@ -7,5 +7,7 @@ interface MovieListContract {
         fun navigateToMovieDetail(theater: Theater)
     }
 
-    interface Presenter
+    interface Presenter {
+        fun loadTheaters()
+    }
 }
