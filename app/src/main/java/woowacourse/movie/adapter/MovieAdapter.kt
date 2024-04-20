@@ -9,6 +9,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.RunningTime
+import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.theater.Theater
 
 class MovieAdapter : BaseAdapter() {
@@ -37,7 +38,7 @@ class MovieAdapter : BaseAdapter() {
         val theater: Theater = getItem(position)
         val movie = theater.movie
 
-        listItemView.findViewById<TextView>(R.id.movie_title).text = movie.title.toString()
+        listItemView.findViewById<TextView>(R.id.movie_title).text = movie.title.parse()
         listItemView.findViewById<TextView>(R.id.movie_release_date).text =
             "상영일: ${movie.releaseDate.parse()}"
         listItemView.findViewById<TextView>(R.id.movie_duration).text =
@@ -50,6 +51,7 @@ class MovieAdapter : BaseAdapter() {
         return listItemView
     }
 
+    private fun Title.parse() = content
     private fun MovieDate.parse() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
     private fun RunningTime.parse() = time.toString() + "분"
 }
