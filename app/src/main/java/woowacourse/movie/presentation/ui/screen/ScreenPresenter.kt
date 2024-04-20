@@ -10,4 +10,8 @@ class ScreenPresenter(
         val screens = repository.load()
         view.showScreens(screens)
     }
+
+    override fun onScreenClick(id: Int) {
+        view.navigateToDetail(id)
+    }
 }

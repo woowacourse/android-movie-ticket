@@ -7,9 +7,11 @@ import woowacourse.movie.presentation.base.BaseView
 interface ScreenContract {
     interface View : BaseView {
         fun showScreens(screens: List<Screen>)
+
+        fun navigateToDetail(id: Int)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter, ScreenActionHandler {
         fun loadScreens()
     }
 }
