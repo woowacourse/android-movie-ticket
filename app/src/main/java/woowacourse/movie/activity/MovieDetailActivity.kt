@@ -25,43 +25,47 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         presenter = MovieDetailActivityPresenter(this, intent)
+        initializeViews()
+        setupEventListeners()
+    }
 
-        setupViews()
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun initializeViews() {
         val movie = presenter.movie
         if (movie != null) {
-            findViewById<TextView>(R.id.movie_title_large).text =
-                movie.title.toString()
+            findViewById<TextView>(R.id.movie_title_large).text = movie.title.toString()
             findViewById<TextView>(R.id.movie_release_date_large).text =
                 movie.releaseDate.toString()
-            findViewById<TextView>(R.id.movie_running_time).text =
-                movie.runningTime.toString()
-            findViewById<TextView>(R.id.movie_synopsis).text =
-                movie.synopsis.toString()
+            findViewById<TextView>(R.id.movie_running_time).text = movie.runningTime.toString()
+            findViewById<TextView>(R.id.movie_synopsis).text = movie.synopsis.toString()
         }
+        findViewById<ImageView>(R.id.movie_thumbnail)
+            .setImageDrawable(ContextCompat.getDrawable(this, R.drawable.movie_making_poster))
+    }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun setupEventListeners() {
         val ticketPlusButton = findViewById<Button>(R.id.plus_button)
         val ticketMinusButton = findViewById<Button>(R.id.minus_button)
         val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
         val numberOfPurchases = findViewById<TextView>(R.id.quantity_text_view)
+
         ticketPlusButton.setOnClickListener {
-            ticketNum += 1 //이건 뷰로 봤어요! 최종적으로 intent를 보내줄때만 사용되는거라서 +,-할때는 그저 뷰만 움직인다고 판하였습니다.
+            ticketNum += 1
             numberOfPurchases.text = ticketNum.toString()
         }
+
         ticketMinusButton.setOnClickListener {
             if (ticketNum > 0) ticketNum -= 1
             numberOfPurchases.text = ticketNum.toString()
         }
+
         ticketBuyButton.setOnClickListener {
             presenter.onBuyTicketClicked(
                 ticketNum,
                 Intent(this, PurchaseConfirmationActivity::class.java)
             )
         }
-    }
-
-    private fun setupViews() {
-        findViewById<ImageView>(R.id.movie_thumbnail)
-            .setImageDrawable(ContextCompat.getDrawable(this, R.drawable.movie_making_poster))
     }
 
     override fun navigateToPurchaseConfirmation(sendingIntent: Intent) {
