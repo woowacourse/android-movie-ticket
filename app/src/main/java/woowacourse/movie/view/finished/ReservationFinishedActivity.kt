@@ -19,8 +19,8 @@ import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable
 import java.text.DecimalFormat
 
-class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract {
-    private lateinit var presenter: ReservationFinishedPresenter
+class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
+    private val presenter: ReservationFinishedPresenter = ReservationFinishedPresenter(this)
 
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
     private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_date) }
@@ -36,11 +36,10 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticket = intent.intentSerializable(TICKET, Ticket::class.java) ?: Ticket()
 
-        presenter =
-            ReservationFinishedPresenter(this, ticket).also {
-                it.deliverMovieInformation(movieId)
-                it.deliverReservationInformation()
-            }
+        with(presenter) {
+            loadMovie(movieId)
+            loadTicket(ticket)
+        }
     }
 
     override fun showMovieInformation(movie: Movie) {

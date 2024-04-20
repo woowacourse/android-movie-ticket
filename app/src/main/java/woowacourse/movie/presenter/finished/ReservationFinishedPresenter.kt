@@ -1,22 +1,23 @@
 package woowacourse.movie.presenter.finished
 
+import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieStorage
 import woowacourse.movie.model.Ticket
 
 class ReservationFinishedPresenter(
-    private val contract: ReservationFinishedContract,
-    private val ticket: Ticket,
-) {
+    private val view: ReservationFinishedContract.View,
+) : ReservationFinishedContract.Presenter {
     private val movies = MovieStorage.obtainMovies()
 
-    fun deliverMovieInformation(movieId: Int) {
-        contract.showMovieInformation(movies[movieId])
+    override fun loadMovie(movieId: Int) {
+        val movie: Movie = movies[movieId]
+        view.showMovieInformation(movie)
     }
 
-    fun deliverReservationInformation() {
+    override fun loadTicket(ticket: Ticket) {
         val numberOfTickets = ticket.count
         val price = ticket.calculatePrice()
 
-        contract.showReservationHistory(numberOfTickets, price)
+        view.showReservationHistory(numberOfTickets, price)
     }
 }
