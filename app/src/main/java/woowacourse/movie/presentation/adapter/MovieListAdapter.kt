@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import woowacourse.movie.presentation.contract.MainContract
 class MovieListAdapter(
     private val presenter: MainContract.Presenter,
 ) : BaseAdapter() {
-    private val movieList: List<Movie> = presenter.movieList()
+    private val movieList: List<Movie> = presenter.movies.movies
 
     override fun getCount(): Int = movieList.size
 

@@ -3,12 +3,16 @@ package woowacourse.movie.domain.model
 import woowacourse.movie.R
 import woowacourse.movie.presentation.contract.MainContract
 
-class Movies : MainContract.Model {
+class Movies {
     private var _movies: MutableList<Movie> = mutableListOf()
     val movies: List<Movie>
         get() = _movies
 
-    override fun initMovieList() {
+    init {
+        initMovieList()
+    }
+
+    private fun initMovieList() {
         _movies.add(
             Movie(
                 posterImageId = R.drawable.harrypotter_poster,

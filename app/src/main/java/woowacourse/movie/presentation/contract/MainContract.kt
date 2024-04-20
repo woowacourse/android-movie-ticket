@@ -1,12 +1,9 @@
 package woowacourse.movie.presentation.contract
 
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Movies
 
 interface MainContract {
-    interface Model {
-        fun initMovieList()
-    }
-
     interface View {
         fun showMovieList()
 
@@ -14,7 +11,7 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun movieList(): List<Movie>
+        val movies: Movies
 
         fun onReserveButtonClicked(movie: Movie)
     }
