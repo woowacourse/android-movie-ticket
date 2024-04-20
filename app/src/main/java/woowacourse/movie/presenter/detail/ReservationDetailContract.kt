@@ -1,18 +1,32 @@
 package woowacourse.movie.presenter.detail
 
+import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 
 interface ReservationDetailContract {
-    fun showMovieInformation(movie: Movie)
+    interface View {
+        fun showMovieInformation(movie: Movie)
 
-    fun changeNumberOfTickets(ticket: Ticket)
+        fun changeNumberOfTickets(ticket: Ticket)
 
-    fun initializePlusButton(increaseTicketCount: () -> Unit)
+        fun showResultToast()
 
-    fun initializeMinusButton(decreaseTicketCount: () -> Unit)
+        fun navigateToFinished(
+            movieId: Int,
+            ticket: Ticket,
+        )
+    }
 
-    fun initializeReservationButton(movieId: Int)
+    interface Presenter {
+        fun loadMovie(movieId: Int)
 
-    fun showResultToast()
+        fun increaseTicketCount()
+
+        fun decreaseTicketCount()
+
+        fun initializeReservationButton(movieId: Int)
+
+        fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult)
+    }
 }

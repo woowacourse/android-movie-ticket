@@ -17,10 +17,8 @@ import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable
 
-typealias AdjustTicketCount = () -> Unit
-
-class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
-    private val presenter = ReservationDetailPresenter(this)
+class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
+    private val presenter: ReservationDetailPresenter = ReservationDetailPresenter(this)
 
     private val poster: ImageView by lazy { findViewById(R.id.image_view_reservation_detail_poster) }
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }
@@ -40,12 +38,10 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
 
-        with(presenter) {
-            deliverMovie(movieId)
-            deliverReservationHistory(movieId)
-            detectIncreaseCount()
-            detectDecreaseCount()
-        }
+        presenter.loadMovie(movieId)
+        initializeMinusButton()
+        initializePlusButton()
+        initializeReservationButton(movieId)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -74,30 +70,37 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         numberOfTickets.text = ticket.count.toString()
     }
 
-    override fun initializePlusButton(increaseTicketCount: AdjustTicketCount) {
-        plusButton.setOnClickListener {
-            increaseTicketCount()
-        }
-    }
-
-    override fun initializeMinusButton(decreaseTicketCount: AdjustTicketCount) {
-        minusButton.setOnClickListener {
-            decreaseTicketCount()
-        }
-    }
-
-    override fun initializeReservationButton(movieId: Int) {
-        reservationButton.setOnClickListener {
-            val intent = Intent(this, ReservationFinishedActivity::class.java)
-            intent.putExtra(MOVIE_ID, movieId)
-            intent.putExtra(TICKET, presenter.ticket)
-            startActivity(intent)
-        }
-    }
-
     override fun showResultToast() {
         Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT)
             .show()
+    }
+
+    override fun navigateToFinished(
+        movieId: Int,
+        ticket: Ticket,
+    ) {
+        val intent = Intent(this, ReservationFinishedActivity::class.java)
+        intent.putExtra(MOVIE_ID, movieId)
+        intent.putExtra(TICKET, ticket)
+        startActivity(intent)
+    }
+
+    private fun initializeMinusButton() {
+        minusButton.setOnClickListener {
+            presenter.decreaseTicketCount()
+        }
+    }
+
+    private fun initializePlusButton() {
+        plusButton.setOnClickListener {
+            presenter.increaseTicketCount()
+        }
+    }
+
+    private fun initializeReservationButton(movieId: Int) {
+        reservationButton.setOnClickListener {
+            presenter.initializeReservationButton(movieId)
+        }
     }
 
     private fun <T : Serializable> Bundle.bundleSerializable(

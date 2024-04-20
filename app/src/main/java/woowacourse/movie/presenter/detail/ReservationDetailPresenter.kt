@@ -2,49 +2,40 @@ package woowacourse.movie.presenter.detail
 
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Failure
+import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieStorage
 import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
-    private val contract: ReservationDetailContract,
-) {
-    private val movies = MovieStorage.obtainMovies()
+    private val view: ReservationDetailContract.View,
+) : ReservationDetailContract.Presenter {
+    private val movies: List<Movie> = MovieStorage.obtainMovies()
     val ticket = Ticket()
 
-    fun detectIncreaseCount() {
-        contract.initializePlusButton(::increaseTicketCount)
+    override fun loadMovie(movieId: Int) {
+        val movie = movies[movieId]
+        view.showMovieInformation(movie)
     }
 
-    fun detectDecreaseCount() {
-        contract.initializeMinusButton(::decreaseTicketCount)
-    }
-
-    fun deliverMovie(movieId: Int) {
-        contract.showMovieInformation(movies[movieId])
-    }
-
-    fun deliverReservationHistory(movieId: Int) {
-        contract.initializeReservationButton(movieId)
-    }
-
-    private fun increaseTicketCount() {
+    override fun increaseTicketCount() {
         val result = ticket.increaseCount()
-        handleNumberOfTicketsBounds(result, ticket)
+        handleNumberOfTicketsBounds(result)
     }
 
-    private fun decreaseTicketCount() {
+    override fun decreaseTicketCount() {
         val result = ticket.decreaseCount()
-        handleNumberOfTicketsBounds(result, ticket)
+        handleNumberOfTicketsBounds(result)
     }
 
-    private fun handleNumberOfTicketsBounds(
-        result: ChangeTicketCountResult,
-        ticket: Ticket,
-    ) {
+    override fun initializeReservationButton(movieId: Int) {
+        view.navigateToFinished(movieId, ticket)
+    }
+
+    override fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
         when (result) {
-            is Success -> contract.changeNumberOfTickets(ticket)
-            is Failure -> contract.showResultToast()
+            is Success -> view.changeNumberOfTickets(ticket)
+            is Failure -> view.showResultToast()
         }
     }
 }
