@@ -8,8 +8,8 @@ class MovieListPresenter(
 ) : MovieListContract.Presenter {
     override val movieList = MovieData.movieList
 
-    override fun setListViewInfo() {
-        view.showMovieInfo(movieList)
+    override fun setMoviesInfo() {
+        view.showMoviesInfo(movieList)
     }
 
     override fun setListViewClickListenerInfo() {

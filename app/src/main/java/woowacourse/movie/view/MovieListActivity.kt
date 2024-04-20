@@ -19,11 +19,11 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
         listView = findViewById(R.id.movie_list_view)
-        presenter.setListViewInfo()
+        presenter.setMoviesInfo()
         presenter.setListViewClickListenerInfo()
     }
 
-    override fun showMovieInfo(info: ArrayList<Movie>) {
+    override fun showMoviesInfo(info: ArrayList<Movie>) {
         listView.adapter = MovieListAdapter(this, info)
     }
 

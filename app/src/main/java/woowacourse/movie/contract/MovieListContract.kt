@@ -5,7 +5,7 @@ import woowacourse.movie.presenter.MovieListPresenter
 
 interface MovieListContract {
     interface View {
-        fun showMovieInfo(info: ArrayList<Movie>)
+        fun showMoviesInfo(info: ArrayList<Movie>)
 
         fun setOnListViewClickListener(info: ArrayList<Movie>)
 
@@ -15,7 +15,7 @@ interface MovieListContract {
     interface Presenter {
         val movieList: ArrayList<Movie>
 
-        fun setListViewInfo()
+        fun setMoviesInfo()
 
         fun setListViewClickListenerInfo()
     }
