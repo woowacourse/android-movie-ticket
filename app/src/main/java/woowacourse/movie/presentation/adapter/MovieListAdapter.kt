@@ -28,12 +28,11 @@ class MovieListAdapter(
     ): View {
         val movieViewHolder: MovieViewHolder
         val view: View
-        if (convertView == null)
-            {
-                view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
-                movieViewHolder = MovieViewHolder(view)
-                view.tag = movieViewHolder
-            } else {
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+            movieViewHolder = MovieViewHolder(view)
+            view.tag = movieViewHolder
+        } else {
             view = convertView
             movieViewHolder = convertView.tag as MovieViewHolder
         }

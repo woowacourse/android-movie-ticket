@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.contract
 
-import woowacourse.movie.domain.model.MovieTicket
+import android.os.Bundle
+import woowacourse.movie.presentation.dto.ReservationData
 
 interface MovieDetailContract {
     interface View {
@@ -14,14 +15,30 @@ interface MovieDetailContract {
 
         fun showReservationCount(count: Int)
 
-        fun moveToReservationResult()
+        fun moveToReservationPage(reservationData: ReservationData)
+
+        fun showMessage(message: String)
     }
 
     interface Presenter {
-        val movieTicket: MovieTicket
+        fun loadMovieDetails(
+            posterImageId: Int,
+            title: String,
+            screeningDate: String,
+            runningTime: Int,
+            summary: String,
+        )
 
         fun minusReservationCount()
 
         fun plusReservationCount()
+
+        fun updateReservationCountDisplay()
+
+        fun requestReservationResult()
+
+        fun saveState(outState: Bundle)
+
+        fun restoreState(savedInstanceState: Bundle)
     }
 }
