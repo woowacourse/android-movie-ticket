@@ -15,7 +15,7 @@
         android:gravity="center"
         android:paddingTop="66dp"
         android:paddingBottom="10dp"
-        android:text="영화 상영 시작 시간 15분 전까지\n취소가 가능합니다"
+        android:text="@string/reservation_completed_message"
         android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
         tools:text="영화 제목" />
 
     <TextView
-        android:id="@+id/completed_opening_day"
+        android:id="@+id/completed_reservation_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -53,7 +53,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/completed_opening_day"
+        app:layout_constraintTop_toBottomOf="@id/completed_reservation_date"
         tools:text="인원 수" />
 
     <TextView
