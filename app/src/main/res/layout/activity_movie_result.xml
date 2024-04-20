@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".view.MovieResultActivity">
 
-
     <TextView
         android:id="@+id/resultNotice"
         android:layout_width="match_parent"
@@ -21,7 +20,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/resultTitle"
@@ -116,7 +114,6 @@
         app:layout_constraintLeft_toRightOf="@id/resultReservPrice"
         app:layout_constraintRight_toLeftOf="@id/resultReservType"
         app:layout_constraintTop_toTopOf="@+id/resultReservPrice" />
-
 
     <TextView
         android:id="@+id/resultReservType"

@@ -87,6 +87,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/detailRunningTimeName"
                 app:layout_constraintLeft_toRightOf="@id/detailRunningTimeName"
                 app:layout_constraintTop_toTopOf="@id/detailRunningTimeName" />
+
             <TextView
                 android:id="@+id/detailRunningTimeFormat"
                 android:layout_width="wrap_content"
@@ -108,13 +109,11 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 app:layout_constraintLeft_toLeftOf="@id/detailRunningTimeName"
-                app:layout_constraintTop_toBottomOf="@id/detailRunningTime"/>
+                app:layout_constraintTop_toBottomOf="@id/detailRunningTime" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </ScrollView>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -125,11 +124,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:textSize="25dp"
             android:text="-"
+            android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
+            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/detailReservCount"
@@ -137,8 +136,8 @@
             android:layout_height="wrap_content"
             android:text="1"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
             app:layout_constraintEnd_toStartOf="@+id/detailPlusBtn"
             app:layout_constraintStart_toEndOf="@+id/detailMinusBtn"
@@ -147,29 +146,27 @@
         <Button
             android:id="@+id/detailPlusBtn"
             android:layout_width="0dp"
-            android:textSize="25dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
             android:text="+"
+            android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
-
+            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/detailReservCompleteBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:padding="10dp"
+            android:text="예매 완료"
+            android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_margin="15dp"
-            android:textSize="20dp"
-            android:padding="10dp"
-            android:textStyle="bold"
-            android:text="예매 완료"/>
+            app:layout_constraintRight_toRightOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </LinearLayout>

@@ -103,5 +103,4 @@
         app:layout_constraintLeft_toRightOf="@id/movieThumbnail"
         app:layout_constraintTop_toTopOf="@id/movieThumbnail" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
