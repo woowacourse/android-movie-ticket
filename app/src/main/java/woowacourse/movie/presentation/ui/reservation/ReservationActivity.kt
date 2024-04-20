@@ -38,12 +38,13 @@ class ReservationActivity : BaseActivity(), View {
     }
 
     private fun Reservation.currency(): String {
-        return getString(R.string.reserve_amount).format(
+        val amount =
             when (Locale.getDefault().country) {
-                Locale.KOREA.country -> DecimalFormat("#,###원").format(totalPrice)
+                Locale.KOREA.country -> getString(R.string.price_format_kor, totalPrice)
                 else -> NumberFormat.getCurrencyInstance(Locale.getDefault()).format(totalPrice)
-            },
-        )
+            }
+
+        return getString(R.string.reserve_amount, amount)
     }
 
     override fun back() = finish()
