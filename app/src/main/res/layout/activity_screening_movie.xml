@@ -10,6 +10,7 @@
     <ListView
         android:id="@+id/list_screening_movie"
         android:layout_width="match_parent"
+        tools:listitem="@layout/item_screening_movie"
         android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

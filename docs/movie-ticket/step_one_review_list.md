@@ -1,9 +1,10 @@
 # 수정 및 기능 목록
 - [x] Intent 할 때 ID 넘기는거 개선 
-- [ ] screenMovieId를 interface 같도록 개선
+- [x] screenMovieId를 interface 같도록 개선
 - [ ] Presenter 객체 생성시 id 에 대한 의존성을 줄이기
 - [ ] Adapter ViewHolder 패턴 적용하기
 - [ ] Adapter context 주입 받는거 막기
+- [x] ListView tools:listitem 적용
 - [x] ListView 의 item Update 기능
 - [x] 프로젝트 패키징 /feature/screen 단위로 리팩토링
 - [x] 네이밍 일치하지 않는 것들 고치기 (ex. MainActivity -> ScreeningMovieActivity)
