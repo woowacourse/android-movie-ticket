@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.ui.detail
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
@@ -96,9 +97,26 @@ class DetailActivity : BaseActivity(), View {
         return true
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(PUT_TICKET_STATE_KEY, ticketCount.text.toString().toInt())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val count = savedInstanceState.getInt(PUT_TICKET_STATE_KEY, DEFAULT_TICKET_COUNT)
+        if (count != DEFAULT_TICKET_COUNT) {
+            ticketCount.text = count.toString()
+        }
+    }
+
     companion object {
         private const val DEFAULT_ID = -1
         private const val PUT_EXTRA_KEY_ID = "screenId"
+
+        private const val DEFAULT_TICKET_COUNT = -1
+        private const val PUT_TICKET_STATE_KEY = "ticketCount"
 
         fun startActivity(
             context: Context,
