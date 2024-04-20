@@ -29,7 +29,7 @@ class DetailPresenter(
                 }
 
                 else -> {
-                    view.showSnackBar(e)
+                    view.showToastMessage(e)
                     view.back()
                 }
             }
@@ -40,7 +40,7 @@ class DetailPresenter(
         val nextTicket = ticket.increase(1)
 
         if (nextTicket.isInvalidCount()) {
-            view.showToastMessage(MessageType.TicketMaxCountMessage(MAX_TICKET_COUNT))
+            view.showSnackBar(MessageType.TicketMaxCountMessage(MAX_TICKET_COUNT))
             return
         }
         ticket = nextTicket
@@ -51,7 +51,7 @@ class DetailPresenter(
         val nextTicket = ticket.decrease(1)
 
         if (nextTicket.isInvalidCount()) {
-            view.showToastMessage(MessageType.TicketMinCountMessage(MIN_TICKET_COUNT))
+            view.showSnackBar(MessageType.TicketMinCountMessage(MIN_TICKET_COUNT))
             return
         }
         ticket = nextTicket
@@ -62,7 +62,7 @@ class DetailPresenter(
         reservationRepository.saveReservation(screen, ticket.count).onSuccess { id ->
             view.navigateToReservation(id)
         }.onFailure { e ->
-            view.showToastMessage(e)
+            view.showSnackBar(e)
             view.back()
         }
     }

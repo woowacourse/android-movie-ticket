@@ -17,7 +17,7 @@ class ReservationPresenter(
                 }
 
                 else -> {
-                    view.showSnackBar(e)
+                    view.showToastMessage(e)
                     view.back()
                 }
             }
