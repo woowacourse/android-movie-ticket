@@ -18,15 +18,17 @@ import woowacourse.movie.presenter.MovieContentListPresenter
 import woowacourse.movie.view.activity.MovieReservationActivity
 import woowacourse.movie.view.ui.DateUi
 
-class MovieContentListAdapter(
-    private val context: Context,
-) : BaseAdapter(), MovieContentListContract.View {
+class MovieContentListAdapter(private val context: Context) : BaseAdapter(), MovieContentListContract.View {
+    private lateinit var viewHolder: MovieContentViewHolder
     private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this)
-    private lateinit var posterImage: ImageView
-    private lateinit var titleText: TextView
-    private lateinit var screeningDateText: TextView
-    private lateinit var runningTimeText: TextView
-    private lateinit var reservationButton: Button
+
+    private class MovieContentViewHolder(view: View) {
+        val posterImage: ImageView by lazy { view.findViewById(R.id.poster_image) }
+        val titleText: TextView by lazy { view.findViewById(R.id.title_text) }
+        val screeningDateText: TextView by lazy { view.findViewById(R.id.screening_date_text) }
+        val runningTimeText: TextView by lazy { view.findViewById(R.id.running_time_text) }
+        val reservationButton: Button by lazy { view.findViewById(R.id.reservation_button) }
+    }
 
     override fun getCount(): Int = presenter.count()
 
@@ -39,19 +41,18 @@ class MovieContentListAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater.from(context)
-                .inflate(R.layout.item_movie_content, parent, false)
-
-        posterImage = view.findViewById(R.id.poster_image)
-        titleText = view.findViewById(R.id.title_text)
-        screeningDateText = view.findViewById(R.id.screening_date_text)
-        runningTimeText = view.findViewById(R.id.running_time_text)
-        reservationButton = view.findViewById(R.id.reservation_button)
+        val view: View
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_movie_content, parent, false)
+            viewHolder = MovieContentViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as MovieContentViewHolder
+        }
 
         presenter.setUpMovieContent(position)
-
-        reservationButton.setOnClickListener {
+        viewHolder.reservationButton.setOnClickListener {
             presenter.clickReservationButton(position)
         }
 
@@ -59,12 +60,12 @@ class MovieContentListAdapter(
     }
 
     override fun setUpMovieContentUi(movieContent: MovieContent) {
-        movieContent.run {
-            posterImage.setImageResource(imageId)
-            titleText.text = title
-            screeningDateText.text = DateUi.screeningDateMessage(screeningDate, context)
+        viewHolder.run {
+            posterImage.setImageResource(movieContent.imageId)
+            titleText.text = movieContent.title
+            screeningDateText.text = DateUi.screeningDateMessage(movieContent.screeningDate, context)
             runningTimeText.text =
-                context.resources.getString(R.string.running_time).format(runningTime)
+                context.resources.getString(R.string.running_time).format(movieContent.runningTime)
         }
     }
 
