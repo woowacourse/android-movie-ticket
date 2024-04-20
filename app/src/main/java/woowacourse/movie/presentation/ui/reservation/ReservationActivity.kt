@@ -33,16 +33,17 @@ class ReservationActivity : BaseActivity(), View {
             title.text = screen.movie.title
             date.text = screen.date
             count.text = getString(R.string.reserve_count).format(this.ticket.count)
-            amount.text =
-                getString(R.string.reserve_amount).format(
-                    when (Locale.getDefault().country) {
-                        Locale.KOREA.country -> DecimalFormat("#,###원").format(totalPrice)
-                        else -> {
-                            NumberFormat.getCurrencyInstance(Locale.getDefault()).format(totalPrice)
-                        }
-                    },
-                )
+            amount.text = currency()
         }
+    }
+
+    private fun Reservation.currency(): String {
+        return getString(R.string.reserve_amount).format(
+            when (Locale.getDefault().country) {
+                Locale.KOREA.country -> DecimalFormat("#,###원").format(totalPrice)
+                else -> NumberFormat.getCurrencyInstance(Locale.getDefault()).format(totalPrice)
+            },
+        )
     }
 
     override fun back() = finish()
