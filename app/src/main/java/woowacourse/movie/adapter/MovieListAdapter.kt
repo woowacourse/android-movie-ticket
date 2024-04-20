@@ -62,8 +62,7 @@ class MovieListAdapter(
         movieViewHolder.poster.setImageResource(movie.posterResourceId)
 
         val formattedScreeningDate =
-            movie.screeningDate
-                .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+            movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
         movieViewHolder.screeningDate.text = formattedScreeningDate
         movieViewHolder.runningTime.text = movie.runningTime.toString()
     }

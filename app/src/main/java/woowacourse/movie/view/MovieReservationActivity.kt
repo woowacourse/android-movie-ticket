@@ -13,7 +13,6 @@ import woowacourse.movie.contract.MovieReservationContract
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.MovieReservationPresenter
-import java.io.Serializable
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -38,12 +37,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         setMovieData()
         showCurrentResultTicketCountView()
         setClickListener()
-
-//        savedInstanceState.let {
-//            val count = it?.getInt("count")
-//            val countTextView = findViewById<TextView>(R.id.ticket_count)
-//            countTextView.text = count.toString()
-//        }
     }
 
     private fun getSerializableModel(): Movie? {
@@ -93,19 +86,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     private fun ticketing() {
-        val ticket = makeTicket()
-
         val intent = Intent(context, MovieTicketActivity::class.java)
-        intent.putExtra(Ticket.KEY_NAME_TICKET, ticket as Serializable)
+        intent.putExtra(Ticket.KEY_NAME_TICKET, presenter.ticketCount)
         context.startActivity(intent)
     }
-
-    private fun makeTicket() =
-        Ticket(
-            title = titleView.text.toString(),
-            screeningDate = screeningDateView.text.toString(),
-            count = presenter.ticketCount,
-        )
 
     override fun showCurrentResultTicketCountView() {
         ticketCountView.text = presenter.ticketCount.toString()
