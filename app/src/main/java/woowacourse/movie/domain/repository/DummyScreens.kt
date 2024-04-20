@@ -24,5 +24,5 @@ class DummyScreens : ScreenRepository {
 
     override fun load(): List<Screen> = temp
 
-    override fun findById(id: Int): Result<Screen> = runCatching { temp.find { it.id == id } ?: throw NoSuchElementException() }
+    override fun findByScreenId(id: Int): Result<Screen> = runCatching { temp.find { it.id == id } ?: throw NoSuchElementException() }
 }

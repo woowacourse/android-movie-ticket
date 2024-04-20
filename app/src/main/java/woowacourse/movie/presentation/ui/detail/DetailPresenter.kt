@@ -17,7 +17,7 @@ class DetailPresenter(
     private lateinit var screen: Screen
 
     override fun loadScreen(id: Int) {
-        screenRepository.findById(id = id).onSuccess { screen ->
+        screenRepository.findByScreenId(id = id).onSuccess { screen ->
             this.screen = screen
             view.showScreen(screen)
             view.showTicket(ticket.count)

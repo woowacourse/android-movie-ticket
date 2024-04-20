@@ -42,7 +42,7 @@ class ReservationRepositoryTest {
         assertThat(id).isEqualTo(1)
 
         // when
-        val reservation = repository.findById(id).getOrThrow()
+        val reservation = repository.findByReservationId(id).getOrThrow()
         val actual =
             Reservation(
                 id = 1,

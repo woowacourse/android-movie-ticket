@@ -18,7 +18,7 @@ object DummyReservation : ReservationRepository {
         }
     }
 
-    override fun findById(id: Int): Result<Reservation> {
+    override fun findByReservationId(id: Int): Result<Reservation> {
         return runCatching {
             val reservation = reservations.find { it.id == id }
             reservation ?: throw IllegalArgumentException("예약 정보를 찾을 수 없습니다.")

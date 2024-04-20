@@ -9,5 +9,5 @@ interface ReservationRepository {
         count: Int,
     ): Result<Int>
 
-    fun findById(id: Int): Result<Reservation>
+    fun findByReservationId(id: Int): Result<Reservation>
 }
