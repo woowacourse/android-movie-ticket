@@ -24,25 +24,37 @@ class MovieCatalogAdapter(
 
     override fun getView(
         position: Int,
-        view: View?,
+        convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val convertView: View = view ?: LayoutInflater.from(context).inflate(R.layout.item_movie_catalog, null)
-        val title = convertView.findViewById<TextView>(R.id.item_movie_catalog_text_view_title)
-        val poster = convertView.findViewById<ImageView>(R.id.item_movie_catalog_image_view_poster)
-        val screeningDate = convertView.findViewById<TextView>(R.id.item_movie_catalog_text_view_screening_date)
-        val runningTime = convertView.findViewById<TextView>(R.id.item_movie_catalog_text_view_running_time)
-        val reservationButton = convertView.findViewById<Button>(R.id.item_movie_catalog_button_reservation)
+        val view: View
+        val movieViewHolder: MovieViewHolder
 
-        val item: Movie = movies[position]
-        title.text = item.title
-        poster.setImageResource(item.posterId)
-        screeningDate.text = item.screeningDate
-        runningTime.text = item.runningTime
-        reservationButton.setOnClickListener {
-            movie(item)
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_movie_catalog, parent, false)
+            movieViewHolder = MovieViewHolder(view)
+            view.tag = movieViewHolder
+        } else {
+            view = convertView
+            movieViewHolder = convertView.tag as MovieViewHolder
         }
 
-        return convertView
+        val item: Movie = movies[position]
+        with(movieViewHolder) {
+            title.text = item.title
+            poster.setImageResource(item.posterId)
+            screeningDate.text = item.screeningDate
+            runningTime.text = item.runningTime
+            reservationButton.setOnClickListener { movie(item) }
+        }
+        return view
+    }
+
+    class MovieViewHolder(view: View) {
+        val title: TextView = view.findViewById(R.id.item_movie_catalog_text_view_title)
+        val poster: ImageView = view.findViewById(R.id.item_movie_catalog_image_view_poster)
+        val screeningDate: TextView = view.findViewById(R.id.item_movie_catalog_text_view_screening_date)
+        val runningTime: TextView = view.findViewById(R.id.item_movie_catalog_text_view_running_time)
+        val reservationButton: Button = view.findViewById(R.id.item_movie_catalog_button_reservation)
     }
 }
