@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.contract.MainContract
 
 class MovieListAdapter(
     private val context: Context,
@@ -41,7 +40,7 @@ class MovieListAdapter(
         
         val movie = movieList[index]
         with(movieViewHolder) {
-            posterImage.setImageResource(movie.posterImageId)
+            posterImage.setImageResource(movie.posterSrc)
             title.text = movie.title
             screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
             runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)

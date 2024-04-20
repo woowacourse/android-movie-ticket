@@ -29,7 +29,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     
     override fun moveToMovieDetail(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(EXTRA_POSTER_IMAGE_ID, movie.posterImageId)
+        intent.putExtra(EXTRA_POSTER_IMAGE_SRC, movie.posterSrc)
         intent.putExtra(EXTRA_TITLE, movie.title)
         intent.putExtra(EXTRA_SCREENING_DATE, movie.screeningDate.toString())
         intent.putExtra(EXTRA_RUNNING_TIME, movie.runningTime)
@@ -38,7 +38,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
     
     companion object {
-        const val EXTRA_POSTER_IMAGE_ID = "posterImageId"
+        const val EXTRA_POSTER_IMAGE_SRC = "posterSrc"
         const val EXTRA_TITLE = "title"
         const val EXTRA_SCREENING_DATE = "screeningDate"
         const val EXTRA_RUNNING_TIME = "runningTime"
