@@ -14,7 +14,6 @@ import woowacourse.movie.utils.context
 import java.time.LocalDateTime
 
 class ReservationResultActivityTest {
-
     @Test
     @DisplayName("유효한 ID 가 전달되었을 때, 예약 결과가 보여지는지 테스트")
     fun test() {
@@ -25,7 +24,6 @@ class ReservationResultActivityTest {
         Espresso.onView(ViewMatchers.withId(R.id.cl_reservation_result_success))
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
-
 
     @Test
     @DisplayName("유효하지 않은 ID 가 전달되었을 때, 에러 화면이 보여지는지 테스트")

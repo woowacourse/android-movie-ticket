@@ -66,13 +66,17 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         }
     }
 
-    private fun initPresenter(id: Long, savedInstanceState: Bundle?) {
-        presenter = if (savedInstanceState == null) {
-            MovieReservationPresenter(id, this, FakeMovieRepository)
-        } else {
-            val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
-            MovieReservationPresenter(id, this, FakeMovieRepository, count)
-        }
+    private fun initPresenter(
+        id: Long,
+        savedInstanceState: Bundle?,
+    ) {
+        presenter =
+            if (savedInstanceState == null) {
+                MovieReservationPresenter(id, this, FakeMovieRepository)
+            } else {
+                val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
+                MovieReservationPresenter(id, this, FakeMovieRepository, count)
+            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

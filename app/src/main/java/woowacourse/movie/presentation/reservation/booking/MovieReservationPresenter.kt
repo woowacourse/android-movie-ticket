@@ -8,7 +8,7 @@ class MovieReservationPresenter(
     private val id: Long,
     private val view: MovieReservationView,
     private val repository: MovieRepository,
-    initialCount: Int = DEFAULT_COUNT
+    initialCount: Int = DEFAULT_COUNT,
 ) {
     private var date: LocalDate
     private var count: HeadCount = HeadCount(initialCount)

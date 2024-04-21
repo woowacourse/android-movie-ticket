@@ -26,7 +26,6 @@ class MovieReservationActivityTest {
             .check(matches(isDisplayed()))
     }
 
-
     @Test
     @DisplayName("유효하지 않은 ID 가 전달되었을 때, 에러 화면이 보여지는지 테스트")
     fun test2() {
@@ -46,7 +45,7 @@ class MovieReservationActivityTest {
     @Test
     @DisplayName(
         "count 가 1일 때, plus button 클릭 시 count 가 2로 증가하고" +
-                " minus button 클릭 시 count 가 1로 감소하는 지 테스트"
+            " minus button 클릭 시 count 가 1로 감소하는 지 테스트",
     )
     fun button_test1() {
         launchSuccessScenario()
@@ -77,7 +76,7 @@ class MovieReservationActivityTest {
     @Test
     @DisplayName(
         "count 가 1일 때, plus 버튼을 눌러 2로 만든 후" +
-                "화면 회전 시에도 count 가 2가 유지"
+            "화면 회전 시에도 count 가 2가 유지",
     )
     fun restore_count_test() {
         val scenario = launchSuccessScenario()
