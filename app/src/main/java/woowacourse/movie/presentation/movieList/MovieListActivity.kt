@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.model.Movie
+import woowacourse.movie.presentation.movieList.adapter.MovieAdapter
 import woowacourse.movie.presentation.ticketing.TicketingActivity
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
