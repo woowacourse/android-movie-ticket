@@ -1,6 +1,6 @@
 package woowacourse.movie.ui.screen
 
-import woowacourse.movie.domain.model.Movie2
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Screen2
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ScreenRepository
@@ -36,7 +36,7 @@ class ScreenPresenter2(
         date = date,
     )
 
-    private fun Movie2.toPreviewUI() = MoviePreviewUI(
+    private fun Movie.toPreviewUI() = MoviePreviewUI(
         title = title,
         image = movieRepository.imageSrc(id),
         runningTime = runningTime,

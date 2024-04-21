@@ -9,7 +9,7 @@ data class Screen(
 
 data class Screen2(
     val id: Int,
-    val movie: Movie2,
+    val movie: Movie,
     val date: String,
     val price: Int,
 )

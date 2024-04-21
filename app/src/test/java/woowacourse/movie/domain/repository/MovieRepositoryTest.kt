@@ -3,7 +3,7 @@ package woowacourse.movie.domain.repository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.DrawableImage
-import woowacourse.movie.domain.model.Movie2
+import woowacourse.movie.domain.model.Movie
 
 class MovieRepositoryTest {
     private val movieRepository = DummyMovies()
@@ -20,7 +20,7 @@ class MovieRepositoryTest {
     fun `영화 id 로 영화를 찾는다`() {
         val actual = movieRepository.findById(1)
         val expected =
-            Movie2(
+            Movie(
                 1,
                 "해리 포터와 마법사의 돌 ",
                 151,

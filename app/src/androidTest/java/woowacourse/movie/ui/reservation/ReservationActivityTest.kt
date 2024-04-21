@@ -12,7 +12,7 @@
  import org.junit.Test
  import org.junit.runner.RunWith
  import woowacourse.movie.R
- import woowacourse.movie.domain.model.Movie2
+ import woowacourse.movie.domain.model.Movie
  import woowacourse.movie.domain.model.Screen2
  import woowacourse.movie.domain.repository.DummyReservation2
 
@@ -50,7 +50,7 @@
         DummyReservation2.save(
             Screen2(
                 id = 1,
-                movie = Movie2(
+                movie = Movie(
                     id = 1,
                     title = "해리 포터와 마법사의 돌",
                     runningTime = 151,
