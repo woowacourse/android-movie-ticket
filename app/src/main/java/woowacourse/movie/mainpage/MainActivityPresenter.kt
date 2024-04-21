@@ -13,15 +13,15 @@ import java.time.LocalDate
 
 class MainActivityPresenter(private val context: Context) {
 
-    val movieInfo = MovieInfo(
+    private val movieInfo = MovieInfo(
         Title("차람과 하디의 진지한 여행기"),
         MovieDate(LocalDate.of(2024, 2, 25)),
         RunningTime(230),
         Synopsis("wow!")
     )
 
-    val theater = Theater(movieInfo)
-    val theaterList = listOf(theater)
+    private val theater = Theater(movieInfo)
+    private val theaterList = listOf(theater)
     val movieAdapter = MovieAdapter(context, theaterList, this)
 
     fun onDetailButtonClicked(theater: Theater) {
