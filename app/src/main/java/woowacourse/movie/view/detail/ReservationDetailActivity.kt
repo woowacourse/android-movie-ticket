@@ -84,6 +84,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         intent.putExtra(MOVIE_ID, movieId)
         intent.putExtra(TICKET, ticket)
         startActivity(intent)
+        finish()
     }
 
     private fun initializeMinusButton() {

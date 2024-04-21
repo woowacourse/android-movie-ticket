@@ -1,11 +1,10 @@
 package woowacourse.movie.view.finished
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.db.MovieDao
@@ -15,7 +14,6 @@ import woowacourse.movie.presenter.finished.ReservationFinishedContract
 import woowacourse.movie.presenter.finished.ReservationFinishedPresenter
 import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
 import woowacourse.movie.view.detail.ReservationDetailActivity.Companion.TICKET
-import woowacourse.movie.view.home.ReservationHomeActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable
 import java.text.DecimalFormat
@@ -32,7 +30,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_finished)
 
-        onBackPressed(this)
+        handleBackPressed()
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticket = intent.intentSerializable(TICKET, Ticket::class.java) ?: Ticket()
@@ -56,16 +54,10 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         ticketPrice.text = convertPriceFormat(price)
     }
 
-    private fun onBackPressed(context: Context) {
-        val callback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    val intent = Intent(context, ReservationHomeActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-
-        onBackPressedDispatcher.addCallback(this, callback)
+    private fun handleBackPressed() {
+        onBackPressedDispatcher.addCallback(this) {
+            finish()
+        }
     }
 
     private fun <T : Serializable> Intent.intentSerializable(

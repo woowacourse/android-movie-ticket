@@ -50,10 +50,18 @@ class ReservationDetailActivityTest {
 
     @Test
     fun `예매_완료_버튼을_누른_뒤_예매_완료_화면의_뒤로_가기_버튼을_누르면_홈_화면으로_돌아온다`() {
-        ActivityScenario.launch(ReservationDetailActivity::class.java)
+        // given
+        ActivityScenario.launch(ReservationHomeActivity::class.java)
+        moviesFirstItem.onChildView(
+            withId(R.id.item_movie_catalog_button_reservation),
+        ).perform(click())
         onView(withId(R.id.button_reservation_detail_finished)).perform(click())
         onView(withId(R.id.constraint_layout_reservation_finished)).check(matches(isDisplayed()))
+
+        // when
         pressBack()
+
+        // then
         onView(withId(R.id.constraint_layout_reservation_home)).check(matches(isDisplayed()))
     }
 
