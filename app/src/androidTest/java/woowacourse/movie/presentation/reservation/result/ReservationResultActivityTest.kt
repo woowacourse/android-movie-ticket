@@ -48,32 +48,34 @@ class ReservationResultActivityTest {
     }
 
     private fun launchSuccessScenario(): ActivityScenario<ReservationResultActivity> {
-        MovieRepositoryFactory.setMovieRepository(object : MovieRepository {
-            override fun screenMovies(): List<ScreeningMovie> {
-                throw UnsupportedOperationException()
-            }
+        MovieRepositoryFactory.setMovieRepository(
+            object : MovieRepository {
+                override fun screenMovies(): List<ScreeningMovie> {
+                    throw UnsupportedOperationException()
+                }
 
-            override fun screenMovieById(id: Long): ScreeningMovie {
-                throw UnsupportedOperationException()
-            }
+                override fun screenMovieById(id: Long): ScreeningMovie {
+                    throw UnsupportedOperationException()
+                }
 
-            override fun reserveMovie(
-                id: Long,
-                dateTime: LocalDateTime,
-                count: HeadCount
-            ): Result<Long> {
-                throw UnsupportedOperationException()
-            }
+                override fun reserveMovie(
+                    id: Long,
+                    dateTime: LocalDateTime,
+                    count: HeadCount,
+                ): Result<Long> {
+                    throw UnsupportedOperationException()
+                }
 
-            override fun movieReservationById(id: Long): MovieReservation {
-                return MovieReservation(
-                    id = 1,
-                    screeningMovie = ScreeningMovie.STUB,
-                    screenDateTime = LocalDateTime.now(),
-                    headCount = HeadCount(1),
-                )
-            }
-        })
+                override fun movieReservationById(id: Long): MovieReservation {
+                    return MovieReservation(
+                        id = 1,
+                        screeningMovie = ScreeningMovie.STUB,
+                        screenDateTime = LocalDateTime.now(),
+                        headCount = HeadCount(1),
+                    )
+                }
+            },
+        )
         return ActivityScenario.launch<ReservationResultActivity>(
             ReservationResultActivity.newIntent(
                 context,

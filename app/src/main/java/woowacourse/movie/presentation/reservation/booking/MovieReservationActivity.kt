@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
-import woowacourse.movie.data.FakeMovieRepository
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 

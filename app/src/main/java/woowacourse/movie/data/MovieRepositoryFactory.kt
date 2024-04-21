@@ -4,7 +4,6 @@ import androidx.annotation.VisibleForTesting
 import woowacourse.movie.repository.MovieRepository
 
 object MovieRepositoryFactory {
-
     private var movieRepository: MovieRepository? = null
 
     fun movieRepository(): MovieRepository {
