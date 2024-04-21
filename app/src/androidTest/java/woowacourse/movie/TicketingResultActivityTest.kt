@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
 
 class TicketingResultActivityTest {
     @get:Rule

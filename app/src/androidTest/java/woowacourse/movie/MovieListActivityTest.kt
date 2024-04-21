@@ -9,6 +9,7 @@ import org.hamcrest.Matchers.`is`
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.Movie
+import woowacourse.movie.presentation.movieList.MovieListActivity
 
 class MovieListActivityTest {
     @get:Rule

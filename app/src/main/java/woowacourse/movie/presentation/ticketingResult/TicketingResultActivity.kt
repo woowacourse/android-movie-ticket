@@ -1,15 +1,14 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.ticketingResult
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_COUNT
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_MOVIE_ID
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_TOTAL_PRICE
-import woowacourse.movie.presenter.TicketingResultPresenter
-import woowacourse.movie.presenter.contract.TicketingResultContract
+import woowacourse.movie.R
+import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_COUNT
+import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_TOTAL_PRICE
 
 class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter.contract
+package woowacourse.movie.presentation.ticketing
 
 import woowacourse.movie.model.Movie
 

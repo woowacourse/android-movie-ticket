@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.ticketing
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.presenter.TicketingPresenter
-import woowacourse.movie.presenter.contract.TicketingContract
+import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
