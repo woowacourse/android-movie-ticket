@@ -1,4 +1,4 @@
-package woowacourse.movie.view.adapter
+package woowacourse.movie.feature.home.list
 
 import android.content.Context
 import android.content.Intent
@@ -11,14 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.conrtract.MovieContentListContract
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.presenter.MovieContentListPresenter
-import woowacourse.movie.view.activity.MovieReservationActivity
-import woowacourse.movie.view.ui.DateUi
+import woowacourse.movie.feature.reservation.MovieReservationActivity
+import woowacourse.movie.ui.DateUi
 
-class MovieContentListAdapter(private val context: Context) : BaseAdapter(), MovieContentListContract.View {
+class MovieContentListAdapter(private val context: Context) : BaseAdapter(),
+    MovieContentListContract.View {
     private lateinit var viewHolder: MovieContentViewHolder
     private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this)
 

@@ -1,6 +1,5 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.home.list
 
-import woowacourse.movie.conrtract.MovieContentListContract
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
 

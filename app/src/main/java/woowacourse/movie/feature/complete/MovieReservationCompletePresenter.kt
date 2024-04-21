@@ -1,6 +1,5 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.complete
 
-import woowacourse.movie.conrtract.MovieReservationCompleteContract
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl

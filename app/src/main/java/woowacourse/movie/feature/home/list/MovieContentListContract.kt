@@ -1,7 +1,7 @@
-package woowacourse.movie.conrtract
+package woowacourse.movie.feature.home.list
 
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.presenter.BasePresenter
+import woowacourse.movie.base.BasePresenter
 
 interface MovieContentListContract {
     interface View {

@@ -1,6 +1,5 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.conrtract.MovieReservationContract
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.data.MovieContentsImpl
 

@@ -1,8 +1,8 @@
-package woowacourse.movie.conrtract
+package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.presenter.BasePresenter
-import woowacourse.movie.view.BaseView
+import woowacourse.movie.base.BasePresenter
+import woowacourse.movie.base.BaseView
 
 interface MovieReservationContract {
     interface View : BaseView {
