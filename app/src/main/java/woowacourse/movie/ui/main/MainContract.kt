@@ -4,8 +4,4 @@ interface MainContract {
     interface View {
         fun setUpMovieContentListAdapter()
     }
-
-    interface Presenter {
-        fun saveMovieContent()
-    }
 }
