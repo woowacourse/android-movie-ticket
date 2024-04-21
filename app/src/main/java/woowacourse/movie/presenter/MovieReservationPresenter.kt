@@ -13,7 +13,7 @@ class MovieReservationPresenter(
         get() = model.ticketCount
 
     override fun setCurrentResultTicketCountInfo() {
-        view.showCurrentResultTicketCountView(ticketCount)
+        view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
     override fun setMovieInfo() {
@@ -22,16 +22,16 @@ class MovieReservationPresenter(
 
     override fun setPlusButtonClickInfo() {
         model.plusTicketCount()
-        view.showCurrentResultTicketCountView(ticketCount)
+        view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
     override fun setMinusButtonClickInfo() {
         runCatching { model.minusTicketCount() }
             .onFailure { Log.d("error", "setClickListener: ${it.message}") }
-        view.showCurrentResultTicketCountView(ticketCount)
+        view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
-    override fun setTicketingButtonClickInfo()  {
-        view.startMovieTicketActivity(ticketCount)
+    override fun setTicketingButtonClickInfo() {
+        view.startMovieTicketActivity(ticketCount.number)
     }
 }
