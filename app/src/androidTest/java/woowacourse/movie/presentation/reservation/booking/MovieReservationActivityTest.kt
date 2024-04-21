@@ -52,8 +52,26 @@ class MovieReservationActivityTest {
             .check(matches(withText("1")))
     }
 
-    private fun launchSuccessScenario() {
-        ActivityScenario.launch<MovieReservationActivity>(
+    @Test
+    @DisplayName(
+        "count 가 1일 때, plus 버튼을 눌러 2로 만든 후" +
+                "화면 회전 시에도 count 가 2가 유지"
+    )
+    fun restore_count_test() {
+        val scenario = launchSuccessScenario()
+        onView(withId(R.id.btn_reservation_plus))
+            .perform(click())
+
+        scenario.onActivity {
+            it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.tv_reservation_count))
+            .check(matches(withText("2")))
+    }
+
+    private fun launchSuccessScenario(): ActivityScenario<MovieReservationActivity> {
+        return ActivityScenario.launch<MovieReservationActivity>(
             MovieReservationActivity.newIntent(
                 context,
                 1L,

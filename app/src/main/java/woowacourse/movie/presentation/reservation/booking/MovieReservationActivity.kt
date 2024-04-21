@@ -86,8 +86,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     }
 
     companion object {
-        private val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
-        private const val KEY_RESERVATION_COUNT: String = "KEY_RESERVATION_COUNT"
+        val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
+        const val KEY_RESERVATION_COUNT: String = "KEY_RESERVATION_COUNT"
 
         @JvmStatic
         fun newIntent(
