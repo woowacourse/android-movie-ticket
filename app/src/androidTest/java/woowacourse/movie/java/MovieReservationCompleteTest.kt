@@ -12,7 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.view.MovieReservationCompleteActivity
+import woowacourse.movie.presentation.detail.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteTest {
@@ -25,11 +25,11 @@ class MovieReservationCompleteTest {
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
-            MovieReservationCompleteActivity::class.java,
+            MovieDetailActivity::class.java,
         ).also { it.putExtra("ticket", ticket) }
 
     @get:Rule
-    var activityScenarioRule = ActivityScenarioRule<MovieReservationCompleteActivity>(intent)
+    var activityScenarioRule = ActivityScenarioRule<MovieDetailActivity>(intent)
 
     @Test
     fun `티켓의_총_금액이_표시되어야_한다`() {

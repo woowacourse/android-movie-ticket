@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.presentation.reservation
 
 import android.content.Context
 import android.content.Intent
@@ -9,10 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieReservationContract
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.presenter.MovieReservationPresenter
+import woowacourse.movie.presentation.detail.MovieDetailActivity
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -84,7 +83,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private fun ticketing() {
         val ticket = makeTicket()
 
-        val intent = Intent(context, MovieReservationCompleteActivity::class.java)
+        val intent = Intent(context, MovieDetailActivity::class.java)
         intent.putExtra(Ticket.KEY_NAME_TICKET, ticket as Serializable)
         context.startActivity(intent)
     }

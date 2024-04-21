@@ -10,7 +10,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.view.MovieReservationActivity
+import woowacourse.movie.presentation.reservation.MovieReservationActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationTest {

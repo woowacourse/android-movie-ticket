@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.MovieReservationActivity
+import woowacourse.movie.presentation.reservation.MovieReservationActivity
 import java.io.Serializable
 
 class MovieListAdapter(

@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.presentation.screen
 
 import android.os.Bundle
 import android.widget.ListView
@@ -7,10 +7,10 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.domain.model.Movie
 
-class MovieListActivity : AppCompatActivity() {
+class MovieScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_list)
+        setContentView(R.layout.activity_movie_screen)
 
         val listView = findViewById<ListView>(R.id.movie_list_view)
 

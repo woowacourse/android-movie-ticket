@@ -3,7 +3,8 @@ package woowacourse.movie.domain
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.presenter.MovieReservationPresenter
+import woowacourse.movie.presentation.reservation.MovieReservationContract
+import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 
 class MovieReservationPresenterTest {
     private lateinit var mockView: MockMovieReservationContractView

@@ -1,6 +1,5 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presentation.reservation
 
-import woowacourse.movie.domain.MovieReservationContract
 import woowacourse.movie.domain.model.MovieReservationModel
 
 class MovieReservationPresenter(

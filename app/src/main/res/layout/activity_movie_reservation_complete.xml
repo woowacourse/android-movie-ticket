@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context=".view.MovieReservationCompleteActivity"
+    tools:context=".presentation.detail.MovieDetailActivity"
     android:orientation="vertical">
     <LinearLayout
         android:background="#9160F9"

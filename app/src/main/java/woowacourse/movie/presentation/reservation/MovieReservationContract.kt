@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.presentation.reservation
 
 interface MovieReservationContract {
     interface View {

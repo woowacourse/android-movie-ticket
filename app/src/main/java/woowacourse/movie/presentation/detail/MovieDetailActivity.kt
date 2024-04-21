@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.presentation.detail
 
 import android.os.Build
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Ticket
 
-class MovieReservationCompleteActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity() {
     private lateinit var ticketTitle: TextView
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView
