@@ -23,7 +23,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         ticketingPresenter = TicketingPresenter(this, movieId)
-        ticketingPresenter.assignInitialView()
+        ticketingPresenter.initializeTicketingData()
 
         initializeButtons()
     }
@@ -98,7 +98,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         }
 
         completeButton.setOnClickListener {
-            ticketingPresenter.navigate()
+            ticketingPresenter.reserveTickets()
         }
     }
 

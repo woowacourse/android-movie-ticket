@@ -21,8 +21,8 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
 
-        val ticketingResultPresenter = TicketingResultPresenter(this, movieId, count, totalPrice)
-        ticketingResultPresenter.assignInitialView()
+        val ticketingResultPresenter = TicketingResultPresenter(this, count, totalPrice)
+        ticketingResultPresenter.initializeTicketingResult(movieId)
     }
 
     override fun assignInitialView(

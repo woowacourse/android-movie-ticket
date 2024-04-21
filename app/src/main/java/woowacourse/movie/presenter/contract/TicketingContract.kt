@@ -21,12 +21,12 @@ interface TicketingContract {
     }
 
     interface Presenter {
-        fun assignInitialView()
+        fun initializeTicketingData()
 
         fun decreaseCount()
 
         fun increaseCount()
 
-        fun navigate()
+        fun reserveTickets()
     }
 }

@@ -13,6 +13,6 @@ interface TicketingResultContract {
     }
 
     interface Presenter {
-        fun assignInitialView()
+        fun initializeTicketingResult(movieId: Int)
     }
 }

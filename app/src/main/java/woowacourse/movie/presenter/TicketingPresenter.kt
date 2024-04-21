@@ -13,7 +13,7 @@ class TicketingPresenter(
     private val movie = findMovieById(movieId)
     private val count = Count()
 
-    override fun assignInitialView() {
+    override fun initializeTicketingData() {
         when (movie) {
             is Result.Success -> {
                 ticketingContractView.assignInitialView(
@@ -38,7 +38,7 @@ class TicketingPresenter(
         ticketingContractView.updateCount(count.value)
     }
 
-    override fun navigate() {
+    override fun reserveTickets() {
         val totalPrice = Tickets(count).totalPrice
         when (movie) {
             is Result.Success -> {

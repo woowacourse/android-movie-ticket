@@ -6,14 +6,11 @@ import woowacourse.movie.presenter.contract.TicketingResultContract
 
 class TicketingResultPresenter(
     private val ticketingResultView: TicketingResultContract.View,
-    movieId: Int,
     private val count: Int,
     private val totalPrice: Int,
 ) : TicketingResultContract.Presenter {
-    private val movie = findMovieById(movieId)
-
-    override fun assignInitialView() {
-        when (movie) {
+    override fun initializeTicketingResult(movieId: Int) {
+        when (val movie = findMovieById(movieId)) {
             is Result.Success -> {
                 ticketingResultView.assignInitialView(
                     count,
