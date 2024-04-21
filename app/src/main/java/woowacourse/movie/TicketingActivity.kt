@@ -15,14 +15,14 @@ import woowacourse.movie.presenter.contract.TicketingContract
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
+    private val movieId by lazy { intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
-        ticketingPresenter = TicketingPresenter(this, movieId)
+        ticketingPresenter = TicketingPresenter(this, movieId, DEFAULT_COUNT)
         ticketingPresenter.initializeTicketingData()
 
         initializeButtons()
@@ -36,7 +36,8 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
-            val count = it.getInt("count", 1)
+            val count = it.getInt("count", DEFAULT_COUNT)
+            ticketingPresenter = TicketingPresenter(this, movieId, count)
             countText.text = count.toString()
         }
     }
@@ -107,5 +108,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         const val EXTRA_COUNT = "number_of_people"
         const val EXTRA_TOTAL_PRICE = "total_price"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
+        private const val DEFAULT_COUNT = 1
     }
 }

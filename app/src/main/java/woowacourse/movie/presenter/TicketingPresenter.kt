@@ -9,9 +9,10 @@ import woowacourse.movie.presenter.contract.TicketingContract
 class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
     movieId: Int,
+    initialCount: Int,
 ) : TicketingContract.Presenter {
     private val movie = findMovieById(movieId)
-    private val count = Count()
+    private val count = Count(initialCount)
 
     override fun initializeTicketingData() {
         when (movie) {
