@@ -34,7 +34,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         movieDetailPresenter = MovieDetailPresenterImpl(this, title, screeningDate)
 
         savedInstanceState?.let {
-            val count = it.getInt("count")
+            val count = it.getInt(SIS_COUNT_KEY)
             movieDetailPresenter.initReservationCount(count)
         }
 
@@ -46,7 +46,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val count = movieDetailPresenter.movieTicket.count
-        outState.putInt("count", count)
+        outState.putInt(SIS_COUNT_KEY, count)
     }
 
     override fun showMovieDetail(
@@ -96,5 +96,6 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         const val INTENT_SCREENING_DATE = "screeningDate"
         const val INTENT_RUNNING_TIME = "runningTime"
         const val INTENT_SUMMARY = "summary"
+        const val SIS_COUNT_KEY = "count"
     }
 }
