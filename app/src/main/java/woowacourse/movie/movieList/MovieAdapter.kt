@@ -16,7 +16,7 @@ class MovieAdapter(
     private val mainActivityPresenter: MovieListPresenter
 ) : ArrayAdapter<Theater>(context, 0, theaters) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var listItemView = convertView ?: LayoutInflater.from(context)
+        val listItemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.movie_list_item, parent, false)
         val theater: Theater? = getItem(position)
 
