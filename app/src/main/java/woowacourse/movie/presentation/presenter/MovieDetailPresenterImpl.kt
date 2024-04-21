@@ -19,4 +19,9 @@ class MovieDetailPresenterImpl(
         movieTicket.plusCount()
         view.showReservationCount(movieTicket.count)
     }
+
+    override fun initReservationCount(count: Int) {
+        movieTicket.initCount(count)
+        view.showReservationCount(movieTicket.count)
+    }
 }

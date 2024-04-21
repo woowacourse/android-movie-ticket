@@ -4,23 +4,26 @@ class MovieTicket(
     val movieTitle: String,
     val screeningDate: String,
 ) {
-    private var _count = MIN_RESERVATION_COUNT
-    val count
-        get() = _count
+    var count: Int = MIN_RESERVATION_COUNT
+        private set
 
     fun plusCount() {
         if (count < MAX_RESERVATION_COUNT) {
-            _count++
+            count++
         }
     }
 
     fun minusCount() {
         if (count > MIN_RESERVATION_COUNT) {
-            _count--
+            count--
         }
     }
 
     fun totalPrice() = count * PRICE_PER_TICKET
+
+    fun initCount(newCount: Int) {
+        count = newCount
+    }
 
     companion object {
         const val MIN_RESERVATION_COUNT = 1

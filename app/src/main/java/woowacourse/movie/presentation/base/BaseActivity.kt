@@ -13,10 +13,10 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
 
-        onCreateSetup()
+        onCreateSetup(savedInstanceState)
     }
 
-    abstract fun onCreateSetup()
+    abstract fun onCreateSetup(savedInstanceState: Bundle?)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

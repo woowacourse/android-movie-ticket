@@ -23,5 +23,7 @@ interface MovieDetailContract {
         fun minusReservationCount()
 
         fun plusReservationCount()
+
+        fun initReservationCount(count: Int)
     }
 }

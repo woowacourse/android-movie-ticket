@@ -1,6 +1,8 @@
 package woowacourse.movie.presentation.view
 
 import android.content.Intent
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,7 +22,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
 
     override fun getLayoutResId(): Int = R.layout.activity_movie_detail
 
-    override fun onCreateSetup() {
+    override fun onCreateSetup(savedInstanceState: Bundle?) {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val posterImageId = intent.getIntExtra(INTENT_POSTER_IMAGE_ID, defaultPosterImageId)
@@ -31,9 +33,20 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
 
         movieDetailPresenter = MovieDetailPresenterImpl(this, title, screeningDate)
 
+        savedInstanceState?.let {
+            val count = it.getInt("count")
+            movieDetailPresenter.initReservationCount(count)
+        }
+
         showMovieDetail(posterImageId, title, screeningDate, runningTime, summary)
         setupReservationCountButton()
         moveToReservationResult()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val count = movieDetailPresenter.movieTicket.count
+        outState.putInt("count", count)
     }
 
     override fun showMovieDetail(

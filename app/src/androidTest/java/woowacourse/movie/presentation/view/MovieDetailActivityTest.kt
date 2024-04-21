@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.view
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -73,5 +74,17 @@ class MovieDetailActivityTest {
         onView(withId(R.id.minusButton)).perform(click())
         // then
         onView(withId(R.id.reservationCount)).check(matches(withText("1")))
+    }
+
+    @Test
+    fun `화면을_회전시켜도_예매_수량이_초기화되지_않는다`() {
+        // given
+        onView(withId(R.id.plusButton)).perform(click())
+        // when
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+        // then
+        onView(withId(R.id.reservationCount)).check(matches(withText("2")))
     }
 }

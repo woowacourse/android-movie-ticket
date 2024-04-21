@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.view
 
 import android.content.Intent
+import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
@@ -15,7 +16,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun getLayoutResId(): Int = R.layout.activity_main
 
-    override fun onCreateSetup() {
+    override fun onCreateSetup(savedInstanceState: Bundle?) {
         presenter = MainPresenterImpl(this)
         adapter = MovieListAdapter(presenter)
         showMovieList()
