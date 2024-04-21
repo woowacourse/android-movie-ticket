@@ -2,16 +2,18 @@ package woowacourse.movie.presentation.reservation
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.detail.MovieDetailActivity
+import woowacourse.movie.presentation.reservation.model.TicketModel
+import woowacourse.movie.presentation.reservation.model.toTicketModel
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -25,25 +27,23 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private lateinit var minusNumberButton: Button
     private lateinit var plusNumberButton: Button
     private lateinit var ticketingButton: Button
-    private val presenter = MovieReservationPresenter(this@MovieReservationActivity)
+    private val presenter = MovieReservationPresenter(
+        view = this@MovieReservationActivity,
+        movieRepository = MovieRepositoryImpl(),
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
         context = this@MovieReservationActivity
-
         initView()
-        setMovieData()
+        presenter.loadMovie(loadMovieId())
         showCurrentResultTicketCountView()
         setClickListener()
     }
 
-    private fun getSerializableModel(): Movie? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
-        } else {
-            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE) as? Movie
-        }
+    private fun loadMovieId(): Int {
+        return intent.getIntExtra(Movie.KEY_NAME_MOVIE, -1)
     }
 
     private fun initView() {
@@ -58,15 +58,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketingButton = findViewById(R.id.ticketing_button)
     }
 
-    private fun setMovieData() {
-        getSerializableModel()?.let { movie ->
-            titleView.text = movie.title
-            screeningDateView.text = movie.screeningDate
-            runningDateView.text = movie.runningTime.toString()
-            descriptionView.text = movie.description
-            posterView.setImageResource(movie.posterResourceId)
-        }
-    }
 
     private fun setClickListener() {
         minusNumberButton.setOnClickListener {
@@ -88,12 +79,21 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         context.startActivity(intent)
     }
 
-    private fun makeTicket() =
-        Ticket(
+    private fun makeTicket(): TicketModel {
+        return Ticket(
             title = titleView.text.toString(),
             screeningDate = screeningDateView.text.toString(),
             count = presenter.ticketCount,
-        )
+        ).toTicketModel()
+    }
+
+    override fun showMovie(movie: Movie) {
+        titleView.text = movie.title
+        screeningDateView.text = movie.screeningDate
+        runningDateView.text = movie.runningTime.toString()
+        descriptionView.text = movie.description
+        movie.posterResourceId?.let { posterView.setImageResource(it) }
+    }
 
     override fun showCurrentResultTicketCountView() {
         ticketCountView.text = presenter.ticketCount.toString()
