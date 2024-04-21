@@ -12,20 +12,7 @@ class MovieScreenPresenter(
         view.showScreenMovies(movies)
     }
 
-    override fun clickReservationButton(
-        title: String,
-        posterResourceId: Int,
-        screeningDate: String,
-        runningTime: Int,
-        description: String
-    ) {
-        val movieModel = MovieModel(
-            title = title,
-            posterResourceId = posterResourceId,
-            screeningDate = screeningDate,
-            runningTime = runningTime,
-            description = description
-        )
+    override fun clickReservationButton(movieModel: MovieModel) {
         view.moveToReservation(movieModel)
     }
 }

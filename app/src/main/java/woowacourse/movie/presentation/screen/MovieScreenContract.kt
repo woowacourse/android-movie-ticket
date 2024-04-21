@@ -11,12 +11,6 @@ interface MovieScreenContract {
 
     interface Presenter {
         fun loadScreenMovies()
-        fun clickReservationButton(
-            title: String,
-            posterResourceId: Int,
-            screeningDate: String,
-            runningTime: Int,
-            description: String,
-        )
+        fun clickReservationButton(movieModel: MovieModel)
     }
 }

@@ -1,28 +1,29 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.presentation.screen.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
+import woowacourse.movie.adapter.MovieViewHolder
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.reservation.MovieReservationActivity
-import java.io.Serializable
+import woowacourse.movie.presentation.screen.model.MovieModel
+import woowacourse.movie.presentation.screen.model.toMovieModel
 
-class MovieListAdapter(
+class MovieScreenAdapter(
     private val context: Context,
-    private val movieList: ArrayList<Movie>,
+    private val movies: List<Movie>,
+    private val onSelectMovie : (MovieModel) -> Unit,
 ) : BaseAdapter() {
     private lateinit var movieViewHolder: MovieViewHolder
 
     override fun getCount(): Int {
-        return movieList.size
+        return movies.size
     }
 
     override fun getItem(position: Int): Any {
-        return movieList[position]
+        return movies[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -35,7 +36,7 @@ class MovieListAdapter(
         parent: ViewGroup?,
     ): View {
         val view: View
-        val movie = movieList[position]
+        val movie = movies[position]
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.movie_item, null)
             makeViewHolder(view)
@@ -69,9 +70,7 @@ class MovieListAdapter(
 
     private fun setClickListener(movie: Movie) {
         movieViewHolder.movieReservationButton.setOnClickListener {
-            val intent = Intent(context, MovieReservationActivity::class.java)
-            intent.putExtra(Movie.KEY_NAME_MOVIE, movie as Serializable)
-            context.startActivity(intent)
+            onSelectMovie(movie.toMovieModel())
         }
     }
 }
