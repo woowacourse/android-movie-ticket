@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.purchaseConfirmation
 
 import android.content.Intent
 import android.os.Build

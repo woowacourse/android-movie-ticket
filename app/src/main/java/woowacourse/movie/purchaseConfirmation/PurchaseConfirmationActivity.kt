@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.purchaseConfirmation
 
 import android.os.Build
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.presenter.PurchaseConfirmationActivityPresenter
 
 class PurchaseConfirmationActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)

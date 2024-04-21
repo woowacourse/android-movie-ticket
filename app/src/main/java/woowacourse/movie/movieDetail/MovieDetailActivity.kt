@@ -1,5 +1,5 @@
 // MovieDetailActivity.kt
-package woowacourse.movie.activity
+package woowacourse.movie.movieDetail
 
 import android.content.Context
 import android.content.Intent
@@ -11,8 +11,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
-import woowacourse.movie.`interface`.MovieDetailView
-import woowacourse.movie.presenter.MovieDetailActivityPresenter
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
     private lateinit var presenter: MovieDetailActivityPresenter

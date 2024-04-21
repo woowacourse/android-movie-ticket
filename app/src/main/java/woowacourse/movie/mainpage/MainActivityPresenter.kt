@@ -1,9 +1,8 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.mainpage
 
 import android.content.Context
 import android.content.Intent
-import woowacourse.movie.activity.MovieDetailActivity
-import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.movieDetail.MovieDetailActivity
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime

@@ -1,10 +1,9 @@
-package woowacourse.movie.activity
+package woowacourse.movie.mainpage
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.presenter.MainActivityPresenter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var moviesListView: ListView

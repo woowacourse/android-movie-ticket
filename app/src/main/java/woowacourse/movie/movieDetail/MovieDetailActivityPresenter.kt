@@ -1,9 +1,8 @@
 // MovieDetailActivityPresenter.kt
-package woowacourse.movie.presenter
+package woowacourse.movie.movieDetail
 
 import android.content.Intent
-import woowacourse.movie.activity.PurchaseConfirmationActivity
-import woowacourse.movie.`interface`.MovieDetailView
+import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 import woowacourse.movie.model.theater.Theater
 
 @Suppress("DEPRECATION")

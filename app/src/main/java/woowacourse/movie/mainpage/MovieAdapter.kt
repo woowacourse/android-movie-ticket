@@ -1,4 +1,4 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.mainpage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.Theater
-import woowacourse.movie.presenter.MainActivityPresenter
 
 class MovieAdapter(
     context: Context,
