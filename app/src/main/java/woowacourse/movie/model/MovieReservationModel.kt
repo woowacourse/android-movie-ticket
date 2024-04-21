@@ -5,9 +5,8 @@ class MovieReservationModel {
         private set
 
     fun minusTicketCount() {
-        if (isTicketCountValid()) {
-            ticketCount--
-        }
+        require(isTicketCountValid()) { "티켓 개수가 1이면 내릴 수 없습니다." }
+        ticketCount--
     }
 
     private fun isTicketCountValid() = ticketCount > MIN_TICKET_COUNT

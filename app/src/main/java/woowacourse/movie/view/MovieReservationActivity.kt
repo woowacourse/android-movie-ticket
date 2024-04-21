@@ -3,6 +3,7 @@ package woowacourse.movie.view
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -71,7 +72,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     private fun setClickListener() {
         minusNumberButton.setOnClickListener {
-            presenter.clickMinusNumberButton()
+            runCatching { presenter.clickMinusNumberButton() }
+                .onFailure { Log.d("error", "setClickListener: ${it.message}") }
         }
         plusNumberButton.setOnClickListener {
             presenter.clickPlusNumberButton()
