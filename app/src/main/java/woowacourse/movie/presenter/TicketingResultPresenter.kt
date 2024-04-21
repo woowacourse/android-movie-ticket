@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.findMovieById
+import woowacourse.movie.model.MovieData.findMovieById
 import woowacourse.movie.model.Result
 import woowacourse.movie.presenter.contract.TicketingResultContract
 
