@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Screen2
+import woowacourse.movie.domain.model.Screen
 
 class ScreenRepositoryTest {
     private lateinit var repository: ScreenRepository2
@@ -21,7 +21,7 @@ class ScreenRepositoryTest {
         val screens = repository.load()
         val expected =
             listOf(
-                Screen2(
+                Screen(
                     id = 1,
                     Movie(
                         id = 1,
@@ -33,7 +33,7 @@ class ScreenRepositoryTest {
                     "2024-03-01",
                     13_000,
                 ),
-                Screen2(
+                Screen(
                     id = 2,
                     Movie(
                         id = 2,
@@ -45,7 +45,7 @@ class ScreenRepositoryTest {
                     "2024-03-02",
                     13_002,
                 ),
-                Screen2(
+                Screen(
                     id = 3,
                     Movie(
                         id = 3,
@@ -68,7 +68,7 @@ class ScreenRepositoryTest {
         // given & when
         val screen = repository.findById(1).getOrThrow()
         val expected =
-            Screen2(
+            Screen(
                 id = 1,
                 Movie(
                     id = 1,

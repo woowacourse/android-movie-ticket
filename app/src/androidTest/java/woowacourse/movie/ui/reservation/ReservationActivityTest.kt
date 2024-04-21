@@ -13,7 +13,7 @@
  import org.junit.runner.RunWith
  import woowacourse.movie.R
  import woowacourse.movie.domain.model.Movie
- import woowacourse.movie.domain.model.Screen2
+ import woowacourse.movie.domain.model.Screen
  import woowacourse.movie.domain.repository.DummyReservation2
 
  @RunWith(AndroidJUnit4::class)
@@ -48,7 +48,7 @@
 
     private fun testFixtureReservationId() =
         DummyReservation2.save(
-            Screen2(
+            Screen(
                 id = 1,
                 movie = Movie(
                     id = 1,

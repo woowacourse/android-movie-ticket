@@ -8,7 +8,7 @@ class ReservationTest {
     fun `예매 티켓이 세 장이고, 영화 가격이 13,000 일 때 총 가격은 39,000 이다`() {
         // given & when
         val screen =
-            Screen2(
+            Screen(
                 id = 1,
                 Movie(
                     id = 1,

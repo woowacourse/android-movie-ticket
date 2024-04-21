@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation2
-import woowacourse.movie.domain.model.Screen2
+import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
 
 class ReservationRepositoryTest {
@@ -20,7 +20,7 @@ class ReservationRepositoryTest {
     fun `스크린 정보와 티켓 개수를 통해 예약 정보를 저장하고 예약 ID를 반환한다`() {
         // given
         val screen =
-            Screen2(
+            Screen(
                 id = 1,
                 Movie(
                     id = 1,

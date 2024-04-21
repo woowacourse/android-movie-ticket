@@ -2,7 +2,6 @@ package woowacourse.movie.ui.detail
 
 import android.util.Log
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Screen2
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
@@ -73,7 +72,7 @@ class ScreenDetailPresenter2(
     private val reservationRepository: ReservationRepository2,
 ) : ScreenDetailContract2.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
-    private lateinit var screen: Screen2
+    private lateinit var screen: Screen
 
     override fun loadScreen(id: Int) {
         screenRepository.findById(id = id).onSuccess { screen ->

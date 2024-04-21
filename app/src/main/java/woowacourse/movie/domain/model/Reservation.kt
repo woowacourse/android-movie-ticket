@@ -11,7 +11,7 @@ data class Reservation(
 
 data class Reservation2(
     val id: Int,
-    val screen: Screen2,
+    val screen: Screen,
     val ticket: Ticket,
 ) {
     val totalPrice: Int

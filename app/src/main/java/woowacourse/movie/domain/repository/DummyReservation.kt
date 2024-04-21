@@ -3,7 +3,6 @@ package woowacourse.movie.domain.repository
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Reservation2
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Screen2
 import woowacourse.movie.domain.model.Ticket
 
 object DummyReservation : ReservationRepository {
@@ -32,7 +31,7 @@ object DummyReservation2 : ReservationRepository2 {
     private val reservations = mutableListOf<Reservation2>()
 
     override fun save(
-        screen: Screen2,
+        screen: Screen,
         count: Int,
     ): Result<Int> {
         return runCatching {
