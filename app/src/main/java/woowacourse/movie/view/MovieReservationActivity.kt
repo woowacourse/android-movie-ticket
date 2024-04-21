@@ -2,7 +2,6 @@ package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -32,7 +31,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         initView()
         presenter.setMovieInfo()
         presenter.setCurrentResultTicketCountInfo()
-        presenter.setClickListener()
+        setOnPlusButtonClickListener()
+        setOnMinusButtonClickListener()
+        setOnTicketingButtonListener()
     }
 
     private fun initView() {
@@ -64,22 +65,27 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketCountView.text = info.toString()
     }
 
-    override fun setOnButtonsClickListener() {
-        minusNumberButton.setOnClickListener {
-            runCatching { presenter.clickMinusNumberButton() }
-                .onFailure { Log.d("error", "setClickListener: ${it.message}") }
-        }
+    override fun setOnPlusButtonClickListener() {
         plusNumberButton.setOnClickListener {
-            presenter.clickPlusNumberButton()
-        }
-        ticketingButton.setOnClickListener {
-            ticketing()
+            presenter.setPlusButtonClickInfo()
         }
     }
 
-    override fun ticketing() {
+    override fun setOnMinusButtonClickListener() {
+        minusNumberButton.setOnClickListener {
+            presenter.setMinusButtonClickInfo()
+        }
+    }
+
+    override fun setOnTicketingButtonListener() {
+        ticketingButton.setOnClickListener {
+            presenter.setTicketingButtonClickInfo()
+        }
+    }
+
+    override fun startMovieTicketActivity(info: Int)  {
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra(Ticket.KEY_NAME_TICKET, presenter.ticketCount)
+        intent.putExtra(Ticket.KEY_NAME_TICKET, info)
         this.startActivity(intent)
     }
 
