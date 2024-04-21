@@ -9,11 +9,12 @@ import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.reservation.model.TicketModel
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var ticketTitle: TextView
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView
     private lateinit var ticketCount: TextView
+    val presenter = MovieDetailPresenter(this@MovieDetailActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +31,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun setTicketData() {
-        makeTicket()?.let { ticket ->
-            ticketTitle.text = ticket.title
-            ticketScreeningDate.text = ticket.screeningDate
-            ticketPrice.text = String.format(TICKET_PRICE, ticket.price)
-            ticketCount.text = TICKET_COUNT.format(ticket.count)
-        }
+        presenter.loadTicket(makeTicket())
     }
 
     private fun makeTicket(): TicketModel? {
@@ -43,6 +39,15 @@ class MovieDetailActivity : AppCompatActivity() {
             intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET, TicketModel::class.java)
         } else {
             intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel
+        }
+    }
+
+    override fun showTicket(ticketModel: TicketModel?) {
+        ticketModel?.let {
+            ticketTitle.text = ticketModel.title
+            ticketScreeningDate.text = ticketModel.screeningDate
+            ticketPrice.text = String.format(TICKET_PRICE, ticketModel.price)
+            ticketCount.text = TICKET_COUNT.format(ticketModel.count)
         }
     }
 
