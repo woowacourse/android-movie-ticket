@@ -34,9 +34,9 @@ class TicketingActivityTest {
 
     @Test
     fun `감소_버튼을_누르면_숫자가_감소한다`() {
-        repeat(2) { performClick(R.id.btn_plus) }
+        performClick(R.id.btn_plus)
         performClick(R.id.btn_minus)
-        onView(withId(R.id.tv_count)).check(matches(withText("2")))
+        onView(withId(R.id.tv_count)).check(matches(withText("1")))
     }
 
     @Test
