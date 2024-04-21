@@ -8,7 +8,6 @@ import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
-import woowacourse.movie.domain.repository.ScreenRepository2
 import woowacourse.movie.ui.MovieDetailUI
 import woowacourse.movie.ui.ScreenDetailUI
 
@@ -67,7 +66,7 @@ class ScreenDetailPresenter(
 class ScreenDetailPresenter2(
     private val view: ScreenDetailContract2.View,
     private val movieRepository: MovieRepository,
-    private val screenRepository: ScreenRepository2,
+    private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
 ) : ScreenDetailContract2.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)

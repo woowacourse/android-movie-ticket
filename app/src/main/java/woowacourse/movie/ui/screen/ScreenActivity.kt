@@ -5,7 +5,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.repository.DummyMovies
-import woowacourse.movie.domain.repository.DummyScreens2
+import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter2
@@ -18,7 +18,7 @@ class ScreenActivity : AppCompatActivity(), ScreenContract2.View {
         ScreenPresenter2(
             this,
             DummyMovies(),
-            DummyScreens2(),
+            DummyScreens(),
         )
     }
 

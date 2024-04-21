@@ -7,9 +7,3 @@ interface ScreenRepository {
 
     fun findById(id: Int): Result<Screen>
 }
-
-interface ScreenRepository2 {
-    fun load(): List<Screen>
-
-    fun findById(id: Int): Result<Screen>
-}

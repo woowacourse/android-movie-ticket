@@ -4,7 +4,6 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ScreenRepository
-import woowacourse.movie.domain.repository.ScreenRepository2
 import woowacourse.movie.ui.MoviePreviewUI
 import woowacourse.movie.ui.ScreenPreviewUI
 
@@ -21,7 +20,7 @@ class ScreenPresenter(
 class ScreenPresenter2(
     private val view: ScreenContract2.View,
     private val movieRepository: MovieRepository,
-    private val screenRepository: ScreenRepository2,
+    private val screenRepository: ScreenRepository,
 ) : ScreenContract2.Presenter {
     override fun loadScreens() {
         val screens = screenRepository.load()

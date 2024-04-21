@@ -8,11 +8,11 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Screen
 
 class ScreenRepositoryTest {
-    private lateinit var repository: ScreenRepository2
+    private lateinit var repository: ScreenRepository
 
     @BeforeEach
     fun setUp() {
-        repository = DummyScreens2()
+        repository = DummyScreens()
     }
 
     @Test
