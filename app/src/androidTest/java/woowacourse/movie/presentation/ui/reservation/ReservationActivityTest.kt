@@ -43,7 +43,7 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun `예약한_영화의_러닝타임을_표시한다`() {
+    fun `예약한_영화의_날짜를_표시한다`() {
         onView(withId(R.id.tv_reservation_date)).check(matches(withText(screen.date)))
     }
 

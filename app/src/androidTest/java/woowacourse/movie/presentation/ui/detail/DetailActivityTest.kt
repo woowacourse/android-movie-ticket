@@ -30,7 +30,7 @@ class DetailActivityTest {
     private val minusBtn: ViewInteraction = onView(withId(R.id.btn_minus))
 
     @Test
-    fun `카운트가_10_미만일_때_플러스_버튼_눌러을_때_증가`() {
+    fun `초기_티켓이_카운트가_1일_때_플러스_버튼을_누르면_티켓의_수가_2가_된다`() {
         // when
         plusBtn.perform(click())
 
@@ -39,7 +39,7 @@ class DetailActivityTest {
     }
 
     @Test
-    fun `카운트가_1_초과일_때_마이너스_버튼_눌러을_때_감소`() {
+    fun `초기_티켓이_카운트가_2일_때_마이너스_버튼을_누르면_티켓의_수가_1이_된다`() {
         // given - 카운트가 2일 때
         plusBtn.perform(click())
 
@@ -51,7 +51,7 @@ class DetailActivityTest {
     }
 
     @Test
-    fun `카운트가_1일_때_마이너스_버튼_누르면_감소하지_않는다`() {
+    fun `초기_티켓이_카운트가_1일_때_마이너스_버튼을_누르면_티켓의_수가_변화지_않는다`() {
         // when
         minusBtn.perform(click())
 
@@ -60,7 +60,7 @@ class DetailActivityTest {
     }
 
     @Test
-    fun `카운트가_10일_때_마이너스_버튼_누르면_증가하지_않는다`() {
+    fun `초기_티켓이_카운트가_10일_때_플러스_버튼을_누르면_티켓의_수가_변화지_않는다`() {
         // given - 카운트가 1 -> 10 일 때
         plusBtn.repeatClick(9)
 
