@@ -10,7 +10,7 @@ value class Count(val number: Int) {
         return Count(number + 1)
     }
 
-    operator fun dec(): Count  {
+    operator fun dec(): Count {
         return Count(number - 1)
     }
 }
