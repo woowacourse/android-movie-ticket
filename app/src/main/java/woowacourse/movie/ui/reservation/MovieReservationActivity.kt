@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
+import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.base.BaseActivity
@@ -44,7 +45,7 @@ class MovieReservationActivity :
         setOnClickButtonListener()
     }
 
-    override fun initializePresenter() = MovieReservationPresenter(this)
+    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
 
     private fun movieContentId() = intent.getLongExtra(ReservationMovieContentKey.ID, DEFAULT_VALUE)
 

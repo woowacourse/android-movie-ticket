@@ -1,11 +1,14 @@
 package woowacourse.movie.ui.main.adapter
 
-import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.data.MovieContents
 import woowacourse.movie.model.data.dto.MovieContent
 
-class MovieContentListPresenter(private val view: MovieContentListContract.View) :
+class MovieContentListPresenter(
+    private val view: MovieContentListContract.View,
+    movieContents: MovieContents,
+) :
     MovieContentListContract.Presenter {
-    private val movieContents: List<MovieContent> by lazy { MovieContentsImpl.findAll() }
+    private val movieContents: List<MovieContent> by lazy { movieContents.findAll() }
 
     override fun count(): Int = movieContents.size
 
