@@ -31,9 +31,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
         initView()
-        setMovieData()
-        showCurrentResultTicketCountView()
-        setClickListener()
+        presenter.setMovieInfo()
+        presenter.setCurrentResultTicketCountInfo()
+        presenter.setClickListener()
     }
 
     private fun initView() {
@@ -48,6 +48,19 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketingButton = findViewById(R.id.ticketing_button)
     }
 
+    override fun setMovieView() {
+        getSerializableModel()?.let { movie ->
+            val formattedScreeningDate =
+                movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+
+            titleView.text = movie.title
+            screeningDateView.text = formattedScreeningDate
+            runningDateView.text = movie.runningTime.toString()
+            descriptionView.text = movie.description
+            posterView.setImageResource(movie.posterResourceId)
+        }
+    }
+
     private fun getSerializableModel(): Movie? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
@@ -56,21 +69,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
     }
 
-    private fun setMovieData() {
-        getSerializableModel()?.let { movie ->
-            titleView.text = movie.title
-
-            val formattedScreeningDate =
-                movie.screeningDate
-                    .format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-            screeningDateView.text = formattedScreeningDate
-            runningDateView.text = movie.runningTime.toString()
-            descriptionView.text = movie.description
-            posterView.setImageResource(movie.posterResourceId)
-        }
+    override fun showCurrentResultTicketCountView(info: Int) {
+        ticketCountView.text = info.toString()
     }
 
-    private fun setClickListener() {
+    override fun setOnButtonsClickListener() {
         minusNumberButton.setOnClickListener {
             runCatching { presenter.clickMinusNumberButton() }
                 .onFailure { Log.d("error", "setClickListener: ${it.message}") }
@@ -83,14 +86,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
     }
 
-    private fun ticketing() {
+    override fun ticketing() {
         val intent = Intent(this, MovieTicketActivity::class.java)
         intent.putExtra(Ticket.KEY_NAME_TICKET, presenter.ticketCount)
         this.startActivity(intent)
-    }
-
-    override fun showCurrentResultTicketCountView() {
-        ticketCountView.text = presenter.ticketCount.toString()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
