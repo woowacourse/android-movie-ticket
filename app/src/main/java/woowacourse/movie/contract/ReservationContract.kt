@@ -16,7 +16,7 @@ interface ReservationContract {
     }
 
     interface Presenter {
-        fun fetchMovieDetail(intent: Intent)
+        fun fetchMovieDetail(movieId: Int)
 
         fun subTicketCount()
 

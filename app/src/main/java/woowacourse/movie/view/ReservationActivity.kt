@@ -9,10 +9,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.ReservationContract
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.presenter.ReservationPresenter
+import woowacourse.movie.view.ScreeningMovieActivity.Companion.MOVIE_ID
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val presenter: ReservationContract.Presenter = ReservationPresenter(this)
+    private val presenter: ReservationContract.Presenter = ReservationPresenter(this, MovieDao())
     private lateinit var addButton: Button
     private lateinit var subButton: Button
     private lateinit var countTextView: TextView
@@ -23,7 +25,9 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        presenter.fetchMovieDetail(intent)
+
+        val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
+        presenter.fetchMovieDetail(movieId)
         setUpCount()
         bindReservationButton()
     }
@@ -104,5 +108,9 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             )
             this.startActivity(intent)
         }
+    }
+
+    companion object {
+        const val DEFAULT_MOVIE_ID = 0
     }
 }

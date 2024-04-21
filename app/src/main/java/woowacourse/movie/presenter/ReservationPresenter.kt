@@ -2,18 +2,22 @@ package woowacourse.movie.presenter
 
 import android.content.Intent
 import woowacourse.movie.contract.ReservationContract
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
 
-class ReservationPresenter(private val view: ReservationContract.View) :
+class ReservationPresenter(
+    private val view: ReservationContract.View,
+    private val dao: MovieDao,
+) :
     ReservationContract.Presenter {
     private var ticket: Ticket = Ticket()
     private val payment: Payment = Payment()
     private lateinit var movie: Movie
 
-    override fun fetchMovieDetail(intent: Intent) {
-        movie = intent.getSerializableExtra("movie") as Movie
+    override fun fetchMovieDetail(movieId: Int) {
+        movie = dao.find(movieId)
         movie.let {
             view.setUpView(
                 movie.img,
