@@ -11,13 +11,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -27,10 +27,9 @@ class PurchaseConfirmationActivityTest {
             Title("차람과 하디의 진지한 여행기"),
             MovieDate(LocalDate.of(2024, 2, 25)),
             RunningTime(230),
-            Synopsis("wow!")
+            Synopsis("wow!"),
         )
     private val theater = Theater(movie, 10000)
-
 
     private val intent =
         Intent(

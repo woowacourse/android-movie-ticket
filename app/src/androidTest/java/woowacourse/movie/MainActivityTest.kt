@@ -30,7 +30,7 @@ class MainActivityTest {
             Title("차람과 하디의 진지한 여행기"),
             MovieDate(LocalDate.of(2024, 2, 25)),
             RunningTime(230),
-            Synopsis("wow!")
+            Synopsis("wow!"),
         )
 
     @get:Rule
