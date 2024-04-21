@@ -12,22 +12,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
-import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class ReservationResultActivityTest {
-    private val movie =
-        Movie(
-            id = 0,
-            img = R.drawable.harry_sorcerer_stone_image,
-            title = "해리 포터와 마법사의 돌",
-            description = "해리 포터 1편입니다.",
-            screenDate = listOf(LocalDate.of(2024, 3, 1)),
-            runningTime = 152,
-        )
+    private val movie = MovieDao().find(0)
     private val ticket = Ticket()
     private val payment = Payment()
 

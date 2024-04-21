@@ -2,11 +2,15 @@ package woowacourse.movie.presenter
 
 import android.content.Intent
 import woowacourse.movie.contract.ReservationResultContract
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
 
-class ReservationResultPresenter(private val view: ReservationResultContract.View) :
+class ReservationResultPresenter(
+    private val view: ReservationResultContract.View,
+    private val dao: MovieDao,
+) :
     ReservationResultContract.Presenter {
     private lateinit var movie: Movie
     private lateinit var ticket: Ticket

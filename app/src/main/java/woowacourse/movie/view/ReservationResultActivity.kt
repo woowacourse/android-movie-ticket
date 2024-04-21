@@ -6,11 +6,15 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.ReservationResultContract
+import woowacourse.movie.db.MovieDao
 import woowacourse.movie.presenter.ReservationResultPresenter
 import java.text.DecimalFormat
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
-    private val presenter: ReservationResultContract.Presenter = ReservationResultPresenter(this)
+    private val presenter: ReservationResultContract.Presenter = ReservationResultPresenter(
+        this,
+        MovieDao(),
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
