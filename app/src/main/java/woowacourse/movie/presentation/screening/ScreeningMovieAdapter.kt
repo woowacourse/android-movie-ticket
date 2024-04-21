@@ -30,9 +30,9 @@ class ScreeningMovieAdapter(
         val viewHolder: ViewHolder
 
         return if (convertView == null) {
-            inflater.inflate(R.layout.item_screening_movie, parent, false).also {
-                viewHolder = ViewHolder(it, onClickReservationButton)
-                it.tag = ViewHolder(it, onClickReservationButton)
+            inflater.inflate(R.layout.item_screening_movie, parent, false).also { view ->
+                viewHolder = ViewHolder(view, onClickReservationButton)
+                view.tag = viewHolder
             }
         } else {
             viewHolder = convertView.tag as ViewHolder

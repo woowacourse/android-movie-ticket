@@ -36,9 +36,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
 
     private fun initViews() {
         moviesView = findViewById<ListView>(R.id.list_screening_movie)
-        adapter =
-            ScreeningMovieAdapter { id -> presenter.startReservation(id) }.also {
-                moviesView.adapter = it
-            }
+        adapter = ScreeningMovieAdapter { id -> presenter.startReservation(id) }
+            .also { moviesView.adapter = it }
     }
 }
