@@ -1,4 +1,4 @@
-package woowacourse.movie.fixtures
+package woowacourse.movie.utils
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
