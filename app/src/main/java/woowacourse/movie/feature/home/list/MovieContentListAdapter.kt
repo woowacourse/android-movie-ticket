@@ -1,7 +1,6 @@
 package woowacourse.movie.feature.home.list
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,7 +52,7 @@ class MovieContentListAdapter(private val context: Context) :
 
         presenter.setUpMovieContent(position)
         viewHolder.reservationButton.setOnClickListener {
-            presenter.clickReservationButton(position)
+            presenter.reserveMovie(position)
         }
 
         return view

@@ -68,15 +68,15 @@ class MovieReservationActivity :
 
     private fun setOnClickButtonListener() {
         minusButton.setOnClickListener {
-            presenter.clickMinusButton()
+            presenter.decreaseReservationCount()
         }
 
         plusButton.setOnClickListener {
-            presenter.clickPlusButton()
+            presenter.increaseReservationCount()
         }
 
         reservationButton.setOnClickListener {
-            presenter.clickReservationButton()
+            presenter.reserveMovie()
         }
     }
 

@@ -8,10 +8,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.feature.FIRST_MOVIE_CONTENT_ID
 import woowacourse.movie.feature.dateMessage
 import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovieContent
-import woowacourse.movie.feature.FIRST_MOVIE_CONTENT_ID
 import woowacourse.movie.feature.reservationAmountMessage
 import woowacourse.movie.feature.reservationCountMessage
 import woowacourse.movie.feature.view

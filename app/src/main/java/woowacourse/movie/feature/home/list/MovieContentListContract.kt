@@ -19,6 +19,6 @@ interface MovieContentListContract {
 
         fun setUpMovieContent(position: Int)
 
-        fun clickReservationButton(position: Int)
+        fun reserveMovie(position: Int)
     }
 }

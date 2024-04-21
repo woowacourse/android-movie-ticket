@@ -19,7 +19,7 @@ class MovieContentListPresenter(
         view.setUpMovieContentUi(item(position))
     }
 
-    override fun clickReservationButton(position: Int) {
+    override fun reserveMovie(position: Int) {
         view.moveMovieReservationView(itemId(position))
     }
 }

@@ -19,17 +19,17 @@ class MovieReservationPresenter(
         view.setUpMovieContentUi(movieContent)
     }
 
-    override fun clickMinusButton() {
+    override fun decreaseReservationCount() {
         reservationCount--
         view.updateReservationCountUi(reservationCount.count)
     }
 
-    override fun clickPlusButton() {
+    override fun increaseReservationCount() {
         reservationCount++
         view.updateReservationCountUi(reservationCount.count)
     }
 
-    override fun clickReservationButton() {
+    override fun reserveMovie() {
         view.moveMovieReservationCompleteView(reservationCount.count)
     }
 }
