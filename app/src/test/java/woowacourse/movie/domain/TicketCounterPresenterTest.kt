@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.reservation.MovieReservationContract
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 
@@ -15,6 +14,7 @@ class TicketCounterPresenterTest {
 
     class MockMovieReservationContractView : MovieReservationContract.View {
         var showCurrentResultTicketCountViewCalled = false
+
         override fun showMovie(movie: Movie) {
             TODO("Not yet implemented")
         }
@@ -27,10 +27,11 @@ class TicketCounterPresenterTest {
     @BeforeEach
     fun setup() {
         mockView = MockMovieReservationContractView()
-        presenter = MovieReservationPresenter(
-            view = mockView,
-            movieRepository = MovieRepositoryImpl()
-        )
+        presenter =
+            MovieReservationPresenter(
+                view = mockView,
+                movieRepository = MovieRepositoryImpl(),
+            )
     }
 
     @Test

@@ -1,6 +1,5 @@
 package woowacourse.movie.data
 
-import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.repository.MovieRepository
 

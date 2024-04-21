@@ -13,6 +13,7 @@ class MovieRepositoryTest {
     fun setup() {
         repository = MovieRepositoryImpl()
     }
+
     @Test
     fun `loadMovies는 모든 영화 리스트를 반환한다`() {
         val movies = repository.loadMovies()

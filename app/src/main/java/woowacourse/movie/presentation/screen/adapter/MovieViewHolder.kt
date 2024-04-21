@@ -11,7 +11,7 @@ class MovieViewHolder(
     val runningTime: TextView,
     val movieReservationButton: Button,
     val onMovieSelected: () -> Unit,
-){
+) {
     init {
         movieReservationButton.setOnClickListener {
             onMovieSelected()
