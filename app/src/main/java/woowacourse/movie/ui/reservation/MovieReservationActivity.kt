@@ -45,6 +45,22 @@ class MovieReservationActivity :
         setOnClickButtonListener()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(RESERVATION_COUNT_STATE_KEY, reservationCountText.text.toString().toInt())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.let {
+            val count = it.getInt(RESERVATION_COUNT_STATE_KEY)
+            presenter.setReservationCount(count)
+            reservationCountText.text = count.toString()
+        }
+    }
+
     override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
 
     private fun movieContentId() = intent.getLongExtra(ReservationMovieContentKey.ID, DEFAULT_VALUE)
@@ -108,5 +124,6 @@ class MovieReservationActivity :
     companion object {
         private val TAG = MovieReservationActivity::class.simpleName
         private const val DEFAULT_VALUE = -1L
+        private const val RESERVATION_COUNT_STATE_KEY = "reservationCount"
     }
 }

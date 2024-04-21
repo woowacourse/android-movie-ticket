@@ -2,6 +2,7 @@ package woowacourse.movie.ui.reservation
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -140,6 +141,25 @@ class MovieReservationActivityTest {
 
         onView(withId(R.id.reservation_count_text))
             .check(matches(withText("1")))
+    }
+
+    @Test
+    fun `화면이_회전되어도_예매_인원의_값은_유지된다`() {
+        // given
+        val activityScenario = activityRule.scenario
+        onView(withId(R.id.plus_button))
+            .perform(click())
+        onView(withId(R.id.plus_button))
+            .perform(click())
+
+        // when
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // then
+        onView(withId(R.id.reservation_count_text))
+            .check(matches(withText("3")))
     }
 
     companion object {

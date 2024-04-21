@@ -17,6 +17,8 @@ interface MovieReservationContract {
 
         fun setUpReservationCount()
 
+        fun setReservationCount(count: Int)
+
         fun decreaseCount()
 
         fun increaseCount()
