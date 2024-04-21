@@ -1,4 +1,4 @@
-package woowacourse.movie.java
+package woowacourse.movie
 
 import android.content.pm.ActivityInfo
 import androidx.test.espresso.Espresso.onView
@@ -9,8 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.DetailActivity
-import woowacourse.movie.R
+import woowacourse.movie.view.DetailActivity
 
 class DetailActivityTest {
     @get:Rule
