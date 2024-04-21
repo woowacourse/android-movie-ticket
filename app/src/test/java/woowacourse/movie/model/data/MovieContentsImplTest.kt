@@ -3,8 +3,8 @@ package woowacourse.movie.model.data
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.data.dto.Date
 import woowacourse.movie.model.movieContent
+import java.time.LocalDate
 
 class MovieContentsImplTest {
     @BeforeEach
@@ -23,7 +23,7 @@ class MovieContentsImplTest {
         // then
         assertThat(actual.imageId).isEqualTo(0)
         assertThat(actual.title).isEqualTo("해리 포터와 마법사의 돌")
-        assertThat(actual.screeningDate).isEqualTo(Date(2024, 3, 1))
+        assertThat(actual.screeningDate).isEqualTo(LocalDate.of(2024, 3, 1))
         assertThat(actual.runningTime).isEqualTo(152)
         assertThat(actual.synopsis).isEqualTo("해리")
     }
@@ -52,7 +52,7 @@ class MovieContentsImplTest {
         // then
         assertThat(actual.imageId).isEqualTo(0)
         assertThat(actual.title).isEqualTo("오류가 발생했습니다.")
-        assertThat(actual.screeningDate).isEqualTo(Date(0, 0, 0))
+        assertThat(actual.screeningDate).isEqualTo(LocalDate.of(1, 1, 1))
         assertThat(actual.runningTime).isEqualTo(0)
         assertThat(actual.synopsis).isEmpty()
     }

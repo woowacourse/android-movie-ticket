@@ -2,22 +2,19 @@ package woowacourse.movie.ui
 
 import android.content.Context
 import woowacourse.movie.R
-import woowacourse.movie.model.data.dto.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 object DateUi {
     fun screeningDateMessage(
-        date: Date,
+        date: LocalDate,
         context: Context,
     ): String {
         return context.resources.getString(R.string.screening_date)
-            .format(date.year, date.month, date.day)
+            .format(dateMessage(date))
     }
 
-    fun dateMessage(
-        date: Date,
-        context: Context,
-    ): String {
-        return context.resources.getString(R.string.date)
-            .format(date.year, date.month, date.day)
+    fun dateMessage(date: LocalDate): String {
+        return date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
     }
 }

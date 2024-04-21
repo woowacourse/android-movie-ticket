@@ -72,7 +72,7 @@ class MovieReservationCompleteActivity :
         movieContent.run {
             titleText.text = title
             screeningDateText.text =
-                DateUi.dateMessage(screeningDate, this@MovieReservationCompleteActivity)
+                DateUi.dateMessage(screeningDate)
         }
     }
 

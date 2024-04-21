@@ -13,13 +13,14 @@ import org.hamcrest.Matchers.anything
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
+import java.time.format.DateTimeFormatter
 
 const val FIRST_MOVIE_CONTENT_ID = 0L
 val firstMovieContent = MovieContentsImpl.findAll().first()
 val firstMovieContentItem: DataInteraction = onData(anything()).inAdapterView(withId(R.id.movie_content_list)).atPosition(0)
 
 fun MovieContent.screeningDateMessage(): String {
-    return screeningDate.run { "상영일: %d.%d.%d".format(year, month, day) }
+    return screeningDate.run { "상영일: %s".format(dateMessage()) }
 }
 
 fun MovieContent.runningTimeMessage(): String {
@@ -27,7 +28,7 @@ fun MovieContent.runningTimeMessage(): String {
 }
 
 fun MovieContent.dateMessage(): String {
-    return screeningDate.run { "%d.%d.%d".format(year, month, day) }
+    return screeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
 }
 
 fun Int.reservationCountMessage(): String {
