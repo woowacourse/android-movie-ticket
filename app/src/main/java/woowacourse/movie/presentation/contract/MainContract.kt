@@ -15,4 +15,8 @@ interface MainContract {
 
         fun onReserveButtonClicked(movie: Movie)
     }
+
+    interface ViewActions {
+        fun reserveMovie(movie: Movie)
+    }
 }

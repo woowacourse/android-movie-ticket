@@ -10,7 +10,7 @@ import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.contract.MainContract
 import woowacourse.movie.presentation.presenter.MainPresenterImpl
 
-class MainActivity : BaseActivity(), MainContract.View {
+class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions {
     private lateinit var adapter: MovieListAdapter
     private lateinit var presenter: MainContract.Presenter
 
@@ -18,12 +18,16 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onCreateSetup(savedInstanceState: Bundle?) {
         presenter = MainPresenterImpl(this)
-        adapter = MovieListAdapter(presenter)
+        adapter = MovieListAdapter(presenter.movies.movies, this)
         showMovieList()
     }
 
     override fun showMovieList() {
         findViewById<ListView>(R.id.movieList).adapter = adapter
+    }
+
+    override fun reserveMovie(movie: Movie) {
+        presenter.onReserveButtonClicked(movie)
     }
 
     override fun moveToMovieDetail(movie: Movie) {

@@ -9,10 +9,9 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.contract.MainContract
 
 class MovieListAdapter(
-    private val presenter: MainContract.Presenter,
+    private val movieList: List<Movie>,
+    private val listener: MainContract.ViewActions,
 ) : BaseAdapter() {
-    private val movieList: List<Movie> = presenter.movies.movies
-
     override fun getCount(): Int = movieList.size
 
     override fun getItem(index: Int): Movie = movieList[index]
@@ -55,7 +54,7 @@ class MovieListAdapter(
         movieViewHolder.runningTime.text = parent.context.getString(R.string.running_time_format, movie.runningTime)
 
         movieViewHolder.reserveButton.setOnClickListener {
-            presenter.onReserveButtonClicked(movie)
+            listener.reserveMovie(movie)
         }
     }
 }
