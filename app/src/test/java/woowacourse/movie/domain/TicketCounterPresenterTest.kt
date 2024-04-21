@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.presentation.reservation.MovieReservationContract
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 
-class MovieReservationPresenterTest {
+class TicketCounterPresenterTest {
     private lateinit var mockView: MockMovieReservationContractView
     private lateinit var presenter: MovieReservationPresenter
 

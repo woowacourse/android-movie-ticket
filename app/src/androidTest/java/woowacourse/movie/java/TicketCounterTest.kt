@@ -13,7 +13,7 @@ import woowacourse.movie.R
 import woowacourse.movie.presentation.reservation.MovieReservationActivity
 
 @RunWith(AndroidJUnit4::class)
-class MovieReservationTest {
+class TicketCounterTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieReservationActivity::class.java)
 
