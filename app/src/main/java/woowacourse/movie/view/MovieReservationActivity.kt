@@ -1,7 +1,6 @@
 package woowacourse.movie.view
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -10,9 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieReservationContract
-import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.MovieReservationPresenter
+import woowacourse.movie.util.IntentUtil.getSerializableMovieData
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -49,7 +48,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun setMovieView() {
-        getSerializableModel()?.let { movie ->
+        getSerializableMovieData(intent)?.let { movie ->
             val formattedScreeningDate =
                 movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
@@ -58,14 +57,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             runningDateView.text = movie.runningTime.toString()
             descriptionView.text = movie.description
             posterView.setImageResource(movie.posterResourceId)
-        }
-    }
-
-    private fun getSerializableModel(): Movie? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE, Movie::class.java)
-        } else {
-            intent.getSerializableExtra(Movie.KEY_NAME_MOVIE) as? Movie
         }
     }
 
