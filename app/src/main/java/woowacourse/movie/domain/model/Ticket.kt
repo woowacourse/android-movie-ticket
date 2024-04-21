@@ -8,6 +8,5 @@ data class Ticket(
 )  {
     companion object {
         const val DEFAULT_MOVIE_PRICE = 13_000
-        const val KEY_NAME_TICKET = "ticket"
     }
 }

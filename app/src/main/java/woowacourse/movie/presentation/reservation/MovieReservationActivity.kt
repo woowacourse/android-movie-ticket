@@ -14,6 +14,7 @@ import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.detail.MovieDetailActivity
 import woowacourse.movie.presentation.reservation.model.TicketModel
 import woowacourse.movie.presentation.reservation.model.toTicketModel
+import woowacourse.movie.presentation.screen.MovieScreenPresenter
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -43,7 +44,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     private fun loadMovieId(): Int {
-        return intent.getIntExtra(Movie.KEY_NAME_MOVIE, -1)
+        return intent.getIntExtra(MovieScreenPresenter.KEY_NAME_MOVIE, -1)
     }
 
     private fun initView() {
@@ -75,7 +76,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         val ticket = makeTicket()
 
         val intent = Intent(context, MovieDetailActivity::class.java)
-        intent.putExtra(Ticket.KEY_NAME_TICKET, ticket as Serializable)
+        intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticket as Serializable)
         context.startActivity(intent)
     }
 

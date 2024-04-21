@@ -25,4 +25,8 @@ class MovieReservationPresenter(
         model.plusTicketCount()
         view.showCurrentResultTicketCountView()
     }
+
+    companion object {
+        const val KEY_NAME_TICKET = "ticket"
+    }
 }

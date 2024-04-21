@@ -45,7 +45,7 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
 
     override fun moveToReservation(movieId: Int) {
         val intent = Intent(this, MovieReservationActivity::class.java)
-        intent.putExtra(Movie.KEY_NAME_MOVIE, movieId)
+        intent.putExtra(MovieScreenPresenter.KEY_NAME_MOVIE, movieId)
         context.startActivity(intent)
     }
 }

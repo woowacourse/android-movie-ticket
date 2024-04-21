@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.presentation.reservation.MovieReservationPresenter
+import woowacourse.movie.presentation.reservation.model.TicketModel
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var ticketTitle: TextView
@@ -36,11 +38,11 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeTicket(): Ticket? {
+    private fun makeTicket(): TicketModel? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(Ticket.KEY_NAME_TICKET, Ticket::class.java)
+            intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET, TicketModel::class.java)
         } else {
-            intent.getSerializableExtra(Ticket.KEY_NAME_TICKET) as? Ticket
+            intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel
         }
     }
 

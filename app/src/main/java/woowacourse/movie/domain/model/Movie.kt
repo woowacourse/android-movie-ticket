@@ -7,8 +7,5 @@ data class Movie(
     val screeningDate: String,
     val runningTime: Int,
     val description: String,
-) {
-    companion object {
-        const val KEY_NAME_MOVIE = "movie"
-    }
-}
+)
+

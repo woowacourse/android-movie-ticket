@@ -14,4 +14,8 @@ class MovieScreenPresenter(
     override fun clickReservationButton(movieId: Int) {
         view.moveToReservation(movieId)
     }
+
+    companion object {
+        const val KEY_NAME_MOVIE = "movie"
+    }
 }
