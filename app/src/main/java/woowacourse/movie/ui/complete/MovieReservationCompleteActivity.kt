@@ -6,12 +6,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.base.BaseActivity
+import woowacourse.movie.ui.complete.constants.CompleteMovieContentKey
+import woowacourse.movie.ui.complete.constants.CompleteMovieReservationKey
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
@@ -38,9 +38,9 @@ class MovieReservationCompleteActivity :
 
     override fun initializePresenter() = MovieReservationCompletePresenter(this)
 
-    private fun movieContentId() = intent.getLongExtra(MovieContentKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    private fun movieContentId() = intent.getLongExtra(CompleteMovieContentKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
 
-    private fun reservationCount() = intent.getIntExtra(MovieReservationKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
+    private fun reservationCount() = intent.getIntExtra(CompleteMovieReservationKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
 
     override fun handleError() {
         Log.e(TAG, "Invalid Key")

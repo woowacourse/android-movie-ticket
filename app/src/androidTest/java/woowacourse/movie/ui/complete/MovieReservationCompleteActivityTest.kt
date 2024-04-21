@@ -16,14 +16,14 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.Date
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
+import woowacourse.movie.ui.complete.constants.CompleteMovieContentKey
+import woowacourse.movie.ui.complete.constants.CompleteMovieReservationKey
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
@@ -35,8 +35,8 @@ class MovieReservationCompleteActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationCompleteActivity::class.java,
         ).run {
-            putExtra(MovieContentKey.ID, 0L)
-            putExtra(MovieReservationKey.COUNT, RESERVATION_COUNT)
+            putExtra(CompleteMovieContentKey.ID, 0L)
+            putExtra(CompleteMovieReservationKey.COUNT, RESERVATION_COUNT)
         }
 
     @get:Rule

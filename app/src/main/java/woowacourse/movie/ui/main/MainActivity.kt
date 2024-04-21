@@ -3,8 +3,8 @@ package woowacourse.movie.ui.main
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
-import woowacourse.movie.ui.adapter.MovieContentListAdapter
 import woowacourse.movie.ui.base.BaseActivity
+import woowacourse.movie.ui.main.adapter.MovieContentListAdapter
 
 class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
     private val presenter: MainContract.Presenter by lazy { initializePresenter() }

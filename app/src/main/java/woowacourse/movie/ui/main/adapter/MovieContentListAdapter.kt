@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.adapter
+package woowacourse.movie.ui.main.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -11,9 +11,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
+import woowacourse.movie.ui.main.constants.MainMovieContentKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
 
 class MovieContentListAdapter(
@@ -68,7 +68,7 @@ class MovieContentListAdapter(
 
     override fun moveMovieReservationView(movieContentId: Long) {
         Intent(context, MovieReservationActivity::class.java).run {
-            putExtra(MovieContentKey.ID, movieContentId)
+            putExtra(MainMovieContentKey.ID, movieContentId)
             startActivity(context, this, null)
         }
     }
