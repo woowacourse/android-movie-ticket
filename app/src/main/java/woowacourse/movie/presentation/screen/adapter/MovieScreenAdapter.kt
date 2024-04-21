@@ -12,7 +12,7 @@ import woowacourse.movie.domain.model.Movie
 class MovieScreenAdapter(
     private val context: Context,
     private val movies: List<Movie>,
-    private val onMovieSelected : (Int) -> Unit,
+    private val onMovieSelected: (Int) -> Unit,
 ) : BaseAdapter() {
     private lateinit var movieViewHolder: MovieViewHolder
 

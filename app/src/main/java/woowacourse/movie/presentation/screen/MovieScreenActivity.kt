@@ -15,10 +15,11 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     private lateinit var context: Context
     private lateinit var movieAdapter: MovieScreenAdapter
     private lateinit var movieListView: ListView
-    private val presenter = MovieScreenPresenter(
-        view = this@MovieScreenActivity,
-        movieRepository = MovieRepositoryImpl()
-    )
+    private val presenter =
+        MovieScreenPresenter(
+            view = this@MovieScreenActivity,
+            movieRepository = MovieRepositoryImpl(),
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +34,14 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     }
 
     override fun showScreenMovies(movies: List<Movie>) {
-        movieAdapter = MovieScreenAdapter(
-            context = context,
-            movies = movies,
-            onMovieSelected = { movieId ->
-                moveToReservation(movieId)
-            }
-        )
+        movieAdapter =
+            MovieScreenAdapter(
+                context = context,
+                movies = movies,
+                onMovieSelected = { movieId ->
+                    moveToReservation(movieId)
+                },
+            )
         movieListView.adapter = movieAdapter
     }
 

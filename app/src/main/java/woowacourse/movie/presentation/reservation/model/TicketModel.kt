@@ -8,7 +8,7 @@ class TicketModel(
     val screeningDate: String,
     val count: Int,
     val price: Int,
-): Serializable
+) : Serializable
 
 fun Ticket.toTicketModel(): TicketModel {
     return TicketModel(

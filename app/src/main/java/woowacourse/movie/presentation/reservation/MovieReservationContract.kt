@@ -5,6 +5,7 @@ import woowacourse.movie.domain.model.Movie
 interface MovieReservationContract {
     interface View {
         fun showMovie(movie: Movie)
+
         fun showCurrentResultTicketCountView()
     }
 
@@ -12,6 +13,7 @@ interface MovieReservationContract {
         fun loadMovie(movieId: Int)
 
         fun clickMinusNumberButton()
+
         fun clickPlusNumberButton()
     }
 }

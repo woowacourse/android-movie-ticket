@@ -8,4 +8,3 @@ data class Movie(
     val runningTime: Int,
     val description: String,
 )
-

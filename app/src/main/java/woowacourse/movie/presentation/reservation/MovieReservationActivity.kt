@@ -28,10 +28,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private lateinit var minusNumberButton: Button
     private lateinit var plusNumberButton: Button
     private lateinit var ticketingButton: Button
-    private val presenter = MovieReservationPresenter(
-        view = this@MovieReservationActivity,
-        movieRepository = MovieRepositoryImpl(),
-    )
+    private val presenter =
+        MovieReservationPresenter(
+            view = this@MovieReservationActivity,
+            movieRepository = MovieRepositoryImpl(),
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         plusNumberButton = findViewById(R.id.plus_button)
         ticketingButton = findViewById(R.id.ticketing_button)
     }
-
 
     private fun setClickListener() {
         minusNumberButton.setOnClickListener {
