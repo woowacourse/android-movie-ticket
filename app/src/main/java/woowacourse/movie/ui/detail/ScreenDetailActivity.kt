@@ -27,22 +27,13 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         )
     }
 
-    private val title: TextView by lazy { findViewById(R.id.tv_title) }
-    private val date: TextView by lazy { findViewById(R.id.tv_screen_date) }
-    private val runningTime: TextView by lazy { findViewById(R.id.tv_screen_running_time) }
-    private val description: TextView by lazy { findViewById(R.id.tv_description) }
-    private val poster: ImageView by lazy { findViewById(R.id.iv_poster) }
-    private val ticketCount: TextView by lazy { findViewById(R.id.tv_count) }
-    private val plusBtn: Button by lazy { findViewById(R.id.btn_plus) }
-    private val minusBtn: Button by lazy { findViewById(R.id.btn_minus) }
-    private val reserveDone: Button by lazy { findViewById(R.id.btn_reserve_done) }
+    private val movieViewHolder: ScreenDetailViewHolder by lazy { ScreenDetailViewHolderImpl() }
+    private val ticketViewHolder: TicketViewHolder by lazy { TicketViewHolderImpl().apply { initClickListener() } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screen_detail)
-
         initView()
-        initClickListener()
     }
 
     private fun initView() {
@@ -51,46 +42,25 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         presenter.loadScreen(id)
     }
 
-    private fun initClickListener() {
-        plusBtn.setOnClickListener {
-            presenter.plusTicket()
-        }
-
-        minusBtn.setOnClickListener {
-            presenter.minusTicket()
-        }
-
-        reserveDone.setOnClickListener {
-            presenter.reserve()
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(PUT_TICKET_STATE_KEY, ticketCount.text.toString().toInt())
+        outState.putInt(PUT_TICKET_STATE_KEY, ticketViewHolder.ticketCount())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         savedInstanceState.let {
-            val count = it.getInt(PUT_TICKET_STATE_KEY)
-            ticketCount.text = count.toString()
+            ticketViewHolder.restoreTicketCount(it.getInt(PUT_TICKET_STATE_KEY))
         }
     }
 
     override fun showScreen(screen: ScreenDetailUI) {
-        with(screen) {
-            title.text = movieDetailUI.title
-            this@ScreenDetailActivity.date.text = date
-            runningTime.text = movieDetailUI.runningTime.toString()
-            description.text = movieDetailUI.description
-            poster.setImageResource(movieDetailUI.image.imageSource as Int)
-        }
+        movieViewHolder.show(screen)
     }
 
     override fun showTicket(count: Int) {
-        ticketCount.text = count.toString()
+        ticketViewHolder.updateTicketCount(count)
     }
 
     override fun navigateToReservation(id: Int) {
@@ -119,6 +89,53 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()
         return true
+    }
+
+    inner class ScreenDetailViewHolderImpl : ScreenDetailViewHolder {
+        private val title: TextView = findViewById(R.id.tv_title)
+        private val date: TextView = findViewById(R.id.tv_screen_date)
+        private val runningTime: TextView = findViewById(R.id.tv_screen_running_time)
+        private val description: TextView = findViewById(R.id.tv_description)
+        private val poster: ImageView = findViewById(R.id.iv_poster)
+
+        override fun show(screen: ScreenDetailUI) {
+            with(screen) {
+                title.text = movieDetailUI.title
+                this@ScreenDetailViewHolderImpl.date.text = date
+                runningTime.text = movieDetailUI.runningTime.toString()
+                description.text = movieDetailUI.description
+                poster.setImageResource(movieDetailUI.image.imageSource as Int)
+            }
+        }
+    }
+
+    inner class TicketViewHolderImpl : TicketViewHolder {
+        private val ticketCount: TextView = findViewById(R.id.tv_count)
+        private val plusBtn: Button = findViewById(R.id.btn_plus)
+        private val minusBtn: Button = findViewById(R.id.btn_minus)
+        private val reserveDone: Button = findViewById(R.id.btn_reserve_done)
+
+        fun initClickListener() {
+            plusBtn.setOnClickListener {
+                presenter.plusTicket()
+            }
+            minusBtn.setOnClickListener {
+                presenter.minusTicket()
+            }
+            reserveDone.setOnClickListener {
+                presenter.reserve()
+            }
+        }
+
+        override fun updateTicketCount(count: Int) {
+            ticketCount.text = count.toString()
+        }
+
+        override fun ticketCount(): Int = ticketCount.text.toString().toInt()
+
+        override fun restoreTicketCount(count: Int) {
+            ticketCount.text = count.toString()
+        }
     }
 
     companion object {
