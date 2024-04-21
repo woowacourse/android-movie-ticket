@@ -14,12 +14,13 @@ import woowacourse.movie.R
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.feature.reservation.MovieReservationActivity
+import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.ui.DateUi
 
 class MovieContentListAdapter(private val context: Context) : BaseAdapter(),
     MovieContentListContract.View {
     private lateinit var viewHolder: MovieContentViewHolder
-    private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this)
+    private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this, MovieContentsImpl)
 
     private class MovieContentViewHolder(view: View) {
         val posterImage: ImageView by lazy { view.findViewById(R.id.poster_image) }

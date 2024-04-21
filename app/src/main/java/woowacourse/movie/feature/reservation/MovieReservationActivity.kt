@@ -14,6 +14,7 @@ import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
+import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.ui.DateUi
 
 class MovieReservationActivity :
@@ -43,7 +44,7 @@ class MovieReservationActivity :
         setOnClickButtonListener()
     }
 
-    override fun initializePresenter() = MovieReservationPresenter(this)
+    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
 
     private fun movieContentId() = intent.getLongExtra(MovieContentKey.ID, DEFAULT_VALUE)
 
