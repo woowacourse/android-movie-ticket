@@ -3,9 +3,9 @@ package woowacourse.movie.model.data
 import woowacourse.movie.R
 import woowacourse.movie.model.data.dto.Date
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.model.data.dto.nullMovieContent
 
 object MovieContentsImpl : MovieContents {
+    private const val EXCEPTION_INVALID_ID = "Movie not found with id: %d"
     private var id: Long = 0
     private val movieContents = mutableMapOf<Long, MovieContent>()
 
@@ -29,7 +29,7 @@ object MovieContentsImpl : MovieContents {
     }
 
     override fun find(id: Long): MovieContent {
-        return movieContents[id] ?: nullMovieContent
+        return movieContents[id] ?: throw NoSuchElementException(invalidIdMessage(id))
     }
 
     override fun findAll(): List<MovieContent> {
@@ -39,4 +39,6 @@ object MovieContentsImpl : MovieContents {
     override fun deleteAll() {
         movieContents.clear()
     }
+
+    private fun invalidIdMessage(id: Long) = EXCEPTION_INVALID_ID.format(id)
 }

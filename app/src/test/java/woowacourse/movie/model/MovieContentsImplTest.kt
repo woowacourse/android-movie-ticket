@@ -1,6 +1,7 @@
 package woowacourse.movie.model
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.data.MovieContentsImpl
@@ -43,18 +44,10 @@ class MovieContentsImplTest {
     }
 
     @Test
-    fun `유효하지 않은 id인 경우 빈 영화 정보를 가져온다`() {
-        // given
-
-        // when
-        val actual = MovieContentsImpl.find(-1)
-
-        // then
-        assertThat(actual.imageId).isEqualTo(0)
-        assertThat(actual.title).isEqualTo("오류가 발생했습니다.")
-        assertThat(actual.screeningDate).isEqualTo(Date(0, 0, 0))
-        assertThat(actual.runningTime).isEqualTo(0)
-        assertThat(actual.synopsis).isEmpty()
+    fun `유효하지 않은 id인 경우 예외가 발생한다`() {
+        assertThatThrownBy { MovieContentsImpl.find(-1) }
+            .isExactlyInstanceOf(NoSuchElementException::class.java)
+            .hasMessage("Movie not found with id: -1")
     }
 
     @Test
