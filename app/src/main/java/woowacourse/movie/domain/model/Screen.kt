@@ -6,3 +6,10 @@ data class Screen(
     val date: String,
     val price: Int,
 )
+
+data class Screen2(
+    val id: Int,
+    val movie: Movie2,
+    val date: String,
+    val price: Int,
+)
