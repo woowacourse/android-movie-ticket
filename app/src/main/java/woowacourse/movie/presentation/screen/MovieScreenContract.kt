@@ -1,16 +1,15 @@
 package woowacourse.movie.presentation.screen
 
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.screen.model.MovieModel
 
 interface MovieScreenContract {
     interface View {
         fun showScreenMovies(movies: List<Movie>)
-        fun moveToReservation(movieModel: MovieModel)
+        fun moveToReservation(movieId: Int)
     }
 
     interface Presenter {
         fun loadScreenMovies()
-        fun clickReservationButton(movieModel: MovieModel)
+        fun clickReservationButton(movieId: Int)
     }
 }

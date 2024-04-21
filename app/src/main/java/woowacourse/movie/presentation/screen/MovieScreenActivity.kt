@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.screen
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Adapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -11,8 +10,6 @@ import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.reservation.MovieReservationActivity
 import woowacourse.movie.presentation.screen.adapter.MovieScreenAdapter
-import woowacourse.movie.presentation.screen.model.MovieModel
-import java.io.Serializable
 
 class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     private lateinit var context: Context
@@ -39,16 +36,16 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
         movieAdapter = MovieScreenAdapter(
             context = context,
             movies = movies,
-            onSelectMovie = { movieModel ->
-                moveToReservation(movieModel)
+            onMovieSelected = { movieId ->
+                moveToReservation(movieId)
             }
         )
         movieListView.adapter = movieAdapter
     }
 
-    override fun moveToReservation(movieModel: MovieModel) {
+    override fun moveToReservation(movieId: Int) {
         val intent = Intent(this, MovieReservationActivity::class.java)
-        intent.putExtra(Movie.KEY_NAME_MOVIE, movieModel)
+        intent.putExtra(Movie.KEY_NAME_MOVIE, movieId)
         context.startActivity(intent)
     }
 }

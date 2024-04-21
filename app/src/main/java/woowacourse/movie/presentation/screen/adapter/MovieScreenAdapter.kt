@@ -8,13 +8,11 @@ import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieViewHolder
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.screen.model.MovieModel
-import woowacourse.movie.presentation.screen.model.toMovieModel
 
 class MovieScreenAdapter(
     private val context: Context,
     private val movies: List<Movie>,
-    private val onSelectMovie : (MovieModel) -> Unit,
+    private val onMovieSelected : (Int) -> Unit,
 ) : BaseAdapter() {
     private lateinit var movieViewHolder: MovieViewHolder
 
@@ -63,14 +61,14 @@ class MovieScreenAdapter(
 
     private fun setViewHolder(movie: Movie) {
         movieViewHolder.title.text = movie.title
-        movieViewHolder.poster.setImageResource(movie.posterResourceId)
+        movie.posterResourceId?.let { movieViewHolder.poster.setImageResource(it) }
         movieViewHolder.screeningDate.text = movie.screeningDate
         movieViewHolder.runningTime.text = movie.runningTime.toString()
     }
 
     private fun setClickListener(movie: Movie) {
         movieViewHolder.movieReservationButton.setOnClickListener {
-            onSelectMovie(movie.toMovieModel())
+            onMovieSelected(movie.movieId)
         }
     }
 }
