@@ -1,7 +1,11 @@
 package woowacourse.movie.contract
 
+import woowacourse.movie.presenter.MovieReservationPresenter
+
 interface MovieReservationContract {
     interface View {
+        val presenter: MovieReservationPresenter
+
         fun showCurrentResultTicketCountView(info: Int)
 
         fun setMovieView()
