@@ -13,7 +13,7 @@ import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.feature.dateMessage
 import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovieContent
-import woowacourse.movie.feature.firstMovieContentId
+import woowacourse.movie.feature.FIRST_MOVIE_CONTENT_ID
 import woowacourse.movie.feature.reservationAmountMessage
 import woowacourse.movie.feature.reservationCountMessage
 import woowacourse.movie.feature.view
@@ -26,7 +26,7 @@ class MovieReservationCompleteActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationCompleteActivity::class.java,
         ).run {
-            putExtra(MovieContentKey.ID, firstMovieContentId)
+            putExtra(MovieContentKey.ID, FIRST_MOVIE_CONTENT_ID)
             putExtra(MovieReservationKey.COUNT, reservationCount)
         }
 

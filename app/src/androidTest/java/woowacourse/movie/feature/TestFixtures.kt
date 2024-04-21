@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
 
-const val firstMovieContentId = 0L
+const val FIRST_MOVIE_CONTENT_ID = 0L
 val firstMovieContent = MovieContentsImpl.findAll().first()
 val firstMovieContentItem: DataInteraction = onData(anything()).inAdapterView(withId(R.id.movie_content_list)).atPosition(0)
 

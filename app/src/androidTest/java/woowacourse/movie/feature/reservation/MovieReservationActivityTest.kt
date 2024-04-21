@@ -12,7 +12,7 @@ import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.feature.click
 import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovieContent
-import woowacourse.movie.feature.firstMovieContentId
+import woowacourse.movie.feature.FIRST_MOVIE_CONTENT_ID
 import woowacourse.movie.feature.runningTimeMessage
 import woowacourse.movie.feature.screeningDateMessage
 import woowacourse.movie.feature.scroll
@@ -25,7 +25,7 @@ class MovieReservationActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationActivity::class.java,
         ).run {
-            putExtra(MovieContentKey.ID, firstMovieContentId)
+            putExtra(MovieContentKey.ID, FIRST_MOVIE_CONTENT_ID)
         }
 
     @get:Rule
