@@ -1,12 +1,12 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.contract.MovieReservationContract
-import woowacourse.movie.model.MovieReservationModel
+import woowacourse.movie.model.MovieReservationData
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
 ) : MovieReservationContract.Presenter {
-    private val model: MovieReservationModel = MovieReservationModel()
+    private val model: MovieReservationData = MovieReservationData()
 
     val ticketCount
         get() = model.ticketCount

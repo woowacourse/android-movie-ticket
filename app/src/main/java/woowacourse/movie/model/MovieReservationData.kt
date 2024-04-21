@@ -1,6 +1,6 @@
 package woowacourse.movie.model
 
-class MovieReservationModel {
+class MovieReservationData {
     var ticketCount = MIN_TICKET_COUNT
         private set
 
