@@ -3,7 +3,7 @@ package woowacourse.movie.model
 import woowacourse.movie.R
 import java.time.LocalDateTime
 
-object MovieData {
+object MovieDataSource {
     val movieList =
         arrayListOf(
             Movie(
