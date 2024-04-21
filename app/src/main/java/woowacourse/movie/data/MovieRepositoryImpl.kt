@@ -16,6 +16,8 @@ class MovieRepositoryImpl : MovieRepository {
     }
 
     companion object {
+        private const val DEFAULT_MOVIE_TITLE = "영화가 존재하지 않습니다."
+
         val sampleMovies =
             listOf(
                 Movie(
@@ -34,7 +36,7 @@ class MovieRepositoryImpl : MovieRepository {
         val defaultMovie =
             Movie(
                 movieId = -1,
-                title = "잘못 된 영화 정보",
+                title = DEFAULT_MOVIE_TITLE,
                 screeningDate = "",
                 runningTime = 0,
                 posterResourceId = null,
