@@ -26,10 +26,11 @@ class CountTest {
     }
 
     @Test
-    fun `티켓_수가_초기값인_경우_감소시키는_동작_수행_시_감소하지_않는다`() {
+    fun `티켓_수가_초기값인_경우_감소시키는_동작_수행_시_예외를_발생시킨다`() {
         val count = Count(1)
-        count.decrease()
-        assertThat(count.value).isEqualTo(1)
+        assertThrows<IllegalStateException> {
+            count.decrease()
+        }
     }
 
     @Test
