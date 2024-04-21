@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.domain.repository.DummyMovies
+import woowacourse.movie.domain.repository.DummyScreens2
+import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.detail.ScreenDetailActivity
-import woowacourse.movie.ui.screen.adapter.ScreenAdapter
+import woowacourse.movie.ui.screen.adapter.ScreenAdapter2
 
-class ScreenActivity : AppCompatActivity(), ScreenContract.View {
+class ScreenActivity : AppCompatActivity(), ScreenContract2.View {
     private val listView: ListView by lazy { findViewById(R.id.lv_screen) }
 
-    private lateinit var adapter: ScreenAdapter
-    private val screenPresenter: ScreenContract.Presenter by lazy { ScreenPresenter(this, DummyScreens()) }
+    private lateinit var adapter: ScreenAdapter2
+    private val screenPresenter: ScreenContract2.Presenter by lazy {
+        ScreenPresenter2(
+            this,
+            DummyMovies(),
+            DummyScreens2(),
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,13 +31,14 @@ class ScreenActivity : AppCompatActivity(), ScreenContract.View {
     }
 
     private fun initAdapter() {
-        adapter = ScreenAdapter(emptyList()) { screenId ->
-            ScreenDetailActivity.startActivity(this, screenId)
-        }
+        adapter =
+            ScreenAdapter2(emptyList()) { screenId ->
+                ScreenDetailActivity.startActivity(this, screenId)
+            }
         listView.adapter = adapter
     }
 
-    override fun showScreens(screens: List<Screen>) {
+    override fun showScreens(screens: List<ScreenPreviewUI>) {
         adapter.updateScreens(screens)
     }
 }

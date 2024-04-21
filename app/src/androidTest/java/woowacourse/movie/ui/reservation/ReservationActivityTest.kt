@@ -1,23 +1,23 @@
-package woowacourse.movie.ui.reservation
+ package woowacourse.movie.ui.reservation
 
-import android.content.Intent
-import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
-import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.repository.DummyReservation
+ import android.content.Intent
+ import androidx.test.core.app.ApplicationProvider
+ import androidx.test.espresso.Espresso.onView
+ import androidx.test.espresso.assertion.ViewAssertions.matches
+ import androidx.test.espresso.matcher.ViewMatchers.withId
+ import androidx.test.espresso.matcher.ViewMatchers.withText
+ import androidx.test.ext.junit.rules.ActivityScenarioRule
+ import androidx.test.ext.junit.runners.AndroidJUnit4
+ import org.junit.Rule
+ import org.junit.Test
+ import org.junit.runner.RunWith
+ import woowacourse.movie.R
+ import woowacourse.movie.domain.model.Movie2
+ import woowacourse.movie.domain.model.Screen2
+ import woowacourse.movie.domain.repository.DummyReservation2
 
-@RunWith(AndroidJUnit4::class)
-class ReservationActivityTest {
+ @RunWith(AndroidJUnit4::class)
+ class ReservationActivityTest {
     @get:Rule
     val activityRule: ActivityScenarioRule<ReservationActivity> =
         ActivityScenarioRule<ReservationActivity>(
@@ -47,19 +47,19 @@ class ReservationActivityTest {
     }
 
     private fun testFixtureReservationId() =
-        DummyReservation.save(
-            Screen(
+        DummyReservation2.save(
+            Screen2(
                 id = 1,
-                Movie(
-                    "해리 포터와 마법사의 돌",
-                    152,
-                    R.drawable.img_poster,
-                    "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
+                movie = Movie2(
+                    id = 1,
+                    title = "해리 포터와 마법사의 돌",
+                    runningTime = 151,
+                    description = "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                             "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
                 ),
-                "2024-03-01",
-                13_000,
+                date = "2024-03-01",
+                price = 13_000,
             ),
             1,
         ).getOrThrow()
-}
+ }

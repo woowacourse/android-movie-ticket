@@ -8,14 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.repository.DummyReservation
+import woowacourse.movie.domain.model.Reservation2
+import woowacourse.movie.domain.repository.DummyReservation2
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
-class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val presenter: ReservationContract.Presenter by lazy { ReservationPresenter(this, DummyReservation) }
+class ReservationActivity : AppCompatActivity(), ReservationContract2.View {
+    private val presenter: ReservationContract2.Presenter by lazy { ReservationPresenter2(this, DummyReservation2) }
 
     private val title: TextView by lazy { findViewById(R.id.tv_reservation_title) }
     private val date: TextView by lazy { findViewById(R.id.tv_reservation_date) }
@@ -34,7 +34,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         presenter.loadReservation(id)
     }
 
-    override fun showReservation(reservation: Reservation) {
+    override fun showReservation(reservation: Reservation2) {
         with(reservation) {
             title.text = screen.movie.title
             date.text = screen.date
@@ -43,7 +43,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
     }
 
-    private fun Reservation.currency(): String {
+    private fun Reservation2.currency(): String {
         return getString(R.string.reserve_amount).format(
             when (Locale.getDefault().country) {
                 Locale.KOREA.country -> DecimalFormat("#,###원").format(totalPrice)

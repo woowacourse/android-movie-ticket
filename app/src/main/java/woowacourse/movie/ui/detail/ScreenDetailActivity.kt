@@ -11,13 +11,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.repository.DummyReservation
-import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.domain.repository.DummyMovies
+import woowacourse.movie.domain.repository.DummyReservation2
+import woowacourse.movie.domain.repository.DummyScreens2
+import woowacourse.movie.ui.ScreenDetailUI
 import woowacourse.movie.ui.reservation.ReservationActivity
 
-class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
-    private val presenter: ScreenDetailContract.Presenter by lazy { ScreenDetailPresenter(this, DummyScreens(), DummyReservation) }
+class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract2.View {
+    private val presenter: ScreenDetailContract2.Presenter by lazy {
+        ScreenDetailPresenter2(
+            this,
+            DummyMovies(),
+            DummyScreens2(),
+            DummyReservation2,
+        )
+    }
 
     private val title: TextView by lazy { findViewById(R.id.tv_title) }
     private val date: TextView by lazy { findViewById(R.id.tv_screen_date) }
@@ -71,13 +79,13 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         }
     }
 
-    override fun showScreen(screen: Screen) {
+    override fun showScreen(screen: ScreenDetailUI) {
         with(screen) {
-            title.text = movie.title
+            title.text = movieDetailUI.title
             this@ScreenDetailActivity.date.text = date
-            runningTime.text = movie.runningTime.toString()
-            description.text = movie.description
-            poster.setImageResource(movie.imageSrc)
+            runningTime.text = movieDetailUI.runningTime.toString()
+            description.text = movieDetailUI.description
+            poster.setImageResource(movieDetailUI.image.imageSource as Int)
         }
     }
 
