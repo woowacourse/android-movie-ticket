@@ -60,7 +60,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun 다음_화면에서_뒤로가기버튼클릭_영화목록화면표시() {
+    fun 다음화면에서_뒤로가기버튼클릭_영화목록화면표시() {
         onData(anything())
             .inAdapterView(withId(R.id.movies_list_item))
             .atPosition(0)
