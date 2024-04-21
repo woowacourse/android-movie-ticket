@@ -1,6 +1,5 @@
 package woowacourse.movie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,9 +23,9 @@ class MovieAdapter(
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup?,
+        parent: ViewGroup,
     ): View {
-        val context = parent?.context ?: throw Exception() // TODO 예외 처리 방식 확정 필요
+        val context = parent.context
         val movieViewHolder: MovieViewHolder
         val view: View
         if (convertView == null) {
@@ -37,29 +36,24 @@ class MovieAdapter(
             view = convertView
             movieViewHolder = convertView.tag as MovieViewHolder
         }
-        assignInitialView(context, movies[position], movieViewHolder)
+
+        movieViewHolder.bind(movies[position])
         return view
     }
 
-    private fun assignInitialView(
-        context: Context,
-        movie: Movie,
-        viewHolder: MovieViewHolder,
-    ) {
-        viewHolder.apply {
+    inner class MovieViewHolder(private val itemView: View) {
+        private val title: TextView = itemView.findViewById(R.id.tv_title)
+        private val date: TextView = itemView.findViewById(R.id.tv_date)
+        private val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
+        private val runningTime: TextView = itemView.findViewById(R.id.tv_running_time)
+        private val ticketingButton: Button = itemView.findViewById(R.id.btn_ticketing)
+
+        fun bind(movie: Movie) {
             title.text = movie.title
-            date.text = context.getString(R.string.title_date, movie.date)
-            runningTime.text = context.getString(R.string.title_running_time, movie.runningTime)
+            date.text = itemView.context.getString(R.string.title_date, movie.date)
+            runningTime.text = itemView.context.getString(R.string.title_running_time, movie.runningTime)
             ticketingButton.setOnClickListener { onTicketingButtonClick(movie.id) }
             thumbnail.setImageResource(movie.thumbnail)
         }
-    }
-
-    inner class MovieViewHolder(itemView: View) {
-        val title: TextView = itemView.findViewById(R.id.tv_title)
-        val date: TextView = itemView.findViewById(R.id.tv_date)
-        val thumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
-        val runningTime: TextView = itemView.findViewById(R.id.tv_running_time)
-        val ticketingButton: Button = itemView.findViewById(R.id.btn_ticketing)
     }
 }
