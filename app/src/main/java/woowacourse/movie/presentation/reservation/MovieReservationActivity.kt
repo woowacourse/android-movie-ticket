@@ -85,6 +85,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             title = titleView.text.toString(),
             screeningDate = screeningDateView.text.toString(),
             count = presenter.ticketCount,
+            price = presenter.ticketCount * Movie.DEFAULT_MOVIE_PRICE,
         ).toTicketModel()
     }
 
