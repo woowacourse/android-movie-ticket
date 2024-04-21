@@ -19,21 +19,3 @@ interface ReservationContract {
         fun loadReservation(id: Int)
     }
 }
-
-interface ReservationContract2 {
-    interface View {
-        fun showReservation(reservation: Reservation)
-
-        fun showToastMessage(message: String)
-
-        fun showSnackBar(message: String)
-
-        fun goToBack(message: String)
-
-        fun unexpectedFinish(message: String)
-    }
-
-    interface Presenter {
-        fun loadReservation(id: Int)
-    }
-}

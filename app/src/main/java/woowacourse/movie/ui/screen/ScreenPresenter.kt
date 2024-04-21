@@ -9,19 +9,9 @@ import woowacourse.movie.ui.ScreenPreviewUI
 
 class ScreenPresenter(
     private val view: ScreenContract.View,
-    private val repository: ScreenRepository,
-) : ScreenContract.Presenter {
-    override fun loadScreens() {
-        val screens = repository.load()
-        view.showScreens(screens)
-    }
-}
-
-class ScreenPresenter2(
-    private val view: ScreenContract2.View,
     private val movieRepository: MovieRepository,
     private val screenRepository: ScreenRepository,
-) : ScreenContract2.Presenter {
+) : ScreenContract.Presenter {
     override fun loadScreens() {
         val screens = screenRepository.load()
 

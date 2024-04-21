@@ -8,11 +8,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.screen.OnScreenClickListener
 
-class ScreenAdapter2(
+class ScreenAdapter(
     private var item: List<ScreenPreviewUI>,
     private val onScreenClickListener: OnScreenClickListener,
 ) : BaseAdapter() {

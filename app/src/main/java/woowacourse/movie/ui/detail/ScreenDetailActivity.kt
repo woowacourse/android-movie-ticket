@@ -17,9 +17,9 @@ import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.ScreenDetailUI
 import woowacourse.movie.ui.reservation.ReservationActivity
 
-class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract2.View {
-    private val presenter: ScreenDetailContract2.Presenter by lazy {
-        ScreenDetailPresenter2(
+class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
+    private val presenter: ScreenDetailContract.Presenter by lazy {
+        ScreenDetailPresenter(
             this,
             DummyMovies(),
             DummyScreens(),

@@ -14,8 +14,8 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
-class ReservationActivity : AppCompatActivity(), ReservationContract2.View {
-    private val presenter: ReservationContract2.Presenter by lazy { ReservationPresenter2(this, DummyReservation) }
+class ReservationActivity : AppCompatActivity(), ReservationContract.View {
+    private val presenter: ReservationContract.Presenter by lazy { ReservationPresenter(this, DummyReservation) }
 
     private val title: TextView by lazy { findViewById(R.id.tv_reservation_title) }
     private val date: TextView by lazy { findViewById(R.id.tv_reservation_date) }

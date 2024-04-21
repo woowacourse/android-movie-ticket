@@ -8,14 +8,14 @@ import woowacourse.movie.domain.repository.DummyMovies
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.detail.ScreenDetailActivity
-import woowacourse.movie.ui.screen.adapter.ScreenAdapter2
+import woowacourse.movie.ui.screen.adapter.ScreenAdapter
 
-class ScreenActivity : AppCompatActivity(), ScreenContract2.View {
+class ScreenActivity : AppCompatActivity(), ScreenContract.View {
     private val listView: ListView by lazy { findViewById(R.id.lv_screen) }
 
-    private lateinit var adapter: ScreenAdapter2
-    private val screenPresenter: ScreenContract2.Presenter by lazy {
-        ScreenPresenter2(
+    private lateinit var adapter: ScreenAdapter
+    private val screenPresenter: ScreenContract.Presenter by lazy {
+        ScreenPresenter(
             this,
             DummyMovies(),
             DummyScreens(),
@@ -32,7 +32,7 @@ class ScreenActivity : AppCompatActivity(), ScreenContract2.View {
 
     private fun initAdapter() {
         adapter =
-            ScreenAdapter2(emptyList()) { screenId ->
+            ScreenAdapter(emptyList()) { screenId ->
                 ScreenDetailActivity.startActivity(this, screenId)
             }
         listView.adapter = adapter
