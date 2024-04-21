@@ -16,11 +16,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.model.Date
+import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.dto.Date
-import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.complete.constants.CompleteMovieContentKey
 import woowacourse.movie.ui.complete.constants.CompleteMovieReservationKey

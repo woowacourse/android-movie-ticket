@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
+import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity

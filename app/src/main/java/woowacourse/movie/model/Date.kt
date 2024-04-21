@@ -1,4 +1,4 @@
-package woowacourse.movie.model.data.dto
+package woowacourse.movie.model
 
 data class Date(
     val year: Int,

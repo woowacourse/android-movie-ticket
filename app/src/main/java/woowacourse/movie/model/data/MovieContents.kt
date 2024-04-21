@@ -1,6 +1,6 @@
 package woowacourse.movie.model.data
 
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.MovieContent
 
 interface MovieContents {
     fun save(movieContent: MovieContent): Long

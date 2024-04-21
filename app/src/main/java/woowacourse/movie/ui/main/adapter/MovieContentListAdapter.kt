@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
+import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.main.constants.MainMovieContentKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity

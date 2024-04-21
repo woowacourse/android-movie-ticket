@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.main.adapter
 
+import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.data.MovieContents
-import woowacourse.movie.model.data.dto.MovieContent
 
 class MovieContentListPresenter(
     private val view: MovieContentListContract.View,

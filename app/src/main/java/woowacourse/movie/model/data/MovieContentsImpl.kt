@@ -1,8 +1,8 @@
 package woowacourse.movie.model.data
 
 import woowacourse.movie.R
-import woowacourse.movie.model.data.dto.Date
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.Date
+import woowacourse.movie.model.MovieContent
 
 object MovieContentsImpl : MovieContents {
     private const val EXCEPTION_INVALID_ID = "Movie not found with id: %d"

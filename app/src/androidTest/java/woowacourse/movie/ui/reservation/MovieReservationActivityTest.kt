@@ -18,9 +18,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.model.Date
+import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.dto.Date
-import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.reservation.constants.ReservationMovieContentKey
 
