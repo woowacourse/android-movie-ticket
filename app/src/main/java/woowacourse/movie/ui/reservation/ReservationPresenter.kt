@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.reservation
 
 import woowacourse.movie.domain.repository.ReservationRepository
-import woowacourse.movie.domain.repository.ReservationRepository2
 
 class ReservationPresenter(
     private val view: ReservationContract.View,
@@ -21,7 +20,7 @@ class ReservationPresenter(
 
 class ReservationPresenter2(
     private val view: ReservationContract2.View,
-    private val repository: ReservationRepository2,
+    private val repository: ReservationRepository,
 ) : ReservationContract2.Presenter {
     override fun loadReservation(id: Int) {
         repository.findById(id).onSuccess { reservation ->

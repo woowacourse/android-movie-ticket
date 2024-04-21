@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
 import woowacourse.movie.domain.repository.DummyMovies
-import woowacourse.movie.domain.repository.DummyReservation2
+import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens2
 import woowacourse.movie.ui.ScreenDetailUI
 import woowacourse.movie.ui.reservation.ReservationActivity
@@ -23,7 +23,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract2.View {
             this,
             DummyMovies(),
             DummyScreens2(),
-            DummyReservation2,
+            DummyReservation,
         )
     }
 

@@ -14,7 +14,7 @@
  import woowacourse.movie.R
  import woowacourse.movie.domain.model.Movie
  import woowacourse.movie.domain.model.Screen
- import woowacourse.movie.domain.repository.DummyReservation2
+ import woowacourse.movie.domain.repository.DummyReservation
 
  @RunWith(AndroidJUnit4::class)
  class ReservationActivityTest {
@@ -47,7 +47,7 @@
     }
 
     private fun testFixtureReservationId() =
-        DummyReservation2.save(
+        DummyReservation.save(
             Screen(
                 id = 1,
                 movie = Movie(

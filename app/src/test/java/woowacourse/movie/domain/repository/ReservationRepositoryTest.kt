@@ -9,11 +9,11 @@ import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
 
 class ReservationRepositoryTest {
-    private lateinit var repository: ReservationRepository2
+    private lateinit var repository: ReservationRepository
 
     @BeforeEach
     fun setUp() {
-        repository = DummyReservation2
+        repository = DummyReservation
     }
 
     @Test

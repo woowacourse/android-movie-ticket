@@ -11,12 +11,3 @@ interface ReservationRepository {
 
     fun findById(id: Int): Result<Reservation>
 }
-
-interface ReservationRepository2 {
-    fun save(
-        screen: Screen,
-        count: Int,
-    ): Result<Int>
-
-    fun findById(id: Int): Result<Reservation>
-}
