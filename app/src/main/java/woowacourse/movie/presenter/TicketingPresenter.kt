@@ -29,8 +29,14 @@ class TicketingPresenter(
     }
 
     override fun decreaseCount() {
-        count.decrease()
-        ticketingContractView.updateCount(count.value)
+        runCatching {
+            count.decrease()
+            ticketingContractView.updateCount(count.value)
+        }.onFailure {
+            it.message?.let { message ->
+                ticketingContractView.showToastMessage(message)
+            }
+        }
     }
 
     override fun increaseCount() {

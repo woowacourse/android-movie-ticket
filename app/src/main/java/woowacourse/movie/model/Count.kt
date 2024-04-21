@@ -1,5 +1,7 @@
 package woowacourse.movie.model
 
+import java.lang.IllegalStateException
+
 class Count(value: Int = INITIAL_COUNT) {
     var value: Int = value
         private set
@@ -11,7 +13,8 @@ class Count(value: Int = INITIAL_COUNT) {
     fun increase() = value++
 
     fun decrease() {
-        if (value > 1) value--
+        if (value <= 1) throw IllegalStateException(ERROR_NON_POSITIVE_NUMBER)
+        value--
     }
 
     companion object {
