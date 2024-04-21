@@ -1,7 +1,6 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.ui.main
 
 import woowacourse.movie.R
-import woowacourse.movie.conrtract.MainContract
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.Date
 import woowacourse.movie.model.data.dto.MovieContent

@@ -1,4 +1,4 @@
-package woowacourse.movie.view.activity
+package woowacourse.movie.ui.main
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches

@@ -1,4 +1,4 @@
-package woowacourse.movie.view.activity
+package woowacourse.movie.ui.complete
 
 import android.os.Bundle
 import android.util.Log
@@ -6,13 +6,12 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.conrtract.MovieReservationCompleteContract
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.presenter.MovieReservationCompletePresenter
-import woowacourse.movie.view.ui.DateUi
+import woowacourse.movie.ui.DateUi
+import woowacourse.movie.ui.base.BaseActivity
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),

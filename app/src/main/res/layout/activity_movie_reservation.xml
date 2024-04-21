@@ -5,7 +5,7 @@
     android:id="@+id/movie_reservation_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.MovieReservationActivity">
+    tools:context=".ui.reservation.MovieReservationActivity">
 
     <ScrollView
         android:id="@+id/info_layout"

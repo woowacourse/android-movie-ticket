@@ -1,4 +1,4 @@
-package woowacourse.movie.conrtract
+package woowacourse.movie.ui.main
 
 interface MainContract {
     interface View {

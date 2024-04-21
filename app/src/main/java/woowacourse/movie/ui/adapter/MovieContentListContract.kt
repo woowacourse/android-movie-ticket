@@ -1,4 +1,4 @@
-package woowacourse.movie.conrtract
+package woowacourse.movie.ui.adapter
 
 import woowacourse.movie.model.data.dto.MovieContent
 

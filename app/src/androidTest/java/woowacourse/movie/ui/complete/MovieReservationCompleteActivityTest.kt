@@ -1,4 +1,4 @@
-package woowacourse.movie.view.activity
+package woowacourse.movie.ui.complete
 
 import android.content.Context
 import android.content.Intent
@@ -23,7 +23,7 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.Date
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.view.ui.DateUi
+import woowacourse.movie.ui.DateUi
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {

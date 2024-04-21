@@ -1,4 +1,4 @@
-package woowacourse.movie.view.activity
+package woowacourse.movie.ui.reservation
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,12 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.conrtract.MovieReservationContract
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.presenter.MovieReservationPresenter
-import woowacourse.movie.view.ui.DateUi
+import woowacourse.movie.ui.DateUi
+import woowacourse.movie.ui.base.BaseActivity
+import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
