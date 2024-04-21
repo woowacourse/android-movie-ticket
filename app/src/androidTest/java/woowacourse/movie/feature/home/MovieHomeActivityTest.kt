@@ -14,9 +14,9 @@ import woowacourse.movie.feature.runningTimeMessage
 import woowacourse.movie.feature.screeningDateMessage
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class MovieHomeActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieHomeActivity::class.java)
 
     @Test
     fun `영화_목록_첫_번째_항목의_영화_제목이_보여진다`() {

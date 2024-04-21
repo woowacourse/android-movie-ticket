@@ -2,10 +2,12 @@ package woowacourse.movie.feature.home
 
 import woowacourse.movie.base.BasePresenter
 
-interface MainContract {
+interface MovieHomeContract {
     interface View {
         fun setUpMovieContentListAdapter()
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter {
+        fun setUpMovieContents()
+    }
 }

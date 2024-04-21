@@ -6,8 +6,7 @@ import woowacourse.movie.model.data.MovieContents
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
     private val movieContents: MovieContents,
-) :
-    MovieReservationContract.Presenter {
+) : MovieReservationContract.Presenter {
     private lateinit var reservationCount: ReservationCount
 
     override fun setUpReservationCount() {
