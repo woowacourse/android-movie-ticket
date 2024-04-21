@@ -1,4 +1,4 @@
-package woowacourse.movie.mainpage
+package woowacourse.movie.movieList
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.theater.Theater
 import java.time.LocalDate
 
-class MainActivityPresenter(private val context: Context) {
+class MovieListPresenter(private val context: Context) {
 
     private val movieInfo = MovieInfo(
         Title("차람과 하디의 진지한 여행기"),

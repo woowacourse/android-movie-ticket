@@ -1,11 +1,11 @@
-package woowacourse.movie.mainpage
+package woowacourse.movie.movieList
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 
-class MainActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity() {
     private lateinit var moviesListView: ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        val presenter = MainActivityPresenter(this)
+        val presenter = MovieListPresenter(this)
         moviesListView = findViewById(R.id.movies_list_item)
         moviesListView.adapter = presenter.movieAdapter
     }

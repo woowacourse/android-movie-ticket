@@ -1,4 +1,4 @@
-package woowacourse.movie.mainpage
+package woowacourse.movie.movieList
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import woowacourse.movie.model.theater.Theater
 class MovieAdapter(
     context: Context,
     theaters: List<Theater>,
-    private val mainActivityPresenter: MainActivityPresenter
+    private val mainActivityPresenter: MovieListPresenter
 ) : ArrayAdapter<Theater>(context, 0, theaters) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var listItemView = convertView ?: LayoutInflater.from(context)
