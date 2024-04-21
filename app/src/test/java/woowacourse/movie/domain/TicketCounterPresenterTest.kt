@@ -35,13 +35,13 @@ class TicketCounterPresenterTest {
     }
 
     @Test
-    fun `마이너스 버튼을 클릭하면 showCurrentResultTicketCountView()를 호출해야 한다`() {
+    fun `clickMinusNumberButton과 상호작용으로 showCurrentResultTicketCountView()를 호출해야 한다`() {
         presenter.clickMinusNumberButton()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }
 
     @Test
-    fun `플러스 버튼을 클릭하면 showCurrentResultTicketCountView()를 호출해야 한다`() {
+    fun `clickPlusNumberButton과 상호작용으로 showCurrentResultTicketCountView()를 호출해야 한다`() {
         presenter.clickPlusNumberButton()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }

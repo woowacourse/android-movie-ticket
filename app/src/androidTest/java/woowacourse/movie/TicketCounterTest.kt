@@ -1,4 +1,4 @@
-package woowacourse.movie.java
+package woowacourse.movie
 
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
@@ -9,7 +9,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.R
 import woowacourse.movie.presentation.reservation.MovieReservationActivity
 
 @RunWith(AndroidJUnit4::class)

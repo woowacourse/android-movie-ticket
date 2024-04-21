@@ -2,9 +2,9 @@ package woowacourse.movie.presentation.detail
 
 import woowacourse.movie.presentation.reservation.model.TicketModel
 
-class MovieDetailPresenter(
-    private val view: MovieDetailContract.View,
-) : MovieDetailContract.Presenter {
+class TicketDetailPresenter(
+    private val view: TicketDetailContract.View,
+) : TicketDetailContract.Presenter {
     override fun loadTicket(ticketModel: TicketModel?) {
         view.showTicket(ticketModel)
     }

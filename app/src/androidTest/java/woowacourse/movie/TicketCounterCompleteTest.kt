@@ -1,4 +1,4 @@
-package woowacourse.movie.java
+package woowacourse.movie
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -10,9 +10,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.R
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.presentation.detail.MovieDetailActivity
+import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.toTicketModel
 
 @RunWith(AndroidJUnit4::class)
@@ -26,11 +25,11 @@ class TicketCounterCompleteTest {
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
-            MovieDetailActivity::class.java,
+            TicketDetailActivity::class.java,
         ).also { it.putExtra("ticket", ticket) }
 
     @get:Rule
-    var activityScenarioRule = ActivityScenarioRule<MovieDetailActivity>(intent)
+    var activityScenarioRule = ActivityScenarioRule<TicketDetailActivity>(intent)
 
     @Test
     fun `티켓의_총_금액이_표시되어야_한다`() {

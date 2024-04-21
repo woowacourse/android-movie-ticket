@@ -11,7 +11,7 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.presentation.detail.MovieDetailActivity
+import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.TicketModel
 import woowacourse.movie.presentation.reservation.model.toTicketModel
 import woowacourse.movie.presentation.screen.MovieScreenPresenter
@@ -75,7 +75,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private fun ticketing() {
         val ticket = makeTicket()
 
-        val intent = Intent(context, MovieDetailActivity::class.java)
+        val intent = Intent(context, TicketDetailActivity::class.java)
         intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticket as Serializable)
         context.startActivity(intent)
     }

@@ -8,12 +8,12 @@ import woowacourse.movie.R
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.reservation.model.TicketModel
 
-class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
+class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private lateinit var ticketTitle: TextView
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView
     private lateinit var ticketCount: TextView
-    val presenter = MovieDetailPresenter(this@MovieDetailActivity)
+    val presenter = TicketDetailPresenter(this@TicketDetailActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,7 +2,7 @@ package woowacourse.movie.presentation.detail
 
 import woowacourse.movie.presentation.reservation.model.TicketModel
 
-interface MovieDetailContract {
+interface TicketDetailContract {
     interface View {
         fun showTicket(ticketModel: TicketModel?)
     }
