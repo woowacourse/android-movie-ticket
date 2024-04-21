@@ -12,6 +12,7 @@ import woowacourse.movie.model.Movie
 class MovieDaoTest {
     private val dao = MovieDao()
     private val movies = MovieDatabase.movies
+
     @Test
     fun `영화_데이터베이스의_첫번째_영화_데이터를_가져온다`() {
         val actual: Movie = dao.find(FIRST_ITEM_POSITION)
