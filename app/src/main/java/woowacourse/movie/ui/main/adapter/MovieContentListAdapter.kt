@@ -9,16 +9,16 @@ import android.widget.BaseAdapter
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.main.constants.MainMovieContentKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
 
 class MovieContentListAdapter(
     private val context: Context,
+    movieContents: List<MovieContent>,
 ) : BaseAdapter(), MovieContentListContract.View {
     private val presenter: MovieContentListContract.Presenter =
-        MovieContentListPresenter(this, MovieContentsImpl)
+        MovieContentListPresenter(this, movieContents)
 
     override fun getCount(): Int = presenter.count()
 
@@ -37,13 +37,13 @@ class MovieContentListAdapter(
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_movie_content, parent, false)
             movieViewHolder = MovieViewHolder(view)
-            view.tag = movieViewHolder // 뭐지
+            view.tag = movieViewHolder
         } else {
             view = convertView
             movieViewHolder = convertView.tag as MovieViewHolder
         }
 
-        presenter.setUpMovieContent(position, MovieViewHolder(view))
+        presenter.setUpMovieContent(position, movieViewHolder)
 
         movieViewHolder.reservationButton.setOnClickListener {
             presenter.moveMovieReservation(position)
@@ -56,12 +56,15 @@ class MovieContentListAdapter(
         movieContent: MovieContent,
         movieViewHolder: MovieViewHolder,
     ) {
-        movieViewHolder.posterImage.setImageResource(movieContent.imageId)
-        movieViewHolder.titleText.text = movieContent.title
-        movieViewHolder.screeningDateText.text =
-            DateUi.screeningDateMessage(movieContent.screeningDate, context)
-        movieViewHolder.runningTimeText.text =
-            context.resources.getString(R.string.running_time).format(movieContent.runningTime)
+        with(movieViewHolder) {
+            posterImage.setImageResource(movieContent.imageId)
+            titleText.text = movieContent.title
+            screeningDateText.text =
+                DateUi.screeningDateMessage(movieContent.screeningDate, context)
+            runningTimeText.text =
+                context.resources.getString(R.string.running_time)
+                    .format(movieContent.runningTime)
+        }
     }
 
     override fun moveMovieReservationView(movieContentId: Long) {

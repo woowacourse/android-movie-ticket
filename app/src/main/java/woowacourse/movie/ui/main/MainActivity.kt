@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.ui.main.adapter.MovieContentListAdapter
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -17,6 +18,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun setUpMovieContentListAdapter() {
-        movieContentList.adapter = MovieContentListAdapter(this)
+        movieContentList.adapter = MovieContentListAdapter(this, MovieContentsImpl.findAll())
     }
 }

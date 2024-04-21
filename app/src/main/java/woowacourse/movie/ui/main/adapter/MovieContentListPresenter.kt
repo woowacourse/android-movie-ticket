@@ -1,15 +1,12 @@
 package woowacourse.movie.ui.main.adapter
 
 import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.data.MovieContents
 
 class MovieContentListPresenter(
     private val view: MovieContentListContract.View,
-    movieContents: MovieContents,
+    private val movieContents: List<MovieContent>,
 ) :
     MovieContentListContract.Presenter {
-    private val movieContents: List<MovieContent> by lazy { movieContents.findAll() }
-
     override fun count(): Int = movieContents.size
 
     override fun item(position: Int): MovieContent = movieContents[position]
