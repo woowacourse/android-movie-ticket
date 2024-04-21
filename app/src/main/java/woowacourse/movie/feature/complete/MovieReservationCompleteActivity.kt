@@ -1,5 +1,7 @@
 package woowacourse.movie.feature.complete
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -7,8 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.base.BaseActivity
-import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
@@ -38,9 +38,13 @@ class MovieReservationCompleteActivity :
 
     override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieContentsImpl)
 
-    private fun movieContentId() = intent.getLongExtra(MovieContentKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    private fun movieContentId(): Long {
+        return intent.getLongExtra(MOVIE_CONTENT_ID_KEY, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    }
 
-    private fun reservationCount() = intent.getIntExtra(MovieReservationKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
+    private fun reservationCount(): Int {
+        return intent.getIntExtra(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+    }
 
     override fun handleError() {
         Log.e(TAG, "Invalid Key")
@@ -83,7 +87,21 @@ class MovieReservationCompleteActivity :
 
     companion object {
         private val TAG = MovieReservationCompleteActivity::class.simpleName
+        private const val MOVIE_CONTENT_ID_KEY = "movie_content_id"
         private const val MOVIE_CONTENT_ID_DEFAULT_VALUE = -1L
+        private const val MOVIE_RESERVATION_COUNT_KEY = "reservation_count_key"
         private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
+
+        fun startActivity(
+            context: Context,
+            movieContentId: Long,
+            reservationCount: Int,
+        ) {
+            Intent(context, MovieReservationCompleteActivity::class.java).run {
+                putExtra(MOVIE_CONTENT_ID_KEY, movieContentId)
+                putExtra(MOVIE_RESERVATION_COUNT_KEY, reservationCount)
+                context.startActivity(this)
+            }
+        }
     }
 }

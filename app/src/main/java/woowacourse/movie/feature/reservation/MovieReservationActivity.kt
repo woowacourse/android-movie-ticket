@@ -1,5 +1,6 @@
 package woowacourse.movie.feature.reservation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.base.BaseActivity
-import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
@@ -46,7 +45,7 @@ class MovieReservationActivity :
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
 
-    private fun movieContentId() = intent.getLongExtra(MovieContentKey.ID, DEFAULT_VALUE)
+    private fun movieContentId() = intent.getLongExtra(MOVIE_CONTENT_ID, DEFAULT_VALUE)
 
     override fun handleError() {
         Log.e(TAG, "Invalid MovieContentKey")
@@ -97,15 +96,22 @@ class MovieReservationActivity :
     }
 
     override fun moveMovieReservationCompleteView(reservationCount: Int) {
-        Intent(this, MovieReservationCompleteActivity::class.java).run {
-            putExtra(MovieContentKey.ID, movieContentId())
-            putExtra(MovieReservationKey.COUNT, reservationCount)
-            startActivity(this)
-        }
+        MovieReservationCompleteActivity.startActivity(this, movieContentId(), reservationCount)
     }
 
     companion object {
         private val TAG = MovieReservationActivity::class.simpleName
         private const val DEFAULT_VALUE = -1L
+        private const val MOVIE_CONTENT_ID = "movie_content_id"
+
+        fun startActivity(
+            context: Context,
+            movieContentId: Long,
+        ) {
+            Intent(context, MovieReservationActivity::class.java).run {
+                putExtra(MOVIE_CONTENT_ID, movieContentId)
+                context.startActivity(this)
+            }
+        }
     }
 }

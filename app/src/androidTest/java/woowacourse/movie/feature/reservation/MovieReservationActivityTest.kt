@@ -8,7 +8,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.feature.click
 import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovieContent
@@ -25,7 +24,7 @@ class MovieReservationActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationActivity::class.java,
         ).run {
-            putExtra(MovieContentKey.ID, FIRST_MOVIE_CONTENT_ID)
+            putExtra("movie_content_id", FIRST_MOVIE_CONTENT_ID)
         }
 
     @get:Rule

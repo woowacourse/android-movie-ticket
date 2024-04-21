@@ -9,9 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.feature.reservation.MovieReservationActivity
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
@@ -21,7 +19,8 @@ class MovieContentListAdapter(private val context: Context) :
     BaseAdapter(),
     MovieContentListContract.View {
     private lateinit var viewHolder: MovieContentViewHolder
-    private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this, MovieContentsImpl)
+    private val presenter: MovieContentListContract.Presenter =
+        MovieContentListPresenter(this, MovieContentsImpl)
 
     private class MovieContentViewHolder(view: View) {
         val posterImage: ImageView by lazy { view.findViewById(R.id.poster_image) }
@@ -71,9 +70,6 @@ class MovieContentListAdapter(private val context: Context) :
     }
 
     override fun moveMovieReservationView(movieContentId: Long) {
-        Intent(context, MovieReservationActivity::class.java).run {
-            putExtra(MovieContentKey.ID, movieContentId)
-            startActivity(context, this, null)
-        }
+        MovieReservationActivity.startActivity(context, movieContentId)
     }
 }
