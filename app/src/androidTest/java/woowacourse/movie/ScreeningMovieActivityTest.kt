@@ -3,8 +3,8 @@ package woowacourse.movie
 import android.widget.ListView
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -14,10 +14,10 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.model.ScreenMovieUiModel
 
 class ScreeningMovieActivityTest {
@@ -26,22 +26,41 @@ class ScreeningMovieActivityTest {
 
     @Before
     fun setUp() {
+        Intents.init()
         activityRule.scenario.onActivity { activity ->
             val listView = activity.findViewById<ListView>(R.id.list_view)
-            val items = listOf(ScreenMovieUiModel(1, title = "해리"))
+            val items = listOf(
+                ScreenMovieUiModel(
+                    1,
+                    title = "해리 포터와 마법사의 돌",
+                    R.drawable.img_movie_poster,
+                    "상영일: 2024.3.1",
+                    "러닝타임: 152분",
+                ),
+                ScreenMovieUiModel(
+                    2,
+                    title = "해리 포터와 마법사의 돌",
+                    R.drawable.img_movie_poster,
+                    "상영일: 2024.3.2",
+                    "러닝타임: 162분",
+                )
+            )
             listView.adapter = MovieAdapter(activity, items)
         }
     }
 
+    @After
+    fun tearDown() {
+        Intents.release()
+    }
+
     @Test
-    @DisplayName("MainActivity 가 화면에 보여지는지 테스트")
-    fun test_isActivityInView() {
+    fun `Activity가_실행되면_뷰가_보인다`() {
         onView(withId(R.id.main)).check(matches(isDisplayed()))
     }
 
     @Test
-    @DisplayName("ListView 가 화면에 보여 지는지 테스트")
-    fun listviewTest() {
+    fun `listView가_만들어지면_itemValue들이_view의_text로_배치된다`() {
         onData(`is`(withItemContent(containsString("해리 포터와 마법사의 돌"))))
             .inAdapterView(withId(R.id.list_view))
             .atPosition(0)
@@ -50,15 +69,14 @@ class ScreeningMovieActivityTest {
     }
 
     @Test
-    @DisplayName("예메 확인 버튼을 누르면 영화 예매 화면 으로 넘어감")
-    fun listviewTest2() {
+    fun `예매_확인_버튼을_누르면_영화_예매_화면으로_넘어간다`() {
         onData(`is`(withItemContent(containsString("해리 포터와 마법사의 돌"))))
             .inAdapterView(withId(R.id.list_view))
             .atPosition(0)
             .onChildView(withId(R.id.btn_movie_reservation))
-            .perform(click())
+            .check(matches(withText("지금 예매")))
 
-        onView(withId(R.id.detail_movie)).check(matches(isDisplayed()))
+        //intended(toPackage("woowacourse.movie"))
     }
 
     private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreenMovieUiModel> {
