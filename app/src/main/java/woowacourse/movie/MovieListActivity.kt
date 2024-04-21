@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.MovieListPresenter
 import woowacourse.movie.presenter.contract.MovieListContract
 
@@ -13,8 +15,12 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
-        val movies: ListView = findViewById(R.id.lv_movies)
-        movies.adapter = presenter.getAdapter()
+        presenter.loadMovies()
+    }
+
+    override fun displayMovies(movies: List<Movie>) {
+        val movieList: ListView = findViewById(R.id.lv_movies)
+        movieList.adapter = MovieAdapter(movies, ::navigate)
     }
 
     override fun navigate(movieId: Int) {

@@ -4,8 +4,8 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Result
 
-object MovieRepository {
-    val MOVIES =
+class MovieRepository {
+    private val movies =
         listOf(
             Movie(
                 id = 0,
@@ -20,8 +20,10 @@ object MovieRepository {
             ),
         )
 
+    fun getAllMovies(): List<Movie> = movies
+
     fun findMovieById(id: Int): Result<Movie> {
-        val movie = MOVIES.find { it.id == id }
+        val movie = movies.find { it.id == id }
         return movie?.let { Result.Success(it) } ?: Result.Error("존재하지 않는 아이디 값입니다.")
     }
 }

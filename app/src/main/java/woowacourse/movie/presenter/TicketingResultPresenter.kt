@@ -10,7 +10,7 @@ class TicketingResultPresenter(
     private val count: Int,
     private val totalPrice: Int,
 ) : TicketingResultContract.Presenter {
-    private val movie = MovieRepository.findMovieById(movieId)
+    private val movie = MovieRepository().findMovieById(movieId)
 
     override fun assignInitialView() {
         when (movie) {

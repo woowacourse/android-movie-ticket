@@ -11,7 +11,7 @@ class TicketingPresenter(
     movieId: Int,
     savedCount: Int?,
 ) : TicketingContract.Presenter {
-    private val movie = MovieRepository.findMovieById(movieId)
+    private val movie = MovieRepository().findMovieById(movieId)
     private val count = savedCount?.let { Count(it) } ?: Count()
 
     override fun assignInitialView() {
