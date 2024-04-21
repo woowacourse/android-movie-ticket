@@ -1,7 +1,9 @@
 package woowacourse.movie.model.data.dto
 
+import androidx.annotation.DrawableRes
+
 data class MovieContent(
-    val imageId: Int,
+    @DrawableRes val imageId: Int,
     val title: String,
     val screeningDate: Date,
     val runningTime: Int,
