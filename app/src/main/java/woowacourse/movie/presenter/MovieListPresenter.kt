@@ -13,7 +13,7 @@ class MovieListPresenter(
     private val theaters = theaterRepository.getTheaters()
 
     init {
-        movieAdapter.onClick = ::onItemButtonClicked
+        movieAdapter.onClick = ::selectMovie
         loadTheaters()
     }
 
@@ -21,7 +21,7 @@ class MovieListPresenter(
         movieAdapter.setTheaters(theaterRepository.getTheaters())
     }
 
-    private fun onItemButtonClicked(position: Int) {
+    private fun selectMovie(position: Int) {
         movieListView.navigateToMovieDetail(theaters[position])
     }
 }
