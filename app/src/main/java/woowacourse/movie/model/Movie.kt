@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 data class Movie(
+    val id: Int,
     val title: String,
     val screenDate: List<LocalDate>,
     val runningTime: Int,

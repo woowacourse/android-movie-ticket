@@ -21,7 +21,8 @@ import java.time.LocalDate
 class ReservationResultActivityTest {
     private val movie =
         Movie(
-            img = R.drawable.harry_image1,
+            id = 0,
+            img = R.drawable.harry_sorcerer_stone_image,
             title = "해리 포터와 마법사의 돌",
             description = "해리 포터 1편입니다.",
             screenDate = listOf(LocalDate.of(2024, 3, 1)),
