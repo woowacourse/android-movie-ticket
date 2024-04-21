@@ -7,7 +7,7 @@ import woowacourse.movie.repository.TheaterRepository
 
 class MovieListPresenter(
     private val movieListView: MovieListContract.View,
-    private val theaterRepository: TheaterRepository = PseudoTheaterRepository(),
+    theaterRepository: TheaterRepository = PseudoTheaterRepository(),
     val movieAdapter: MovieAdapter,
 ) : MovieListContract.Presenter {
     private val theaters = theaterRepository.getTheaters()
@@ -18,7 +18,7 @@ class MovieListPresenter(
     }
 
     override fun loadTheaters() {
-        movieAdapter.setTheaters(theaterRepository.getTheaters())
+        movieAdapter.setTheaters(theaters)
     }
 
     private fun selectMovie(position: Int) {
