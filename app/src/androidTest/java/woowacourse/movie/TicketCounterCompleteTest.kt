@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.toTicketModel
@@ -21,6 +22,7 @@ class TicketCounterCompleteTest {
             "해리 포터와 마법사의 돌",
             "2024.3.1",
             2,
+            Movie.DEFAULT_MOVIE_PRICE,
         ).toTicketModel()
     private val intent =
         Intent(

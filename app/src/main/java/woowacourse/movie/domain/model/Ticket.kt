@@ -6,4 +6,3 @@ data class Ticket(
     val count: Int,
     val price: Int,
 )
-
