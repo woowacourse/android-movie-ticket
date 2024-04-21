@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Reservation2
+import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
 
@@ -45,7 +45,7 @@ class ReservationRepositoryTest {
         // when
         val reservation = repository.findById(id).getOrThrow()
         val actual =
-            Reservation2(
+            Reservation(
                 id = 1,
                 screen,
                 Ticket(count),

@@ -22,7 +22,7 @@ class ReservationTest {
                 price = 13_000,
             )
         val reservation =
-            Reservation2(
+            Reservation(
                 id = 1,
                 screen,
                 Ticket(3),

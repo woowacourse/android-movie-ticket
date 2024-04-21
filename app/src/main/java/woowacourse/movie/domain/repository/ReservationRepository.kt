@@ -1,7 +1,6 @@
 package woowacourse.movie.domain.repository
 
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.Reservation2
 import woowacourse.movie.domain.model.Screen
 
 interface ReservationRepository {
@@ -19,5 +18,5 @@ interface ReservationRepository2 {
         count: Int,
     ): Result<Int>
 
-    fun findById(id: Int): Result<Reservation2>
+    fun findById(id: Int): Result<Reservation>
 }

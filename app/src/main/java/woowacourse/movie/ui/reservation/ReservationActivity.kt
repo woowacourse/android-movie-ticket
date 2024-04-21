@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Reservation2
+import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.repository.DummyReservation2
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -34,7 +34,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract2.View {
         presenter.loadReservation(id)
     }
 
-    override fun showReservation(reservation: Reservation2) {
+    override fun showReservation(reservation: Reservation) {
         with(reservation) {
             title.text = screen.movie.title
             date.text = screen.date
@@ -43,7 +43,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract2.View {
         }
     }
 
-    private fun Reservation2.currency(): String {
+    private fun Reservation.currency(): String {
         return getString(R.string.reserve_amount).format(
             when (Locale.getDefault().country) {
                 Locale.KOREA.country -> DecimalFormat("#,###원").format(totalPrice)

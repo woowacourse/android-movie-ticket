@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.reservation
 
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.Reservation2
 
 interface ReservationContract {
     interface View {
@@ -23,7 +22,7 @@ interface ReservationContract {
 
 interface ReservationContract2 {
     interface View {
-        fun showReservation(reservation: Reservation2)
+        fun showReservation(reservation: Reservation)
 
         fun showToastMessage(message: String)
 
