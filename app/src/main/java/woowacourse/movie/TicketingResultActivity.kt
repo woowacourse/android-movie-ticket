@@ -21,8 +21,8 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
 
-        val ticketingResultPresenter = TicketingResultPresenter(this, count, totalPrice)
-        ticketingResultPresenter.initializeTicketingResult(movieId)
+        val ticketingResultPresenter = TicketingResultPresenter(this)
+        ticketingResultPresenter.initializeTicketingResult(movieId, count, totalPrice)
     }
 
     override fun assignInitialView(
@@ -42,7 +42,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         priceText.text = getString(R.string.text_price, price)
     }
 
-    override fun showErrorMessage(message: String) {
+    override fun showToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

@@ -17,7 +17,7 @@ interface TicketingContract {
             totalPrice: Int,
         )
 
-        fun showErrorMessage(message: String)
+        fun showToastMessage(message: String)
     }
 
     interface Presenter {

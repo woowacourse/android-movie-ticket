@@ -23,7 +23,7 @@ class TicketingPresenter(
             }
 
             is Result.Error -> {
-                ticketingContractView.showErrorMessage(movie.message)
+                ticketingContractView.showToastMessage(movie.message)
             }
         }
     }
@@ -46,7 +46,7 @@ class TicketingPresenter(
             }
 
             is Result.Error -> {
-                ticketingContractView.showErrorMessage(movie.message)
+                ticketingContractView.showToastMessage(movie.message)
             }
         }
     }

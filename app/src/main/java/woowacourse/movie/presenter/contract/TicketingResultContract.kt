@@ -9,10 +9,14 @@ interface TicketingResultContract {
             price: Int,
         )
 
-        fun showErrorMessage(message: String)
+        fun showToastMessage(message: String)
     }
 
     interface Presenter {
-        fun initializeTicketingResult(movieId: Int)
+        fun initializeTicketingResult(
+            movieId: Int,
+            count: Int,
+            totalPrice: Int,
+        )
     }
 }

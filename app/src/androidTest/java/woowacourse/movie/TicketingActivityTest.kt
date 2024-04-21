@@ -6,7 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -46,7 +46,7 @@ class TicketingActivityTest {
     @Test
     fun `완료_버튼을_누르면_예매_결과_화면으로_이동한다`() {
         onView(withId(R.id.btn_complete)).perform(click())
-        onView(withId(R.id.cl_ticketing_result_activity)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.cl_ticketing_result_activity)).check(matches(isDisplayed()))
     }
 
     @Test

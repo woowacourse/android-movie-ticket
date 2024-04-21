@@ -80,7 +80,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         }
     }
 
-    override fun showErrorMessage(message: String) {
+    override fun showToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
