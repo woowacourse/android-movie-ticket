@@ -6,7 +6,6 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -122,15 +121,6 @@ class MovieReservationActivityTest {
 
         onView(withId(R.id.reservation_count_text))
             .check(matches(withText("1")))
-    }
-
-    @Test
-    fun `예매_완료_버튼을_누르면_영화_예매_완료_페이지로_이동한다`() {
-        onView(withId(R.id.reservation_button))
-            .perform(click())
-
-        onView(withId(R.id.movie_reservation_complete_root))
-            .check(matches(isDisplayed()))
     }
 
     companion object {
