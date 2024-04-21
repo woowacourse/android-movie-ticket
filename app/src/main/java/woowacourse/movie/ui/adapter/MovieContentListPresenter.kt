@@ -17,7 +17,7 @@ class MovieContentListPresenter(private val view: MovieContentListContract.View)
         view.setUpMovieContentUi(item(position))
     }
 
-    override fun clickReservationButton(position: Int) {
+    override fun moveMovieReservation(position: Int) {
         view.moveMovieReservationView(itemId(position))
     }
 }

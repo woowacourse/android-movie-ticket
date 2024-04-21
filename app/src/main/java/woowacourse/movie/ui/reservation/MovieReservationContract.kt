@@ -17,10 +17,10 @@ interface MovieReservationContract {
 
         fun setUpReservationCount()
 
-        fun clickMinusButton()
+        fun decreaseCount()
 
-        fun clickPlusButton()
+        fun increaseCount()
 
-        fun clickReservationButton()
+        fun moveMovieReservationComplete()
     }
 }

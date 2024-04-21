@@ -50,7 +50,7 @@ class MovieContentListAdapter(
         presenter.setUpMovieContent(position)
 
         reservationButton.setOnClickListener {
-            presenter.clickReservationButton(position)
+            presenter.moveMovieReservation(position)
         }
 
         return view
