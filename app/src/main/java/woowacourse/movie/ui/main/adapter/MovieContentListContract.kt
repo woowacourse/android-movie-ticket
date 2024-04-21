@@ -4,7 +4,10 @@ import woowacourse.movie.model.MovieContent
 
 interface MovieContentListContract {
     interface View {
-        fun setUpMovieContentUi(movieContent: MovieContent)
+        fun setUpMovieContentUi(
+            movieContent: MovieContent,
+            movieViewHolder: MovieViewHolder,
+        )
 
         fun moveMovieReservationView(movieContentId: Long)
     }
@@ -16,7 +19,10 @@ interface MovieContentListContract {
 
         fun itemId(position: Int): Long
 
-        fun setUpMovieContent(position: Int)
+        fun setUpMovieContent(
+            position: Int,
+            movieViewHolder: MovieViewHolder,
+        )
 
         fun moveMovieReservation(position: Int)
     }

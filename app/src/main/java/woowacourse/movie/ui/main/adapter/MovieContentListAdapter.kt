@@ -6,9 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieContent
@@ -20,12 +17,8 @@ import woowacourse.movie.ui.reservation.MovieReservationActivity
 class MovieContentListAdapter(
     private val context: Context,
 ) : BaseAdapter(), MovieContentListContract.View {
-    private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this, MovieContentsImpl)
-    private lateinit var posterImage: ImageView
-    private lateinit var titleText: TextView
-    private lateinit var screeningDateText: TextView
-    private lateinit var runningTimeText: TextView
-    private lateinit var reservationButton: Button
+    private val presenter: MovieContentListContract.Presenter =
+        MovieContentListPresenter(this, MovieContentsImpl)
 
     override fun getCount(): Int = presenter.count()
 
@@ -38,33 +31,37 @@ class MovieContentListAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater.from(context)
-                .inflate(R.layout.item_movie_content, parent, false)
+        val movieViewHolder: MovieViewHolder
+        val view: View
 
-        posterImage = view.findViewById(R.id.poster_image)
-        titleText = view.findViewById(R.id.title_text)
-        screeningDateText = view.findViewById(R.id.screening_date_text)
-        runningTimeText = view.findViewById(R.id.running_time_text)
-        reservationButton = view.findViewById(R.id.reservation_button)
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_movie_content, parent, false)
+            movieViewHolder = MovieViewHolder(view)
+            view.tag = movieViewHolder // 뭐지
+        } else {
+            view = convertView
+            movieViewHolder = convertView.tag as MovieViewHolder
+        }
 
-        presenter.setUpMovieContent(position)
+        presenter.setUpMovieContent(position, MovieViewHolder(view))
 
-        reservationButton.setOnClickListener {
+        movieViewHolder.reservationButton.setOnClickListener {
             presenter.moveMovieReservation(position)
         }
 
         return view
     }
 
-    override fun setUpMovieContentUi(movieContent: MovieContent) {
-        movieContent.run {
-            posterImage.setImageResource(imageId)
-            titleText.text = title
-            screeningDateText.text = DateUi.screeningDateMessage(screeningDate, context)
-            runningTimeText.text =
-                context.resources.getString(R.string.running_time).format(runningTime)
-        }
+    override fun setUpMovieContentUi(
+        movieContent: MovieContent,
+        movieViewHolder: MovieViewHolder,
+    ) {
+        movieViewHolder.posterImage.setImageResource(movieContent.imageId)
+        movieViewHolder.titleText.text = movieContent.title
+        movieViewHolder.screeningDateText.text =
+            DateUi.screeningDateMessage(movieContent.screeningDate, context)
+        movieViewHolder.runningTimeText.text =
+            context.resources.getString(R.string.running_time).format(movieContent.runningTime)
     }
 
     override fun moveMovieReservationView(movieContentId: Long) {

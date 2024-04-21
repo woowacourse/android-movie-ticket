@@ -16,8 +16,11 @@ class MovieContentListPresenter(
 
     override fun itemId(position: Int): Long = item(position).id
 
-    override fun setUpMovieContent(position: Int) {
-        view.setUpMovieContentUi(item(position))
+    override fun setUpMovieContent(
+        position: Int,
+        movieViewHolder: MovieViewHolder,
+    ) {
+        this.view.setUpMovieContentUi(item(position), movieViewHolder)
     }
 
     override fun moveMovieReservation(position: Int) {
