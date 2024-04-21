@@ -23,19 +23,29 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         setContentView(R.layout.activity_reservation_movie)
         initView()
         initClickListener()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val id = intent.extras?.getLong(KEY_SCREEN_MOVIE_ID) ?: error("No movie id provided")
 
-        presenter =
-            MovieReservationPresenter(
-                id, this, FakeMovieRepository,
-            )
+        if (savedInstanceState == null) {
+            presenter = MovieReservationPresenter(id, this, FakeMovieRepository)
+            return
+        }
+        val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
+        presenter = MovieReservationPresenter(id, this, FakeMovieRepository, count)
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.apply {
+            putInt(KEY_RESERVATION_COUNT, presenter.count())
+        }
     }
 
     private fun initView() {
         countView = findViewById(R.id.tv_reservation_count)
         plusButton = findViewById(R.id.btn_reservation_plus)
         minusButton = findViewById(R.id.btn_reservation_minus)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initClickListener() {
@@ -77,6 +87,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     companion object {
         private val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
+        private const val KEY_RESERVATION_COUNT: String = "KEY_RESERVATION_COUNT"
 
         @JvmStatic
         fun newIntent(

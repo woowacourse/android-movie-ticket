@@ -8,9 +8,10 @@ class MovieReservationPresenter(
     private val id: Long,
     private val view: MovieReservationView,
     private val repository: MovieRepository,
+    initialCount: Int = DEFAULT_COUNT
 ) {
-    private var count: HeadCount = HeadCount(1)
     private var date: LocalDate
+    private var count: HeadCount = HeadCount(initialCount)
 
     init {
         val screenMovie = repository.screenMovieById(id)
@@ -18,6 +19,8 @@ class MovieReservationPresenter(
         view.showMovieReservation(screenMovie.toMovieReservationUiModel())
         view.updateHeadCount(count.count)
     }
+
+    fun count(): Int = count.count
 
     fun plusCount() {
         count = count.increase()
@@ -36,5 +39,9 @@ class MovieReservationPresenter(
         repository.reserveMovie(id, dateTime = dateTime, count = count).onSuccess {
             view.navigateToReservationResultView(it)
         }
+    }
+
+    companion object {
+        private const val DEFAULT_COUNT = 1
     }
 }
