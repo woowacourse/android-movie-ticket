@@ -3,6 +3,9 @@ package woowacourse.movie.domain
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.data.MovieRepositoryImpl
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.reservation.MovieReservationContract
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 
@@ -12,6 +15,9 @@ class TicketCounterPresenterTest {
 
     class MockMovieReservationContractView : MovieReservationContract.View {
         var showCurrentResultTicketCountViewCalled = false
+        override fun showMovie(movie: Movie) {
+            TODO("Not yet implemented")
+        }
 
         override fun showCurrentResultTicketCountView() {
             showCurrentResultTicketCountViewCalled = true
@@ -21,7 +27,10 @@ class TicketCounterPresenterTest {
     @BeforeEach
     fun setup() {
         mockView = MockMovieReservationContractView()
-        presenter = MovieReservationPresenter(mockView)
+        presenter = MovieReservationPresenter(
+            view = mockView,
+            movieRepository = MovieRepositoryImpl()
+        )
     }
 
     @Test

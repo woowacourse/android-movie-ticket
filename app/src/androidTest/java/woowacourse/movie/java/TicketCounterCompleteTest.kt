@@ -13,6 +13,7 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.detail.MovieDetailActivity
+import woowacourse.movie.presentation.reservation.model.toTicketModel
 
 @RunWith(AndroidJUnit4::class)
 class TicketCounterCompleteTest {
@@ -21,7 +22,7 @@ class TicketCounterCompleteTest {
             "해리 포터와 마법사의 돌",
             "2024.3.1",
             2,
-        )
+        ).toTicketModel()
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
