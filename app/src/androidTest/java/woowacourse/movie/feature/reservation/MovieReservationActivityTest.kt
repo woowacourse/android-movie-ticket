@@ -2,23 +2,21 @@ package woowacourse.movie.feature.reservation
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.dto.Date
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.feature.click
+import woowacourse.movie.feature.equalText
+import woowacourse.movie.feature.firstMovieContent
+import woowacourse.movie.feature.firstMovieContentId
+import woowacourse.movie.feature.runningTimeMessage
+import woowacourse.movie.feature.screeningDateMessage
+import woowacourse.movie.feature.scroll
+import woowacourse.movie.feature.view
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationActivityTest {
@@ -27,7 +25,7 @@ class MovieReservationActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationActivity::class.java,
         ).run {
-            putExtra(MovieContentKey.ID, 0L)
+            putExtra(MovieContentKey.ID, firstMovieContentId)
         }
 
     @get:Rule
@@ -35,108 +33,89 @@ class MovieReservationActivityTest {
 
     @Test
     fun `화면이_띄워지면_영화_제목이_보인다`() {
-        onView(withId(R.id.title_text))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+        view(R.id.title_text)
+            .equalText(firstMovieContent.title)
     }
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
-        onView(withId(R.id.screening_date_text))
-            .check(matches(withText("상영일: 2024.3.1")))
+        view(R.id.screening_date_text)
+            .equalText(firstMovieContent.screeningDateMessage())
     }
 
     @Test
     fun `화면이_띄워지면_러닝타임이_보인다`() {
-        onView(withId(R.id.running_time_text))
-            .check(matches(withText("러닝타임: 152분")))
+        view(R.id.running_time_text)
+            .equalText(firstMovieContent.runningTimeMessage())
     }
 
     @Test
     fun `스크롤_하면_시놉시스가_보인다`() {
-        onView(withId(R.id.synopsis_text))
-            .perform(scrollTo())
-            .check(
-                matches(
-                    withText(
-                        "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, " +
-                            "판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다. ",
-                    ),
-                ),
-            )
+        view(R.id.synopsis_text)
+            .scroll()
+            .equalText(firstMovieContent.synopsis)
     }
 
     @Test
-    fun `초기_예매_인원은_1이다`() {
-        onView(withId(R.id.reservation_count_text))
-            .check(matches(withText("1")))
-    }
+    fun `초기_예매_인원은_1이고_증가_버튼을_누르면_예매_인원_수가_증가한다`() {
+        // given
+        view(R.id.reservation_count_text)
+            .equalText("1")
 
-    @Test
-    fun `증가_버튼을_누르면_예매_인원_수가_증가한다`() {
-        onView(withId(R.id.plus_button))
-            .perform(click())
+        // when
+        view(R.id.plus_button)
+            .click()
 
-        onView(withId(R.id.reservation_count_text))
-            .check(matches(withText("2")))
+        // then
+        view(R.id.reservation_count_text)
+            .equalText("2")
     }
 
     @Test
     fun `예매_인원이_최대인_경우_증가_버튼을_누르면_예매_인원_수가_증가하지_않는다`() {
         // given
         repeat(50) {
-            onView(withId(R.id.plus_button))
-                .perform(click())
+            view(R.id.plus_button)
+                .click()
         }
 
         // when
-        onView(withId(R.id.plus_button))
-            .perform(click())
+        view(R.id.plus_button)
+            .click()
 
         // then
-        onView(withId(R.id.reservation_count_text))
-            .check(matches(withText("50")))
+        view(R.id.reservation_count_text)
+            .equalText("50")
     }
 
     @Test
     fun `감소_버튼을_누르면_예매_인원_수가_감소한다`() {
-        // given
-        onView(withId(R.id.plus_button))
-            .perform(click())
-        onView(withId(R.id.plus_button))
-            .perform(click())
+        // given (reservation count = 3)
+        view(R.id.plus_button)
+            .click()
+            .click()
 
         // when
-        onView(withId(R.id.minus_button))
-            .perform(click())
+        view(R.id.minus_button)
+            .click()
 
         // then
-        onView(withId(R.id.reservation_count_text))
-            .check(matches(withText("2")))
+        view(R.id.reservation_count_text)
+            .equalText("2")
     }
 
     @Test
     fun `예매_인원이_최소인_경우_감소_버튼을_누르면_예매_인원_수가_감소하지_않는다`() {
-        onView(withId(R.id.minus_button))
-            .perform(click())
+        // given
+        view(R.id.reservation_count_text)
+            .equalText("1")
 
-        onView(withId(R.id.reservation_count_text))
-            .check(matches(withText("1")))
-    }
+        // when
+        view(R.id.minus_button)
+            .click()
 
-    companion object {
-        @JvmStatic
-        @BeforeClass
-        fun setUp() {
-            MovieContentsImpl.save(
-                MovieContent(
-                    R.drawable.movie_poster,
-                    "해리 포터와 마법사의 돌",
-                    Date(2024, 3, 1),
-                    152,
-                    "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, " +
-                        "판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다. ",
-                ),
-            )
-        }
+        // then
+        view(R.id.reservation_count_text)
+            .equalText("1")
     }
 }
