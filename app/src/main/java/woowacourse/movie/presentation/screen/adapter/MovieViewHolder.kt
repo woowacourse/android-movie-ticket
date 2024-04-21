@@ -1,4 +1,4 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.presentation.screen.adapter
 
 import android.widget.Button
 import android.widget.ImageView
@@ -10,4 +10,11 @@ class MovieViewHolder(
     val screeningDate: TextView,
     val runningTime: TextView,
     val movieReservationButton: Button,
-)
+    val onMovieSelected: () -> Unit,
+){
+    init {
+        movieReservationButton.setOnClickListener {
+            onMovieSelected()
+        }
+    }
+}

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieViewHolder
 import woowacourse.movie.domain.model.Movie
 
 class MovieScreenAdapter(
@@ -37,7 +36,10 @@ class MovieScreenAdapter(
         val movie = movies[position]
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.movie_item, null)
-            makeViewHolder(view)
+            makeViewHolder(
+                view = view,
+                movie = movie,
+            )
         } else {
             view = convertView
             movieViewHolder = convertView.tag as MovieViewHolder
@@ -47,7 +49,10 @@ class MovieScreenAdapter(
         return view
     }
 
-    private fun makeViewHolder(view: View) {
+    private fun makeViewHolder(
+        view: View,
+        movie: Movie,
+    ) {
         movieViewHolder =
             MovieViewHolder(
                 view.findViewById(R.id.movie_title),
@@ -55,6 +60,7 @@ class MovieScreenAdapter(
                 view.findViewById(R.id.movie_screening_date),
                 view.findViewById(R.id.movie_running_time),
                 view.findViewById(R.id.movie_reservation_button),
+                onMovieSelected = { onMovieSelected(movie.movieId) },
             )
         view.tag = movieViewHolder
     }
