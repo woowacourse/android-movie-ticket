@@ -1,4 +1,4 @@
-package woowacourse.movie.view.feature.complete
+package woowacourse.movie.feature.complete
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -13,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
 import woowacourse.movie.model.data.MovieContentsImpl

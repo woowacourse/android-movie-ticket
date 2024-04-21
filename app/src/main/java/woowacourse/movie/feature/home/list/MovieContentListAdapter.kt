@@ -12,12 +12,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.constants.MovieContentKey
-import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.feature.reservation.MovieReservationActivity
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 
-class MovieContentListAdapter(private val context: Context) : BaseAdapter(),
+class MovieContentListAdapter(private val context: Context) :
+    BaseAdapter(),
     MovieContentListContract.View {
     private lateinit var viewHolder: MovieContentViewHolder
     private val presenter: MovieContentListContract.Presenter = MovieContentListPresenter(this, MovieContentsImpl)

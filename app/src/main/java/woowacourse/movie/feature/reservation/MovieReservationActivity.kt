@@ -9,12 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
+import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.constants.MovieContentKey
 import woowacourse.movie.constants.MovieReservationKey
-import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.ui.DateUi
 
 class MovieReservationActivity :
