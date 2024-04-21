@@ -1,6 +1,6 @@
 package woowacourse.movie.model
 
-object TicketData {
+object TicketDataResource {
     val ticket =
         Ticket(
             MovieDataSource.movieList[0].title,
