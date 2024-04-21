@@ -8,6 +8,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import org.hamcrest.CoreMatchers.not
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.R
@@ -15,10 +16,31 @@ import woowacourse.movie.utils.context
 
 class MovieReservationActivityTest {
     @Test
-    @DisplayName("상영중인 영화들이 정상적 화면에 보여지는지 테스트")
+    @DisplayName("유효한 ID 가 전달되었을 때, 예약 화면이 보여지는지 테스트")
     fun test() {
         launchSuccessScenario()
-        onView(withId(R.id.cl_reservation_movie)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.cl_reservation_movie_error))
+            .check(matches(not(isDisplayed())))
+        onView(withId(R.id.cl_reservation_movie_success))
+            .check(matches(isDisplayed()))
+    }
+
+
+    @Test
+    @DisplayName("유효하지 않은 ID 가 전달되었을 때, 에러 화면이 보여지는지 테스트")
+    fun test2() {
+        ActivityScenario.launch<MovieReservationActivity>(
+            MovieReservationActivity.newIntent(
+                context,
+                MovieReservationActivity.INVALID_ID,
+            ),
+        )
+
+        onView(withId(R.id.cl_reservation_movie_error))
+            .check(matches(isDisplayed()))
+        onView(withId(R.id.cl_reservation_movie_success))
+            .check(matches(not(isDisplayed())))
     }
 
     @Test

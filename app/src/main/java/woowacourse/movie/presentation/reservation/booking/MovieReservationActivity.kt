@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.data.FakeMovieRepository
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
@@ -21,17 +23,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_movie)
-        initView()
-        initClickListener()
-        val id = intent.extras?.getLong(KEY_SCREEN_MOVIE_ID) ?: error("No movie id provided")
-
-        if (savedInstanceState == null) {
-            presenter = MovieReservationPresenter(id, this, FakeMovieRepository)
+        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_ID)
+        if (id == INVALID_ID) {
+            initErrorView()
             return
         }
-        val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
-        presenter = MovieReservationPresenter(id, this, FakeMovieRepository, count)
-
+        initSuccessView()
+        initClickListener()
+        initPresenter(id, savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -41,7 +40,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         }
     }
 
-    private fun initView() {
+    private fun initErrorView() {
+        val errorLayout = findViewById<LinearLayout>(R.id.cl_reservation_movie_error)
+        val successLayout = findViewById<ConstraintLayout>(R.id.cl_reservation_movie_success)
+        errorLayout.visibility = ConstraintLayout.VISIBLE
+        successLayout.visibility = ConstraintLayout.GONE
+    }
+
+    private fun initSuccessView() {
         countView = findViewById(R.id.tv_reservation_count)
         plusButton = findViewById(R.id.btn_reservation_plus)
         minusButton = findViewById(R.id.btn_reservation_minus)
@@ -57,6 +63,15 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         }
         findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
             presenter.completeReservation()
+        }
+    }
+
+    private fun initPresenter(id: Long, savedInstanceState: Bundle?) {
+        presenter = if (savedInstanceState == null) {
+            MovieReservationPresenter(id, this, FakeMovieRepository)
+        } else {
+            val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
+            MovieReservationPresenter(id, this, FakeMovieRepository, count)
         }
     }
 
@@ -86,6 +101,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     }
 
     companion object {
+        const val INVALID_ID: Long = -1
         val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
         const val KEY_RESERVATION_COUNT: String = "KEY_RESERVATION_COUNT"
 
