@@ -13,10 +13,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.currency
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.ReservationRepository
-import woowacourse.movie.getDummyScreen
+import woowacourse.movie.presentation.utils.currency
+import woowacourse.movie.presentation.utils.getDummyScreen
 
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {

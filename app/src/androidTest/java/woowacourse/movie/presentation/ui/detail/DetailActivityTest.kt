@@ -14,7 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.repeatClick
+import woowacourse.movie.presentation.utils.repeatClick
 
 @RunWith(AndroidJUnit4::class)
 class DetailActivityTest {
@@ -35,8 +35,7 @@ class DetailActivityTest {
         plusBtn.perform(click())
 
         // then
-        onView(withId(R.id.tv_count))
-            .check(matches(withText("2")))
+        onView(withId(R.id.tv_count)).check(matches(withText("2")))
     }
 
     @Test
@@ -48,8 +47,7 @@ class DetailActivityTest {
         minusBtn.perform(click())
 
         // then
-        onView(withId(R.id.tv_count))
-            .check(matches(withText("1")))
+        onView(withId(R.id.tv_count)).check(matches(withText("1")))
     }
 
     @Test
@@ -58,8 +56,7 @@ class DetailActivityTest {
         minusBtn.perform(click())
 
         // then
-        onView(withId(R.id.tv_count))
-            .check(matches(withText("1")))
+        onView(withId(R.id.tv_count)).check(matches(withText("1")))
     }
 
     @Test
@@ -71,7 +68,6 @@ class DetailActivityTest {
         plusBtn.perform(click())
 
         // then
-        onView(withId(R.id.tv_count))
-            .check(matches(withText("10")))
+        onView(withId(R.id.tv_count)).check(matches(withText("10")))
     }
 }

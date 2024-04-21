@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.presentation.fakerepository.FakeScreenRepository
-import woowacourse.movie.presentation.ui.getDummyScreen
 import woowacourse.movie.presentation.ui.screen.fake.FakeScreenView
+import woowacourse.movie.presentation.utils.getDummyScreen
 
 class ScreenPresenterTest {
     private lateinit var screens: List<Screen>

@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.ui
+package woowacourse.movie.presentation.utils
 
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
