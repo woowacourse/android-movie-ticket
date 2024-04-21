@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.data.FakeMovieRepository
+import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
@@ -72,10 +73,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     ) {
         presenter =
             if (savedInstanceState == null) {
-                MovieReservationPresenter(id, this, FakeMovieRepository)
+                MovieReservationPresenter(id, this, MovieRepositoryFactory.movieRepository())
             } else {
                 val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
-                MovieReservationPresenter(id, this, FakeMovieRepository, count)
+                MovieReservationPresenter(id, this, MovieRepositoryFactory.movieRepository(), count)
             }
     }
 

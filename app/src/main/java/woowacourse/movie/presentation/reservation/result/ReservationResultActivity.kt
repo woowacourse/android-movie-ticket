@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
-import woowacourse.movie.data.FakeMovieRepository
+import woowacourse.movie.data.MovieRepositoryFactory
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter
@@ -25,7 +25,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         presenter =
             ReservationResultPresenter(
                 id = id,
-                repository = FakeMovieRepository,
+                repository = MovieRepositoryFactory.movieRepository(),
                 view = this,
             )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

@@ -8,7 +8,8 @@
 - [x] 프로젝트 패키징 /feature/screen 단위로 리팩토링
 - [x] 네이밍 일치하지 않는 것들 고치기 (ex. MainActivity -> ScreeningMovieActivity)
 - [x] pre-push hook 만들기 (test, lint)
-- [ ] 화면 회전 대응하기
+- [x] 화면 회전 대응하기
+- [x] FakeMovieRepositoryFactory 만들어서 동적으로 MovieRepository 구현체 바꾸기
 # 고민해 볼 것
 1) presenter, view 를 기준으로 패키지가 나뉘어져 있는데요
   만약 100개의 presenter가 있으면 각각 100개씩 패키지 하위에 존재하게 되어 그 안에서 찾기 어렵지 않을까요?
@@ -26,5 +27,6 @@ LayoutInflater 는 어떤 역할을 하는지?
 
 3) FakeMovieRepository DI 하는 방법
 
+테스트를 하면서 Activity 에 
 만약, 서버와 통신하는 로직이 있다면 FakeMovieRepository 대신 Product 용 Repository를 만들어야 할 것 같습니다.
 하지만, 액티비티는 시스템이 생성해주는 것이기에 어떻게 수동으로 DI를 해야할 지 모르겠습니다..
