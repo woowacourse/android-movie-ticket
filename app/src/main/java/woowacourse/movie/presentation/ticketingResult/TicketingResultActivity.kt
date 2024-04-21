@@ -9,6 +9,8 @@ import woowacourse.movie.R
 import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_COUNT
 import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_MOVIE_ID
 import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_TOTAL_PRICE
+import woowacourse.movie.utils.formatMovieDate
+import java.time.LocalDate
 
 class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +29,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
     override fun assignInitialView(
         numberOfPeople: Int,
         movieTitle: String,
-        movieDate: String,
+        movieDate: LocalDate,
         price: Int,
     ) {
         val movieTitleText = findViewById<TextView>(R.id.tv_movie_title)
@@ -36,7 +38,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         val priceText = findViewById<TextView>(R.id.tv_price)
 
         movieTitleText.text = movieTitle
-        movieDateText.text = movieDate
+        movieDateText.text = formatMovieDate(movieDate)
         numberOfPeopleText.text = getString(R.string.text_number_of_people, numberOfPeople)
         priceText.text = getString(R.string.text_price, price)
     }

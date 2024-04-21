@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
+import woowacourse.movie.utils.formatMovieDate
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
@@ -65,7 +66,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(movie.thumbnail) }
         findViewById<TextView>(R.id.tv_title).apply { text = movie.title }
         findViewById<TextView>(R.id.tv_date).apply {
-            text = getString(R.string.title_date, movie.date)
+            text = getString(R.string.title_date, formatMovieDate(movie.date))
         }
         findViewById<TextView>(R.id.tv_running_time).apply {
             text = getString(R.string.title_running_time, movie.runningTime)

@@ -3,6 +3,7 @@ package woowacourse.movie.data
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Result
+import java.time.LocalDate
 
 class MovieRepository {
     private val movies =
@@ -11,7 +12,7 @@ class MovieRepository {
                 id = 0,
                 title = "해리 포터와 마법사의 돌",
                 thumbnail = R.drawable.movie1,
-                date = "2024.3.1",
+                date = LocalDate.of(2024, 3, 1),
                 runningTime = 152,
                 introduction =
                     """
