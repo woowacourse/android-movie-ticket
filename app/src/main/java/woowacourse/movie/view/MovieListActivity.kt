@@ -30,7 +30,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     override fun setOnListViewClickListener(info: ArrayList<Movie>) {
         listView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, MovieReservationActivity::class.java)
-            intent.putExtra(Movie.KEY_NAME_MOVIE, info[position] as Serializable)
+            intent.putExtra("movie", info[position] as Serializable)
             this.startActivity(intent)
         }
     }

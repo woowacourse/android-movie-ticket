@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieReservationContract
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.MovieReservationPresenter
 import woowacourse.movie.util.IntentUtil.getSerializableMovieData
 import java.time.format.DateTimeFormatter
@@ -83,24 +82,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
     }
 
-    override fun startMovieTicketActivity(info: Int)  {
+    override fun startMovieTicketActivity(info: Int) {
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra(Ticket.KEY_NAME_TICKET, info)
+        intent.putExtra("count", info)
         this.startActivity(intent)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val count = findViewById<TextView>(R.id.ticket_count).text.toString().toInt()
-        outState.putInt("count", count)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.let {
-            val count = it.getInt("count")
-            val countTextView = findViewById<TextView>(R.id.ticket_count)
-            countTextView.text = count.toString()
-        }
     }
 }

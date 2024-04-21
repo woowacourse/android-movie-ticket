@@ -33,7 +33,7 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     override fun showTicketInfo(info: Ticket) {
         val formattedScreeningDate =
             info.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-        val ticketCountData = intent.getIntExtra(Ticket.KEY_NAME_TICKET, 1)
+        val ticketCountData = intent.getIntExtra("count", 1)
 
         ticketTitle.text = info.title
         ticketScreeningDate.text = formattedScreeningDate
