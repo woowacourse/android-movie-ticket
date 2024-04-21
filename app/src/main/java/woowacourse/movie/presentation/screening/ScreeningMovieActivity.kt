@@ -5,7 +5,7 @@ import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.StubMovieRepository
+import woowacourse.movie.data.FakeMovieRepository
 import woowacourse.movie.presentation.reservation.booking.MovieReservationActivity
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
@@ -17,7 +17,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_movie)
         initViews()
-        presenter = ScreeningMoviePresenter(this, StubMovieRepository)
+        presenter = ScreeningMoviePresenter(this, FakeMovieRepository)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

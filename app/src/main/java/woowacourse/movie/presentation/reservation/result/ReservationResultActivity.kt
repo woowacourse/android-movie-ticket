@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.StubMovieRepository
+import woowacourse.movie.data.FakeMovieRepository
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter
@@ -19,7 +19,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         presenter =
             ReservationResultPresenter(
                 id = intent.getLongExtra(KEY_RESERVATION_ID, INVALID_RESERVATION_ID),
-                repository = StubMovieRepository,
+                repository = FakeMovieRepository,
                 view = this,
             )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

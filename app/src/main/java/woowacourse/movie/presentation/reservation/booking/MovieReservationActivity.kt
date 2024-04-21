@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.StubMovieRepository
+import woowacourse.movie.data.FakeMovieRepository
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
@@ -24,10 +24,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         initView()
         initClickListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
+        val id = intent.extras?.getLong(KEY_SCREEN_MOVIE_ID) ?: error("No movie id provided")
+
         presenter =
             MovieReservationPresenter(
-                id, this, StubMovieRepository,
+                id, this, FakeMovieRepository,
             )
     }
 
@@ -76,7 +77,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     companion object {
         private val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
-        private const val INVALID_SCREEN_MOVIE_ID = -1L
 
         @JvmStatic
         fun newIntent(
