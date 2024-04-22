@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/completed_message"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#9160F9"
         android:gravity="center"
@@ -17,6 +17,8 @@
         android:paddingBottom="10dp"
         android:text="@string/reservation_completed_message"
         android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
