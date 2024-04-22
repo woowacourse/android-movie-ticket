@@ -50,7 +50,10 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         const val EXTRA_RESERVATION_ID: String = "reservationId"
         const val INVALID_RESERVATION_ID: Long = -1
 
-        fun getIntent(context: Context, reservationId: Long): Intent {
+        fun getIntent(
+            context: Context,
+            reservationId: Long,
+        ): Intent {
             return Intent(context, ReservationResultActivity::class.java).apply {
                 putExtra(EXTRA_RESERVATION_ID, reservationId)
             }

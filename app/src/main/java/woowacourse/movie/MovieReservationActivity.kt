@@ -93,11 +93,13 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         const val INVALID_SCREEN_MOVIE_ID = -1L
         private const val STATE_COUNT_ID = "count"
 
-        fun getIntent(context: Context, reservationId: Long): Intent {
+        fun getIntent(
+            context: Context,
+            reservationId: Long,
+        ): Intent {
             return Intent(context, MovieReservationActivity::class.java).apply {
                 putExtra(EXTRA_SCREEN_MOVIE_ID, reservationId)
             }
         }
-
     }
 }
