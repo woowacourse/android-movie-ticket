@@ -2,10 +2,12 @@
 package woowacourse.movie.movieDetail
 
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 import woowacourse.movie.model.theater.Theater
 
-@Suppress("DEPRECATION")
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class MovieDetailPresenter(private val view: MovieDetailView, intent: Intent) {
     private val theater = intent.getSerializableExtra("Theater") as? Theater
     val movie = theater?.movie
