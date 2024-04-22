@@ -3,9 +3,7 @@ package woowacourse.movie.java
 import android.content.pm.ActivityInfo
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -26,7 +24,7 @@ class MovieReservationTest {
         onView(withId(R.id.plus_button))
             .perform(click())
         onView(withId(R.id.ticket_count))
-            .check(ViewAssertions.matches(ViewMatchers.withText("2")))
+            .check(matches(withText("2")))
     }
 
     @Test
@@ -38,7 +36,7 @@ class MovieReservationTest {
         onView(withId(R.id.minus_button))
             .perform(click())
         onView(withId(R.id.ticket_count))
-            .check(ViewAssertions.matches(ViewMatchers.withText("2")))
+            .check(matches(withText("2")))
     }
 
     @Test

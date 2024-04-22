@@ -13,20 +13,23 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.view.MovieTicketActivity
+import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
 class MovieTicketTest {
     private val ticket =
         Ticket(
             "해리 포터와 마법사의 돌",
-            "2024.3.1",
-            2,
+            LocalDateTime.of(2024, 3, 1, 0, 0, 0),
+            13_000,
         )
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieTicketActivity::class.java,
-        ).also { it.putExtra("ticket", ticket) }
+        ).also {
+            it.putExtra("count", 2)
+        }
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule<MovieTicketActivity>(intent)

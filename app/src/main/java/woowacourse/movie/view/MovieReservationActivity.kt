@@ -87,4 +87,19 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         intent.putExtra("count", info)
         this.startActivity(intent)
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val count = findViewById<TextView>(R.id.ticket_count).text.toString().toInt()
+        outState.putInt("count", count)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val count = it.getInt("count")
+            val countTextView = findViewById<TextView>(R.id.ticket_count)
+            countTextView.text = count.toString()
+        }
+    }
 }
