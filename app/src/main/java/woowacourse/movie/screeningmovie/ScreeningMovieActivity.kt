@@ -1,13 +1,12 @@
-package woowacourse.movie
+package woowacourse.movie.screeningmovie
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.data.StubMovieRepository
-import woowacourse.movie.model.ScreenMovieUiModel
-import woowacourse.movie.presenter.ScreenMoviePresenter
-import woowacourse.movie.view.ScreeningMovieView
+import woowacourse.movie.moviereservation.MovieReservationActivity
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     private lateinit var presenter: ScreenMoviePresenter

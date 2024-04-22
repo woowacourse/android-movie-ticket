@@ -1,6 +1,4 @@
-package woowacourse.movie.view
-
-import woowacourse.movie.model.ScreenMovieUiModel
+package woowacourse.movie.screeningmovie
 
 interface ScreeningMovieView {
     fun showMovies(movies: List<ScreenMovieUiModel>)

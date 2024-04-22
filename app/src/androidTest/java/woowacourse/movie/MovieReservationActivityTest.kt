@@ -13,6 +13,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixtures.context
+import woowacourse.movie.moviereservation.MovieReservationActivity
 
 class MovieReservationActivityTest {
     @get:Rule

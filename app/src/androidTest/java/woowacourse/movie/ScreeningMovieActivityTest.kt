@@ -17,7 +17,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.model.ScreenMovieUiModel
+import woowacourse.movie.screeningmovie.ScreenMovieUiModel
+import woowacourse.movie.screeningmovie.MovieAdapter
+import woowacourse.movie.screeningmovie.ScreeningMovieActivity
 
 class ScreeningMovieActivityTest {
     @get:Rule

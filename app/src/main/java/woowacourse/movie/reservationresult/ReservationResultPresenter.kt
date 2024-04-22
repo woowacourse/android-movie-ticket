@@ -1,7 +1,6 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.reservationresult
 
 import woowacourse.movie.repository.MovieRepository
-import woowacourse.movie.view.ReservationResultView
 
 class ReservationResultPresenter(
     private val repository: MovieRepository,
@@ -9,7 +8,7 @@ class ReservationResultPresenter(
 ) {
 
     fun loadReservationResult(reservationId:Long) {
-        val reservationResult = repository.movieReservationById(reservationId).toUiModel()
+        val reservationResult = repository.movieReservationById(reservationId).toReservationResultUiModel()
         view.showResult(reservationResult)
     }
 }

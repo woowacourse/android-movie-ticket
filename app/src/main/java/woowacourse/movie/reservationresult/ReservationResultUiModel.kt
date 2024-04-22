@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.reservationresult
 
 data class ReservationResultUiModel(
     val title: String,

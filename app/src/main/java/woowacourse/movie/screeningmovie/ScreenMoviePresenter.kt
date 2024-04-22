@@ -1,7 +1,7 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.screeningmovie
 
+import woowacourse.movie.presenter.toScreenMovieUiModel
 import woowacourse.movie.repository.MovieRepository
-import woowacourse.movie.view.ScreeningMovieView
 
 class ScreenMoviePresenter(
     private val view: ScreeningMovieView,
