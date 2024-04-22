@@ -5,6 +5,8 @@ import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.feature.home.list.MovieContentListAdapter
+import woowacourse.movie.feature.reservation.MovieReservationActivity
+import woowacourse.movie.model.data.MovieContentsImpl
 
 class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHomeContract.View {
     private val movieContentList: ListView by lazy { findViewById(R.id.movie_content_list) }
@@ -19,6 +21,9 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
     override fun initializePresenter() = MovieHomePresenter(this)
 
     override fun setUpMovieContentListAdapter() {
-        movieContentList.adapter = MovieContentListAdapter(this)
+        movieContentList.adapter =
+            MovieContentListAdapter(MovieContentsImpl.findAll()) { _, movieContentId ->
+                MovieReservationActivity.startActivity(this@MovieHomeActivity, movieContentId)
+            }
     }
 }
