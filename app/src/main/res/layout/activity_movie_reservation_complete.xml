@@ -9,9 +9,10 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="114dp"
+        android:layout_height="wrap_content"
         android:background="#9160F9"
         android:gravity="bottom|center_horizontal"
+        android:paddingTop="66dp"
         android:paddingBottom="10dp"
         android:text="@string/reservation_complete_guide"
         android:textColor="@color/white"
