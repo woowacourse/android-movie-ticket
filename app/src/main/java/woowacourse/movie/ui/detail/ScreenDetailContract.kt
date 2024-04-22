@@ -8,7 +8,7 @@ interface ScreenDetailContract {
 
         fun showTicket(count: Int)
 
-        fun navigateToReservation(id: Int)
+        fun navigateToReservation(navigationId: Int)
 
         fun showToastMessage(message: String)
 
@@ -20,12 +20,12 @@ interface ScreenDetailContract {
     }
 
     interface Presenter {
-        fun loadScreen(id: Int)
+        fun loadScreen(screenId: Int)
 
         fun plusTicket()
 
         fun minusTicket()
 
-        fun reserve()
+        fun reserve(screenId: Int)
     }
 }

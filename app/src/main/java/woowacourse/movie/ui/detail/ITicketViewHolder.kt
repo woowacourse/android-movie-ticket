@@ -1,7 +1,9 @@
 package woowacourse.movie.ui.detail
 
-interface TicketViewHolder {
+interface ITicketViewHolder {
     fun updateTicketCount(count: Int)
+
     fun ticketCount(): Int
+
     fun restoreTicketCount(count: Int)
 }

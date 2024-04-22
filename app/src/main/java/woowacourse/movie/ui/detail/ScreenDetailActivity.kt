@@ -27,8 +27,9 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         )
     }
 
-    private val movieViewHolder: ScreenDetailViewHolder by lazy { ScreenDetailViewHolderImpl() }
-    private val ticketViewHolder: TicketViewHolder by lazy { TicketViewHolderImpl().apply { initClickListener() } }
+    private val iScreenDetailViewHolder: IScreenDetailViewHolder by lazy { ScreenDetailViewHolder() }
+
+    private lateinit var ticketViewHolder: ITicketViewHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,8 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     private fun initView() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val id = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_ID)
+        ticketViewHolder = TicketViewHolder().apply { initClickListener(id) }
+
         presenter.loadScreen(id)
     }
 
@@ -56,15 +59,15 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     }
 
     override fun showScreen(screen: ScreenDetailUI) {
-        movieViewHolder.show(screen)
+        iScreenDetailViewHolder.show(screen)
     }
 
     override fun showTicket(count: Int) {
         ticketViewHolder.updateTicketCount(count)
     }
 
-    override fun navigateToReservation(id: Int) {
-        ReservationActivity.startActivity(this, id)
+    override fun navigateToReservation(navigationId: Int) {
+        ReservationActivity.startActivity(this, navigationId)
         finish()
     }
 
@@ -91,7 +94,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         return true
     }
 
-    inner class ScreenDetailViewHolderImpl : ScreenDetailViewHolder {
+    inner class ScreenDetailViewHolder : IScreenDetailViewHolder {
         private val title: TextView = findViewById(R.id.tv_title)
         private val date: TextView = findViewById(R.id.tv_screen_date)
         private val runningTime: TextView = findViewById(R.id.tv_screen_running_time)
@@ -101,7 +104,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         override fun show(screen: ScreenDetailUI) {
             with(screen) {
                 title.text = movieDetailUI.title
-                this@ScreenDetailViewHolderImpl.date.text = date
+                this@ScreenDetailViewHolder.date.text = date
                 runningTime.text = movieDetailUI.runningTime.toString()
                 description.text = movieDetailUI.description
                 poster.setImageResource(movieDetailUI.image.imageSource as Int)
@@ -109,13 +112,13 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         }
     }
 
-    inner class TicketViewHolderImpl : TicketViewHolder {
+    inner class TicketViewHolder : ITicketViewHolder {
         private val ticketCount: TextView = findViewById(R.id.tv_count)
         private val plusBtn: Button = findViewById(R.id.btn_plus)
         private val minusBtn: Button = findViewById(R.id.btn_minus)
         private val reserveDone: Button = findViewById(R.id.btn_reserve_done)
 
-        fun initClickListener() {
+        fun initClickListener(id: Int) {
             plusBtn.setOnClickListener {
                 presenter.plusTicket()
             }
@@ -123,7 +126,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
                 presenter.minusTicket()
             }
             reserveDone.setOnClickListener {
-                presenter.reserve()
+                presenter.reserve(id)
             }
         }
 

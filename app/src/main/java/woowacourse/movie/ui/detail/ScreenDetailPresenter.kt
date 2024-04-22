@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.detail
 
-import android.util.Log
+import woowacourse.movie.domain.model.IScreen
+import woowacourse.movie.domain.model.NullScreen
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
@@ -18,34 +19,45 @@ class ScreenDetailPresenter(
     private val reservationRepository: ReservationRepository,
 ) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
-    private lateinit var screen: Screen
 
-    override fun loadScreen(id: Int) {
-        screenRepository.findById(id = id).onSuccess { screen ->
-            this.screen = screen
+    override fun loadScreen(screenId: Int) {
+        when (val screen = screen(screenId)) {
+            is Screen -> {
+                val screenDetailUI = screen.toDetailUI()
+                view.showScreen(screenDetailUI)
+                view.showTicket(ticket.count)
+            }
 
-            val screenDetailUI =
-                ScreenDetailUI(
-                    id = screen.id,
-                    movieDetailUI =
-                        MovieDetailUI(
-                            title = screen.movie.title,
-                            runningTime = screen.movie.runningTime,
-                            description = screen.movie.description,
-                            image = movieRepository.imageSrc(screen.movie.id),
-                        ),
-                    date = screen.date,
-                )
-
-            view.showScreen(screenDetailUI)
-            view.showTicket(ticket.count)
-        }.onFailure { e ->
-            when (e) {
-                is NoSuchElementException -> view.goToBack("해당하는 상영 정보가 없습니다.")
-                else -> view.unexpectedFinish("예상치 못한 에러가 발생했습니다")
+            is NullScreen -> {
+                when (screen.throwable) {
+                    is NoSuchElementException -> view.goToBack("해당하는 상영 정보가 없습니다.")
+                    else -> view.unexpectedFinish("예상치 못한 에러가 발생했습니다")
+                }
             }
         }
     }
+
+    private fun screen(id: Int): IScreen {
+        screenRepository.findById(id = id).onSuccess { screen ->
+            return screen
+        }.onFailure { e ->
+            return NullScreen(throwable = e)
+        }
+        return NullScreen()
+    }
+
+    private fun IScreen.toDetailUI() =
+        ScreenDetailUI(
+            id = id,
+            movieDetailUI =
+                MovieDetailUI(
+                    title = movie.title,
+                    runningTime = movie.runningTime,
+                    description = movie.description,
+                    image = movieRepository.imageSrc(movie.id),
+                ),
+            date = date,
+        )
 
     override fun plusTicket() {
         val increasedTicket = ticket.increase()
@@ -69,11 +81,13 @@ class ScreenDetailPresenter(
         view.showTicket(ticket.count)
     }
 
-    override fun reserve() {
-        reservationRepository.save(screen, ticket.count).onSuccess { id ->
+    override fun reserve(screenId: Int) {
+        reservationRepository.save(
+            screen(screenId),
+            ticket.count,
+        ).onSuccess { id ->
             view.navigateToReservation(id)
         }.onFailure { e ->
-            Log.e("ScreenDetailPresenter2", "예상치 못한 에러가 발생했습니다 : ${e.message}")
             view.showToastMessage("예상치 못한 에러가 발생했습니다 : ${e.message}")
         }
     }
