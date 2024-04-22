@@ -1,5 +1,5 @@
 package woowacourse.movie.ui.main
 
-object MainKey {
+object MovieHomeKey {
     const val ID = "movie_content_id"
 }

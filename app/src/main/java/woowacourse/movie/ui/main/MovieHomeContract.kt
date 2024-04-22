@@ -1,6 +1,6 @@
 package woowacourse.movie.ui.main
 
-interface MainContract {
+interface MovieHomeContract {
     interface View {
         fun setUpMovieContentListAdapter()
     }

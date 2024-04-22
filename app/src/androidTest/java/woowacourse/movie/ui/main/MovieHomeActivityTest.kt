@@ -12,9 +12,9 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class MovieHomeActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieHomeActivity::class.java)
 
     @Test
     fun `화면이_띄워지면_영화_목록이_보인다`() {
