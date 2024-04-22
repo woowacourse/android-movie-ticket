@@ -30,14 +30,14 @@ class PurchaseConfirmationActivityTest {
             Synopsis("wow!"),
         )
     private val theater = Theater(movie, 10000)
-
+    private val ticketNum=3
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             PurchaseConfirmationActivity::class.java,
         ).also {
             it.putExtra("Theater", theater)
-            it.putExtra("ticketNum", 3)
+            it.putExtra("ticketNum", ticketNum)
         }
 
     @get:Rule
@@ -46,18 +46,18 @@ class PurchaseConfirmationActivityTest {
     @Test
     fun 영화제목표시_영화제목정확히표시되는지검증() {
         Espresso.onView(withId(R.id.movie_title_confirmation))
-            .check(matches(ViewMatchers.withText("차람과 하디의 진지한 여행기")))
+            .check(matches(ViewMatchers.withText(movie.title.toString())))
     }
 
     @Test
     fun 상영시간표시_상영시간정확히표시되는지검증() {
         Espresso.onView(withId(R.id.purchase_movie_running_time))
-            .check(matches(ViewMatchers.withText("230분")))
+            .check(matches(ViewMatchers.withText(movie.runningTime.toString())))
     }
 
     @Test
     fun 티켓가격계산_총가격정확히표시되는지검증() {
         Espresso.onView(withId(R.id.ticket_charge))
-            .check(matches(ViewMatchers.withText("price: 30000")))
+            .check(matches(ViewMatchers.withText("price: ${theater.charge*ticketNum}")))
     }
 }

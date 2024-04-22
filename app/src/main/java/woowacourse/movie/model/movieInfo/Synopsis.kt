@@ -1,6 +1,8 @@
 package woowacourse.movie.model.movieInfo
 
-class Synopsis(private val content: String) {
+import java.io.Serializable
+
+class Synopsis(private val content: String): Serializable{
     init {
         require(content.isNotEmpty()) { "시놉시스의 길이는 1이상이어야 합니다." }
     }

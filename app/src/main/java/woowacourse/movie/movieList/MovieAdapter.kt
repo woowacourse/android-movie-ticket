@@ -13,17 +13,21 @@ import woowacourse.movie.model.theater.Theater
 class MovieAdapter(
     context: Context,
     theaters: List<Theater>,
-    private val mainActivityPresenter: MovieListPresenter
-) : ArrayAdapter<Theater>(context, 0, theaters) {
+    private val presenter: MovieListPresenter
+) : ArrayAdapter<Theater>(context, R.layout.movie_list_item, theaters) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val listItemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.movie_list_item, parent, false)
-        val theater: Theater? = getItem(position)
-
+        val movie = getItem(position) ?: return listItemView
         listItemView.findViewById<TextView>(R.id.movie_title)?.text =
-            theater?.movie?.title.toString()
+            movie.movie.title.toString()
+        listItemView.findViewById<TextView>(R.id.movie_release_date)?.text =
+            movie.movie.releaseDate.toString()
+        listItemView.findViewById<TextView>(R.id.movie_duration)?.text =
+            movie.movie.runningTime.toString()
+
         listItemView.findViewById<Button>(R.id.movie_details_button)?.setOnClickListener {
-            theater?.let { mainActivityPresenter.onDetailButtonClicked(it) }
+            presenter.onDetailButtonClicked(position)
         }
         return listItemView
     }
