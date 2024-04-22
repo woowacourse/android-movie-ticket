@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Movie</string>
+
+    <!--    영확 공통-->
+    <string name="screen_date">상영일:" "</string>
+    <string name="screen_running_time_date">러닝타임:" "</string>
+    <string name="reserve_now">지금 예매</string>
+    <string name="movie_poster">영화 포스터</string>
+
+    <!--   영화 예매 화면 -->
+    <string name="reserve_done">예매 완료</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
+
+    <!--   영화 예매 결과 화면 -->
+    <string name="guide_title">영화 상영 시작 시간 15분전까지\n취소가 가능합니다.</string>
+    <string name="price_format_kor"> %,d원</string>
+    <string name="reserve_count">일반 %d명</string>
+    <string name="reserve_amount">%s (현장 결제)</string>
+
+    <!--    메시지-->
+    <string name="no_such_element_exception_message">해당하는 상영 정보가 없습니다.</string>
+    <string name="unforeseen_error_message">예상치 못한 에러가 발생했습니다</string>
+    <string name="ticke_min_count_message">티켓 수량은 %d개 이상이어야 합니다.</string>
+    <string name="ticke_max_count_message">티켓 수량은 %d개 이하이어야 합니다.</string>
+
+
 </resources>
