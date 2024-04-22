@@ -19,6 +19,7 @@ import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
+import woowacourse.movie.model.screening.Screening
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -27,7 +28,6 @@ class ScreeningListActivityTest {
     private val movie =
         MovieInfo(
             Title("차람과 하디의 진지한 여행기"),
-            ScreeningDate(LocalDate.of(2024, 2, 25)),
             RunningTime(230),
             Synopsis("wow!"),
         )

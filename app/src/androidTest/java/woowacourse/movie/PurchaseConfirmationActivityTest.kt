@@ -26,11 +26,14 @@ class PurchaseConfirmationActivityTest {
     private val movie =
         MovieInfo(
             Title("차람과 하디의 진지한 여행기"),
-            ScreeningDate(LocalDate.of(2024, 2, 25)),
             RunningTime(230),
             Synopsis("wow!"),
         )
-    private val screening = Screening(movie, 10000)
+    private val screening = Screening(
+        movie,
+        ScreeningDate(LocalDate.of(2024, 2, 25)),
+        10000
+    )
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
