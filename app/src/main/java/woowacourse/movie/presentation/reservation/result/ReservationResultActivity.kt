@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.db.MovieDao
-import java.text.DecimalFormat
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
     private val presenter: ReservationResultContract.Presenter = ReservationResultPresenter(
@@ -55,6 +54,6 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
 
     private fun initPrice(price: Int) {
         val priceTextView: TextView = findViewById(R.id.result_price_textview)
-        priceTextView.text = DecimalFormat("#,###").format(price)
+        priceTextView.text = getString(R.string.price_format, price)
     }
 }
