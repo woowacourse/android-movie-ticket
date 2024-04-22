@@ -50,14 +50,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         movieDetailPresenter.display(intent.getLongExtra(MovieIntentConstants.EXTRA_MOVIE_ID, NOT_FOUND_MOVIE_ID))
     }
 
-    override fun onInitView(movieData: Movie?) {
-        movieData?.let { movie ->
-            detailImage.setImageResource(movie.thumbnail)
-            detailTitle.text = movie.title
-            detailDate.text = formatTimestamp(movie.date)
-            detailRunningTime.text = "${movie.runningTime}"
-            detailDescription.text = movie.description
-
+    override fun onInitView(movieData: Movie) {
+        with(movieData) {
+            detailImage.setImageResource(this.thumbnail)
+            detailTitle.text = this.title
+            detailDate.text = formatTimestamp(this.date)
+            detailRunningTime.text = "${this.runningTime}"
+            detailDescription.text = this.description
             minusButton.setOnClickListener {
                 movieDetailPresenter.minusReservationCount()
             }
@@ -65,16 +64,19 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 movieDetailPresenter.plusReservationCount()
             }
             reservationCompleteButton.setOnClickListener {
-                movieDetailPresenter.reservation(movie.id)
+                movieDetailPresenter.reservation(this.id)
             }
-        } ?: {
-            setResult(MovieErrorCode.INVALID_MOVIE_ID.code)
-            finish()
         }
     }
 
     override fun onCountUpdate(count: Int) {
         reservationCount.text = (count).toString()
+    }
+
+    override fun onError(errorCode: MovieErrorCode) {
+        // 에러 발생 시에, 이전 액티비티로 이동하며 메세지 전달
+        setResult(errorCode.code)
+        finish()
     }
 
     override fun onReservationComplete(

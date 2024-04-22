@@ -37,15 +37,18 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         )
     }
 
-    override fun onInitView(movieTicket: MovieTicket?) {
-        movieTicket?.let {
-            completeTitleTextView.text = it.title
-            completeDateTextView.text = formatTimestamp(it.date)
-            completeReservationCountTextView.text = "${it.count}"
-            completeReservationPriceTextView.text = formatCurrency(it.price)
-        } ?: {
-            setResult(MovieErrorCode.INVALID_MOVIE_ID.code)
-            finish()
+    override fun onInitView(movieTicket: MovieTicket) {
+        with(movieTicket) {
+            completeTitleTextView.text = this.title
+            completeDateTextView.text = formatTimestamp(this.date)
+            completeReservationCountTextView.text = "${this.count}"
+            completeReservationPriceTextView.text = formatCurrency(this.price)
         }
+    }
+
+    override fun onError(errorCode: MovieErrorCode) {
+        // 에러 발생 시에, 이전 액티비티로 이동하며 메세지 전달
+        setResult(errorCode.code)
+        finish()
     }
 }

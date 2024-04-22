@@ -2,6 +2,7 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.utils.MovieErrorCode
 
 class MovieResultPresenter(private val resultContractView: MovieResultContract.View) : MovieResultContract.Presenter {
     private var movieRepository: MovieRepository = MovieRepository()
@@ -11,10 +12,8 @@ class MovieResultPresenter(private val resultContractView: MovieResultContract.V
         count: Int,
     ) {
         val movie = movieRepository.getOneById(id)
-        resultContractView.onInitView(
-            movie?.run {
-                MovieTicket(this.title, this.date, count)
-            },
-        )
+        movie?.run {
+            resultContractView.onInitView(MovieTicket(this.title, this.date, count))
+        } ?: resultContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
     }
 }

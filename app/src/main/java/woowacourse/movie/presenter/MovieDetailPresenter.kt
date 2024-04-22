@@ -2,6 +2,7 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.utils.MovieErrorCode
 
 class MovieDetailPresenter(private val detailContractView: MovieDetailContract.View) :
     MovieDetailContract.Presenter {
@@ -10,7 +11,9 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
 
     override fun display(id: Long) {
         val movie = movieRepository.getOneById(id)
-        detailContractView.onInitView(movie)
+        movie?.let {
+            detailContractView.onInitView(it)
+        } ?: detailContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
     }
 
     override fun plusReservationCount() {
