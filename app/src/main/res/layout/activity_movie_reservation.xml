@@ -90,15 +90,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="17dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/minus_button"
-                android:layout_width="65dp"
-                android:layout_height="match_parent"
-                android:text="@string/minus" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:text="@string/minus"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/reservation_count_text"
@@ -106,14 +109,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/plus_button"
-                android:layout_width="65dp"
-                android:layout_height="match_parent"
-                android:text="@string/plus" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="5dp"
+                android:text="@string/plus"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -123,7 +129,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="8dp"
             android:text="@string/reservation_complete"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
