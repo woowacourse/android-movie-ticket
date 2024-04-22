@@ -18,12 +18,14 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
+        val reservationId = intent.getLongExtra(EXTRA_RESERVATION_ID, INVALID_RESERVATION_ID)
+
         presenter =
             ReservationResultPresenter(
-                id = intent.getLongExtra(EXTRA_RESERVATION_ID, INVALID_RESERVATION_ID),
                 repository = StubMovieRepository,
                 view = this,
             )
+        presenter.loadReservationResult(reservationId)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
