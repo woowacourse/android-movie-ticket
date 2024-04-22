@@ -14,14 +14,17 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private lateinit var ticketPrice: TextView
     private lateinit var ticketCount: TextView
     private val presenter: TicketDetailPresenter by lazy {
-        TicketDetailPresenter(this@TicketDetailActivity)
+        TicketDetailPresenter(
+            view = this@TicketDetailActivity,
+            ticketModel = getReservationTicket()
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
         initView()
-        presenter.loadTicket(makeTicket())
+        presenter.loadTicket()
     }
 
     private fun initView() {
@@ -31,7 +34,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         ticketCount = findViewById(R.id.ticket_number_of_people)
     }
 
-    private fun makeTicket(): TicketModel? {
+    private fun getReservationTicket(): TicketModel? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(
                 MovieReservationPresenter.KEY_NAME_TICKET,

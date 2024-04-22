@@ -8,6 +8,6 @@ interface TicketDetailContract {
     }
 
     interface Presenter {
-        fun loadTicket(ticketModel: TicketModel?)
+        fun loadTicket()
     }
 }
