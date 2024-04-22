@@ -34,7 +34,7 @@ class MovieReservationActivity :
         setContentView(R.layout.activity_movie_reservation)
 
         val movieContentId = movieContentId()
-        if (movieContentId == DEFAULT_VALUE) {
+        if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE) {
             handleError()
             return
         }
@@ -43,9 +43,17 @@ class MovieReservationActivity :
         setOnClickButtonListener()
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val count = savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+        presenter.updateReservationCount(count)
+    }
+
     override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
 
-    private fun movieContentId() = intent.getLongExtra(MOVIE_CONTENT_ID, DEFAULT_VALUE)
+    private fun movieContentId(): Long {
+        return intent.getLongExtra(MOVIE_CONTENT_ID_KEY, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    }
 
     override fun handleError() {
         Log.e(TAG, "Invalid MovieContentKey")
@@ -99,17 +107,24 @@ class MovieReservationActivity :
         MovieReservationCompleteActivity.startActivity(this, movieContentId(), reservationCount)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(MOVIE_RESERVATION_COUNT_KEY, reservationCountText.text.toString().toInt())
+        super.onSaveInstanceState(outState)
+    }
+
     companion object {
         private val TAG = MovieReservationActivity::class.simpleName
-        private const val DEFAULT_VALUE = -1L
-        private const val MOVIE_CONTENT_ID = "movie_content_id"
+        private const val MOVIE_CONTENT_ID_KEY = "movie_content_id"
+        private const val MOVIE_CONTENT_ID_DEFAULT_VALUE = -1L
+        private const val MOVIE_RESERVATION_COUNT_KEY = "reservation_count_key"
+        private const val RESERVATION_COUNT_DEFAULT_VALUE = 1
 
         fun startActivity(
             context: Context,
             movieContentId: Long,
         ) {
             Intent(context, MovieReservationActivity::class.java).run {
-                putExtra(MOVIE_CONTENT_ID, movieContentId)
+                putExtra(MOVIE_CONTENT_ID_KEY, movieContentId)
                 context.startActivity(this)
             }
         }

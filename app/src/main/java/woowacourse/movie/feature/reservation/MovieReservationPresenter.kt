@@ -32,4 +32,9 @@ class MovieReservationPresenter(
     override fun reserveMovie() {
         view.moveMovieReservationCompleteView(reservationCount.count)
     }
+
+    override fun updateReservationCount(count: Int) {
+        reservationCount = ReservationCount(count)
+        view.updateReservationCountUi(reservationCount.count)
+    }
 }

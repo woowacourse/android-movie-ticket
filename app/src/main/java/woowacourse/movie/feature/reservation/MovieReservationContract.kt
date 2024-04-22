@@ -23,5 +23,7 @@ interface MovieReservationContract {
         fun increaseReservationCount()
 
         fun reserveMovie()
+
+        fun updateReservationCount(count: Int)
     }
 }
