@@ -12,7 +12,7 @@ import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.screening.Screening
 
-class MovieAdapter : BaseAdapter() {
+class ScreeningAdapter : BaseAdapter() {
     private var screenings: List<Screening> = listOf()
 
     var onClick: ((Int) -> Unit)? = null

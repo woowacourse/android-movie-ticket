@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.adapter.ScreeningAdapter
 import woowacourse.movie.contract.ScreeningListContract
 import woowacourse.movie.repository.PseudoScreeningRepository
 import woowacourse.movie.repository.ScreeningRepository
@@ -8,7 +8,7 @@ import woowacourse.movie.repository.ScreeningRepository
 class ScreeningListPresenter(
     private val screeningListView: ScreeningListContract.View,
     screeningRepository: ScreeningRepository = PseudoScreeningRepository(),
-    val movieAdapter: MovieAdapter,
+    private val movieAdapter: ScreeningAdapter,
 ) : ScreeningListContract.Presenter {
     private val screenings = screeningRepository.getScreenings()
 

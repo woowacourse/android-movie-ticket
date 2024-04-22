@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.adapter.ScreeningAdapter
 import woowacourse.movie.contract.ScreeningListContract
 import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.presenter.ScreeningListPresenter
@@ -16,7 +16,7 @@ class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_list_activity)
-        val movieAdapter = MovieAdapter()
+        val movieAdapter = ScreeningAdapter()
         ScreeningListPresenter(
             screeningListView = this,
             movieAdapter = movieAdapter,
