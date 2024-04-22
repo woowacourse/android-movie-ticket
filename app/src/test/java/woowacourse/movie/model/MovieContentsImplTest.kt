@@ -23,7 +23,7 @@ class MovieContentsImplTest {
         // then
         assertThat(actual.imageId).isEqualTo(0)
         assertThat(actual.title).isEqualTo("해리 포터와 마법사의 돌")
-        assertThat(actual.screeningDate).isEqualTo(Date(2024, 3, 1))
+        assertThat(actual.screeningMovieDate).isEqualTo(MovieDate(2024, 3, 1))
         assertThat(actual.runningTime).isEqualTo(152)
         assertThat(actual.synopsis).isEqualTo("해리")
     }

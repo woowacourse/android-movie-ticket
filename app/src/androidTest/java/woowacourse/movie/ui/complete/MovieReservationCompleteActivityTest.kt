@@ -16,8 +16,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
@@ -52,7 +52,7 @@ class MovieReservationCompleteActivityTest {
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
-        val screeningDate = dateFormatter(movieContent.screeningDate)
+        val screeningDate = dateFormatter(movieContent.screeningMovieDate)
 
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
@@ -75,8 +75,8 @@ class MovieReservationCompleteActivityTest {
             .check(matches(withText("%,d원 (현장 결제)".format(reservationAmount))))
     }
 
-    private fun dateFormatter(date: Date): String {
-        val screeningDate = LocalDate.of(date.year, date.month, date.day)
+    private fun dateFormatter(movieDate: MovieDate): String {
+        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         return screeningDate.format(formatter)
     }
@@ -91,7 +91,7 @@ class MovieReservationCompleteActivityTest {
                 MovieContent(
                     R.drawable.movie_poster,
                     "해리 포터와 마법사의 돌",
-                    Date(2024, 3, 1),
+                    MovieDate(2024, 3, 1),
                     152,
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, " +
                         "판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다. ",

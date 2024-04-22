@@ -6,8 +6,8 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.ui.base.BaseActivity
@@ -72,7 +72,7 @@ class MovieReservationCompleteActivity :
             titleText.text = title
             screeningDateText.text =
                 resources.getString(R.string.date)
-                    .format(dateFormatter(screeningDate))
+                    .format(dateFormatter(screeningMovieDate))
         }
     }
 
@@ -85,8 +85,8 @@ class MovieReservationCompleteActivity :
         }
     }
 
-    private fun dateFormatter(date: Date): String {
-        val screeningDate = LocalDate.of(date.year, date.month, date.day)
+    private fun dateFormatter(movieDate: MovieDate): String {
+        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         return screeningDate.format(formatter)
     }

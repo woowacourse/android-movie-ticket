@@ -1,8 +1,8 @@
 package woowacourse.movie.model.data
 
 import woowacourse.movie.R
-import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.MovieDate
 
 object MovieContentsImpl : MovieContents {
     private const val EXCEPTION_INVALID_ID = "Movie not found with id: %d"
@@ -14,7 +14,7 @@ object MovieContentsImpl : MovieContents {
             MovieContent(
                 R.drawable.movie_poster,
                 "해리 포터와 마법사의 돌",
-                Date(2024, 3, 1),
+                MovieDate(2024, 3, 1),
                 152,
                 "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, " +
 

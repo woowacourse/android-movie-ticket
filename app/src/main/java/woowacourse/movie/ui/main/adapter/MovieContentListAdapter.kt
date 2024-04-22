@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.MovieDate
 import woowacourse.movie.ui.main.constants.MainMovieContentKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
 import java.time.LocalDate
@@ -65,7 +65,7 @@ class MovieContentListAdapter(
             screeningDateText.text =
                 context.resources
                     .getString(R.string.screening_date)
-                    .format(dateFormatter(movieContent.screeningDate))
+                    .format(dateFormatter(movieContent.screeningMovieDate))
 
             runningTimeText.text =
                 context.resources.getString(R.string.running_time)
@@ -73,8 +73,8 @@ class MovieContentListAdapter(
         }
     }
 
-    private fun dateFormatter(date: Date): String {
-        val screeningDate = LocalDate.of(date.year, date.month, date.day)
+    private fun dateFormatter(movieDate: MovieDate): String {
+        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         return screeningDate.format(formatter)
     }
