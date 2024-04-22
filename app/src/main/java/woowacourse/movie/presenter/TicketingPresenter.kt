@@ -14,6 +14,9 @@ class TicketingPresenter(
     private val movie = findMovieById(movieId)
     private val count = Count(initialCount)
 
+    val countValue: Int
+        get() = count.value
+
     override fun initializeTicketingData() {
         when (movie) {
             is Result.Success -> {

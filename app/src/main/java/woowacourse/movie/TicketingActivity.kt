@@ -30,15 +30,15 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("count", countText.text.toString().toInt())
+        outState.putInt(KEY_COUNT, ticketingPresenter.countValue)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
-            val count = it.getInt("count", DEFAULT_COUNT)
+            val count = it.getInt(KEY_COUNT, DEFAULT_COUNT)
             ticketingPresenter = TicketingPresenter(this, movieId, count)
-            countText.text = count.toString()
+            countText.text = ticketingPresenter.countValue.toString()
         }
     }
 
@@ -109,5 +109,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         const val EXTRA_TOTAL_PRICE = "total_price"
         const val EXTRA_DEFAULT_MOVIE_ID = -1L
         private const val DEFAULT_COUNT = 1
+        private const val KEY_COUNT = "count"
     }
 }
