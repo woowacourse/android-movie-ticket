@@ -30,18 +30,19 @@ class MovieReservationPresenterTest {
         presenter =
             MovieReservationPresenter(
                 view = mockView,
+                movieId = 1,
                 movieRepository = MovieRepositoryImpl(),
             )
     }
 
     @Test
-    fun `clickMinusNumberButton과 상호작용으로 showCurrentResultTicketCountView()를 호출해야 한다`() {
+    fun `clickMinusNumberButton과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
         presenter.clickMinusNumberButton()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }
 
     @Test
-    fun `clickPlusNumberButton과 상호작용으로 showCurrentResultTicketCountView()를 호출해야 한다`() {
+    fun `clickPlusNumberButton과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
         presenter.clickPlusNumberButton()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }
