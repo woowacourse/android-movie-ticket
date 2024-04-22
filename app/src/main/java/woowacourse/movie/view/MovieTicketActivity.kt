@@ -7,6 +7,7 @@ import woowacourse.movie.R
 import woowacourse.movie.contract.MovieTicketContract
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.MovieTicketPresenter
+import woowacourse.movie.view.MovieReservationActivity.Companion.EXTRA_COUNT_KEY
 import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
@@ -32,8 +33,8 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
 
     override fun showTicketInfo(info: Ticket) {
         val formattedScreeningDate =
-            info.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-        val ticketCountData = intent.getIntExtra("count", 1)
+            info.screeningDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))
+        val ticketCountData = intent.getIntExtra(EXTRA_COUNT_KEY, 1)
 
         ticketTitle.text = info.title
         ticketScreeningDate.text = formattedScreeningDate
@@ -44,5 +45,6 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     companion object {
         private const val TICKET_PRICE = "%,d원 (현장결제)"
         private const val TICKET_COUNT = "일반 %d명"
+        private const val DATE_PATTERN = "yyyy.MM.dd"
     }
 }

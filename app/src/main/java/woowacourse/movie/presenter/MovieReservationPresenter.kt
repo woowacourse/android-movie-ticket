@@ -28,13 +28,14 @@ class MovieReservationPresenter(
     }
 
     override fun setMinusButtonClickInfo() {
-        runCatching { model.minusTicketCount() }
-            .onFailure {
-                toast?.cancel()
-                toast = Toast.makeText(view as Context, it.message, Toast.LENGTH_SHORT)
-                toast?.show()
-            }
-        view.showCurrentResultTicketCountView(ticketCount.number)
+        runCatching {
+            model.minusTicketCount()
+            view.showCurrentResultTicketCountView(ticketCount.number)
+        }.onFailure {
+            toast?.cancel()
+            toast = Toast.makeText(view as Context, it.message, Toast.LENGTH_SHORT)
+            toast?.show()
+        }
     }
 
     override fun setTicketingButtonClickInfo() {

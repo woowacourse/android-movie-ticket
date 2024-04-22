@@ -50,7 +50,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun setMovieView() {
         getSerializableMovieData(intent)?.let { movie ->
             val formattedScreeningDate =
-                movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+                movie.screeningDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))
 
             titleView.text = movie.title
             screeningDateView.text = formattedScreeningDate
@@ -84,22 +84,27 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun startMovieTicketActivity(info: Int) {
         val intent = Intent(this, MovieTicketActivity::class.java)
-        intent.putExtra("count", info)
+        intent.putExtra(EXTRA_COUNT_KEY, info)
         this.startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val count = findViewById<TextView>(R.id.ticket_count).text.toString().toInt()
-        outState.putInt("count", count)
+        outState.putInt(EXTRA_COUNT_KEY, count)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
-            val count = it.getInt("count")
+            val count = it.getInt(EXTRA_COUNT_KEY)
             val countTextView = findViewById<TextView>(R.id.ticket_count)
             countTextView.text = count.toString()
         }
+    }
+
+    companion object {
+        const val EXTRA_COUNT_KEY = "count_key"
+        private const val DATE_PATTERN = "yyyy.MM.dd"
     }
 }
