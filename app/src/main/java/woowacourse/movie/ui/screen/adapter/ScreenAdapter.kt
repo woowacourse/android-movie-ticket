@@ -26,21 +26,20 @@ class ScreenAdapter(
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        val view: View
         val viewHolder: ScreenViewHolder
-
         if (convertView == null) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
-            viewHolder = ScreenViewHolder(view, onScreenClickListener)
-            view.tag = viewHolder
+            viewHolder =
+                ScreenViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false),
+                    onScreenClickListener,
+                )
+            viewHolder.saveViewHolder()
         } else {
-            view = convertView
-            viewHolder = view.tag as ScreenViewHolder
+            viewHolder = convertView.viewHolder()
         }
 
         viewHolder.bind(item[position])
-
-        return view
+        return viewHolder.view
     }
 
     fun updateScreens(screens: List<ScreenPreviewUI>) {
@@ -49,7 +48,7 @@ class ScreenAdapter(
     }
 
     class ScreenViewHolder(
-        view: View,
+        val view: View,
         private val onScreenClickListener: OnScreenClickListener,
     ) {
         private val poster: ImageView = view.findViewById(R.id.iv_poster)
@@ -57,6 +56,10 @@ class ScreenAdapter(
         private val date: TextView = view.findViewById(R.id.tv_screen_date)
         private val runningTime: TextView = view.findViewById(R.id.tv_screen_running_time)
         private val reserveButton: Button = view.findViewById(R.id.btn_reserve_now)
+
+        fun saveViewHolder() {
+            view.tag = this
+        }
 
         fun bind(screen: ScreenPreviewUI) {
             initView(screen)
@@ -79,3 +82,5 @@ class ScreenAdapter(
         }
     }
 }
+
+private fun View.viewHolder(): ScreenAdapter.ScreenViewHolder = this.tag as ScreenAdapter.ScreenViewHolder
