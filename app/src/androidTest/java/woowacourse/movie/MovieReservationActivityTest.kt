@@ -51,6 +51,14 @@ class MovieReservationActivityTest {
     }
 
     @Test
+    @DisplayName("현재 값이 1일 경우, 마이너스 버튼을 눌러도 감소하지 않는다.")
+    fun do_not_decrease_when_current_count_is_1() {
+        onView(withId(R.id.tv_detail_count)).check(matches(withText("1")))
+        onView(withId(R.id.btn_detail_minus)).perform(click())
+        onView(withId(R.id.tv_detail_count)).check(matches(withText("1")))
+    }
+
+    @Test
     @DisplayName("인원수를 2로 증가시킨 후 회진시 데이터가 유지된다.")
     fun data_is_maintained_when_rotate_the_screen() {
         onView(withId(R.id.btn_detail_plus)).perform(click())
