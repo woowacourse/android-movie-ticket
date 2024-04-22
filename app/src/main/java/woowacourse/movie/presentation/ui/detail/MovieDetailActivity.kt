@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.repository.InMemoryMovieTicketRepository
+import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.dto.ReservationData
 import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
@@ -40,7 +40,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         val runningTime = intent.getIntExtra(EXTRA_RUNNING_TIME, 0)
         val summary = intent.getStringExtra(EXTRA_SUMMARY) ?: ""
 
-        movieDetailPresenter = MovieDetailPresenterImpl(this, InMemoryMovieTicketRepository, title, screeningDate)
+        movieDetailPresenter = MovieDetailPresenterImpl(this, MovieTicketRepositoryImpl, title, screeningDate)
         movieDetailPresenter?.loadMovieDetails(posterImageId, title, screeningDate, runningTime, summary)
 
         initClickListener()

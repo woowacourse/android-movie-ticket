@@ -1,8 +1,9 @@
-package woowacourse.movie.domain.repository
+package woowacourse.movie.data.repository
 
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.repository.MovieTicketRepository
 
-object InMemoryMovieTicketRepository : MovieTicketRepository {
+object MovieTicketRepositoryImpl : MovieTicketRepository {
     private var movieTicket: MovieTicket? = null
 
     override fun setMovieTicket(
@@ -17,6 +18,6 @@ object InMemoryMovieTicketRepository : MovieTicketRepository {
     }
 
     override fun updateReservationCount(movieTicket: MovieTicket) {
-        InMemoryMovieTicketRepository.movieTicket = movieTicket
+        MovieTicketRepositoryImpl.movieTicket = movieTicket
     }
 }
