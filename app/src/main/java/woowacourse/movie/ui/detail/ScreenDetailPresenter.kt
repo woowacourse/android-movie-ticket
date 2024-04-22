@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.detail
 
 import woowacourse.movie.domain.model.IScreen
+import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.model.NullScreen
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
@@ -23,7 +24,7 @@ class ScreenDetailPresenter(
     override fun loadScreen(screenId: Int) {
         when (val screen = screen(screenId)) {
             is Screen -> {
-                val screenDetailUI = screen.toDetailUI()
+                val screenDetailUI = screen.toDetailUI(movieRepository.imageSrc(screen.movie.id))
                 view.showScreen(screenDetailUI)
                 view.showTicket(ticket.count)
             }
@@ -45,19 +46,6 @@ class ScreenDetailPresenter(
         }
         return NullScreen()
     }
-
-    private fun IScreen.toDetailUI() =
-        ScreenDetailUI(
-            id = id,
-            movieDetailUI =
-                MovieDetailUI(
-                    title = movie.title,
-                    runningTime = movie.runningTime,
-                    description = movie.description,
-                    image = movieRepository.imageSrc(movie.id),
-                ),
-            date = date,
-        )
 
     override fun plusTicket() {
         val increasedTicket = ticket.increase()
@@ -92,3 +80,16 @@ class ScreenDetailPresenter(
         }
     }
 }
+
+private fun IScreen.toDetailUI(image: Image<Any>) =
+    ScreenDetailUI(
+        id = id,
+        movieDetailUI =
+            MovieDetailUI(
+                title = movie.title,
+                runningTime = movie.runningTime,
+                description = movie.description,
+                image = image,
+            ),
+        date = date,
+    )
