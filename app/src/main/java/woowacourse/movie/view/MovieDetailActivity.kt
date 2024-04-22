@@ -37,7 +37,12 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
         movieDetailPresenter =
             MovieDetailPresenter(this, savedInstanceState?.getInt(KEY_MOVIE_RESERVATION_COUNT))
-        movieDetailPresenter.loadMovieDetail(intent.getLongExtra(KEY_MOVIE_ID, INVALID_VALUE_MOVIE_ID))
+        movieDetailPresenter.loadMovieDetail(
+            intent.getLongExtra(
+                KEY_MOVIE_ID,
+                INVALID_VALUE_MOVIE_ID,
+            ),
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -56,7 +61,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             detailDate.text = formatTimestamp(movie.date)
             detailRunningTime.text = "${movie.runningTime}"
             detailDescription.text = movie.description
-            updateCount(movieReservationCount.count)
+            reservationCount.text = movieReservationCount.count.toString()
 
             minusButton.setOnClickListener {
                 movieDetailPresenter.minusReservationCount()
@@ -71,7 +76,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     override fun updateCount(count: Int) {
-        reservationCount.text = (count).toString()
+        reservationCount.text = count.toString()
     }
 
     override fun navigateToResultView(
