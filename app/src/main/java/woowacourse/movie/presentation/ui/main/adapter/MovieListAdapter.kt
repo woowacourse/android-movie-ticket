@@ -55,7 +55,7 @@ class MovieListAdapter(
             posterImage.setImageResource(movie.posterSrc)
             title.text = movie.title
             screeningDate.text =
-                screeningDate.context.getString(R.string.screening_date_format, movie.screeningDate)
+                screeningDate.context.getString(R.string.screening_date_format, movie.screeningDateToString())
             runningTime.text =
                 runningTime.context.getString(R.string.running_time_format, movie.runningTime)
             reserveButton.setOnClickListener {

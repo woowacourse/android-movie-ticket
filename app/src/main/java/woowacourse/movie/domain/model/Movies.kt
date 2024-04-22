@@ -1,6 +1,7 @@
 package woowacourse.movie.domain.model
 
 import woowacourse.movie.R
+import java.time.LocalDate
 
 class Movies {
     private var _movies: MutableList<Movie> = mutableListOf()
@@ -16,7 +17,7 @@ class Movies {
             Movie(
                 posterSrc = R.drawable.harrypotter_poster,
                 title = "해리 포터와 마법사의 돌",
-                screeningDate = Date.from("2024.3.1"),
+                screeningDate = LocalDate.parse("2024-04-01"),
                 runningTime = 152,
                 summary =
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, " +
