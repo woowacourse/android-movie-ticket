@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.main.adapter
+package woowacourse.movie.ui.home.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
-import woowacourse.movie.ui.main.MovieHomeKey
+import woowacourse.movie.ui.home.MovieHomeKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

@@ -1,11 +1,11 @@
-package woowacourse.movie.ui.main
+package woowacourse.movie.ui.home
 
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.ui.main.adapter.MovieContentListAdapter
+import woowacourse.movie.ui.home.adapter.MovieContentListAdapter
 
 class MovieHomeActivity : AppCompatActivity(), MovieHomeContract.View {
     private val movieContentList: ListView by lazy { findViewById(R.id.movie_content_list) }
