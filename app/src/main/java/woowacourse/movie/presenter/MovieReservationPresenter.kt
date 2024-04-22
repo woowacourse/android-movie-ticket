@@ -1,6 +1,7 @@
 package woowacourse.movie.presenter
 
-import android.util.Log
+import android.content.Context
+import android.widget.Toast
 import woowacourse.movie.contract.MovieReservationContract
 import woowacourse.movie.model.MovieReservationData
 
@@ -8,6 +9,7 @@ class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
 ) : MovieReservationContract.Presenter {
     private val model: MovieReservationData = MovieReservationData()
+    private var toast: Toast? = null
 
     private val ticketCount
         get() = model.ticketCount
@@ -27,7 +29,11 @@ class MovieReservationPresenter(
 
     override fun setMinusButtonClickInfo() {
         runCatching { model.minusTicketCount() }
-            .onFailure { Log.d("error", "setClickListener: ${it.message}") }
+            .onFailure {
+                toast?.cancel()
+                toast = Toast.makeText(view as Context, it.message, Toast.LENGTH_SHORT)
+                toast?.show()
+            }
         view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
