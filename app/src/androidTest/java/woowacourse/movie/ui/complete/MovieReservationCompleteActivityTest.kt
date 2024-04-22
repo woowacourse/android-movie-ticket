@@ -21,9 +21,10 @@ import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.complete.constants.CompleteMovieContentKey
 import woowacourse.movie.ui.complete.constants.CompleteMovieReservationKey
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
@@ -52,7 +53,8 @@ class MovieReservationCompleteActivityTest {
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         val screeningDate =
-            DateUi.dateMessage(movieContent.screeningDate, context)
+            context.resources.getString(R.string.date)
+                .format(dateFormatter(movieContent.screeningDate))
 
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
@@ -82,6 +84,12 @@ class MovieReservationCompleteActivityTest {
         onView(withId(R.id.reservation_amount_text))
             .check(matches(isDisplayed()))
             .check(matches(withText(reservationAmount)))
+    }
+
+    private fun dateFormatter(date: Date): String {
+        val screeningDate = LocalDate.of(date.year, date.month, date.day)
+        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        return screeningDate.format(formatter)
     }
 
     companion object {

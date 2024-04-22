@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
+import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
-import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.main.constants.MainMovieContentKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieContentListAdapter(
     private val context: Context,
@@ -59,12 +61,22 @@ class MovieContentListAdapter(
         with(movieViewHolder) {
             posterImage.setImageResource(movieContent.imageId)
             titleText.text = movieContent.title
+
             screeningDateText.text =
-                DateUi.screeningDateMessage(movieContent.screeningDate, context)
+                context.resources
+                    .getString(R.string.screening_date)
+                    .format(dateFormatter(movieContent.screeningDate))
+
             runningTimeText.text =
                 context.resources.getString(R.string.running_time)
                     .format(movieContent.runningTime)
         }
+    }
+
+    private fun dateFormatter(date: Date): String {
+        val screeningDate = LocalDate.of(date.year, date.month, date.day)
+        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        return screeningDate.format(formatter)
     }
 
     override fun moveMovieReservationView(movieContentId: Long) {

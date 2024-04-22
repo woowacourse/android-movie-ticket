@@ -9,13 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
+import woowacourse.movie.model.Date
 import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.ui.DateUi
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import woowacourse.movie.ui.reservation.constants.ReservationMovieContentKey
 import woowacourse.movie.ui.reservation.constants.ReservationMovieReservationKey
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
@@ -103,7 +105,8 @@ class MovieReservationActivity :
             posterImage.setImageResource(imageId)
             titleText.text = title
             screeningDateText.text =
-                DateUi.screeningDateMessage(screeningDate, this@MovieReservationActivity)
+                resources.getString(R.string.screening_date)
+                    .format(dateFormatter(screeningDate))
             runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
             synopsisText.text = synopsis
         }
@@ -119,6 +122,12 @@ class MovieReservationActivity :
             putExtra(ReservationMovieReservationKey.COUNT, reservationCount)
             startActivity(this)
         }
+    }
+
+    private fun dateFormatter(date: Date): String {
+        val screeningDate = LocalDate.of(date.year, date.month, date.day)
+        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        return screeningDate.format(formatter)
     }
 
     companion object {
