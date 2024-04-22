@@ -5,5 +5,5 @@ import woowacourse.movie.model.ScreenMovieUiModel
 interface ScreeningMovieView {
     fun showMovies(movies: List<ScreenMovieUiModel>)
 
-    fun onClickReservationButton(reservationId: Long)
+    fun onClickReservationButton(screeningMovieId: Long)
 }

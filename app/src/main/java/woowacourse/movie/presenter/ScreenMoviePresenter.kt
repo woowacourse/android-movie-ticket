@@ -11,8 +11,8 @@ class ScreenMoviePresenter(
         view.showMovies(repository.screenMovies().map { it.toScreenMovieUiModel() })
     }
 
-    fun startReservation(id: Long) {
-        val screenMovie = repository.screenMovieById(id)
+    fun startReservation(screeningMovieId: Long) {
+        val screenMovie = repository.screenMovieById(screeningMovieId)
         view.onClickReservationButton(screenMovie.id)
     }
 }
