@@ -14,13 +14,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.activity.ScreeningListActivity
-import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
-import woowacourse.movie.model.screening.Screening
-import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest

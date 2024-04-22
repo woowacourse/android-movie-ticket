@@ -13,12 +13,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.PurchaseConfirmationActivity
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.model.screening.ScreeningDate
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -29,11 +29,12 @@ class PurchaseConfirmationActivityTest {
             RunningTime(230),
             Synopsis("wow!"),
         )
-    private val screening = Screening(
-        movie,
-        ScreeningDate(LocalDate.of(2024, 2, 25)),
-        10000
-    )
+    private val screening =
+        Screening(
+            movie,
+            ScreeningDate(LocalDate.of(2024, 2, 25)),
+            10000,
+        )
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),

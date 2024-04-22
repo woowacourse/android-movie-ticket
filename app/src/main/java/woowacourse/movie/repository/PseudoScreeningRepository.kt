@@ -1,11 +1,11 @@
 package woowacourse.movie.repository
 
-import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.model.screening.ScreeningDate
 import java.time.LocalDate
 
 class PseudoScreeningRepository : ScreeningRepository {
@@ -13,7 +13,9 @@ class PseudoScreeningRepository : ScreeningRepository {
         MovieInfo(
             Title("차람과 하디의 진지한 여행기"),
             RunningTime(230),
-            Synopsis("synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys"),
+            Synopsis(
+                "synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys",
+            ),
         )
     private val pseudoScreening =
         Screening(

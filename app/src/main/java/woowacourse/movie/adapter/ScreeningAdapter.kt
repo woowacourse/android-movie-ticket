@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.model.screening.ScreeningDate
 
 class ScreeningAdapter : BaseAdapter() {
     private var screenings: List<Screening> = listOf()
@@ -33,16 +32,17 @@ class ScreeningAdapter : BaseAdapter() {
         convertView: View?,
         parent: ViewGroup,
     ): View {
-
-        val listItemView = convertView
-            ?: LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
-        val viewHolder = if(convertView != null) {
-            listItemView.tag as ViewHolder
-        } else {
-            val viewHolder = ViewHolder(listItemView)
-            listItemView.tag = viewHolder
-            viewHolder
-        }
+        val listItemView =
+            convertView
+                ?: LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
+        val viewHolder =
+            if (convertView != null) {
+                listItemView.tag as ViewHolder
+            } else {
+                val viewHolder = ViewHolder(listItemView)
+                listItemView.tag = viewHolder
+                viewHolder
+            }
         val screening: Screening = getItem(position)
         viewHolder.bind(screening)
         return listItemView
@@ -72,8 +72,9 @@ class ScreeningAdapter : BaseAdapter() {
         }
 
         private fun Title.format() = content
+
         private fun ScreeningDate.format() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
+
         private fun RunningTime.format() = time.toString() + "분"
     }
-
 }
