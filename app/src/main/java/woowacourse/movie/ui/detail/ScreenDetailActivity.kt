@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.repository.DummyMovies
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
@@ -28,7 +29,6 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     }
 
     private val iScreenDetailViewHolder: IScreenDetailViewHolder by lazy { ScreenDetailViewHolder() }
-
     private lateinit var ticketViewHolder: ITicketViewHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,22 +71,47 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         finish()
     }
 
-    override fun goToBack(message: String) {
-        showToastMessage(message)
+    override fun goToBack(e: Throwable) {
+        showToastMessage(e)
         finish()
     }
 
-    override fun unexpectedFinish(message: String) {
-        showSnackBar(message)
+    override fun unexpectedFinish(e: Throwable) {
+        showSnackBar(e)
         finish()
     }
 
-    override fun showToastMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    override fun showToastMessage(e: Throwable) {
+        when (e) {
+            is NoSuchElementException -> Toast.makeText(this, "해당하는 상영 정보가 없습니다!!", Toast.LENGTH_SHORT).show()
+            is IllegalArgumentException ->
+                Toast.makeText(
+                    this,
+                    "티켓 수량은 ${Ticket.MIN_TICKET_COUNT}~${Ticket.MAX_TICKET_COUNT} 사이어야 합니다!!",
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+            else -> Toast.makeText(this, "예상치 못한 에러가 발생했습니다!!", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    override fun showSnackBar(message: String) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
+    override fun showSnackBar(e: Throwable) {
+        when (e) {
+            is NoSuchElementException ->
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "해당하는 상영 정보가 없습니다!!",
+                    Snackbar.LENGTH_SHORT,
+                ).show()
+            is IllegalArgumentException ->
+                Snackbar.make(
+                    findViewById(android.R.id.content),
+                    "티켓 수량은 ${Ticket.MIN_TICKET_COUNT}~${Ticket.MAX_TICKET_COUNT} 사이어야 합니다!!",
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+            else -> Snackbar.make(findViewById(android.R.id.content), "예상치 못한 에러가 발생했습니다!!", Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

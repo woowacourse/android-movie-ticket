@@ -10,13 +10,13 @@ interface ScreenDetailContract {
 
         fun navigateToReservation(navigationId: Int)
 
-        fun showToastMessage(message: String)
+        fun showToastMessage(e: Throwable)
 
-        fun showSnackBar(message: String)
+        fun showSnackBar(e: Throwable)
 
-        fun goToBack(message: String)
+        fun goToBack(e: Throwable)
 
-        fun unexpectedFinish(message: String)
+        fun unexpectedFinish(e: Throwable)
     }
 
     interface Presenter {

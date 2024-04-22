@@ -5,7 +5,6 @@ import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.model.NullScreen
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ReservationRepository
@@ -31,8 +30,8 @@ class ScreenDetailPresenter(
 
             is NullScreen -> {
                 when (screen.throwable) {
-                    is NoSuchElementException -> view.goToBack("해당하는 상영 정보가 없습니다.")
-                    else -> view.unexpectedFinish("예상치 못한 에러가 발생했습니다")
+                    is NoSuchElementException -> view.goToBack(screen.throwable)
+                    else -> view.unexpectedFinish(screen.throwable)
                 }
             }
         }
@@ -48,25 +47,21 @@ class ScreenDetailPresenter(
     }
 
     override fun plusTicket() {
-        val increasedTicket = ticket.increase()
-
-        if (increasedTicket.isInvalidCount()) {
-            view.showToastMessage("티켓 수량은 ${MAX_TICKET_COUNT}개 이하이어야 합니다.")
-            return
+        try {
+            ticket = ticket.increase()
+            view.showTicket(ticket.count)
+        } catch (e: IllegalArgumentException) {
+            view.showToastMessage(e)
         }
-        ticket = increasedTicket
-        view.showTicket(ticket.count)
     }
 
     override fun minusTicket() {
-        val decreasedTicket = ticket.decrease()
-
-        if (decreasedTicket.isInvalidCount()) {
-            view.showToastMessage("티켓 수량은 ${MIN_TICKET_COUNT}개 이상이어야 합니다.")
-            return
+        try {
+            ticket = ticket.decrease()
+            view.showTicket(ticket.count)
+        } catch (e: IllegalArgumentException) {
+            view.showToastMessage(e)
         }
-        ticket = decreasedTicket
-        view.showTicket(ticket.count)
     }
 
     override fun reserve(screenId: Int) {
@@ -76,7 +71,7 @@ class ScreenDetailPresenter(
         ).onSuccess { id ->
             view.navigateToReservation(id)
         }.onFailure { e ->
-            view.showToastMessage("예상치 못한 에러가 발생했습니다 : ${e.message}")
+            view.showToastMessage(e)
         }
     }
 }
