@@ -16,8 +16,6 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
-        this::class.java.canonicalName
-
         presenter =
             ReservationResultPresenter(
                 id = intent.getLongExtra(EXTRA_RESERVATION_ID, INVALID_RESERVATION_ID),
