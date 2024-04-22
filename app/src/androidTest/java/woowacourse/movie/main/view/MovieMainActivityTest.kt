@@ -1,6 +1,7 @@
-package woowacourse.movie.detail.view
+package woowacourse.movie.main.view
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -10,7 +11,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.main.view.MovieMainActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieMainActivityTest {
@@ -35,5 +35,11 @@ class MovieMainActivityTest {
     @Test
     fun `영화_아이템에_영화_러닝타임이_표시된다`() {
         onView(withId(R.id.movieRunningTime)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `지금_예매_버튼을_클릭하면_영화_상세_페이지로_이동한다`() {
+        onView(withId((R.id.movieReservationBtn))).perform(click())
+        onView(withId(R.id.detailActivity)).check(matches(isDisplayed()))
     }
 }

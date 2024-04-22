@@ -1,4 +1,4 @@
-package woowacourse.movie.main.view
+package woowacourse.movie.detail.view
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -14,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.detail.view.MovieDetailActivity
 import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 
 @RunWith(AndroidJUnit4::class)
@@ -75,5 +75,11 @@ class MovieDetailActivityTest {
         }
 
         onView(withId(R.id.detailReservCount)).check(matches(withText("2")))
+    }
+
+    @Test
+    fun `예매_예매_버튼을_클릭하면_영화_상세_페이지로_이동한다`() {
+        onView(withId((R.id.detailReservCompleteBtn))).perform(click())
+        onView(withId(R.id.resultActivity)).check(matches(ViewMatchers.isDisplayed()))
     }
 }
