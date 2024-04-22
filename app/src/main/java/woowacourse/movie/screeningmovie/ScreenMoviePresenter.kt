@@ -1,6 +1,5 @@
 package woowacourse.movie.screeningmovie
 
-import woowacourse.movie.presenter.toScreenMovieUiModel
 import woowacourse.movie.repository.MovieRepository
 
 class ScreenMoviePresenter(
