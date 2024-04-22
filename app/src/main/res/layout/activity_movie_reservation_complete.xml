@@ -15,39 +15,42 @@
         android:paddingBottom="10dp"
         android:text="@string/reservation_complete_guide"
         android:textColor="@color/white"
-        android:textSize="15dp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/title_text"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:paddingBottom="48dp"
         android:gravity="center"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/screening_date_text"
         android:layout_width="match_parent"
-        android:layout_height="26dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="80dp"
+        android:paddingBottom="6dp"
         android:gravity="center"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/reservation_count_text"
         android:layout_width="match_parent"
-        android:layout_height="26dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:paddingBottom="6dp"
         android:gravity="center"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/reservation_amount_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
