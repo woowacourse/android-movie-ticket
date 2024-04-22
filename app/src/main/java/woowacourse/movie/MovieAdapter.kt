@@ -16,8 +16,6 @@ class MovieAdapter(
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) :
     BaseAdapter() {
-    private val inflater = LayoutInflater.from(context)
-
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): ScreenMovieUiModel = movies[position]
@@ -29,23 +27,37 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view = convertView ?: inflater.inflate(R.layout.item_movie, null)
+
+        val holder: MovieViewHolder
+        val view: View
+
+        if (convertView == null) {
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
+            holder = MovieViewHolder(view)
+            view.tag = holder
+        } else {
+            view = convertView
+            holder = convertView.tag as MovieViewHolder
+        }
 
         val movie = getItem(position)
-        val postImageView = view.findViewById<ImageView>(R.id.iv_movie_post)
-        val title = view.findViewById<TextView>(R.id.tv_movie_title)
-        val date = view.findViewById<TextView>(R.id.tv_movie_running_date)
-        val runningTime = view.findViewById<TextView>(R.id.tv_movie_running_time)
 
-        postImageView.setImageResource(movie.imageRes)
-        title.text = movie.title
-        date.text = movie.screenDate
-        runningTime.text = movie.runningTime
+        holder.postImageView.setImageResource(movie.imageRes)
+        holder.title.text = movie.title
+        holder.date.text = movie.screenDate
+        holder.runningTime.text = movie.runningTime
 
         view.findViewById<Button>(R.id.btn_movie_reservation).setOnClickListener {
             onClickReservationButton(movie.id)
         }
 
         return view
+    }
+
+    class MovieViewHolder(view:View){
+        val postImageView: ImageView = view.findViewById(R.id.iv_movie_post)
+        val title: TextView = view.findViewById(R.id.tv_movie_title)
+        val date: TextView = view.findViewById(R.id.tv_movie_running_date)
+        val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
     }
 }
