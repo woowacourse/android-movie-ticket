@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieContent
@@ -17,16 +20,13 @@ import java.time.format.DateTimeFormatter
 
 class MovieContentListAdapter(
     private val context: Context,
-    movieContents: List<MovieContent>,
-) : BaseAdapter(), MovieContentListContract.View {
-    private val presenter: MovieContentListContract.Presenter =
-        MovieContentListPresenter(this, movieContents)
+    private val movieContents: List<MovieContent>,
+) : BaseAdapter() {
+    override fun getCount(): Int = movieContents.size
 
-    override fun getCount(): Int = presenter.count()
+    override fun getItem(position: Int): MovieContent = movieContents[position]
 
-    override fun getItem(position: Int): MovieContent = presenter.item(position)
-
-    override fun getItemId(position: Int): Long = presenter.itemId(position)
+    override fun getItemId(position: Int): Long = movieContents[position].id
 
     override fun getView(
         position: Int,
@@ -45,44 +45,40 @@ class MovieContentListAdapter(
             movieViewHolder = convertView.tag as MovieViewHolder
         }
 
-        presenter.setUpMovieContent(position, movieViewHolder)
-
-        movieViewHolder.reservationButton.setOnClickListener {
-            presenter.moveMovieReservation(position)
-        }
+        movieViewHolder.setUpContentUi(getItem(position))
 
         return view
     }
 
-    override fun setUpMovieContentUi(
-        movieContent: MovieContent,
-        movieViewHolder: MovieViewHolder,
-    ) {
-        with(movieViewHolder) {
+    class MovieViewHolder(private val view: View) {
+        private val posterImage: ImageView = view.findViewById(R.id.poster_image)
+        private val titleText: TextView = view.findViewById(R.id.title_text)
+        private val screeningDateText: TextView = view.findViewById(R.id.screening_date_text)
+        private val runningTimeText: TextView = view.findViewById(R.id.running_time_text)
+        private val reservationButton: Button = view.findViewById(R.id.reservation_button)
+
+        fun setUpContentUi(movieContent: MovieContent) {
             posterImage.setImageResource(movieContent.imageId)
             titleText.text = movieContent.title
-
             screeningDateText.text =
-                context.resources
+                view.context.resources
                     .getString(R.string.screening_date)
                     .format(dateFormatter(movieContent.screeningMovieDate))
-
             runningTimeText.text =
-                context.resources.getString(R.string.running_time)
+                view.context.resources.getString(R.string.running_time)
                     .format(movieContent.runningTime)
+            reservationButton.setOnClickListener {
+                Intent(view.context, MovieReservationActivity::class.java).run {
+                    putExtra(MovieHomeKey.ID, movieContent.id)
+                    startActivity(view.context, this, null)
+                }
+            }
         }
-    }
 
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
-        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
-    }
-
-    override fun moveMovieReservationView(movieContentId: Long) {
-        Intent(context, MovieReservationActivity::class.java).run {
-            putExtra(MovieHomeKey.ID, movieContentId)
-            startActivity(context, this, null)
+        private fun dateFormatter(movieDate: MovieDate): String {
+            val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
+            val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+            return screeningDate.format(formatter)
         }
     }
 }
