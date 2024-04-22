@@ -12,6 +12,7 @@
         android:layout_height="114dp"
         android:background="#9160F9"
         android:gravity="bottom"
+        android:orientation="vertical"
         android:paddingBottom="10dp">
 
         <TextView
@@ -59,6 +60,5 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         tools:text="13,000원 (현장결제)" />
-
 
 </LinearLayout>
