@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.detail
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -10,13 +10,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.toTicketModel
 
 @RunWith(AndroidJUnit4::class)
-class TicketCounterCompleteTest {
+class TicketDetailTest {
     private val ticket =
         Ticket(
             "해리 포터와 마법사의 돌",

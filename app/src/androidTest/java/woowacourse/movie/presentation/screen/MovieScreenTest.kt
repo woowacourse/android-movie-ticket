@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.screen
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 import woowacourse.movie.presentation.screen.MovieScreenActivity
 
 @RunWith(AndroidJUnit4::class)
