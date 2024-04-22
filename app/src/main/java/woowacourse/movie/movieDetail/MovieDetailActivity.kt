@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
-    private lateinit var presenter: MovieDetailActivityPresenter
+    private val presenter: MovieDetailActivityPresenter by lazy { MovieDetailActivityPresenter(this, intent) }
     private var ticketNum = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         setContentView(R.layout.movie_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = MovieDetailActivityPresenter(this, intent)
         initializeViews()
         setupEventListeners()
     }
@@ -50,13 +49,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
         }
     }
 
-    override fun navigateToPurchaseConfirmation(sendingIntent: Intent) {
-        startActivity(sendingIntent)
+    override fun navigateToPurchaseConfirmation(intent: Intent) {
+        startActivity(intent)
     }
 
-    override fun onTicketCountChanged(newTicketNum: Int) {
-        ticketNum = newTicketNum
-        findViewById<TextView>(R.id.quantity_text_view).text = ticketNum.toString()
+    override fun onTicketCountChanged(ticketNum: Int) {
+        this.ticketNum = ticketNum
+        findViewById<TextView>(R.id.quantity_text_view).text = this.ticketNum.toString()
     }
 
     override fun getContext(): Context = this
