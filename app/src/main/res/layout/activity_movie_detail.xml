@@ -105,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                tools:text="a\nb\nc\nd\ne\n"
+                tools:text="예시 데이터입니다."
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 app:layout_constraintLeft_toLeftOf="@id/detailRunningTimeName"
