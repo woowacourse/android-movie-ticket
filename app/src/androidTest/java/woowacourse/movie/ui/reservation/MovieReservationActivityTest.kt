@@ -51,26 +51,18 @@ class MovieReservationActivityTest {
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
-        val screeningDate =
-            context.resources.getString(R.string.screening_date)
-                .format(dateFormatter(movieContent.screeningDate))
+        val screeningDate = dateFormatter(movieContent.screeningDate)
 
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText(screeningDate)))
+            .check(matches(withText("상영일: $screeningDate")))
     }
 
     @Test
     fun `화면이_띄워지면_러닝타임이_보인다`() {
-        val runningTime =
-            context
-                .resources
-                .getString(R.string.running_time)
-                .format(MovieContentsImpl.find(0L).runningTime)
-
         onView(withId(R.id.running_time_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText(runningTime)))
+            .check(matches(withText("러닝타임: ${MovieContentsImpl.find(0L).runningTime}분")))
     }
 
     @Test

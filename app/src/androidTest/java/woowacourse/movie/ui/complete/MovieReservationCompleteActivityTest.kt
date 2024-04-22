@@ -52,9 +52,7 @@ class MovieReservationCompleteActivityTest {
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
-        val screeningDate =
-            context.resources.getString(R.string.date)
-                .format(dateFormatter(movieContent.screeningDate))
+        val screeningDate = dateFormatter(movieContent.screeningDate)
 
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
@@ -62,28 +60,19 @@ class MovieReservationCompleteActivityTest {
     }
 
     @Test
-    fun `화면이_띄워지면_예매_인원이_보인다`() {
-        val reservationCount =
-            context.resources
-                .getString(R.string.reservation_count)
-                .format(RESERVATION_COUNT)
-
+    fun `화면이_띄워지면_예매_인원이_1인_경우_예매_인원의_수가_보인다`() {
         onView(withId(R.id.reservation_count_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText(reservationCount)))
+            .check(matches(withText("일반 ${RESERVATION_COUNT}명")))
     }
 
     @Test
     fun `화면이_띄워지면_예매_금액이_보인다`() {
-        val amount = Ticket(ReservationCount()).amount()
-        val reservationAmount =
-            context.resources
-                .getString(R.string.reservation_amount)
-                .format(amount)
+        val reservationAmount = Ticket(ReservationCount()).amount()
 
         onView(withId(R.id.reservation_amount_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText(reservationAmount)))
+            .check(matches(withText("%,d원 (현장 결제)".format(reservationAmount))))
     }
 
     private fun dateFormatter(date: Date): String {
