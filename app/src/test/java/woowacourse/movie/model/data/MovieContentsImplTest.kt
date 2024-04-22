@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.model.movieContent
 
 class MovieContentsImplTest {
@@ -16,17 +15,14 @@ class MovieContentsImplTest {
     @Test
     fun `영화_정보를_저장한다`() {
         // given
+        val movieContent = movieContent.copy(id = 1)
 
         // when
         val id = MovieContentsImpl.save(movieContent)
         val actual = MovieContentsImpl.find(id)
 
         // then
-        assertThat(actual.imageId).isEqualTo(0)
-        assertThat(actual.title).isEqualTo("해리 포터와 마법사의 돌")
-        assertThat(actual.screeningMovieDate).isEqualTo(MovieDate(2024, 3, 1))
-        assertThat(actual.runningTime).isEqualTo(152)
-        assertThat(actual.synopsis).isEqualTo("해리")
+        assertThat(actual).isEqualTo(movieContent)
     }
 
     @Test
