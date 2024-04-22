@@ -11,7 +11,7 @@ import woowacourse.movie.domain.model.Movie
 
 class MovieListAdapter(
     private val movieList: List<Movie>,
-    private val onReserveButtonClickListener: (Movie) -> Unit,
+    private val onMovieReserved: (Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movieList.size
     
@@ -36,7 +36,7 @@ class MovieListAdapter(
                 ?: MovieViewHolder(view).also {
                     view.setTag(R.id.movie_view_holder, it)
                 }
-        movieViewHolder.bind(movieList[index], onReserveButtonClickListener)
+        movieViewHolder.bind(movieList[index], onMovieReserved)
         
         return view
     }
@@ -50,7 +50,7 @@ class MovieListAdapter(
         
         fun bind(
             movie: Movie,
-            onReserveButtonClickListener: (Movie) -> Unit,
+            onMovieReserved: (Movie) -> Unit,
         ) {
             posterImage.setImageResource(movie.posterSrc)
             title.text = movie.title
@@ -59,7 +59,7 @@ class MovieListAdapter(
             runningTime.text =
                 runningTime.context.getString(R.string.running_time_format, movie.runningTime)
             reserveButton.setOnClickListener {
-                onReserveButtonClickListener(movie)
+                onMovieReserved(movie)
             }
         }
     }
