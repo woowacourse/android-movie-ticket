@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
 
     <TextView
-        android:id="@+id/movie_release_date"
+        android:id="@+id/movie_screening_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Date: YYYY.MM.DD"
@@ -35,12 +35,12 @@
         app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
 
     <TextView
-        android:id="@+id/movie_duration"
+        android:id="@+id/movie_item_running_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Duration: 00 minutes"
-        app:layout_constraintStart_toStartOf="@id/movie_release_date"
-        app:layout_constraintTop_toBottomOf="@id/movie_release_date"
+        app:layout_constraintStart_toStartOf="@id/movie_screening_date"
+        app:layout_constraintTop_toBottomOf="@id/movie_screening_date"
         app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
 
     <Button

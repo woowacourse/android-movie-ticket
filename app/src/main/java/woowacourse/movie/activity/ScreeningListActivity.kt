@@ -19,7 +19,7 @@ class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
         val movieAdapter = ScreeningAdapter()
         ScreeningListPresenter(
             screeningListView = this,
-            movieAdapter = movieAdapter,
+            screeningAdapter = movieAdapter,
         )
         moviesListView = findViewById(R.id.movies_list_item)
         moviesListView.adapter = movieAdapter

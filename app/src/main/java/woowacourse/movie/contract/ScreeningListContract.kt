@@ -9,6 +9,6 @@ interface ScreeningListContract {
 
     interface Presenter {
         fun loadScreenings()
-        fun selectScreening(position: Int)
+        fun selectScreening(screening: Screening)
     }
 }
