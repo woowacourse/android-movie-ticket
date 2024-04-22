@@ -28,20 +28,7 @@ class ScreeningMovieActivityTest {
         activityRule.scenario.onActivity { activity ->
             val listView = activity.findViewById<ListView>(R.id.list_view)
             val items = listOf(
-                ScreenMovieUiModel(
-                    1,
-                    title = "해리 포터와 마법사의 돌",
-                    R.drawable.img_movie_poster,
-                    "상영일: 2024.3.1",
-                    "러닝타임: 152분",
-                ),
-                ScreenMovieUiModel(
-                    2,
-                    title = "해리 포터와 마법사의 돌",
-                    R.drawable.img_movie_poster,
-                    "상영일: 2024.3.2",
-                    "러닝타임: 162분",
-                )
+                screenMovieUiModel1, screenMovieUiModel2
             )
             listView.adapter = MovieAdapter(activity, items)
         }
@@ -57,11 +44,11 @@ class ScreeningMovieActivityTest {
     @Test
     @DisplayName("listView가 만들어지면 itemValue들이 view의 text로 배치된다")
     fun `itemValues_are_placed_in_textView_when_listView_is_created`() {
-        onData(`is`(withItemContent(containsString("해리 포터와 마법사의 돌"))))
+        onData(`is`(withItemContent(containsString(screenMovieUiModel1.title))))
             .inAdapterView(withId(R.id.list_view))
             .atPosition(0)
             .onChildView(withId(R.id.tv_movie_running_time))
-            .check(matches(withText("러닝타임: 152분")))
+            .check(matches(withText(screenMovieUiModel1.runningTime)))
     }
 
     private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreenMovieUiModel> {
@@ -75,5 +62,23 @@ class ScreeningMovieActivityTest {
                 itemTextMatcher.describeTo(description)
             }
         }
+    }
+
+    companion object {
+        private val screenMovieUiModel1 = ScreenMovieUiModel(
+            1,
+            title = "해리 포터와 마법사의 돌",
+            R.drawable.img_movie_poster,
+            "상영일: 2024.3.1",
+            "러닝타임: 152분",
+        )
+
+        private val screenMovieUiModel2 = ScreenMovieUiModel(
+            2,
+            title = "해리 포터와 마법사의 돌",
+            R.drawable.img_movie_poster,
+            "상영일: 2024.3.2",
+            "러닝타임: 162분",
+        )
     }
 }
