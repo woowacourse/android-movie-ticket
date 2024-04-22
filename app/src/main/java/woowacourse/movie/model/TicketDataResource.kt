@@ -6,5 +6,6 @@ object TicketDataResource {
             MovieDataSource.movieList[0].title,
             MovieDataSource.movieList[0].screeningDate,
             13_000,
+            0,
         )
 }

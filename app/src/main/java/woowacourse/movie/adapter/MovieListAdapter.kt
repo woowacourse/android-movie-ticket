@@ -24,7 +24,7 @@ class MovieListAdapter(
     }
 
     override fun getItemId(position: Int): Long {
-        return 0
+        return movieList[position].id
     }
 
     override fun getView(
@@ -58,11 +58,11 @@ class MovieListAdapter(
     }
 
     private fun setViewHolder(movie: Movie) {
-        movieViewHolder.title.text = movie.title
-        movieViewHolder.poster.setImageResource(movie.posterResourceId)
-
         val formattedScreeningDate =
             movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+
+        movieViewHolder.title.text = movie.title
+        movieViewHolder.poster.setImageResource(movie.posterResourceId)
         movieViewHolder.screeningDate.text = formattedScreeningDate
         movieViewHolder.runningTime.text = movie.runningTime.toString()
     }

@@ -7,4 +7,5 @@ data class Ticket(
     val title: String,
     val screeningDate: LocalDateTime,
     val price: Int,
+    val id: Long,
 ) : Serializable

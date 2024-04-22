@@ -9,4 +9,5 @@ data class Movie(
     val screeningDate: LocalDateTime,
     val runningTime: Int,
     val description: String,
+    val id: Long,
 ) : Serializable

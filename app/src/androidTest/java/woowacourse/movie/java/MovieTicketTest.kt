@@ -22,6 +22,7 @@ class MovieTicketTest {
             "해리 포터와 마법사의 돌",
             LocalDateTime.of(2024, 3, 1, 0, 0, 0),
             13_000,
+            0,
         )
     private val intent =
         Intent(
