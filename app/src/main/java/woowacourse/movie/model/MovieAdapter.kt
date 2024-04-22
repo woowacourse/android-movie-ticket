@@ -8,11 +8,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.presenter.MovieMainContract
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieAdapter(
-    private val movieChoiceContractView: MovieMainContract.View,
+    private val onMovieItemClick: (Long) -> (Unit),
     private val movies: List<Movie>,
 ) :
     BaseAdapter() {
@@ -45,7 +44,7 @@ class MovieAdapter(
         }
 
         val movie = movies[position]
-        holder.bind(movie, movieChoiceContractView)
+        holder.bind(movie, onMovieItemClick)
 
         return view!!
     }
@@ -60,14 +59,14 @@ class MovieViewHolder(itemView: View) {
 
     fun bind(
         movie: Movie,
-        movieChoiceContractView: MovieMainContract.View,
+        onMovieItemClick: (Long) -> Unit,
     ) {
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
         date.text = formatTimestamp(movie.date)
         runningTime.text = "${movie.runningTime}"
         reservation.setOnClickListener {
-            movieChoiceContractView.onMovieItemClick(movie.id)
+            onMovieItemClick(movie.id)
         }
     }
 }

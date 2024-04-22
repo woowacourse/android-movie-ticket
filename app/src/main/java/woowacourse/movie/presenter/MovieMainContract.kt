@@ -5,5 +5,7 @@ interface MovieMainContract {
         fun onMovieItemClick(id: Long)
     }
 
-    interface Presenter
+    interface Presenter {
+        fun loadMovies()
+    }
 }

@@ -30,7 +30,7 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
             }
 
         movieMainPresenter = MovieMainPresenter(this)
-        movieList.adapter = movieMainPresenter.getAdapter(this)
+        movieMainPresenter.loadMovies()
     }
 
     override fun onMovieItemClick(id: Long) {
