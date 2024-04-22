@@ -16,6 +16,7 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.model.ScreenMovieUiModel
 
 class ScreeningMovieActivityTest {
@@ -48,12 +49,14 @@ class ScreeningMovieActivityTest {
 
 
     @Test
-    fun `Activity가_실행되면_뷰가_보인다`() {
+    @DisplayName("Activity가 실행되면 뷰가 보인다.")
+    fun view_is_display_when_Activity_is_created() {
         onView(withId(R.id.main)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun `listView가_만들어지면_itemValue들이_view의_text로_배치된다`() {
+    @DisplayName("listView가 만들어지면 itemValue들이 view의 text로 배치된다")
+    fun `itemValues_are_placed_in_textView_when_listView_is_created`() {
         onData(`is`(withItemContent(containsString("해리 포터와 마법사의 돌"))))
             .inAdapterView(withId(R.id.list_view))
             .atPosition(0)
