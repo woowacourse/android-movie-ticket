@@ -15,7 +15,7 @@ import woowacourse.movie.presenter.contract.TicketingContract
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
-    private val movieId by lazy { intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID) }
+    private val movieId by lazy { intent.getLongExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     }
 
     override fun navigateToTicketingResult(
-        movieId: Int,
+        movieId: Long,
         count: Int,
         totalPrice: Int,
     ) {
@@ -107,7 +107,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         const val EXTRA_MOVIE_ID = "movie_id"
         const val EXTRA_COUNT = "number_of_people"
         const val EXTRA_TOTAL_PRICE = "total_price"
-        const val EXTRA_DEFAULT_MOVIE_ID = -1
+        const val EXTRA_DEFAULT_MOVIE_ID = -1L
         private const val DEFAULT_COUNT = 1
     }
 }

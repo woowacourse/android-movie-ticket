@@ -12,13 +12,13 @@ import woowacourse.movie.model.Movie
 
 class MovieAdapter(
     private val movies: List<Movie>,
-    private val onTicketingButtonClick: (Int) -> Unit,
+    private val onTicketingButtonClick: (Long) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Any = movies[position]
 
-    override fun getItemId(position: Int): Long = 0
+    override fun getItemId(position: Int): Long = movies[position].id
 
     override fun getView(
         position: Int,

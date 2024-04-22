@@ -14,7 +14,7 @@ interface TicketingResultContract {
 
     interface Presenter {
         fun initializeTicketingResult(
-            movieId: Int,
+            movieId: Long,
             count: Int,
             totalPrice: Int,
         )

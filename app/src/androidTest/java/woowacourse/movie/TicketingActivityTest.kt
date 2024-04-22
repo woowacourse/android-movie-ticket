@@ -18,7 +18,7 @@ class TicketingActivityTest {
     var activityRule: ActivityScenarioRule<TicketingActivity> =
         ActivityScenarioRule<TicketingActivity>(
             Intent(ApplicationProvider.getApplicationContext(), TicketingActivity::class.java).apply {
-                putExtra("movie_id", 0)
+                putExtra("movie_id", 0L)
             },
         )
 

@@ -1,7 +1,7 @@
 package woowacourse.movie.model
 
 data class Movie(
-    val id: Int,
+    val id: Long,
     val title: String,
     val thumbnail: Int,
     val date: String,

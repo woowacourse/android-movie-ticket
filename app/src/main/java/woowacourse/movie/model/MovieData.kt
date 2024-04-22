@@ -18,7 +18,7 @@ object MovieData {
             ),
         )
 
-    fun findMovieById(id: Int): Result<Movie> {
+    fun findMovieById(id: Long): Result<Movie> {
         val movie = MOVIES.find { it.id == id }
         return movie?.let { Result.Success(it) } ?: Result.Error("존재하지 않는 아이디 값입니다.")
     }

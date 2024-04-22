@@ -18,7 +18,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val count = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_COUNT)
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
+        val movieId = intent.getLongExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
 
         val ticketingResultPresenter = TicketingResultPresenter(this)
@@ -53,7 +53,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
 
     companion object {
         private const val EXTRA_DEFAULT_COUNT = 0
-        private const val EXTRA_DEFAULT_MOVIE_ID = -1
+        private const val EXTRA_DEFAULT_MOVIE_ID = -1L
         private const val EXTRA_DEFAULT_TOTAL_PRICE = 0
     }
 }

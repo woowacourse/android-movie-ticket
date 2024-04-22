@@ -8,7 +8,7 @@ import woowacourse.movie.presenter.contract.TicketingContract
 
 class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
-    movieId: Int,
+    movieId: Long,
     initialCount: Int,
 ) : TicketingContract.Presenter {
     private val movie = findMovieById(movieId)

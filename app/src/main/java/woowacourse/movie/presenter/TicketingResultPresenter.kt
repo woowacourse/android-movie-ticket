@@ -8,7 +8,7 @@ class TicketingResultPresenter(
     private val ticketingResultView: TicketingResultContract.View,
 ) : TicketingResultContract.Presenter {
     override fun initializeTicketingResult(
-        movieId: Int,
+        movieId: Long,
         count: Int,
         totalPrice: Int,
     ) {
