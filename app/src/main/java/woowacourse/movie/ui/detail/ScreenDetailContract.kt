@@ -22,6 +22,10 @@ interface ScreenDetailContract {
     interface Presenter {
         fun loadScreen(screenId: Int)
 
+        fun loadTicket()
+
+        fun saveTicket(count: Int)
+
         fun plusTicket()
 
         fun minusTicket()

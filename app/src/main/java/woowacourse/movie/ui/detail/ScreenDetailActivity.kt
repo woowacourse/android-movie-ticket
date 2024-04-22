@@ -43,6 +43,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         ticketViewHolder = TicketViewHolder().apply { initClickListener(id) }
 
         presenter.loadScreen(id)
+        presenter.loadTicket()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -53,8 +54,11 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        savedInstanceState.let {
-            ticketViewHolder.restoreTicketCount(it.getInt(PUT_TICKET_STATE_KEY))
+        savedInstanceState.let { bundle ->
+            val count = bundle.getInt(PUT_TICKET_STATE_KEY)
+            ticketViewHolder.restoreTicketCount(count)
+            presenter.saveTicket(count)
+            presenter.loadTicket()
         }
     }
 

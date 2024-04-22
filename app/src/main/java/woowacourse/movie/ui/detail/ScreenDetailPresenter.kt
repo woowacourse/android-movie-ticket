@@ -25,7 +25,6 @@ class ScreenDetailPresenter(
             is Screen -> {
                 val screenDetailUI = screen.toDetailUI(movieRepository.imageSrc(screen.movie.id))
                 view.showScreen(screenDetailUI)
-                view.showTicket(ticket.count)
             }
 
             is NullScreen -> {
@@ -35,6 +34,14 @@ class ScreenDetailPresenter(
                 }
             }
         }
+    }
+
+    override fun loadTicket() {
+        view.showTicket(ticket.count)
+    }
+
+    override fun saveTicket(count: Int) {
+        ticket = Ticket(count)
     }
 
     private fun screen(id: Int): IScreen {
