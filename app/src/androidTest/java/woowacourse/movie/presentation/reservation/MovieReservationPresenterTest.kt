@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.reservation.MovieReservationContract
-import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 
 class MovieReservationPresenterTest {
     private lateinit var mockView: MockMovieReservationContractView
@@ -36,14 +34,14 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `clickMinusNumberButton과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
-        presenter.clickMinusNumberButton()
+    fun `decreaseTicketCount과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
+        presenter.decreaseTicketCount()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }
 
     @Test
-    fun `clickPlusNumberButton과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
-        presenter.clickPlusNumberButton()
+    fun `increaseTicketCount과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
+        presenter.increaseTicketCount()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }
 }

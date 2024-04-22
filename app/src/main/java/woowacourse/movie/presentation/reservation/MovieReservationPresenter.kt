@@ -17,12 +17,12 @@ class MovieReservationPresenter(
         view.showMovie(movieRepository.getMovie(movieId))
     }
 
-    override fun clickMinusNumberButton() {
+    override fun decreaseTicketCount() {
         ticketCounter.minusTicketCount()
         view.showCurrentResultTicketCountView()
     }
 
-    override fun clickPlusNumberButton() {
+    override fun increaseTicketCount() {
         ticketCounter.plusTicketCount()
         view.showCurrentResultTicketCountView()
     }

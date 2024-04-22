@@ -62,10 +62,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     private fun setClickListener() {
         minusNumberButton.setOnClickListener {
-            presenter.clickMinusNumberButton()
+            presenter.decreaseTicketCount()
         }
         plusNumberButton.setOnClickListener {
-            presenter.clickPlusNumberButton()
+            presenter.increaseTicketCount()
         }
         ticketingButton.setOnClickListener {
             ticketing()

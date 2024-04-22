@@ -12,8 +12,8 @@ interface MovieReservationContract {
     interface Presenter {
         fun loadMovie()
 
-        fun clickMinusNumberButton()
+        fun decreaseTicketCount()
 
-        fun clickPlusNumberButton()
+        fun increaseTicketCount()
     }
 }

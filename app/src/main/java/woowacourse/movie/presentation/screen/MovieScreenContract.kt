@@ -12,6 +12,6 @@ interface MovieScreenContract {
     interface Presenter {
         fun loadScreenMovies()
 
-        fun clickReservationButton(movieId: Int)
+        fun navigateToReservation(movieId: Int)
     }
 }
