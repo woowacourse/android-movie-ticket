@@ -11,7 +11,7 @@
         android:layout_width="80dp"
         android:layout_height="130dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
+        tools:src="@drawable/harry_image1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
