@@ -18,7 +18,6 @@ import woowacourse.movie.presentation.screen.MovieScreenPresenter
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
-    private lateinit var context: Context
     private lateinit var titleView: TextView
     private lateinit var screeningDateView: TextView
     private lateinit var runningDateView: TextView
@@ -37,7 +36,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
-        context = this@MovieReservationActivity
         initView()
         presenter.loadMovie(loadMovieId())
         showCurrentResultTicketCountView()
@@ -75,9 +73,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private fun ticketing() {
         val ticket = makeTicket()
 
-        val intent = Intent(context, TicketDetailActivity::class.java)
+        val intent = Intent(this@MovieReservationActivity, TicketDetailActivity::class.java)
         intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticket as Serializable)
-        context.startActivity(intent)
+        this@MovieReservationActivity.startActivity(intent)
     }
 
     private fun makeTicket(): TicketModel {

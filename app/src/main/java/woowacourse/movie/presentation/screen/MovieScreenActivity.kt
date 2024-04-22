@@ -12,7 +12,6 @@ import woowacourse.movie.presentation.reservation.MovieReservationActivity
 import woowacourse.movie.presentation.screen.adapter.MovieScreenAdapter
 
 class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
-    private lateinit var context: Context
     private lateinit var movieAdapter: MovieScreenAdapter
     private lateinit var movieListView: ListView
     private val presenter =
@@ -24,7 +23,6 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_screen)
-        context = this@MovieScreenActivity
         initView()
     }
 
@@ -36,7 +34,7 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     override fun showScreenMovies(movies: List<Movie>) {
         movieAdapter =
             MovieScreenAdapter(
-                context = context,
+                context = this@MovieScreenActivity,
                 movies = movies,
                 onMovieSelected = { movieId ->
                     moveToReservation(movieId)
@@ -48,6 +46,6 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     override fun moveToReservation(movieId: Int) {
         val intent = Intent(this, MovieReservationActivity::class.java)
         intent.putExtra(MovieScreenPresenter.KEY_NAME_MOVIE, movieId)
-        context.startActivity(intent)
+        this.startActivity(intent)
     }
 }
