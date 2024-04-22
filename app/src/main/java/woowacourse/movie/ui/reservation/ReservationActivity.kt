@@ -3,7 +3,6 @@ package woowacourse.movie.ui.reservation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +11,6 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.ui.Currency
-import java.text.DecimalFormat
-import java.text.NumberFormat
 import java.util.Locale
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
