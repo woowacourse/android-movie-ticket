@@ -41,7 +41,7 @@ class MovieReservationActivity :
             return
         }
 
-        setUpUi(movieContentId)
+        initializeUi(movieContentId)
         setOnClickButtonListener()
     }
 
@@ -56,8 +56,7 @@ class MovieReservationActivity :
 
         savedInstanceState.let {
             val count = it.getInt(RESERVATION_COUNT_STATE_KEY)
-            presenter.setReservationCount(count)
-            reservationCountText.text = count.toString()
+            presenter.updateReservationCount(count)
         }
     }
 
@@ -71,9 +70,9 @@ class MovieReservationActivity :
         finish()
     }
 
-    private fun setUpUi(movieContentId: Long) {
-        presenter.setUpMovieContent(movieContentId)
-        presenter.setUpReservationCount()
+    private fun initializeUi(movieContentId: Long) {
+        presenter.updateMovieContent(movieContentId)
+        presenter.updateReservationCount()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -94,11 +93,11 @@ class MovieReservationActivity :
         }
 
         reservationButton.setOnClickListener {
-            presenter.moveMovieReservationComplete()
+            presenter.reserveMovie()
         }
     }
 
-    override fun setUpMovieContentUi(movieContent: MovieContent) {
+    override fun updateMovieContentUi(movieContent: MovieContent) {
         movieContent.run {
             posterImage.setImageResource(imageId)
             titleText.text = title

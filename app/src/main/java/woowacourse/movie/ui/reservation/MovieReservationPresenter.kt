@@ -10,18 +10,14 @@ class MovieReservationPresenter(
     MovieReservationContract.Presenter {
     private lateinit var reservationCount: ReservationCount
 
-    override fun setUpReservationCount() {
-        reservationCount = ReservationCount()
-        view.updateReservationCountUi(reservationCount.count)
-    }
-
-    override fun setReservationCount(count: Int) {
+    override fun updateReservationCount(count: Int) {
         reservationCount = ReservationCount(count)
+        view.updateReservationCountUi(count)
     }
 
-    override fun setUpMovieContent(movieContentId: Long) {
+    override fun updateMovieContent(movieContentId: Long) {
         val movieContent = movieContents.find(movieContentId)
-        view.setUpMovieContentUi(movieContent)
+        view.updateMovieContentUi(movieContent)
     }
 
     override fun decreaseCount() {
@@ -34,7 +30,7 @@ class MovieReservationPresenter(
         view.updateReservationCountUi(reservationCount.count)
     }
 
-    override fun moveMovieReservationComplete() {
+    override fun reserveMovie() {
         view.moveMovieReservationCompleteView(reservationCount.count)
     }
 }

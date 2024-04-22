@@ -9,13 +9,13 @@ class MovieReservationCompletePresenter(
     private val movieContents: MovieContents,
 ) :
     MovieReservationCompleteContract.Presenter {
-    override fun setUpMovieContent(movieContentId: Long) {
+    override fun updateMovieContent(movieContentId: Long) {
         val movieContent = movieContents.find(movieContentId)
-        view.setUpMovieContentUi(movieContent)
+        view.updateMovieContentUi(movieContent)
     }
 
-    override fun setUpTicket(reservationCount: Int) {
+    override fun updateTicket(reservationCount: Int) {
         val ticket = Ticket(ReservationCount(reservationCount))
-        view.setUpTicketUi(ticket)
+        view.updateTicketUi(ticket)
     }
 }

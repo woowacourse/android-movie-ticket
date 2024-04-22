@@ -1,11 +1,12 @@
 package woowacourse.movie.ui.reservation
 
 import woowacourse.movie.model.MovieContent
+import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.ui.base.BaseView
 
 interface MovieReservationContract {
     interface View : BaseView {
-        fun setUpMovieContentUi(movieContent: MovieContent)
+        fun updateMovieContentUi(movieContent: MovieContent)
 
         fun updateReservationCountUi(reservationCount: Int)
 
@@ -13,16 +14,14 @@ interface MovieReservationContract {
     }
 
     interface Presenter {
-        fun setUpMovieContent(movieContentId: Long)
+        fun updateMovieContent(movieContentId: Long)
 
-        fun setUpReservationCount()
-
-        fun setReservationCount(count: Int)
+        fun updateReservationCount(count: Int = ReservationCount.DEFAULT_VALUE)
 
         fun decreaseCount()
 
         fun increaseCount()
 
-        fun moveMovieReservationComplete()
+        fun reserveMovie()
     }
 }

@@ -53,8 +53,8 @@ class MovieReservationCompleteActivity :
         movieContentId: Long,
         reservationCount: Int,
     ) {
-        presenter.setUpMovieContent(movieContentId)
-        presenter.setUpTicket(reservationCount)
+        presenter.updateMovieContent(movieContentId)
+        presenter.updateTicket(reservationCount)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -65,7 +65,7 @@ class MovieReservationCompleteActivity :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setUpMovieContentUi(movieContent: MovieContent) {
+    override fun updateMovieContentUi(movieContent: MovieContent) {
         movieContent.run {
             titleText.text = title
             screeningDateText.text =
@@ -74,7 +74,7 @@ class MovieReservationCompleteActivity :
         }
     }
 
-    override fun setUpTicketUi(ticket: Ticket) {
+    override fun updateTicketUi(ticket: Ticket) {
         ticket.run {
             reservationCountText.text =
                 resources.getString(R.string.reservation_count).format(reservationCount.count)
