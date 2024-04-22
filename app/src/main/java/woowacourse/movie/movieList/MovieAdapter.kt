@@ -8,26 +8,27 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.model.MovieDisplayData
 
 class MovieAdapter(
     context: Context,
-    theaters: List<Theater>,
+    movieDisplayData: List<MovieDisplayData>,
     private val presenter: MovieListPresenter
-) : ArrayAdapter<Theater>(context, R.layout.movie_list_item, theaters) {
+) : ArrayAdapter<MovieDisplayData>(context, R.layout.movie_list_item, movieDisplayData) {
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val listItemView = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.movie_list_item, parent, false)
-        val movie = getItem(position) ?: return listItemView
-        listItemView.findViewById<TextView>(R.id.movie_title)?.text =
-            movie.movie.title.toString()
-        listItemView.findViewById<TextView>(R.id.movie_release_date)?.text =
-            movie.movie.releaseDate.toString()
-        listItemView.findViewById<TextView>(R.id.movie_duration)?.text =
-            movie.movie.runningTime.toString()
+        val movieData = getItem(position)
 
-        listItemView.findViewById<Button>(R.id.movie_details_button)?.setOnClickListener {
-            presenter.onDetailButtonClicked(position)
+        listItemView.findViewById<TextView>(R.id.movie_title).text = movieData?.title
+        listItemView.findViewById<TextView>(R.id.movie_release_date).text = movieData?.releaseDate
+        listItemView.findViewById<TextView>(R.id.movie_duration).text = movieData?.duration
+
+        listItemView.findViewById<Button>(R.id.movie_details_button).setOnClickListener {
+            movieData?.let {
+                presenter.onDetailButtonClicked(position)  // Assuming onDetailButtonClicked expects an Int which is the position
+            }
         }
         return listItemView
     }

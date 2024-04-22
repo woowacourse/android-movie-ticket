@@ -1,6 +1,7 @@
 package woowacourse.movie.movieList
 
 import android.content.Intent
+import woowacourse.movie.model.MovieDisplayData
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
@@ -19,7 +20,18 @@ class MovieListPresenter(private val view: MovieListActivity) {
     )
 
     private val theater = Theater(movieInfo)
-    val theaters: List<Theater> = listOf(theater)
+    private val theaters: List<Theater> = listOf(theater)
+
+
+    private fun convertToDisplayData(theaters: List<Theater>): List<MovieDisplayData> {
+        return theaters.map { theater ->
+            MovieDisplayData(
+                title = theater.movie.title.toString(),
+                releaseDate = theater.movie.releaseDate.toString(),
+                duration = "${theater.movie.runningTime} 분"
+            )
+        }
+    }
 
     fun onDetailButtonClicked(position: Int) {
         val theater = theaters[position]
@@ -27,5 +39,9 @@ class MovieListPresenter(private val view: MovieListActivity) {
             putExtra("Theater", theater)
         }
         view.startActivity(intent)
+    }
+    fun loadMovies() {
+        val displayData = convertToDisplayData(theaters)
+        view.updateAdapter(displayData)
     }
 }

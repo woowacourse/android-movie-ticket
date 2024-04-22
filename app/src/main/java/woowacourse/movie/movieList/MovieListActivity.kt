@@ -8,16 +8,25 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.model.MovieDisplayData
 
 class MovieListActivity : AppCompatActivity(), MovieListView {
     private lateinit var moviesListView: ListView
     private lateinit var presenter: MovieListPresenter
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.mainactivity)
         presenter = MovieListPresenter(this)
+        moviesListView = findViewById(R.id.movies_list_item)
         initAdapter()
+    }
+
+    private fun initAdapter() {
+        adapter = MovieAdapter(this, mutableListOf(), presenter)
+        moviesListView.adapter = adapter
+        presenter.loadMovies()
     }
 
     override fun getContext(): Context = this
@@ -30,8 +39,10 @@ class MovieListActivity : AppCompatActivity(), MovieListView {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun initAdapter() {
-        moviesListView = findViewById(R.id.movies_list_item)
-        moviesListView.adapter = MovieAdapter(this, presenter.theaters, presenter)
+    override fun updateAdapter(displayData: List<MovieDisplayData>) {
+        adapter.clear()
+        adapter.addAll(displayData)
+        adapter.notifyDataSetChanged()
     }
+
 }
