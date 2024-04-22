@@ -33,10 +33,10 @@ class MovieAdapter(
         if (convertView == null) {
             view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
             holder = MovieViewHolder(view)
-            view.tag = holder
+            view.setTag(VIEW_HOLDER_ID, holder)
         } else {
             view = convertView
-            holder = convertView.tag as MovieViewHolder
+            holder = convertView.getTag(VIEW_HOLDER_ID) as MovieViewHolder
         }
 
         val movie = getItem(position)
@@ -58,5 +58,9 @@ class MovieAdapter(
         val title: TextView = view.findViewById(R.id.tv_movie_title)
         val date: TextView = view.findViewById(R.id.tv_movie_running_date)
         val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
+    }
+
+    companion object {
+        private const val VIEW_HOLDER_ID = 1
     }
 }
