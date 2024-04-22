@@ -16,11 +16,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.MovieDate
-import woowacourse.movie.model.ReservationCount
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.movie.MovieDate
+import woowacourse.movie.model.movie.ReservationCount
+import woowacourse.movie.model.movie.Ticket
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

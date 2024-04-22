@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.reservation
 
-import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.movie.ReservationCount
 import woowacourse.movie.ui.base.BaseView
 
 interface MovieReservationContract {

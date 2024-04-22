@@ -6,10 +6,10 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.MovieDate
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.movie.MovieDate
+import woowacourse.movie.model.movie.Ticket
 import woowacourse.movie.ui.base.BaseActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

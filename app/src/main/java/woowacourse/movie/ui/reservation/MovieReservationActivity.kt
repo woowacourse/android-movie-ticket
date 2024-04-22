@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import java.time.LocalDate

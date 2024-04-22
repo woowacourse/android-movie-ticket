@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.complete
 
-import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.movie.Ticket
 import woowacourse.movie.ui.base.BaseView
 
 interface MovieReservationCompleteContract {

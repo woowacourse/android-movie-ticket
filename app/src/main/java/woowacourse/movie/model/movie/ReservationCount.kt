@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.movie
 
 class ReservationCount(val count: Int = DEFAULT_VALUE) {
     init {

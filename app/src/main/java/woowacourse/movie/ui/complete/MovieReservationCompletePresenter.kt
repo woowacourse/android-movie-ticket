@@ -1,8 +1,8 @@
 package woowacourse.movie.ui.complete
 
-import woowacourse.movie.model.ReservationCount
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContents
+import woowacourse.movie.model.movie.ReservationCount
+import woowacourse.movie.model.movie.Ticket
 
 class MovieReservationCompletePresenter(
     private val view: MovieReservationCompleteContract.View,

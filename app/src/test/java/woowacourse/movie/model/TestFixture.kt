@@ -1,5 +1,8 @@
 package woowacourse.movie.model
 
+import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.movie.MovieDate
+
 val movieContent =
     MovieContent(
         0,

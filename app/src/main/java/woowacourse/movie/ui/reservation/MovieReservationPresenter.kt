@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.reservation
 
-import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.data.MovieContents
+import woowacourse.movie.model.movie.ReservationCount
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,

@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieContent
-import woowacourse.movie.model.MovieDate
+import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.ui.main.MovieHomeKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
 import java.time.LocalDate
