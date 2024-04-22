@@ -1,7 +1,7 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.detail.presenter.contract
 
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieReservationCount
+import woowacourse.movie.detail.model.MovieReservationCount
+import woowacourse.movie.main.model.Movie
 
 interface MovieDetailContract {
     interface View {

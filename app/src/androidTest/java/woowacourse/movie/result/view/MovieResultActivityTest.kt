@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.result.view
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider

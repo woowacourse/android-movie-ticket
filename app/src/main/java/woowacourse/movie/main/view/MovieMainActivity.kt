@@ -1,14 +1,15 @@
-package woowacourse.movie.view
+package woowacourse.movie.main.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieAdapter
-import woowacourse.movie.presenter.MovieMainContract
-import woowacourse.movie.presenter.MovieMainPresenter
+import woowacourse.movie.detail.view.MovieDetailActivity
+import woowacourse.movie.main.model.Movie
+import woowacourse.movie.main.model.adapter.MovieAdapter
+import woowacourse.movie.main.presenter.MovieMainPresenter
+import woowacourse.movie.main.presenter.contract.MovieMainContract
 import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 
 class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {

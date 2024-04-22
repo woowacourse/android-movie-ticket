@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.main.view
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.detail.view.MovieDetailActivity
 import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 
 @RunWith(AndroidJUnit4::class)

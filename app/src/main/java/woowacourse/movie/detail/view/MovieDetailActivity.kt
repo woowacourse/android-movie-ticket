@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.detail.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieReservationCount
-import woowacourse.movie.presenter.MovieDetailContract
-import woowacourse.movie.presenter.MovieDetailPresenter
+import woowacourse.movie.detail.model.MovieReservationCount
+import woowacourse.movie.detail.presenter.MovieDetailPresenter
+import woowacourse.movie.detail.presenter.contract.MovieDetailContract
+import woowacourse.movie.main.model.Movie
+import woowacourse.movie.result.view.MovieResultActivity
 import woowacourse.movie.utils.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_RESERVATION_COUNT

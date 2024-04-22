@@ -1,7 +1,8 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.detail.presenter
 
-import woowacourse.movie.model.MovieRepository
-import woowacourse.movie.model.MovieReservationCount
+import woowacourse.movie.detail.model.MovieReservationCount
+import woowacourse.movie.detail.presenter.contract.MovieDetailContract
+import woowacourse.movie.main.model.MovieRepository
 
 class MovieDetailPresenter(
     private val detailContractView: MovieDetailContract.View,
