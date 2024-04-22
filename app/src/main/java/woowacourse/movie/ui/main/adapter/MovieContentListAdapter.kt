@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.MovieDate
-import woowacourse.movie.ui.main.constants.MainMovieContentKey
+import woowacourse.movie.ui.main.MainKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -81,7 +81,7 @@ class MovieContentListAdapter(
 
     override fun moveMovieReservationView(movieContentId: Long) {
         Intent(context, MovieReservationActivity::class.java).run {
-            putExtra(MainMovieContentKey.ID, movieContentId)
+            putExtra(MainKey.ID, movieContentId)
             startActivity(context, this, null)
         }
     }

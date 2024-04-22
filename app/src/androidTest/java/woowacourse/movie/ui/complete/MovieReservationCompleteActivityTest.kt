@@ -21,8 +21,6 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.ui.complete.constants.CompleteMovieContentKey
-import woowacourse.movie.ui.complete.constants.CompleteMovieReservationKey
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -36,8 +34,8 @@ class MovieReservationCompleteActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationCompleteActivity::class.java,
         ).run {
-            putExtra(CompleteMovieContentKey.ID, 0L)
-            putExtra(CompleteMovieReservationKey.COUNT, RESERVATION_COUNT)
+            putExtra(MovieReservationCompleteKey.ID, 0L)
+            putExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT)
         }
 
     @get:Rule

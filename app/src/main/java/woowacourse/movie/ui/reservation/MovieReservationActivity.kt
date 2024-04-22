@@ -14,8 +14,6 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
-import woowacourse.movie.ui.reservation.constants.ReservationMovieContentKey
-import woowacourse.movie.ui.reservation.constants.ReservationMovieReservationKey
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -65,7 +63,7 @@ class MovieReservationActivity :
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
 
-    private fun movieContentId() = intent.getLongExtra(ReservationMovieContentKey.ID, DEFAULT_VALUE)
+    private fun movieContentId() = intent.getLongExtra(MovieReservationKey.ID, DEFAULT_VALUE)
 
     override fun handleError() {
         Log.e(TAG, "Invalid MovieContentKey")
@@ -118,8 +116,8 @@ class MovieReservationActivity :
 
     override fun moveMovieReservationCompleteView(reservationCount: Int) {
         Intent(this, MovieReservationCompleteActivity::class.java).run {
-            putExtra(ReservationMovieContentKey.ID, movieContentId())
-            putExtra(ReservationMovieReservationKey.COUNT, reservationCount)
+            putExtra(MovieReservationKey.ID, movieContentId())
+            putExtra(MovieReservationKey.COUNT, reservationCount)
             startActivity(this)
         }
     }

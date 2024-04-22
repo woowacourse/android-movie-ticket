@@ -22,7 +22,6 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieContent
 import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.ui.reservation.constants.ReservationMovieContentKey
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -36,7 +35,7 @@ class MovieReservationActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationActivity::class.java,
         ).run {
-            putExtra(ReservationMovieContentKey.ID, 0L)
+            putExtra(MovieReservationKey.ID, 0L)
         }
 
     @get:Rule
