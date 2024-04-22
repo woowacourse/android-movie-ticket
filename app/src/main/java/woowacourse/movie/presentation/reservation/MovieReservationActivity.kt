@@ -84,8 +84,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         return Ticket(
             title = titleView.text.toString(),
             screeningDate = screeningDateView.text.toString(),
-            count = presenter.ticketCount,
-            price = presenter.ticketCount * Movie.DEFAULT_MOVIE_PRICE,
+            count = presenter.getTicketCount(),
+            price = presenter.getTicketCount() * Movie.DEFAULT_MOVIE_PRICE,
         ).toTicketModel()
     }
 
@@ -99,6 +99,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun showCurrentResultTicketCountView() {
-        ticketCountView.text = presenter.ticketCount.toString()
+        ticketCountView.text = presenter.getTicketCount().toString()
     }
 }

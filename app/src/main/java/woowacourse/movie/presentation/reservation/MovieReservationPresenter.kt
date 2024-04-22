@@ -10,9 +10,6 @@ class MovieReservationPresenter(
 ) : MovieReservationContract.Presenter {
     private val ticketCounter: TicketCounter = TicketCounter()
 
-    val ticketCount
-        get() = ticketCounter.ticketCount
-
     override fun loadMovie() {
         view.showMovie(movieRepository.getMovie(movieId))
     }
@@ -25,6 +22,10 @@ class MovieReservationPresenter(
     override fun increaseTicketCount() {
         ticketCounter.plusTicketCount()
         view.showCurrentResultTicketCountView()
+    }
+
+    override fun getTicketCount(): Int {
+        return ticketCounter.ticketCount
     }
 
     companion object {

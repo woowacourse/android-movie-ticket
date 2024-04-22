@@ -15,5 +15,7 @@ interface MovieReservationContract {
         fun decreaseTicketCount()
 
         fun increaseTicketCount()
+
+        fun getTicketCount(): Int
     }
 }
