@@ -1,11 +1,11 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.data
 
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieDate
+import woowacourse.movie.model.movieContent
 
 class MovieContentsImplTest {
     @BeforeEach
