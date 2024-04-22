@@ -50,7 +50,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
             presenter.minusTicketNum()
         }
         ticketBuyButton.setOnClickListener {
-            presenter.onBuyButtonClicked()
+            presenter.purchase()
         }
     }
 

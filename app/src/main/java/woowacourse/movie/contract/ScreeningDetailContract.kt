@@ -16,5 +16,7 @@ interface ScreeningDetailContract {
         fun plusTicketNum()
 
         fun minusTicketNum()
+
+        fun purchase()
     }
 }
