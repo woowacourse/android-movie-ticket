@@ -28,8 +28,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         val id = intent.getLongExtra(EXTRA_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
         presenter =
             MovieReservationPresenter(
-                id, this, StubMovieRepository,
+                this, StubMovieRepository,
             )
+
+        presenter.loadMovieDetail(id)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
