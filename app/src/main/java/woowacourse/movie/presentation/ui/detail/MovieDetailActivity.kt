@@ -1,10 +1,6 @@
 package woowacourse.movie.presentation.ui.detail
 
 import android.content.Intent
-import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
@@ -13,26 +9,14 @@ import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private var movieDetailPresenter: MovieDetailContract.Presenter? = null
-
-    private val reservationCountTextView: TextView by lazy {
-        findViewById(R.id.reservationCount)
-    }
-    private val reserveButton: Button by lazy {
-        findViewById(R.id.reserveButton)
-    }
-
-    private val minusButton: TextView by lazy {
-        findViewById(R.id.minusButton)
-    }
-
-    private val plusButton: TextView by lazy {
-        findViewById(R.id.plusButton)
-    }
+    private lateinit var viewHolder: MovieDetailsViewHolder
 
     override fun getLayoutResId(): Int = R.layout.activity_movie_detail
 
     override fun onCreateSetup() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        viewHolder = MovieDetailsViewHolder(findViewById(android.R.id.content))
 
         val posterImageId = intent.getIntExtra(EXTRA_POSTER_IMAGE_SRC, 0)
         val title = intent.getStringExtra(EXTRA_TITLE) ?: ""
@@ -40,23 +24,29 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         val runningTime = intent.getIntExtra(EXTRA_RUNNING_TIME, 0)
         val summary = intent.getStringExtra(EXTRA_SUMMARY) ?: ""
 
-        movieDetailPresenter = MovieDetailPresenterImpl(this, MovieTicketRepositoryImpl, title, screeningDate)
-        movieDetailPresenter?.loadMovieDetails(posterImageId, title, screeningDate, runningTime, summary)
+        movieDetailPresenter =
+            MovieDetailPresenterImpl(this, MovieTicketRepositoryImpl, title, screeningDate)
+
+        movieDetailPresenter?.loadMovieDetails(
+            posterImageId,
+            title,
+            screeningDate,
+            runningTime,
+            summary,
+        )
 
         initClickListener()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val reservationCount = reservationCountTextView.text.toString().toInt()
-        outState.putInt(EXTRA_RESERVATION_COUNT, reservationCount)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.let {
-            val reservationCount = it.getInt(EXTRA_RESERVATION_COUNT)
-            movieDetailPresenter?.updateReservationCount(reservationCount)
+    private fun initClickListener() {
+        viewHolder.minusButton.setOnClickListener {
+            movieDetailPresenter?.minusReservationCount()
+        }
+        viewHolder.plusButton.setOnClickListener {
+            movieDetailPresenter?.plusReservationCount()
+        }
+        viewHolder.reserveButton.setOnClickListener {
+            movieDetailPresenter?.requestReservationResult()
         }
     }
 
@@ -67,31 +57,11 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         runningTime: Int,
         summary: String,
     ) {
-        findViewById<ImageView>(R.id.posterImage).setImageResource(posterImageId)
-        findViewById<TextView>(R.id.title).text = title
-        findViewById<TextView>(R.id.screeningDate).text =
-            getString(R.string.screening_date_format, screeningDate)
-        findViewById<TextView>(R.id.runningTime).text =
-            getString(R.string.running_time_format, runningTime)
-        findViewById<TextView>(R.id.summary).text = summary
+        viewHolder.bindDetails(posterImageId, title, screeningDate, runningTime, summary)
     }
 
     override fun showReservationCount(count: Int) {
-        reservationCountTextView.text = count.toString()
-    }
-
-    private fun initClickListener() {
-        minusButton.setOnClickListener {
-            movieDetailPresenter?.minusReservationCount()
-        }
-
-        plusButton.setOnClickListener {
-            movieDetailPresenter?.plusReservationCount()
-        }
-
-        reserveButton.setOnClickListener {
-            movieDetailPresenter?.requestReservationResult()
-        }
+        viewHolder.updateReservationCount(count)
     }
 
     override fun moveToReservationPage(reservationData: ReservationData) {
