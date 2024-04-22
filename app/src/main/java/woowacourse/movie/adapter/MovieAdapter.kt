@@ -53,7 +53,7 @@ class MovieAdapter(
             date.text = itemView.context.getString(R.string.title_date, movie.date)
             runningTime.text = itemView.context.getString(R.string.title_running_time, movie.runningTime)
             ticketingButton.setOnClickListener { onTicketingButtonClick(movie.id) }
-            thumbnail.setImageResource(movie.thumbnail)
+            thumbnail.setImageResource(movie.thumbnailResourceId)
         }
     }
 }
