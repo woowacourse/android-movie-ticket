@@ -46,6 +46,7 @@ class MovieContentListAdapter(
         }
 
         movieViewHolder.setUpContentUi(getItem(position))
+        movieViewHolder.setOnClickReservationButtonListener(getItemId(position))
 
         return view
     }
@@ -58,18 +59,21 @@ class MovieContentListAdapter(
         private val reservationButton: Button = view.findViewById(R.id.reservation_button)
 
         fun setUpContentUi(movieContent: MovieContent) {
-            posterImage.setImageResource(movieContent.imageId)
-            titleText.text = movieContent.title
-            screeningDateText.text =
-                view.context.resources
-                    .getString(R.string.screening_date)
-                    .format(dateFormatter(movieContent.screeningMovieDate))
-            runningTimeText.text =
-                view.context.resources.getString(R.string.running_time)
-                    .format(movieContent.runningTime)
+            with(movieContent) {
+                posterImage.setImageResource(imageId)
+                titleText.text = title
+                screeningDateText.text =
+                    view.context.resources
+                        .getString(R.string.screening_date).format(dateFormatter(screeningMovieDate))
+                runningTimeText.text =
+                    view.context.resources.getString(R.string.running_time).format(runningTime)
+            }
+        }
+
+        fun setOnClickReservationButtonListener(movieContentId: Long) {
             reservationButton.setOnClickListener {
                 Intent(view.context, MovieReservationActivity::class.java).run {
-                    putExtra(MovieHomeKey.ID, movieContent.id)
+                    putExtra(MovieHomeKey.ID, movieContentId)
                     startActivity(view.context, this, null)
                 }
             }
