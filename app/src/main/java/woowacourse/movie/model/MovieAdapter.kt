@@ -1,6 +1,5 @@
 package woowacourse.movie.model
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import woowacourse.movie.presenter.MovieMainContract
 import woowacourse.movie.utils.formatTimestamp
 
 class MovieAdapter(
-    private val context: Context,
     private val movieChoiceContractView: MovieMainContract.View,
     private val movies: List<Movie>,
 ) :
@@ -39,7 +37,7 @@ class MovieAdapter(
         val holder: MovieViewHolder
 
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
             holder = MovieViewHolder(view)
             view.tag = holder
         } else {
