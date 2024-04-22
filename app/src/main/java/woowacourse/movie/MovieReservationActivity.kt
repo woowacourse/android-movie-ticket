@@ -31,6 +31,23 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
             )
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val count = findViewById<TextView>(R.id.tv_detail_count).text.toString().toInt()
+        outState.putInt(STATE_COUNT_ID,count)
+    }
+
+    override fun onRestoreInstanceState(
+        savedInstanceState: Bundle,
+    ) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState?.let {
+            val counter = it.getInt(STATE_COUNT_ID)
+            countView.text= counter.toString()
+        }
+    }
+
     private fun initView() {
         countView = findViewById(R.id.tv_detail_count)
         plusButton = findViewById(R.id.btn_detail_plus)
@@ -78,5 +95,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     companion object {
         val EXTRA_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
         const val INVALID_SCREEN_MOVIE_ID = -1L
+        private const val STATE_COUNT_ID = "count"
     }
 }
