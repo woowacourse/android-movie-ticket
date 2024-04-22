@@ -27,7 +27,6 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-
         val holder: MovieViewHolder
         val view: View
 
@@ -54,7 +53,7 @@ class MovieAdapter(
         return view
     }
 
-    class MovieViewHolder(view:View){
+    class MovieViewHolder(view: View) {
         val postImageView: ImageView = view.findViewById(R.id.iv_movie_post)
         val title: TextView = view.findViewById(R.id.tv_movie_title)
         val date: TextView = view.findViewById(R.id.tv_movie_running_date)
