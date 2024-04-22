@@ -4,9 +4,9 @@
 
 ### Ticket
 - 1 이상의 `count` 값을 저장한다.
-  - [ ] `addCount` 함수를 호출시, count 의 값은 1 증가한다.
-  - [ ] `subCount` 함수를 호출시, count 의 값은 1 감소한다.
-    - [ ] count 값이 1 이하일 때는 감소하지 않는다.
+  - [x] `addCount` 함수를 호출시, count 의 값은 1 증가한다.
+  - [x] `subCount` 함수를 호출시, count 의 값은 1 감소한다.
+    - [x] count 값이 1 이하일 때는 감소하지 않는다.
 
 ### Movie
 - 영화는 아이디(Int), 제목(String), 상영기간(List\<LocalDate>), 러닝타임(Int), 설명(String), 이미지주소(Int) 정보를 갖는다.
