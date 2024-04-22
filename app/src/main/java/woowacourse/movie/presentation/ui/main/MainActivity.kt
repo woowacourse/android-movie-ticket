@@ -21,7 +21,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun showMovieList(movieList: List<Movie>) {
         adapter =
-            MovieListAdapter(this, movieList) { movie ->
+            MovieListAdapter(movieList) { movie ->
                 presenter.requestMovieDetail(movie)
             }
         findViewById<ListView>(R.id.movieList).adapter = adapter
