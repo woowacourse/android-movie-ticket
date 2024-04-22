@@ -13,8 +13,7 @@
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/movie_title"
@@ -41,10 +40,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:paddingEnd="4dp"
-            android:textSize="12sp"
-            android:text="@string/screening_date_text" />
+            android:text="@string/screening_date_text"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/movie_screening_date"
@@ -68,10 +67,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="12sp"
             android:paddingEnd="4dp"
-            android:text="@string/running_time_text" />
+            android:text="@string/running_time_text"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/movie_running_time"
@@ -84,9 +83,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/minute_text"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            android:text="@string/minute_text" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <Button

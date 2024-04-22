@@ -44,54 +44,60 @@
                     android:id="@+id/movie_detail_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    tools:text="@string/harry_potter_title"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="@string/harry_potter_title" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="34dp" />
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/screening_date_text"
                         android:paddingEnd="4dp"
+                        android:text="@string/screening_date_text"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/movie_detail_screening_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/harry_potter_screening_date"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="@string/harry_potter_screening_date" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingEnd="4dp"
                         android:text="@string/running_time_text"
                         android:textColor="@color/black"
-                        android:paddingEnd="4dp"
                         android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/movie_detail_running_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="@string/harry_potter_running_time"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        tools:text="@string/harry_potter_running_time" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -108,9 +114,9 @@
                     android:id="@+id/movie_detail_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/harry_potter_description"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:text="@string/harry_potter_description" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -125,8 +131,8 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingTop="10dp"
         android:paddingStart="20dp"
+        android:paddingTop="10dp"
         android:paddingEnd="20dp"
         android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -155,13 +161,13 @@
                 android:id="@+id/ticket_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="1"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
 
             <Button
                 android:id="@+id/plus_button"

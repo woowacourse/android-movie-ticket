@@ -7,4 +7,5 @@
     <string name="screening_date_text">상영일 :</string>
     <string name="running_time_text">러닝타임 :</string>
     <string name="minute_text">분</string>
+    <string name="ticket_explanation_text">영화 상영 시작 15분 전까지\n 취소가 가능합니다.</string>
 </resources>
