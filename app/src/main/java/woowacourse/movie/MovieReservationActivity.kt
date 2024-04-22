@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -84,14 +85,19 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     }
 
     override fun navigateToReservationResultView(reservationId: Long) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        intent.putExtra(ReservationResultActivity.EXTRA_RESERVATION_ID, reservationId)
-        startActivity(intent)
+        startActivity(ReservationResultActivity.getIntent(this, reservationId))
     }
 
     companion object {
-        val EXTRA_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
+        const val EXTRA_SCREEN_MOVIE_ID: String = "screenMovieId"
         const val INVALID_SCREEN_MOVIE_ID = -1L
         private const val STATE_COUNT_ID = "count"
+
+        fun getIntent(context: Context, reservationId: Long): Intent {
+            return Intent(context, MovieReservationActivity::class.java).apply {
+                putExtra(EXTRA_SCREEN_MOVIE_ID, reservationId)
+            }
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 package woowacourse.movie
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -45,7 +47,13 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     }
 
     companion object {
-        val EXTRA_RESERVATION_ID: String? = this::class.java.canonicalName
+        const val EXTRA_RESERVATION_ID: String = "reservationId"
         const val INVALID_RESERVATION_ID: Long = -1
+
+        fun getIntent(context: Context, reservationId: Long): Intent {
+            return Intent(context, ReservationResultActivity::class.java).apply {
+                putExtra(EXTRA_RESERVATION_ID, reservationId)
+            }
+        }
     }
 }
