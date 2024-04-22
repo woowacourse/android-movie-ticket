@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailView {
-    private val presenter: MovieDetailActivityPresenter by lazy { MovieDetailActivityPresenter(this, intent) }
+    private val presenter: MovieDetailPresenter by lazy { MovieDetailPresenter(this, intent) }
     private var ticketNum = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {

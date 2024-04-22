@@ -6,7 +6,7 @@ import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 import woowacourse.movie.model.theater.Theater
 
 @Suppress("DEPRECATION")
-class MovieDetailActivityPresenter(private val view: MovieDetailView, intent: Intent) {
+class MovieDetailPresenter(private val view: MovieDetailView, intent: Intent) {
     private val theater = intent.getSerializableExtra("Theater") as? Theater
     val movie = theater?.movie
 

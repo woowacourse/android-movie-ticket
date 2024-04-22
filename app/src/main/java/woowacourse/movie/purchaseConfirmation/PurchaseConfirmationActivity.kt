@@ -16,7 +16,7 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val presenter = PurchaseConfirmationActivityPresenter(intent)
+        val presenter = PurchaseConfirmationPresenter(intent)
         val movie = presenter.movie
         findViewById<TextView>(R.id.movie_title_confirmation).text = movie?.title.toString()
         findViewById<TextView>(R.id.purchase_movie_running_time).text =
