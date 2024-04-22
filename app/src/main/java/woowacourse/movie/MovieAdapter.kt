@@ -61,6 +61,6 @@ class MovieAdapter(
     }
 
     companion object {
-        private const val VIEW_HOLDER_ID = 1
+        private val VIEW_HOLDER_ID = R.id.movie_view_holder
     }
 }
