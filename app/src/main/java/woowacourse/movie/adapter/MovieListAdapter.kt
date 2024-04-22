@@ -11,19 +11,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.contract.MainContract
-import woowacourse.movie.presenter.MainPresenter
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Movies
+import woowacourse.movie.repository.MovieData
 import woowacourse.movie.view.ReservationActivity
 
 class MovieListAdapter(
     private val context: Context,
-    private val presenter: MainPresenter,
+    private val movies: Movies,
 ) : BaseAdapter(), MainContract.View {
     override fun getCount(): Int {
-        return presenter.movieList().size
+        return MovieData.movies.list.size
     }
 
-    override fun getItem(position: Int): Any {
-        return presenter.item(position)
+    override fun getItem(position: Int): Movie {
+        return movies.list[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -35,7 +37,6 @@ class MovieListAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        // view 생성을 줄이는 방법
         val movieViewHolder: MovieViewHolder
         val view: View
         if (convertView == null) {
@@ -47,7 +48,7 @@ class MovieListAdapter(
             movieViewHolder = convertView.tag as MovieViewHolder
         }
 
-        val item = presenter.item(position)
+        val item = getItem(position)
         movieViewHolder.image.setImageResource(item.img)
         movieViewHolder.movieTitle.text = item.title
         movieViewHolder.movieScreenDate.text = item.screenDateToString()
@@ -62,7 +63,14 @@ class MovieListAdapter(
 
     private fun startReservationActivity(position: Int) {
         val intent = Intent(context, ReservationActivity::class.java)
-        presenter.putData(intent, position)
+        val item = getItem(position)
+        // Needed: Simplify intent data setting
+        intent.putExtra("image", item.img)
+        intent.putExtra("title", item.title)
+        intent.putExtra("screenDate", item.screenDateToString())
+        intent.putExtra("runningTime", item.runningTime.toString())
+        intent.putExtra("description", item.description)
+
         context.startActivity(intent)
     }
 

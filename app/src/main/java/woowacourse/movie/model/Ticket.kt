@@ -1,6 +1,9 @@
 package woowacourse.movie.model
 
-class Ticket(var count: Int = DEFAULT_AMOUNT) {
+class Ticket() {
+    var count: Int = DEFAULT_AMOUNT
+        private set
+
     init {
         require(count > 0) {
             ERROR_AMOUNT_LESS_THAN_ONE
@@ -16,7 +19,7 @@ class Ticket(var count: Int = DEFAULT_AMOUNT) {
             count--
         }
     }
-    
+
     fun price(): Int = count * TICKET_PRICE
 
     companion object {

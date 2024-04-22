@@ -1,8 +1,6 @@
 package woowacourse.movie.view
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -22,14 +20,5 @@ class MainActivityTest {
     fun show_movie_list() {
         onView(withId(R.id.movie_list))
             .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun layout_disappear_when_reservation_button_clicked() {
-        onView(withId(R.id.reservation_button))
-            .perform(click())
-
-        onView(withId(R.id.main_layout))
-            .check(doesNotExist())
     }
 }

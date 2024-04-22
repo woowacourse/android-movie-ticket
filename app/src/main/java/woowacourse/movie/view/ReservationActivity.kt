@@ -2,6 +2,7 @@ package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
@@ -22,17 +23,27 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setUpView()
         setUpCount()
         bindReservationButton()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("count", countTextView.text.toString().toInt())
+    }
+
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
-            val count = it.getInt("count")
+            val count = it.getInt("count", 1)
+            if (count != 1) {
+                repeat(count - 1) {
+                    reservationPresenter.ticket.addCount()
+                }
+            }
             countTextView.text = count.toString()
         }
     }
@@ -67,6 +78,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun updateTicketCount() {
         countTextView.text = reservationPresenter.ticket.count.toString()
+        Log.d("ticketCount", "${reservationPresenter.ticket.count}")
     }
 
     private fun initDescription() {
@@ -106,7 +118,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             intent.putExtra("title", titleTextView.text.toString())
             intent.putExtra("screenDate", screenDateTextView.text.toString())
             intent.putExtra("count", countTextView.text.toString())
-            // is this right..?
             intent.putExtra("price", reservationPresenter.ticket.price())
 
             this.startActivity(intent)
