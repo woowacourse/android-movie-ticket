@@ -20,6 +20,7 @@ class MovieRepository {
             apiMovie.content,
             apiMovie.openingDay,
             apiMovie.runningTime,
+            apiMovie.price,
         )
     }
 
