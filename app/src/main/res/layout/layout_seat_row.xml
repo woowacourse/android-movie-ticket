@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/selector_seat"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="27dp"
+        android:textAppearance="@style/Bold22"
+        tools:text="A1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/selector_seat"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="27dp"
+        android:textAppearance="@style/Bold22"
+        tools:text="A2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/selector_seat"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="27dp"
+        android:textAppearance="@style/Bold22"
+        tools:text="A3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/selector_seat"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="27dp"
+        android:textAppearance="@style/Bold22"
+        tools:text="A4" />
+
+</TableRow>
