@@ -11,8 +11,6 @@ import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter
 
 class ScreenActivity : AppCompatActivity(), ScreenContract.View {
-    private val listView: ListView by lazy { findViewById(R.id.lv_screen) }
-
     private lateinit var adapter: ScreenAdapter
     private val screenPresenter: ScreenContract.Presenter by lazy {
         ScreenPresenter(
@@ -31,6 +29,7 @@ class ScreenActivity : AppCompatActivity(), ScreenContract.View {
     }
 
     private fun initAdapter() {
+        val listView = findViewById<ListView>(R.id.lv_screen)
         adapter =
             ScreenAdapter(emptyList()) { screenId ->
                 ScreenDetailActivity.startActivity(this, screenId)
