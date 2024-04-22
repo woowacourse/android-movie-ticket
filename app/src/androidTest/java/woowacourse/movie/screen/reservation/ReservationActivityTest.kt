@@ -1,4 +1,4 @@
-package woowacourse.movie.reservation
+package woowacourse.movie.screen.reservation
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -14,7 +14,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.TestFixture.DUMMY_MOVIE
-import woowacourse.movie.screen.reservation.ReservationActivity
 
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {

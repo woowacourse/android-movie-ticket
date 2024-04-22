@@ -1,4 +1,4 @@
-package woowacourse.movie.completed
+package woowacourse.movie.screen.completed
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -13,7 +13,6 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.TestFixture.reservationBuilder
 import woowacourse.movie.model.pricing.UniformPricingSystem
-import woowacourse.movie.screen.completed.ReservationCompletedActivity
 
 @RunWith(AndroidJUnit4::class)
 class ReservationCompletedActivityTest {
