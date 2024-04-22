@@ -14,7 +14,8 @@ import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.ui.DateUi
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
@@ -45,7 +46,8 @@ class MovieReservationActivity :
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val count = savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+        val count =
+            savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
         presenter.updateReservationCount(count)
     }
 
@@ -92,11 +94,15 @@ class MovieReservationActivity :
         movieContent.run {
             posterImage.setImageResource(imageId)
             titleText.text = title
-            screeningDateText.text =
-                DateUi.screeningDateMessage(screeningDate, this@MovieReservationActivity)
+            screeningDateText.text = screeningDate.message()
             runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
             synopsisText.text = synopsis
         }
+    }
+
+    private fun LocalDate.message(): String {
+        return this@MovieReservationActivity.resources.getString(R.string.screening_date)
+            .format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
     }
 
     override fun updateReservationCountUi(reservationCount: Int) {

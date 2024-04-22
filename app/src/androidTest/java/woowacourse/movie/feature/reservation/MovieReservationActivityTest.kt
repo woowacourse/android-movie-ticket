@@ -13,9 +13,10 @@ import woowacourse.movie.feature.click
 import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovieContent
 import woowacourse.movie.feature.runningTimeMessage
-import woowacourse.movie.feature.screeningDateMessage
 import woowacourse.movie.feature.scroll
 import woowacourse.movie.feature.view
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationActivityTest {
@@ -39,7 +40,7 @@ class MovieReservationActivityTest {
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         view(R.id.screening_date_text)
-            .equalText(firstMovieContent.screeningDateMessage())
+            .equalText(firstMovieContent.screeningDate.message())
     }
 
     @Test
@@ -116,5 +117,9 @@ class MovieReservationActivityTest {
         // then
         view(R.id.reservation_count_text)
             .equalText("1")
+    }
+
+    private fun LocalDate.message(): String {
+        return "상영일: %s".format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
     }
 }

@@ -9,12 +9,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.feature.FIRST_MOVIE_CONTENT_ID
-import woowacourse.movie.feature.dateMessage
 import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovieContent
 import woowacourse.movie.feature.reservationAmountMessage
 import woowacourse.movie.feature.reservationCountMessage
 import woowacourse.movie.feature.view
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
@@ -40,7 +41,7 @@ class MovieReservationCompleteActivityTest {
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         view(R.id.screening_date_text)
-            .equalText(firstMovieContent.dateMessage())
+            .equalText(firstMovieContent.screeningDate.message())
     }
 
     @Test
@@ -53,5 +54,9 @@ class MovieReservationCompleteActivityTest {
     fun `화면이_띄워지면_예매_금액이_보인다`() {
         view(R.id.reservation_amount_text)
             .equalText(reservationCount.reservationAmountMessage())
+    }
+
+    private fun LocalDate.message(): String {
+        return format(DateTimeFormatter.ofPattern("yyyy.M.d"))
     }
 }

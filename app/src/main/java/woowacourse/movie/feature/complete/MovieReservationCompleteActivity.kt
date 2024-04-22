@@ -12,7 +12,8 @@ import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.ui.DateUi
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
@@ -71,8 +72,7 @@ class MovieReservationCompleteActivity :
     override fun setUpMovieContentUi(movieContent: MovieContent) {
         movieContent.run {
             titleText.text = title
-            screeningDateText.text =
-                DateUi.dateMessage(screeningDate)
+            screeningDateText.text = screeningDate.message()
         }
     }
 
@@ -84,6 +84,8 @@ class MovieReservationCompleteActivity :
                 resources.getString(R.string.reservation_amount).format(amount())
         }
     }
+
+    private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
 
     companion object {
         private val TAG = MovieReservationCompleteActivity::class.simpleName

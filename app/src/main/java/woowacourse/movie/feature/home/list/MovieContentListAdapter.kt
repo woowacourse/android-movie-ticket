@@ -9,7 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.ui.DateUi
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieContentListAdapter(
     private val movieContents: List<MovieContent>,
@@ -26,10 +27,15 @@ class MovieContentListAdapter(
             movieContent.run {
                 posterImage.setImageResource(imageId)
                 titleText.text = title
-                screeningDateText.text = DateUi.screeningDateMessage(screeningDate, view.context)
+                screeningDateText.text = screeningDate.message()
                 runningTimeText.text =
                     view.context.resources.getString(R.string.running_time).format(runningTime)
             }
+        }
+
+        private fun LocalDate.message(): String {
+            return view.context.resources.getString(R.string.screening_date)
+                .format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
         }
 
         fun setOnClickReservationButton(

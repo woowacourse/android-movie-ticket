@@ -11,7 +11,8 @@ import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovieContent
 import woowacourse.movie.feature.firstMovieContentItem
 import woowacourse.movie.feature.runningTimeMessage
-import woowacourse.movie.feature.screeningDateMessage
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
 class MovieHomeActivityTest {
@@ -27,12 +28,16 @@ class MovieHomeActivityTest {
     @Test
     fun `영화_목록_첫_번째_항목의_상영일이_보여진다`() {
         firstMovieContentItem.child(R.id.screening_date_text)
-            .equalText(firstMovieContent.screeningDateMessage())
+            .equalText(firstMovieContent.screeningDate.message())
     }
 
     @Test
     fun `영화_목록_첫_번째_항목의_러닝타임이_보여진다`() {
         firstMovieContentItem.child(R.id.running_time_text)
             .equalText(firstMovieContent.runningTimeMessage())
+    }
+
+    private fun LocalDate.message(): String {
+        return "상영일: %s".format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
     }
 }
