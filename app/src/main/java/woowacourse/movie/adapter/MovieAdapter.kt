@@ -10,20 +10,20 @@ import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Title
-import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.model.screening.Screening
 
 class MovieAdapter : BaseAdapter() {
-    private var theaters: List<Theater> = listOf()
+    private var screenings: List<Screening> = listOf()
 
     var onClick: ((Int) -> Unit)? = null
 
-    fun setTheaters(theaters: List<Theater>) {
-        this.theaters = theaters
+    fun setScreening(screenings: List<Screening>) {
+        this.screenings = screenings
     }
 
-    override fun getCount(): Int = theaters.size
+    override fun getCount(): Int = screenings.size
 
-    override fun getItem(position: Int): Theater = theaters[position]
+    override fun getItem(position: Int): Screening = screenings[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -35,8 +35,8 @@ class MovieAdapter : BaseAdapter() {
         val listItemView = convertView
             ?: LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
 
-        val theater: Theater = getItem(position)
-        val movie = theater.movie
+        val screening: Screening = getItem(position)
+        val movie = screening.movie
 
         listItemView.findViewById<TextView>(R.id.movie_title).text = movie.title.format()
         listItemView.findViewById<TextView>(R.id.movie_release_date).text =
@@ -54,4 +54,10 @@ class MovieAdapter : BaseAdapter() {
     private fun Title.format() = content
     private fun MovieDate.format() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
     private fun RunningTime.format() = time.toString() + "분"
+    class ViewHolder(
+        val title: TextView,
+        val date: TextView,
+        val dutation: TextView,
+        val detailsButton: Button
+    )
 }

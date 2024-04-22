@@ -5,10 +5,10 @@ import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
-import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.model.screening.Screening
 import java.time.LocalDate
 
-class PseudoTheaterRepository : TheaterRepository {
+class PseudoScreeningRepository : ScreeningRepository {
     private val pseudoMovieInfo =
         MovieInfo(
             Title("차람과 하디의 진지한 여행기"),
@@ -17,14 +17,14 @@ class PseudoTheaterRepository : TheaterRepository {
             Synopsis("wow!"),
         )
 
-    override fun getTheaters(): List<Theater> =
+    override fun getScreenings(): List<Screening> =
         listOf(
-            Theater(pseudoMovieInfo),
-            Theater(pseudoMovieInfo),
-            Theater(pseudoMovieInfo),
-            Theater(pseudoMovieInfo),
-            Theater(pseudoMovieInfo),
-            Theater(pseudoMovieInfo),
-            Theater(pseudoMovieInfo),
+            Screening(pseudoMovieInfo),
+            Screening(pseudoMovieInfo),
+            Screening(pseudoMovieInfo),
+            Screening(pseudoMovieInfo),
+            Screening(pseudoMovieInfo),
+            Screening(pseudoMovieInfo),
+            Screening(pseudoMovieInfo),
         )
 }

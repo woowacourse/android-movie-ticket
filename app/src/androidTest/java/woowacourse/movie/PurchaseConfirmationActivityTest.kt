@@ -18,7 +18,7 @@ import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
-import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.model.screening.Screening
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -30,13 +30,13 @@ class PurchaseConfirmationActivityTest {
             RunningTime(230),
             Synopsis("wow!"),
         )
-    private val theater = Theater(movie, 10000)
+    private val screening = Screening(movie, 10000)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             PurchaseConfirmationActivity::class.java,
         ).also {
-            it.putExtra("Reservation", Reservation(theater, 3))
+            it.putExtra("Reservation", Reservation(screening, 3))
         }
 
     @get:Rule

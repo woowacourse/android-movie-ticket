@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".activity.MovieListActivity"
+            android:name=".activity.ScreeningListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MovieDetailActivity"
-            android:parentActivityName=".activity.MovieListActivity"/>
+        <activity android:name=".activity.ScreeningDetailActivity"
+            android:parentActivityName=".activity.ScreeningListActivity"/>
         <activity android:name=".activity.PurchaseConfirmationActivity"
-            android:parentActivityName=".activity.MovieListActivity"/>
+            android:parentActivityName=".activity.ScreeningListActivity"/>
     </application>
 
 </manifest>

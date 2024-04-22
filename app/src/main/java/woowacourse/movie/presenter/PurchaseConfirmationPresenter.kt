@@ -5,7 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import woowacourse.movie.contract.PurchaseConfirmationContract
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.model.screening.Screening
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class PurchaseConfirmationPresenter(
@@ -14,7 +14,7 @@ class PurchaseConfirmationPresenter(
 ) : PurchaseConfirmationContract.Presenter {
     private val reservation =
         intent.getSerializableExtra("Reservation", Reservation::class.java)
-            ?: Reservation(Theater.default, 1)
+            ?: Reservation(Screening.default, 1)
 
     init {
         view.displayReservation(reservation)

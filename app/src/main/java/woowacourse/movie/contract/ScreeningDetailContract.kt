@@ -3,7 +3,7 @@ package woowacourse.movie.contract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.movieInfo.MovieInfo
 
-interface MovieDetailContract {
+interface ScreeningDetailContract {
     interface View {
         fun displayMovie(movie: MovieInfo)
 

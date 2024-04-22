@@ -3,23 +3,23 @@ package woowacourse.movie.presenter
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
-import woowacourse.movie.contract.MovieDetailContract
+import woowacourse.movie.contract.ScreeningDetailContract
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.model.screening.Screening
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-class MovieDetailPresenter(
+class ScreeningDetailPresenter(
     intent: Intent,
-    private val view: MovieDetailContract.View,
-) : MovieDetailContract.Presenter {
+    private val view: ScreeningDetailContract.View,
+) : ScreeningDetailContract.Presenter {
     private var ticketNum = 1
-    private val theater: Theater =
-        intent.getSerializableExtra("Theater", Theater::class.java) ?: Theater.default
+    private val screening: Screening =
+        intent.getSerializableExtra("Screening", Screening::class.java) ?: Screening.default
 
     // TODO: have to notify that something went wrong and go back to movie selection
     // e.g. view.notifyException()
     init {
-        view.displayMovie(theater.movie)
+        view.displayMovie(screening.movie)
     }
 
     override fun plusTicketNum() {
@@ -33,6 +33,6 @@ class MovieDetailPresenter(
     }
 
     fun onBuyButtonClicked() {
-        view.navigateToPurchaseConfirmation(Reservation(theater, ticketNum))
+        view.navigateToPurchaseConfirmation(Reservation(screening, ticketNum))
     }
 }

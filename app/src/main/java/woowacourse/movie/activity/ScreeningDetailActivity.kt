@@ -11,12 +11,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
-import woowacourse.movie.contract.MovieDetailContract
+import woowacourse.movie.contract.ScreeningDetailContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.movieInfo.MovieInfo
-import woowacourse.movie.presenter.MovieDetailPresenter
+import woowacourse.movie.presenter.ScreeningDetailPresenter
 
-class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
+class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.View {
     private val numberOfPurchases by lazy {
         findViewById<TextView>(R.id.quantity_text_view)
     }
@@ -26,7 +26,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
         val presenter =
-            MovieDetailPresenter(
+            ScreeningDetailPresenter(
                 intent,
                 this,
             )

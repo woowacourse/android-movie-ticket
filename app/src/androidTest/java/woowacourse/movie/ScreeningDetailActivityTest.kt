@@ -11,12 +11,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.MovieDetailActivity
+import woowacourse.movie.activity.ScreeningDetailActivity
 
 @RunWith(AndroidJUnit4::class)
-class MovieDetailActivityTest {
+class ScreeningDetailActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MovieDetailActivity::class.java)
+    val activityRule = ActivityScenarioRule(ScreeningDetailActivity::class.java)
 
     @Test
     fun minusButtonTest() {
