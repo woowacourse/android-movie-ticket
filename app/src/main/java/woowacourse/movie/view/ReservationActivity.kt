@@ -32,6 +32,20 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         bindReservationButton()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(TICKET, presenter.ticketCount())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val count = it.getInt(TICKET)
+            countTextView.text = count.toString()
+            presenter.restoreTicketCount(count)
+        }
+    }
+
     override fun setUpView(
         img: Int,
         title: String,
@@ -112,5 +126,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     companion object {
         const val DEFAULT_MOVIE_ID = 0
+        const val TICKET = "ticket"
     }
 }

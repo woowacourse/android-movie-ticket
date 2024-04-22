@@ -48,4 +48,7 @@ class ReservationPresenter(
     override fun ticketCount(): Int = ticket.count()
 
     override fun totalTicketPrice(): Int = payment.price(ticketCount())
+    override fun restoreTicketCount(count: Int) {
+        ticket.restoreCount(count)
+    }
 }

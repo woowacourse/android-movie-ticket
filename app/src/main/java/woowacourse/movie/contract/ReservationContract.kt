@@ -27,5 +27,7 @@ interface ReservationContract {
         fun ticketCount(): Int
 
         fun totalTicketPrice(): Int
+
+        fun restoreTicketCount(count: Int)
     }
 }

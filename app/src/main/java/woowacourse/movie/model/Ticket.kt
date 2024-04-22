@@ -23,6 +23,10 @@ class Ticket : Serializable {
 
     fun count(): Int = count
 
+    fun restoreCount(count: Int) {
+        this.count = count
+    }
+
     companion object {
         const val DEFAULT_AMOUNT: Int = 1
         const val ERROR_AMOUNT_LESS_THAN_ONE = "amount 값은 1 이상이어야 합니다."

@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -100,5 +101,21 @@ class ReservationActivityTest {
 
         onView(withId(R.id.reservation_layout))
             .check(doesNotExist())
+    }
+
+    @Test
+    fun 티켓의_수를_2로_증가시킨_후_화면_회전시_유지된다() {
+        // given
+        onView(withId(R.id.add_button))
+            .perform(click())
+
+        // when
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // then
+        onView(withId(R.id.reservation_count_textview))
+            .check(matches(withText("2")))
     }
 }
