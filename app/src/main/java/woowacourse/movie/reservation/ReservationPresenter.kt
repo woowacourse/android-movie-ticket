@@ -2,8 +2,8 @@ package woowacourse.movie.reservation
 
 import android.content.Intent
 import android.os.Build
-import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.UiMovie
 
 class ReservationPresenter(private val view: ReservationContract.View) :
     ReservationContract.Presenter {
@@ -18,15 +18,15 @@ class ReservationPresenter(private val view: ReservationContract.View) :
         }
     }
 
-    override fun getMovieDate(intent: Intent): Movie? {
+    override fun getMovieDate(intent: Intent): UiMovie? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(EXTRA_MOVIE, Movie::class.java)
+            intent.getSerializableExtra(EXTRA_MOVIE, UiMovie::class.java)
         } else {
-            intent.getSerializableExtra(EXTRA_MOVIE) as? Movie
+            intent.getSerializableExtra(EXTRA_MOVIE) as? UiMovie
         }
     }
 
-    override fun onClicked(movie: Movie) {
+    override fun onClicked(uiMovie: UiMovie) {
         view.moveToCompletedActivity(ticket)
     }
 

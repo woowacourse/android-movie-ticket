@@ -3,22 +3,22 @@ package woowacourse.movie.model
 import java.io.Serializable
 
 class Ticket(
-    private val movie: Movie,
+    private val uiMovie: UiMovie,
     initialQuantity: Int = MINIMUM_QUANTITY,
 ) : Serializable {
     var quantity: Int = initialQuantity
         private set
 
     fun getTitle(): String {
-        return movie.title
+        return uiMovie.title
     }
 
     fun getOpeningDay(): String {
-        return movie.openingDay
+        return uiMovie.openingDay
     }
 
     fun getPrice(): Int {
-        return movie.price
+        return uiMovie.price
     }
 
     fun increaseQuantity() = quantity++

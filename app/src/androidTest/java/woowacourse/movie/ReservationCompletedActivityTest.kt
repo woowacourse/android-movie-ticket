@@ -11,14 +11,14 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.completed.ReservationCompletedActivity
-import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.UiMovie
 
 @RunWith(AndroidJUnit4::class)
 class ReservationCompletedActivityTest {
-    private val movie =
-        Movie(R.drawable.poster, "해리 포터와 마법사의 돌", "description", "2024.3.1", 152, 13000)
-    private val ticket = Ticket(movie, 3)
+    private val uiMovie =
+        UiMovie(R.drawable.poster, "해리 포터와 마법사의 돌", "description", "2024.3.1", 152, 13000)
+    private val ticket = Ticket(uiMovie, 3)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),

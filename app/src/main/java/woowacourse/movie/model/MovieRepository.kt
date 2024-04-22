@@ -3,19 +3,29 @@ package woowacourse.movie.model
 import woowacourse.movie.R
 
 class MovieRepository {
-    private val movies: MutableList<Movie> = mutableListOf()
+    private val movies: MutableList<ApiMovie> = mutableListOf()
 
     init {
         loadInitialData()
     }
 
-    fun getMovies() = movies.toList()
+    fun getMovies(): List<UiMovie> = movies.map { convertToUiModel(it) }
 
-    fun getMovieAt(position: Int) = movies[position]
+    fun getMovieAt(position: Int): UiMovie = convertToUiModel(movies[position])
+
+    private fun convertToUiModel(apiMovie: ApiMovie): UiMovie {
+        return UiMovie(
+            apiMovie.poster,
+            apiMovie.title,
+            apiMovie.content,
+            apiMovie.openingDay,
+            apiMovie.runningTime,
+        )
+    }
 
     private fun loadInitialData() {
         addMovie(
-            Movie(
+            ApiMovie(
                 R.drawable.poster,
                 "해리 포터와 마법사의 돌",
                 "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, " +
@@ -26,7 +36,7 @@ class MovieRepository {
         )
     }
 
-    private fun addMovie(movie: Movie) {
+    private fun addMovie(movie: ApiMovie) {
         movies.add(movie)
     }
 }

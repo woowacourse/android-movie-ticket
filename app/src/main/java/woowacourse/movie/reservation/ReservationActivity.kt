@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.completed.ReservationCompletedActivity
-import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.UiMovie
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val reservationPresenter = ReservationPresenter(this)
@@ -23,19 +23,19 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         setupTicketQuantityControls()
     }
 
-    override fun initializeMovieDetails(movie: Movie) {
-        findViewById<ImageView>(R.id.poster).setImageResource(movie.poster)
-        findViewById<TextView>(R.id.movie_title).text = movie.title
-        findViewById<TextView>(R.id.content).text = movie.content
+    override fun initializeMovieDetails(uiMovie: UiMovie) {
+        findViewById<ImageView>(R.id.poster).setImageResource(uiMovie.poster)
+        findViewById<TextView>(R.id.movie_title).text = uiMovie.title
+        findViewById<TextView>(R.id.content).text = uiMovie.content
         findViewById<TextView>(R.id.opening_day).text =
-            getString(R.string.movie_opening_day, movie.openingDay)
+            getString(R.string.movie_opening_day, uiMovie.openingDay)
         findViewById<TextView>(R.id.running_time).text =
-            getString(R.string.movie_running_time, movie.runningTime.toString())
+            getString(R.string.movie_running_time, uiMovie.runningTime.toString())
     }
 
-    override fun setupReservationCompletedButton(movie: Movie) {
+    override fun setupReservationCompletedButton(uiMovie: UiMovie) {
         findViewById<Button>(R.id.btn_reservation_completed).setOnClickListener {
-            reservationPresenter.onClicked(movie)
+            reservationPresenter.onClicked(uiMovie)
         }
     }
 

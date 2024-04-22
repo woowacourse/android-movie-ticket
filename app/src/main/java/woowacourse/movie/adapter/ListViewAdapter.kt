@@ -8,19 +8,19 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.UiMovie
 
 class ListViewAdapter(
-    private val movies: List<Movie>,
+    private val uiMovies: List<UiMovie>,
     private val itemClickListener: OnItemClickListener,
 ) : BaseAdapter() {
     fun interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
 
-    override fun getCount(): Int = movies.size
+    override fun getCount(): Int = uiMovies.size
 
-    override fun getItem(position: Int): Any = movies[position]
+    override fun getItem(position: Int): Any = uiMovies[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -38,7 +38,7 @@ class ListViewAdapter(
         view: View,
         position: Int,
     ) {
-        val movie = movies[position]
+        val movie = uiMovies[position]
         view.findViewById<ImageView>(R.id.img_poster).setImageResource(movie.poster)
         view.findViewById<TextView>(R.id.movie_title).text = movie.title
         view.findViewById<TextView>(R.id.opening_day).text = "상영일: ${movie.openingDay}"

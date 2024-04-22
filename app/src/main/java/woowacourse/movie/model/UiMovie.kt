@@ -2,7 +2,7 @@ package woowacourse.movie.model
 
 import java.io.Serializable
 
-data class Movie(
+data class UiMovie(
     val poster: Int,
     val title: String,
     val content: String,

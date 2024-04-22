@@ -6,8 +6,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.ListViewAdapter
-import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieRepository
+import woowacourse.movie.model.UiMovie
 import woowacourse.movie.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -19,17 +19,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         mainPresenter.onViewCreated()
     }
 
-    override fun displayMovies(movies: List<Movie>) {
+    override fun displayMovies(uiMovies: List<UiMovie>) {
         val movieListView = findViewById<ListView>(R.id.list_view)
         movieListView.adapter =
-            ListViewAdapter(movies) { position ->
+            ListViewAdapter(uiMovies) { position ->
                 mainPresenter.onMovieSelected(position)
             }
     }
 
-    override fun navigateToReservation(movie: Movie) {
+    override fun navigateToReservation(uiMovie: UiMovie) {
         Intent(this, ReservationActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE, movie)
+            putExtra(EXTRA_MOVIE, uiMovie)
             startActivity(this)
         }
     }
