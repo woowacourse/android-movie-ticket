@@ -1,5 +1,7 @@
 package woowacourse.movie.screen.completed
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -70,5 +72,15 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     companion object {
         private const val DATE_FORMAT = "yyyy.M.d"
         private const val DECIMAL_FORMAT = "#,###"
+        private const val RESERVATION_INTENT_KEY = "reservation"
+
+        fun getIntent(
+            context: Context,
+            reservation: Reservation,
+        ): Intent {
+            return Intent(context, ReservationCompletedActivity::class.java).apply {
+                putExtra(RESERVATION_INTENT_KEY, reservation)
+            }
+        }
     }
 }

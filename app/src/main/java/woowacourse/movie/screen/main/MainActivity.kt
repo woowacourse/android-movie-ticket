@@ -1,6 +1,5 @@
 package woowacourse.movie.screen.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,9 +28,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun navigateToReservation(movie: Movie) {
-        Intent(this, ReservationActivity::class.java).apply {
-            putExtra("movie", movie)
-            startActivity(this)
-        }
+        startActivity(ReservationActivity.getIntent(this, movie))
     }
 }

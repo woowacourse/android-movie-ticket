@@ -1,5 +1,6 @@
 package woowacourse.movie.screen.reservation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -81,9 +82,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     }
 
     override fun moveToCompletedActivity(reservation: Reservation) {
-        val intent = Intent(this@ReservationActivity, ReservationCompletedActivity::class.java)
-        intent.putExtra("reservation", reservation)
-        startActivity(intent)
+        startActivity(ReservationCompletedActivity.getIntent(this, reservation))
     }
 
     override fun setupTicketQuantityControls(quantity: Quantity) {
@@ -103,5 +102,18 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        private const val MOVIE_INTENT_KEY = "movie"
+
+        fun getIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent {
+            return Intent(context, ReservationActivity::class.java).apply {
+                putExtra(MOVIE_INTENT_KEY, movie)
+            }
+        }
     }
 }
