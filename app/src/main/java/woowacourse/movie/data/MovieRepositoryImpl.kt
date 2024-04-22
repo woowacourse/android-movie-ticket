@@ -4,7 +4,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.repository.MovieRepository
 
 class MovieRepositoryImpl : MovieRepository {
-    override fun loadMovies(): List<Movie> {
+    override fun getMovies(): List<Movie> {
         return MockMovies.sampleMovies
     }
 

@@ -7,7 +7,7 @@ class MovieScreenPresenter(
     private val movieRepository: MovieRepository,
 ) : MovieScreenContract.Presenter {
     override fun loadScreenMovies() {
-        val movies = movieRepository.loadMovies()
+        val movies = movieRepository.getMovies()
         view.showScreenMovies(movies)
     }
 

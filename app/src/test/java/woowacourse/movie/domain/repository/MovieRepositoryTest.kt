@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieRepositoryImpl
-import woowacourse.movie.domain.repository.MovieRepository
 
 class MovieRepositoryTest {
     private lateinit var repository: MovieRepository
@@ -16,7 +15,7 @@ class MovieRepositoryTest {
 
     @Test
     fun `loadMovies는 모든 영화 리스트를 반환한다`() {
-        val movies = repository.loadMovies()
+        val movies = repository.getMovies()
         assertEquals(1, movies.size)
     }
 
