@@ -94,4 +94,20 @@ class ScreenDetailActivityTest {
 
         onView(withId(R.id.tv_count)).check(matches(withText("2")))
     }
+
+    @Test
+    fun `카운트가_2일_떄_화면을_가로로_회전한_후에_다시_카운트를_올리면_3이_된다`() {
+        // given
+        val activityScenario = activityRule.scenario
+        plusBtn.perform(click())
+
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // when
+        plusBtn.perform(click())
+
+        onView(withId(R.id.tv_count)).check(matches(withText("2")))
+    }
 }
