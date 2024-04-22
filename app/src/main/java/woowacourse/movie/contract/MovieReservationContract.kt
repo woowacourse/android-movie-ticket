@@ -1,5 +1,6 @@
 package woowacourse.movie.contract
 
+import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.MovieReservationPresenter
 
 interface MovieReservationContract {
@@ -8,7 +9,7 @@ interface MovieReservationContract {
 
         fun showCurrentResultTicketCountView(info: Int)
 
-        fun setMovieView()
+        fun setMovieView(info: Movie)
 
         fun setOnPlusButtonClickListener()
 
@@ -22,12 +23,14 @@ interface MovieReservationContract {
     interface Presenter {
         fun setCurrentResultTicketCountInfo()
 
-        fun setMovieInfo()
-
         fun setPlusButtonClickInfo()
 
         fun setMinusButtonClickInfo()
 
         fun setTicketingButtonClickInfo()
+
+        fun storeMovieData(movieData: Movie?)
+
+        fun setMovieInfo()
     }
 }

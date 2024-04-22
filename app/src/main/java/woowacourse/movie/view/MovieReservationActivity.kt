@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieReservationContract
+import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.MovieReservationPresenter
 import woowacourse.movie.util.IntentUtil.getSerializableMovieData
 import java.time.format.DateTimeFormatter
@@ -28,8 +29,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
         initView()
-        presenter.setMovieInfo()
         presenter.setCurrentResultTicketCountInfo()
+        presenter.storeMovieData(getSerializableMovieData(intent))
+        presenter.setMovieInfo()
         setOnPlusButtonClickListener()
         setOnMinusButtonClickListener()
         setOnTicketingButtonListener()
@@ -47,17 +49,16 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketingButton = findViewById(R.id.ticketing_button)
     }
 
-    override fun setMovieView() {
-        getSerializableMovieData(intent)?.let { movie ->
-            val formattedScreeningDate =
-                movie.screeningDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))
+    override fun setMovieView(info: Movie) {
+        presenter.storeMovieData(getSerializableMovieData(intent))
+        val formattedScreeningDate =
+            info.screeningDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))
 
-            titleView.text = movie.title
-            screeningDateView.text = formattedScreeningDate
-            runningDateView.text = movie.runningTime.toString()
-            descriptionView.text = movie.description
-            posterView.setImageResource(movie.posterResourceId)
-        }
+        titleView.text = info.title
+        screeningDateView.text = formattedScreeningDate
+        runningDateView.text = info.runningTime.toString()
+        descriptionView.text = info.description
+        posterView.setImageResource(info.posterResourceId)
     }
 
     override fun showCurrentResultTicketCountView(info: Int) {
