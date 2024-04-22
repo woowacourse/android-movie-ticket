@@ -13,13 +13,15 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView
     private lateinit var ticketCount: TextView
-    val presenter = TicketDetailPresenter(this@TicketDetailActivity)
+    private val presenter: TicketDetailPresenter by lazy {
+        TicketDetailPresenter(this@TicketDetailActivity)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
         initView()
-        setTicketData()
+        presenter.loadTicket(makeTicket())
     }
 
     private fun initView() {
@@ -29,25 +31,23 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         ticketCount = findViewById(R.id.ticket_number_of_people)
     }
 
-    private fun setTicketData() {
-        presenter.loadTicket(makeTicket())
-    }
-
     private fun makeTicket(): TicketModel? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET, TicketModel::class.java)
+            intent.getSerializableExtra(
+                MovieReservationPresenter.KEY_NAME_TICKET,
+                TicketModel::class.java
+            )
         } else {
             intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel
         }
     }
 
     override fun showTicket(ticketModel: TicketModel?) {
-        ticketModel?.let {
-            ticketTitle.text = ticketModel.title
-            ticketScreeningDate.text = ticketModel.screeningDate
-            ticketPrice.text = String.format(TICKET_PRICE, ticketModel.price)
-            ticketCount.text = TICKET_COUNT.format(ticketModel.count)
-        }
+        ticketModel ?: return
+        ticketTitle.text = ticketModel.title
+        ticketScreeningDate.text = ticketModel.screeningDate
+        ticketPrice.text = String.format(TICKET_PRICE, ticketModel.price)
+        ticketCount.text = TICKET_COUNT.format(ticketModel.count)
     }
 
     companion object {
