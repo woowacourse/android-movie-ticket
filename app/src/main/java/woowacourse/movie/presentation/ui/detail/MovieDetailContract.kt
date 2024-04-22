@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.ui.detail
 
-import android.os.Bundle
 import woowacourse.movie.presentation.dto.ReservationData
 
 interface MovieDetailContract {
@@ -33,12 +32,10 @@ interface MovieDetailContract {
 
         fun plusReservationCount()
 
-        fun updateReservationCountDisplay()
+        fun updateReservationCount(reservationCount: Int)
+
+        fun reservationCountDisplay()
 
         fun requestReservationResult()
-
-        fun saveState(outState: Bundle)
-
-        fun restoreState(savedInstanceState: Bundle)
     }
 }

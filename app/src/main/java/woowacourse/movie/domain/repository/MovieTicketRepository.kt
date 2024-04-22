@@ -6,10 +6,9 @@ interface MovieTicketRepository {
     fun setMovieTicket(
         title: String,
         screeningDate: String,
-        reservationCount: Int,
     )
 
     fun getMovieTicket(): MovieTicket
 
-    fun updateMovieTicket(movieTicket: MovieTicket)
+    fun updateReservationCount(movieTicket: MovieTicket)
 }

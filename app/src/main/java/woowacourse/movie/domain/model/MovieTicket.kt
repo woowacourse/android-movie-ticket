@@ -3,24 +3,29 @@ package woowacourse.movie.domain.model
 class MovieTicket(
     val movieTitle: String,
     val screeningDate: String,
-    private var _reservationCount: Int = MIN_RESERVATION_COUNT,
 ) {
-    val reservationCount: Int
-        get() = _reservationCount
+    var reservationCount: Int = MIN_RESERVATION_COUNT
+        private set
+
+    fun updateCount(count: Int) {
+        reservationCount = validateReservationCount(count)
+    }
 
     fun plusCount() {
-        if (_reservationCount < MAX_RESERVATION_COUNT) {
-            _reservationCount++
+        if (reservationCount < MAX_RESERVATION_COUNT) {
+            reservationCount++
         }
     }
 
     fun minusCount() {
-        if (_reservationCount > MIN_RESERVATION_COUNT) {
-            _reservationCount--
+        if (reservationCount > MIN_RESERVATION_COUNT) {
+            reservationCount--
         }
     }
 
-    fun totalPrice() = _reservationCount * PRICE_PER_TICKET
+    fun totalPrice() = reservationCount * PRICE_PER_TICKET
+
+    private fun validateReservationCount(count: Int): Int = count.coerceIn(MIN_RESERVATION_COUNT, MAX_RESERVATION_COUNT)
 
     companion object {
         const val MIN_RESERVATION_COUNT = 1

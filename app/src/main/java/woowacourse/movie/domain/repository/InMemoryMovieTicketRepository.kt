@@ -8,16 +8,15 @@ object InMemoryMovieTicketRepository : MovieTicketRepository {
     override fun setMovieTicket(
         title: String,
         screeningDate: String,
-        reservationCount: Int,
     ) {
-        movieTicket = MovieTicket(title, screeningDate, reservationCount)
+        movieTicket = MovieTicket(title, screeningDate)
     }
 
     override fun getMovieTicket(): MovieTicket {
         return movieTicket ?: throw IllegalStateException("예매 정보가 없습니다.")
     }
 
-    override fun updateMovieTicket(movieTicket: MovieTicket) {
+    override fun updateReservationCount(movieTicket: MovieTicket) {
         InMemoryMovieTicketRepository.movieTicket = movieTicket
     }
 }

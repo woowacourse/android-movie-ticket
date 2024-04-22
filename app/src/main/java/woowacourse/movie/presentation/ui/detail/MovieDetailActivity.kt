@@ -13,6 +13,7 @@ import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private var movieDetailPresenter: MovieDetailContract.Presenter? = null
+
     private val reservationCountTextView: TextView by lazy {
         findViewById(R.id.reservationCount)
     }
@@ -39,7 +40,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         val runningTime = intent.getIntExtra(EXTRA_RUNNING_TIME, 0)
         val summary = intent.getStringExtra(EXTRA_SUMMARY) ?: ""
 
-        movieDetailPresenter = MovieDetailPresenterImpl(this, InMemoryMovieTicketRepository, title, screeningDate, MIN_RESERVATION_COUNT)
+        movieDetailPresenter = MovieDetailPresenterImpl(this, InMemoryMovieTicketRepository, title, screeningDate)
         movieDetailPresenter?.loadMovieDetails(posterImageId, title, screeningDate, runningTime, summary)
 
         initClickListener()
@@ -47,13 +48,16 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        movieDetailPresenter?.saveState(outState)
+        val reservationCount = reservationCountTextView.text.toString().toInt()
+        outState.putInt(EXTRA_RESERVATION_COUNT, reservationCount)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        movieDetailPresenter?.restoreState(savedInstanceState)
-        movieDetailPresenter?.updateReservationCountDisplay()
+        savedInstanceState.let {
+            val reservationCount = it.getInt(EXTRA_RESERVATION_COUNT)
+            movieDetailPresenter?.updateReservationCount(reservationCount)
+        }
     }
 
     override fun showMovieDetail(
@@ -106,7 +110,6 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     }
 
     companion object {
-        const val MIN_RESERVATION_COUNT = 1
         const val EXTRA_POSTER_IMAGE_SRC = "posterSrc"
         const val EXTRA_TITLE = "title"
         const val EXTRA_SCREENING_DATE = "screeningDate"
