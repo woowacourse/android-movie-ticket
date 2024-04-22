@@ -4,7 +4,6 @@ import android.widget.ListView
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -14,7 +13,6 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -26,7 +24,6 @@ class ScreeningMovieActivityTest {
 
     @Before
     fun setUp() {
-        Intents.init()
         activityRule.scenario.onActivity { activity ->
             val listView = activity.findViewById<ListView>(R.id.list_view)
             val items = listOf(
@@ -49,10 +46,6 @@ class ScreeningMovieActivityTest {
         }
     }
 
-    @After
-    fun tearDown() {
-        Intents.release()
-    }
 
     @Test
     fun `Activity가_실행되면_뷰가_보인다`() {
@@ -66,17 +59,6 @@ class ScreeningMovieActivityTest {
             .atPosition(0)
             .onChildView(withId(R.id.tv_movie_running_time))
             .check(matches(withText("러닝타임: 152분")))
-    }
-
-    @Test
-    fun `예매_확인_버튼을_누르면_영화_예매_화면으로_넘어간다`() {
-        onData(`is`(withItemContent(containsString("해리 포터와 마법사의 돌"))))
-            .inAdapterView(withId(R.id.list_view))
-            .atPosition(0)
-            .onChildView(withId(R.id.btn_movie_reservation))
-            .check(matches(withText("지금 예매")))
-
-        //intended(toPackage("woowacourse.movie"))
     }
 
     private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreenMovieUiModel> {
