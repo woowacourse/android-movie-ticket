@@ -5,12 +5,8 @@ class TicketCounter {
         private set
 
     fun minusTicketCount() {
-        if (isTicketCountValid()) {
-            ticketCount--
-        }
+        ticketCount.coerceAtLeast(MIN_TICKET_COUNT)
     }
-
-    private fun isTicketCountValid() = ticketCount > MIN_TICKET_COUNT
 
     fun plusTicketCount() {
         ticketCount++
