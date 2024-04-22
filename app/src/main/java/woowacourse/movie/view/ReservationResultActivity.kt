@@ -6,9 +6,10 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.contract.ReservationResultContract
 import java.text.DecimalFormat
 
-class ReservationResultActivity : AppCompatActivity() {
+class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
@@ -21,7 +22,7 @@ class ReservationResultActivity : AppCompatActivity() {
         return true
     }
 
-    private fun fetchData(intent: Intent) {
+    override fun fetchData(intent: Intent) {
         val titleTextView: TextView = findViewById(R.id.result_title_textview)
         val screenDataTextView: TextView = findViewById(R.id.result_screen_date_textview)
         val countTextView: TextView = findViewById(R.id.result_count_textview)
