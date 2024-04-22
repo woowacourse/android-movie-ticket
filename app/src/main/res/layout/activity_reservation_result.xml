@@ -31,10 +31,10 @@
     <TextView
         android:id="@+id/tv_result_title"
         android:layout_width="wrap_content"
-        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_result_guide"
@@ -45,8 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textColor="@color/black"
         android:fontFamily="@font/roboto_bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_result_title"
@@ -56,24 +56,24 @@
         android:id="@+id/tv_result_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="일반 1명"
-        android:textColor="@color/black"
         android:layout_marginTop="80dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_result_running_date"
-        android:fontFamily="@font/roboto"/>
+        tools:text="일반 1명" />
 
     <TextView
         android:id="@+id/tv_result_total_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="13,000원 (현장 결제)"
+        android:layout_marginTop="32dp"
         android:textColor="@color/black"
 
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_result_count"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_result_count"
+        tools:text="13,000원 (현장 결제)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
