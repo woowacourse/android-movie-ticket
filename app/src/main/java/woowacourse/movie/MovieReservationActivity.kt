@@ -35,14 +35,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         super.onSaveInstanceState(outState)
 
         val count = findViewById<TextView>(R.id.tv_detail_count).text.toString().toInt()
-        outState.putInt(STATE_COUNT_ID,count)
+        outState.putInt(STATE_COUNT_ID, count)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         val counter = savedInstanceState.getInt(STATE_COUNT_ID)
-        countView.text= counter.toString()
+        countView.text = counter.toString()
     }
 
     private fun initView() {

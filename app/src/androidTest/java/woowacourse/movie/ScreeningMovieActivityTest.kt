@@ -27,13 +27,14 @@ class ScreeningMovieActivityTest {
     fun setUp() {
         activityRule.scenario.onActivity { activity ->
             val listView = activity.findViewById<ListView>(R.id.list_view)
-            val items = listOf(
-                screenMovieUiModel1, screenMovieUiModel2
-            )
+            val items =
+                listOf(
+                    screenMovieUiModel1,
+                    screenMovieUiModel2,
+                )
             listView.adapter = MovieAdapter(activity, items)
         }
     }
-
 
     @Test
     @DisplayName("Activity가 실행되면 뷰가 보인다.")
@@ -65,20 +66,22 @@ class ScreeningMovieActivityTest {
     }
 
     companion object {
-        private val screenMovieUiModel1 = ScreenMovieUiModel(
-            1,
-            title = "해리 포터와 마법사의 돌",
-            R.drawable.img_movie_poster,
-            "상영일: 2024.3.1",
-            "러닝타임: 152분",
-        )
+        private val screenMovieUiModel1 =
+            ScreenMovieUiModel(
+                1,
+                title = "해리 포터와 마법사의 돌",
+                R.drawable.img_movie_poster,
+                "상영일: 2024.3.1",
+                "러닝타임: 152분",
+            )
 
-        private val screenMovieUiModel2 = ScreenMovieUiModel(
-            2,
-            title = "해리 포터와 마법사의 돌",
-            R.drawable.img_movie_poster,
-            "상영일: 2024.3.2",
-            "러닝타임: 162분",
-        )
+        private val screenMovieUiModel2 =
+            ScreenMovieUiModel(
+                2,
+                title = "해리 포터와 마법사의 돌",
+                R.drawable.img_movie_poster,
+                "상영일: 2024.3.2",
+                "러닝타임: 162분",
+            )
     }
 }
