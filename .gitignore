@@ -32,5 +32,7 @@ google-services.json
 # Android Profiling
 *.hprof
 
+app/src/androidTest/java/woowacourse/movie/TicketingActivityErrorTest.kt
+
 # Mac OS
 .DS_Store
