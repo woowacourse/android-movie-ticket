@@ -48,10 +48,19 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         movieDetailPresenter = MovieDetailPresenter(this)
 
         movieDetailPresenter.display(intent.getLongExtra(MovieIntentConstants.EXTRA_MOVIE_ID, NOT_FOUND_MOVIE_ID))
+
+        savedInstanceState?.let {
+            reservationCount.text = it.getInt(EXTRA_MOVIE_RESERVATION_COUNT).toString()
+        }
     }
 
-    override fun onInitView(movieData: Movie) {
-        with(movieData) {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(EXTRA_MOVIE_RESERVATION_COUNT, reservationCount.text.toString().toInt())
+    }
+
+    override fun onInitView(movie: Movie) {
+        with(movie) {
             detailImage.setImageResource(this.thumbnail)
             detailTitle.text = this.title
             detailDate.text = formatTimestamp(this.date)
