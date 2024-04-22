@@ -1,7 +1,6 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presentation.reservation.result
 
 import android.content.Intent
-import woowacourse.movie.contract.ReservationResultContract
 import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Payment

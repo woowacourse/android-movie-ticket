@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.presentation.reservation.booking
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,10 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.contract.ReservationContract
 import woowacourse.movie.db.MovieDao
-import woowacourse.movie.presenter.ReservationPresenter
-import woowacourse.movie.view.ScreeningMovieActivity.Companion.MOVIE_ID
+import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.screen.ScreeningMovieActivity.Companion.MOVIE_ID
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter: ReservationContract.Presenter = ReservationPresenter(this, MovieDao())

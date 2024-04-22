@@ -15,6 +15,8 @@ import woowacourse.movie.R
 import woowacourse.movie.db.MovieDao
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.presentation.reservation.booking.ReservationActivity
+import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 
 @RunWith(AndroidJUnit4::class)
 class ReservationResultActivityTest {

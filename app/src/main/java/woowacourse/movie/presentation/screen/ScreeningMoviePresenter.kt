@@ -1,6 +1,5 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presentation.screen
 
-import woowacourse.movie.contract.ScreeningMovieContract
 import woowacourse.movie.model.Movie
 
 class ScreeningMoviePresenter(private val view: ScreeningMovieContract.View) :

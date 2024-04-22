@@ -1,14 +1,13 @@
-package woowacourse.movie.view
+package woowacourse.movie.presentation.screen
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.contract.ScreeningMovieContract
 import woowacourse.movie.db.MovieDao
-import woowacourse.movie.presenter.ScreeningMoviePresenter
+import woowacourse.movie.presentation.reservation.booking.ReservationActivity
+import woowacourse.movie.presentation.screen.adapter.MovieListAdapter
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View {
     private val presenter: ScreeningMoviePresenter = ScreeningMoviePresenter(this)

@@ -16,6 +16,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.db.MovieDao
+import woowacourse.movie.presentation.reservation.booking.ReservationActivity
 
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {

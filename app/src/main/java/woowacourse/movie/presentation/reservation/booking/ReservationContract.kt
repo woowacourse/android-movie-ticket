@@ -1,4 +1,4 @@
-package woowacourse.movie.contract
+package woowacourse.movie.presentation.reservation.booking
 
 import android.content.Intent
 
