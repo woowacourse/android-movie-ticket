@@ -1,6 +1,6 @@
 package woowacourse.movie.repository
 
-import woowacourse.movie.model.movieInfo.MovieDate
+import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
@@ -12,19 +12,23 @@ class PseudoScreeningRepository : ScreeningRepository {
     private val pseudoMovieInfo =
         MovieInfo(
             Title("차람과 하디의 진지한 여행기"),
-            MovieDate(LocalDate.of(2024, 2, 25)),
             RunningTime(230),
-            Synopsis("wow!"),
+            Synopsis("synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys"),
+        )
+    private val pseudoScreening =
+        Screening(
+            pseudoMovieInfo,
+            ScreeningDate(LocalDate.of(2024, 2, 25)),
         )
 
     override fun getScreenings(): List<Screening> =
         listOf(
-            Screening(pseudoMovieInfo),
-            Screening(pseudoMovieInfo),
-            Screening(pseudoMovieInfo),
-            Screening(pseudoMovieInfo),
-            Screening(pseudoMovieInfo),
-            Screening(pseudoMovieInfo),
-            Screening(pseudoMovieInfo),
+            pseudoScreening,
+            pseudoScreening,
+            pseudoScreening,
+            pseudoScreening,
+            pseudoScreening,
+            pseudoScreening,
+            pseudoScreening,
         )
 }

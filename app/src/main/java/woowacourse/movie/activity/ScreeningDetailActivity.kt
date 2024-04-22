@@ -13,11 +13,12 @@ import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.ScreeningDetailContract
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.movieInfo.MovieDate
+import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
+import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.presenter.ScreeningDetailPresenter
 
 class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.View {
@@ -64,17 +65,16 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         return super.onContextItemSelected(item)
     }
 
-    override fun displayMovie(movie: MovieInfo) {
-        if (movie != null) {
-            findViewById<TextView>(R.id.movie_title_large).text =
-                movie.title.format()
-            findViewById<TextView>(R.id.movie_release_date_large).text =
-                movie.releaseDate.format()
-            findViewById<TextView>(R.id.movie_running_time).text =
-                movie.runningTime.format()
-            findViewById<TextView>(R.id.movie_synopsis).text =
-                movie.synopsis.format()
-        }
+    override fun displayScreening(screening: Screening) {
+        val movie = screening.movie
+        findViewById<TextView>(R.id.movie_title_large).text =
+            movie.title.format()
+        findViewById<TextView>(R.id.movie_release_date_large).text =
+            screening.date.format()
+        findViewById<TextView>(R.id.movie_running_time).text =
+            movie.runningTime.format()
+        findViewById<TextView>(R.id.movie_synopsis).text =
+            movie.synopsis.format()
     }
 
     override fun displayTicketNum(ticketNum: Int) {
@@ -90,7 +90,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
     }
 
     private fun Title.format() = content
-    private fun MovieDate.format() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
+    private fun ScreeningDate.format() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
     private fun RunningTime.format() = time.toString() + "분"
     private fun Synopsis.format() = content
 }

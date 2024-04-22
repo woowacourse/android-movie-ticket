@@ -19,7 +19,7 @@ class ScreeningDetailPresenter(
     // TODO: have to notify that something went wrong and go back to movie selection
     // e.g. view.notifyException()
     init {
-        view.displayMovie(screening.movie)
+        view.displayScreening(screening)
     }
 
     override fun plusTicketNum() {
