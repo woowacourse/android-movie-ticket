@@ -10,7 +10,7 @@ interface MovieReservationContract {
     }
 
     interface Presenter {
-        fun loadMovie(movieId: Int)
+        fun loadMovie()
 
         fun clickMinusNumberButton()
 

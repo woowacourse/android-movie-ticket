@@ -5,6 +5,7 @@ import woowacourse.movie.domain.repository.MovieRepository
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
+    private val movieId: Int,
     private val movieRepository: MovieRepository,
 ) : MovieReservationContract.Presenter {
     private val ticketCounter: TicketCounter = TicketCounter()
@@ -12,7 +13,7 @@ class MovieReservationPresenter(
     val ticketCount
         get() = ticketCounter.ticketCount
 
-    override fun loadMovie(movieId: Int) {
+    override fun loadMovie() {
         view.showMovie(movieRepository.getMovie(movieId))
     }
 

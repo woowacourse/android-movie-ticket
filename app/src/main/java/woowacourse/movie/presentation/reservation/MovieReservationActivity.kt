@@ -27,17 +27,19 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private lateinit var minusNumberButton: Button
     private lateinit var plusNumberButton: Button
     private lateinit var ticketingButton: Button
-    private val presenter =
+    private val presenter: MovieReservationPresenter by lazy {
         MovieReservationPresenter(
             view = this@MovieReservationActivity,
+            movieId = loadMovieId(),
             movieRepository = MovieRepositoryImpl(),
         )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
         initView()
-        presenter.loadMovie(loadMovieId())
+        presenter.loadMovie()
         showCurrentResultTicketCountView()
         setClickListener()
     }
