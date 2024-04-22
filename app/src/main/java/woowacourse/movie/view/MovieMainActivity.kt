@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.model.MovieAdapter
 import woowacourse.movie.presenter.MovieMainContract
 import woowacourse.movie.presenter.MovieMainPresenter
 import woowacourse.movie.utils.MovieErrorCode
@@ -38,5 +39,9 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
             putExtra(EXTRA_MOVIE_ID, id)
             movieDetailActivityResultLauncher.launch(this)
         }
+    }
+
+    override fun onInitAdapter(adapter: MovieAdapter) {
+        movieList.adapter = adapter
     }
 }
