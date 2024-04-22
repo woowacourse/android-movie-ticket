@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    tools:context=".view.MovieTicketActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:background="#9160F9"
+        android:gravity="bottom"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="114dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="영화 상영 시작 15분 전까지\n 취소가 가능합니다."
+            android:gravity="center_horizontal"
+            android:textSize="15sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ticket_title"
+        android:paddingTop="36dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        tools:text="해리 포터와 마법사의 돌"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:id="@+id/ticket_screening_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:text="2024.03.01"/>
+
+    <TextView
+        android:layout_marginTop="80dp"
+        android:id="@+id/ticket_number_of_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:text="일반 1명"/>
+
+    <TextView
+        android:layout_marginTop="32dp"
+        android:id="@+id/ticket_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        tools:text="13,000원 (현장결제)"/>
+
+
+
+
+</LinearLayout>
