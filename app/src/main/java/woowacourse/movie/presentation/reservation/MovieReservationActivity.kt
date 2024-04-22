@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.reservation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -15,6 +14,7 @@ import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.TicketModel
 import woowacourse.movie.presentation.reservation.model.toTicketModel
 import woowacourse.movie.presentation.screen.MovieScreenPresenter
+import woowacourse.movie.utils.ImageConverter
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -92,7 +92,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         screeningDateView.text = movie.screeningDate
         runningDateView.text = movie.runningTime.toString()
         descriptionView.text = movie.description
-        movie.posterResourceId?.let { posterView.setImageResource(it) }
+        val imageResource = ImageConverter.getDrawableIdByName(this@MovieReservationActivity, movie.imageName)
+        imageResource?.let { posterView.setImageResource(it) }
     }
 
     override fun showCurrentResultTicketCountView() {

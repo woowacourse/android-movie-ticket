@@ -7,22 +7,22 @@ class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
     private val movieRepository: MovieRepository,
 ) : MovieReservationContract.Presenter {
-    private val model: TicketCounter = TicketCounter()
+    private val ticketCounter: TicketCounter = TicketCounter()
 
     val ticketCount
-        get() = model.ticketCount
+        get() = ticketCounter.ticketCount
 
     override fun loadMovie(movieId: Int) {
         view.showMovie(movieRepository.getMovie(movieId))
     }
 
     override fun clickMinusNumberButton() {
-        model.minusTicketCount()
+        ticketCounter.minusTicketCount()
         view.showCurrentResultTicketCountView()
     }
 
     override fun clickPlusNumberButton() {
-        model.plusTicketCount()
+        ticketCounter.plusTicketCount()
         view.showCurrentResultTicketCountView()
     }
 

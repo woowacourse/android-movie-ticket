@@ -13,7 +13,7 @@ object MockMovies {
                 title = "해리 포터와 마법사의 돌",
                 screeningDate = "2024.3.1",
                 runningTime = 152,
-                posterResourceId = R.drawable.harry_potter_poster,
+                imageName = "harry_potter_poster",
                 description =
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
                         "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. " +
@@ -27,7 +27,7 @@ object MockMovies {
             title = DEFAULT_MOVIE_TITLE,
             screeningDate = "",
             runningTime = 0,
-            posterResourceId = null,
+            imageName = null,
             description = "",
         )
 }

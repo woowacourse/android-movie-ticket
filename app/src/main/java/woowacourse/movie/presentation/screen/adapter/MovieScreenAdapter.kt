@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.utils.ImageConverter
 
 class MovieScreenAdapter(
     private val context: Context,
@@ -67,7 +68,8 @@ class MovieScreenAdapter(
 
     private fun setViewHolder(movie: Movie) {
         movieViewHolder.title.text = movie.title
-        movie.posterResourceId?.let { movieViewHolder.poster.setImageResource(it) }
+        val imageResource = ImageConverter.getDrawableIdByName(context, movie.imageName)
+        imageResource?.let { movieViewHolder.poster.setImageResource(it) }
         movieViewHolder.screeningDate.text = movie.screeningDate
         movieViewHolder.runningTime.text = movie.runningTime.toString()
     }
