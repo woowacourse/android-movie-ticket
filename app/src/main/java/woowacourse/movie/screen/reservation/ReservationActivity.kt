@@ -16,6 +16,41 @@ import woowacourse.movie.screen.completed.ReservationCompletedActivity
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter = ReservationPresenter(this)
+    private val quantityTv by lazy {
+        findViewById<TextView>(R.id.reservation_quantity)
+    }
+
+    private val posterIv by lazy {
+        findViewById<ImageView>(R.id.reservation_poster)
+    }
+
+    private val movieTitleTv by lazy {
+        findViewById<TextView>(R.id.reservation_movie_title)
+    }
+
+    private val movieContentTv by lazy {
+        findViewById<TextView>(R.id.reservation_content)
+    }
+
+    private val openingDayTv by lazy {
+        findViewById<TextView>(R.id.reservation_opening_day)
+    }
+
+    private val runningTimeTv by lazy {
+        findViewById<TextView>(R.id.reservation_running_time)
+    }
+
+    private val minusBtn by lazy {
+        findViewById<Button>(R.id.btn_minus)
+    }
+
+    private val plusBtn by lazy {
+        findViewById<Button>(R.id.btn_plus)
+    }
+
+    private val completeBtn by lazy {
+        findViewById<Button>(R.id.btn_reservation_completed)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +67,15 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
 
     override fun initializeMovieDetails(movie: Movie) {
-        findViewById<ImageView>(R.id.reservation_poster).setImageResource(movie.poster)
-        findViewById<TextView>(R.id.reservation_movie_title).text = movie.title
-        findViewById<TextView>(R.id.reservation_content).text = movie.content
-        findViewById<TextView>(R.id.reservation_opening_day).text = movie.openingDay
-        findViewById<TextView>(R.id.reservation_running_time).text = "${movie.runningTime}분"
+        posterIv.setImageResource(movie.poster)
+        movieTitleTv.text = movie.title
+        movieContentTv.text = movie.content
+        openingDayTv.text = movie.openingDay
+        runningTimeTv.text = "${movie.runningTime}분"
     }
 
     override fun setupReservationCompletedButton(movie: Movie) {
-        findViewById<Button>(R.id.btn_reservation_completed).setOnClickListener {
+        completeBtn.setOnClickListener {
             presenter.onReservationCompleted(movie)
         }
     }
@@ -53,12 +88,12 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun setupTicketQuantityControls(quantity: Quantity) {
         setQuantityText(quantity.value.toString())
-        findViewById<Button>(R.id.btn_minus).setOnClickListener { presenter.minus() }
-        findViewById<Button>(R.id.btn_plus).setOnClickListener { presenter.plus() }
+        minusBtn.setOnClickListener { presenter.minus() }
+        plusBtn.setOnClickListener { presenter.plus() }
     }
 
     override fun setQuantityText(newText: String) {
-        findViewById<TextView>(R.id.reservation_quantity).text = newText
+        quantityTv.text = newText
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

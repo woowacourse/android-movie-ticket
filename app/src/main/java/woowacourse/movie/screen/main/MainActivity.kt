@@ -9,6 +9,10 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.screen.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
+    private val movieListView: ListView by lazy {
+        findViewById(R.id.list_view)
+    }
+
     private val presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +22,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun displayMovies(movies: List<Movie>) {
-        val movieListView = findViewById<ListView>(R.id.list_view)
         movieListView.adapter =
             ListViewAdapter(movies) { position ->
                 presenter.onMovieSelected(movies[position])

@@ -13,6 +13,18 @@ import java.util.Locale
 
 class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
+    private val movieTitleTv by lazy {
+        findViewById<TextView>(R.id.completed_movie_title)
+    }
+    private val reservationDateTv by lazy {
+        findViewById<TextView>(R.id.completed_reservation_date)
+    }
+    private val quantityTv by lazy {
+        findViewById<TextView>(R.id.completed_quantity)
+    }
+    private val priceTv by lazy {
+        findViewById<TextView>(R.id.completed_price)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,10 +43,10 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     override fun initializeTicketDetails(reservation: Reservation) {
         val formattedDate = formatLocalDate(reservation)
         val formattedPrice = formatPrice(reservation)
-        findViewById<TextView>(R.id.completed_movie_title).text = reservation.getTitle()
-        findViewById<TextView>(R.id.completed_reservation_date).text = formattedDate
-        findViewById<TextView>(R.id.completed_quantity).text = "일반 ${reservation.getQuantity()}명"
-        findViewById<TextView>(R.id.completed_price).text = formattedPrice
+        movieTitleTv.text = reservation.getTitle()
+        reservationDateTv.text = formattedDate
+        quantityTv.text = "일반 ${reservation.getQuantity()}명"
+        priceTv.text = formattedPrice
     }
 
     private fun formatLocalDate(reservation: Reservation): String {
