@@ -7,6 +7,10 @@ class Movies {
     val movies: List<Movie>
         get() = _movies
 
+    init {
+        initMovieList()
+    }
+
     fun initMovieList() {
         _movies.add(
             Movie(

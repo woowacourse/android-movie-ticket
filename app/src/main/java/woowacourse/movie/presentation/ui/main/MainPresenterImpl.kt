@@ -4,16 +4,27 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Movies
 
 class MainPresenterImpl(private val view: MainContract.View) : MainContract.Presenter {
-    private val movies = Movies()
+    private var movies: Movies? = null
+
+    init {
+        loadMovies()
+    }
+
+    private fun loadMovies() {
+        runCatching {
+            Movies()
+        }.onSuccess {
+            movies = it
+            view.showMovieList(it.movies)
+        }.onFailure {
+            view.showMessage("영화 목록을 불러오는데 실패했습니다: ${it.message}")
+        }
+    }
 
     override fun loadMovieList() {
-        runCatching { movies.initMovieList() }
-            .onSuccess {
-                view.showMovieList(movies.movies)
-            }
-            .onFailure {
-                view.showMessage(it.message ?: "영화 목록을 불러오는데 실패했습니다.")
-            }
+        movies?.let {
+            view.showMovieList(it.movies)
+        } ?: view.showMessage("영화 목록을 불러올 수 없습니다.")
     }
 
     override fun requestMovieDetail(movie: Movie) {
