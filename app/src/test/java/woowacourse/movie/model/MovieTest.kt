@@ -6,6 +6,7 @@ import woowacourse.movie.R
 import java.time.LocalDate
 
 class MovieTest {
+    // TODO 영화 테스트 픽스처 추가하기
     @Test
     fun `영화의_시작일부터_종료일까지의_모든_일자를_반환한다`() {
         // given
