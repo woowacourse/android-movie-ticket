@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Movie</string>
+
+    <!-- ReservationDetailActivity -->
+    <string name="invalid_number_of_tickets">"범위를 벗어난 티켓 갯수입니다."</string>
+
+    <!-- activity_reservation_detail -->
+    <string name="reservation_detail_minus">-</string>
+    <string name="reservation_detail_plus">+</string>
+    <string name="reservation_detail_default_ticket_count">1</string>
+    <string name="reservation_detail_finished_reservation">예매 완료</string>
+
+    <!-- activity_reservation_finished -->
+    <string name="reservation_finished_notice">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
+    <string name="reservation_finished_general">일반</string>
+    <string name="reservation_finished_person">명</string>
+    <string name="reservation_finished_price_unit">원 (현장 결제)</string>
+
+    <!-- item_movie_catalog -->
+    <string name="movie_catalog_reservation_now">지금 예매</string>
 </resources>
