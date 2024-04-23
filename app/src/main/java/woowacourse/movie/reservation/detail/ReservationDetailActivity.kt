@@ -1,5 +1,6 @@
 package woowacourse.movie.reservation.detail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -69,7 +70,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     override fun initializeReservationButton(movieId: Int) {
         reservationButton.setOnClickListener {
             val intent = Intent(this, ReservationFinishedActivity::class.java)
-            intent.putExtra("movieId", movieId)
+            intent.putExtra(MOVIE_ID, movieId)
             intent.putExtra("ticket", presenter.ticket)
             startActivity(intent)
         }
@@ -81,6 +82,17 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     }
 
     companion object {
+        private const val MOVIE_ID = "movieId"
+
+        fun getIntent(
+            context: Context,
+            movieId: Int,
+        ): Intent {
+            return Intent(context, ReservationDetailActivity::class.java).also {
+                it.putExtra(MOVIE_ID, movieId)
+            }
+        }
+
         const val DEFAULT_MOVIE_ID = 0
     }
 }

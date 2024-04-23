@@ -1,5 +1,15 @@
 package woowacourse.movie.home
 
+import woowacourse.movie.model.Movie
+
 interface ReservationHomeContract {
-    fun moveToReservationDetail(movieId: Int)
+    interface View {
+        fun moveToReservationDetail(movieId: Int)
+    }
+
+    interface Presenter {
+        fun obtainMovies(): List<Movie>
+
+        fun deliverMovie(movieId: Int)
+    }
 }
