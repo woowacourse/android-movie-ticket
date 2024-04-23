@@ -25,7 +25,7 @@ object MockMovies {
         Movie(
             movieId = -1,
             title = DEFAULT_MOVIE_TITLE,
-            screeningDate = LocalDate.of(2024, 3, 1),
+            screeningDate = LocalDate.now(),
             runningTime = 0,
             imageName = null,
             description = "",
