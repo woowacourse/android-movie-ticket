@@ -24,25 +24,25 @@ class TicketTest {
     }
 
     @Test
-    fun `티켓이 1장일 때 티켓을 줄이면 Failure가 반환된다`() {
+    fun `티켓의 최소 수량은 1개이다`() {
         val ticket = Ticket()
 
-        val actual = ticket.decreaseCount()
+        ticket.decreaseCount()
 
-        assertThat(actual).isInstanceOf(Failure::class.java)
+        assertThat(ticket.count).isEqualTo(1)
     }
 
     @Test
-    fun `티켓이 100장일 때 티켓을 늘리면 Failure가 반환된다`() {
+    fun `티켓의 최대 수량은 100개이다`() {
         val ticket = Ticket()
 
         repeat(99) {
             ticket.increaseCount()
         }
 
-        val actual = ticket.increaseCount()
+        ticket.increaseCount()
 
-        assertThat(actual).isInstanceOf(Failure::class.java)
+        assertThat(ticket.count).isEqualTo(99)
     }
 
     @Test
