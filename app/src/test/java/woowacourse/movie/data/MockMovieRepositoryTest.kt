@@ -7,7 +7,7 @@ class MockMovieRepositoryTest {
     @Test
     fun `존재하는 모든 영화를 가져올 수 있다`() {
         val movies = MockMovieRepository.loadMovies()
-        val result = movies?.size
+        val result = movies.size
         assertThat(result).isEqualTo(1)
     }
 
