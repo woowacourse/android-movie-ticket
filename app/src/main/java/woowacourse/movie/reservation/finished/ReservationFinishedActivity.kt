@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.home.ReservationHomeActivity
+import woowacourse.movie.home.HomeActivity
 import woowacourse.movie.model.Movie
 import java.text.DecimalFormat
 
@@ -52,7 +52,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         val callback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    val intent = Intent(context, ReservationHomeActivity::class.java)
+                    val intent = Intent(context, HomeActivity::class.java)
                     startActivity(intent)
                 }
             }

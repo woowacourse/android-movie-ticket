@@ -2,7 +2,7 @@ package woowacourse.movie.home
 
 import woowacourse.movie.model.Movie
 
-interface ReservationHomeContract {
+interface HomeContract {
     interface View {
         fun moveToReservationDetail(movieId: Int)
     }

@@ -12,9 +12,9 @@ import woowacourse.movie.R
 import woowacourse.movie.TestFixture.moviesFirstItem
 
 @RunWith(AndroidJUnit4::class)
-class ReservationHomeActivityTest {
+class HomeActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(ReservationHomeActivity::class.java)
+    val activityRule = ActivityScenarioRule(HomeActivity::class.java)
 
     @Test
     fun `영화_목록에서_첫번째_아이템의_타이틀을_보여준다`() {

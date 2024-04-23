@@ -15,7 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.TestFixture.moviesFirstItem
-import woowacourse.movie.home.ReservationHomeActivity
+import woowacourse.movie.home.HomeActivity
 import woowacourse.movie.reservation.detail.ReservationDetailActivity
 
 @RunWith(AndroidJUnit4::class)
@@ -52,7 +52,7 @@ class ReservationDetailActivityTest {
 
     @Test
     fun `영화_상세_화면은_영화_홈_화면의_영화_목록_지금_예매_버튼을_누르면_보여진다`() {
-        ActivityScenario.launch(ReservationHomeActivity::class.java)
+        ActivityScenario.launch(HomeActivity::class.java)
         moviesFirstItem.onChildView(
             withId(R.id.item_movie_catalog_button_reservation),
         ).perform(click())

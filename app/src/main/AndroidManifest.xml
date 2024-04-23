@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".home.ReservationHomeActivity"
+            android:name=".home.HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -24,12 +24,12 @@
         </activity>
         <activity
             android:name=".reservation.finished.ReservationFinishedActivity"
-            android:parentActivityName=".home.ReservationHomeActivity"
+            android:parentActivityName=".home.HomeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".reservation.detail.ReservationDetailActivity"
-            android:parentActivityName=".home.ReservationHomeActivity"
+            android:parentActivityName=".home.HomeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
     </application>
