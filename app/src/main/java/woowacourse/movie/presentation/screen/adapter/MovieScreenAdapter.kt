@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.utils.ImageConverter
 
 class MovieScreenAdapter(
     private val context: Context,
@@ -45,12 +44,10 @@ class MovieScreenAdapter(
             view = convertView
             movieViewHolder = convertView.tag as MovieViewHolder
         }
-        setViewHolder(movie)
-        setClickListener(movie)
         return view
     }
 
-    fun updateMovies(newMovies: List<Movie>){
+    fun updateMovies(newMovies: List<Movie>) {
         movies = newMovies
     }
 
@@ -60,27 +57,10 @@ class MovieScreenAdapter(
     ) {
         movieViewHolder =
             MovieViewHolder(
-                view.findViewById(R.id.movie_title),
-                view.findViewById(R.id.movie_poster),
-                view.findViewById(R.id.movie_screening_date),
-                view.findViewById(R.id.movie_running_time),
-                view.findViewById(R.id.movie_reservation_button),
-                onMovieSelected = { onMovieSelected(movie.movieId) },
+                view = view,
+                movie = movie,
+                context = context,
+                onMovieSelected = onMovieSelected,
             )
-        view.tag = movieViewHolder
-    }
-
-    private fun setViewHolder(movie: Movie) {
-        movieViewHolder.title.text = movie.title
-        val imageResource = ImageConverter.getDrawableIdByName(context, movie.imageName)
-        imageResource?.let { movieViewHolder.poster.setImageResource(it) }
-        movieViewHolder.screeningDate.text = movie.screeningDate
-        movieViewHolder.runningTime.text = movie.runningTime.toString()
-    }
-
-    private fun setClickListener(movie: Movie) {
-        movieViewHolder.movieReservationButton.setOnClickListener {
-            onMovieSelected(movie.movieId)
-        }
     }
 }
