@@ -4,15 +4,27 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 
 interface ReservationDetailContract {
-    fun showMovieInformation(movie: Movie)
+    interface View {
+        fun showMovieInformation(movie: Movie)
 
-    fun changeNumberOfTickets(ticket: Ticket)
+        fun changeNumberOfTickets(ticket: Ticket)
 
-    fun initializePlusButton(increaseTicketCount: () -> Unit)
+        fun initializePlusButton(increaseTicketCount: () -> Unit)
 
-    fun initializeMinusButton(decreaseTicketCount: () -> Unit)
+        fun initializeMinusButton(decreaseTicketCount: () -> Unit)
 
-    fun initializeReservationButton(movieId: Int)
+        fun initializeReservationButton(movieId: Int)
 
-    fun showResultToast()
+        fun showResultToast()
+    }
+
+    interface Presenter {
+        fun detectIncreaseCount()
+
+        fun detectDecreaseCount()
+
+        fun deliverMovie()
+
+        fun deliverReservationHistory()
+    }
 }

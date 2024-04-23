@@ -7,25 +7,25 @@ import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
-    private val contract: ReservationDetailContract,
+    private val contract: ReservationDetailContract.View,
     private val movieId: Int,
-) {
+): ReservationDetailContract.Presenter {
     private val movies = Movies.obtainMovies()
     val ticket = Ticket()
 
-    fun detectIncreaseCount() {
+    override fun detectIncreaseCount() {
         contract.initializePlusButton(::increaseTicketCount)
     }
 
-    fun detectDecreaseCount() {
+    override fun detectDecreaseCount() {
         contract.initializeMinusButton(::decreaseTicketCount)
     }
 
-    fun deliverMovie() {
+    override fun deliverMovie() {
         contract.showMovieInformation(movies[movieId])
     }
 
-    fun deliverReservationHistory() {
+    override fun deliverReservationHistory() {
         contract.initializeReservationButton(movieId)
     }
 

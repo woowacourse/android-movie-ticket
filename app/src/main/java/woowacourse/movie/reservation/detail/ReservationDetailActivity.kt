@@ -13,7 +13,7 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.reservation.finished.ReservationFinishedActivity
 
-class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract {
+class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }
     private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_screening_date) }
     private val runningTime: TextView by lazy { findViewById(R.id.text_view_reservation_running_time) }
@@ -83,6 +83,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     companion object {
         private const val MOVIE_ID = "movieId"
+        private const val DEFAULT_MOVIE_ID = 0
 
         fun getIntent(
             context: Context,
@@ -92,7 +93,5 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
                 it.putExtra(MOVIE_ID, movieId)
             }
         }
-
-        const val DEFAULT_MOVIE_ID = 0
     }
 }
