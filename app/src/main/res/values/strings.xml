@@ -26,6 +26,7 @@
     <string name="unforeseen_error_message">예상치 못한 에러가 발생했습니다</string>
     <string name="ticke_min_count_message">티켓 수량은 %d개 이상이어야 합니다.</string>
     <string name="ticke_max_count_message">티켓 수량은 %d개 이하이어야 합니다.</string>
+    <string name="all_seats_selected_message">이미 %d개의 좌석을 모두 선택했습니다.</string>
 
 
 </resources>
