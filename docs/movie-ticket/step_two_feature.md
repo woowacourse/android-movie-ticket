@@ -23,5 +23,5 @@
 
 # 리팩토링
 
-- [ ] : FakeRepository 를 DefaultRepository 로 이름을 바꾼다.
-- [ ] : Ui Test 를 위한 FakeRepository 를 만든다.
+- [x] : FakeRepository 를 DefaultRepository 로 이름을 바꾼다.
+- [x] : Ui Test 를 위한 FakeRepository 를 만든다.

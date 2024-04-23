@@ -7,7 +7,7 @@ object MovieRepositoryFactory {
     private var movieRepository: MovieRepository? = null
 
     fun movieRepository(): MovieRepository {
-        return movieRepository ?: FakeMovieRepository
+        return movieRepository ?: DefaultMovieRepository
     }
 
     @VisibleForTesting

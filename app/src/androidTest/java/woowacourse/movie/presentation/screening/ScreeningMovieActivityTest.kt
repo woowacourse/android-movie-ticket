@@ -12,14 +12,28 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.R
+import woowacourse.movie.data.FakeMovieRepository
+import woowacourse.movie.data.MovieRepositoryFactory
 
 class ScreeningMovieActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(ScreeningMovieActivity::class.java)
+
+    @Before
+    fun setUp() {
+        MovieRepositoryFactory.setMovieRepository(repository = FakeMovieRepository())
+    }
+
+    @After
+    fun tearDown() {
+        MovieRepositoryFactory.clear()
+    }
 
     @Test
     @DisplayName("ScreeningMovieActivity 가 화면에 보여지는지 테스트")

@@ -6,9 +6,12 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import org.hamcrest.CoreMatchers.not
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.R
+import woowacourse.movie.data.FakeMovieRepository
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.MovieReservation
@@ -18,6 +21,17 @@ import woowacourse.movie.utils.context
 import java.time.LocalDateTime
 
 class ReservationResultActivityTest {
+
+    @Before
+    fun setUp() {
+        MovieRepositoryFactory.setMovieRepository(repository = FakeMovieRepository())
+    }
+
+    @After
+    fun tearDown() {
+        MovieRepositoryFactory.clear()
+    }
+
     @Test
     @DisplayName("유효한 ID 가 전달되었을 때, 예약 결과가 보여지는지 테스트")
     fun test() {

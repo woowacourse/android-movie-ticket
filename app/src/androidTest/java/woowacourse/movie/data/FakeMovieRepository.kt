@@ -6,7 +6,7 @@ import woowacourse.movie.model.ScreeningMovie
 import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDateTime
 
-object FakeMovieRepository : MovieRepository {
+class FakeMovieRepository : MovieRepository {
     private val screenMovies: List<ScreeningMovie> =
         List<ScreeningMovie>(1000) { ScreeningMovie.STUB.copy(id = it.toLong()) }
     private var reservations: List<MovieReservation> = emptyList()
