@@ -11,7 +11,7 @@ import woowacourse.movie.home.ReservationHomeActivity
 import woowacourse.movie.model.Movie
 import java.text.DecimalFormat
 
-class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract {
+class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
     private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_date) }
     private val numberOfTickets: TextView by lazy { findViewById(R.id.text_view_reservation_finished_number_of_tickets) }
