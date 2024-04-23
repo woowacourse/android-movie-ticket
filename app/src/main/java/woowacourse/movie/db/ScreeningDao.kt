@@ -2,8 +2,8 @@ package woowacourse.movie.db
 
 import woowacourse.movie.model.Movie
 
-class MovieDao {
-    private val movies: List<Movie> = MovieDatabase.movies
+class ScreeningDao {
+    private val movies: List<Movie> = ScreeningDatabase.movies
 
     fun find(movieId: Int): Movie {
         return movies[movieId]

@@ -10,8 +10,8 @@ import woowacourse.movie.model.Movie
 
 @RunWith(AndroidJUnit4::class)
 class MovieDaoTest {
-    private val dao = MovieDao()
-    private val movies = MovieDatabase.movies
+    private val dao = ScreeningDao()
+    private val movies = ScreeningDatabase.movies
 
     @Test
     fun `영화_데이터베이스의_첫번째_영화_데이터를_가져온다`() {

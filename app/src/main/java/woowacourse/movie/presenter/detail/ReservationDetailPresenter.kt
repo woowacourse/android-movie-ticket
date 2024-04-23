@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter.detail
 
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Failure
 import woowacourse.movie.model.Success
@@ -8,7 +8,7 @@ import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
     private val view: ReservationDetailContract.View,
-    private val dao: MovieDao,
+    private val dao: ScreeningDao,
 ) : ReservationDetailContract.Presenter {
     val ticket = Ticket()
 

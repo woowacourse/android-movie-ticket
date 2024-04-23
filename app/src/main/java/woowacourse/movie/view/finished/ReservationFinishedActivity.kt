@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.finished.ReservationFinishedContract
@@ -19,7 +19,7 @@ import java.io.Serializable
 import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
-    private val presenter: ReservationFinishedPresenter = ReservationFinishedPresenter(this, MovieDao())
+    private val presenter: ReservationFinishedPresenter = ReservationFinishedPresenter(this, ScreeningDao())
 
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
     private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_date) }
@@ -43,7 +43,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
     override fun showMovieInformation(movie: Movie) {
         title.text = movie.title
-        screeningDate.text = movie.screeningDate
+        screeningDate.text = movie.screeningPeriod.first().toString()
     }
 
     override fun showReservationHistory(

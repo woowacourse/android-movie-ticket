@@ -6,7 +6,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieCatalogAdapter
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.presenter.home.ReservationHomeContract
 import woowacourse.movie.presenter.home.ReservationHomePresenter
 import woowacourse.movie.view.detail.ReservationDetailActivity
@@ -19,7 +19,7 @@ class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract.Vie
         setContentView(R.layout.activity_reservation_home)
 
         val movieCatalogAdapter =
-            MovieCatalogAdapter(this, MovieDao().findAll()) { movie ->
+            MovieCatalogAdapter(this, ScreeningDao().findAll()) { movie ->
                 presenter.loadMovie(movie)
             }
         findViewById<ListView>(R.id.list_view_reservation_home).apply {

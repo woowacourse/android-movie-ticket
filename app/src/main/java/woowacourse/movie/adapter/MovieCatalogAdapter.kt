@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.MovieUtils.convertPeriodFormat
 import woowacourse.movie.model.Movie
 
 class MovieCatalogAdapter(
@@ -43,7 +44,7 @@ class MovieCatalogAdapter(
         with(movieViewHolder) {
             title.text = item.title
             poster.setImageResource(item.posterId)
-            screeningDate.text = item.screeningDate
+            screeningDate.text = convertPeriodFormat(item.screeningPeriod)
             runningTime.text = item.runningTime
             reservationButton.setOnClickListener { movie(item) }
         }

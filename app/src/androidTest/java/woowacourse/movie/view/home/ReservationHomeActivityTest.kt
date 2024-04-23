@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.MovieUtils
 import woowacourse.movie.R
 import woowacourse.movie.TestFixture.FIRST_ITEM_POSITION
 import woowacourse.movie.TestFixture.movies
@@ -28,7 +29,7 @@ class ReservationHomeActivityTest {
     @Test
     fun `영화_목록에서_첫번째_아이템의_상영일을_보여준다`() {
         moviesFirstItem.onChildView(withId(R.id.item_movie_catalog_text_view_screening_date)).check(
-            matches(withText(movies[FIRST_ITEM_POSITION].screeningDate)),
+            matches(withText(MovieUtils.convertPeriodFormat(movies[FIRST_ITEM_POSITION].screeningPeriod))),
         )
     }
 

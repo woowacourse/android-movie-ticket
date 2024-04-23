@@ -9,7 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.MovieUtils.convertPeriodFormat
+import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.detail.ReservationDetailContract
@@ -19,7 +20,7 @@ import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
-    private val presenter: ReservationDetailPresenter = ReservationDetailPresenter(this, MovieDao())
+    private val presenter: ReservationDetailPresenter = ReservationDetailPresenter(this, ScreeningDao())
 
     private val poster: ImageView by lazy { findViewById(R.id.image_view_reservation_detail_poster) }
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }
@@ -62,7 +63,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     override fun showMovieInformation(movie: Movie) {
         poster.setImageResource(movie.posterId)
         title.text = movie.title
-        screeningDate.text = movie.screeningDate
+        screeningDate.text = convertPeriodFormat(movie.screeningPeriod)
         runningTime.text = movie.runningTime
         summary.text = movie.summary
     }

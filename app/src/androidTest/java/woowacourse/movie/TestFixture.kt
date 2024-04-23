@@ -4,12 +4,12 @@ import androidx.test.espresso.DataInteraction
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.matcher.ViewMatchers
 import org.hamcrest.Matchers
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
 
 object TestFixture {
     const val FIRST_ITEM_POSITION = 0
-    val movies: List<Movie> = MovieDao().findAll()
+    val movies: List<Movie> = ScreeningDao().findAll()
 
     val moviesFirstItem: DataInteraction =
         Espresso.onData(
