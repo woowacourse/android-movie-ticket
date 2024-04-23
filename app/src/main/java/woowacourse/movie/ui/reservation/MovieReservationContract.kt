@@ -10,6 +10,8 @@ interface MovieReservationContract {
         fun updateReservationCountUi(reservationCount: Int)
 
         fun moveMovieReservationCompleteView(reservationCount: Int)
+
+        fun showError(e: Exception)
     }
 
     interface Presenter {

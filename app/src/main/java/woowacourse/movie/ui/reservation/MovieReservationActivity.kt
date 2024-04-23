@@ -124,6 +124,12 @@ class MovieReservationActivity :
         }
     }
 
+    override fun showError(e: Exception) {
+        Log.e(TAG, e.message.toString())
+        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
+        finish()
+    }
+
     private fun dateFormatter(movieDate: MovieDate): String {
         val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")

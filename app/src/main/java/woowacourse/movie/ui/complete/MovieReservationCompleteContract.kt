@@ -8,6 +8,8 @@ interface MovieReservationCompleteContract {
         fun showMovieContentUi(movieContent: MovieContent)
 
         fun updateTicketUi(ticket: Ticket)
+
+        fun showError(e: Exception)
     }
 
     interface Presenter {

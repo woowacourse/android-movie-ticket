@@ -16,8 +16,12 @@ class MovieReservationPresenter(
     }
 
     override fun loadMovieContent(movieContentId: Long) {
-        val movieContent = movieContents.find(movieContentId)
-        view.showMovieContentUi(movieContent)
+        try {
+            val movieContent = movieContents.find(movieContentId)
+            view.showMovieContentUi(movieContent)
+        } catch (e: NoSuchElementException) {
+            view.showError(e)
+        }
     }
 
     override fun decreaseCount() {
