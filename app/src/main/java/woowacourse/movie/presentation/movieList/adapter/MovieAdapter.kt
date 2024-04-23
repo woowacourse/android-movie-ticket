@@ -9,11 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.presentation.movieList.ClickListener
 import woowacourse.movie.utils.formatMovieDate
 
 class MovieAdapter(
     private var movies: List<Movie> = emptyList(),
-    private val onTicketingButtonClick: (Int) -> Unit,
+    private val listener: ClickListener,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
@@ -57,7 +58,7 @@ class MovieAdapter(
             date.text = date.context.getString(R.string.title_date, formatMovieDate(movie.date))
             runningTime.text =
                 runningTime.context.getString(R.string.title_running_time, movie.runningTime)
-            ticketingButton.setOnClickListener { onTicketingButtonClick(movie.id) }
+            ticketingButton.setOnClickListener { listener.onClick(movie.id) }
             thumbnail.setImageResource(movie.thumbnail)
         }
     }

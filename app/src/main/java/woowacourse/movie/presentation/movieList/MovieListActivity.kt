@@ -20,7 +20,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
 
     override fun displayMovies(movies: List<Movie>) {
         val movieList: ListView = findViewById(R.id.lv_movies)
-        movieList.adapter = MovieAdapter(movies, ::navigate)
+        movieList.adapter = MovieAdapter(movies, presenter)
     }
 
     override fun navigate(movieId: Int) {
