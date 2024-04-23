@@ -8,8 +8,6 @@ class MoviesTest {
     fun `영화 목록을 초기화한다`() {
         val movies = Movies()
 
-        movies.initMovieList()
-
         assertThat(movies.movies).isNotEmpty
     }
 }
