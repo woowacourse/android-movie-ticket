@@ -13,6 +13,8 @@ class TicketingPresenter(
 ) : TicketingContract.Presenter {
     private val movie = findMovieById(movieId)
     private val count = Count(initialCount)
+    private lateinit var date: String
+    private lateinit var time: String
 
     val countValue: Int
         get() = count.value
@@ -20,6 +22,8 @@ class TicketingPresenter(
     override fun initializeTicketingData() {
         when (movie) {
             is Result.Success -> {
+                date = movie.data.startDate.toString()
+                time = movie.data.times.first()
                 ticketingContractView.assignInitialView(
                     movie.data,
                     count.value,
@@ -52,12 +56,26 @@ class TicketingPresenter(
         when (movie) {
             is Result.Success -> {
                 val totalPrice = Tickets(count, movie.data).totalPrice
-                ticketingContractView.navigateToTicketingResult(movie.data.id, count.value, totalPrice)
+                ticketingContractView.navigateToTicketingResult(
+                    movieId = movie.data.id,
+                    count = count.value,
+                    totalPrice = totalPrice,
+                    date = date,
+                    time = time,
+                )
             }
 
             is Result.Error -> {
                 ticketingContractView.showToastMessage(movie.message)
             }
         }
+    }
+
+    override fun updateDate(date: String) {
+        this.date = date
+    }
+
+    override fun updateTime(time: String) {
+        this.time = time
     }
 }

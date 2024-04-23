@@ -6,7 +6,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.TicketingActivity.Companion.EXTRA_COUNT
+import woowacourse.movie.TicketingActivity.Companion.EXTRA_DATE
 import woowacourse.movie.TicketingActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.TicketingActivity.Companion.EXTRA_TIME
 import woowacourse.movie.TicketingActivity.Companion.EXTRA_TOTAL_PRICE
 import woowacourse.movie.presenter.TicketingResultPresenter
 import woowacourse.movie.presenter.contract.TicketingResultContract
@@ -21,6 +23,8 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         val count = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_COUNT)
         val movieId = intent.getLongExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
+        val date = intent.getStringExtra(EXTRA_DATE)
+        val time = intent.getStringExtra(EXTRA_TIME)
 
         val ticketingResultPresenter = TicketingResultPresenter(this)
         ticketingResultPresenter.initializeTicketingResult(movieId, count, totalPrice)

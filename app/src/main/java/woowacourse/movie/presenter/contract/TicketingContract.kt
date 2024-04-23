@@ -15,6 +15,8 @@ interface TicketingContract {
             movieId: Long,
             count: Int,
             totalPrice: Int,
+            date: String,
+            time: String,
         )
 
         fun showToastMessage(message: String)
@@ -28,5 +30,9 @@ interface TicketingContract {
         fun increaseCount()
 
         fun reserveTickets()
+
+        fun updateDate(date: String)
+
+        fun updateTime(time: String)
     }
 }

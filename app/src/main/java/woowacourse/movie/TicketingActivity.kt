@@ -13,13 +13,12 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
-import java.time.LocalTime
-import java.time.temporal.ChronoUnit
 
-class TicketingActivity : AppCompatActivity(), TicketingContract.View {
+class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSelectedListener {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
     private val movieId by lazy { intent.getLongExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID) }
@@ -69,52 +68,24 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         }
         findViewById<TextView>(R.id.tv_introduction).apply { text = movie.introduction }
 
-        val numOfDaysBetween = ChronoUnit.DAYS.between(movie.startDate, movie.endDate.plusDays(1))
-        val dates: List<String> =
-            List(numOfDaysBetween.toInt()) {
-                movie.startDate.plusDays(it.toLong()).toString()
-            }
-
-        val startTime = LocalTime.of(9, 0)
-        val times: List<String> =
-            List(8) { num ->
-                val add = num * 2
-                startTime.plusHours(add.toLong()).toString()
-            }
-
         findViewById<Spinner>(R.id.spinner_date).apply {
             adapter =
-                ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, dates)
-            onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long,
-                    ) {
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
-                }
+                ArrayAdapter(
+                    this@TicketingActivity,
+                    android.R.layout.simple_spinner_item,
+                    movie.dates,
+                )
+            onItemSelectedListener = this@TicketingActivity
         }
 
         findViewById<Spinner>(R.id.spinner_time).apply {
-            adapter = ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, times)
-            onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long,
-                    ) {
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
-                }
+            adapter =
+                ArrayAdapter(
+                    this@TicketingActivity,
+                    android.R.layout.simple_spinner_item,
+                    movie.times,
+                )
+            onItemSelectedListener = this@TicketingActivity
         }
     }
 
@@ -126,11 +97,15 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         movieId: Long,
         count: Int,
         totalPrice: Int,
+        date: String,
+        time: String,
     ) {
         Intent(this, TicketingResultActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, movieId)
             putExtra(EXTRA_COUNT, count)
             putExtra(EXTRA_TOTAL_PRICE, totalPrice)
+            putExtra(EXTRA_DATE, date)
+            putExtra(EXTRA_TIME, time)
             startActivity(this)
             finish()
         }
@@ -158,10 +133,35 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         }
     }
 
+    override fun onItemSelected(
+        parent: AdapterView<*>?,
+        view: View?,
+        position: Int,
+        id: Long,
+    ) {
+        when (parent?.id) {
+            R.id.spinner_date ->
+                ticketingPresenter.updateDate(parent.getItemAtPosition(position).toString())
+            R.id.spinner_time ->
+                ticketingPresenter.updateTime(parent.getItemAtPosition(position).toString())
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        when (parent?.id) {
+            R.id.spinner_date ->
+                ticketingPresenter.updateDate(parent.getItemAtPosition(0).toString())
+            R.id.spinner_time ->
+                ticketingPresenter.updateTime(parent.getItemAtPosition(0).toString())
+        }
+    }
+
     companion object {
         const val EXTRA_MOVIE_ID = "movie_id"
         const val EXTRA_COUNT = "number_of_people"
         const val EXTRA_TOTAL_PRICE = "total_price"
+        const val EXTRA_DATE = "movie_date"
+        const val EXTRA_TIME = "movie_time"
         const val EXTRA_DEFAULT_MOVIE_ID = -1L
         private const val DEFAULT_COUNT = 1
         private const val KEY_COUNT = "count"
