@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/movie_thumbnail"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:src="@drawable/movie_making_poster"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/movie_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Harry Potter and the Philosopher's Stone"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintStart_toEndOf="@id/movie_thumbnail"
+        app:layout_constraintTop_toTopOf="@id/movie_thumbnail"
+        app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
+
+    <TextView
+        android:id="@+id/movie_release_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Date: YYYY.MM.DD"
+        app:layout_constraintStart_toStartOf="@id/movie_title"
+        app:layout_constraintTop_toBottomOf="@id/movie_title"
+        app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
+
+    <TextView
+        android:id="@+id/movie_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Duration: 00 minutes"
+        app:layout_constraintStart_toStartOf="@id/movie_release_date"
+        app:layout_constraintTop_toBottomOf="@id/movie_release_date"
+        app:layout_constraintEnd_toStartOf="@id/movie_details_button" />
+
+    <Button
+        android:id="@+id/movie_details_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_700"
+        android:text="지금 예매"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@id/movie_thumbnail"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
