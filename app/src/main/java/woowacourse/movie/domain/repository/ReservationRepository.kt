@@ -1,13 +1,13 @@
 package woowacourse.movie.domain.repository
 
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import java.time.LocalDateTime
 
 interface ReservationRepository {
     fun saveReservation(
-        screen: Screen,
+        movie: Movie,
         ticketCount: Int,
         seats: List<Seat>,
         dateTime: LocalDateTime,

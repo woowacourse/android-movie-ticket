@@ -7,5 +7,4 @@ data class Screen(
     val endDate: String,
     val selectableDates: List<String>,
     val selectableTimes: List<String>,
-    val price: Int,
 )

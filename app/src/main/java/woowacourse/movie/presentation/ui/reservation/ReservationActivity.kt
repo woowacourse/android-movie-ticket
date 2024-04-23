@@ -30,7 +30,7 @@ class ReservationActivity : BaseActivity(), View {
 
     override fun showReservation(reservation: Reservation) {
         with(reservation) {
-            title.text = screen.movie.title
+            title.text = movie.title
             date.text = dateTime.toString()
             count.text = getString(R.string.reserve_count, ticket.count, seats.toSeatString())
             amount.text = currency()

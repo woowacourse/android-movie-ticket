@@ -96,7 +96,7 @@ class SeatSelectionPresenter(
         uiModel.screen?.let { screen ->
             uiModel.dateTime?.let { dateTime ->
                 reservationRepository.saveReservation(
-                    screen,
+                    screen.movie,
                     uiModel.ticketCount,
                     uiModel.seats.toList(),
                     dateTime,

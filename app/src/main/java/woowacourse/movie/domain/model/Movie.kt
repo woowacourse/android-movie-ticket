@@ -5,4 +5,5 @@ data class Movie(
     val runningTime: Int,
     val imageSrc: Int,
     val description: String,
+    val price: Int,
 )
