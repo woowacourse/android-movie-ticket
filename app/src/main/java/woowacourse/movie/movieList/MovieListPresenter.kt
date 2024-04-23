@@ -40,6 +40,7 @@ class MovieListPresenter(private val view: MovieListActivity) {
         }
         view.startActivity(intent)
     }
+
     fun loadMovies() {
         val displayData = convertToDisplayData(theaters)
         view.updateAdapter(displayData)

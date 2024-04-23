@@ -2,10 +2,8 @@
 package woowacourse.movie.movieDetail
 
 import android.content.Intent
-import android.os.Build
-import androidx.annotation.RequiresApi
-import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 
 @Suppress("DEPRECATION")
 class MovieDetailPresenter(private val view: MovieDetailView, intent: Intent) {
