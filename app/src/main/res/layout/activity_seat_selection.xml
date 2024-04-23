@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_seat_selection"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.reservation.seat.SeatSelectionActivity">
+
+    <TextView
+        android:id="@+id/tv_seat_selection_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="#494949"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingVertical="9dp"
+        android:text="SCREEN"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tl_seat_selection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="@id/tv_seat_selection_screen"
+        app:layout_constraintStart_toStartOf="@id/tv_seat_selection_screen"
+        app:layout_constraintTop_toBottomOf="@id/tv_seat_selection_screen" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_seat_selection_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_seat_selection_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="해리포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/tv_seat_selection_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="#727272"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="tv_seat_selection_title"
+            app:layout_constraintTop_toBottomOf="tv_seat_selection_title"
+            tools:text="0원" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_500"
+            android:fontFamily="@font/roboto_bold"
+            android:padding="27dp"
+            android:text="확인"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
