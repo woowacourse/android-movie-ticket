@@ -11,13 +11,13 @@ class Ticket : Serializable {
         }
     }
 
-    fun sub() {
+    fun subCount() {
         if (count > 1) {
             count--
         }
     }
 
-    fun add() {
+    fun addCount() {
         count++
     }
 

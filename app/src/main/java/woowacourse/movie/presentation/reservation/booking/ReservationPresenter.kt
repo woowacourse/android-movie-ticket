@@ -29,12 +29,12 @@ class ReservationPresenter(
     }
 
     override fun subTicketCount() {
-        ticket.sub()
+        ticket.subCount()
         view.updateTicketCount()
     }
 
     override fun addTicketCount() {
-        ticket.add()
+        ticket.addCount()
         view.updateTicketCount()
     }
 
