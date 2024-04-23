@@ -29,7 +29,7 @@ class MovieReservationCompleteActivity :
 
         val movieContentId = movieContentId()
         val reservationCount = reservationCount()
-        if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCount == RESERVATION_COUNT_DEFAULT_VALUE) {
+        if (isError(movieContentId, reservationCount)) {
             handleError()
             return
         }
@@ -45,6 +45,13 @@ class MovieReservationCompleteActivity :
 
     private fun reservationCount(): Int {
         return intent.getIntExtra(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+    }
+
+    private fun isError(
+        movieContentId: Long,
+        reservationCount: Int,
+    ): Boolean {
+        return movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCount == RESERVATION_COUNT_DEFAULT_VALUE
     }
 
     override fun handleError() {

@@ -35,7 +35,7 @@ class MovieReservationActivity :
         setContentView(R.layout.activity_movie_reservation)
 
         val movieContentId = movieContentId()
-        if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE) {
+        if (isError(movieContentId)) {
             handleError()
             return
         }
@@ -55,6 +55,10 @@ class MovieReservationActivity :
 
     private fun movieContentId(): Long {
         return intent.getLongExtra(MOVIE_CONTENT_ID_KEY, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    }
+
+    private fun isError(movieContentId: Long): Boolean {
+        return movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE
     }
 
     override fun handleError() {
