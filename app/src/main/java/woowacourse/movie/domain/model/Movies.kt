@@ -1,7 +1,6 @@
 package woowacourse.movie.domain.model
 
 import woowacourse.movie.R
-import woowacourse.movie.presentation.contract.MainContract
 
 class Movies {
     private var _movies: MutableList<Movie> = mutableListOf()
