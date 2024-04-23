@@ -3,10 +3,10 @@ package woowacourse.movie.feature.home
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
-import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.feature.home.list.MovieContentListAdapter
 import woowacourse.movie.feature.reservation.MovieReservationActivity
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.utils.BaseActivity
 
 class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHomeContract.View {
     private val movieContentList: ListView by lazy { findViewById(R.id.movie_content_list) }

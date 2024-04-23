@@ -8,16 +8,18 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.utils.BaseActivity
+import woowacourse.movie.utils.ErrorListener
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
-    MovieReservationCompleteContract.View {
+    MovieReservationCompleteContract.View,
+    ErrorListener {
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }

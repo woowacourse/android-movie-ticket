@@ -1,6 +1,6 @@
 package woowacourse.movie.feature.home
 
-import woowacourse.movie.base.BasePresenter
+import woowacourse.movie.utils.BasePresenter
 
 interface MovieHomeContract {
     interface View {

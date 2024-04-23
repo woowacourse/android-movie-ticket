@@ -10,16 +10,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.base.BaseActivity
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.utils.BaseActivity
+import woowacourse.movie.utils.ErrorListener
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
-    MovieReservationContract.View {
+    MovieReservationContract.View,
+    ErrorListener {
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
