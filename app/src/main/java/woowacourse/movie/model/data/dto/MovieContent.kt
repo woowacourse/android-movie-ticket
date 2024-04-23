@@ -1,10 +1,9 @@
 package woowacourse.movie.model.data.dto
 
-import androidx.annotation.DrawableRes
 import java.time.LocalDate
 
 data class MovieContent(
-    @DrawableRes val imageId: Int,
+    val posterImageId: Int,
     val title: String,
     val screeningDate: LocalDate,
     val runningTime: Int,

@@ -97,7 +97,7 @@ class MovieReservationActivity :
 
     override fun setUpMovieContentUi(movieContent: MovieContent) {
         movieContent.run {
-            posterImage.setImageResource(imageId)
+            posterImage.setImageResource(posterImageId)
             titleText.text = title
             screeningDateText.text = screeningDate.message()
             runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)

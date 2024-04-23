@@ -8,12 +8,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.data.dto.MovieContent
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.feature.home.ui.MovieListUiModel
 
 class MovieContentListAdapter(
-    private val movieContents: List<MovieContent>,
+    private val movies: List<MovieListUiModel>,
     private val reservationButtonClickListener: ReservationButtonClickListener,
 ) : BaseAdapter() {
     private class MovieContentViewHolder(private val view: View) {
@@ -23,19 +21,13 @@ class MovieContentListAdapter(
         private val runningTimeText: TextView by lazy { view.findViewById(R.id.running_time_text) }
         private val reservationButton: Button by lazy { view.findViewById(R.id.reservation_button) }
 
-        fun setUpMovieContentUi(movieContent: MovieContent) {
-            movieContent.run {
-                posterImage.setImageResource(imageId)
-                titleText.text = title
-                screeningDateText.text = screeningDate.message()
-                runningTimeText.text =
-                    view.context.resources.getString(R.string.running_time).format(runningTime)
+        fun setUpMoviesUi(movie: MovieListUiModel) {
+            movie.run {
+                posterImage.setImageDrawable(posterImageDrawable)
+                titleText.text = titleMessage
+                screeningDateText.text = screeningDateMessage
+                runningTimeText.text = runningTimeMessage
             }
-        }
-
-        private fun LocalDate.message(): String {
-            return view.context.resources.getString(R.string.screening_date)
-                .format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
         }
 
         fun setOnClickReservationButton(
@@ -48,9 +40,9 @@ class MovieContentListAdapter(
         }
     }
 
-    override fun getCount(): Int = movieContents.size
+    override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): MovieContent = movieContents[position]
+    override fun getItem(position: Int): MovieListUiModel = movies[position]
 
     override fun getItemId(position: Int): Long = getItem(position).id
 
@@ -62,7 +54,8 @@ class MovieContentListAdapter(
         val view: View
         val viewHolder: MovieContentViewHolder
         if (convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie_content, parent, false)
+            view = LayoutInflater.from(parent?.context)
+                .inflate(R.layout.item_movie_content, parent, false)
             viewHolder = MovieContentViewHolder(view)
             view.tag = viewHolder
         } else {
@@ -70,7 +63,7 @@ class MovieContentListAdapter(
             viewHolder = view.tag as MovieContentViewHolder
         }
 
-        viewHolder.setUpMovieContentUi(getItem(position))
+        viewHolder.setUpMoviesUi(getItem(position))
         viewHolder.setOnClickReservationButton(getItemId(position), reservationButtonClickListener)
 
         return view

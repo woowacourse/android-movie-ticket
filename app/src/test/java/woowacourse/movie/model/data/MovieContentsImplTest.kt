@@ -21,7 +21,7 @@ class MovieContentsImplTest {
         val actual = MovieContentsImpl.find(id)
 
         // then
-        assertThat(actual.imageId).isEqualTo(0)
+        assertThat(actual.posterImageId).isEqualTo(0)
         assertThat(actual.title).isEqualTo("해리 포터와 마법사의 돌")
         assertThat(actual.screeningDate).isEqualTo(LocalDate.of(2024, 3, 1))
         assertThat(actual.runningTime).isEqualTo(152)
@@ -50,7 +50,7 @@ class MovieContentsImplTest {
         val actual = MovieContentsImpl.find(-1)
 
         // then
-        assertThat(actual.imageId).isEqualTo(0)
+        assertThat(actual.posterImageId).isEqualTo(0)
         assertThat(actual.title).isEqualTo("오류가 발생했습니다.")
         assertThat(actual.screeningDate).isEqualTo(LocalDate.of(1, 1, 1))
         assertThat(actual.runningTime).isEqualTo(0)
