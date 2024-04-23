@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="132dp">
+
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:layout_width="76dp"
+        android:layout_height="108dp"
+        android:layout_marginVertical="12dp"
+        android:layout_marginStart="12dp"
+        android:contentDescription="@string/movie_poster"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_poster" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintTop_toTopOf="@+id/iv_poster"
+        tools:text="해리 포터와 마법사의 돌" />
+
+    <TextView
+        android:id="@+id/tv_screen_date_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/screen_date"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+
+    <TextView
+        android:id="@+id/tv_screen_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_screen_date_guide"
+        app:layout_constraintStart_toEndOf="@+id/tv_screen_date_guide"
+        app:layout_constraintTop_toTopOf="@+id/tv_screen_date_guide"
+        tools:text="2024.3.1" />
+
+
+    <TextView
+        android:id="@+id/tv_screen_running_time_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/screen_running_time_date"
+        android:textSize="12dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_screen_date_guide" />
+
+
+    <TextView
+        android:id="@+id/tv_screen_running_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_screen_running_time_guide"
+        app:layout_constraintStart_toEndOf="@+id/tv_screen_running_time_guide"
+        app:layout_constraintTop_toTopOf="@+id/tv_screen_running_time_guide"
+        tools:text="152분" />
+
+    <Button
+        android:id="@+id/btn_reserve_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/reserve_now"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
