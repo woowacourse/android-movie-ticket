@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="132dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <Button
+        android:id="@+id/movieReservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/reserve_now"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/movieThumbnail"
+        android:layout_width="76dp"
+        android:layout_height="108dp"
+        android:layout_margin="15dp"
+        tools:src="@drawable/titanic"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/movieDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/screening_date"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toRightOf="@id/movieThumbnail"
+        app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+
+    <TextView
+        android:id="@+id/movieDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        tools:text="2024.3.1"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/movieDateTitle"
+        app:layout_constraintLeft_toRightOf="@id/movieDateTitle"
+        app:layout_constraintTop_toBottomOf="@id/movieTitle" />
+
+    <TextView
+        android:id="@+id/movieRunningTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/running_time"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toRightOf="@id/movieThumbnail"
+        app:layout_constraintTop_toBottomOf="@id/movieDateTitle" />
+
+    <TextView
+        android:id="@+id/movieRunningTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        tools:text="152"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/movieRunningTimeTitle"
+        app:layout_constraintLeft_toRightOf="@id/movieRunningTimeTitle"
+        app:layout_constraintTop_toBottomOf="@id/movieDateTitle" />
+
+    <TextView
+        android:id="@+id/movieRunningTimeFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/running_time_format"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/movieRunningTimeTitle"
+        app:layout_constraintLeft_toRightOf="@id/movieRunningTime"
+        app:layout_constraintTop_toBottomOf="@id/movieDateTitle" />
+
+
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        tools:text="타이타닉"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/movieThumbnail"
+        app:layout_constraintTop_toTopOf="@id/movieThumbnail" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

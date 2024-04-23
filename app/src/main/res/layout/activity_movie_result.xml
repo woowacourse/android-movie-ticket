@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".result.view.MovieResultActivity">
+
+
+    <TextView
+        android:id="@+id/resultNotice"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#9160f9"
+        android:gravity="bottom|center"
+        android:paddingBottom="10dp"
+        android:text="@string/movie_cancellation_policy"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/resultTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        tools:text="해리포터와 마법사의 돌"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resultNotice" />
+
+    <TextView
+        android:id="@+id/resultDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        tools:text="2024.3.1"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resultTitle" />
+
+    <TextView
+        android:id="@+id/resultReservCountType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reservation_count_type"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/resultReservCount"
+        app:layout_constraintTop_toBottomOf="@id/resultDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultReservCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/resultReservCountType"
+        app:layout_constraintRight_toLeftOf="@id/resultReservCountFormat"
+        app:layout_constraintTop_toBottomOf="@id/resultDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultReservCountFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reservation_count_format"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/resultReservCount"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resultDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/resultReservPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        tools:text="13,000"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/resultReservPriceFormat"
+        app:layout_constraintTop_toBottomOf="@id/resultReservCount" />
+
+    <TextView
+        android:id="@+id/resultReservPriceFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/currency_format"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/resultReservPrice"
+        app:layout_constraintLeft_toRightOf="@id/resultReservPrice"
+        app:layout_constraintRight_toLeftOf="@id/resultReservType"
+        app:layout_constraintTop_toTopOf="@+id/resultReservPrice" />
+
+
+    <TextView
+        android:id="@+id/resultReservType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reservation_type"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/resultReservPriceFormat"
+        app:layout_constraintLeft_toRightOf="@id/resultReservPriceFormat"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/resultReservPriceFormat" />
+</androidx.constraintlayout.widget.ConstraintLayout>
