@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.ui.detail
 
+import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.ScreenRepository
@@ -46,6 +47,10 @@ class DetailPresenter(
 
     override fun registerTime(time: String) {
         uiModel = uiModel.copy(selectedTime = time)
+    }
+
+    override fun updateTicket(count: Int) {
+        uiModel = uiModel.copy(ticket = Ticket(count))
     }
 
     override fun plusTicket() {

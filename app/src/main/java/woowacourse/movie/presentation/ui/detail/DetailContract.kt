@@ -23,6 +23,8 @@ interface DetailContract {
 
         fun registerTime(time: String)
 
+        fun updateTicket(count: Int)
+
         fun plusTicket()
 
         fun minusTicket()
