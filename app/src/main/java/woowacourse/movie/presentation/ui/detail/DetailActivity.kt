@@ -22,9 +22,7 @@ import woowacourse.movie.presentation.ui.seatselection.SeatSelectionActivity
 class DetailActivity : BaseActivity(), View {
     override val layoutResourceId: Int
         get() = R.layout.activity_detail
-    override val presenter: Presenter by lazy {
-        DetailPresenter(this, DummyScreens())
-    }
+    override val presenter: Presenter by lazy { DetailPresenter(this, DummyScreens()) }
 
     private val title: TextView by lazy { findViewById(R.id.tv_title) }
     private val date: TextView by lazy { findViewById(R.id.tv_screen_date) }
@@ -60,7 +58,7 @@ class DetailActivity : BaseActivity(), View {
         }
     }
 
-    fun initItemSelectedListener() {
+    private fun initItemSelectedListener() {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
