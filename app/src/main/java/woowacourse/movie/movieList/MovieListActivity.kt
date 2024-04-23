@@ -17,7 +17,7 @@ class MovieListActivity : AppCompatActivity(), MovieListView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.mainactivity)
+        setContentView(R.layout.movie_list)
         presenter = MovieListPresenter(this)
         moviesListView = findViewById(R.id.movies_list_item)
         initAdapter()
