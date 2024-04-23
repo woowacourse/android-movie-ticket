@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.data.MovieDao
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presentation.reservation.booking.ReservationActivity
@@ -28,10 +28,9 @@ class ReservationResultActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationResultActivity::class.java,
-        ).putExtra("count", ticket.count().toString())
-            .putExtra("title", movie.title)
-            .putExtra("screenDate", movie.screenDateToString())
-            .putExtra("price", payment.price(ticket.count()))
+        ).putExtra("movie", movie)
+            .putExtra("ticket", ticket)
+            .putExtra("payment", payment)
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
@@ -39,19 +38,19 @@ class ReservationResultActivityTest {
     @Test
     fun 액티비티가_시작하면_제목이_보인다() {
         onView(withId(R.id.result_title_textview))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+            .check(matches(withText(movie.title)))
     }
 
     @Test
     fun 액티비티가_시작하면_상영일이_보인다() {
         onView(withId(R.id.result_screen_date_textview))
-            .check(matches(withText("2024.3.1")))
+            .check(matches(withText(movie.screenDateToString())))
     }
 
     @Test
     fun 액티비티가_시작하면_count가_보인다() {
         onView(withId(R.id.result_count_textview))
-            .check(matches(withText("1")))
+            .check(matches(withText(ticket.count().toString())))
     }
 
     @Test
