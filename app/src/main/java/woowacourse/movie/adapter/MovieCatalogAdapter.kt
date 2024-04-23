@@ -14,7 +14,7 @@ import woowacourse.movie.model.Movie
 class MovieCatalogAdapter(
     private val context: Context,
     private val movies: List<Movie>,
-    val movie: (Movie) -> Unit,
+    private val sendMovieId: (Int) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
@@ -40,7 +40,7 @@ class MovieCatalogAdapter(
         screeningDate.text = item.screeningDate
         runningTime.text = item.runningTime
         reservationButton.setOnClickListener {
-            movie(item)
+            sendMovieId(item.id)
         }
 
         return convertView

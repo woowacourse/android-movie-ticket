@@ -16,8 +16,8 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         setContentView(R.layout.activity_reservation_home)
 
         movies.adapter =
-            MovieCatalogAdapter(this, homePresenter.obtainMovies()) { movie ->
-                homePresenter.deliverMovie(movie.id)
+            MovieCatalogAdapter(this, homePresenter.obtainMovies()) { movieId ->
+                homePresenter.deliverMovie(movieId)
             }
     }
 
