@@ -10,7 +10,7 @@ class FakeReservationRepository(
 ) : ReservationRepository {
     override fun saveReservation(
         screen: Screen,
-        count: Int,
+        ticketCount: Int,
     ): Result<Int> {
         return runCatching { id }
     }

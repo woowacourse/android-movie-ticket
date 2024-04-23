@@ -5,6 +5,7 @@ import android.content.Intent
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.Presenter
@@ -30,8 +31,8 @@ class ReservationActivity : BaseActivity(), View {
     override fun showReservation(reservation: Reservation) {
         with(reservation) {
             title.text = screen.movie.title
-            date.text = screen.startDate
-            count.text = getString(R.string.reserve_count, this.ticket.count)
+            date.text = dateTime.toString()
+            count.text = getString(R.string.reserve_count, ticket.count, seats.toSeatString())
             amount.text = currency()
         }
     }
@@ -47,6 +48,8 @@ class ReservationActivity : BaseActivity(), View {
     }
 
     override fun back() = finish()
+
+    private fun List<Seat>.toSeatString(): String = this.joinToString(", ") { "${it.column}${it.row}" }
 
     companion object {
         private const val PUT_EXTRA_KEY_RESERVATION_ID = "reservationId"

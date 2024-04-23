@@ -14,9 +14,11 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatRank
+import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.model.ReservationInfo
+import woowacourse.movie.presentation.ui.reservation.ReservationActivity
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionContract.Presenter
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionContract.View
 import java.io.Serializable
@@ -24,7 +26,9 @@ import java.io.Serializable
 class SeatSelectionActivity : BaseActivity(), View {
     override val layoutResourceId: Int
         get() = R.layout.activity_seat_selection
-    override val presenter: Presenter by lazy { SeatSelectionPresenter(this, DummyScreens()) }
+    override val presenter: Presenter by lazy {
+        SeatSelectionPresenter(this, DummyScreens(), DummyReservation)
+    }
 
     private val seatBoard: TableLayout by lazy { findViewById(R.id.tl_seat_board) }
     private val title: TextView by lazy { findViewById(R.id.tv_screen_title) }
@@ -70,7 +74,9 @@ class SeatSelectionActivity : BaseActivity(), View {
                 }
             }
 
-        btnDone.setOnClickListener {}
+        btnDone.setOnClickListener {
+            presenter.reserve()
+        }
     }
 
     private fun SeatRank.toColor(): Int {
@@ -109,7 +115,10 @@ class SeatSelectionActivity : BaseActivity(), View {
         btnDone.isEnabled = isActivate
     }
 
-    override fun navigateToReservation(id: Int) {}
+    override fun navigateToReservation(id: Int) {
+        ReservationActivity.startActivity(this, id)
+        back()
+    }
 
     override fun back() = finish()
 

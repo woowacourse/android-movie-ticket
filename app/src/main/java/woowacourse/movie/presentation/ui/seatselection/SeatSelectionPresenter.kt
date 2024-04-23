@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.ui.seatselection
 
 import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.model.ReservationInfo
@@ -8,6 +9,7 @@ import woowacourse.movie.presentation.model.ReservationInfo
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
     private val repository: ScreenRepository,
+    private val reservationRepository: ReservationRepository,
 ) : SeatSelectionContract.Presenter {
     private var uiModel: SeatSelectionUiModel = SeatSelectionUiModel()
 
@@ -22,6 +24,7 @@ class SeatSelectionPresenter(
 
     override fun loadScreen(id: Int) {
         repository.findByScreenId(id = id).onSuccess { screen ->
+            uiModel = uiModel.copy(screen = screen)
             view.showScreen(screen)
         }.onFailure { e ->
             when (e) {
@@ -88,7 +91,23 @@ class SeatSelectionPresenter(
         view.buttonEnabled(uiModel.seats.size == uiModel.ticketCount)
     }
 
-    override fun reserve() {}
+    override fun reserve() {
+        uiModel.screen?.let { screen ->
+            uiModel.dateTime?.let { dateTime ->
+                reservationRepository.saveReservation(
+                    screen,
+                    uiModel.ticketCount,
+                    uiModel.seats.toList(),
+                    dateTime,
+                ).onSuccess { id ->
+                    view.navigateToReservation(id)
+                }.onFailure { e ->
+                    view.showSnackBar(e)
+                    view.back()
+                }
+            }
+        }
+    }
 
     private fun String.toColumnIndex(): Int = this[0].code - 'A'.code
 

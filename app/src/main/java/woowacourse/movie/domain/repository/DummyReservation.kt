@@ -2,18 +2,23 @@ package woowacourse.movie.domain.repository
 
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Ticket
+import java.time.LocalDateTime
 
 object DummyReservation : ReservationRepository {
     private val reservations = mutableListOf<Reservation>()
 
     override fun saveReservation(
         screen: Screen,
-        count: Int,
+        ticketCount: Int,
+        seats: List<Seat>,
+        dateTime: LocalDateTime,
     ): Result<Int> {
         return runCatching {
             val id = reservations.size + 1
-            reservations.add(Reservation(id, screen, Ticket(count)))
+            val reservation = Reservation(id, screen, Ticket(ticketCount), seats, dateTime)
+            reservations.add(reservation)
             id
         }
     }
