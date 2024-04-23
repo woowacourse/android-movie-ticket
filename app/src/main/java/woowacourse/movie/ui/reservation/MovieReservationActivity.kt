@@ -70,7 +70,7 @@ class MovieReservationActivity :
     }
 
     private fun initializeUi(movieContentId: Long) {
-        presenter.updateMovieContent(movieContentId)
+        presenter.loadMovieContent(movieContentId)
         presenter.updateReservationCount()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -96,7 +96,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun updateMovieContentUi(movieContent: MovieContent) {
+    override fun showMovieContentUi(movieContent: MovieContent) {
         movieContent.run {
             posterImage.setImageResource(imageId)
             titleText.text = title

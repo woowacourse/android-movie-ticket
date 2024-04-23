@@ -6,7 +6,7 @@ import woowacourse.movie.ui.base.BaseView
 
 interface MovieReservationContract {
     interface View : BaseView {
-        fun updateMovieContentUi(movieContent: MovieContent)
+        fun showMovieContentUi(movieContent: MovieContent)
 
         fun updateReservationCountUi(reservationCount: Int)
 
@@ -14,7 +14,7 @@ interface MovieReservationContract {
     }
 
     interface Presenter {
-        fun updateMovieContent(movieContentId: Long)
+        fun loadMovieContent(movieContentId: Long)
 
         fun updateReservationCount(count: Int = ReservationCount.DEFAULT_VALUE)
 

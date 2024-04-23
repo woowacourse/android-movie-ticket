@@ -15,9 +15,9 @@ class MovieReservationPresenter(
         view.updateReservationCountUi(count)
     }
 
-    override fun updateMovieContent(movieContentId: Long) {
+    override fun loadMovieContent(movieContentId: Long) {
         val movieContent = movieContents.find(movieContentId)
-        view.updateMovieContentUi(movieContent)
+        view.showMovieContentUi(movieContent)
     }
 
     override fun decreaseCount() {

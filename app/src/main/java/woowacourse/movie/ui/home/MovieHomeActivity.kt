@@ -17,10 +17,10 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_home)
 
-        presenter.setMovieContents()
+        presenter.loadMovieContents()
     }
 
-    override fun setMovieContentsUi(movieContents: List<MovieContent>) {
+    override fun showMovieContentsUi(movieContents: List<MovieContent>) {
         movieContentList.adapter = MovieContentListAdapter(this, movieContents)
     }
 }

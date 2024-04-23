@@ -6,13 +6,13 @@ import woowacourse.movie.ui.base.BaseView
 
 interface MovieReservationCompleteContract {
     interface View : BaseView {
-        fun updateMovieContentUi(movieContent: MovieContent)
+        fun showMovieContentUi(movieContent: MovieContent)
 
         fun updateTicketUi(ticket: Ticket)
     }
 
     interface Presenter {
-        fun updateMovieContent(movieContentId: Long)
+        fun loadMovieContent(movieContentId: Long)
 
         fun updateTicket(reservationCount: Int)
     }
