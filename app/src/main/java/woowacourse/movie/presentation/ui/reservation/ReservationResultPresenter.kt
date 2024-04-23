@@ -1,24 +1,34 @@
 package woowacourse.movie.presentation.ui.reservation
 
-import android.content.Intent
+import woowacourse.movie.domain.repository.MovieTicketRepository
+import woowacourse.movie.presentation.dto.MovieTicketUiModel
 
 class ReservationResultPresenter(
     private val view: ReservationResultContract.View,
-    private val intent: Intent,
+    private val movieTicketRepository: MovieTicketRepository,
+    private val movieTicketId: Int,
 ) : ReservationResultContract.Presenter {
-    override fun loadReservationDetails() {
-        val title = intent.getStringExtra("title") ?: ""
-        val screeningDate = intent.getStringExtra("screeningDate") ?: ""
-        val reservationCount = intent.getIntExtra("reservationCount", 0)
-        val totalPrice = intent.getIntExtra("totalPrice", 0)
-
-        if (title.isEmpty() || screeningDate.isEmpty()) {
-            view.showError("예약 정보를 불러오는데 실패했습니다.")
+    init {
+        if (movieTicketId <= INVALID_MOVIE_TICKET_ID) {
+            view.showMessage(ERROR_MESSAGE)
         } else {
-            view.showTitle(title)
-            view.showScreeningDate(screeningDate)
-            view.showReservationCount(reservationCount)
-            view.showTotalPrice(totalPrice)
+            loadReservationDetails()
         }
+    }
+
+    override fun loadReservationDetails() {
+        runCatching {
+            movieTicketRepository.getMovieTicket(movieTicketId)
+        }.onSuccess { ticket ->
+            val movieTicketUiModel = MovieTicketUiModel.fromMovieTicket(ticket)
+            view.showTicketData(movieTicketUiModel)
+        }.onFailure {
+            view.showMessage(ERROR_MESSAGE.format(it.message))
+        }
+    }
+
+    companion object {
+        const val INVALID_MOVIE_TICKET_ID = -1
+        const val ERROR_MESSAGE = "예매 정보를 불러오는데 실패했습니다. %s"
     }
 }

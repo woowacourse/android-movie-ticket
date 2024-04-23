@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.dto
 
+import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.presentation.utils.dateToString
-import java.time.LocalDate
 
 data class MovieTicketUiModel(
     val movieTitle: String,
@@ -10,17 +10,12 @@ data class MovieTicketUiModel(
     val totalPrice: Int,
 ) {
     companion object {
-        fun fromMovieTicket(
-            movieTitle: String,
-            screeningDate: LocalDate,
-            reservationCount: Int,
-            totalPrice: Int,
-        ): MovieTicketUiModel {
+        fun fromMovieTicket(movieTicket: MovieTicket): MovieTicketUiModel {
             return MovieTicketUiModel(
-                movieTitle = movieTitle,
-                screeningDate = screeningDate.dateToString(),
-                reservationCount = reservationCount,
-                totalPrice = totalPrice,
+                movieTitle = movieTicket.movieTitle,
+                screeningDate = movieTicket.screeningDate.dateToString(),
+                reservationCount = movieTicket.reservationCount,
+                totalPrice = movieTicket.totalPrice(),
             )
         }
     }

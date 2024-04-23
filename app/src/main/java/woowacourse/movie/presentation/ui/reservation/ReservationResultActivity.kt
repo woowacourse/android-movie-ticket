@@ -2,7 +2,9 @@ package woowacourse.movie.presentation.ui.reservation
 
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
+import woowacourse.movie.presentation.dto.MovieTicketUiModel
 
 class ReservationResultActivity : BaseActivity(), ReservationResultContract.View {
     private lateinit var presenter: ReservationResultPresenter
@@ -12,29 +14,26 @@ class ReservationResultActivity : BaseActivity(), ReservationResultContract.View
     override fun onCreateSetup() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        presenter = ReservationResultPresenter(this, intent)
+        val movieTicketId = intent.getIntExtra(EXTRA_MOVIE_TICKET_ID, -1)
+
+        presenter = ReservationResultPresenter(this, MovieTicketRepositoryImpl, movieTicketId)
         presenter.loadReservationDetails()
     }
 
-    override fun showTitle(title: String) {
-        findViewById<TextView>(R.id.title).text = title
-    }
-
-    override fun showScreeningDate(screeningDate: String) {
-        findViewById<TextView>(R.id.screeningDate).text = screeningDate
-    }
-
-    override fun showReservationCount(reservationCount: Int) {
+    override fun showTicketData(movieTicket: MovieTicketUiModel) {
+        findViewById<TextView>(R.id.title).text = movieTicket.movieTitle
+        findViewById<TextView>(R.id.screeningDate).text = movieTicket.screeningDate
         findViewById<TextView>(R.id.reservationCount).text =
-            getString(R.string.reservation_count_format, reservationCount)
-    }
-
-    override fun showTotalPrice(totalPrice: Int) {
+            getString(R.string.reservation_count_format, movieTicket.reservationCount)
         findViewById<TextView>(R.id.totalPrice).text =
-            getString(R.string.reservation_total_price_format, totalPrice)
+            getString(R.string.reservation_total_price_format, movieTicket.totalPrice)
     }
 
-    override fun showError(error: String) {
-        showSnackBar(error)
+    override fun showMessage(message: String) {
+        showSnackBar(message)
+    }
+
+    companion object {
+        const val EXTRA_MOVIE_TICKET_ID = "movieTicketId"
     }
 }
