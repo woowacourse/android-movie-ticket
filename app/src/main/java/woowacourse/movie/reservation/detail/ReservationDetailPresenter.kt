@@ -15,30 +15,27 @@ class ReservationDetailPresenter(
 
     override fun increaseCount() {
         val result = ticket.increaseCount()
-        handleNumberOfTicketsBounds(result, ticket)
+        handleNumberOfTicketsBounds(result)
     }
 
     override fun decreaseCount() {
         val result = ticket.decreaseCount()
-        handleNumberOfTicketsBounds(result, ticket)
+        handleNumberOfTicketsBounds(result)
     }
 
     override fun deliverMovie() {
         contract.showMovieInformation(movies[movieId])
     }
 
-    override fun deliverReservationHistory() {
-        contract.initializeReservationButton(movieId, ticket.count)
+    override fun deliverReservationInformation() {
+        contract.moveToReservationFinished(movieId, ticket.count)
     }
 
-    private fun handleNumberOfTicketsBounds(
-        result: ChangeTicketCountResult,
-        ticket: Ticket,
-    ) {
+    private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
         when (result) {
             is Success -> {
                 contract.updateCount(ticket.count)
-                contract.initializeReservationButton(movieId, ticket.count)
+                contract.moveToReservationFinished(movieId, ticket.count)
             }
             is Failure -> contract.showErrorToast()
         }

@@ -8,12 +8,12 @@ interface ReservationDetailContract {
 
         fun updateCount(ticketCount: Int)
 
-        fun initializeReservationButton(
+        fun showErrorToast()
+
+        fun moveToReservationFinished(
             movieId: Int,
             ticketCount: Int,
         )
-
-        fun showErrorToast()
     }
 
     interface Presenter {
@@ -23,6 +23,6 @@ interface ReservationDetailContract {
 
         fun deliverMovie()
 
-        fun deliverReservationHistory()
+        fun deliverReservationInformation()
     }
 }

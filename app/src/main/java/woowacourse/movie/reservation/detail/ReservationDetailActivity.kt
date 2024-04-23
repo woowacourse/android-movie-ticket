@@ -36,7 +36,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         presenter =
             ReservationDetailPresenter(this, movieId).also {
                 it.deliverMovie()
-                it.deliverReservationHistory()
+                it.deliverReservationInformation()
                 it.increaseCount()
                 it.decreaseCount()
             }
@@ -46,6 +46,15 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         }
         minusButton.setOnClickListener {
             presenter.decreaseCount()
+        }
+    }
+
+    override fun moveToReservationFinished(
+        movieId: Int,
+        ticketCount: Int,
+    ) {
+        reservationButton.setOnClickListener {
+            startActivity(ReservationFinishedActivity.getIntent(this, movieId, ticketCount))
         }
     }
 
@@ -59,15 +68,6 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     override fun updateCount(ticketCount: Int) {
         numberOfTickets.text = ticketCount.toString()
-    }
-
-    override fun initializeReservationButton(
-        movieId: Int,
-        ticketCount: Int,
-    ) {
-        reservationButton.setOnClickListener {
-            startActivity(ReservationFinishedActivity.getIntent(this, movieId, ticketCount))
-        }
     }
 
     override fun showErrorToast() {
