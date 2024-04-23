@@ -8,13 +8,13 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
+import woowacourse.movie.feature.complete.ui.ReservationCompleteEntity
+import woowacourse.movie.feature.complete.ui.toReservationCompleteUiModel
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
@@ -65,8 +65,7 @@ class MovieReservationCompleteActivity :
         movieContentId: Long,
         reservationCountValue: Int,
     ) {
-        presenter.setUpMovieContent(movieContentId)
-        presenter.setUpTicket(reservationCountValue)
+        presenter.loadMovieData(movieContentId, reservationCountValue)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -77,19 +76,19 @@ class MovieReservationCompleteActivity :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setUpMovieContentUi(movieContent: MovieContent) {
-        titleText.text = movieContent.title
-        screeningDateText.text = movieContent.screeningDate.message()
+    override fun setUpReservationCompleteView(
+        movieContent: MovieContent,
+        ticket: Ticket,
+    ) {
+        val reservationComplete =
+            ReservationCompleteEntity(movieContent, ticket).toReservationCompleteUiModel(this)
+        with(reservationComplete) {
+            titleText.text = titleMessage
+            screeningDateText.text = screeningDateMessage
+            reservationCountText.text = reservationCountMessage
+            reservationAmountText.text = reservationAmountMessage
+        }
     }
-
-    override fun setUpTicketUi(ticket: Ticket) {
-        reservationCountText.text =
-            resources.getString(R.string.reservation_count).format(ticket.reservationCount.count)
-        reservationAmountText.text =
-            resources.getString(R.string.reservation_amount).format(ticket.amount())
-    }
-
-    private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
 
     companion object {
         private val TAG = MovieReservationCompleteActivity::class.simpleName
