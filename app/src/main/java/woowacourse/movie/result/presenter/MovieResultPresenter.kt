@@ -4,7 +4,7 @@ import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.result.presenter.contract.MovieResultContract
 
-class MovieResultPresenter(private val resultContractView: MovieResultContract.View) :
+class MovieResultPresenter(private val movieResultContractView: MovieResultContract.View) :
     MovieResultContract.Presenter {
     private var movieRepository: MovieRepository = MovieRepository()
 
@@ -13,7 +13,7 @@ class MovieResultPresenter(private val resultContractView: MovieResultContract.V
         count: Int,
     ) {
         val movieData = movieRepository.getMovieById(id)
-        resultContractView.displayMovieTicket(
+        movieResultContractView.displayMovieTicket(
             movieData?.let { movie ->
                 MovieTicket(movie.title, movie.date, count)
             },

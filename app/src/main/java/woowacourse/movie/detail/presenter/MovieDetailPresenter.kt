@@ -5,7 +5,7 @@ import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.MovieReservationCount
 
 class MovieDetailPresenter(
-    private val detailContractView: MovieDetailContract.View,
+    private val movieDetailContractView: MovieDetailContract.View,
     count: Int?,
 ) : MovieDetailContract.Presenter {
     private var movieRepository: MovieRepository = MovieRepository()
@@ -14,20 +14,20 @@ class MovieDetailPresenter(
 
     override fun loadMovieDetail(id: Long) {
         val movieData = movieRepository.getMovieById(id)
-        detailContractView.displayMovieDetail(movieData, movieReservationCount)
+        movieDetailContractView.displayMovieDetail(movieData, movieReservationCount)
     }
 
     override fun plusReservationCount() {
         movieReservationCount = movieReservationCount.inc()
-        detailContractView.updateCount(movieReservationCount.count)
+        movieDetailContractView.updateCount(movieReservationCount.count)
     }
 
     override fun minusReservationCount() {
         movieReservationCount = movieReservationCount.dec()
-        detailContractView.updateCount(movieReservationCount.count)
+        movieDetailContractView.updateCount(movieReservationCount.count)
     }
 
     override fun reserveMovie(id: Long) {
-        detailContractView.navigateToResultView(id, movieReservationCount.count)
+        movieDetailContractView.navigateToResultView(id, movieReservationCount.count)
     }
 }
