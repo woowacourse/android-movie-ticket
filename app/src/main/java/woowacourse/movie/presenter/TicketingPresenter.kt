@@ -49,9 +49,9 @@ class TicketingPresenter(
     }
 
     override fun reserveTickets() {
-        val totalPrice = Tickets(count).totalPrice
         when (movie) {
             is Result.Success -> {
+                val totalPrice = Tickets(count, movie.data).totalPrice
                 ticketingContractView.navigateToTicketingResult(movie.data.id, count.value, totalPrice)
             }
 

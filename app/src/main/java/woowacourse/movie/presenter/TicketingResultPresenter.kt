@@ -17,7 +17,7 @@ class TicketingResultPresenter(
                 ticketingResultView.assignInitialView(
                     count,
                     movie.data.title,
-                    movie.data.date,
+                    movie.data.startDate,
                     totalPrice,
                 )
             }

@@ -55,7 +55,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(movie.thumbnailResourceId) }
         findViewById<TextView>(R.id.tv_title).apply { text = movie.title }
         findViewById<TextView>(R.id.tv_date).apply {
-            text = getString(R.string.title_date, movie.date)
+            text = getString(R.string.title_date, movie.startDate.toString(), movie.endDate.toString())
         }
         findViewById<TextView>(R.id.tv_running_time).apply {
             text = getString(R.string.title_running_time, movie.runningTime)
