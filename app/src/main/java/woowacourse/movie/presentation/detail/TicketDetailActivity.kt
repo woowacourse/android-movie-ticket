@@ -17,7 +17,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private val presenter: TicketDetailPresenter by lazy {
         TicketDetailPresenter(
             view = this@TicketDetailActivity,
-            ticketModel = getReservationTicket()
+            ticketModel = getReservationTicket(),
         )
     }
 
@@ -39,7 +39,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(
                 MovieReservationPresenter.KEY_NAME_TICKET,
-                TicketModel::class.java
+                TicketModel::class.java,
             )
         } else {
             intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel

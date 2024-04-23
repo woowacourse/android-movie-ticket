@@ -36,7 +36,7 @@ class MovieViewHolder(
         runningTime.text = movie.runningTime.toString()
     }
 
-    private fun setClickListener(){
+    private fun setClickListener()  {
         movieReservationButton.setOnClickListener {
             onMovieSelected(movie.movieId)
         }

@@ -13,7 +13,6 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.toTicketModel
 import java.time.LocalDate
 
@@ -22,7 +21,7 @@ class TicketDetailTest {
     private val ticket =
         Ticket(
             "해리 포터와 마법사의 돌",
-            LocalDate.of(2024,3,1),
+            LocalDate.of(2024, 3, 1),
             2,
             Movie.DEFAULT_MOVIE_PRICE,
         ).toTicketModel()
