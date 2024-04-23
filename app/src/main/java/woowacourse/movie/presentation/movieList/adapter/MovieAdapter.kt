@@ -12,7 +12,7 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.utils.formatMovieDate
 
 class MovieAdapter(
-    private val movies: List<Movie>,
+    private var movies: List<Movie> = emptyList(),
     private val onTicketingButtonClick: (Int) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
@@ -38,6 +38,11 @@ class MovieAdapter(
         }
         viewHolder.bind(movies[position])
         return view
+    }
+
+    fun updateMovies(newMovies: List<Movie>) {
+        movies = newMovies
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(view: View) {
