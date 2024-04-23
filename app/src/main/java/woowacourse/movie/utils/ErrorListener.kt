@@ -1,5 +1,5 @@
 package woowacourse.movie.utils
 
 interface ErrorListener {
-    fun handleError()
+    fun handleError(throwable: Throwable)
 }

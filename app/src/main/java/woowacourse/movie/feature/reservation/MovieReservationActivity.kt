@@ -14,14 +14,13 @@ import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.utils.BaseActivity
-import woowacourse.movie.utils.ErrorListener
+import java.lang.IllegalArgumentException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
-    MovieReservationContract.View,
-    ErrorListener {
+    MovieReservationContract.View {
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
@@ -38,7 +37,7 @@ class MovieReservationActivity :
 
         val movieContentId = movieContentId()
         if (isError(movieContentId)) {
-            handleError()
+            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
             return
         }
 
@@ -48,9 +47,9 @@ class MovieReservationActivity :
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val count =
+        val reservationCountValue =
             savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
-        presenter.updateReservationCount(count)
+        presenter.updateReservationCount(reservationCountValue)
     }
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
@@ -63,9 +62,9 @@ class MovieReservationActivity :
         return movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE
     }
 
-    override fun handleError() {
-        Log.e(TAG, "Invalid MovieContentKey")
-        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
+    override fun handleError(throwable: Throwable) {
+        Log.d(TAG, throwable.stackTrace.toString())
+        Toast.makeText(this, throwable.localizedMessage, Toast.LENGTH_LONG).show()
         finish()
     }
 
@@ -111,12 +110,12 @@ class MovieReservationActivity :
             .format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
     }
 
-    override fun updateReservationCountUi(reservationCount: Int) {
-        reservationCountText.text = reservationCount.toString()
+    override fun updateReservationCountUi(reservationCountValue: Int) {
+        reservationCountText.text = reservationCountValue.toString()
     }
 
-    override fun moveMovieReservationCompleteView(reservationCount: Int) {
-        MovieReservationCompleteActivity.startActivity(this, movieContentId(), reservationCount)
+    override fun moveMovieReservationCompleteView(reservationCountValue: Int) {
+        MovieReservationCompleteActivity.startActivity(this, movieContentId(), reservationCountValue)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

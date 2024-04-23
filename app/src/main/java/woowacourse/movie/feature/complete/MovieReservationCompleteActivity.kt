@@ -12,14 +12,13 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.utils.BaseActivity
-import woowacourse.movie.utils.ErrorListener
+import java.lang.IllegalArgumentException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
-    MovieReservationCompleteContract.View,
-    ErrorListener {
+    MovieReservationCompleteContract.View {
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
@@ -30,13 +29,13 @@ class MovieReservationCompleteActivity :
         setContentView(R.layout.activity_movie_reservation_complete)
 
         val movieContentId = movieContentId()
-        val reservationCount = reservationCount()
-        if (isError(movieContentId, reservationCount)) {
-            handleError()
+        val reservationCountValue = reservationCountValue()
+        if (isError(movieContentId, reservationCountValue)) {
+            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
             return
         }
 
-        setUpUi(movieContentId, reservationCount)
+        setUpUi(movieContentId, reservationCountValue)
     }
 
     override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieContentsImpl)
@@ -45,29 +44,29 @@ class MovieReservationCompleteActivity :
         return intent.getLongExtra(MOVIE_CONTENT_ID_KEY, MOVIE_CONTENT_ID_DEFAULT_VALUE)
     }
 
-    private fun reservationCount(): Int {
+    private fun reservationCountValue(): Int {
         return intent.getIntExtra(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
     }
 
     private fun isError(
         movieContentId: Long,
-        reservationCount: Int,
+        reservationCountValue: Int,
     ): Boolean {
-        return movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCount == RESERVATION_COUNT_DEFAULT_VALUE
+        return movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCountValue == RESERVATION_COUNT_DEFAULT_VALUE
     }
 
-    override fun handleError() {
-        Log.e(TAG, "Invalid Key")
-        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
+    override fun handleError(throwable: Throwable) {
+        Log.d(TAG, throwable.stackTrace.toString())
+        Toast.makeText(this, throwable.localizedMessage, Toast.LENGTH_LONG).show()
         finish()
     }
 
     private fun setUpUi(
         movieContentId: Long,
-        reservationCount: Int,
+        reservationCountValue: Int,
     ) {
         presenter.setUpMovieContent(movieContentId)
-        presenter.setUpTicket(reservationCount)
+        presenter.setUpTicket(reservationCountValue)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -102,11 +101,11 @@ class MovieReservationCompleteActivity :
         fun startActivity(
             context: Context,
             movieContentId: Long,
-            reservationCount: Int,
+            reservationCountValue: Int,
         ) {
             Intent(context, MovieReservationCompleteActivity::class.java).run {
                 putExtra(MOVIE_CONTENT_ID_KEY, movieContentId)
-                putExtra(MOVIE_RESERVATION_COUNT_KEY, reservationCount)
+                putExtra(MOVIE_RESERVATION_COUNT_KEY, reservationCountValue)
                 context.startActivity(this)
             }
         }
