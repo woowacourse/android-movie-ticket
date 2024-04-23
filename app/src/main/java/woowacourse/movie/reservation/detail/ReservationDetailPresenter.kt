@@ -2,7 +2,7 @@ package woowacourse.movie.reservation.detail
 
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Failure
-import woowacourse.movie.model.Movies
+import woowacourse.movie.db.Movies
 import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 

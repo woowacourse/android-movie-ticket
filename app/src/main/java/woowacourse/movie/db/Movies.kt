@@ -1,6 +1,7 @@
-package woowacourse.movie.model
+package woowacourse.movie.db
 
 import woowacourse.movie.R
+import woowacourse.movie.model.Movie
 
 object Movies {
     fun obtainMovies(): List<Movie> =

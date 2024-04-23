@@ -1,6 +1,6 @@
 package woowacourse.movie.reservation.finished
 
-import woowacourse.movie.model.Movies
+import woowacourse.movie.db.Movies
 import woowacourse.movie.model.Ticket
 
 class ReservationFinishedPresenter(

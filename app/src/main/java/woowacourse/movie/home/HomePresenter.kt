@@ -1,7 +1,7 @@
 package woowacourse.movie.home
 
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Movies
+import woowacourse.movie.db.Movies
 
 class HomePresenter(
     private val contract: HomeContract.View,
