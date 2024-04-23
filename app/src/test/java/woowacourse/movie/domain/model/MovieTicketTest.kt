@@ -48,6 +48,9 @@ class MovieTicketTest {
 
     @Test
     fun `예매할 티켓의 인원 수를 감소시킨다`() {
+        // given
+        movieTicket.plusCount()
+
         // when
         movieTicket.minusCount()
 
