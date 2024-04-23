@@ -14,11 +14,13 @@ class ReservationDetailPresenter(
     private val ticket = Ticket()
 
     override fun increaseCount() {
-        contract.initializePlusButton(::increaseTicketCount)
+        val result = ticket.increaseCount()
+        handleNumberOfTicketsBounds(result, ticket)
     }
 
     override fun decreaseCount() {
-        contract.initializeMinusButton(::decreaseTicketCount)
+        val result = ticket.decreaseCount()
+        handleNumberOfTicketsBounds(result, ticket)
     }
 
     override fun deliverMovie() {
@@ -27,16 +29,6 @@ class ReservationDetailPresenter(
 
     override fun deliverReservationHistory() {
         contract.initializeReservationButton(movieId, ticket.count)
-    }
-
-    private fun increaseTicketCount() {
-        val result = ticket.increaseCount()
-        handleNumberOfTicketsBounds(result, ticket)
-    }
-
-    private fun decreaseTicketCount() {
-        val result = ticket.decreaseCount()
-        handleNumberOfTicketsBounds(result, ticket)
     }
 
     private fun handleNumberOfTicketsBounds(

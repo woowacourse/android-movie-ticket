@@ -8,10 +8,6 @@ interface ReservationDetailContract {
 
         fun updateCount(ticketCount: Int)
 
-        fun initializePlusButton(increaseTicketCount: () -> Unit)
-
-        fun initializeMinusButton(decreaseTicketCount: () -> Unit)
-
         fun initializeReservationButton(
             movieId: Int,
             ticketCount: Int,

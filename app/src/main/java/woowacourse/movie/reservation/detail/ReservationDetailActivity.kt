@@ -40,6 +40,13 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
                 it.increaseCount()
                 it.decreaseCount()
             }
+
+        plusButton.setOnClickListener {
+            presenter.increaseCount()
+        }
+        minusButton.setOnClickListener {
+            presenter.decreaseCount()
+        }
     }
 
     override fun showMovieInformation(movie: Movie) {
@@ -52,18 +59,6 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     override fun updateCount(ticketCount: Int) {
         numberOfTickets.text = ticketCount.toString()
-    }
-
-    override fun initializePlusButton(increaseTicketCount: () -> Unit) {
-        plusButton.setOnClickListener {
-            increaseTicketCount()
-        }
-    }
-
-    override fun initializeMinusButton(decreaseTicketCount: () -> Unit) {
-        minusButton.setOnClickListener {
-            decreaseTicketCount()
-        }
     }
 
     override fun initializeReservationButton(
