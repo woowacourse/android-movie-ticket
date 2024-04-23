@@ -65,8 +65,8 @@ class ScreenAdapter(
             with(screen) {
                 poster.setImageResource(movie.imageSrc)
                 title.text = movie.title
-                this@ViewHolder.date.text = this.date
-                runningTime.text = movie.runningTime.toString()
+                this@ViewHolder.date.text = "$startDate~$endDate"
+                runningTime.text = "${movie.runningTime}분"
             }
         }
 
