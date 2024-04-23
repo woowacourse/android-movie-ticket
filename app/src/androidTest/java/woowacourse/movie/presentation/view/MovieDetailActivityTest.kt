@@ -26,32 +26,10 @@ class MovieDetailActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)
 
-    @Test
-    fun `영화_목록_화면에서_전달_받은_영화_정보를_화면에_나타낸다`() {
-        onView(withId(R.id.posterImage)).check(matches(isDisplayed()))
-        onView(withId(R.id.title)).check(matches(withText(TITLE)))
-        onView(withId(R.id.screeningDate)).check(
-            matches(
-                withText(
-                    testContext.getString(
-                        R.string.screening_date_format,
-                        SCREENING_DATE,
-                    ),
-                ),
-            ),
-        )
-        onView(withId(R.id.runningTime)).check(
-            matches(
-                withText(
-                    testContext.getString(
-                        R.string.running_time_format,
-                        RUNNING_TIME,
-                    ),
-                ),
-            ),
-        )
-        onView(withId(R.id.summary)).check(matches(withText(SUMMARY)))
-    }
+    private fun detailActivityIntent(context: Context): Intent =
+        Intent(context, MovieDetailActivity::class.java).apply {
+            putExtra(EXTRA_MOVIE_ID, 1)
+        }
 
     @Test
     fun `영화_상세_화면에서_초기_예매_수량은_1이다`() {
@@ -123,5 +101,33 @@ class MovieDetailActivityTest {
                 ),
             ),
         )
+    }
+
+    @Test
+    fun `영화_목록_화면에서_전달_받은_영화_정보를_화면에_나타낸다`() {
+        onView(withId(R.id.movie_detail_layout)).check(matches(isDisplayed()))
+        onView(withId(R.id.posterImage)).check(matches(isDisplayed()))
+        onView(withId(R.id.title)).check(matches(withText(TITLE)))
+        onView(withId(R.id.screeningDate)).check(
+            matches(
+                withText(
+                    testContext.getString(
+                        R.string.screening_date_format,
+                        SCREENING_DATE,
+                    ),
+                ),
+            ),
+        )
+        onView(withId(R.id.runningTime)).check(
+            matches(
+                withText(
+                    testContext.getString(
+                        R.string.running_time_format,
+                        RUNNING_TIME,
+                    ),
+                ),
+            ),
+        )
+        onView(withId(R.id.summary)).check(matches(withText(SUMMARY)))
     }
 }
