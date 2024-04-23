@@ -1,7 +1,4 @@
-package woowacourse.movie.contract
-
-import woowacourse.movie.model.Ticket
-import woowacourse.movie.presenter.MovieTicketPresenter
+package woowacourse.movie.ticket
 
 interface MovieTicketContract {
     interface View {

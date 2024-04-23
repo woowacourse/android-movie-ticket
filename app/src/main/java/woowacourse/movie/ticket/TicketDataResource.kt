@@ -1,4 +1,6 @@
-package woowacourse.movie.model
+package woowacourse.movie.ticket
+
+import woowacourse.movie.list.MovieDataSource
 
 object TicketDataResource {
     val ticket =

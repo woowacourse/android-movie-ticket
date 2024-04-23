@@ -1,7 +1,4 @@
-package woowacourse.movie.presenter
-
-import woowacourse.movie.contract.MovieTicketContract
-import woowacourse.movie.model.TicketDataResource
+package woowacourse.movie.ticket
 
 class MovieTicketPresenter(
     val view: MovieTicketContract.View,

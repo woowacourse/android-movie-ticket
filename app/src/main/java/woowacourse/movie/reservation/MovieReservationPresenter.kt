@@ -1,11 +1,8 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.reservation
 
 import android.content.Context
 import android.widget.Toast
-import woowacourse.movie.contract.MovieReservationContract
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieReservationMovieData
-import woowacourse.movie.model.MovieReservationTicketCountData
+import woowacourse.movie.list.Movie
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,

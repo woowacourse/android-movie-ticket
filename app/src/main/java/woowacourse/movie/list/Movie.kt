@@ -1,11 +1,13 @@
-package woowacourse.movie.model
+package woowacourse.movie.list
 
 import java.io.Serializable
 import java.time.LocalDateTime
 
-data class Ticket(
+data class Movie(
     val title: String,
+    val posterResourceId: Int,
     val screeningDate: LocalDateTime,
-    val price: Int,
+    val runningTime: Int,
+    val description: String,
     val id: Long,
 ) : Serializable

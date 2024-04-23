@@ -1,7 +1,6 @@
-package woowacourse.movie.contract
+package woowacourse.movie.reservation
 
-import woowacourse.movie.model.Movie
-import woowacourse.movie.presenter.MovieReservationPresenter
+import woowacourse.movie.list.Movie
 
 interface MovieReservationContract {
     interface View {
