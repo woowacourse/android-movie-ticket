@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.home.HomeActivity
 import woowacourse.movie.model.Movie
 import java.text.DecimalFormat
 
@@ -22,8 +20,6 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_finished)
-
-        onBackPressed(this)
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticketCount = intent.getIntExtra(TICKET_COUNT, DEFAULT_TICKET_COUNT)
@@ -46,18 +42,6 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
     ) {
         numberOfTickets.text = ticketCount.toString()
         ticketPrice.text = convertPriceFormat(price)
-    }
-
-    private fun onBackPressed(context: Context) {
-        val callback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    val intent = Intent(context, HomeActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-
-        onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun convertPriceFormat(price: Int): String {
