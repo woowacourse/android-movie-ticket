@@ -23,7 +23,7 @@ class MovieAdapter(
 
         listItemView.findViewById<TextView>(R.id.movie_title).text = movieData?.title
         listItemView.findViewById<TextView>(R.id.movie_release_date).text = movieData?.releaseDate
-        listItemView.findViewById<TextView>(R.id.movie_duration).text = movieData?.duration
+        listItemView.findViewById<TextView>(R.id.movie_duration).text = movieData?.runningTime
 
         listItemView.findViewById<Button>(R.id.movie_details_button).setOnClickListener {
             movieData?.let {

@@ -28,7 +28,7 @@ class MovieListPresenter(private val view: MovieListActivity) {
             MovieDisplayData(
                 title = theater.movie.title.toString(),
                 releaseDate = theater.movie.releaseDate.toString(),
-                duration = "${theater.movie.runningTime} 분"
+                runningTime = "${theater.movie.runningTime} 분"
             )
         }
     }

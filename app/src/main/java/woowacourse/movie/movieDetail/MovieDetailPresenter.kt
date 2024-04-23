@@ -2,31 +2,38 @@ package woowacourse.movie.movieDetail
 
 import android.content.Intent
 import woowacourse.movie.model.theater.Theater
-import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 
 @Suppress("DEPRECATION")
-class MovieDetailPresenter(private val view: MovieDetailView, intent: Intent) {
+class MovieDetailPresenter(
+    private val view : MovieDetailContract.View,
+    intent: Intent
+) : MovieDetailContract.Presenter {
     private val theater = intent.getSerializableExtra("Theater") as? Theater
     val movie = theater?.movie
-
-    fun onBuyTicketClicked(ticketNum: Int) {
-        val intent = Intent(view.getContext(), PurchaseConfirmationActivity::class.java).apply {
-            putExtra("ticketNum", ticketNum)
-            putExtra("Theater", theater)
+    override fun load() {
+        if (movie != null) {
+            view.initializeViews(movie)
         }
+    }
+
+    override fun onBuyTicketClicked(intent: Intent) {
         view.navigateToPurchaseConfirmation(intent)
     }
 
 
-    fun onTicketPlusClicked(currentTicketNum: Int) {
-        val newTicketNum = currentTicketNum + 1
+    override fun onTicketPlusClicked(ticketNum: Int) {
+        val newTicketNum = ticketNum + 1
         view.onTicketCountChanged(newTicketNum)
     }
 
-    fun onTicketMinusClicked(currentTicketNum: Int) {
-        if (currentTicketNum > 0) {
-            val newTicketNum = currentTicketNum - 1
+    override fun onTicketMinusClicked(ticketNum: Int) {
+        if (ticketNum > 0) {
+            val newTicketNum = ticketNum - 1
             view.onTicketCountChanged(newTicketNum)
         }
+    }
+
+    override fun getTheater(): Theater? {
+        return this.theater
     }
 }
