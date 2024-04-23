@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movie_detail_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.view.MovieDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/posterImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/harry_potter_title"
+                android:scaleType="fitCenter"
+                android:src="@drawable/harrypotter_poster" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_17" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_21"
+                android:layout_marginEnd="@dimen/size_21"
+                android:textSize="@dimen/size_24"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_34" />
+
+            <TextView
+                android:id="@+id/screeningDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_21"
+                android:layout_marginEnd="@dimen/size_21"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_16" />
+
+            <TextView
+                android:id="@+id/runningTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_21"
+                android:layout_marginEnd="@dimen/size_21"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_16" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_20" />
+
+            <TextView
+                android:id="@+id/summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_21"
+                android:layout_marginEnd="@dimen/size_21"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_16" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_150" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_138"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/minusButton"
+            android:layout_width="@dimen/size_65"
+            android:layout_height="@dimen/size_45"
+            android:layout_marginStart="@dimen/size_20"
+            android:layout_marginTop="@dimen/size_9"
+            android:text="@string/minus"
+            android:textSize="@dimen/size_20"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/plusButton"
+            android:layout_width="@dimen/size_65"
+            android:layout_height="@dimen/size_45"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginTop="@dimen/size_9"
+            android:text="@string/plus"
+            android:textSize="@dimen/size_20"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/reservationCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="3"
+            android:text="@string/min_reservation_count_text"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_20"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/minusButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/minusButton" />
+
+        <Button
+            android:id="@+id/reserveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginBottom="@dimen/size_20"
+            android:text="@string/reservation_finish_text"
+            android:textSize="@dimen/size_20"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
