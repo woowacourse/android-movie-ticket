@@ -43,7 +43,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         priceText.text = getString(R.string.text_price, price)
     }
 
-    override fun showErrorMessage(message: String) {
+    override fun showErrorMessage(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

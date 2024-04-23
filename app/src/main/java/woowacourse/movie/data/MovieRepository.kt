@@ -2,8 +2,8 @@ package woowacourse.movie.data
 
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Result
 import java.time.LocalDate
+import kotlin.Result
 
 class MovieRepository {
     private val movies =
@@ -25,6 +25,6 @@ class MovieRepository {
 
     fun findMovieById(id: Int): Result<Movie> {
         val movie = movies.find { it.id == id }
-        return movie?.let { Result.Success(it) } ?: Result.Error("존재하지 않는 아이디 값입니다.")
+        return movie?.let { Result.success(it) } ?: Result.failure(Exception("존재하지 않는 아이디 값입니다."))
     }
 }
