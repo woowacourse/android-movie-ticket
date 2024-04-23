@@ -10,13 +10,15 @@ import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.model.movie.Ticket
+import woowacourse.movie.ui.HandleError
 import woowacourse.movie.ui.base.BaseActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
-    MovieReservationCompleteContract.View {
+    MovieReservationCompleteContract.View,
+    HandleError {
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }

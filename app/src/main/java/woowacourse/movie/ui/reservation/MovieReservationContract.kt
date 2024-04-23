@@ -2,10 +2,9 @@ package woowacourse.movie.ui.reservation
 
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.ReservationCount
-import woowacourse.movie.ui.base.BaseView
 
 interface MovieReservationContract {
-    interface View : BaseView {
+    interface View {
         fun showMovieContentUi(movieContent: MovieContent)
 
         fun updateReservationCountUi(reservationCount: Int)

@@ -12,6 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
+import woowacourse.movie.ui.HandleError
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import woowacourse.movie.ui.utils.getImageFromId
@@ -20,7 +21,8 @@ import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
-    MovieReservationContract.View {
+    MovieReservationContract.View,
+    HandleError {
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }

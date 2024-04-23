@@ -2,10 +2,9 @@ package woowacourse.movie.ui.complete
 
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.Ticket
-import woowacourse.movie.ui.base.BaseView
 
 interface MovieReservationCompleteContract {
-    interface View : BaseView {
+    interface View {
         fun showMovieContentUi(movieContent: MovieContent)
 
         fun updateTicketUi(ticket: Ticket)
