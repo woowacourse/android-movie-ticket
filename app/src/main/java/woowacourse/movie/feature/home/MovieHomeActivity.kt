@@ -15,7 +15,7 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_home)
 
-        setUpMovieContentListAdapter()
+        presenter.setUpMovieContents()
     }
 
     override fun initializePresenter() = MovieHomePresenter(this)

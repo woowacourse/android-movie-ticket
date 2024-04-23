@@ -6,13 +6,13 @@ class ReservationCount(val count: Int = DEFAULT_VALUE) {
     }
 
     operator fun dec(): ReservationCount {
-        if (count == MIN_VALUE) return this
-        return ReservationCount(count - OFFSET_VALUE)
+        val nextCount = count - OFFSET_VALUE
+        return ReservationCount(nextCount.coerceAtLeast(MIN_VALUE))
     }
 
     operator fun inc(): ReservationCount {
-        if (count == MAX_VALUE) return this
-        return ReservationCount(count + OFFSET_VALUE)
+        val nextCount = count + OFFSET_VALUE
+        return ReservationCount(nextCount.coerceAtLeast(MAX_VALUE))
     }
 
     companion object {
