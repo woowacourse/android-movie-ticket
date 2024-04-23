@@ -13,7 +13,10 @@ interface ReservationDetailContract {
 
         fun initializeMinusButton(decreaseTicketCount: () -> Unit)
 
-        fun initializeReservationButton(movieId: Int)
+        fun initializeReservationButton(
+            movieId: Int,
+            ticketCount: Int,
+        )
 
         fun showResultToast()
     }

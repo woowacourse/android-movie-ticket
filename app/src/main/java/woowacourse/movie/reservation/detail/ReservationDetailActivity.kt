@@ -67,12 +67,12 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         }
     }
 
-    override fun initializeReservationButton(movieId: Int) {
+    override fun initializeReservationButton(
+        movieId: Int,
+        ticketCount: Int,
+    ) {
         reservationButton.setOnClickListener {
-            val intent = Intent(this, ReservationFinishedActivity::class.java)
-            intent.putExtra(MOVIE_ID, movieId)
-            intent.putExtra("ticket", presenter.ticket)
-            startActivity(intent)
+            startActivity(ReservationFinishedActivity.getIntent(this, movieId, ticketCount))
         }
     }
 

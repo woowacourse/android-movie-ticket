@@ -2,7 +2,6 @@ package woowacourse.movie.reservation.finished
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -10,9 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.home.ReservationHomeActivity
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Ticket
-import woowacourse.movie.reservation.detail.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
-import java.io.Serializable
 import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract {
@@ -29,11 +25,11 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
         onBackPressed(this)
 
-        val movieId = intent.getIntExtra("movieId", DEFAULT_MOVIE_ID)
-        val ticket = intent.intentSerializable("ticket", Ticket::class.java) ?: Ticket()
+        val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
+        val ticketCount = intent.getIntExtra(TICKET_COUNT, DEFAULT_TICKET_COUNT)
 
         presenter =
-            ReservationFinishedPresenter(this, ticket).also {
+            ReservationFinishedPresenter(this, ticketCount).also {
                 it.deliverMovieInformation(movieId)
                 it.deliverReservationInformation()
             }
@@ -64,19 +60,26 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    private fun <T : Serializable> Intent.intentSerializable(
-        key: String,
-        clazz: Class<T>,
-    ): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.getSerializableExtra(key, clazz)
-        } else {
-            this.getSerializableExtra(key) as T?
-        }
-    }
-
     private fun convertPriceFormat(price: Int): String {
         val decimalFormat = DecimalFormat("#,###")
         return decimalFormat.format(price)
+    }
+
+    companion object {
+        private const val MOVIE_ID = "movieId"
+        private const val TICKET_COUNT = "ticketCount"
+        private const val DEFAULT_MOVIE_ID = 0
+        private const val DEFAULT_TICKET_COUNT = 0
+
+        fun getIntent(
+            context: Context,
+            movieId: Int,
+            ticketCount: Int,
+        ): Intent {
+            return Intent(context, ReservationFinishedActivity::class.java).also {
+                it.putExtra(MOVIE_ID, movieId)
+                it.putExtra(TICKET_COUNT, ticketCount)
+            }
+        }
     }
 }
