@@ -11,6 +11,8 @@ import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.Presenter
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.View
 import java.text.NumberFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class ReservationActivity : BaseActivity(), View {
@@ -31,7 +33,7 @@ class ReservationActivity : BaseActivity(), View {
     override fun showReservation(reservation: Reservation) {
         with(reservation) {
             title.text = movie.title
-            date.text = dateTime.toString()
+            date.text = dateTime.toScreeningDate()
             count.text = getString(R.string.reserve_count, ticket.count, seats.toSeatString())
             amount.text = currency()
         }
@@ -50,6 +52,8 @@ class ReservationActivity : BaseActivity(), View {
     override fun back() = finish()
 
     private fun List<Seat>.toSeatString(): String = this.joinToString(", ") { "${it.column}${it.row}" }
+
+    private fun LocalDateTime.toScreeningDate(): String = this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
 
     companion object {
         private const val PUT_EXTRA_KEY_RESERVATION_ID = "reservationId"
