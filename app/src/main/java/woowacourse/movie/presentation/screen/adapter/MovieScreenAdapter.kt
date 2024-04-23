@@ -11,7 +11,7 @@ import woowacourse.movie.utils.ImageConverter
 
 class MovieScreenAdapter(
     private val context: Context,
-    private val movies: List<Movie>,
+    private var movies: List<Movie> = listOf(),
     private val onMovieSelected: (Int) -> Unit,
 ) : BaseAdapter() {
     private lateinit var movieViewHolder: MovieViewHolder
@@ -48,6 +48,10 @@ class MovieScreenAdapter(
         setViewHolder(movie)
         setClickListener(movie)
         return view
+    }
+
+    fun updateMovies(newMovies: List<Movie>){
+        movies = newMovies
     }
 
     private fun makeViewHolder(

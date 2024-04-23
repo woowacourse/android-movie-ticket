@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.screen
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
@@ -28,19 +27,19 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
 
     private fun initView() {
         movieListView = findViewById(R.id.movie_list_view)
-        presenter.loadScreenMovies()
-    }
-
-    override fun showScreenMovies(movies: List<Movie>) {
         movieAdapter =
             MovieScreenAdapter(
                 context = this@MovieScreenActivity,
-                movies = movies,
                 onMovieSelected = { movieId ->
                     moveToReservation(movieId)
                 },
             )
         movieListView.adapter = movieAdapter
+        presenter.loadScreenMovies()
+    }
+
+    override fun showScreenMovies(movies: List<Movie>) {
+        movieAdapter.updateMovies(movies)
     }
 
     override fun moveToReservation(movieId: Int) {
