@@ -24,7 +24,9 @@ class MovieListActivity : AppCompatActivity(), MovieListView {
     }
 
     private fun initAdapter() {
-        adapter = MovieAdapter(this, mutableListOf(), presenter)
+        adapter = MovieAdapter(this, mutableListOf()) { position ->
+            presenter.onDetailButtonClicked(position)
+        }
         moviesListView.adapter = adapter
         presenter.loadMovies()
     }

@@ -13,7 +13,7 @@ import woowacourse.movie.model.MovieDisplayData
 class MovieAdapter(
     context: Context,
     movieDisplayData: List<MovieDisplayData>,
-    private val presenter: MovieListPresenter
+    private val  onClick:(Int) -> Unit,
 ) : ArrayAdapter<MovieDisplayData>(context, R.layout.movie_list_item, movieDisplayData) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -24,10 +24,9 @@ class MovieAdapter(
         listItemView.findViewById<TextView>(R.id.movie_title).text = movieData?.title
         listItemView.findViewById<TextView>(R.id.movie_release_date).text = movieData?.releaseDate
         listItemView.findViewById<TextView>(R.id.movie_duration).text = movieData?.runningTime
-
         listItemView.findViewById<Button>(R.id.movie_details_button).setOnClickListener {
             movieData?.let {
-                presenter.onDetailButtonClicked(position)
+                onClick(position)
             }
         }
         return listItemView
