@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.reservation.model.TicketModel
+import woowacourse.movie.utils.toCustomString
 
 class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private lateinit var ticketTitle: TextView
@@ -48,7 +49,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     override fun showTicket(ticketModel: TicketModel?) {
         ticketModel ?: return
         ticketTitle.text = ticketModel.title
-        ticketScreeningDate.text = ticketModel.screeningDate
+        ticketScreeningDate.text = ticketModel.screeningDate.toCustomString()
         ticketPrice.text = String.format(TICKET_PRICE, ticketModel.price)
         ticketCount.text = TICKET_COUNT.format(ticketModel.count)
     }

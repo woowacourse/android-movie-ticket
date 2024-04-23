@@ -14,7 +14,9 @@ import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.TicketModel
 import woowacourse.movie.presentation.reservation.model.toTicketModel
 import woowacourse.movie.presentation.screen.MovieScreenPresenter
-import woowacourse.movie.utils.ImageConverter
+import woowacourse.movie.utils.toCustomString
+import woowacourse.movie.utils.toDrawableIdByName
+import woowacourse.movie.utils.toLocalDate
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -83,7 +85,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private fun makeTicket(): TicketModel {
         return Ticket(
             title = titleView.text.toString(),
-            screeningDate = screeningDateView.text.toString(),
+            screeningDate = screeningDateView.text.toString().toLocalDate(),
             count = presenter.getTicketCount(),
             price = presenter.getTicketCount() * Movie.DEFAULT_MOVIE_PRICE,
         ).toTicketModel()
@@ -91,10 +93,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun showMovie(movie: Movie) {
         titleView.text = movie.title
-        screeningDateView.text = movie.screeningDate
+        screeningDateView.text = movie.screeningDate.toCustomString()
         runningDateView.text = movie.runningTime.toString()
         descriptionView.text = movie.description
-        val imageResource = ImageConverter.getDrawableIdByName(this@MovieReservationActivity, movie.imageName)
+        val imageResource = movie.imageName.toDrawableIdByName(this@MovieReservationActivity)
         imageResource?.let { posterView.setImageResource(it) }
     }
 

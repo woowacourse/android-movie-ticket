@@ -7,7 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.utils.ImageConverter
+import woowacourse.movie.utils.toCustomString
+import woowacourse.movie.utils.toDrawableIdByName
 
 class MovieViewHolder(
     private val view: View,
@@ -29,9 +30,9 @@ class MovieViewHolder(
 
     private fun setViewHolderValues() {
         title.text = movie.title
-        val imageResource = ImageConverter.getDrawableIdByName(context, movie.imageName)
+        val imageResource = movie.imageName.toDrawableIdByName(context)
         imageResource?.let { poster.setImageResource(it) }
-        screeningDate.text = movie.screeningDate
+        screeningDate.text = movie.screeningDate.toCustomString()
         runningTime.text = movie.runningTime.toString()
     }
 

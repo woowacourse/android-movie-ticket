@@ -1,10 +1,12 @@
 package woowacourse.movie.domain.model
 
+import java.time.LocalDate
+
 data class Movie(
     val movieId: Int,
     val title: String,
     val imageName: String?,
-    val screeningDate: String,
+    val screeningDate: LocalDate,
     val runningTime: Int,
     val description: String,
 ) {

@@ -1,7 +1,7 @@
 package woowacourse.movie.data
 
-import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import java.time.LocalDate
 
 object MockMovies {
     private const val DEFAULT_MOVIE_TITLE = "영화가 존재하지 않습니다."
@@ -11,7 +11,7 @@ object MockMovies {
             Movie(
                 movieId = 1,
                 title = "해리 포터와 마법사의 돌",
-                screeningDate = "2024.3.1",
+                screeningDate = LocalDate.of(2024,3,1),
                 runningTime = 152,
                 imageName = "harry_potter_poster",
                 description =
@@ -25,7 +25,7 @@ object MockMovies {
         Movie(
             movieId = -1,
             title = DEFAULT_MOVIE_TITLE,
-            screeningDate = "",
+            screeningDate = LocalDate.of(2024,3,1),
             runningTime = 0,
             imageName = null,
             description = "",
