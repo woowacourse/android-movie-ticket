@@ -8,7 +8,7 @@
     <string name="movie_poster">영화 포스터</string>
 
     <!--   영화 예매 화면 -->
-    <string name="reserve_done">예매 완료</string>
+    <string name="select_seat">좌석 선택</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
 
