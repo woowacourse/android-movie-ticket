@@ -10,12 +10,14 @@ class MovieResultPresenter(private val movieResultContractView: MovieResultContr
 
     override fun loadMovieTicket(
         id: Long,
+        date: String,
+        time: String,
         count: Int,
     ) {
         val movieData = movieRepository.getMovieById(id)
         movieResultContractView.displayMovieTicket(
             movieData?.let { movie ->
-                MovieTicket(movie.title, movie.date, count)
+                MovieTicket(movie.title, date, time, count)
             },
         )
     }

@@ -8,6 +8,6 @@ data class Movie(
     val thumbnail: Int,
     val title: String,
     val description: String,
-    val date: Long,
+    val date: MovieDate,
     val runningTime: Int,
 )

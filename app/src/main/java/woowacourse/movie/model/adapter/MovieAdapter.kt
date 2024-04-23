@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.util.formatTimestamp
 
 class MovieAdapter(
     private val movies: List<Movie>,
@@ -61,7 +60,7 @@ class MovieViewHolder(view: View) {
     ) {
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
-        date.text = formatTimestamp(movie.date)
+        date.text = movie.date.formatDateRange()
         runningTime.text = "${movie.runningTime}"
         reservationButton.setOnClickListener {
             onReservationButtonClick(movie.id)

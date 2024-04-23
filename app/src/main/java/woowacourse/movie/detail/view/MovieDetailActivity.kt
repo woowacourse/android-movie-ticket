@@ -2,20 +2,28 @@ package woowacourse.movie.detail.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.detail.presenter.MovieDetailPresenter
 import woowacourse.movie.detail.presenter.contract.MovieDetailContract
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieReservationCount
+import woowacourse.movie.model.MovieCount
+import woowacourse.movie.model.MovieDate
+import woowacourse.movie.model.MovieTime
 import woowacourse.movie.result.view.MovieResultActivity
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
-import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_RESERVATION_COUNT
-import woowacourse.movie.util.formatTimestamp
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
+import java.time.LocalDate
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var detailImage: ImageView
@@ -26,7 +34,9 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var reservationCount: TextView
     private lateinit var minusButton: Button
     private lateinit var plusButton: Button
-    private lateinit var reservationCompleteButton: Button
+    private lateinit var seatSelectionButton: Button
+    private lateinit var dateSpinner: Spinner
+    private lateinit var runningTimeSpinner: Spinner
 
     private lateinit var movieDetailPresenter: MovieDetailPresenter
 
@@ -37,7 +47,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movieDetailPresenter =
-            MovieDetailPresenter(this, savedInstanceState?.getInt(KEY_MOVIE_RESERVATION_COUNT))
+            MovieDetailPresenter(this, savedInstanceState?.getInt(KEY_MOVIE_COUNT))
         movieDetailPresenter.loadMovieDetail(
             intent.getLongExtra(
                 KEY_MOVIE_ID,
@@ -49,20 +59,20 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val count = reservationCount.text.toString().toInt()
-        outState.putInt(KEY_MOVIE_RESERVATION_COUNT, count)
+        outState.putInt(KEY_MOVIE_COUNT, count)
     }
 
     override fun displayMovieDetail(
         movieData: Movie?,
-        movieReservationCount: MovieReservationCount,
+        movieCount: MovieCount,
     ) {
         movieData?.let { movie ->
             detailImage.setImageResource(movie.thumbnail)
             detailTitle.text = movie.title
-            detailDate.text = formatTimestamp(movie.date)
+            detailDate.text = movie.date.formatDateRange()
             detailRunningTime.text = "${movie.runningTime}"
             detailDescription.text = movie.description
-            reservationCount.text = movieReservationCount.count.toString()
+            reservationCount.text = movieCount.count.toString()
 
             minusButton.setOnClickListener {
                 movieDetailPresenter.minusReservationCount()
@@ -70,23 +80,66 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             plusButton.setOnClickListener {
                 movieDetailPresenter.plusReservationCount()
             }
-            reservationCompleteButton.setOnClickListener {
-                movieDetailPresenter.reserveMovie(movie.id)
+            seatSelectionButton.setOnClickListener {
+                movieDetailPresenter.reserveMovie(
+                    movie.id,
+                    dateSpinner.selectedItem.toString(),
+                    runningTimeSpinner.selectedItem.toString(),
+                )
             }
         }
     }
 
-    override fun updateCount(count: Int) {
+    override fun updateCountView(count: Int) {
         reservationCount.text = count.toString()
+    }
+
+    override fun setUpDateSpinner(movieDate: MovieDate) {
+        dateSpinner.adapter =
+            ArrayAdapter(
+                this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                movieDate.generateDates(),
+            )
+
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate =
+                        parent?.getItemAtPosition(position).toString().replace('.', '-')
+                    val localDate = LocalDate.parse(selectedDate)
+                    movieDetailPresenter.loadMovieTime(localDate)
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
+    }
+
+    override fun setUpTimeSpinner(movieTime: MovieTime) {
+        runningTimeSpinner.adapter =
+            ArrayAdapter(
+                this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                movieTime.generateTimes(),
+            )
     }
 
     override fun navigateToResultView(
         id: Long,
+        date: String,
+        time: String,
         count: Int,
     ) {
         Intent(this, MovieResultActivity::class.java).apply {
             putExtra(KEY_MOVIE_ID, id)
-            putExtra(KEY_MOVIE_RESERVATION_COUNT, count)
+            putExtra(KEY_MOVIE_DATE, date)
+            putExtra(KEY_MOVIE_TIME, time)
+            putExtra(KEY_MOVIE_COUNT, count)
             startActivity(this)
         }
     }
@@ -100,6 +153,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         reservationCount = findViewById(R.id.detailReservCount)
         minusButton = findViewById(R.id.detailMinusBtn)
         plusButton = findViewById(R.id.detailPlusBtn)
-        reservationCompleteButton = findViewById(R.id.seatSelectionBtn)
+        seatSelectionButton = findViewById(R.id.seatSelectionBtn)
+        dateSpinner = findViewById(R.id.dateSpinner)
+        runningTimeSpinner = findViewById(R.id.runningTimeSpinner)
     }
 }
