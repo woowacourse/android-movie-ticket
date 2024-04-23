@@ -1,7 +1,7 @@
 package woowacourse.movie.detail.presenter
 
+import woowacourse.movie.base.BaseContract
 import woowacourse.movie.model.Movie
-import woowacourse.movie.presenter.BaseContract
 
 interface MovieDetailContract {
     interface View : BaseContract.View {
