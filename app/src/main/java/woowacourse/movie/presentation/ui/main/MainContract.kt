@@ -1,12 +1,12 @@
 package woowacourse.movie.presentation.ui.main
 
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presentation.dto.MovieViewModel
 
 interface MainContract {
     interface View {
-        fun showMovieList(movieList: List<Movie>)
+        fun showMovieList(movieList: List<MovieViewModel>)
 
-        fun moveToMovieDetail(movie: Movie)
+        fun moveToMovieDetail(movieId: Int)
 
         fun showMessage(message: String)
     }
@@ -14,6 +14,6 @@ interface MainContract {
     interface Presenter {
         fun loadMovieList()
 
-        fun requestMovieDetail(movie: Movie)
+        fun requestMovieDetail(movieId: Int)
     }
 }
