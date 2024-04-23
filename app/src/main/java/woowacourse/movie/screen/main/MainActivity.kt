@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
 import woowacourse.movie.screen.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -20,14 +19,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.onStart()
     }
 
-    override fun displayMovies(movies: List<Movie>) {
+    override fun displayMovies(movies: List<MovieModel>) {
         movieListView.adapter =
             ListViewAdapter(movies) { position ->
-                presenter.onMovieSelected(movies[position])
+                presenter.onMovieSelected(movies[position].id)
             }
     }
 
-    override fun navigateToReservation(movie: Movie) {
-        startActivity(ReservationActivity.getIntent(this, movie))
+    override fun navigateToReservation(id: Long) {
+        startActivity(ReservationActivity.getIntent(this, id))
     }
 }

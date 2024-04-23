@@ -8,10 +8,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
 
 class ListViewAdapter(
-    private val movies: List<Movie>,
+    private val movies: List<MovieModel>,
     private val itemClickListener: OnItemClickListener,
 ) : BaseAdapter() {
     fun interface OnItemClickListener {
@@ -39,7 +38,7 @@ class ListViewAdapter(
         return view
     }
 
-    inner class ViewHolder(view: View) {
+    inner class ViewHolder(val view: View) {
         private val poster: ImageView = view.findViewById(R.id.list_img_poster)
         private val title: TextView = view.findViewById(R.id.list_movie_title)
         private val openingDay: TextView = view.findViewById(R.id.list_opening_day)
@@ -48,11 +47,13 @@ class ListViewAdapter(
 
         fun bind(position: Int) {
             val movie = movies[position]
+            val openingDayText = movie.getFormattedOpeningDay(view.context)
+            val runningTimeText = movie.getFormattedRunningTime(view.context)
             with(this) {
                 poster.setImageResource(movie.poster)
                 title.text = movie.title
-                openingDay.text = movie.openingDay
-                runningTime.text = "${movie.runningTime}분"
+                openingDay.text = openingDayText
+                runningTime.text = runningTimeText
                 reservationButton.setOnClickListener {
                     itemClickListener.onItemClick(position)
                 }

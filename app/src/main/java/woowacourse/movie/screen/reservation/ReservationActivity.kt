@@ -2,7 +2,6 @@ package woowacourse.movie.screen.reservation
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -10,10 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Quantity
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.screen.completed.ReservationCompletedActivity
+import woowacourse.movie.screen.main.MovieModel
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter = ReservationPresenter(this)
@@ -60,15 +59,11 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         presenter.onStart()
     }
 
-    override fun readMovieData() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("movie", Movie::class.java)
-        } else {
-            intent.getSerializableExtra("movie") as? Movie
-        }
+    override fun readMovieData() = intent.getLongExtra(MOVIE_ID, -1L)
 
-    override fun initializeMovieDetails(movie: Movie) {
-        val (openingDayText, runningTimeText) = getFormattedText(movie)
+    override fun initializeMovieDetails(movie: MovieModel) {
+        val openingDayText = movie.getFormattedOpeningDay(this)
+        val runningTimeText = movie.getFormattedRunningTime(this)
         posterIv.setImageResource(movie.poster)
         movieTitleTv.text = movie.title
         movieContentTv.text = movie.content
@@ -76,17 +71,9 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         runningTimeTv.text = runningTimeText
     }
 
-    private fun getFormattedText(movie: Movie): Pair<String, String> {
-        val openingDayStringResource =
-            String.format(getString(R.string.opening_day), movie.openingDay)
-        val runningTimeStringResource =
-            String.format(getString(R.string.running_time), movie.runningTime)
-        return Pair(openingDayStringResource, runningTimeStringResource)
-    }
-
-    override fun setupReservationCompletedButton(movie: Movie) {
+    override fun setupReservationCompletedButton() {
         completeBtn.setOnClickListener {
-            presenter.onReservationCompleted(movie)
+            presenter.onReservationCompleted()
         }
     }
 
@@ -114,14 +101,14 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     }
 
     companion object {
-        private const val MOVIE_INTENT_KEY = "movie"
+        const val MOVIE_ID = "movie_id"
 
         fun getIntent(
             context: Context,
-            movie: Movie,
+            id: Long,
         ): Intent {
             return Intent(context, ReservationActivity::class.java).apply {
-                putExtra(MOVIE_INTENT_KEY, movie)
+                putExtra(MOVIE_ID, id)
             }
         }
     }

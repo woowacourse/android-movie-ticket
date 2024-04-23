@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 object TestFixture {
     private val DUMMY_MOVIE =
-        Movie(R.drawable.poster, "제목", "설명", "2024.3.1", 120)
+        Movie(0, R.drawable.poster, "제목", "설명", "2024.3.1", 120)
 
     fun reservationBuilder(
         quantityValue: Int,

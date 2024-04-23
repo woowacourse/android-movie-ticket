@@ -14,11 +14,9 @@ data class MovieModel(
     val openingDay: String,
     val runningTime: Int,
 ) : Serializable {
-    fun getFormattedOpeningDay(context: Context): String =
-        String.format(context.getString(R.string.opening_day), this.openingDay)
+    fun getFormattedOpeningDay(context: Context): String = String.format(context.getString(R.string.opening_day), this.openingDay)
 
-    fun getFormattedRunningTime(context: Context): String =
-        String.format(context.getString(R.string.running_time), this.runningTime)
+    fun getFormattedRunningTime(context: Context): String = String.format(context.getString(R.string.running_time), this.runningTime)
 }
 
 fun Movie.toUiModel() =

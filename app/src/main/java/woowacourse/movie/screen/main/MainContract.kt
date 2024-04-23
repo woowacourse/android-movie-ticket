@@ -1,17 +1,15 @@
 package woowacourse.movie.screen.main
 
-import woowacourse.movie.model.Movie
-
 interface MainContract {
     interface View {
-        fun displayMovies(movies: List<Movie>)
+        fun displayMovies(movies: List<MovieModel>)
 
-        fun navigateToReservation(movie: Movie)
+        fun navigateToReservation(id: Long)
     }
 
     interface Presenter {
         fun onStart()
 
-        fun onMovieSelected(movie: Movie)
+        fun onMovieSelected(id: Long)
     }
 }
