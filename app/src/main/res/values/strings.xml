@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="release_date_yyyy_mm_dd">Release Date: YYYY.MM.DD</string>
+    <string name="_0">0분</string>
+    <string name="title">Title</string>
+    <string name="_1_ticket_n_price_13_000">1 Ticket\n Price: 13,000₩</string>
 </resources>
