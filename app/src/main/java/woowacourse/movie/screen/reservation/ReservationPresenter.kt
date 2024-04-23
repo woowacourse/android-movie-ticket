@@ -20,8 +20,8 @@ class ReservationPresenter(private val view: ReservationContract.View) :
     }
 
     override fun completeReservation() {
-        val screening = Screening(movie, quantity = quantity)
-        val reservation = Reservation(screening)
+        val screening = Screening(movie)
+        val reservation = Reservation(screening, quantity)
         view.navigateToCompleteScreen(reservation)
     }
 

@@ -14,14 +14,17 @@ object TestFixture {
         quantityValue: Int,
         pricingSystem: PricingSystem,
     ): Reservation {
-        val screening = screeningBuilder(quantityValue)
-        return Reservation(screening, pricingSystem)
+        val screening = screeningBuilder()
+        return Reservation(
+            screening,
+            Quantity(quantityValue),
+            pricingSystem,
+        )
     }
 
-    fun screeningBuilder(quantityValue: Int) =
+    fun screeningBuilder() =
         Screening(
             DUMMY_MOVIE,
             Schedule(LocalDate.of(2024, 3, 1)),
-            Quantity(quantityValue),
         )
 }

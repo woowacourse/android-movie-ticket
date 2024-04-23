@@ -8,9 +8,10 @@ import java.time.LocalDate
 
 data class Reservation(
     private val screening: Screening,
+    private val quantity: Quantity,
     private val priceSystem: PricingSystem = UniformPricingSystem(),
 ) : Serializable {
-    val price = priceSystem.calculatePrice(screening)
+    val price = priceSystem.calculatePrice(screening, quantity)
 
     fun getTitle(): String {
         return screening.movie.title
@@ -20,5 +21,5 @@ data class Reservation(
         return screening.schedule.date
     }
 
-    fun getQuantity(): Int = screening.quantity.value
+    fun getQuantity(): Int = quantity.value
 }
