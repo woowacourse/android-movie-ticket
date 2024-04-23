@@ -27,7 +27,7 @@ class MovieAdapter(
 
         listItemView.findViewById<Button>(R.id.movie_details_button).setOnClickListener {
             movieData?.let {
-                presenter.onDetailButtonClicked(position)  // Assuming onDetailButtonClicked expects an Int which is the position
+                presenter.onDetailButtonClicked(position)
             }
         }
         return listItemView

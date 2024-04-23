@@ -1,4 +1,3 @@
-// MovieDetailActivityPresenter.kt
 package woowacourse.movie.movieDetail
 
 import android.content.Intent

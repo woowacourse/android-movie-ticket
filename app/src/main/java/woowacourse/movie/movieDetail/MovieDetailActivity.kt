@@ -1,4 +1,3 @@
-// MovieDetailActivity.kt
 package woowacourse.movie.movieDetail
 
 import android.content.Context

@@ -1,4 +1,4 @@
-package woowacourse.movie.movieDetail// woowacourse.movie.movieDetail.MovieDetailView.kt
+package woowacourse.movie.movieDetail
 import android.content.Context
 import android.content.Intent
 
