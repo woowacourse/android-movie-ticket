@@ -81,6 +81,16 @@ class SeatSelectionActivity : BaseActivity(), View {
         }
     }
 
+    companion object {
+        private const val PUT_EXTRA_KEY_RESERVATION_INFO = "reservationInfo"
+
+        fun startActivity(
+            context: Context,
+            reservationInfo: ReservationInfo,
+        ) {
+            val intent = Intent(context, SeatSelectionActivity::class.java)
+            intent.putExtra(PUT_EXTRA_KEY_RESERVATION_INFO, reservationInfo as Serializable)
+            context.startActivity(intent)
         }
     }
 }
