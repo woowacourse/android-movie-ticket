@@ -31,6 +31,11 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         bindReservationButton()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(TICKET, presenter.ticketCount())
@@ -86,11 +91,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private fun descriptionTextView(description: String) {
         val descriptionTextView: TextView = findViewById(R.id.reservation_description)
         descriptionTextView.text = description
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        finish()
-        return true
     }
 
     private fun setUpCount() {
