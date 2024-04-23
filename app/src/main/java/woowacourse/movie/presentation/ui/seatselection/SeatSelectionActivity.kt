@@ -81,6 +81,51 @@ class SeatSelectionActivity : BaseActivity(), View {
         }
     }
 
+    override fun selectSeat(
+        column: Int,
+        row: Int,
+    ) {
+        seatBoard.children.filterIsInstance<TableRow>().flatMap { it.children }
+            .filterIsInstance<TextView>().toList()[column * 4 + row].setBackgroundColor(
+            ContextCompat.getColor(this, R.color.yellow),
+        )
+    }
+
+    override fun unselectSeat(
+        column: Int,
+        row: Int,
+    ) {
+        seatBoard.children.filterIsInstance<TableRow>().flatMap { it.children }
+            .filterIsInstance<TextView>().toList()[column * 4 + row].setBackgroundColor(
+            ContextCompat.getColor(this, R.color.white),
+        )
+    }
+
+    override fun showTotalPrice(totalPrice: Int) {
+        this.totalPrice.text = "${totalPrice}원"
+    }
+
+    override fun buttonEnabled(isActivate: Boolean) {
+        btnDone.isEnabled = isActivate
+    }
+
+    override fun navigateToReservation(id: Int) {}
+
+    override fun back() = finish()
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        back()
+        return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+    }
+
     companion object {
         private const val PUT_EXTRA_KEY_RESERVATION_INFO = "reservationInfo"
 

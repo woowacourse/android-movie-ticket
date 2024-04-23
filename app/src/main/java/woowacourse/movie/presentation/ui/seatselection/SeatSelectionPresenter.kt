@@ -56,4 +56,49 @@ class SeatSelectionPresenter(
             }
         }
     }
+
+    override fun clickSeat(seat: Seat) {
+        val column = seat.column.toColumnIndex()
+        val row = seat.row
+
+        if (seat in uiModel.seats) {
+            uiModel.seats.remove(seat)
+            view.unselectSeat(column, row)
+            return
+        }
+        if (uiModel.seats.size == uiModel.ticketCount) {
+            view.showSnackBar(MessageType.AllSeatsSelectedMessage(uiModel.ticketCount))
+        } else {
+            view.selectSeat(column, row)
+            uiModel.seats.add(seat)
+        }
+    }
+
+    override fun calculateSeat() {
+        var newPrice = 0
+        uiModel.seats.forEach { seat ->
+            newPrice += seat.column.toSeatPrice()
+        }
+
+        uiModel = uiModel.copy(totalPrice = newPrice)
+        view.showTotalPrice(uiModel.totalPrice)
+    }
+
+    override fun checkAllSeatsSelected() {
+        view.buttonEnabled(uiModel.seats.size == uiModel.ticketCount)
+    }
+
+    override fun reserve() {}
+
+    private fun String.toColumnIndex(): Int = this[0].code - 'A'.code
+
+    private fun String.toSeatPrice(): Int =
+        when (this) {
+            "A" -> 10_000
+            "B" -> 10_000
+            "C" -> 15_000
+            "D" -> 15_000
+            "E" -> 12_000
+            else -> 0
+        }
 }
