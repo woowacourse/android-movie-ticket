@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 interface MovieRepository {
     fun screenMovies(): List<ScreeningMovie>
 
-    fun screenMovieById(id: Long): ScreeningMovie
+    fun screenMovieById(id: Long): Result<ScreeningMovie>
 
     fun reserveMovie(
         id: Long,
@@ -16,5 +16,5 @@ interface MovieRepository {
         count: HeadCount,
     ): Result<Long>
 
-    fun movieReservationById(id: Long): MovieReservation
+    fun movieReservationById(id: Long): Result<MovieReservation>
 }

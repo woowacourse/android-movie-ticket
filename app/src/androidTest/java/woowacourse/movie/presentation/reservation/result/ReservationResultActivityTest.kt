@@ -54,7 +54,7 @@ class ReservationResultActivityTest {
                     throw UnsupportedOperationException()
                 }
 
-                override fun screenMovieById(id: Long): ScreeningMovie {
+                override fun screenMovieById(id: Long): Result<ScreeningMovie> {
                     throw UnsupportedOperationException()
                 }
 
@@ -66,12 +66,14 @@ class ReservationResultActivityTest {
                     throw UnsupportedOperationException()
                 }
 
-                override fun movieReservationById(id: Long): MovieReservation {
-                    return MovieReservation(
-                        id = 1,
-                        screeningMovie = ScreeningMovie.STUB,
-                        screenDateTime = LocalDateTime.now(),
-                        headCount = HeadCount(1),
+                override fun movieReservationById(id: Long): Result<MovieReservation> {
+                    return Result.success(
+                        MovieReservation(
+                            id = 1,
+                            screeningMovie = ScreeningMovie.STUB,
+                            screenDateTime = LocalDateTime.now(),
+                            headCount = HeadCount(1),
+                        ),
                     )
                 }
             },
