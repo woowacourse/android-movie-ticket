@@ -24,7 +24,7 @@ class MovieReservationCompleteActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieReservationCompleteActivity::class.java,
-        ).run {
+        ).apply {
             putExtra("movie_content_id", FIRST_MOVIE_CONTENT_ID)
             putExtra("reservation_count_key", reservationCount)
         }

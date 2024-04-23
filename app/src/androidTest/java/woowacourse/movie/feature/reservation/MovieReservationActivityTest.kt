@@ -24,7 +24,7 @@ class MovieReservationActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieReservationActivity::class.java,
-        ).run {
+        ).apply {
             putExtra("movie_content_id", FIRST_MOVIE_CONTENT_ID)
         }
 

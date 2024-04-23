@@ -70,19 +70,15 @@ class MovieReservationCompleteActivity :
     }
 
     override fun setUpMovieContentUi(movieContent: MovieContent) {
-        movieContent.run {
-            titleText.text = title
-            screeningDateText.text = screeningDate.message()
-        }
+        titleText.text = movieContent.title
+        screeningDateText.text = movieContent.screeningDate.message()
     }
 
     override fun setUpTicketUi(ticket: Ticket) {
-        ticket.run {
-            reservationCountText.text =
-                resources.getString(R.string.reservation_count).format(reservationCount.count)
-            reservationAmountText.text =
-                resources.getString(R.string.reservation_amount).format(amount())
-        }
+        reservationCountText.text =
+            resources.getString(R.string.reservation_count).format(ticket.reservationCount.count)
+        reservationAmountText.text =
+            resources.getString(R.string.reservation_amount).format(ticket.amount())
     }
 
     private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
