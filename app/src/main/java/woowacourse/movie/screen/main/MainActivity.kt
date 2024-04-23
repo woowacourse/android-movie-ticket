@@ -16,17 +16,17 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter.onStart()
+        presenter.fetchMovieList()
     }
 
     override fun displayMovies(movies: List<MovieModel>) {
         movieListView.adapter =
             ListViewAdapter(movies) { position ->
-                presenter.onMovieSelected(movies[position].id)
+                presenter.selectMovie(movies[position].id)
             }
     }
 
-    override fun navigateToReservation(id: Long) {
+    override fun navigateToReservationScreen(id: Long) {
         startActivity(ReservationActivity.getIntent(this, id))
     }
 }

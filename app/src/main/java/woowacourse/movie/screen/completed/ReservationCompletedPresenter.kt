@@ -1,9 +1,10 @@
 package woowacourse.movie.screen.completed
 
+import woowacourse.movie.model.Reservation
+
 class ReservationCompletedPresenter(private val view: ReservationCompletedContract.View) :
     ReservationCompletedContract.Presenter {
-    override fun onStart() {
-        val reservation = view.readTicketData() ?: return
-        view.initializeTicketDetails(reservation)
+    override fun fetchReservationDetails(reservation: Reservation) {
+        view.initializeReservationDetails(reservation)
     }
 }

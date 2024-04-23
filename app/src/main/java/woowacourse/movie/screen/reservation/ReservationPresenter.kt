@@ -12,27 +12,26 @@ class ReservationPresenter(private val view: ReservationContract.View) :
     private val quantity = Quantity()
     private lateinit var movie: Movie
 
-    override fun onStart() {
-        val id = view.readMovieData() ?: return
+    override fun fetchMovieDetails(id: Long) {
         movie = MockMovieRepository.findMovieById(id) ?: return
         view.initializeMovieDetails(movie.toUiModel())
-        view.setupReservationCompletedButton()
+        view.setupReservationCompleteControls()
         view.setupTicketQuantityControls(quantity)
     }
 
-    override fun onReservationCompleted() {
+    override fun completeReservation() {
         val screening = Screening(movie, quantity = quantity)
         val reservation = Reservation(screening)
-        view.moveToCompletedActivity(reservation)
+        view.navigateToCompleteScreen(reservation)
     }
 
-    override fun plus() {
+    override fun increaseTicketQuantity() {
         quantity.increase()
-        view.setQuantityText("${quantity.value}")
+        view.updateTicketQuantity("${quantity.value}")
     }
 
-    override fun minus() {
+    override fun decreaseTicketQuantity() {
         quantity.decrease()
-        view.setQuantityText("${quantity.value}")
+        view.updateTicketQuantity("${quantity.value}")
     }
 }

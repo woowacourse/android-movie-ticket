@@ -56,10 +56,11 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter.onStart()
+        val id = getMovieId()
+        presenter.fetchMovieDetails(id)
     }
 
-    override fun readMovieData() = intent.getLongExtra(MOVIE_ID, -1L)
+    private fun getMovieId() = intent.getLongExtra(MOVIE_ID, -1L)
 
     override fun initializeMovieDetails(movie: MovieModel) {
         val openingDayText = movie.getFormattedOpeningDay(this)
@@ -71,23 +72,23 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         runningTimeTv.text = runningTimeText
     }
 
-    override fun setupReservationCompletedButton() {
+    override fun setupReservationCompleteControls() {
         completeBtn.setOnClickListener {
-            presenter.onReservationCompleted()
+            presenter.completeReservation()
         }
     }
 
-    override fun moveToCompletedActivity(reservation: Reservation) {
+    override fun navigateToCompleteScreen(reservation: Reservation) {
         startActivity(ReservationCompletedActivity.getIntent(this, reservation))
     }
 
     override fun setupTicketQuantityControls(quantity: Quantity) {
-        setQuantityText(quantity.value.toString())
-        minusBtn.setOnClickListener { presenter.minus() }
-        plusBtn.setOnClickListener { presenter.plus() }
+        updateTicketQuantity(quantity.value.toString())
+        minusBtn.setOnClickListener { presenter.decreaseTicketQuantity() }
+        plusBtn.setOnClickListener { presenter.increaseTicketQuantity() }
     }
 
-    override fun setQuantityText(newText: String) {
+    override fun updateTicketQuantity(newText: String) {
         quantityTv.text = newText
     }
 

@@ -4,12 +4,12 @@ interface MainContract {
     interface View {
         fun displayMovies(movies: List<MovieModel>)
 
-        fun navigateToReservation(id: Long)
+        fun navigateToReservationScreen(id: Long)
     }
 
     interface Presenter {
-        fun onStart()
+        fun fetchMovieList()
 
-        fun onMovieSelected(id: Long)
+        fun selectMovie(id: Long)
     }
 }

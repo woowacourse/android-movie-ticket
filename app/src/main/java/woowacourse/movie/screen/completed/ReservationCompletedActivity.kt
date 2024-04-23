@@ -32,17 +32,18 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_completed)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter.onStart()
+        val reservation = getReservationData() ?: return
+        presenter.fetchReservationDetails(reservation)
     }
 
-    override fun readTicketData(): Reservation? =
+    private fun getReservationData(): Reservation? =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra("reservation", Reservation::class.java)
         } else {
             intent.getSerializableExtra("reservation") as? Reservation
         }
 
-    override fun initializeTicketDetails(reservation: Reservation) {
+    override fun initializeReservationDetails(reservation: Reservation) {
         val formattedDate = formatLocalDate(reservation)
         val formattedPrice = formatPrice(reservation)
         movieTitleTv.text = reservation.getTitle()

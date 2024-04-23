@@ -6,26 +6,24 @@ import woowacourse.movie.screen.main.MovieModel
 
 interface ReservationContract {
     interface View {
-        fun readMovieData(): Long?
+        fun initializeMovieDetails(movie: MovieModel)
 
-        fun setupReservationCompletedButton()
+        fun setupReservationCompleteControls()
 
         fun setupTicketQuantityControls(quantity: Quantity)
 
-        fun setQuantityText(newText: String)
+        fun updateTicketQuantity(newText: String)
 
-        fun initializeMovieDetails(movie: MovieModel)
-
-        fun moveToCompletedActivity(reservation: Reservation)
+        fun navigateToCompleteScreen(reservation: Reservation)
     }
 
     interface Presenter {
-        fun onStart()
+        fun fetchMovieDetails(id: Long)
 
-        fun onReservationCompleted()
+        fun completeReservation()
 
-        fun plus()
+        fun increaseTicketQuantity()
 
-        fun minus()
+        fun decreaseTicketQuantity()
     }
 }
