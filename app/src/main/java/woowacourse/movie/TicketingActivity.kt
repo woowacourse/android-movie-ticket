@@ -3,14 +3,23 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.temporal.ChronoUnit
+import java.util.stream.Collectors
+import java.util.stream.IntStream
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
@@ -24,7 +33,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
 
         ticketingPresenter = TicketingPresenter(this, movieId, DEFAULT_COUNT)
         ticketingPresenter.initializeTicketingData()
-
         initializeButtons()
     }
 
@@ -55,12 +63,68 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(movie.thumbnailResourceId) }
         findViewById<TextView>(R.id.tv_title).apply { text = movie.title }
         findViewById<TextView>(R.id.tv_date).apply {
-            text = getString(R.string.title_date, movie.startDate.toString(), movie.endDate.toString())
+            text =
+                getString(R.string.title_date, movie.startDate.toString(), movie.endDate.toString())
         }
         findViewById<TextView>(R.id.tv_running_time).apply {
             text = getString(R.string.title_running_time, movie.runningTime)
         }
         findViewById<TextView>(R.id.tv_introduction).apply { text = movie.introduction }
+
+        val numOfDaysBetween = ChronoUnit.DAYS.between(movie.startDate, movie.endDate)
+        val dates: List<String> =
+            IntStream.iterate(0) { i -> i + 1 }
+                .limit(numOfDaysBetween)
+                .mapToObj { i ->
+                    movie.startDate.plusDays(i.toLong())
+                }
+                .collect(Collectors.toList())
+                .map(LocalDate::toString)
+
+        val startTime = LocalTime.of(9, 0)
+        val endTime = LocalTime.of(23, 0)
+        val numOfTimesBetween = ChronoUnit.HOURS.between(startTime, endTime)
+        val times: List<String> =
+            IntStream.iterate(0) { it + 2 }
+                .limit(numOfTimesBetween)
+                .mapToObj { startTime.plusHours(it.toLong()) }
+                .collect(Collectors.toList())
+                .map(LocalTime::toString)
+
+        findViewById<Spinner>(R.id.spinner_date).apply {
+            adapter =
+                ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, dates)
+            onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                    }
+                }
+        }
+
+        findViewById<Spinner>(R.id.spinner_time).apply {
+            adapter = ArrayAdapter(this@TicketingActivity, android.R.layout.simple_spinner_item, times)
+            onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                    }
+                }
+        }
     }
 
     override fun updateCount(count: Int) {

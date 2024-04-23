@@ -6,7 +6,6 @@ import woowacourse.movie.R
 import java.time.LocalDate
 
 class TicketsTest {
-    // TODO 영화 픽스처 추가하기
     @Test
     fun `주어진_티켓_수에_맞는_총_금액을_계산하여_반환한다`() {
         val tickets =
