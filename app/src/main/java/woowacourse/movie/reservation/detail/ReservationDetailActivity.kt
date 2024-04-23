@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.reservation.finished.ReservationFinishedActivity
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
@@ -38,8 +37,8 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             ReservationDetailPresenter(this, movieId).also {
                 it.deliverMovie()
                 it.deliverReservationHistory()
-                it.detectIncreaseCount()
-                it.detectDecreaseCount()
+                it.increaseCount()
+                it.decreaseCount()
             }
     }
 
@@ -51,8 +50,8 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         summary.text = movie.summary
     }
 
-    override fun changeNumberOfTickets(ticket: Ticket) {
-        numberOfTickets.text = ticket.count.toString()
+    override fun updateCount(ticketCount: Int) {
+        numberOfTickets.text = ticketCount.toString()
     }
 
     override fun initializePlusButton(increaseTicketCount: () -> Unit) {
@@ -76,7 +75,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         }
     }
 
-    override fun showResultToast() {
+    override fun showErrorToast() {
         Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT)
             .show()
     }

@@ -13,11 +13,11 @@ class ReservationDetailPresenter(
     private val movies = Movies.obtainMovies()
     private val ticket = Ticket()
 
-    override fun detectIncreaseCount() {
+    override fun increaseCount() {
         contract.initializePlusButton(::increaseTicketCount)
     }
 
-    override fun detectDecreaseCount() {
+    override fun decreaseCount() {
         contract.initializeMinusButton(::decreaseTicketCount)
     }
 
@@ -45,10 +45,10 @@ class ReservationDetailPresenter(
     ) {
         when (result) {
             is Success -> {
-                contract.changeNumberOfTickets(ticket)
+                contract.updateCount(ticket.count)
                 contract.initializeReservationButton(movieId, ticket.count)
             }
-            is Failure -> contract.showResultToast()
+            is Failure -> contract.showErrorToast()
         }
     }
 }

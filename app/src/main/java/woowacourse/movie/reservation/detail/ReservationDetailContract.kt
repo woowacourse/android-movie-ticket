@@ -1,13 +1,12 @@
 package woowacourse.movie.reservation.detail
 
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Ticket
 
 interface ReservationDetailContract {
     interface View {
         fun showMovieInformation(movie: Movie)
 
-        fun changeNumberOfTickets(ticket: Ticket)
+        fun updateCount(ticketCount: Int)
 
         fun initializePlusButton(increaseTicketCount: () -> Unit)
 
@@ -18,13 +17,13 @@ interface ReservationDetailContract {
             ticketCount: Int,
         )
 
-        fun showResultToast()
+        fun showErrorToast()
     }
 
     interface Presenter {
-        fun detectIncreaseCount()
+        fun increaseCount()
 
-        fun detectDecreaseCount()
+        fun decreaseCount()
 
         fun deliverMovie()
 
