@@ -66,19 +66,19 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketCountView.text = info.toString()
     }
 
-    override fun setOnPlusButtonClickListener() {
+    private fun setOnPlusButtonClickListener() {
         plusNumberButton.setOnClickListener {
             presenter.setPlusButtonClickInfo()
         }
     }
 
-    override fun setOnMinusButtonClickListener() {
+    private fun setOnMinusButtonClickListener() {
         minusNumberButton.setOnClickListener {
             presenter.setMinusButtonClickInfo()
         }
     }
 
-    override fun setOnTicketingButtonListener() {
+    private fun setOnTicketingButtonListener() {
         ticketingButton.setOnClickListener {
             presenter.setTicketingButtonClickInfo()
         }

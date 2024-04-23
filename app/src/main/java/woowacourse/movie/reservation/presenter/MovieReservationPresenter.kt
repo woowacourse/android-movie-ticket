@@ -20,6 +20,15 @@ class MovieReservationPresenter(
         view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
+    override fun storeMovieData(movieData: Movie?) {
+        MovieReservationMovieData.movieData = movieData
+    }
+
+    override fun setMovieInfo() {
+        val movie = MovieReservationMovieData.movieData as Movie
+        view.setMovieView(movie)
+    }
+
     override fun setPlusButtonClickInfo() {
         model.plusTicketCount()
         view.showCurrentResultTicketCountView(ticketCount.number)
@@ -38,14 +47,5 @@ class MovieReservationPresenter(
 
     override fun setTicketingButtonClickInfo() {
         view.startMovieTicketActivity(ticketCount.number)
-    }
-
-    override fun storeMovieData(movieData: Movie?) {
-        MovieReservationMovieData.movieData = movieData
-    }
-
-    override fun setMovieInfo() {
-        val movie = MovieReservationMovieData.movieData as Movie
-        view.setMovieView(movie)
     }
 }

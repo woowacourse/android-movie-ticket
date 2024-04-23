@@ -11,12 +11,6 @@ interface MovieReservationContract {
 
         fun setMovieView(info: Movie)
 
-        fun setOnPlusButtonClickListener()
-
-        fun setOnMinusButtonClickListener()
-
-        fun setOnTicketingButtonListener()
-
         fun startMovieTicketActivity(info: Int)
     }
 
