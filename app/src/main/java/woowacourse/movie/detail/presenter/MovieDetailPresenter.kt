@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.detail.presenter
 
 import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.ReservationCount

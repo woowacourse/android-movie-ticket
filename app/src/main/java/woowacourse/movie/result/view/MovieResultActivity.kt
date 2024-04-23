@@ -1,12 +1,12 @@
-package woowacourse.movie.view
+package woowacourse.movie.result.view
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.presenter.MovieResultContract
-import woowacourse.movie.presenter.MovieResultPresenter
+import woowacourse.movie.result.presenter.MovieResultContract
+import woowacourse.movie.result.presenter.MovieResultPresenter
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT

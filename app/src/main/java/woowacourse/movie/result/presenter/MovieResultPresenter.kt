@@ -1,10 +1,11 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.result.presenter
 
 import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.utils.MovieErrorCode
 
-class MovieResultPresenter(private val resultContractView: MovieResultContract.View) : MovieResultContract.Presenter {
+class MovieResultPresenter(private val resultContractView: MovieResultContract.View) :
+    MovieResultContract.Presenter {
     private var movieRepository: MovieRepository = MovieRepository()
 
     override fun display(
