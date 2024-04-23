@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class TicketTest {
     @Test
-    fun `플러스 버튼을 누르면 티켓 매수가 1장 증가한다 `() {
+    fun `티켓를 1장 증가시키면 매수가 1장 증가한다 `() {
         val ticket = Ticket()
 
         ticket.increaseCount()
@@ -14,7 +14,7 @@ class TicketTest {
     }
 
     @Test
-    fun `마이너스 버튼을 누르면 티켓 매수가 1장 감소한다 `() {
+    fun `티켓 1장 감소시키면 매수가 1장 감소한다 `() {
         val ticket = Ticket()
 
         ticket.increaseCount()
@@ -24,7 +24,7 @@ class TicketTest {
     }
 
     @Test
-    fun `티켓이 1장일 때 마이너스 버튼을 누르면 Failure가 반환된다`() {
+    fun `티켓이 1장일 때 티켓을 줄이면 Failure가 반환된다`() {
         val ticket = Ticket()
 
         val actual = ticket.decreaseCount()
@@ -33,7 +33,7 @@ class TicketTest {
     }
 
     @Test
-    fun `티켓이 100장일 때 플러스 버튼을 누르면 Failure가 반환된다`() {
+    fun `티켓이 100장일 때 티켓을 늘리면 Failure가 반환된다`() {
         val ticket = Ticket()
 
         repeat(99) {
