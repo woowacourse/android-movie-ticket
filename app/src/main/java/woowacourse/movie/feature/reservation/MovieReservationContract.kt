@@ -6,15 +6,15 @@ import woowacourse.movie.utils.ErrorListener
 
 interface MovieReservationContract {
     interface View : ErrorListener {
-        fun setUpMovieContentUi(movieContent: MovieContent)
+        fun setUpReservationView(movieContent: MovieContent)
 
-        fun updateReservationCountUi(reservationCountValue: Int)
+        fun updateReservationCount(reservationCountValue: Int)
 
-        fun moveMovieReservationCompleteView(reservationCountValue: Int)
+        fun moveReservationCompleteView(reservationCountValue: Int)
     }
 
     interface Presenter : BasePresenter {
-        fun setUpMovieContent(movieContentId: Long)
+        fun loadMovieData(movieContentId: Long)
 
         fun setUpReservationCount()
 

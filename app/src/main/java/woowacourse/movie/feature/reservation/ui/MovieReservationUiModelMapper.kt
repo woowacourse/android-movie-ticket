@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.home.ui
+package woowacourse.movie.feature.reservation.ui
 
 import android.content.Context
 import androidx.core.content.ContextCompat
@@ -7,17 +7,13 @@ import woowacourse.movie.model.data.dto.MovieContent
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-fun List<MovieContent>.toMovieListUiModels(context: Context): List<MovieListUiModel> {
-    return map { it.toMovieListUiModel(context) }
-}
-
-private fun MovieContent.toMovieListUiModel(context: Context): MovieListUiModel {
-    return MovieListUiModel(
+fun MovieContent.toReservationUiModel(context: Context): MovieReservationUiModel {
+    return MovieReservationUiModel(
         ContextCompat.getDrawable(context, posterImageId),
         title,
         screeningDateMessage(context, screeningDate),
         runningTimeMessage(context, runningTime),
-        id,
+        synopsis,
     )
 }
 
@@ -33,5 +29,5 @@ private fun runningTimeMessage(
     context: Context,
     runningTime: Int,
 ): String {
-    return context.resources.getString(R.string.running_time).format(runningTime)
+    return context.getString(R.string.running_time).format(runningTime)
 }

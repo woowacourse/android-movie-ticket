@@ -11,26 +11,26 @@ class MovieReservationPresenter(
 
     override fun setUpReservationCount() {
         reservationCount = ReservationCount()
-        view.updateReservationCountUi(reservationCount.count)
+        view.updateReservationCount(reservationCount.count)
     }
 
-    override fun setUpMovieContent(movieContentId: Long) {
+    override fun loadMovieData(movieContentId: Long) {
         val movieContent = movieContents.find(movieContentId)
-        view.setUpMovieContentUi(movieContent)
+        view.setUpReservationView(movieContent)
     }
 
     override fun decreaseReservationCount() {
         reservationCount--
-        view.updateReservationCountUi(reservationCount.count)
+        view.updateReservationCount(reservationCount.count)
     }
 
     override fun increaseReservationCount() {
         reservationCount++
-        view.updateReservationCountUi(reservationCount.count)
+        view.updateReservationCount(reservationCount.count)
     }
 
     override fun reserveMovie() {
-        view.moveMovieReservationCompleteView(reservationCount.count)
+        view.moveReservationCompleteView(reservationCount.count)
     }
 
     override fun updateReservationCount(reservationCountValue: Int) {
@@ -41,6 +41,6 @@ class MovieReservationPresenter(
                 view.handleError(it)
                 return
             }
-        view.updateReservationCountUi(reservationCount.count)
+        view.updateReservationCount(reservationCount.count)
     }
 }

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.feature.home.list.MovieContentListAdapter
-import woowacourse.movie.feature.home.ui.toUiModelList
+import woowacourse.movie.feature.home.ui.toMovieListUiModels
 import woowacourse.movie.feature.reservation.MovieReservationActivity
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
@@ -23,7 +23,7 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
     override fun initializePresenter() = MovieHomePresenter(this, MovieContentsImpl)
 
     override fun setUpMovieContentList(movieContents: List<MovieContent>) {
-        val movies = movieContents.toUiModelList(this)
+        val movies = movieContents.toMovieListUiModels(this)
         movieContentList.adapter =
             MovieContentListAdapter(movies) { _, movieContentId ->
                 MovieReservationActivity.startActivity(this@MovieHomeActivity, movieContentId)

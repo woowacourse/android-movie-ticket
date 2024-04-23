@@ -11,12 +11,11 @@ import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
+import woowacourse.movie.feature.reservation.ui.toReservationUiModel
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.dto.MovieContent
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
@@ -69,7 +68,7 @@ class MovieReservationActivity :
     }
 
     private fun setUpUi(movieContentId: Long) {
-        presenter.setUpMovieContent(movieContentId)
+        presenter.loadMovieData(movieContentId)
         presenter.setUpReservationCount()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -95,26 +94,22 @@ class MovieReservationActivity :
         }
     }
 
-    override fun setUpMovieContentUi(movieContent: MovieContent) {
-        movieContent.run {
-            posterImage.setImageResource(posterImageId)
-            titleText.text = title
-            screeningDateText.text = screeningDate.message()
-            runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
-            synopsisText.text = synopsis
+    override fun setUpReservationView(movieContent: MovieContent) {
+        val reservation = movieContent.toReservationUiModel(this)
+        with(reservation) {
+            posterImage.setImageDrawable(posterImageDrawable)
+            titleText.text = titleMessage
+            screeningDateText.text = screeningDateMessage
+            runningTimeText.text = runningTimeMessage
+            synopsisText.text = synopsisMessage
         }
     }
 
-    private fun LocalDate.message(): String {
-        return this@MovieReservationActivity.resources.getString(R.string.screening_date)
-            .format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
-    }
-
-    override fun updateReservationCountUi(reservationCountValue: Int) {
+    override fun updateReservationCount(reservationCountValue: Int) {
         reservationCountText.text = reservationCountValue.toString()
     }
 
-    override fun moveMovieReservationCompleteView(reservationCountValue: Int) {
+    override fun moveReservationCompleteView(reservationCountValue: Int) {
         MovieReservationCompleteActivity.startActivity(this, movieContentId(), reservationCountValue)
     }
 
