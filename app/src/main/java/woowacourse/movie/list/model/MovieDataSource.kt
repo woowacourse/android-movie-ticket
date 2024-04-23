@@ -1,4 +1,4 @@
-package woowacourse.movie.list
+package woowacourse.movie.list.model
 
 import woowacourse.movie.R
 import java.time.LocalDateTime

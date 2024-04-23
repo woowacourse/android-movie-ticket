@@ -11,8 +11,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.ticket.MovieTicketActivity
-import woowacourse.movie.ticket.Ticket
+import woowacourse.movie.ticket.model.Ticket
+import woowacourse.movie.ticket.view.MovieTicketActivity
 import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)

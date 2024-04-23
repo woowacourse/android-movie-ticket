@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".list.MovieListActivity">
+    tools:context=".list.view.MovieListActivity">
 
     <ListView
         android:id="@+id/movie_list_view"

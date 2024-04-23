@@ -1,4 +1,4 @@
-package woowacourse.movie.reservation
+package woowacourse.movie.reservation.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.list.Movie
-import woowacourse.movie.ticket.MovieTicketActivity
+import woowacourse.movie.list.model.Movie
+import woowacourse.movie.reservation.contract.MovieReservationContract
+import woowacourse.movie.reservation.presenter.MovieReservationPresenter
+import woowacourse.movie.ticket.view.MovieTicketActivity
 import woowacourse.movie.util.IntentUtil.getSerializableMovieData
 import java.time.format.DateTimeFormatter
 

@@ -1,4 +1,4 @@
-package woowacourse.movie.list
+package woowacourse.movie.list.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
+import woowacourse.movie.list.model.Movie
 import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(

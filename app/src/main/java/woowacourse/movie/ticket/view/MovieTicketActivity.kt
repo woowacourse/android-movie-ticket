@@ -1,10 +1,13 @@
-package woowacourse.movie.ticket
+package woowacourse.movie.ticket.view
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.reservation.MovieReservationActivity.Companion.EXTRA_COUNT_KEY
+import woowacourse.movie.reservation.view.MovieReservationActivity.Companion.EXTRA_COUNT_KEY
+import woowacourse.movie.ticket.contract.MovieTicketContract
+import woowacourse.movie.ticket.model.Ticket
+import woowacourse.movie.ticket.presenter.MovieTicketPresenter
 import java.time.format.DateTimeFormatter
 
 class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {

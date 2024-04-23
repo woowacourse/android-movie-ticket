@@ -1,11 +1,15 @@
-package woowacourse.movie.list
+package woowacourse.movie.list.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.reservation.MovieReservationActivity
+import woowacourse.movie.list.adapter.MovieListAdapter
+import woowacourse.movie.list.contract.MovieListContract
+import woowacourse.movie.list.model.Movie
+import woowacourse.movie.list.presenter.MovieListPresenter
+import woowacourse.movie.reservation.view.MovieReservationActivity
 import java.io.Serializable
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {

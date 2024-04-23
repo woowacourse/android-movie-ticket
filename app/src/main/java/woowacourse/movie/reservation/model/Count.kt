@@ -1,4 +1,4 @@
-package woowacourse.movie.reservation
+package woowacourse.movie.reservation.model
 
 @JvmInline
 value class Count(val number: Int) {

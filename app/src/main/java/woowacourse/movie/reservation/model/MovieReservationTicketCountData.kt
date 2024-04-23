@@ -1,4 +1,4 @@
-package woowacourse.movie.reservation
+package woowacourse.movie.reservation.model
 
 class MovieReservationTicketCountData {
     var ticketCount = Count(MIN_TICKET_COUNT)
