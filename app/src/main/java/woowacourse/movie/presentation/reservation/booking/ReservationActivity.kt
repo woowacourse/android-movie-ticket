@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.data.MovieDao
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 import woowacourse.movie.presentation.screen.ScreeningMovieActivity.Companion.MOVIE_ID
 

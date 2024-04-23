@@ -5,7 +5,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.data.MovieDao
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
     private val presenter: ReservationResultContract.Presenter = ReservationResultPresenter(

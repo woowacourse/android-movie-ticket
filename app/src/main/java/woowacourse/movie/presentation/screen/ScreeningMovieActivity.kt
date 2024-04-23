@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.data.MovieDao
 import woowacourse.movie.presentation.reservation.booking.ReservationActivity
 import woowacourse.movie.presentation.screen.adapter.MovieListAdapter
 

@@ -1,10 +1,10 @@
-package woowacourse.movie.db
+package woowacourse.movie.data
 
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
-object MovieDatabase {
+object MovieDummy {
     val movies: List<Movie> =
         listOf(
             Movie(

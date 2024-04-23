@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.reservation.booking
 
 import android.content.Intent
-import woowacourse.movie.db.MovieDao
+import woowacourse.movie.data.MovieDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
