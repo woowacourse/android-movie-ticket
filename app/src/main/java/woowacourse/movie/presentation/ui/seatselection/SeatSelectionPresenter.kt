@@ -4,6 +4,7 @@ import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.presentation.model.MessageType
+import woowacourse.movie.presentation.model.MessageType.ReservationSuccessMessage
 import woowacourse.movie.presentation.model.ReservationInfo
 
 class SeatSelectionPresenter(
@@ -100,6 +101,7 @@ class SeatSelectionPresenter(
                     uiModel.seats.toList(),
                     dateTime,
                 ).onSuccess { id ->
+                    view.showToastMessage(ReservationSuccessMessage)
                     view.navigateToReservation(id)
                 }.onFailure { e ->
                     view.showSnackBar(e)

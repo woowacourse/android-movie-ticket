@@ -17,6 +17,10 @@
     <string name="price_format_kor"> %,d원</string>
     <string name="reserve_count">일반 %d명 | %s</string>
     <string name="reserve_amount">%s (현장 결제)</string>
+    <string name="dialog_reservation_title">예매 확인</string>
+    <string name="dialog_reservation_message">정말 예매하겠습니까?</string>
+    <string name="reservation_done">예매 완료</string>
+    <string name="cancel">취소</string>
 
     <!--    영화 좌석 선택 화면-->
     <string name="done">확인</string>
@@ -27,6 +31,7 @@
     <string name="ticke_min_count_message">티켓 수량은 %d개 이상이어야 합니다.</string>
     <string name="ticke_max_count_message">티켓 수량은 %d개 이하이어야 합니다.</string>
     <string name="all_seats_selected_message">이미 %d개의 좌석을 모두 선택했습니다.</string>
+    <string name="reservation_success_message">성공적으로 예매가 되었습니다</string>
 
 
 </resources>

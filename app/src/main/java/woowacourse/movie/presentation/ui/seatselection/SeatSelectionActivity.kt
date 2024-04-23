@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.ui.seatselection
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -75,7 +76,7 @@ class SeatSelectionActivity : BaseActivity(), View {
             }
 
         btnDone.setOnClickListener {
-            presenter.reserve()
+            showDialog()
         }
     }
 
@@ -113,6 +114,22 @@ class SeatSelectionActivity : BaseActivity(), View {
 
     override fun buttonEnabled(isActivate: Boolean) {
         btnDone.isEnabled = isActivate
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.dialog_reservation_title))
+        builder.setMessage(getString(R.string.dialog_reservation_message))
+
+        builder.setPositiveButton(getString(R.string.reservation_done)) { _, _ ->
+            presenter.reserve()
+        }
+
+        builder.setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.show()
     }
 
     override fun navigateToReservation(id: Int) {

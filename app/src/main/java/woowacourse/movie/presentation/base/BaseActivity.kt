@@ -7,6 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.model.MessageType.AllSeatsSelectedMessage
+import woowacourse.movie.presentation.model.MessageType.ReservationSuccessMessage
 import woowacourse.movie.presentation.model.MessageType.TicketMaxCountMessage
 import woowacourse.movie.presentation.model.MessageType.TicketMinCountMessage
 
@@ -51,6 +52,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             is TicketMaxCountMessage -> getString(R.string.ticke_max_count_message, this.count)
             is TicketMinCountMessage -> getString(R.string.ticke_min_count_message, this.count)
             is AllSeatsSelectedMessage -> getString(R.string.all_seats_selected_message, this.count)
+            is ReservationSuccessMessage -> getString(R.string.reservation_success_message)
         }
     }
 
