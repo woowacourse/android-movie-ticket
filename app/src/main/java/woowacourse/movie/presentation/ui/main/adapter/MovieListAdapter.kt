@@ -7,7 +7,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.presentation.dto.MovieUiModel
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 import woowacourse.movie.presentation.utils.toDrawableIdByName
 
 class MovieListAdapter(

@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.dto
+package woowacourse.movie.presentation.uimodel
 
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.presentation.utils.dateToString

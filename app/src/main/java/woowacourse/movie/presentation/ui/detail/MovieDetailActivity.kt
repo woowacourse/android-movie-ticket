@@ -6,8 +6,8 @@ import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.dto.MovieUiModel
 import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private var movieDetailPresenter: MovieDetailContract.Presenter? = null

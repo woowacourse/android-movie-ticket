@@ -4,7 +4,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.dto.MovieTicketUiModel
+import woowacourse.movie.presentation.uimodel.MovieTicketUiModel
 
 class ReservationResultActivity : BaseActivity(), ReservationResultContract.View {
     private lateinit var presenter: ReservationResultPresenter
@@ -17,7 +17,6 @@ class ReservationResultActivity : BaseActivity(), ReservationResultContract.View
         val movieTicketId = intent.getIntExtra(EXTRA_MOVIE_TICKET_ID, -1)
 
         presenter = ReservationResultPresenter(this, MovieTicketRepositoryImpl, movieTicketId)
-        presenter.loadReservationDetails()
     }
 
     override fun showTicketData(movieTicket: MovieTicketUiModel) {

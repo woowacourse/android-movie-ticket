@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.ui.detail
 
-import woowacourse.movie.presentation.dto.MovieUiModel
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 interface MovieDetailContract {
     interface View {

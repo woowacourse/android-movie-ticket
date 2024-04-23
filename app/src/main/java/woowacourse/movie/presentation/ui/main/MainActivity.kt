@@ -5,9 +5,9 @@ import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.dto.MovieUiModel
 import woowacourse.movie.presentation.ui.detail.MovieDetailActivity
 import woowacourse.movie.presentation.ui.main.adapter.MovieListAdapter
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MainActivity : BaseActivity(), MainContract.View {
     private lateinit var adapter: MovieListAdapter

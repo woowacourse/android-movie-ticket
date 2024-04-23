@@ -3,7 +3,7 @@ package woowacourse.movie.presentation.ui.detail
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.MovieTicketRepository
-import woowacourse.movie.presentation.dto.MovieUiModel
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MovieDetailPresenterImpl(
     private val view: MovieDetailContract.View,

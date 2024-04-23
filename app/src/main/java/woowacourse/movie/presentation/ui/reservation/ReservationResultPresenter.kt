@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.ui.reservation
 
 import woowacourse.movie.domain.repository.MovieTicketRepository
-import woowacourse.movie.presentation.dto.MovieTicketUiModel
+import woowacourse.movie.presentation.uimodel.MovieTicketUiModel
 
 class ReservationResultPresenter(
     private val view: ReservationResultContract.View,

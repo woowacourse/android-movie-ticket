@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.presentation.dto.MovieUiModel
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 import woowacourse.movie.presentation.utils.toDrawableIdByName
 
 class MovieDetailsViewHolder(private val view: View) {
