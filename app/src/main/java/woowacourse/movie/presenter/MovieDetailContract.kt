@@ -1,15 +1,12 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.model.Movie
-import woowacourse.movie.utils.MovieErrorCode
 
 interface MovieDetailContract {
-    interface View {
+    interface View : BaseContract.View {
         fun onCountUpdate(count: Int)
 
         fun onInitView(movie: Movie)
-
-        fun onError(errorCode: MovieErrorCode)
 
         fun onReservationComplete(
             id: Long,

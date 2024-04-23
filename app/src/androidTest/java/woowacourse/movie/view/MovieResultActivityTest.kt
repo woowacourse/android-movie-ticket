@@ -20,7 +20,7 @@ class MovieResultActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieResultActivity::class.java,
         ).apply {
-            putExtra("movieId", 0)
+            putExtra("movieId", 0L)
             putExtra("movieReservationCount", 3)
         }
 
@@ -42,12 +42,12 @@ class MovieResultActivityTest {
     @Test
     fun `예매한_영화의_인원수_표시된다`() {
         onView(withId(R.id.resultReservCount))
-            .check(matches(withText("3명")))
+            .check(matches(withText("3")))
     }
 
     @Test
     fun `예매한_영화의_가격이_표시된다`() {
         onView(withId(R.id.resultReservPrice))
-            .check(matches(withText("39,000원")))
+            .check(matches(withText("39,000")))
     }
 }

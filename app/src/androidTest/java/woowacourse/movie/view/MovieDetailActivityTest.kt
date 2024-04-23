@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -20,7 +21,7 @@ class MovieDetailActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieDetailActivity::class.java,
-        ).apply { putExtra("movieId", 0) }
+        ).apply { putExtra("movieId", 0L) }
 
     @get:Rule
     val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)
@@ -40,7 +41,7 @@ class MovieDetailActivityTest {
     @Test
     fun `선택된_영화의_러닝타임이_표시된다`() {
         onView(withId(R.id.detailRunningTime))
-            .check(matches(withText("152분")))
+            .check(matches(withText("152")))
     }
 
     @Test
@@ -54,6 +55,16 @@ class MovieDetailActivityTest {
                     ),
                 ),
             )
+    }
+
+    @Test
+    fun `화면이_회전되어도_예매인원수가_유지된다`() {
+        onView(withId(R.id.detailPlusBtn)).perform(click())
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+        onView(withId(R.id.detailReservCount))
+            .check(matches(withText("2")))
     }
 
     @Test
