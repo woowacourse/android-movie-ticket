@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -15,11 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
-import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
-import java.util.stream.Collectors
-import java.util.stream.IntStream
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
@@ -71,25 +69,18 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         }
         findViewById<TextView>(R.id.tv_introduction).apply { text = movie.introduction }
 
-        val numOfDaysBetween = ChronoUnit.DAYS.between(movie.startDate, movie.endDate)
+        val numOfDaysBetween = ChronoUnit.DAYS.between(movie.startDate, movie.endDate.plusDays(1))
         val dates: List<String> =
-            IntStream.iterate(0) { i -> i + 1 }
-                .limit(numOfDaysBetween)
-                .mapToObj { i ->
-                    movie.startDate.plusDays(i.toLong())
-                }
-                .collect(Collectors.toList())
-                .map(LocalDate::toString)
+            List(numOfDaysBetween.toInt()) {
+                movie.startDate.plusDays(it.toLong()).toString()
+            }
 
         val startTime = LocalTime.of(9, 0)
-        val endTime = LocalTime.of(23, 0)
-        val numOfTimesBetween = ChronoUnit.HOURS.between(startTime, endTime)
         val times: List<String> =
-            IntStream.iterate(0) { it + 2 }
-                .limit(numOfTimesBetween)
-                .mapToObj { startTime.plusHours(it.toLong()) }
-                .collect(Collectors.toList())
-                .map(LocalTime::toString)
+            List(8) { num ->
+                val add = num * 2
+                startTime.plusHours(add.toLong()).toString()
+            }
 
         findViewById<Spinner>(R.id.spinner_date).apply {
             adapter =
