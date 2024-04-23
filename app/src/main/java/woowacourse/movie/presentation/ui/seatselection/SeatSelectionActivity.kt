@@ -75,9 +75,9 @@ class SeatSelectionActivity : BaseActivity(), View {
 
     private fun SeatRank.toColor(): Int {
         return when (this) {
-            SeatRank.S -> getColor(R.color.purple)
-            SeatRank.A -> getColor(R.color.green)
-            SeatRank.B -> getColor(R.color.blue)
+            SeatRank.B -> getColor(R.color.purple)
+            SeatRank.S -> getColor(R.color.green)
+            SeatRank.A -> getColor(R.color.blue)
         }
     }
 
