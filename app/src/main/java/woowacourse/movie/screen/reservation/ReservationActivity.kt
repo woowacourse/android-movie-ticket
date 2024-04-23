@@ -68,11 +68,20 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
 
     override fun initializeMovieDetails(movie: Movie) {
+        val (openingDayText, runningTimeText) = getFormattedText(movie)
         posterIv.setImageResource(movie.poster)
         movieTitleTv.text = movie.title
         movieContentTv.text = movie.content
-        openingDayTv.text = movie.openingDay
-        runningTimeTv.text = "${movie.runningTime}분"
+        openingDayTv.text = openingDayText
+        runningTimeTv.text = runningTimeText
+    }
+
+    private fun getFormattedText(movie: Movie): Pair<String, String> {
+        val openingDayStringResource =
+            String.format(getString(R.string.opening_day), movie.openingDay)
+        val runningTimeStringResource =
+            String.format(getString(R.string.running_time), movie.runningTime)
+        return Pair(openingDayStringResource, runningTimeStringResource)
     }
 
     override fun setupReservationCompletedButton(movie: Movie) {

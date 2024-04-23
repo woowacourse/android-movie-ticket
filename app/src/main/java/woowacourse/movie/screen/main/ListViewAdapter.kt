@@ -43,7 +43,7 @@ class ListViewAdapter(
         private val poster: ImageView = view.findViewById(R.id.list_img_poster)
         private val title: TextView = view.findViewById(R.id.list_movie_title)
         private val openingDay: TextView = view.findViewById(R.id.list_opening_day)
-        private val runningTime: TextView = view.findViewById(R.id.list_running_time)
+        private val runningTime: TextView = view.findViewById(R.id.running_time)
         private val reservationButton: Button = view.findViewById(R.id.btn_reservation)
 
         fun bind(position: Int) {

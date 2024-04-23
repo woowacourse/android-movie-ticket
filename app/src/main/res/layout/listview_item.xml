@@ -29,50 +29,28 @@
         tools:text="영화 제목" />
 
     <TextView
-        android:id="@+id/list_opening_day_prefix"
+        android:id="@+id/list_opening_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:text="@string/opening_day_prefix"
+        android:text="@string/opening_day"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/list_img_poster"
         app:layout_constraintTop_toBottomOf="@id/list_movie_title" />
 
     <TextView
-        android:id="@+id/list_opening_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/list_opening_day_prefix"
-        app:layout_constraintTop_toBottomOf="@id/list_movie_title"
-        tools:text="YYYY-MM-DD" />
-
-    <TextView
-        android:id="@+id/list_running_time_prefix"
+        android:id="@+id/running_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="4dp"
-        android:text="@string/running_time_prefix"
+        android:text="@string/running_time"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/list_img_poster"
-        app:layout_constraintTop_toBottomOf="@id/list_opening_day_prefix" />
-
-    <TextView
-        android:id="@+id/list_running_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/list_running_time_prefix"
-        app:layout_constraintTop_toBottomOf="@id/list_opening_day_prefix"
-        tools:text="000분" />
+        app:layout_constraintTop_toBottomOf="@id/list_opening_day" />
 
     <Button
         android:id="@+id/btn_reservation"

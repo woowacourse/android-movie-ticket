@@ -24,9 +24,10 @@
                 android:layout_width="0dp"
                 android:layout_height="341dp"
                 android:scaleType="centerCrop"
-                android:src="#FFCCCCCC"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="#FFCCCCCC" />
 
             <TextView
                 android:id="@+id/reservation_movie_title"
@@ -41,51 +42,28 @@
                 app:layout_constraintTop_toBottomOf="@id/reservation_poster"
                 tools:text="영화 제목" />
 
-
-            <TextView
-                android:id="@+id/reservation_opening_day_prefix"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="34dp"
-                android:text="@string/opening_day_prefix"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/reservation_movie_title" />
-
             <TextView
                 android:id="@+id/reservation_opening_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
                 android:layout_marginTop="34dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/reservation_opening_day_prefix"
-                app:layout_constraintTop_toBottomOf="@id/reservation_movie_title"
-                tools:text="YYYY-MM-DD" />
-
-
-            <TextView
-                android:id="@+id/reservation_running_time_prefix"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:text="@string/running_time_prefix"
-                android:textColor="@color/black"
-                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/reservation_opening_day_prefix" />
+                app:layout_constraintTop_toBottomOf="@id/reservation_movie_title"
+                tools:text="상영일" />
 
             <TextView
                 android:id="@+id/reservation_running_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/reservation_running_time_prefix"
-                app:layout_constraintTop_toBottomOf="@id/reservation_opening_day_prefix"
-                tools:text="000분" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/reservation_opening_day"
+                tools:text="러닝 타임" />
 
             <TextView
                 android:id="@+id/reservation_content"
@@ -97,7 +75,7 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/reservation_running_time_prefix"
+                app:layout_constraintTop_toBottomOf="@id/reservation_running_time"
                 tools:text="영화 정보" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

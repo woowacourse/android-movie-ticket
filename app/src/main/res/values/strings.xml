@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="opening_day_prefix">상영일:&#160;</string>
-    <string name="running_time_prefix">러닝타임:&#160;</string>
+    <string name="opening_day">상영일: %s</string>
+    <string name="running_time">러닝타임: %d분</string>
     <string name="reservation">지금 예매</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
