@@ -100,6 +100,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         reservationCount = findViewById(R.id.detailReservCount)
         minusButton = findViewById(R.id.detailMinusBtn)
         plusButton = findViewById(R.id.detailPlusBtn)
-        reservationCompleteButton = findViewById(R.id.detailReservCompleteBtn)
+        reservationCompleteButton = findViewById(R.id.seatSelectionBtn)
     }
 }
