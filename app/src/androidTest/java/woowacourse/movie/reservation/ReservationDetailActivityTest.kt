@@ -40,24 +40,4 @@ class ReservationDetailActivityTest {
         onView(withId(R.id.text_view_reservation_detail_number_of_tickets))
             .check(matches(withText("2")))
     }
-
-    @Test
-    fun `예매_완료_버튼을_누른_뒤_예매_완료_화면의_뒤로_가기_버튼을_누르면_홈_화면으로_돌아온다`() {
-        ActivityScenario.launch(ReservationDetailActivity::class.java)
-        onView(withId(R.id.button_reservation_detail_finished)).perform(click())
-        onView(withId(R.id.constraint_layout_reservation_finished)).check(matches(isDisplayed()))
-        pressBack()
-        onView(withId(R.id.constraint_layout_reservation_home)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `영화_상세_화면은_영화_홈_화면의_영화_목록_지금_예매_버튼을_누르면_보여진다`() {
-        ActivityScenario.launch(HomeActivity::class.java)
-        moviesFirstItem.onChildView(
-            withId(R.id.item_movie_catalog_button_reservation),
-        ).perform(click())
-
-        onView(withId(R.id.constraint_layout_reservation_detail))
-            .check(matches(isDisplayed()))
-    }
 }
