@@ -18,24 +18,12 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
         val id = intent.getLongExtra(KEY_RESERVATION_ID, INVALID_RESERVATION_ID)
-        if (id == INVALID_RESERVATION_ID) {
-            initErrorView()
-            return
-        }
         presenter =
             ReservationResultPresenter(
-                id = id,
                 repository = MovieRepositoryFactory.movieRepository(),
                 view = this,
-            )
+            ).apply { loadReservationResult(id) }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun initErrorView() {
-        val errorLayout = findViewById<LinearLayout>(R.id.cl_reservation_result_error)
-        val successLayout = findViewById<ConstraintLayout>(R.id.cl_reservation_result_success)
-        errorLayout.visibility = ConstraintLayout.VISIBLE
-        successLayout.visibility = ConstraintLayout.GONE
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,6 +43,13 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
             getString(R.string.reservation_head_count_format, count)
         findViewById<TextView>(R.id.tv_result_total_price).text =
             getString(R.string.reservation_total_price_format, totalPrice)
+    }
+
+    override fun showErrorView() {
+        val errorLayout = findViewById<LinearLayout>(R.id.cl_reservation_result_error)
+        val successLayout = findViewById<ConstraintLayout>(R.id.cl_reservation_result_success)
+        errorLayout.visibility = ConstraintLayout.VISIBLE
+        successLayout.visibility = ConstraintLayout.GONE
     }
 
     companion object {

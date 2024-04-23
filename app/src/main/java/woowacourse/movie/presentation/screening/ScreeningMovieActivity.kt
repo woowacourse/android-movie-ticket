@@ -2,6 +2,8 @@ package woowacourse.movie.presentation.screening
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -32,6 +34,13 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     override fun navigateToReservationView(movieId: Long) {
         val intent = MovieReservationActivity.newIntent(this, movieId)
         startActivity(intent)
+    }
+
+    override fun showErrorView() {
+        val errorLayout = findViewById<LinearLayout>(R.id.cl_screening_movie_error)
+        val successLayout = findViewById<ListView>(R.id.list_screening_movie)
+        errorLayout.visibility = View.VISIBLE
+        successLayout.visibility = View.GONE
     }
 
     private fun initViews() {

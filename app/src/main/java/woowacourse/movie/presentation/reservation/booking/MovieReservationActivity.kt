@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -23,14 +24,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_movie)
-        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_ID)
-        if (id == INVALID_ID) {
-            initErrorView()
-            return
-        }
-        initSuccessView()
+        initView()
         initClickListener()
-        initPresenter(id, savedInstanceState)
+        if (savedInstanceState == null) initPresenter()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -40,43 +36,16 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         }
     }
 
-    private fun initErrorView() {
-        val errorLayout = findViewById<LinearLayout>(R.id.cl_reservation_movie_error)
-        val successLayout = findViewById<ConstraintLayout>(R.id.cl_reservation_movie_success)
-        errorLayout.visibility = ConstraintLayout.VISIBLE
-        successLayout.visibility = ConstraintLayout.GONE
-    }
-
-    private fun initSuccessView() {
-        countView = findViewById(R.id.tv_reservation_count)
-        plusButton = findViewById(R.id.btn_reservation_plus)
-        minusButton = findViewById(R.id.btn_reservation_minus)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun initClickListener() {
-        plusButton.setOnClickListener {
-            presenter.plusCount()
-        }
-        minusButton.setOnClickListener {
-            presenter.minusCount()
-        }
-        findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
-            presenter.completeReservation()
-        }
-    }
-
-    private fun initPresenter(
-        id: Long,
-        savedInstanceState: Bundle?,
-    ) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
+        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_ID)
         presenter =
-            if (savedInstanceState == null) {
-                MovieReservationPresenter(id, this, MovieRepositoryFactory.movieRepository())
-            } else {
-                val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
-                MovieReservationPresenter(id, this, MovieRepositoryFactory.movieRepository(), count)
-            }
+            MovieReservationPresenter(
+                this,
+                MovieRepositoryFactory.movieRepository(),
+                count,
+            ).apply { loadScreenMovie(id) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -95,6 +64,13 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         findViewById<TextView>(R.id.tv_reservation_running_time).text = runningTime
     }
 
+    override fun showErrorView() {
+        val errorLayout = findViewById<LinearLayout>(R.id.cl_reservation_movie_error)
+        val successLayout = findViewById<ConstraintLayout>(R.id.cl_reservation_movie_success)
+        errorLayout.visibility = View.VISIBLE
+        successLayout.visibility = View.GONE
+    }
+
     override fun updateHeadCount(count: Int) {
         countView.text = count.toString()
     }
@@ -102,6 +78,34 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun navigateToReservationResultView(reservationId: Long) {
         val intent = ReservationResultActivity.newIntent(this, reservationId)
         startActivity(intent)
+    }
+
+    private fun initView() {
+        countView = findViewById(R.id.tv_reservation_count)
+        plusButton = findViewById(R.id.btn_reservation_plus)
+        minusButton = findViewById(R.id.btn_reservation_minus)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initClickListener() {
+        plusButton.setOnClickListener {
+            presenter.plusCount()
+        }
+        minusButton.setOnClickListener {
+            presenter.minusCount()
+        }
+        findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
+            presenter.completeReservation()
+        }
+    }
+
+    private fun initPresenter() {
+        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_ID)
+        presenter =
+            MovieReservationPresenter(
+                this,
+                MovieRepositoryFactory.movieRepository(),
+            ).apply { loadScreenMovie(id) }
     }
 
     companion object {

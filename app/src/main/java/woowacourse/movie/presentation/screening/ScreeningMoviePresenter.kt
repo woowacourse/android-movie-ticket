@@ -11,7 +11,10 @@ class ScreeningMoviePresenter(
     }
 
     fun startReservation(id: Long) {
-        val screenMovie = repository.screenMovieById(id)
-        view.navigateToReservationView(screenMovie.id)
+        repository.screenMovieById(id).onSuccess {
+            view.navigateToReservationView(it.id)
+        }.onFailure {
+            view.showErrorView()
+        }
     }
 }

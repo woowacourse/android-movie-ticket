@@ -4,12 +4,14 @@ import woowacourse.movie.presentation.reservation.booking.toUiModel
 import woowacourse.movie.repository.MovieRepository
 
 class ReservationResultPresenter(
-    id: Long,
     private val repository: MovieRepository,
     private val view: ReservationResultView,
 ) {
-    init {
-        val reservationResult = repository.movieReservationById(id).toUiModel()
-        view.showResult(reservationResult)
+    fun loadReservationResult(id: Long) {
+        repository.movieReservationById(id).onSuccess {
+            view.showResult(it.toUiModel())
+        }.onFailure {
+            view.showErrorView()
+        }
     }
 }

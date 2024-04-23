@@ -6,11 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".presentation.screening.ScreeningMovieActivity">
 
+    <include
+        android:id="@+id/cl_screening_movie_error"
+        layout="@layout/layout_error"
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/list_screening_movie"
         android:layout_width="match_parent"
-        tools:listitem="@layout/item_screening_movie"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_screening_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
