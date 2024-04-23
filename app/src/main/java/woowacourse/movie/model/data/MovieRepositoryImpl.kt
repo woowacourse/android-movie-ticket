@@ -1,17 +1,17 @@
 package woowacourse.movie.model.data
 
 import woowacourse.movie.R
-import woowacourse.movie.model.data.dto.MovieContent
-import woowacourse.movie.model.data.dto.nullMovieContent
+import woowacourse.movie.model.data.dto.Movie
+import woowacourse.movie.model.data.dto.nullMovie
 import java.time.LocalDate
 
-object MovieContentsImpl : MovieContents {
+object MovieRepositoryImpl : MovieRepository {
     private var id: Long = 0
-    private val movieContents = mutableMapOf<Long, MovieContent>()
+    private val movies = mutableMapOf<Long, Movie>()
 
     init {
         save(
-            MovieContent(
+            Movie(
                 R.drawable.movie_poster,
                 "해리 포터와 마법사의 돌",
                 LocalDate.of(2024, 3, 1),
@@ -22,20 +22,20 @@ object MovieContentsImpl : MovieContents {
         )
     }
 
-    override fun save(movieContent: MovieContent): Long {
-        movieContents[id] = movieContent.copy(id = id)
+    override fun save(movie: Movie): Long {
+        movies[id] = movie.copy(id = id)
         return id++
     }
 
-    override fun find(id: Long): MovieContent {
-        return movieContents[id] ?: nullMovieContent
+    override fun find(id: Long): Movie {
+        return movies[id] ?: nullMovie
     }
 
-    override fun findAll(): List<MovieContent> {
-        return movieContents.map { it.value }
+    override fun findAll(): List<Movie> {
+        return movies.map { it.value }
     }
 
     override fun deleteAll() {
-        movieContents.clear()
+        movies.clear()
     }
 }

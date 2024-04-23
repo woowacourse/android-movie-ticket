@@ -3,11 +3,11 @@ package woowacourse.movie.feature.reservation.ui
 import android.content.Context
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.data.dto.Movie
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-fun MovieContent.toReservationUiModel(context: Context): MovieReservationUiModel {
+fun Movie.toReservationUiModel(context: Context): MovieReservationUiModel {
     return MovieReservationUiModel(
         ContextCompat.getDrawable(context, posterImageId),
         title,

@@ -8,9 +8,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.feature.FIRST_MOVIE_CONTENT_ID
+import woowacourse.movie.feature.FIRST_MOVIE_ID
 import woowacourse.movie.feature.equalText
-import woowacourse.movie.feature.firstMovieContent
+import woowacourse.movie.feature.firstMovie
 import woowacourse.movie.feature.reservationAmountMessage
 import woowacourse.movie.feature.reservationCountMessage
 import woowacourse.movie.feature.view
@@ -25,7 +25,7 @@ class MovieReservationCompleteActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationCompleteActivity::class.java,
         ).apply {
-            putExtra("movie_content_id", FIRST_MOVIE_CONTENT_ID)
+            putExtra("movie_id", FIRST_MOVIE_ID)
             putExtra("reservation_count_key", reservationCount)
         }
 
@@ -35,13 +35,13 @@ class MovieReservationCompleteActivityTest {
     @Test
     fun `화면이_띄워지면_영화_제목이_보인다`() {
         view(R.id.title_text)
-            .equalText(firstMovieContent.title)
+            .equalText(firstMovie.title)
     }
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         view(R.id.screening_date_text)
-            .equalText(firstMovieContent.screeningDate.message())
+            .equalText(firstMovie.screeningDate.message())
     }
 
     @Test

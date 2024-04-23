@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter
 
 fun ReservationCompleteEntity.toReservationCompleteUiModel(context: Context): MovieReservationCompleteUiModel {
     return MovieReservationCompleteUiModel(
-        movieContent.title,
-        screeningDateMessage(movieContent.screeningDate),
+        movie.title,
+        screeningDateMessage(movie.screeningDate),
         reservationCountMessage(context, ticket.reservationCount.count),
         reservationAmountMessage(context, ticket.amount()),
     )

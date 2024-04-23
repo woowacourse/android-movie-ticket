@@ -3,15 +3,15 @@ package woowacourse.movie.feature.home.ui
 import android.content.Context
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.data.dto.Movie
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-fun List<MovieContent>.toMovieListUiModels(context: Context): List<MovieListUiModel> {
+fun List<Movie>.toMovieListUiModels(context: Context): List<MovieListUiModel> {
     return map { it.toMovieListUiModel(context) }
 }
 
-private fun MovieContent.toMovieListUiModel(context: Context): MovieListUiModel {
+private fun Movie.toMovieListUiModel(context: Context): MovieListUiModel {
     return MovieListUiModel(
         ContextCompat.getDrawable(context, posterImageId),
         title,

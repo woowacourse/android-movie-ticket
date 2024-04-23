@@ -1,11 +1,11 @@
 package woowacourse.movie.feature.home
 
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BasePresenter
 
 interface MovieHomeContract {
     interface View {
-        fun setUpMovieContentList(movieContents: List<MovieContent>)
+        fun setUpMovieList(movies: List<Movie>)
     }
 
     interface Presenter : BasePresenter {

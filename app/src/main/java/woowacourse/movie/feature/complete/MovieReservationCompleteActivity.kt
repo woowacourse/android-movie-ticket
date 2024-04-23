@@ -11,8 +11,8 @@ import woowacourse.movie.R
 import woowacourse.movie.feature.complete.ui.ReservationCompleteEntity
 import woowacourse.movie.feature.complete.ui.toReservationCompleteUiModel
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 
@@ -28,20 +28,20 @@ class MovieReservationCompleteActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
 
-        val movieContentId = movieContentId()
+        val movieId = movieId()
         val reservationCountValue = reservationCountValue()
-        if (isError(movieContentId, reservationCountValue)) {
+        if (isError(movieId, reservationCountValue)) {
             handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
             return
         }
 
-        setUpUi(movieContentId, reservationCountValue)
+        initializeView(movieId, reservationCountValue)
     }
 
-    override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieContentsImpl)
+    override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieRepositoryImpl)
 
-    private fun movieContentId(): Long {
-        return intent.getLongExtra(MOVIE_CONTENT_ID_KEY, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    private fun movieId(): Long {
+        return intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
     }
 
     private fun reservationCountValue(): Int {
@@ -49,10 +49,10 @@ class MovieReservationCompleteActivity :
     }
 
     private fun isError(
-        movieContentId: Long,
+        movieId: Long,
         reservationCountValue: Int,
     ): Boolean {
-        return movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCountValue == RESERVATION_COUNT_DEFAULT_VALUE
+        return movieId == MOVIE_ID_DEFAULT_VALUE || reservationCountValue == RESERVATION_COUNT_DEFAULT_VALUE
     }
 
     override fun handleError(throwable: Throwable) {
@@ -61,11 +61,11 @@ class MovieReservationCompleteActivity :
         finish()
     }
 
-    private fun setUpUi(
-        movieContentId: Long,
+    private fun initializeView(
+        movieId: Long,
         reservationCountValue: Int,
     ) {
-        presenter.loadMovieData(movieContentId, reservationCountValue)
+        presenter.loadMovieData(movieId, reservationCountValue)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -77,11 +77,11 @@ class MovieReservationCompleteActivity :
     }
 
     override fun setUpReservationCompleteView(
-        movieContent: MovieContent,
+        movie: Movie,
         ticket: Ticket,
     ) {
         val reservationComplete =
-            ReservationCompleteEntity(movieContent, ticket).toReservationCompleteUiModel(this)
+            ReservationCompleteEntity(movie, ticket).toReservationCompleteUiModel(this)
         with(reservationComplete) {
             titleText.text = titleMessage
             screeningDateText.text = screeningDateMessage
@@ -92,18 +92,18 @@ class MovieReservationCompleteActivity :
 
     companion object {
         private val TAG = MovieReservationCompleteActivity::class.simpleName
-        private const val MOVIE_CONTENT_ID_KEY = "movie_content_id"
-        private const val MOVIE_CONTENT_ID_DEFAULT_VALUE = -1L
+        private const val MOVIE_ID_KEY = "movie_id"
+        private const val MOVIE_ID_DEFAULT_VALUE = -1L
         private const val MOVIE_RESERVATION_COUNT_KEY = "reservation_count_key"
         private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
 
         fun startActivity(
             context: Context,
-            movieContentId: Long,
+            movieId: Long,
             reservationCountValue: Int,
         ) {
             Intent(context, MovieReservationCompleteActivity::class.java).run {
-                putExtra(MOVIE_CONTENT_ID_KEY, movieContentId)
+                putExtra(MOVIE_ID_KEY, movieId)
                 putExtra(MOVIE_RESERVATION_COUNT_KEY, reservationCountValue)
                 context.startActivity(this)
             }

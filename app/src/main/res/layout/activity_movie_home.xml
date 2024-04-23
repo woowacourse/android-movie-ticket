@@ -7,10 +7,10 @@
     tools:context=".feature.home.MovieHomeActivity">
 
     <ListView
-        android:id="@+id/movie_content_list"
+        android:id="@+id/movie_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_movie_content" />
+        tools:listitem="@layout/item_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

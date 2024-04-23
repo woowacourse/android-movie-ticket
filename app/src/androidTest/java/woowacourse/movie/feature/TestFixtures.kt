@@ -11,14 +11,14 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matchers.anything
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.data.dto.Movie
 
-const val FIRST_MOVIE_CONTENT_ID = 0L
-val firstMovieContent = MovieContentsImpl.findAll().first()
-val firstMovieContentItem: DataInteraction = onData(anything()).inAdapterView(withId(R.id.movie_content_list)).atPosition(0)
+const val FIRST_MOVIE_ID = 0L
+val firstMovie = MovieRepositoryImpl.findAll().first()
+val firstMovieItem: DataInteraction = onData(anything()).inAdapterView(withId(R.id.movie_list)).atPosition(0)
 
-fun MovieContent.runningTimeMessage(): String {
+fun Movie.runningTimeMessage(): String {
     return "러닝타임: %d분".format(runningTime)
 }
 

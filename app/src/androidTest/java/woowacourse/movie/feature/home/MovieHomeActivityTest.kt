@@ -8,8 +8,8 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.feature.child
 import woowacourse.movie.feature.equalText
-import woowacourse.movie.feature.firstMovieContent
-import woowacourse.movie.feature.firstMovieContentItem
+import woowacourse.movie.feature.firstMovie
+import woowacourse.movie.feature.firstMovieItem
 import woowacourse.movie.feature.runningTimeMessage
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -21,20 +21,20 @@ class MovieHomeActivityTest {
 
     @Test
     fun `영화_목록_첫_번째_항목의_영화_제목이_보여진다`() {
-        firstMovieContentItem.child(R.id.title_text)
-            .equalText(firstMovieContent.title)
+        firstMovieItem.child(R.id.title_text)
+            .equalText(firstMovie.title)
     }
 
     @Test
     fun `영화_목록_첫_번째_항목의_상영일이_보여진다`() {
-        firstMovieContentItem.child(R.id.screening_date_text)
-            .equalText(firstMovieContent.screeningDate.message())
+        firstMovieItem.child(R.id.screening_date_text)
+            .equalText(firstMovie.screeningDate.message())
     }
 
     @Test
     fun `영화_목록_첫_번째_항목의_러닝타임이_보여진다`() {
-        firstMovieContentItem.child(R.id.running_time_text)
-            .equalText(firstMovieContent.runningTimeMessage())
+        firstMovieItem.child(R.id.running_time_text)
+            .equalText(firstMovie.runningTimeMessage())
     }
 
     private fun LocalDate.message(): String {

@@ -9,4 +9,3 @@ class MovieListUiModel(
     val runningTimeMessage: String,
     val id: Long,
 )
-

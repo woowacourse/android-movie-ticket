@@ -2,7 +2,7 @@ package woowacourse.movie.model.data.dto
 
 import java.time.LocalDate
 
-data class MovieContent(
+data class Movie(
     val posterImageId: Int,
     val title: String,
     val screeningDate: LocalDate,
@@ -11,8 +11,8 @@ data class MovieContent(
     val id: Long = 0,
 )
 
-val nullMovieContent =
-    MovieContent(
+val nullMovie =
+    Movie(
         0,
         "오류가 발생했습니다.",
         LocalDate.of(1, 1, 1),

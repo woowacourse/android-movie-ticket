@@ -3,13 +3,13 @@ package woowacourse.movie.model.data
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.movieContent
+import woowacourse.movie.model.movie
 import java.time.LocalDate
 
-class MovieContentsImplTest {
+class MovieRepositoryImplTest {
     @BeforeEach
     fun setUp() {
-        MovieContentsImpl.deleteAll()
+        MovieRepositoryImpl.deleteAll()
     }
 
     @Test
@@ -17,8 +17,8 @@ class MovieContentsImplTest {
         // given
 
         // when
-        val id = MovieContentsImpl.save(movieContent)
-        val actual = MovieContentsImpl.find(id)
+        val id = MovieRepositoryImpl.save(movie)
+        val actual = MovieRepositoryImpl.find(id)
 
         // then
         assertThat(actual.posterImageId).isEqualTo(0)
@@ -31,12 +31,12 @@ class MovieContentsImplTest {
     @Test
     fun `특정 id의 영화 정보를 가져온다`() {
         // given
-        MovieContentsImpl.save(movieContent.copy(title = "1"))
-        MovieContentsImpl.save(movieContent.copy(title = "2"))
-        val id = MovieContentsImpl.save(movieContent.copy(title = "3"))
+        MovieRepositoryImpl.save(movie.copy(title = "1"))
+        MovieRepositoryImpl.save(movie.copy(title = "2"))
+        val id = MovieRepositoryImpl.save(movie.copy(title = "3"))
 
         // when
-        val actual = MovieContentsImpl.find(id)
+        val actual = MovieRepositoryImpl.find(id)
 
         // then
         assertThat(actual.title).isEqualTo("3")
@@ -47,7 +47,7 @@ class MovieContentsImplTest {
         // given
 
         // when
-        val actual = MovieContentsImpl.find(-1)
+        val actual = MovieRepositoryImpl.find(-1)
 
         // then
         assertThat(actual.posterImageId).isEqualTo(0)
@@ -60,12 +60,12 @@ class MovieContentsImplTest {
     @Test
     fun `모든 영화 정보를 가져온다`() {
         // given
-        MovieContentsImpl.save(movieContent.copy(title = "1"))
-        MovieContentsImpl.save(movieContent.copy(title = "2"))
-        MovieContentsImpl.save(movieContent.copy(title = "3"))
+        MovieRepositoryImpl.save(movie.copy(title = "1"))
+        MovieRepositoryImpl.save(movie.copy(title = "2"))
+        MovieRepositoryImpl.save(movie.copy(title = "3"))
 
         // when
-        val actual = MovieContentsImpl.findAll()
+        val actual = MovieRepositoryImpl.findAll()
 
         // then
         assertThat(actual.size).isEqualTo(3)
@@ -77,13 +77,13 @@ class MovieContentsImplTest {
     @Test
     fun `모든 영화 정보를 삭제한다`() {
         // given
-        MovieContentsImpl.save(movieContent.copy(title = "1")) // id : 0
-        MovieContentsImpl.save(movieContent.copy(title = "2")) // id : 1
-        MovieContentsImpl.save(movieContent.copy(title = "3")) // id : 2
+        MovieRepositoryImpl.save(movie.copy(title = "1")) // id : 0
+        MovieRepositoryImpl.save(movie.copy(title = "2")) // id : 1
+        MovieRepositoryImpl.save(movie.copy(title = "3")) // id : 2
 
         // when
-        MovieContentsImpl.deleteAll()
-        val actual = MovieContentsImpl.findAll()
+        MovieRepositoryImpl.deleteAll()
+        val actual = MovieRepositoryImpl.findAll()
 
         // then
         assertThat(actual).isEmpty()

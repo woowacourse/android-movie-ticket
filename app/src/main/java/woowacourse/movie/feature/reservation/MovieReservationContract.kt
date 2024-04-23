@@ -1,12 +1,12 @@
 package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.model.data.dto.MovieContent
+import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
 
 interface MovieReservationContract {
     interface View : ErrorListener {
-        fun setUpReservationView(movieContent: MovieContent)
+        fun setUpReservationView(movie: Movie)
 
         fun updateReservationCount(reservationCountValue: Int)
 
@@ -14,7 +14,7 @@ interface MovieReservationContract {
     }
 
     interface Presenter : BasePresenter {
-        fun loadMovieData(movieContentId: Long)
+        fun loadMovieData(movieId: Long)
 
         fun setUpReservationCount()
 
