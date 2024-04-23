@@ -3,6 +3,9 @@ package woowacourse.movie.domain.model
 data class Screen(
     val id: Int,
     val movie: Movie,
-    val date: String,
+    val startDate: String,
+    val endDate: String,
+    val selectableDates: List<String>,
+    val selectableTimes: List<String>,
     val price: Int,
 )
