@@ -9,7 +9,6 @@ import org.junit.runner.RunWith
 class MovieDaoTest {
     private val movieDao = MovieDao()
 
-
     @Test
     fun `movieId로_데이터베이스에_저장된_영화를_조회할_수_있다`() {
         // given

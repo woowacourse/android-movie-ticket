@@ -11,7 +11,6 @@ class ReservationResultPresenter(
     private val dao: MovieDao,
 ) :
     ReservationResultContract.Presenter {
-
     override fun fetchReservationDetail(intent: Intent) {
         val movie = intent.getSerializableExtra("movie") as? Movie
         val ticket = intent.getSerializableExtra("ticket") as? Ticket
