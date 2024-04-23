@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.result.model.MovieTicket
+import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.result.presenter.MovieResultPresenter
 import woowacourse.movie.result.presenter.contract.MovieResultContract
-import woowacourse.movie.utils.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstant.INVALID_VALUE_MOVIE_RESERVATION_COUNT
-import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_RESERVATION_COUNT
-import woowacourse.movie.utils.formatCurrency
-import woowacourse.movie.utils.formatTimestamp
+import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
+import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.util.formatCurrency
+import woowacourse.movie.util.formatTimestamp
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     private lateinit var completeTitleTextView: TextView

@@ -1,4 +1,4 @@
-package woowacourse.movie.main.model.adapter
+package woowacourse.movie.model.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.main.model.Movie
-import woowacourse.movie.utils.formatTimestamp
+import woowacourse.movie.model.Movie
+import woowacourse.movie.util.formatTimestamp
 
 class MovieAdapter(
     private val movies: List<Movie>,

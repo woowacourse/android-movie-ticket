@@ -1,4 +1,4 @@
-package woowacourse.movie.result.model
+package woowacourse.movie.model
 
 class MovieTicket(
     val title: String,

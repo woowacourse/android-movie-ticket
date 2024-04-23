@@ -6,11 +6,11 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.detail.view.MovieDetailActivity
-import woowacourse.movie.main.model.Movie
-import woowacourse.movie.main.model.adapter.MovieAdapter
 import woowacourse.movie.main.presenter.MovieMainPresenter
 import woowacourse.movie.main.presenter.contract.MovieMainContract
-import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.adapter.MovieAdapter
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 
 class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     private lateinit var movieList: ListView

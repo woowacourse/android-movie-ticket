@@ -1,4 +1,4 @@
-package woowacourse.movie.utils
+package woowacourse.movie.util
 
 object MovieIntentConstant {
     const val KEY_MOVIE_ID = "movieId"

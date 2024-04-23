@@ -1,4 +1,4 @@
-package woowacourse.movie.utils
+package woowacourse.movie.util
 
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat

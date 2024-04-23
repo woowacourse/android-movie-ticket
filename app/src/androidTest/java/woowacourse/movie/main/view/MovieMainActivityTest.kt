@@ -23,6 +23,11 @@ class MovieMainActivityTest {
     }
 
     @Test
+    fun `영화_아이템에_썸네일_이미지가_표시된다`() {
+        onView(withId(R.id.movieThumbnail)).check(matches(isDisplayed()))
+    }
+
+    @Test
     fun `영화_아이템에_영화_제목이_표시된다`() {
         onView(withId(R.id.movieTitle)).check(matches(isDisplayed()))
     }

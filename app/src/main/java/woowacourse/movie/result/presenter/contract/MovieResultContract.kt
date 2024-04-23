@@ -1,6 +1,6 @@
 package woowacourse.movie.result.presenter.contract
 
-import woowacourse.movie.result.model.MovieTicket
+import woowacourse.movie.model.MovieTicket
 
 interface MovieResultContract {
     interface View {

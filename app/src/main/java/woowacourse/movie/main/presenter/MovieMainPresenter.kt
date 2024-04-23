@@ -1,7 +1,7 @@
 package woowacourse.movie.main.presenter
 
-import woowacourse.movie.main.model.MovieRepository
 import woowacourse.movie.main.presenter.contract.MovieMainContract
+import woowacourse.movie.model.MovieRepository
 
 class MovieMainPresenter(private val movieChoiceContractView: MovieMainContract.View) :
     MovieMainContract.Presenter {
