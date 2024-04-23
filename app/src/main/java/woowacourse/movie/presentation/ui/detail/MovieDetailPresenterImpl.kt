@@ -1,63 +1,68 @@
 package woowacourse.movie.presentation.ui.detail
 
+import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.MovieTicketRepository
-import woowacourse.movie.presentation.dto.ReservationData
+import woowacourse.movie.presentation.dto.MovieUiModel
 
 class MovieDetailPresenterImpl(
     private val view: MovieDetailContract.View,
-    private val repository: MovieTicketRepository,
-    title: String,
-    screeningDate: String,
+    private val movieRepository: MovieRepository,
+    private val movieTicketRepository: MovieTicketRepository,
+    movieId: Int,
 ) : MovieDetailContract.Presenter {
+    private var movieTicket: MovieTicket? = null
+
     init {
-        repository.setMovieTicket(title, screeningDate)
+        if (movieId == INVALID_MOVIE_ID) {
+            view.showMessage(INVALID_MOVIE_ID_MESSAGE)
+        } else {
+            loadMovieDetailsAndSetupTicket(movieId)
+        }
     }
 
-    override fun loadMovieDetails(
-        posterImageId: Int,
-        title: String,
-        screeningDate: String,
-        runningTime: Int,
-        summary: String,
-    ) {
-        view.showMovieDetail(posterImageId, title, screeningDate, runningTime, summary)
+    override fun loadMovieDetailsAndSetupTicket(movieId: Int) {
+        runCatching {
+            movieRepository.getMovie(movieId)
+        }.onSuccess { movie ->
+            val movieUiModel = MovieUiModel.fromMovie(movie)
+            view.showMovieDetail(movieUiModel)
+            movieTicket = movieTicketRepository.createMovieTicket(movie.title, movie.screeningDate)
+        }.onFailure {
+            view.showMessage(ERROR_MESSAGE.format(it.message))
+        }
+    }
+
+    private fun modifyReservationCount(modifier: (MovieTicket) -> Unit) {
+        movieTicket?.let {
+            modifier(it)
+            movieTicketRepository.updateReservationCount(it.id, it.reservationCount)
+            view.showReservationCount(it.reservationCount)
+        } ?: view.showMessage(ERROR_EMPTY_MESSAGE)
     }
 
     override fun minusReservationCount() {
-        val movieTicket = repository.getMovieTicket()
-        movieTicket.minusCount()
-        repository.updateReservationCount(movieTicket)
-        view.showReservationCount(movieTicket.reservationCount)
+        modifyReservationCount { it.minusCount() }
     }
 
     override fun plusReservationCount() {
-        val movieTicket = repository.getMovieTicket()
-        movieTicket.plusCount()
-        repository.updateReservationCount(movieTicket)
-        view.showReservationCount(movieTicket.reservationCount)
+        modifyReservationCount { it.plusCount() }
     }
 
     override fun updateReservationCount(reservationCount: Int) {
-        val movieTicket = repository.getMovieTicket()
-        movieTicket.updateCount(reservationCount)
-        repository.updateReservationCount(movieTicket)
-        view.showReservationCount(movieTicket.reservationCount)
-    }
-
-    override fun reservationCountDisplay() {
-        val movieTicket = repository.getMovieTicket()
-        view.showReservationCount(movieTicket.reservationCount)
+        modifyReservationCount { it.updateCount(reservationCount) }
     }
 
     override fun requestReservationResult() {
-        val movieTicket = repository.getMovieTicket()
-        val reservationData =
-            ReservationData(
-                movieTitle = movieTicket.movieTitle,
-                screeningDate = movieTicket.screeningDate,
-                reservationCount = movieTicket.reservationCount,
-                totalPrice = movieTicket.totalPrice(),
-            )
-        view.moveToReservationPage(reservationData)
+        movieTicket?.let {
+            view.moveToReservationPage(it.id)
+        } ?: view.showMessage(ERROR_EMPTY_MESSAGE)
+    }
+
+    companion object {
+        const val INVALID_MOVIE_ID = -1
+        const val INVALID_MOVIE_ID_MESSAGE = "유효하지 않은 영화 ID입니다."
+        const val ERROR_MESSAGE = "영화 정보를 로드하는 과정에서 오류가 발생했습니다: %s"
+        const val ERROR_EMPTY_MESSAGE = "예매 정보가 없습니다."
     }
 }

@@ -1,9 +1,9 @@
 package woowacourse.movie.presentation.dto
 
 import woowacourse.movie.domain.model.Movie
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.presentation.utils.dateToString
 
-data class MovieViewModel(
+data class MovieUiModel(
     val movieId: Int,
     val posterName: String,
     val title: String,
@@ -12,19 +12,15 @@ data class MovieViewModel(
     val summary: String,
 ) {
     companion object {
-        fun fromMovie(movie: Movie): MovieViewModel {
-            return MovieViewModel(
+        fun fromMovie(movie: Movie): MovieUiModel {
+            return MovieUiModel(
                 movieId = movie.movieId,
                 posterName = movie.posterName,
                 title = movie.title,
-                screeningDate = movie.screeningDateToString(),
+                screeningDate = movie.screeningDate.dateToString(),
                 runningTime = movie.runningTime,
                 summary = movie.summary,
             )
-        }
-
-        private fun Movie.screeningDateToString(): String {
-            return this.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
         }
     }
 }

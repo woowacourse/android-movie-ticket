@@ -1,8 +1,11 @@
 package woowacourse.movie.domain.model
 
+import java.time.LocalDate
+
 class MovieTicket(
+    val id: Int,
     val movieTitle: String,
-    val screeningDate: String,
+    val screeningDate: LocalDate,
 ) {
     var reservationCount: Int = MIN_RESERVATION_COUNT
         private set

@@ -13,9 +13,11 @@ const val RUNNING_TIME = 100
 const val SUMMARY = "summary"
 const val RESERVATION_COUNT = 2
 const val TOTAL_PRICE = 26000
+const val EXTRA_MOVIE_ID = "movieId"
 
 fun detailActivityIntent(context: Context): Intent =
     Intent(context, MovieDetailActivity::class.java).apply {
+        putExtra(EXTRA_MOVIE_ID, 1)
         putExtra("posterSrc", posterImageSrc)
         putExtra("title", TITLE)
         putExtra("screeningDate", SCREENING_DATE)

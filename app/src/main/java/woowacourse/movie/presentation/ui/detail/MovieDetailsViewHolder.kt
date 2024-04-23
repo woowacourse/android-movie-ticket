@@ -5,6 +5,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.presentation.dto.MovieUiModel
+import woowacourse.movie.presentation.utils.toDrawableIdByName
 
 class MovieDetailsViewHolder(private val view: View) {
     private val posterImage: ImageView = view.findViewById(R.id.posterImage)
@@ -12,23 +14,19 @@ class MovieDetailsViewHolder(private val view: View) {
     private val screeningDateTextView: TextView = view.findViewById(R.id.screeningDate)
     private val runningTimeTextView: TextView = view.findViewById(R.id.runningTime)
     private val summaryTextView: TextView = view.findViewById(R.id.summary)
-    private val reservationCountTextView: TextView = view.findViewById(R.id.reservationCount)
+    val reservationCountTextView: TextView = view.findViewById(R.id.reservationCount)
     val minusButton: Button = view.findViewById(R.id.minusButton)
     val plusButton: Button = view.findViewById(R.id.plusButton)
     val reserveButton: Button = view.findViewById(R.id.reserveButton)
 
-    fun bindDetails(
-        posterImageId: Int,
-        title: String,
-        screeningDate: String,
-        runningTime: Int,
-        summary: String,
-    ) {
-        posterImage.setImageResource(posterImageId)
-        titleTextView.text = title
-        screeningDateTextView.text = view.context.getString(R.string.screening_date_format, screeningDate)
-        runningTimeTextView.text = view.context.getString(R.string.running_time_format, runningTime)
-        summaryTextView.text = summary
+    fun bindDetails(movieUiModel: MovieUiModel) {
+        val imageResource = movieUiModel.posterName.toDrawableIdByName(view.context)
+        imageResource?.let { posterImage.setImageResource(it) }
+        titleTextView.text = movieUiModel.title
+        screeningDateTextView.text =
+            view.context.getString(R.string.screening_date_format, movieUiModel.screeningDate)
+        runningTimeTextView.text = view.context.getString(R.string.running_time_format, movieUiModel.runningTime)
+        summaryTextView.text = movieUiModel.summary
     }
 
     fun updateReservationCount(count: Int) {

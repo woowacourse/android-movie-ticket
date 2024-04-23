@@ -6,7 +6,7 @@ import woowacourse.movie.domain.repository.MovieRepository
 
 object MovieRepositoryImpl : MovieRepository {
     private val movies: List<Movie> = SampleMovies.movies
-    
+
     override fun getAllMovies(): List<Movie> {
         return movies
     }

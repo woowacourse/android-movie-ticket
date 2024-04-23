@@ -5,7 +5,7 @@ import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.dto.MovieViewModel
+import woowacourse.movie.presentation.dto.MovieUiModel
 import woowacourse.movie.presentation.ui.detail.MovieDetailActivity
 import woowacourse.movie.presentation.ui.main.adapter.MovieListAdapter
 
@@ -20,7 +20,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         presenter.loadMovieList()
     }
 
-    override fun showMovieList(movieList: List<MovieViewModel>) {
+    override fun showMovieList(movieList: List<MovieUiModel>) {
         adapter =
             MovieListAdapter(movieList) { movieId ->
                 presenter.requestMovieDetail(movieId)

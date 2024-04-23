@@ -1,10 +1,10 @@
 package woowacourse.movie.presentation.ui.main
 
-import woowacourse.movie.presentation.dto.MovieViewModel
+import woowacourse.movie.presentation.dto.MovieUiModel
 
 interface MainContract {
     interface View {
-        fun showMovieList(movieList: List<MovieViewModel>)
+        fun showMovieList(movieList: List<MovieUiModel>)
 
         fun moveToMovieDetail(movieId: Int)
 

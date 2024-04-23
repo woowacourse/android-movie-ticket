@@ -1,40 +1,26 @@
 package woowacourse.movie.presentation.ui.detail
 
-import woowacourse.movie.presentation.dto.ReservationData
+import woowacourse.movie.presentation.dto.MovieUiModel
 
 interface MovieDetailContract {
     interface View {
-        fun showMovieDetail(
-            posterImageId: Int,
-            title: String,
-            screeningDate: String,
-            runningTime: Int,
-            summary: String,
-        )
+        fun showMovieDetail(movieUiModel: MovieUiModel)
 
         fun showReservationCount(count: Int)
 
-        fun moveToReservationPage(reservationData: ReservationData)
+        fun moveToReservationPage(movieTicketId: Int)
 
         fun showMessage(message: String)
     }
 
     interface Presenter {
-        fun loadMovieDetails(
-            posterImageId: Int,
-            title: String,
-            screeningDate: String,
-            runningTime: Int,
-            summary: String,
-        )
+        fun loadMovieDetailsAndSetupTicket(movieId: Int)
 
         fun minusReservationCount()
 
         fun plusReservationCount()
 
         fun updateReservationCount(reservationCount: Int)
-
-        fun reservationCountDisplay()
 
         fun requestReservationResult()
     }
