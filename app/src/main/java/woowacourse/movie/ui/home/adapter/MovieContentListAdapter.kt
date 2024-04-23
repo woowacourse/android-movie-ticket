@@ -15,6 +15,7 @@ import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.ui.home.MovieHomeKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
+import woowacourse.movie.ui.utils.getImageFromId
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -60,7 +61,8 @@ class MovieContentListAdapter(
 
         fun setUpContentUi(movieContent: MovieContent) {
             with(movieContent) {
-                posterImage.setImageResource(imageId)
+                val image = imageId.getImageFromId(view.context)
+                posterImage.setImageResource(image)
                 titleText.text = title
                 screeningDateText.text =
                     view.context.resources

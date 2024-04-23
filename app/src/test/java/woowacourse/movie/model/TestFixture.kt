@@ -5,7 +5,7 @@ import woowacourse.movie.model.movie.MovieDate
 
 val movieContent =
     MovieContent(
-        0,
+        "movie_poster",
         "해리 포터와 마법사의 돌",
         MovieDate(2024, 3, 1),
         152,

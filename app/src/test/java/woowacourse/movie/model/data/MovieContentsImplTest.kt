@@ -15,14 +15,13 @@ class MovieContentsImplTest {
     @Test
     fun `영화_정보를_저장한다`() {
         // given
-        val movieContent = movieContent.copy(id = 1)
 
         // when
         val id = MovieContentsImpl.save(movieContent)
         val actual = MovieContentsImpl.find(id)
 
         // then
-        assertThat(actual).isEqualTo(movieContent)
+        assertThat(actual).isEqualTo(movieContent.copy(id = id))
     }
 
     @Test

@@ -14,6 +14,7 @@ import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
+import woowacourse.movie.ui.utils.getImageFromId
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -98,7 +99,8 @@ class MovieReservationActivity :
 
     override fun showMovieContentUi(movieContent: MovieContent) {
         movieContent.run {
-            posterImage.setImageResource(imageId)
+            val image = imageId.getImageFromId(this@MovieReservationActivity)
+            posterImage.setImageResource(image)
             titleText.text = title
             screeningDateText.text =
                 resources.getString(R.string.screening_date)
