@@ -11,7 +11,6 @@ import android.widget.TextView
 import woowacourse.movie.R
 
 class MovieAdapter(
-    context: Context,
     private val movies: List<ScreenMovieUiModel>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) :
