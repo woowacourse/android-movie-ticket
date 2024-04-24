@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.IntentCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity

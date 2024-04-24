@@ -1,14 +1,16 @@
 package woowacourse.movie.movieDetail
 
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import woowacourse.movie.model.theater.Theater
 
-@Suppress("DEPRECATION")
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class MovieDetailPresenter(
-    private val view : MovieDetailContract.View,
+    private val view: MovieDetailContract.View,
     intent: Intent
 ) : MovieDetailContract.Presenter {
-    private val theater = intent.getSerializableExtra("Theater") as? Theater
+    private val theater = intent.getSerializableExtra("Theater", Theater::class.java)
     val movie = theater?.movie
     override fun load() {
         if (movie != null) {
