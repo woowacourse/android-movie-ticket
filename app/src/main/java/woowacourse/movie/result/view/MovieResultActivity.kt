@@ -17,10 +17,11 @@ import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
-    private lateinit var completeTitleTextView: TextView
-    private lateinit var completeDateTextView: TextView
-    private lateinit var completeReservationCountTextView: TextView
-    private lateinit var completeReservationPriceTextView: TextView
+    private lateinit var resultTitle: TextView
+    private lateinit var resultDate: TextView
+    private lateinit var resultTime: TextView
+    private lateinit var resultCount: TextView
+    private lateinit var resultPrice: TextView
 
     private lateinit var movieResultPresenter: MovieResultPresenter
 
@@ -41,17 +42,19 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
 
     override fun displayMovieTicket(movieTicketData: MovieTicket?) {
         movieTicketData?.let { movieTicket ->
-            completeTitleTextView.text = movieTicket.title
-            completeDateTextView.text = movieTicket.date
-            completeReservationCountTextView.text = "${movieTicket.count}"
-            completeReservationPriceTextView.text = movieTicketData.formatPrice()
+            resultTitle.text = movieTicket.title
+            resultDate.text = movieTicket.date
+            resultTime.text = movieTicket.time
+            resultCount.text = "${movieTicket.count}"
+            resultPrice.text = movieTicketData.formatPrice()
         }
     }
 
     private fun setUpViewById() {
-        completeTitleTextView = findViewById(R.id.resultTitle)
-        completeDateTextView = findViewById(R.id.resultDate)
-        completeReservationCountTextView = findViewById(R.id.resultReservCount)
-        completeReservationPriceTextView = findViewById(R.id.resultReservPrice)
+        resultTitle = findViewById(R.id.resultTitle)
+        resultDate = findViewById(R.id.resultDate)
+        resultTime = findViewById(R.id.resultTime)
+        resultCount = findViewById(R.id.resultReservCount)
+        resultPrice = findViewById(R.id.resultReservPrice)
     }
 }
