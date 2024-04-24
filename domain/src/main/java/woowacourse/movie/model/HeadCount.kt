@@ -1,7 +1,7 @@
 package woowacourse.movie.model
 
 @JvmInline
-value class HeadCount(val count: Int) {
+value class HeadCount(val count: Int = DEFAULT_VALUE) {
     init {
         require(count >= MIN_COUNT) {
             "$count - 예매는 ${MIN_COUNT}장 이상 부터 가능합니다."
@@ -17,5 +17,6 @@ value class HeadCount(val count: Int) {
     companion object {
         private const val MIN_COUNT = 1
         private const val INCREASE_COUNT = 1
+        const val DEFAULT_VALUE = 1
     }
 }
