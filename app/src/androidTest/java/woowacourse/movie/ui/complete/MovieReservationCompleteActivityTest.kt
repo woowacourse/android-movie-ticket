@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.complete
 
-import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -10,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -21,12 +19,9 @@ import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.model.movie.ReservationCount
 import woowacourse.movie.model.movie.Ticket
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
-    private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
     private val movieContent: MovieContent = MovieContentsImpl.find(0L)
 
     private val intent =
@@ -50,11 +45,9 @@ class MovieReservationCompleteActivityTest {
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
-        val screeningDate = dateFormatter(movieContent.screeningMovieDate)
-
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText(screeningDate)))
+            .check(matches(withText("2024.3.1")))
     }
 
     @Test
@@ -71,12 +64,6 @@ class MovieReservationCompleteActivityTest {
         onView(withId(R.id.reservation_amount_text))
             .check(matches(isDisplayed()))
             .check(matches(withText("%,d원 (현장 결제)".format(reservationAmount))))
-    }
-
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
-        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
     }
 
     companion object {

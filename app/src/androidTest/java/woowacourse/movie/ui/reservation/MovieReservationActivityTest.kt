@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.reservation
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
@@ -13,7 +12,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -22,12 +20,9 @@ import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationActivityTest {
-    private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
     private val movieContent: MovieContent = MovieContentsImpl.find(0L)
 
     private val intent =
@@ -50,18 +45,16 @@ class MovieReservationActivityTest {
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
-        val screeningDate = dateFormatter(movieContent.screeningMovieDate)
-
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("상영일: $screeningDate")))
+            .check(matches(withText("상영일: 2024.3.1")))
     }
 
     @Test
     fun `화면이_띄워지면_러닝타임이_보인다`() {
         onView(withId(R.id.running_time_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("러닝타임: ${MovieContentsImpl.find(0L).runningTime}분")))
+            .check(matches(withText("러닝타임: ${movieContent.runningTime}분")))
     }
 
     @Test
@@ -153,12 +146,6 @@ class MovieReservationActivityTest {
         // then
         onView(withId(R.id.reservation_count_text))
             .check(matches(withText("3")))
-    }
-
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
-        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
     }
 
     companion object {
