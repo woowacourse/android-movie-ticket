@@ -9,6 +9,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.db.SeatsDao
 import woowacourse.movie.presenter.reservation.SeatSelectionContract
 import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
@@ -21,7 +22,7 @@ class SeatSelectionPresenterTest {
 
     @BeforeEach
     fun setUp() {
-        presenter = SeatSelectionPresenter(view, SeatsDao())
+        presenter = SeatSelectionPresenter(view, SeatsDao(), ScreeningDao())
     }
 
     @Test
@@ -29,5 +30,12 @@ class SeatSelectionPresenterTest {
         every { view.showSeatNumber(any(), any()) } just runs
         presenter.loadSeatNumber()
         verify(exactly = 20) { view.showSeatNumber(any(), any()) }
+    }
+
+    @Test
+    fun `영화 제목을 보여준다`() {
+        every { view.showMovieTitle(any()) } just runs
+        presenter.loadMovie(0)
+        verify { view.showMovieTitle(any()) }
     }
 }

@@ -10,18 +10,22 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.db.SeatsDao
 import woowacourse.movie.model.Grade
+import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.reservation.SeatSelectionContract
 import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
+import woowacourse.movie.view.home.ReservationHomeActivity
 import java.io.Serializable
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
-    private val presenter: SeatSelectionPresenter = SeatSelectionPresenter(this, SeatsDao())
+    private val presenter: SeatSelectionPresenter = SeatSelectionPresenter(this, SeatsDao(), ScreeningDao())
 
     private val seatTableLayout: TableLayout by lazy { findViewById(R.id.table_layout_seat_selection) }
+    private val title: TextView by lazy { findViewById(R.id.textview_seat_selection_title) }
     private val confirmButton: Button by lazy { findViewById(R.id.button_seat_selection_confirm) }
     private lateinit var seats: List<Button>
     private lateinit var ticket: Ticket
@@ -30,12 +34,20 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
+        val movieId =
+            intent.getIntExtra(
+                ReservationHomeActivity.MOVIE_ID,
+                ReservationDetailActivity.DEFAULT_MOVIE_ID,
+            )
         ticket = intent.intentSerializable(ReservationDetailActivity.TICKET, Ticket::class.java) ?: Ticket()
-
         seats =
             seatTableLayout.children.filterIsInstance<TableRow>().flatMap { it.children }
                 .filterIsInstance<Button>().toList()
-        presenter.loadSeatNumber()
+
+        with(presenter) {
+            loadSeatNumber()
+            loadMovie(movieId)
+        }
     }
 
     override fun showSeatNumber(
@@ -69,6 +81,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         isSelected: Boolean,
     ) {
         seats[index].isSelected = !isSelected
+    }
+
+    override fun showMovieTitle(movie: Movie) {
+        title.text = movie.title
     }
 
     override fun setConfirmButtonEnabled(count: Int) {
