@@ -26,24 +26,24 @@ class ReservationFinishedActivityTest {
     }
 
     @Test
-    fun `예매한_영화_제목을_보여준다`() {
+    fun 예매한_영화_제목을_보여준다() {
         onView(withId(R.id.text_view_reservation_finished_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
-    fun `예매한_영화_상영일을_보여준다`() {
+    fun 예매한_영화_상영일을_보여준다() {
         onView(withId(R.id.text_view_reservation_finished_screening_date)).check(matches(withText("2001.11.14")))
     }
 
     @Test
-    fun `예매한_영화_관람인원을_보여준다`() {
+    fun 예매한_영화_관람인원을_보여준다() {
         val ticketCount = 1
 
         onView(withId(R.id.text_view_reservation_finished_number_of_tickets)).check(matches(withText(ticketCount.toString())))
     }
 
     @Test
-    fun `예매한_영화_총_결제금액을_보여준다`() {
+    fun 예매한_영화_총_결제금액을_보여준다() {
         val ticketPrice = "13,000"
 
         onView(withId(R.id.text_view_reservation_finished_ticket_price)).check(matches(withText(ticketPrice)))

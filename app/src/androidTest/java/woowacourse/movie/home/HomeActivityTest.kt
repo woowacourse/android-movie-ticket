@@ -17,21 +17,21 @@ class HomeActivityTest {
     val activityRule = ActivityScenarioRule(HomeActivity::class.java)
 
     @Test
-    fun `영화_목록에서_첫번째_아이템의_타이틀을_보여준다`() {
+    fun 영화_목록에서_첫번째_아이템의_타이틀을_보여준다() {
         moviesFirstItem.onChildView(withId(R.id.item_movie_catalog_text_view_title)).check(
             matches(withText("해리 포터와 마법사의 돌")),
         )
     }
 
     @Test
-    fun `영화_목록에서_첫번째_아이템의_상영일을_보여준다`() {
+    fun 영화_목록에서_첫번째_아이템의_상영일을_보여준다() {
         moviesFirstItem.onChildView(withId(R.id.item_movie_catalog_text_view_screening_date)).check(
             matches(withText("2001.11.14")),
         )
     }
 
     @Test
-    fun `영화_목록에서_첫번째_아이템의_상영시간을_보여준다`() {
+    fun 영화_목록에서_첫번째_아이템의_상영시간을_보여준다() {
         moviesFirstItem.onChildView(withId(R.id.item_movie_catalog_text_view_running_time)).check(
             matches(withText("152분")),
         )

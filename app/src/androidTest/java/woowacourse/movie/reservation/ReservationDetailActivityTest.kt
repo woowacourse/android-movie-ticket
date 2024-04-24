@@ -19,12 +19,12 @@ class ReservationDetailActivityTest {
     var activityRule = ActivityScenarioRule(ReservationDetailActivity::class.java)
 
     @Test
-    fun `영화_티켓_디폴트_값은_1이다`() {
+    fun 영화_티켓_디폴트_값은_1이다() {
         onView(withId(R.id.text_view_reservation_detail_number_of_tickets)).check(matches(withText("1")))
     }
 
     @Test
-    fun `빼기_버튼을_누르면_영화_티켓_수가_감소한다`() {
+    fun 빼기_버튼을_누르면_영화_티켓_수가_감소한다() {
         onView(withId(R.id.button_reservation_detail_plus)).perform(click())
 
         onView(withId(R.id.button_reservation_detail_minus)).perform(click())
@@ -33,7 +33,7 @@ class ReservationDetailActivityTest {
     }
 
     @Test
-    fun `더하기_버튼을_누르면_영화_티켓_수가_증가한다`() {
+    fun 더하기_버튼을_누르면_영화_티켓_수가_증가한다() {
         onView(withId(R.id.button_reservation_detail_plus)).perform(click())
 
         onView(withId(R.id.text_view_reservation_detail_number_of_tickets)).check(matches(withText("2")))
