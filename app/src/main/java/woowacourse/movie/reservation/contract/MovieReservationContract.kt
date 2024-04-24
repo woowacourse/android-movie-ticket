@@ -13,7 +13,7 @@ interface MovieReservationContract {
 
         fun startMovieTicketActivity(info: Int)
 
-        fun showToast(message: String?)
+        fun showToast(message: String)
     }
 
     interface Presenter {
@@ -25,7 +25,7 @@ interface MovieReservationContract {
 
         fun setTicketingButtonClickInfo()
 
-        fun storeMovieData(movieData: Movie?)
+        fun storeMovieData(movieData: Movie)
 
         fun setMovieInfo()
     }

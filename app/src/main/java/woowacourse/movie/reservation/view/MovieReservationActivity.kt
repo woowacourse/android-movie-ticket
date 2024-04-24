@@ -64,7 +64,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         posterView.setImageResource(info.posterResourceId)
     }
 
-    override fun showToast(message: String?) {
+    override fun showToast(message: String) {
         toast?.cancel()
         toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
         toast?.show()

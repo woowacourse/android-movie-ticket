@@ -17,4 +17,14 @@ object MovieDataSource {
                 0,
             ),
         )
+
+    val emptyMovie =
+        Movie(
+            "",
+            0,
+            LocalDateTime.of(0, 1, 1, 0, 0, 0),
+            0,
+            "",
+            0,
+        )
 }

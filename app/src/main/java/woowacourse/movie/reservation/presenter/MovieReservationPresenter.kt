@@ -1,6 +1,7 @@
 package woowacourse.movie.reservation.presenter
 
 import woowacourse.movie.list.model.Movie
+import woowacourse.movie.list.model.MovieDataSource
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.MovieReservationMovieData
 import woowacourse.movie.reservation.model.MovieReservationTicketCountData
@@ -17,12 +18,12 @@ class MovieReservationPresenter(
         view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
-    override fun storeMovieData(movieData: Movie?) {
+    override fun storeMovieData(movieData: Movie) {
         MovieReservationMovieData.movieData = movieData
     }
 
     override fun setMovieInfo() {
-        val movie = MovieReservationMovieData.movieData as Movie
+        val movie = MovieReservationMovieData.movieData ?: MovieDataSource.emptyMovie
         view.setMovieView(movie)
     }
 
@@ -36,7 +37,7 @@ class MovieReservationPresenter(
             model.minusTicketCount()
             view.showCurrentResultTicketCountView(ticketCount.number)
         }.onFailure {
-            view.showToast(it.message)
+            view.showToast(it.message ?: "")
         }
     }
 
