@@ -163,7 +163,7 @@
         android:id="@+id/btn_complete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/text_complete_button"
+        android:text="@string/text_select_seat_button"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingVertical="12dp"

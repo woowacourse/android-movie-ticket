@@ -5,7 +5,6 @@ import android.widget.AdapterView
 import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.model.Count
 import woowacourse.movie.model.ScreeningTimeSchedule
-import woowacourse.movie.model.Tickets
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -42,8 +41,7 @@ class TicketingPresenter(
     }
 
     override fun navigate() {
-        val totalPrice = Tickets(count).totalPrice
-        ticketingContractView.navigate(movieId, count.value, totalPrice)
+        ticketingContractView.navigate(movieId, count.value)
     }
 
     override fun onItemSelected(

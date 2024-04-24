@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
+import woowacourse.movie.presentation.seatSelection.SeatSelectionActivity
 import woowacourse.movie.utils.formatMovieDate
 import java.time.LocalDate
 import java.time.LocalTime
@@ -120,12 +120,10 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     override fun navigate(
         movieId: Int,
         count: Int,
-        totalPrice: Int,
     ) {
-        Intent(this, TicketingResultActivity::class.java).apply {
+        Intent(this, SeatSelectionActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, movieId)
             putExtra(EXTRA_COUNT, count)
-            putExtra(EXTRA_TOTAL_PRICE, totalPrice)
             startActivity(this)
             finish()
         }
