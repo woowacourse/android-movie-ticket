@@ -5,10 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
@@ -24,6 +28,35 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_movie)
+        val dateSpinner = findViewById<Spinner>(R.id.sp_reservation_date).apply {
+            val itemList = listOf("2021-08-01", "2021-08-02", "2021-08-03")
+            adapter = ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                itemList
+            )
+        }
+        val timeSpinner = findViewById<Spinner>(R.id.sp_reservation_time).apply {
+            val itemList = listOf("10:00", "13:00", "16:00", "19:00", "22:00")
+            adapter = ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                itemList
+            )
+        }.apply {
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+//                    Toast.makeText(this@MovieReservationActivity, "position $position", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        }
         initView()
         initClickListener()
         if (savedInstanceState == null) initPresenter()
