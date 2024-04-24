@@ -22,6 +22,7 @@ import woowacourse.movie.presentation.model.ReservationInfo
 import woowacourse.movie.presentation.model.UserSeat
 import woowacourse.movie.presentation.ui.reservation.ReservationActivity
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionContract.View
+import woowacourse.movie.presentation.utils.currency
 import java.io.Serializable
 
 class SeatSelectionActivity : BaseActivity(), View {
@@ -49,7 +50,7 @@ class SeatSelectionActivity : BaseActivity(), View {
     override fun showScreen(screen: Screen) {
         with(screen) {
             title.text = movie.title
-            totalPrice.text = "0원"
+            totalPrice.text = 0.currency(this@SeatSelectionActivity)
             btnDone.isEnabled = false
         }
     }
@@ -106,7 +107,7 @@ class SeatSelectionActivity : BaseActivity(), View {
     }
 
     override fun showTotalPrice(totalPrice: Int) {
-        this.totalPrice.text = "${totalPrice}원"
+        this.totalPrice.text = totalPrice.currency(this)
     }
 
     override fun buttonEnabled(isActivate: Boolean) {

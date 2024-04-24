@@ -10,10 +10,9 @@ import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.Presenter
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.View
-import java.text.NumberFormat
+import woowacourse.movie.presentation.utils.currency
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 class ReservationActivity : BaseActivity(), View {
     override val layoutResourceId: Int
@@ -35,18 +34,8 @@ class ReservationActivity : BaseActivity(), View {
             title.text = movie.title
             date.text = dateTime.toScreeningDate()
             count.text = getString(R.string.reserve_count, ticket.count, seats.toSeatString())
-            amount.text = currency()
+            amount.text = totalPrice.currency(this@ReservationActivity)
         }
-    }
-
-    private fun Reservation.currency(): String {
-        val amount =
-            when (Locale.getDefault().country) {
-                Locale.KOREA.country -> getString(R.string.price_format_kor, totalPrice)
-                else -> NumberFormat.getCurrencyInstance(Locale.getDefault()).format(totalPrice)
-            }
-
-        return getString(R.string.reserve_amount, amount)
     }
 
     override fun back() = finish()
