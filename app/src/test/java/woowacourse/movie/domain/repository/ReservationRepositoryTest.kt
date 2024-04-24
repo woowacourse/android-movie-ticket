@@ -3,9 +3,9 @@ package woowacourse.movie.domain.repository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.presentation.utils.getDummyMovie
-import woowacourse.movie.presentation.utils.getDummyReservation
-import woowacourse.movie.presentation.utils.getDummySeats
+import woowacourse.movie.utils.getDummyMovie
+import woowacourse.movie.utils.getDummyReservation
+import woowacourse.movie.utils.getDummySeats
 import java.time.LocalDateTime
 
 class ReservationRepositoryTest {

@@ -9,8 +9,8 @@ import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.fakerepository.FakeScreenRepository
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.ui.detail.fake.FakeDetailView
-import woowacourse.movie.presentation.utils.getDummyReservation
-import woowacourse.movie.presentation.utils.getDummyScreen
+import woowacourse.movie.utils.getDummyReservation
+import woowacourse.movie.utils.getDummyScreen
 
 class DetailPresenterTest {
     private lateinit var screens: List<Screen>

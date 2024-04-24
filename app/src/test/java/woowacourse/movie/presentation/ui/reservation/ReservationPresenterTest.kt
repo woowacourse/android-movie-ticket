@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.presentation.fakerepository.FakeReservationRepository
 import woowacourse.movie.presentation.ui.reservation.fake.FakeReservationView
-import woowacourse.movie.presentation.utils.getDummyReservation
+import woowacourse.movie.utils.getDummyReservation
 
 class ReservationPresenterTest {
     private lateinit var reservation: Reservation
