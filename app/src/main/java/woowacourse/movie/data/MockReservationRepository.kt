@@ -1,12 +1,12 @@
 package woowacourse.movie.data
 
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Quantity
-import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.pricing.UniformPricingSystem
-import woowacourse.movie.model.screening.Schedule
-import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.domain.pricing.UniformPricingSystem
+import woowacourse.movie.domain.reservation.Quantity
+import woowacourse.movie.domain.reservation.Reservation
+import woowacourse.movie.domain.screening.Movie
+import woowacourse.movie.domain.screening.Schedule
+import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
 
 object MockReservationRepository : ReservationRepository {

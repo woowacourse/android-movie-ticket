@@ -2,10 +2,10 @@ package woowacourse.movie.data
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.Quantity
-import woowacourse.movie.model.TestFixture.DUMMY_MOVIE
-import woowacourse.movie.model.screening.Schedule
-import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.domain.TestFixture.DUMMY_MOVIE
+import woowacourse.movie.domain.reservation.Quantity
+import woowacourse.movie.domain.screening.Schedule
+import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
 
 class MockReservationRepositoryTest {
