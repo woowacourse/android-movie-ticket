@@ -7,10 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.Reservation
-import java.text.DecimalFormat
-import java.time.format.DateTimeFormatter
-import java.util.Locale
+import woowacourse.movie.screen.reservation.ReservationModel
 
 class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
@@ -37,23 +34,12 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
 
     private fun getReservationId(): Long = intent.getLongExtra(RESERVATION_ID, -1L)
 
-    override fun initializeReservationDetails(reservation: Reservation) {
-        val formattedDate = formatLocalDate(reservation)
-        val formattedPrice = formatPrice(reservation)
-        movieTitleTv.text = reservation.getTitle()
-        reservationDateTv.text = formattedDate
-        quantityTv.text = "일반 ${reservation.getQuantity()}명"
-        priceTv.text = formattedPrice
+    override fun initializeReservationDetails(reservation: ReservationModel) {
+        movieTitleTv.text = reservation.title
+        reservationDateTv.text = reservation.schedule
+        quantityTv.text = reservation.formatQuantity(this)
+        priceTv.text = reservation.formatPrice(this)
     }
-
-    private fun formatLocalDate(reservation: Reservation): String {
-        val formatter = DateTimeFormatter.ofPattern(DATE_FORMAT, Locale.getDefault())
-        return reservation.getScreeningSchedule().run {
-            format(formatter)
-        }
-    }
-
-    private fun formatPrice(reservation: Reservation) = "${DecimalFormat(DECIMAL_FORMAT).format(reservation.price)}원 (현장 결제)"
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -65,8 +51,6 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     }
 
     companion object {
-        private const val DATE_FORMAT = "yyyy.M.d"
-        private const val DECIMAL_FORMAT = "#,###"
         const val RESERVATION_ID = "reservation_id"
 
         fun getIntent(
