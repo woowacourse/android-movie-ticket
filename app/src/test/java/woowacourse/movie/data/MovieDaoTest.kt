@@ -1,16 +1,13 @@
 package woowacourse.movie.data
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 class MovieDaoTest {
     private val movieDao = MovieDao()
 
     @Test
-    fun `movieId로_데이터베이스에_저장된_영화를_조회할_수_있다`() {
+    fun `movieId로 data에 저장된 영화를 조회할 수 있다`() {
         // given
         val movieId = 1
 
@@ -22,7 +19,7 @@ class MovieDaoTest {
     }
 
     @Test
-    fun `데이터베이스에_저장된_영화를_모든_데이터를_조회할_수_있다`() {
+    fun `data에 저장된 영화를 모두 조회할 수 있다`() {
         // given,when
         val movies = movieDao.findAll()
 
