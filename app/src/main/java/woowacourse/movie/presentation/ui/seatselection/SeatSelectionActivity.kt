@@ -15,19 +15,19 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatRank
+import woowacourse.movie.domain.model.UserSeat
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.model.ReservationInfo
 import woowacourse.movie.presentation.ui.reservation.ReservationActivity
-import woowacourse.movie.presentation.ui.seatselection.SeatSelectionContract.Presenter
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionContract.View
 import java.io.Serializable
 
 class SeatSelectionActivity : BaseActivity(), View {
     override val layoutResourceId: Int
         get() = R.layout.activity_seat_selection
-    override val presenter: Presenter by lazy {
+    override val presenter: SeatSelectionPresenter by lazy {
         SeatSelectionPresenter(this, DummyScreens(), DummyReservation)
     }
 
@@ -146,14 +146,23 @@ class SeatSelectionActivity : BaseActivity(), View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putSerializable(PUT_STATE_KEY_USER_SEAT, presenter.uiModel.userSeat)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
+
+        val savedUserSeat = savedInstanceState.getSerializable(PUT_STATE_KEY_USER_SEAT) as UserSeat?
+        savedUserSeat?.let { userSeat ->
+            userSeat.seats.forEach { seat ->
+                presenter.clickSeat(seat)
+            }
+        }
     }
 
     companion object {
         private const val PUT_EXTRA_KEY_RESERVATION_INFO = "reservationInfo"
+        private const val PUT_STATE_KEY_USER_SEAT = "userSeat"
 
         fun startActivity(
             context: Context,

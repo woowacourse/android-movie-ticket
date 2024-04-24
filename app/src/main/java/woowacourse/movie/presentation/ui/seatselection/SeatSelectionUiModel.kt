@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.ui.seatselection
 
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.UserSeat
 import java.time.LocalDateTime
 
 data class SeatSelectionUiModel(
@@ -9,6 +9,6 @@ data class SeatSelectionUiModel(
     val screen: Screen? = null,
     val dateTime: LocalDateTime? = null,
     val ticketCount: Int = 0,
-    val seats: MutableSet<Seat> = mutableSetOf(),
+    val userSeat: UserSeat = UserSeat(emptyList()),
     val totalPrice: Int = 0,
 )

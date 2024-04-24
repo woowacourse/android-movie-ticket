@@ -12,10 +12,12 @@ class SeatSelectionPresenter(
     private val repository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
 ) : SeatSelectionContract.Presenter {
-    private var uiModel: SeatSelectionUiModel = SeatSelectionUiModel()
+    private var _uiModel: SeatSelectionUiModel = SeatSelectionUiModel()
+    val uiModel: SeatSelectionUiModel
+        get() = _uiModel
 
     override fun updateUiModel(reservationInfo: ReservationInfo) {
-        uiModel =
+        _uiModel =
             uiModel.copy(
                 id = reservationInfo.screenId,
                 dateTime = reservationInfo.dateTime,
@@ -25,7 +27,7 @@ class SeatSelectionPresenter(
 
     override fun loadScreen(id: Int) {
         repository.findByScreenId(id = id).onSuccess { screen ->
-            uiModel = uiModel.copy(screen = screen)
+            _uiModel = uiModel.copy(screen = screen)
             view.showScreen(screen)
         }.onFailure { e ->
             when (e) {
@@ -65,31 +67,31 @@ class SeatSelectionPresenter(
         val column = seat.column.toColumnIndex()
         val row = seat.row
 
-        if (seat in uiModel.seats) {
-            uiModel.seats.remove(seat)
+        if (seat in uiModel.userSeat.seats) {
+            _uiModel = uiModel.copy(userSeat = uiModel.userSeat.removeAt(seat))
             view.unselectSeat(column, row)
             return
         }
-        if (uiModel.seats.size == uiModel.ticketCount) {
+        if (uiModel.userSeat.seats.size == uiModel.ticketCount) {
             view.showSnackBar(MessageType.AllSeatsSelectedMessage(uiModel.ticketCount))
         } else {
             view.selectSeat(column, row)
-            uiModel.seats.add(seat)
+            _uiModel = _uiModel.copy(userSeat = _uiModel.userSeat + seat)
         }
     }
 
     override fun calculateSeat() {
         var newPrice = 0
-        uiModel.seats.forEach { seat ->
+        uiModel.userSeat.seats.forEach { seat ->
             newPrice += seat.column.toSeatPrice()
         }
 
-        uiModel = uiModel.copy(totalPrice = newPrice)
+        _uiModel = uiModel.copy(totalPrice = newPrice)
         view.showTotalPrice(uiModel.totalPrice)
     }
 
     override fun checkAllSeatsSelected() {
-        view.buttonEnabled(uiModel.seats.size == uiModel.ticketCount)
+        view.buttonEnabled(uiModel.userSeat.seats.size == uiModel.ticketCount)
     }
 
     override fun reserve() {
@@ -98,7 +100,7 @@ class SeatSelectionPresenter(
                 reservationRepository.saveReservation(
                     screen.movie,
                     uiModel.ticketCount,
-                    uiModel.seats.toList(),
+                    uiModel.userSeat.seats,
                     dateTime,
                 ).onSuccess { id ->
                     view.showToastMessage(ReservationSuccessMessage)
