@@ -5,7 +5,7 @@ class TicketCounter {
         private set
 
     fun minusTicketCount() {
-        ticketCount = (--ticketCount).coerceAtLeast(MIN_TICKET_COUNT)
+        ticketCount = ticketCount.minus(1).coerceAtLeast(MIN_TICKET_COUNT)
     }
 
     fun plusTicketCount() {
