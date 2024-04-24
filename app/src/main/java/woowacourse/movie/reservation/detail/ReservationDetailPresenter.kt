@@ -7,7 +7,7 @@ import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
-    private val contract: ReservationDetailContract.View,
+    private val view: ReservationDetailContract.View,
     private val movieId: Int,
 ) : ReservationDetailContract.Presenter {
     private val movies = Movies.obtainMovies()
@@ -24,20 +24,20 @@ class ReservationDetailPresenter(
     }
 
     override fun deliverMovie() {
-        contract.showMovieInformation(movies[movieId])
+        view.showMovieInformation(movies[movieId])
     }
 
     override fun deliverReservationInformation() {
-        contract.moveToReservationFinished(movieId, ticket.count)
+        view.moveToReservationFinished(movieId, ticket.count)
     }
 
     private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
         when (result) {
             is Success -> {
-                contract.updateCount(ticket.count)
-                contract.moveToReservationFinished(movieId, ticket.count)
+                view.updateCount(ticket.count)
+                view.moveToReservationFinished(movieId, ticket.count)
             }
-            is Failure -> contract.showErrorToast()
+            is Failure -> view.showErrorToast()
         }
     }
 }
