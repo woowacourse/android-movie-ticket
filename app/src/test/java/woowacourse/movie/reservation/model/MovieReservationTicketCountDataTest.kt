@@ -1,9 +1,8 @@
-package woowacourse.movie.model.model
+package woowacourse.movie.reservation.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.reservation.model.MovieReservationTicketCountData
 
 class MovieReservationTicketCountDataTest {
     private lateinit var movieReservationTicketCountData: MovieReservationTicketCountData
