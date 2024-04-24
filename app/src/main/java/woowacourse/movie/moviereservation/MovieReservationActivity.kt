@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.StubMovieRepository
@@ -18,6 +19,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
 
+    private lateinit var movie: MovieReservationUiModel
     private var count: HeadCountUiModel = HeadCountUiModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,6 +86,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     }
 
     override fun showMovieReservation(reservation: MovieReservationUiModel) {
+        movie = reservation
         val (id, title, imageRes, screenDate, description, runningTime) = reservation
         findViewById<ImageView>(R.id.iv_detail_poster).setImageResource(imageRes)
         findViewById<TextView>(R.id.tv_detail_title).text = title
@@ -99,6 +102,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun navigateToReservationResultView(reservationId: Long) {
         startActivity(ReservationResultActivity.getIntent(this, reservationId))
+    }
+
+    override fun showScreeningMovieError() {
+        Toast.makeText(this, "영화 정보를 불러오는데 실패했습니다. 앱을 다시 실행해주세요.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showCantDecreaseError(minCount: Int) {
+        Toast.makeText(this, "$minCount 명 이상부터 예약할 수 있습니다.", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

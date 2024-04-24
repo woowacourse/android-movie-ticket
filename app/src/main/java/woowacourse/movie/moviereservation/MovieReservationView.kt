@@ -6,4 +6,8 @@ interface MovieReservationView {
     fun updateHeadCount(updatedCount: HeadCountUiModel)
 
     fun navigateToReservationResultView(reservationId: Long)
+
+    fun showScreeningMovieError()
+
+    fun showCantDecreaseError(minCount: Int)
 }

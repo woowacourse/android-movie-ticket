@@ -1,18 +1,21 @@
 package woowacourse.movie.moviereservation
 
-import woowacourse.movie.model.ScreeningMovie
+import woowacourse.movie.model.HeadCount
 import woowacourse.movie.repository.MovieRepository
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MovieReservationPresenter(
     private val view: MovieReservationView,
     private val repository: MovieRepository,
 ) {
-    private lateinit var screeningMovie: ScreeningMovie
-
     fun loadMovieDetail(screenMovieId: Long) {
-        screeningMovie = repository.screenMovieById(screenMovieId)
-        view.showMovieReservation(screeningMovie.toMovieReservationUiModel())
+        runCatching {
+            val screeningMovie = repository.screenMovieById(screenMovieId)
+            view.showMovieReservation(screeningMovie.toMovieReservationUiModel())
+        }.onFailure {
+            view.showScreeningMovieError()
+        }
     }
 
     fun plusCount(currentCount: HeadCountUiModel) {
@@ -22,8 +25,10 @@ class MovieReservationPresenter(
 
     fun minusCount(currentCount: HeadCountUiModel) {
         val count = currentCount.toHeadCount()
-        if (count.canDecrease()) {
+        runCatching {
             view.updateHeadCount(count.decrease().toHeadCountUiModel())
+        }.onFailure {
+            view.showCantDecreaseError(HeadCount.MIN_COUNT)
         }
     }
 
@@ -33,7 +38,7 @@ class MovieReservationPresenter(
     ) {
         repository.reserveMovie(
             screenMovieId,
-            dateTime = dummyDate,
+            dateTime = repository.screenMovieById(screenMovieId).screenDateTimes.first().date.toDefaultLocalDateTime(),
             count = currentCount.toHeadCount(),
         ).onSuccess {
             view.navigateToReservationResultView(it)
@@ -41,6 +46,6 @@ class MovieReservationPresenter(
     }
 
     companion object {
-        private val dummyDate = LocalDateTime.of(1, 1, 1, 1, 1, 1)
+        private fun LocalDate.toDefaultLocalDateTime(): LocalDateTime = this.atTime(0, 0, 0)
     }
 }
