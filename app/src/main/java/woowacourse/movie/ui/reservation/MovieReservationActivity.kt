@@ -41,7 +41,10 @@ class MovieReservationActivity :
             return
         }
 
-        initializeUi(movieContentId)
+        presenter.loadMovieContent(movieContentId)
+        presenter.updateReservationCount()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         setOnClickButtonListener()
     }
 
@@ -68,12 +71,6 @@ class MovieReservationActivity :
         Log.e(TAG, throwable.message.toString())
         Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
         finish()
-    }
-
-    private fun initializeUi(movieContentId: Long) {
-        presenter.loadMovieContent(movieContentId)
-        presenter.updateReservationCount()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
