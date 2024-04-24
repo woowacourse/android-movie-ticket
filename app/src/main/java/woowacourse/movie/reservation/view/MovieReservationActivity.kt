@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.list.model.Movie
@@ -24,6 +25,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private lateinit var minusNumberButton: Button
     private lateinit var plusNumberButton: Button
     private lateinit var ticketingButton: Button
+    private var toast: Toast? = null
     override val presenter = MovieReservationPresenter(this@MovieReservationActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +62,12 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         runningDateView.text = info.runningTime.toString()
         descriptionView.text = info.description
         posterView.setImageResource(info.posterResourceId)
+    }
+
+    override fun showToast(message: String?) {
+        toast?.cancel()
+        toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+        toast?.show()
     }
 
     override fun showCurrentResultTicketCountView(info: Int) {

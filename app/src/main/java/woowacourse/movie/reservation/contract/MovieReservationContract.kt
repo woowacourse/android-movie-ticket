@@ -12,6 +12,8 @@ interface MovieReservationContract {
         fun setMovieView(info: Movie)
 
         fun startMovieTicketActivity(info: Int)
+
+        fun showToast(message: String?)
     }
 
     interface Presenter {

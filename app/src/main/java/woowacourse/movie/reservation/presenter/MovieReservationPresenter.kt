@@ -1,7 +1,5 @@
 package woowacourse.movie.reservation.presenter
 
-import android.content.Context
-import android.widget.Toast
 import woowacourse.movie.list.model.Movie
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.MovieReservationMovieData
@@ -11,7 +9,6 @@ class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
 ) : MovieReservationContract.Presenter {
     private val model: MovieReservationTicketCountData = MovieReservationTicketCountData()
-    private var toast: Toast? = null
 
     private val ticketCount
         get() = model.ticketCount
@@ -39,9 +36,7 @@ class MovieReservationPresenter(
             model.minusTicketCount()
             view.showCurrentResultTicketCountView(ticketCount.number)
         }.onFailure {
-            toast?.cancel()
-            toast = Toast.makeText(view as Context, it.message, Toast.LENGTH_SHORT)
-            toast?.show()
+            view.showToast(it.message)
         }
     }
 
