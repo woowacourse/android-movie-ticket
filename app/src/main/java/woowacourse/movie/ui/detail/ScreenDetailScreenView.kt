@@ -18,7 +18,7 @@ class ScreenDetailScreenView(context: Context, attrs: AttributeSet? = null) : Sc
     private val poster: ImageView by lazy { findViewById(R.id.iv_poster) }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.holder_screen_detail_screen, this, true)
+        inflate(context, R.layout.holder_screen_detail_screen, this)
     }
 
     override fun show(screen: ScreenDetailUI) {

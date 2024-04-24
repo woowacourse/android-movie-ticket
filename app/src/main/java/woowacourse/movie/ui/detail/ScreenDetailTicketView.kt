@@ -1,24 +1,36 @@
 package woowacourse.movie.ui.detail
 
-import android.app.Activity
+import android.content.Context
+import android.util.AttributeSet
 import android.widget.Button
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 
-class ScreenDetailTicketView(activity: Activity, private val presenter: ScreenDetailContract.Presenter) : TicketView {
-    private val ticketCount: TextView = activity.findViewById(R.id.tv_count)
-    private val plusBtn: Button = activity.findViewById(R.id.btn_plus)
-    private val minusBtn: Button = activity.findViewById(R.id.btn_minus)
-    private val reserveDone: Button = activity.findViewById(R.id.btn_reserve_done)
+class ScreenDetailTicketView(
+    context: Context,
+    attrs: AttributeSet? = null,
+) : TicketView, ConstraintLayout(context, attrs) {
+    private val ticketCount: TextView by lazy { findViewById(R.id.tv_count) }
+    private val plusBtn: Button by lazy { findViewById(R.id.btn_plus) }
+    private val minusBtn: Button by lazy { findViewById(R.id.btn_minus) }
+    private val reserveBtn: Button by lazy { findViewById(R.id.btn_reserve_done) }
 
-    override fun initClickListener(screenId: Int) {
+    init {
+        inflate(context, R.layout.holder_screen_detail_ticket, this)
+    }
+
+    override fun initClickListener(
+        screenId: Int,
+        presenter: ScreenDetailContract.Presenter,
+    ) {
         plusBtn.setOnClickListener {
             presenter.plusTicket()
         }
         minusBtn.setOnClickListener {
             presenter.minusTicket()
         }
-        reserveDone.setOnClickListener {
+        reserveBtn.setOnClickListener {
             presenter.reserve(screenId)
         }
     }

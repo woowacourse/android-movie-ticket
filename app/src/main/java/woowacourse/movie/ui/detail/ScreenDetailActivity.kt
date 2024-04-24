@@ -26,7 +26,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     }
 
     private val screenDetailView: ScreenDetailScreenView by lazy { findViewById(R.id.screen_detail_screen_view) }
-    private val ticketView: TicketView by lazy { ScreenDetailTicketView(this, presenter) }
+    private val ticketView: ScreenDetailTicketView by lazy { findViewById(R.id.screen_detail_ticket_view) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,14 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     private fun initView() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val id = intent.getIntExtra(PUT_EXTRA_KEY_ID, DEFAULT_ID)
-        ticketView.initClickListener(id)
+        initClickListener(id)
 
         presenter.loadScreen(id)
         presenter.loadTicket()
+    }
+
+    private fun initClickListener(id: Int) {
+        ticketView.initClickListener(screenId = id, presenter = presenter)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

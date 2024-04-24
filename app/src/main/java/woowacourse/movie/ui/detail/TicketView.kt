@@ -1,7 +1,10 @@
 package woowacourse.movie.ui.detail
 
 interface TicketView {
-    fun initClickListener(screenId: Int)
+    fun initClickListener(
+        screenId: Int,
+        presenter: ScreenDetailContract.Presenter,
+    )
 
     fun updateTicketCount(count: Int)
 
