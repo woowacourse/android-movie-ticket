@@ -50,7 +50,7 @@ class SeatSelectionActivity : BaseActivity(), View {
     override fun showScreen(screen: Screen) {
         with(screen) {
             title.text = movie.title
-            totalPrice.text = 0.currency(this@SeatSelectionActivity)
+            totalPrice.text = DEFAULT_TOTAL_PRICE.currency(this@SeatSelectionActivity)
             btnDone.isEnabled = false
         }
     }
@@ -159,6 +159,8 @@ class SeatSelectionActivity : BaseActivity(), View {
     }
 
     companion object {
+        private const val DEFAULT_TOTAL_PRICE = 0
+
         private const val PUT_EXTRA_KEY_RESERVATION_INFO = "reservationInfo"
         private const val PUT_STATE_KEY_USER_SEAT = "userSeat"
 
