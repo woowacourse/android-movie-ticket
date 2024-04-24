@@ -53,6 +53,7 @@ class DetailPresenter(
 
     override fun updateTicket(count: Int) {
         _uiModel = uiModel.copy(ticket = Ticket(count))
+        view.showTicket(count)
     }
 
     override fun plusTicket() {

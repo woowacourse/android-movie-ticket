@@ -137,7 +137,6 @@ class DetailActivity : BaseActivity(), View {
 
         val count = savedInstanceState.getInt(PUT_TICKET_STATE_KEY, DEFAULT_TICKET_COUNT)
         if (count != DEFAULT_TICKET_COUNT) {
-            ticketCount.text = count.toString()
             presenter.updateTicket(count)
         }
     }
