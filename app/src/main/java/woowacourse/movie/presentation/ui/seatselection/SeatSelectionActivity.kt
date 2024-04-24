@@ -15,11 +15,11 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatRank
-import woowacourse.movie.domain.model.UserSeat
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.model.ReservationInfo
+import woowacourse.movie.presentation.model.UserSeat
 import woowacourse.movie.presentation.ui.reservation.ReservationActivity
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionContract.View
 import java.io.Serializable

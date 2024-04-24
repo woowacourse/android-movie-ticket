@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.ui.seatselection
 
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.UserSeat
+import woowacourse.movie.presentation.model.UserSeat
 import java.time.LocalDateTime
 
 data class SeatSelectionUiModel(

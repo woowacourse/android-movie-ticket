@@ -1,5 +1,6 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.presentation.model
 
+import woowacourse.movie.domain.model.Seat
 import java.io.Serializable
 
 data class UserSeat(val seats: List<Seat>) : Serializable {
