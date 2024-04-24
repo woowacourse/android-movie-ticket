@@ -13,7 +13,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
 
 @RunWith(AndroidJUnit4::class)
 class MovieResultActivityTest {
@@ -23,6 +25,8 @@ class MovieResultActivityTest {
             MovieResultActivity::class.java,
         ).apply {
             putExtra(KEY_MOVIE_ID, 0L)
+            putExtra(KEY_MOVIE_DATE, "2024.04.01")
+            putExtra(KEY_MOVIE_TIME, "12:00")
             putExtra(KEY_MOVIE_COUNT, 3)
         }
 
@@ -38,7 +42,13 @@ class MovieResultActivityTest {
     @Test
     fun `예매한_영화의_상영일이_표시된다`() {
         onView(withId(R.id.resultDate))
-            .check(matches(withText("2024.4.1 ~ 2024.4.28")))
+            .check(matches(withText("2024.04.01")))
+    }
+
+    @Test
+    fun `예매한_영화의_상영시간이_표시된다`() {
+        onView(withId(R.id.resultTime))
+            .check(matches(withText("12:00")))
     }
 
     @Test

@@ -37,7 +37,7 @@ class MovieDetailActivityTest {
     @Test
     fun `선택된_영화의_상영일이_표시된다`() {
         onView(withId(R.id.detailDate))
-            .check(matches(withText("2024.4.1 ~ 2024.4.28")))
+            .check(matches(withText("2024.04.01 ~ 2024.04.28")))
     }
 
     @Test
