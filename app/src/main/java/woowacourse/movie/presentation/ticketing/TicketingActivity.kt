@@ -69,8 +69,8 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
             text =
                 context.getString(
                     R.string.title_date,
-                    formatMovieDate(movie.date.startDate),
-                    formatMovieDate(movie.date.endDate),
+                    formatMovieDate(movie.screeningDates.startDate),
+                    formatMovieDate(movie.screeningDates.endDate),
                 )
         }
         findViewById<TextView>(R.id.tv_running_time).apply {

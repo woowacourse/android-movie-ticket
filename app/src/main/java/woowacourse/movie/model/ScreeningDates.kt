@@ -2,7 +2,7 @@ package woowacourse.movie.model
 
 import java.time.LocalDate
 
-class MovieDate(
+class ScreeningDates(
     val startDate: LocalDate,
     val endDate: LocalDate,
 ) {

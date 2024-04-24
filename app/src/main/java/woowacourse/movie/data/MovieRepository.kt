@@ -2,7 +2,7 @@ package woowacourse.movie.data
 
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieDate
+import woowacourse.movie.model.ScreeningDates
 import java.time.LocalDate
 import kotlin.Result
 
@@ -13,7 +13,7 @@ class MovieRepository {
                 id = 0,
                 title = "해리 포터와 마법사의 돌",
                 thumbnail = R.drawable.movie1,
-                date = MovieDate(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 31)),
+                screeningDates = ScreeningDates(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 31)),
                 runningTime = 152,
                 introduction =
                     """

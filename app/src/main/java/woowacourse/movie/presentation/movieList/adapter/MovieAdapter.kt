@@ -58,8 +58,8 @@ class MovieAdapter(
             date.text =
                 date.context.getString(
                     R.string.title_date,
-                    formatMovieDate(movie.date.startDate),
-                    formatMovieDate(movie.date.endDate),
+                    formatMovieDate(movie.screeningDates.startDate),
+                    formatMovieDate(movie.screeningDates.endDate),
                 )
             runningTime.text =
                 runningTime.context.getString(R.string.title_running_time, movie.runningTime)
