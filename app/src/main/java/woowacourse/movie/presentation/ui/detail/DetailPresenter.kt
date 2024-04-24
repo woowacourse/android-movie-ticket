@@ -12,14 +12,14 @@ import java.time.LocalTime
 
 class DetailPresenter(
     private val view: DetailContract.View,
-    private val screenRepository: ScreenRepository,
+    private val repository: ScreenRepository,
 ) : DetailContract.Presenter {
     private var _uiModel = DetailUiModel()
     val uiModel: DetailUiModel
         get() = _uiModel
 
     override fun loadScreen(id: Int) {
-        screenRepository.findByScreenId(id = id).onSuccess { screen ->
+        repository.findByScreenId(id = id).onSuccess { screen ->
             _uiModel =
                 uiModel.copy(
                     screenId = id,
