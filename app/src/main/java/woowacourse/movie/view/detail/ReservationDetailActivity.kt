@@ -3,8 +3,12 @@ package woowacourse.movie.view.detail
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +31,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_screening_date) }
     private val runningTime: TextView by lazy { findViewById(R.id.text_view_reservation_running_time) }
     private val summary: TextView by lazy { findViewById(R.id.text_view_reservation_summary) }
+    private val screeningPeriodSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_date) }
     private val minusButton: Button by lazy { findViewById(R.id.button_reservation_detail_minus) }
     private val numberOfTickets: TextView by lazy { findViewById(R.id.text_view_reservation_detail_number_of_tickets) }
     private val plusButton: Button by lazy { findViewById(R.id.button_reservation_detail_plus) }
@@ -40,7 +45,10 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
 
-        presenter.loadMovie(movieId)
+        with(presenter) {
+            loadMovie(movieId)
+            loadScreeningPeriod(movieId)
+        }
         initializeMinusButton()
         initializePlusButton()
         initializeReservationButton(movieId)
@@ -66,6 +74,15 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         screeningDate.text = convertPeriodFormat(movie.screeningPeriod)
         runningTime.text = movie.runningTime
         summary.text = movie.summary
+    }
+
+    override fun showScreeningPeriod(movie: Movie) {
+        screeningPeriodSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                movie.screeningPeriod,
+            )
     }
 
     override fun changeHeadCount(count: Int) {
@@ -102,6 +119,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     private fun initializeReservationButton(movieId: Int) {
         reservationButton.setOnClickListener {
+            Log.d("screeningDate", screeningPeriodSpinner.selectedItem.toString())
             presenter.initializeReservationButton(movieId)
         }
     }

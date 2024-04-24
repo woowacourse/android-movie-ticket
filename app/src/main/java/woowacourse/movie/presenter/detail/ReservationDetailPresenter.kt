@@ -18,6 +18,11 @@ class ReservationDetailPresenter(
         view.showMovieInformation(movie)
     }
 
+    override fun loadScreeningPeriod(movieId: Int) {
+        val movie = dao.find(movieId)
+        view.showScreeningPeriod(movie)
+    }
+
     override fun increaseTicketCount(count: Int) {
         ticket = Ticket(count)
         val result = ticket.increaseCount()
