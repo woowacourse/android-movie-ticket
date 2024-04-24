@@ -1,7 +1,7 @@
 package woowacourse.movie.domain.movie
 
 class Screen private constructor(
-    val id: Long? = currentId++,
+    val id: Long = currentId++,
     val movieId: Long,
     //val screenDateTime: LocalDateTime? = LocalDateTime.now()
 ) {
