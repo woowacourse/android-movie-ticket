@@ -1,8 +1,5 @@
 package woowacourse.movie.presenter
 
-import android.content.Intent
-import android.os.Build
-import androidx.annotation.RequiresApi
 import woowacourse.movie.contract.ScreeningDetailContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.screening.Screening
@@ -13,7 +10,6 @@ class ScreeningDetailPresenter(
     private val view: ScreeningDetailContract.View,
     private val repository: ScreeningRepository = PseudoScreeningRepository,
 ) : ScreeningDetailContract.Presenter {
-
     // TODO: have to notify that something went wrong and go back to movie selection
     // e.g. view.notifyException()
 
@@ -30,7 +26,10 @@ class ScreeningDetailPresenter(
         if (ticketNum > 0) view.displayTicketNum(ticketNum - 1)
     }
 
-    override fun purchase(screeningId: Int, ticketNum: Int) {
+    override fun purchase(
+        screeningId: Int,
+        ticketNum: Int,
+    ) {
         val screening = repository.getScreening(screeningId) ?: Screening.default
         view.navigateToPurchaseConfirmation(Reservation(screening, ticketNum))
     }

@@ -1,13 +1,11 @@
 package woowacourse.movie.activity
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
@@ -21,7 +19,6 @@ import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.presenter.ScreeningDetailPresenter
 
 class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.View {
-
     private var ticketNum: Int = 1
     private val numberOfPurchases by lazy {
         findViewById<TextView>(R.id.quantity_text_view)

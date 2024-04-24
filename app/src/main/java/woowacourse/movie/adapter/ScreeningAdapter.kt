@@ -14,11 +14,11 @@ import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.model.screening.ScreeningDate
 
 class ScreeningAdapter(
-    private val screeningListView: ScreeningListContract.View
+    private val screeningListView: ScreeningListContract.View,
 ) :
     BaseAdapter(),
-    ScreeningAdapterContract.Model,
-    ScreeningAdapterContract.View {
+        ScreeningAdapterContract.Model,
+        ScreeningAdapterContract.View {
     private var screenings: List<Screening> = listOf()
 
     override fun setScreenings(screenings: List<Screening>) {
@@ -70,7 +70,10 @@ class ScreeningAdapter(
             detailButton = itemView.findViewById<Button>(R.id.movie_details_button),
         )
 
-        fun bind(screening: Screening, position: Int) {
+        fun bind(
+            screening: Screening,
+            position: Int,
+        ) {
             val movie = screening.movie
             title.text = movie.title.format()
             screeningDate.text = "상영일: ${screening.date.format()}"

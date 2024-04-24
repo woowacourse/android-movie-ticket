@@ -1,7 +1,5 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.adapter.ScreeningAdapter
-import woowacourse.movie.adapter.ScreeningAdapterContract
 import woowacourse.movie.contract.ScreeningListContract
 import woowacourse.movie.repository.PseudoScreeningRepository
 import woowacourse.movie.repository.ScreeningRepository

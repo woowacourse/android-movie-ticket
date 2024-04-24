@@ -17,9 +17,10 @@ class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_list_activity)
-        val presenter = ScreeningListPresenter(
-            screeningListView = this,
-        )
+        val presenter =
+            ScreeningListPresenter(
+                screeningListView = this,
+            )
         presenter.loadScreenings()
         moviesListView = findViewById(R.id.movies_list_item)
         moviesListView.adapter = movieAdapter

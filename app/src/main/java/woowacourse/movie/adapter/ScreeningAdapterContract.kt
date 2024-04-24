@@ -6,6 +6,7 @@ interface ScreeningAdapterContract {
     interface View {
         fun notifyItemClicked(position: Int)
     }
+
     interface Model {
         fun setScreenings(screenings: List<Screening>)
     }

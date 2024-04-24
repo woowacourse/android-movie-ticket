@@ -19,6 +19,9 @@ interface ScreeningDetailContract {
 
         fun minusTicketNum(ticketNum: Int)
 
-        fun purchase(screeningId: Int, ticketNum: Int)
+        fun purchase(
+            screeningId: Int,
+            ticketNum: Int,
+        )
     }
 }
