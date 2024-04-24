@@ -9,10 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.TicketModel
-import woowacourse.movie.presentation.reservation.model.toTicketModel
 import woowacourse.movie.presentation.screen.MovieScreenPresenter
 import woowacourse.movie.presentation.utils.toCustomString
 import woowacourse.movie.presentation.utils.toDrawableIdByName
@@ -70,25 +68,13 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             presenter.increaseTicketCount()
         }
         ticketingButton.setOnClickListener {
-            ticketing()
+            presenter.ticketing(
+                title = titleView.text.toString(),
+                screeningDate = screeningDateView.text.toString().toLocalDate(),
+                count = presenter.getTicketCount(),
+                price = presenter.getTicketCount() * Movie.DEFAULT_MOVIE_PRICE,
+            )
         }
-    }
-
-    private fun ticketing() {
-        val ticket = makeTicket()
-
-        val intent = Intent(this@MovieReservationActivity, TicketDetailActivity::class.java)
-        intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticket as Serializable)
-        this@MovieReservationActivity.startActivity(intent)
-    }
-
-    private fun makeTicket(): TicketModel {
-        return Ticket(
-            title = titleView.text.toString(),
-            screeningDate = screeningDateView.text.toString().toLocalDate(),
-            count = presenter.getTicketCount(),
-            price = presenter.getTicketCount() * Movie.DEFAULT_MOVIE_PRICE,
-        ).toTicketModel()
     }
 
     override fun showMovie(movie: Movie) {
@@ -102,5 +88,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun showCurrentResultTicketCountView() {
         ticketCountView.text = presenter.getTicketCount().toString()
+    }
+
+    override fun moveToTicketDetail(ticketModel: TicketModel) {
+        val intent = Intent(this@MovieReservationActivity, TicketDetailActivity::class.java)
+        intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticketModel as Serializable)
+        this@MovieReservationActivity.startActivity(intent)
     }
 }
