@@ -67,9 +67,7 @@ class MovieReservationCompleteActivity :
     override fun showMovieContentUi(movieContent: MovieContent) {
         movieContent.run {
             titleText.text = title
-            screeningDateText.text =
-                resources.getString(R.string.date)
-                    .format(dateFormatter(screeningMovieDate))
+            screeningDateText.text = dateFormatter(screeningMovieDate)
         }
     }
 
