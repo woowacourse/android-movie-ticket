@@ -11,14 +11,11 @@ object StubMovieRepository : MovieRepository {
     private var reservations: List<MovieReservation> = emptyList()
     private var reservationId: Long = 0
 
-    private const val INVALID_MOVIE_ID_ERROR = "%d : id에 해당 하는 영화가 없습니다."
-    private const val INVALID_RESERVATION_ID_ERROR = "%d : id에 해당 하는 예약 내역이 없습니다."
-
     override fun screenMovies(): List<ScreeningMovie> = screenMovies
 
     override fun screenMovieById(id: Long): ScreeningMovie {
         return screenMovies.find { it.id == id } ?: error(
-            INVALID_MOVIE_ID_ERROR.format(id),
+            IdError.NO_MOVIE.message.format(id),
         )
     }
 
@@ -41,7 +38,7 @@ object StubMovieRepository : MovieRepository {
 
     override fun movieReservationById(id: Long): MovieReservation {
         return reservations.find { it.id == id } ?: error(
-            INVALID_RESERVATION_ID_ERROR.format(id),
+            IdError.NO_RESERVATION.message.format(id),
         )
     }
 }
