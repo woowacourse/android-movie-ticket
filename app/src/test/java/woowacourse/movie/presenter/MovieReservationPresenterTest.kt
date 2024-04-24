@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter
 
+import android.util.Log
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -16,7 +17,7 @@ class MovieReservationPresenterTest {
         var showCurrentResultTicketCountViewCalled = false
 
         override fun showMovie(movie: Movie) {
-            TODO("Not yet implemented")
+            Log.d("showMovie","영화가 보여집니다")
         }
 
         override fun showCurrentResultTicketCountView() {
