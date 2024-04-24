@@ -60,9 +60,9 @@ class ReservationDetailPresenterTest {
     }
 
     @Test
-    fun `예약 인원이 100인 상태에서 플러스 버튼을 누르면 토스트를 보여준다`() {
+    fun `예약 인원이 20인 상태에서 플러스 버튼을 누르면 토스트를 보여준다`() {
         every { view.showResultToast() } just runs
-        presenter.increaseTicketCount(100)
+        presenter.increaseTicketCount(20)
         verify { view.showResultToast() }
     }
 

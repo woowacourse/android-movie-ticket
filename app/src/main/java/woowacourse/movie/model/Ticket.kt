@@ -32,7 +32,7 @@ class Ticket(count: Int = DEFAULT_TICKET_COUNT) : Serializable {
     companion object {
         private const val PRICE = 13_000
         private const val DEFAULT_TICKET_COUNT = 1
-        private const val MAX_TICKET_COUNT = 100
+        private const val MAX_TICKET_COUNT = 20
         private const val MIN_TICKET_COUNT = 1
     }
 }
