@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray"
-    tools:context=".view.SelectSeatActivity">
+    tools:context=".view.reservation.SeatSelectionActivity">
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/constraint_layout_reservation_confirm"
+        app:layout_constraintBottom_toTopOf="@id/constraint_layout_seat_selection_confirm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textview_select_seat_screen"
+                android:id="@+id/textview_seat_selection_screen"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="34dp"
@@ -36,33 +36,33 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TableLayout
-                android:id="@+id/table_layout_seat"
+                android:id="@+id/table_layout_seat_selection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="56dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_select_seat_screen">
+                app:layout_constraintTop_toBottomOf="@id/textview_seat_selection_screen">
 
                 <include
-                    android:id="@+id/include_seat_first_row"
+                    android:id="@+id/include_seat_selection_first_row"
                     layout="@layout/layout_seat_row" />
 
                 <include
-                    android:id="@+id/include_seat_second_row"
+                    android:id="@+id/include_seat_selection_second_row"
                     layout="@layout/layout_seat_row" />
 
                 <include
-                    android:id="@+id/include_seat_third_row"
+                    android:id="@+id/include_seat_selection_third_row"
                     layout="@layout/layout_seat_row" />
 
                 <include
-                    android:id="@+id/include_seat_fourth_row"
+                    android:id="@+id/include_seat_selection_fourth_row"
                     layout="@layout/layout_seat_row" />
 
                 <include
-                    android:id="@+id/include_seat_fifth_row"
+                    android:id="@+id/include_seat_selection_fifth_row"
                     layout="@layout/layout_seat_row" />
 
             </TableLayout>
@@ -72,7 +72,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_reservation_confirm"
+        android:id="@+id/constraint_layout_seat_selection_confirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -81,43 +81,43 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textview_select_seat_title"
+            android:id="@+id/textview_seat_selection_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:textAppearance="@style/Bold18"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@id/button_select_seat_confirm"
+            app:layout_constraintEnd_toStartOf="@id/button_seat_selection_confirm"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="해리 포터와 마법사의 돌" />
 
         <TextView
-            android:id="@+id/textview_select_seat_price"
+            android:id="@+id/textview_seat_selection_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:textColor="@color/medium_gray"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textview_select_seat_title"
-            app:layout_constraintTop_toBottomOf="@id/textview_select_seat_title"
+            app:layout_constraintStart_toStartOf="@id/textview_seat_selection_title"
+            app:layout_constraintTop_toBottomOf="@id/textview_seat_selection_title"
             tools:text="0" />
 
         <TextView
-            android:id="@+id/textview_select_seat_price_unit"
+            android:id="@+id/textview_seat_selection_price_unit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/select_seat_price_unit"
             android:textColor="@color/medium_gray"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/textview_select_seat_price"
-            app:layout_constraintStart_toEndOf="@id/textview_select_seat_price"
-            app:layout_constraintTop_toTopOf="@id/textview_select_seat_price" />
+            app:layout_constraintBottom_toBottomOf="@id/textview_seat_selection_price"
+            app:layout_constraintStart_toEndOf="@id/textview_seat_selection_price"
+            app:layout_constraintTop_toTopOf="@id/textview_seat_selection_price" />
 
         <Button
-            android:id="@+id/button_select_seat_confirm"
+            android:id="@+id/button_seat_selection_confirm"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:background="@drawable/selector_confirm"

@@ -19,7 +19,7 @@ interface ReservationDetailContract {
 
         fun showResultToast()
 
-        fun navigateToFinished(
+        fun navigateToSeatSelection(
             movieId: Int,
             ticket: Ticket,
         )

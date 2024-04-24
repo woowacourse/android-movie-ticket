@@ -44,7 +44,7 @@ class ReservationDetailPresenter(
     }
 
     override fun initializeReservationButton(movieId: Int) {
-        view.navigateToFinished(movieId, ticket)
+        view.navigateToSeatSelection(movieId, ticket)
     }
 
     override fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {

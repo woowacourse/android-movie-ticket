@@ -20,7 +20,6 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.reservation.ReservationDetailContract
 import woowacourse.movie.presenter.reservation.ReservationDetailPresenter
-import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable
 
@@ -109,11 +108,11 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             .show()
     }
 
-    override fun navigateToFinished(
+    override fun navigateToSeatSelection(
         movieId: Int,
         ticket: Ticket,
     ) {
-        val intent = Intent(this, ReservationFinishedActivity::class.java)
+        val intent = Intent(this, SeatSelectionActivity::class.java)
         intent.putExtra(MOVIE_ID, movieId)
         intent.putExtra(TICKET, ticket)
         startActivity(intent)
