@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.StubMovieRepository
+import woowacourse.movie.data.DummyMovies
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter
@@ -20,7 +20,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
 
         presenter =
             ReservationResultPresenter(
-                repository = StubMovieRepository,
+                repository = DummyMovies,
                 view = this,
             )
         presenter.loadReservationResult(reservationId)

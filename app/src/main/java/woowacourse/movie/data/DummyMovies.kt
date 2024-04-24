@@ -6,7 +6,7 @@ import woowacourse.movie.model.ScreeningMovie
 import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDateTime
 
-object StubMovieRepository : MovieRepository {
+object DummyMovies : MovieRepository {
     private val screenMovies: List<ScreeningMovie> = listOf(ScreeningMovie.STUB)
     private var reservations: List<MovieReservation> = emptyList()
     private var reservationId: Long = 0

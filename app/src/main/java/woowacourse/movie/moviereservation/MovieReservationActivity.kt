@@ -10,7 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.StubMovieRepository
+import woowacourse.movie.data.DummyMovies
 import woowacourse.movie.reservationresult.ReservationResultActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
@@ -32,7 +32,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter =
             MovieReservationPresenter(
-                this, StubMovieRepository,
+                this, DummyMovies,
             )
 
         showInitView(id)
