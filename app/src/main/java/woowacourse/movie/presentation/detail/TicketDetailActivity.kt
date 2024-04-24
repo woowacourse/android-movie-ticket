@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.reservation.model.TicketModel
-import woowacourse.movie.utils.toCustomString
+import woowacourse.movie.presentation.utils.toCustomString
 
 class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private lateinit var ticketTitle: TextView

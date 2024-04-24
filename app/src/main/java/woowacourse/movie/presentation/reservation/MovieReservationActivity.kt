@@ -14,9 +14,9 @@ import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.TicketModel
 import woowacourse.movie.presentation.reservation.model.toTicketModel
 import woowacourse.movie.presentation.screen.MovieScreenPresenter
-import woowacourse.movie.utils.toCustomString
-import woowacourse.movie.utils.toDrawableIdByName
-import woowacourse.movie.utils.toLocalDate
+import woowacourse.movie.presentation.utils.toCustomString
+import woowacourse.movie.presentation.utils.toDrawableIdByName
+import woowacourse.movie.presentation.utils.toLocalDate
 import java.io.Serializable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {

@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.utils.toCustomString
-import woowacourse.movie.utils.toDrawableIdByName
+import woowacourse.movie.presentation.utils.toCustomString
+import woowacourse.movie.presentation.utils.toDrawableIdByName
 
 class MovieViewHolder(
     private val view: View,
