@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -32,6 +33,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private val runningTime: TextView by lazy { findViewById(R.id.text_view_reservation_running_time) }
     private val summary: TextView by lazy { findViewById(R.id.text_view_reservation_summary) }
     private val screeningPeriodSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_date) }
+    private val screeningTimeSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_time) }
     private val minusButton: Button by lazy { findViewById(R.id.button_reservation_detail_minus) }
     private val numberOfTickets: TextView by lazy { findViewById(R.id.text_view_reservation_detail_number_of_tickets) }
     private val plusButton: Button by lazy { findViewById(R.id.button_reservation_detail_plus) }
@@ -49,6 +51,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             loadMovie(movieId)
             loadScreeningPeriod(movieId)
         }
+        updateScreeningTimes(movieId)
         initializeMinusButton()
         initializePlusButton()
         initializeReservationButton(movieId)
@@ -85,6 +88,18 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             )
     }
 
+    override fun showScreeningTimes(
+        movie: Movie,
+        selectedDate: String,
+    ) {
+        screeningTimeSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                movie.screeningTimes.loadScheduleByDateType(selectedDate),
+            )
+    }
+
     override fun changeHeadCount(count: Int) {
         numberOfTickets.text = count.toString()
     }
@@ -105,6 +120,25 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         finish()
     }
 
+    private fun updateScreeningTimes(movieId: Int) {
+        screeningPeriodSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate = screeningPeriodSpinner.selectedItem.toString()
+                    presenter.loadScreeningTimes(movieId, selectedDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.d("selectDate", "nothingSelected")
+                }
+            }
+    }
+
     private fun initializeMinusButton() {
         minusButton.setOnClickListener {
             presenter.decreaseTicketCount(presenter.ticket.count)
@@ -120,6 +154,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private fun initializeReservationButton(movieId: Int) {
         reservationButton.setOnClickListener {
             Log.d("screeningDate", screeningPeriodSpinner.selectedItem.toString())
+            Log.d("screeningDate", screeningTimeSpinner.selectedItem.toString())
             presenter.initializeReservationButton(movieId)
         }
     }

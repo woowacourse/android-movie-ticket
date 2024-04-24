@@ -10,6 +10,11 @@ interface ReservationDetailContract {
 
         fun showScreeningPeriod(movie: Movie)
 
+        fun showScreeningTimes(
+            movie: Movie,
+            selectedDate: String,
+        )
+
         fun changeHeadCount(count: Int)
 
         fun showResultToast()
@@ -24,6 +29,11 @@ interface ReservationDetailContract {
         fun loadMovie(movieId: Int)
 
         fun loadScreeningPeriod(movieId: Int)
+
+        fun loadScreeningTimes(
+            movieId: Int,
+            selectedDate: String,
+        )
 
         fun increaseTicketCount(count: Int)
 

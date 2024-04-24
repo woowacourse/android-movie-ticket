@@ -39,6 +39,13 @@ class ReservationDetailPresenterTest {
     }
 
     @Test
+    fun `상영 시간을 보여준다`() {
+        every { view.showScreeningTimes(any(), any()) } just runs
+        presenter.loadScreeningTimes(0, "2024-03-01")
+        verify { view.showScreeningTimes(any(), any()) }
+    }
+
+    @Test
     fun `예약 인원이 1인 상태에서 마이너스 버튼을 누르면 토스트를 보여준다`() {
         every { view.showResultToast() } just runs
         presenter.decreaseTicketCount(1)
