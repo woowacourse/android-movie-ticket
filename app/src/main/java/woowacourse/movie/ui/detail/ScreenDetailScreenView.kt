@@ -1,17 +1,25 @@
 package woowacourse.movie.ui.detail
 
-import android.app.Activity
+import android.content.Context
+import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.ui.ScreenDetailUI
 
-class ScreenDetailScreenView(activity: Activity) : ScreenDetailView {
-    private val title: TextView = activity.findViewById(R.id.tv_title)
-    private val date: TextView = activity.findViewById(R.id.tv_screen_date)
-    private val runningTime: TextView = activity.findViewById(R.id.tv_screen_running_time)
-    private val description: TextView = activity.findViewById(R.id.tv_description)
-    private val poster: ImageView = activity.findViewById(R.id.iv_poster)
+class ScreenDetailScreenView(context: Context, attrs: AttributeSet? = null) : ScreenDetailView,
+    ConstraintLayout(context, attrs) {
+    private val title: TextView by lazy { findViewById(R.id.tv_title) }
+    private val date: TextView by lazy { findViewById(R.id.tv_screen_date) }
+    private val runningTime: TextView by lazy { findViewById(R.id.tv_screen_running_time) }
+    private val description: TextView by lazy { findViewById(R.id.tv_description) }
+    private val poster: ImageView by lazy { findViewById(R.id.iv_poster) }
+
+    init {
+        LayoutInflater.from(context).inflate(R.layout.holder_screen_detail_screen, this, true)
+    }
 
     override fun show(screen: ScreenDetailUI) {
         with(screen) {

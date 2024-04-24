@@ -25,7 +25,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         )
     }
 
-    private val screenDetailView: ScreenDetailView by lazy { ScreenDetailScreenView(this) }
+    private val screenDetailView: ScreenDetailScreenView by lazy { findViewById(R.id.screen_detail_screen_view) }
     private val ticketView: TicketView by lazy { ScreenDetailTicketView(this, presenter) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
