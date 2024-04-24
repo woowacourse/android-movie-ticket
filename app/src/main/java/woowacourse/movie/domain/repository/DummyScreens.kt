@@ -3,7 +3,9 @@ package woowacourse.movie.domain.repository
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenDate
 import woowacourse.movie.domain.model.SeatBoard
+import java.time.LocalDate
 
 class DummyScreens : ScreenRepository {
     // TODO 더미 데이터
@@ -25,24 +27,15 @@ class DummyScreens : ScreenRepository {
                 endDate = "2024-03-07",
                 selectableDates =
                     listOf(
-                        "2024-03-01",
-                        "2024-03-02",
-                        "2024-03-03",
-                        "2024-03-04",
-                        "2024-03-05",
-                        "2024-03-06",
-                        "2024-03-07",
-                    ),
-                selectableTimes =
-                    listOf(
-                        "09:00",
-                        "11:00",
-                        "13:00",
-                        "15:00",
-                        "17:00",
-                        "19:00",
-                        "21:00",
-                        "23:00",
+                        ScreenDate(LocalDate.of(2024, 4, 1)),
+                        ScreenDate(LocalDate.of(2024, 4, 2)),
+                        ScreenDate(LocalDate.of(2024, 4, 3)),
+                        ScreenDate(LocalDate.of(2024, 4, 4)),
+                        ScreenDate(LocalDate.of(2024, 4, 5)),
+                        ScreenDate(LocalDate.of(2024, 4, 6)),
+                        ScreenDate(LocalDate.of(2024, 4, 7)),
+                        ScreenDate(LocalDate.of(2024, 4, 8)),
+                        ScreenDate(LocalDate.of(2024, 4, 9)),
                     ),
             ),
         )

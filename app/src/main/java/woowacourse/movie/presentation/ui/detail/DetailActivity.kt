@@ -12,11 +12,14 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenDate
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.model.ReservationInfo
 import woowacourse.movie.presentation.ui.detail.DetailContract.View
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionActivity
+import java.time.LocalDate
+import java.time.LocalTime
 
 class DetailActivity : BaseActivity(), View {
     override val layoutResourceId: Int
@@ -66,7 +69,9 @@ class DetailActivity : BaseActivity(), View {
                     position: Int,
                     id: Long,
                 ) {
-                    presenter.registerDate(parent.getItemAtPosition(position).toString())
+                    val localDate = parent.getItemAtPosition(position) as LocalDate
+                    presenter.registerDate(localDate)
+                    presenter.createTimeSpinnerAdapter(ScreenDate(localDate))
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -80,7 +85,7 @@ class DetailActivity : BaseActivity(), View {
                     position: Int,
                     id: Long,
                 ) {
-                    presenter.registerTime(parent.getItemAtPosition(position).toString())
+                    presenter.registerTime(parent.getItemAtPosition(position) as LocalTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -94,21 +99,27 @@ class DetailActivity : BaseActivity(), View {
             runningTime.text = movie.runningTime.toString()
             description.text = movie.description
             poster.setImageResource(movie.imageSrc)
-
-            dateSpinner.adapter =
-                ArrayAdapter(
-                    this@DetailActivity,
-                    android.R.layout.simple_spinner_item,
-                    selectableDates,
-                )
-
-            timeSpinner.adapter =
-                ArrayAdapter(
-                    this@DetailActivity,
-                    android.R.layout.simple_spinner_item,
-                    selectableTimes,
-                )
+            presenter.createDateSpinnerAdapter(selectableDates)
+            presenter.createTimeSpinnerAdapter(selectableDates.first())
         }
+    }
+
+    override fun showDateSpinnerAdapter(screenDates: List<ScreenDate>) {
+        dateSpinner.adapter =
+            ArrayAdapter(
+                this@DetailActivity,
+                android.R.layout.simple_spinner_item,
+                screenDates.toDateString(),
+            )
+    }
+
+    override fun showTimeSpinnerAdapter(screenDate: ScreenDate) {
+        timeSpinner.adapter =
+            ArrayAdapter(
+                this@DetailActivity,
+                android.R.layout.simple_spinner_item,
+                screenDate.toTimeString(),
+            )
     }
 
     override fun showTicket(count: Int) {
@@ -140,6 +151,10 @@ class DetailActivity : BaseActivity(), View {
             presenter.updateTicket(count)
         }
     }
+
+    private fun List<ScreenDate>.toDateString(): List<LocalDate> = this.map { it.date }
+
+    private fun ScreenDate.toTimeString(): List<LocalTime> = this.getSelectableTimes().map { it }
 
     companion object {
         private const val DEFAULT_ID = -1

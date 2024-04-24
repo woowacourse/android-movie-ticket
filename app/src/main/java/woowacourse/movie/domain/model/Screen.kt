@@ -5,6 +5,5 @@ data class Screen(
     val movie: Movie,
     val startDate: String,
     val endDate: String,
-    val selectableDates: List<String>,
-    val selectableTimes: List<String>,
+    val selectableDates: List<ScreenDate>,
 )

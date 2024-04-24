@@ -1,13 +1,14 @@
 package woowacourse.movie.presentation.ui.detail
 
+import woowacourse.movie.domain.model.ScreenDate
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.model.ReservationInfo
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.LocalDate
+import java.time.LocalTime
 
 class DetailPresenter(
     private val view: DetailContract.View,
@@ -24,7 +25,6 @@ class DetailPresenter(
                     screenId = id,
                     screen = screen,
                     selectedDate = screen.selectableDates.first(),
-                    selectedTime = screen.selectableTimes.first(),
                 )
             view.showScreen(screen)
             view.showTicket(uiModel.ticket.count)
@@ -43,11 +43,19 @@ class DetailPresenter(
         }
     }
 
-    override fun registerDate(date: String) {
-        _uiModel = uiModel.copy(selectedDate = date)
+    override fun createDateSpinnerAdapter(screenDates: List<ScreenDate>) {
+        view.showDateSpinnerAdapter(screenDates)
     }
 
-    override fun registerTime(time: String) {
+    override fun createTimeSpinnerAdapter(screenDate: ScreenDate) {
+        view.showTimeSpinnerAdapter(screenDate)
+    }
+
+    override fun registerDate(date: LocalDate) {
+        _uiModel = uiModel.copy(selectedDate = ScreenDate(date))
+    }
+
+    override fun registerTime(time: LocalTime) {
         _uiModel = uiModel.copy(selectedTime = time)
     }
 
@@ -79,15 +87,14 @@ class DetailPresenter(
     }
 
     override fun selectSeat() {
-        val dateString = "${uiModel.selectedDate}T${uiModel.selectedTime}:00"
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-        val parsedDateTime = LocalDateTime.parse(dateString, formatter)!!
-        val reservationInfo =
-            ReservationInfo(
-                screenId = uiModel.screenId,
-                dateTime = parsedDateTime,
-                ticketCount = uiModel.ticket.count,
-            )
-        view.navigateToSeatSelection(reservationInfo)
+        uiModel.selectedDate?.let { selectedDate ->
+            val reservationInfo =
+                ReservationInfo(
+                    screenId = uiModel.screenId,
+                    dateTime = selectedDate.getLocalDateTime(uiModel.selectedTime),
+                    ticketCount = uiModel.ticket.count,
+                )
+            view.navigateToSeatSelection(reservationInfo)
+        }
     }
 }
