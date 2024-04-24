@@ -24,5 +24,4 @@ object DummyScreenList : ScreenListRepository {
             addToList(movie)
         }
     }
-
 }

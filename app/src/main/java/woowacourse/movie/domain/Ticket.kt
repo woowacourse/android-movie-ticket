@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 class Ticket(val screenId: Long) {
     var count: Int = DEFAULT_TICKET_COUNT
     val seats: Seats = Seats()
-    lateinit var dateTime : LocalDateTime
+    lateinit var dateTime: LocalDateTime
 
     fun addCount() {
         count++
