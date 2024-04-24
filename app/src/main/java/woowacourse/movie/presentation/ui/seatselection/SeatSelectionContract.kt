@@ -12,10 +12,7 @@ interface SeatSelectionContract {
 
         fun showSeatBoard(seats: List<Seat>)
 
-        fun initClickListener(
-            ticketCount: Int,
-            seats: List<Seat>,
-        )
+        fun initClickListener(seats: List<Seat>)
 
         fun selectSeat(
             column: Int,

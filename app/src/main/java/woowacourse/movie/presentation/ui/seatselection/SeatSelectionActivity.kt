@@ -62,10 +62,7 @@ class SeatSelectionActivity : BaseActivity(), View {
             }
     }
 
-    override fun initClickListener(
-        ticketCount: Int,
-        seats: List<Seat>,
-    ) {
+    override fun initClickListener(seats: List<Seat>) {
         seatBoard.children.filterIsInstance<TableRow>().flatMap { it.children }
             .filterIsInstance<TextView>().forEachIndexed { idx, view ->
                 view.setOnClickListener {

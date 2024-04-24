@@ -47,7 +47,7 @@ class SeatSelectionPresenter(
     override fun loadSeatBoard(id: Int) {
         repository.loadSeatBoard(id).onSuccess { seatBoard ->
             view.showSeatBoard(seatBoard.seats)
-            view.initClickListener(4, seatBoard.seats)
+            view.initClickListener(seatBoard.seats)
         }.onFailure { e ->
             when (e) {
                 is NoSuchElementException -> {
