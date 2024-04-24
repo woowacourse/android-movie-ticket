@@ -83,7 +83,7 @@ class SeatSelectionPresenter(
     override fun calculateSeat() {
         var newPrice = 0
         uiModel.userSeat.seats.forEach { seat ->
-            newPrice += seat.column.toSeatPrice()
+            newPrice += seat.seatRank.price
         }
 
         _uiModel = uiModel.copy(totalPrice = newPrice)
@@ -114,14 +114,4 @@ class SeatSelectionPresenter(
     }
 
     private fun String.toColumnIndex(): Int = this[0].code - 'A'.code
-
-    private fun String.toSeatPrice(): Int =
-        when (this) {
-            "A" -> 10_000
-            "B" -> 10_000
-            "C" -> 15_000
-            "D" -> 15_000
-            "E" -> 12_000
-            else -> 0
-        }
 }

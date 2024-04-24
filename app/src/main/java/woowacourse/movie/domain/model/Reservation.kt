@@ -10,5 +10,5 @@ data class Reservation(
     val dateTime: LocalDateTime,
 ) {
     val totalPrice: Int
-        get() = ticket.count * movie.price
+        get() = seats.sumOf { seat -> seat.seatRank.price }
 }
