@@ -13,11 +13,13 @@ class DetailPresenter(
     private val view: DetailContract.View,
     private val screenRepository: ScreenRepository,
 ) : DetailContract.Presenter {
-    private var uiModel = DetailUiModel()
+    private var _uiModel = DetailUiModel()
+    val uiModel: DetailUiModel
+        get() = _uiModel
 
     override fun loadScreen(id: Int) {
         screenRepository.findByScreenId(id = id).onSuccess { screen ->
-            uiModel =
+            _uiModel =
                 uiModel.copy(
                     screenId = id,
                     screen = screen,
@@ -42,15 +44,15 @@ class DetailPresenter(
     }
 
     override fun registerDate(date: String) {
-        uiModel = uiModel.copy(selectedDate = date)
+        _uiModel = uiModel.copy(selectedDate = date)
     }
 
     override fun registerTime(time: String) {
-        uiModel = uiModel.copy(selectedTime = time)
+        _uiModel = uiModel.copy(selectedTime = time)
     }
 
     override fun updateTicket(count: Int) {
-        uiModel = uiModel.copy(ticket = Ticket(count))
+        _uiModel = uiModel.copy(ticket = Ticket(count))
     }
 
     override fun plusTicket() {
@@ -60,7 +62,7 @@ class DetailPresenter(
             view.showSnackBar(MessageType.TicketMaxCountMessage(MAX_TICKET_COUNT))
             return
         }
-        uiModel = uiModel.copy(ticket = nextTicket)
+        _uiModel = uiModel.copy(ticket = nextTicket)
         view.showTicket(uiModel.ticket.count)
     }
 
@@ -71,7 +73,7 @@ class DetailPresenter(
             view.showSnackBar(MessageType.TicketMinCountMessage(MIN_TICKET_COUNT))
             return
         }
-        uiModel = uiModel.copy(ticket = nextTicket)
+        _uiModel = uiModel.copy(ticket = nextTicket)
         view.showTicket(uiModel.ticket.count)
     }
 

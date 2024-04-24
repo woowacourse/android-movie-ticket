@@ -15,14 +15,13 @@ import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.model.ReservationInfo
-import woowacourse.movie.presentation.ui.detail.DetailContract.Presenter
 import woowacourse.movie.presentation.ui.detail.DetailContract.View
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionActivity
 
 class DetailActivity : BaseActivity(), View {
     override val layoutResourceId: Int
         get() = R.layout.activity_detail
-    override val presenter: Presenter by lazy { DetailPresenter(this, DummyScreens()) }
+    override val presenter: DetailPresenter by lazy { DetailPresenter(this, DummyScreens()) }
 
     private val title: TextView by lazy { findViewById(R.id.tv_title) }
     private val date: TextView by lazy { findViewById(R.id.tv_screen_date) }
@@ -130,7 +129,7 @@ class DetailActivity : BaseActivity(), View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(PUT_TICKET_STATE_KEY, ticketCount.text.toString().toInt())
+        outState.putInt(PUT_TICKET_STATE_KEY, presenter.uiModel.ticket.count)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
