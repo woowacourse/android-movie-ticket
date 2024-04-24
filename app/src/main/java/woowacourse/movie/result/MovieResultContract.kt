@@ -1,4 +1,4 @@
-package woowacourse.movie.result.presenter
+package woowacourse.movie.result
 
 import woowacourse.movie.base.BaseContract
 import woowacourse.movie.model.MovieTicket

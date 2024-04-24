@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".detail.view.MovieDetailActivity">
+    tools:context=".detail.MovieDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
