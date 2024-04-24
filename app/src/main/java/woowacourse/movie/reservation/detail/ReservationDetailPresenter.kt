@@ -10,7 +10,6 @@ class ReservationDetailPresenter(
     private val view: ReservationDetailContract.View,
     private val movieId: Int,
 ) : ReservationDetailContract.Presenter {
-    private val movies = Movies.obtainMovies()
     private val ticket = Ticket()
 
     init {
@@ -28,7 +27,7 @@ class ReservationDetailPresenter(
     }
 
     override fun loadMovie() {
-        view.showMovieInformation(movies[movieId])
+        view.showMovieInformation(Movies.obtainMovie(movieId))
     }
 
     override fun deliverReservationInformation() {

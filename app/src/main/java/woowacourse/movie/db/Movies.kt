@@ -5,7 +5,7 @@ import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
 object Movies {
-    fun obtainMovies(): List<Movie> =
+    private val movies: List<Movie> =
         listOf(
             Movie(
                 0,
@@ -98,4 +98,8 @@ object Movies {
                 """.trimIndent(),
             ),
         )
+
+    fun obtainMovies(): List<Movie> = movies.toList()
+
+    fun obtainMovie(movieId: Int): Movie = movies[movieId]
 }

@@ -16,7 +16,7 @@ class ReservationFinishedPresenter(
     }
 
     override fun loadMovieInformation() {
-        val movies = Movies.obtainMovies()[movieId]
+        val movies = Movies.obtainMovie(movieId)
 
         view.showMovieInformation(movies)
     }
