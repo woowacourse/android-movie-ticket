@@ -18,6 +18,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
 
+    private var count: HeadCountUiModel = HeadCountUiModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_movie)
@@ -30,21 +32,24 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
                 this, StubMovieRepository,
             )
 
-        presenter.loadMovieDetail(id)
+        showInitView(id)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val count = findViewById<TextView>(R.id.tv_detail_count).text.toString().toInt()
-        outState.putInt(STATE_COUNT_ID, count)
+        val currentCount = count.count
+        outState.putString(STATE_COUNT_ID, currentCount)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val counter = savedInstanceState.getInt(STATE_COUNT_ID)
-        countView.text = counter.toString()
+        val storedCount = savedInstanceState.getString(STATE_COUNT_ID)
+        storedCount?.let {
+            count = HeadCountUiModel(it)
+            countView.text = count.count
+        }
     }
 
     private fun initView() {
@@ -55,14 +60,19 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     private fun initClickListener() {
         plusButton.setOnClickListener {
-            presenter.plusCount()
+            presenter.plusCount(count)
         }
         minusButton.setOnClickListener {
-            presenter.minusCount()
+            presenter.minusCount(count)
         }
         findViewById<Button>(R.id.btn_detail_complete).setOnClickListener {
-            presenter.completeReservation()
+            presenter.completeReservation(count)
         }
+    }
+
+    private fun showInitView(id: Long) {
+        presenter.loadMovieDetail(id)
+        countView.text = count.count
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -81,8 +91,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         findViewById<TextView>(R.id.tv_detail_running_time).text = runningTime
     }
 
-    override fun updateHeadCount(count: Int) {
-        countView.text = count.toString()
+    override fun updateHeadCount(updatedCount: HeadCountUiModel) {
+        count = updatedCount
+        countView.text = count.count
     }
 
     override fun navigateToReservationResultView(reservationId: Long) {
