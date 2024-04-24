@@ -3,7 +3,7 @@ package woowacourse.movie.moviereservation
 interface MovieReservationView {
     fun showMovieReservation(reservation: MovieReservationUiModel)
 
-    fun updateHeadCount(count: Int)
+    fun updateHeadCount(updatedCount: HeadCountUiModel)
 
     fun navigateToReservationResultView(reservationId: Long)
 }
