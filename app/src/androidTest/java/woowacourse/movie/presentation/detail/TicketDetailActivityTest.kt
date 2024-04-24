@@ -17,7 +17,7 @@ import woowacourse.movie.presentation.reservation.model.toTicketModel
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
-class TicketDetailTest {
+class TicketDetailActivityTest {
     private val ticket =
         Ticket(
             "해리 포터와 마법사의 돌",

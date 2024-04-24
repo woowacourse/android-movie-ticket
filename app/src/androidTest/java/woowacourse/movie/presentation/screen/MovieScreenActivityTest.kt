@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 
 @RunWith(AndroidJUnit4::class)
-class MovieScreenTest {
+class MovieScreenActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieScreenActivity::class.java)
 
