@@ -19,6 +19,10 @@ object DummyScreenList : ScreenListRepository {
         _list.add(Screen.from(movie))
     }
 
+    override fun addToList(screen: Screen) {
+        _list.add(screen)
+    }
+
     override fun addToList(movieList: List<Movie>) {
         movieList.forEach { movie ->
             addToList(movie)

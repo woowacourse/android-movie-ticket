@@ -10,5 +10,7 @@ interface ScreenListRepository {
 
     fun addToList(movie: Movie)
 
+    fun addToList(screen: Screen)
+
     fun addToList(movieList: List<Movie>)
 }
