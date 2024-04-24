@@ -3,7 +3,6 @@ package woowacourse.movie.domain.repository
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Seat
-import woowacourse.movie.domain.model.Ticket
 import java.time.LocalDateTime
 
 object DummyReservation : ReservationRepository {
@@ -17,7 +16,7 @@ object DummyReservation : ReservationRepository {
     ): Result<Int> {
         return runCatching {
             val id = reservations.size + 1
-            val reservation = Reservation(id, movie, Ticket(ticketCount), seats, dateTime)
+            val reservation = Reservation(id, movie, ticketCount, seats, dateTime)
             reservations.add(reservation)
             id
         }

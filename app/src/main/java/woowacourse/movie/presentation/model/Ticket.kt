@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.presentation.model
 
 data class Ticket(val count: Int) {
     fun increase(quantity: Int): Ticket = copy(count = count + quantity)

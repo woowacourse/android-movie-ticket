@@ -9,8 +9,8 @@ import woowacourse.movie.basic.utils.getDummyReservation
 import woowacourse.movie.basic.utils.getDummyScreen
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.model.MessageType
+import woowacourse.movie.presentation.model.Ticket
 import woowacourse.movie.presentation.ui.detail.DetailPresenter
 
 class DetailPresenterTest {

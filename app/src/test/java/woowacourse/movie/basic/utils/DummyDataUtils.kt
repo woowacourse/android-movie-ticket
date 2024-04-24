@@ -7,8 +7,8 @@ import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatBoard
 import woowacourse.movie.domain.model.SeatRank
-import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.model.ReservationInfo
+import woowacourse.movie.presentation.model.Ticket
 import java.time.LocalDateTime
 
 fun getDummyMovie(): Movie {

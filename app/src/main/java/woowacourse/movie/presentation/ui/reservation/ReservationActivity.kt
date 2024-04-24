@@ -33,7 +33,7 @@ class ReservationActivity : BaseActivity(), View {
         with(reservation) {
             title.text = movie.title
             date.text = dateTime.toScreeningDate()
-            count.text = getString(R.string.reserve_count, ticket.count, seats.toSeatString())
+            count.text = getString(R.string.reserve_count, ticketCount, seats.toSeatString())
             amount.text = totalPrice.currency(this@ReservationActivity)
         }
     }

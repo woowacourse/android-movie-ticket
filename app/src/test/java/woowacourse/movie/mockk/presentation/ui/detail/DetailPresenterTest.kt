@@ -10,9 +10,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.basic.utils.getDummyScreen
-import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.presentation.model.MessageType
+import woowacourse.movie.presentation.model.Ticket
 import woowacourse.movie.presentation.ui.detail.DetailContract
 import woowacourse.movie.presentation.ui.detail.DetailPresenter
 

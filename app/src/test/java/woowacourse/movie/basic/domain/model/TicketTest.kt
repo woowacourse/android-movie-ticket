@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.presentation.model.Ticket
 
 class TicketTest {
     @Test

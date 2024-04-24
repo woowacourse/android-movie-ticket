@@ -1,12 +1,12 @@
 package woowacourse.movie.presentation.ui.detail
 
 import woowacourse.movie.domain.model.ScreenDate
-import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
-import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.model.ReservationInfo
+import woowacourse.movie.presentation.model.Ticket
+import woowacourse.movie.presentation.model.Ticket.Companion.MAX_TICKET_COUNT
+import woowacourse.movie.presentation.model.Ticket.Companion.MIN_TICKET_COUNT
 import java.time.LocalDate
 import java.time.LocalTime
 
