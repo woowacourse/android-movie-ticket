@@ -50,12 +50,7 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     override fun showTicket(ticketModel: TicketModel) {
         ticketTitle.text = ticketModel.title
         ticketScreeningDate.text = ticketModel.screeningDate.toCustomString()
-        ticketPrice.text = String.format(TICKET_PRICE, ticketModel.price)
-        ticketCount.text = TICKET_COUNT.format(ticketModel.count)
-    }
-
-    companion object {
-        private const val TICKET_PRICE = "%,d원 (현장결제)"
-        private const val TICKET_COUNT = "일반 %d명"
+        ticketPrice.text = getString(R.string.ticket_price, ticketModel.price)
+        ticketCount.text = getString(R.string.ticket_count,ticketModel.count)
     }
 }
