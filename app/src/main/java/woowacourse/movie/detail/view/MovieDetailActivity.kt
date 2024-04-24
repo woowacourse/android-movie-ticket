@@ -77,7 +77,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         movieData?.let { movie ->
             detailImage.setImageResource(movie.thumbnail)
             detailTitle.text = movie.title
-            detailDate.text = movie.date.getDateRange().replace('-', '.')
+            detailDate.text = "${movie.date.startLocalDate} ~ ${movie.date.endLocalDate}".replace('-', '.')
             detailRunningTime.text = movie.runningTime.toString()
             detailDescription.text = movie.description
             reservationCount.text = movieCount.count.toString()

@@ -3,13 +3,9 @@ package woowacourse.movie.model
 import java.time.DayOfWeek
 import java.time.LocalDate
 
-class MovieDate(private val startLocalDate: LocalDate, private val endLocalDate: LocalDate) {
+class MovieDate(val startLocalDate: LocalDate, val endLocalDate: LocalDate) {
     init {
         require(startLocalDate <= endLocalDate) { INVALID_DATE_RANGE_MESSAGE }
-    }
-
-    fun getDateRange(): String {
-        return "$startLocalDate ~ $endLocalDate"
     }
 
     fun generateDates(): List<LocalDate> {

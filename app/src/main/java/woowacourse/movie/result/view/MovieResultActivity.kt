@@ -14,6 +14,7 @@ import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_TIME
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
+import java.text.DecimalFormat
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     private lateinit var resultTitle: TextView
@@ -46,7 +47,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
             resultDate.text = movieTicket.date.replace('-', '.')
             resultTime.text = movieTicket.time
             resultCount.text = movieTicket.count.toString()
-            resultPrice.text = movieTicketData.getPrice()
+            resultPrice.text = DecimalFormat("#,###").format(movieTicket.price.toLong())
         }
     }
 
