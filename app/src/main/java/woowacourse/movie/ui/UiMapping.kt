@@ -22,11 +22,11 @@ fun Screen.toDetailUI(image: Image<Any>) =
     ScreenDetailUI(
         id = id,
         movieDetailUI =
-        MovieDetailUI(
-            title = movie.title,
-            runningTime = movie.runningTime,
-            description = movie.description,
-            image = image,
-        ),
+            MovieDetailUI(
+                title = movie.title,
+                runningTime = movie.runningTime,
+                description = movie.description,
+                image = image,
+            ),
         date = date,
     )

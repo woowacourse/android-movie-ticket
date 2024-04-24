@@ -1,6 +1,8 @@
 package woowacourse.movie.ui.detail
 
-interface ITicketViewHolder {
+interface TicketView {
+    fun initClickListener(screenId: Int)
+
     fun updateTicketCount(count: Int)
 
     fun ticketCount(): Int
