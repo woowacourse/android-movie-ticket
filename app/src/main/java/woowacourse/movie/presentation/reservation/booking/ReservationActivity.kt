@@ -13,7 +13,9 @@ import woowacourse.movie.presentation.reservation.result.ReservationResultActivi
 import woowacourse.movie.presentation.screen.ScreeningMovieActivity.Companion.MOVIE_ID
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val presenter: ReservationContract.Presenter = ReservationPresenter(this, MovieDao())
+    private val presenter: ReservationContract.Presenter by lazy {
+        ReservationPresenter(this, MovieDao())
+    }
     private lateinit var addButton: Button
     private lateinit var subButton: Button
     private lateinit var countTextView: TextView

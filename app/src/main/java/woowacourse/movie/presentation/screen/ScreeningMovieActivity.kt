@@ -10,7 +10,9 @@ import woowacourse.movie.presentation.reservation.booking.ReservationActivity
 import woowacourse.movie.presentation.screen.adapter.MovieListAdapter
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View {
-    private val presenter: ScreeningMoviePresenter = ScreeningMoviePresenter(this)
+    private val presenter: ScreeningMoviePresenter by lazy {
+        ScreeningMoviePresenter(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

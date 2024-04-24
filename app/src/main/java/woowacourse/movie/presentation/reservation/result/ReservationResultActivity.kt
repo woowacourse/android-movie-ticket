@@ -8,11 +8,12 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
-    private val presenter: ReservationResultContract.Presenter =
+    private val presenter: ReservationResultContract.Presenter by lazy {
         ReservationResultPresenter(
             this,
             MovieDao(),
         )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
