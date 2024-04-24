@@ -15,5 +15,12 @@ interface SeatSelectionContract {
         )
 
         fun setUpSeatColorByGrade(grade: Grade): Int
+
+        fun updateSeatSelectedState(
+            index: Int,
+            isSelected: Boolean,
+        )
+
+        fun setConfirmButtonEnabled(count: Int)
     }
 }
