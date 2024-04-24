@@ -26,7 +26,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticketCount = intent.getIntExtra(TICKET_COUNT, DEFAULT_TICKET_COUNT)
 
-        presenter = ReservationFinishedPresenter(this, movieId ,ticketCount)
+        presenter = ReservationFinishedPresenter(this, movieId, ticketCount)
     }
 
     override fun showMovieInformation(movie: Movie) {
@@ -64,10 +64,9 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
             movieId: Int,
             ticketCount: Int,
         ): Intent {
-            return Intent(context, ReservationFinishedActivity::class.java).also {
-                it.putExtra(MOVIE_ID, movieId)
-                it.putExtra(TICKET_COUNT, ticketCount)
-            }
+            return Intent(context, ReservationFinishedActivity::class.java)
+                .putExtra(MOVIE_ID, movieId)
+                .putExtra(TICKET_COUNT, ticketCount)
         }
     }
 }
