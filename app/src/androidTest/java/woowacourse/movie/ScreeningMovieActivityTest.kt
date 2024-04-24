@@ -41,7 +41,7 @@ class ScreeningMovieActivityTest {
     @Test
     @DisplayName("Activity가 실행되면 뷰가 보인다.")
     fun view_is_display_when_Activity_is_created() {
-        onView(withId(R.id.main)).check(matches(isDisplayed()))
+        onView(withId(R.id.screening_movie)).check(matches(isDisplayed()))
     }
 
     @Test

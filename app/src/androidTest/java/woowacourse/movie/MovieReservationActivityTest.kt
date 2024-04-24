@@ -30,7 +30,7 @@ class MovieReservationActivityTest {
     @Test
     @DisplayName("Activity가 실행되면 뷰가 보인다.")
     fun view_is_display_when_Activity_is_created() {
-        onView(withId(R.id.detail_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.movie_reservation)).check(matches(isDisplayed()))
     }
 
     @Test

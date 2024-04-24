@@ -24,7 +24,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_movie)
+        setContentView(R.layout.activity_movie_reservation)
 
         val id = intent.getLongExtra(EXTRA_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
         initView()
