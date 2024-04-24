@@ -1,8 +1,6 @@
 package woowacourse.movie.model
 
-import java.io.Serializable
-
-data class Quantity(var value: Int = MINIMUM_VALUE) : Serializable {
+data class Quantity(var value: Int = MINIMUM_VALUE) {
     init {
         require(MINIMUM_VALUE <= value) { "수량은 0 이상이어야 합니다." }
     }

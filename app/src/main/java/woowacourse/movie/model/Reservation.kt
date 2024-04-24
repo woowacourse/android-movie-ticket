@@ -3,7 +3,6 @@ package woowacourse.movie.model
 import woowacourse.movie.model.pricing.PricingSystem
 import woowacourse.movie.model.pricing.UniformPricingSystem
 import woowacourse.movie.model.screening.Screening
-import java.io.Serializable
 import java.time.LocalDate
 
 data class Reservation(
@@ -11,7 +10,7 @@ data class Reservation(
     val screening: Screening,
     val quantity: Quantity,
     private val priceSystem: PricingSystem = UniformPricingSystem(),
-) : Serializable {
+) {
     val price
         get() = priceSystem.calculatePrice(screening, quantity)
 
