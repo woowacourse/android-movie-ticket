@@ -10,9 +10,9 @@ import java.time.LocalDate
 class DummyScreens : ScreenRepository {
     // TODO 더미 데이터
     private val temp =
-        listOf(
+        List(10000) {
             Screen(
-                id = 1,
+                id = it + 1,
                 movie =
                     Movie(
                         title = "해리 포터와 마법사의 돌",
@@ -37,10 +37,12 @@ class DummyScreens : ScreenRepository {
                         ScreenDate(LocalDate.of(2024, 4, 8)),
                         ScreenDate(LocalDate.of(2024, 4, 9)),
                     ),
-            ),
-        )
+            )
+        }
 
-    override fun load(): List<Screen> = temp
+    override fun load(): List<Screen> {
+        return temp
+    }
 
     override fun loadSeatBoard(id: Int): Result<SeatBoard> =
         runCatching {

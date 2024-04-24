@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".presentation.ui.screen.ScreenActivity">
 
-    <ListView
-        android:id="@+id/lv_screen"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/holder_screen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
