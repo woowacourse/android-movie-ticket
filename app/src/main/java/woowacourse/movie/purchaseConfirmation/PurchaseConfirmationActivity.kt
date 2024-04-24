@@ -1,15 +1,12 @@
 package woowacourse.movie.purchaseConfirmation
 
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 
 class PurchaseConfirmationActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.purchase_confirmation)

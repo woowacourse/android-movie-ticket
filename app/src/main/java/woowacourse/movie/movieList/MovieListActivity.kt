@@ -1,7 +1,6 @@
 package woowacourse.movie.movieList
 
 import MovieListView
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
@@ -11,22 +10,21 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieDisplayData
 
 class MovieListActivity : AppCompatActivity(), MovieListView {
-    private lateinit var moviesListView: ListView
-    private lateinit var presenter: MovieListPresenter
-    private lateinit var adapter: MovieAdapter
+    private val moviesListView: ListView by lazy { findViewById(R.id.movies_list_item) }
+    private val presenter: MovieListPresenter by lazy { MovieListPresenter(this) }
+    private val adapter: MovieAdapter by lazy {
+        MovieAdapter(this, mutableListOf()) { position ->
+            presenter.onDetailButtonClicked(position)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_list)
-        presenter = MovieListPresenter(this)
-        moviesListView = findViewById(R.id.movies_list_item)
         initAdapter()
     }
 
     private fun initAdapter() {
-        adapter = MovieAdapter(this, mutableListOf()) { position ->
-            presenter.onDetailButtonClicked(position)
-        }
         moviesListView.adapter = adapter
         presenter.loadMovies()
     }
