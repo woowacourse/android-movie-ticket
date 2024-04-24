@@ -116,7 +116,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                     movieDetailPresenter.loadMovieTime(localDate)
                 }
 
-                override fun onNothingSelected(p0: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
     }
 

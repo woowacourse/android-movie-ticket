@@ -12,7 +12,7 @@ interface MovieDetailContract {
 
         fun setUpDateSpinner(movieDate: MovieDate)
 
-        fun setUpTimeSpinner(movieTimes: MovieTime)
+        fun setUpTimeSpinner(movieTime: MovieTime)
 
         fun displayMovieDetail(
             movieData: Movie?,

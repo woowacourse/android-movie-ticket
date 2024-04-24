@@ -24,7 +24,8 @@ class MovieDetailPresenter(
     }
 
     override fun loadMovieTime(localDate: LocalDate) {
-        movieDetailContractView.setUpTimeSpinner(MovieTime(isWeekend(localDate)))
+        val movieTime = MovieTime(isWeekend(localDate))
+        movieDetailContractView.setUpTimeSpinner(movieTime)
     }
 
     override fun plusReservationCount() {
@@ -42,6 +43,11 @@ class MovieDetailPresenter(
         date: String,
         time: String,
     ) {
-        movieDetailContractView.navigateToResultView(id, date, time, movieCount.count)
+        movieDetailContractView.navigateToResultView(
+            id,
+            date,
+            time,
+            movieCount.count,
+        )
     }
 }

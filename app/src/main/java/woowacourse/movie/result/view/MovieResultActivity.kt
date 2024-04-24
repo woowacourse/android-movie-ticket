@@ -7,12 +7,11 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.result.presenter.MovieResultPresenter
 import woowacourse.movie.result.presenter.contract.MovieResultContract
+import woowacourse.movie.util.MovieIntentConstant
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_COUNT
-import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_TIME
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
-import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
 
@@ -34,7 +33,8 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.loadMovieTicket(
             intent.getLongExtra(KEY_MOVIE_ID, INVALID_VALUE_MOVIE_ID),
-            intent.getStringExtra(KEY_MOVIE_DATE) ?: INVALID_VALUE_MOVIE_DATE,
+            intent.getStringExtra(MovieIntentConstant.KEY_MOVIE_DATE)
+                ?: MovieIntentConstant.INVALID_VALUE_MOVIE_DATE,
             intent.getStringExtra(KEY_MOVIE_TIME) ?: INVALID_VALUE_MOVIE_TIME,
             intent.getIntExtra(KEY_MOVIE_COUNT, INVALID_VALUE_MOVIE_COUNT),
         )
@@ -43,9 +43,9 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     override fun displayMovieTicket(movieTicketData: MovieTicket?) {
         movieTicketData?.let { movieTicket ->
             resultTitle.text = movieTicket.title
-            resultDate.text = movieTicket.date
-            resultTime.text = movieTicket.time
-            resultCount.text = "${movieTicket.count}"
+            resultDate.text = movieTicket.date.toString().replace('-', '.')
+            resultTime.text = movieTicket.time.toString()
+            resultCount.text = movieTicket.count.toString()
             resultPrice.text = movieTicketData.formatPrice()
         }
     }

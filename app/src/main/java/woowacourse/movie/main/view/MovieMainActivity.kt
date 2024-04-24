@@ -8,8 +8,8 @@ import woowacourse.movie.R
 import woowacourse.movie.detail.view.MovieDetailActivity
 import woowacourse.movie.main.presenter.MovieMainPresenter
 import woowacourse.movie.main.presenter.contract.MovieMainContract
+import woowacourse.movie.main.view.adapter.MovieAdapter
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.adapter.MovieAdapter
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 
 class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
