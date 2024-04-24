@@ -119,7 +119,7 @@
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/gl_form" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
