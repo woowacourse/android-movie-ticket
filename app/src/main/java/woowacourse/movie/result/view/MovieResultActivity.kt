@@ -43,10 +43,10 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     override fun displayMovieTicket(movieTicketData: MovieTicket?) {
         movieTicketData?.let { movieTicket ->
             resultTitle.text = movieTicket.title
-            resultDate.text = movieTicket.date.toString().replace('-', '.')
-            resultTime.text = movieTicket.time.toString()
+            resultDate.text = movieTicket.date.replace('-', '.')
+            resultTime.text = movieTicket.time
             resultCount.text = movieTicket.count.toString()
-            resultPrice.text = movieTicketData.formatPrice()
+            resultPrice.text = movieTicketData.getPrice()
         }
     }
 

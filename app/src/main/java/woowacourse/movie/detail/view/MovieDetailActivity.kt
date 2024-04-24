@@ -24,6 +24,7 @@ import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var detailImage: ImageView
@@ -69,8 +70,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         movieData?.let { movie ->
             detailImage.setImageResource(movie.thumbnail)
             detailTitle.text = movie.title
-            detailDate.text = movie.date.formatDateRange()
-            detailRunningTime.text = "${movie.runningTime}"
+            detailDate.text = movie.date.getDateRange().replace('-', '.')
+            detailRunningTime.text = movie.runningTime.toString()
             detailDescription.text = movie.description
             reservationCount.text = movieCount.count.toString()
 
@@ -111,9 +112,9 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                     id: Long,
                 ) {
                     val selectedDate =
-                        parent?.getItemAtPosition(position).toString().replace('.', '-')
+                        parent?.getItemAtPosition(position).toString()
                     val localDate = LocalDate.parse(selectedDate)
-                    movieDetailPresenter.loadMovieTime(localDate)
+                    movieDetailPresenter.loadTimeSpinnerItem(localDate)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -121,11 +122,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     override fun setUpTimeSpinner(movieTime: MovieTime) {
+        val times =
+            movieTime.generateTimes().map { time ->
+                time.format(DateTimeFormatter.ofPattern("kk:mm"))
+            }
+
         runningTimeSpinner.adapter =
             ArrayAdapter(
                 this,
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                movieTime.generateTimes(),
+                times,
             )
     }
 

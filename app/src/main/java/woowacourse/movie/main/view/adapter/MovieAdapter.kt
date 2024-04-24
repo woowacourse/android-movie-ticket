@@ -60,8 +60,8 @@ class MovieViewHolder(view: View) {
     ) {
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
-        date.text = movie.date.formatDateRange()
-        runningTime.text = "${movie.runningTime}"
+        date.text = movie.date.getDateRange().replace('-', '.')
+        runningTime.text = movie.runningTime.toString()
         reservationButton.setOnClickListener {
             onReservationButtonClick(movie.id)
         }

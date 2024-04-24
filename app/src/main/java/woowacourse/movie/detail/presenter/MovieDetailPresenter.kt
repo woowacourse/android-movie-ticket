@@ -23,7 +23,7 @@ class MovieDetailPresenter(
         }
     }
 
-    override fun loadMovieTime(localDate: LocalDate) {
+    override fun loadTimeSpinnerItem(localDate: LocalDate) {
         val movieTime = MovieTime(isWeekend(localDate))
         movieDetailContractView.setUpTimeSpinner(movieTime)
     }

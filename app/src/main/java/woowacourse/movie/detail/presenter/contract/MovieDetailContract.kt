@@ -30,7 +30,7 @@ interface MovieDetailContract {
     interface Presenter {
         fun loadMovieDetail(id: Long)
 
-        fun loadMovieTime(localDate: LocalDate)
+        fun loadTimeSpinnerItem(localDate: LocalDate)
 
         fun plusReservationCount()
 
