@@ -2,7 +2,6 @@ package woowacourse.movie.moviereservation
 
 import woowacourse.movie.model.ScreeningMovie
 import woowacourse.movie.repository.MovieRepository
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MovieReservationPresenter(
@@ -28,11 +27,13 @@ class MovieReservationPresenter(
         }
     }
 
-    fun completeReservation(currentCount: HeadCountUiModel) {
-        val dateTime = screeningMovie.screenDateTimes.first().date.toDefaultLocalDateTime()
+    fun completeReservation(
+        screenMovieId: Long,
+        currentCount: HeadCountUiModel,
+    ) {
         repository.reserveMovie(
-            screeningMovie.id,
-            dateTime = dateTime,
+            screenMovieId,
+            dateTime = dummyDate,
             count = currentCount.toHeadCount(),
         ).onSuccess {
             view.navigateToReservationResultView(it)
@@ -40,6 +41,6 @@ class MovieReservationPresenter(
     }
 
     companion object {
-        private fun LocalDate.toDefaultLocalDateTime(): LocalDateTime = this.atTime(0, 0, 0)
+        private val dummyDate = LocalDateTime.of(1, 1, 1, 1, 1, 1)
     }
 }

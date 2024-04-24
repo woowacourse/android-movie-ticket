@@ -23,10 +23,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_movie)
-        initView()
-        initClickListener()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val id = intent.getLongExtra(EXTRA_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
+        initView()
+        initClickListener(id)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter =
             MovieReservationPresenter(
                 this, StubMovieRepository,
@@ -58,7 +59,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         minusButton = findViewById(R.id.btn_detail_minus)
     }
 
-    private fun initClickListener() {
+    private fun initClickListener(movieId: Long) {
         plusButton.setOnClickListener {
             presenter.plusCount(count)
         }
@@ -66,7 +67,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
             presenter.minusCount(count)
         }
         findViewById<Button>(R.id.btn_detail_complete).setOnClickListener {
-            presenter.completeReservation(count)
+            presenter.completeReservation(movieId, count)
         }
     }
 
