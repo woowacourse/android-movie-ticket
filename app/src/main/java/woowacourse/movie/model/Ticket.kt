@@ -6,15 +6,15 @@ class Ticket(ticketCount: Int = DEFAULT_TICKET_COUNT) {
         get() = _count
 
     fun increaseCount(): ChangeTicketCountResult {
-        if (count >= MAX_TICKET_COUNT) return Failure
+        if (count >= MAX_TICKET_COUNT) return OutOfRange
         _count++
-        return Success
+        return InRange
     }
 
     fun decreaseCount(): ChangeTicketCountResult {
-        if (count <= MIN_TICKET_COUNT) return Failure
+        if (count <= MIN_TICKET_COUNT) return OutOfRange
         _count--
-        return Success
+        return InRange
     }
 
     fun calculatePrice(): Int = _count * PRICE

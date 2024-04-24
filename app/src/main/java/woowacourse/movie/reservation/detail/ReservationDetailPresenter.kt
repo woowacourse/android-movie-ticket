@@ -2,8 +2,8 @@ package woowacourse.movie.reservation.detail
 
 import woowacourse.movie.db.Movies
 import woowacourse.movie.model.ChangeTicketCountResult
-import woowacourse.movie.model.Failure
-import woowacourse.movie.model.Success
+import woowacourse.movie.model.OutOfRange
+import woowacourse.movie.model.InRange
 import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenter(
@@ -33,11 +33,11 @@ class ReservationDetailPresenter(
 
     private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
         when (result) {
-            is Success -> {
+            is InRange -> {
                 view.updateCount(ticket.count)
                 view.moveToReservationFinished(movieId, ticket.count)
             }
-            is Failure -> view.showErrorToast()
+            is OutOfRange -> view.showErrorToast()
         }
     }
 }

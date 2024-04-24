@@ -2,6 +2,6 @@ package woowacourse.movie.model
 
 sealed interface ChangeTicketCountResult
 
-data object Success : ChangeTicketCountResult
+data object InRange : ChangeTicketCountResult
 
-data object Failure : ChangeTicketCountResult
+data object OutOfRange : ChangeTicketCountResult
