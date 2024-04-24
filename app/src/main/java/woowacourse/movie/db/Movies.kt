@@ -11,7 +11,7 @@ object Movies {
                 0,
                 R.drawable.img_sorcerers_stone,
                 "해리 포터와 마법사의 돌",
-                LocalDate.of(2011, 11,14),
+                LocalDate.of(2001, 11,14),
                 "152분",
                 """
                 해리 포터(다니엘 래드클리프 분)는 위압적인 버논 숙부(리챠드 그리피스 분)와 냉담한 이모 페투니아 

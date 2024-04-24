@@ -38,7 +38,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         ticketCount: Int,
         price: Int,
     ) {
-        numberOfTickets.text = getString(R.string.reservation_finished_number_of_tickets, ticketCount)
+        numberOfTickets.text = getString(R.string.reservation_finished_person, ticketCount)
         ticketPrice.text = getString(R.string.reservation_finished_price, convertPriceFormat(price))
     }
 

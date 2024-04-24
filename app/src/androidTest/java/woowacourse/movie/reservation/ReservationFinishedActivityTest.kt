@@ -37,14 +37,14 @@ class ReservationFinishedActivityTest {
 
     @Test
     fun 예매한_영화_관람인원을_보여준다() {
-        val ticketCount = 1
+        val ticketCount = "일반 1명"
 
-        onView(withId(R.id.text_view_reservation_finished_number_of_tickets)).check(matches(withText(ticketCount.toString())))
+        onView(withId(R.id.text_view_reservation_finished_number_of_tickets)).check(matches(withText(ticketCount)))
     }
 
     @Test
     fun 예매한_영화_총_결제금액을_보여준다() {
-        val ticketPrice = "13,000"
+        val ticketPrice = "13,000원 (현장 결제)"
 
         onView(withId(R.id.text_view_reservation_finished_ticket_price)).check(matches(withText(ticketPrice)))
     }
