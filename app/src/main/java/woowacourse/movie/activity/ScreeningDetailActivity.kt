@@ -31,7 +31,6 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         setContentView(R.layout.movie_detail)
         val presenter =
             ScreeningDetailPresenter(
-                intent,
                 this,
             )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

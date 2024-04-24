@@ -6,19 +6,25 @@ import androidx.annotation.RequiresApi
 import woowacourse.movie.contract.ScreeningDetailContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.repository.PseudoScreeningRepository
+import woowacourse.movie.repository.ScreeningRepository
 
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class ScreeningDetailPresenter(
-    intent: Intent,
     private val view: ScreeningDetailContract.View,
+    repository: ScreeningRepository = PseudoScreeningRepository,
 ) : ScreeningDetailContract.Presenter {
+
     private var ticketNum = 1
-    private val screening: Screening =
-        intent.getSerializableExtra("Screening", Screening::class.java) ?: Screening.default
+    private val screening: Screening = repository.getScreenings()[0]
 
     // TODO: have to notify that something went wrong and go back to movie selection
     // e.g. view.notifyException()
     init {
+        loadScreening()
+    }
+
+    override fun loadScreening() {
         view.displayScreening(screening)
     }
 

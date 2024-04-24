@@ -13,6 +13,7 @@ interface ScreeningDetailContract {
     }
 
     interface Presenter {
+        fun loadScreening()
         fun plusTicketNum()
 
         fun minusTicketNum()

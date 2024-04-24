@@ -8,7 +8,7 @@ import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.model.screening.ScreeningDate
 import java.time.LocalDate
 
-class PseudoScreeningRepository : ScreeningRepository {
+object PseudoScreeningRepository : ScreeningRepository {
     private val pseudoMovieInfo =
         MovieInfo(
             Title("차람과 하디의 진지한 여행기"),

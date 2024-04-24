@@ -8,7 +8,7 @@ import woowacourse.movie.repository.ScreeningRepository
 
 class ScreeningListPresenter(
     private val screeningListView: ScreeningListContract.View,
-    screeningRepository: ScreeningRepository = PseudoScreeningRepository(),
+    screeningRepository: ScreeningRepository = PseudoScreeningRepository,
     private val screeningAdapter: ScreeningAdapter,
 ) : ScreeningListContract.Presenter {
     private val screenings = screeningRepository.getScreenings()
