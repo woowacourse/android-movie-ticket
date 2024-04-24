@@ -13,6 +13,6 @@ data class Movie(
 ) {
     fun screenPeriodToString(): String {
         if (screenPeriod.size == 1) return screenPeriod[0].format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        return screenPeriod.joinToString("~") { it.format(DateTimeFormatter.ofPattern("yyyy.M.d")) }
+        return screenPeriod.joinToString(" ~ ") { it.format(DateTimeFormatter.ofPattern("yyyy.M.d")) }
     }
 }

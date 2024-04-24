@@ -6,7 +6,6 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.domain.movie.Screen
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class TicketTest {
     @Test
