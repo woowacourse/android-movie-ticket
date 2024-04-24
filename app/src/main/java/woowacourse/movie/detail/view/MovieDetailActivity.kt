@@ -19,6 +19,7 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.result.view.MovieResultActivity
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
+import woowacourse.movie.util.MovieIntentConstant.KEY_ITEM_POSITION
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
@@ -48,7 +49,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movieDetailPresenter =
-            MovieDetailPresenter(this, savedInstanceState?.getInt(KEY_MOVIE_COUNT))
+            MovieDetailPresenter(
+                this,
+                savedInstanceState?.getInt(KEY_MOVIE_COUNT),
+                savedInstanceState?.getInt(KEY_ITEM_POSITION),
+            )
         movieDetailPresenter.loadMovieDetail(
             intent.getLongExtra(
                 KEY_MOVIE_ID,
@@ -61,6 +66,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         super.onSaveInstanceState(outState)
         val count = reservationCount.text.toString().toInt()
         outState.putInt(KEY_MOVIE_COUNT, count)
+        val position = runningTimeSpinner.selectedItemPosition
+        outState.putInt(KEY_ITEM_POSITION, position)
     }
 
     override fun displayMovieDetail(
@@ -121,7 +128,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             }
     }
 
-    override fun setUpTimeSpinner(movieTime: MovieTime) {
+    override fun setUpTimeSpinner(
+        movieTime: MovieTime,
+        position: Int,
+    ) {
         val times =
             movieTime.generateTimes().map { time ->
                 time.format(DateTimeFormatter.ofPattern("kk:mm"))
@@ -133,6 +143,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
                 times,
             )
+        runningTimeSpinner.setSelection(position)
     }
 
     override fun navigateToResultView(

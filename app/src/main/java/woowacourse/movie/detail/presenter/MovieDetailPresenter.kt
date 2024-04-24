@@ -10,6 +10,7 @@ import java.time.LocalDate
 class MovieDetailPresenter(
     private val movieDetailContractView: MovieDetailContract.View,
     count: Int?,
+    val position: Int?,
 ) : MovieDetailContract.Presenter {
     private var movieRepository: MovieRepository = MovieRepository()
     private var movieCount =
@@ -25,7 +26,7 @@ class MovieDetailPresenter(
 
     override fun loadTimeSpinnerItem(localDate: LocalDate) {
         val movieTime = MovieTime(isWeekend(localDate))
-        movieDetailContractView.setUpTimeSpinner(movieTime)
+        movieDetailContractView.setUpTimeSpinner(movieTime, position ?: 0)
     }
 
     override fun plusReservationCount() {
