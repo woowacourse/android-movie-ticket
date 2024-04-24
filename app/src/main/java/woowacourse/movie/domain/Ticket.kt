@@ -1,11 +1,12 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.domain.movie.Screen
 import woowacourse.movie.domain.seat.Seats
+import java.time.LocalDateTime
 
-class Ticket(val screen: Screen) {
+class Ticket(val screenId: Long) {
     var count: Int = DEFAULT_TICKET_COUNT
     val seats: Seats = Seats()
+    lateinit var dateTime : LocalDateTime
 
     fun addCount() {
         count++
