@@ -9,7 +9,7 @@ import woowacourse.movie.adapter.MovieCatalogAdapter
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.presenter.home.ReservationHomeContract
 import woowacourse.movie.presenter.home.ReservationHomePresenter
-import woowacourse.movie.view.detail.ReservationDetailActivity
+import woowacourse.movie.view.reservation.ReservationDetailActivity
 
 class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract.View {
     private val presenter = ReservationHomePresenter(this)

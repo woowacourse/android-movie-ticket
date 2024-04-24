@@ -1,4 +1,4 @@
-package woowacourse.movie.view.detail
+package woowacourse.movie.view.reservation
 
 import android.content.Intent
 import android.os.Build
@@ -18,8 +18,8 @@ import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.presenter.detail.ReservationDetailContract
-import woowacourse.movie.presenter.detail.ReservationDetailPresenter
+import woowacourse.movie.presenter.reservation.ReservationDetailContract
+import woowacourse.movie.presenter.reservation.ReservationDetailPresenter
 import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import java.io.Serializable

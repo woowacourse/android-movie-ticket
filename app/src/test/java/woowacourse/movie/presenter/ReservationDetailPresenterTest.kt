@@ -10,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.db.ScreeningDao
-import woowacourse.movie.presenter.detail.ReservationDetailContract
-import woowacourse.movie.presenter.detail.ReservationDetailPresenter
+import woowacourse.movie.presenter.reservation.ReservationDetailContract
+import woowacourse.movie.presenter.reservation.ReservationDetailPresenter
 
 @ExtendWith(MockKExtension::class)
 class ReservationDetailPresenterTest {

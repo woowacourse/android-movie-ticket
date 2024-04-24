@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter.detail
+package woowacourse.movie.presenter.reservation
 
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Movie

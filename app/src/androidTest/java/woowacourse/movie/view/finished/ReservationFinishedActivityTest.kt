@@ -16,7 +16,7 @@ import woowacourse.movie.R
 import woowacourse.movie.TestFixture.FIRST_ITEM_POSITION
 import woowacourse.movie.TestFixture.movies
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.view.detail.ReservationDetailActivity
+import woowacourse.movie.view.reservation.ReservationDetailActivity
 
 class ReservationFinishedActivityTest {
     @get:Rule
