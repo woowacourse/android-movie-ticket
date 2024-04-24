@@ -8,6 +8,7 @@ import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.reservation.MovieReservationContract
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
+import woowacourse.movie.presentation.reservation.model.TicketModel
 
 class MovieReservationPresenterTest {
     private lateinit var mockView: MockMovieReservationContractView
@@ -22,6 +23,10 @@ class MovieReservationPresenterTest {
 
         override fun showCurrentResultTicketCountView() {
             showCurrentResultTicketCountViewCalled = true
+        }
+
+        override fun moveToTicketDetail(ticketModel: TicketModel) {
+            Log.d("moveToTicketDetail","티켓 디테일 화면으로 이동합니다")
         }
     }
 
