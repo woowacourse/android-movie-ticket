@@ -3,8 +3,11 @@ package woowacourse.movie.presentation.ticketing
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +15,20 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
 import woowacourse.movie.utils.formatMovieDate
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
+    private val movieTimeSpinner by lazy { findViewById<Spinner>(R.id.sp_time_slot) }
+    private val movieTimeAdapter: ArrayAdapter<String> by lazy {
+        ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +59,27 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         completeButton.setOnClickListener {
             ticketingPresenter.navigate()
         }
+    }
+
+    override fun setUpDateSpinners(
+        screeningDates: List<LocalDate>,
+        listener: AdapterView.OnItemSelectedListener,
+    ) {
+        val movieDateSpinner = findViewById<Spinner>(R.id.sp_date)
+        val movieDateAdapter =
+            ArrayAdapter(
+                this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                screeningDates,
+            )
+        movieDateSpinner.adapter = movieDateAdapter
+        movieDateSpinner.onItemSelectedListener = listener
+    }
+
+    override fun setUpTimeSpinners(screeningTimes: List<LocalTime>) {
+        movieTimeAdapter.clear()
+        movieTimeAdapter.addAll(screeningTimes.map { it.format(DateTimeFormatter.ofPattern("kk:mm")) })
+        movieTimeSpinner.adapter = movieTimeAdapter
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

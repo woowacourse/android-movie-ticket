@@ -1,14 +1,19 @@
 package woowacourse.movie.presentation.ticketing
 
+import android.view.View
+import android.widget.AdapterView
 import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.model.Count
+import woowacourse.movie.model.ScreeningTimeSchedule
 import woowacourse.movie.model.Tickets
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
     private val movieId: Int,
     savedCount: Int?,
-) : TicketingContract.Presenter {
+) : TicketingContract.Presenter, AdapterView.OnItemSelectedListener {
     private val movieRepository = MovieRepository()
     private val count = savedCount?.let { Count(it) } ?: Count()
 
@@ -16,6 +21,10 @@ class TicketingPresenter(
         movieRepository.findMovieById(movieId)
             .onSuccess { movie ->
                 ticketingContractView.assignInitialView(movie, count.value)
+                ticketingContractView.setUpDateSpinners(
+                    movie.screeningDates.getDatesBetweenStartAndEnd(),
+                    this,
+                )
             }
             .onFailure {
                 ticketingContractView.showErrorMessage(it.message)
@@ -36,4 +45,21 @@ class TicketingPresenter(
         val totalPrice = Tickets(count).totalPrice
         ticketingContractView.navigate(movieId, count.value, totalPrice)
     }
+
+    override fun onItemSelected(
+        parent: AdapterView<*>?,
+        view: View?,
+        position: Int,
+        id: Long,
+    ) {
+        val selected = parent?.getItemAtPosition(position).toString()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val timeSlots =
+            ScreeningTimeSchedule.generateAvailableTimeSlots(
+                LocalDate.parse(selected, formatter),
+            )
+        ticketingContractView.setUpTimeSpinners(timeSlots)
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 }
