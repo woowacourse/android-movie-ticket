@@ -33,7 +33,7 @@ class ScreeningDatesTest {
         assertThat(actual).isEqualTo(expected)
     }
 
-    fun LocalDate(dateString: String): LocalDate {
+    private fun LocalDate(dateString: String): LocalDate {
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         return LocalDate.parse(dateString, formatter)
     }
