@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
@@ -24,7 +24,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var countView: TextView
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
-
+    private lateinit var reservationDialog: AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_movie)
@@ -57,6 +57,17 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         }
+        reservationDialog = AlertDialog.Builder(this)
+            .setTitle("예매 확인")
+            .setMessage("예매를 완료하시겠습니까?")
+            .setCancelable(false)
+            .setPositiveButton("확인") { _, _ ->
+                presenter.completeReservation()
+            }
+            .setNegativeButton("취소") { _, _ ->
+                reservationDialog.dismiss()
+            }
+            .create()
         initView()
         initClickListener()
         if (savedInstanceState == null) initPresenter()
@@ -128,7 +139,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
             presenter.minusCount()
         }
         findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
-            presenter.completeReservation()
+            reservationDialog.show()
         }
     }
 
