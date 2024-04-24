@@ -26,11 +26,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticketCount = intent.getIntExtra(TICKET_COUNT, DEFAULT_TICKET_COUNT)
 
-        presenter =
-            ReservationFinishedPresenter(this, ticketCount).also {
-                it.deliverMovieInformation(movieId)
-                it.deliverReservationInformation()
-            }
+        presenter = ReservationFinishedPresenter(this, movieId ,ticketCount)
     }
 
     override fun showMovieInformation(movie: Movie) {

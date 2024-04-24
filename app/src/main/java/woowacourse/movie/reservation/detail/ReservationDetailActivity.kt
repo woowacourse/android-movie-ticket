@@ -35,14 +35,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         val movieId = intent.getIntExtra("movieId", DEFAULT_MOVIE_ID)
 
-        presenter =
-            ReservationDetailPresenter(this, movieId).also {
-                it.deliverMovie()
-                it.deliverReservationInformation()
-                it.increaseCount()
-                it.decreaseCount()
-            }
-
+        presenter = ReservationDetailPresenter(this, movieId)
         plusButton.setOnClickListener {
             presenter.increaseCount()
         }

@@ -13,7 +13,7 @@ interface ReservationFinishedContract {
     }
 
     interface Presenter {
-        fun deliverMovieInformation(movieId: Int)
+        fun deliverMovieInformation()
 
         fun deliverReservationInformation()
     }

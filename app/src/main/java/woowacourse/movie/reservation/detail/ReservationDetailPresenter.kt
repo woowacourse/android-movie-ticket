@@ -13,6 +13,13 @@ class ReservationDetailPresenter(
     private val movies = Movies.obtainMovies()
     private val ticket = Ticket()
 
+    init {
+        deliverMovie()
+        deliverReservationInformation()
+        increaseCount()
+        decreaseCount()
+    }
+
     override fun increaseCount() {
         val result = ticket.increaseCount()
         handleNumberOfTicketsBounds(result)
