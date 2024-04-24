@@ -1,9 +1,13 @@
 package woowacourse.movie.presentation.reservation
 
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
@@ -26,13 +30,9 @@ class MovieReservationActivityTest {
 
     @Test
     fun `마이너스_버튼을_누르면_개수가_감소해야_한다`() {
-        Espresso.onView(ViewMatchers.withId(R.id.plus_button))
-            .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.plus_button))
-            .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.minus_button))
-            .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.ticket_count))
-            .check(ViewAssertions.matches(ViewMatchers.withText("2")))
+        onView(withId(R.id.plus_button)).perform(click())
+        onView(withId(R.id.plus_button)).perform(click())
+        onView(withId(R.id.minus_button)).perform(click())
+        onView(withId(R.id.ticket_count)).check(matches(withText("2")))
     }
 }
