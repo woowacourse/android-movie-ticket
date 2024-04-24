@@ -118,6 +118,7 @@ class SeatSelectionActivity : BaseActivity(), View {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.dialog_reservation_title))
         builder.setMessage(getString(R.string.dialog_reservation_message))
+        builder.setCancelable(false)
 
         builder.setPositiveButton(getString(R.string.reservation_done)) { _, _ ->
             presenter.reserve()
