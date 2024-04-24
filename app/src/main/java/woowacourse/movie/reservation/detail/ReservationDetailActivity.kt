@@ -42,15 +42,16 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         minusButton.setOnClickListener {
             presenter.decreaseCount()
         }
+        reservationButton.setOnClickListener {
+            presenter.deliverReservationInformation()
+        }
     }
 
     override fun moveToReservationFinished(
         movieId: Int,
         ticketCount: Int,
     ) {
-        reservationButton.setOnClickListener {
-            startActivity(ReservationFinishedActivity.getIntent(this, movieId, ticketCount))
-        }
+        startActivity(ReservationFinishedActivity.getIntent(this, movieId, ticketCount))
     }
 
     override fun showMovieInformation(movie: Movie) {
@@ -89,5 +90,4 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             }
         }
     }
-
 }

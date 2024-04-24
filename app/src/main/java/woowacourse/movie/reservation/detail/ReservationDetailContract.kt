@@ -21,7 +21,7 @@ interface ReservationDetailContract {
 
         fun decreaseCount()
 
-        fun deliverMovie()
+        fun loadMovie()
 
         fun deliverReservationInformation()
     }

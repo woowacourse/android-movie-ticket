@@ -14,8 +14,7 @@ class ReservationDetailPresenter(
     private val ticket = Ticket()
 
     init {
-        deliverMovie()
-        deliverReservationInformation()
+        loadMovie()
     }
 
     override fun increaseCount() {
@@ -28,7 +27,7 @@ class ReservationDetailPresenter(
         handleNumberOfTicketsBounds(result)
     }
 
-    override fun deliverMovie() {
+    override fun loadMovie() {
         view.showMovieInformation(movies[movieId])
     }
 
@@ -40,7 +39,6 @@ class ReservationDetailPresenter(
         when (result) {
             is InRange -> {
                 view.updateCount(ticket.count)
-                view.moveToReservationFinished(movieId, ticket.count)
             }
             is OutOfRange -> view.showErrorToast()
         }
