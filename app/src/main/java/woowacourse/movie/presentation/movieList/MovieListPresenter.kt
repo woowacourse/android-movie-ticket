@@ -2,7 +2,7 @@ package woowacourse.movie.presentation.movieList
 
 import woowacourse.movie.data.MovieRepository
 
-class MovieListPresenter(private val movieListContractView: MovieListContract.View) : MovieListContract.Presenter, ClickListener {
+class MovieListPresenter(private val movieListContractView: MovieListContract.View) : MovieListContract.Presenter, MovieListClickListener {
     private val movieRepository = MovieRepository()
 
     override fun loadMovies() {
@@ -10,7 +10,7 @@ class MovieListPresenter(private val movieListContractView: MovieListContract.Vi
         movieListContractView.displayMovies(movies)
     }
 
-    override fun onClick(movieId: Int) {
+    override fun ticketingButtonClick(movieId: Int) {
         movieListContractView.navigate(movieId)
     }
 }
