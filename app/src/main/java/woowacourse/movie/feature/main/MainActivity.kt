@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.data.MockMovieRepository
 import woowacourse.movie.feature.main.ui.ListViewAdapter
 import woowacourse.movie.feature.main.ui.MovieModel
 import woowacourse.movie.feature.reservation.ReservationActivity
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         findViewById(R.id.list_view)
     }
 
-    private val presenter = MainPresenter(this)
+    private val presenter = MainPresenter(this, MockMovieRepository)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
