@@ -2,13 +2,14 @@ package woowacourse.movie.presentation.ui.detail.fake
 
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.presentation.model.MessageType
+import woowacourse.movie.presentation.model.ReservationInfo
 import woowacourse.movie.presentation.ui.detail.DetailContract
 
 class FakeDetailView : DetailContract.View {
     var screen: Screen? = null
     var isBack = false
     var ticketCount = 1
-    var reservationId: Int? = null
+    var reservationInfo: ReservationInfo? = null
     var toastMessage: MessageType? = null
     var snackBarMessage: MessageType? = null
     var throwable: Throwable? = null
@@ -21,8 +22,8 @@ class FakeDetailView : DetailContract.View {
         ticketCount = count
     }
 
-    override fun navigateToReservation(id: Int) {
-        reservationId = id
+    override fun navigateToSeatSelection(reservationInfo: ReservationInfo) {
+        this.reservationInfo = reservationInfo
     }
 
     override fun back() {

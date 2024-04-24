@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.presentation.fakerepository.FakeReservationRepository
 import woowacourse.movie.presentation.fakerepository.FakeScreenRepository
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.ui.detail.fake.FakeDetailView
@@ -24,9 +23,8 @@ class DetailPresenterTest {
         screens = listOf(getDummyScreen())
         reservation = getDummyReservation()
         view = FakeDetailView()
-        val reservationRepository = FakeReservationRepository(reservation.id, reservation)
         val screenRepository = FakeScreenRepository(screens)
-        presenter = DetailPresenter(view, screenRepository, reservationRepository)
+        presenter = DetailPresenter(view, screenRepository)
     }
 
     @Test
