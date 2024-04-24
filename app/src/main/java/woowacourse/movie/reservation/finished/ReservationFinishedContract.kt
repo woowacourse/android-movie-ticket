@@ -13,8 +13,8 @@ interface ReservationFinishedContract {
     }
 
     interface Presenter {
-        fun deliverMovieInformation()
+        fun loadMovieInformation()
 
-        fun deliverReservationInformation()
+        fun loadReservationInformation()
     }
 }

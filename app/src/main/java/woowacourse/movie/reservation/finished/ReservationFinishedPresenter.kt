@@ -11,17 +11,17 @@ class ReservationFinishedPresenter(
     private val ticket = Ticket(ticketCount)
 
     init {
-        deliverMovieInformation()
-        deliverReservationInformation()
+        loadMovieInformation()
+        loadReservationInformation()
     }
 
-    override fun deliverMovieInformation() {
+    override fun loadMovieInformation() {
         val movies = Movies.obtainMovies()[movieId]
 
         view.showMovieInformation(movies)
     }
 
-    override fun deliverReservationInformation() {
+    override fun loadReservationInformation() {
         val numberOfTickets = ticket.count
         val price = ticket.calculatePrice()
 
