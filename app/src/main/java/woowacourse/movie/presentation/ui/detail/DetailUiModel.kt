@@ -9,8 +9,7 @@ data class DetailUiModel(
     val screenId: Int = -1,
     val screen: Screen? = null,
     val ticket: Ticket = Ticket(Ticket.MIN_TICKET_COUNT),
-    val selectableDates: List<String> = emptyList(),
-    val selectableTimes: List<String> = emptyList(),
+    val selectableDates: List<ScreenDate> = emptyList(),
     val selectedDate: ScreenDate? = null,
     val selectedTime: LocalTime? = null,
 )

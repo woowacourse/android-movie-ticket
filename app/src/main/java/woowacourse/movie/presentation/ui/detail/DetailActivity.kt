@@ -70,8 +70,10 @@ class DetailActivity : BaseActivity(), View {
                     id: Long,
                 ) {
                     val localDate = parent.getItemAtPosition(position) as LocalDate
-                    presenter.registerDate(localDate)
-                    presenter.createTimeSpinnerAdapter(ScreenDate(localDate))
+                    if (presenter.uiModel.selectedDate?.date != localDate) {
+                        presenter.registerDate(localDate)
+                        presenter.createTimeSpinnerAdapter(ScreenDate(localDate))
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -141,6 +143,8 @@ class DetailActivity : BaseActivity(), View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(PUT_TICKET_STATE_KEY, presenter.uiModel.ticket.count)
+        outState.putSerializable(PUT_STATE_KEY_SELECTED_DATE, presenter.uiModel.selectedDate?.date)
+        outState.putSerializable(PUT_STATE_KEY_SELECTED_TIME, presenter.uiModel.selectedTime)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -149,6 +153,37 @@ class DetailActivity : BaseActivity(), View {
         val count = savedInstanceState.getInt(PUT_TICKET_STATE_KEY, DEFAULT_TICKET_COUNT)
         if (count != DEFAULT_TICKET_COUNT) {
             presenter.updateTicket(count)
+        }
+
+        val savedLocalDate =
+            savedInstanceState.getSerializable(PUT_STATE_KEY_SELECTED_DATE) as LocalDate?
+        savedLocalDate?.let { localDate ->
+            presenter.registerDate(localDate)
+            var position = 0
+            presenter.uiModel.selectableDates.forEachIndexed { index, screenDate ->
+                if (screenDate.date == localDate) {
+                    position = index
+                    return@forEachIndexed
+                }
+            }
+            dateSpinner.setSelection(position)
+        }
+
+        val savedLocalTime =
+            savedInstanceState.getSerializable(PUT_STATE_KEY_SELECTED_TIME) as LocalTime?
+
+        savedLocalTime?.let { localTime ->
+            presenter.registerTime(localTime)
+            var position = 0
+            presenter.uiModel.selectedDate?.let { screenDate ->
+                screenDate.getSelectableTimes().forEachIndexed { index, screenTime ->
+                    if (screenTime == localTime) {
+                        position = index
+                        return@forEachIndexed
+                    }
+                }
+            }
+            timeSpinner.setSelection(position)
         }
     }
 
@@ -162,6 +197,8 @@ class DetailActivity : BaseActivity(), View {
 
         private const val DEFAULT_TICKET_COUNT = -1
         private const val PUT_TICKET_STATE_KEY = "ticketCount"
+        private const val PUT_STATE_KEY_SELECTED_DATE = "selectedDate"
+        private const val PUT_STATE_KEY_SELECTED_TIME = "selectedTime"
 
         fun startActivity(
             context: Context,

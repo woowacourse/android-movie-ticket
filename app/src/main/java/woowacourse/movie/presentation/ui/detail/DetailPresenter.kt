@@ -24,6 +24,7 @@ class DetailPresenter(
                 uiModel.copy(
                     screenId = id,
                     screen = screen,
+                    selectableDates = screen.selectableDates,
                     selectedDate = screen.selectableDates.first(),
                 )
             view.showScreen(screen)
