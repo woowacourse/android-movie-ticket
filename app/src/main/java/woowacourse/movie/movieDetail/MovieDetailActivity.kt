@@ -69,8 +69,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         findViewById<TextView>(R.id.quantity_text_view).text = this.ticketNum.toString()
     }
 
-    override fun getContext(): Context = this
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()
         return true

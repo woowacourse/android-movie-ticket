@@ -31,8 +31,6 @@ class MovieListActivity : AppCompatActivity(), MovieListView {
         presenter.loadMovies()
     }
 
-    override fun getContext(): Context = this
-
     override fun startActivity(intent: Intent) {
         super.startActivity(intent)
     }

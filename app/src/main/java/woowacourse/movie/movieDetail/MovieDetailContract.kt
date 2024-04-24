@@ -10,7 +10,6 @@ interface MovieDetailContract {
         fun initializeViews(movieInfo: MovieInfo)
         fun navigateToPurchaseConfirmation(intent: Intent)
         fun onTicketCountChanged(ticketNum: Int)
-        fun getContext(): Context
     }
 
     interface Presenter {
