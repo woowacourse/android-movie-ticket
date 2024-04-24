@@ -1,22 +1,17 @@
 package woowacourse.movie.presenter
 
-import android.content.Intent
-import android.os.Build
-import androidx.annotation.RequiresApi
 import woowacourse.movie.contract.PurchaseConfirmationContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.repository.PseudoReservationRepository
+import woowacourse.movie.repository.ReservationRepository
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class PurchaseConfirmationPresenter(
-    intent: Intent,
-    view: PurchaseConfirmationContract.View,
+    private val view: PurchaseConfirmationContract.View,
+    private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
 ) : PurchaseConfirmationContract.Presenter {
-    private val reservation =
-        intent.getSerializableExtra("Reservation", Reservation::class.java)
-            ?: Reservation(Screening.default, 1)
-
-    init {
+    override fun loadReservation(reservationId: Int) {
+        val reservation = reservationRepository.getReservation(reservationId) ?: Reservation(Screening.default, 0)
         view.displayReservation(reservation)
     }
 }

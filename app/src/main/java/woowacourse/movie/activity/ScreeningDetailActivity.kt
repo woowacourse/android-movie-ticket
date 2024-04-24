@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.ScreeningDetailContract
-import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
@@ -37,6 +36,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         val ticketMinusButton = findViewById<Button>(R.id.minus_button)
         val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
         val screeningId = intent.getIntExtra("ScreeningId", -1)
+        presenter.loadScreening(screeningId)
         ticketPlusButton.setOnClickListener {
             presenter.plusTicketNum(ticketNum)
         }
@@ -75,10 +75,10 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         numberOfPurchases.text = this.ticketNum.toString()
     }
 
-    override fun navigateToPurchaseConfirmation(reservation: Reservation) {
+    override fun navigateToPurchaseConfirmation(reservationId: Int) {
         val intent =
             Intent(this, PurchaseConfirmationActivity::class.java).apply {
-                putExtra("Reservation", reservation)
+                putExtra("ReservationId", reservationId)
             }
         startActivity(intent)
     }

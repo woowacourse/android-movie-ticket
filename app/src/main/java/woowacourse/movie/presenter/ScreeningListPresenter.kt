@@ -5,16 +5,16 @@ import woowacourse.movie.repository.PseudoScreeningRepository
 import woowacourse.movie.repository.ScreeningRepository
 
 class ScreeningListPresenter(
-    private val screeningListView: ScreeningListContract.View,
-    screeningRepository: ScreeningRepository = PseudoScreeningRepository,
+    private val view: ScreeningListContract.View,
+    screeningRepository: ScreeningRepository = PseudoScreeningRepository(),
 ) : ScreeningListContract.Presenter {
     private val screenings = screeningRepository.getScreenings()
 
     override fun loadScreenings() {
-        screeningListView.displayScreenings(screenings)
+        view.displayScreenings(screenings)
     }
 
     override fun selectScreening(screeningId: Int) {
-        screeningListView.navigateToScreeningDetail(screeningId)
+        view.navigateToScreeningDetail(screeningId)
     }
 }

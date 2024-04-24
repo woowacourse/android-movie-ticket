@@ -1,6 +1,5 @@
 package woowacourse.movie.contract
 
-import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.screening.Screening
 
 interface ScreeningDetailContract {
@@ -9,7 +8,7 @@ interface ScreeningDetailContract {
 
         fun displayTicketNum(ticketNum: Int)
 
-        fun navigateToPurchaseConfirmation(reservation: Reservation)
+        fun navigateToPurchaseConfirmation(reservationId: Int)
     }
 
     interface Presenter {
