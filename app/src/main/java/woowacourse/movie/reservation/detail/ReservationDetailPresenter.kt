@@ -16,8 +16,6 @@ class ReservationDetailPresenter(
     init {
         deliverMovie()
         deliverReservationInformation()
-        increaseCount()
-        decreaseCount()
     }
 
     override fun increaseCount() {

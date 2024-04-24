@@ -70,6 +70,12 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             .show()
     }
 
+    private fun convertDateFormat(date: LocalDate): String {
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+        return date.format(dateFormat)
+    }
+
     companion object {
         private const val MOVIE_ID = "movieId"
         private const val DEFAULT_MOVIE_ID = 0
@@ -84,9 +90,4 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         }
     }
 
-    private fun convertDateFormat(date: LocalDate): String {
-        val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-
-        return date.format(dateFormat)
-    }
 }
