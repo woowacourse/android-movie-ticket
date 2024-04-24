@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
@@ -25,6 +26,8 @@ class MovieReservationActivity :
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
     private val runningTimeText by lazy { findViewById<TextView>(R.id.running_time_text) }
     private val synopsisText by lazy { findViewById<TextView>(R.id.synopsis_text) }
+    private val screeningDateSpinner by lazy { findViewById<Spinner>(R.id.screening_date_spinner) }
+    private val screeningTimeSpinner by lazy { findViewById<Spinner>(R.id.screening_time_spinner) }
     private val minusButton by lazy { findViewById<Button>(R.id.minus_button) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
     private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
