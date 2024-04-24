@@ -7,7 +7,7 @@ import woowacourse.movie.model.screening.Screening
 import java.time.LocalDate
 
 object TestFixture {
-    private val DUMMY_MOVIE =
+    val DUMMY_MOVIE =
         Movie(0, R.drawable.poster, "제목", "설명", "2024.3.1", 120)
 
     fun reservationBuilder(
@@ -16,6 +16,7 @@ object TestFixture {
     ): Reservation {
         val screening = screeningBuilder()
         return Reservation(
+            0,
             screening,
             Quantity(quantityValue),
             pricingSystem,

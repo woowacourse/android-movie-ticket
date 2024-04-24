@@ -4,7 +4,7 @@ import woowacourse.movie.data.MockMovieRepository
 
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
     override fun fetchMovieList() {
-        val movies = MockMovieRepository.loadMovies()
+        val movies = MockMovieRepository.findAll()
         view.displayMovies(movies.map { it.toUiModel() })
     }
 

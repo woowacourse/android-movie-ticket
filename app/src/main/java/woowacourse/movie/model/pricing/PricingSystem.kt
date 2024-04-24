@@ -8,5 +8,5 @@ interface PricingSystem : Serializable {
     fun calculatePrice(
         screening: Screening,
         quantity: Quantity,
-    ): Int
+    ): Long
 }

@@ -8,6 +8,6 @@ interface ReservationCompletedContract {
     }
 
     interface Presenter {
-        fun fetchReservationDetails(reservation: Reservation)
+        fun fetchReservationDetails(id: Long)
     }
 }

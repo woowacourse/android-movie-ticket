@@ -16,7 +16,7 @@ object MockMovieRepository : MovieRepository {
             ),
         )
 
-    override fun loadMovies(): List<Movie> = movies
+    override fun findAll(): List<Movie> = movies
 
-    override fun findMovieById(id: Long): Movie? = movies.find { it.id == id }
+    override fun find(id: Long): Movie? = movies.find { it.id == id }
 }

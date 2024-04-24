@@ -7,7 +7,7 @@ class UniformPricingSystem(private val defaultPrice: Int = 13000) : PricingSyste
     override fun calculatePrice(
         screening: Screening,
         quantity: Quantity,
-    ): Int {
-        return quantity.value * defaultPrice
+    ): Long {
+        return quantity.value * defaultPrice.toLong()
     }
 }

@@ -11,17 +11,15 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.TestFixture.reservationBuilder
-import woowacourse.movie.model.pricing.UniformPricingSystem
+import woowacourse.movie.screen.completed.ReservationCompletedActivity.Companion.RESERVATION_ID
 
 @RunWith(AndroidJUnit4::class)
 class ReservationCompletedActivityTest {
-    private val reservation = reservationBuilder(3, UniformPricingSystem(13000))
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationCompletedActivity::class.java,
-        ).also { it.putExtra("reservation", reservation) }
+        ).also { it.putExtra(RESERVATION_ID, 0L) }
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule<ReservationCompletedActivity>(intent)

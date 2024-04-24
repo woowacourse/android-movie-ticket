@@ -7,11 +7,13 @@ import java.io.Serializable
 import java.time.LocalDate
 
 data class Reservation(
-    private val screening: Screening,
-    private val quantity: Quantity,
+    val id: Long,
+    val screening: Screening,
+    val quantity: Quantity,
     private val priceSystem: PricingSystem = UniformPricingSystem(),
 ) : Serializable {
-    val price = priceSystem.calculatePrice(screening, quantity)
+    val price
+        get() = priceSystem.calculatePrice(screening, quantity)
 
     fun getTitle(): String {
         return screening.movie.title

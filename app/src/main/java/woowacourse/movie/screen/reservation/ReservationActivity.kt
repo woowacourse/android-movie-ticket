@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Quantity
-import woowacourse.movie.model.Reservation
 import woowacourse.movie.screen.completed.ReservationCompletedActivity
 import woowacourse.movie.screen.main.MovieModel
 
@@ -78,8 +77,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
     }
 
-    override fun navigateToCompleteScreen(reservation: Reservation) {
-        startActivity(ReservationCompletedActivity.getIntent(this, reservation))
+    override fun navigateToCompleteScreen(id: Long) {
+        startActivity(ReservationCompletedActivity.getIntent(this, id))
     }
 
     override fun setupTicketQuantityControls(quantity: Quantity) {

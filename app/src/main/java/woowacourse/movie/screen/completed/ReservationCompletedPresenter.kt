@@ -1,10 +1,11 @@
 package woowacourse.movie.screen.completed
 
-import woowacourse.movie.model.Reservation
+import woowacourse.movie.data.MockReservationRepository
 
 class ReservationCompletedPresenter(private val view: ReservationCompletedContract.View) :
     ReservationCompletedContract.Presenter {
-    override fun fetchReservationDetails(reservation: Reservation) {
+    override fun fetchReservationDetails(id: Long) {
+        val reservation = MockReservationRepository.find(id) ?: return
         view.initializeReservationDetails(reservation)
     }
 }

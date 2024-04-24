@@ -2,7 +2,6 @@ package woowacourse.movie.screen.completed
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -32,16 +31,11 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_completed)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val reservation = getReservationData() ?: return
-        presenter.fetchReservationDetails(reservation)
+        val id = getReservationId()
+        presenter.fetchReservationDetails(id)
     }
 
-    private fun getReservationData(): Reservation? =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("reservation", Reservation::class.java)
-        } else {
-            intent.getSerializableExtra("reservation") as? Reservation
-        }
+    private fun getReservationId(): Long = intent.getLongExtra(RESERVATION_ID, -1L)
 
     override fun initializeReservationDetails(reservation: Reservation) {
         val formattedDate = formatLocalDate(reservation)
@@ -73,14 +67,14 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     companion object {
         private const val DATE_FORMAT = "yyyy.M.d"
         private const val DECIMAL_FORMAT = "#,###"
-        private const val RESERVATION_INTENT_KEY = "reservation"
+        const val RESERVATION_ID = "reservation_id"
 
         fun getIntent(
             context: Context,
-            reservation: Reservation,
+            id: Long,
         ): Intent {
             return Intent(context, ReservationCompletedActivity::class.java).apply {
-                putExtra(RESERVATION_INTENT_KEY, reservation)
+                putExtra(RESERVATION_ID, id)
             }
         }
     }
