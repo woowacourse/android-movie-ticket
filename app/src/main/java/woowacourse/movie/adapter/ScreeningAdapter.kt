@@ -7,17 +7,21 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.contract.ScreeningListContract
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.model.screening.ScreeningDate
 
-class ScreeningAdapter : BaseAdapter() {
+class ScreeningAdapter(
+    private val screeningListView: ScreeningListContract.View
+) :
+    BaseAdapter(),
+    ScreeningAdapterContract.Model,
+    ScreeningAdapterContract.View {
     private var screenings: List<Screening> = listOf()
 
-    var onClick: ((Int) -> Unit)? = null
-
-    fun setScreening(screenings: List<Screening>) {
+    override fun setScreenings(screenings: List<Screening>) {
         this.screenings = screenings
     }
 
@@ -34,7 +38,8 @@ class ScreeningAdapter : BaseAdapter() {
     ): View {
         val listItemView =
             convertView
-                ?: LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
+                ?: LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_list_item, parent, false)
         val viewHolder =
             if (convertView != null) {
                 listItemView.tag as ViewHolder
@@ -46,6 +51,10 @@ class ScreeningAdapter : BaseAdapter() {
         val screening: Screening = getItem(position)
         viewHolder.bind(screening, position)
         return listItemView
+    }
+
+    override fun notifyItemClicked(position: Int) {
+        screeningListView.navigateToScreeningDetail(position)
     }
 
     inner class ViewHolder(
@@ -67,7 +76,7 @@ class ScreeningAdapter : BaseAdapter() {
             screeningDate.text = "상영일: ${screening.date.format()}"
             runningTime.text = "러닝타임: ${movie.runningTime.format()}"
             detailButton.setOnClickListener {
-                onClick?.let { it(position) }
+                notifyItemClicked(position)
             }
         }
 

@@ -27,7 +27,6 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         findViewById<TextView>(R.id.quantity_text_view)
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)

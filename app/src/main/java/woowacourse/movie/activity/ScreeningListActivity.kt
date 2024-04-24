@@ -12,20 +12,25 @@ import woowacourse.movie.presenter.ScreeningListPresenter
 
 class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
     private lateinit var moviesListView: ListView
+    private lateinit var movieAdapter: ScreeningAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_list_activity)
-        val movieAdapter = ScreeningAdapter()
-        ScreeningListPresenter(
+        val presenter = ScreeningListPresenter(
             screeningListView = this,
-            screeningAdapter = movieAdapter,
         )
+        presenter.loadScreenings()
         moviesListView = findViewById(R.id.movies_list_item)
         moviesListView.adapter = movieAdapter
     }
 
-    override fun navigateToMovieDetail(screeningId: Int) {
+    override fun displayScreenings(screenings: List<Screening>) {
+        movieAdapter = ScreeningAdapter(this)
+        movieAdapter.setScreenings(screenings)
+    }
+
+    override fun navigateToScreeningDetail(screeningId: Int) {
         val intent =
             Intent(this, ScreeningDetailActivity::class.java).apply {
                 putExtra("ScreeningId", screeningId)

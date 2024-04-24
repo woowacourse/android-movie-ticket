@@ -4,12 +4,12 @@ import woowacourse.movie.model.screening.Screening
 
 interface ScreeningListContract {
     interface View {
-        fun navigateToMovieDetail(screeningId: Int)
+        fun displayScreenings(screenings: List<Screening>)
+        fun navigateToScreeningDetail(screeningId: Int)
     }
 
     interface Presenter {
         fun loadScreenings()
-
         fun selectScreening(screeningId: Int)
     }
 }
