@@ -1,5 +1,6 @@
 package woowacourse.movie.moviereservation
 
+import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.ScreeningMovie
 import java.time.format.DateTimeFormatter
 
@@ -16,3 +17,7 @@ fun ScreeningMovie.toMovieReservationUiModel(): MovieReservationUiModel {
         description = movie.description,
     )
 }
+
+fun HeadCount.toHeadCountUiModel(): HeadCountUiModel = HeadCountUiModel(count.toString())
+
+fun HeadCountUiModel.toHeadCount(): HeadCount = HeadCount(count.toInt())
