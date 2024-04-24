@@ -47,7 +47,6 @@ class MovieContentListAdapter(
         }
 
         movieViewHolder.setUpContentUi(getItem(position))
-        movieViewHolder.setOnClickReservationButtonListener(getItemId(position))
 
         return view
     }
@@ -66,17 +65,15 @@ class MovieContentListAdapter(
                 titleText.text = title
                 screeningDateText.text =
                     view.context.resources
-                        .getString(R.string.screening_date).format(dateFormatter(screeningMovieDate))
+                        .getString(R.string.screening_date)
+                        .format(dateFormatter(screeningMovieDate))
                 runningTimeText.text =
                     view.context.resources.getString(R.string.running_time).format(runningTime)
-            }
-        }
-
-        fun setOnClickReservationButtonListener(movieContentId: Long) {
-            reservationButton.setOnClickListener {
-                Intent(view.context, MovieReservationActivity::class.java).run {
-                    putExtra(MovieHomeKey.ID, movieContentId)
-                    startActivity(view.context, this, null)
+                reservationButton.setOnClickListener {
+                    Intent(view.context, MovieReservationActivity::class.java).run {
+                        putExtra(MovieHomeKey.ID, id)
+                        startActivity(view.context, this, null)
+                    }
                 }
             }
         }
