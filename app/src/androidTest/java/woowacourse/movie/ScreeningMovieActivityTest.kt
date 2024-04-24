@@ -45,7 +45,7 @@ class ScreeningMovieActivityTest {
     }
 
     @Test
-    @DisplayName("listView가 만들어지면 itemValue들이 view의 text로 배치된다")
+    @DisplayName("title이 `해리 포터와 마법사의 돌`인 item 중 첫 번째 뷰의 상영 시간은 `러닝타임: 152분` 이다. ")
     fun `itemValues_are_placed_in_textView_when_listView_is_created`() {
         onData(`is`(withItemContent(containsString(screenMovieUiModel1.title))))
             .inAdapterView(withId(R.id.list_view))
