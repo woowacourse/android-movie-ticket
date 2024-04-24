@@ -18,7 +18,7 @@ import woowacourse.movie.model.Result
 import java.lang.IllegalStateException
 
 class SeatSelectionActivity : AppCompatActivity() {
-    var positions = Positions.of(maxCount = 3)
+    private lateinit var positions: Positions
     val button: Button by lazy { findViewById(R.id.btn_complete_reservation) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +26,8 @@ class SeatSelectionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_seat_selection)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val id = intent.getLongExtra(EXTRA_MOVIE_ID, -1)
+        val numOfPeople = intent.getIntExtra("number_of_people", 0)
+        positions = Positions.of(count = numOfPeople)
         val movie = findMovieById(id)
         button.isClickable = false
         when (movie) {
@@ -37,7 +39,7 @@ class SeatSelectionActivity : AppCompatActivity() {
         }
 
         val seatInfo = SeatInfo(5, 4)
-        initializeSeats(seatInfo)
+        initializeSeats(seatInfo, numOfPeople)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,7 +47,10 @@ class SeatSelectionActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initializeSeats(seatInfo: SeatInfo) {
+    private fun initializeSeats(
+        seatInfo: SeatInfo,
+        count: Int,
+    ) {
         val tableLayout = findViewById<TableLayout>(R.id.tl_screens)
         tableLayout.isStretchAllColumns = true
         val rows = List(seatInfo.numOfRows) { TableRow(this) }
@@ -80,7 +85,7 @@ class SeatSelectionActivity : AppCompatActivity() {
                                 runCatching {
                                     positions =
                                         Positions.of(
-                                            3,
+                                            count,
                                             positions.value + position,
                                         )
                                     setBackgroundColor(
@@ -97,13 +102,21 @@ class SeatSelectionActivity : AppCompatActivity() {
                                     ).show()
                                 }
                             } else {
-                                positions = Positions.of(3, positions.value - position)
+                                positions = Positions.of(count, positions.value - position)
                                 setBackgroundColor(
                                     ContextCompat.getColor(
                                         this@SeatSelectionActivity,
                                         R.color.white,
                                     ),
                                 )
+                            }
+
+                            if (positions.value.size == count) {
+                                button.setBackgroundColor(ContextCompat.getColor(this@SeatSelectionActivity, R.color.purple_500))
+                                button.isClickable = true
+                            } else {
+                                button.setBackgroundColor(ContextCompat.getColor(this@SeatSelectionActivity, R.color.gray))
+                                button.isClickable = false
                             }
                         }
                     }
@@ -129,10 +142,10 @@ class Positions private constructor(
 ) {
     companion object {
         fun of(
-            maxCount: Int,
+            count: Int,
             values: List<Position> = emptyList(),
         ): Positions {
-            if (values.size > maxCount) throw IllegalStateException()
+            if (values.size > count) throw IllegalStateException()
             return Positions(values)
         }
     }

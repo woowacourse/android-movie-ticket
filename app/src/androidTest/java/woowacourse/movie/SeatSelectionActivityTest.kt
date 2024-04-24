@@ -27,6 +27,7 @@ class SeatSelectionActivityTest {
                 SeatSelectionActivity::class.java,
             ).apply {
                 putExtra("movie_id", 0L)
+                putExtra("number_of_people", 4)
             },
         )
 
@@ -67,10 +68,41 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `인원수에_맞는_좌석_수만큼_선택되면_더_이상_다른_좌석이_선택되지_않는다`() {
+        activityScenarioRule.scenario.onActivity {
+            val firstRowItems =
+                it.findViewById<TableLayout>(R.id.tl_screens).children.filterIsInstance<TableRow>()
+                    .first().children.filterIsInstance<TextView>()
+            firstRowItems.forEach { textView ->
+                textView.performClick()
+            }
+            val lastItem =
+                it.findViewById<TableLayout>(R.id.tl_screens).children.filterIsInstance<TableRow>()
+                    .last().children.filterIsInstance<TextView>().last()
+            lastItem.performClick()
+            val color = (lastItem.background as ColorDrawable).color
+            assertEquals(color, ContextCompat.getColor(lastItem.context, R.color.white))
+        }
     }
 
     @Test
-    fun `인원수에_맞는_좌석_수만큼_선택되면_확인_버튼이_활성화된다`() {
+    fun `인원수에_맞는_좌석_수만큼_선택되면_확인_버튼의_색상이_활성화_색상으로_변경된다`() {
+        activityScenarioRule.scenario.onActivity {
+            val firstRowItems =
+                it.findViewById<TableLayout>(R.id.tl_screens).children.filterIsInstance<TableRow>()
+                    .first().children.filterIsInstance<TextView>()
+            val lastRowItems =
+                it.findViewById<TableLayout>(R.id.tl_screens).children.filterIsInstance<TableRow>()
+                    .last().children.filterIsInstance<TextView>()
+            firstRowItems.first().performClick()
+            firstRowItems.last().performClick()
+            lastRowItems.first().performClick()
+            lastRowItems.last().performClick()
+        }
+
+        onView(withId(R.id.btn_complete_reservation)).check { view, _ ->
+            val actualColor = (view.background as ColorDrawable).color
+            assertEquals(actualColor, ContextCompat.getColor(view.context, R.color.purple_500))
+        }
     }
 
     @Test
