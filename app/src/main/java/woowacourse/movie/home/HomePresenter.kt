@@ -1,16 +1,16 @@
 package woowacourse.movie.home
 
 import woowacourse.movie.db.Movies
-import woowacourse.movie.model.Movie
 
 class HomePresenter(
-    private val contract: HomeContract.View,
+    private val view: HomeContract.View,
 ) : HomeContract.Presenter {
-    private val movies = Movies.obtainMovies()
-
-    override fun obtainMovies(): List<Movie> = movies.toList()
+    override fun loadMovies() {
+        val movies = Movies.obtainMovies().toList()
+        view.showMovies(movies)
+    }
 
     override fun deliverMovie(movieId: Int) {
-        contract.moveToReservationDetail(movieId)
+        view.moveToReservationDetail(movieId)
     }
 }

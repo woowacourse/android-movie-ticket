@@ -5,18 +5,24 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieCatalogAdapter
+import woowacourse.movie.model.Movie
 import woowacourse.movie.reservation.detail.ReservationDetailActivity
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
-    private val movies: ListView by lazy { findViewById(R.id.list_view_reservation_home) }
-    private val homePresenter = HomePresenter(this)
+    private val movieList: ListView by lazy { findViewById(R.id.list_view_reservation_home) }
+    private lateinit var homePresenter: HomePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_home)
 
-        movies.adapter =
-            MovieCatalogAdapter(this, homePresenter.obtainMovies()) { movieId ->
+        homePresenter = HomePresenter(this)
+        homePresenter.loadMovies()
+    }
+
+    override fun showMovies(movies: List<Movie>) {
+        movieList.adapter =
+            MovieCatalogAdapter(this, movies) { movieId ->
                 homePresenter.deliverMovie(movieId)
             }
     }
