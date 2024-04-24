@@ -28,6 +28,10 @@ class MovieReservationPresenterTest {
         override fun moveToTicketDetail(ticketModel: TicketModel) {
             Log.d("moveToTicketDetail","티켓 디테일 화면으로 이동합니다")
         }
+
+        override fun requestTicketCount(count: (Int) -> Unit) {
+            Log.d("requestTicketCount","티켓의 수량을 요청합니다")
+        }
     }
 
     @BeforeEach
