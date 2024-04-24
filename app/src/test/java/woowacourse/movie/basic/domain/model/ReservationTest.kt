@@ -1,8 +1,8 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.basic.domain.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.utils.getDummyReservation
+import woowacourse.movie.basic.utils.getDummyReservation
 
 class ReservationTest {
     @Test

@@ -1,12 +1,13 @@
-package woowacourse.movie.presentation.ui.reservation
+package woowacourse.movie.basic.presentation.ui.reservation
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.basic.presentation.fakerepository.FakeReservationRepository
+import woowacourse.movie.basic.presentation.ui.reservation.fake.FakeReservationView
+import woowacourse.movie.basic.utils.getDummyReservation
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.presentation.fakerepository.FakeReservationRepository
-import woowacourse.movie.presentation.ui.reservation.fake.FakeReservationView
-import woowacourse.movie.utils.getDummyReservation
+import woowacourse.movie.presentation.ui.reservation.ReservationPresenter
 
 class ReservationPresenterTest {
     private lateinit var reservation: Reservation

@@ -1,10 +1,12 @@
-package woowacourse.movie.domain.repository
+package woowacourse.movie.basic.domain.repository
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import woowacourse.movie.utils.getDummyScreen
+import woowacourse.movie.basic.utils.getDummyScreen
+import woowacourse.movie.domain.repository.DummyScreens
+import woowacourse.movie.domain.repository.ScreenRepository
 
 class ScreenRepositoryTest {
     private lateinit var repository: ScreenRepository

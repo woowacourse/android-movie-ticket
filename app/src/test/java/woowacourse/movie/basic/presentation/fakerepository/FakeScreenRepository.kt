@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.fakerepository
+package woowacourse.movie.basic.presentation.fakerepository
 
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.SeatBoard

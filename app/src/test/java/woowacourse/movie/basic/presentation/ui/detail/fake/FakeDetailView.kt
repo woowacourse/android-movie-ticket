@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.ui.detail.fake
+package woowacourse.movie.basic.presentation.ui.detail.fake
 
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.presentation.model.MessageType

@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.ui.reservation.fake
+package woowacourse.movie.basic.presentation.ui.reservation.fake
 
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.presentation.model.MessageType

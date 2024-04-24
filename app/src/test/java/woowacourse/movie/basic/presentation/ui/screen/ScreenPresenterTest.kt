@@ -1,12 +1,13 @@
-package woowacourse.movie.presentation.ui.screen
+package woowacourse.movie.basic.presentation.ui.screen
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.basic.presentation.fakerepository.FakeScreenRepository
+import woowacourse.movie.basic.presentation.ui.screen.fake.FakeScreenView
+import woowacourse.movie.basic.utils.getDummyScreen
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.presentation.fakerepository.FakeScreenRepository
-import woowacourse.movie.presentation.ui.screen.fake.FakeScreenView
-import woowacourse.movie.utils.getDummyScreen
+import woowacourse.movie.presentation.ui.screen.ScreenPresenter
 
 class ScreenPresenterTest {
     private lateinit var screens: List<Screen>
