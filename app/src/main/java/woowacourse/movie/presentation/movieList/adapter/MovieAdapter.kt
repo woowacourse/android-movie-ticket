@@ -55,7 +55,12 @@ class MovieAdapter(
 
         fun bind(movie: Movie) {
             title.text = movie.title
-            date.text = date.context.getString(R.string.title_date, formatMovieDate(movie.date))
+            date.text =
+                date.context.getString(
+                    R.string.title_date,
+                    formatMovieDate(movie.date.startDate),
+                    formatMovieDate(movie.date.endDate),
+                )
             runningTime.text =
                 runningTime.context.getString(R.string.title_running_time, movie.runningTime)
             ticketingButton.setOnClickListener { listener.ticketingButtonClick(movie.id) }
