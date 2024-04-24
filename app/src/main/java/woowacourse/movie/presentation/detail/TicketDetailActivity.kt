@@ -35,19 +35,19 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         ticketCount = findViewById(R.id.ticket_number_of_people)
     }
 
-    private fun getReservationTicket(): TicketModel? {
+    private fun getReservationTicket(): TicketModel {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(
                 MovieReservationPresenter.KEY_NAME_TICKET,
                 TicketModel::class.java,
-            )
+            ) ?: TicketModel.defaultTicket
         } else {
             intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel
+                ?: TicketModel.defaultTicket
         }
     }
 
-    override fun showTicket(ticketModel: TicketModel?) {
-        ticketModel ?: return
+    override fun showTicket(ticketModel: TicketModel) {
         ticketTitle.text = ticketModel.title
         ticketScreeningDate.text = ticketModel.screeningDate.toCustomString()
         ticketPrice.text = String.format(TICKET_PRICE, ticketModel.price)

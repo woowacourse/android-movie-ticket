@@ -4,7 +4,7 @@ import woowacourse.movie.presentation.reservation.model.TicketModel
 
 interface TicketDetailContract {
     interface View {
-        fun showTicket(ticketModel: TicketModel?)
+        fun showTicket(ticketModel: TicketModel)
     }
 
     interface Presenter {
