@@ -13,11 +13,12 @@ interface ScreeningDetailContract {
     }
 
     interface Presenter {
-        fun loadScreening()
-        fun plusTicketNum()
+        fun loadScreening(screeningId: Int)
 
-        fun minusTicketNum()
+        fun plusTicketNum(ticketNum: Int)
 
-        fun purchase()
+        fun minusTicketNum(ticketNum: Int)
+
+        fun purchase(screeningId: Int, ticketNum: Int)
     }
 }

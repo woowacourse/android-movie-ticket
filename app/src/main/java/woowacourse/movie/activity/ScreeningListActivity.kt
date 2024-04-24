@@ -25,10 +25,10 @@ class ScreeningListActivity : AppCompatActivity(), ScreeningListContract.View {
         moviesListView.adapter = movieAdapter
     }
 
-    override fun navigateToMovieDetail(screening: Screening) {
+    override fun navigateToMovieDetail(screeningId: Int) {
         val intent =
             Intent(this, ScreeningDetailActivity::class.java).apply {
-                putExtra("Screening", screening)
+                putExtra("ScreeningId", screeningId)
             }
         startActivity(intent)
     }

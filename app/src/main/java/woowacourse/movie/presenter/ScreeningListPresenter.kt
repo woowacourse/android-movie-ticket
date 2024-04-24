@@ -22,7 +22,7 @@ class ScreeningListPresenter(
         screeningAdapter.setScreening(screenings)
     }
 
-    override fun selectScreening(screening: Screening) {
-        screeningListView.navigateToMovieDetail(screening)
+    override fun selectScreening(screeningId: Int) {
+        screeningListView.navigateToMovieDetail(screeningId)
     }
 }

@@ -15,7 +15,7 @@ import woowacourse.movie.model.screening.ScreeningDate
 class ScreeningAdapter : BaseAdapter() {
     private var screenings: List<Screening> = listOf()
 
-    var onClick: ((Screening) -> Unit)? = null
+    var onClick: ((Int) -> Unit)? = null
 
     fun setScreening(screenings: List<Screening>) {
         this.screenings = screenings
@@ -44,7 +44,7 @@ class ScreeningAdapter : BaseAdapter() {
                 viewHolder
             }
         val screening: Screening = getItem(position)
-        viewHolder.bind(screening)
+        viewHolder.bind(screening, position)
         return listItemView
     }
 
@@ -61,13 +61,13 @@ class ScreeningAdapter : BaseAdapter() {
             detailButton = itemView.findViewById<Button>(R.id.movie_details_button),
         )
 
-        fun bind(screening: Screening) {
+        fun bind(screening: Screening, position: Int) {
             val movie = screening.movie
             title.text = movie.title.format()
             screeningDate.text = "상영일: ${screening.date.format()}"
             runningTime.text = "러닝타임: ${movie.runningTime.format()}"
             detailButton.setOnClickListener {
-                onClick?.let { it(screening) }
+                onClick?.let { it(position) }
             }
         }
 

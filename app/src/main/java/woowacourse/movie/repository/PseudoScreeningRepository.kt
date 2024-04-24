@@ -32,15 +32,18 @@ object PseudoScreeningRepository : ScreeningRepository {
             pseudoMovieInfo,
             ScreeningDate(LocalDate.of(2024, 2, 25)),
         )
+    private val screenings = listOf(
+        pseudoScreening,
+        pseudoScreening,
+        pseudoScreening,
+        pseudoScreening,
+        pseudoScreening,
+        pseudoScreening,
+        pseudoScreening,
+        pseudoScreening,
+        pseudoScreening,
+    )
 
-    override fun getScreenings(): List<Screening> =
-        listOf(
-            pseudoScreening,
-            pseudoScreening,
-            pseudoScreening,
-            pseudoScreening,
-            pseudoScreening,
-            pseudoScreening,
-            pseudoScreening,
-        )
+    override fun getScreenings(): List<Screening> = screenings
+    override fun getScreening(screeningId: Int): Screening? = screenings.getOrNull(screeningId)
 }

@@ -21,6 +21,8 @@ import woowacourse.movie.model.screening.ScreeningDate
 import woowacourse.movie.presenter.ScreeningDetailPresenter
 
 class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.View {
+
+    private var ticketNum: Int = 1
     private val numberOfPurchases by lazy {
         findViewById<TextView>(R.id.quantity_text_view)
     }
@@ -29,10 +31,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
-        val presenter =
-            ScreeningDetailPresenter(
-                this,
-            )
+        val presenter = ScreeningDetailPresenter(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         findViewById<ImageView>(R.id.movie_thumbnail)
@@ -41,15 +40,15 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         val ticketPlusButton = findViewById<Button>(R.id.plus_button)
         val ticketMinusButton = findViewById<Button>(R.id.minus_button)
         val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
-
+        val screeningId = intent.getIntExtra("ScreeningId", -1)
         ticketPlusButton.setOnClickListener {
-            presenter.plusTicketNum()
+            presenter.plusTicketNum(ticketNum)
         }
         ticketMinusButton.setOnClickListener {
-            presenter.minusTicketNum()
+            presenter.minusTicketNum(ticketNum)
         }
         ticketBuyButton.setOnClickListener {
-            presenter.purchase()
+            presenter.purchase(screeningId, ticketNum)
         }
     }
 
@@ -76,7 +75,8 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
     }
 
     override fun displayTicketNum(ticketNum: Int) {
-        numberOfPurchases.text = ticketNum.toString()
+        this.ticketNum = ticketNum
+        numberOfPurchases.text = this.ticketNum.toString()
     }
 
     override fun navigateToPurchaseConfirmation(reservation: Reservation) {

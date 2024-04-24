@@ -9,36 +9,29 @@ import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.repository.PseudoScreeningRepository
 import woowacourse.movie.repository.ScreeningRepository
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class ScreeningDetailPresenter(
     private val view: ScreeningDetailContract.View,
-    repository: ScreeningRepository = PseudoScreeningRepository,
+    private val repository: ScreeningRepository = PseudoScreeningRepository,
 ) : ScreeningDetailContract.Presenter {
-
-    private var ticketNum = 1
-    private val screening: Screening = repository.getScreenings()[0]
 
     // TODO: have to notify that something went wrong and go back to movie selection
     // e.g. view.notifyException()
-    init {
-        loadScreening()
-    }
 
-    override fun loadScreening() {
+    override fun loadScreening(screeningId: Int) {
+        val screening = repository.getScreening(screeningId) ?: Screening.default
         view.displayScreening(screening)
     }
 
-    override fun plusTicketNum() {
-        ticketNum += 1
-        view.displayTicketNum(ticketNum)
+    override fun plusTicketNum(ticketNum: Int) {
+        view.displayTicketNum(ticketNum + 1)
     }
 
-    override fun minusTicketNum() {
-        if (ticketNum > 0) ticketNum -= 1
-        view.displayTicketNum(ticketNum)
+    override fun minusTicketNum(ticketNum: Int) {
+        if (ticketNum > 0) view.displayTicketNum(ticketNum - 1)
     }
 
-    override fun purchase() {
+    override fun purchase(screeningId: Int, ticketNum: Int) {
+        val screening = repository.getScreening(screeningId) ?: Screening.default
         view.navigateToPurchaseConfirmation(Reservation(screening, ticketNum))
     }
 }
