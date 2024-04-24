@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import java.text.DecimalFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
@@ -33,7 +35,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
     override fun showMovieInformation(movie: Movie) {
         title.text = movie.title
-        screeningDate.text = movie.screeningDate
+        screeningDate.text = convertDateFormat(movie.screeningDate)
     }
 
     override fun showReservationHistory(
@@ -42,6 +44,12 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
     ) {
         numberOfTickets.text = ticketCount.toString()
         ticketPrice.text = convertPriceFormat(price)
+    }
+
+    private fun convertDateFormat(date: LocalDate): String {
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+        return date.format(dateFormat)
     }
 
     private fun convertPriceFormat(price: Int): String {

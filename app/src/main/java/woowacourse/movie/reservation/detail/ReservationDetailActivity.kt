@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.reservation.finished.ReservationFinishedActivity
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }
@@ -61,7 +63,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     override fun showMovieInformation(movie: Movie) {
         poster.setImageResource(movie.poster)
         title.text = movie.title
-        screeningDate.text = movie.screeningDate
+        screeningDate.text = convertDateFormat(movie.screeningDate)
         runningTime.text = movie.runningTime
         summary.text = movie.summary
     }
@@ -87,5 +89,11 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
                 it.putExtra(MOVIE_ID, movieId)
             }
         }
+    }
+
+    private fun convertDateFormat(date: LocalDate): String {
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+
+        return date.format(dateFormat)
     }
 }
