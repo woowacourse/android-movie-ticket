@@ -12,7 +12,6 @@ import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
-import woowacourse.movie.ui.HandleError
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import woowacourse.movie.ui.utils.getImageFromId
@@ -21,8 +20,7 @@ import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
-    MovieReservationContract.View,
-    HandleError {
+    MovieReservationContract.View {
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
@@ -39,7 +37,7 @@ class MovieReservationActivity :
 
         val movieContentId = movieContentId()
         if (movieContentId == DEFAULT_VALUE) {
-            handleError()
+            presenter.handleError(NoSuchElementException())
             return
         }
 
@@ -66,8 +64,8 @@ class MovieReservationActivity :
 
     private fun movieContentId() = intent.getLongExtra(MovieReservationKey.ID, DEFAULT_VALUE)
 
-    override fun handleError() {
-        Log.e(TAG, "Invalid MovieContentKey")
+    override fun showError(throwable: Throwable) {
+        Log.e(TAG, throwable.message.toString())
         Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
         finish()
     }
@@ -122,12 +120,6 @@ class MovieReservationActivity :
             putExtra(MovieReservationKey.COUNT, reservationCount)
             startActivity(this)
         }
-    }
-
-    override fun showError(e: Exception) {
-        Log.e(TAG, e.message.toString())
-        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
-        finish()
     }
 
     private fun dateFormatter(movieDate: MovieDate): String {

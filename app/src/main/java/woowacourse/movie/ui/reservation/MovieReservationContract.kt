@@ -2,16 +2,15 @@ package woowacourse.movie.ui.reservation
 
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.ReservationCount
+import woowacourse.movie.ui.HandleError
 
 interface MovieReservationContract {
-    interface View {
+    interface View : HandleError {
         fun showMovieContentUi(movieContent: MovieContent)
 
         fun updateReservationCountUi(reservationCount: Int)
 
         fun moveMovieReservationCompleteView(reservationCount: Int)
-
-        fun showError(e: Exception)
     }
 
     interface Presenter {
@@ -24,5 +23,7 @@ interface MovieReservationContract {
         fun increaseCount()
 
         fun reserveMovie()
+
+        fun handleError(throwable: Throwable)
     }
 }

@@ -22,4 +22,8 @@ class MovieReservationCompletePresenter(
         val ticket = Ticket(ReservationCount(reservationCount))
         view.updateTicketUi(ticket)
     }
+
+    override fun handleError(throwable: Throwable) {
+        view.showError(throwable)
+    }
 }

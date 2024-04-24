@@ -10,15 +10,13 @@ import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.model.movie.Ticket
-import woowacourse.movie.ui.HandleError
 import woowacourse.movie.ui.base.BaseActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
-    MovieReservationCompleteContract.View,
-    HandleError {
+    MovieReservationCompleteContract.View {
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
@@ -31,7 +29,7 @@ class MovieReservationCompleteActivity :
         val movieContentId = movieContentId()
         val reservationCount = reservationCount()
         if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCount == RESERVATION_COUNT_DEFAULT_VALUE) {
-            handleError()
+            presenter.handleError(NoSuchElementException())
             return
         }
 
@@ -44,8 +42,8 @@ class MovieReservationCompleteActivity :
 
     private fun reservationCount() = intent.getIntExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
 
-    override fun handleError() {
-        Log.e(TAG, "Invalid Key")
+    override fun showError(throwable: Throwable) {
+        Log.e(TAG, throwable.message.toString())
         Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
         finish()
     }
@@ -82,12 +80,6 @@ class MovieReservationCompleteActivity :
             reservationAmountText.text =
                 resources.getString(R.string.reservation_amount).format(amount())
         }
-    }
-
-    override fun showError(e: Exception) {
-        Log.e(TAG, e.message.toString())
-        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
-        finish()
     }
 
     private fun dateFormatter(movieDate: MovieDate): String {

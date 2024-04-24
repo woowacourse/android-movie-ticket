@@ -37,4 +37,8 @@ class MovieReservationPresenter(
     override fun reserveMovie() {
         view.moveMovieReservationCompleteView(reservationCount.count)
     }
+
+    override fun handleError(throwable: Throwable) {
+        view.showError(throwable)
+    }
 }

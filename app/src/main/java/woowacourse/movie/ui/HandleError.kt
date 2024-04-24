@@ -1,5 +1,5 @@
 package woowacourse.movie.ui
 
 interface HandleError {
-    fun handleError()
+    fun showError(throwable: Throwable)
 }
