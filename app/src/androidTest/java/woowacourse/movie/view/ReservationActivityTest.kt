@@ -68,7 +68,7 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun sub_button을_클릭하면_count의_값이_1감소한다() {
+    fun 초기의_count값에서_add_button을_클릭하고_sub_button을_클릭하면_count의_값은_변화가없다() {
         // given
         onView(withId(R.id.add_button))
             .perform(click())
