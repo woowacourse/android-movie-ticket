@@ -1,14 +1,14 @@
 package woowacourse.movie.domain.repository
 
-import woowacourse.movie.domain.model.IScreen
 import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
 
 object DummyReservation : ReservationRepository {
     private val reservations = mutableListOf<Reservation>()
 
     override fun save(
-        screen: IScreen,
+        screen: Screen,
         count: Int,
     ): Result<Int> {
         return runCatching {

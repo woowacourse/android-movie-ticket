@@ -1,13 +1,12 @@
 package woowacourse.movie.domain.repository
 
-import woowacourse.movie.domain.model.IScreen
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Screen
 
 class DummyScreens : ScreenRepository {
     // TODO 더미 데이터
     private val temp =
-        listOf<IScreen>(
+        listOf(
             Screen(
                 id = 1,
                 Movie(
@@ -46,7 +45,7 @@ class DummyScreens : ScreenRepository {
             ),
         )
 
-    override fun load(): List<IScreen> = temp
+    override fun load(): List<Screen> = temp
 
-    override fun findById(id: Int): Result<IScreen> = runCatching { temp.find { it.id == id } ?: throw NoSuchElementException() }
+    override fun findById(id: Int): Result<Screen> = runCatching { temp.find { it.id == id } ?: throw NoSuchElementException() }
 }

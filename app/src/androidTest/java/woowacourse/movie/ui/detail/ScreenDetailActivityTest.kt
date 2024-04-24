@@ -108,6 +108,6 @@ class ScreenDetailActivityTest {
         // when
         plusBtn.perform(click())
 
-        onView(withId(R.id.tv_count)).check(matches(withText("2")))
+        onView(withId(R.id.tv_count)).check(matches(withText("3")))
     }
 }

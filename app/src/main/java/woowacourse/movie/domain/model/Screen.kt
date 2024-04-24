@@ -1,25 +1,18 @@
 package woowacourse.movie.domain.model
 
-import java.lang.IllegalStateException
-
 data class Screen(
-    override val id: Int,
-    override val movie: Movie,
-    override val date: String,
-    override val price: Int,
-) : IScreen
-
-interface IScreen {
-    val id: Int
-    val movie: IMovie
-    val date: String
-    val price: Int
+    val id: Int,
+    val movie: Movie,
+    val date: String,
+    val price: Int,
+) {
+    companion object {
+        val NULL =
+            Screen(
+                id = -1,
+                movie = Movie.NULL,
+                date = "",
+                price = -1,
+            )
+    }
 }
-
-data class NullScreen(
-    override val id: Int = -1,
-    override val movie: IMovie = NullMovie(),
-    override val date: String = "",
-    override val price: Int = -1,
-    val throwable: Throwable = IllegalStateException("예기치 못한 오류"),
-) : IScreen

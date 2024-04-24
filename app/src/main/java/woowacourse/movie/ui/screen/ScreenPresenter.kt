@@ -1,8 +1,8 @@
 package woowacourse.movie.ui.screen
 
-import woowacourse.movie.domain.model.IMovie
-import woowacourse.movie.domain.model.IScreen
 import woowacourse.movie.domain.model.Image
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.ui.MoviePreviewUI
@@ -21,14 +21,14 @@ class ScreenPresenter(
     }
 }
 
-private fun IScreen.toPreviewUI(image: Image<Any>) =
+private fun Screen.toPreviewUI(image: Image<Any>) =
     ScreenPreviewUI(
         id = id,
         moviePreviewUI = movie.toPreviewUI(image),
         date = date,
     )
 
-private fun IMovie.toPreviewUI(image: Image<Any>) =
+private fun Movie.toPreviewUI(image: Image<Any>) =
     MoviePreviewUI(
         title = title,
         image = image,

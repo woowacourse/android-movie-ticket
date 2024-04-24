@@ -1,8 +1,6 @@
 package woowacourse.movie.ui.detail
 
-import woowacourse.movie.domain.model.IScreen
 import woowacourse.movie.domain.model.Image
-import woowacourse.movie.domain.model.NullScreen
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
@@ -11,6 +9,7 @@ import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.ui.MovieDetailUI
 import woowacourse.movie.ui.ScreenDetailUI
+import java.lang.IllegalStateException
 
 class ScreenDetailPresenter(
     private val view: ScreenDetailContract.View,
@@ -21,17 +20,12 @@ class ScreenDetailPresenter(
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
 
     override fun loadScreen(screenId: Int) {
-        when (val screen = screen(screenId)) {
-            is Screen -> {
-                val screenDetailUI = screen.toDetailUI(movieRepository.imageSrc(screen.movie.id))
-                view.showScreen(screenDetailUI)
-            }
-
-            is NullScreen -> {
-                when (screen.throwable) {
-                    is NoSuchElementException -> view.goToBack(screen.throwable)
-                    else -> view.unexpectedFinish(screen.throwable)
-                }
+        try {
+            view.showScreen(screen(screenId).toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
+        } catch (e: Exception) {
+            when (e) {
+                is NoSuchElementException -> view.goToBack(e)
+                else -> view.unexpectedFinish(e)
             }
         }
     }
@@ -44,13 +38,13 @@ class ScreenDetailPresenter(
         ticket = Ticket(count)
     }
 
-    private fun screen(id: Int): IScreen {
+    private fun screen(id: Int): Screen {
         screenRepository.findById(id = id).onSuccess { screen ->
             return screen
         }.onFailure { e ->
-            return NullScreen(throwable = e)
+            throw e
         }
-        return NullScreen()
+        throw IllegalStateException("예기치 못한 오류")
     }
 
     override fun plusTicket() {
@@ -83,7 +77,7 @@ class ScreenDetailPresenter(
     }
 }
 
-private fun IScreen.toDetailUI(image: Image<Any>) =
+private fun Screen.toDetailUI(image: Image<Any>) =
     ScreenDetailUI(
         id = id,
         movieDetailUI =
