@@ -49,7 +49,7 @@ class ScreenAdapter(
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(view: View) {
+    inner class ViewHolder(val view: View) {
         private val poster: ImageView = view.findViewById(R.id.iv_poster)
         private val title: TextView = view.findViewById(R.id.tv_title)
         private val date: TextView = view.findViewById(R.id.tv_screen_date)
@@ -65,8 +65,9 @@ class ScreenAdapter(
             with(screen) {
                 poster.setImageResource(movie.imageSrc)
                 title.text = movie.title
-                this@ViewHolder.date.text = "$startDate~$endDate"
-                runningTime.text = "${movie.runningTime}분"
+                this@ViewHolder.date.text =
+                    view.context.getString(R.string.screening_period, startDate, endDate)
+                runningTime.text = view.context.getString(R.string.running_time, movie.runningTime)
             }
         }
 

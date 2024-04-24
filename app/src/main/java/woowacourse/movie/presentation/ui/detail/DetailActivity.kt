@@ -95,7 +95,7 @@ class DetailActivity : BaseActivity(), View {
     override fun showScreen(screen: Screen) {
         with(screen) {
             title.text = movie.title
-            this@DetailActivity.date.text = "$startDate~$endDate"
+            this@DetailActivity.date.text = getString(R.string.screening_period, startDate, endDate)
             runningTime.text = movie.runningTime.toString()
             description.text = movie.description
             poster.setImageResource(movie.imageSrc)
