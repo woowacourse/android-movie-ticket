@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".seat.view.SeatSelectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".result.view.MovieResultActivity"
             android:exported="false"
             android:parentActivityName=".detail.view.MovieDetailActivity" />
@@ -25,6 +28,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

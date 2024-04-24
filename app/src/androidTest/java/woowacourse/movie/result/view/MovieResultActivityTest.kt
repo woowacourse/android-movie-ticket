@@ -25,7 +25,7 @@ class MovieResultActivityTest {
             MovieResultActivity::class.java,
         ).apply {
             putExtra(KEY_MOVIE_ID, 0L)
-            putExtra(KEY_MOVIE_DATE, "2024.04.01")
+            putExtra(KEY_MOVIE_DATE, "2024-04-01")
             putExtra(KEY_MOVIE_TIME, "12:00")
             putExtra(KEY_MOVIE_COUNT, 3)
         }
@@ -42,7 +42,7 @@ class MovieResultActivityTest {
     @Test
     fun `예매한_영화의_상영일이_표시된다`() {
         onView(withId(R.id.resultDate))
-            .check(matches(withText("2024.04.01")))
+            .check(matches(withText("2024-04-01")))
     }
 
     @Test

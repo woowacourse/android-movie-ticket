@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toBottomOf="@id/detailTitle" />
 
             <TextView
-                android:id="@+id/detailDate"
+                android:id="@+id/startDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="2024.3.1"
@@ -65,6 +65,31 @@
                 app:layout_constraintBottom_toBottomOf="@id/detailDateName"
                 app:layout_constraintLeft_toRightOf="@id/detailDateName"
                 app:layout_constraintTop_toTopOf="@id/detailDateName" />
+
+            <TextView
+                android:id="@+id/dateSeparator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" ~ "
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/detailDateName"
+                app:layout_constraintLeft_toRightOf="@id/startDate"
+                app:layout_constraintTop_toTopOf="@id/detailDateName" />
+
+
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="2024.3.5"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/detailDateName"
+                app:layout_constraintLeft_toRightOf="@id/dateSeparator"
+                app:layout_constraintTop_toTopOf="@id/detailDateName" />
+
 
             <TextView
                 android:id="@+id/detailRunningTimeName"

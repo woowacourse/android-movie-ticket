@@ -34,7 +34,7 @@ class MovieMainActivityTest {
 
     @Test
     fun `영화_아이템에_영화_상영일이_표시된다`() {
-        onView(withId(R.id.movieDate)).check(matches(isDisplayed()))
+        onView(withId(R.id.movieStartDate)).check(matches(isDisplayed()))
     }
 
     @Test

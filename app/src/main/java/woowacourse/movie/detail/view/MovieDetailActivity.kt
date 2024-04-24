@@ -30,7 +30,8 @@ import java.time.format.DateTimeFormatter
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var detailImage: ImageView
     private lateinit var detailTitle: TextView
-    private lateinit var detailDate: TextView
+    private lateinit var startDate: TextView
+    private lateinit var endDate: TextView
     private lateinit var detailRunningTime: TextView
     private lateinit var detailDescription: TextView
     private lateinit var reservationCount: TextView
@@ -77,7 +78,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         movieData?.let { movie ->
             detailImage.setImageResource(movie.thumbnail)
             detailTitle.text = movie.title
-            detailDate.text = "${movie.date.startLocalDate} ~ ${movie.date.endLocalDate}".replace('-', '.')
+            startDate.text = movie.date.startLocalDate.toString()
+            endDate.text = movie.date.endLocalDate.toString()
             detailRunningTime.text = movie.runningTime.toString()
             detailDescription.text = movie.description
             reservationCount.text = movieCount.count.toString()
@@ -164,7 +166,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private fun setUpViewById() {
         detailImage = findViewById(R.id.detailImage)
         detailTitle = findViewById(R.id.detailTitle)
-        detailDate = findViewById(R.id.detailDate)
+        startDate = findViewById(R.id.startDate)
+        endDate = findViewById(R.id.endDate)
         detailRunningTime = findViewById(R.id.detailRunningTime)
         detailDescription = findViewById(R.id.detailDescription)
         reservationCount = findViewById(R.id.detailReservCount)

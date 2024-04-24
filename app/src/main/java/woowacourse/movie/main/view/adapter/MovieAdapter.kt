@@ -50,7 +50,8 @@ class MovieAdapter(
 class MovieViewHolder(view: View) {
     private val thumbnail: ImageView = view.findViewById(R.id.movieThumbnail)
     private val title: TextView = view.findViewById(R.id.movieTitle)
-    private val date: TextView = view.findViewById(R.id.movieDate)
+    private val startDate: TextView = view.findViewById(R.id.movieStartDate)
+    private val endDate: TextView = view.findViewById(R.id.movieEndDate)
     private val runningTime: TextView = view.findViewById(R.id.movieRunningTime)
     private val reservationButton: Button = view.findViewById(R.id.movieReservationBtn)
 
@@ -60,7 +61,8 @@ class MovieViewHolder(view: View) {
     ) {
         thumbnail.setImageResource(movie.thumbnail)
         title.text = movie.title
-        date.text = "${movie.date.startLocalDate} ~ ${movie.date.endLocalDate}".replace('-', '.')
+        startDate.text = movie.date.startLocalDate.toString()
+        endDate.text = movie.date.endLocalDate.toString()
         runningTime.text = movie.runningTime.toString()
         reservationButton.setOnClickListener {
             onReservationButtonClick(movie.id)

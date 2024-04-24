@@ -35,9 +35,15 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun `선택된_영화의_상영일이_표시된다`() {
-        onView(withId(R.id.detailDate))
-            .check(matches(withText("2024.04.01 ~ 2024.04.28")))
+    fun `선택된_영화의_상영시작일이_표시된다`() {
+        onView(withId(R.id.startDate))
+            .check(matches(withText("2024-04-01")))
+    }
+
+    @Test
+    fun `선택된_영화의_상영종료일이_표시된다`() {
+        onView(withId(R.id.endDate))
+            .check(matches(withText("2024-04-28")))
     }
 
     @Test
