@@ -1,14 +1,12 @@
 package woowacourse.movie.ui.detail
 
-import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
-import woowacourse.movie.ui.MovieDetailUI
-import woowacourse.movie.ui.ScreenDetailUI
+import woowacourse.movie.ui.toDetailUI
 import java.lang.IllegalStateException
 
 class ScreenDetailPresenter(
@@ -76,16 +74,3 @@ class ScreenDetailPresenter(
         }
     }
 }
-
-private fun Screen.toDetailUI(image: Image<Any>) =
-    ScreenDetailUI(
-        id = id,
-        movieDetailUI =
-            MovieDetailUI(
-                title = movie.title,
-                runningTime = movie.runningTime,
-                description = movie.description,
-                image = image,
-            ),
-        date = date,
-    )
