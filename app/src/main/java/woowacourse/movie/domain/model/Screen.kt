@@ -6,4 +6,4 @@ data class Screen(
     val startDate: String,
     val endDate: String,
     val selectableDates: List<ScreenDate>,
-)
+) : ScreenViewType

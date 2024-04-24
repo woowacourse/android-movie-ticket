@@ -2,7 +2,7 @@ package woowacourse.movie.presentation.ui.screen
 
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenViewType
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.detail.DetailActivity
@@ -27,7 +27,7 @@ class ScreenActivity : BaseActivity(), View {
         rvScreen.adapter = adapter
     }
 
-    override fun showScreens(screens: List<Screen>) {
+    override fun showScreens(screens: List<ScreenViewType>) {
         adapter.updateScreens(screens)
     }
 

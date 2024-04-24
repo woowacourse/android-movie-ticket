@@ -6,6 +6,7 @@
     <string name="screen_running_time_date">러닝타임:" "</string>
     <string name="reserve_now">지금 예매</string>
     <string name="movie_poster">영화 포스터</string>
+    <string name="ads_poster">영화 광고</string>
     <string name="screening_period">%s~%s</string>
     <string name="running_time">%d분</string>
 

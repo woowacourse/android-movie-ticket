@@ -1,16 +1,18 @@
 package woowacourse.movie.domain.repository
 
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Ads
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenDate
+import woowacourse.movie.domain.model.ScreenViewType
 import woowacourse.movie.domain.model.SeatBoard
 import java.time.LocalDate
 
 class DummyScreens : ScreenRepository {
     // TODO 더미 데이터
     private val temp =
-        List(10000) {
+        List(2500) {
             Screen(
                 id = it + 1,
                 movie =
@@ -40,9 +42,10 @@ class DummyScreens : ScreenRepository {
             )
         }
 
-    override fun load(): List<Screen> {
-        return temp
-    }
+    override fun load(): List<ScreenViewType> =
+        temp.flatMap { screen ->
+            listOf(screen, screen, screen, Ads(R.drawable.img_ads))
+        }
 
     override fun loadSeatBoard(id: Int): Result<SeatBoard> =
         runCatching {
