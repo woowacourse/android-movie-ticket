@@ -15,12 +15,8 @@ class ScreeningTimes(
         val dayOfWeek = date.dayOfWeek
 
         return when (dayOfWeek) {
-            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> {
-                weekEnd
-            }
-            else -> {
-                weekDay
-            }
+            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> weekEnd
+            else -> weekDay
         }
     }
 }
