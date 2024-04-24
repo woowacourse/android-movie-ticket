@@ -5,8 +5,10 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.SeatBoard
 import woowacourse.movie.domain.model.SeatRank
 import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.presentation.model.ReservationInfo
 import java.time.LocalDateTime
 
 fun getDummyMovie(): Movie {
@@ -67,4 +69,20 @@ fun getDummyReservation(): Reservation {
         seats = getDummySeats(),
         dateTime = LocalDateTime.now(),
     )
+}
+
+fun getDummySeatBoard(): SeatBoard {
+    return SeatBoard(1, 4, 5, listOf(getDummySeat()))
+}
+
+fun getDummySeat(): Seat {
+    return Seat(
+        "A",
+        1,
+        SeatRank.S,
+    )
+}
+
+fun getDummyReservationInfo(): ReservationInfo {
+    return ReservationInfo(1, LocalDateTime.now(), 4)
 }
