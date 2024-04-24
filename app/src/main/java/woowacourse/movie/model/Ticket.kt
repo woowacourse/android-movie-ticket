@@ -2,8 +2,8 @@ package woowacourse.movie.model
 
 import java.io.Serializable
 
-class Ticket : Serializable {
-    var count: Int = DEFAULT_TICKET_COUNT
+class Ticket(count: Int = DEFAULT_TICKET_COUNT) : Serializable {
+    var count: Int = count
         private set
 
     private fun restoreCount(recordOfCount: Int) {

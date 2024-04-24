@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.R
 import woowacourse.movie.MovieUtils.convertPeriodFormat
+import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
@@ -68,8 +68,8 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         summary.text = movie.summary
     }
 
-    override fun changeNumberOfTickets(ticket: Ticket) {
-        numberOfTickets.text = ticket.count.toString()
+    override fun changeHeadCount(count: Int) {
+        numberOfTickets.text = count.toString()
     }
 
     override fun showResultToast() {
@@ -90,13 +90,13 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     private fun initializeMinusButton() {
         minusButton.setOnClickListener {
-            presenter.decreaseTicketCount()
+            presenter.decreaseTicketCount(presenter.ticket.count)
         }
     }
 
     private fun initializePlusButton() {
         plusButton.setOnClickListener {
-            presenter.increaseTicketCount()
+            presenter.increaseTicketCount(presenter.ticket.count)
         }
     }
 

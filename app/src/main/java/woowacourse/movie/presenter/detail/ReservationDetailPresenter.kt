@@ -10,19 +10,22 @@ class ReservationDetailPresenter(
     private val view: ReservationDetailContract.View,
     private val dao: ScreeningDao,
 ) : ReservationDetailContract.Presenter {
-    val ticket = Ticket()
+    var ticket = Ticket()
+        private set
 
     override fun loadMovie(movieId: Int) {
         val movie = dao.find(movieId)
         view.showMovieInformation(movie)
     }
 
-    override fun increaseTicketCount() {
+    override fun increaseTicketCount(count: Int) {
+        ticket = Ticket(count)
         val result = ticket.increaseCount()
         handleNumberOfTicketsBounds(result)
     }
 
-    override fun decreaseTicketCount() {
+    override fun decreaseTicketCount(count: Int) {
+        ticket = Ticket(count)
         val result = ticket.decreaseCount()
         handleNumberOfTicketsBounds(result)
     }
@@ -33,7 +36,7 @@ class ReservationDetailPresenter(
 
     override fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
         when (result) {
-            is Success -> view.changeNumberOfTickets(ticket)
+            is Success -> view.changeHeadCount(ticket.count)
             is Failure -> view.showResultToast()
         }
     }
