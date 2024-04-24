@@ -11,7 +11,7 @@ class MovieScreenPresenter(
         view.showScreenMovies(movies)
     }
 
-    override fun navigateToReservation(movieId: Int) {
+    override fun startReservation(movieId: Int) {
         view.moveToReservation(movieId)
     }
 
