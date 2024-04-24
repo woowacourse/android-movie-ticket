@@ -68,12 +68,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             presenter.increaseTicketCount()
         }
         ticketingButton.setOnClickListener {
-            presenter.ticketing(
-                title = titleView.text.toString(),
-                screeningDate = screeningDateView.text.toString().toLocalDate(),
-                count = presenter.getTicketCount(),
-                price = presenter.getTicketCount() * Movie.DEFAULT_MOVIE_PRICE,
-            )
+            requestTicketCount { ticketCount ->
+                presenter.ticketing(
+                    title = titleView.text.toString(),
+                    screeningDate = screeningDateView.text.toString().toLocalDate(),
+                    count = ticketCount,
+                    price = ticketCount * Movie.DEFAULT_MOVIE_PRICE,
+                )
+            }
         }
     }
 
@@ -87,12 +89,18 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun showCurrentResultTicketCountView() {
-        ticketCountView.text = presenter.getTicketCount().toString()
+        requestTicketCount { ticketCount ->
+            ticketCountView.text = ticketCount.toString()
+        }
     }
 
     override fun moveToTicketDetail(ticketModel: TicketModel) {
         val intent = Intent(this@MovieReservationActivity, TicketDetailActivity::class.java)
         intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticketModel as Serializable)
         this@MovieReservationActivity.startActivity(intent)
+    }
+
+    override fun requestTicketCount(count: (Int) -> Unit) {
+        count(presenter.getTicketCount())
     }
 }

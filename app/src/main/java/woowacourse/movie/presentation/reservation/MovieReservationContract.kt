@@ -11,6 +11,8 @@ interface MovieReservationContract {
         fun showCurrentResultTicketCountView()
 
         fun moveToTicketDetail(ticketModel: TicketModel)
+
+        fun requestTicketCount(count: (Int)->Unit)
     }
 
     interface Presenter {

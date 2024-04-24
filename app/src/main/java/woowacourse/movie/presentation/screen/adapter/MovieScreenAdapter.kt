@@ -49,6 +49,7 @@ class MovieScreenAdapter(
 
     fun updateMovies(newMovies: List<Movie>) {
         movies = newMovies
+        this.notifyDataSetChanged()
     }
 
     private fun makeViewHolder(
