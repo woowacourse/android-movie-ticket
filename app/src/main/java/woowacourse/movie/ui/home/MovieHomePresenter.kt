@@ -7,6 +7,6 @@ class MovieHomePresenter(
     private val movieContents: MovieContents,
 ) : MovieHomeContract.Presenter {
     override fun loadMovieContents() {
-        view.showMovieContentsUi(movieContents.findAll())
+        view.showMovieContents(movieContents.findAll())
     }
 }

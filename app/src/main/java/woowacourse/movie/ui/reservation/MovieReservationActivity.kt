@@ -94,7 +94,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun showMovieContentUi(movieContent: MovieContent) {
+    override fun showMovieContent(movieContent: MovieContent) {
         movieContent.run {
             val image = imageId.getImageFromId(this@MovieReservationActivity)
             posterImage.setImageResource(image)
@@ -107,7 +107,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun updateReservationCountUi(reservationCount: Int) {
+    override fun updateReservationCount(reservationCount: Int) {
         reservationCountText.text = reservationCount.toString()
     }
 

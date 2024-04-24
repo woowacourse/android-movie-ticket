@@ -12,13 +12,13 @@ class MovieReservationPresenter(
 
     override fun updateReservationCount(count: Int) {
         reservationCount = ReservationCount(count)
-        view.updateReservationCountUi(count)
+        view.updateReservationCount(count)
     }
 
     override fun loadMovieContent(movieContentId: Long) {
         try {
             val movieContent = movieContents.find(movieContentId)
-            view.showMovieContentUi(movieContent)
+            view.showMovieContent(movieContent)
         } catch (e: NoSuchElementException) {
             view.showError(e)
         }
@@ -26,12 +26,12 @@ class MovieReservationPresenter(
 
     override fun decreaseCount() {
         reservationCount--
-        view.updateReservationCountUi(reservationCount.count)
+        view.updateReservationCount(reservationCount.count)
     }
 
     override fun increaseCount() {
         reservationCount++
-        view.updateReservationCountUi(reservationCount.count)
+        view.updateReservationCount(reservationCount.count)
     }
 
     override fun reserveMovie() {

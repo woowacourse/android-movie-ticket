@@ -6,15 +6,15 @@ import woowacourse.movie.ui.HandleError
 
 interface MovieReservationCompleteContract {
     interface View : HandleError {
-        fun showMovieContentUi(movieContent: MovieContent)
+        fun showMovieContent(movieContent: MovieContent)
 
-        fun updateTicketUi(ticket: Ticket)
+        fun showTicketUi(ticket: Ticket)
     }
 
     interface Presenter {
         fun loadMovieContent(movieContentId: Long)
 
-        fun updateTicket(reservationCount: Int)
+        fun loadTicket(reservationCount: Int)
 
         fun handleError(throwable: Throwable)
     }

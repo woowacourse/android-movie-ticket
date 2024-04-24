@@ -12,15 +12,15 @@ class MovieReservationCompletePresenter(
     override fun loadMovieContent(movieContentId: Long) {
         try {
             val movieContent = movieContents.find(movieContentId)
-            view.showMovieContentUi(movieContent)
+            view.showMovieContent(movieContent)
         } catch (e: NoSuchElementException) {
             view.showError(e)
         }
     }
 
-    override fun updateTicket(reservationCount: Int) {
+    override fun loadTicket(reservationCount: Int) {
         val ticket = Ticket(ReservationCount(reservationCount))
-        view.updateTicketUi(ticket)
+        view.showTicketUi(ticket)
     }
 
     override fun handleError(throwable: Throwable) {

@@ -20,7 +20,7 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
         presenter.loadMovieContents()
     }
 
-    override fun showMovieContentsUi(movieContents: List<MovieContent>) {
+    override fun showMovieContents(movieContents: List<MovieContent>) {
         movieContentList.adapter = MovieContentListAdapter(this, movieContents)
     }
 }
