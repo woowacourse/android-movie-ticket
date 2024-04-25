@@ -67,4 +67,13 @@ class ReservationDetailPresenterTest {
 
         verify { view.showErrorToast() }
     }
+
+    @Test
+    fun `영화의 상영 일들이 나온다`() {
+        every { view.showScreeningDates(any()) } just runs
+
+        presenter.loadScreeningDates()
+
+        verify { view.showScreeningDates(any()) }
+    }
 }

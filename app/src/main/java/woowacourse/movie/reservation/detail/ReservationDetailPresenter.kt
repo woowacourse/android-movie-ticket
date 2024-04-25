@@ -15,6 +15,10 @@ class ReservationDetailPresenter(
         view.showMovieInformation(Movies.obtainMovie(movieId))
     }
 
+    override fun loadScreeningDates() {
+        view.showScreeningDates(Movies.obtainScreeningDates(movieId))
+    }
+
     override fun increaseCount() {
         val result = ticket.increaseCount()
         handleNumberOfTicketsBounds(result)

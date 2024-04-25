@@ -105,4 +105,16 @@ object Movies {
     fun obtainMovies(): List<Movie> = movies.toList()
 
     fun obtainMovie(movieId: Int): Movie = movies[movieId]
+
+    fun obtainScreeningDates(movieId: Int): List<LocalDate> {
+        val dates = mutableListOf<LocalDate>()
+        var currentDate = movies[movieId].firstScreeningDate
+
+        while (!currentDate.isAfter(movies[movieId].lastScreeningDate)) {
+            dates.add(currentDate)
+            currentDate = currentDate.plusDays(1)
+        }
+
+        return dates.toList()
+    }
 }

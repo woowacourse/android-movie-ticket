@@ -3,8 +3,12 @@ package woowacourse.movie.reservation.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +28,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private val plusButton: Button by lazy { findViewById(R.id.button_reservation_detail_plus) }
     private val minusButton: Button by lazy { findViewById(R.id.button_reservation_detail_minus) }
     private val reservationButton: Button by lazy { findViewById(R.id.button_reservation_detail_finished) }
+    private val screeningDatesSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_date) }
 
     private lateinit var presenter: ReservationDetailPresenter
 
@@ -37,6 +42,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         presenter = ReservationDetailPresenter(this, movieId)
         presenter.loadMovie()
+        presenter.loadScreeningDates()
 
         plusButton.setOnClickListener {
             presenter.increaseCount()
@@ -47,6 +53,28 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         reservationButton.setOnClickListener {
             presenter.deliverReservationInformation()
         }
+    }
+
+    override fun showScreeningDates(screeningDates: List<LocalDate>) {
+        screeningDatesSpinner.adapter =
+            ArrayAdapter(
+                this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                screeningDates,
+            )
+
+        screeningDatesSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
     }
 
     override fun moveToReservationFinished(
