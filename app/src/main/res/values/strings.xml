@@ -36,4 +36,5 @@
 
     <!-- item_movie_catalog -->
     <string name="movie_catalog_reservation_now">지금 예매</string>
+    <string name="advertisement_message">우아한테크코스 광고</string>
 </resources>
