@@ -26,6 +26,7 @@ class DetailPresenter(
                     screen = screen,
                     selectableDates = screen.selectableDates,
                     selectedDate = screen.selectableDates.first(),
+                    selectedTime = screen.selectableDates.first().getSelectableTimes().first(),
                 )
             view.showScreen(screen)
             view.showTicket(uiModel.ticket.count)
