@@ -133,7 +133,7 @@ class MovieReservationActivity :
         }
 
         reservationButton.setOnClickListener {
-            presenter.reserveMovie()
+            presenter.reserveSeat()
         }
     }
 
@@ -167,7 +167,7 @@ class MovieReservationActivity :
         movieTimeSpinner.adapter = timeAdapter
     }
 
-    override fun moveMovieReservationCompleteView(
+    override fun moveMovieSeatSelectionPage(
         reservationCount: Int,
         selectedDate: String,
         selectedTime: String,

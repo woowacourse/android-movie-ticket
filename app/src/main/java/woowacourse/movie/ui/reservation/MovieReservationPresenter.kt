@@ -48,8 +48,8 @@ class MovieReservationPresenter(
         view.updateReservationCount(reservationCount.count)
     }
 
-    override fun reserveMovie() {
-        view.moveMovieReservationCompleteView(
+    override fun reserveSeat() {
+        view.moveMovieSeatSelectionPage(
             reservationCount.count,
             screeningDateTime.date.toString(),
             movieTime,

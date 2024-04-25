@@ -15,7 +15,7 @@ interface MovieReservationContract {
 
         fun showMovieTimeSelection(timeRange: List<String>)
 
-        fun moveMovieReservationCompleteView(
+        fun moveMovieSeatSelectionPage(
             reservationCount: Int,
             selectedDate: String,
             selectedTime: String,
@@ -35,7 +35,7 @@ interface MovieReservationContract {
 
         fun increaseCount()
 
-        fun reserveMovie()
+        fun reserveSeat()
 
         fun handleError(throwable: Throwable)
     }
