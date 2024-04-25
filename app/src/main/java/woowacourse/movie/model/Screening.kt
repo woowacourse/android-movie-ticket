@@ -20,8 +20,6 @@ class Screening private constructor(
         }
 
     companion object {
-        private val DEFAULT_THEATER = Theater.of()
-
         fun of(
             screeningId: Long,
             movieId: Long,
@@ -30,7 +28,7 @@ class Screening private constructor(
             Screening(
                 screeningId,
                 movieId,
-                DEFAULT_THEATER,
+                Theater.of(),
                 datePeriod,
             )
     }
