@@ -10,4 +10,24 @@ class SeatingSystem(
             val col = index % colSize
             Seat(row, col)
         }
+
+    private val _selectedSeats: MutableList<Seat> = mutableListOf()
+    val selectedSeats: List<Seat>
+        get() = _selectedSeats.toList()
+
+    fun selectSeat(
+        row: Int,
+        col: Int,
+    ) {
+        val selected = seats[row * colSize + col]
+        _selectedSeats.add(selected)
+    }
+
+    fun deselectSeat(
+        row: Int,
+        col: Int,
+    ) {
+        val selected = seats[row * colSize + col]
+        _selectedSeats.remove(selected)
+    }
 }
