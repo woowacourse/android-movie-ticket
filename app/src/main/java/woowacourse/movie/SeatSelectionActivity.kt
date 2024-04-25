@@ -9,6 +9,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
@@ -19,7 +20,7 @@ import java.lang.IllegalStateException
 
 class SeatSelectionActivity : AppCompatActivity() {
     private lateinit var positions: Positions
-    val button: Button by lazy { findViewById(R.id.btn_complete_reservation) }
+    private val button: Button by lazy { findViewById(R.id.btn_complete_reservation) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,19 @@ class SeatSelectionActivity : AppCompatActivity() {
             }
             is Result.Error -> {
             }
+        }
+
+        button.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setCancelable(false)
+                .setPositiveButton("예") { _, _ ->
+                }
+                .setNegativeButton("아니요") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
 
         val seatInfo = SeatInfo(5, 4)
