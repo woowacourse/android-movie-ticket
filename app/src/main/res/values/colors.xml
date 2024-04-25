@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="seat_background">#FFEAEAEA</color>
+    <color name="seat_screen_background">#FF494949</color>
+    <color name="seat_confirm_background">#FFB7B7B7</color>
+    <color name="seat_money_text">#FF727272</color>
 </resources>
