@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presenter
 
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.junit5.MockKExtension

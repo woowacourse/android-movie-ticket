@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.PurchaseConfirmationContract
+import woowacourse.movie.format.format
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.presenter.PurchaseConfirmationPresenter
 
@@ -30,14 +31,10 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
     }
 
     override fun displayReservation(reservation: Reservation) {
-        val movie = reservation.screening.movie
-        findViewById<TextView>(R.id.movie_title_confirmation).text = movie.title.content
-        findViewById<TextView>(R.id.purchase_movie_running_time).text =
-            movie.runningTime.time.toString() + "분"
-        findViewById<TextView>(R.id.ticket_charge).text = PRICE.format(reservation.getCharge())
-    }
-
-    companion object {
-        const val PRICE = "price: %d"
+        val movie = reservation.movie
+        val movieDetail = movie.movieDetail
+        findViewById<TextView>(R.id.movie_title_confirmation).text = movieDetail.title.format()
+        findViewById<TextView>(R.id.purchase_movie_running_time).text = movieDetail.runningTime.format()
+        findViewById<TextView>(R.id.ticket_charge).text = reservation.getCharge().toString()
     }
 }

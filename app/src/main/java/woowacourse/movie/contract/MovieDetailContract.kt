@@ -1,10 +1,11 @@
 package woowacourse.movie.contract
 
-import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.model.movie.Movie
 
-interface ScreeningDetailContract {
+
+interface MovieDetailContract {
     interface View {
-        fun displayScreening(screening: Screening)
+        fun displayMovie(movie: Movie)
 
         fun displayTicketNum(ticketNum: Int)
 
@@ -12,7 +13,7 @@ interface ScreeningDetailContract {
     }
 
     interface Presenter {
-        fun loadScreening(screeningId: Int)
+        fun loadMovie(movieId: Int)
 
         fun plusTicketNum(ticketNum: Int)
 

@@ -2,7 +2,7 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.contract.PurchaseConfirmationContract
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.repository.PseudoReservationRepository
 import woowacourse.movie.repository.ReservationRepository
 
@@ -11,7 +11,7 @@ class PurchaseConfirmationPresenter(
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
 ) : PurchaseConfirmationContract.Presenter {
     override fun loadReservation(reservationId: Int) {
-        val reservation = reservationRepository.getLastReservation() ?: Reservation(Screening.default, 0)
+        val reservation = reservationRepository.getLastReservation() ?: Reservation(Movie.default, 0)
         view.displayReservation(reservation)
     }
 }

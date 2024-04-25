@@ -9,15 +9,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
-import woowacourse.movie.contract.ScreeningDetailContract
-import woowacourse.movie.model.movieInfo.RunningTime
-import woowacourse.movie.model.movieInfo.Synopsis
-import woowacourse.movie.model.movieInfo.Title
-import woowacourse.movie.model.screening.Screening
-import woowacourse.movie.model.screening.ScreeningDate
-import woowacourse.movie.presenter.ScreeningDetailPresenter
+import woowacourse.movie.contract.MovieDetailContract
+import woowacourse.movie.format.format
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.presenter.MovieDetailPresenter
 
-class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.View {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private var ticketNum: Int = 1
     private val numberOfPurchases by lazy {
         findViewById<TextView>(R.id.quantity_text_view)
@@ -26,7 +23,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
-        val presenter = ScreeningDetailPresenter(this)
+        val presenter = MovieDetailPresenter(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         findViewById<ImageView>(R.id.movie_thumbnail)
@@ -35,8 +32,8 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         val ticketPlusButton = findViewById<Button>(R.id.plus_button)
         val ticketMinusButton = findViewById<Button>(R.id.minus_button)
         val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
-        val screeningId = intent.getIntExtra("ScreeningId", -1)
-        presenter.loadScreening(screeningId)
+        val movieId = intent.getIntExtra("MovieId", -1)
+        presenter.loadMovie(movieId)
         ticketPlusButton.setOnClickListener {
             presenter.plusTicketNum(ticketNum)
         }
@@ -44,7 +41,7 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
             presenter.minusTicketNum(ticketNum)
         }
         ticketBuyButton.setOnClickListener {
-            presenter.purchase(screeningId, ticketNum)
+            presenter.purchase(movieId, ticketNum)
         }
     }
 
@@ -58,16 +55,16 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         return super.onContextItemSelected(item)
     }
 
-    override fun displayScreening(screening: Screening) {
-        val movie = screening.movie
+    override fun displayMovie(movie: Movie) {
+        val movieDetail = movie.movieDetail
         findViewById<TextView>(R.id.movie_title_large).text =
-            movie.title.format()
+            movieDetail.title.format()
         findViewById<TextView>(R.id.movie_release_date_large).text =
-            screening.date.format()
+            movie.screeningDate.format()
         findViewById<TextView>(R.id.movie_running_time).text =
-            movie.runningTime.format()
+            movieDetail.runningTime.format()
         findViewById<TextView>(R.id.movie_synopsis).text =
-            movie.synopsis.format()
+            movieDetail.synopsis.format()
     }
 
     override fun displayTicketNum(ticketNum: Int) {
@@ -79,12 +76,4 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         val intent = Intent(this, PurchaseConfirmationActivity::class.java)
         startActivity(intent)
     }
-
-    private fun Title.format() = content
-
-    private fun ScreeningDate.format() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
-
-    private fun RunningTime.format() = time.toString() + "분"
-
-    private fun Synopsis.format() = content
 }

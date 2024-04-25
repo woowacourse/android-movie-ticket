@@ -7,27 +7,25 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.contract.ScreeningListContract
-import woowacourse.movie.model.movieInfo.RunningTime
-import woowacourse.movie.model.movieInfo.Title
-import woowacourse.movie.model.screening.Screening
-import woowacourse.movie.model.screening.ScreeningDate
+import woowacourse.movie.contract.MovieListContract
+import woowacourse.movie.format.format
+import woowacourse.movie.model.movie.Movie
 
-class ScreeningAdapter(
-    private val screeningListView: ScreeningListContract.View,
+class MovieAdapter(
+    private val screeningListView: MovieListContract.View,
 ) :
     BaseAdapter(),
-        ScreeningAdapterContract.Model,
-        ScreeningAdapterContract.View {
-    private var screenings: List<Screening> = listOf()
+        MovieAdapterContract.Model,
+        MovieAdapterContract.View {
+    private var movies: List<Movie> = listOf()
 
-    override fun setScreenings(screenings: List<Screening>) {
-        this.screenings = screenings
+    override fun setMovies(screenings: List<Movie>) {
+        this.movies = screenings
     }
 
-    override fun getCount(): Int = screenings.size
+    override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): Screening = screenings[position]
+    override fun getItem(position: Int): Movie = movies[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -48,13 +46,13 @@ class ScreeningAdapter(
                 listItemView.tag = viewHolder
                 viewHolder
             }
-        val screening: Screening = getItem(position)
-        viewHolder.bind(screening, position)
+        val movie: Movie = getItem(position)
+        viewHolder.bind(movie, position)
         return listItemView
     }
 
     override fun notifyItemClicked(position: Int) {
-        screeningListView.navigateToScreeningDetail(position)
+        screeningListView.navigateToMovieDetail(position)
     }
 
     inner class ViewHolder(
@@ -71,22 +69,16 @@ class ScreeningAdapter(
         )
 
         fun bind(
-            screening: Screening,
+            movie: Movie,
             position: Int,
         ) {
-            val movie = screening.movie
-            title.text = movie.title.format()
-            screeningDate.text = "상영일: ${screening.date.format()}"
-            runningTime.text = "러닝타임: ${movie.runningTime.format()}"
+            val movieDetail = movie.movieDetail
+            title.text = movieDetail.title.format()
+            screeningDate.text = "상영일: ${movie.screeningDate.format()}"
+            runningTime.text = "러닝타임: ${movieDetail.runningTime.format()}"
             detailButton.setOnClickListener {
                 notifyItemClicked(position)
             }
         }
-
-        private fun Title.format() = content
-
-        private fun ScreeningDate.format() = "${date.year}.${date.monthValue}.${date.dayOfMonth}"
-
-        private fun RunningTime.format() = time.toString() + "분"
     }
 }

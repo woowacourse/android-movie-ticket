@@ -1,20 +1,20 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.contract.ScreeningDetailContract
+import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.repository.PseudoReservationRepository
-import woowacourse.movie.repository.PseudoScreeningRepository
+import woowacourse.movie.repository.PseudoMovieRepository
 import woowacourse.movie.repository.ReservationRepository
-import woowacourse.movie.repository.ScreeningRepository
+import woowacourse.movie.repository.MovieRepository
 
-class ScreeningDetailPresenter(
-    private val view: ScreeningDetailContract.View,
-    private val screeningRepository: ScreeningRepository = PseudoScreeningRepository(),
+class MovieDetailPresenter(
+    private val view: MovieDetailContract.View,
+    private val movieRepository: MovieRepository = PseudoMovieRepository(),
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
-) : ScreeningDetailContract.Presenter {
-    override fun loadScreening(screeningId: Int) {
-        val screening = screeningRepository.getScreening(screeningId)
-        view.displayScreening(screening)
+) : MovieDetailContract.Presenter {
+    override fun loadMovie(movieId: Int) {
+        val screening = movieRepository.getMovie(movieId)
+        view.displayMovie(screening)
     }
 
     override fun plusTicketNum(ticketNum: Int) {
@@ -26,11 +26,11 @@ class ScreeningDetailPresenter(
     }
 
     override fun purchase(
-        screeningId: Int,
+        movieId: Int,
         ticketNum: Int,
     ) {
-        val screening = screeningRepository.getScreening(screeningId)
-        val reservation = Reservation(screening, ticketNum)
+        val movie = movieRepository.getMovie(movieId)
+        val reservation = Reservation(movie, ticketNum)
         reservationRepository.putReservation(reservation)
         // TODO: if it goes fail, view have to notify that something went wrong
         // e.g. view.notifyException()

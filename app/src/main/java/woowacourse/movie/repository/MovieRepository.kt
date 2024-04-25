@@ -1,0 +1,9 @@
+package woowacourse.movie.repository
+
+import woowacourse.movie.model.movie.Movie
+
+interface MovieRepository {
+    fun getMovies(): List<Movie>
+
+    fun getMovie(screeningId: Int): Movie
+}

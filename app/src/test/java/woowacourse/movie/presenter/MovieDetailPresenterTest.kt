@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presenter
 
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -9,30 +9,29 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import woowacourse.movie.contract.ScreeningDetailContract
-import woowacourse.movie.presenter.ScreeningDetailPresenter
-import woowacourse.movie.repository.ScreeningRepository
+import woowacourse.movie.contract.MovieDetailContract
+import woowacourse.movie.repository.MovieRepository
 
 @ExtendWith(MockKExtension::class)
-class ScreeningDetailPresenterTest {
+class MovieDetailPresenterTest {
     @RelaxedMockK
-    lateinit var view: ScreeningDetailContract.View
+    lateinit var view: MovieDetailContract.View
 
-    lateinit var presenter: ScreeningDetailPresenter
+    lateinit var presenter: MovieDetailPresenter
 
     @RelaxedMockK
-    lateinit var repository: ScreeningRepository
+    lateinit var repository: MovieRepository
 
     @BeforeEach
     fun setUp() {
-        presenter = ScreeningDetailPresenter(view, repository)
+        presenter = MovieDetailPresenter(view, repository)
     }
 
     @Test
     fun `상영 정보를 표시할 수 있어야 한다`() {
-        presenter.loadScreening(0)
+        presenter.loadMovie(0)
         verify {
-            view.displayScreening(any())
+            view.displayMovie(any())
         }
     }
 
@@ -52,8 +51,8 @@ class ScreeningDetailPresenterTest {
 
     @Test
     fun `확인 버튼을 누르면 결제 확인 화면으로 넘어간다`() {
-        every { view.displayScreening(any()) } just runs
+        every { view.displayMovie(any()) } just runs
         presenter.purchase(0, 0)
-        verify { view.navigateToPurchaseConfirmation(any()) }
+        verify { view.navigateToPurchaseConfirmation() }
     }
 }

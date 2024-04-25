@@ -13,24 +13,24 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.activity.ScreeningListActivity
-import woowacourse.movie.model.movieInfo.MovieInfo
-import woowacourse.movie.model.movieInfo.RunningTime
-import woowacourse.movie.model.movieInfo.Synopsis
-import woowacourse.movie.model.movieInfo.Title
+import woowacourse.movie.activity.MovieListActivity
+import woowacourse.movie.model.movie.MovieDetail
+import woowacourse.movie.model.movie.RunningTime
+import woowacourse.movie.model.movie.Synopsis
+import woowacourse.movie.model.movie.Title
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class ScreeningListActivityTest {
+class MovieListActivityTest {
     private val movie =
-        MovieInfo(
+        MovieDetail(
             Title("차람과 하디의 진지한 여행기"),
             RunningTime(230),
             Synopsis("wow!"),
         )
 
     @get:Rule
-    val activityRule = ActivityScenarioRule(ScreeningListActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieListActivity::class.java)
 
     @Test
     fun listViewDisplaysMovieInfo() {
