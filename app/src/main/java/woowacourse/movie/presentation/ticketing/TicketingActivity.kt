@@ -46,7 +46,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private fun initializeButtons() {
         val minusButton = findViewById<Button>(R.id.btn_minus)
         val plusButton = findViewById<Button>(R.id.btn_plus)
-        val completeButton = findViewById<Button>(R.id.btn_complete)
+        val completeButton = findViewById<Button>(R.id.btn_choose_seat)
 
         minusButton.setOnClickListener {
             ticketingPresenter.decreaseCount()

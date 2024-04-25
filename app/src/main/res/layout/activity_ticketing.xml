@@ -160,7 +160,7 @@
         app:layout_constraintTop_toTopOf="@id/btn_minus" />
 
     <Button
-        android:id="@+id/btn_complete"
+        android:id="@+id/btn_choose_seat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/text_select_seat_button"

@@ -237,6 +237,7 @@
         tools:text="0원" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_complete"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#B7B7B7"
@@ -246,6 +247,7 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/gl_btn"

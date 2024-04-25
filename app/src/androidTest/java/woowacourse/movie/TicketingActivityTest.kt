@@ -47,8 +47,8 @@ class TicketingActivityTest {
     }
 
     @Test
-    fun `완료_버튼을_누르면_예매_결과_화면으로_이동한다`() {
-        performClick(R.id.btn_complete)
+    fun `좌석_선택_버튼을_누르면_좌석_선택_화면으로_이동한다`() {
+        performClick(R.id.btn_choose_seat)
         onView(withId(R.id.cl_ticketing_result_activity)).check(matches(ViewMatchers.isDisplayed()))
     }
 
