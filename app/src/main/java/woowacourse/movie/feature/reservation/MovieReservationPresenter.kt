@@ -1,7 +1,9 @@
 package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.model.ScreeningDate
 import woowacourse.movie.model.data.MovieRepository
+import woowacourse.movie.model.rangeTo
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
@@ -17,6 +19,9 @@ class MovieReservationPresenter(
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
         view.setUpReservationView(movie)
+
+        val screeningDates = (movie.startScreeningDate..movie.endScreeningDate).toList()
+        view.initializeSpinner(screeningDates, screeningDates[0].screeningTimes())
     }
 
     override fun decreaseReservationCount() {
@@ -42,5 +47,10 @@ class MovieReservationPresenter(
                 return
             }
         view.updateReservationCount(reservationCount.count)
+    }
+
+    override fun selectScreeningDate(screeningDate: ScreeningDate) {
+        val screeningTimes = screeningDate.screeningTimes()
+        view.updateScreeningTimeSpinner(screeningTimes)
     }
 }

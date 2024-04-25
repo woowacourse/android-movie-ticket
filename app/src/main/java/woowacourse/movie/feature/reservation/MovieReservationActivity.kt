@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
@@ -13,10 +16,13 @@ import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.feature.reservation.ui.toReservationUiModel
+import woowacourse.movie.model.ScreeningDate
 import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.ScreeningTime
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
@@ -108,12 +114,37 @@ class MovieReservationActivity :
         }
     }
 
+    override fun initializeSpinner(
+        screeningDates: List<ScreeningDate>,
+        screeningTimes: List<ScreeningTime>,
+    ) {
+        screeningDateSpinner.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates.map { it.message() })
+        screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position :Int, id: Long) {
+                presenter.selectScreeningDate(screeningDates[position])
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) { }
+        }
+        screeningTimeSpinner.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimes)
+    }
+
+    private fun ScreeningDate.message() = date.format(DateTimeFormatter.ofPattern("yyyy-M-d"))
+
     override fun updateReservationCount(reservationCountValue: Int) {
         reservationCountText.text = reservationCountValue.toString()
     }
 
     override fun moveReservationCompleteView(reservationCountValue: Int) {
         MovieReservationCompleteActivity.startActivity(this, movieId(), reservationCountValue)
+    }
+
+    override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {
+        val screeningTimeMessage = screeningTimes.map { it.time.format(DateTimeFormatter.ofPattern("HH:mm"))}
+        screeningTimeSpinner.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessage)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
