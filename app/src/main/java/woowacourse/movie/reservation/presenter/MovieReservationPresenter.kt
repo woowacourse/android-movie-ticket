@@ -1,7 +1,6 @@
 package woowacourse.movie.reservation.presenter
 
 import woowacourse.movie.list.model.Movie
-import woowacourse.movie.list.model.MovieDataSource
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.MovieReservationMovieData
 import woowacourse.movie.reservation.model.MovieReservationTicketCountData
@@ -23,7 +22,7 @@ class MovieReservationPresenter(
     }
 
     override fun setMovieInfo() {
-        val movie = MovieReservationMovieData.movieData ?: MovieDataSource.emptyMovie
+        val movie = MovieReservationMovieData.movieData
         view.setMovieView(movie)
     }
 
