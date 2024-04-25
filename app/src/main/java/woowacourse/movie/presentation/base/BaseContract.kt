@@ -1,4 +1,4 @@
-package woowacourse.movie.base
+package woowacourse.movie.presentation.base
 
 import woowacourse.movie.utils.MovieErrorCode
 

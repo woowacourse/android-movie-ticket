@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,10 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import coil.load
 import woowacourse.movie.R
-import woowacourse.movie.utils.formatTimestamp
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.utils.formatScreeningPeriod
 
 class MovieAdapter(
     private val onMovieItemClick: (Long) -> (Unit),
@@ -61,9 +63,9 @@ class MovieViewHolder(itemView: View) {
         movie: Movie,
         onMovieItemClick: (Long) -> Unit,
     ) {
-        thumbnail.setImageResource(movie.thumbnail)
+        thumbnail.load(movie.thumbnailUrl)
         title.text = movie.title
-        date.text = formatTimestamp(movie.date)
+        date.text = formatScreeningPeriod(movie.dateTime)
         runningTime.text = "${movie.runningTime}"
         reservation.setOnClickListener {
             onMovieItemClick(movie.id)

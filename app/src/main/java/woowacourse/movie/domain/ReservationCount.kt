@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.domain
 
 class ReservationCount {
     var count: Int = 1

@@ -1,4 +1,4 @@
-package woowacourse.movie.detail
+package woowacourse.movie.presentation.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,16 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import coil.load
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.result.MovieResultActivity
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.presentation.result.MovieResultActivity
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
-import woowacourse.movie.utils.formatTimestamp
+import woowacourse.movie.utils.formatScreeningPeriod
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var reservationCompleteActivityResultLauncher: ActivityResultLauncher<Intent>
@@ -60,9 +61,9 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun onInitView(movie: Movie) {
         with(movie) {
-            detailImage.setImageResource(this.thumbnail)
+            detailImage.load(this.thumbnailUrl)
             detailTitle.text = this.title
-            detailDate.text = formatTimestamp(this.date)
+            detailDate.text = formatScreeningPeriod(movie.dateTime)
             detailRunningTime.text = "${this.runningTime}"
             detailDescription.text = this.description
             minusButton.setOnClickListener {

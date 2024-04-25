@@ -1,6 +1,6 @@
-package woowacourse.movie.main
+package woowacourse.movie.presentation.main
 
-import woowacourse.movie.model.MovieAdapter
+import woowacourse.movie.presentation.adapter.MovieAdapter
 
 interface MovieMainContract {
     interface View {

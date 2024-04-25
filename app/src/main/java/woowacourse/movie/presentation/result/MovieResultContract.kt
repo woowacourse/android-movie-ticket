@@ -1,7 +1,7 @@
-package woowacourse.movie.result
+package woowacourse.movie.presentation.result
 
-import woowacourse.movie.base.BaseContract
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.domain.MovieTicket
+import woowacourse.movie.presentation.base.BaseContract
 
 interface MovieResultContract {
     interface View : BaseContract.View {

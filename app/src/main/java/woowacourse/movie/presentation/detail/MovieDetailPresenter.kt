@@ -1,16 +1,17 @@
-package woowacourse.movie.detail
+package woowacourse.movie.presentation.detail
 
-import woowacourse.movie.model.MovieRepository
-import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.data.MovieRepositoryImpl
+import woowacourse.movie.domain.MovieRepository
+import woowacourse.movie.domain.ReservationCount
 import woowacourse.movie.utils.MovieErrorCode
 
 class MovieDetailPresenter(private val detailContractView: MovieDetailContract.View) :
     MovieDetailContract.Presenter {
-    private var movieRepository: MovieRepository = MovieRepository()
+    private var movieRepository: MovieRepository = MovieRepositoryImpl()
     private var reservationCount = ReservationCount()
 
     override fun display(id: Long) {
-        val movie = movieRepository.getOneById(id)
+        val movie = movieRepository.findOneById(id)
         movie?.let {
             detailContractView.onInitView(it)
         } ?: detailContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)

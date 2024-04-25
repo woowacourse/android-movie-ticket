@@ -1,14 +1,16 @@
 package woowacourse.movie.utils
 
 import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
-fun formatTimestamp(timestamp: Long): String {
-    val dateFormat = SimpleDateFormat("yyyy.M.d", Locale.getDefault())
-    val date = Date(timestamp)
-    return dateFormat.format(date)
+fun formatScreeningPeriod(localDateTimes: List<LocalDateTime>): String {
+    return formatToLocalDate(localDateTimes.first()) + "~" + formatToLocalDate(localDateTimes.last())
+}
+
+fun formatToLocalDate(localDateTime: LocalDateTime): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+    return localDateTime.format(formatter)
 }
 
 fun formatCurrency(amount: Int): String {

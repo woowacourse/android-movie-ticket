@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".detail.MovieDetailActivity">
+    tools:context=".presentation.detail.MovieDetailActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -121,6 +121,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <Spinner
+            android:id="@+id/detailDateSpinner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/detailPlusBtn"
+            android:layout_margin="5dp"
+            app:layout_constraintRight_toLeftOf="@id/detailTimeSpinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <Spinner
+            android:id="@+id/detailTimeSpinner"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="5dp"
+            app:layout_constraintBottom_toTopOf="@id/detailPlusBtn"
+            app:layout_constraintLeft_toRightOf="@id/detailDateSpinner"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+
+
         <Button
             android:id="@+id/detailMinusBtn"
             android:layout_width="0dp"
@@ -129,6 +150,7 @@
             android:textSize="25dp"
             android:text="@string/minus"
             android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/detailTimeSpinner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
 
@@ -143,7 +165,7 @@
             app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
             app:layout_constraintEnd_toStartOf="@+id/detailPlusBtn"
             app:layout_constraintStart_toEndOf="@+id/detailMinusBtn"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/detailTimeSpinner"/>
 
         <Button
             android:id="@+id/detailPlusBtn"
@@ -154,6 +176,7 @@
             android:text="@string/plus"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailTimeSpinner"
             app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"/>
 
 

@@ -1,4 +1,4 @@
-package woowacourse.movie.main
+package woowacourse.movie.presentation.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.detail.MovieDetailActivity
-import woowacourse.movie.model.MovieAdapter
+import woowacourse.movie.presentation.adapter.MovieAdapter
+import woowacourse.movie.presentation.detail.MovieDetailActivity
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 

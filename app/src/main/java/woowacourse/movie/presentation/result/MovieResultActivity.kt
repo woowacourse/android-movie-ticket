@@ -1,17 +1,16 @@
-package woowacourse.movie.result
+package woowacourse.movie.presentation.result
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.domain.MovieTicket
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.formatCurrency
-import woowacourse.movie.utils.formatTimestamp
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     private val completeTitleTextView: TextView by lazy { findViewById(R.id.resultTitle) }
@@ -38,7 +37,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     override fun onInitView(movieTicket: MovieTicket) {
         with(movieTicket) {
             completeTitleTextView.text = this.title
-            completeDateTextView.text = formatTimestamp(this.date)
+            completeDateTextView.text = "임시 날짜"
             completeReservationCountTextView.text = "${this.count}"
             completeReservationPriceTextView.text = formatCurrency(this.price)
         }
