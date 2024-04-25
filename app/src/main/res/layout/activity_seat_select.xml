@@ -37,25 +37,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
         </TableRow>
 
@@ -64,25 +52,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
         </TableRow>
 
@@ -91,25 +67,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
         </TableRow>
 
@@ -118,25 +82,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
         </TableRow>
 
@@ -145,25 +97,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
-            <TextView
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+            <CheckBox style="@style/Seat" />
 
         </TableRow>
 
@@ -210,6 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:background="@drawable/selector_confirm_button"
+            android:enabled="false"
             android:paddingHorizontal="30dp"
             android:text="@string/confirm"
             android:textColor="@color/white"
