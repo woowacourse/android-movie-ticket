@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.SeatClass
 import woowacourse.movie.presentation.movieList.MovieListActivity.Companion.EXTRA_MOVIE_ID
@@ -36,6 +37,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         val ticketCount = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_TICKET_COUNT)
         presenter = SeatSelectionPresenter(this, movieId, ticketCount)
         presenter.initializeSeats()
+        presenter.initializeTicketInfo()
     }
 
     override fun initializeSeats(seats: List<Seat>) {
@@ -53,6 +55,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
+    override fun initializeTicketInfo(movie: Movie) {
+        findViewById<TextView>(R.id.tv_title).text = movie.title
+    }
+
     override fun updateSelectedSeatUI(index: Int) {
         val clickedColor = ContextCompat.getColor(this, R.color.clickedSeat_bgr)
         seatItems[index].setBackgroundColor(clickedColor)
@@ -63,7 +69,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         seatItems[index].setBackgroundColor(unClickedColor)
     }
 
-    override fun showUnavailableSeatToastMessage(message: String?) {
+    override fun showToastMessage(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.seatSelection
 
+import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.model.SeatingSystem
 
 class SeatSelectionPresenter(
@@ -7,10 +8,21 @@ class SeatSelectionPresenter(
     private val movieId: Int,
     private val ticketCount: Int,
 ) : SeatSelectionContract.Presenter {
+    private val movieRepository = MovieRepository()
     private val seatingSystem = SeatingSystem(ticketCount)
 
     override fun initializeSeats() {
         seatSelectionContractView.initializeSeats(seatingSystem.seats)
+    }
+
+    override fun initializeTicketInfo() {
+        movieRepository.findMovieById(movieId)
+            .onSuccess { movie ->
+                seatSelectionContractView.initializeTicketInfo(movie)
+            }
+            .onFailure {
+                seatSelectionContractView.showToastMessage(it.message)
+            }
     }
 
     override fun updateSeatSelection(index: Int) {
@@ -27,7 +39,7 @@ class SeatSelectionPresenter(
                 seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
             }
             .onFailure {
-                seatSelectionContractView.showUnavailableSeatToastMessage(it.message)
+                seatSelectionContractView.showToastMessage(it.message)
             }
     }
 }
