@@ -1,8 +1,10 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.ticketing
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import woowacourse.movie.R
+import woowacourse.movie.model.Count
+import woowacourse.movie.model.screening.Movie
 import java.time.LocalDate
 
 class TicketsTest {

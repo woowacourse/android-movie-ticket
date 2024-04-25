@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.theater
 
 data class TheaterSize(
     val rows: Int,

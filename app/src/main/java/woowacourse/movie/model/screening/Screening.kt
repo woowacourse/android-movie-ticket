@@ -1,5 +1,6 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.screening
 
+import woowacourse.movie.model.theater.Theater
 import java.time.LocalDate
 
 class Screening private constructor(

@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.screening
 
 import androidx.annotation.DrawableRes
 import java.time.LocalDate
@@ -36,3 +36,12 @@ data class Movie(
         private val FIRST_TIME = LocalTime.of(9, 0)
     }
 }
+
+data class Movie2(
+    val movieId: Long,
+    val title: String,
+    @DrawableRes
+    val thumbnailResourceId: Int,
+    val runningTime: Int,
+    val introduction: String,
+)

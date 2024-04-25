@@ -1,11 +1,9 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.ticketing
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import woowacourse.movie.model.ticket.BookingDateTime
-import woowacourse.movie.model.ticket.BookingSeat
-import woowacourse.movie.model.ticket.Ticket
+import woowacourse.movie.model.theater.SeatClass
 import java.time.LocalDate
 import java.time.LocalTime
 

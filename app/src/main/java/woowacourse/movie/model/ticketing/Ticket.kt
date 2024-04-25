@@ -1,4 +1,4 @@
-package woowacourse.movie.model.ticket
+package woowacourse.movie.model.ticketing
 
 data class Ticket(
     val movieId: Long,

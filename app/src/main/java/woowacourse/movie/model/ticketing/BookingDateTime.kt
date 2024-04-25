@@ -1,4 +1,4 @@
-package woowacourse.movie.model.ticket
+package woowacourse.movie.model.ticketing
 
 import java.time.LocalDate
 import java.time.LocalTime

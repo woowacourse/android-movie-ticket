@@ -3,7 +3,7 @@ package woowacourse.movie.presenter
 import woowacourse.movie.model.Count
 import woowacourse.movie.model.MovieData.findMovieById
 import woowacourse.movie.model.Result
-import woowacourse.movie.model.Tickets
+import woowacourse.movie.model.ticketing.Tickets
 import woowacourse.movie.presenter.contract.TicketingContract
 
 class TicketingPresenter(

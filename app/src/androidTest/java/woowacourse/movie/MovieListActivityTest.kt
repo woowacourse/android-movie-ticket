@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.assertAll
 import woowacourse.movie.adapter.MovieAdapter
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.screening.Movie
 import java.time.LocalDate
 
 class MovieListActivityTest {

@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.theater
 
 class Theater private constructor(
     val theaterSize: TheaterSize,

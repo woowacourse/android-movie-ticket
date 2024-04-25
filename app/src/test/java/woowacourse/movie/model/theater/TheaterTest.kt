@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.theater
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

@@ -1,19 +1,6 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.ticketing
 
-import woowacourse.movie.model.ticket.BookingSeat
-import woowacourse.movie.model.ticket.Ticket
-
-class Tickets(
-    private val count: Count,
-    val movie: Movie,
-) {
-    val totalPrice: Int
-        get() = count.value * TICKET_PRICE
-
-    companion object {
-        private const val TICKET_PRICE = 13000
-    }
-}
+import woowacourse.movie.model.theater.SeatClass
 
 class Tickets2(val value: List<Ticket>) {
     init {
