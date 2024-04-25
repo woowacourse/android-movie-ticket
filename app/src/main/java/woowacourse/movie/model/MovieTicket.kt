@@ -8,10 +8,10 @@ class MovieTicket(
     val date: LocalDate,
     val time: LocalTime,
     val count: Int,
+    val seats: List<MovieSeat>,
 ) {
-    val price: Int = TICKET_PRICE * count
-
-    companion object {
-        const val TICKET_PRICE = 13_000
-    }
+    val totalPrice =
+        seats.sumOf { seat ->
+            seat.grade.price
+        }
 }

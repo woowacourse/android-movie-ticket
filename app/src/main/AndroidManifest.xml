@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".seat.view.MovieSeatActivity"
+            android:name=".seatselection.view.MovieSeatSelectionActivity"
             android:exported="false"
             android:parentActivityName=".detail.view.MovieDetailActivity" />
         <activity
             android:name=".result.view.MovieResultActivity"
             android:exported="false"
-            android:parentActivityName=".seat.view.MovieSeatActivity" />
+            android:parentActivityName=".seatselection.view.MovieSeatSelectionActivity" />
         <activity
             android:name=".detail.view.MovieDetailActivity"
             android:exported="false"

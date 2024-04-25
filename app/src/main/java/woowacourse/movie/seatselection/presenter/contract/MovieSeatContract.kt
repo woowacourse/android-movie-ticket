@@ -1,4 +1,4 @@
-package woowacourse.movie.seat.presenter.contract
+package woowacourse.movie.seatselection.presenter.contract
 
 interface MovieSeatContract {
     interface View {

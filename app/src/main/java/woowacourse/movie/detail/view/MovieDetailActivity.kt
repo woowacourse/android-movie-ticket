@@ -18,7 +18,7 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieCount
 import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTime
-import woowacourse.movie.seat.view.MovieSeatActivity
+import woowacourse.movie.seatselection.view.MovieSeatSelectionActivity
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_ITEM_POSITION
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
@@ -166,7 +166,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         time: String,
         count: Int,
     ) {
-        Intent(this, MovieSeatActivity::class.java).apply {
+        Intent(this, MovieSeatSelectionActivity::class.java).apply {
             putExtra(KEY_MOVIE_TITLE, title)
             putExtra(KEY_MOVIE_DATE, date)
             putExtra(KEY_MOVIE_TIME, time)

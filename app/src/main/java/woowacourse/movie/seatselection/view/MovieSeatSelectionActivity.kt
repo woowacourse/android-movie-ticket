@@ -1,4 +1,4 @@
-package woowacourse.movie.seat.view
+package woowacourse.movie.seatselection.view
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -14,9 +14,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.result.view.MovieResultActivity
+import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_COUNT
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_SEATS
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TITLE
 
-class MovieSeatActivity : AppCompatActivity() {
+class MovieSeatSelectionActivity : AppCompatActivity() {
     private lateinit var table: TableLayout
     private lateinit var seatTitle: TextView
     private lateinit var seatPrice: TextView
@@ -24,11 +29,12 @@ class MovieSeatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_seat)
+        setContentView(R.layout.activity_movie_seat_selection)
         setUpViewById()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         seatTitle.text = intent?.getStringExtra(KEY_MOVIE_TITLE)
+        val seats = mutableListOf<String>()
 
         table.children.forEachIndexed { rowIndex, row ->
             row as TableRow
@@ -39,8 +45,10 @@ class MovieSeatActivity : AppCompatActivity() {
                     val yellowColor = ContextCompat.getColor(this, R.color.yellow)
                     if ((seat.background as? ColorDrawable)?.color == yellowColor) {
                         seat.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
+                        seats.remove(seat.text.toString())
                     } else {
                         seat.setBackgroundColor(yellowColor)
+                        seats.add(seat.text.toString())
                     }
                 }
             }
@@ -52,10 +60,14 @@ class MovieSeatActivity : AppCompatActivity() {
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
                     Intent(this, MovieResultActivity::class.java).apply {
-//                        putExtra(KEY_MOVIE_TITLE, title)
-//                        putExtra(KEY_MOVIE_DATE, date)
-//                        putExtra(KEY_MOVIE_TIME, time)
-//                        putExtra(KEY_MOVIE_COUNT, count)
+                        putExtra(KEY_MOVIE_TITLE, intent?.getStringExtra(KEY_MOVIE_TITLE))
+                        putExtra(KEY_MOVIE_DATE, intent?.getStringExtra(KEY_MOVIE_DATE))
+                        putExtra(KEY_MOVIE_TIME, intent?.getStringExtra(KEY_MOVIE_TIME))
+                        putExtra(
+                            KEY_MOVIE_COUNT,
+                            intent?.getIntExtra(KEY_MOVIE_COUNT, INVALID_VALUE_MOVIE_COUNT),
+                        )
+                        putExtra(KEY_MOVIE_SEATS, seats.sorted().joinToString(", "))
                         startActivity(this)
                     }
                 }
