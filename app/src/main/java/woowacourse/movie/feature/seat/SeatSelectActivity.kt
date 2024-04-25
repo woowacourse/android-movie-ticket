@@ -6,31 +6,38 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 
-class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
+class SeatSelectActivity(
+    private val seatRow: Int = 5,
+    private val seatCol: Int = 4,
+) : BaseActivity<SeatSelectContract.Presenter>(), SeatSelectContract.View {
     private val seatTable by lazy { findViewById<TableLayout>(R.id.seat_table) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
     private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
+    private lateinit var seatViews: List<List<CheckBox>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_seat_select)
-        val seatViews =
+        seatViews =
             seatTable
                 .children
                 .filterIsInstance<TableRow>()
-                .map { it.children.filterIsInstance<TextView>().toList() }
+                .map { it.children.filterIsInstance<CheckBox>().toList() }
                 .toList()
 
         val movieId = movieId()
@@ -39,7 +46,11 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
             return
         }
+
+        presenter.initializeSeatTable(seatRow, seatCol)
     }
+
+    override fun initializePresenter() = SeatSelectPresenter(this)
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
@@ -56,6 +67,18 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         ticket: Ticket?
     ): Boolean {
         return movieId == MOVIE_ID_DEFAULT_VALUE || ticket == null
+    }
+
+    override fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>) {
+        seatViews.forEachIndexed { row, rows ->
+            rows.forEachIndexed { col, seatView: CheckBox ->
+                seatView.text = seats[row][col].seatMessage
+                val color = ContextCompat.getColor(this@SeatSelectActivity, seats[row][col].seatColorId)
+                seatView.setTextColor(color)
+                // TODO("presenter 호출해서 금액, 확인 버튼 update")
+                // TODO("예매 개수보다 여러개 선택할 수 없음")
+            }
+        }
     }
 
     override fun handleError(throwable: Throwable) {
