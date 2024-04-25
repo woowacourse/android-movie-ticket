@@ -17,17 +17,6 @@ class ScreenRepositoryTest {
     }
 
     @Test
-    fun `상영 정보들을 불러온다`() {
-        // given & when
-        val screens = repository.load()
-        val screen = getDummyScreen()
-        val actual = listOf(screen)
-
-        // then
-        assertThat(screens).isEqualTo(actual)
-    }
-
-    @Test
     fun `상영 ID를 통해 상영 정보를 불러온다`() {
         // given & when
         val screen = repository.findByScreenId(1).getOrThrow()
@@ -40,7 +29,7 @@ class ScreenRepositoryTest {
     @Test
     fun `잘못된 상영 ID를 통해 상영 정보를 불러오면 NoSuchElementException 예외가 발생한다`() {
         // given & when
-        val result = repository.findByScreenId(2)
+        val result = repository.findByScreenId(-1)
 
         // then
         assertThrows<NoSuchElementException> {

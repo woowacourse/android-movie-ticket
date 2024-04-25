@@ -1,6 +1,7 @@
 package woowacourse.movie.basic.presentation.ui.detail.fake
 
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenDate
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.model.ReservationInfo
 import woowacourse.movie.presentation.ui.detail.DetailContract
@@ -17,6 +18,10 @@ class FakeDetailView : DetailContract.View {
     override fun showScreen(screen: Screen) {
         this.screen = screen
     }
+
+    override fun showDateSpinnerAdapter(screenDates: List<ScreenDate>) {}
+
+    override fun showTimeSpinnerAdapter(screenDate: ScreenDate) {}
 
     override fun showTicket(count: Int) {
         ticketCount = count
