@@ -2,7 +2,7 @@ package woowacourse.movie.presentation.seat
 
 import android.util.Log
 import woowacourse.movie.domain.model.MovieSeats
-import woowacourse.movie.domain.model.SeatSelectType
+import woowacourse.movie.presentation.seat.model.SeatSelectType
 import woowacourse.movie.domain.repository.SeatRepository
 
 class SeatSelectionPresenter(

@@ -9,7 +9,7 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.data.SeatRepositoryImpl
 import woowacourse.movie.domain.model.MovieSeat
-import woowacourse.movie.domain.model.SeatSelectType
+import woowacourse.movie.presentation.seat.model.SeatSelectType
 import woowacourse.movie.domain.model.SeatType
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
