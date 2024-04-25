@@ -39,7 +39,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieId = intent.getIntExtra("movieId", DEFAULT_MOVIE_ID)
+        val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
 
         presenter = ReservationDetailPresenter(this, movieId)
         presenter.loadMovie()
