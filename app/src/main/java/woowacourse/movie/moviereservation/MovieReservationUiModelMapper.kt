@@ -5,6 +5,7 @@ import woowacourse.movie.model.ScreeningMovie
 import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
 import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
 import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
+import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimesUiModel
 
 fun ScreeningMovie.toMovieReservationUiModel(): MovieReservationUiModel =
     MovieReservationUiModel(
@@ -20,10 +21,10 @@ fun HeadCount.toHeadCountUiModel(): HeadCountUiModel = HeadCountUiModel(count)
 
 fun HeadCountUiModel.toHeadCount(): HeadCount = HeadCount(count.toInt())
 
-fun ScreeningMovie.toScreeningDateTimeUiModel(): List<ScreeningDateTimeUiModel> =
-    screenDateTimes.map {
+fun ScreeningMovie.toScreeningDateTimeUiModel(): ScreeningDateTimesUiModel =
+    ScreeningDateTimesUiModel(screenDateTimes.map {
         ScreeningDateTimeUiModel(
             it.date,
             it.times,
         )
-    }
+    })

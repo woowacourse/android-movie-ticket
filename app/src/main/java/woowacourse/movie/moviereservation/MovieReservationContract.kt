@@ -3,6 +3,7 @@ package woowacourse.movie.moviereservation
 import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
 import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
 import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
+import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimesUiModel
 
 interface MovieReservationContract {
     interface View {
@@ -10,7 +11,7 @@ interface MovieReservationContract {
 
         fun showCantDecreaseError(minCount: Int)
 
-        fun showScreeningDateTime(screeningDateTimeUiModels: List<ScreeningDateTimeUiModel>)
+        fun showScreeningDateTime(screeningDateTimeUiModels: ScreeningDateTimesUiModel)
 
         fun updateHeadCount(updatedCount: HeadCountUiModel)
 

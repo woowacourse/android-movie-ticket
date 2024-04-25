@@ -9,6 +9,9 @@ data class ScreeningMovie(
     val price: Price,
     val screenDateTimes: List<ScreenDateTime>,
 ) {
+    fun screeningTimeOfDate(screeningDate: LocalDate): ScreenDateTime =
+        screenDateTimes.firstOrNull { it.date.isEqual(screeningDate) } ?: error("해당 날짜에는 상영하지 않습니다.")
+
     companion object {
         val STUB: ScreeningMovie =
             ScreeningMovie(
@@ -34,7 +37,6 @@ data class ScreeningMovie(
                                 listOf(
                                     LocalTime.of(9, 0),
                                     LocalTime.of(10, 0),
-                                    LocalTime.of(11, 0),
                                     LocalTime.of(12, 0),
                                     LocalTime.of(13, 0),
                                 ),
@@ -44,7 +46,6 @@ data class ScreeningMovie(
                             times =
                                 listOf(
                                     LocalTime.of(9, 0),
-                                    LocalTime.of(10, 0),
                                     LocalTime.of(11, 0),
                                     LocalTime.of(12, 0),
                                     LocalTime.of(13, 0),

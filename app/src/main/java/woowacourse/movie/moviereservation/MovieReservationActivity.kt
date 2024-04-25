@@ -3,7 +3,10 @@ package woowacourse.movie.moviereservation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -16,6 +19,7 @@ import woowacourse.movie.data.DummyMovies
 import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
 import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
 import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
+import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimesUiModel
 import woowacourse.movie.reservationresult.ReservationResultActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -24,7 +28,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
     private lateinit var dateSpinner: Spinner
+    private lateinit var dateAdapter: ArrayAdapter<String>
     private lateinit var timeSpinner: Spinner
+    private lateinit var timeAdapter: ArrayAdapter<String>
 
     private lateinit var movie: MovieReservationUiModel
     private var count: HeadCountUiModel = HeadCountUiModel()
@@ -125,15 +131,37 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         Toast.makeText(this, "$minCount 명 이상부터 예약할 수 있습니다.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun showScreeningDateTime(screeningDateTimeUiModels: List<ScreeningDateTimeUiModel>) {
-        val dateArrayAdapter = ArrayAdapter(
-            this,
-            R.layout.item_spinner_date,
-            screeningDateTimeUiModels.map { it.date })
-        dateSpinner.adapter = dateArrayAdapter
-        val timeArrayAdapter =
-            ArrayAdapter(this, R.layout.item_spinner_date, screeningDateTimeUiModels.first().times)
-        timeSpinner.adapter = timeArrayAdapter
+    override fun showScreeningDateTime(screeningDateTimesUiModel: ScreeningDateTimesUiModel) {
+        dateAdapter =
+            ArrayAdapter(
+                this,
+                R.layout.item_spinner_date,
+                screeningDateTimesUiModel.dates(),
+            )
+
+        Log.d("액티비티","${screeningDateTimesUiModel.screeningTimeOfDate(0)}")
+
+        timeAdapter =
+            ArrayAdapter(this, R.layout.item_spinner_date, screeningDateTimesUiModel.dates())
+
+        dateSpinner.adapter = dateAdapter
+        timeSpinner.adapter = timeAdapter
+
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    timeAdapter.clear()
+                    timeAdapter.addAll(screeningDateTimesUiModel.screeningTimeOfDate(position))
+
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
     }
 
     companion object {
