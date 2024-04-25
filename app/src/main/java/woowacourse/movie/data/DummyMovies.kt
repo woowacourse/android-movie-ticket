@@ -23,17 +23,15 @@ object DummyMovies : MovieRepository {
         id: Long,
         dateTime: LocalDateTime,
         count: HeadCount,
-    ): Result<Long> {
-        return runCatching {
-            reservations +=
-                MovieReservation(
-                    id = ++reservationId,
-                    screeningMovie = screenMovieById(id),
-                    screenDateTime = dateTime,
-                    headCount = count,
-                )
-            reservationId
-        }
+    ): Long {
+        reservations +=
+            MovieReservation(
+                id = ++reservationId,
+                screeningMovie = screenMovieById(id),
+                screenDateTime = dateTime,
+                headCount = count,
+            )
+        return reservationId
     }
 
     override fun movieReservationById(id: Long): MovieReservation {
