@@ -64,7 +64,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
             resultCount.text = movieTicket.count.toString()
             resultSeats.text =
                 movieTicket.seats.joinToString(", ") { seat ->
-                    getString(R.string.seat, seat.row, seat.column)
+                    getString(R.string.seat, (seat.row + 'A'.code).toChar(), seat.column)
                 }
             resultPrice.text = DecimalFormat("#,###").format(movieTicket.totalPrice)
         }

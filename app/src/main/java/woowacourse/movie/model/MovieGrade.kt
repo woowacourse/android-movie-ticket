@@ -6,10 +6,10 @@ enum class MovieGrade(val price: Int) {
     A_GRADE(12000), ;
 
     companion object {
-        fun judgeGradeByRow(row: Char): MovieGrade {
+        fun judgeGradeByRow(row: Int): MovieGrade {
             return when (row) {
-                in 'A'..'B' -> B_GRADE
-                in 'C'..'D' -> S_GRADE
+                in 0..1 -> B_GRADE
+                in 2..3 -> S_GRADE
                 else -> A_GRADE
             }
         }

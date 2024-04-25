@@ -22,7 +22,7 @@ class MovieResultPresenter(private val movieResultContractView: MovieResultContr
                 LocalTime.parse(time),
                 count,
                 seats.split(", ").map { seat ->
-                    MovieSeat(seat[0], seat.substring(1).toInt())
+                    MovieSeat(seat[0] - 'A', seat.substring(1).toInt())
                 },
             ),
         )

@@ -14,7 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieGrade.Companion.judgeGradeByRow
+import woowacourse.movie.model.MovieSeats
 import woowacourse.movie.result.view.MovieResultActivity
+import woowacourse.movie.seatselection.presenter.contract.MovieSeatContract
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
@@ -23,11 +25,14 @@ import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TITLE
 import java.text.DecimalFormat
 
-class MovieSeatSelectionActivity : AppCompatActivity() {
+class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatContract.View {
     private lateinit var table: TableLayout
     private lateinit var seatTitle: TextView
     private lateinit var seatPrice: TextView
     private lateinit var completeButton: Button
+
+    private var count: Int? = 0
+    private val seats: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,59 +41,44 @@ class MovieSeatSelectionActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         seatTitle.text = intent?.getStringExtra(KEY_MOVIE_TITLE)
-        val count = intent?.getIntExtra(KEY_MOVIE_COUNT, INVALID_VALUE_MOVIE_COUNT)
-        val seats = mutableListOf<String>()
+        count = intent?.getIntExtra(KEY_MOVIE_COUNT, INVALID_VALUE_MOVIE_COUNT)
         var totalPrice = 0
         var selectedCount = 0
 
-        table.children.forEachIndexed { rowIndex, row ->
-            row as TableRow
-            row.children.forEachIndexed { seatIndex, seat ->
-                seat as TextView
-                val seatRow = ('A'.code + rowIndex).toChar()
-                val seatColumn = seatIndex + 1
-                seat.text = getString(R.string.seat, seatRow, seatColumn)
-                seat.setOnClickListener {
-                    val yellowColor = ContextCompat.getColor(this, R.color.yellow)
-                    if ((seat.background as? ColorDrawable)?.color == yellowColor) {
-                        seat.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
-                        seats.remove(seat.text.toString())
-                        totalPrice -= judgeGradeByRow(seatRow).price
-                        selectedCount -= 1
-                    } else {
-                        if (selectedCount != count) {
-                            seat.setBackgroundColor(yellowColor)
-                            seats.add(seat.text.toString())
-                            totalPrice += judgeGradeByRow(seatRow).price
-                            selectedCount += 1
-                        }
+        val tableItems =
+            table.children.filterIsInstance<TableRow>()
+                .flatMap { tableRow ->
+                    tableRow.children.filterIsInstance<TextView>().toList()
+                }.toList()
+
+        tableItems.forEachIndexed { index, item ->
+            val seat = MovieSeats().seats[index]
+
+            val seatRow = ('A'.code + seat.row).toChar()
+            val seatColumn = seat.column + 1
+            item.text = getString(R.string.seat, seatRow, seatColumn)
+            item.setOnClickListener {
+                val yellowColor = ContextCompat.getColor(this, R.color.yellow)
+                if ((item.background as? ColorDrawable)?.color == yellowColor) {
+                    item.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
+                    seats.remove(item.text.toString())
+                    totalPrice -= judgeGradeByRow(seat.row).price
+                    selectedCount -= 1
+                } else {
+                    if (selectedCount != count) {
+                        item.setBackgroundColor(yellowColor)
+                        seats.add(item.text.toString())
+                        totalPrice += judgeGradeByRow(seat.row).price
+                        selectedCount += 1
                     }
-                    seatPrice.text = DecimalFormat("#,###").format(totalPrice)
-                    completeButton.isEnabled = selectedCount == count
                 }
+                seatPrice.text = DecimalFormat("#,###").format(totalPrice)
+                completeButton.isEnabled = selectedCount == count
             }
         }
 
         completeButton.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
-                    Intent(this, MovieResultActivity::class.java).apply {
-                        putExtra(KEY_MOVIE_TITLE, intent?.getStringExtra(KEY_MOVIE_TITLE))
-                        putExtra(KEY_MOVIE_DATE, intent?.getStringExtra(KEY_MOVIE_DATE))
-                        putExtra(KEY_MOVIE_TIME, intent?.getStringExtra(KEY_MOVIE_TIME))
-                        putExtra(
-                            KEY_MOVIE_COUNT,
-                            count,
-                        )
-                        putExtra(KEY_MOVIE_SEATS, seats.sorted().joinToString(", "))
-                        startActivity(this)
-                    }
-                }
-                .setNegativeButton("취소") { dialog, _ ->
-                    dialog.dismiss()
-                }.show()
+            displayDialog()
         }
     }
 
@@ -107,5 +97,26 @@ class MovieSeatSelectionActivity : AppCompatActivity() {
         seatTitle = findViewById(R.id.seatTitle)
         seatPrice = findViewById(R.id.seatPrice)
         completeButton = findViewById(R.id.completeBtn)
+    }
+
+    override fun displayDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("예매 확인")
+            .setMessage("정말 예매하시겠습니까?")
+            .setPositiveButton("예매 완료") { _, _ -> navigateToResultView() }
+            .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
+            .show()
+    }
+
+    override fun navigateToResultView() {
+        Intent(this, MovieResultActivity::class.java).apply {
+            putExtra(KEY_MOVIE_TITLE, intent?.getStringExtra(KEY_MOVIE_TITLE))
+            putExtra(KEY_MOVIE_DATE, intent?.getStringExtra(KEY_MOVIE_DATE))
+            putExtra(KEY_MOVIE_TIME, intent?.getStringExtra(KEY_MOVIE_TIME))
+            putExtra(KEY_MOVIE_COUNT, count)
+            putExtra(KEY_MOVIE_SEATS, seats.sorted().joinToString(", "))
+            startActivity(this)
+        }
     }
 }
