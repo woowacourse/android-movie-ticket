@@ -8,7 +8,10 @@ data class ScreeningTime(val time: LocalTime) {
         private val HOUR_RANGE = 0..23
         private val MINUTE_RANGE = 0..59
 
-        fun of(hourOfDay: Int, minuteOfHour: Int = 0): ScreeningTime {
+        fun of(
+            hourOfDay: Int,
+            minuteOfHour: Int = 0,
+        ): ScreeningTime {
             val hour = if (hourOfDay == MAX_HOUR) 0 else hourOfDay
             require(hour in HOUR_RANGE) { " " }
             require(minuteOfHour in MINUTE_RANGE) { " " }

@@ -1,8 +1,5 @@
 package woowacourse.movie.model
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-
 class TicketTest {
 //    @Test
 //    fun `영화 티켓 한 장은 13,000원이다`() {

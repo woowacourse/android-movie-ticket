@@ -14,7 +14,6 @@ import woowacourse.movie.feature.firstMovie
 import woowacourse.movie.feature.reservationAmountMessage
 import woowacourse.movie.feature.reservationCountMessage
 import woowacourse.movie.feature.view
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -59,9 +58,7 @@ class MovieReservationCompleteActivityTest {
             .equalText(reservationCount.reservationAmountMessage())
     }
 
-    private fun screeningTimeMessage(
-        screeningDate: LocalDateTime,
-    ): String {
+    private fun screeningTimeMessage(screeningDate: LocalDateTime): String {
         return screeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
     }
 }

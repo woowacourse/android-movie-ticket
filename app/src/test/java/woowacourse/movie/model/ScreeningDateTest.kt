@@ -8,10 +8,10 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 class ScreeningDateTest {
-    private val WEEKEND_SCREENING_TIMES = listOf(9, 11, 13, 15, 17, 19, 21, 23)
-    private val WEEKDAY_SCREENING_TIMES = listOf(10, 12, 14, 16, 18, 20, 22, 24)
+    private val weekendScreeningTimes = listOf(9, 11, 13, 15, 17, 19, 21, 23)
+    private val weekDayScreeningTimes = listOf(10, 12, 14, 16, 18, 20, 22, 24)
 
-    private fun ScreeningTimes(list: List<Int>) = list.map { ScreeningTime.of(it) }
+    private fun screeningTimes(list: List<Int>) = list.map { ScreeningTime.of(it) }
 
     @ParameterizedTest
     @CsvSource("2024, 4, 25", "2000, 7, 28", "2010, 1, 1")
@@ -54,7 +54,7 @@ class ScreeningDateTest {
         val actual = screeningDate.screeningTimes()
 
         // then
-        assertThat(actual).isEqualTo(ScreeningTimes(WEEKDAY_SCREENING_TIMES))
+        assertThat(actual).isEqualTo(screeningTimes(weekDayScreeningTimes))
     }
 
     @Test
@@ -66,6 +66,6 @@ class ScreeningDateTest {
         val actual = screeningDate.screeningTimes()
 
         // then
-        assertThat(actual).isEqualTo(ScreeningTimes(WEEKEND_SCREENING_TIMES))
+        assertThat(actual).isEqualTo(screeningTimes(weekendScreeningTimes))
     }
 }

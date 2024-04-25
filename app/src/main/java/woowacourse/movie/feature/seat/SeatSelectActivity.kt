@@ -18,7 +18,6 @@ import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
-import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 
@@ -68,7 +67,7 @@ class SeatSelectActivity(
 
     private fun isError(
         movieId: Long,
-        ticket: Ticket?
+        ticket: Ticket?,
     ): Boolean {
         return movieId == MOVIE_ID_DEFAULT_VALUE || ticket == null
     }

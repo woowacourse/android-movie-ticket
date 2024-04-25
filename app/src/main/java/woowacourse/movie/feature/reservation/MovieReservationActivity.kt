@@ -14,13 +14,12 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.feature.reservation.ui.toReservationUiModel
 import woowacourse.movie.feature.seat.SeatSelectActivity
 import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.ScreeningTime
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
@@ -129,13 +128,19 @@ class MovieReservationActivity :
     ) {
         screeningDateSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates.map { it.message() })
-        screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position :Int, id: Long) {
-                presenter.selectScreeningDate(screeningDates[position])
-            }
+        screeningDateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    presenter.selectScreeningDate(screeningDates[position])
+                }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) { }
-        }
+                override fun onNothingSelected(p0: AdapterView<*>?) { }
+            }
         screeningTimeSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimes)
     }
@@ -151,7 +156,7 @@ class MovieReservationActivity :
     }
 
     override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {
-        val screeningTimeMessage = screeningTimes.map { it.time.format(DateTimeFormatter.ofPattern("HH:mm"))}
+        val screeningTimeMessage = screeningTimes.map { it.time.format(DateTimeFormatter.ofPattern("HH:mm")) }
         screeningTimeSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessage)
     }

@@ -43,8 +43,8 @@ class MovieReservationActivityTest {
             .equalText(
                 screeningDateRangeMessage(
                     firstMovie.startScreeningDate,
-                    firstMovie.endScreeningDate
-                )
+                    firstMovie.endScreeningDate,
+                ),
             )
     }
 

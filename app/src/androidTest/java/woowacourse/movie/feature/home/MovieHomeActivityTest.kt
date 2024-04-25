@@ -31,8 +31,8 @@ class MovieHomeActivityTest {
             .equalText(
                 screeningDateRangeMessage(
                     firstMovie.startScreeningDate,
-                    firstMovie.endScreeningDate
-                )
+                    firstMovie.endScreeningDate,
+                ),
             )
     }
 

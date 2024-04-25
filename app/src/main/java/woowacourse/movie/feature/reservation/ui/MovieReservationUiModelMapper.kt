@@ -28,7 +28,6 @@ private fun screeningDateMessage(
 
 private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
 
-
 private fun runningTimeMessage(
     context: Context,
     runningTime: Int,

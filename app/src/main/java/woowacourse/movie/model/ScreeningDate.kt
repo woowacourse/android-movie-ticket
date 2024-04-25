@@ -36,7 +36,11 @@ data class ScreeningDate(val date: LocalDate) {
         private val INVALID_MONTH_MESSAGE = "${MONTH_RANGE.first}~${MONTH_RANGE.last} 범위의 월이어야 합니다."
         private val INVALID_DAY_MESSAGE = "${DAY_RANGE.first}~${DAY_RANGE.last} 범위의 일이어야 합니다."
 
-        fun of(year: Int, month: Int, day: Int): ScreeningDate {
+        fun of(
+            year: Int,
+            month: Int,
+            day: Int,
+        ): ScreeningDate {
             require(year in YEAR_RANGE) { INVALID_YEAR_MESSAGE }
             require(month in MONTH_RANGE) { INVALID_MONTH_MESSAGE }
             require(day in DAY_RANGE) { INVALID_DAY_MESSAGE }

@@ -15,6 +15,9 @@ interface SeatSelectContract {
     interface Presenter : BasePresenter {
         fun loadMovieData(movieId: Long)
 
-        fun initializeSeatTable(row: Int, col: Int)
+        fun initializeSeatTable(
+            row: Int,
+            col: Int,
+        )
     }
 }

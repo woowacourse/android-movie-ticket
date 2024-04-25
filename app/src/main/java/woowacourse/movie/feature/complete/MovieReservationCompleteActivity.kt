@@ -70,7 +70,7 @@ class MovieReservationCompleteActivity :
         presenter.loadMovieData(
             movieId,
             LocalDateTime.of(2024, 3, 1, 9, 0),
-            reservationCountValue
+            reservationCountValue,
         )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

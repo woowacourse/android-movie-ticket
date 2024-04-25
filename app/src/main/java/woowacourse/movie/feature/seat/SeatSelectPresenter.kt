@@ -16,7 +16,10 @@ class SeatSelectPresenter(
         view.initializeMovie(movieUiModel)
     }
 
-    override fun initializeSeatTable(row: Int, col: Int) {
+    override fun initializeSeatTable(
+        row: Int,
+        col: Int,
+    ) {
         val seats = Seats(row, col)
         val seatsUiModel = seats.toSeatSelectTableUiModels()
         view.initializeSeatTable(seatsUiModel)
