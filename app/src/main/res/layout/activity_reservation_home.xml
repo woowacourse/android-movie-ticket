@@ -7,14 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".view.home.ReservationHomeActivity">
 
-    <ListView
-        android:id="@+id/list_view_reservation_home"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_reservation_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="10000"
         tools:listitem="@layout/item_movie_catalog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
