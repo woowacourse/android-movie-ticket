@@ -12,4 +12,6 @@
     <color name="b_class_seat">#8E13EF</color>
     <color name="s_class_seat">#19D358</color>
     <color name="a_class_seat">#1B48E9</color>
+    <color name="selected_seat">#FFFF00</color>
+    <color name="unSelected_seat">#FFFFFF</color>
 </resources>

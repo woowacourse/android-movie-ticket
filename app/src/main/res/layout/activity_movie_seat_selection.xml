@@ -20,7 +20,6 @@
         android:textColor="@color/white"
         android:textSize="23sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/seat_table"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
@@ -33,11 +32,56 @@
         app:layout_constraintBottom_toTopOf="@id/linearLayout2"
         app:layout_constraintTop_toBottomOf="@id/screen">
 
-        <TableRow android:gravity="center">
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="28dp"
+                android:textColor="@color/b_class_seat"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="28dp"
+                android:textColor="@color/b_class_seat"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="28dp"
+                android:textColor="@color/b_class_seat"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="28dp"
+                android:textColor="@color/b_class_seat"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -48,6 +92,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="28dp"
+                android:textColor="@color/b_class_seat"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -58,16 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -77,54 +123,12 @@
 
         </TableRow>
 
-        <TableRow android:gravity="center_horizontal">
+        <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
-
-        </TableRow>
-
-        <TableRow android:gravity="center_horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -135,6 +139,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -145,6 +150,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -155,6 +161,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -164,11 +171,12 @@
 
         </TableRow>
 
-        <TableRow android:gravity="center_horizontal">
+        <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -179,6 +187,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -189,6 +198,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -199,6 +209,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -208,11 +219,12 @@
 
         </TableRow>
 
-        <TableRow android:gravity="center_horizontal">
+        <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -223,6 +235,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -233,6 +246,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -243,6 +257,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingHorizontal="24dp"
                 android:paddingVertical="28dp"
@@ -278,7 +293,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/movie_price_text"
+                android:id="@+id/total_seat_amount_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp" />
