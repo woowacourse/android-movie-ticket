@@ -12,6 +12,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.reservation.model.TicketModel
 import woowacourse.movie.presentation.screen.MovieScreenPresenter
+import woowacourse.movie.presentation.seat.SeatSelectionActivity
 import woowacourse.movie.presentation.utils.toCustomString
 import woowacourse.movie.presentation.utils.toDrawableIdByName
 import woowacourse.movie.presentation.utils.toLocalDate
@@ -111,7 +112,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun moveToTicketDetail(ticketModel: TicketModel) {
-        val intent = Intent(this@MovieReservationActivity, TicketDetailActivity::class.java)
+        val intent = Intent(this@MovieReservationActivity, SeatSelectionActivity::class.java)
         intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticketModel as Serializable)
         this@MovieReservationActivity.startActivity(intent)
     }
