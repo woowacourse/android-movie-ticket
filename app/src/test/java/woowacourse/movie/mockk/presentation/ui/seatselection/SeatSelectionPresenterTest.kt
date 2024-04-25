@@ -186,7 +186,7 @@ class SeatSelectionPresenterTest {
         presenter.calculateSeat()
 
         // then
-        verify { view.showTotalPrice(10_000) }
+        verify { view.showTotalPrice(seat.seatRank.price) }
     }
 
     @Test
