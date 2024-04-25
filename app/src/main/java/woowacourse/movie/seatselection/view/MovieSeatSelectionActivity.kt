@@ -46,27 +46,25 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatContract.View {
         var selectedCount = 0
 
         val tableItems =
-            table.children.filterIsInstance<TableRow>()
-                .flatMap { tableRow ->
-                    tableRow.children.filterIsInstance<TextView>().toList()
-                }.toList()
+            table.children.filterIsInstance<TableRow>().flatMap { tableRow ->
+                tableRow.children.filterIsInstance<TextView>().toList()
+            }.toList()
 
         tableItems.forEachIndexed { index, item ->
             val seat = MovieSeats().seats[index]
+            item.text = getString(R.string.seat, ('A'.code + seat.row).toChar(), seat.column + 1)
+            item.setTextColor(ContextCompat.getColor(this, seat.grade.color))
 
-            val seatRow = ('A'.code + seat.row).toChar()
-            val seatColumn = seat.column + 1
-            item.text = getString(R.string.seat, seatRow, seatColumn)
             item.setOnClickListener {
-                val yellowColor = ContextCompat.getColor(this, R.color.yellow)
-                if ((item.background as? ColorDrawable)?.color == yellowColor) {
+                val selectedColor = ContextCompat.getColor(this, R.color.selected)
+                if ((item.background as? ColorDrawable)?.color == selectedColor) {
                     item.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
                     seats.remove(item.text.toString())
                     totalPrice -= judgeGradeByRow(seat.row).price
                     selectedCount -= 1
                 } else {
                     if (selectedCount != count) {
-                        item.setBackgroundColor(yellowColor)
+                        item.setBackgroundColor(selectedColor)
                         seats.add(item.text.toString())
                         totalPrice += judgeGradeByRow(seat.row).price
                         selectedCount += 1

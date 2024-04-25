@@ -54,8 +54,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         movieDetailPresenter =
             MovieDetailPresenter(
                 this,
-                savedInstanceState?.getInt(KEY_MOVIE_COUNT),
                 savedInstanceState?.getInt(KEY_ITEM_POSITION),
+                savedInstanceState?.getInt(KEY_MOVIE_COUNT),
             )
         movieDetailPresenter.loadMovieDetail(
             intent.getLongExtra(

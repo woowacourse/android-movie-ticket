@@ -1,16 +1,16 @@
 package woowacourse.movie.detail.presenter
 
+import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.detail.presenter.contract.MovieDetailContract
 import woowacourse.movie.model.MovieCount
 import woowacourse.movie.model.MovieDate.Companion.isWeekend
-import woowacourse.movie.model.MovieRepository
 import woowacourse.movie.model.MovieTime
 import java.time.LocalDate
 
 class MovieDetailPresenter(
     private val movieDetailContractView: MovieDetailContract.View,
+    private val position: Int?,
     count: Int?,
-    val position: Int?,
 ) : MovieDetailContract.Presenter {
     private var movieRepository: MovieRepository = MovieRepository()
     private var movieCount =

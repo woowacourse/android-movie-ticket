@@ -1,9 +1,11 @@
 package woowacourse.movie.model
 
-enum class MovieGrade(val price: Int) {
-    B_GRADE(10000),
-    S_GRADE(15000),
-    A_GRADE(12000), ;
+import woowacourse.movie.R
+
+enum class MovieGrade(val price: Int, val color: Int) {
+    B_GRADE(10000, R.color.b_grade),
+    S_GRADE(15000, R.color.s_grade),
+    A_GRADE(12000, R.color.a_grade), ;
 
     companion object {
         fun judgeGradeByRow(row: Int): MovieGrade {
