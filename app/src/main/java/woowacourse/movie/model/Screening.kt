@@ -20,7 +20,7 @@ class Screening private constructor(
         }
 
     companion object {
-        private val DEFAULT_THEATER = Theater.ofDefaultSize()
+        private val DEFAULT_THEATER = Theater.of()
 
         fun of(
             screeningId: Long,
