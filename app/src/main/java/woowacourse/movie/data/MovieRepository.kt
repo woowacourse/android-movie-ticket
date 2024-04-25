@@ -1,6 +1,8 @@
-package woowacourse.movie.model
+package woowacourse.movie.data
 
 import woowacourse.movie.R
+import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieDate
 import java.time.LocalDate
 
 class MovieRepository {
