@@ -39,11 +39,9 @@ class MovieReservationCompleteActivity :
 
     override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieContentsImpl)
 
-    private fun movieContentId() =
-        intent.getLongExtra(MovieReservationCompleteKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    private fun movieContentId() = intent.getLongExtra(MovieReservationCompleteKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
 
-    private fun reservationCount() =
-        intent.getIntExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
+    private fun reservationCount() = intent.getIntExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
 
     override fun showError(throwable: Throwable) {
         Log.e(TAG, throwable.message.toString())

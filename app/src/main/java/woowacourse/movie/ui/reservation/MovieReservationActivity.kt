@@ -4,14 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import woowacourse.movie.ui.utils.getImageFromId
@@ -30,6 +33,8 @@ class MovieReservationActivity :
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
     private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
     private val reservationButton by lazy { findViewById<Button>(R.id.reservation_button) }
+    private val movieDateSpinner by lazy { findViewById<Spinner>(R.id.screeningDate_spinner) }
+    private val movieTimeSpinner by lazy { findViewById<Spinner>(R.id.screeningTime_spinner) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +50,45 @@ class MovieReservationActivity :
         presenter.updateReservationCount()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        setOnClickMovieDateSpinnerListener()
+        setOnClickMovieTimeSpinnerListener()
         setOnClickButtonListener()
+    }
+
+    private fun setOnClickMovieTimeSpinnerListener() {
+        movieTimeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val value = movieTimeSpinner.getItemAtPosition(position).toString()
+                    presenter.selectTime(value)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+    }
+
+    private fun setOnClickMovieDateSpinnerListener() {
+        movieDateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val movieDate = movieDateSpinner.getItemAtPosition(position)
+                    presenter.selectDate(movieDate as LocalDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -101,7 +144,7 @@ class MovieReservationActivity :
             titleText.text = title
             screeningDateText.text =
                 resources.getString(R.string.screening_date)
-                    .format(dateFormatter(screeningMovieDate))
+                    .format(dateFormatter(openingMovieDate))
             runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
             synopsisText.text = synopsis
         }
@@ -111,18 +154,36 @@ class MovieReservationActivity :
         reservationCountText.text = reservationCount.toString()
     }
 
-    override fun moveMovieReservationCompleteView(reservationCount: Int) {
+    override fun showMovieDateSelection(dateRange: List<LocalDate>) {
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, dateRange).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            movieDateSpinner.adapter = this
+        }
+    }
+
+    override fun showMovieTimeSelection(timeRange: List<String>) {
+        val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeRange)
+        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        movieTimeSpinner.adapter = timeAdapter
+    }
+
+    override fun moveMovieReservationCompleteView(
+        reservationCount: Int,
+        selectedDate: String,
+        selectedTime: String,
+    ) {
         Intent(this, MovieReservationCompleteActivity::class.java).run {
             putExtra(MovieReservationKey.ID, movieContentId())
             putExtra(MovieReservationKey.COUNT, reservationCount)
+            putExtra("SelectedMovieDate", selectedDate)
+            putExtra("SelectedMovieTime", selectedTime)
             startActivity(this)
         }
     }
 
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
+    private fun dateFormatter(movieDate: LocalDate): String {
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
+        return movieDate.format(formatter)
     }
 
     companion object {
