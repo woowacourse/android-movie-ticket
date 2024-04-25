@@ -25,6 +25,9 @@
             android:name=".ui.reservation.MovieReservationActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.selection.MovieSeatSelectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.complete.MovieReservationCompleteActivity"
             android:exported="false" />
     </application>
