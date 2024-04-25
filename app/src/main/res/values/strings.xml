@@ -11,4 +11,5 @@
     <string name="text_price">%,d원 (현장 결제)</string>
     <string name="text_screen">SCREEN</string>
     <string name="text_complete_button">확인</string>
+    <string name="text_total_price">%,d원</string>
 </resources>

@@ -13,6 +13,8 @@ interface SeatSelectionContract {
 
         fun updateUnSelectedSeatUI(index: Int)
 
+        fun updateTotalPrice(price: Int)
+
         fun showToastMessage(message: String?)
 
         fun setButtonEnabledState(isEnabled: Boolean)

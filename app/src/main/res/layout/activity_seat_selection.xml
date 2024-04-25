@@ -216,7 +216,7 @@
         android:textStyle="bold"
         android:layout_marginHorizontal="16dp"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@id/tv_price"
+        app:layout_constraintBottom_toTopOf="@id/tv_total_price"
         app:layout_constraintEnd_toEndOf="@id/gl_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/gl_form"
@@ -224,7 +224,7 @@
         tools:text="영화 제목" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_price"
+        android:id="@+id/tv_total_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

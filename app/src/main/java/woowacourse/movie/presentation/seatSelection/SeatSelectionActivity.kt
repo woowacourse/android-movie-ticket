@@ -21,6 +21,7 @@ import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTR
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter
     private val completeButton by lazy { findViewById<Button>(R.id.btn_complete) }
+    private val totalPriceText by lazy { findViewById<TextView>(R.id.tv_total_price) }
     private val seatItems: List<TextView> by lazy {
         findViewById<TableLayout>(R.id.tl_seats).children.filterIsInstance<TableRow>()
             .flatMap { tableRow ->
@@ -47,8 +48,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             val colorCode =
                 when (seat.seatClass) {
                     SeatClass.B_CLASS -> "#8E13EF"
-                    SeatClass.A_CLASS -> "#19D358"
-                    SeatClass.S_CLASS -> "#1B48E9"
+                    SeatClass.A_CLASS -> "#1B48E9"
+                    SeatClass.S_CLASS -> "#19D358"
                 }
             textView.setTextColor(Color.parseColor(colorCode))
             textView.setOnClickListener { presenter.updateSeatSelection(index) }
@@ -67,6 +68,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun updateUnSelectedSeatUI(index: Int) {
         val unClickedColor = ContextCompat.getColor(this, R.color.unClickedSeat_bgr)
         seatItems[index].setBackgroundColor(unClickedColor)
+    }
+
+    override fun updateTotalPrice(price: Int) {
+        totalPriceText.text = getString(R.string.text_total_price, price)
     }
 
     override fun showToastMessage(message: String?) {

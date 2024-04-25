@@ -10,8 +10,8 @@ enum class SeatClass(val price: Int) {
         fun determineSeatGrade(position: Int): SeatClass {
             return when (position) {
                 1, 2 -> B_CLASS
-                3, 4 -> A_CLASS
-                else -> S_CLASS
+                3, 4 -> S_CLASS
+                else -> A_CLASS
             }
         }
     }

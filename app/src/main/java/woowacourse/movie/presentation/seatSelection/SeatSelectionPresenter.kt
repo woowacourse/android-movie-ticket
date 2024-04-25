@@ -30,6 +30,7 @@ class SeatSelectionPresenter(
             seatingSystem.unSelectSeat(index)
             seatSelectionContractView.updateUnSelectedSeatUI(index)
             seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
+            seatSelectionContractView.updateTotalPrice(seatingSystem.getTotalPrice())
             return
         }
 
@@ -37,6 +38,7 @@ class SeatSelectionPresenter(
             .onSuccess {
                 seatSelectionContractView.updateSelectedSeatUI(index)
                 seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
+                seatSelectionContractView.updateTotalPrice(seatingSystem.getTotalPrice())
             }
             .onFailure {
                 seatSelectionContractView.showToastMessage(it.message)
