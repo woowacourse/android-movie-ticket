@@ -17,12 +17,14 @@ class SeatSelectionPresenter(
         if (seatingSystem.isSelected(index)) {
             seatingSystem.unSelectSeat(index)
             seatSelectionContractView.updateUnSelectedSeatUI(index)
+            seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
             return
         }
 
         seatingSystem.trySelectSeat(index)
             .onSuccess {
                 seatSelectionContractView.updateSelectedSeatUI(index)
+                seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
             }
             .onFailure {
                 seatSelectionContractView.showUnavailableSeatToastMessage(it.message)

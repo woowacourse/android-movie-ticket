@@ -3,6 +3,7 @@ package woowacourse.movie.presentation.seatSelection
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -18,6 +19,7 @@ import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTR
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter
+    private val completeButton by lazy { findViewById<Button>(R.id.btn_complete) }
     private val seatItems: List<TextView> by lazy {
         findViewById<TableLayout>(R.id.tl_seats).children.filterIsInstance<TableRow>()
             .flatMap { tableRow ->
@@ -63,6 +65,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun showUnavailableSeatToastMessage(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setButtonEnabledState(isEnabled: Boolean) {
+        completeButton.isEnabled = isEnabled
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

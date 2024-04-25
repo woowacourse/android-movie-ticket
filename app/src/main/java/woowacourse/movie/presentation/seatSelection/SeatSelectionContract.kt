@@ -11,6 +11,8 @@ interface SeatSelectionContract {
         fun updateUnSelectedSeatUI(index: Int)
 
         fun showUnavailableSeatToastMessage(message: String?)
+
+        fun setButtonEnabledState(isEnabled: Boolean)
     }
 
     interface Presenter {

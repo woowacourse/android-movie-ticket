@@ -240,7 +240,7 @@
         android:id="@+id/btn_complete"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#B7B7B7"
+        android:background="@drawable/selector_complete_btn"
         android:minWidth="0dp"
         android:minHeight="0dp"
         android:text="@string/text_complete_button"
