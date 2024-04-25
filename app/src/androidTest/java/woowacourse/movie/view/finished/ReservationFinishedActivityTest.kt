@@ -14,6 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.TestFixture.FIRST_ITEM_POSITION
+import woowacourse.movie.TestFixture.makeMockSeats
 import woowacourse.movie.TestFixture.makeMockTicket
 import woowacourse.movie.TestFixture.movies
 import woowacourse.movie.view.reservation.ReservationDetailActivity
@@ -31,6 +32,7 @@ class ReservationFinishedActivityTest {
             },
         )
     private val ticket = makeMockTicket()
+    private val seats = makeMockSeats()
 
     @Test
     fun `예매한_영화의_제목을_보여준다`() {
@@ -55,10 +57,10 @@ class ReservationFinishedActivityTest {
         )
     }
 
-//    @Test
-//    fun `예매한_영화의_총_결제금액을_보여준다`() {
-//        onView(withId(R.id.text_view_reservation_finished_ticket_price)).check(matches(withText("13,000")))
-//    }
+    @Test
+    fun `예매한_영화의_총_결제금액을_보여준다`() {
+        onView(withId(R.id.text_view_reservation_finished_ticket_price)).check(matches(withText(ticket.calculatePrice(seats))))
+    }
 
     @Test
     fun `영화_예매_완료_화면은_영화_상세_화면의_예매_완료_버튼을_누르면_보여진다`() {
