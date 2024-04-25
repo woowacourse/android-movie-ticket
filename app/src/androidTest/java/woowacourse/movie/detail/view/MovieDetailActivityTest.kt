@@ -86,6 +86,6 @@ class MovieDetailActivityTest {
     @Test
     fun `예매_예매_버튼을_클릭하면_영화_상세_페이지로_이동한다`() {
         onView(withId((R.id.seatSelectionBtn))).perform(click())
-        onView(withId(R.id.resultActivity)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.seatSelectionActivity)).check(matches(ViewMatchers.isDisplayed()))
     }
 }

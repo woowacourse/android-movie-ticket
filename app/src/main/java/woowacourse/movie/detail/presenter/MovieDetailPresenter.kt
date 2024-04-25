@@ -40,12 +40,12 @@ class MovieDetailPresenter(
     }
 
     override fun reserveMovie(
-        id: Long,
+        title: String,
         date: String,
         time: String,
     ) {
-        movieDetailContractView.navigateToResultView(
-            id,
+        movieDetailContractView.navigateToSeatSelectionView(
+            title,
             date,
             time,
             movieCount.count,

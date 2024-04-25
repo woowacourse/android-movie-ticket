@@ -1,6 +1,7 @@
 package woowacourse.movie.result.view
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -41,11 +42,21 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         )
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun displayMovieTicket(movieTicketData: MovieTicket?) {
         movieTicketData?.let { movieTicket ->
             resultTitle.text = movieTicket.title
-            resultDate.text = movieTicket.date
-            resultTime.text = movieTicket.time
+            resultDate.text = movieTicket.date.toString()
+            resultTime.text = movieTicket.time.toString()
             resultCount.text = movieTicket.count.toString()
             resultPrice.text = DecimalFormat("#,###").format(movieTicket.price.toLong())
         }

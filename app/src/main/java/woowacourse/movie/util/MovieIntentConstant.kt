@@ -2,6 +2,7 @@ package woowacourse.movie.util
 
 object MovieIntentConstant {
     const val KEY_MOVIE_ID = "movieId"
+    const val KEY_MOVIE_TITLE = "movieTitle"
     const val KEY_MOVIE_DATE = "movieDate"
     const val KEY_MOVIE_TIME = "movieTime"
     const val KEY_MOVIE_COUNT = "movieCount"

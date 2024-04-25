@@ -2,6 +2,7 @@ package woowacourse.movie.detail.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,13 +18,14 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieCount
 import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTime
-import woowacourse.movie.result.view.MovieResultActivity
+import woowacourse.movie.seat.view.MovieSeatActivity
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_ITEM_POSITION
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TITLE
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -71,6 +73,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         outState.putInt(KEY_ITEM_POSITION, position)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun displayMovieDetail(
         movieData: Movie?,
         movieCount: MovieCount,
@@ -92,7 +104,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             }
             seatSelectionButton.setOnClickListener {
                 movieDetailPresenter.reserveMovie(
-                    movie.id,
+                    movie.title,
                     dateSpinner.selectedItem.toString(),
                     runningTimeSpinner.selectedItem.toString(),
                 )
@@ -148,14 +160,14 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         runningTimeSpinner.setSelection(position)
     }
 
-    override fun navigateToResultView(
-        id: Long,
+    override fun navigateToSeatSelectionView(
+        title: String,
         date: String,
         time: String,
         count: Int,
     ) {
-        Intent(this, MovieResultActivity::class.java).apply {
-            putExtra(KEY_MOVIE_ID, id)
+        Intent(this, MovieSeatActivity::class.java).apply {
+            putExtra(KEY_MOVIE_TITLE, title)
             putExtra(KEY_MOVIE_DATE, date)
             putExtra(KEY_MOVIE_TIME, time)
             putExtra(KEY_MOVIE_COUNT, count)
