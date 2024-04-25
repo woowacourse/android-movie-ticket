@@ -20,7 +20,7 @@ class SeatingSystemTest {
 
     @Test
     fun `사용자가 좌석을 선택하면 선택된 좌석이 저장된다`() {
-        seatingSystem.selectSeat(0, 0)
+        seatingSystem.selectSeat(0)
 
         val actual = seatingSystem.selectedSeats
         val expected = listOf(Seat(0, 0))
@@ -29,12 +29,12 @@ class SeatingSystemTest {
 
     @Test
     fun `사용자가 좌석을 선택 취소하면 선택된 좌석이 취소된다`() {
-        seatingSystem.selectSeat(0, 0)
-        seatingSystem.selectSeat(1, 0)
-        seatingSystem.deselectSeat(0, 0)
+        seatingSystem.selectSeat(0)
+        seatingSystem.selectSeat(1)
+        seatingSystem.unSelectSeat(1)
 
         val actual = seatingSystem.selectedSeats
-        val expected = listOf(Seat(1, 0))
+        val expected = setOf(Seat(0, 0))
         assertThat(actual).isEqualTo(expected)
     }
 }

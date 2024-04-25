@@ -11,4 +11,14 @@ class SeatSelectionPresenter(
     override fun initializeSeats() {
         seatSelectionContractView.initializeSeats(seatingSystem.seats)
     }
+
+    override fun updateSeatSelection(index: Int) {
+        if (seatingSystem.isSelected(index)) {
+            seatingSystem.unSelectSeat(index)
+            seatSelectionContractView.updateUnSelectedSeatUI(index)
+            return
+        }
+        seatingSystem.selectSeat(index)
+        seatSelectionContractView.updateSelectedSeatUI(index)
+    }
 }

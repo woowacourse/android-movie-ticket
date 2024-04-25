@@ -7,6 +7,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.Seat
@@ -43,7 +44,18 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                     SeatClass.S_CLASS -> "#1B48E9"
                 }
             textView.setTextColor(Color.parseColor(colorCode))
+            textView.setOnClickListener { presenter.updateSeatSelection(index) }
         }
+    }
+
+    override fun updateSelectedSeatUI(index: Int) {
+        val clickedColor = ContextCompat.getColor(this, R.color.clickedSeat_bgr)
+        seatItems[index].setBackgroundColor(clickedColor)
+    }
+
+    override fun updateUnSelectedSeatUI(index: Int) {
+        val unClickedColor = ContextCompat.getColor(this, R.color.unClickedSeat_bgr)
+        seatItems[index].setBackgroundColor(unClickedColor)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
