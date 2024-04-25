@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +15,13 @@ import woowacourse.movie.R
 import woowacourse.movie.data.DummyMovies
 import woowacourse.movie.reservationresult.ReservationResultActivity
 
-class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
+class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private lateinit var presenter: MovieReservationPresenter
     private lateinit var countView: TextView
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
 
     private lateinit var movie: MovieReservationUiModel
     private var count: HeadCountUiModel = HeadCountUiModel()
@@ -59,6 +63,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         countView = findViewById(R.id.tv_detail_count)
         plusButton = findViewById(R.id.btn_detail_plus)
         minusButton = findViewById(R.id.btn_detail_minus)
+        dateSpinner = findViewById(R.id.spinner_detail_date)
+        timeSpinner = findViewById(R.id.spinner_detail_time)
     }
 
     private fun initClickListener(movieId: Long) {
@@ -85,7 +91,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showMovieReservation(reservation: MovieReservationUiModel) {
+    override fun showMovieInfo(reservation: MovieReservationUiModel) {
         movie = reservation
         val (id, title, imageRes, screenDate, description, runningTime) = reservation
         findViewById<ImageView>(R.id.iv_detail_poster).setImageResource(imageRes)
@@ -108,8 +114,23 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         Toast.makeText(this, "영화 정보를 불러오는데 실패했습니다. 앱을 다시 실행해주세요.", Toast.LENGTH_SHORT).show()
     }
 
+    override fun showMovieReservationError() {
+        Toast.makeText(this, "영화 예매에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+    }
+
     override fun showCantDecreaseError(minCount: Int) {
         Toast.makeText(this, "$minCount 명 이상부터 예약할 수 있습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showScreeningDateTime(screeningDateTimeUiModels: List<ScreeningDateTimeUiModel>) {
+        val dateArrayAdapter = ArrayAdapter(
+            this,
+            R.layout.item_spinner_date,
+            screeningDateTimeUiModels.map { it.date })
+        dateSpinner.adapter = dateArrayAdapter
+        val timeArrayAdapter =
+            ArrayAdapter(this, R.layout.item_spinner_date, screeningDateTimeUiModels.first().times)
+        timeSpinner.adapter = timeArrayAdapter
     }
 
     companion object {

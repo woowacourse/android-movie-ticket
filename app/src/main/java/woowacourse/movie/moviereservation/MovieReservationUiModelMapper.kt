@@ -21,3 +21,16 @@ fun ScreeningMovie.toMovieReservationUiModel(): MovieReservationUiModel {
 fun HeadCount.toHeadCountUiModel(): HeadCountUiModel = HeadCountUiModel(count.toString())
 
 fun HeadCountUiModel.toHeadCount(): HeadCount = HeadCount(count.toInt())
+
+private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+fun ScreeningMovie.toScreeningDateTimeUiModel(): List<ScreeningDateTimeUiModel> =
+    screenDateTimes.map {
+        ScreeningDateTimeUiModel(
+            it.date.format(
+                dateFormatter,
+            ),
+            it.times.map { time -> time.format(timeFormatter) },
+        )
+    }
