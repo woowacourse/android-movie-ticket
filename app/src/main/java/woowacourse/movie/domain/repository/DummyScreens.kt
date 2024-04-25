@@ -14,7 +14,7 @@ class DummyScreens : ScreenRepository {
     private val temp =
         List(2500) {
             Screen(
-                id = it + 1,
+                id = it,
                 movie =
                     Movie(
                         title = "해리 포터와 마법사의 돌",
@@ -44,7 +44,12 @@ class DummyScreens : ScreenRepository {
 
     override fun load(): List<ScreenViewType> =
         temp.flatMap { screen ->
-            listOf(screen, screen, screen, Ads(R.drawable.img_ads))
+            listOf(
+                screen.copy(id = (screen.id * 3) + 1),
+                screen.copy(id = (screen.id * 3) + 2),
+                screen.copy(id = (screen.id * 3) + 3),
+                Ads(R.drawable.img_ads),
+            )
         }
 
     override fun loadSeatBoard(id: Int): Result<SeatBoard> =
