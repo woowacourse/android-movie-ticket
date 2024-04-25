@@ -31,11 +31,9 @@ class MovieSeatSelectionPresenter(
     ) {
         if (reservationDetail.selectedSeat.contains(Seat(row, col))) {
             reservationDetail.removeSeat(row, col)
-            view.showUnSelectedSeat(row, col)
         } else {
             reservationDetail.addSeat(row, col)
-            view.showSelectedSeat(row, col)
         }
-        view.showReservationTotalAmount(reservationDetail.totalSeatAmount())
+        view.showSelectedSeat(reservationDetail.selectedSeat)
     }
 }

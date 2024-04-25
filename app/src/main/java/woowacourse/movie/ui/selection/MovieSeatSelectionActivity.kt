@@ -6,6 +6,8 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import androidx.core.view.forEach
+import androidx.core.view.forEachIndexed
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.Seat
@@ -74,30 +76,33 @@ class MovieSeatSelectionActivity :
                     text = Seat(row, col).toString()
                     setOnClickListener {
                         presenter.selectSeat(row, col)
+                        presenter.loadTotalSeatAmount()
                     }
                 }
             }
         }
     }
 
-    override fun showSelectedSeat(
-        row: Int,
-        col: Int,
-    ) {
-        seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)].setBackgroundColor(
-            ContextCompat.getColor(this, R.color.selected_seat),
-        )
-    }
+    override fun showSelectedSeat(seats: List<Seat>) {
+        seatTable.forEachIndexed { index, view ->
+            (view as TableRow).forEach {
+                it.setBackgroundColor(
+                    ContextCompat.getColor(this, R.color.unSelected_seat),
+                )
+            }
+        }
 
-    override fun showUnSelectedSeat(
-        row: Int,
-        col: Int,
-    ) {
-        seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)].setBackgroundColor(
-            ContextCompat.getColor(this, R.color.unSelected_seat),
-        )
+        seats.forEach {
+            seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
+                .filterIsInstance<TextView>().toList()[
+                positionToIndex(
+                    it.row.row,
+                    it.col,
+                ),
+            ].setBackgroundColor(
+                ContextCompat.getColor(this, R.color.selected_seat),
+            )
+        }
     }
 
     override fun showReservationTotalAmount(amount: Int) {

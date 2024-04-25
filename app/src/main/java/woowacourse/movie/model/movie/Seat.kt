@@ -1,6 +1,6 @@
 package woowacourse.movie.model.movie
 
-data class Seat(private val row: SeatRow, private val col: Int) {
+data class Seat(val row: SeatRow, val col: Int) {
     constructor(row: Int, col: Int) : this(SeatRow.findRow(row), col)
 
     fun price() =
