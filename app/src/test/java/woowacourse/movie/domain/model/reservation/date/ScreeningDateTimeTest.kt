@@ -1,9 +1,10 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation.date
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import woowacourse.movie.domain.model.ScreeningInfo
 import java.time.LocalDate
 
 class ScreeningDateTimeTest {

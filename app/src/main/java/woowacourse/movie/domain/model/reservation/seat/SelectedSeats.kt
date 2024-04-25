@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation.seat
 
 class SelectedSeats(
     private val seatingChart: SeatingChart,

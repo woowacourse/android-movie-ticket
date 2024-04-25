@@ -1,8 +1,10 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation.seat
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import woowacourse.movie.domain.model.reservation.seat.SeatingChart
+import woowacourse.movie.domain.model.reservation.seat.SelectedSeats
 
 class SelectedSeatsTest {
     @ParameterizedTest

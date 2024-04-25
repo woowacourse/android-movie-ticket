@@ -1,5 +1,6 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation.date
 
+import woowacourse.movie.domain.model.ScreeningInfo
 import java.time.LocalDate
 
 class ScreeningDateTime (val screeningInfo: ScreeningInfo) {

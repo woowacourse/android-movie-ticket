@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation.seat
 
 class SeatingChart(
     private val rowCount: Int = ROW_SEAT_COUNT,

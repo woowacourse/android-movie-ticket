@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation.seat
 
 enum class SeatRank(val price: Int) {
     B_RANK(10_000),

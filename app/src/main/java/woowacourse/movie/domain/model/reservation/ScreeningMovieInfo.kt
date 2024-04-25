@@ -1,4 +1,7 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation
+
+import woowacourse.movie.domain.model.ScreeningInfo
+import woowacourse.movie.domain.model.reservation.date.ScreeningDateTime
 
 class ScreeningMovieInfo(
     val title: String,
