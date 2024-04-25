@@ -1,6 +1,8 @@
 package woowacourse.movie.presentation.reservation.booking
 
 import android.content.Intent
+import java.time.LocalDate
+import java.time.LocalTime
 
 interface ReservationContract {
     interface View {
@@ -12,22 +14,33 @@ interface ReservationContract {
             description: String,
         )
 
-        fun updateTicketCount()
+        fun setUpSpinner(
+            dates: List<LocalDate>,
+            times: List<LocalTime>,
+        )
+
+        fun updateTicketCount(count: Int)
+
+        fun updateTimeSpinner(times: List<LocalTime>)
     }
 
     interface Presenter {
-        fun fetchMovieDetail(movieId: Int)
+        fun fetchScreenInfo(movieId: Int)
 
         fun subTicketCount()
 
         fun addTicketCount()
 
-        fun clickReservationCompleteButton(intent: Intent)
+        fun onClickedSelectSeatButton(intent: Intent)
 
         fun ticketCount(): Int
 
-        fun totalTicketPrice(): Int
-
         fun restoreTicketCount(count: Int)
+
+        fun onSelectedDateTime(date: LocalDate)
+
+        fun registerScreenDate(date: LocalDate)
+
+        fun registerScreenTime(time: LocalTime)
     }
 }

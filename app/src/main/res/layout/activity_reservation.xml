@@ -209,10 +209,10 @@
             app:layout_constraintTop_toTopOf="@id/sub_button" />
 
         <Button
-            android:id="@+id/reservation_complete_button"
+            android:id="@+id/select_seat_button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="예매 완료"
+            android:text="좌석 선택"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
