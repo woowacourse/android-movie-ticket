@@ -12,7 +12,7 @@ import woowacourse.movie.presentation.ui.screen.adapter.ScreenRecyclerViewAdapte
 
 class ScreenActivity : BaseActivity(), View {
     override val layoutResourceId: Int
-        get() = R.layout.activity_main
+        get() = R.layout.activity_screen
     override val presenter: Presenter by lazy { ScreenPresenter(this, DummyScreens()) }
 
     private val adapter: ScreenRecyclerViewAdapter by lazy { ScreenRecyclerViewAdapter(presenter) }
