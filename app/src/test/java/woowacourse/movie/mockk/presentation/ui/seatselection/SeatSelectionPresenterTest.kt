@@ -17,6 +17,7 @@ import woowacourse.movie.basic.utils.toColumnIndex
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.presentation.model.MessageType
+import woowacourse.movie.presentation.model.MessageType.ReservationSuccessMessage
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionContract
 import woowacourse.movie.presentation.ui.seatselection.SeatSelectionPresenter
 
@@ -225,5 +226,57 @@ class SeatSelectionPresenterTest {
 
         // then
         verify { view.buttonEnabled(false) }
+    }
+
+    @Test
+    fun `SeatSelectionPresenter가 예매 완료 버튼을 누르면(reverse), view에게 메시지(ReservationSuccessMessage)와 결과 화면으로 이동하라는 정보를 전달한다()`() {
+        // given
+        every { screenRepository.findByScreenId(any()) } returns Result.success(getDummyScreen())
+        every {
+            reservationRepository.saveReservation(
+                any(),
+                any(),
+                any(),
+                any(),
+            )
+        } returns Result.success(1)
+        every { view.showScreen(any()) } just runs
+        every { view.showToastMessage(ReservationSuccessMessage) } just runs
+        every { view.navigateToReservation(any()) } just runs
+
+        // when
+        presenter.loadScreen(1)
+        presenter.updateUiModel(getDummyReservationInfo())
+        presenter.reserve()
+
+        // then
+        verify { view.showToastMessage(ReservationSuccessMessage) }
+        verify { view.navigateToReservation(1) }
+    }
+
+    @Test
+    fun `SeatSelectionPresenter가 예매 정보가 잘못되었을 때 예매 완료 버튼을 누르면(reverse), view에게 메시지(Exception)와 뒤로 돌아가라고() 전달한다(back)`() {
+        // given
+        every { screenRepository.findByScreenId(any()) } returns Result.success(getDummyScreen())
+        every {
+            reservationRepository.saveReservation(
+                any(),
+                any(),
+                any(),
+                any(),
+            )
+        } returns Result.failure(NoSuchElementException())
+        every { view.showScreen(any()) } just runs
+        every { view.showSnackBar(e = any()) } just runs
+        every { view.back() } just runs
+
+        // when
+        presenter.loadScreen(1)
+        presenter.updateUiModel(getDummyReservationInfo())
+        presenter.reserve()
+
+        // then
+        verify { view.showSnackBar(e = any()) }
+        verify { view.back() }
     }
 }
