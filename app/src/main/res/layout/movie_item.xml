@@ -93,6 +93,9 @@
         android:id="@+id/movie_reservation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/purple_500"
+        android:clickable="false"
+        android:focusable="false"
         android:paddingHorizontal="11dp"
         android:paddingTop="10dp"
         android:paddingBottom="9dp"
@@ -100,8 +103,6 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:clickable="false"
-        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

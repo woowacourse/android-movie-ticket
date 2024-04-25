@@ -160,6 +160,7 @@
                 android:id="@+id/minus_button"
                 android:layout_width="72dp"
                 android:layout_height="57dp"
+                android:background="@color/purple_500"
                 android:gravity="center"
                 android:padding="0dp"
                 android:text="-"
@@ -186,6 +187,7 @@
                 android:layout_width="65dp"
                 android:layout_height="50dp"
                 android:padding="0dp"
+                android:background="@color/purple_500"
                 android:text="+"
                 android:textColor="@color/white"
                 android:textSize="25sp"
@@ -204,7 +206,9 @@
             android:layout_height="wrap_content"
             android:paddingTop="11.08sp"
             android:paddingBottom="11.92sp"
-            android:text="예매 완료"
+            android:background="@color/purple_500"
+            android:text="좌석 선택"
+            android:textColor="@color/white"
             android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
