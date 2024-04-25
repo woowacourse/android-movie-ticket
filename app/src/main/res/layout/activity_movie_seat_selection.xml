@@ -305,11 +305,12 @@
             android:layout_width="88dp"
             android:layout_height="match_parent"
             android:background="@drawable/selector_button"
+            android:clickable="false"
+            android:enabled="false"
             android:text="@string/confirm"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-
+        
     </LinearLayout>
 
 
