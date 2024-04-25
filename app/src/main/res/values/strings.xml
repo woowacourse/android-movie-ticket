@@ -10,6 +10,12 @@
     <string name="reservation_detail_default_ticket_count">1</string>
     <string name="reservation_detail_select_seat">좌석 선택</string>
 
+    <!-- SeatSelectionActivity -->
+    <string name="seat_selection_reservation_confirm">예매 확인</string>
+    <string name="seat_selection_reservation_ask_purchase_ticket">"정말 예매하시겠습니까?"</string>
+    <string name="seat_selection_reservation_finish">예매 완료</string>
+    <string name="seat_selection_cancel">"취소"</string>
+
     <!-- activity_select_seat -->
     <string name="select_seat_screen">SCREEN</string>
     <string name="select_seat_price_unit">원</string>

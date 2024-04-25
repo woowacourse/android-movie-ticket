@@ -35,4 +35,8 @@ class SeatSelectionPresenter(
         val totalPrice = ticket.calculatePrice(seats.seats)
         view.showTotalPrice(totalPrice)
     }
+
+    override fun initializeConfirmButton() {
+        view.launchReservationConfirmDialog(ticket, seats)
+    }
 }

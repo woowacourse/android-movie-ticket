@@ -51,4 +51,11 @@ class SeatSelectionPresenterTest {
         }
         verify { view.showTotalPrice(37_000) }
     }
+
+    @Test
+    fun `확인 버튼을 누르면 예매 진행 여부를 묻는 다이얼로그를 띄운다 `() {
+        every { view.launchReservationConfirmDialog(any(), any()) } just runs
+        presenter.initializeConfirmButton()
+        verify { view.launchReservationConfirmDialog(any(), any()) }
+    }
 }
