@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -13,6 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.SeatClass
 import woowacourse.movie.presentation.movieList.MovieListActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_COUNT
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter
@@ -29,7 +31,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
-        presenter = SeatSelectionPresenter(this, movieId)
+        val ticketCount = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_TICKET_COUNT)
+        presenter = SeatSelectionPresenter(this, movieId, ticketCount)
         presenter.initializeSeats()
     }
 
@@ -58,6 +61,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         seatItems[index].setBackgroundColor(unClickedColor)
     }
 
+    override fun showUnavailableSeatToastMessage(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
@@ -65,5 +72,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     companion object {
         const val EXTRA_DEFAULT_MOVIE_ID = -1
+        const val EXTRA_DEFAULT_TICKET_COUNT = -1
     }
 }

@@ -1,6 +1,7 @@
 package woowacourse.movie.model
 
 class SeatingSystem(
+    private var availableSeatCount: Int,
     private val rowSize: Int = 5,
     private val colSize: Int = 4,
 ) {
@@ -17,13 +18,20 @@ class SeatingSystem(
 
     fun isSelected(index: Int): Boolean = seats[index] in selectedSeats
 
-    fun selectSeat(index: Int) {
-        val selected = seats[index]
-        _selectedSeats.add(selected)
+    fun trySelectSeat(index: Int): Result<Seat> {
+        return if (canSelectSeat()) {
+            val selected = seats[index]
+            _selectedSeats.add(selected)
+            Result.success(selected)
+        } else {
+            Result.failure(Error("최대 선택 가능한 자리 수는 ${availableSeatCount}개 입니다."))
+        }
     }
 
     fun unSelectSeat(index: Int) {
         val selected = seats[index]
         _selectedSeats.remove(selected)
     }
+
+    fun canSelectSeat(): Boolean = availableSeatCount > selectedSeats.size
 }
