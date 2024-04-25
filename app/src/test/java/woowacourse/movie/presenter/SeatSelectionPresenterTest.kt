@@ -13,6 +13,7 @@ import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.db.SeatsDao
 import woowacourse.movie.model.Grade
 import woowacourse.movie.model.Seat
+import woowacourse.movie.model.Seats
 import woowacourse.movie.presenter.reservation.SeatSelectionContract
 import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
 
@@ -57,5 +58,21 @@ class SeatSelectionPresenterTest {
         every { view.launchReservationConfirmDialog(any()) } just runs
         presenter.initializeConfirmButton()
         verify { view.launchReservationConfirmDialog(any()) }
+    }
+
+    @Test
+    fun `화면 회전 시 선택된 좌석들을 복구한다`() {
+        every { view.restoreSelectedSeats(any()) } just runs
+        presenter.restoreSeats(Seats(), emptyList())
+        verify { view.restoreSelectedSeats(any()) }
+    }
+
+    @Test
+    fun `화면 회전 시 예약 상태를 복구한다`() {
+        every { view.setConfirmButtonEnabled(any()) } just runs
+        every { view.showTotalPrice(0) } just runs
+        presenter.restoreReservation(0)
+        verify { view.setConfirmButtonEnabled(any()) }
+        verify { view.showTotalPrice(0) }
     }
 }

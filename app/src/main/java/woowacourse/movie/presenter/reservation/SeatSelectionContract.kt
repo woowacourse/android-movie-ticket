@@ -17,6 +17,19 @@ interface SeatSelectionContract {
         )
 
         fun initializeConfirmButton()
+
+        fun restoreReservation(count: Int)
+
+        fun restoreSeats(
+            selectedSeats: Seats,
+            seatsIndex: List<Int>,
+        )
+
+        fun manageSelectedSeats(
+            isSelected: Boolean,
+            index: Int,
+            seat: Seat,
+        )
     }
 
     interface View {
@@ -41,5 +54,7 @@ interface SeatSelectionContract {
         fun launchReservationConfirmDialog(seats: Seats)
 
         fun navigateToFinished(seats: Seats)
+
+        fun restoreSelectedSeats(selectedSeats: List<Int>)
     }
 }

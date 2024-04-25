@@ -57,6 +57,34 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         initializeConfirmButton()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.apply {
+            putSerializable(TICKET, ticket)
+            putSerializable("seats", presenter.seats)
+            putIntegerArrayList("seatsIndex", ArrayList(presenter.seats.seatsIndex))
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val ticket = it.bundleSerializable(TICKET, Ticket::class.java) ?: Ticket()
+            val seats = it.bundleSerializable("seats", Seats::class.java) ?: Seats()
+            val index = it.getIntegerArrayList("seatsIndex") ?: emptyList<Int>()
+            with(presenter) {
+                restoreSeats(seats, index.toList())
+                restoreReservation(ticket.count)
+            }
+        }
+    }
+
+    override fun restoreSelectedSeats(selectedSeats: List<Int>) {
+        seatsTable.forEachIndexed { index, button ->
+            button.isSelected = index in selectedSeats
+        }
+    }
+
     override fun showSeatNumber(
         index: Int,
         seat: Seat,
@@ -69,8 +97,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 if (seatsCount < ticket.count || it.isSelected) {
                     updateSeatSelectedState(index, isSelected)
                     val updatedSeatsCount = seatsTable.count { seat -> seat.isSelected }
-                    setConfirmButtonEnabled(updatedSeatsCount)
+                    presenter.manageSelectedSeats(it.isSelected, index, seat)
                     presenter.updateTotalPrice(it.isSelected, seat)
+                    setConfirmButtonEnabled(updatedSeatsCount)
                 }
             }
         }
@@ -129,6 +158,17 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 }
                 .setCancelable(false)
                 .show()
+        }
+    }
+
+    private fun <T : Serializable> Bundle.bundleSerializable(
+        key: String,
+        clazz: Class<T>,
+    ): T? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.getSerializable(key, clazz)
+        } else {
+            this.getSerializable(key) as T?
         }
     }
 

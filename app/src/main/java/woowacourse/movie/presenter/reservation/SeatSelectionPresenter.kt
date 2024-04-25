@@ -12,8 +12,23 @@ class SeatSelectionPresenter(
     private val seatsDao: SeatsDao,
     private val screeningDao: ScreeningDao,
 ) : SeatSelectionContract.Presenter {
-    private val ticket = Ticket()
-    private val seats = Seats()
+    val ticket = Ticket()
+    val seats = Seats()
+
+    override fun restoreReservation(count: Int) {
+        ticket.restoreTicket(count)
+        view.setConfirmButtonEnabled(ticket.count)
+        view.showTotalPrice(ticket.calculatePrice(seats))
+    }
+
+    override fun restoreSeats(
+        selectedSeats: Seats,
+        seatsIndex: List<Int>,
+    ) {
+        seats.restoreSeats(selectedSeats)
+        seats.restoreSeatsIndex(seatsIndex)
+        view.restoreSelectedSeats(seatsIndex)
+    }
 
     override fun loadSeatNumber() {
         val seats = seatsDao.findAll()
@@ -27,11 +42,21 @@ class SeatSelectionPresenter(
         view.showMovieTitle(movie)
     }
 
+    override fun manageSelectedSeats(
+        isSelected: Boolean,
+        index: Int,
+        seat: Seat,
+    ) {
+        seats.apply {
+            manageSelectedIndex(isSelected, index)
+            manageSelected(isSelected, seat)
+        }
+    }
+
     override fun updateTotalPrice(
         isSelected: Boolean,
         seat: Seat,
     ) {
-        seats.manageSelected(isSelected, seat)
         val totalPrice = ticket.calculatePrice(seats)
         view.showTotalPrice(totalPrice)
     }
