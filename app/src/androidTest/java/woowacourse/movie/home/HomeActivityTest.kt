@@ -26,7 +26,7 @@ class HomeActivityTest {
     @Test
     fun 영화_목록에서_첫번째_아이템의_상영일을_보여준다() {
         moviesFirstItem.onChildView(withId(R.id.item_movie_catalog_text_view_screening_date)).check(
-            matches(withText("2001.11.14")),
+            matches(withText("2024.1.01 ~ 2024.1.31")),
         )
     }
 

@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -40,7 +39,7 @@ class MovieCatalogAdapter(
         val item: Movie = movies[position]
         title.text = item.title
         poster.setImageResource(item.poster)
-        screeningDate.text = convertDateFormat(item.screeningDate)
+        screeningDate.text = convertDateFormat(item.firstScreeningDate, item.lastScreeningDate)
         runningTime.text = item.runningTime
         reservationButton.setOnClickListener {
             sendMovieId(item.id)
@@ -49,9 +48,12 @@ class MovieCatalogAdapter(
         return convertView
     }
 
-    private fun convertDateFormat(date: LocalDate): String {
-        val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+    private fun convertDateFormat(
+        firstDate: LocalDate,
+        secondDate: LocalDate,
+    ): String {
+        val dateFormat = DateTimeFormatter.ofPattern("yyyy.M.dd")
 
-        return date.format(dateFormat)
+        return "${firstDate.format(dateFormat)} ~ ${secondDate.format(dateFormat)}"
     }
 }

@@ -6,7 +6,8 @@ data class Movie(
     val id: Int,
     val poster: Int,
     val title: String,
-    val screeningDate: LocalDate,
+    val firstScreeningDate: LocalDate,
+    val lastScreeningDate: LocalDate,
     val runningTime: String,
     val summary: String,
 )

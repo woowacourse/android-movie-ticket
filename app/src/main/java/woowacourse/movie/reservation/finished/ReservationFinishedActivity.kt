@@ -33,7 +33,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
     override fun showMovieInformation(movie: Movie) {
         title.text = movie.title
-        screeningDate.text = convertDateFormat(movie.screeningDate)
+        screeningDate.text = convertDateFormat(movie.firstScreeningDate)
     }
 
     override fun showReservationHistory(
