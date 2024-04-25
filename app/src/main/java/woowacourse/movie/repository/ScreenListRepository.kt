@@ -13,4 +13,6 @@ interface ScreenListRepository {
     fun addToList(screen: Screen)
 
     fun addToList(movieList: List<Movie>)
+
+    fun findOrNull(id: Long): Screen?
 }

@@ -15,7 +15,7 @@ object DummyMovieList : MovieListRepository {
                 title = "해리 포터와 마법사의 돌",
                 runningTime = 152,
                 screenPeriod = listOf(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 31)),
-                description = "example description",
+                description = "해리포터와 마법사의 돌 영화에 대한 설명입니다",
                 imgResId = R.drawable.harry_potter_1,
             ),
             Movie(
@@ -23,7 +23,7 @@ object DummyMovieList : MovieListRepository {
                 title = "해리 포터와 비밀의 방",
                 runningTime = 162,
                 screenPeriod = listOf(LocalDate.of(2024, 4, 1), LocalDate.of(2024, 4, 28)),
-                description = "example description",
+                description = "해리포터와 비밀의 방 영화에 대한 설명입니다",
                 imgResId = R.drawable.harry_potter_2,
             ),
             Movie(
@@ -31,7 +31,7 @@ object DummyMovieList : MovieListRepository {
                 title = "해리 포터와 아즈카반의 죄수",
                 runningTime = 141,
                 screenPeriod = listOf(LocalDate.of(2024, 5, 1),LocalDate.of(2024, 5, 31)),
-                description = "example description",
+                description = "해리포터와 아즈카반의 죄수 영화에 대한 설명입니다",
                 imgResId = R.drawable.harry_potter_3,
             ),
         )

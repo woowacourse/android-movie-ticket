@@ -28,4 +28,9 @@ object DummyScreenList : ScreenListRepository {
             addToList(movie)
         }
     }
+
+    override fun findOrNull(id: Long): Screen? {
+        val filteredList = list.filter { it.id == id }
+        return if (filteredList.size == 1) filteredList[0] else null
+    }
 }

@@ -10,11 +10,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.domain.movie.Screen
 import woowacourse.movie.repository.MovieListRepository
 import woowacourse.movie.repository.ScreenListRepository
-import woowacourse.movie.ui.ReservationActivity
+import woowacourse.movie.ui.reservation.ReservationActivity
 import woowacourse.movie.ui.home.HomeContract
 
 class MovieListAdapter(
@@ -66,7 +65,7 @@ class MovieListAdapter(
 
     private fun startReservationActivity(position: Int) {
         val intent = Intent(context, ReservationActivity::class.java)
-        intent.putExtra("ScreenId", getItemId(position))
+        intent.putExtra("screenId", getItemId(position))
 
         context.startActivity(intent)
     }
