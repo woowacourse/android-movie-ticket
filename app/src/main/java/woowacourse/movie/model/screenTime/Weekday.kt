@@ -1,6 +1,5 @@
 package woowacourse.movie.model.screenTime
 
-import java.time.LocalDate
 import java.time.LocalTime
 
 object Weekday : ScreeningPolicy {
@@ -8,7 +7,7 @@ object Weekday : ScreeningPolicy {
     private const val DEFAULT_MINUTE: Int = 0
     private const val INTERVAL_TIME: Int = 2
 
-    override fun screenTimes(movieScreenDay: LocalDate): List<LocalTime> {
+    override fun screenTimes(): List<LocalTime> {
         val screenTimes = mutableListOf<LocalTime>()
         SCREEN_TIMES.step(INTERVAL_TIME)
             .map { screenTimes.add(LocalTime.of(it, DEFAULT_MINUTE)) }
