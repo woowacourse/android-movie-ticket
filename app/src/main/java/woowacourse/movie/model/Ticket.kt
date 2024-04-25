@@ -29,6 +29,10 @@ class Ticket(count: Int = DEFAULT_TICKET_COUNT) : Serializable {
 
     fun calculatePrice(): Int = count * PRICE
 
+    fun calculatePrice(seats: List<Seat>): Int {
+        return seats.sumOf { it.grade.price }
+    }
+
     companion object {
         private const val PRICE = 13_000
         private const val DEFAULT_TICKET_COUNT = 1
