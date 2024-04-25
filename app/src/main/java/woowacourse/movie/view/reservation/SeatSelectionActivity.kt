@@ -26,8 +26,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     private val seatTableLayout: TableLayout by lazy { findViewById(R.id.table_layout_seat_selection) }
     private val title: TextView by lazy { findViewById(R.id.textview_seat_selection_title) }
+    private val price: TextView by lazy { findViewById(R.id.textview_seat_selection_price) }
     private val confirmButton: Button by lazy { findViewById(R.id.button_seat_selection_confirm) }
-    private lateinit var seats: List<Button>
+    private lateinit var seatsTable: List<Button>
     private lateinit var ticket: Ticket
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 ReservationDetailActivity.DEFAULT_MOVIE_ID,
             )
         ticket = intent.intentSerializable(ReservationDetailActivity.TICKET, Ticket::class.java) ?: Ticket()
-        seats =
+        seatsTable =
             seatTableLayout.children.filterIsInstance<TableRow>().flatMap { it.children }
                 .filterIsInstance<Button>().toList()
 
@@ -54,15 +55,16 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         index: Int,
         seat: Seat,
     ) {
-        seats[index].apply {
+        seatsTable[index].apply {
             text = getString(R.string.select_seat_number).format(seat.row, seat.column)
             setTextColor(setUpSeatColorByGrade(seat.grade))
             setOnClickListener {
-                val seatsCount = seats.count { seat -> seat.isSelected }
+                val seatsCount = seatsTable.count { seat -> seat.isSelected }
                 if (seatsCount < ticket.count || it.isSelected) {
                     updateSeatSelectedState(index, isSelected)
-                    val updatedSeatsCount = seats.count { seat -> seat.isSelected }
+                    val updatedSeatsCount = seatsTable.count { seat -> seat.isSelected }
                     setConfirmButtonEnabled(updatedSeatsCount)
+                    presenter.updateTotalPrice(it.isSelected, seat)
                 }
             }
         }
@@ -80,11 +82,15 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         index: Int,
         isSelected: Boolean,
     ) {
-        seats[index].isSelected = !isSelected
+        seatsTable[index].isSelected = !isSelected
     }
 
     override fun showMovieTitle(movie: Movie) {
         title.text = movie.title
+    }
+
+    override fun showTotalPrice(amount: Int) {
+        price.text = amount.toString()
     }
 
     override fun setConfirmButtonEnabled(count: Int) {

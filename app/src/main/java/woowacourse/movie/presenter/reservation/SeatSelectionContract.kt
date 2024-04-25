@@ -9,6 +9,11 @@ interface SeatSelectionContract {
         fun loadSeatNumber()
 
         fun loadMovie(movieId: Int)
+
+        fun updateTotalPrice(
+            isSelected: Boolean,
+            seat: Seat,
+        )
     }
 
     interface View {
@@ -27,5 +32,7 @@ interface SeatSelectionContract {
         fun setConfirmButtonEnabled(count: Int)
 
         fun showMovieTitle(movie: Movie)
+
+        fun showTotalPrice(amount: Int)
     }
 }

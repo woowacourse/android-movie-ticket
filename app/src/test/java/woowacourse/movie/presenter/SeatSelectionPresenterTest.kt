@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.db.SeatsDao
+import woowacourse.movie.model.Grade
+import woowacourse.movie.model.Seat
 import woowacourse.movie.presenter.reservation.SeatSelectionContract
 import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
 
@@ -37,5 +39,16 @@ class SeatSelectionPresenterTest {
         every { view.showMovieTitle(any()) } just runs
         presenter.loadMovie(0)
         verify { view.showMovieTitle(any()) }
+    }
+
+    @Test
+    fun `총 결제 금액을 보여준다`() {
+        every { view.showTotalPrice(any()) } just runs
+        with(presenter) {
+            updateTotalPrice(true, Seat('A', 1, Grade.B))
+            updateTotalPrice(true, Seat('C', 1, Grade.S))
+            updateTotalPrice(true, Seat('E', 1, Grade.A))
+        }
+        verify { view.showTotalPrice(37_000) }
     }
 }
