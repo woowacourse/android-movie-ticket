@@ -49,11 +49,11 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
         count.text = TICKET_COUNT.format(ticketCount.number)
     }
 
-    override fun showScreeningDate(info: String)  {
+    override fun showScreeningDate(info: String) {
         screeningDate.text = info
     }
 
-    override fun showScreeningTime(info: String)  {
+    override fun showScreeningTime(info: String) {
         screeningTime.text = info
     }
 

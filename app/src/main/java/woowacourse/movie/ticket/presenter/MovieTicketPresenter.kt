@@ -1,6 +1,5 @@
 package woowacourse.movie.ticket.presenter
 
-import android.util.Log
 import woowacourse.movie.reservation.model.Count
 import woowacourse.movie.ticket.contract.MovieTicketContract
 import woowacourse.movie.ticket.model.TicketDataResource
@@ -20,8 +19,6 @@ class MovieTicketPresenter(
     }
 
     override fun storeScreeningDate(date: String) {
-        Log.d("alsong", "date")
-        Log.d("alsong", date)
         TicketDataResource.screeningDate = date
     }
 
@@ -30,8 +27,6 @@ class MovieTicketPresenter(
     }
 
     override fun setScreeningDateInfo() {
-        Log.d("alsong", "date")
-        Log.d("alsong", TicketDataResource.screeningDate)
         view.showScreeningDate(TicketDataResource.screeningDate)
     }
 

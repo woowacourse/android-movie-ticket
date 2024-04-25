@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".seats.view.SeatsActivity"
+            android:exported="false" />
+        <activity
             android:name=".list.view.MovieListActivity"
             android:exported="true">
             <intent-filter>
