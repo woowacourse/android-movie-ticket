@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.seatSelection
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,6 +9,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -15,8 +17,8 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.SeatClass
-import woowacourse.movie.presentation.movieList.MovieListActivity.Companion.EXTRA_MOVIE_ID
 import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_COUNT
+import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter
@@ -37,8 +39,22 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val ticketCount = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_TICKET_COUNT)
         presenter = SeatSelectionPresenter(this, movieId, ticketCount)
-        presenter.initializeSeats()
-        presenter.initializeTicketInfo()
+        presenter.initializeViewData()
+        initializeCompleteButton()
+    }
+
+    private fun initializeCompleteButton() {
+        completeButton.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    presenter.navigate()
+                }
+                .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
+                .setCancelable(false)
+                .show()
+        }
     }
 
     override fun initializeSeats(seats: List<Seat>) {
@@ -82,12 +98,20 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         completeButton.isEnabled = isEnabled
     }
 
+    override fun navigate(movieId: Int) {
+        Intent(this, TicketingResultActivity::class.java).apply {
+            putExtra(EXTRA_MOVIE_ID, movieId)
+            startActivity(this)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
 
     companion object {
+        const val EXTRA_MOVIE_ID = "movie_id"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
         const val EXTRA_DEFAULT_TICKET_COUNT = -1
     }

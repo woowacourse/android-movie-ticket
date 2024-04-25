@@ -18,13 +18,15 @@ interface SeatSelectionContract {
         fun showToastMessage(message: String?)
 
         fun setButtonEnabledState(isEnabled: Boolean)
+
+        fun navigate(movieId: Int)
     }
 
     interface Presenter {
-        fun initializeSeats()
-
-        fun initializeTicketInfo()
+        fun initializeViewData()
 
         fun updateSeatSelection(index: Int)
+
+        fun navigate()
     }
 }

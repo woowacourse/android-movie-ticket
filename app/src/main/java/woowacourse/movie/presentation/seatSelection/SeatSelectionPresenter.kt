@@ -11,11 +11,8 @@ class SeatSelectionPresenter(
     private val movieRepository = MovieRepository()
     private val seatingSystem = SeatingSystem(ticketCount)
 
-    override fun initializeSeats() {
+    override fun initializeViewData() {
         seatSelectionContractView.initializeSeats(seatingSystem.seats)
-    }
-
-    override fun initializeTicketInfo() {
         movieRepository.findMovieById(movieId)
             .onSuccess { movie ->
                 seatSelectionContractView.initializeTicketInfo(movie)
@@ -43,5 +40,9 @@ class SeatSelectionPresenter(
             .onFailure {
                 seatSelectionContractView.showToastMessage(it.message)
             }
+    }
+
+    override fun navigate() {
+        seatSelectionContractView.navigate(movieId)
     }
 }
