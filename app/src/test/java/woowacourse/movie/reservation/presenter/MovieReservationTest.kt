@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.Count
 
-class DetailPresenterTest {
+class MovieReservationTest {
     private lateinit var view: MovieReservationContract.View
     private lateinit var presenter: MovieReservationContract.Presenter
 
