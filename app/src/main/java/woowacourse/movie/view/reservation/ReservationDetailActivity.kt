@@ -126,7 +126,6 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             putExtra(TICKET, ticket)
         }
         startActivity(intent)
-        finish()
     }
 
     private fun updateScreeningTimes(

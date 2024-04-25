@@ -13,6 +13,7 @@ import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.finished.ReservationFinishedContract
 import woowacourse.movie.presenter.finished.ReservationFinishedPresenter
+import woowacourse.movie.view.home.ReservationHomeActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
@@ -63,6 +64,9 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
     private fun handleBackPressed() {
         onBackPressedDispatcher.addCallback(this) {
+            val intent = Intent(this@ReservationFinishedActivity, ReservationHomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
             finish()
         }
     }
