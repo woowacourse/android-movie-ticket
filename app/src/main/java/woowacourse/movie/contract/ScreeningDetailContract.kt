@@ -8,7 +8,7 @@ interface ScreeningDetailContract {
 
         fun displayTicketNum(ticketNum: Int)
 
-        fun navigateToPurchaseConfirmation(reservationId: Int)
+        fun navigateToPurchaseConfirmation()
     }
 
     interface Presenter {

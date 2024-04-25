@@ -75,11 +75,8 @@ class ScreeningDetailActivity : AppCompatActivity(), ScreeningDetailContract.Vie
         numberOfPurchases.text = this.ticketNum.toString()
     }
 
-    override fun navigateToPurchaseConfirmation(reservationId: Int) {
-        val intent =
-            Intent(this, PurchaseConfirmationActivity::class.java).apply {
-                putExtra("ReservationId", reservationId)
-            }
+    override fun navigateToPurchaseConfirmation() {
+        val intent = Intent(this, PurchaseConfirmationActivity::class.java)
         startActivity(intent)
     }
 

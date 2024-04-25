@@ -11,7 +11,7 @@ class PurchaseConfirmationPresenter(
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
 ) : PurchaseConfirmationContract.Presenter {
     override fun loadReservation(reservationId: Int) {
-        val reservation = reservationRepository.getReservation(reservationId) ?: Reservation(Screening.default, 0)
+        val reservation = reservationRepository.getLastReservation() ?: Reservation(Screening.default, 0)
         view.displayReservation(reservation)
     }
 }

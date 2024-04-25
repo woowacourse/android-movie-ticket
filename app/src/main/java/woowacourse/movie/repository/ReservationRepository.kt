@@ -3,7 +3,7 @@ package woowacourse.movie.repository
 import woowacourse.movie.model.Reservation
 
 interface ReservationRepository {
-    fun getReservation(id: Int): Reservation?
+    fun getLastReservation(): Reservation?
 
-    fun putReservation(reservation: Reservation): Int
+    fun putReservation(reservation: Reservation)
 }

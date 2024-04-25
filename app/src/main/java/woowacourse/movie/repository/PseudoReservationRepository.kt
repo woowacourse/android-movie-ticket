@@ -3,11 +3,11 @@ package woowacourse.movie.repository
 import woowacourse.movie.model.Reservation
 
 class PseudoReservationRepository : ReservationRepository {
-    override fun getReservation(id: Int): Reservation? = reservations.getOrNull(id)
 
-    override fun putReservation(reservation: Reservation): Int {
+    override fun getLastReservation(): Reservation? = reservations.lastOrNull()
+
+    override fun putReservation(reservation: Reservation) {
         reservations.add(reservation)
-        return reservations.lastIndex
     }
 
     companion object {

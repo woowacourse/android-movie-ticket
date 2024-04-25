@@ -31,9 +31,9 @@ class ScreeningDetailPresenter(
     ) {
         val screening = screeningRepository.getScreening(screeningId)
         val reservation = Reservation(screening, ticketNum)
-        val reservationId = reservationRepository.putReservation(reservation)
+        reservationRepository.putReservation(reservation)
         // TODO: if it goes fail, view have to notify that something went wrong
         // e.g. view.notifyException()
-        view.navigateToPurchaseConfirmation(reservationId)
+        view.navigateToPurchaseConfirmation()
     }
 }
