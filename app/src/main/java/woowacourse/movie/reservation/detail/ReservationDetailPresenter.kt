@@ -9,11 +9,10 @@ import woowacourse.movie.model.Ticket
 class ReservationDetailPresenter(
     private val view: ReservationDetailContract.View,
     private val movieId: Int,
+    private val ticket: Ticket = Ticket()
 ) : ReservationDetailContract.Presenter {
-    private val ticket = Ticket()
-
-    init {
-        loadMovie()
+    override fun loadMovie() {
+        view.showMovieInformation(Movies.obtainMovie(movieId))
     }
 
     override fun increaseCount() {
@@ -24,10 +23,6 @@ class ReservationDetailPresenter(
     override fun decreaseCount() {
         val result = ticket.decreaseCount()
         handleNumberOfTicketsBounds(result)
-    }
-
-    override fun loadMovie() {
-        view.showMovieInformation(Movies.obtainMovie(movieId))
     }
 
     override fun deliverReservationInformation() {
