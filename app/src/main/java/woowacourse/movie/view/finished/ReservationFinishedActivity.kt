@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
+import woowacourse.movie.model.Failure
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
@@ -17,7 +18,9 @@ import woowacourse.movie.view.home.ReservationHomeActivity
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
+import woowacourse.movie.view.reservation.SeatSelectionActivity.Companion.SEATS
 import java.io.Serializable
+import java.lang.IllegalArgumentException
 import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
@@ -38,7 +41,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticket = intent.intentSerializable(TICKET, Ticket::class.java) ?: Ticket()
-        val seats = intent.intentSerializable("seats", Seats::class.java) ?: Seats()
+        val seats = intent.intentSerializable(SEATS, Seats::class.java) ?: Seats()
 
         with(presenter) {
             loadMovie(movieId)

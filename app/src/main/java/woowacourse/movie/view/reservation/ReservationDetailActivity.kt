@@ -148,7 +148,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Log.d("selectDate", "nothingSelected")
+                    Log.d(SELECTED_DATE_TAG, NOTHING_SELECTED_MESSAGE)
                 }
             }
     }
@@ -188,7 +188,9 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     companion object {
         const val DEFAULT_MOVIE_ID = 0
         const val TICKET = "ticket"
-        const val SCREENING_TIME = "screeningTime"
-        const val SCREENING_PERIOD = "screeningPeriod"
+        private const val SCREENING_TIME = "screeningTime"
+        private const val SCREENING_PERIOD = "screeningPeriod"
+        const val SELECTED_DATE_TAG = "notSelectedDate"
+        const val NOTHING_SELECTED_MESSAGE = "nothingSelected"
     }
 }

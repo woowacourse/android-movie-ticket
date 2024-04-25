@@ -61,8 +61,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onSaveInstanceState(outState)
         outState.apply {
             putSerializable(TICKET, ticket)
-            putSerializable("seats", presenter.seats)
-            putIntegerArrayList("seatsIndex", ArrayList(presenter.seats.seatsIndex))
+            putSerializable(SEATS, presenter.seats)
+            putIntegerArrayList(SEATS_INDEX, ArrayList(presenter.seats.seatsIndex))
         }
     }
 
@@ -70,8 +70,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
             val ticket = it.bundleSerializable(TICKET, Ticket::class.java) ?: Ticket()
-            val seats = it.bundleSerializable("seats", Seats::class.java) ?: Seats()
-            val index = it.getIntegerArrayList("seatsIndex") ?: emptyList<Int>()
+            val seats = it.bundleSerializable(SEATS, Seats::class.java) ?: Seats()
+            val index = it.getIntegerArrayList(SEATS_INDEX) ?: emptyList<Int>()
             with(presenter) {
                 restoreSeats(seats, index.toList())
                 restoreReservation(ticket.count)
@@ -181,5 +181,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         } else {
             this.getSerializableExtra(key) as T?
         }
+    }
+
+    companion object {
+        const val SEATS = "seats"
+        const val SEATS_INDEX = "seatsIndex"
     }
 }
