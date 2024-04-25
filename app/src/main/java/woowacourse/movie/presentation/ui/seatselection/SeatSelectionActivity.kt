@@ -3,6 +3,7 @@ package woowacourse.movie.presentation.ui.seatselection
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -40,11 +41,20 @@ class SeatSelectionActivity : BaseActivity(), View {
     override fun initStartView() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val reservationInfo =
-            intent.getSerializableExtra(PUT_EXTRA_KEY_RESERVATION_INFO) as ReservationInfo
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getSerializableExtra(
+                    PUT_EXTRA_KEY_RESERVATION_INFO,
+                    ReservationInfo::class.java,
+                )
+            } else {
+                intent.getSerializableExtra(PUT_EXTRA_KEY_RESERVATION_INFO) as ReservationInfo
+            }
 
-        presenter.updateUiModel(reservationInfo)
-        presenter.loadScreen(reservationInfo.screenId)
-        presenter.loadSeatBoard(reservationInfo.screenId)
+        reservationInfo?.let { reservationInfoItem ->
+            presenter.updateUiModel(reservationInfoItem)
+            presenter.loadScreen(reservationInfoItem.screenId)
+            presenter.loadSeatBoard(reservationInfoItem.screenId)
+        }
     }
 
     override fun showScreen(screen: Screen) {
