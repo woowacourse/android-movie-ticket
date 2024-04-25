@@ -23,7 +23,8 @@ fun Movie.runningTimeMessage(): String {
 }
 
 fun Int.reservationCountMessage(): String {
-    return "일반 %d명".format(this)
+    // TODO("예매한 좌석들")
+    return "일반 %d명 | %s".format(this, "")
 }
 
 fun Int.reservationAmountMessage(): String {

@@ -31,7 +31,7 @@ class MovieReservationActivity :
     private val minusButton by lazy { findViewById<Button>(R.id.minus_button) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
     private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
-    private val reservationButton by lazy { findViewById<Button>(R.id.reservation_button) }
+    private val reservationButton by lazy { findViewById<Button>(R.id.seat_select_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

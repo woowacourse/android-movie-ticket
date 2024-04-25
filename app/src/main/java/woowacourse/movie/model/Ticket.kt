@@ -1,6 +1,9 @@
 package woowacourse.movie.model
 
+import java.time.LocalDateTime
+
 class Ticket(
+    val screeningTime: LocalDateTime,
     val reservationCount: ReservationCount,
     private val price: Int = DEFAULT_PRICE,
 ) {

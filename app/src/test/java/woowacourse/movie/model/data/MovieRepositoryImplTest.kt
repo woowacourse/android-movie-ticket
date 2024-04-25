@@ -23,7 +23,8 @@ class MovieRepositoryImplTest {
         // then
         assertThat(actual.posterImageId).isEqualTo(0)
         assertThat(actual.title).isEqualTo("해리 포터와 마법사의 돌")
-        assertThat(actual.screeningDate).isEqualTo(LocalDate.of(2024, 3, 1))
+        assertThat(actual.startScreeningDate).isEqualTo(LocalDate.of(2024, 3, 1))
+        assertThat(actual.endScreeningDate).isEqualTo(LocalDate.of(2024, 3, 20))
         assertThat(actual.runningTime).isEqualTo(152)
         assertThat(actual.synopsis).isEqualTo("해리")
     }
@@ -52,7 +53,8 @@ class MovieRepositoryImplTest {
         // then
         assertThat(actual.posterImageId).isEqualTo(0)
         assertThat(actual.title).isEqualTo("오류가 발생했습니다.")
-        assertThat(actual.screeningDate).isEqualTo(LocalDate.of(1, 1, 1))
+        assertThat(actual.startScreeningDate).isEqualTo(LocalDate.of(1, 1, 1))
+        assertThat(actual.endScreeningDate).isEqualTo(LocalDate.of(1, 1, 1))
         assertThat(actual.runningTime).isEqualTo(0)
         assertThat(actual.synopsis).isEmpty()
     }

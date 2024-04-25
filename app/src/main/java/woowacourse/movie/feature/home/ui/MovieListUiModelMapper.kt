@@ -15,7 +15,7 @@ private fun Movie.toMovieListUiModel(context: Context): MovieListUiModel {
     return MovieListUiModel(
         ContextCompat.getDrawable(context, posterImageId),
         title,
-        screeningDateMessage(context, screeningDate),
+        screeningDateMessage(context, startScreeningDate, endScreeningDate),
         runningTimeMessage(context, runningTime),
         id,
     )
@@ -23,11 +23,14 @@ private fun Movie.toMovieListUiModel(context: Context): MovieListUiModel {
 
 private fun screeningDateMessage(
     context: Context,
-    screeningDate: LocalDate,
+    startScreeningDate: LocalDate,
+    endScreeningDate: LocalDate,
 ): String {
     return context.resources.getString(R.string.screening_date)
-        .format(screeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d")))
+        .format(startScreeningDate.message(), endScreeningDate.message())
 }
+
+private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
 
 private fun runningTimeMessage(
     context: Context,

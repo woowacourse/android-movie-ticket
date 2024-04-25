@@ -11,7 +11,7 @@ fun Movie.toReservationUiModel(context: Context): MovieReservationUiModel {
     return MovieReservationUiModel(
         ContextCompat.getDrawable(context, posterImageId),
         title,
-        screeningDateMessage(context, screeningDate),
+        screeningDateMessage(context, startScreeningDate, endScreeningDate),
         runningTimeMessage(context, runningTime),
         synopsis,
     )
@@ -19,11 +19,15 @@ fun Movie.toReservationUiModel(context: Context): MovieReservationUiModel {
 
 private fun screeningDateMessage(
     context: Context,
-    screeningDate: LocalDate,
+    startScreeningDate: LocalDate,
+    endScreeningDate: LocalDate,
 ): String {
     return context.resources.getString(R.string.screening_date)
-        .format(screeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d")))
+        .format(startScreeningDate.message(), endScreeningDate.message())
 }
+
+private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+
 
 private fun runningTimeMessage(
     context: Context,

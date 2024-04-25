@@ -2,13 +2,13 @@ package woowacourse.movie.feature.complete.ui
 
 import android.content.Context
 import woowacourse.movie.R
-import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 fun ReservationCompleteEntity.toReservationCompleteUiModel(context: Context): MovieReservationCompleteUiModel {
     return MovieReservationCompleteUiModel(
         movie.title,
-        screeningDateMessage(movie.screeningDate),
+        screeningTimeMessage(ticket.screeningTime),
         reservationCountMessage(context, ticket.reservationCount.count),
         reservationAmountMessage(context, ticket.amount()),
     )
@@ -25,10 +25,11 @@ private fun reservationCountMessage(
     context: Context,
     reservationCount: Int,
 ): String {
+    // TODO("예매한 좌석들")
     return context.resources.getString(R.string.reservation_count)
-        .format(reservationCount)
+        .format(reservationCount, "")
 }
 
-private fun screeningDateMessage(screeningDate: LocalDate): String {
-    return screeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+private fun screeningTimeMessage(screeningTime: LocalDateTime): String {
+    return screeningTime.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
 }

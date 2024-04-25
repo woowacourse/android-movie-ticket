@@ -40,7 +40,12 @@ class MovieReservationActivityTest {
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         view(R.id.screening_date_text)
-            .equalText(firstMovie.screeningDate.message())
+            .equalText(
+                screeningDateRangeMessage(
+                    firstMovie.startScreeningDate,
+                    firstMovie.endScreeningDate
+                )
+            )
     }
 
     @Test
@@ -119,7 +124,13 @@ class MovieReservationActivityTest {
             .equalText("1")
     }
 
-    private fun LocalDate.message(): String {
-        return "상영일: %s".format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
+    private fun screeningDateRangeMessage(
+        startScreeningDate: LocalDate,
+        endScreeningDate: LocalDate,
+    ): String {
+        return "상영일: %s ~ %s".format(
+            startScreeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d")),
+            endScreeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d")),
+        )
     }
 }

@@ -28,7 +28,12 @@ class MovieHomeActivityTest {
     @Test
     fun `영화_목록_첫_번째_항목의_상영일이_보여진다`() {
         firstMovieItem.child(R.id.screening_date_text)
-            .equalText(firstMovie.screeningDate.message())
+            .equalText(
+                screeningDateRangeMessage(
+                    firstMovie.startScreeningDate,
+                    firstMovie.endScreeningDate
+                )
+            )
     }
 
     @Test
@@ -37,7 +42,13 @@ class MovieHomeActivityTest {
             .equalText(firstMovie.runningTimeMessage())
     }
 
-    private fun LocalDate.message(): String {
-        return "상영일: %s".format(format(DateTimeFormatter.ofPattern("yyyy.M.d")))
+    private fun screeningDateRangeMessage(
+        startScreeningDate: LocalDate,
+        endScreeningDate: LocalDate,
+    ): String {
+        return "상영일: %s ~ %s".format(
+            startScreeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d")),
+            endScreeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d")),
+        )
     }
 }

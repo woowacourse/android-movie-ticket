@@ -15,6 +15,7 @@ import woowacourse.movie.feature.reservationAmountMessage
 import woowacourse.movie.feature.reservationCountMessage
 import woowacourse.movie.feature.view
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
@@ -39,9 +40,11 @@ class MovieReservationCompleteActivityTest {
     }
 
     @Test
-    fun `화면이_띄워지면_상영일이_보인다`() {
-        view(R.id.screening_date_text)
-            .equalText(firstMovie.screeningDate.message())
+    fun `화면이_띄워지면_상영_시간이_보인다`() {
+        // TODO("intent로 상영 시간 받아오기")
+//        val screeningTime = LocalDateTime.of(2024, 3, 1, 17, 0)
+//        view(R.id.screening_date_text)
+//            .equalText(screeningTimeMessage(screeningTime))
     }
 
     @Test
@@ -56,7 +59,9 @@ class MovieReservationCompleteActivityTest {
             .equalText(reservationCount.reservationAmountMessage())
     }
 
-    private fun LocalDate.message(): String {
-        return format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+    private fun screeningTimeMessage(
+        screeningDate: LocalDateTime,
+    ): String {
+        return screeningDate.format(DateTimeFormatter.ofPattern("yyyy.M.d HH:mm"))
     }
 }

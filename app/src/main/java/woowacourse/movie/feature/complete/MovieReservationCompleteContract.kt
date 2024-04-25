@@ -4,6 +4,7 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
+import java.time.LocalDateTime
 
 interface MovieReservationCompleteContract {
     interface View : ErrorListener {
@@ -16,6 +17,7 @@ interface MovieReservationCompleteContract {
     interface Presenter : BasePresenter {
         fun loadMovieData(
             movieId: Long,
+            reservationTime: LocalDateTime,
             reservationCountValue: Int,
         )
     }

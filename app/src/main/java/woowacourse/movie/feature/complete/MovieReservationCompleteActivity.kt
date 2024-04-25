@@ -15,6 +15,7 @@ import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
+import java.time.LocalDateTime
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
@@ -65,7 +66,12 @@ class MovieReservationCompleteActivity :
         movieId: Long,
         reservationCountValue: Int,
     ) {
-        presenter.loadMovieData(movieId, reservationCountValue)
+        // TODO("다른 액티비티에서 상영시간 받아오기")
+        presenter.loadMovieData(
+            movieId,
+            LocalDateTime.of(2024, 3, 1, 9, 0),
+            reservationCountValue
+        )
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
