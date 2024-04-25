@@ -16,9 +16,11 @@ import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.feature.reservation.ui.toReservationUiModel
+import woowacourse.movie.feature.seat.SeatSelectActivity
 import woowacourse.movie.model.ScreeningDate
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.ScreeningTime
+import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
@@ -37,7 +39,7 @@ class MovieReservationActivity :
     private val minusButton by lazy { findViewById<Button>(R.id.minus_button) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
     private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
-    private val reservationButton by lazy { findViewById<Button>(R.id.seat_select_button) }
+    private val seatSelectButton by lazy { findViewById<Button>(R.id.seat_select_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,9 +57,13 @@ class MovieReservationActivity :
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val reservationCountValue =
-            savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+        val reservationCountValue = savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
         presenter.updateReservationCount(reservationCountValue)
+
+        val screeningDateValue = savedInstanceState.getString(SCREENING_DATE_KEY)
+        val screeningTimeValue = savedInstanceState.getString(SCREENING_TIME_KEY)
+        // TODO("presenter에 id랑 value")
+        // screeningTimeSpinner.setSelection()
     }
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieRepositoryImpl)
@@ -98,8 +104,11 @@ class MovieReservationActivity :
             presenter.increaseReservationCount()
         }
 
-        reservationButton.setOnClickListener {
-            presenter.reserveMovie()
+        seatSelectButton.setOnClickListener {
+            presenter.selectSeat(
+                screeningDateSpinner.selectedItem.toString(),
+                screeningTimeSpinner.selectedItem.toString(),
+            )
         }
     }
 
@@ -121,7 +130,7 @@ class MovieReservationActivity :
         screeningDateSpinner.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates.map { it.message() })
         screeningDateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position :Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position :Int, id: Long) {
                 presenter.selectScreeningDate(screeningDates[position])
             }
 
@@ -137,8 +146,8 @@ class MovieReservationActivity :
         reservationCountText.text = reservationCountValue.toString()
     }
 
-    override fun moveReservationCompleteView(reservationCountValue: Int) {
-        MovieReservationCompleteActivity.startActivity(this, movieId(), reservationCountValue)
+    override fun moveSeatSelectView(ticket: Ticket) {
+        SeatSelectActivity.startActivity(this, movieId(), ticket)
     }
 
     override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {
@@ -149,6 +158,8 @@ class MovieReservationActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(MOVIE_RESERVATION_COUNT_KEY, reservationCountText.text.toString().toInt())
+        outState.putString(SCREENING_DATE_KEY, screeningDateSpinner.selectedItem.toString())
+        outState.putString(SCREENING_TIME_KEY, screeningDateSpinner.selectedItem.toString())
         super.onSaveInstanceState(outState)
     }
 
@@ -157,6 +168,8 @@ class MovieReservationActivity :
         private const val MOVIE_ID_KEY = "movie_id"
         private const val MOVIE_ID_DEFAULT_VALUE = -1L
         private const val MOVIE_RESERVATION_COUNT_KEY = "reservation_count_key"
+        private const val SCREENING_DATE_KEY = "screening_date_key"
+        private const val SCREENING_TIME_KEY = "screening_time_key"
         private const val RESERVATION_COUNT_DEFAULT_VALUE = 1
 
         fun startActivity(
