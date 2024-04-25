@@ -3,7 +3,7 @@ package woowacourse.movie.presenter
 import woowacourse.movie.model.Movie
 import woowacourse.movie.R
 
-class MainPresenterImpl(private val view: MainContract.View) : MainContract.Presenter {
+class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
     override fun fetchMovies() {
         val dummy = (0..10000).map {
             Movie(

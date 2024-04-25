@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.MainContract
-import woowacourse.movie.presenter.MainPresenterImpl
+import woowacourse.movie.presenter.MainPresenter
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var mainPresenter: MainContract.Presenter
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainPresenter = MainPresenterImpl(this)
+        mainPresenter = MainPresenter(this)
         mainPresenter.fetchMovies()
     }
 

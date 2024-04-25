@@ -12,18 +12,20 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.DetailContract
-import woowacourse.movie.presenter.DetailPresenterImpl
+import woowacourse.movie.presenter.DetailPresenter
 
 
 class DetailActivity : AppCompatActivity(), DetailContract.View {
-    private lateinit var detailPresenter: DetailContract.Presenter
+    private lateinit var detailPresenter: DetailPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        detailPresenter = DetailPresenterImpl(this)
 
-        setupView()
+        detailPresenter = DetailPresenter(this)
+        detailPresenter.loadMovie()
+
         setupActionBar()
         setupCounter()
     }
@@ -43,48 +45,28 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
         }
     }
 
-    private fun setupReserveButton() {
-        val movie: Movie = intent?.parcelable("movie") ?: Movie(
-            poster = R.drawable.poster,
-            title = "해리 포터 1",
-            date = "2024-04-12",
-            runTime = "152분"
-        )
-        val reserveButton = findViewById<Button>(R.id.reserve)
-        val detailPersonCounter = findViewById<TextView>(R.id.detail_person_counter)
-        reserveButton.setOnClickListener {
-            val ticket = Ticket(
-                movie = movie, personCount = detailPersonCounter.text.toString().toInt()
-            )
-            detailPresenter.onReserveButtonClicked(ticket)
-        }
-    }
-
-    override fun startTicketActivity(ticket: Ticket) {
-        startActivity(Intent(this, TicketActivity::class.java).apply {
-            putExtra("ticket", ticket)
-        })
-        finish()
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
     }
 
-    private fun setupView() {
-        val movie: Movie = intent?.parcelable("movie") ?: Movie(
-            poster = R.drawable.poster,
-            title = "해리 포터 1",
-            date = "2024-04-12",
-            runTime = "152분"
-        )
+    private fun setupReserveButton(movie: Movie) {
+        val reserveButton = findViewById<Button>(R.id.reserve)
+        val detailPersonCounter = findViewById<TextView>(R.id.detail_person_counter)
+        val personCounter = detailPersonCounter.text.toString().toInt()
+        reserveButton.setOnClickListener {
+            detailPresenter.onClickedReservation(movie, personCounter)
+        }
+    }
+
+    private fun setupView(movie: Movie) {
+        val movie: Movie = intent?.parcelable("movie") ?: movie
         val detailInformation = findViewById<TextView>(R.id.detail_information)
         val detailPoster = findViewById<ImageView>(R.id.detail_poster)
         detailInformation.text = movie.information
         detailPoster.setImageResource(movie.poster)
 
-        setupReserveButton()
+        setupReserveButton(movie)
     }
 
     private fun setupActionBar() {
@@ -99,18 +81,29 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
 
         minusButton.setOnClickListener {
             val value = detailPersonCounter.text.toString().toInt()
-            detailPresenter.onMinusButtonClicked(value)
+            detailPresenter.onClickedMinusCount(value)
         }
 
         plusButton.setOnClickListener {
             val value = detailPersonCounter.text.toString().toInt()
-            detailPresenter.onPlusButtonClicked(value)
+            detailPresenter.onClickedPlusButton(value)
         }
     }
 
-    override fun updateCounter(count: Int) {
+    override fun showMovie(movie: Movie) {
+        setupView(movie)
+    }
+
+    override fun updateCount(count: Int) {
         val detailPersonCounter = findViewById<TextView>(R.id.detail_person_counter)
         detailPersonCounter.text = count.toString()
+    }
+
+    override fun showTicket(ticket: Ticket) {
+        startActivity(Intent(this, TicketActivity::class.java).apply {
+            putExtra("ticket", ticket)
+        })
+        finish()
     }
 }
 
