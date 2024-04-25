@@ -15,6 +15,8 @@ interface MovieSeatSelectionContract {
         fun showSelectedSeat(seats: List<Seat>)
 
         fun showReservationTotalAmount(amount: Int)
+
+        fun updateSelectCompletion(isComplete: Boolean)
     }
 
     interface Presenter {
@@ -23,6 +25,8 @@ interface MovieSeatSelectionContract {
         fun loadTotalSeatAmount()
 
         fun loadTheater()
+
+        fun updateSelectCompletion()
 
         fun selectSeat(
             row: Int,

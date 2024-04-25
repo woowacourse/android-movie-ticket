@@ -36,23 +36,26 @@ class MovieSeatSelectionPresenterTest {
     @Test
     fun `좌석을 선택한다`() {
         // given
-        every { view.showSelectedSeat(any(), any()) } just runs
+        every { view.showSelectedSeat(any()) } just runs
         every { view.showReservationTotalAmount(any()) } just runs
 
         // when
         presenter.selectSeat(1, 1)
 
         // then
-        verify { view.showSelectedSeat(any(), any()) }
+        verify { view.showSelectedSeat(any()) }
         verify { view.showReservationTotalAmount(any()) }
     }
 
     @Test
     fun `영화 타이틀을 가져온다`() {
         // given
+        every { view.showMovieTitle(any()) } just runs
 
         // when
+        presenter.loadMovieTitle(0L)
 
         // then
+        verify { view.showMovieTitle(any()) }
     }
 }

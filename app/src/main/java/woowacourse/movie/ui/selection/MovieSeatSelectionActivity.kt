@@ -1,9 +1,12 @@
 package woowacourse.movie.ui.selection
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.forEach
@@ -24,6 +27,7 @@ class MovieSeatSelectionActivity :
     private val seatTable by lazy { findViewById<TableLayout>(R.id.seat_table) }
     private val movieTitle by lazy { findViewById<TextView>(R.id.movie_title_text) }
     private val totalSeatAmount by lazy { findViewById<TextView>(R.id.total_seat_amount_text) }
+    private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,7 @@ class MovieSeatSelectionActivity :
         presenter.loadTheater()
         presenter.loadMovieTitle(movieContentId)
         presenter.loadTotalSeatAmount()
+        presenter.updateSelectCompletion()
     }
 
     private fun movieContentId() =
@@ -77,6 +82,7 @@ class MovieSeatSelectionActivity :
                     setOnClickListener {
                         presenter.selectSeat(row, col)
                         presenter.loadTotalSeatAmount()
+                        presenter.updateSelectCompletion()
                     }
                 }
             }
@@ -111,7 +117,20 @@ class MovieSeatSelectionActivity :
                 .format(amount)
     }
 
+    override fun updateSelectCompletion(isComplete: Boolean) {
+        if (isComplete) {
+            confirmButton.isEnabled = true
+            confirmButton.isClickable = true
+        } else {
+            confirmButton.isEnabled = false
+            confirmButton.isClickable = false
+        }
+    }
+
     override fun showError(throwable: Throwable) {
+        Log.e(TAG, throwable.message.toString())
+        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
+        finish()
     }
 
     companion object {

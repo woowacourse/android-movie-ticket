@@ -9,8 +9,10 @@ class ReservationDetail(private val reservationCount: Int) {
         row: Int,
         col: Int,
     ) {
-        _selectedSeat.add(Seat(row, col))
+        if (isSelectable()) _selectedSeat.add(Seat(row, col))
     }
+
+    private fun isSelectable() = _selectedSeat.size < reservationCount
 
     fun removeSeat(
         row: Int,
@@ -20,4 +22,6 @@ class ReservationDetail(private val reservationCount: Int) {
     }
 
     fun totalSeatAmount(): Int = _selectedSeat.sumOf { it.price() }
+
+    fun checkSelectCompletion() = _selectedSeat.size == reservationCount
 }

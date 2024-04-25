@@ -13,8 +13,12 @@ class MovieSeatSelectionPresenter(
     private val reservationDetail = ReservationDetail(reservationCount)
 
     override fun loadMovieTitle(movieContentId: Long) {
-        val movieContent = movieContents.find(movieContentId)
-        view.showMovieTitle(movieContent.title)
+        try {
+            val movieContent = movieContents.find(movieContentId)
+            view.showMovieTitle(movieContent.title)
+        } catch (e: NoSuchElementException) {
+            view.showError(e)
+        }
     }
 
     override fun loadTotalSeatAmount() {
@@ -23,6 +27,10 @@ class MovieSeatSelectionPresenter(
 
     override fun loadTheater() {
         view.showTheater(Seat.ROW_LEN, Seat.COL_LEN)
+    }
+
+    override fun updateSelectCompletion() {
+        view.updateSelectCompletion(reservationDetail.checkSelectCompletion())
     }
 
     override fun selectSeat(
