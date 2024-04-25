@@ -11,4 +11,8 @@
     <color name="seat_screen_background">#FF494949</color>
     <color name="seat_confirm_background">#FFB7B7B7</color>
     <color name="seat_money_text">#FF727272</color>
+    <color name="seat_a_text_color">#FF8E13EF</color>
+    <color name="seat_s_text_color">#FF19D358</color>
+    <color name="seat_b_text_color">#FF1B48E9</color>
+    <color name="select_seat_color">#FFFAFF00</color>
 </resources>

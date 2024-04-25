@@ -10,7 +10,6 @@
     tools:context=".presentation.seat.SeatSelectionActivity">
 
     <TextView
-        android:id="@+id/seat_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="34dp"
@@ -21,165 +20,191 @@
         android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintTop_toTopOf="parent" />
-    
+
     <TableLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/seat_table"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginHorizontal="34dp"
         android:layout_marginBottom="84dp"
         android:background="@color/white"
-        android:layout_marginHorizontal="34dp"
-        android:layout_width="match_parent"
-        android:layout_height="400dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TableRow android:layout_weight="1">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="A1" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="A2" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="A3" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="A4" />
         </TableRow>
+
         <TableRow android:layout_weight="1">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="B1" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="B2" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="B3" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="B4" />
         </TableRow>
+
         <TableRow android:layout_weight="1">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="C1" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="C2" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="C3" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="C4" />
         </TableRow>
+
         <TableRow android:layout_weight="1">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="D1" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="D2" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="D3" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="D4" />
         </TableRow>
+
         <TableRow android:layout_weight="1">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="E1" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="E2" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="E3" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="22sp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:textSize="22sp"
                 tools:text="E4" />
         </TableRow>
 
@@ -194,6 +219,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="78dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
@@ -218,6 +244,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="88dp"
