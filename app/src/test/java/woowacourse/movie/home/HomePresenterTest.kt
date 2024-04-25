@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class HomePresenterTest {
-
     private lateinit var view: HomeContract.View
     private lateinit var presenter: HomeContract.Presenter
 

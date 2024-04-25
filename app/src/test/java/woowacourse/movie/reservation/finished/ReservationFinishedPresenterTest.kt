@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class ReservationFinishedPresenterTest {
-
     private lateinit var view: ReservationFinishedContract.View
     private lateinit var presenter: ReservationFinishedContract.Presenter
 

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.model.Ticket
 
 class ReservationDetailPresenterTest {
-
     private lateinit var view: ReservationDetailContract.View
     private lateinit var presenter: ReservationDetailContract.Presenter
 

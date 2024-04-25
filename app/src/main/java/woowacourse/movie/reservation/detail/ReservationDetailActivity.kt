@@ -59,7 +59,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     override fun showMovieInformation(movie: Movie) {
         poster.setImageResource(movie.poster)
         title.text = movie.title
-        screeningDate.text = convertDateFormat(movie.screeningDate)
+        screeningDate.text = convertDateFormat(movie.firstScreeningDate, movie.lastScreeningDate)
         runningTime.text = movie.runningTime
         summary.text = movie.summary
     }
@@ -73,10 +73,13 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             .show()
     }
 
-    private fun convertDateFormat(date: LocalDate): String {
+    private fun convertDateFormat(
+        firstDate: LocalDate,
+        secondDate: LocalDate,
+    ): String {
         val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
-        return date.format(dateFormat)
+        return "${firstDate.format(dateFormat)} ~ ${secondDate.format(dateFormat)}"
     }
 
     companion object {
