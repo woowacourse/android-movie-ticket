@@ -12,10 +12,9 @@ import woowacourse.movie.presentation.ui.screen.ScreenActionHandler
 class ScreenViewHolder(
     val view: View,
     private val screenActionHandler: ScreenActionHandler,
-) :
-    RecyclerView.ViewHolder(view) {
+) : RecyclerView.ViewHolder(view) {
     private val poster: ImageView = view.findViewById(R.id.iv_poster)
-    private val title: TextView = view.findViewById(R.id.tv_title)
+    val title: TextView = view.findViewById(R.id.tv_title)
     private val date: TextView = view.findViewById(R.id.tv_screen_date)
     private val runningTime: TextView = view.findViewById(R.id.tv_screen_running_time)
     private val reserveButton: Button = view.findViewById(R.id.btn_reserve_now)
