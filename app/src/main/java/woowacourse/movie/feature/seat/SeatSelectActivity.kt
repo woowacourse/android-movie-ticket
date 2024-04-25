@@ -14,8 +14,11 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 
@@ -47,10 +50,11 @@ class SeatSelectActivity(
             return
         }
 
+        presenter.loadMovieData(movieId)
         presenter.initializeSeatTable(seatRow, seatCol)
     }
 
-    override fun initializePresenter() = SeatSelectPresenter(this)
+    override fun initializePresenter() = SeatSelectPresenter(this, MovieRepositoryImpl)
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
@@ -69,11 +73,16 @@ class SeatSelectActivity(
         return movieId == MOVIE_ID_DEFAULT_VALUE || ticket == null
     }
 
+    override fun initializeMovie(movie: SeatSelectMovieUiModel) {
+        titleText.text = movie.titleMessage
+    }
+
     override fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>) {
         seatViews.forEachIndexed { row, rows ->
             rows.forEachIndexed { col, seatView: CheckBox ->
                 seatView.text = seats[row][col].seatMessage
-                val color = ContextCompat.getColor(this@SeatSelectActivity, seats[row][col].seatColorId)
+                val color =
+                    ContextCompat.getColor(this@SeatSelectActivity, seats[row][col].seatColorId)
                 seatView.setTextColor(color)
                 // TODO("presenter 호출해서 금액, 확인 버튼 update")
                 // TODO("예매 개수보다 여러개 선택할 수 없음")
