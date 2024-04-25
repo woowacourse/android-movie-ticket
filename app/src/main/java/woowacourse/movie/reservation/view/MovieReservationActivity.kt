@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private lateinit var titleView: TextView
     private lateinit var screeningDateView: TextView
-    private lateinit var runningDateView: TextView
+    private lateinit var runningTimeView: TextView
     private lateinit var ticketCountView: TextView
     private lateinit var posterView: ImageView
     private lateinit var descriptionView: TextView
@@ -43,7 +43,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private fun initView() {
         titleView = findViewById(R.id.movie_detail_title)
         screeningDateView = findViewById(R.id.movie_detail_screening_date)
-        runningDateView = findViewById(R.id.movie_detail_running_date)
+        runningTimeView = findViewById(R.id.movie_detail_running_time)
         descriptionView = findViewById(R.id.movie_detail_description)
         ticketCountView = findViewById(R.id.ticket_count)
         posterView = findViewById(R.id.movie_detail_poster)
@@ -59,7 +59,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
         titleView.text = info.title
         screeningDateView.text = formattedScreeningDate
-        runningDateView.text = info.runningTime.toString()
+        runningTimeView.text = info.runningTime.toString()
         descriptionView.text = info.description
         posterView.setImageResource(info.posterResourceId)
     }
