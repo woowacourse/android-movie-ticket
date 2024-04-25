@@ -2,17 +2,24 @@ package woowacourse.movie.reservation.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.list.model.Movie
 import woowacourse.movie.reservation.contract.MovieReservationContract
+import woowacourse.movie.reservation.model.Count
 import woowacourse.movie.reservation.presenter.MovieReservationPresenter
 import woowacourse.movie.ticket.view.MovieTicketActivity
 import woowacourse.movie.util.IntentUtil.getSerializableMovieData
+import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -25,7 +32,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private lateinit var minusNumberButton: Button
     private lateinit var plusNumberButton: Button
     private lateinit var ticketingButton: Button
+    private lateinit var spinnerDate: Spinner
+    private lateinit var spinnerTime: Spinner
     private var toast: Toast? = null
+    lateinit var selectedDate: LocalDate
+    lateinit var selectedTime: LocalTime
     override val presenter = MovieReservationPresenter(this@MovieReservationActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +46,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         presenter.setCurrentResultTicketCountInfo()
         presenter.storeMovieData(getSerializableMovieData(intent))
         presenter.setMovieInfo()
+        presenter.setSpinnerInfo()
+        presenter.setSpinnerDateItemInfo()
+        presenter.setSpinnerTimeItemInfo()
         setOnPlusButtonClickListener()
         setOnMinusButtonClickListener()
         setOnTicketingButtonListener()
@@ -50,6 +64,54 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         minusNumberButton = findViewById(R.id.minus_button)
         plusNumberButton = findViewById(R.id.plus_button)
         ticketingButton = findViewById(R.id.ticketing_button)
+        spinnerDate = findViewById(R.id.spinner_date)
+        spinnerTime = findViewById(R.id.spinner_time)
+    }
+
+    override fun showSpinnerInfo(
+        screeningDates: List<LocalDate>,
+        screeningTimes: List<LocalTime>,
+    ) {
+        spinnerDate.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, screeningDates)
+        spinnerTime.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, screeningTimes)
+    }
+
+    override fun setOnSpinnerDateItemSelectedListener(screeningDates: List<LocalDate>) {
+        spinnerDate.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedDate = screeningDates[position]
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    selectedDate = screeningDates[0]
+                }
+            }
+    }
+
+    override fun setOnSpinnerTimeItemSelectedListener(screeningTimes: List<LocalTime>) {
+        spinnerTime.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedTime = screeningTimes[position]
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    selectedTime = screeningTimes[0]
+                }
+            }
     }
 
     override fun setMovieView(info: Movie) {
@@ -92,9 +154,11 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
     }
 
-    override fun startMovieTicketActivity(info: Int) {
+    override fun startMovieTicketActivity(info: Count) {
         val intent = Intent(this, MovieTicketActivity::class.java)
         intent.putExtra(EXTRA_COUNT_KEY, info)
+        intent.putExtra(EXTRA_DATE_KEY, selectedDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
+        intent.putExtra(EXTRA_TIME_KEY, selectedTime.toString())
         this.startActivity(intent)
     }
 
@@ -115,6 +179,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     companion object {
         const val EXTRA_COUNT_KEY = "count_key"
+        const val EXTRA_DATE_KEY = "selected_date_key"
+        const val EXTRA_TIME_KEY = "selected_time_key"
         private const val DATE_PATTERN = "yyyy.MM.dd"
     }
 }

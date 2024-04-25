@@ -2,6 +2,7 @@ package woowacourse.movie.reservation.presenter
 
 import woowacourse.movie.list.model.Movie
 import woowacourse.movie.reservation.contract.MovieReservationContract
+import woowacourse.movie.reservation.model.DataResource
 import woowacourse.movie.reservation.model.MovieReservationMovieData
 import woowacourse.movie.reservation.model.MovieReservationTicketCountData
 
@@ -41,6 +42,18 @@ class MovieReservationPresenter(
     }
 
     override fun setTicketingButtonClickInfo() {
-        view.startMovieTicketActivity(ticketCount.number)
+        view.startMovieTicketActivity(ticketCount)
+    }
+
+    override fun setSpinnerInfo() {
+        view.showSpinnerInfo(DataResource.screeningDates, DataResource.screeningTimesWeekDays)
+    }
+
+    override fun setSpinnerDateItemInfo() {
+        view.setOnSpinnerDateItemSelectedListener(DataResource.screeningDates)
+    }
+
+    override fun setSpinnerTimeItemInfo() {
+        view.setOnSpinnerTimeItemSelectedListener(DataResource.screeningTimesWeekDays)
     }
 }

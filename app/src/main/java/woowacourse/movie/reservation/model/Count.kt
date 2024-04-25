@@ -1,7 +1,9 @@
 package woowacourse.movie.reservation.model
 
+import java.io.Serializable
+
 @JvmInline
-value class Count(val number: Int) {
+value class Count(val number: Int) : Serializable {
     init {
         require(number >= 1) { "개수는 1 이상이어야 합니다." }
     }

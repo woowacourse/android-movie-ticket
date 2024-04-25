@@ -8,6 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.reservation.contract.MovieReservationContract
+import woowacourse.movie.reservation.model.Count
 
 class DetailPresenterTest {
     private lateinit var view: MovieReservationContract.View
@@ -25,9 +26,7 @@ class DetailPresenterTest {
         // when
         presenter.setMovieInfo()
         // then
-        verify {
-            view.setMovieView(any())
-        }
+        verify { view.setMovieView(any()) }
     }
 
     @Test
@@ -60,10 +59,37 @@ class DetailPresenterTest {
 
     @Test
     fun `예매 완료 버튼을 누르면 예매 내역이 보여져야 한다`() {
-        every { view.startMovieTicketActivity(any()) } just runs
+        every { view.startMovieTicketActivity(Count(1)) } just runs
         // when
         presenter.setTicketingButtonClickInfo()
         // then
-        verify { view.startMovieTicketActivity(1) }
+        verify { view.startMovieTicketActivity(Count(1)) }
+    }
+
+    @Test
+    fun `날짜와 시간을 선택하는 스피너가 보여야 한다`() {
+        every { view.showSpinnerInfo(any(), any()) } just runs
+        // when
+        presenter.setSpinnerInfo()
+        // then
+        verify { view.showSpinnerInfo(any(), any()) }
+    }
+
+    @Test
+    fun `날짜 스피너로 날짜를 선택할 수 있어야 한다`() {
+        every { view.setOnSpinnerDateItemSelectedListener(any()) } just runs
+        // when
+        presenter.setSpinnerDateItemInfo()
+        // then
+        verify { view.setOnSpinnerDateItemSelectedListener(any()) }
+    }
+
+    @Test
+    fun `시간 스피너로 시간을 선택할 수 있어야 한다`() {
+        every { view.setOnSpinnerTimeItemSelectedListener(any()) } just runs
+        // when
+        presenter.setSpinnerTimeItemInfo()
+        // then
+        verify { view.setOnSpinnerTimeItemSelectedListener(any()) }
     }
 }
