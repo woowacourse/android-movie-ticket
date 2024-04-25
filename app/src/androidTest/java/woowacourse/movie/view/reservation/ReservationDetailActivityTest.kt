@@ -128,4 +128,28 @@ class ReservationDetailActivityTest {
 
         onView(withId(R.id.spinner_reservation_detail_screening_time)).check(matches(withSpinnerText(containsString("09:00"))))
     }
+
+    @Test
+    fun `2024년_3월_2일의_상영일을_스피너로_선택한_후_화면을_회전시켜도_선택한_상영일이_유지된다`() {
+        onView(withId(R.id.spinner_reservation_detail_screening_date)).perform(click())
+        onData(allOf(`is`(instanceOf(LocalDate::class.java)), `is`(LocalDate.of(2024, 3, 2)))).perform(click())
+
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.spinner_reservation_detail_screening_date)).check(matches(withSpinnerText(containsString("2024-03-02"))))
+    }
+
+    @Test
+    fun `14시의_상영시간을_스피너로_선택한_후_화면을_회전시켜도_선택한_상영시간이_유지된다`() {
+        onView(withId(R.id.spinner_reservation_detail_screening_time)).perform(click())
+        onData(allOf(`is`(instanceOf(LocalTime::class.java)), `is`(LocalTime.of(14, 0)))).perform(click())
+
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.spinner_reservation_detail_screening_time)).check(matches(withSpinnerText(containsString("14:00"))))
+    }
 }

@@ -38,6 +38,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private val numberOfTickets: TextView by lazy { findViewById(R.id.text_view_reservation_detail_number_of_tickets) }
     private val plusButton: Button by lazy { findViewById(R.id.button_reservation_detail_plus) }
     private val reservationButton: Button by lazy { findViewById(R.id.button_reservation_detail_finished) }
+    private var movieId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
+        movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
 
         with(presenter) {
             loadMovie(movieId)
@@ -59,15 +60,21 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(TICKET, presenter.ticket)
+        outState.apply {
+            putSerializable(TICKET, presenter.ticket)
+            putInt(SCREENING_PERIOD, screeningPeriodSpinner.selectedItemPosition)
+            putInt(SCREENING_TIME, screeningTimeSpinner.selectedItemPosition)
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
             val ticket = it.bundleSerializable(TICKET, Ticket::class.java) ?: Ticket()
+            val selectedTimeId = it.getInt(SCREENING_TIME, 0)
             presenter.ticket.restoreTicket(ticket.count)
             numberOfTickets.text = presenter.ticket.count.toString()
+            updateScreeningTimes(movieId, selectedTimeId)
         }
     }
 
@@ -114,13 +121,18 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         ticket: Ticket,
     ) {
         val intent = Intent(this, SeatSelectionActivity::class.java)
-        intent.putExtra(MOVIE_ID, movieId)
-        intent.putExtra(TICKET, ticket)
+        intent.apply {
+            putExtra(MOVIE_ID, movieId)
+            putExtra(TICKET, ticket)
+        }
         startActivity(intent)
         finish()
     }
 
-    private fun updateScreeningTimes(movieId: Int) {
+    private fun updateScreeningTimes(
+        movieId: Int,
+        selectedTimeId: Int? = null,
+    ) {
         screeningPeriodSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -131,6 +143,9 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
                 ) {
                     val selectedDate = screeningPeriodSpinner.selectedItem.toString()
                     presenter.loadScreeningTimes(movieId, selectedDate)
+                    selectedTimeId?.let {
+                        screeningTimeSpinner.setSelection(it)
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -174,5 +189,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     companion object {
         const val DEFAULT_MOVIE_ID = 0
         const val TICKET = "ticket"
+        const val SCREENING_TIME = "screeningTime"
+        const val SCREENING_PERIOD = "screeningPeriod"
     }
 }
