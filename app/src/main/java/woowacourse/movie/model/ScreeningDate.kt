@@ -8,8 +8,18 @@ data class ScreeningDate(val date: LocalDate) {
         return ScreeningDate(date.plusDays(SCREENING_DATE_INTERVAL))
     }
 
+    fun screeningTimes(): List<ScreeningTime> {
+        // TODO("주말인 경우의 times와 평일인 경우의 times를 캐싱")
+        val startHour = if (isWeekend()) WEEKEND_START_HOUR else WEEKDAY_START_HOUR
+        return (startHour..END_HOUR step SCREENING_HOUR_INTERVAL).map { ScreeningTime.of(it) }
+    }
+
     private fun isWeekend(): Boolean {
         return date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY
+    }
+
+    operator fun rangeTo(endScreeningDate: ScreeningDate): ScreeningDateRange {
+        return ScreeningDateRange(this, endScreeningDate)
     }
 
     companion object {
