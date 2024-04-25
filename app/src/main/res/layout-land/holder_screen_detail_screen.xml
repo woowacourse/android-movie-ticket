@@ -6,40 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.ScreenDetailScreenView">
 
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:layout_width="200dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_poster" />
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/sv_screen_information"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginBottom="9dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintTop_toTopOf="@+id/iv_poster">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_poster"
-                android:layout_width="match_parent"
-                android:layout_height="341dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/img_poster" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="21dp"
-                android:layout_marginTop="27dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_poster"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="해리 포터와 마법사의 돌" />
 
             <TextView

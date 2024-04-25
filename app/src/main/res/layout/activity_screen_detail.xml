@@ -10,7 +10,7 @@
     <woowacourse.movie.ui.detail.ScreenDetailScreenView
         android:id="@+id/screen_detail_screen_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/screen_detail_ticket_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
     <woowacourse.movie.ui.detail.ScreenDetailTicketView
         android:id="@+id/screen_detail_ticket_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
