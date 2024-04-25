@@ -13,16 +13,16 @@
     </style>
 
     <style name="Theme.AppCompat.TextView.Seat.Selection.Table.Row.Purple" parent="Theme.AppCompat.TextView.Seat.Selection.Table.Row">
-        <item name="android:textColor">#8E13EF</item>
+        <item name="android:textColor">@color/purple</item>
     </style>
 
 
     <style name="Theme.AppCompat.TextView.Seat.Selection.Table.Row.Green" parent="Theme.AppCompat.TextView.Seat.Selection.Table.Row">
-        <item name="android:textColor">#19D358</item>
+        <item name="android:textColor">@color/green</item>
     </style>
 
     <style name="Theme.AppCompat.TextView.Seat.Selection.Table.Row.Blue" parent="Theme.AppCompat.TextView.Seat.Selection.Table.Row">
-        <item name="android:textColor">#1B48E9</item>
+        <item name="android:textColor">@color/blue</item>
     </style>
 
 </resources>

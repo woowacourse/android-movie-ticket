@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EAEAEA"
+    android:background="@color/gray"
     tools:context=".presentation.ui.seatselection.SeatSelectionActivity">
 
 
@@ -104,7 +104,7 @@
         android:id="@+id/btn_done"
         android:layout_width="88dp"
         android:layout_height="78dp"
-        android:background="#6200EE"
+        android:background="@color/purple"
         android:gravity="center"
         android:text="@string/done"
         android:textColor="@color/white"
