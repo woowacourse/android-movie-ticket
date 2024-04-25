@@ -19,7 +19,7 @@ class ScreenActivityTest {
 
     @Test
     fun `상영_목록이_표시된다`() {
-        onView(withId(R.id.lv_screen)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_screen)).check(matches(isDisplayed()))
     }
 
     @Test

@@ -16,13 +16,16 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.presentation.utils.currency
-import woowacourse.movie.presentation.utils.getDummyScreen
+import woowacourse.movie.presentation.utils.getDummyMovie
+import woowacourse.movie.presentation.utils.getDummyReservation
+import woowacourse.movie.presentation.utils.toScreeningDate
+import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {
     private val repository: ReservationRepository by lazy { DummyReservation }
     private var reservationId: Int
-    private val screen = getDummyScreen()
+    private val reservation = getDummyReservation()
     private val count = 1
 
     @get:Rule
@@ -32,19 +35,25 @@ class ReservationActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 ReservationActivity::class.java,
             ).apply {
-                reservationId = repository.saveReservation(screen, count).getOrThrow()
+                reservationId =
+                    repository.saveReservation(
+                        getDummyMovie(),
+                        count,
+                        emptyList(),
+                        LocalDateTime.now(),
+                    ).getOrThrow()
                 putExtra("reservationId", reservationId)
             },
         )
 
     @Test
     fun `예약한_영화의_제목을_표시한다`() {
-        onView(withId(R.id.tv_reservation_title)).check(matches(withText(screen.movie.title)))
+        onView(withId(R.id.tv_reservation_title)).check(matches(withText(reservation.movie.title)))
     }
 
     @Test
     fun `예약한_영화의_날짜를_표시한다`() {
-        onView(withId(R.id.tv_reservation_date)).check(matches(withText(screen.date)))
+        onView(withId(R.id.tv_reservation_date)).check(matches(withText(reservation.dateTime.toScreeningDate())))
     }
 
     @Test
