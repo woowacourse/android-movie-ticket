@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.presentation.screen.ScreeningMovieActivity
+import woowacourse.movie.presentation.screen.movie.ScreeningMovieActivity
 
 @RunWith(AndroidJUnit4::class)
 class ScreeningMovieActivityTest {

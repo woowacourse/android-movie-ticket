@@ -16,15 +16,15 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
-import woowacourse.movie.presentation.reservation.booking.ReservationActivity
+import woowacourse.movie.presentation.screen.detail.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
-class ReservationActivityTest {
+class MovieDetailActivityTest {
     private val movie = MovieDao().find(0)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
-            ReservationActivity::class.java,
+            MovieDetailActivity::class.java,
         ).putExtra("img", movie.img)
             .putExtra("title", movie.title)
             .putExtra("description", movie.description)
@@ -32,7 +32,7 @@ class ReservationActivityTest {
             .putExtra("runningTime", movie.runningTime.toString())
 
     @get:Rule
-    val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
+    val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)
 
     @Test
     fun 액티비티가_시작하면_title이_보인다() {
@@ -96,8 +96,8 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun 예매완료_버튼을_누르면_현재_레이아웃은_사라져야한다() {
-        onView(withId(R.id.reservation_complete_button))
+    fun 좌석선택_버튼을_누르면_현재_레이아웃은_사라져야한다() {
+        onView(withId(R.id.select_seat_button))
             .perform(click())
 
         onView(withId(R.id.reservation_layout))

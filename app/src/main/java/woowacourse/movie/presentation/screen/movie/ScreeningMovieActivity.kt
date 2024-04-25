@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.screen
+package woowacourse.movie.presentation.screen.movie
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
-import woowacourse.movie.presentation.reservation.booking.ReservationActivity
-import woowacourse.movie.presentation.screen.adapter.MovieListAdapter
+import woowacourse.movie.presentation.screen.detail.MovieDetailActivity
+import woowacourse.movie.presentation.screen.movie.adapter.MovieListAdapter
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View {
     private val presenter: ScreeningMoviePresenter by lazy {
@@ -31,7 +31,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View 
     }
 
     override fun startNextActivity(movieId: Int) {
-        val intent = Intent(this, ReservationActivity::class.java)
+        val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra(MOVIE_ID, movieId)
         startActivity(intent)
     }

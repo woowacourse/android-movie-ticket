@@ -5,7 +5,7 @@
     android:id="@+id/screening_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen.ScreeningMovieActivity">
+    tools:context=".presentation.screen.movie.ScreeningMovieActivity">
 
     <ListView
         android:id="@+id/movie_list"

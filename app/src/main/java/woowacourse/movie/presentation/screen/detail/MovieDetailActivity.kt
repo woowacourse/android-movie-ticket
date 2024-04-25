@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.reservation.booking
+package woowacourse.movie.presentation.screen.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,13 +15,13 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
-import woowacourse.movie.presentation.screen.ScreeningMovieActivity.Companion.MOVIE_ID
+import woowacourse.movie.presentation.screen.movie.ScreeningMovieActivity.Companion.MOVIE_ID
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val presenter: ReservationContract.Presenter by lazy {
-        ReservationPresenter(this, MovieDao())
+class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
+    private val presenter: MovieDetailContract.Presenter by lazy {
+        MovieDetailPresenter(this, MovieDao())
     }
     private val addButton: Button by lazy { findViewById(R.id.add_button) }
     private val subButton: Button by lazy { findViewById(R.id.sub_button) }
@@ -37,7 +37,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reservation)
+        setContentView(R.layout.activity_screening_movie_detail)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)

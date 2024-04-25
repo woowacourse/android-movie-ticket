@@ -1,10 +1,10 @@
-package woowacourse.movie.presentation.reservation.booking
+package woowacourse.movie.presentation.screen.detail
 
 import android.content.Intent
 import java.time.LocalDate
 import java.time.LocalTime
 
-interface ReservationContract {
+interface MovieDetailContract {
     interface View {
         fun setUpView(
             img: Int,

@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.reservation.booking
+package woowacourse.movie.presentation.screen.detail
 
 import android.content.Intent
 import woowacourse.movie.data.MovieDao
@@ -9,11 +9,11 @@ import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ReservationPresenter(
-    private val view: ReservationContract.View,
+class MovieDetailPresenter(
+    private val view: MovieDetailContract.View,
     private val dao: MovieDao,
 ) :
-    ReservationContract.Presenter {
+    MovieDetailContract.Presenter {
     private var ticket: Ticket = Ticket()
     private val payment: Payment = Payment()
     private lateinit var movie: Movie

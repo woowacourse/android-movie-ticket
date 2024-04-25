@@ -15,8 +15,8 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
 import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.presentation.reservation.booking.ReservationActivity
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.screen.detail.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
 class ReservationResultActivityTest {
@@ -33,7 +33,7 @@ class ReservationResultActivityTest {
             .putExtra("payment", payment)
 
     @get:Rule
-    val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
+    val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)
 
     @Test
     fun 액티비티가_시작하면_제목이_보인다() {

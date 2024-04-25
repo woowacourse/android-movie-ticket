@@ -16,10 +16,10 @@
             android:name=".presentation.reservation.result.ReservationResultActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.reservation.booking.ReservationActivity"
+            android:name=".presentation.screen.detail.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.screen.ScreeningMovieActivity"
+            android:name=".presentation.screen.movie.ScreeningMovieActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
