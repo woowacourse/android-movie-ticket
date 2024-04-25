@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.ui.home.MovieHomeKey
 import woowacourse.movie.ui.reservation.MovieReservationActivity
 import woowacourse.movie.ui.utils.getImageFromId
@@ -66,7 +65,7 @@ class MovieContentListAdapter(
                 screeningDateText.text =
                     view.context.resources
                         .getString(R.string.screening_date)
-                        .format(dateFormatter(screeningMovieDate))
+                        .format(dateFormatter(openingMovieDate))
                 runningTimeText.text =
                     view.context.resources.getString(R.string.running_time).format(runningTime)
                 reservationButton.setOnClickListener {
@@ -78,10 +77,9 @@ class MovieContentListAdapter(
             }
         }
 
-        private fun dateFormatter(movieDate: MovieDate): String {
-            val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
+        private fun dateFormatter(movieDate: LocalDate): String {
             val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-            return screeningDate.format(formatter)
+            return movieDate.format(formatter)
         }
     }
 }

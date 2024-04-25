@@ -8,7 +8,6 @@ import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.model.movie.Ticket
 import woowacourse.movie.ui.base.BaseActivity
 import java.time.LocalDate
@@ -40,9 +39,11 @@ class MovieReservationCompleteActivity :
 
     override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieContentsImpl)
 
-    private fun movieContentId() = intent.getLongExtra(MovieReservationCompleteKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    private fun movieContentId() =
+        intent.getLongExtra(MovieReservationCompleteKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
 
-    private fun reservationCount() = intent.getIntExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
+    private fun reservationCount() =
+        intent.getIntExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
 
     override fun showError(throwable: Throwable) {
         Log.e(TAG, throwable.message.toString())
@@ -60,7 +61,7 @@ class MovieReservationCompleteActivity :
     override fun showMovieContent(movieContent: MovieContent) {
         movieContent.run {
             titleText.text = title
-            screeningDateText.text = dateFormatter(screeningMovieDate)
+            screeningDateText.text = dateFormatter(openingMovieDate)
         }
     }
 
@@ -73,10 +74,9 @@ class MovieReservationCompleteActivity :
         }
     }
 
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
+    private fun dateFormatter(movieDate: LocalDate): String {
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
+        return movieDate.format(formatter)
     }
 
     companion object {
