@@ -10,17 +10,19 @@ import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
-    private var movieDetailPresenter: MovieDetailContract.Presenter? = null
-    private lateinit var viewHolder: MovieDetailsViewHolder
+    private lateinit var movieDetailPresenter: MovieDetailContract.Presenter
+    private lateinit var reservationView: ReservationView
+    private lateinit var movieDetailView: MovieDetailView
 
     override fun getLayoutResId(): Int = R.layout.activity_movie_detail
 
     override fun onCreateSetup() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        viewHolder = MovieDetailsViewHolder(findViewById(android.R.id.content))
+        movieDetailView = MovieDetailView(findViewById(R.id.movie_detail_information_layout))
+        reservationView = ReservationView(findViewById(R.id.reservationLayout))
 
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, INVALID_MOVIE_ID)
 
         movieDetailPresenter =
             MovieDetailPresenterImpl(this, MovieRepositoryImpl, MovieTicketRepositoryImpl, movieId)
@@ -30,34 +32,34 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val count = viewHolder.reservationCountTextView.text.toString().toInt()
+        val count = movieDetailPresenter.reservationCount()
         outState.putInt(EXTRA_RESERVATION_COUNT, count)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         val count = savedInstanceState.getInt(EXTRA_RESERVATION_COUNT)
-        movieDetailPresenter?.updateReservationCount(count)
+        movieDetailPresenter.updateReservationCount(count)
     }
 
     private fun initClickListener() {
-        viewHolder.minusButton.setOnClickListener {
-            movieDetailPresenter?.minusReservationCount()
+        reservationView.onClickMinusButton {
+            movieDetailPresenter.minusReservationCount()
         }
-        viewHolder.plusButton.setOnClickListener {
-            movieDetailPresenter?.plusReservationCount()
+        reservationView.onClickPlusButton {
+            movieDetailPresenter.plusReservationCount()
         }
-        viewHolder.reserveButton.setOnClickListener {
-            movieDetailPresenter?.requestReservationResult()
+        reservationView.onClickReserveButton {
+            movieDetailPresenter.requestReservationResult()
         }
     }
 
     override fun showMovieDetail(movieUiModel: MovieUiModel) {
-        viewHolder.bindDetails(movieUiModel)
+        movieDetailView.bindDetails(movieUiModel)
     }
 
     override fun showReservationCount(count: Int) {
-        viewHolder.updateReservationCount(count)
+        reservationView.updateReservationCount(count)
     }
 
     override fun moveToReservationPage(movieTicketId: Int) {
@@ -71,6 +73,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     }
 
     companion object {
+        const val INVALID_MOVIE_ID = -1
         const val EXTRA_MOVIE_ID = "movieId"
         const val EXTRA_MOVIE_TICKET_ID = "movieTicketId"
         const val EXTRA_RESERVATION_COUNT = "reservationCount"

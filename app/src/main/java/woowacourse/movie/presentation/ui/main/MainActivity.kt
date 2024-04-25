@@ -17,7 +17,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onCreateSetup() {
         presenter = MainPresenterImpl(this, MovieRepositoryImpl)
-        presenter.loadMovieList()
     }
 
     override fun showMovieList(movieList: List<MovieUiModel>) {

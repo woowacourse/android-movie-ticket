@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/movie_detail_information_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -87,6 +88,7 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reservationLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_138"
         android:background="@color/white"

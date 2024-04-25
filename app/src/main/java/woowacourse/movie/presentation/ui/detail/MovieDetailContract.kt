@@ -22,6 +22,8 @@ interface MovieDetailContract {
 
         fun updateReservationCount(reservationCount: Int)
 
+        fun reservationCount(): Int
+
         fun requestReservationResult()
     }
 }

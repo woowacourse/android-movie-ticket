@@ -25,20 +25,19 @@ class MovieListAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater.from(parent?.context)
-                .inflate(R.layout.movie_item, parent, false)
-                .also {
-                    it.setTag(R.id.movie_view_holder, MovieViewHolder(it))
-                }
+        val holder: MovieViewHolder
+        val view: View
 
-        val movieViewHolder =
-            (view.getTag(R.id.movie_view_holder) as? MovieViewHolder)
-                ?: MovieViewHolder(view).also {
-                    view.setTag(R.id.movie_view_holder, it)
-                }
-        movieViewHolder.bind(movieList[index], onMovieReserved)
+        if (convertView == null) {
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
+            holder = MovieViewHolder(view)
+            view.tag = holder
+        } else {
+            view = convertView
+            holder = view.tag as MovieViewHolder
+        }
 
+        holder.bind(movieList[index], onMovieReserved)
         return view
     }
 
@@ -57,8 +56,7 @@ class MovieListAdapter(
             val imageResource = movie.posterName.toDrawableIdByName(context)
             imageResource?.let { posterImage.setImageResource(it) }
             title.text = movie.title
-            screeningDate.text =
-                context.getString(R.string.screening_date_format, movie.screeningDate)
+            screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
             runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)
             reserveButton.setOnClickListener { onMovieReserved(movie.movieId) }
         }

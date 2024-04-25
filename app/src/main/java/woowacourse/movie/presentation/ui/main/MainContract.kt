@@ -12,7 +12,7 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun loadMovieList()
+        fun loadMovies()
 
         fun requestMovieDetail(movieId: Int)
     }
