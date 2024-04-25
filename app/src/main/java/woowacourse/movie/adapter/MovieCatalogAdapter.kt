@@ -1,6 +1,5 @@
 package woowacourse.movie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
 class MovieCatalogAdapter(
-    private val context: Context,
     private val movies: List<Movie>,
     val movie: (Movie) -> Unit,
 ) : BaseAdapter() {
@@ -26,13 +24,13 @@ class MovieCatalogAdapter(
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup?,
+        parent: ViewGroup,
     ): View {
         val view: View
         val movieViewHolder: MovieViewHolder
 
         if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_movie_catalog, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie_catalog, parent, false)
             movieViewHolder = MovieViewHolder(view)
             view.tag = movieViewHolder
         } else {

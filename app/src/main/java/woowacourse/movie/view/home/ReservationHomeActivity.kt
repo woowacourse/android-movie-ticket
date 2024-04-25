@@ -19,7 +19,7 @@ class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract.Vie
         setContentView(R.layout.activity_reservation_home)
 
         val movieCatalogAdapter =
-            MovieCatalogAdapter(this, ScreeningDao().findAll()) { movie ->
+            MovieCatalogAdapter(ScreeningDao().findAll()) { movie ->
                 presenter.loadMovie(movie)
             }
         findViewById<ListView>(R.id.list_view_reservation_home).apply {
