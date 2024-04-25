@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.DummyMovies
-import woowacourse.movie.moviereservation.HeadCountUiModel
+import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
 import woowacourse.movie.moviereservation.MovieReservationContract
 import woowacourse.movie.moviereservation.MovieReservationPresenter
 
@@ -79,6 +79,7 @@ class MovieReservationPresenterTest {
 
         every { view.navigateToReservationResultView(any()) } just Runs
 
+        // presenter.completeReservation(1, BookingInfoUiModel())
         presenter.completeReservation(1, HeadCountUiModel("1"))
 
         verify(exactly = 1) { view.navigateToReservationResultView(any()) }
@@ -90,6 +91,7 @@ class MovieReservationPresenterTest {
 
         every { view.showMovieReservationError() } just Runs
 
+        // presenter.completeReservation(1, BookingInfoUiModel())
         presenter.completeReservation(0, HeadCountUiModel("1"))
 
         verify(exactly = 1) { view.showMovieReservationError()}

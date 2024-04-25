@@ -13,6 +13,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.DummyMovies
+import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
+import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
+import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
 import woowacourse.movie.reservationresult.ReservationResultActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {

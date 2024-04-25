@@ -1,5 +1,9 @@
 package woowacourse.movie.moviereservation
 
+import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
+import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
+import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
+
 interface MovieReservationContract {
     interface View {
         fun showMovieInfo(reservation: MovieReservationUiModel)

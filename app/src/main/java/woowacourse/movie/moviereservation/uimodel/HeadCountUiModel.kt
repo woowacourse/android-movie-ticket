@@ -1,4 +1,4 @@
-package woowacourse.movie.moviereservation
+package woowacourse.movie.moviereservation.uimodel
 
 import woowacourse.movie.model.HeadCount
 

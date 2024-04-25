@@ -2,6 +2,9 @@ package woowacourse.movie.moviereservation
 
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.ScreeningMovie
+import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
+import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
+import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
 import java.time.format.DateTimeFormatter
 
 fun ScreeningMovie.toMovieReservationUiModel(): MovieReservationUiModel {

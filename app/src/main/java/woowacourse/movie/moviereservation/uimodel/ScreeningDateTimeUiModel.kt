@@ -1,4 +1,4 @@
-package woowacourse.movie.moviereservation
+package woowacourse.movie.moviereservation.uimodel
 
 data class ScreeningDateTimeUiModel(
     val date: String,
