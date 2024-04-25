@@ -3,7 +3,6 @@ package woowacourse.movie.view.reservation
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -46,23 +45,6 @@ class ReservationDetailActivityTest {
         onView(withId(R.id.button_reservation_detail_plus)).perform(click())
 
         onView(withId(R.id.text_view_reservation_detail_number_of_tickets)).check(matches(withText("2")))
-    }
-
-    @Test
-    fun `예매_완료_버튼을_누른_뒤_예매_완료_화면의_뒤로_가기_버튼을_누르면_홈_화면으로_돌아온다`() {
-        // given
-        ActivityScenario.launch(ReservationHomeActivity::class.java)
-        moviesFirstItem.onChildView(
-            withId(R.id.item_movie_catalog_button_reservation),
-        ).perform(click())
-        onView(withId(R.id.button_reservation_detail_finished)).perform(click())
-        onView(withId(R.id.constraint_layout_reservation_finished)).check(matches(isDisplayed()))
-
-        // when
-        pressBack()
-
-        // then
-        onView(withId(R.id.constraint_layout_reservation_home)).check(matches(isDisplayed()))
     }
 
     @Test

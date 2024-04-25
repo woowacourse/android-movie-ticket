@@ -17,6 +17,7 @@ import woowacourse.movie.MovieUtils.convertPeriodFormat
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.ScreeningDateTime
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.reservation.ReservationDetailContract
 import woowacourse.movie.presenter.reservation.ReservationDetailPresenter
@@ -152,9 +153,10 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     private fun initializeReservationButton(movieId: Int) {
         reservationButton.setOnClickListener {
-            Log.d("screeningDate", screeningPeriodSpinner.selectedItem.toString())
-            Log.d("screeningDate", screeningTimeSpinner.selectedItem.toString())
-            presenter.initializeReservationButton(movieId)
+            val date = screeningPeriodSpinner.selectedItem.toString()
+            val time = screeningTimeSpinner.selectedItem.toString()
+            val dateTime = ScreeningDateTime(date, time)
+            presenter.initializeReservationButton(movieId, dateTime)
         }
     }
 

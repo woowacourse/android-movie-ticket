@@ -2,8 +2,13 @@ package woowacourse.movie.model
 
 import java.io.Serializable
 
-class Ticket(count: Int = DEFAULT_TICKET_COUNT) : Serializable {
+class Ticket(
+    count: Int = DEFAULT_TICKET_COUNT,
+    screeningDateTime: ScreeningDateTime = ScreeningDateTime("", ""),
+) : Serializable {
     var count: Int = count
+        private set
+    var screeningDateTime = screeningDateTime
         private set
 
     private fun restoreCount(recordOfCount: Int) {
@@ -27,14 +32,11 @@ class Ticket(count: Int = DEFAULT_TICKET_COUNT) : Serializable {
         return Success
     }
 
-    fun calculatePrice(): Int = count * PRICE
-
-    fun calculatePrice(seats: List<Seat>): Int {
-        return seats.sumOf { it.grade.price }
+    fun calculatePrice(seats: Seats): Int {
+        return seats.seats.sumOf { it.grade.price }
     }
 
     companion object {
-        private const val PRICE = 13_000
         private const val DEFAULT_TICKET_COUNT = 1
         private const val MAX_TICKET_COUNT = 20
         private const val MIN_TICKET_COUNT = 1

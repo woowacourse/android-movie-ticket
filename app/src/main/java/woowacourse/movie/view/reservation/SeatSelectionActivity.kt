@@ -22,7 +22,9 @@ import woowacourse.movie.presenter.reservation.SeatSelectionContract
 import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
 import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity
+import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
 import java.io.Serializable
+import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val presenter: SeatSelectionPresenter = SeatSelectionPresenter(this, SeatsDao(), ScreeningDao())
@@ -43,7 +45,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 ReservationHomeActivity.MOVIE_ID,
                 ReservationDetailActivity.DEFAULT_MOVIE_ID,
             )
-        ticket = intent.intentSerializable(ReservationDetailActivity.TICKET, Ticket::class.java) ?: Ticket()
+        ticket = intent.intentSerializable(TICKET, Ticket::class.java) ?: Ticket()
         seatsTable =
             seatTableLayout.children.filterIsInstance<TableRow>().flatMap { it.children }
                 .filterIsInstance<Button>().toList()
@@ -94,14 +96,13 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun showTotalPrice(amount: Int) {
-        price.text = amount.toString()
+        price.text = DecimalFormat(getString(R.string.all_price)).format(amount)
     }
 
-    override fun navigateToFinished(
-        ticket: Ticket,
-        seat: Seats,
-    ) {
+    override fun navigateToFinished(seats: Seats) {
         val intent = Intent(this, ReservationFinishedActivity::class.java)
+        intent.putExtra(TICKET, ticket)
+        intent.putExtra("seats", seats)
         startActivity(intent)
     }
 
@@ -115,16 +116,13 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun launchReservationConfirmDialog(
-        ticket: Ticket,
-        seats: Seats,
-    ) {
+    override fun launchReservationConfirmDialog(seats: Seats) {
         if (confirmButton.isEnabled) {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.seat_selection_reservation_confirm))
                 .setMessage(getString(R.string.seat_selection_reservation_ask_purchase_ticket))
                 .setPositiveButton(getString(R.string.seat_selection_reservation_finish)) { _, _ ->
-                    navigateToFinished(ticket, seats)
+                    navigateToFinished(seats)
                 }
                 .setNegativeButton(getString(R.string.seat_selection_cancel)) { dialog, _ ->
                     dialog.dismiss()

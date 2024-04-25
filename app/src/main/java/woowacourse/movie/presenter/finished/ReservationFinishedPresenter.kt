@@ -2,6 +2,7 @@ package woowacourse.movie.presenter.finished
 
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
 
 class ReservationFinishedPresenter(
@@ -13,10 +14,10 @@ class ReservationFinishedPresenter(
         view.showMovieInformation(movie)
     }
 
-    override fun loadTicket(ticket: Ticket) {
-        val numberOfTickets = ticket.count
-        val price = ticket.calculatePrice()
-
-        view.showReservationHistory(numberOfTickets, price)
+    override fun loadTicket(
+        ticket: Ticket,
+        seats: Seats,
+    ) {
+        view.showReservationHistory(ticket, seats)
     }
 }

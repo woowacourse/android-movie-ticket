@@ -3,6 +3,7 @@ package woowacourse.movie.presenter.reservation
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Failure
+import woowacourse.movie.model.ScreeningDateTime
 import woowacourse.movie.model.Success
 import woowacourse.movie.model.Ticket
 
@@ -43,7 +44,11 @@ class ReservationDetailPresenter(
         handleNumberOfTicketsBounds(result)
     }
 
-    override fun initializeReservationButton(movieId: Int) {
+    override fun initializeReservationButton(
+        movieId: Int,
+        dateTime: ScreeningDateTime,
+    ) {
+        ticket = Ticket(ticket.count, dateTime)
         view.navigateToSeatSelection(movieId, ticket)
     }
 

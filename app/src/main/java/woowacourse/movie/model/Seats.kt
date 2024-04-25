@@ -1,6 +1,8 @@
 package woowacourse.movie.model
 
-class Seats {
+import java.io.Serializable
+
+class Seats : Serializable {
     var seats = mutableListOf<Seat>()
         private set
 

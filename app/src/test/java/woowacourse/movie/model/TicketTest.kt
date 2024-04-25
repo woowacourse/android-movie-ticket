@@ -46,24 +46,11 @@ class TicketTest {
     }
 
     @Test
-    fun `티켓 매수에 따라 결제 금액을 계산한다`() {
-        val ticket = Ticket()
-
-        ticket.increaseCount()
-        ticket.increaseCount()
-
-        val actual = ticket.calculatePrice()
-
-        assertThat(actual).isEqualTo(39_000)
-    }
-
-    @Test
     fun `선택한 좌석의 등급에 따른 가격을 합해서 총 결제 금액을 반환한다`() {
-        val seats =
-            listOf(
-                Seat('A', 1, Grade.B),
-                Seat('C', 1, Grade.S),
-            )
+        val seats = Seats()
+        seats.manageSelected(true, Seat('A', 1, Grade.B))
+        seats.manageSelected(true, Seat('C', 1, Grade.S))
+
         val ticket = Ticket()
         val actual = ticket.calculatePrice(seats)
 

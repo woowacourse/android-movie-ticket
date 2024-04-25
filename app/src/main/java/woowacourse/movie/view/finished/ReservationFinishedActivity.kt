@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.finished.ReservationFinishedContract
 import woowacourse.movie.presenter.finished.ReservationFinishedPresenter
@@ -22,7 +23,9 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
     private val presenter: ReservationFinishedPresenter = ReservationFinishedPresenter(this, ScreeningDao())
 
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
+    private val seatsNumber: TextView by lazy { findViewById(R.id.text_view_reservation_finished_seats) }
     private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_date) }
+    private val screeningTime: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_time) }
     private val numberOfTickets: TextView by lazy { findViewById(R.id.text_view_reservation_finished_number_of_tickets) }
     private val ticketPrice: TextView by lazy { findViewById(R.id.text_view_reservation_finished_ticket_price) }
 
@@ -34,24 +37,28 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticket = intent.intentSerializable(TICKET, Ticket::class.java) ?: Ticket()
+        val seats = intent.intentSerializable("seats", Seats::class.java) ?: Seats()
 
         with(presenter) {
             loadMovie(movieId)
-            loadTicket(ticket)
+            loadTicket(ticket, seats)
         }
     }
 
     override fun showMovieInformation(movie: Movie) {
         title.text = movie.title
-        screeningDate.text = movie.screeningPeriod.first().toString()
     }
 
     override fun showReservationHistory(
-        ticketCount: Int,
-        price: Int,
+        ticket: Ticket,
+        seats: Seats,
     ) {
-        numberOfTickets.text = ticketCount.toString()
-        ticketPrice.text = convertPriceFormat(price)
+        numberOfTickets.text = ticket.count.toString()
+        ticketPrice.text = DecimalFormat(getString(R.string.all_price)).format(ticket.calculatePrice(seats))
+        seatsNumber.text =
+            seats.seats.joinToString(getString(R.string.reservation_finished_seat_separator)) { "${it.row}${it.column}" }
+        screeningDate.text = ticket.screeningDateTime.date
+        screeningTime.text = ticket.screeningDateTime.time
     }
 
     private fun handleBackPressed() {
@@ -69,10 +76,5 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         } else {
             this.getSerializableExtra(key) as T?
         }
-    }
-
-    private fun convertPriceFormat(price: Int): String {
-        val decimalFormat = DecimalFormat("#,###")
-        return decimalFormat.format(price)
     }
 }

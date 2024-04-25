@@ -2,6 +2,7 @@ package woowacourse.movie.presenter.reservation
 
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.ScreeningDateTime
 import woowacourse.movie.model.Ticket
 
 interface ReservationDetailContract {
@@ -39,7 +40,10 @@ interface ReservationDetailContract {
 
         fun decreaseTicketCount(count: Int)
 
-        fun initializeReservationButton(movieId: Int)
+        fun initializeReservationButton(
+            movieId: Int,
+            dateTime: ScreeningDateTime,
+        )
 
         fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult)
     }

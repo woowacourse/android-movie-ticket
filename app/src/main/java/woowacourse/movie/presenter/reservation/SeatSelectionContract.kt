@@ -4,7 +4,6 @@ import woowacourse.movie.model.Grade
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.Seats
-import woowacourse.movie.model.Ticket
 
 interface SeatSelectionContract {
     interface Presenter {
@@ -39,14 +38,8 @@ interface SeatSelectionContract {
 
         fun showTotalPrice(amount: Int)
 
-        fun launchReservationConfirmDialog(
-            ticket: Ticket,
-            seats: Seats,
-        )
+        fun launchReservationConfirmDialog(seats: Seats)
 
-        fun navigateToFinished(
-            ticket: Ticket,
-            seat: Seats,
-        )
+        fun navigateToFinished(seats: Seats)
     }
 }
