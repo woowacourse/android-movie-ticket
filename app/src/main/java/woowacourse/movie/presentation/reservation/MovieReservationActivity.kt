@@ -94,6 +94,22 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
     }
 
+    override fun showDate() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showTime() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showSelectedDate() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showSelectedTime() {
+        TODO("Not yet implemented")
+    }
+
     override fun moveToTicketDetail(ticketModel: TicketModel) {
         val intent = Intent(this@MovieReservationActivity, TicketDetailActivity::class.java)
         intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticketModel as Serializable)

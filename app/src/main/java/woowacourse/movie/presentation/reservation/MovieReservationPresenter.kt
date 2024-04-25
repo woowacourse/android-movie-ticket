@@ -20,6 +20,14 @@ class MovieReservationPresenter(
         view.showMovie(movieRepository.getMovie(movieId))
     }
 
+    override fun loadDate() {
+        TODO("Not yet implemented")
+    }
+
+    override fun loadTime() {
+        TODO("Not yet implemented")
+    }
+
     override fun decreaseTicketCount() {
         ticketCounter.minusTicketCount()
         view.showCurrentResultTicketCountView()
@@ -47,6 +55,14 @@ class MovieReservationPresenter(
             price = price,
         ).toTicketModel()
         view.moveToTicketDetail(ticket)
+    }
+
+    override fun selectDate() {
+        TODO("Not yet implemented")
+    }
+
+    override fun selectTime() {
+        TODO("Not yet implemented")
     }
 
     companion object {

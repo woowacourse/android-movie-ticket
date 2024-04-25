@@ -10,13 +10,22 @@ interface MovieReservationContract {
 
         fun showCurrentResultTicketCountView()
 
+        fun showDate()
+        fun showTime()
+
+        fun showSelectedDate()
+        fun showSelectedTime()
+
         fun moveToTicketDetail(ticketModel: TicketModel)
 
         fun requestTicketCount(count: (Int)->Unit)
+
     }
 
     interface Presenter {
         fun loadMovie()
+        fun loadDate()
+        fun loadTime()
 
         fun decreaseTicketCount()
 
@@ -30,5 +39,8 @@ interface MovieReservationContract {
             count : Int,
             price : Int,
         )
+
+        fun selectDate()
+        fun selectTime()
     }
 }
