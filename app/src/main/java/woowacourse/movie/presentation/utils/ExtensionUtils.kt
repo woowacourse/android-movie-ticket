@@ -3,6 +3,8 @@ package woowacourse.movie.presentation.utils
 import android.content.Context
 import woowacourse.movie.R
 import java.text.NumberFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 fun Int.currency(context: Context): String {
@@ -14,3 +16,5 @@ fun Int.currency(context: Context): String {
 
     return context.getString(R.string.reserve_amount, amount)
 }
+
+fun LocalDateTime.toScreeningDate(): String = this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))

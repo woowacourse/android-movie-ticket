@@ -11,8 +11,7 @@ import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.Presenter
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.View
 import woowacourse.movie.presentation.utils.currency
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.presentation.utils.toScreeningDate
 
 class ReservationActivity : BaseActivity(), View {
     override val layoutResourceId: Int
@@ -41,8 +40,6 @@ class ReservationActivity : BaseActivity(), View {
     override fun back() = finish()
 
     private fun List<Seat>.toSeatString(): String = this.joinToString(", ") { "${it.column}${it.row}" }
-
-    private fun LocalDateTime.toScreeningDate(): String = this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
 
     companion object {
         private const val PUT_EXTRA_KEY_RESERVATION_ID = "reservationId"
