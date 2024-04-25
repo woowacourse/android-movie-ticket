@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.seatSelection
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -24,6 +25,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         presenter = SeatSelectionPresenter(this, movieId)
@@ -42,6 +44,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 }
             textView.setTextColor(Color.parseColor(colorCode))
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

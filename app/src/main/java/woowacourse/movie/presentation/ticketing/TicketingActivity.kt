@@ -125,7 +125,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
             putExtra(EXTRA_MOVIE_ID, movieId)
             putExtra(EXTRA_COUNT, count)
             startActivity(this)
-            finish()
         }
     }
 
