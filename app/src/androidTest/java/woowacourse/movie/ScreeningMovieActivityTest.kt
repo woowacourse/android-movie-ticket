@@ -34,7 +34,7 @@ class ScreeningMovieActivityTest {
                     screenMovieUiModel1,
                     screenMovieUiModel2,
                 )
-            listView.adapter = MovieAdapter(activity, items)
+            listView.adapter = MovieAdapter(items)
         }
     }
 
