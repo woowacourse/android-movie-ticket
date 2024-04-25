@@ -16,7 +16,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.ui.base.BaseActivity
-import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
+import woowacourse.movie.ui.selection.MovieSeatSelectionActivity
 import woowacourse.movie.ui.utils.getImageFromId
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -172,11 +172,11 @@ class MovieReservationActivity :
         selectedDate: String,
         selectedTime: String,
     ) {
-        Intent(this, MovieReservationCompleteActivity::class.java).run {
+        Intent(this, MovieSeatSelectionActivity::class.java).run {
             putExtra(MovieReservationKey.ID, movieContentId())
             putExtra(MovieReservationKey.COUNT, reservationCount)
-            putExtra("SelectedMovieDate", selectedDate)
-            putExtra("SelectedMovieTime", selectedTime)
+            putExtra(MovieReservationKey.DATE, selectedDate)
+            putExtra(MovieReservationKey.TIME, selectedTime)
             startActivity(this)
         }
     }
