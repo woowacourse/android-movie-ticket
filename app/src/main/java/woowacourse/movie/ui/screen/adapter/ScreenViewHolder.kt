@@ -6,21 +6,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.ui.ScreenPreviewUI
-import woowacourse.movie.ui.screen.OnScreenClickListener
+import woowacourse.movie.ui.ViewHolder
+import woowacourse.movie.ui.screen.OnItemClickListener
 
 class ScreenViewHolder(
-    val view: View,
-    private val onScreenClickListener: OnScreenClickListener,
-) {
+    private val view: View,
+    private val onScreenClickListener: OnItemClickListener<Int>,
+) : ViewHolder<ScreenPreviewUI> {
     private val poster: ImageView = view.findViewById(R.id.iv_poster)
     private val title: TextView = view.findViewById(R.id.tv_title)
     private val date: TextView = view.findViewById(R.id.tv_screen_date)
     private val runningTime: TextView = view.findViewById(R.id.tv_screen_running_time)
     private val reserveButton: Button = view.findViewById(R.id.btn_reserve_now)
 
-    fun bind(screen: ScreenPreviewUI) {
-        initView(screen)
-        initClickListener(screen)
+    override fun view(): View = view
+
+    override fun bind(item: ScreenPreviewUI) {
+        initView(item)
+        initClickListener(item)
     }
 
     private fun initView(screen: ScreenPreviewUI) {

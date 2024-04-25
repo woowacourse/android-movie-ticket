@@ -4,14 +4,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.ui.ScreenPreviewUI
-import woowacourse.movie.ui.screen.OnScreenClickListener
+import woowacourse.movie.ui.ViewHolderContainer
 
 class ScreenAdapter(
     private var item: List<ScreenPreviewUI>,
-    private val onScreenClickListener: OnScreenClickListener,
+    private val viewHolderContainer: ViewHolderContainer<ScreenPreviewUI>,
 ) : BaseAdapter() {
-    private val viewHolderContainer = ScreenViewHolderContainer()
-
     override fun getCount(): Int = item.size
 
     override fun getItem(position: Int): ScreenPreviewUI = item[position]
@@ -23,9 +21,9 @@ class ScreenAdapter(
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        val viewHolder = viewHolderContainer.viewHolder(convertView, parent, onScreenClickListener)
+        val viewHolder = viewHolderContainer.viewHolder(convertView, parent)
         viewHolder.bind(item[position])
-        return viewHolder.view
+        return viewHolder.view()
     }
 
     fun updateScreens(screens: List<ScreenPreviewUI>) {

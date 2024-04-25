@@ -4,22 +4,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import woowacourse.movie.R
-import woowacourse.movie.ui.screen.OnScreenClickListener
+import woowacourse.movie.ui.ScreenPreviewUI
+import woowacourse.movie.ui.ViewHolder
+import woowacourse.movie.ui.ViewHolderContainer
+import woowacourse.movie.ui.screen.OnItemClickListener
 
-class ScreenViewHolderContainer {
-    private val viewHolders = mutableMapOf<Int, ScreenViewHolder>()
+class ScreenViewHolderContainer(private val onScreenClickListener: OnItemClickListener<Int>) :
+    ViewHolderContainer<ScreenPreviewUI> {
+    private val viewHolders = mutableMapOf<Int, ViewHolder<ScreenPreviewUI>>()
 
-    fun viewHolder(
+    override fun viewHolder(
         convertView: View?,
         parent: ViewGroup,
-        onScreenClickListener: OnScreenClickListener,
-    ): ScreenViewHolder {
-        return viewHolders[convertView?.hashCode()] ?: createViewHolder(parent, onScreenClickListener)
-    }
+    ): ViewHolder<ScreenPreviewUI> = viewHolders[convertView?.hashCode()] ?: createViewHolder(parent, onScreenClickListener)
 
     private fun createViewHolder(
         parent: ViewGroup,
-        onScreenClickListener: OnScreenClickListener,
+        onScreenClickListener: OnItemClickListener<Int>,
     ): ScreenViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
         val viewHolder = ScreenViewHolder(view, onScreenClickListener)

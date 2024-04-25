@@ -9,6 +9,7 @@ import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter
+import woowacourse.movie.ui.screen.adapter.ScreenViewHolderContainer
 
 class ScreenActivity : AppCompatActivity(), ScreenContract.View {
     private lateinit var adapter: ScreenAdapter
@@ -31,9 +32,12 @@ class ScreenActivity : AppCompatActivity(), ScreenContract.View {
     private fun initAdapter() {
         val listView = findViewById<ListView>(R.id.lv_screen)
         adapter =
-            ScreenAdapter(emptyList()) { screenId ->
-                ScreenDetailActivity.startActivity(this, screenId)
-            }
+            ScreenAdapter(
+                emptyList(),
+                ScreenViewHolderContainer { screenId ->
+                    ScreenDetailActivity.startActivity(this, screenId)
+                },
+            )
         listView.adapter = adapter
     }
 
