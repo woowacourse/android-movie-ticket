@@ -1,10 +1,9 @@
-package woowacourse.movie.model
+package io.pyron.server.data.entity
 
 data class Movie(
     val id: Long,
-    val thumbnail: Int,
+    val thumbnailUrl: String,
     val title: String,
     val description: String,
-    val date: Long,
     val runningTime: Int,
 )
