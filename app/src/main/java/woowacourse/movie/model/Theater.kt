@@ -6,14 +6,12 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-class Theater(val movie: Movie) {
+class Theater(private val movie: Movie) {
 
-    fun screenTimes(): List<LocalTime> {
-        val date = movie.screenDate[START_DATE_INDEX]
-        val day = date.dayOfWeek
-        return when (day) {
-            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> Weekend.screenTimes(movie.screenDate[START_DATE_INDEX])
-            else -> Weekday.screenTimes(movie.screenDate[START_DATE_INDEX])
+    fun screenTimes(date: LocalDate): List<LocalTime> {
+        return when (date.dayOfWeek) {
+            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> Weekend.screenTimes()
+            else -> Weekday.screenTimes()
         }
     }
 
