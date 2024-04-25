@@ -17,6 +17,8 @@ interface ReservationDetailContract {
             movieId: Int,
             ticketCount: Int,
         )
+
+        fun showScreeningTimes(screeningTimes: List<String>)
     }
 
     interface Presenter {
@@ -27,6 +29,8 @@ interface ReservationDetailContract {
         fun loadMovie()
 
         fun loadScreeningDates()
+
+        fun loadScreeningTimes(date: LocalDate)
 
         fun deliverReservationInformation()
     }

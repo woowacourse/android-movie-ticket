@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.reservation.finished.ReservationFinishedActivity
+import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -29,6 +30,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private val minusButton: Button by lazy { findViewById(R.id.button_reservation_detail_minus) }
     private val reservationButton: Button by lazy { findViewById(R.id.button_reservation_detail_finished) }
     private val screeningDatesSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_date) }
+    private val screeningTimeSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_time) }
 
     private lateinit var presenter: ReservationDetailPresenter
 
@@ -64,6 +66,30 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             )
 
         screeningDatesSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val screeningDate = parent?.getItemAtPosition(position) as LocalDate
+                    presenter.loadScreeningTimes(screeningDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+    }
+
+    override fun showScreeningTimes(screeningTimes: List<String>) {
+        screeningTimeSpinner.adapter =
+            ArrayAdapter(
+                this,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                screeningTimes,
+            )
+
+        screeningTimeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,

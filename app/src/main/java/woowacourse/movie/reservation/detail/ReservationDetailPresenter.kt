@@ -5,6 +5,7 @@ import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.InRange
 import woowacourse.movie.model.OutOfRange
 import woowacourse.movie.model.Ticket
+import java.time.LocalDate
 
 class ReservationDetailPresenter(
     private val view: ReservationDetailContract.View,
@@ -13,6 +14,10 @@ class ReservationDetailPresenter(
 ) : ReservationDetailContract.Presenter {
     override fun loadMovie() {
         view.showMovieInformation(Movies.obtainMovie(movieId))
+    }
+
+    override fun loadScreeningTimes(date: LocalDate) {
+        view.showScreeningTimes(Movies.obtainScreeningTimes(date))
     }
 
     override fun loadScreeningDates() {

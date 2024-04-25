@@ -1,5 +1,6 @@
 package woowacourse.movie.reservation.detail
 
+import io.kotest.assertions.any
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -8,6 +9,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.Ticket
+import java.time.LocalDate
 
 class ReservationDetailPresenterTest {
     private lateinit var view: ReservationDetailContract.View
@@ -75,5 +77,14 @@ class ReservationDetailPresenterTest {
         presenter.loadScreeningDates()
 
         verify { view.showScreeningDates(any()) }
+    }
+
+    @Test
+    fun `영화의 상영 시간들이 나온다`() {
+        every { view.showScreeningTimes(any()) } just runs
+
+        presenter.loadScreeningTimes(LocalDate.of(2024, 3, 1))
+
+        verify { view.showScreeningTimes(any()) }
     }
 }

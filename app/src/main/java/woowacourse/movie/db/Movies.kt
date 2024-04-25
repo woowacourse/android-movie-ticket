@@ -2,9 +2,12 @@ package woowacourse.movie.db
 
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.ScreeningTime
 import java.time.LocalDate
 
 object Movies {
+    private val screeningTime = ScreeningTime()
+
     private val movies: List<Movie> =
         listOf(
             Movie(
@@ -116,5 +119,11 @@ object Movies {
         }
 
         return dates.toList()
+    }
+
+    fun obtainScreeningTimes(date: LocalDate): List<String> {
+        val screeningTimes = screeningTime.schedule(date)
+
+        return screeningTimes.map { "$it:00" }
     }
 }

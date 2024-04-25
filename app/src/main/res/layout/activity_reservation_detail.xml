@@ -102,6 +102,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Spinner
+            android:id="@+id/spinner_reservation_detail_screening_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_reservation_detail_screening_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/spinner_reservation_detail_screening_date" />
+
         <Button
             android:id="@+id/button_reservation_detail_minus"
             android:layout_width="wrap_content"
@@ -129,8 +137,8 @@
             android:layout_height="wrap_content"
             android:text="@string/reservation_detail_plus"
             android:textAppearance="@style/Bold20"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/button_reservation_detail_minus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/button_reservation_detail_minus" />
 
         <Button
