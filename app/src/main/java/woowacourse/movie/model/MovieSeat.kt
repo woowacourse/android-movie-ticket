@@ -1,10 +1,7 @@
 package woowacourse.movie.model
 
+import woowacourse.movie.model.MovieGrade.Companion.judgeGradeByRow
+
 class MovieSeat(val row: Char, val column: Int) {
-    val grade: MovieGrade =
-        when (row) {
-            in 'A'..'B' -> MovieGrade.B_GRADE
-            in 'C'..'D' -> MovieGrade.S_GRADE
-            else -> MovieGrade.A_GRADE
-        }
+    val grade: MovieGrade = judgeGradeByRow(row)
 }
