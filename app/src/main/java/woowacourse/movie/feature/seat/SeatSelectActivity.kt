@@ -11,6 +11,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
@@ -65,7 +66,8 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         return super.onOptionsItemSelected(item)
     }
 
-    override fun initializePresenter() = SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
+    override fun initializePresenter() =
+        SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
@@ -77,7 +79,8 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         }
     }
 
-    private fun reservationCountValue() = intent.getIntExtra(RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+    private fun reservationCountValue() =
+        intent.getIntExtra(RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
 
     private fun isError(
         movieId: Long,
@@ -149,8 +152,17 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
     }
 
     override fun moveReservationCompleteView(selectedSeats: SelectedSeats) {
-        Log.e(TAG, "${selectedSeats.seats.size}")
-        MovieReservationCompleteActivity.startActivity(this, Ticket(movieId(), screeningDateTime()!!, selectedSeats))
+        AlertDialog.Builder(this)
+            .setCancelable(false)
+            .setTitle(resources.getString(R.string.reservation_confirm))
+            .setMessage(resources.getString(R.string.reservation_question))
+            .setPositiveButton(resources.getString(R.string.reservation_complete)) { _, _ ->
+                MovieReservationCompleteActivity.startActivity(this, Ticket(movieId(), screeningDateTime()!!, selectedSeats))
+            }
+            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     companion object {
