@@ -6,7 +6,7 @@ import woowacourse.movie.utils.ErrorListener
 
 interface MovieReservationCompleteContract {
     interface View : ErrorListener {
-        fun setUpReservationCompleteView(movie: Movie)
+        fun initializeReservationCompleteView(movie: Movie)
     }
 
     interface Presenter : BasePresenter {

@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 
 interface MovieReservationContract {
     interface View : ErrorListener {
-        fun setUpReservationView(movie: Movie)
+        fun initializeReservationView(movie: Movie)
 
         fun initializeSpinner(
             screeningDates: List<ScreeningDate>,
@@ -29,7 +29,7 @@ interface MovieReservationContract {
     interface Presenter : BasePresenter {
         fun loadMovieData(movieId: Long)
 
-        fun setUpReservationCount()
+        fun initializeReservationCount()
 
         fun decreaseReservationCount()
 

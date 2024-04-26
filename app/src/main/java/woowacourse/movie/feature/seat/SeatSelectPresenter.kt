@@ -22,7 +22,7 @@ class SeatSelectPresenter(
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
         val movieUiModel = SeatSelectMovieUiModel.from(movie)
-        view.initializeMovie(movieUiModel)
+        view.initializeMovieView(movieUiModel)
     }
 
     override fun initializeSeatTable(

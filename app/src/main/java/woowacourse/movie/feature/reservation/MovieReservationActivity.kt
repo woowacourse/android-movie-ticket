@@ -45,7 +45,7 @@ class MovieReservationActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        if(validateError()) return
+        if (validateError()) return
         initializeView(movieId())
     }
 
@@ -75,7 +75,7 @@ class MovieReservationActivity :
 
     private fun initializeView(movieId: Long) {
         presenter.loadMovieData(movieId)
-        presenter.setUpReservationCount()
+        presenter.initializeReservationCount()
         setOnClickButtonListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -97,7 +97,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun setUpReservationView(movie: Movie) {
+    override fun initializeReservationView(movie: Movie) {
         val reservation = ReservationUiModel.of(this, movie)
         with(reservation) {
             posterImage.setImageDrawable(posterImageDrawable)
@@ -114,9 +114,10 @@ class MovieReservationActivity :
     ) {
         val screeningDateMessages = screeningDates.toReservationScreeningDateUiModels().map { it.screeningDateMessage }
         screeningDateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDateMessages)
-        screeningDateSpinner.onItemSelectedListener = onSpinnerItemSelectedListener { _, _, position, _ ->
-            presenter.selectScreeningDate(screeningDates[position])
-        }
+        screeningDateSpinner.onItemSelectedListener =
+            onSpinnerItemSelectedListener { _, _, position, _ ->
+                presenter.selectScreeningDate(screeningDates[position])
+            }
 
         val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels().map { it.screeningTimeMessage }
         screeningTimeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)

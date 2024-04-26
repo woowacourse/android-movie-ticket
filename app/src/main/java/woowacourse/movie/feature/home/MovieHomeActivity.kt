@@ -28,12 +28,13 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
 
     override fun initializeMovieList(movies: List<Movie>) {
         val movies = movies.toMovieListUiModels(this, R.drawable.img_advertisement, ADVERTISEMENT_INTERVAL)
-        val reservationButtonClickListener = ReservationButtonClickListener { _, position ->
-            MovieReservationActivity.startActivity(
-                this@MovieHomeActivity,
-                (movies[position] as MovieUiModel).id,
-            )
-        }
+        val reservationButtonClickListener =
+            ReservationButtonClickListener { _, position ->
+                MovieReservationActivity.startActivity(
+                    this@MovieHomeActivity,
+                    (movies[position] as MovieUiModel).id,
+                )
+            }
         movieList.adapter = MovieListAdapter(movies, reservationButtonClickListener)
     }
 

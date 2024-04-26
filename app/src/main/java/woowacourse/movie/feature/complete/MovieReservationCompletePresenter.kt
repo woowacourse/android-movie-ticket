@@ -8,6 +8,6 @@ class MovieReservationCompletePresenter(
 ) : MovieReservationCompleteContract.Presenter {
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
-        view.setUpReservationCompleteView(movie)
+        view.initializeReservationCompleteView(movie)
     }
 }

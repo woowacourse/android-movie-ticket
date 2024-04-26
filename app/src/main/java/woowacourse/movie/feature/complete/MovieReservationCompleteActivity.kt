@@ -66,7 +66,7 @@ class MovieReservationCompleteActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun setUpReservationCompleteView(movie: Movie) {
+    override fun initializeReservationCompleteView(movie: Movie) {
         val reservationComplete = MovieReservationCompleteUiModel.of(this, movie, ticket()!!)
         with(reservationComplete) {
             titleText.text = titleMessage

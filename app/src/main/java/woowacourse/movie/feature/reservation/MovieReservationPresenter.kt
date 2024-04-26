@@ -14,13 +14,13 @@ class MovieReservationPresenter(
 
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
-        view.setUpReservationView(movie)
+        view.initializeReservationView(movie)
 
         val screeningDates = (movie.startScreeningDate..movie.endScreeningDate).toList()
         view.initializeSpinner(screeningDates, screeningDates[0].screeningTimes())
     }
 
-    override fun setUpReservationCount() {
+    override fun initializeReservationCount() {
         reservationCount = ReservationCount()
         view.updateReservationCount(reservationCount.count)
     }

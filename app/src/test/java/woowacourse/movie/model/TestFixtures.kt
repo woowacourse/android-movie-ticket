@@ -20,7 +20,10 @@ val movie1 =
 val movie2 = movie1.copy(title = "해리 포터와 마법사의 돌2")
 val movie3 = movie1.copy(title = "해리 포터와 마법사의 돌3")
 
-fun equalMovie(actual: Movie, expected: Movie) {
+fun equalMovie(
+    actual: Movie,
+    expected: Movie,
+) {
     assertThat(actual.posterImageId).isEqualTo(expected.posterImageId)
     assertThat(actual.title).isEqualTo(actual.title)
     assertThat(actual.startScreeningDate).isEqualTo(actual.startScreeningDate)
@@ -29,7 +32,10 @@ fun equalMovie(actual: Movie, expected: Movie) {
     assertThat(actual.synopsis).isEqualTo(actual.synopsis)
 }
 
-fun SelectedSeats(count: Int, vararg seat: Seat): SelectedSeats {
+fun SelectedSeats(
+    count: Int,
+    vararg seat: Seat,
+): SelectedSeats {
     return SelectedSeats(ReservationCount(count)).apply {
         seat.forEach { select(it) }
     }

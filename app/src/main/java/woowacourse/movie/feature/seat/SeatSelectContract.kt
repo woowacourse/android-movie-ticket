@@ -8,7 +8,7 @@ import woowacourse.movie.utils.ErrorListener
 
 interface SeatSelectContract {
     interface View : ErrorListener {
-        fun initializeMovie(movie: SeatSelectMovieUiModel)
+        fun initializeMovieView(movie: SeatSelectMovieUiModel)
 
         fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>)
 

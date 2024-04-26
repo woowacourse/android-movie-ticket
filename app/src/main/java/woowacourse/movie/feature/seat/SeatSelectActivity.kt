@@ -94,7 +94,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun initializeMovie(movie: SeatSelectMovieUiModel) {
+    override fun initializeMovieView(movie: SeatSelectMovieUiModel) {
         titleText.text = movie.titleMessage
     }
 
