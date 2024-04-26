@@ -26,16 +26,23 @@ class SeatSelectionPresenter(
         date: String?,
         time: String?,
         title: String?,
+        seats: List<BookingSeat>,
     ) {
         if (date == null || time == null || title == null) {
             view.showToastMessage("상영 시간 정보가 비어있습니다.")
             return
         }
-        boxOffice = BoxOffice(Count(numOfTickets), BookingDateTime.of(date, time))
+        boxOffice = BoxOffice(Count(numOfTickets), BookingDateTime.of(date, time), seats)
         when (val screening = MovieData.findScreeningDataById(screeningId)) {
             is Result.Success -> {
                 val theater = screening.data.theater
-                view.initializeSeatTable(theater.theaterSize, theater.rowClassInfo, title, boxOffice.totalPrice)
+                view.initializeSeatTable(
+                    theater.theaterSize,
+                    theater.rowClassInfo,
+                    title,
+                    boxOffice.totalPrice,
+                    selectedSeats,
+                )
             }
 
             is Result.Error -> {
@@ -64,41 +71,10 @@ class SeatSelectionPresenter(
                 view.toggleSeat(row, column, seatClass, !isSelected, columnSize)
                 updateBottomBarViews()
             }
+
             is Result.Error -> view.showToastMessage(updateResult.message)
         }
     }
-
-//    override fun addSeat(
-//        row: Int,
-//        column: Int,
-//        seatClass: SeatClass,
-//    ) {
-//        val selectedSeat = BookingSeat(row, column, seatClass)
-//        val newSeats = boxOffice.seats + selectedSeat
-//        when (val updateResult = boxOffice.updateSeats(newSeats)) {
-//            is Result.Success -> {
-//                view.selectSeat(textView, row, column, seatClass)
-//                updateBottomBarViews()
-//            }
-//            is Result.Error -> view.showToastMessage(updateResult.message)
-//        }
-//    }
-//
-//    override fun removeSeat(
-//        row: Int,
-//        column: Int,
-//        seatClass: SeatClass,
-//    ) {
-//        val selectedSeat = BookingSeat(row, column, seatClass)
-//        val newSeats = boxOffice.seats - selectedSeat
-//        when (val updateResult = boxOffice.updateSeats(newSeats)) {
-//            is Result.Success -> {
-//                view.cancelSeat(textView, row, column, seatClass)
-//                updateBottomBarViews()
-//            }
-//            is Result.Error -> view.showToastMessage(updateResult.message)
-//        }
-//    }
 
     private fun updateBottomBarViews() {
         view.updateTotalPrice(boxOffice.totalPrice)

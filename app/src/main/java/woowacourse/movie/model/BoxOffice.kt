@@ -6,11 +6,12 @@ import woowacourse.movie.model.ticketing.BookingSeat
 class BoxOffice(
     val count: Count,
     val bookingDateTime: BookingDateTime,
+    seats: List<BookingSeat>,
 ) {
     val totalPrice: Int
         get() = seats.sumOf { seat -> seat.seatClass.price }
 
-    var seats: List<BookingSeat> = emptyList()
+    var seats: List<BookingSeat> = seats
         private set
 
     val isSubmitAvailable: Boolean

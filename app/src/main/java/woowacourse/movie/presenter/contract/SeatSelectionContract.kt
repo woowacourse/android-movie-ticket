@@ -2,6 +2,7 @@ package woowacourse.movie.presenter.contract
 
 import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.theater.TheaterSize
+import woowacourse.movie.model.ticketing.BookingSeat
 
 interface SeatSelectionContract {
     interface View {
@@ -10,6 +11,7 @@ interface SeatSelectionContract {
             rowClassInfo: Map<Int, SeatClass>,
             movieTitle: String,
             totalPrice: Int,
+            selectedSeats: List<BookingSeat>,
         )
 
 //        fun selectSeat(
@@ -55,6 +57,7 @@ interface SeatSelectionContract {
             date: String?,
             time: String?,
             title: String?,
+            seats: List<BookingSeat>,
         )
 
         fun makeReservation(
@@ -62,7 +65,7 @@ interface SeatSelectionContract {
             count: Int,
         )
 
-//        fun addSeat(
+        //        fun addSeat(
 // //            textView: TextView,
 //            row: Int,
 //            column: Int,

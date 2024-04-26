@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue.COMPLEX_UNIT_SP
 import android.view.Gravity
@@ -10,6 +11,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -19,6 +21,7 @@ import androidx.core.view.setPadding
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.theater.TheaterSize
+import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.SeatSelectionPresenter
 import woowacourse.movie.presenter.contract.SeatSelectionContract
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_COUNT
@@ -34,6 +37,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var rows: List<TableRow>
     private lateinit var presenter: SeatSelectionPresenter
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
@@ -46,7 +50,19 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         val time = intent.getStringExtra(EXTRA_TIME)
 
         presenter = SeatSelectionPresenter(this)
-        presenter.initializeSeats(screeningId, count, date, time, title)
+        savedInstanceState?.let {
+            val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
+            selectedSeats?.let {
+                presenter.initializeSeats(
+                    screeningId,
+                    count,
+                    date,
+                    time,
+                    title,
+                    selectedSeats.toList(),
+                )
+            }
+        } ?: presenter.initializeSeats(screeningId, count, date, time, title, emptyList())
 
         button.setOnClickListener {
             AlertDialog.Builder(this)
@@ -63,23 +79,30 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArray(KEY_SELECTED_SEATS, presenter.selectedSeats.toTypedArray())
+    }
+
     override fun initializeSeatTable(
         theaterSize: TheaterSize,
         rowClassInfo: Map<Int, SeatClass>,
         movieTitle: String,
         totalPrice: Int,
+        selectedSeats: List<BookingSeat>,
     ) {
         findViewById<TextView>(R.id.tv_movie_title).text = movieTitle
         findViewById<TextView>(R.id.tv_total_price).text =
             getString(R.string.text_total_price, totalPrice)
         seats.isStretchAllColumns = true
-        initializeRows(theaterSize, rowClassInfo)
+        initializeRows(theaterSize, rowClassInfo, selectedSeats)
     }
 
     private fun TextView.setSeatStyle(
         rowIndex: Int,
         columnIndex: Int,
         seatClass: SeatClass,
+        selectedSeats: List<BookingSeat>,
     ) {
         val rowChar = (START_ROW_CHAR.code + rowIndex).toChar()
         text =
@@ -99,11 +122,17 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         setTextSize(COMPLEX_UNIT_SP, 22f)
         setTextColor(ContextCompat.getColor(this@SeatSelectionActivity, textColor))
         setPadding(40 * resources.displayMetrics.density.toInt())
+        if (BookingSeat(rowIndex, columnIndex, seatClass) in selectedSeats) {
+            setBackgroundColor(
+                getColor(R.color.yellow),
+            )
+        }
     }
 
     private fun initializeRows(
         theaterSize: TheaterSize,
         rowClassInfo: Map<Int, SeatClass>,
+        selectedSeats: List<BookingSeat>,
     ) {
         rows = List(theaterSize.rows) { TableRow(this) }
         rows.forEachIndexed { rowIndex, tableRow ->
@@ -112,7 +141,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 repeat(theaterSize.columns) { columnIndex ->
                     val seatItem = TextView(this)
                     seatItem.apply {
-                        setSeatStyle(rowIndex, columnIndex, seatClass)
+                        setSeatStyle(rowIndex, columnIndex, seatClass, selectedSeats)
                         setOnClickListener {
                             presenter.updateSeat(
                                 rowIndex,
@@ -228,6 +257,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         const val EXTRA_NUM_TICKET = "num_of_tickets"
         const val EXTRA_SEATS = "seats"
         const val EXTRA_PRICE = "price"
+        private const val KEY_SELECTED_SEATS = "selected_seats"
         private const val START_ROW_CHAR = 'A'
     }
 }
