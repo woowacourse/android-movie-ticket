@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.selection
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -53,8 +54,24 @@ class MovieSeatSelectionActivity :
 
     private fun setOnConfirmButtonListener() {
         confirmButton.setOnClickListener {
-            presenter.reserveMovie(selectedDate, selectedTime)
+            makeAlertDialog()
         }
+    }
+
+    private fun makeAlertDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.reservation_confirm)
+            .setMessage(R.string.reservation_confirm_comment)
+            .setPositiveButton(R.string.reservation_complete) { _, _ ->
+                presenter.reserveMovie(
+                    selectedDate,
+                    selectedTime,
+                )
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun movieContentId() =
