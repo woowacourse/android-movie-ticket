@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter
 
-import android.widget.TextView
 import woowacourse.movie.model.BoxOffice
 import woowacourse.movie.model.Count
 import woowacourse.movie.model.MovieData
@@ -45,40 +44,61 @@ class SeatSelectionPresenter(
         }
     }
 
-    override fun addSeat(
-        // TODO 안드로이드 의존성 없애기
-        textView: TextView,
+    override fun updateSeat(
         row: Int,
         column: Int,
         seatClass: SeatClass,
+        columnSize: Int,
     ) {
         val selectedSeat = BookingSeat(row, column, seatClass)
-        val newSeats = boxOffice.seats + selectedSeat
+        val isSelected = selectedSeat in selectedSeats
+        val newSeats: List<BookingSeat> =
+            if (isSelected) {
+                boxOffice.seats - selectedSeat
+            } else {
+                boxOffice.seats + selectedSeat
+            }
+
         when (val updateResult = boxOffice.updateSeats(newSeats)) {
             is Result.Success -> {
-                view.selectSeat(textView, row, column, seatClass)
+                view.toggleSeat(row, column, seatClass, !isSelected, columnSize)
                 updateBottomBarViews()
             }
             is Result.Error -> view.showToastMessage(updateResult.message)
         }
     }
 
-    override fun removeSeat(
-        textView: TextView,
-        row: Int,
-        column: Int,
-        seatClass: SeatClass,
-    ) {
-        val selectedSeat = BookingSeat(row, column, seatClass)
-        val newSeats = boxOffice.seats - selectedSeat
-        when (val updateResult = boxOffice.updateSeats(newSeats)) {
-            is Result.Success -> {
-                view.cancelSeat(textView, row, column, seatClass)
-                updateBottomBarViews()
-            }
-            is Result.Error -> view.showToastMessage(updateResult.message)
-        }
-    }
+//    override fun addSeat(
+//        row: Int,
+//        column: Int,
+//        seatClass: SeatClass,
+//    ) {
+//        val selectedSeat = BookingSeat(row, column, seatClass)
+//        val newSeats = boxOffice.seats + selectedSeat
+//        when (val updateResult = boxOffice.updateSeats(newSeats)) {
+//            is Result.Success -> {
+//                view.selectSeat(textView, row, column, seatClass)
+//                updateBottomBarViews()
+//            }
+//            is Result.Error -> view.showToastMessage(updateResult.message)
+//        }
+//    }
+//
+//    override fun removeSeat(
+//        row: Int,
+//        column: Int,
+//        seatClass: SeatClass,
+//    ) {
+//        val selectedSeat = BookingSeat(row, column, seatClass)
+//        val newSeats = boxOffice.seats - selectedSeat
+//        when (val updateResult = boxOffice.updateSeats(newSeats)) {
+//            is Result.Success -> {
+//                view.cancelSeat(textView, row, column, seatClass)
+//                updateBottomBarViews()
+//            }
+//            is Result.Error -> view.showToastMessage(updateResult.message)
+//        }
+//    }
 
     private fun updateBottomBarViews() {
         view.updateTotalPrice(boxOffice.totalPrice)

@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter.contract
 
-import android.widget.TextView
 import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.theater.TheaterSize
 
@@ -13,18 +12,26 @@ interface SeatSelectionContract {
             totalPrice: Int,
         )
 
-        fun selectSeat(
-            textView: TextView,
-            row: Int,
-            column: Int,
-            seatClass: SeatClass,
-        )
+//        fun selectSeat(
+//            textView: TextView,
+//            row: Int,
+//            column: Int,
+//            seatClass: SeatClass,
+//        )
+//
+//        fun cancelSeat(
+//            textView: TextView,
+//            row: Int,
+//            column: Int,
+//            seatClass: SeatClass,
+//        )
 
-        fun cancelSeat(
-            textView: TextView,
+        fun toggleSeat(
             row: Int,
             column: Int,
             seatClass: SeatClass,
+            isSelected: Boolean,
+            columnSize: Int,
         )
 
         fun updateTotalPrice(totalPrice: Int)
@@ -51,22 +58,28 @@ interface SeatSelectionContract {
         )
 
         fun makeReservation(
-            screeningId: Long,
+            movieId: Long,
             count: Int,
         )
 
-        fun addSeat(
-            textView: TextView,
+//        fun addSeat(
+// //            textView: TextView,
+//            row: Int,
+//            column: Int,
+//            seatClass: SeatClass,
+//        )
+//
+//        fun removeSeat(
+// //            textView: TextView,
+//            row: Int,
+//            column: Int,
+//            seatClass: SeatClass,
+//        )
+        fun updateSeat(
             row: Int,
             column: Int,
             seatClass: SeatClass,
-        )
-
-        fun removeSeat(
-            textView: TextView,
-            row: Int,
-            column: Int,
-            seatClass: SeatClass,
+            columnSize: Int,
         )
     }
 }

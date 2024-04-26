@@ -27,7 +27,7 @@ class Screening private constructor(
             movieId: Long,
             datePeriod: DatePeriod,
         ): Screening {
-            val movie = MovieData.findMovieById2(movieId)
+            val movie = MovieData.findMovieById(movieId)
             return Screening(
                 screeningId,
                 movie.data,

@@ -13,11 +13,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
+import androidx.core.view.forEachIndexed
 import androidx.core.view.setPadding
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.theater.TheaterSize
-import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.SeatSelectionPresenter
 import woowacourse.movie.presenter.contract.SeatSelectionContract
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_COUNT
@@ -81,7 +82,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         seatClass: SeatClass,
     ) {
         val rowChar = (START_ROW_CHAR.code + rowIndex).toChar()
-        text = this@SeatSelectionActivity.getString(R.string.text_seat_position, rowChar, columnIndex + 1)
+        text =
+            this@SeatSelectionActivity.getString(
+                R.string.text_seat_position,
+                rowChar,
+                columnIndex + 1,
+            )
         gravity = Gravity.CENTER
 
         val textColor =
@@ -104,18 +110,18 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             val seatClass = rowClassInfo[rowIndex + 1]
             seatClass?.let { grade ->
                 repeat(theaterSize.columns) { columnIndex ->
-                    val bookingSeat = BookingSeat(rowIndex, columnIndex, grade)
-                    val seatItem =
-                        TextView(this).apply {
-                            setSeatStyle(rowIndex, columnIndex, seatClass)
-                            setOnClickListener {
-                                if (bookingSeat !in presenter.selectedSeats) {
-                                    presenter.addSeat(this, rowIndex, columnIndex, seatClass)
-                                } else {
-                                    presenter.removeSeat(this, rowIndex, columnIndex, seatClass)
-                                }
-                            }
+                    val seatItem = TextView(this)
+                    seatItem.apply {
+                        setSeatStyle(rowIndex, columnIndex, seatClass)
+                        setOnClickListener {
+                            presenter.updateSeat(
+                                rowIndex,
+                                columnIndex,
+                                seatClass,
+                                theaterSize.columns,
+                            )
                         }
+                    }
                     tableRow.addView(seatItem)
                 }
             }
@@ -123,13 +129,30 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun selectSeat(
-        textView: TextView,
+    override fun toggleSeat(
         row: Int,
         column: Int,
         seatClass: SeatClass,
+        isSelected: Boolean,
+        columnSize: Int,
     ) {
-        textView.setBackgroundColor(
+        val seatItems =
+            seats
+                .children
+                .filterIsInstance<TableRow>()
+                .flatMap { it.children }
+                .filterIsInstance<TextView>()
+                .toList()
+
+        if (isSelected) {
+            seatItems[row * columnSize + column].selectSeat()
+        } else {
+            seatItems[row * columnSize + column].cancelSeat()
+        }
+    }
+
+    private fun TextView.selectSeat() {
+        setBackgroundColor(
             ContextCompat.getColor(
                 this@SeatSelectionActivity,
                 R.color.yellow,
@@ -137,13 +160,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         )
     }
 
-    override fun cancelSeat(
-        textView: TextView,
-        row: Int,
-        column: Int,
-        seatClass: SeatClass,
-    ) {
-        textView.setBackgroundColor(
+    private fun TextView.cancelSeat() {
+        setBackgroundColor(
             ContextCompat.getColor(
                 this@SeatSelectionActivity,
                 R.color.white,
