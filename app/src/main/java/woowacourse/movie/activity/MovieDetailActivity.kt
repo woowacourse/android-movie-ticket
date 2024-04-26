@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieDetailContract
-import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.ScreeningPeriod
+import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.presenter.MovieDetailPresenter

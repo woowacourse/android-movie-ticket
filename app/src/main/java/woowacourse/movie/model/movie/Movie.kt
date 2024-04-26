@@ -1,7 +1,7 @@
 package woowacourse.movie.model.movie
 
-import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.ScreeningPeriod
+import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import java.time.LocalDate
 
 class Movie(

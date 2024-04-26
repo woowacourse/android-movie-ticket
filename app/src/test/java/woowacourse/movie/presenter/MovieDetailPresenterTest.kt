@@ -10,8 +10,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.contract.MovieDetailContract
-import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.ScreeningPeriod
+import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDate
 

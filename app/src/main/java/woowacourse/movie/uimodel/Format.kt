@@ -1,10 +1,10 @@
 package woowacourse.movie.uimodel
 
-import woowacourse.movie.model.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.movie.RunningTime
 import woowacourse.movie.model.movie.Synopsis
-import woowacourse.movie.model.ScreeningPeriod
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Title
 
 fun Movie.toBrief() = MovieBrief(

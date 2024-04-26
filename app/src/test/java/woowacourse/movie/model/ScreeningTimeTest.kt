@@ -3,9 +3,11 @@ package woowacourse.movie.model
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import woowacourse.movie.model.schedule.RegularTimeTable
+import woowacourse.movie.model.schedule.ScreeningTime
+import woowacourse.movie.model.schedule.WeekdayTimeTable
+import woowacourse.movie.model.schedule.WeekendTimeTable
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 class ScreeningTimeTest {
     @Test

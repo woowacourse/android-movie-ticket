@@ -1,7 +1,7 @@
 package woowacourse.movie.contract
 
-import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.ScreeningPeriod
+import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
 
 

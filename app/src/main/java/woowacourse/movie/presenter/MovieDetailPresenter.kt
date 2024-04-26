@@ -2,8 +2,7 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.Reservation
-import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.ScreeningPeriod
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.repository.PseudoReservationRepository
 import woowacourse.movie.repository.PseudoMovieRepository
