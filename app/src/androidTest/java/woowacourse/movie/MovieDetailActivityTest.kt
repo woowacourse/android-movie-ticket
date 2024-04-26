@@ -40,13 +40,13 @@ class MovieDetailActivityTest {
 
     @Test
     fun 티켓구매버튼표시_화면에보임() {
-        Espresso.onView(withId(R.id.buy_ticket_button))
+        Espresso.onView(withId(R.id.seat_confirmation_button))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun 티켓구매버튼클릭_취소가능시간표시() {
-        Espresso.onView(withId(R.id.buy_ticket_button))
+        Espresso.onView(withId(R.id.seat_confirmation_button))
             .perform(click())
         Espresso.onView(withId(R.id.can_cancel_time))
             .check(matches(isDisplayed()))
@@ -54,7 +54,7 @@ class MovieDetailActivityTest {
 
     @Test
     fun 다음화면에서_뒤로가기버튼클릭_영화디테일화면표시() {
-        Espresso.onView(withId(R.id.buy_ticket_button))
+        Espresso.onView(withId(R.id.seat_confirmation_button))
             .perform(click())
         Espresso.pressBack()
         Espresso.onView(withId(R.id.scroll_view)).check(matches(isDisplayed()))

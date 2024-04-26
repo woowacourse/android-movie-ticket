@@ -27,6 +27,9 @@
         <activity
             android:name=".purchaseConfirmation.PurchaseConfirmationActivity"
             android:exported="false" />
+        <activity
+            android:name=".seat.TheaterSeatActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

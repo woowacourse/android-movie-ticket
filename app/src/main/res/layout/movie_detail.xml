@@ -92,7 +92,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/buy_ticket_button"
+        app:layout_constraintBottom_toTopOf="@id/seat_confirmation_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -131,11 +131,11 @@
 
 
     <Button
-        android:id="@+id/buy_ticket_button"
+        android:id="@+id/seat_confirmation_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/purple_700"
-        android:text="예매 완료"
+        android:text="@string/chose_seat"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

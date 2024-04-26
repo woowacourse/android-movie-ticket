@@ -11,4 +11,7 @@
     <string name="movie_title">Movie Title</string>
     <string name="screen_time">Screen time</string>
     <string name="screen">Screen</string>
+    <string name="chose_seat">좌석 선택</string>
+    <string name="screen_display">SCREEN</string>
+    <string name="확인">확인</string>
 </resources>

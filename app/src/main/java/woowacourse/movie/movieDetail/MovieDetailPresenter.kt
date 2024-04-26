@@ -16,7 +16,7 @@ class MovieDetailPresenter(
         movie?.let{view.initializeViews(it)}
     }
 
-    override fun onBuyTicketClicked(intent: Intent) {
+    override fun onSeatConfirmationClicked(intent: Intent) {
         view.navigateToPurchaseConfirmation(intent)
     }
 

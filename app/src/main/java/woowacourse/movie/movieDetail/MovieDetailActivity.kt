@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieInfo
-import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
+import woowacourse.movie.seat.TheaterSeatActivity
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private var ticketNum = 1
@@ -41,13 +41,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             presenter.onTicketMinusClicked(ticketNum)
         }
 
-        findViewById<Button>(R.id.buy_ticket_button).setOnClickListener {
+        findViewById<Button>(R.id.seat_confirmation_button).setOnClickListener {
             val theater = presenter.getTheater()
-            val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
+            val intent = Intent(this, TheaterSeatActivity::class.java).apply {
                 putExtra("ticketNum", ticketNum)
                 putExtra("Theater", theater)
             }
-            presenter.onBuyTicketClicked(intent)
+            presenter.onSeatConfirmationClicked(intent)
         }
     }
 
