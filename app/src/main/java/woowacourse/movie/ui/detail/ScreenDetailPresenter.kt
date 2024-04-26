@@ -16,10 +16,15 @@ class ScreenDetailPresenter(
     private val reservationRepository: ReservationRepository,
 ) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
+    private var datePosition: Int = 0
+    private var timePosition: Int = 0
 
     override fun loadScreen(screenId: Int) {
         try {
-            view.showScreen(screen(screenId).toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
+            val loadedScreen = screen(screenId)
+            view.showScreen(loadedScreen.toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
+            view.showDatePicker(loadedScreen.dateRange)
+            view.showTimePicker(loadedScreen.dateRange.start)
         } catch (e: Exception) {
             when (e) {
                 is NoSuchElementException -> view.goToBack(e)
@@ -30,6 +35,22 @@ class ScreenDetailPresenter(
 
     override fun loadTicket() {
         view.showTicket(ticket.count)
+    }
+
+    override fun saveDatePosition(datePosition: Int) {
+        this.datePosition = datePosition
+    }
+
+    override fun loadDatePosition(){
+        view.showDateWithPosition(datePosition)
+    }
+
+    override fun saveTimePosition(timePosition: Int) {
+        this.timePosition = timePosition
+    }
+
+    override fun loadTimePosition(){
+        view.showTimeWithPosition(timePosition)
     }
 
     override fun saveTicket(count: Int) {
