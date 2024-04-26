@@ -5,28 +5,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieInfo
+import woowacourse.movie.model.theater.Seat
 
 class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.seat)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-    }
-
-    override fun initializeViews(movieInfo: MovieInfo) {
+    override fun updateSeatDisplay(seat: Seat) {
         TODO("Not yet implemented")
     }
 
-    override fun navigateToPurchaseConfirmation(intent: Intent) {
-        TODO("Not yet implemented")
-    }
-
-    override fun showToPurchaseConfirmation(intent: Intent) {
-        TODO("Not yet implemented")
-    }
-
-    override fun showDialog() {
+    override fun showConfirmationDialog() {
         TODO("Not yet implemented")
     }
 

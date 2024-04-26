@@ -5,12 +5,12 @@ import java.io.Serializable
 data class Seat(
     val row: Char,
     val number: Int,
-    val grade: String
+    val grade: String,
+    var chosen: Boolean = false,
 ) : Serializable {
 
     val price: Int
     val color: Int
-    var chosen: Boolean = false
 
     companion object {
         val seatGrades = mapOf(
@@ -27,6 +27,6 @@ data class Seat(
     }
 
     fun chooseSeat() {
-        chosen=!chosen
+        chosen = !chosen
     }
 }

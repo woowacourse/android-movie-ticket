@@ -1,20 +1,21 @@
 package woowacourse.movie.seat
 
-import android.content.Intent
-import woowacourse.movie.model.movieInfo.MovieInfo
+import woowacourse.movie.model.theater.Seat
 
 interface TheaterSeatContract {
     interface View {
-        fun initializeViews(movieInfo: MovieInfo)
-        fun navigateToPurchaseConfirmation(intent: Intent)
-        fun showToPurchaseConfirmation(intent: Intent)
-        fun showDialog()
+        fun updateSeatDisplay(seat: Seat)
+
+        fun showConfirmationDialog()
+        fun setSeatBackground(seatId: String, color: String) {
+            TODO("Not yet implemented")
+        }
     }
 
     interface Presenter {
-        fun loadMovieInformation()
-        fun onSeatClicked(intent: Intent)
-        fun onConfirmationClicked(ticketNum: Int)
-        fun onPurchaseClicked(ticketNum: Int)
+        fun toggleSeatSelection(seatId: String)
+        fun updateSeatBackground(seatId: String)
+        fun calculateTotalPrice(): Int
+        fun showConfirmationDialog()
     }
 }
