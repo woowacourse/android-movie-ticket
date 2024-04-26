@@ -12,7 +12,7 @@ class DefaultSeatPricePolicyTest {
         val grade = SeatGrade.S
         val expect = Price(15_000)
         // when
-        val actual = DefaultSeatPricePolicy.price(grade)
+        val actual = DefaultSeatPricePolicy().price(grade)
         // then
         actual shouldBe expect
     }
@@ -23,7 +23,7 @@ class DefaultSeatPricePolicyTest {
         val grade = SeatGrade.A
         val expect = Price(12_000)
         // when
-        val actual = DefaultSeatPricePolicy.price(grade)
+        val actual = DefaultSeatPricePolicy().price(grade)
         // then
         actual shouldBe expect
     }
@@ -34,7 +34,7 @@ class DefaultSeatPricePolicyTest {
         val grade = SeatGrade.B
         val expect = Price(10_000)
         // when
-        val actual = DefaultSeatPricePolicy.price(grade)
+        val actual = DefaultSeatPricePolicy().price(grade)
         // then
         actual shouldBe expect
     }

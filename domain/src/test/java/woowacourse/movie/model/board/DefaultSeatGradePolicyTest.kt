@@ -12,7 +12,7 @@ class DefaultSeatGradePolicyTest {
         val position = Position(0, y)
         val expect = SeatGrade.B
         // when
-        val actual = DefaultSeatGradePolicy.grade(position)
+        val actual = DefaultSeatGradePolicy().grade(position)
         // then
         actual shouldBe expect
     }
@@ -24,7 +24,7 @@ class DefaultSeatGradePolicyTest {
         val position = Position(0, y)
         val expect = SeatGrade.S
         // when
-        val actual = DefaultSeatGradePolicy.grade(position)
+        val actual = DefaultSeatGradePolicy().grade(position)
         // then
         actual shouldBe expect
     }
@@ -36,7 +36,7 @@ class DefaultSeatGradePolicyTest {
         val position = Position(0, y)
         val expect = SeatGrade.A
         // when
-        val actual = DefaultSeatGradePolicy.grade(position)
+        val actual = DefaultSeatGradePolicy().grade(position)
         // then
         actual shouldBe expect
     }

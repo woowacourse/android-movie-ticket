@@ -2,11 +2,11 @@ package woowacourse.movie.model.board
 
 import woowacourse.movie.model.Price
 
-interface SeatPricePolicy {
+fun interface SeatPricePolicy {
     fun price(grade: SeatGrade): Price
 }
 
-object DefaultSeatPricePolicy : SeatPricePolicy {
+class DefaultSeatPricePolicy : SeatPricePolicy {
     override fun price(grade: SeatGrade): Price {
         return when (grade) {
             SeatGrade.S -> Price(15_000L)
