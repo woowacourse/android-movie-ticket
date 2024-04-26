@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -27,11 +29,32 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
 
     private val screenDetailView: ScreenDetailScreenView by lazy { findViewById(R.id.screen_detail_screen_view) }
     private val ticketView: ScreenDetailTicketView by lazy { findViewById(R.id.screen_detail_ticket_view) }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.spn_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.spn_time) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screen_detail)
         initView()
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.fake_date,
+            android.R.layout.simple_spinner_item,
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            dateSpinner.adapter = adapter
+        }
+
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.fake_time,
+            android.R.layout.simple_spinner_item,
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            timeSpinner.adapter = adapter
+        }
     }
 
     private fun initView() {

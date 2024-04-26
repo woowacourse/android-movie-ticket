@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="fake_date">
+        <item>2024–04–08</item>
+        <item>2024–04–09</item>
+        <item>2024–04–10</item>
+        <item>2024–04–11</item>
+        <item>2024–04–12</item>
+        <item>2024–04–13</item>
+        <item>2024–04–14</item>
+    </string-array>
+
+    <string-array name="fake_time">
+        <item>09:00</item>
+        <item>11:00</item>
+        <item>13:00</item>
+        <item>15:00</item>
+        <item>17:00</item>
+        <item>19:00</item>
+        <item>21:00</item>
+        <item>23:00</item>
+    </string-array>
+</resources>
