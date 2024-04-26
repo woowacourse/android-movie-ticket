@@ -2,6 +2,7 @@ package woowacourse.movie.feature.seat
 
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
+import woowacourse.movie.model.SelectedSeats
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
 
@@ -19,7 +20,7 @@ interface SeatSelectContract {
 
         fun unselectSeat(row: Int, col: Int)
 
-        fun moveReservationCompleteView()
+        fun moveReservationCompleteView(selectedSeats: SelectedSeats)
     }
 
     interface Presenter : BasePresenter {

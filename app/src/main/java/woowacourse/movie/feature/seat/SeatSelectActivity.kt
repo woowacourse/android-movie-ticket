@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -13,8 +14,10 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
+import woowacourse.movie.model.SelectedSeats
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.utils.BaseActivity
@@ -52,10 +55,17 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         presenter.loadMovieData(movieId)
         presenter.initializeSeatTable(seatViews.size, seatViews[0].size)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun initializePresenter() =
-        SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun initializePresenter() = SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
@@ -131,8 +141,9 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         confirmButton.isEnabled = false
     }
 
-    override fun moveReservationCompleteView() {
-        TODO("Not yet implemented")
+    override fun moveReservationCompleteView(selectedSeats: SelectedSeats) {
+        Log.e(TAG, "${selectedSeats.seats.size}")
+        MovieReservationCompleteActivity.startActivity(this, Ticket(movieId(), screeningDateTime()!!, selectedSeats))
     }
 
     companion object {

@@ -1,3 +1,5 @@
 package woowacourse.movie.model
 
-class Seat(val row: Int, val col: Int)
+import java.io.Serializable
+
+class Seat(val row: Int, val col: Int) : Serializable

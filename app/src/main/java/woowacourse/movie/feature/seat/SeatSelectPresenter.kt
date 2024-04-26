@@ -51,7 +51,7 @@ class SeatSelectPresenter(
         row: Int,
         col: Int,
     ) {
-        if (!selectedSeats.canSelect()) {
+        if (!selectedSeats.isSelectable()) {
             view.showCannotSelectSeat()
             return
         }
@@ -72,6 +72,6 @@ class SeatSelectPresenter(
     }
 
     override fun confirmSeatSelection() {
-        view.moveReservationCompleteView()
+        view.moveReservationCompleteView(selectedSeats)
     }
 }

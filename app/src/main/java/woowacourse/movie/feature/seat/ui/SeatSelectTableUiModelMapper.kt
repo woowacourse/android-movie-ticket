@@ -7,8 +7,8 @@ import woowacourse.movie.model.Seats
 
 fun Seats.toSeatSelectTableUiModels(): List<List<SeatSelectTableUiModel>> {
     return table.map { row ->
-        row.map { col ->
-            SeatSelectTableUiModel(col.message(), SeatRating.from(col).colorId())
+        row.map { seat ->
+            SeatSelectTableUiModel(seat.message(), SeatRating.from(seat).colorId())
         }
     }
 }
