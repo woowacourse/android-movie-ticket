@@ -195,7 +195,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun showToastMessage(message: String) {
         Toast.makeText(
             this@SeatSelectionActivity,
-            "추가 불가능",
+            message,
             Toast.LENGTH_SHORT,
         ).show()
     }

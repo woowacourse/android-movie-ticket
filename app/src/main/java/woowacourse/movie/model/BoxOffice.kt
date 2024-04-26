@@ -2,7 +2,6 @@ package woowacourse.movie.model
 
 import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.model.ticketing.BookingSeat
-import java.lang.IllegalStateException
 
 class BoxOffice(
     val count: Count,
@@ -17,9 +16,12 @@ class BoxOffice(
     val isSubmitAvailable: Boolean
         get() = seats.size == count.value
 
-    fun updateSeats(newSeats: List<BookingSeat>) {
-        if (newSeats.size > count.value) throw IllegalStateException(ERROR_OVER_COUNT)
+    fun updateSeats(newSeats: List<BookingSeat>): Result<Unit> {
+        if (newSeats.size > count.value) {
+            return Result.Error(ERROR_OVER_COUNT)
+        }
         seats = newSeats
+        return Result.Success(Unit)
     }
 
     companion object {

@@ -32,7 +32,7 @@ interface SeatSelectionContract {
         fun updateButtonStatus(isAvailable: Boolean)
 
         fun navigateToResultScreen(
-            screeningId: Long,
+            movieId: Long,
             count: Int,
             seats: Array<String>,
             totalPrice: Int,

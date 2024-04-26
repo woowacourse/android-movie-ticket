@@ -97,9 +97,7 @@ class SeatSelectionActivityTest {
     @Test
     fun `인원수에_맞는_좌석_수만큼_선택되면_더_이상_다른_좌석이_선택되지_않는다`() {
         activityScenarioRule.scenario.onActivity {
-            seatItems.forEach { textView ->
-                textView.performClick()
-            }
+            performMultipleSeatsSelection()
             val lastItem =
                 it.findViewById<TableLayout>(R.id.tl_seats)
                     .children

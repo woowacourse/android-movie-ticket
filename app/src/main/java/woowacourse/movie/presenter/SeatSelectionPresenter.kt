@@ -54,12 +54,12 @@ class SeatSelectionPresenter(
     ) {
         val selectedSeat = BookingSeat(row, column, seatClass)
         val newSeats = boxOffice.seats + selectedSeat
-        boxOffice.updateSeats(newSeats)
-        try {
-            view.selectSeat(textView, row, column, seatClass)
-            updateBottomBarViews()
-        } catch (e: IllegalStateException) {
-            view.showToastMessage(e.message.toString())
+        when (val updateResult = boxOffice.updateSeats(newSeats)) {
+            is Result.Success -> {
+                view.selectSeat(textView, row, column, seatClass)
+                updateBottomBarViews()
+            }
+            is Result.Error -> view.showToastMessage(updateResult.message)
         }
     }
 
@@ -71,12 +71,12 @@ class SeatSelectionPresenter(
     ) {
         val selectedSeat = BookingSeat(row, column, seatClass)
         val newSeats = boxOffice.seats - selectedSeat
-        boxOffice.updateSeats(newSeats)
-        try {
-            view.cancelSeat(textView, row, column, seatClass)
-            updateBottomBarViews()
-        } catch (e: IllegalStateException) {
-            view.showToastMessage(e.message.toString())
+        when (val updateResult = boxOffice.updateSeats(newSeats)) {
+            is Result.Success -> {
+                view.cancelSeat(textView, row, column, seatClass)
+                updateBottomBarViews()
+            }
+            is Result.Error -> view.showToastMessage(updateResult.message)
         }
     }
 
@@ -86,11 +86,11 @@ class SeatSelectionPresenter(
     }
 
     override fun makeReservation(
-        screeningId: Long,
+        movieId: Long,
         count: Int,
     ) {
         view.navigateToResultScreen(
-            screeningId = screeningId,
+            movieId = movieId,
             count = count,
             seats = boxOffice.seats.map { "${it.row}${it.column}" }.toTypedArray(),
             totalPrice = boxOffice.totalPrice,
