@@ -37,28 +37,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <CheckBox style="@style/Seat" />
-
-            <CheckBox style="@style/Seat" />
-
-            <CheckBox style="@style/Seat" />
-
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
         </TableRow>
 
@@ -67,28 +52,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <CheckBox style="@style/Seat" />
-
-            <CheckBox style="@style/Seat" />
-
-            <CheckBox style="@style/Seat" />
-
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
         </TableRow>
 
@@ -97,13 +67,43 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
 
-            <CheckBox style="@style/Seat" />
+            <TextView style="@style/Seat" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView style="@style/Seat" />
+
+            <TextView style="@style/Seat" />
+
+            <TextView style="@style/Seat" />
+
+            <TextView style="@style/Seat" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView style="@style/Seat" />
+
+            <TextView style="@style/Seat" />
+
+            <TextView style="@style/Seat" />
+
+            <TextView style="@style/Seat" />
 
         </TableRow>
 

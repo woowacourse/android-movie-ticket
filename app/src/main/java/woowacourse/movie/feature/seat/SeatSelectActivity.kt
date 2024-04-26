@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -29,18 +28,13 @@ class SeatSelectActivity(
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
     private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
-    private lateinit var seatViews: List<List<CheckBox>>
+    private lateinit var seatViews: List<List<TextView>>
+    private val selectedSeat by lazy { listOf<String>() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_seat_select)
-        seatViews =
-            seatTable
-                .children
-                .filterIsInstance<TableRow>()
-                .map { it.children.filterIsInstance<CheckBox>().toList() }
-                .toList()
 
         val movieId = movieId()
         val ticket = ticket()
@@ -49,11 +43,20 @@ class SeatSelectActivity(
             return
         }
 
+        seatViews =
+            seatTable
+                .children
+                .filterIsInstance<TableRow>()
+                .map { it.children.filterIsInstance<TextView>().toList() }
+                .toList()
+
+        updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         presenter.loadMovieData(movieId)
         presenter.initializeSeatTable(seatRow, seatCol)
     }
 
-    override fun initializePresenter() = SeatSelectPresenter(this, MovieRepositoryImpl)
+    override fun initializePresenter() =
+        SeatSelectPresenter(this, ticket()!!.reservationCount, MovieRepositoryImpl)
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
@@ -72,31 +75,63 @@ class SeatSelectActivity(
         return movieId == MOVIE_ID_DEFAULT_VALUE || ticket == null
     }
 
-    override fun initializeMovie(movie: SeatSelectMovieUiModel) {
-        titleText.text = movie.titleMessage
-    }
-
-    override fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>) {
-        seatViews.forEachIndexed { row, rows ->
-            rows.forEachIndexed { col, seatView: CheckBox ->
-                seatView.text = seats[row][col].seatMessage
-                val color =
-                    ContextCompat.getColor(this@SeatSelectActivity, seats[row][col].seatColorId)
-                seatView.setTextColor(color)
-                // TODO("presenter 호출해서 금액, 확인 버튼 update")
-                // TODO("예매 개수보다 여러개 선택할 수 없음")
-            }
-        }
-    }
-
     override fun handleError(throwable: Throwable) {
         Log.d(TAG, throwable.stackTrace.toString())
         Toast.makeText(this, throwable.localizedMessage, Toast.LENGTH_LONG).show()
         finish()
     }
 
+    override fun initializeMovie(movie: SeatSelectMovieUiModel) {
+        titleText.text = movie.titleMessage
+    }
+
+    override fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>) {
+        seatViewsIndexed { row, col, seatView ->
+            seatView.text = seats[row][col].seatMessage
+            val color = ContextCompat.getColor(this, seats[row][col].seatColorId)
+            seatView.setTextColor(color)
+            seatView.setOnClickListener {
+                presenter.selectSeat(row, col)
+            }
+        }
+
+        confirmButton.setOnClickListener {
+
+        }
+    }
+
+    private fun seatViewsIndexed(block: (Int, Int, TextView) -> Unit) {
+        seatViews.forEachIndexed { row, rows ->
+            rows.forEachIndexed { col, seatView ->
+                block(row, col, seatView)
+            }
+        }
+    }
+
+    override fun updateReservationAmount(reservationAmountValue: Int) {
+        reservationAmountText.text =
+            resources.getString(R.string.seat_reservation_amount).format(reservationAmountValue)
+    }
+
+    override fun showCannotSelectSeat() {
+        Toast.makeText(this, R.string.cannot_select_seat, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun selectSeat(row: Int, col: Int, isConfirm: Boolean) {
+        seatViews[row][col].setBackgroundColor(ContextCompat.getColor(this, R.color.yellow))
+        if (isConfirm) {
+            confirmButton.isEnabled = true
+        }
+    }
+
+    override fun unselectSeat(row: Int, col: Int) {
+        seatViews[row][col].setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        confirmButton.isEnabled = false
+    }
+
     companion object {
         private val TAG = SeatSelectActivity::class.simpleName
+        private const val INITIAL_RESERVATION_AMOUNT = 0
         private const val MOVIE_ID_KEY = "movie_id"
         private const val MOVIE_ID_DEFAULT_VALUE = -1L
         private const val TICKET_KEY = "ticket_id"

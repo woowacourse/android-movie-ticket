@@ -12,4 +12,6 @@
     <string name="seat_select">좌석 선택</string>
     <string name="screen">SCREEN</string>
     <string name="confirm">확인</string>
+    <string name="seat_reservation_amount">%,d원</string>
+    <string name="cannot_select_seat">더이상 좌석을 선택할 수 없습니다.</string>
 </resources>

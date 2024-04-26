@@ -10,6 +10,14 @@ interface SeatSelectContract {
         fun initializeMovie(movie: SeatSelectMovieUiModel)
 
         fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>)
+
+        fun updateReservationAmount(reservationAmountValue: Int)
+
+        fun showCannotSelectSeat()
+
+        fun selectSeat(row: Int, col: Int, isConfirm: Boolean)
+
+        fun unselectSeat(row: Int, col: Int)
     }
 
     interface Presenter : BasePresenter {
@@ -18,6 +26,11 @@ interface SeatSelectContract {
         fun initializeSeatTable(
             row: Int,
             col: Int,
+        )
+
+        fun selectSeat(
+            row: Int,
+            col: Int
         )
     }
 }

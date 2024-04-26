@@ -2,14 +2,24 @@ package woowacourse.movie.feature.seat
 
 import woowacourse.movie.feature.seat.ui.toSeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.toSeatSelectTableUiModels
+import woowacourse.movie.model.ReservationAmount
+import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.model.Seat
+import woowacourse.movie.model.SeatRating
 import woowacourse.movie.model.Seats
+import woowacourse.movie.model.SelectedSeats
 import woowacourse.movie.model.data.MovieRepository
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
+    reservationCount: ReservationCount,
     private val movieRepository: MovieRepository,
 ) :
     SeatSelectContract.Presenter {
+    private lateinit var seats: Seats
+    private val selectedSeats = SelectedSeats(reservationCount)
+    private var reservationAmount = ReservationAmount(0)
+
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
         val movieUiModel = movie.toSeatSelectMovieUiModel()
@@ -20,8 +30,44 @@ class SeatSelectPresenter(
         row: Int,
         col: Int,
     ) {
-        val seats = Seats(row, col)
+        seats = Seats(row, col)
         val seatsUiModel = seats.toSeatSelectTableUiModels()
         view.initializeSeatTable(seatsUiModel)
+    }
+
+    override fun selectSeat(row: Int, col: Int) {
+        val seat = seats.table[row][col]
+        if (seat !in selectedSeats) {
+            applySelectSeat(seat, row, col)
+        } else {
+            applyUnselectSeat(seat, row, col)
+        }
+
+        view.updateReservationAmount(reservationAmount.amount)
+    }
+
+    private fun applySelectSeat(
+        seat: Seat,
+        row: Int,
+        col: Int,
+    ) {
+        if (!selectedSeats.canSelect()) {
+            view.showCannotSelectSeat()
+            return
+        }
+
+        selectedSeats.add(seat)
+        reservationAmount += SeatRating.from(seat).amount
+        view.selectSeat(row, col, selectedSeats.isConfirm())
+    }
+
+    private fun applyUnselectSeat(
+        seat: Seat,
+        row: Int,
+        col: Int,
+    ) {
+        selectedSeats.remove(seat)
+        reservationAmount -= SeatRating.from(seat).amount
+        view.unselectSeat(row, col)
     }
 }
