@@ -9,7 +9,7 @@ class MovieSeatSelectionPresenter(
     private val movieSeatSelectionContractView: MovieSeatSelectionContract.View,
     count: Int,
 ) : MovieSeatSelectionContract.Presenter {
-    private val movieSelectedSeats: MovieSelectedSeats = MovieSelectedSeats(count)
+    val movieSelectedSeats: MovieSelectedSeats = MovieSelectedSeats(count)
 
     override fun loadMovieTitle(id: Long) {
         val movieData = getMovieById(id)

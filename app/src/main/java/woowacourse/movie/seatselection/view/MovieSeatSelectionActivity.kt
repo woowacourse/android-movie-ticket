@@ -24,6 +24,7 @@ import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_SEATS
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
+import woowacourse.movie.util.MovieIntentConstant.KEY_SELECTED_POSITIONS
 import java.text.DecimalFormat
 
 class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContract.View {
@@ -52,7 +53,7 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
                     ?: INVALID_VALUE_MOVIE_COUNT,
             )
 
-        seatSelectionPresenter.loadSeatSelection(
+        seatSelectionPresenter.loadMovieTitle(
             intent.getLongExtra(
                 KEY_MOVIE_ID,
                 INVALID_VALUE_MOVIE_ID,
@@ -60,7 +61,14 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
         )
         seatSelectionPresenter.loadTableSeats()
 
+        setUpSelectedSeats(savedInstanceState?.getIntArray(KEY_SELECTED_POSITIONS))
         setUpCompleteButton()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val selectedPositions = seatSelectionPresenter.movieSelectedSeats.getSelectedPositions()
+        outState.putIntArray(KEY_SELECTED_POSITIONS, selectedPositions)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -92,13 +100,9 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
     }
 
     override fun displayDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
+        AlertDialog.Builder(this).setTitle("예매 확인").setMessage("정말 예매하시겠습니까?")
             .setPositiveButton("예매 완료") { _, _ -> seatSelectionPresenter.clickPositiveButton() }
-            .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
-            .setCancelable(false)
-            .show()
+            .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }.setCancelable(false).show()
     }
 
     override fun updateSelectResult(movieSelectedSeats: MovieSelectedSeats) {
@@ -126,6 +130,12 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
         seatTitle = findViewById(R.id.seatTitle)
         seatPrice = findViewById(R.id.seatPrice)
         completeButton = findViewById(R.id.completeBtn)
+    }
+
+    private fun setUpSelectedSeats(selectedPositions: IntArray?) {
+        selectedPositions?.forEach { position ->
+            seatSelectionPresenter.clickTableSeat(position)
+        }
     }
 
     private fun setUpCompleteButton() {

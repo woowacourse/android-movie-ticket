@@ -29,4 +29,10 @@ class MovieSelectedSeats(
     fun totalPrice(): Int = selectedSeats.sumOf { selectedSeat -> selectedSeat.grade.price }
 
     fun isSelectionComplete(): Boolean = count == selectedSeats.size
+
+    fun getSelectedPositions(): IntArray {
+        return selectedSeats.map { seat ->
+            seat.row * columnSize + seat.column
+        }.toIntArray()
+    }
 }
