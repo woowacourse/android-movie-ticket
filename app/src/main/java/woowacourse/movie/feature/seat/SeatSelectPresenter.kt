@@ -6,7 +6,6 @@ import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.reservation.ReservationAmount
 import woowacourse.movie.model.reservation.ReservationCount
 import woowacourse.movie.model.seat.Seat
-import woowacourse.movie.model.seat.SeatRating
 import woowacourse.movie.model.seat.Seats
 import woowacourse.movie.model.seat.SelectedSeats
 
@@ -59,7 +58,7 @@ class SeatSelectPresenter(
             return
         }
 
-        selectedSeats.add(seat)
+        selectedSeats.select(seat)
         reservationAmount += seat.amount()
         view.selectSeat(row, col, selectedSeats.isConfirm())
     }
@@ -69,7 +68,7 @@ class SeatSelectPresenter(
         row: Int,
         col: Int,
     ) {
-        selectedSeats.remove(seat)
+        selectedSeats.unselect(seat)
         reservationAmount -= seat.amount()
         view.unselectSeat(row, col)
     }

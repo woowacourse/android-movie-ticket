@@ -9,11 +9,13 @@ class SelectedSeats(val reservationCount: ReservationCount) : Serializable {
     val seats: List<Seat>
         get() = _seats.toList()
 
-    fun add(seat: Seat) {
+    fun select(seat: Seat) {
+        require(seat !in _seats) { INVALID_SELECT_SEAT_MESSAGE }
         _seats.add(seat)
     }
 
-    fun remove(seat: Seat) {
+    fun unselect(seat: Seat) {
+        require(seat in _seats) { INVALID_UNSELECT_SEAT_MESSAGE }
         _seats.remove(seat)
     }
 
@@ -28,4 +30,9 @@ class SelectedSeats(val reservationCount: ReservationCount) : Serializable {
     }
 
     operator fun contains(seat: Seat) = _seats.contains(seat)
+
+    companion object {
+        private const val INVALID_SELECT_SEAT_MESSAGE = "이미 선택하신 좌석입니다."
+        private const val INVALID_UNSELECT_SEAT_MESSAGE = "선택되지 않은 좌석입니다."
+    }
 }
