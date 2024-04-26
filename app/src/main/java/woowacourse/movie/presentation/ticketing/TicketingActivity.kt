@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.ticketing
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -44,11 +43,9 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
-        val savedCount = savedInstanceState?.getInt(KEY_COUNT)
-        val selectedTimePosition = savedInstanceState?.getInt(KEY_SELECTED_TIME_POSITION)
 
-        ticketingPresenter = TicketingPresenter(this, movieId, savedCount, selectedTimePosition)
-        ticketingPresenter.assignInitialView()
+        ticketingPresenter = TicketingPresenter(this)
+        ticketingPresenter.loadMovieData(movieId)
         initializeButtons()
     }
 
@@ -70,6 +67,27 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         }
     }
 
+    override fun displayMovieDetail(movie: Movie) {
+        findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(movie.thumbnail) }
+        findViewById<TextView>(R.id.tv_title).apply { text = movie.title }
+        findViewById<TextView>(R.id.tv_date).apply {
+            text =
+                context.getString(
+                    R.string.title_date,
+                    formatMovieDate(movie.screeningDates.startDate),
+                    formatMovieDate(movie.screeningDates.endDate),
+                )
+        }
+        findViewById<TextView>(R.id.tv_running_time).apply {
+            text = getString(R.string.title_running_time, movie.runningTime)
+        }
+        findViewById<TextView>(R.id.tv_introduction).apply { text = movie.introduction }
+    }
+
+    override fun displayTicketCount(count: Int) {
+        countText.text = count.toString()
+    }
+
     override fun setUpDateSpinners(
         screeningDates: List<LocalDate>,
         listener: AdapterView.OnItemSelectedListener,
@@ -87,31 +105,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         movieTimeAdapter.addAll(screeningTimes.map { it.format(DateTimeFormatter.ofPattern("kk:mm")) })
         movieTimeSpinner.adapter = movieTimeAdapter
         savedTimePosition?.let { movieTimeSpinner.setSelection(it) }
-    }
-
-    override fun assignInitialView(
-        movie: Movie,
-        count: Int,
-    ) {
-        updateCount(count)
-        findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(movie.thumbnail) }
-        findViewById<TextView>(R.id.tv_title).apply { text = movie.title }
-        findViewById<TextView>(R.id.tv_date).apply {
-            text =
-                context.getString(
-                    R.string.title_date,
-                    formatMovieDate(movie.screeningDates.startDate),
-                    formatMovieDate(movie.screeningDates.endDate),
-                )
-        }
-        findViewById<TextView>(R.id.tv_running_time).apply {
-            text = getString(R.string.title_running_time, movie.runningTime)
-        }
-        findViewById<TextView>(R.id.tv_introduction).apply { text = movie.introduction }
-    }
-
-    override fun updateCount(count: Int) {
-        countText.text = count.toString()
     }
 
     override fun navigate(
@@ -132,8 +125,22 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_COUNT, countText.text.toString().toInt())
+        outState.putInt(KEY_SAVED_COUNT, countText.text.toString().toInt())
         outState.putInt(KEY_SELECTED_TIME_POSITION, movieTimeSpinner.selectedItemPosition)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val savedCount = savedInstanceState.getInt(KEY_SAVED_COUNT, SAVED_DEFAULT_VALUE)
+        if (savedCount != SAVED_DEFAULT_VALUE) {
+            ticketingPresenter.updateCount(savedCount)
+        }
+
+        val savedTimePosition = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION)
+        if (savedTimePosition != SAVED_DEFAULT_VALUE) {
+            ticketingPresenter.updateSelectedTimePosition(savedTimePosition)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -146,7 +153,8 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         const val EXTRA_COUNT = "ticket_count"
         const val EXTRA_SCREENING_DATE_TIME = "screening_date_time"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
-        const val KEY_COUNT = "count"
+        const val KEY_SAVED_COUNT = "saved_count"
+        const val SAVED_DEFAULT_VALUE = -1
         const val KEY_SELECTED_TIME_POSITION = "selected_time_position"
     }
 }

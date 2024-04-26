@@ -9,7 +9,7 @@ class SeatingSystemTest {
 
     @BeforeEach
     fun setup() {
-        seatingSystem = SeatingSystem(20)
+        seatingSystem = SeatingSystem(20, listOf())
     }
 
     @Test
@@ -40,7 +40,7 @@ class SeatingSystemTest {
 
     @Test
     fun `사용자가 설정한 인원 보다 더 많이 선택하면 선택되지 않는다`() {
-        seatingSystem = SeatingSystem(1)
+        seatingSystem = SeatingSystem(1, listOf())
         seatingSystem.trySelectSeat(0)
         seatingSystem.trySelectSeat(1)
 

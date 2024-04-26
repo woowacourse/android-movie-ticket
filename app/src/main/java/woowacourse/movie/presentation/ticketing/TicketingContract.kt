@@ -7,10 +7,9 @@ import java.time.LocalTime
 
 interface TicketingContract {
     interface View {
-        fun assignInitialView(
-            movie: Movie,
-            count: Int,
-        )
+        fun displayMovieDetail(movie: Movie)
+
+        fun displayTicketCount(count: Int)
 
         fun setUpDateSpinners(
             screeningDates: List<LocalDate>,
@@ -22,8 +21,6 @@ interface TicketingContract {
             savedTimePosition: Int?,
         )
 
-        fun updateCount(count: Int)
-
         fun navigate(
             movieId: Int,
             count: Int,
@@ -33,7 +30,11 @@ interface TicketingContract {
     }
 
     interface Presenter {
-        fun assignInitialView()
+        fun loadMovieData(id: Int)
+
+        fun updateCount(savedCount: Int)
+
+        fun updateSelectedTimePosition(savedTimePosition: Int)
 
         fun decreaseCount()
 
