@@ -56,14 +56,17 @@ class MovieSeatSelectionActivity :
                 .map {
                     it.toString()
                 }
-        outState.putStringArrayList("abc", seatsIndex as ArrayList<String>)
+        outState.putStringArrayList(
+            MovieSeatSelectionKey.SEAT_INFO,
+            seatsIndex as ArrayList<String>,
+        )
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         savedInstanceState.let {
-            val seats = it.getStringArrayList("abc")
+            val seats = it.getStringArrayList(MovieSeatSelectionKey.SEAT_INFO)
             seats?.forEach { seat ->
                 val position = seat.toPosition()
                 presenter.selectSeat(position.first, position.second)

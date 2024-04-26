@@ -13,7 +13,11 @@ data class MovieContent(
     val id: Long = 0,
 ) {
     fun getDatesInRange(): List<LocalDate> {
-        val numberOfDays = ChronoUnit.DAYS.between(openingMovieDate, endingMoviesDate) + 1
+        val numberOfDays = ChronoUnit.DAYS.between(openingMovieDate, endingMoviesDate) + OFFSET
         return List(numberOfDays.toInt()) { index -> openingMovieDate.plusDays(index.toLong()) }
+    }
+
+    companion object {
+        private const val OFFSET = 1
     }
 }

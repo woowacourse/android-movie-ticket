@@ -42,7 +42,7 @@ class MovieContentAdapter(
         position: Int,
     ) {
         val movieContent = movieContents[position]
-        if (getItemViewType(position) == 1) {
+        if (getItemViewType(position) == TYPE_MOVIE) {
             (holder as MovieViewHolder).bind(movieContent)
         } else {
             (holder as AdvertisementViewHolder).bind()

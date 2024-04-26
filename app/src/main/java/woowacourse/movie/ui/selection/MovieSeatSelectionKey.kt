@@ -6,4 +6,5 @@ object MovieSeatSelectionKey {
     const val DATE = "selected_movie_date"
     const val TIME = "selected_movie_time"
     const val TICKET_ID = "ticket_id"
+    const val SEAT_INFO = "selected_seats_info"
 }

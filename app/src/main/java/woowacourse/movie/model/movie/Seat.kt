@@ -10,10 +10,11 @@ data class Seat(val row: SeatRow, val col: Int) {
             SeatRow.E -> SeatClass.A.amount
         }
 
-    override fun toString() = row.toString() + (col + 1)
+    override fun toString() = row.toString() + (col + OFFSET)
 
     companion object {
         const val ROW_LEN = 5
         const val COL_LEN = 4
+        private const val OFFSET = 1
     }
 }
