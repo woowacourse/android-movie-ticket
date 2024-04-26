@@ -1,5 +1,6 @@
 package woowacourse.movie.model.seat
 
+import woowacourse.movie.model.reservation.ReservationAmount
 import woowacourse.movie.model.reservation.ReservationCount
 import java.io.Serializable
 
@@ -19,6 +20,12 @@ class SelectedSeats(val reservationCount: ReservationCount) : Serializable {
     fun isSelectable(): Boolean = _seats.size < reservationCount.count
 
     fun isConfirm(): Boolean = _seats.size == reservationCount.count
+
+    fun amount(): ReservationAmount {
+        return seats.fold(ReservationAmount(0)) { acc, seat ->
+            acc + seat.amount()
+        }
+    }
 
     operator fun contains(seat: Seat) = _seats.contains(seat)
 }
