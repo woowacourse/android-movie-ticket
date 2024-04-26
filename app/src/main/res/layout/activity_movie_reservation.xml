@@ -43,6 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="27dp"
+                    android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     tools:text="해리 포터와 마법사의 돌" />
@@ -52,6 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="34dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="상영일: 2024.3.1" />
 
@@ -60,6 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="19dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="러닝타임: 152분" />
 
@@ -68,6 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:text="시놉시스\n시놉시스\n시놉시스" />
 
@@ -136,6 +140,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 

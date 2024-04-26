@@ -97,7 +97,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun setUpReservationView(movie: Movie) { // TODO: bind?? initialize 하고싶은데 위에랑 겹친다. 어쨌든 통일시켜야함
+    override fun setUpReservationView(movie: Movie) {
         val reservation = ReservationUiModel.of(this, movie)
         with(reservation) {
             posterImage.setImageDrawable(posterImageDrawable)
@@ -112,13 +112,13 @@ class MovieReservationActivity :
         screeningDates: List<ScreeningDate>,
         screeningTimes: List<ScreeningTime>,
     ) {
-        val screeningDateMessages = screeningDates.toReservationScreeningDateUiModels()
+        val screeningDateMessages = screeningDates.toReservationScreeningDateUiModels().map { it.screeningDateMessage }
         screeningDateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDateMessages)
         screeningDateSpinner.onItemSelectedListener = onSpinnerItemSelectedListener { _, _, position, _ ->
             presenter.selectScreeningDate(screeningDates[position])
         }
 
-        val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels()
+        val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels().map { it.screeningTimeMessage }
         screeningTimeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)
     }
 
@@ -149,7 +149,7 @@ class MovieReservationActivity :
     }
 
     override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {
-        val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels()
+        val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels().map { it.screeningTimeMessage }
         screeningTimeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)
     }
 

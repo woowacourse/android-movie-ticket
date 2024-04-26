@@ -144,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 tools:text="해리 포터와 마법사의 돌" />
@@ -152,6 +153,7 @@
                 android:id="@+id/reservation_amount_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/gray_400"
                 android:textSize="18sp"
                 tools:text="0원" />
 
