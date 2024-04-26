@@ -14,7 +14,6 @@ interface MovieDetailContract {
 
     interface Presenter {
         fun load()
-        fun onSeatConfirmationClicked(intent: Intent)
         fun onTicketPlusClicked(ticketNum: Int)
         fun onTicketMinusClicked(ticketNum: Int)
         fun getTheater(): Theater?

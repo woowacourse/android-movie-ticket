@@ -16,11 +16,6 @@ class MovieDetailPresenter(
         movie?.let { view.initializeViews(it) }
     }
 
-    override fun onSeatConfirmationClicked(intent: Intent) {
-        view.navigateToPurchaseConfirmation(intent)
-    }
-
-
     override fun onTicketPlusClicked(ticketNum: Int) {
         val newTicketNum = ticketNum + 1
         view.onTicketCountChanged(newTicketNum)

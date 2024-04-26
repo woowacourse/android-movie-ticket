@@ -47,7 +47,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 putExtra("ticketNum", ticketNum)
                 putExtra("Theater", theater)
             }
-            presenter.onSeatConfirmationClicked(intent)
+            navigateToPurchaseConfirmation(intent)
         }
     }
 
