@@ -12,7 +12,11 @@ class TicketCounter {
         ticketCount++
     }
 
+    fun initTicketCount(count: Int){
+        ticketCount = count
+    }
+
     companion object {
-        private const val MIN_TICKET_COUNT = 1
+        const val MIN_TICKET_COUNT = 1
     }
 }

@@ -25,6 +25,7 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
         initView()
     }
 
+
     private fun initView() {
         movieListView = findViewById(R.id.movie_list_view)
         movieAdapter =

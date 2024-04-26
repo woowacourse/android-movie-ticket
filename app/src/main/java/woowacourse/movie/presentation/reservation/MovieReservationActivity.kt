@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.reservation
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -9,13 +10,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.DateRepositoryImpl
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.TicketCounter
+import woowacourse.movie.presentation.model.MovieDateModel
 import woowacourse.movie.presentation.model.TicketModel
+import woowacourse.movie.presentation.model.toMovieDateModel
+import woowacourse.movie.presentation.reservation.MovieReservationPresenter.Companion.KEY_MOVIE_DATE
+import woowacourse.movie.presentation.reservation.MovieReservationPresenter.Companion.KEY_TICKET_COUNT
 import woowacourse.movie.presentation.screen.MovieScreenPresenter
 import woowacourse.movie.presentation.seat.SeatSelectionActivity
 import woowacourse.movie.presentation.utils.toCustomString
@@ -51,8 +57,24 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         setContentView(R.layout.activity_movie_reservation)
         initView()
         presenter.loadMovie()
+        val savedCount =
+            savedInstanceState?.getInt(KEY_TICKET_COUNT) ?: TicketCounter.MIN_TICKET_COUNT
+        val defaultMovieDateModel = MovieDate().toMovieDateModel()
+        val savedDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            savedInstanceState?.getSerializable(KEY_MOVIE_DATE, MovieDateModel::class.java)
+                ?: defaultMovieDateModel
+        } else {
+            savedInstanceState?.getSerializable(KEY_MOVIE_DATE) as? MovieDateModel
+                ?: defaultMovieDateModel
+        }
+        presenter.initSavedInstance(savedCount, savedDate)
         showCurrentResultTicketCountView()
         setClickListener()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        presenter.saveInstance(outState)
     }
 
     private fun loadMovieId(): Int {

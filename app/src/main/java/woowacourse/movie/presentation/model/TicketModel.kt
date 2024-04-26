@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.model
 
-import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.Ticket
 import java.io.Serializable
 import java.time.LocalDate
@@ -10,7 +9,7 @@ class TicketModel(
     val title: String,
     val screeningDate: LocalDate,
     val screeningTime: LocalDateTime,
-    val seats : List<String>,
+    val seats: List<String>,
     val count: Int,
     val price: Int,
 ) : Serializable {
@@ -22,7 +21,7 @@ class TicketModel(
             screeningTime = LocalDateTime.now(),
             title = DEFAULT_TICKET_TITLE,
             seats = listOf(),
-            count = 0,
+            count = 1,
         )
     }
 }
