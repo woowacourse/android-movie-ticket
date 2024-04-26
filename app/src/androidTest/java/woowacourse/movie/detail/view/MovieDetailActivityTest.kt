@@ -73,9 +73,9 @@ class MovieDetailActivityTest {
 
     @Test
     fun `화면이_가로로_회전되어도_예매_인원수의_값이_유지된다`() {
-        val activityScenario = activityRule.scenario
         onView(withId(R.id.detailPlusBtn)).perform(click())
 
+        val activityScenario = activityRule.scenario
         activityScenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
