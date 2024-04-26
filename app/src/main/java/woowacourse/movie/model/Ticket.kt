@@ -1,5 +1,6 @@
 package woowacourse.movie.model
 
+import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 
@@ -7,7 +8,7 @@ class Ticket(
     ticketCount: Int = DEFAULT_TICKET_COUNT,
     screeningDate: String = DEFAULT_SCREENING_DATE,
     screeningTime: String = DEFAULT_SCREENING_TIME,
-) {
+) : Serializable {
     var count: Int = ticketCount
         private set
     var screeningDate: String = screeningDate

@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
 import woowacourse.movie.seat.SeatSelectActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -107,11 +108,9 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun moveToSeatSelect(
         movieTitle: String,
-        ticketCount: Int,
-        screeningDate: String,
-        screeningTime: String,
+        ticket: Ticket,
     ) {
-        startActivity(SeatSelectActivity.getIntent(this, movieTitle, ticketCount, screeningDate, screeningTime))
+        startActivity(SeatSelectActivity.getIntent(this, movieTitle, ticket))
     }
 
     override fun showMovieInformation(movie: Movie) {

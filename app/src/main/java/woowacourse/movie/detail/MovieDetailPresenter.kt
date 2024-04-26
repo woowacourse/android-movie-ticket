@@ -52,7 +52,7 @@ class MovieDetailPresenter(
     override fun deliverReservationInformation() {
         val movieTitle = Movies.obtainMovie(movieId).title
 
-        view.moveToSeatSelect(movieTitle, ticket.count, ticket.screeningDate, ticket.screeningTime)
+        view.moveToSeatSelect(movieTitle, ticket)
     }
 
     private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
