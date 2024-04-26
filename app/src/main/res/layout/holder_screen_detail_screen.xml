@@ -61,7 +61,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_screen_date_guide"
                 app:layout_constraintStart_toEndOf="@+id/tv_screen_date_guide"
                 app:layout_constraintTop_toTopOf="@+id/tv_screen_date_guide"
-                tools:text="2024.3.1" />
+                tools:text="2024.3.1 ~ 2024.3.3" />
 
             <TextView
                 android:id="@+id/tv_screen_running_time_guide"

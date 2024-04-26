@@ -28,5 +28,5 @@ fun Screen.toDetailUI(image: Image<Any>) =
                 description = movie.description,
                 image = image,
             ),
-        date = date,
+        dateRange = dateRange,
     )
