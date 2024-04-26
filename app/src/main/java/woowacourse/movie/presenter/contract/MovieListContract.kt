@@ -1,13 +1,13 @@
 package woowacourse.movie.presenter.contract
 
-import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.adapter.ScreeningAdapter
 
 interface MovieListContract {
     interface View {
-        fun navigateToTicketing(movieId: Long)
+        fun navigateToTicketing(screeningId: Long)
     }
 
     interface Presenter {
-        fun getAdapter(): MovieAdapter
+        fun getAdapter(): ScreeningAdapter
     }
 }

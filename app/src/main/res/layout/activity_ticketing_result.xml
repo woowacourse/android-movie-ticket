@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TicketingResultActivity">
+    tools:context=".view.TicketingResultActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_guide"

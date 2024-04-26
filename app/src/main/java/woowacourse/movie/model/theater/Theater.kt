@@ -2,32 +2,30 @@ package woowacourse.movie.model.theater
 
 class Theater private constructor(
     val theaterSize: TheaterSize,
-    val sizesOfRows: Map<SeatClass, Int>,
+    val rowClassInfo: Map<Int, SeatClass>,
 ) {
     companion object {
         private const val DEFAULT_COLUMN_SIZE = 4
-        private const val DEFAULT_S_ROWS_SIZE = 2
-        private const val DEFAULT_A_ROWS_SIZE = 1
-        private const val DEFAULT_B_ROWS_SIZE = 2
+        private val DEFAULT_ROW_CLASS_INFO =
+            mapOf(
+                1 to SeatClass.B,
+                2 to SeatClass.B,
+                3 to SeatClass.S,
+                4 to SeatClass.S,
+                5 to SeatClass.A,
+            )
 
         fun of(
-            sRowsSize: Int = DEFAULT_S_ROWS_SIZE,
-            aRowsSize: Int = DEFAULT_A_ROWS_SIZE,
-            bRowsSize: Int = DEFAULT_B_ROWS_SIZE,
+            rowClassInfo: Map<Int, SeatClass> = DEFAULT_ROW_CLASS_INFO,
             columnSize: Int = DEFAULT_COLUMN_SIZE,
         ): Theater =
             Theater(
                 theaterSize =
                     TheaterSize(
-                        sRowsSize + aRowsSize + bRowsSize,
+                        rowClassInfo.size,
                         columnSize,
                     ),
-                sizesOfRows =
-                    mapOf(
-                        SeatClass.S to sRowsSize,
-                        SeatClass.A to aRowsSize,
-                        SeatClass.B to bRowsSize,
-                    ),
+                rowClassInfo = rowClassInfo,
             )
     }
 }

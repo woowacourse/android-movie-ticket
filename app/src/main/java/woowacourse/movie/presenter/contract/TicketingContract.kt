@@ -1,22 +1,25 @@
 package woowacourse.movie.presenter.contract
 
-import woowacourse.movie.model.screening.Movie
+import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.model.ticketing.BookingDateTime
 
 interface TicketingContract {
     interface View {
         fun assignInitialView(
-            movie: Movie,
+            screening: Screening,
             count: Int,
         )
 
         fun updateCount(count: Int)
 
-        fun navigateToTicketingResult(
-            movieId: Long,
+        fun updateDate(date: String)
+
+        fun updateTime(time: String)
+
+        fun navigateToSeatSelection(
+            screeningId: Long,
             count: Int,
-            totalPrice: Int,
-            date: String,
-            time: String,
+            bookingDateTime: BookingDateTime,
         )
 
         fun showToastMessage(message: String)

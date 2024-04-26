@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,21 +13,23 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.model.screening.Movie
+import woowacourse.movie.R
+import woowacourse.movie.model.screening.Screening
+import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSelectedListener {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
-    private val movieId by lazy { intent.getLongExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID) }
+    private val screeningId by lazy { intent.getLongExtra(EXTRA_SCREENING_ID, EXTRA_DEFAULT_SCREENING_ID) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ticketingPresenter = TicketingPresenter(this, movieId, DEFAULT_COUNT)
+        ticketingPresenter = TicketingPresenter(this, screeningId, DEFAULT_COUNT)
         ticketingPresenter.initializeTicketingData()
         initializeButtons()
     }
@@ -41,7 +43,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
             val count = it.getInt(KEY_COUNT, DEFAULT_COUNT)
-            ticketingPresenter = TicketingPresenter(this, movieId, count)
+            ticketingPresenter = TicketingPresenter(this, screeningId, count)
             countText.text = ticketingPresenter.countValue.toString()
         }
     }
@@ -52,27 +54,27 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
     }
 
     override fun assignInitialView(
-        movie: Movie,
+        screening: Screening,
         count: Int,
     ) {
         updateCount(count)
-        findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(movie.thumbnailResourceId) }
-        findViewById<TextView>(R.id.tv_title).apply { text = movie.title }
+        findViewById<ImageView>(R.id.iv_thumbnail).apply { screening.movie?.let { setImageResource(it.thumbnailResourceId) } }
+        findViewById<TextView>(R.id.tv_title).apply { text = screening.movie?.title }
         findViewById<TextView>(R.id.tv_date).apply {
             text =
-                getString(R.string.title_date, movie.startDate.toString(), movie.endDate.toString())
+                getString(R.string.title_date, screening.datePeriod.startDate.toString(), screening.datePeriod.endDate.toString())
         }
         findViewById<TextView>(R.id.tv_running_time).apply {
-            text = getString(R.string.title_running_time, movie.runningTime)
+            text = getString(R.string.title_running_time, screening.movie?.runningTime)
         }
-        findViewById<TextView>(R.id.tv_introduction).apply { text = movie.introduction }
+        findViewById<TextView>(R.id.tv_introduction).apply { text = screening.movie?.introduction }
 
         findViewById<Spinner>(R.id.spinner_date).apply {
             adapter =
                 ArrayAdapter(
                     this@TicketingActivity,
                     android.R.layout.simple_spinner_item,
-                    movie.dates,
+                    screening.dates,
                 )
             onItemSelectedListener = this@TicketingActivity
         }
@@ -82,7 +84,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
                 ArrayAdapter(
                     this@TicketingActivity,
                     android.R.layout.simple_spinner_item,
-                    movie.times,
+                    ticketingPresenter.availableTimes.localTimes,
                 )
             onItemSelectedListener = this@TicketingActivity
         }
@@ -92,19 +94,24 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         countText.text = count.toString()
     }
 
-    override fun navigateToTicketingResult(
-        movieId: Long,
+    override fun updateDate(date: String) {
+        ticketingPresenter.updateDate(date)
+    }
+
+    override fun updateTime(time: String) {
+        ticketingPresenter.updateTime(time)
+    }
+
+    override fun navigateToSeatSelection(
+        screeningId: Long,
         count: Int,
-        totalPrice: Int,
-        date: String,
-        time: String,
+        bookingDateTime: BookingDateTime,
     ) {
-        Intent(this, TicketingResultActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_ID, movieId)
+        Intent(this, SeatSelectionActivity::class.java).apply {
+            putExtra(EXTRA_SCREENING_ID, screeningId)
             putExtra(EXTRA_COUNT, count)
-            putExtra(EXTRA_TOTAL_PRICE, totalPrice)
-            putExtra(EXTRA_DATE, date)
-            putExtra(EXTRA_TIME, time)
+            putExtra(EXTRA_DATE, bookingDateTime.date.toString())
+            putExtra(EXTRA_TIME, bookingDateTime.time.toString())
             startActivity(this)
             finish()
         }
@@ -139,29 +146,24 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         id: Long,
     ) {
         when (parent?.id) {
-            R.id.spinner_date ->
-                ticketingPresenter.updateDate(parent.getItemAtPosition(position).toString())
-            R.id.spinner_time ->
-                ticketingPresenter.updateTime(parent.getItemAtPosition(position).toString())
+            R.id.spinner_date -> updateDate(parent.getItemAtPosition(position).toString())
+            R.id.spinner_time -> updateTime(parent.getItemAtPosition(position).toString())
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         when (parent?.id) {
-            R.id.spinner_date ->
-                ticketingPresenter.updateDate(parent.getItemAtPosition(0).toString())
-            R.id.spinner_time ->
-                ticketingPresenter.updateTime(parent.getItemAtPosition(0).toString())
+            R.id.spinner_date -> updateDate(parent.getItemAtPosition(0).toString())
+            R.id.spinner_time -> updateTime(parent.getItemAtPosition(0).toString())
         }
     }
 
     companion object {
-        const val EXTRA_MOVIE_ID = "movie_id"
-        const val EXTRA_COUNT = "number_of_people"
-        const val EXTRA_TOTAL_PRICE = "total_price"
+        const val EXTRA_SCREENING_ID = "screening_id"
+        const val EXTRA_COUNT = "count"
         const val EXTRA_DATE = "movie_date"
         const val EXTRA_TIME = "movie_time"
-        const val EXTRA_DEFAULT_MOVIE_ID = -1L
+        const val EXTRA_DEFAULT_SCREENING_ID = -1L
         private const val DEFAULT_COUNT = 1
         private const val KEY_COUNT = "count"
     }

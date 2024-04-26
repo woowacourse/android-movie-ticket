@@ -1,9 +1,10 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.presenter.MovieListPresenter
 import woowacourse.movie.presenter.contract.MovieListContract
 
@@ -17,14 +18,14 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         movies.adapter = presenter.getAdapter()
     }
 
-    override fun navigateToTicketing(movieId: Long) {
+    override fun navigateToTicketing(screeningId: Long) {
         Intent(this, TicketingActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_ID, movieId)
+            putExtra(EXTRA_SCREENING_ID, screeningId)
             startActivity(this)
         }
     }
 
     companion object {
-        const val EXTRA_MOVIE_ID = "movie_id"
+        const val EXTRA_SCREENING_ID = "screening_id"
     }
 }

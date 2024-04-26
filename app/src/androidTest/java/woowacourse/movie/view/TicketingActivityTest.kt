@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -7,7 +7,6 @@ import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -18,13 +17,14 @@ import org.hamcrest.Matchers.instanceOf
 import org.hamcrest.Matchers.`is`
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.R
 
 class TicketingActivityTest {
     @get:Rule
     var activityRule: ActivityScenarioRule<TicketingActivity> =
         ActivityScenarioRule<TicketingActivity>(
             Intent(ApplicationProvider.getApplicationContext(), TicketingActivity::class.java).apply {
-                putExtra("movie_id", 0L)
+                putExtra("screening_id", 0L)
             },
         )
 
@@ -47,12 +47,6 @@ class TicketingActivityTest {
     fun `숫자가_예매_가능한_최솟값일_경우_감소_버튼을_누르면_숫자가_감소하지_않는다`() {
         onView(withId(R.id.btn_minus)).perform(click())
         onView(withId(R.id.tv_count)).check(matches(withText("1")))
-    }
-
-    @Test
-    fun `완료_버튼을_누르면_예매_결과_화면으로_이동한다`() {
-        onView(withId(R.id.btn_complete)).perform(click())
-        onView(withId(R.id.cl_ticketing_result_activity)).check(matches(isDisplayed()))
     }
 
     @Test

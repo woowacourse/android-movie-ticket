@@ -1,11 +1,11 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.adapter.MovieAdapter
-import woowacourse.movie.model.MovieData.MOVIES
+import woowacourse.movie.adapter.ScreeningAdapter
+import woowacourse.movie.model.MovieData.SCREENING_DATA
 import woowacourse.movie.presenter.contract.MovieListContract
 
 class MovieListPresenter(private val movieListContractView: MovieListContract.View) : MovieListContract.Presenter {
-    private val movies = MOVIES
+    private val screenings = SCREENING_DATA
 
-    override fun getAdapter(): MovieAdapter = MovieAdapter(movies, movieListContractView::navigateToTicketing)
+    override fun getAdapter(): ScreeningAdapter = ScreeningAdapter(screenings, movieListContractView::navigateToTicketing)
 }

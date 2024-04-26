@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
@@ -25,6 +25,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 
 @RunWith(AndroidJUnit4::class)
 class SeatSelectionActivityTest {
@@ -48,7 +49,7 @@ class SeatSelectionActivityTest {
         device = UiDevice.getInstance(getInstrumentation())
         activityScenarioRule.scenario.onActivity {
             seatItems =
-                it.findViewById<TableLayout>(R.id.tl_screens)
+                it.findViewById<TableLayout>(R.id.tl_seats)
                     .children
                     .filterIsInstance<TableRow>()
                     .first()
@@ -60,7 +61,7 @@ class SeatSelectionActivityTest {
     @Test
     fun `영화_제목과_좌석_배치도가_올바르게_표출된다`() {
         onView(withId(R.id.tv_movie_title)).check(matches(withText("해리 포터와 마법사의 돌")))
-        onView(withId(R.id.tl_screens)).check(matches(hasChildCount(5)))
+        onView(withId(R.id.tl_seats)).check(matches(hasChildCount(5)))
     }
 
     @Test
@@ -97,7 +98,7 @@ class SeatSelectionActivityTest {
                 textView.performClick()
             }
             val lastItem =
-                it.findViewById<TableLayout>(R.id.tl_screens)
+                it.findViewById<TableLayout>(R.id.tl_seats)
                     .children
                     .filterIsInstance<TableRow>()
                     .last()
@@ -184,7 +185,7 @@ class SeatSelectionActivityTest {
     private fun performMultipleSeatsSelection() {
         activityScenarioRule.scenario.onActivity {
             val lastRowItems =
-                it.findViewById<TableLayout>(R.id.tl_screens)
+                it.findViewById<TableLayout>(R.id.tl_seats)
                     .children
                     .filterIsInstance<TableRow>()
                     .last()

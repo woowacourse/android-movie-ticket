@@ -1,37 +1,40 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.model.Count
-import woowacourse.movie.model.MovieData.findMovieById
+import woowacourse.movie.model.MovieData.findScreeningDataById
 import woowacourse.movie.model.Result
-import woowacourse.movie.model.ticketing.Tickets
+import woowacourse.movie.model.screening.AvailableTimes
+import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.presenter.contract.TicketingContract
+import java.time.LocalDate
+import java.time.LocalTime
 
 class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
-    movieId: Long,
+    screeningId: Long,
     initialCount: Int,
 ) : TicketingContract.Presenter {
-    private val movie = findMovieById(movieId)
+    lateinit var availableTimes: AvailableTimes
+        private set
+    private val screening = findScreeningDataById(screeningId)
     private val count = Count(initialCount)
-    private lateinit var date: String
-    private lateinit var time: String
+    private lateinit var date: LocalDate
+    private lateinit var time: LocalTime
 
     val countValue: Int
         get() = count.value
 
     override fun initializeTicketingData() {
-        when (movie) {
+        when (screening) {
             is Result.Success -> {
-                date = movie.data.startDate.toString()
-                time = movie.data.times.first()
-                ticketingContractView.assignInitialView(
-                    movie.data,
-                    count.value,
-                )
+                date = screening.data.dates.first()
+                availableTimes = AvailableTimes.of(date)
+                time = availableTimes.localTimes.first()
+                ticketingContractView.assignInitialView(screening.data, count.value)
             }
 
             is Result.Error -> {
-                ticketingContractView.showToastMessage(movie.message)
+                ticketingContractView.showToastMessage(screening.message)
             }
         }
     }
@@ -53,29 +56,26 @@ class TicketingPresenter(
     }
 
     override fun reserveTickets() {
-        when (movie) {
+        when (screening) {
             is Result.Success -> {
-                val totalPrice = Tickets(count, movie.data).totalPrice
-                ticketingContractView.navigateToTicketingResult(
-                    movieId = movie.data.id,
+                ticketingContractView.navigateToSeatSelection(
+                    screeningId = screening.data.screeningId,
                     count = count.value,
-                    totalPrice = totalPrice,
-                    date = date,
-                    time = time,
+                    bookingDateTime = BookingDateTime(date, time),
                 )
             }
 
             is Result.Error -> {
-                ticketingContractView.showToastMessage(movie.message)
+                ticketingContractView.showToastMessage(screening.message)
             }
         }
     }
 
     override fun updateDate(date: String) {
-        this.date = date
+        this.date = LocalDate.parse(date)
     }
 
     override fun updateTime(time: String) {
-        this.time = time
+        this.time = LocalTime.parse(time)
     }
 }

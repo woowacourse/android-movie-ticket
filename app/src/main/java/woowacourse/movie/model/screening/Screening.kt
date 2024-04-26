@@ -1,20 +1,21 @@
 package woowacourse.movie.model.screening
 
+import woowacourse.movie.model.MovieData
 import woowacourse.movie.model.theater.Theater
 import java.time.LocalDate
 
 class Screening private constructor(
     val screeningId: Long,
-    val movieId: Long,
+    val movie: Movie?,
     val theater: Theater,
     val datePeriod: DatePeriod,
 ) {
-    val dates: List<String>
+    val dates: List<LocalDate>
         get() {
             var currentDate: LocalDate = datePeriod.startDate
-            return mutableListOf<String>().apply {
+            return mutableListOf<LocalDate>().apply {
                 do {
-                    add(currentDate.toString())
+                    add(currentDate)
                     currentDate = currentDate.plusDays(datePeriod.dateSpan)
                 } while (currentDate <= datePeriod.endDate)
             }
@@ -25,12 +26,14 @@ class Screening private constructor(
             screeningId: Long,
             movieId: Long,
             datePeriod: DatePeriod,
-        ): Screening =
-            Screening(
+        ): Screening {
+            val movie = MovieData.findMovieById2(movieId)
+            return Screening(
                 screeningId,
-                movieId,
+                movie.data,
                 Theater.of(),
                 datePeriod,
             )
+        }
     }
 }

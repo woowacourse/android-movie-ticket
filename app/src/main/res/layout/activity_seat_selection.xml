@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA"
-    tools:context=".SeatSelectionActivity">
+    tools:context=".view.SeatSelectionActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_screen"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:id="@+id/tl_screens"
+        android:id="@+id/tl_seats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"

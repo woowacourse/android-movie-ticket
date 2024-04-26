@@ -1,17 +1,18 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_COUNT
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_DATE
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_MOVIE_ID
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_TIME
-import woowacourse.movie.TicketingActivity.Companion.EXTRA_TOTAL_PRICE
+import woowacourse.movie.R
 import woowacourse.movie.presenter.TicketingResultPresenter
 import woowacourse.movie.presenter.contract.TicketingResultContract
+import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_NUM_TICKET
+import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_PRICE
+import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_DATE
+import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TIME
 import java.time.LocalDate
 
 class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
@@ -20,9 +21,9 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         setContentView(R.layout.activity_ticketing_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val count = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_COUNT)
+        val count = intent.getIntExtra(EXTRA_NUM_TICKET, EXTRA_DEFAULT_COUNT)
         val movieId = intent.getLongExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
-        val totalPrice = intent.getIntExtra(EXTRA_TOTAL_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
+        val totalPrice = intent.getIntExtra(EXTRA_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
         val date = intent.getStringExtra(EXTRA_DATE)
         val time = intent.getStringExtra(EXTRA_TIME)
 
@@ -34,7 +35,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         numberOfPeople: Int,
         movieTitle: String,
         movieDate: LocalDate,
-        price: Int,
+        totalPrice: Int,
     ) {
         val movieTitleText = findViewById<TextView>(R.id.tv_movie_title)
         val movieDateText = findViewById<TextView>(R.id.tv_movie_date)
@@ -44,7 +45,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         movieTitleText.text = movieTitle
         movieDateText.text = movieDate.toString()
         numberOfPeopleText.text = getString(R.string.text_number_of_people, numberOfPeople)
-        priceText.text = getString(R.string.text_price, price)
+        priceText.text = getString(R.string.text_price, totalPrice)
     }
 
     override fun showToastMessage(message: String) {

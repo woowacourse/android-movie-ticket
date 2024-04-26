@@ -5,10 +5,8 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class AvailableTimes private constructor(
-    localTimes: List<LocalTime>,
+    val localTimes: List<LocalTime>,
 ) {
-    val value: List<String> = localTimes.map(LocalTime::toString)
-
     companion object {
         private val DEFAULT_WEEKDAY_START_TIME = LocalTime.of(10, 0)
         private val DEFAULT_WEEKEND_START_TIME = LocalTime.of(9, 0)

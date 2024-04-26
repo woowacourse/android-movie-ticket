@@ -8,7 +8,7 @@ interface TicketingResultContract {
             numberOfPeople: Int,
             movieTitle: String,
             movieDate: LocalDate,
-            price: Int,
+            totalPrice: Int,
         )
 
         fun showToastMessage(message: String)
@@ -16,7 +16,7 @@ interface TicketingResultContract {
 
     interface Presenter {
         fun initializeTicketingResult(
-            movieId: Long,
+            screeningId: Long,
             count: Int,
             totalPrice: Int,
         )

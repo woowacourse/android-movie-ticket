@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
+import java.time.LocalTime
 
 class AvailableTimesTest {
     @Test
@@ -13,16 +14,16 @@ class AvailableTimesTest {
         // then
         assertEquals(
             listOf(
-                "09:00",
-                "11:00",
-                "13:00",
-                "15:00",
-                "17:00",
-                "19:00",
-                "21:00",
-                "23:00",
+                LocalTime.of(9, 0),
+                LocalTime.of(11, 0),
+                LocalTime.of(13, 0),
+                LocalTime.of(15, 0),
+                LocalTime.of(17, 0),
+                LocalTime.of(19, 0),
+                LocalTime.of(21, 0),
+                LocalTime.of(23, 0),
             ),
-            availableTimes.value,
+            availableTimes.localTimes,
         )
     }
 
@@ -33,16 +34,16 @@ class AvailableTimesTest {
         // then
         assertEquals(
             listOf(
-                "10:00",
-                "12:00",
-                "14:00",
-                "16:00",
-                "18:00",
-                "20:00",
-                "22:00",
-                "00:00",
+                LocalTime.of(10, 0),
+                LocalTime.of(12, 0),
+                LocalTime.of(14, 0),
+                LocalTime.of(16, 0),
+                LocalTime.of(18, 0),
+                LocalTime.of(20, 0),
+                LocalTime.of(22, 0),
+                LocalTime.of(0, 0),
             ),
-            availableTimes.value,
+            availableTimes.localTimes,
         )
     }
 

@@ -2,9 +2,40 @@ package woowacourse.movie.model.screening
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import woowacourse.movie.R
 import java.time.LocalDate
 
 class ScreeningTest {
+    @Test
+    fun `상영_정보_객체_생성_시_제공한_영화_아이디에_따른_영화_데이터를_보유한다`() {
+        // given
+        val screening =
+            Screening.of(
+                0,
+                0,
+                DatePeriod(
+                    startDate = LocalDate.of(2024, 3, 1),
+                    endDate = LocalDate.of(2024, 3, 15),
+                    dateSpan = 1,
+                ),
+            )
+
+        // then
+        assertEquals(
+            Movie(
+                movieId = 0,
+                title = "해리 포터와 마법사의 돌",
+                thumbnailResourceId = R.drawable.movie1,
+                runningTime = 152,
+                introduction =
+                    """
+                    《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.
+                    """.trimIndent(),
+            ),
+            screening.movie,
+        )
+    }
+
     @Test
     fun `상영_정보에_따른_올바른_기간들을_반환한다`() {
         // given
@@ -22,21 +53,21 @@ class ScreeningTest {
         // then
         assertEquals(
             listOf(
-                "2024-03-01",
-                "2024-03-02",
-                "2024-03-03",
-                "2024-03-04",
-                "2024-03-05",
-                "2024-03-06",
-                "2024-03-07",
-                "2024-03-08",
-                "2024-03-09",
-                "2024-03-10",
-                "2024-03-11",
-                "2024-03-12",
-                "2024-03-13",
-                "2024-03-14",
-                "2024-03-15",
+                LocalDate.of(2024, 3, 1),
+                LocalDate.of(2024, 3, 2),
+                LocalDate.of(2024, 3, 3),
+                LocalDate.of(2024, 3, 4),
+                LocalDate.of(2024, 3, 5),
+                LocalDate.of(2024, 3, 6),
+                LocalDate.of(2024, 3, 7),
+                LocalDate.of(2024, 3, 8),
+                LocalDate.of(2024, 3, 9),
+                LocalDate.of(2024, 3, 10),
+                LocalDate.of(2024, 3, 11),
+                LocalDate.of(2024, 3, 12),
+                LocalDate.of(2024, 3, 13),
+                LocalDate.of(2024, 3, 14),
+                LocalDate.of(2024, 3, 15),
             ),
             screening.dates,
         )

@@ -8,17 +8,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.screening.Movie
+import woowacourse.movie.model.screening.Screening
 
-class MovieAdapter(
-    private val movies: List<Movie>,
+class ScreeningAdapter(
+    private val screenings: List<Screening>,
     private val onTicketingButtonClick: (Long) -> Unit,
 ) : BaseAdapter() {
-    override fun getCount(): Int = movies.size
+    override fun getCount(): Int = screenings.size
 
-    override fun getItem(position: Int): Any = movies[position]
+    override fun getItem(position: Int): Any = screenings[position]
 
-    override fun getItemId(position: Int): Long = movies[position].id
+    override fun getItemId(position: Int): Long = screenings[position].screeningId
 
     override fun getView(
         position: Int,
@@ -37,7 +37,7 @@ class MovieAdapter(
             movieViewHolder = convertView.tag as MovieViewHolder
         }
 
-        movieViewHolder.bind(movies[position])
+        movieViewHolder.bind(screenings[position])
         return view
     }
 
@@ -48,12 +48,21 @@ class MovieAdapter(
         private val runningTime: TextView = itemView.findViewById(R.id.tv_running_time)
         private val ticketingButton: Button = itemView.findViewById(R.id.btn_ticketing)
 
-        fun bind(movie: Movie) {
-            title.text = movie.title
-            date.text = itemView.context.getString(R.string.title_date, movie.startDate.toString(), movie.endDate.toString())
-            runningTime.text = itemView.context.getString(R.string.title_running_time, movie.runningTime)
-            ticketingButton.setOnClickListener { onTicketingButtonClick(movie.id) }
-            thumbnail.setImageResource(movie.thumbnailResourceId)
+        fun bind(screening: Screening) {
+            val movie = screening.movie
+            movie?.let {
+                title.text = movie.title
+                date.text =
+                    itemView.context.getString(
+                        R.string.title_date,
+                        screening.datePeriod.startDate.toString(),
+                        screening.datePeriod.endDate.toString(),
+                    )
+                runningTime.text =
+                    itemView.context.getString(R.string.title_running_time, movie.runningTime)
+                ticketingButton.setOnClickListener { onTicketingButtonClick(screening.screeningId) }
+                thumbnail.setImageResource(movie.thumbnailResourceId)
+            }
         }
     }
 }
