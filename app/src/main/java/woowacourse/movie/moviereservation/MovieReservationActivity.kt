@@ -133,12 +133,12 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         dateAdapter =
             ArrayAdapter(
                 this,
-                R.layout.item_spinner_date,
+                R.layout.item_spinner,
                 screeningDateTimesUiModel.dates(),
             )
 
         timeAdapter =
-            ArrayAdapter(this, R.layout.item_spinner_date, screeningDateTimesUiModel.defaultTimes())
+            ArrayAdapter(this, R.layout.item_spinner, screeningDateTimesUiModel.defaultTimes())
 
         dateSpinner.adapter = dateAdapter
         timeSpinner.adapter = timeAdapter
