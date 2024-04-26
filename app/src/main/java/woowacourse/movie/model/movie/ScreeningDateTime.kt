@@ -20,8 +20,8 @@ class ScreeningDateTime(val date: LocalDate) {
 
     companion object {
         val WEEKDAY_TIMES =
-            listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
-        val WEEKEND_TIMES =
             listOf("10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00", "24:00")
+        val WEEKEND_TIMES =
+            listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
     }
 }
