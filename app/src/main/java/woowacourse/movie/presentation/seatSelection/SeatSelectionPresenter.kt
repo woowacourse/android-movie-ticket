@@ -7,26 +7,26 @@ import woowacourse.movie.model.Ticket
 
 class SeatSelectionPresenter(
     private val seatSelectionContractView: SeatSelectionContract.View,
-    private val movieId: Int,
     ticketCount: Int,
-    private val screeningDateTime: String,
-    savedSeats: List<Int>,
+    private val movieRepository: MovieRepository = MovieRepository(),
 ) : SeatSelectionContract.Presenter {
-    private val movieRepository = MovieRepository()
     private lateinit var selectedMovie: Movie
-    val seatingSystem = SeatingSystem(ticketCount, savedSeats)
+    val seatingSystem = SeatingSystem(ticketCount)
 
-    override fun initializeViewData() {
-        seatSelectionContractView.initializeSeats(seatingSystem.seats, seatingSystem.getSelectedSeatsIndex())
-        movieRepository.findMovieById(movieId)
+    override fun loadMovieData(id: Int) {
+        movieRepository.findMovieById(id)
             .onSuccess { movie ->
                 selectedMovie = movie
-                seatSelectionContractView.initializeTicketInfo(movie)
+                seatSelectionContractView.displayTicketInfo(movie)
                 updateUI()
             }
             .onFailure {
                 seatSelectionContractView.showToastMessage(it.message)
             }
+    }
+
+    override fun loadSeats() {
+        seatSelectionContractView.displaySeats(seatingSystem.seats)
     }
 
     override fun updateSeatSelection(index: Int) {
@@ -59,7 +59,7 @@ class SeatSelectionPresenter(
         seatSelectionContractView.updateTotalPrice(seatingSystem.getTotalPrice())
     }
 
-    override fun navigate() {
+    override fun navigate(screeningDateTime: String) {
         val ticket = Ticket(selectedMovie.title, screeningDateTime, seatingSystem.selectedSeats.toList())
         seatSelectionContractView.navigate(ticket)
     }

@@ -40,23 +40,23 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         setContentView(R.layout.activity_seat_selection)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val savedSelectedSeat = savedInstanceState?.getIntegerArrayList(KEY_SELECTED_SEATS)?.toList() ?: emptyList()
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val ticketCount = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_TICKET_COUNT)
         val screeningDateTime = intent.getStringExtra(EXTRA_SCREENING_DATE_TIME) ?: ""
 
-        presenter = SeatSelectionPresenter(this, movieId, ticketCount, screeningDateTime, savedSelectedSeat)
-        presenter.initializeViewData()
-        initializeCompleteButton()
+        presenter = SeatSelectionPresenter(this, ticketCount)
+        presenter.loadMovieData(movieId)
+        presenter.loadSeats()
+        initializeCompleteButton(screeningDateTime)
     }
 
-    private fun initializeCompleteButton() {
+    private fun initializeCompleteButton(screeningDateTime: String) {
         completeButton.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
-                    presenter.navigate()
+                    presenter.navigate(screeningDateTime)
                 }
                 .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
                 .setCancelable(false)
@@ -64,10 +64,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun initializeSeats(
-        seats: List<Seat>,
-        selectedSeats: List<Int>,
-    ) {
+    override fun displaySeats(seats: List<Seat>) {
         seatItems.forEachIndexed { index, textView ->
             val seat = seats[index]
             textView.text = formatSeat(seat)
@@ -79,11 +76,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 }
             textView.setTextColor(Color.parseColor(colorCode))
             textView.setOnClickListener { presenter.updateSeatSelection(index) }
-            if (index in selectedSeats) updateSelectedSeatUI(index)
         }
     }
 
-    override fun initializeTicketInfo(movie: Movie) {
+    override fun displayTicketInfo(movie: Movie) {
         findViewById<TextView>(R.id.tv_title).text = movie.title
     }
 
@@ -125,6 +121,13 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onSaveInstanceState(outState)
         val selectedIndexes = presenter.seatingSystem.getSelectedSeatsIndex()
         outState.putIntegerArrayList(KEY_SELECTED_SEATS, ArrayList(selectedIndexes))
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val savedSelectedSeat =
+            savedInstanceState.getIntegerArrayList(KEY_SELECTED_SEATS)?.toList() ?: emptyList()
+        savedSelectedSeat.forEach { presenter.updateSeatSelection(it) }
     }
 
     companion object {

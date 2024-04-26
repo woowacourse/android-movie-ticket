@@ -6,12 +6,9 @@ import woowacourse.movie.model.Ticket
 
 interface SeatSelectionContract {
     interface View {
-        fun initializeSeats(
-            seats: List<Seat>,
-            selectedSeats: List<Int>,
-        )
+        fun displaySeats(seats: List<Seat>)
 
-        fun initializeTicketInfo(movie: Movie)
+        fun displayTicketInfo(movie: Movie)
 
         fun updateSelectedSeatUI(index: Int)
 
@@ -27,10 +24,12 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun initializeViewData()
+        fun loadMovieData(id: Int)
+
+        fun loadSeats()
 
         fun updateSeatSelection(index: Int)
 
-        fun navigate()
+        fun navigate(screeningDateTime: String)
     }
 }

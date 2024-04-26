@@ -2,7 +2,6 @@ package woowacourse.movie.model
 
 class SeatingSystem(
     private var availableSeatCount: Int,
-    selectedSeatsIndexes: List<Int>,
     private val rowSize: Int = 5,
     private val colSize: Int = 4,
 ) {
@@ -13,12 +12,16 @@ class SeatingSystem(
             Seat(row, col)
         }
 
-    private val _selectedSeats: MutableSet<Seat> =
-        selectedSeatsIndexes.map { seats[it] }.toMutableSet()
+    private val _selectedSeats: MutableSet<Seat> = mutableSetOf()
     val selectedSeats: Set<Seat>
         get() = _selectedSeats.toSet()
 
     fun isSelected(index: Int): Boolean = seats[index] in selectedSeats
+
+    fun updateSelectedSeats(selectedSeatsIndexes: List<Int>) {
+        _selectedSeats.clear()
+        _selectedSeats.addAll(selectedSeatsIndexes.map { seats[it] }.toMutableSet())
+    }
 
     fun trySelectSeat(index: Int): Result<Seat> {
         return if (canSelectSeat()) {
