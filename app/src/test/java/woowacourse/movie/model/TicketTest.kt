@@ -2,6 +2,8 @@ package woowacourse.movie.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
+import java.time.LocalTime
 
 class TicketTest {
     @Test
@@ -9,6 +11,31 @@ class TicketTest {
         val ticket = Ticket()
 
         assertThat(ticket.count()).isEqualTo(1)
+    }
+
+    @Test
+    fun `Ticket의 count 초기값을 설정해 줄 수 있다`() {
+        // given,when
+        val ticket = Ticket(4)
+
+        // then
+        assertThat(ticket.count()).isEqualTo(4)
+    }
+
+    @Test
+    fun `Ticekt의 count와 상영시간을 설정해 줄 수 있다`() {
+        // given
+        val count = 2
+        val date = LocalDate.of(2024, 3, 2)
+        val time = LocalTime.of(9, 0)
+
+        // when
+        val ticket = Ticket(count, date to time)
+
+        // then
+        assertThat(ticket.count).isEqualTo(2)
+        assertThat(ticket.screeningInfo.first).isEqualTo(date)
+        assertThat(ticket.screeningInfo.second).isEqualTo(time)
     }
 
     @Test
