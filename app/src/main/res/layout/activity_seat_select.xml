@@ -29,7 +29,7 @@
         android:layout_marginVertical="56dp"
         android:background="@color/white"
         android:stretchColumns="*"
-        app:layout_constraintBottom_toTopOf="@+id/seat_check_layout"
+        app:layout_constraintBottom_toTopOf="@+id/seat_confirm_layout"
         app:layout_constraintTop_toBottomOf="@+id/screen_text">
 
         <TableRow
@@ -110,7 +110,7 @@
     </TableLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/seat_check_layout"
+        android:id="@+id/seat_confirm_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"

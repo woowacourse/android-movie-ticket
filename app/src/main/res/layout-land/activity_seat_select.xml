@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/gray_200"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/seat_check_layout"
+        app:layout_constraintRight_toLeftOf="@+id/seat_confirm_layout"
         app:layout_constraintWidth_percent="0.6">
 
         <TextView
@@ -45,28 +45,13 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <CheckBox style="@style/Seat" />
-
-                <CheckBox style="@style/Seat" />
-
-                <CheckBox style="@style/Seat" />
-
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
             </TableRow>
 
@@ -75,28 +60,13 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <CheckBox style="@style/Seat" />
-
-                <CheckBox style="@style/Seat" />
-
-                <CheckBox style="@style/Seat" />
-
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
             </TableRow>
 
@@ -105,13 +75,43 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
 
-                <CheckBox style="@style/Seat" />
+                <TextView style="@style/Seat" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView style="@style/Seat" />
+
+                <TextView style="@style/Seat" />
+
+                <TextView style="@style/Seat" />
+
+                <TextView style="@style/Seat" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView style="@style/Seat" />
+
+                <TextView style="@style/Seat" />
+
+                <TextView style="@style/Seat" />
+
+                <TextView style="@style/Seat" />
 
             </TableRow>
 
@@ -121,7 +121,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/seat_check_layout"
+        android:id="@+id/seat_confirm_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toRightOf="@+id/seat_layout"
