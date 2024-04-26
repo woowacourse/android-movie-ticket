@@ -60,6 +60,7 @@ class MovieSeatSelectionActivity :
 
     private fun makeAlertDialog() {
         AlertDialog.Builder(this)
+            .setCancelable(false)
             .setTitle(R.string.reservation_confirm)
             .setMessage(R.string.reservation_confirm_comment)
             .setPositiveButton(R.string.reservation_complete) { _, _ ->
