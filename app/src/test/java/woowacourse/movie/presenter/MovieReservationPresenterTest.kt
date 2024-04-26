@@ -4,11 +4,14 @@ import android.util.Log
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.data.DateRepositoryImpl
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.reservation.MovieReservationContract
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
-import woowacourse.movie.presentation.reservation.model.TicketModel
+import woowacourse.movie.presentation.model.TicketModel
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class MovieReservationPresenterTest {
     private lateinit var mockView: MockMovieReservationContractView
@@ -25,7 +28,15 @@ class MovieReservationPresenterTest {
             showCurrentResultTicketCountViewCalled = true
         }
 
-        override fun moveToTicketDetail(ticketModel: TicketModel) {
+        override fun showDate(dates: List<LocalDate>) {
+            Log.d("showDate","날짜가 보여집니다")
+        }
+
+        override fun showTime(times: List<LocalDateTime>) {
+            Log.d("showTime","시간이 보여집니다")
+        }
+
+        override fun moveToSeatSelection(ticketModel: TicketModel) {
             Log.d("moveToTicketDetail","티켓 디테일 화면으로 이동합니다")
         }
 
@@ -42,6 +53,7 @@ class MovieReservationPresenterTest {
                 view = mockView,
                 movieId = 1,
                 movieRepository = MovieRepositoryImpl(),
+                dateRepository = DateRepositoryImpl()
             )
     }
 

@@ -22,10 +22,10 @@ class MovieReservationActivityTest {
 
     @Test
     fun `플러스_버튼을_누르면_개수가_늘어나야_한다`() {
-        Espresso.onView(ViewMatchers.withId(R.id.plus_button))
+        onView(withId(R.id.plus_button))
             .perform(click())
-        Espresso.onView(ViewMatchers.withId(R.id.ticket_count))
-            .check(ViewAssertions.matches(ViewMatchers.withText("2")))
+        onView(withId(R.id.ticket_count))
+            .check(matches(withText("2")))
     }
 
     @Test
