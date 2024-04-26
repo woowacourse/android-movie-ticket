@@ -25,11 +25,11 @@ class MovieDetailPresenterTest {
 
     @BeforeEach
     fun setUp() {
+        presenter = MovieDetailPresenter(view, movieRepository)
     }
 
     @Test
     fun `상영 정보를 표시할 수 있어야 한다`() {
-        presenter = MovieDetailPresenter(view, movieRepository)
         presenter.loadMovie(0)
         verify {
             view.displayMovie(any())
@@ -63,8 +63,13 @@ class MovieDetailPresenterTest {
     @Test
     fun `확인 버튼을 누르면 결제 확인 화면으로 넘어간다`() {
         every { view.displayMovie(any()) } just runs
-        presenter = MovieDetailPresenter(view, movieRepository)
         presenter.purchase(0)
         verify { view.navigateToPurchaseConfirmation() }
+    }
+
+    @Test
+    fun `상영일의 목록이 보여져야 한다`() {
+        presenter.loadScreeningDays()
+        verify {view.displayScreeningDays()}
     }
 }

@@ -76,4 +76,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         val intent = Intent(this, PurchaseConfirmationActivity::class.java)
         startActivity(intent)
     }
+
+    override fun displayScreeningDays() {
+    }
 }

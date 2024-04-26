@@ -40,4 +40,8 @@ class MovieDetailPresenter(
         // e.g. view.notifyException()
         view.navigateToPurchaseConfirmation()
     }
+
+    override fun loadScreeningDays() {
+        view.displayScreeningDays()
+    }
 }

@@ -27,9 +27,7 @@ class MovieListPresenterTest {
 
     @Test
     fun `지금 예매 버튼을 누르면 상영 상세 화면으로 넘어가야 한다`() {
-        // given
         every { presenter.loadMovies() } just runs
-        // when
         val screeningId = 0
         presenter.selectMovie(screeningId)
         verify { view.navigateToMovieDetail(screeningId) }
