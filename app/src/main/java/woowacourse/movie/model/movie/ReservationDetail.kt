@@ -8,8 +8,12 @@ class ReservationDetail(private val reservationCount: Int) {
     fun addSeat(
         row: Int,
         col: Int,
-    ) {
-        if (isSelectable()) _selectedSeat.add(Seat(row, col))
+    ): Boolean {
+        if (isSelectable()) {
+            _selectedSeat.add(Seat(row, col))
+            return true
+        }
+        return false
     }
 
     private fun isSelectable() = _selectedSeat.size < reservationCount

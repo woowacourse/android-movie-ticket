@@ -310,7 +310,7 @@
             android:text="@string/confirm"
             android:textSize="18sp"
             android:textStyle="bold" />
-        
+
     </LinearLayout>
 
 

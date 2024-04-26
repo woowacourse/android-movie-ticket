@@ -44,10 +44,10 @@ class MovieSeatSelectionPresenter(
     ) {
         if (reservationDetail.selectedSeat.contains(Seat(row, col))) {
             reservationDetail.removeSeat(row, col)
-        } else {
-            reservationDetail.addSeat(row, col)
+            view.showUnSelectedSeat(row, col)
+            return
         }
-        view.showSelectedSeat(reservationDetail.selectedSeat)
+        if (reservationDetail.addSeat(row, col)) view.showSelectedSeat(row, col)
     }
 
     override fun reserveMovie(

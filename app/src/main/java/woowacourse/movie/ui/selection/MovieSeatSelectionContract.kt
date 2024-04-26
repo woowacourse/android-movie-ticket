@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.selection
 
-import woowacourse.movie.model.movie.Seat
 import woowacourse.movie.ui.HandleError
 
 interface MovieSeatSelectionContract {
@@ -12,7 +11,15 @@ interface MovieSeatSelectionContract {
             colSize: Int,
         )
 
-        fun showSelectedSeat(seats: List<Seat>)
+        fun showSelectedSeat(
+            row: Int,
+            col: Int,
+        )
+
+        fun showUnSelectedSeat(
+            row: Int,
+            col: Int,
+        )
 
         fun showReservationTotalAmount(amount: Int)
 
