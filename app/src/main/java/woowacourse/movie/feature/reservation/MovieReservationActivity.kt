@@ -14,7 +14,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.feature.reservation.ui.toReservationUiModel
+import woowacourse.movie.feature.reservation.ui.MovieReservationUiModel
 import woowacourse.movie.feature.seat.SeatSelectActivity
 import woowacourse.movie.model.ScreeningDate
 import woowacourse.movie.model.ScreeningTime
@@ -101,7 +101,7 @@ class MovieReservationActivity :
     }
 
     override fun setUpReservationView(movie: Movie) {
-        val reservation = movie.toReservationUiModel(this)
+        val reservation = MovieReservationUiModel.of(this, movie)
         with(reservation) {
             posterImage.setImageDrawable(posterImageDrawable)
             titleText.text = titleMessage

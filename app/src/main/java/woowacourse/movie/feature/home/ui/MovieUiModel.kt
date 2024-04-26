@@ -1,10 +1,9 @@
 package woowacourse.movie.feature.home.ui
 
-import android.graphics.drawable.Drawable
 import woowacourse.movie.feature.home.list.MovieListViewType
 
 class MovieUiModel(
-    val posterImageDrawable: Drawable?,
+    val posterImageId: Int,
     val titleMessage: String,
     val screeningDateMessage: String,
     val runningTimeMessage: String,

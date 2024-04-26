@@ -1,7 +1,6 @@
 package woowacourse.movie.feature.home.ui
 
 import android.content.Context
-import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.data.dto.Movie
 import java.time.LocalDate
@@ -26,7 +25,7 @@ fun List<Movie>.toMovieListUiModels(
 
 private fun Movie.toMovieUiModel(context: Context): MovieUiModel {
     return MovieUiModel(
-        ContextCompat.getDrawable(context, posterImageId),
+        posterImageId,
         title,
         screeningDateMessage(context, startScreeningDate, endScreeningDate),
         runningTimeMessage(context, runningTime),

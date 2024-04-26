@@ -1,7 +1,7 @@
 package woowacourse.movie.feature.seat
 
-import woowacourse.movie.feature.seat.ui.toSeatSelectMovieUiModel
-import woowacourse.movie.feature.seat.ui.toSeatSelectTableUiModels
+import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
+import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.ReservationAmount
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.Seat
@@ -22,7 +22,7 @@ class SeatSelectPresenter(
 
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
-        val movieUiModel = movie.toSeatSelectMovieUiModel()
+        val movieUiModel = SeatSelectMovieUiModel.from(movie)
         view.initializeMovie(movieUiModel)
     }
 
@@ -31,7 +31,7 @@ class SeatSelectPresenter(
         col: Int,
     ) {
         seats = Seats(row, col)
-        val seatsUiModel = seats.toSeatSelectTableUiModels()
+        val seatsUiModel = SeatSelectTableUiModel.from(seats)
         view.initializeSeatTable(seatsUiModel)
     }
 

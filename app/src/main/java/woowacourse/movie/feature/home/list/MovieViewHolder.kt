@@ -26,7 +26,7 @@ class MovieViewHolder(
 
     fun bind(movie: MovieUiModel) {
         with(movie) {
-            posterImage.setImageDrawable(posterImageDrawable)
+            posterImage.setImageResource(posterImageId)
             titleText.text = titleMessage
             screeningDateText.text = screeningDateMessage
             runningTimeText.text = runningTimeMessage

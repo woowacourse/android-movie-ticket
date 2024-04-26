@@ -10,8 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
-import woowacourse.movie.feature.complete.ui.ReservationCompleteEntity
-import woowacourse.movie.feature.complete.ui.toReservationCompleteUiModel
+import woowacourse.movie.feature.complete.ui.MovieReservationCompleteUiModel
 import woowacourse.movie.feature.home.MovieHomeActivity
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
@@ -78,8 +77,7 @@ class MovieReservationCompleteActivity :
     }
 
     override fun setUpReservationCompleteView(movie: Movie) {
-        val reservationComplete =
-            ReservationCompleteEntity(movie, ticket()!!).toReservationCompleteUiModel(this)
+        val reservationComplete = MovieReservationCompleteUiModel.of(this, movie, ticket()!!)
         with(reservationComplete) {
             titleText.text = titleMessage
             screeningDateText.text = screeningDateTimeMessage
