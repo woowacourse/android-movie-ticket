@@ -14,23 +14,21 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.model.movie.ReservationCount
+import woowacourse.movie.model.data.UserTicketsImpl
+import woowacourse.movie.model.movie.ReservationDetail
 import woowacourse.movie.model.movie.UserTicket
-import java.time.LocalDate
+import woowacourse.movie.ui.selection.MovieSeatSelectionKey
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
-    private val movieContent: MovieContent = MovieContentsImpl.find(0L)
+    private val userTicket: UserTicket = UserTicketsImpl.find(0L)
 
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieReservationCompleteActivity::class.java,
         ).run {
-            putExtra(MovieReservationCompleteKey.ID, 0L)
-            putExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT)
+            putExtra(MovieSeatSelectionKey.TICKET_ID, 0L)
         }
 
     @get:Rule
@@ -40,14 +38,21 @@ class MovieReservationCompleteActivityTest {
     fun `화면이_띄워지면_영화_제목이_보인다`() {
         onView(withId(R.id.title_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText(movieContent.title)))
+            .check(matches(withText(userTicket.title)))
     }
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("2024.3.1")))
+            .check(matches(withText("2024-03-28")))
+    }
+
+    @Test
+    fun `화면이_띄워지면_상영시간이_보인다`() {
+        onView(withId(R.id.screening_time_text))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("21:00")))
     }
 
     @Test
@@ -58,8 +63,15 @@ class MovieReservationCompleteActivityTest {
     }
 
     @Test
+    fun `화면이_띄워지면_예매한_좌석번호가_보인다`() {
+        onView(withId(R.id.reservation_seat_text))
+            .check(matches(isDisplayed()))
+            .check(matches(withText("A1")))
+    }
+
+    @Test
     fun `화면이_띄워지면_예매_금액이_보인다`() {
-        val reservationAmount = UserTicket(ReservationCount()).amount()
+        val reservationAmount = userTicket.reservationDetail.totalSeatAmount()
 
         onView(withId(R.id.reservation_amount_text))
             .check(matches(isDisplayed()))
@@ -72,15 +84,16 @@ class MovieReservationCompleteActivityTest {
         @JvmStatic
         @BeforeClass
         fun setUp() {
-            MovieContentsImpl.save(
-                MovieContent(
-                    "movie_poster",
-                    "해리 포터와 마법사의 돌",
-                    LocalDate.of(2024, 3, 1),
-                    LocalDate.of(2024, 3, 28),
-                    152,
-                    "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, " +
-                        "판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다. ",
+            val reservationDetail =
+                ReservationDetail(RESERVATION_COUNT).apply {
+                    addSeat(0, 0) // A1
+                }
+            UserTicketsImpl.save(
+                UserTicket(
+                    title = "해리",
+                    date = "2024-03-28",
+                    time = "21:00",
+                    reservationDetail = reservationDetail,
                 ),
             )
         }
