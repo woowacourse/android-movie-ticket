@@ -12,4 +12,5 @@
     <string name="text_screen">SCREEN</string>
     <string name="text_confirm_button">확인</string>
     <string name="text_total_price">%,d원</string>
+    <string name="text_seat_position">%c%d</string>
 </resources>

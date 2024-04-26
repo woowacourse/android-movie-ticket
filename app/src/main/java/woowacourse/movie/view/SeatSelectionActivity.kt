@@ -80,7 +80,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         columnIndex: Int,
         seatClass: SeatClass,
     ) {
-        text = "${rowIndex + 1}${columnIndex + 1}"
+        val rowChar = (START_ROW_CHAR.code + rowIndex).toChar()
+        text = this@SeatSelectionActivity.getString(R.string.text_seat_position, rowChar, columnIndex + 1)
         gravity = Gravity.CENTER
 
         val textColor =
@@ -209,5 +210,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         const val EXTRA_NUM_TICKET = "num_of_tickets"
         const val EXTRA_SEATS = "seats"
         const val EXTRA_PRICE = "price"
+        private const val START_ROW_CHAR = 'A'
     }
 }
