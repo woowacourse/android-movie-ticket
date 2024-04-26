@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.data.UserTicketImpl
+import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.Seat
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
@@ -91,7 +91,7 @@ class MovieSeatSelectionActivity :
     private fun selectedTime() = intent?.getStringExtra(MovieSeatSelectionKey.TIME).toString()
 
     override fun initializePresenter(): MovieSeatSelectionContract.Presenter =
-        MovieSeatSelectionPresenter(this, MovieContentsImpl, UserTicketImpl, reservationCount)
+        MovieSeatSelectionPresenter(this, MovieContentsImpl, UserTicketsImpl, reservationCount)
 
     override fun showMovieTitle(title: String) {
         movieTitle.text = title

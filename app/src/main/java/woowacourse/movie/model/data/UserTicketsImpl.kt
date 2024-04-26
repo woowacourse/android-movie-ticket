@@ -2,7 +2,7 @@ package woowacourse.movie.model.data
 
 import woowacourse.movie.model.movie.UserTicket
 
-object UserTicketImpl : UserTickets {
+object UserTicketsImpl : UserTickets {
     private const val EXCEPTION_INVALID_ID = "Movie not found with id: %d"
     private var id: Long = 0
     private val tickets = mutableMapOf<Long, UserTicket>()
