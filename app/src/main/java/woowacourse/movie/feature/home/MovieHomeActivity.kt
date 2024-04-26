@@ -1,5 +1,7 @@
 package woowacourse.movie.feature.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
@@ -28,5 +30,13 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
             MovieListAdapter(movies) { _, movieId ->
                 MovieReservationActivity.startActivity(this@MovieHomeActivity, movieId)
             }
+    }
+
+    companion object {
+        private val TAG = MovieHomeActivity::class.simpleName
+
+        fun startActivity(context: Context) {
+            context.startActivity(Intent(context, MovieHomeActivity::class.java))
+        }
     }
 }

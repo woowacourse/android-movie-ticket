@@ -8,9 +8,11 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
 import woowacourse.movie.feature.complete.ui.ReservationCompleteEntity
 import woowacourse.movie.feature.complete.ui.toReservationCompleteUiModel
+import woowacourse.movie.feature.home.MovieHomeActivity
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
@@ -36,7 +38,17 @@ class MovieReservationCompleteActivity :
         }
 
         presenter.loadMovieData(ticket!!.movieId)
+        addBackPressedCallback()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun addBackPressedCallback() {
+        val onBackPressedCallback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                MovieHomeActivity.startActivity(this@MovieReservationCompleteActivity)
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieRepositoryImpl)
@@ -59,8 +71,7 @@ class MovieReservationCompleteActivity :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> finish()
-            // TODO: 홈으로 이동
+            android.R.id.home -> MovieHomeActivity.startActivity(this)
         }
         return super.onOptionsItemSelected(item)
     }

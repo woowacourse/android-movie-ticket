@@ -54,17 +54,6 @@ class MovieReservationActivity :
         setOnClickButtonListener()
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        val reservationCountValue = savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
-        presenter.updateReservationCount(reservationCountValue)
-
-        val screeningDateValue = savedInstanceState.getString(SCREENING_DATE_KEY)
-        val screeningTimeValue = savedInstanceState.getString(SCREENING_TIME_KEY)
-        // TODO("presenter에 id랑 value")
-        // screeningTimeSpinner.setSelection()
-    }
-
     override fun initializePresenter() = MovieReservationPresenter(this, MovieRepositoryImpl)
 
     private fun movieId(): Long {
@@ -164,21 +153,10 @@ class MovieReservationActivity :
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessage)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(MOVIE_RESERVATION_COUNT_KEY, reservationCountText.text.toString().toInt())
-        outState.putString(SCREENING_DATE_KEY, screeningDateSpinner.selectedItem.toString())
-        outState.putString(SCREENING_TIME_KEY, screeningDateSpinner.selectedItem.toString())
-        super.onSaveInstanceState(outState)
-    }
-
     companion object {
         private val TAG = MovieReservationActivity::class.simpleName
         private const val MOVIE_ID_KEY = "movie_id"
         private const val MOVIE_ID_DEFAULT_VALUE = -1L
-        private const val MOVIE_RESERVATION_COUNT_KEY = "reservation_count_key"
-        private const val SCREENING_DATE_KEY = "screening_date_key"
-        private const val SCREENING_TIME_KEY = "screening_time_key"
-        private const val RESERVATION_COUNT_DEFAULT_VALUE = 1
 
         fun startActivity(
             context: Context,

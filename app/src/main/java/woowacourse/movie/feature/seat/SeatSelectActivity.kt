@@ -66,8 +66,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         return super.onOptionsItemSelected(item)
     }
 
-    override fun initializePresenter() =
-        SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
+    override fun initializePresenter() = SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
@@ -79,8 +78,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         }
     }
 
-    private fun reservationCountValue() =
-        intent.getIntExtra(RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+    private fun reservationCountValue() = intent.getIntExtra(RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
 
     private fun isError(
         movieId: Long,
