@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.drawable.ColorDrawable
 import android.support.test.uiautomator.UiDevice
 import android.widget.TableLayout
@@ -91,7 +92,14 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `화면이_회전되어도_좌석_선택_정보가_유지된다`() {
-        // TODO
+        activityScenarioRule.scenario.onActivity { activity ->
+            val item = seatItems.first()
+            item.performClick()
+
+            val color = (item.background as ColorDrawable).color
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            assertEquals(color, ContextCompat.getColor(activity, R.color.yellow))
+        }
     }
 
     @Test
