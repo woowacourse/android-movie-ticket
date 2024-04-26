@@ -1,6 +1,5 @@
 package woowacourse.movie.model
 
-import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 data class ScreeningPeriod(val start: ScreeningDate, val end: ScreeningDate) {

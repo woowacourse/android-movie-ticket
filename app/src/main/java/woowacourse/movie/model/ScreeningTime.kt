@@ -1,19 +1,23 @@
 package woowacourse.movie.model
 
-import android.provider.CalendarContract.Instances.END
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 data class ScreeningTime(
-    val time: LocalTime
+    val time: LocalDateTime,
 ) {
     init {
-        require(time >= START_TIME && time <= END_TIME) {
+        require(
+            time.toLocalTime() == LocalTime.of(0, 0) ||
+            time >= lowerBound() && time <= upperBound()
+        ) {
             "시간이 범위를 벗어남"
         }
     }
 
-    companion object {
-        private val START_TIME = LocalTime.of(9, 0)
-        private val END_TIME = LocalTime.of(24, 0)
-    }
+    private fun lowerBound() =
+        LocalDateTime.of(time.toLocalDate(), LocalTime.of(9, 0))
+
+    private fun upperBound() =
+        LocalDateTime.of(time.toLocalDate().plusDays(1), LocalTime.of(0, 0))
 }
