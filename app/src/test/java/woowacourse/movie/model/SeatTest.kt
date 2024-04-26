@@ -71,7 +71,7 @@ class SeatTest {
         val price = seat.price(grade)
 
         // then
-        assertThat(p현rice).isEqualTo(12_000)
+        assertThat(price).isEqualTo(12_000)
     }
 }
 
