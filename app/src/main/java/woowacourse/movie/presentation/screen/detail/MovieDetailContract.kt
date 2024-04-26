@@ -39,6 +39,8 @@ interface MovieDetailContract {
 
         fun onSelectedDateTime(date: LocalDate)
 
+        fun createTicket()
+
         fun registerScreenDate(date: LocalDate)
 
         fun registerScreenTime(time: LocalTime)

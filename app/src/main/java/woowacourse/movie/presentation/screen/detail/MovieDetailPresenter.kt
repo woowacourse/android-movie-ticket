@@ -14,7 +14,8 @@ class MovieDetailPresenter(
     private val dao: MovieDao,
 ) :
     MovieDetailContract.Presenter {
-    private var ticket: Ticket = Ticket()
+    var ticket: Ticket = Ticket()
+        private set
     private val payment: Payment = Payment()
     private lateinit var movie: Movie
     private val theater: Theater by lazy {
@@ -53,10 +54,8 @@ class MovieDetailPresenter(
     }
 
     override fun onClickedSelectSeatButton(intent: Intent) {
-        intent.putExtra("movie", movie)
+        intent.putExtra("movieId", movie.id)
         intent.putExtra("ticket", ticket)
-        intent.putExtra("screenDate", screenDate)
-        intent.putExtra("screenTime", screenTime)
         intent.putExtra("payment", payment)
     }
 
@@ -69,6 +68,10 @@ class MovieDetailPresenter(
     override fun onSelectedDateTime(date: LocalDate) {
         val times = theater.screenTimes(date)
         view.updateTimeSpinner(times)
+    }
+
+    override fun createTicket() {
+        ticket = Ticket(ticket.count, screenDate to screenTime)
     }
 
     override fun registerScreenDate(date: LocalDate) {

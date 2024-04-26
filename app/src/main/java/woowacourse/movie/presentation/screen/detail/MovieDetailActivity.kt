@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
-import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.reservation.seat.ReservationSeatActivity
 import woowacourse.movie.presentation.screen.movie.ScreeningMovieActivity.Companion.MOVIE_ID
 import java.time.LocalDate
 import java.time.LocalTime
@@ -143,7 +143,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     private fun bindSelectSeatButton() {
         selectSeatButton.setOnClickListener {
-            val intent = Intent(this, ReservationResultActivity::class.java)
+            presenter.createTicket()
+            val intent = Intent(this, ReservationSeatActivity::class.java)
             presenter.onClickedSelectSeatButton(
                 intent,
             )
