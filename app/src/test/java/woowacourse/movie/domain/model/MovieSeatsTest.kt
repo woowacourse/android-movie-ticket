@@ -7,7 +7,7 @@ import woowacourse.movie.presentation.seat.model.SeatSelectType
 class MovieSeatsTest {
 
     @Test
-    fun `getSeatPrice 메서드가 올바른 가격을 반환하는지 확인한다`() {
+    fun `getSeatPrice_메서드가_올바른_가격을_반환하는지_확인한다`() {
         // Given
         val seatA = MovieSeat("A1", SeatType.A)
         val seatB = MovieSeat("B2", SeatType.B)
@@ -23,7 +23,7 @@ class MovieSeatsTest {
     }
 
     @Test
-    fun `setSeatSelectType 메서드가 적절한 SeatSelectType을 설정하는지 확인한다`() {
+    fun `setSeatSelectType_메서드가_적절한_SeatSelectType을_설정하는지_확인한다`() {
         // Given
         val movieSeats = MovieSeats(ticketCount = 5)
         movieSeats.userSeats.add(MovieSeat("A1", SeatType.A))
@@ -36,7 +36,7 @@ class MovieSeatsTest {
     }
 
     @Test
-    fun `addSeat 메서드가 좌석을 추가하는지 확인한다`() {
+    fun `좌석을_선택하면_선택된_좌석_리스트에_추가된다`() {
         // Given
         val movieSeats = MovieSeats(ticketCount = 5)
         val seat = MovieSeat("A1", SeatType.A)
@@ -50,7 +50,7 @@ class MovieSeatsTest {
     }
 
     @Test
-    fun `deleteSeat 메서드가 좌석을 삭제하는지 확인한다`() {
+    fun `선택된_좌석을_재선택하면_선택이_해제된다`() {
         // Given
         val seatA = MovieSeat("A1", SeatType.A)
         val seatB = MovieSeat("B2", SeatType.B)
@@ -67,7 +67,7 @@ class MovieSeatsTest {
     }
 
     @Test
-    fun `updateSeatSelectType 메서드가 적절한 SeatSelectType을 설정하는지 확인한다`() {
+    fun `updateSeatSelectType_메서드가_적절한_SeatSelectType을_설정하는지_확인한다`() {
         // Given
         val movieSeats = MovieSeats(ticketCount = 5)
         movieSeats.userSeats.addAll(listOf(MovieSeat("A1", SeatType.A), MovieSeat("B2", SeatType.B)))
