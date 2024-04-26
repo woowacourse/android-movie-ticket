@@ -1,31 +1,33 @@
 package woowacourse.movie.presentation.reservation
 
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.TicketCounter
+import woowacourse.movie.domain.repository.DateRepository
 import woowacourse.movie.domain.repository.MovieRepository
-import woowacourse.movie.presentation.reservation.model.TicketModel
-import woowacourse.movie.presentation.reservation.model.toTicketModel
-import woowacourse.movie.presentation.utils.toLocalDate
+import woowacourse.movie.presentation.model.toTicketModel
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
     private val movieId: Int,
     private val movieRepository: MovieRepository,
+    private val dateRepository: DateRepository,
 ) : MovieReservationContract.Presenter {
     private val ticketCounter: TicketCounter = TicketCounter()
+    private val movieDate: MovieDate = MovieDate()
 
     override fun loadMovie() {
         view.showMovie(movieRepository.getMovie(movieId))
     }
 
-    override fun loadDate() {
-        TODO("Not yet implemented")
+    override fun loadDate(startDate: LocalDate, endDate: LocalDate) {
+        view.showDate(dateRepository.getDatesBetween(startDate, endDate))
     }
 
-    override fun loadTime() {
-        TODO("Not yet implemented")
+    override fun loadTime(currentDate: LocalDate) {
+        view.showTime(dateRepository.getDateTimes(currentDate))
     }
 
     override fun decreaseTicketCount() {
@@ -44,25 +46,24 @@ class MovieReservationPresenter(
 
     override fun ticketing(
         title: String,
-        screeningDate: LocalDate,
         count: Int,
-        price: Int,
     ) {
         val ticket = Ticket(
             title = title,
-            screeningDate = screeningDate,
+            movieDate = movieDate,
             count = count,
-            price = price,
+            price = 0,
+            seats = listOf(),
         ).toTicketModel()
-        view.moveToTicketDetail(ticket)
+        view.moveToSeatSelection(ticket)
     }
 
-    override fun selectDate() {
-        TODO("Not yet implemented")
+    override fun selectDate(newDate: LocalDate) {
+        movieDate.setCurrentDate(newDate)
     }
 
-    override fun selectTime() {
-        TODO("Not yet implemented")
+    override fun selectTime(newTime: LocalDateTime) {
+        movieDate.setCurrentTime(newTime)
     }
 
     companion object {

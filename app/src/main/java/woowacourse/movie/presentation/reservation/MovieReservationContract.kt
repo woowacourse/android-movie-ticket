@@ -1,8 +1,9 @@
 package woowacourse.movie.presentation.reservation
 
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.reservation.model.TicketModel
+import woowacourse.movie.presentation.model.TicketModel
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 interface MovieReservationContract {
     interface View {
@@ -10,13 +11,11 @@ interface MovieReservationContract {
 
         fun showCurrentResultTicketCountView()
 
-        fun showDate()
-        fun showTime()
+        fun showDate(dates: List<LocalDate>)
 
-        fun showSelectedDate()
-        fun showSelectedTime()
+        fun showTime(times: List<LocalDateTime>)
 
-        fun moveToTicketDetail(ticketModel: TicketModel)
+        fun moveToSeatSelection(ticketModel: TicketModel)
 
         fun requestTicketCount(count: (Int)->Unit)
 
@@ -24,8 +23,10 @@ interface MovieReservationContract {
 
     interface Presenter {
         fun loadMovie()
-        fun loadDate()
-        fun loadTime()
+
+        fun loadDate(startDate: LocalDate, endDate: LocalDate)
+
+        fun loadTime(currentDate: LocalDate)
 
         fun decreaseTicketCount()
 
@@ -34,13 +35,11 @@ interface MovieReservationContract {
         fun getTicketCount(): Int
 
         fun ticketing(
-            title : String,
-            screeningDate : LocalDate,
-            count : Int,
-            price : Int,
+            title: String,
+            count: Int,
         )
 
-        fun selectDate()
-        fun selectTime()
+        fun selectDate(newDate: LocalDate)
+        fun selectTime(newTime: LocalDateTime)
     }
 }
