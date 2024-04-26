@@ -17,8 +17,7 @@ class FakeMovieRepository : MovieRepository {
 
     override fun findById(id: Int): Movie = movies.find { it.id == id } ?: throw NoSuchElementException()
 
-    override fun imageSrc(id: Int): Image<Any> =
-        movieImages.find { it.movieId == id }?.poster ?: throw NoSuchElementException()
+    override fun imageSrc(id: Int): Image<Any> = movieImages.find { it.movieId == id }?.poster ?: throw NoSuchElementException()
 
     companion object {
         val fakeMovie1 = Movie(1, "title1", 1, "description1")
