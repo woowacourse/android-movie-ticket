@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.ui.ClickListener
 
 class MovieContentAdapter(
     private val movieContents: List<MovieContent>,
+    private val clickListener: ClickListener,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int) =
         if (isAdsTurn(position)) {
@@ -26,7 +28,7 @@ class MovieContentAdapter(
             val view =
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_movie_content, parent, false)
-            MovieViewHolder(view)
+            MovieViewHolder(view, clickListener)
         } else {
             val view =
                 LayoutInflater.from(parent.context)

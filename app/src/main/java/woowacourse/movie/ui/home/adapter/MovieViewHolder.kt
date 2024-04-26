@@ -1,21 +1,22 @@
 package woowacourse.movie.ui.home.adapter
 
-import android.content.Intent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.ui.home.MovieHomeKey
-import woowacourse.movie.ui.reservation.MovieReservationActivity
+import woowacourse.movie.ui.ClickListener
 import woowacourse.movie.ui.utils.getImageFromId
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+class MovieViewHolder(
+    private val view: View,
+    private val clickListener: ClickListener,
+) :
+    RecyclerView.ViewHolder(view) {
     private val posterImage: ImageView = view.findViewById(R.id.poster_image)
     private val titleText: TextView = view.findViewById(R.id.title_text)
     private val screeningDateText: TextView = view.findViewById(R.id.screening_date_text)
@@ -34,10 +35,7 @@ class MovieViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
             runningTimeText.text =
                 view.context.resources.getString(R.string.running_time).format(runningTime)
             reservationButton.setOnClickListener {
-                Intent(view.context, MovieReservationActivity::class.java).run {
-                    putExtra(MovieHomeKey.ID, id)
-                    ContextCompat.startActivity(view.context, this, null)
-                }
+                clickListener.onClick(it, id)
             }
         }
     }
