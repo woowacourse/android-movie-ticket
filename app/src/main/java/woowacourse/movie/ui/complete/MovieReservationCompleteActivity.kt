@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.base.BaseActivity
@@ -35,7 +34,7 @@ class MovieReservationCompleteActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieContentsImpl, UserTicketsImpl)
+    override fun initializePresenter() = MovieReservationCompletePresenter(this, UserTicketsImpl)
 
     private fun userTicketId() = intent.getLongExtra(MovieReservationCompleteKey.TICKET_ID, USER_TICKET_ID_DEFAULT_VALUE)
 
