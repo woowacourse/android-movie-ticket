@@ -2,6 +2,7 @@ package woowacourse.movie.model
 
 class SeatingSystem(
     private var availableSeatCount: Int,
+    selectedSeatsIndexes: List<Int>,
     private val rowSize: Int = 5,
     private val colSize: Int = 4,
 ) {
@@ -12,7 +13,8 @@ class SeatingSystem(
             Seat(row, col)
         }
 
-    private val _selectedSeats: MutableSet<Seat> = mutableSetOf()
+    private val _selectedSeats: MutableSet<Seat> =
+        selectedSeatsIndexes.map { seats[it] }.toMutableSet()
     val selectedSeats: Set<Seat>
         get() = _selectedSeats.toSet()
 
@@ -36,4 +38,6 @@ class SeatingSystem(
     fun canSelectSeat(): Boolean = availableSeatCount > selectedSeats.size
 
     fun getTotalPrice(): Int = selectedSeats.sumOf { it.seatClass.price }
+
+    fun getSelectedSeatsIndex(): List<Int> = selectedSeats.map { (it.row * colSize) + it.col }
 }

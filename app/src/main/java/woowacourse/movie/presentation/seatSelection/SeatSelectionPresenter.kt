@@ -10,17 +10,19 @@ class SeatSelectionPresenter(
     private val movieId: Int,
     ticketCount: Int,
     private val screeningDateTime: String,
+    savedSeats: List<Int>,
 ) : SeatSelectionContract.Presenter {
     private val movieRepository = MovieRepository()
     private lateinit var selectedMovie: Movie
-    private val seatingSystem = SeatingSystem(ticketCount)
+    val seatingSystem = SeatingSystem(ticketCount, savedSeats)
 
     override fun initializeViewData() {
-        seatSelectionContractView.initializeSeats(seatingSystem.seats)
+        seatSelectionContractView.initializeSeats(seatingSystem.seats, seatingSystem.getSelectedSeatsIndex())
         movieRepository.findMovieById(movieId)
             .onSuccess { movie ->
                 selectedMovie = movie
                 seatSelectionContractView.initializeTicketInfo(movie)
+                updateUI()
             }
             .onFailure {
                 seatSelectionContractView.showToastMessage(it.message)

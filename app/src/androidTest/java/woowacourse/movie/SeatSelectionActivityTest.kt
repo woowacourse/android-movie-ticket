@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -77,6 +78,20 @@ class SeatSelectionActivityTest {
         onView(withId(R.id.btn_complete)).perform(click())
 
         onView(withText("예매 확인")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `좌석_선택_후_화면_회전_시에도_선택했던_좌석_데이터는_유지된다`() {
+        onView(withId(R.id.tv_seat_item_0)).perform(click())
+        onView(withId(R.id.tv_seat_item_1)).perform(click())
+
+        val activityScenario = activityRule.scenario
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.tv_seat_item_0)).check(matches(withBackgroundColor(clickedColor)))
+        onView(withId(R.id.tv_seat_item_1)).check(matches(withBackgroundColor(clickedColor)))
     }
 
     private fun withBackgroundColor(expectedColor: Int): Matcher<View> {

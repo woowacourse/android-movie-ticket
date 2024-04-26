@@ -6,7 +6,10 @@ import woowacourse.movie.model.Ticket
 
 interface SeatSelectionContract {
     interface View {
-        fun initializeSeats(seats: List<Seat>)
+        fun initializeSeats(
+            seats: List<Seat>,
+            selectedSeats: List<Int>,
+        )
 
         fun initializeTicketInfo(movie: Movie)
 

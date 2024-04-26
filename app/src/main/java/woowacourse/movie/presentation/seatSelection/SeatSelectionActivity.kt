@@ -40,10 +40,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         setContentView(R.layout.activity_seat_selection)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val savedSelectedSeat = savedInstanceState?.getIntegerArrayList(KEY_SELECTED_SEATS)?.toList() ?: emptyList()
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val ticketCount = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_TICKET_COUNT)
         val screeningDateTime = intent.getStringExtra(EXTRA_SCREENING_DATE_TIME) ?: ""
-        presenter = SeatSelectionPresenter(this, movieId, ticketCount, screeningDateTime)
+
+        presenter = SeatSelectionPresenter(this, movieId, ticketCount, screeningDateTime, savedSelectedSeat)
         presenter.initializeViewData()
         initializeCompleteButton()
     }
@@ -62,7 +64,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun initializeSeats(seats: List<Seat>) {
+    override fun initializeSeats(
+        seats: List<Seat>,
+        selectedSeats: List<Int>,
+    ) {
         seatItems.forEachIndexed { index, textView ->
             val seat = seats[index]
             textView.text = formatSeat(seat)
@@ -74,6 +79,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 }
             textView.setTextColor(Color.parseColor(colorCode))
             textView.setOnClickListener { presenter.updateSeatSelection(index) }
+            if (index in selectedSeats) updateSelectedSeatUI(index)
         }
     }
 
@@ -115,9 +121,16 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val selectedIndexes = presenter.seatingSystem.getSelectedSeatsIndex()
+        outState.putIntegerArrayList(KEY_SELECTED_SEATS, ArrayList(selectedIndexes))
+    }
+
     companion object {
         const val EXTRA_MOVIE_TICKET = "movie_ticket"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
         const val EXTRA_DEFAULT_TICKET_COUNT = -1
+        const val KEY_SELECTED_SEATS = "selected_seats"
     }
 }
