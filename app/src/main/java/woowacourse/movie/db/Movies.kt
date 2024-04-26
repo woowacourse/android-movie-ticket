@@ -2,12 +2,9 @@ package woowacourse.movie.db
 
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ScreeningTime
 import java.time.LocalDate
 
 object Movies {
-    private val screeningTime = ScreeningTime()
-
     private val movies: List<Movie> =
         listOf(
             Movie(
@@ -108,22 +105,4 @@ object Movies {
     fun obtainMovies(): List<Movie> = movies.toList()
 
     fun obtainMovie(movieId: Int): Movie = movies[movieId]
-
-    fun obtainScreeningDates(movieId: Int): List<LocalDate> {
-        val dates = mutableListOf<LocalDate>()
-        var currentDate = movies[movieId].firstScreeningDate
-
-        while (!currentDate.isAfter(movies[movieId].lastScreeningDate)) {
-            dates.add(currentDate)
-            currentDate = currentDate.plusDays(1)
-        }
-
-        return dates.toList()
-    }
-
-    fun obtainScreeningTimes(date: LocalDate): List<String> {
-        val screeningTimes = screeningTime.schedule(date)
-
-        return screeningTimes.map { "$it:00" }
-    }
 }
