@@ -8,10 +8,10 @@ class RegularTimeTable(
     private val intervalHours: Int,
 ) : ScreeningTimeTable {
     override fun getScreeningTimes(): List<ScreeningTime> {
-        val minutes = start.time.until(end.time, ChronoUnit.MINUTES)
+        val minutes = start.dateTime.until(end.dateTime, ChronoUnit.MINUTES)
         val intervalMinutes = intervalHours * 60
         val scheduleNum = (minutes / intervalMinutes).toInt()
-        return generateSequence(start.time) {
+        return generateSequence(start.dateTime) {
             it.plusMinutes((intervalHours * 60).toLong())
         }.map { ScreeningTime(it) }.take(scheduleNum + 1).toList()
     }

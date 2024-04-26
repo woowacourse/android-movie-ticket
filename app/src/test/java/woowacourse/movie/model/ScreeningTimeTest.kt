@@ -11,8 +11,7 @@ class ScreeningTimeTest {
     @Test
     fun `영화 상영 시간 범위는 오전 9시부터 자정까지다`() {
         val date = LocalDate.of(2024, 4, 26)
-        val time = LocalTime.of(6, 0)
-        assertThrows<IllegalArgumentException> { ScreeningTime(LocalDateTime.of(date, time)) }
+        assertThrows<IllegalArgumentException> { ScreeningTime.of(date, 6, 0) }
     }
 
     @Test
@@ -23,17 +22,13 @@ class ScreeningTimeTest {
         val end = 21
         val interval = 1
 
-        val startTime = ScreeningTime(LocalDateTime.of(date, LocalTime.of(start, 0)))
-        val endTime = ScreeningTime(LocalDateTime.of(date, LocalTime.of(end, 0)))
+        val startTime = ScreeningTime.of(date, start, 0)
+        val endTime = ScreeningTime.of(date, end, 0)
+
         val timeTable = RegularTimeTable(startTime, endTime, interval)
 
         val expected = (start..end step interval).map {
-            ScreeningTime(
-                LocalDateTime.of(
-                    date,
-                    LocalTime.of(it, 0)
-                )
-            )
+            ScreeningTime.of(date, it, 0)
         }
         val actual = timeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
@@ -44,18 +39,13 @@ class ScreeningTimeTest {
         val date = LocalDate.of(2024, 4, 27) // saturday
 
         val start = 9
-        val end = 23
+        val end = 24
         val interval = 2
 
         val weekendTimeTable = WeekendTimeTable(date)
 
         val expected = (start..end step interval).map {
-            ScreeningTime(
-                LocalDateTime.of(
-                    date,
-                    LocalTime.of(it, 0)
-                )
-            )
+            ScreeningTime.of(date, it, 0)
         }
         val actual = weekendTimeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
