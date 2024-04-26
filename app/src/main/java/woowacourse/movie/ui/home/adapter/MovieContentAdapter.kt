@@ -8,24 +8,51 @@ import woowacourse.movie.model.movie.MovieContent
 
 class MovieContentAdapter(
     private val movieContents: List<MovieContent>,
-) : RecyclerView.Adapter<MovieViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    override fun getItemViewType(position: Int) =
+        if (isAdsTurn(position)) {
+            TYPE_ADS
+        } else {
+            TYPE_MOVIE
+        }
+
+    private fun isAdsTurn(position: Int) = position % CONTENT_SET_SIZE == MOVIE_CONTENT_COUNT
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): MovieViewHolder {
-        val view =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_movie_content, parent, false)
-
-        return MovieViewHolder(view)
+    ): RecyclerView.ViewHolder {
+        return if (viewType == TYPE_MOVIE) {
+            val view =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_movie_content, parent, false)
+            MovieViewHolder(view)
+        } else {
+            val view =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_advertisement, parent, false)
+            AdvertisementViewHolder(view)
+        }
     }
 
     override fun getItemCount(): Int = movieContents.size
 
     override fun onBindViewHolder(
-        holder: MovieViewHolder,
+        holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
-        holder.bind(movieContents[position])
+        val movieContent = movieContents[position]
+        if (getItemViewType(position) == 1) {
+            (holder as MovieViewHolder).bind(movieContent)
+        } else {
+            (holder as AdvertisementViewHolder).bind()
+        }
+    }
+
+    companion object {
+        private const val TYPE_ADS = 0
+        private const val TYPE_MOVIE = 1
+        private const val CONTENT_SET_SIZE = 4
+        private const val MOVIE_CONTENT_COUNT = 3
     }
 }
