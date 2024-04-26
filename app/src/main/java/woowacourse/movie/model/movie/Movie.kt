@@ -1,10 +1,12 @@
 package woowacourse.movie.model.movie
 
+import woowacourse.movie.model.ScreeningDate
+import woowacourse.movie.model.ScreeningPeriod
 import java.time.LocalDate
 
 class Movie(
     val movieDetail: MovieDetail,
-    val screeningDate: ScreeningDate,
+    val screeningPeriod: ScreeningPeriod,
     val charge: Int = 13000
 ) {
     companion object {
@@ -15,7 +17,10 @@ class Movie(
                     RunningTime(222),
                     Synopsis("defaultSynopsis"),
                 ),
-                ScreeningDate(LocalDate.of(2222, 2, 2)),
+                ScreeningPeriod(
+                    ScreeningDate(LocalDate.of(2222, 2, 2)) ,
+                    ScreeningDate(LocalDate.of(1111, 1, 1)) ,
+                ),
             )
     }
 }

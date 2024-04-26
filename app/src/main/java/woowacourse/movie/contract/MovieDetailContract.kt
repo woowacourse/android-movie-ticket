@@ -1,5 +1,7 @@
 package woowacourse.movie.contract
 
+import woowacourse.movie.model.ScreeningDate
+import woowacourse.movie.model.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
 
 
@@ -7,7 +9,9 @@ interface MovieDetailContract {
     interface View {
         fun displayMovie(movieBrief: Movie)
 
-        fun displayScreeningDays()
+        fun displayScreeningDates(period: ScreeningPeriod)
+
+        fun displayScreeningTimes(date: ScreeningDate)
 
         fun displayTicketNum(ticketNum: Int)
 
@@ -18,7 +22,9 @@ interface MovieDetailContract {
     interface Presenter {
         fun loadMovie(movieId: Int)
 
-        fun loadScreeningDays()
+        fun loadScreeningPeriod(period: ScreeningPeriod)
+
+        fun selectScreeningDate(dateIndex: Int)
 
         fun plusTicketNum()
 

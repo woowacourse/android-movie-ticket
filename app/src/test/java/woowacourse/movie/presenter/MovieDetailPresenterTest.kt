@@ -10,8 +10,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.contract.MovieDetailContract
-import woowacourse.movie.contract.PurchaseConfirmationContract
+import woowacourse.movie.model.ScreeningDate
+import woowacourse.movie.model.ScreeningPeriod
 import woowacourse.movie.repository.MovieRepository
+import java.time.LocalDate
 
 @ExtendWith(MockKExtension::class)
 class MovieDetailPresenterTest {
@@ -69,7 +71,21 @@ class MovieDetailPresenterTest {
 
     @Test
     fun `상영일의 목록이 보여져야 한다`() {
-        presenter.loadScreeningDays()
-        verify {view.displayScreeningDays()}
+        every { view.displayScreeningDates(any()) } just runs
+        val startDate = ScreeningDate(LocalDate.of(1111,1,1))
+        val endDate = ScreeningDate(LocalDate.of(2222,2,2))
+        val period = ScreeningPeriod(startDate, endDate)
+        presenter.loadScreeningPeriod(period)
+        verify { view.displayScreeningDates(period) }
+    }
+
+    @Test
+    fun `상영일 선택 후 상영시간의 목록이 보여져야 한다`() {
+        val startDate = ScreeningDate(LocalDate.of(1111,1,1))
+        val endDate = ScreeningDate(LocalDate.of(2222,2,2))
+        val period = ScreeningPeriod(startDate, endDate)
+        presenter.loadScreeningPeriod(period)
+        presenter.selectScreeningDate(0)
+        verify { view.displayScreeningTimes(startDate) }
     }
 }

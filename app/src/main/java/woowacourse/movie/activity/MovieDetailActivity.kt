@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieDetailContract
+import woowacourse.movie.model.ScreeningDate
+import woowacourse.movie.model.ScreeningPeriod
 import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.presenter.MovieDetailPresenter
@@ -60,11 +62,19 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         findViewById<TextView>(R.id.movie_title_large).text =
             movieDetail.title.format()
         findViewById<TextView>(R.id.movie_release_date_large).text =
-            movieBrief.screeningDate.format()
+            movieBrief.screeningPeriod.format()
         findViewById<TextView>(R.id.movie_running_time).text =
             movieDetail.runningTime.format()
         findViewById<TextView>(R.id.movie_synopsis).text =
             movieDetail.synopsis.format()
+    }
+
+    override fun displayScreeningDates(period: ScreeningPeriod) {
+        TODO("Not yet implemented")
+    }
+
+    override fun displayScreeningTimes(date: ScreeningDate) {
+        TODO("Not yet implemented")
     }
 
     override fun displayTicketNum(ticketNum: Int) {
@@ -75,8 +85,5 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     override fun navigateToPurchaseConfirmation() {
         val intent = Intent(this, PurchaseConfirmationActivity::class.java)
         startActivity(intent)
-    }
-
-    override fun displayScreeningDays() {
     }
 }

@@ -2,6 +2,9 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.Reservation
+import woowacourse.movie.model.ScreeningDate
+import woowacourse.movie.model.ScreeningPeriod
+import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.repository.PseudoReservationRepository
 import woowacourse.movie.repository.PseudoMovieRepository
 import woowacourse.movie.repository.ReservationRepository
@@ -13,9 +16,17 @@ class MovieDetailPresenter(
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
     private var ticketNum: Int = 1,
 ) : MovieDetailContract.Presenter {
+    private lateinit var movie: Movie
+    private lateinit var period: ScreeningPeriod
+
     override fun loadMovie(movieId: Int) {
-        val screening = movieRepository.getMovie(movieId)
-        view.displayMovie(screening)
+        movie = movieRepository.getMovie(movieId)
+        view.displayMovie(movie)
+    }
+
+    override fun loadScreeningPeriod(period: ScreeningPeriod) {
+        this.period = period
+        view.displayScreeningDates(period)
     }
 
     override fun plusTicketNum() {
@@ -41,7 +52,8 @@ class MovieDetailPresenter(
         view.navigateToPurchaseConfirmation()
     }
 
-    override fun loadScreeningDays() {
-        view.displayScreeningDays()
+    override fun selectScreeningDate(dateIndex: Int) {
+        val date = period.dates[dateIndex]
+        view.displayScreeningTimes(date)
     }
 }
