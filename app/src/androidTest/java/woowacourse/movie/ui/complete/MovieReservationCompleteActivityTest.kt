@@ -17,7 +17,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.ReservationCount
-import woowacourse.movie.model.movie.Ticket
+import woowacourse.movie.model.movie.UserTicket
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -59,7 +59,7 @@ class MovieReservationCompleteActivityTest {
 
     @Test
     fun `화면이_띄워지면_예매_금액이_보인다`() {
-        val reservationAmount = Ticket(ReservationCount()).amount()
+        val reservationAmount = UserTicket(ReservationCount()).amount()
 
         onView(withId(R.id.reservation_amount_text))
             .check(matches(isDisplayed()))

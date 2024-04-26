@@ -1,26 +1,21 @@
 package woowacourse.movie.ui.complete
 
 import woowacourse.movie.model.data.MovieContents
-import woowacourse.movie.model.movie.ReservationCount
-import woowacourse.movie.model.movie.Ticket
+import woowacourse.movie.model.data.UserTickets
 
 class MovieReservationCompletePresenter(
     private val view: MovieReservationCompleteContract.View,
     private val movieContents: MovieContents,
+    private val userTickets: UserTickets,
 ) :
     MovieReservationCompleteContract.Presenter {
-    override fun loadMovieContent(movieContentId: Long) {
+    override fun loadTicket(ticketId: Long) {
         try {
-            val movieContent = movieContents.find(movieContentId)
-            view.showMovieContent(movieContent)
+            val userTicket = userTickets.find(ticketId)
+            view.showTicket(userTicket)
         } catch (e: NoSuchElementException) {
             view.showError(e)
         }
-    }
-
-    override fun loadTicket(reservationCount: Int) {
-        val ticket = Ticket(ReservationCount(reservationCount))
-        view.showTicketUi(ticket)
     }
 
     override fun handleError(throwable: Throwable) {
