@@ -6,11 +6,11 @@ import woowacourse.movie.presentation.ui.screen.ScreenActionHandler
 import woowacourse.movie.presentation.ui.screen.ScreenContract
 
 class FakeScreenView : ScreenContract.View, ScreenActionHandler {
-    var screens: List<ScreenViewType>? = null
+    private var screens: List<ScreenViewType>? = null
     var detailScreenId: Int? = null
-    var toastMessage: MessageType? = null
-    var snackBarMessage: MessageType? = null
-    var throwable: Throwable? = null
+    private var toastMessage: MessageType? = null
+    private var snackBarMessage: MessageType? = null
+    private var throwable: Throwable? = null
 
     override fun showScreens(screens: List<ScreenViewType>) {
         this.screens = screens
@@ -37,5 +37,6 @@ class FakeScreenView : ScreenContract.View, ScreenActionHandler {
     }
 
     override fun onScreenClick(id: Int) {
+        detailScreenId = id
     }
 }

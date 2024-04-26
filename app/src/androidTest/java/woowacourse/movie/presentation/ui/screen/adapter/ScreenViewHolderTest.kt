@@ -24,16 +24,16 @@ class ScreenViewHolderTest {
         ActivityScenarioRule(ScreenActivity::class.java)
 
     private lateinit var viewHolder: ScreenViewHolder
+    private lateinit var presenter: ScreenContract.Presenter
+    private lateinit var fakeScreenView: FakeScreenView
 
     @Before
     fun setUp() {
         val view =
             LayoutInflater.from(InstrumentationRegistry.getInstrumentation().targetContext)
                 .inflate(R.layout.holder_screen, null)
-        val fakeScreenView: ScreenContract.View = FakeScreenView()
-        val presenter: ScreenContract.Presenter by lazy {
-            ScreenPresenter(fakeScreenView, DummyScreens())
-        }
+        fakeScreenView = FakeScreenView()
+        presenter = ScreenPresenter(fakeScreenView, DummyScreens())
         viewHolder = ScreenViewHolder(view, presenter)
     }
 
@@ -42,5 +42,18 @@ class ScreenViewHolderTest {
         val screen = getDummyScreen()
         viewHolder.bind(screen)
         assertEquals(screen.movie.title, viewHolder.title.text)
+    }
+
+    @Test
+    fun `리사이클러뷰의_스크린_아이템을_클릭했을_때_스크린ID_값을_View에게_전달한다`() {
+        // Given
+        val screen = getDummyScreen()
+        viewHolder.bind(screen)
+
+        // when
+        presenter.onScreenClick(screen.id)
+
+        // then
+        assertEquals(screen.id, fakeScreenView.detailScreenId)
     }
 }
