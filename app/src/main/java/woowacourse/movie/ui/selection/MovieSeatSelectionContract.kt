@@ -17,6 +17,8 @@ interface MovieSeatSelectionContract {
         fun showReservationTotalAmount(amount: Int)
 
         fun updateSelectCompletion(isComplete: Boolean)
+
+        fun moveMovieReservationCompletePage(ticketId: Long)
     }
 
     interface Presenter {
@@ -31,6 +33,11 @@ interface MovieSeatSelectionContract {
         fun selectSeat(
             row: Int,
             col: Int,
+        )
+
+        fun reserveMovie(
+            date: String,
+            time: String,
         )
     }
 }

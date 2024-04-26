@@ -1,20 +1,25 @@
 package woowacourse.movie.ui.selection
 
 import woowacourse.movie.model.data.MovieContents
+import woowacourse.movie.model.data.UserTickets
+import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.ReservationDetail
 import woowacourse.movie.model.movie.Seat
+import woowacourse.movie.model.movie.UserTicket
 
 class MovieSeatSelectionPresenter(
     private val view: MovieSeatSelectionContract.View,
     private val movieContents: MovieContents,
+    private val userTickets: UserTickets,
     reservationCount: Int,
 ) :
     MovieSeatSelectionContract.Presenter {
     private val reservationDetail = ReservationDetail(reservationCount)
+    private lateinit var movieContent: MovieContent
 
     override fun loadMovieTitle(movieContentId: Long) {
         try {
-            val movieContent = movieContents.find(movieContentId)
+            movieContent = movieContents.find(movieContentId)
             view.showMovieTitle(movieContent.title)
         } catch (e: NoSuchElementException) {
             view.showError(e)
@@ -43,5 +48,14 @@ class MovieSeatSelectionPresenter(
             reservationDetail.addSeat(row, col)
         }
         view.showSelectedSeat(reservationDetail.selectedSeat)
+    }
+
+    override fun reserveMovie(
+        date: String,
+        time: String,
+    ) {
+        val userTicket = UserTicket(movieContent.title, date, time, reservationDetail)
+        val ticketId = userTickets.save(userTicket)
+        view.moveMovieReservationCompletePage(ticketId)
     }
 }

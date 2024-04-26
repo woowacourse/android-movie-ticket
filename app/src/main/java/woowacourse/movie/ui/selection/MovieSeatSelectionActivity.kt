@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.selection
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -13,8 +14,10 @@ import androidx.core.view.forEach
 import androidx.core.view.forEachIndexed
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.data.UserTicketImpl
 import woowacourse.movie.model.movie.Seat
 import woowacourse.movie.ui.base.BaseActivity
+import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import woowacourse.movie.ui.utils.positionToIndex
 
 class MovieSeatSelectionActivity :
@@ -37,11 +40,18 @@ class MovieSeatSelectionActivity :
         presenter.loadMovieTitle(movieContentId)
         presenter.loadTotalSeatAmount()
         presenter.updateSelectCompletion()
+        setOnConfirmButtonListener()
+    }
+
+    private fun setOnConfirmButtonListener() {
+        confirmButton.setOnClickListener {
+            presenter.reserveMovie(selectedDate, selectedTime)
+        }
     }
 
     private fun movieContentId() =
         intent.getLongExtra(
-            MovieSeatSelectionKey.ID,
+            MovieSeatSelectionKey.MOVIE_CONTENT_ID,
             MOVIE_CONTENT_ID_DEFAULT_VALUE,
         )
 
@@ -51,20 +61,12 @@ class MovieSeatSelectionActivity :
             RESERVATION_COUNT_DEFAULT_VALUE,
         )
 
-    private fun selectedDate() =
-        intent.getIntExtra(
-            MovieSeatSelectionKey.DATE,
-            SELECTED_DATE_DEFAULT_VALUE,
-        )
+    private fun selectedDate(): String = intent.getStringExtra(MovieSeatSelectionKey.DATE).toString()
 
-    private fun selectedTime() =
-        intent.getIntExtra(
-            MovieSeatSelectionKey.TIME,
-            SELECTED_TIME_DEFAULT_VALUE,
-        )
+    private fun selectedTime() = intent?.getStringExtra(MovieSeatSelectionKey.TIME).toString()
 
     override fun initializePresenter(): MovieSeatSelectionContract.Presenter =
-        MovieSeatSelectionPresenter(this, MovieContentsImpl, reservationCount)
+        MovieSeatSelectionPresenter(this, MovieContentsImpl, UserTicketImpl, reservationCount)
 
     override fun showMovieTitle(title: String) {
         movieTitle.text = title
@@ -127,6 +129,13 @@ class MovieSeatSelectionActivity :
         }
     }
 
+    override fun moveMovieReservationCompletePage(ticketId: Long) {
+        Intent(this, MovieReservationCompleteActivity::class.java).run {
+            putExtra(MovieSeatSelectionKey.TICKET_ID, ticketId)
+            startActivity(this)
+        }
+    }
+
     override fun showError(throwable: Throwable) {
         Log.e(TAG, throwable.message.toString())
         Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
@@ -137,7 +146,5 @@ class MovieSeatSelectionActivity :
         private val TAG = MovieSeatSelectionActivity::class.simpleName
         private const val MOVIE_CONTENT_ID_DEFAULT_VALUE = -1L
         private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
-        private const val SELECTED_DATE_DEFAULT_VALUE = -1
-        private const val SELECTED_TIME_DEFAULT_VALUE = -1
     }
 }
