@@ -5,13 +5,19 @@ import woowacourse.movie.domain.model.Movies
 
 interface MainContract {
     interface View {
+        fun onUpdateMovies(movies: List<Movie>)
+
         fun showMovieList()
 
         fun moveToMovieDetail(movie: Movie)
     }
 
     interface Presenter {
-        val movies: Movies
+        fun attachView(view: View)
+
+        fun detachView()
+
+        fun onViewSetUp()
 
         fun onReserveButtonClicked(movie: Movie)
     }

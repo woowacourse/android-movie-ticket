@@ -17,9 +17,14 @@ class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun onCreateSetup(savedInstanceState: Bundle?) {
-        presenter = MainPresenterImpl(this)
-        adapter = MovieListAdapter(presenter.movies.movies, this)
+        adapter = MovieListAdapter(emptyList(), this)
+        presenter = MainPresenterImpl()
+        presenter.attachView(this)
         showMovieList()
+    }
+
+    override fun onUpdateMovies(movies: List<Movie>) {
+        adapter.updateMovieList(movies)
     }
 
     override fun showMovieList() {
@@ -32,11 +37,7 @@ class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions
 
     override fun moveToMovieDetail(movie: Movie) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(MovieDetailActivity.INTENT_POSTER_IMAGE_ID, movie.posterImageId)
-        intent.putExtra(MovieDetailActivity.INTENT_TITLE, movie.title)
-        intent.putExtra(MovieDetailActivity.INTENT_SCREENING_DATE, movie.screeningDate)
-        intent.putExtra(MovieDetailActivity.INTENT_RUNNING_TIME, movie.runningTime)
-        intent.putExtra(MovieDetailActivity.INTENT_SUMMARY, movie.summary)
+        intent.putExtra(MovieDetailActivity.INTENT_MOVIE_ID, movie.movieId)
         startActivity(intent)
     }
 }

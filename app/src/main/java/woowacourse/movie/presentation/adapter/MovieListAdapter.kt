@@ -9,9 +9,13 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.contract.MainContract
 
 class MovieListAdapter(
-    private val movieList: List<Movie>,
+    private var movieList: List<Movie>,
     private val listener: MainContract.ViewActions,
 ) : BaseAdapter() {
+    fun updateMovieList(newMovieList: List<Movie>) {
+        movieList = newMovieList
+    }
+
     override fun getCount(): Int = movieList.size
 
     override fun getItem(index: Int): Movie = movieList[index]
@@ -25,7 +29,7 @@ class MovieListAdapter(
     ): View {
         val view: View
         val movieViewHolder: MovieViewHolder
-        if(convertView == null) {
+        if (convertView == null) {
             view = createView(parent!!)
             movieViewHolder = MovieViewHolder(view)
             view.tag = movieViewHolder
@@ -48,10 +52,13 @@ class MovieListAdapter(
         movie: Movie,
         parent: ViewGroup,
     ) {
+        val screeningInfo = movie.screeningInfo
         movieViewHolder.posterImage.setImageResource(movie.posterImageId)
         movieViewHolder.title.text = movie.title
-        movieViewHolder.screeningDate.text = parent.context.getString(R.string.screening_date_format, movie.screeningDate)
-        movieViewHolder.runningTime.text = parent.context.getString(R.string.running_time_format, movie.runningTime)
+        movieViewHolder.screeningDate.text =
+            parent.context.getString(R.string.screening_date_format, screeningInfo.startDate)
+        movieViewHolder.runningTime.text =
+            parent.context.getString(R.string.running_time_format, screeningInfo.runningTime)
 
         movieViewHolder.reserveButton.setOnClickListener {
             listener.reserveMovie(movie)

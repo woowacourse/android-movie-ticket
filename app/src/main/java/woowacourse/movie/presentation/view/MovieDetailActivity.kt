@@ -2,7 +2,6 @@ package woowacourse.movie.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,40 +24,41 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     override fun onCreateSetup(savedInstanceState: Bundle?) {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val posterImageId = intent.getIntExtra(INTENT_POSTER_IMAGE_ID, defaultPosterImageId)
-        val title = intent.getStringExtra(INTENT_TITLE) ?: ""
-        val screeningDate = intent.getStringExtra(INTENT_SCREENING_DATE) ?: ""
-        val runningTime = intent.getIntExtra(INTENT_RUNNING_TIME, 0)
-        val summary = intent.getStringExtra(INTENT_SUMMARY) ?: ""
+        val movieId = intent.getIntExtra(INTENT_MOVIE_ID, DEFAULT_MOVIE_ID)
 
-        movieDetailPresenter = MovieDetailPresenterImpl(this, title, screeningDate)
+        movieDetailPresenter = MovieDetailPresenterImpl(movieId)
+        movieDetailPresenter.attachView(this)
 
         savedInstanceState?.let {
             val count = it.getInt(SIS_COUNT_KEY)
             movieDetailPresenter.initReservationCount(count)
         }
 
-        showMovieDetail(posterImageId, title, screeningDate, runningTime, summary)
         setupReservationCountButton()
-        moveToReservationResult()
+        setReserveButton()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        movieDetailPresenter.detachView()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val count = movieDetailPresenter.movieTicket.count
+        val count = reservationCountTextView.text.toString().toInt()
         outState.putInt(SIS_COUNT_KEY, count)
     }
 
     override fun showMovieDetail(
         posterImageId: Int,
         title: String,
-        screeningDate: String,
+        screeningStartDate: String,
         runningTime: Int,
         summary: String,
     ) {
         findViewById<ImageView>(R.id.posterImage).setImageResource(posterImageId)
         findViewById<TextView>(R.id.title).text = title
-        findViewById<TextView>(R.id.screeningDate).text = getString(R.string.screening_date_format, screeningDate)
+        findViewById<TextView>(R.id.screeningDate).text = getString(R.string.screening_date_format, screeningStartDate)
         findViewById<TextView>(R.id.runningTime).text =
             getString(R.string.running_time_format, runningTime)
         findViewById<TextView>(R.id.summary).text = summary
@@ -78,19 +78,31 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         reservationCountTextView.text = count.toString()
     }
 
-    override fun moveToReservationResult() {
+    override fun moveToReservationResult(
+        title: String,
+        screeningStartDate: String,
+        reservationCount: Int,
+        totalPrice: Int,
+    ) {
+        val intent = Intent(this, ReservationResultActivity::class.java)
+        intent.putExtra(ReservationResultActivity.INTENT_TITLE, title)
+        intent.putExtra(ReservationResultActivity.INTENT_SCREENING_DATE, screeningStartDate)
+        intent.putExtra(ReservationResultActivity.INTENT_RESERVATION_COUNT, reservationCount)
+        intent.putExtra(ReservationResultActivity.INTENT_TOTAL_PRICE, totalPrice)
+        startActivity(intent)
+
+    }
+
+    private fun setReserveButton() {
         reserveButton.setOnClickListener {
-            val intent = Intent(this, ReservationResultActivity::class.java)
-            intent.putExtra(ReservationResultActivity.INTENT_TITLE, movieDetailPresenter.movieTicket.movieTitle)
-            intent.putExtra(ReservationResultActivity.INTENT_SCREENING_DATE, movieDetailPresenter.movieTicket.screeningDate)
-            intent.putExtra(ReservationResultActivity.INTENT_RESERVATION_COUNT, movieDetailPresenter.movieTicket.count)
-            intent.putExtra(ReservationResultActivity.INTENT_TOTAL_PRICE, movieDetailPresenter.movieTicket.totalPrice())
-            startActivity(intent)
+            movieDetailPresenter.onReserveButtonClicked()
         }
     }
 
     companion object {
         val defaultPosterImageId = R.drawable.img_noimg
+        const val DEFAULT_MOVIE_ID = -1
+        const val INTENT_MOVIE_ID = "movieId"
         const val INTENT_POSTER_IMAGE_ID = "posterImageId"
         const val INTENT_TITLE = "title"
         const val INTENT_SCREENING_DATE = "screeningDate"
