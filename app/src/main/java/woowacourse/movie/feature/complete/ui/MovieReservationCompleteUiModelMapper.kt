@@ -1,7 +1,6 @@
 package woowacourse.movie.feature.complete.ui
 
 import android.content.Context
-import android.util.Log
 import woowacourse.movie.R
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.SelectedSeats

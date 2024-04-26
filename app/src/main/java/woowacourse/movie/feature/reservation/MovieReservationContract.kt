@@ -2,7 +2,6 @@ package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.model.ScreeningDate
 import woowacourse.movie.model.ScreeningTime
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
@@ -19,7 +18,10 @@ interface MovieReservationContract {
 
         fun updateReservationCount(reservationCountValue: Int)
 
-        fun moveSeatSelectView(screeningDateTime: LocalDateTime, reservationCountValue: Int)
+        fun moveSeatSelectView(
+            screeningDateTime: LocalDateTime,
+            reservationCountValue: Int,
+        )
 
         fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>)
     }

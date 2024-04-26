@@ -18,7 +18,6 @@ import woowacourse.movie.feature.reservation.ui.toReservationUiModel
 import woowacourse.movie.feature.seat.SeatSelectActivity
 import woowacourse.movie.model.ScreeningDate
 import woowacourse.movie.model.ScreeningTime
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity

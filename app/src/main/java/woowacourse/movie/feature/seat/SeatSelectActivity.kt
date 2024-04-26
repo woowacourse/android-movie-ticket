@@ -129,14 +129,21 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         Toast.makeText(this, R.string.cannot_select_seat, Toast.LENGTH_SHORT).show()
     }
 
-    override fun selectSeat(row: Int, col: Int, isConfirm: Boolean) {
+    override fun selectSeat(
+        row: Int,
+        col: Int,
+        isConfirm: Boolean,
+    ) {
         seatViews[row][col].setBackgroundColor(ContextCompat.getColor(this, R.color.yellow))
         if (isConfirm) {
             confirmButton.isEnabled = true
         }
     }
 
-    override fun unselectSeat(row: Int, col: Int) {
+    override fun unselectSeat(
+        row: Int,
+        col: Int,
+    ) {
         seatViews[row][col].setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         confirmButton.isEnabled = false
     }

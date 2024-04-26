@@ -16,9 +16,16 @@ interface SeatSelectContract {
 
         fun showCannotSelectSeat()
 
-        fun selectSeat(row: Int, col: Int, isConfirm: Boolean)
+        fun selectSeat(
+            row: Int,
+            col: Int,
+            isConfirm: Boolean,
+        )
 
-        fun unselectSeat(row: Int, col: Int)
+        fun unselectSeat(
+            row: Int,
+            col: Int,
+        )
 
         fun moveReservationCompleteView(selectedSeats: SelectedSeats)
     }
@@ -33,7 +40,7 @@ interface SeatSelectContract {
 
         fun selectSeat(
             row: Int,
-            col: Int
+            col: Int,
         )
 
         fun confirmSeatSelection()

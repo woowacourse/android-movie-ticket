@@ -1,11 +1,8 @@
 package woowacourse.movie.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
-class SelectedSeats(val reservationCount: ReservationCount): Serializable {
+class SelectedSeats(val reservationCount: ReservationCount) : Serializable {
     private val _seats: MutableList<Seat> = mutableListOf()
     val seats: List<Seat>
         get() = _seats.toList()

@@ -35,7 +35,10 @@ class SeatSelectPresenter(
         view.initializeSeatTable(seatsUiModel)
     }
 
-    override fun selectSeat(row: Int, col: Int) {
+    override fun selectSeat(
+        row: Int,
+        col: Int,
+    ) {
         val seat = seats.table[row][col]
         if (seat !in selectedSeats) {
             applySelectSeat(seat, row, col)
