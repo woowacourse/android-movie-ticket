@@ -9,8 +9,8 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/reservation_quantity"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@id/spinner_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -93,6 +93,22 @@
         app:layout_constraintBottom_toTopOf="@id/btn_reservation_completed"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Spinner
+        android:id="@+id/spinner_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_plus"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner_time"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        app:layout_constraintBottom_toBottomOf="@id/spinner_date"
+        app:layout_constraintStart_toEndOf="@id/spinner_date" />
 
     <TextView
         android:id="@+id/reservation_quantity"
