@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.reservation
 
 class ReservationAmount(val amount: Int) {
     operator fun plus(value: ReservationAmount): ReservationAmount {

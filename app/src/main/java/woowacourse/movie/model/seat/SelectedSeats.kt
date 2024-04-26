@@ -1,5 +1,6 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.seat
 
+import woowacourse.movie.model.reservation.ReservationCount
 import java.io.Serializable
 
 class SelectedSeats(val reservationCount: ReservationCount) : Serializable {

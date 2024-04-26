@@ -2,7 +2,7 @@ package woowacourse.movie.feature.seat
 
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
-import woowacourse.movie.model.SelectedSeats
+import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
 

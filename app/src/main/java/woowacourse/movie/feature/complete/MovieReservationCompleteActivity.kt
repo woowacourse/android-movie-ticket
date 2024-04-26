@@ -12,9 +12,9 @@ import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
 import woowacourse.movie.feature.complete.ui.MovieReservationCompleteUiModel
 import woowacourse.movie.feature.home.MovieHomeActivity
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
+import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 

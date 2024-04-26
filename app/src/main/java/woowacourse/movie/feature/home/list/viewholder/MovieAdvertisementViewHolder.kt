@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.home.list
+package woowacourse.movie.feature.home.list.viewholder
 
 import android.view.View
 import android.widget.ImageView

@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
+import woowacourse.movie.feature.home.list.viewholder.MovieAdvertisementViewHolder
+import woowacourse.movie.feature.home.list.viewholder.MovieViewHolder
+import woowacourse.movie.feature.home.listener.ReservationButtonClickListener
 import woowacourse.movie.feature.home.ui.MovieAdvertisementUiModel
 import woowacourse.movie.feature.home.ui.MovieListUiModel
 import woowacourse.movie.feature.home.ui.MovieUiModel

@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.home.list
+package woowacourse.movie.feature.home.listener
 
 import android.view.View
 

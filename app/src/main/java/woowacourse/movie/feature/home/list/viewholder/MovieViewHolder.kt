@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.home.list
+package woowacourse.movie.feature.home.list.viewholder
 
 import android.view.View
 import android.widget.Button
@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.feature.home.listener.ReservationButtonClickListener
 import woowacourse.movie.feature.home.ui.MovieUiModel
 
 class MovieViewHolder(

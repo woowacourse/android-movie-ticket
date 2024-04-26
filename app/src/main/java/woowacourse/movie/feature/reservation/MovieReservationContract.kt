@@ -1,8 +1,8 @@
 package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.ScreeningTime
 import woowacourse.movie.model.data.dto.Movie
+import woowacourse.movie.model.time.ScreeningDate
+import woowacourse.movie.model.time.ScreeningTime
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
 import java.time.LocalDateTime

@@ -18,9 +18,9 @@ import woowacourse.movie.R
 import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
-import woowacourse.movie.model.SelectedSeats
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.reservation.Ticket
+import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime

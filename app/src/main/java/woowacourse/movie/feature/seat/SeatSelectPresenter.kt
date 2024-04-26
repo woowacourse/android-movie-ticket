@@ -2,13 +2,13 @@ package woowacourse.movie.feature.seat
 
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
-import woowacourse.movie.model.ReservationAmount
-import woowacourse.movie.model.ReservationCount
-import woowacourse.movie.model.Seat
-import woowacourse.movie.model.SeatRating
-import woowacourse.movie.model.Seats
-import woowacourse.movie.model.SelectedSeats
 import woowacourse.movie.model.data.MovieRepository
+import woowacourse.movie.model.reservation.ReservationAmount
+import woowacourse.movie.model.reservation.ReservationCount
+import woowacourse.movie.model.seat.Seat
+import woowacourse.movie.model.seat.SeatRating
+import woowacourse.movie.model.seat.Seats
+import woowacourse.movie.model.seat.SelectedSeats
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,

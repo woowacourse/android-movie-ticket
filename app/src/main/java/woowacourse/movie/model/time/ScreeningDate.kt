@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.time
 
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -9,7 +9,6 @@ data class ScreeningDate(val date: LocalDate) {
     }
 
     fun screeningTimes(): List<ScreeningTime> {
-        // TODO("주말인 경우의 times와 평일인 경우의 times를 캐싱")
         val startHour = if (isWeekend()) WEEKEND_START_HOUR else WEEKDAY_START_HOUR
         return (startHour..END_HOUR step SCREENING_HOUR_INTERVAL).map { ScreeningTime.of(it) }
     }

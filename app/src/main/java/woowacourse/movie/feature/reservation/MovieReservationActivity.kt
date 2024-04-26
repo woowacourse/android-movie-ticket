@@ -16,10 +16,10 @@ import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.feature.reservation.ui.MovieReservationUiModel
 import woowacourse.movie.feature.seat.SeatSelectActivity
-import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.ScreeningTime
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
+import woowacourse.movie.model.time.ScreeningDate
+import woowacourse.movie.model.time.ScreeningTime
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime

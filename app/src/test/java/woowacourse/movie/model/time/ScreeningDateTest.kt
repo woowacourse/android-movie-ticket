@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.time
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

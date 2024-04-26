@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.reservation
 
 class TicketTest {
 //    @Test

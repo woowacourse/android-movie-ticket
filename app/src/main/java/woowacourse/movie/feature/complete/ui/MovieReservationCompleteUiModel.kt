@@ -2,10 +2,10 @@ package woowacourse.movie.feature.complete.ui
 
 import android.content.Context
 import woowacourse.movie.R
-import woowacourse.movie.model.Seat
-import woowacourse.movie.model.SelectedSeats
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.Movie
+import woowacourse.movie.model.reservation.Ticket
+import woowacourse.movie.model.seat.Seat
+import woowacourse.movie.model.seat.SelectedSeats
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

@@ -1,9 +1,9 @@
 package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.model.ReservationCount
-import woowacourse.movie.model.ScreeningDate
 import woowacourse.movie.model.data.MovieRepository
-import woowacourse.movie.model.rangeTo
+import woowacourse.movie.model.reservation.ReservationCount
+import woowacourse.movie.model.time.ScreeningDate
+import woowacourse.movie.model.time.rangeTo
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
