@@ -3,7 +3,6 @@ package woowacourse.movie.seat
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -12,6 +11,7 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.Seat
 
+@Suppress("DEPRECATION")
 @SuppressLint("DiscouragedApi")
 class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     private lateinit var presenter: TheaterSeatPresenter
@@ -24,7 +24,9 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     }
 
     private fun initializePresenter() {
-        presenter = TheaterSeatPresenter(this)
+        val intent = intent
+        val ticketNum = intent.getIntExtra("ticketNum", 0)
+        presenter = TheaterSeatPresenter(this, ticketNum)
     }
 
     private fun setupSeats() {
@@ -42,7 +44,6 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
 
     override fun updateSeatDisplay(seat: Seat) {
         val buttonId = resources.getIdentifier("${seat.row}${seat.number}", "id", packageName)
-        Log.d("buttonId", buttonId.toString())
         val button = findViewById<Button>(buttonId)
         val color = if (seat.chosen) Color.RED else Color.WHITE
         button.setBackgroundColor(color)

@@ -13,7 +13,7 @@ class MovieDetailPresenter(
     private val theater = intent.getSerializableExtra("Theater", Theater::class.java)
     val movie = theater?.movie
     override fun load() {
-        movie?.let{view.initializeViews(it)}
+        movie?.let { view.initializeViews(it) }
     }
 
     override fun onSeatConfirmationClicked(intent: Intent) {

@@ -43,6 +43,19 @@ class SeatPresenterTest {
     }
 
     @Test
+    fun `선택할 수 있는 좌석의 최대치는 티켓수 만큼이다`() {
+        val seatId1 = "A1"
+        val seatId2 = "A2"
+
+        every { presenter.toggleSeatSelection(seatId1) } just runs
+        every { presenter.updateSeatBackground(seatId1) } just runs
+        every { presenter.toggleSeatSelection(seatId2) } just runs
+        every { presenter.updateSeatBackground(seatId2) } just runs
+
+        verify(exactly = 0) { presenter.updateSeatBackground(any()) }
+    }
+
+    @Test
     fun `선택된 좌석을 재선택하면 선택 해제 테스트`() {
         val seatId = "A1"
         every { presenter.toggleSeatSelection(seatId) } just runs
