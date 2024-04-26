@@ -73,24 +73,28 @@
         <TableRow android:layout_weight="1">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_seat_item_0"
                 style="@style/seatItemStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 tools:text="A1" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_seat_item_1"
                 style="@style/seatItemStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 tools:text="A1" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_seat_item_2"
                 style="@style/seatItemStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 tools:text="A1" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_seat_item_3"
                 style="@style/seatItemStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
