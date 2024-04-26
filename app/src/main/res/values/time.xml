@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="movie_times">
+        <item>10:00 AM</item>
+        <item>12:30 PM</item>
+        <item>03:00 PM</item>
+        <item>05:30 PM</item>
+        <item>08:00 PM</item>
+    </string-array>
+</resources>

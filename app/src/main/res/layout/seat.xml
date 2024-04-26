@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="@color/dark_grey"
+        android:paddingVertical="9dp"
+        android:text="SCREEN"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/screen"
+        android:paddingTop="100dp"
+        android:stretchColumns="*"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- A행 버튼들 -->
+        <TableRow>
+
+            <Button
+                style="@style/RowAStyle"
+                android:text="A1" />
+
+            <Button
+                style="@style/RowAStyle"
+                android:text="A2" />
+
+            <Button
+                style="@style/RowAStyle"
+                android:text="A3" />
+
+            <Button
+                style="@style/RowAStyle"
+                android:text="A4" />
+        </TableRow>
+        <!-- B행 버튼들 -->
+        <TableRow>
+
+            <Button
+                style="@style/RowBStyle"
+                android:text="B1" />
+
+            <Button
+                style="@style/RowBStyle"
+                android:text="B2" />
+
+            <Button
+                style="@style/RowBStyle"
+                android:text="B3" />
+
+            <Button
+                style="@style/RowBStyle"
+                android:text="B4" />
+        </TableRow>
+        <!-- C행 버튼들 -->
+        <TableRow>
+
+            <Button
+                style="@style/RowCStyle"
+                android:text="C1" />
+
+            <Button
+                style="@style/RowCStyle"
+                android:text="C2" />
+
+            <Button
+                style="@style/RowCStyle"
+                android:text="C3" />
+
+            <Button
+                style="@style/RowCStyle"
+                android:text="C4" />
+        </TableRow>
+        <!-- D행 버튼들 -->
+        <TableRow>
+
+            <Button
+                style="@style/RowDStyle"
+                android:text="D1" />
+
+            <Button
+                style="@style/RowDStyle"
+                android:text="D2" />
+
+            <Button
+                style="@style/RowDStyle"
+                android:text="D3" />
+
+            <Button
+                style="@style/RowDStyle"
+                android:text="D4" />
+        </TableRow>
+        <!-- E행 버튼들 -->
+        <TableRow>
+
+            <Button
+                style="@style/RowEStyle"
+                android:text="E1" />
+
+            <Button
+                style="@style/RowEStyle"
+                android:text="E2" />
+
+            <Button
+                style="@style/RowEStyle"
+                android:text="E3" />
+
+            <Button
+                style="@style/RowEStyle"
+                android:text="E4" />
+        </TableRow>
+    </TableLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="19dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="해리 포터와 마법사의 돌" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="0원" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="88dp"
+            android:height="78dp"
+            android:background="@color/purple_700"
+            android:gravity="center"
+            android:text="확인"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
