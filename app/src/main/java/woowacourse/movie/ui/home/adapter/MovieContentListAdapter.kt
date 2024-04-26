@@ -65,7 +65,7 @@ class MovieContentListAdapter(
                 screeningDateText.text =
                     view.context.resources
                         .getString(R.string.screening_date)
-                        .format(dateFormatter(openingMovieDate))
+                        .format(dateFormatter(openingMovieDate), dateFormatter(endingMoviesDate))
                 runningTimeText.text =
                     view.context.resources.getString(R.string.running_time).format(runningTime)
                 reservationButton.setOnClickListener {

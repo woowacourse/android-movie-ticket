@@ -144,7 +144,7 @@ class MovieReservationActivity :
             titleText.text = title
             screeningDateText.text =
                 resources.getString(R.string.screening_date)
-                    .format(dateFormatter(openingMovieDate))
+                    .format(dateFormatter(openingMovieDate), dateFormatter(endingMoviesDate))
             runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
             synopsisText.text = synopsis
         }
