@@ -5,8 +5,8 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieCatalogAdapter
-import woowacourse.movie.model.Movie
 import woowacourse.movie.detail.MovieDetailActivity
+import woowacourse.movie.model.Movie
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
     private val movieList: ListView by lazy { findViewById(R.id.list_view_reservation_home) }
