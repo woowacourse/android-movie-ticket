@@ -2,8 +2,12 @@ package woowacourse.movie.presentation.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -17,8 +21,12 @@ import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_DATE
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_TIME
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.formatScreeningPeriod
+import java.time.LocalDate
+import java.time.LocalTime
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var reservationCompleteActivityResultLauncher: ActivityResultLauncher<Intent>
@@ -33,6 +41,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private val minusButton: Button by lazy { findViewById(R.id.detailMinusBtn) }
     private val plusButton: Button by lazy { findViewById(R.id.detailPlusBtn) }
     private val reservationCompleteButton: Button by lazy { findViewById(R.id.detailReservCompleteBtn) }
+    private val detailDateSpinner: Spinner by lazy { findViewById(R.id.detailDateSpinner) }
+    private val detailTimeSpinner: Spinner by lazy { findViewById(R.id.detailTimeSpinner) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,9 +83,45 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 movieDetailPresenter.plusReservationCount()
             }
             reservationCompleteButton.setOnClickListener {
-                movieDetailPresenter.reservation(this.id)
+                movieDetailPresenter.reservation(
+                    this.id,
+                    detailDateSpinner.selectedItem as LocalDate,
+                    detailTimeSpinner.selectedItem as LocalTime,
+                )
             }
+            detailDateSpinner.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                        val selectedLocalDate = parent?.getItemAtPosition(position) as LocalDate
+                        movieDetailPresenter.selectDate(this@with, selectedLocalDate)
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) { }
+                }
         }
+    }
+
+    override fun updateDate(dates: List<LocalDate>) {
+        detailDateSpinner.adapter =
+            ArrayAdapter(
+                this@MovieDetailActivity,
+                android.R.layout.simple_spinner_item,
+                dates,
+            )
+    }
+
+    override fun updateTime(times: List<LocalTime>) {
+        detailTimeSpinner.adapter =
+            ArrayAdapter(
+                this@MovieDetailActivity,
+                android.R.layout.simple_spinner_item,
+                times,
+            )
     }
 
     override fun onCountUpdate(count: Int) {
@@ -91,10 +137,14 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     override fun onReservationComplete(
         id: Long,
         count: Int,
+        localDate: LocalDate,
+        localTime: LocalTime,
     ) {
         Intent(this, MovieResultActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, id)
             putExtra(EXTRA_MOVIE_RESERVATION_COUNT, count)
+            putExtra(EXTRA_MOVIE_RESERVATION_DATE, localDate.toString())
+            putExtra(EXTRA_MOVIE_RESERVATION_TIME, localTime.toString())
             reservationCompleteActivityResultLauncher.launch(this)
         }
     }
