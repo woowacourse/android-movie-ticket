@@ -15,7 +15,7 @@ class MovieViewHolder(
     view: View,
     private val context: Context,
     private val onMovieSelected: (Int) -> Unit,
-) : RecyclerView.ViewHolder(view){
+) : RecyclerView.ViewHolder(view) {
     private val title: TextView = view.findViewById(R.id.movie_title)
     private val poster: ImageView = view.findViewById(R.id.movie_poster)
     private val screeningDate: TextView = view.findViewById(R.id.movie_screening_date)

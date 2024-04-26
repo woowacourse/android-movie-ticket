@@ -7,16 +7,16 @@ import java.io.Serializable
 class MovieSeatModel(
     val seatName: String,
     val seatType: SeatType,
-): Serializable
+) : Serializable
 
-fun MovieSeat.toMovieSeatModel(): MovieSeatModel{
+fun MovieSeat.toMovieSeatModel(): MovieSeatModel {
     return MovieSeatModel(
         seatName = seatName,
         seatType = seatType,
     )
 }
 
-fun MovieSeatModel.toMovieSeat() : MovieSeat {
+fun MovieSeatModel.toMovieSeat(): MovieSeat {
     return MovieSeat(
         seatName = seatName,
         seatType = seatType,

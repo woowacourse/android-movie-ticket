@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.presentation.seat.model.SeatSelectType
 
 class MovieSeatsTest {
-
     @Test
     fun `getSeatPrice_메서드가_올바른_가격을_반환하는지_확인한다`() {
         // Given

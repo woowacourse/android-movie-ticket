@@ -10,9 +10,10 @@ import woowacourse.movie.presentation.utils.toDrawableIdByName
 class AdViewHolder(
     view: View,
     private val context: Context,
-):  RecyclerView.ViewHolder(view){
+) : RecyclerView.ViewHolder(view) {
     private val imageView: ImageView = view.findViewById(R.id.ad_image)
-    fun bind(ad: String){
+
+    fun bind(ad: String) {
         val imageResource = ad.toDrawableIdByName(context)
         imageResource?.let { imageView.setImageResource(it) }
     }

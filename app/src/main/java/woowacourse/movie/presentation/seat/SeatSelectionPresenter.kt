@@ -59,16 +59,18 @@ class SeatSelectionPresenter(
     }
 
     override fun ticketing() {
-        val ticket = Ticket(
-            title = ticketModel.title,
-            movieDate = MovieDate(
-                ticketModel.screeningDate,
-                ticketModel.screeningTime,
-            ),
-            count = ticketModel.count,
-            price = movieSeats.getSeatPrice(),
-            seats = movieSeats.userSeats,
-        ).toTicketModel()
+        val ticket =
+            Ticket(
+                title = ticketModel.title,
+                movieDate =
+                    MovieDate(
+                        ticketModel.screeningDate,
+                        ticketModel.screeningTime,
+                    ),
+                count = ticketModel.count,
+                price = movieSeats.getSeatPrice(),
+                seats = movieSeats.userSeats,
+            ).toTicketModel()
         view.moveToTicketDetail(ticket)
     }
 
@@ -80,14 +82,14 @@ class SeatSelectionPresenter(
 
     override fun saveInstance(outState: Bundle) {
         val movieModels = movieSeats.userSeats.map { it.toMovieSeatModel() }
-        outState.putSerializable(KEY_NAME_SEATS,movieModels as Serializable)
+        outState.putSerializable(KEY_NAME_SEATS, movieModels as Serializable)
     }
 
     override fun initSavedInstance(seats: List<MovieSeatModel>) {
         seatRepository
-            .getSeatRowAndColumn(seats.map { it.toMovieSeat()})
+            .getSeatRowAndColumn(seats.map { it.toMovieSeat() })
             .forEach {
-                selectSeat(it.first,it.second)
+                selectSeat(it.first, it.second)
             }
     }
 

@@ -8,10 +8,13 @@ class SeatRepositoryImpl : SeatRepository {
         return MockSeats.sampleSeats
     }
 
-    override fun getSeat(row: Int, column: Int): MovieSeat {
+    override fun getSeat(
+        row: Int,
+        column: Int,
+    ): MovieSeat {
         return try {
             MockSeats.sampleSeats[row][column]
-        } catch (e: IndexOutOfBoundsException){
+        } catch (e: IndexOutOfBoundsException) {
             MockSeats.defaultSeat
         }
     }

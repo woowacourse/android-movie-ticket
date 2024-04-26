@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 class MovieDateModel(
     val screeningDate: LocalDate,
     val screeningTime: LocalDateTime,
-): Serializable
+) : Serializable
 
 fun MovieDate.toMovieDateModel(): MovieDateModel {
     return MovieDateModel(

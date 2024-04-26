@@ -6,7 +6,6 @@ import woowacourse.movie.data.MockSeats
 import woowacourse.movie.data.SeatRepositoryImpl
 
 class SeatRepositoryTest {
-
     private val repository: SeatRepository = SeatRepositoryImpl()
 
     @Test

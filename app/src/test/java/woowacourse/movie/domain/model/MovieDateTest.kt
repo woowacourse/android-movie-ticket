@@ -6,7 +6,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MovieDateTest {
-
     @Test
     fun `setCurrentDate 메서드가 올바르게 동작하는지 확인한다`() {
         // Given

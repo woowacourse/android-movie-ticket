@@ -19,14 +19,16 @@ interface MovieReservationContract {
 
         fun moveToSeatSelection(ticketModel: TicketModel)
 
-        fun requestTicketCount(count: (Int)->Unit)
-
+        fun requestTicketCount(count: (Int) -> Unit)
     }
 
     interface Presenter {
         fun loadMovie()
 
-        fun loadDate(startDate: LocalDate, endDate: LocalDate)
+        fun loadDate(
+            startDate: LocalDate,
+            endDate: LocalDate,
+        )
 
         fun loadTime(currentDate: LocalDate)
 
@@ -42,6 +44,7 @@ interface MovieReservationContract {
         )
 
         fun selectDate(newDate: LocalDate)
+
         fun selectTime(newTime: LocalDateTime)
 
         fun initSavedInstance(

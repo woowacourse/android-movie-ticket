@@ -15,14 +15,12 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.model.toTicketModel
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
 class TicketDetailActivityTest {
     private val ticket =
         Ticket(
-            title =  "해리 포터와 마법사의 돌",
+            title = "해리 포터와 마법사의 돌",
             movieDate = MovieDate(),
             count = 2,
             price = Movie.DEFAULT_MOVIE_PRICE,

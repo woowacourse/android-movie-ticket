@@ -27,13 +27,15 @@ class MovieScreenActivityTest {
     @Before
     fun setup() {
         context = InstrumentationRegistry.getInstrumentation().context
-        adapter = MovieScreenAdapter(
-            context, "ad_placeholder", listOf(
-                MockMovies.defaultMovie,
-                MockMovies.defaultMovie,
-                MockMovies.defaultMovie,
-            )
-        ) {}
+        adapter =
+            MovieScreenAdapter(
+                context, "ad_placeholder",
+                listOf(
+                    MockMovies.defaultMovie,
+                    MockMovies.defaultMovie,
+                    MockMovies.defaultMovie,
+                ),
+            ) {}
     }
 
     @Test

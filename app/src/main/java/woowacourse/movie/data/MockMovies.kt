@@ -53,8 +53,8 @@ object MockMovies {
         Movie(
             movieId = -1,
             title = DEFAULT_MOVIE_TITLE,
-            screeningStartDate =  LocalDate.now(),
-            screeningEndDate =  LocalDate.now(),
+            screeningStartDate = LocalDate.now(),
+            screeningEndDate = LocalDate.now(),
             runningTime = 0,
             imageName = null,
             description = "",

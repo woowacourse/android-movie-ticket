@@ -1,7 +1,8 @@
 package woowacourse.movie.data
 
 object MockAds {
-    val sampleAds = listOf(
-        "ad_1"
-    )
+    val sampleAds =
+        listOf(
+            "ad_1",
+        )
 }

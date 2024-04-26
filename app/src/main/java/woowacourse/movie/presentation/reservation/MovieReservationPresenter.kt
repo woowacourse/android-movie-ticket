@@ -25,7 +25,10 @@ class MovieReservationPresenter(
         view.showMovie(movieRepository.getMovie(movieId))
     }
 
-    override fun loadDate(startDate: LocalDate, endDate: LocalDate) {
+    override fun loadDate(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ) {
         view.showDate(dateRepository.getDatesBetween(startDate, endDate))
     }
 
@@ -51,13 +54,14 @@ class MovieReservationPresenter(
         title: String,
         count: Int,
     ) {
-        val ticket = Ticket(
-            title = title,
-            movieDate = movieDate,
-            count = count,
-            price = 0,
-            seats = listOf(),
-        ).toTicketModel()
+        val ticket =
+            Ticket(
+                title = title,
+                movieDate = movieDate,
+                count = count,
+                price = 0,
+                seats = listOf(),
+            ).toTicketModel()
         view.moveToSeatSelection(ticket)
     }
 
@@ -81,7 +85,7 @@ class MovieReservationPresenter(
 
     override fun saveInstance(outState: Bundle) {
         outState.putInt(KEY_TICKET_COUNT, ticketCounter.ticketCount)
-        outState.putSerializable(KEY_MOVIE_DATE,movieDate.toMovieDateModel())
+        outState.putSerializable(KEY_MOVIE_DATE, movieDate.toMovieDateModel())
     }
 
     companion object {

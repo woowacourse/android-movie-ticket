@@ -13,8 +13,10 @@ class MovieScreenAdapter(
     private var movies: List<Movie> = listOf(),
     private val onMovieSelected: (Int) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         return when (viewType) {
             AD_VIEW_TYPE -> {
                 val view = LayoutInflater.from(context).inflate(R.layout.ad_item, parent, false)
@@ -29,13 +31,16 @@ class MovieScreenAdapter(
                 MovieViewHolder(
                     view = view,
                     context = context,
-                    onMovieSelected = onMovieSelected
+                    onMovieSelected = onMovieSelected,
                 )
             }
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         when (holder.itemViewType) {
             AD_VIEW_TYPE -> {
                 val adHolder = holder as AdViewHolder

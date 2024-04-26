@@ -60,13 +60,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         val savedCount =
             savedInstanceState?.getInt(KEY_TICKET_COUNT) ?: TicketCounter.MIN_TICKET_COUNT
         val defaultMovieDateModel = MovieDate().toMovieDateModel()
-        val savedDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            savedInstanceState?.getSerializable(KEY_MOVIE_DATE, MovieDateModel::class.java)
-                ?: defaultMovieDateModel
-        } else {
-            savedInstanceState?.getSerializable(KEY_MOVIE_DATE) as? MovieDateModel
-                ?: defaultMovieDateModel
-        }
+        val savedDate =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                savedInstanceState?.getSerializable(KEY_MOVIE_DATE, MovieDateModel::class.java)
+                    ?: defaultMovieDateModel
+            } else {
+                savedInstanceState?.getSerializable(KEY_MOVIE_DATE) as? MovieDateModel
+                    ?: defaultMovieDateModel
+            }
         presenter.initSavedInstance(savedCount, savedDate)
         showCurrentResultTicketCountView()
         setClickListener()
@@ -131,44 +132,48 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun showDate(dates: List<LocalDate>) {
-        dateSpinner.adapter = ArrayAdapter(
-            this@MovieReservationActivity,
-            android.R.layout.simple_spinner_item,
-            dates.map { it.toCustomString() }
-        )
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                presenter.selectDate(dates[position])
-                presenter.loadTime(dates[position])
-            }
+        dateSpinner.adapter =
+            ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                dates.map { it.toCustomString() },
+            )
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    presenter.selectDate(dates[position])
+                    presenter.loadTime(dates[position])
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     override fun showTime(times: List<LocalDateTime>) {
-        timeSpinner.adapter = ArrayAdapter(
-            this@MovieReservationActivity,
-            android.R.layout.simple_spinner_item,
-            times.map { it.toCustomString() }
-        )
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                presenter.selectTime(times[position])
-            }
+        timeSpinner.adapter =
+            ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                times.map { it.toCustomString() },
+            )
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    presenter.selectTime(times[position])
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     override fun moveToSeatSelection(ticketModel: TicketModel) {

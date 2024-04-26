@@ -15,14 +15,15 @@ class TicketModel(
 ) : Serializable {
     companion object {
         private const val DEFAULT_TICKET_TITLE = "티켓정보가 존재하지 않습니다."
-        val defaultTicket = TicketModel(
-            price = 0,
-            screeningDate = LocalDate.now(),
-            screeningTime = LocalDateTime.now(),
-            title = DEFAULT_TICKET_TITLE,
-            seats = listOf(),
-            count = 1,
-        )
+        val defaultTicket =
+            TicketModel(
+                price = 0,
+                screeningDate = LocalDate.now(),
+                screeningTime = LocalDateTime.now(),
+                title = DEFAULT_TICKET_TITLE,
+                seats = listOf(),
+                count = 1,
+            )
     }
 }
 
@@ -33,6 +34,6 @@ fun Ticket.toTicketModel(): TicketModel {
         screeningTime = movieDate.currentTime,
         count = count,
         price = price,
-        seats = seats.map { it.seatName }
+        seats = seats.map { it.seatName },
     )
 }

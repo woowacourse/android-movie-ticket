@@ -12,7 +12,7 @@ class TicketCounter {
         ticketCount++
     }
 
-    fun initTicketCount(count: Int){
+    fun initTicketCount(count: Int) {
         ticketCount = count
     }
 

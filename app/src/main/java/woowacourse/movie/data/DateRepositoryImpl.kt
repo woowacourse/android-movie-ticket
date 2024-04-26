@@ -5,7 +5,10 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class DateRepositoryImpl : DateRepository {
-    override fun getDatesBetween(startDate: LocalDate, endDate: LocalDate): List<LocalDate> {
+    override fun getDatesBetween(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): List<LocalDate> {
         val dates = mutableListOf<LocalDate>()
         var currentDate = startDate
 
@@ -20,11 +23,12 @@ class DateRepositoryImpl : DateRepository {
     override fun getDateTimes(date: LocalDate): List<LocalDateTime> {
         val dateTimeList = mutableListOf<LocalDateTime>()
 
-        val startTime = if (date.dayOfWeek.value in WEEKEND_START_DATE..WEEKEND_END_DATE) {
-            LocalDateTime.of(date, java.time.LocalTime.of(WEEKEND_START_HOUR, DEFAULT_MINUTE))
-        } else {
-            LocalDateTime.of(date, java.time.LocalTime.of(WEEKDAY_START_HOUR, DEFAULT_MINUTE))
-        }
+        val startTime =
+            if (date.dayOfWeek.value in WEEKEND_START_DATE..WEEKEND_END_DATE) {
+                LocalDateTime.of(date, java.time.LocalTime.of(WEEKEND_START_HOUR, DEFAULT_MINUTE))
+            } else {
+                LocalDateTime.of(date, java.time.LocalTime.of(WEEKDAY_START_HOUR, DEFAULT_MINUTE))
+            }
 
         val endTime = LocalDateTime.of(date.plusDays(DAYS_TO_ADD), java.time.LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE))
 

@@ -29,7 +29,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         SeatSelectionPresenter(
             view = this@SeatSelectionActivity,
             seatRepository = SeatRepositoryImpl(),
-            ticketModel = getReservationTicket()
+            ticketModel = getReservationTicket(),
         )
     }
 
@@ -90,7 +90,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                                 SeatType.S -> getColor(R.color.seat_s_text_color)
                                 SeatType.A -> getColor(R.color.seat_a_text_color)
                                 SeatType.B -> getColor(R.color.seat_b_text_color)
-                            }
+                            },
                         )
                         view.setOnClickListener {
                             presenter.selectSeat(rowIndex, columIndex)
@@ -99,17 +99,23 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             }
     }
 
-    override fun showSelectedSeat(rowIndex: Int, columnIndex: Int) {
+    override fun showSelectedSeat(
+        rowIndex: Int,
+        columnIndex: Int,
+    ) {
         getTableTextView(
             rowIndex = rowIndex,
-            columnIndex = columnIndex
+            columnIndex = columnIndex,
         ).setBackgroundColor(getColor(R.color.select_seat_color))
     }
 
-    override fun showUnSelectedSeat(rowIndex: Int, columnIndex: Int) {
+    override fun showUnSelectedSeat(
+        rowIndex: Int,
+        columnIndex: Int,
+    ) {
         getTableTextView(
             rowIndex = rowIndex,
-            columnIndex = columnIndex
+            columnIndex = columnIndex,
         ).setBackgroundColor(getColor(R.color.white))
     }
 
@@ -145,7 +151,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             .show()
     }
 
-    private fun getTableTextView(rowIndex: Int, columnIndex: Int): TextView {
+    private fun getTableTextView(
+        rowIndex: Int,
+        columnIndex: Int,
+    ): TextView {
         val tableRowAtIndex = seatTable.getChildAt(rowIndex) as TableRow
         return tableRowAtIndex.getChildAt(columnIndex) as TextView
     }

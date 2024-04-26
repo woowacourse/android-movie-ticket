@@ -25,23 +25,24 @@ import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 
 @RunWith(AndroidJUnit4::class)
 class SeatSelectionActivityTest {
-
     @get:Rule
-    val activityRule = ActivityScenarioRule<SeatSelectionActivity>(
-        Intent(
-            ApplicationProvider.getApplicationContext(),
-            SeatSelectionActivity::class.java
-        ).apply {
-            val ticketModel = Ticket(
-                title = "해리 포터와 마법사의 돌",
-                movieDate = MovieDate(),
-                count = 2,
-                price = 0,
-                seats = listOf(),
-            ).toTicketModel()
-            putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticketModel)
-        }
-    )
+    val activityRule =
+        ActivityScenarioRule<SeatSelectionActivity>(
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                SeatSelectionActivity::class.java,
+            ).apply {
+                val ticketModel =
+                    Ticket(
+                        title = "해리 포터와 마법사의 돌",
+                        movieDate = MovieDate(),
+                        count = 2,
+                        price = 0,
+                        seats = listOf(),
+                    ).toTicketModel()
+                putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticketModel)
+            },
+        )
 
     @Test
     fun `현재_텍스트_확인`() {

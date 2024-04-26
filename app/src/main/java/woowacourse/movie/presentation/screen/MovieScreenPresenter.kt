@@ -18,7 +18,7 @@ class MovieScreenPresenter(
     }
 
     override fun requestAd(ad: (String) -> Unit) {
-       ad(adRepository.getRandomAd())
+        ad(adRepository.getRandomAd())
     }
 
     companion object {

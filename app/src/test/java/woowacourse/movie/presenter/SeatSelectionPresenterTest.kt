@@ -18,14 +18,15 @@ class SeatSelectionPresenterTest {
     private lateinit var mockView: SeatSelectionContract.View
     private lateinit var mockSeatRepository: SeatRepository
     private lateinit var presenter: SeatSelectionPresenter
-    private val ticketModel = TicketModel(
-        "해리포터",
-        LocalDate.now(),
-        LocalDateTime.now(),
-        listOf("A1", "A2", "A3"),
-        3,
-        12000,
-    )
+    private val ticketModel =
+        TicketModel(
+            "해리포터",
+            LocalDate.now(),
+            LocalDateTime.now(),
+            listOf("A1", "A2", "A3"),
+            3,
+            12000,
+        )
 
     @BeforeEach
     fun setUp() {

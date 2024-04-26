@@ -2,7 +2,6 @@ package woowacourse.movie.presentation.screen
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,7 +27,6 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
         setContentView(R.layout.activity_movie_screen)
         initView()
     }
-
 
     private fun initView() {
         movieRecyclerView = findViewById(R.id.movie_recycler_view)

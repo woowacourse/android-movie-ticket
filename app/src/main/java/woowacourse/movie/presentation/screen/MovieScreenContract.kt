@@ -14,6 +14,6 @@ interface MovieScreenContract {
 
         fun startReservation(movieId: Int)
 
-        fun requestAd(ad:(String)-> Unit)
+        fun requestAd(ad: (String) -> Unit)
     }
 }
