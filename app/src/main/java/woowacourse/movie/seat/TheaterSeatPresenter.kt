@@ -2,10 +2,14 @@ package woowacourse.movie.seat
 
 import woowacourse.movie.model.theater.Seat
 
-class TheaterSeatPresenter(private val view: TheaterSeatContract.View, private val maxSeats: Int) :
+class TheaterSeatPresenter(
+    private val view: TheaterSeatContract.View,
+    private val ticketLimit: Int
+) :
     TheaterSeatContract.Presenter {
     private val seats: MutableMap<String, Seat> = mutableMapOf()
-    private var selectedCount = 0
+    private var selectedSeats = mutableListOf<String>()
+
     init {
         val rows = mapOf(1 to "B", 2 to "B", 3 to "S", 4 to "S", 5 to "A")
         for (row in 1..5) {
@@ -19,18 +23,19 @@ class TheaterSeatPresenter(private val view: TheaterSeatContract.View, private v
 
     override fun toggleSeatSelection(seatId: String) {
         val seat = seats[seatId] ?: return
-        if (seat.chosen) {
+        if (seatId in selectedSeats) {
             seat.chosen = false
-            selectedCount--
+            selectedSeats.remove(seatId)
         } else {
-            if (selectedCount < maxSeats) {
+            if (selectedSeats.size < ticketLimit) {
                 seat.chosen = true
-                selectedCount++
+                selectedSeats.add(seatId)
             }
         }
         updateSeatBackground(seatId)
-        view.updateSeatDisplay(seat)
+        calculateAndUpdateTotalPrice()
     }
+
 
     override fun updateSeatBackground(seatId: String) {
         val seat = seats[seatId] ?: return
@@ -50,5 +55,12 @@ class TheaterSeatPresenter(private val view: TheaterSeatContract.View, private v
         if (seats.values.any { it.chosen }) {
             view.showConfirmationDialog()
         }
+    }
+
+    private fun calculateAndUpdateTotalPrice() {
+        val totalPrice = selectedSeats.sumOf { seatId ->
+            seats[seatId]?.price ?: 0
+        }
+        view.updateTotalPrice(totalPrice)
     }
 }

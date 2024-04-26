@@ -163,6 +163,7 @@
             android:paddingHorizontal="19dp">
 
             <TextView
+                android:id="@+id/screen_movie_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -171,6 +172,7 @@
                 tools:text="Movie Title Default"/>
 
             <TextView
+                android:id="@+id/total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"

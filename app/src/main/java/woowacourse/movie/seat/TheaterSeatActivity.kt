@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.Seat
 
-@Suppress("DEPRECATION")
 @SuppressLint("DiscouragedApi")
 class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     private lateinit var presenter: TheaterSeatPresenter
@@ -58,5 +58,9 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
         val button = findViewById<Button>(buttonId)
         val colorInt = Color.parseColor(color)
         button.setBackgroundColor(colorInt)
+    }
+
+    override fun updateTotalPrice(price: Int) {
+        findViewById<TextView>(R.id.total_price).text = "Total Price: $price"
     }
 }

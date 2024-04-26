@@ -5,7 +5,7 @@ import woowacourse.movie.model.theater.Seat
 interface TheaterSeatContract {
     interface View {
         fun updateSeatDisplay(seat: Seat)
-
+        fun updateTotalPrice(price: Int)
         fun showConfirmationDialog()
         fun setSeatBackground(seatId: String, color: String)
     }
