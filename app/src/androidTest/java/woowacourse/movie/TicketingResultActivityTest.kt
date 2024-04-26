@@ -19,7 +19,7 @@ class TicketingResultActivityTest {
         onView(withId(R.id.tv_guide)).check(matches(withText(R.string.text_guide)))
         onView(withId(R.id.tv_movie_title)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_movie_date)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_number_of_people)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_ticket_count)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_price)).check(matches(isDisplayed()))
     }
 }

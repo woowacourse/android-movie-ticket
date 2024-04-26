@@ -17,7 +17,10 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.SeatClass
+import woowacourse.movie.model.Ticket
 import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_COUNT
+import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_SCREENING_DATE_TIME
 import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
@@ -38,7 +41,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val ticketCount = intent.getIntExtra(EXTRA_COUNT, EXTRA_DEFAULT_TICKET_COUNT)
-        presenter = SeatSelectionPresenter(this, movieId, ticketCount)
+        val screeningDateTime = intent.getStringExtra(EXTRA_SCREENING_DATE_TIME) ?: ""
+        presenter = SeatSelectionPresenter(this, movieId, ticketCount, screeningDateTime)
         presenter.initializeViewData()
         initializeCompleteButton()
     }
@@ -98,9 +102,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         completeButton.isEnabled = isEnabled
     }
 
-    override fun navigate(movieId: Int) {
+    override fun navigate(ticket: Ticket) {
         Intent(this, TicketingResultActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_ID, movieId)
+            putExtra(EXTRA_MOVIE_TICKET, ticket)
             startActivity(this)
         }
     }
@@ -111,7 +115,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     companion object {
-        const val EXTRA_MOVIE_ID = "movie_id"
+        const val EXTRA_MOVIE_TICKET = "movie_ticket"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
         const val EXTRA_DEFAULT_TICKET_COUNT = -1
     }

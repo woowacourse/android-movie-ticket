@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.seatSelection
 
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
+import woowacourse.movie.model.Ticket
 
 interface SeatSelectionContract {
     interface View {
@@ -19,7 +20,7 @@ interface SeatSelectionContract {
 
         fun setButtonEnabledState(isEnabled: Boolean)
 
-        fun navigate(movieId: Int)
+        fun navigate(ticket: Ticket)
     }
 
     interface Presenter {

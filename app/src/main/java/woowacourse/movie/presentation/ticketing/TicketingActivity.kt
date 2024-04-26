@@ -23,6 +23,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
     private val movieTimeSpinner by lazy { findViewById<Spinner>(R.id.sp_time_slot) }
+    private val movieDateSpinner by lazy { findViewById<Spinner>(R.id.sp_date) }
     private val movieTimeAdapter: ArrayAdapter<String> by lazy {
         ArrayAdapter(
             this,
@@ -65,7 +66,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         screeningDates: List<LocalDate>,
         listener: AdapterView.OnItemSelectedListener,
     ) {
-        val movieDateSpinner = findViewById<Spinner>(R.id.sp_date)
         val movieDateAdapter =
             ArrayAdapter(
                 this,
@@ -85,11 +85,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(KEY_COUNT, countText.text.toString().toInt())
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) finish()
-        return super.onOptionsItemSelected(item)
     }
 
     override fun assignInitialView(
@@ -124,6 +119,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         Intent(this, SeatSelectionActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, movieId)
             putExtra(EXTRA_COUNT, count)
+            putExtra(EXTRA_SCREENING_DATE_TIME, "${movieDateSpinner.selectedItem} ${movieTimeSpinner.selectedItem}")
             startActivity(this)
         }
     }
@@ -132,10 +128,15 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
+    }
+
     companion object {
         const val EXTRA_MOVIE_ID = "movie_id"
-        const val EXTRA_COUNT = "number_of_people"
-        const val EXTRA_TOTAL_PRICE = "total_price"
+        const val EXTRA_COUNT = "ticket_count"
+        const val EXTRA_SCREENING_DATE_TIME = "screening_date_time"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
         const val KEY_COUNT = "count"
     }
