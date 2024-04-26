@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="seat_background">#FFEAEAEA</color>
     <color name="seat_screen_background">#FF494949</color>
-    <color name="seat_confirm_background">#FFB7B7B7</color>
+    <color name="seat_un_confirm_background">#FFB7B7B7</color>
+    <color name="seat_confirm_background">#FF6200EE</color>
     <color name="seat_money_text">#FF727272</color>
     <color name="seat_a_text_color">#FF8E13EF</color>
     <color name="seat_s_text_color">#FF19D358</color>

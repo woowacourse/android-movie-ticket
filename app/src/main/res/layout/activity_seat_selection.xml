@@ -227,6 +227,7 @@
             android:paddingHorizontal="19dp">
 
             <TextView
+                android:id="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -234,13 +235,26 @@
                 android:textStyle="bold"
                 tools:text="해리 포터와 마법사의 돌" />
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/seat_money_text"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="0원" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/movie_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/seat_money_text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/seat_money_text"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="원" />
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -249,7 +263,7 @@
             android:layout_height="wrap_content"
             android:width="88dp"
             android:height="78dp"
-            android:background="@color/seat_confirm_background"
+            android:background="@color/seat_un_confirm_background"
             android:gravity="center"
             android:text="확인"
             android:textAlignment="center"
