@@ -1,5 +1,6 @@
 package woowacourse.movie.movieDetail
 
+import woowacourse.movie.seat.TheaterSeatActivity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieInfo
-import woowacourse.movie.seat.TheaterSeatActivity
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private var ticketNum = 1

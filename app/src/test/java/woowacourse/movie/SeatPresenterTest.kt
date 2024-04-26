@@ -34,7 +34,6 @@ class SeatPresenterTest {
 
     @Test
     fun `선택된 좌석 수와 최종 가격 반영 테스트`() {
-        val selectedSeats = listOf("A1", "B2")
         every { presenter.calculateTotalPrice() } returns 25000
 
         val totalPrice = presenter.calculateTotalPrice()

@@ -7,9 +7,7 @@ interface TheaterSeatContract {
         fun updateSeatDisplay(seat: Seat)
 
         fun showConfirmationDialog()
-        fun setSeatBackground(seatId: String, color: String) {
-            TODO("Not yet implemented")
-        }
+        fun setSeatBackground(seatId: String, color: String)
     }
 
     interface Presenter {

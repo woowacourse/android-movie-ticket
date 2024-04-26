@@ -32,18 +32,22 @@
         <TableRow>
 
             <Button
+                android:id="@+id/A1"
                 style="@style/RowABStyle"
                 android:text="A1" />
 
             <Button
+                android:id="@+id/A2"
                 style="@style/RowABStyle"
                 android:text="A2" />
 
             <Button
+                android:id="@+id/A3"
                 style="@style/RowABStyle"
                 android:text="A3" />
 
             <Button
+                android:id="@+id/A4"
                 style="@style/RowABStyle"
                 android:text="A4" />
         </TableRow>
@@ -51,18 +55,22 @@
         <TableRow>
 
             <Button
+                android:id="@+id/B1"
                 style="@style/RowABStyle"
                 android:text="B1" />
 
             <Button
+                android:id="@+id/B2"
                 style="@style/RowABStyle"
                 android:text="B2" />
 
             <Button
+                android:id="@+id/B3"
                 style="@style/RowABStyle"
                 android:text="B3" />
 
             <Button
+                android:id="@+id/B4"
                 style="@style/RowABStyle"
                 android:text="B4" />
         </TableRow>
@@ -70,18 +78,22 @@
         <TableRow>
 
             <Button
+                android:id="@+id/C1"
                 style="@style/RowCDStyle"
                 android:text="C1" />
 
             <Button
+                android:id="@+id/C2"
                 style="@style/RowCDStyle"
                 android:text="C2" />
 
             <Button
+                android:id="@+id/C3"
                 style="@style/RowCDStyle"
                 android:text="C3" />
 
             <Button
+                android:id="@+id/C4"
                 style="@style/RowCDStyle"
                 android:text="C4" />
         </TableRow>
@@ -89,18 +101,22 @@
         <TableRow>
 
             <Button
+                android:id="@+id/D1"
                 style="@style/RowCDStyle"
                 android:text="D1" />
 
             <Button
+                android:id="@+id/D2"
                 style="@style/RowCDStyle"
                 android:text="D2" />
 
             <Button
+                android:id="@+id/D3"
                 style="@style/RowCDStyle"
                 android:text="D3" />
 
             <Button
+                android:id="@+id/D4"
                 style="@style/RowCDStyle"
                 android:text="D4" />
         </TableRow>
@@ -108,18 +124,22 @@
         <TableRow>
 
             <Button
+                android:id="@+id/E1"
                 style="@style/RowEStyle"
                 android:text="E1" />
 
             <Button
+                android:id="@+id/E2"
                 style="@style/RowEStyle"
                 android:text="E2" />
 
             <Button
+                android:id="@+id/E3"
                 style="@style/RowEStyle"
                 android:text="E3" />
 
             <Button
+                android:id="@+id/E4"
                 style="@style/RowEStyle"
                 android:text="E4" />
         </TableRow>
