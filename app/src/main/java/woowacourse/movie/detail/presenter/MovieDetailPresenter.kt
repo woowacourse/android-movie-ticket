@@ -12,8 +12,8 @@ class MovieDetailPresenter(
     private val position: Int?,
     count: Int?,
 ) : MovieDetailContract.Presenter {
-    private var movieRepository: MovieRepository = MovieRepository()
-    private var movieCount =
+    private val movieRepository: MovieRepository = MovieRepository()
+    private var movieCount: MovieCount =
         count?.let { MovieCount(count) } ?: MovieCount()
 
     override fun loadMovieDetail(id: Long) {
@@ -40,12 +40,12 @@ class MovieDetailPresenter(
     }
 
     override fun reserveMovie(
-        title: String,
+        id: Long,
         date: String,
         time: String,
     ) {
         movieDetailContractView.navigateToSeatSelectionView(
-            title,
+            id,
             date,
             time,
             movieCount.count,

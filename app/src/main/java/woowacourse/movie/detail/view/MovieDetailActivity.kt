@@ -25,7 +25,6 @@ import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
-import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TITLE
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -74,12 +73,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
+        if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
 
@@ -104,7 +98,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             }
             seatSelectionButton.setOnClickListener {
                 movieDetailPresenter.reserveMovie(
-                    movie.title,
+                    movie.id,
                     dateSpinner.selectedItem.toString(),
                     runningTimeSpinner.selectedItem.toString(),
                 )
@@ -161,13 +155,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     override fun navigateToSeatSelectionView(
-        title: String,
+        id: Long,
         date: String,
         time: String,
         count: Int,
     ) {
         Intent(this, MovieSeatSelectionActivity::class.java).apply {
-            putExtra(KEY_MOVIE_TITLE, title)
+            putExtra(KEY_MOVIE_ID, id)
             putExtra(KEY_MOVIE_DATE, date)
             putExtra(KEY_MOVIE_TIME, time)
             putExtra(KEY_MOVIE_COUNT, count)

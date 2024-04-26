@@ -1,7 +1,6 @@
 package woowacourse.movie.seatselection.view
 
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -13,26 +12,32 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieGrade.Companion.judgeGradeByRow
-import woowacourse.movie.model.MovieSeats
+import woowacourse.movie.model.MovieSeat
+import woowacourse.movie.model.MovieSelectedSeats
 import woowacourse.movie.result.view.MovieResultActivity
-import woowacourse.movie.seatselection.presenter.contract.MovieSeatContract
+import woowacourse.movie.seatselection.presenter.MovieSeatSelectionPresenter
+import woowacourse.movie.seatselection.presenter.contract.MovieSeatSelectionContract
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_COUNT
+import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_SEATS
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
-import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TITLE
 import java.text.DecimalFormat
 
-class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatContract.View {
-    private lateinit var table: TableLayout
+class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContract.View {
     private lateinit var seatTitle: TextView
     private lateinit var seatPrice: TextView
     private lateinit var completeButton: Button
+    private val tableSeats: List<TextView> by lazy {
+        findViewById<TableLayout>(R.id.seatTable).children.filterIsInstance<TableRow>()
+            .flatMap { tableRow ->
+                tableRow.children.filterIsInstance<TextView>().toList()
+            }.toList()
+    }
 
-    private var count: Int? = 0
-    private val seats: MutableList<String> = mutableListOf()
+    private lateinit var seatSelectionPresenter: MovieSeatSelectionPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,81 +45,92 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatContract.View {
         setUpViewById()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        seatTitle.text = intent?.getStringExtra(KEY_MOVIE_TITLE)
-        count = intent?.getIntExtra(KEY_MOVIE_COUNT, INVALID_VALUE_MOVIE_COUNT)
-        var totalPrice = 0
-        var selectedCount = 0
+        seatSelectionPresenter =
+            MovieSeatSelectionPresenter(
+                this,
+                intent?.getIntExtra(KEY_MOVIE_COUNT, INVALID_VALUE_MOVIE_COUNT)
+                    ?: INVALID_VALUE_MOVIE_COUNT,
+            )
 
-        val tableItems =
-            table.children.filterIsInstance<TableRow>().flatMap { tableRow ->
-                tableRow.children.filterIsInstance<TextView>().toList()
-            }.toList()
+        seatSelectionPresenter.loadSeatSelection(
+            intent.getLongExtra(
+                KEY_MOVIE_ID,
+                INVALID_VALUE_MOVIE_ID,
+            ),
+        )
+        seatSelectionPresenter.loadTableSeats()
 
-        tableItems.forEachIndexed { index, item ->
-            val seat = MovieSeats().seats[index]
-            item.text = getString(R.string.seat, ('A'.code + seat.row).toChar(), seat.column + 1)
-            item.setTextColor(ContextCompat.getColor(this, seat.grade.color))
-
-            item.setOnClickListener {
-                val selectedColor = ContextCompat.getColor(this, R.color.selected)
-                if ((item.background as? ColorDrawable)?.color == selectedColor) {
-                    item.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
-                    seats.remove(item.text.toString())
-                    totalPrice -= judgeGradeByRow(seat.row).price
-                    selectedCount -= 1
-                } else {
-                    if (selectedCount != count) {
-                        item.setBackgroundColor(selectedColor)
-                        seats.add(item.text.toString())
-                        totalPrice += judgeGradeByRow(seat.row).price
-                        selectedCount += 1
-                    }
-                }
-                seatPrice.text = DecimalFormat("#,###").format(totalPrice)
-                completeButton.isEnabled = selectedCount == count
-            }
-        }
-
-        completeButton.setOnClickListener {
-            displayDialog()
-        }
+        setUpCompleteButton()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
+        if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setUpViewById() {
-        table = findViewById(R.id.table)
-        seatTitle = findViewById(R.id.seatTitle)
-        seatPrice = findViewById(R.id.seatPrice)
-        completeButton = findViewById(R.id.completeBtn)
+    override fun displayMovieTitle(movieTitle: String) {
+        seatTitle.text = movieTitle
+    }
+
+    override fun setUpTableSeats(baseSeats: List<MovieSeat>) {
+        tableSeats.forEachIndexed { index, view ->
+            val seat = baseSeats[index]
+            view.text = getString(R.string.seat, ('A'.code + seat.row).toChar(), seat.column + 1)
+            view.setTextColor(ContextCompat.getColor(this, seat.grade.color))
+
+            view.setOnClickListener {
+                seatSelectionPresenter.clickTableSeat(index)
+            }
+        }
+    }
+
+    override fun updateSeatBackgroundColor(
+        index: Int,
+        backgroundColor: Int,
+    ) {
+        tableSeats[index].setBackgroundColor(ContextCompat.getColor(this, backgroundColor))
     }
 
     override fun displayDialog() {
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _, _ -> navigateToResultView() }
+            .setPositiveButton("예매 완료") { _, _ -> seatSelectionPresenter.clickPositiveButton() }
             .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
             .show()
     }
 
-    override fun navigateToResultView() {
+    override fun updateSelectResult(movieSelectedSeats: MovieSelectedSeats) {
+        seatPrice.text = DecimalFormat("#,###").format(movieSelectedSeats.totalPrice())
+        completeButton.isEnabled = movieSelectedSeats.isSelectionComplete()
+    }
+
+    override fun navigateToResultView(movieSelectedSeats: MovieSelectedSeats) {
+        val seats =
+            movieSelectedSeats.selectedSeats.map { seat ->
+                ((seat.row + 'A'.code).toChar() + (seat.column + 1).toString())
+            }.joinToString(", ")
+
         Intent(this, MovieResultActivity::class.java).apply {
-            putExtra(KEY_MOVIE_TITLE, intent?.getStringExtra(KEY_MOVIE_TITLE))
+            putExtra(KEY_MOVIE_ID, intent?.getLongExtra(KEY_MOVIE_ID, INVALID_VALUE_MOVIE_ID))
             putExtra(KEY_MOVIE_DATE, intent?.getStringExtra(KEY_MOVIE_DATE))
             putExtra(KEY_MOVIE_TIME, intent?.getStringExtra(KEY_MOVIE_TIME))
-            putExtra(KEY_MOVIE_COUNT, count)
-            putExtra(KEY_MOVIE_SEATS, seats.sorted().joinToString(", "))
+            putExtra(KEY_MOVIE_COUNT, movieSelectedSeats.count)
+            putExtra(KEY_MOVIE_SEATS, seats)
             startActivity(this)
+        }
+    }
+
+    private fun setUpViewById() {
+        seatTitle = findViewById(R.id.seatTitle)
+        seatPrice = findViewById(R.id.seatPrice)
+        completeButton = findViewById(R.id.completeBtn)
+    }
+
+    private fun setUpCompleteButton() {
+        completeButton.setOnClickListener {
+            displayDialog()
         }
     }
 }

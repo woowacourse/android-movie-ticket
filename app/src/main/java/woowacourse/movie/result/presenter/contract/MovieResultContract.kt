@@ -9,7 +9,7 @@ interface MovieResultContract {
 
     interface Presenter {
         fun loadMovieTicket(
-            title: String,
+            id: Long,
             date: String,
             time: String,
             count: Int,
