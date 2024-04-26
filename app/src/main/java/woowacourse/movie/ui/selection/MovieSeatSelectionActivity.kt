@@ -103,15 +103,22 @@ class MovieSeatSelectionActivity :
         colSize: Int,
     ) {
         repeat(rowSize) { row ->
-            repeat(colSize) { col ->
-                seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-                    .filterIsInstance<TextView>().toList()[positionToIndex(row, col)].apply {
-                    text = Seat(row, col).toString()
-                    setOnClickListener {
-                        presenter.selectSeat(row, col)
-                        presenter.loadTotalSeatAmount()
-                        presenter.updateSelectCompletion()
-                    }
+            makeSeats(colSize, row)
+        }
+    }
+
+    private fun makeSeats(
+        colSize: Int,
+        row: Int,
+    ) {
+        repeat(colSize) { col ->
+            seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
+                .filterIsInstance<TextView>().toList()[positionToIndex(row, col)].apply {
+                text = Seat(row, col).toString()
+                setOnClickListener {
+                    presenter.selectSeat(row, col)
+                    presenter.loadTotalSeatAmount()
+                    presenter.updateSelectCompletion()
                 }
             }
         }
@@ -151,10 +158,10 @@ class MovieSeatSelectionActivity :
         if (isComplete) {
             confirmButton.isEnabled = true
             confirmButton.isClickable = true
-        } else {
-            confirmButton.isEnabled = false
-            confirmButton.isClickable = false
+            return
         }
+        confirmButton.isEnabled = false
+        confirmButton.isClickable = false
     }
 
     override fun moveMovieReservationCompletePage(ticketId: Long) {
