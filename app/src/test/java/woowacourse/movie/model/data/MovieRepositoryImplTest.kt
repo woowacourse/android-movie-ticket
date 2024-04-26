@@ -3,8 +3,11 @@ package woowacourse.movie.model.data
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.movie
-import java.time.LocalDate
+import woowacourse.movie.model.data.dto.nullMovie
+import woowacourse.movie.model.equalMovie
+import woowacourse.movie.model.movie1
+import woowacourse.movie.model.movie2
+import woowacourse.movie.model.movie3
 
 class MovieRepositoryImplTest {
     @BeforeEach
@@ -14,27 +17,33 @@ class MovieRepositoryImplTest {
 
     @Test
     fun `영화_정보를_저장한다`() {
+        val id = MovieRepositoryImpl.save(movie1)
+        val actual = MovieRepositoryImpl.find(id)
+        equalMovie(actual, movie1)
+    }
+
+    @Test
+    fun `여러_영화_정보를_저장한다`() {
         // given
+        val movies = listOf(movie1, movie2, movie3)
 
         // when
-        val id = MovieRepositoryImpl.save(movie)
-        val actual = MovieRepositoryImpl.find(id)
+        MovieRepositoryImpl.saveAll(movies)
+        val actual = MovieRepositoryImpl.findAll()
 
         // then
-        assertThat(actual.posterImageId).isEqualTo(0)
-        assertThat(actual.title).isEqualTo("해리 포터와 마법사의 돌")
-        assertThat(actual.startScreeningDate).isEqualTo(LocalDate.of(2024, 3, 1))
-        assertThat(actual.endScreeningDate).isEqualTo(LocalDate.of(2024, 3, 20))
-        assertThat(actual.runningTime).isEqualTo(152)
-        assertThat(actual.synopsis).isEqualTo("해리")
+        assertThat(actual.size).isEqualTo(3)
+        equalMovie(actual[0], movies[0])
+        equalMovie(actual[1], movies[1])
+        equalMovie(actual[2], movies[2])
     }
 
     @Test
     fun `특정 id의 영화 정보를 가져온다`() {
         // given
-        MovieRepositoryImpl.save(movie.copy(title = "1"))
-        MovieRepositoryImpl.save(movie.copy(title = "2"))
-        val id = MovieRepositoryImpl.save(movie.copy(title = "3"))
+        MovieRepositoryImpl.save(movie1.copy(title = "1"))
+        MovieRepositoryImpl.save(movie1.copy(title = "2"))
+        val id = MovieRepositoryImpl.save(movie1.copy(title = "3"))
 
         // when
         val actual = MovieRepositoryImpl.find(id)
@@ -45,26 +54,16 @@ class MovieRepositoryImplTest {
 
     @Test
     fun `유효하지 않은 id인 경우 빈 영화 정보를 가져온다`() {
-        // given
-
-        // when
         val actual = MovieRepositoryImpl.find(-1)
-
-        // then
-        assertThat(actual.posterImageId).isEqualTo(0)
-        assertThat(actual.title).isEqualTo("오류가 발생했습니다.")
-        assertThat(actual.startScreeningDate).isEqualTo(LocalDate.of(1, 1, 1))
-        assertThat(actual.endScreeningDate).isEqualTo(LocalDate.of(1, 1, 1))
-        assertThat(actual.runningTime).isEqualTo(0)
-        assertThat(actual.synopsis).isEmpty()
+        equalMovie(actual, nullMovie)
     }
 
     @Test
     fun `모든 영화 정보를 가져온다`() {
         // given
-        MovieRepositoryImpl.save(movie.copy(title = "1"))
-        MovieRepositoryImpl.save(movie.copy(title = "2"))
-        MovieRepositoryImpl.save(movie.copy(title = "3"))
+        MovieRepositoryImpl.save(movie1.copy(title = "1"))
+        MovieRepositoryImpl.save(movie1.copy(title = "2"))
+        MovieRepositoryImpl.save(movie1.copy(title = "3"))
 
         // when
         val actual = MovieRepositoryImpl.findAll()
@@ -79,9 +78,9 @@ class MovieRepositoryImplTest {
     @Test
     fun `모든 영화 정보를 삭제한다`() {
         // given
-        MovieRepositoryImpl.save(movie.copy(title = "1")) // id : 0
-        MovieRepositoryImpl.save(movie.copy(title = "2")) // id : 1
-        MovieRepositoryImpl.save(movie.copy(title = "3")) // id : 2
+        MovieRepositoryImpl.save(movie1.copy(title = "1")) // id : 0
+        MovieRepositoryImpl.save(movie1.copy(title = "2")) // id : 1
+        MovieRepositoryImpl.save(movie1.copy(title = "3")) // id : 2
 
         // when
         MovieRepositoryImpl.deleteAll()
