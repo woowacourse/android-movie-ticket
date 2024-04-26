@@ -3,7 +3,7 @@ package woowacourse.movie.model.movie
 class ReservationDetail(private val reservationCount: Int) {
     private val _selectedSeat = mutableListOf<Seat>()
     val selectedSeat: List<Seat>
-        get() = _selectedSeat.toList()
+        get() = _selectedSeat.toList().sortedWith(compareBy({ it.row }, { it.col }))
 
     fun addSeat(
         row: Int,
