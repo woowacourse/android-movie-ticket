@@ -2,7 +2,7 @@ package woowacourse.movie.model.seat
 
 import woowacourse.movie.model.reservation.ReservationAmount
 
-enum class SeatRating(val rows: List<Int>, val amount: ReservationAmount) {
+enum class SeatRating(private val rows: List<Int>, val amount: ReservationAmount) {
     B(listOf(1, 2), ReservationAmount(10000)),
     S(listOf(3, 4), ReservationAmount(15000)),
     A(listOf(5), ReservationAmount(12000)),
