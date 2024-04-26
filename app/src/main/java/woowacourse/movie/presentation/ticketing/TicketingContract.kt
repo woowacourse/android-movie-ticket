@@ -17,7 +17,10 @@ interface TicketingContract {
             listener: OnItemSelectedListener,
         )
 
-        fun setUpTimeSpinners(screeningTimes: List<LocalTime>)
+        fun setUpTimeSpinners(
+            screeningTimes: List<LocalTime>,
+            savedTimePosition: Int?,
+        )
 
         fun updateCount(count: Int)
 

@@ -3,6 +3,7 @@ package woowacourse.movie.presentation.ticketing
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -20,12 +21,18 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View {
-    private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
-    private val movieTimeSpinner by lazy { findViewById<Spinner>(R.id.sp_time_slot) }
+    private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private val movieDateSpinner by lazy { findViewById<Spinner>(R.id.sp_date) }
-    private val movieTimeAdapter: ArrayAdapter<String> by lazy {
+    private val movieDateAdapter: ArrayAdapter<LocalDate> by lazy {
         ArrayAdapter(
+            this,
+            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+        )
+    }
+    private val movieTimeSpinner by lazy { findViewById<Spinner>(R.id.sp_time_slot) }
+    private val movieTimeAdapter: ArrayAdapter<String> by lazy {
+        ArrayAdapter<String>(
             this,
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
         )
@@ -38,8 +45,9 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
 
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
         val savedCount = savedInstanceState?.getInt(KEY_COUNT)
+        val selectedTimePosition = savedInstanceState?.getInt(KEY_SELECTED_TIME_POSITION)
 
-        ticketingPresenter = TicketingPresenter(this, movieId, savedCount)
+        ticketingPresenter = TicketingPresenter(this, movieId, savedCount, selectedTimePosition)
         ticketingPresenter.assignInitialView()
         initializeButtons()
     }
@@ -66,25 +74,19 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         screeningDates: List<LocalDate>,
         listener: AdapterView.OnItemSelectedListener,
     ) {
-        val movieDateAdapter =
-            ArrayAdapter(
-                this,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                screeningDates,
-            )
+        movieDateAdapter.addAll(screeningDates)
         movieDateSpinner.adapter = movieDateAdapter
         movieDateSpinner.onItemSelectedListener = listener
     }
 
-    override fun setUpTimeSpinners(screeningTimes: List<LocalTime>) {
+    override fun setUpTimeSpinners(
+        screeningTimes: List<LocalTime>,
+        savedTimePosition: Int?,
+    ) {
         movieTimeAdapter.clear()
         movieTimeAdapter.addAll(screeningTimes.map { it.format(DateTimeFormatter.ofPattern("kk:mm")) })
         movieTimeSpinner.adapter = movieTimeAdapter
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(KEY_COUNT, countText.text.toString().toInt())
+        savedTimePosition?.let { movieTimeSpinner.setSelection(it) }
     }
 
     override fun assignInitialView(
@@ -128,6 +130,12 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(KEY_COUNT, countText.text.toString().toInt())
+        outState.putInt(KEY_SELECTED_TIME_POSITION, movieTimeSpinner.selectedItemPosition)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
@@ -139,5 +147,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         const val EXTRA_SCREENING_DATE_TIME = "screening_date_time"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
         const val KEY_COUNT = "count"
+        const val KEY_SELECTED_TIME_POSITION = "selected_time_position"
     }
 }

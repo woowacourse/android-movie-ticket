@@ -12,6 +12,7 @@ class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
     private val movieId: Int,
     savedCount: Int?,
+    private val savedTimePosition: Int?,
 ) : TicketingContract.Presenter, AdapterView.OnItemSelectedListener {
     private val movieRepository = MovieRepository()
     private val count = savedCount?.let { Count(it) } ?: Count()
@@ -56,7 +57,7 @@ class TicketingPresenter(
             ScreeningTimeSchedule.generateAvailableTimeSlots(
                 LocalDate.parse(selected, formatter),
             )
-        ticketingContractView.setUpTimeSpinners(timeSlots)
+        ticketingContractView.setUpTimeSpinners(timeSlots, savedTimePosition)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
