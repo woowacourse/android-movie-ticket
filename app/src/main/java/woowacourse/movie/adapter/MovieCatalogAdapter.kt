@@ -18,6 +18,20 @@ class MovieCatalogAdapter(
     private val movies: List<Movie>,
     private val sendMovieId: (Int) -> Unit,
 ) : BaseAdapter() {
+    inner class MovieViewHolder(view: View, movieId: Int) {
+        private val reservationButton: Button = view.findViewById(R.id.item_movie_catalog_button_reservation)
+        val title: TextView = view.findViewById(R.id.item_movie_catalog_text_view_title)
+        val poster: ImageView = view.findViewById(R.id.item_movie_catalog_image_view_poster)
+        val screeningDate: TextView = view.findViewById(R.id.item_movie_catalog_text_view_screening_date)
+        val runningTime: TextView = view.findViewById(R.id.item_movie_catalog_text_view_running_time)
+
+        init {
+            reservationButton.setOnClickListener {
+                sendMovieId(movieId)
+            }
+        }
+    }
+
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Any = movies[position]
@@ -26,26 +40,28 @@ class MovieCatalogAdapter(
 
     override fun getView(
         position: Int,
-        view: View?,
+        convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val convertView: View = view ?: LayoutInflater.from(context).inflate(R.layout.item_movie_catalog, null)
-        val title = convertView.findViewById<TextView>(R.id.item_movie_catalog_text_view_title)
-        val poster = convertView.findViewById<ImageView>(R.id.item_movie_catalog_image_view_poster)
-        val screeningDate = convertView.findViewById<TextView>(R.id.item_movie_catalog_text_view_screening_date)
-        val runningTime = convertView.findViewById<TextView>(R.id.item_movie_catalog_text_view_running_time)
-        val reservationButton = convertView.findViewById<Button>(R.id.item_movie_catalog_button_reservation)
-
+        val view: View
+        val movieViewHolder: MovieViewHolder
         val item: Movie = movies[position]
-        title.text = item.title
-        poster.setImageResource(item.poster)
-        screeningDate.text = convertDateFormat(item.firstScreeningDate, item.lastScreeningDate)
-        runningTime.text = item.runningTime
-        reservationButton.setOnClickListener {
-            sendMovieId(item.id)
+
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_movie_catalog, null)
+            movieViewHolder = MovieViewHolder(view, item.id)
+            view.tag = movieViewHolder
+        } else {
+            view = convertView
+            movieViewHolder = view.tag as MovieViewHolder
         }
 
-        return convertView
+        movieViewHolder.title.text = item.title
+        movieViewHolder.poster.setImageResource(item.poster)
+        movieViewHolder.screeningDate.text = convertDateFormat(item.firstScreeningDate, item.lastScreeningDate)
+        movieViewHolder.runningTime.text = item.runningTime
+
+        return view
     }
 
     private fun convertDateFormat(
