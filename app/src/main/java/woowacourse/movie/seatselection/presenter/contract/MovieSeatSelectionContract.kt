@@ -22,7 +22,7 @@ interface MovieSeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadSeatSelection(id: Long)
+        fun loadMovieTitle(id: Long)
 
         fun loadTableSeats()
 

@@ -1,6 +1,6 @@
 package woowacourse.movie.result.presenter
 
-import woowacourse.movie.data.MovieRepository
+import woowacourse.movie.data.MovieRepository.getMovieById
 import woowacourse.movie.model.MovieSeat
 import woowacourse.movie.model.MovieSelectedSeats
 import woowacourse.movie.model.MovieTicket
@@ -10,8 +10,6 @@ import java.time.LocalTime
 
 class MovieResultPresenter(private val movieResultContractView: MovieResultContract.View) :
     MovieResultContract.Presenter {
-    private val movieRepository: MovieRepository = MovieRepository()
-
     override fun loadMovieTicket(
         id: Long,
         date: String,
@@ -19,7 +17,7 @@ class MovieResultPresenter(private val movieResultContractView: MovieResultContr
         count: Int,
         seats: String,
     ) {
-        val movieData = movieRepository.getMovieById(id)
+        val movieData = getMovieById(id)
 
         val movieSelectedSeats = MovieSelectedSeats(count)
         seats.split(", ").forEach { seat ->

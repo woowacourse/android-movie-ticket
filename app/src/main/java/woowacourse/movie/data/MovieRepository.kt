@@ -5,8 +5,8 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
 import java.time.LocalDate
 
-class MovieRepository {
-    private var movies =
+object MovieRepository {
+    private val movies =
         mutableListOf(
             Movie(
                 id = 0,

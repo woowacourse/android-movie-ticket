@@ -41,6 +41,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var seatSelectionButton: Button
     private lateinit var dateSpinner: Spinner
     private lateinit var runningTimeSpinner: Spinner
+    var rotate = false
 
     private lateinit var movieDetailPresenter: MovieDetailPresenter
 

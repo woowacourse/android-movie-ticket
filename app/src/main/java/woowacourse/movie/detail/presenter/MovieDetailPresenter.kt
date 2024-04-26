@@ -1,6 +1,6 @@
 package woowacourse.movie.detail.presenter
 
-import woowacourse.movie.data.MovieRepository
+import woowacourse.movie.data.MovieRepository.getMovieById
 import woowacourse.movie.detail.presenter.contract.MovieDetailContract
 import woowacourse.movie.model.MovieCount
 import woowacourse.movie.model.MovieDate.Companion.isWeekend
@@ -12,12 +12,11 @@ class MovieDetailPresenter(
     private val position: Int?,
     count: Int?,
 ) : MovieDetailContract.Presenter {
-    private val movieRepository: MovieRepository = MovieRepository()
     private var movieCount: MovieCount =
         count?.let { MovieCount(count) } ?: MovieCount()
 
     override fun loadMovieDetail(id: Long) {
-        val movieData = movieRepository.getMovieById(id)
+        val movieData = getMovieById(id)
         movieData?.let { movie ->
             movieDetailContractView.displayMovieDetail(movie, movieCount)
             movieDetailContractView.setUpDateSpinner(movie.date)

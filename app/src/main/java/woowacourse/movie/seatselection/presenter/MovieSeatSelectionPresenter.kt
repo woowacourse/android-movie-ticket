@@ -1,7 +1,7 @@
 package woowacourse.movie.seatselection.presenter
 
 import woowacourse.movie.R
-import woowacourse.movie.data.MovieRepository
+import woowacourse.movie.data.MovieRepository.getMovieById
 import woowacourse.movie.model.MovieSelectedSeats
 import woowacourse.movie.seatselection.presenter.contract.MovieSeatSelectionContract
 
@@ -9,12 +9,10 @@ class MovieSeatSelectionPresenter(
     private val movieSeatSelectionContractView: MovieSeatSelectionContract.View,
     count: Int,
 ) : MovieSeatSelectionContract.Presenter {
-    private val movieRepository: MovieRepository = MovieRepository()
-
     private val movieSelectedSeats: MovieSelectedSeats = MovieSelectedSeats(count)
 
-    override fun loadSeatSelection(id: Long) {
-        val movieData = movieRepository.getMovieById(id)
+    override fun loadMovieTitle(id: Long) {
+        val movieData = getMovieById(id)
         movieData?.let { movie ->
             movieSeatSelectionContractView.displayMovieTitle(movieData.title)
         }
