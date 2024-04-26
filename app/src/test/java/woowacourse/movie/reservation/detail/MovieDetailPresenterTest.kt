@@ -1,6 +1,5 @@
 package woowacourse.movie.reservation.detail
 
-import io.kotest.assertions.any
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -8,17 +7,19 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.detail.MovieDetailContract
+import woowacourse.movie.detail.MovieDetailPresenter
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 
-class ReservationDetailPresenterTest {
-    private lateinit var view: ReservationDetailContract.View
-    private lateinit var presenter: ReservationDetailContract.Presenter
+class MovieDetailPresenterTest {
+    private lateinit var view: MovieDetailContract.View
+    private lateinit var presenter: MovieDetailContract.Presenter
 
     @BeforeEach
     fun setUp() {
-        view = mockk<ReservationDetailContract.View>()
-        presenter = ReservationDetailPresenter(view, 0, Ticket(10))
+        view = mockk<MovieDetailContract.View>()
+        presenter = MovieDetailPresenter(view, 0, Ticket(10))
     }
 
     @Test
@@ -52,7 +53,7 @@ class ReservationDetailPresenterTest {
     fun `인원이 1일 때 Count를 줄이면 에러 토스트가 나온다`() {
         every { view.showErrorToast() } just runs
 
-        presenter = ReservationDetailPresenter(view, 0, Ticket(1))
+        presenter = MovieDetailPresenter(view, 0, Ticket(1))
 
         presenter.decreaseCount()
 
@@ -63,7 +64,7 @@ class ReservationDetailPresenterTest {
     fun `인원이 100일 때 Count를 늘리면 에러 토스트가 나온다`() {
         every { view.showErrorToast() } just runs
 
-        presenter = ReservationDetailPresenter(view, 0, Ticket(100))
+        presenter = MovieDetailPresenter(view, 0, Ticket(100))
 
         presenter.increaseCount()
 

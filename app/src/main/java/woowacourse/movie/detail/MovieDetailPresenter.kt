@@ -1,4 +1,4 @@
-package woowacourse.movie.reservation.detail
+package woowacourse.movie.detail
 
 import woowacourse.movie.db.Movies
 import woowacourse.movie.model.ChangeTicketCountResult
@@ -7,11 +7,11 @@ import woowacourse.movie.model.OutOfRange
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 
-class ReservationDetailPresenter(
-    private val view: ReservationDetailContract.View,
+class MovieDetailPresenter(
+    private val view: MovieDetailContract.View,
     private val movieId: Int,
     private val ticket: Ticket = Ticket(),
-) : ReservationDetailContract.Presenter {
+) : MovieDetailContract.Presenter {
     override fun loadMovie() {
         view.showMovieInformation(Movies.obtainMovie(movieId))
     }

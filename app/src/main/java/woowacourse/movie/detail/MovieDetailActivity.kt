@@ -1,4 +1,4 @@
-package woowacourse.movie.reservation.detail
+package woowacourse.movie.detail
 
 import android.content.Context
 import android.content.Intent
@@ -14,11 +14,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.reservation.finished.ReservationFinishedActivity
+import woowacourse.movie.reservation.ReservationFinishedActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_detail_title) }
     private val screeningDate: TextView by lazy { findViewById(R.id.text_view_reservation_screening_date) }
     private val runningTime: TextView by lazy { findViewById(R.id.text_view_reservation_running_time) }
@@ -31,7 +31,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
     private val screeningDatesSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_date) }
     private val screeningTimeSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_detail_screening_time) }
 
-    private lateinit var presenter: ReservationDetailPresenter
+    private lateinit var presenter: MovieDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
 
-        presenter = ReservationDetailPresenter(this, movieId)
+        presenter = MovieDetailPresenter(this, movieId)
         presenter.loadMovie()
         presenter.loadScreeningDates()
 
@@ -143,7 +143,7 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             context: Context,
             movieId: Int,
         ): Intent {
-            return Intent(context, ReservationDetailActivity::class.java).also {
+            return Intent(context, MovieDetailActivity::class.java).also {
                 it.putExtra(MOVIE_ID, movieId)
             }
         }

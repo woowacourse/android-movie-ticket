@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieCatalogAdapter
 import woowacourse.movie.model.Movie
-import woowacourse.movie.reservation.detail.ReservationDetailActivity
+import woowacourse.movie.detail.MovieDetailActivity
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
     private val movieList: ListView by lazy { findViewById(R.id.list_view_reservation_home) }
@@ -28,6 +28,6 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     override fun moveToReservationDetail(movieId: Int) {
-        startActivity(ReservationDetailActivity.getIntent(this, movieId))
+        startActivity(MovieDetailActivity.getIntent(this, movieId))
     }
 }

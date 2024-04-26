@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.reservation.finished.ReservationFinishedActivity
 
 class ReservationFinishedActivityTest {
     private lateinit var intent: Intent

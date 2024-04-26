@@ -11,12 +11,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.reservation.detail.ReservationDetailActivity
+import woowacourse.movie.detail.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
-class ReservationDetailActivityTest {
+class MovieDetailActivityTest {
     @get:Rule
-    var activityRule = ActivityScenarioRule(ReservationDetailActivity::class.java)
+    var activityRule = ActivityScenarioRule(MovieDetailActivity::class.java)
 
     @Test
     fun `영화_티켓_디폴트_값은_1이다`() {

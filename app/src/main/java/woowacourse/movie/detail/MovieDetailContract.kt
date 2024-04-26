@@ -1,9 +1,9 @@
-package woowacourse.movie.reservation.detail
+package woowacourse.movie.detail
 
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
-interface ReservationDetailContract {
+interface MovieDetailContract {
     interface View {
         fun showMovieInformation(movie: Movie)
 
