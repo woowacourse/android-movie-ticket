@@ -32,7 +32,7 @@ class MovieViewHolder(
         title.text = movie.title
         val imageResource = movie.imageName.toDrawableIdByName(context)
         imageResource?.let { poster.setImageResource(it) }
-        screeningDate.text = movie.screeningDate.toCustomString()
+        screeningDate.text = "${movie.screeningStartDate.toCustomString()} ~ ${movie.screeningEndDate.toCustomString()}"
         runningTime.text = movie.runningTime.toString()
     }
 

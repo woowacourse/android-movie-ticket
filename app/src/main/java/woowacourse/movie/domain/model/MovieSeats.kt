@@ -1,12 +1,21 @@
 package woowacourse.movie.domain.model
 
+import woowacourse.movie.presentation.seat.model.SeatSelectType
+
 class MovieSeats(
     private val ticketCount : Int,
 ) {
-    private val userSeats = arrayListOf<MovieSeat>()
+    var userSeats = arrayListOf<MovieSeat>()
+        private set
+    var seatSelectType = SeatSelectType.ADD
+        private set
 
-    fun getSeatSelectType(newSeat: MovieSeat): SeatSelectType{
-        return if (isExitsSeat(newSeat)) {
+    fun getSeatPrice(): Int{
+        return userSeats.sumOf { it.seatType.price }
+    }
+
+    fun setSeatSelectType(newSeat: MovieSeat) {
+        seatSelectType = if (isExitsSeat(newSeat)) {
             SeatSelectType.REMOVE
         } else{
             if (isValidTicketCounter()){
@@ -25,11 +34,23 @@ class MovieSeats(
         userSeats.remove(movieSeat)
     }
 
+    fun updateSeatSelectType(){
+        seatSelectType = if(isPreventType()){
+            SeatSelectType.PREVENT
+        } else {
+            SeatSelectType.ADD
+        }
+    }
+
     private fun isValidTicketCounter(): Boolean{
         return ticketCount > userSeats.size
     }
 
     private fun isExitsSeat(newSeat: MovieSeat): Boolean {
         return userSeats.contains(newSeat)
+    }
+
+    private fun isPreventType(): Boolean{
+        return ticketCount == userSeats.size
     }
 }
