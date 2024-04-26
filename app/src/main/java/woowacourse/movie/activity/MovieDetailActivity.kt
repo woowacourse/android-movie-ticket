@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieDetailContract
-import woowacourse.movie.format.format
+import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.presenter.MovieDetailPresenter
 
@@ -55,12 +55,12 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         return super.onContextItemSelected(item)
     }
 
-    override fun displayMovie(movie: Movie) {
-        val movieDetail = movie.movieDetail
+    override fun displayMovie(movieBrief: Movie) {
+        val movieDetail = movieBrief.movieDetail
         findViewById<TextView>(R.id.movie_title_large).text =
             movieDetail.title.format()
         findViewById<TextView>(R.id.movie_release_date_large).text =
-            movie.screeningDate.format()
+            movieBrief.screeningDate.format()
         findViewById<TextView>(R.id.movie_running_time).text =
             movieDetail.runningTime.format()
         findViewById<TextView>(R.id.movie_synopsis).text =

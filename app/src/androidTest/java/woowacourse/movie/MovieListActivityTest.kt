@@ -18,15 +18,16 @@ import woowacourse.movie.model.movie.MovieDetail
 import woowacourse.movie.model.movie.RunningTime
 import woowacourse.movie.model.movie.Synopsis
 import woowacourse.movie.model.movie.Title
+import woowacourse.movie.uimodel.MovieBrief
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class MovieListActivityTest {
-    private val movie =
-        MovieDetail(
-            Title("차람과 하디의 진지한 여행기"),
-            RunningTime(230),
-            Synopsis("wow!"),
+    private val movieBrief =
+        MovieBrief(
+            "차람과 하디의 진지한 여행기",
+            "상영일: 2024.2.25",
+            "230분" ,
         )
 
     @get:Rule
@@ -40,7 +41,7 @@ class MovieListActivityTest {
             .inAdapterView(withId(R.id.movies_list_item))
             .atPosition(0)
             .onChildView(withId(R.id.movie_title))
-            .check(matches(withText(movie.title.toString())))
+            .check(matches(withText(movieBrief.title)))
     }
 
     @Test

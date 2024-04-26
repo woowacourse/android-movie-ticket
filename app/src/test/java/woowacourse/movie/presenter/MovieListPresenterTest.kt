@@ -22,7 +22,7 @@ class MovieListPresenterTest {
     @Test
     fun `상영중인 영화의 리스트를 표기할 수 있어야 한다`() {
         presenter.loadMovies()
-        verify { view.displayMovies(any()) }
+        verify { view.displayMovieBriefs(any()) }
     }
 
     @Test

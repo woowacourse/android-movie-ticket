@@ -1,10 +1,10 @@
 package woowacourse.movie.contract
 
-import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.uimodel.MovieBrief
 
 interface MovieListContract {
     interface View {
-        fun displayMovies(movies: List<Movie>)
+        fun displayMovieBriefs(movieBriefs: List<MovieBrief>)
 
         fun navigateToMovieDetail(movieId: Int)
     }

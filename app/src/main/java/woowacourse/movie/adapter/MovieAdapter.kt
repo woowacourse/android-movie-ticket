@@ -1,6 +1,5 @@
 package woowacourse.movie.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,18 +8,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieListContract
-import woowacourse.movie.format.format
-import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.uimodel.MovieBrief
 
 class MovieAdapter(
-    private val movies: List<Movie>,
+    private val movieBriefs: List<MovieBrief>,
     private val screeningListView: MovieListContract.View,
-) :
-    RecyclerView.Adapter<MovieAdapter.MovieHolder>(),
+) : RecyclerView.Adapter<MovieAdapter.MovieHolder>(),
         MovieAdapterContract.Model,
         MovieAdapterContract.View {
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = movieBriefs.size
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -37,11 +34,8 @@ class MovieAdapter(
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-        val movie: Movie = movies[position]
-        val movieDetail = movie.movieDetail
-        holder.title.text = movieDetail.title.format()
-        holder.screeningDate.text = "상영일: ${movie.screeningDate.format()}"
-        holder.runningTime.text = "러닝타임: ${movieDetail.runningTime.format()}"
+        val movieBrief: MovieBrief = movieBriefs[position]
+        holder.bind(movieBrief)
     }
 
     override fun notifyItemClicked(position: Int) {
@@ -59,6 +53,11 @@ class MovieAdapter(
             detailButton.setOnClickListener {
                 notifyItemClicked(adapterPosition)
             }
+        }
+        fun bind(movieBrief: MovieBrief) {
+            title.text = movieBrief.title
+            screeningDate.text = movieBrief.screeningDate
+            runningTime.text = movieBrief.runningTime
         }
     }
 }

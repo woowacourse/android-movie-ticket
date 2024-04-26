@@ -32,7 +32,7 @@ class PseudoMovieRepository : MovieRepository {
                     """.trimIndent(),
                 ),
             )
-        private val pseudoMovie =
+        private val pseudoMovieBrief =
             Movie(
                 pseudoMovieDetail,
                 ScreeningDate(LocalDate.of(2024, 2, 25)),
@@ -40,15 +40,15 @@ class PseudoMovieRepository : MovieRepository {
 
         private val movies =
             listOf(
-                pseudoMovie,
-                pseudoMovie,
-                pseudoMovie,
-                pseudoMovie,
-                pseudoMovie,
-                pseudoMovie,
-                pseudoMovie,
-                pseudoMovie,
-                pseudoMovie,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
+                pseudoMovieBrief,
             )
     }
 }

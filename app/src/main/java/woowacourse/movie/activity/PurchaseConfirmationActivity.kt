@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.PurchaseConfirmationContract
-import woowacourse.movie.format.format
+import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.presenter.PurchaseConfirmationPresenter
 
@@ -31,7 +31,7 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
     }
 
     override fun displayReservation(reservation: Reservation) {
-        val movie = reservation.movie
+        val movie = reservation.movieBrief
         val movieDetail = movie.movieDetail
         findViewById<TextView>(R.id.movie_title_confirmation).text = movieDetail.title.format()
         findViewById<TextView>(R.id.purchase_movie_running_time).text = movieDetail.runningTime.format()

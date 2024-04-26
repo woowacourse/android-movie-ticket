@@ -2,16 +2,15 @@ package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.presenter.MovieListPresenter
+import woowacourse.movie.uimodel.MovieBrief
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private lateinit var movieRecyclerView: RecyclerView
@@ -28,8 +27,8 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         presenter.loadMovies()
     }
 
-    override fun displayMovies(movies: List<Movie>) {
-        movieAdapter = MovieAdapter(movies, this)
+    override fun displayMovieBriefs(movieBriefs: List<MovieBrief>) {
+        movieAdapter = MovieAdapter(movieBriefs, this)
         movieRecyclerView.adapter = movieAdapter
         movieRecyclerView.layoutManager = LinearLayoutManager(this)
     }

@@ -18,15 +18,6 @@ class MovieDetailActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieDetailActivity::class.java)
 
-    @Test
-    fun minusButtonTest() {
-        Espresso.onView(withId(R.id.minus_button))
-            .check(matches(isDisplayed()))
-
-        Espresso.onView(withId(R.id.minus_button))
-            .perform(click())
-        Espresso.onView(withId(R.id.quantity_text_view)).check(matches(withText("0")))
-    }
 
     @Test
     fun plusButtonTest() {
@@ -36,6 +27,17 @@ class MovieDetailActivityTest {
         Espresso.onView(withId(R.id.plus_button))
             .perform(click())
         Espresso.onView(withId(R.id.quantity_text_view)).check(matches(withText("2")))
+    }
+
+    @Test
+    fun minusButtonTest() {
+        Espresso.onView(withId(R.id.plus_button))
+            .check(matches(isDisplayed()))
+
+        Espresso.onView(withId(R.id.minus_button))
+            .check(matches(isDisplayed()))
+
+        Espresso.onView(withId(R.id.quantity_text_view)).check(matches(withText("1")))
     }
 
     @Test

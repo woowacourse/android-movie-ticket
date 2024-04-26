@@ -5,7 +5,7 @@ import woowacourse.movie.model.movie.Movie
 
 interface MovieDetailContract {
     interface View {
-        fun displayMovie(movie: Movie)
+        fun displayMovie(movieBrief: Movie)
 
         fun displayScreeningDays()
 
