@@ -12,7 +12,7 @@ object MovieRepositoryImpl : MovieRepository {
     init {
         save(
             Movie(
-                R.drawable.movie_poster,
+                R.drawable.img_movie_poster,
                 "해리 포터와 마법사의 돌",
                 LocalDate.of(2024, 3, 1),
                 LocalDate.of(2024, 3, 20),
@@ -21,11 +21,16 @@ object MovieRepositoryImpl : MovieRepository {
                     "판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다. ",
             ),
         )
+        saveAll(movieDummy)
     }
 
     override fun save(movie: Movie): Long {
         movies[id] = movie.copy(id = id)
         return id++
+    }
+
+    override fun saveAll(movies: List<Movie>) {
+        movies.forEach { save(it) }
     }
 
     override fun find(id: Long): Movie {

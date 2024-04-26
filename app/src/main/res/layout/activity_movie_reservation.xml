@@ -27,7 +27,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/text_layout"
                 app:layout_constraintDimensionRatio="360:340"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/movie_poster" />
+                tools:src="@drawable/img_movie_poster" />
 
             <LinearLayout
                 android:id="@+id/text_layout"

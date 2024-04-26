@@ -43,11 +43,12 @@ class MovieReservationCompleteActivity :
     }
 
     private fun addBackPressedCallback() {
-        val onBackPressedCallback = object: OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                MovieHomeActivity.startActivity(this@MovieReservationCompleteActivity)
+        val onBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    MovieHomeActivity.startActivity(this@MovieReservationCompleteActivity)
+                }
             }
-        }
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
