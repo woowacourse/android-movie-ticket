@@ -2,7 +2,6 @@ package woowacourse.movie.presentation.ticketingResult
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +10,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presentation.seatSelection.SeatSelectionActivity.Companion.EXTRA_MOVIE_TICKET
+import woowacourse.movie.utils.formatSeat
 
 class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,6 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
             } else {
                 intent.getSerializableExtra(EXTRA_MOVIE_TICKET) as Ticket
             }
-        Log.d("test", "$movieTicket")
         val ticketingResultPresenter = TicketingResultPresenter(this, movieTicket)
         ticketingResultPresenter.assignInitialView()
     }
@@ -46,7 +45,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         movieDateText.text = movieDateTime
         ticketCountText.text = getString(R.string.text_number_of_people, ticketCount)
         selectedSeatsText.text =
-            selectedSeats.joinToString(", ") { "${('A'.code + it.row).toChar()}${it.col + 1}" }
+            selectedSeats.joinToString(", ") { formatSeat(it) }
         priceText.text = getString(R.string.text_price, totalPrice)
     }
 

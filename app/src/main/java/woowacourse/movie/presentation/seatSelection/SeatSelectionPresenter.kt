@@ -29,22 +29,32 @@ class SeatSelectionPresenter(
 
     override fun updateSeatSelection(index: Int) {
         if (seatingSystem.isSelected(index)) {
-            seatingSystem.unSelectSeat(index)
-            seatSelectionContractView.updateUnSelectedSeatUI(index)
-            seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
-            seatSelectionContractView.updateTotalPrice(seatingSystem.getTotalPrice())
+            unSelectSeat(index)
             return
         }
+        selectSeat(index)
+    }
 
+    private fun unSelectSeat(index: Int) {
+        seatingSystem.unSelectSeat(index)
+        seatSelectionContractView.updateUnSelectedSeatUI(index)
+        updateUI()
+    }
+
+    private fun selectSeat(index: Int) {
         seatingSystem.trySelectSeat(index)
             .onSuccess {
                 seatSelectionContractView.updateSelectedSeatUI(index)
-                seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
-                seatSelectionContractView.updateTotalPrice(seatingSystem.getTotalPrice())
+                updateUI()
             }
             .onFailure {
                 seatSelectionContractView.showToastMessage(it.message)
             }
+    }
+
+    private fun updateUI() {
+        seatSelectionContractView.setButtonEnabledState(!seatingSystem.canSelectSeat())
+        seatSelectionContractView.updateTotalPrice(seatingSystem.getTotalPrice())
     }
 
     override fun navigate() {

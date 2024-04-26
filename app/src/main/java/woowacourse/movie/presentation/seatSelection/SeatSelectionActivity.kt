@@ -22,6 +22,7 @@ import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTR
 import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_MOVIE_ID
 import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_SCREENING_DATE_TIME
 import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
+import woowacourse.movie.utils.formatSeat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter
@@ -64,7 +65,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun initializeSeats(seats: List<Seat>) {
         seatItems.forEachIndexed { index, textView ->
             val seat = seats[index]
-            textView.text = "${('A'.code + seat.row).toChar()}${seat.col + 1}"
+            textView.text = formatSeat(seat)
             val colorCode =
                 when (seat.seatClass) {
                     SeatClass.B_CLASS -> "#8E13EF"
