@@ -15,4 +15,18 @@ class SeatRepositoryImpl : SeatRepository {
             MockSeats.defaultSeat
         }
     }
+
+    override fun getSeatRowAndColumn(seats: List<MovieSeat>): List<Pair<Int, Int>> {
+        val seatPositions = mutableListOf<Pair<Int, Int>>()
+        for (seat in seats) {
+            for ((rowIndex, row) in MockSeats.sampleSeats.withIndex()) {
+                for ((columnIndex, currentSeat) in row.withIndex()) {
+                    if (currentSeat == seat) {
+                        seatPositions.add(Pair(rowIndex, columnIndex))
+                    }
+                }
+            }
+        }
+        return seatPositions
+    }
 }

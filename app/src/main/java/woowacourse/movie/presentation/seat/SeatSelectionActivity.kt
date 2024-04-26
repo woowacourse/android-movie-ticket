@@ -16,6 +16,8 @@ import woowacourse.movie.domain.model.SeatType
 import woowacourse.movie.presentation.detail.TicketDetailActivity
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
+import woowacourse.movie.presentation.seat.SeatSelectionPresenter.Companion.KEY_NAME_SEATS
+import woowacourse.movie.presentation.seat.model.MovieSeatModel
 import java.io.Serializable
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
@@ -37,6 +39,14 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         initView()
         presenter.loadTicket()
         presenter.loadSeat()
+        val saveSates =
+            savedInstanceState?.getSerializable(KEY_NAME_SEATS) as? List<MovieSeatModel> ?: listOf()
+        presenter.initSavedInstance(saveSates)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        presenter.saveInstance(outState)
     }
 
     private fun initView() {
