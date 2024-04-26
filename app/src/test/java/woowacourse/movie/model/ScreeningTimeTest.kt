@@ -38,16 +38,33 @@ class ScreeningTimeTest {
     fun `주말엔 9시부터 24시까지 2시간 간격으로 영화를 상영한다`() {
         val date = LocalDate.of(2024, 4, 27) // saturday
 
-        val start = 9
-        val end = 24
-        val interval = 2
 
         val weekendTimeTable = WeekendTimeTable(date)
 
+        val start = 9
+        val end = 24
+        val interval = 2
         val expected = (start..end step interval).map {
             ScreeningTime.of(date, it, 0)
         }
         val actual = weekendTimeTable.getScreeningTimes()
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `평일엔 10시부터 24시까지 2시간 간격으로 영화를 상영한다`() {
+        val date = LocalDate.of(2024, 4, 26) // friday
+
+
+        val weekdayTimeTable = WeekdayTimeTable(date)
+
+        val start = 10
+        val end = 24
+        val interval = 2
+        val expected = (start..end step interval).map {
+            ScreeningTime.of(date, it, 0)
+        }
+        val actual = weekdayTimeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
     }
 }
