@@ -11,23 +11,27 @@ class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
     private val movieRepository: MovieRepository = PseudoMovieRepository(),
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
+    private var ticketNum: Int = 1,
 ) : MovieDetailContract.Presenter {
     override fun loadMovie(movieId: Int) {
         val screening = movieRepository.getMovie(movieId)
         view.displayMovie(screening)
     }
 
-    override fun plusTicketNum(ticketNum: Int) {
-        view.displayTicketNum(ticketNum + 1)
+    override fun plusTicketNum() {
+        ticketNum += 1
+        view.displayTicketNum(ticketNum)
     }
 
-    override fun minusTicketNum(ticketNum: Int) {
-        if (ticketNum > 0) view.displayTicketNum(ticketNum - 1)
+    override fun minusTicketNum() {
+        if (ticketNum > 1) {
+            ticketNum -= 1
+            view.displayTicketNum(ticketNum)
+        }
     }
 
     override fun purchase(
         movieId: Int,
-        ticketNum: Int,
     ) {
         val movie = movieRepository.getMovie(movieId)
         val reservation = Reservation(movie, ticketNum)

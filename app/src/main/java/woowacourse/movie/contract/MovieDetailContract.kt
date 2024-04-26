@@ -15,13 +15,12 @@ interface MovieDetailContract {
     interface Presenter {
         fun loadMovie(movieId: Int)
 
-        fun plusTicketNum(ticketNum: Int)
+        fun plusTicketNum()
 
-        fun minusTicketNum(ticketNum: Int)
+        fun minusTicketNum()
 
         fun purchase(
             screeningId: Int,
-            ticketNum: Int,
         )
     }
 }

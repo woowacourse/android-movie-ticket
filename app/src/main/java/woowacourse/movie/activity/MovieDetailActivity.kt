@@ -35,13 +35,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         val movieId = intent.getIntExtra("MovieId", -1)
         presenter.loadMovie(movieId)
         ticketPlusButton.setOnClickListener {
-            presenter.plusTicketNum(ticketNum)
+            presenter.plusTicketNum()
         }
         ticketMinusButton.setOnClickListener {
-            presenter.minusTicketNum(ticketNum)
+            presenter.minusTicketNum()
         }
         ticketBuyButton.setOnClickListener {
-            presenter.purchase(movieId, ticketNum)
+            presenter.purchase(movieId)
         }
     }
 
