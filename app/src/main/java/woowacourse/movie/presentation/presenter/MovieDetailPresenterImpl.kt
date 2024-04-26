@@ -5,6 +5,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.contract.MovieDetailContract
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieDetailPresenterImpl(
@@ -32,13 +33,7 @@ class MovieDetailPresenterImpl(
     }
 
     override fun onViewSetUp() {
-        view?.showMovieDetail(
-            movie.posterImageId,
-            movie.title,
-            movie.screeningInfo.startDate.format(DateTimeFormatter.ISO_LOCAL_DATE),
-            movie.screeningInfo.runningTime,
-            movie.summary,
-        )
+        view?.showMovieDetail(MovieUiModel(movie))
     }
 
     override fun minusReservationCount() {

@@ -9,6 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.contract.MovieDetailContract
 import woowacourse.movie.presentation.presenter.MovieDetailPresenterImpl
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private lateinit var movieDetailPresenter: MovieDetailContract.Presenter
@@ -49,19 +50,18 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         outState.putInt(SIS_COUNT_KEY, count)
     }
 
-    override fun showMovieDetail(
-        posterImageId: Int,
-        title: String,
-        screeningStartDate: String,
-        runningTime: Int,
-        summary: String,
-    ) {
-        findViewById<ImageView>(R.id.posterImage).setImageResource(posterImageId)
-        findViewById<TextView>(R.id.title).text = title
-        findViewById<TextView>(R.id.screeningDate).text = getString(R.string.screening_date_format, screeningStartDate)
+    override fun showMovieDetail(movieUiModel: MovieUiModel) {
+        findViewById<ImageView>(R.id.posterImage).setImageResource(movieUiModel.posterImageId)
+        findViewById<TextView>(R.id.title).text = movieUiModel.title
+        findViewById<TextView>(R.id.screeningDate).text =
+            getString(
+                R.string.screening_date_format,
+                movieUiModel.screeningStartDate,
+                movieUiModel.screeningEndDate,
+                )
         findViewById<TextView>(R.id.runningTime).text =
-            getString(R.string.running_time_format, runningTime)
-        findViewById<TextView>(R.id.summary).text = summary
+            getString(R.string.running_time_format, movieUiModel.runningTime)
+        findViewById<TextView>(R.id.summary).text = movieUiModel.summary
     }
 
     private fun setupReservationCountButton() {
@@ -103,11 +103,6 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         val defaultPosterImageId = R.drawable.img_noimg
         const val DEFAULT_MOVIE_ID = -1
         const val INTENT_MOVIE_ID = "movieId"
-        const val INTENT_POSTER_IMAGE_ID = "posterImageId"
-        const val INTENT_TITLE = "title"
-        const val INTENT_SCREENING_DATE = "screeningDate"
-        const val INTENT_RUNNING_TIME = "runningTime"
-        const val INTENT_SUMMARY = "summary"
         const val SIS_COUNT_KEY = "count"
     }
 }

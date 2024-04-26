@@ -1,14 +1,10 @@
 package woowacourse.movie.presentation.contract
 
+import woowacourse.movie.presentation.uimodel.MovieUiModel
+
 interface MovieDetailContract {
     interface View {
-        fun showMovieDetail(
-            posterImageId: Int,
-            title: String,
-            screeningStartDate: String,
-            runningTime: Int,
-            summary: String,
-        )
+        fun showMovieDetail(movieUiModel: MovieUiModel)
 
         fun showReservationCount(count: Int)
 

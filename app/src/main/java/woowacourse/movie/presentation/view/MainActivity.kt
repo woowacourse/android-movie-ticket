@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.adapter.MovieListAdapter
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.contract.MainContract
 import woowacourse.movie.presentation.presenter.MainPresenterImpl
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions {
     private lateinit var adapter: MovieListAdapter
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions
         showMovieList()
     }
 
-    override fun onUpdateMovies(movies: List<Movie>) {
+    override fun onUpdateMovies(movies: List<MovieUiModel>) {
         adapter.updateMovieList(movies)
     }
 
@@ -31,13 +31,13 @@ class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions
         findViewById<ListView>(R.id.movieList).adapter = adapter
     }
 
-    override fun reserveMovie(movie: Movie) {
-        presenter.onReserveButtonClicked(movie)
+    override fun reserveMovie(movieId: Int) {
+        presenter.onReserveButtonClicked(movieId)
     }
 
-    override fun moveToMovieDetail(movie: Movie) {
+    override fun moveToMovieDetail(movieId: Int) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(MovieDetailActivity.INTENT_MOVIE_ID, movie.movieId)
+        intent.putExtra(MovieDetailActivity.INTENT_MOVIE_ID, movieId)
         startActivity(intent)
     }
 }

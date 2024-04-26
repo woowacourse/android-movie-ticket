@@ -1,15 +1,14 @@
 package woowacourse.movie.presentation.contract
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Movies
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 interface MainContract {
     interface View {
-        fun onUpdateMovies(movies: List<Movie>)
+        fun onUpdateMovies(movies: List<MovieUiModel>)
 
         fun showMovieList()
 
-        fun moveToMovieDetail(movie: Movie)
+        fun moveToMovieDetail(movieId: Int)
     }
 
     interface Presenter {
@@ -19,10 +18,10 @@ interface MainContract {
 
         fun onViewSetUp()
 
-        fun onReserveButtonClicked(movie: Movie)
+        fun onReserveButtonClicked(movieId: Int)
     }
 
     interface ViewActions {
-        fun reserveMovie(movie: Movie)
+        fun reserveMovie(movieId: Int)
     }
 }

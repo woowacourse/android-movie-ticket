@@ -4,6 +4,7 @@ import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.contract.MainContract
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MainPresenterImpl(private val movieRepository: MovieRepository = MovieRepositoryImpl) :
     MainContract.Presenter {
@@ -21,10 +22,12 @@ class MainPresenterImpl(private val movieRepository: MovieRepository = MovieRepo
 
     override fun onViewSetUp() {
         movies = movieRepository.createMovieList()
-        view?.onUpdateMovies(movies)
+        view?.onUpdateMovies(
+            movies.map { MovieUiModel(it) }
+        )
     }
 
-    override fun onReserveButtonClicked(movie: Movie) {
-        view?.moveToMovieDetail(movie)
+    override fun onReserveButtonClicked(movieId: Int) {
+        view?.moveToMovieDetail(movieId)
     }
 }
