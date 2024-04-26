@@ -2,8 +2,8 @@ package woowacourse.movie.feature.reservation.ui
 
 import woowacourse.movie.domain.screening.ScreeningSchedule
 
-data class ScreeningScheduleModel(val dailySchedules: List<DailyScheduleModel>){
-    fun getScheduleDates() = dailySchedules.map { it.date }
+data class ScreeningScheduleModel(val dailySchedules: List<DailyScheduleModel>) {
+    fun getScheduleDates(): List<String> = dailySchedules.map { it.date }
 }
 
 fun ScreeningSchedule.toUiModel(): ScreeningScheduleModel {

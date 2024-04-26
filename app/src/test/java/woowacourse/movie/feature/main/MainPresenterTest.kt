@@ -9,7 +9,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.domain.screening.Movie
+import woowacourse.movie.domain.screening.ScreeningDate
 import woowacourse.movie.feature.main.ui.toUiModel
+import java.time.LocalDate
 
 class MainPresenterTest {
     private lateinit var presenter: MainPresenter
@@ -51,7 +53,10 @@ class MainPresenterTest {
                 0,
                 "제목",
                 "설명",
-                "날짜",
+                ScreeningDate(
+                    LocalDate.of(2024, 3, 1),
+                    LocalDate.of(2024, 4, 30),
+                ),
                 0,
             )
         val MOCK_MOVIES = mutableListOf(MOCK_MOVIE)

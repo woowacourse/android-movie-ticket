@@ -9,7 +9,7 @@ import java.util.Locale
 data class DailyScheduleModel(val date: String, val times: List<String>) {
     companion object {
         const val DATE_FORMAT = "yyyy-MM-dd"
-        const val TIME_FORMAT = "hh:mm"
+        const val TIME_FORMAT = "HH:mm"
     }
 }
 

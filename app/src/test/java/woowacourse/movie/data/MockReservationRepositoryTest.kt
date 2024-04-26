@@ -4,8 +4,9 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.TestFixture.DUMMY_MOVIE
 import woowacourse.movie.domain.reservation.Quantity
-import woowacourse.movie.domain.screening.Schedule
+import woowacourse.movie.domain.screening.DailySchedule
 import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.domain.screening.ScreeningSchedule
 import java.time.LocalDate
 
 class MockReservationRepositoryTest {
@@ -22,7 +23,7 @@ class MockReservationRepositoryTest {
         MockReservationRepository.save(
             Screening(
                 DUMMY_MOVIE,
-                Schedule(LocalDate.of(2024, 3, 1)),
+                ScreeningSchedule(listOf(DailySchedule(LocalDate.of(2024, 3, 1)))),
             ),
             Quantity(10),
         )
