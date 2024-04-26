@@ -1,8 +1,7 @@
-package woowacourse.movie.model.ui.reservation
+package woowacourse.movie.model.movie
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.movie.SeatRow
 
 class SeatRowTest {
     @Test
