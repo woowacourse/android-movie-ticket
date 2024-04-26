@@ -3,7 +3,6 @@ package woowacourse.movie.moviereservation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -18,7 +17,6 @@ import woowacourse.movie.R
 import woowacourse.movie.data.DummyMovies
 import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
 import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
-import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
 import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimesUiModel
 import woowacourse.movie.reservationresult.ReservationResultActivity
 
@@ -139,10 +137,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                 screeningDateTimesUiModel.dates(),
             )
 
-        Log.d("액티비티","${screeningDateTimesUiModel.screeningTimeOfDate(0)}")
-
         timeAdapter =
-            ArrayAdapter(this, R.layout.item_spinner_date, screeningDateTimesUiModel.dates())
+            ArrayAdapter(this, R.layout.item_spinner_date, screeningDateTimesUiModel.defaultTimes())
 
         dateSpinner.adapter = dateAdapter
         timeSpinner.adapter = timeAdapter
@@ -157,7 +153,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                 ) {
                     timeAdapter.clear()
                     timeAdapter.addAll(screeningDateTimesUiModel.screeningTimeOfDate(position))
-
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {}
