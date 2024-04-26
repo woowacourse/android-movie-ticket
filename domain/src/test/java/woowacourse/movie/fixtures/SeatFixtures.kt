@@ -15,4 +15,11 @@ fun seat(
     price: Long = DEFAULT_PRICE,
     grade: SeatGrade = DEFAULT_GRADE,
     state: SeatState = DEFAULT_STATE
-) = Seat(Position(x, y), Price(price), grade, state)
+) = seat(Position(x, y), price, grade, state)
+
+fun seat(
+    position: Position,
+    price: Long = DEFAULT_PRICE,
+    grade: SeatGrade = DEFAULT_GRADE,
+    state: SeatState = DEFAULT_STATE
+) = Seat(position, Price(price), grade, state)

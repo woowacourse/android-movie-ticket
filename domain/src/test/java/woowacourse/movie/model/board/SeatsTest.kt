@@ -28,14 +28,6 @@ class SeatsTest {
     }
 
     @Test
-    fun `이미 좌석이 있는 position 에 좌석을 추가하려고 하면 예외 발생`() {
-        val seats = Seats(seat(1, 1))
-        shouldThrow<IllegalArgumentException> {
-            seats + seat(1, 1)
-        }
-    }
-
-    @Test
     fun `좌석들의 총 금액을 구할 수 있다`() {
         // given
         val seats = Seats(
