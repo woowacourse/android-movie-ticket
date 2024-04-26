@@ -25,10 +25,10 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
                 intent.getSerializableExtra(EXTRA_MOVIE_TICKET) as Ticket
             }
         val ticketingResultPresenter = TicketingResultPresenter(this, movieTicket)
-        ticketingResultPresenter.assignInitialView()
+        ticketingResultPresenter.loadTicketInfo()
     }
 
-    override fun assignInitialView(
+    override fun displayTicketInfo(
         movieTitle: String,
         movieDateTime: String,
         ticketCount: Int,
@@ -49,7 +49,7 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         priceText.text = getString(R.string.text_price, totalPrice)
     }
 
-    override fun showErrorMessage(message: String?) {
+    override fun showToastMessage(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

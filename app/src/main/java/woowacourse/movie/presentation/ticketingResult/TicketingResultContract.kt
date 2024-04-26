@@ -4,7 +4,7 @@ import woowacourse.movie.model.Seat
 
 interface TicketingResultContract {
     interface View {
-        fun assignInitialView(
+        fun displayTicketInfo(
             movieTitle: String,
             movieDateTime: String,
             ticketCount: Int,
@@ -12,10 +12,10 @@ interface TicketingResultContract {
             totalPrice: Int,
         )
 
-        fun showErrorMessage(message: String?)
+        fun showToastMessage(message: String?)
     }
 
     interface Presenter {
-        fun assignInitialView()
+        fun loadTicketInfo()
     }
 }

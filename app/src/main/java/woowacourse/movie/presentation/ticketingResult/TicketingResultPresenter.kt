@@ -6,9 +6,9 @@ class TicketingResultPresenter(
     private val ticketingResultView: TicketingResultContract.View,
     private val movieTicket: Ticket?,
 ) : TicketingResultContract.Presenter {
-    override fun assignInitialView() {
+    override fun loadTicketInfo() {
         movieTicket?.let { ticket ->
-            ticketingResultView.assignInitialView(
+            ticketingResultView.displayTicketInfo(
                 ticket.movieTitle,
                 ticket.screeningDateTime,
                 ticket.totalCount,
