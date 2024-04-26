@@ -17,11 +17,26 @@ class MovieDetailPresenter(
     }
 
     override fun loadScreeningTimes(date: LocalDate) {
-        view.showScreeningTimes(Movies.obtainScreeningTimes(date))
+        view.showScreeningTimes(ticket.obtainScreeningTimes(date).map { "$it:00" })
+    }
+
+    override fun updateScreeningDate(screeningDate: String) {
+        ticket.updateScreeningDate(screeningDate)
+    }
+
+    override fun updateScreeningTime(screeningTime: String) {
+        ticket.updateScreeningTime(screeningTime)
     }
 
     override fun loadScreeningDates() {
-        view.showScreeningDates(Movies.obtainScreeningDates(movieId))
+        val movie = Movies.obtainMovie(movieId)
+
+        view.showScreeningDates(
+            ticket.obtainScreeningDates(
+                movie.firstScreeningDate,
+                movie.lastScreeningDate,
+            ),
+        )
     }
 
     override fun increaseCount() {
@@ -35,7 +50,9 @@ class MovieDetailPresenter(
     }
 
     override fun deliverReservationInformation() {
-        view.moveToReservationFinished(movieId, ticket.count)
+        val movieTitle = Movies.obtainMovie(movieId).title
+
+        view.moveToSeatSelect(movieTitle, ticket.count, ticket.screeningDate, ticket.screeningTime)
     }
 
     private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
@@ -43,6 +60,7 @@ class MovieDetailPresenter(
             is InRange -> {
                 view.updateCount(ticket.count)
             }
+
             is OutOfRange -> view.showErrorToast()
         }
     }

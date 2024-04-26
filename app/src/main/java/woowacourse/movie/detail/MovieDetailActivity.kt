@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.reservation.ReservationFinishedActivity
+import woowacourse.movie.seat.SeatSelectActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -74,6 +74,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 ) {
                     val screeningDate = parent?.getItemAtPosition(position) as LocalDate
                     presenter.loadScreeningTimes(screeningDate)
+                    presenter.updateScreeningDate(screeningDate.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -96,17 +97,21 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                     position: Int,
                     id: Long,
                 ) {
+                    val screeningTime = parent?.getItemAtPosition(position) as String
+                    presenter.updateScreeningTime(screeningTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
     }
 
-    override fun moveToReservationFinished(
-        movieId: Int,
+    override fun moveToSeatSelect(
+        movieTitle: String,
         ticketCount: Int,
+        screeningDate: String,
+        screeningTime: String,
     ) {
-        startActivity(ReservationFinishedActivity.getIntent(this, movieId, ticketCount))
+        startActivity(SeatSelectActivity.getIntent(this, movieTitle, ticketCount, screeningDate, screeningTime))
     }
 
     override fun showMovieInformation(movie: Movie) {

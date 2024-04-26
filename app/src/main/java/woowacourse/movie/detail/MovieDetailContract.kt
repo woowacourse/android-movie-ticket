@@ -13,9 +13,11 @@ interface MovieDetailContract {
 
         fun showErrorToast()
 
-        fun moveToReservationFinished(
-            movieId: Int,
+        fun moveToSeatSelect(
+            movieTitle: String,
             ticketCount: Int,
+            screeningDate: String,
+            screeningTime: String,
         )
 
         fun showScreeningTimes(screeningTimes: List<String>)
@@ -31,6 +33,10 @@ interface MovieDetailContract {
         fun loadScreeningDates()
 
         fun loadScreeningTimes(date: LocalDate)
+
+        fun updateScreeningDate(screeningDate: String)
+
+        fun updateScreeningTime(screeningTime: String)
 
         fun deliverReservationInformation()
     }
