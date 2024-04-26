@@ -2,7 +2,6 @@ package woowacourse.movie.moviereservation
 
 import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
 import woowacourse.movie.moviereservation.uimodel.MovieReservationUiModel
-import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimeUiModel
 import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimesUiModel
 
 interface MovieReservationContract {

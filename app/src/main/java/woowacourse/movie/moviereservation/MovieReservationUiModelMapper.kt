@@ -22,9 +22,11 @@ fun HeadCount.toHeadCountUiModel(): HeadCountUiModel = HeadCountUiModel(count)
 fun HeadCountUiModel.toHeadCount(): HeadCount = HeadCount(count.toInt())
 
 fun ScreeningMovie.toScreeningDateTimeUiModel(): ScreeningDateTimesUiModel =
-    ScreeningDateTimesUiModel(screenDateTimes.map {
-        ScreeningDateTimeUiModel(
-            it.date,
-            it.times,
-        )
-    })
+    ScreeningDateTimesUiModel(
+        screenDateTimes.map {
+            ScreeningDateTimeUiModel(
+                it.date,
+                it.times,
+            )
+        },
+    )

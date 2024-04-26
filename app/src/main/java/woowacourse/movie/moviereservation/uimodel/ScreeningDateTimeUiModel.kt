@@ -12,9 +12,10 @@ data class ScreeningDateTimeUiModel(
         date.format(dateFormatter),
         times.map {
             it.format(
-                timeFormatter
+                timeFormatter,
             )
-        })
+        },
+    )
 
     companion object {
         private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
