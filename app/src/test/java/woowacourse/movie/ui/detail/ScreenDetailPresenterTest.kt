@@ -5,6 +5,7 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.FakeImage
 import woowacourse.movie.domain.repository.DummyReservation
@@ -14,14 +15,20 @@ import woowacourse.movie.ui.MovieDetailUI
 import woowacourse.movie.ui.ScreenDetailUI
 
 class ScreenDetailPresenterTest {
-    private val mockView = mockk<ScreenDetailContract.View>()
-    private val presenter =
-        ScreenDetailPresenter(
-            view = mockView,
-            movieRepository = FakeMovieRepository(),
-            screenRepository = FakeScreenRepository(),
-            reservationRepository = DummyReservation,
-        )
+    private lateinit var mockView: ScreenDetailContract.View
+    private lateinit var presenter: ScreenDetailContract.Presenter
+
+    @BeforeEach
+    fun setUp() {
+        mockView = mockk<ScreenDetailContract.View>()
+        presenter =
+            ScreenDetailPresenter(
+                view = mockView,
+                movieRepository = FakeMovieRepository(),
+                screenRepository = FakeScreenRepository(),
+                reservationRepository = DummyReservation,
+            )
+    }
 
     private val fakeScreenDetailUI =
         ScreenDetailUI(
@@ -30,8 +37,7 @@ class ScreenDetailPresenterTest {
             MovieDetailUI(
                 title = "title1",
                 runningTime = 1,
-                description =
-                "description1",
+                description = "description1",
                 image = FakeImage("1"),
             ),
             date = "1",
@@ -49,5 +55,55 @@ class ScreenDetailPresenterTest {
         verify(exactly = 1) { mockView.showScreen(fakeScreenDetailUI) }
     }
 
+    @Test
+    fun `첫 화면에서 티켓의 개수는 1이다`() {
+        // given
+        every { mockView.showTicket(1) } just runs
 
+        // when
+        presenter.loadTicket()
+
+        // then
+        verify(exactly = 1) { mockView.showTicket(1) }
+    }
+
+    @Test
+    fun `처음 화면에서 + 버튼을 누르면 티켓의 개수는 2이다`() {
+        // given
+        every { mockView.showTicket(2) } just runs
+
+        // when
+        presenter.plusTicket()
+
+        // then
+        verify(exactly = 1) { mockView.showTicket(2) }
+    }
+
+    @Test
+    fun `처음 화면에서 - 버튼을 누르면 티켓의 개수는 1이다`() {
+        // given
+        every { mockView.showToastMessage(any()) } just runs
+
+        // when
+        presenter.minusTicket()
+
+        // then
+        verify(exactly = 1) { mockView.showToastMessage(any()) }
+    }
+
+    @Test
+    fun `티켓 개수가 10인 상태에서 + 버튼을 누르면 티켓의 개수는 늘어나지 않는다`() {
+        // given
+        every { mockView.showTicket(any()) } just runs
+        every { mockView.showToastMessage(any()) } just runs
+
+        repeat(9) {
+            presenter.plusTicket()
+        }
+        // when
+        presenter.plusTicket()
+
+        // then
+        verify(exactly = 1) { mockView.showToastMessage(any()) }
+    }
 }
