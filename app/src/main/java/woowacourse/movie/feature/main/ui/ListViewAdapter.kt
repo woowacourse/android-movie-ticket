@@ -41,18 +41,18 @@ class ListViewAdapter(
     inner class ViewHolder(val view: View) {
         private val poster: ImageView = view.findViewById(R.id.list_img_poster)
         private val title: TextView = view.findViewById(R.id.list_movie_title)
-        private val openingDay: TextView = view.findViewById(R.id.list_opening_day)
+        private val screeningPeriod: TextView = view.findViewById(R.id.screening_period)
         private val runningTime: TextView = view.findViewById(R.id.running_time)
         private val reservationButton: Button = view.findViewById(R.id.btn_reservation)
 
         fun bind(position: Int) {
             val movie = movies[position]
-            val openingDayText = movie.getFormattedOpeningDay(view.context)
+            val screeningPeriodText = movie.getFormattedScreeningPeriod(view.context)
             val runningTimeText = movie.getFormattedRunningTime(view.context)
             with(this) {
                 poster.setImageResource(movie.poster)
                 title.text = movie.title
-                openingDay.text = openingDayText
+                screeningPeriod.text = screeningPeriodText
                 runningTime.text = runningTimeText
                 reservationButton.setOnClickListener {
                     itemClickListener.onItemClick(position)

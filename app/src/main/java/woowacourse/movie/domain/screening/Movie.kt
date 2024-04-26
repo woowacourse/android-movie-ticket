@@ -5,6 +5,6 @@ data class Movie(
     val poster: Int,
     val title: String,
     val content: String,
-    val openingDay: String,
+    val screeningDate: ScreeningDate,
     val runningTime: Int,
 )
