@@ -8,266 +8,284 @@
     android:background="@color/background"
     tools:context=".ui.selection.MovieSeatSelectionActivity">
 
-    <TextView
-        android:id="@+id/screen"
+    <ScrollView
+        android:id="@+id/info_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="34dp"
-        android:layout_marginBottom="56dp"
-        android:background="@color/screen_text_background"
-        android:gravity="center_horizontal"
-        android:text="@string/screen_text"
-        android:textColor="@color/white"
-        android:textSize="23sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TableLayout
-        android:id="@+id/seat_table"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="34dp"
-        android:layout_marginBottom="96dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@id/screen">
-
-        <TableRow>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/screen"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
+                android:layout_marginHorizontal="34dp"
+                android:layout_marginBottom="56dp"
+                android:background="@color/screen_text_background"
+                android:gravity="center_horizontal"
+                android:text="@string/screen_text"
+                android:textColor="@color/white"
                 android:textSize="23sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="0dp"
+            <TableLayout
+                android:id="@+id/seat_table"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                android:layout_marginHorizontal="34dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="96dp"
+                android:background="@color/white"
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                app:layout_constraintTop_toBottomOf="@id/screen">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                <TableRow>
 
-        </TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-        <TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/b_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                <TableRow>
 
-        </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-        <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/b_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                <TableRow>
 
-        </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-        <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/s_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                <TableRow>
 
-        </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-        <TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/a_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/a_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/s_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/a_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                </TableRow>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="28dp"
-                android:textColor="@color/a_class_seat"
-                android:textSize="23sp"
-                android:textStyle="bold" />
+                <TableRow>
 
-        </TableRow>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/a_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
 
-    </TableLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/a_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/a_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="28dp"
+                        android:textColor="@color/a_class_seat"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                </TableRow>
+
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
