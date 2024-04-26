@@ -1,9 +1,12 @@
 package woowacourse.movie.presentation.ui.detail
 
 import woowacourse.movie.presentation.uimodel.MovieUiModel
+import java.time.LocalDate
 
 interface MovieDetailContract {
     interface View {
+        fun initSpinnerAdapter(list: List<LocalDate>)
+
         fun showMovieDetail(movieUiModel: MovieUiModel)
 
         fun showReservationCount(count: Int)
@@ -14,13 +17,15 @@ interface MovieDetailContract {
     }
 
     interface Presenter {
-        fun loadMovieDetailsAndSetupTicket(movieId: Int)
+        fun loadMovieDetails(movieId: Int)
+
+        fun loadMovieScheduleDates(dates: List<LocalDate>)
 
         fun minusReservationCount()
 
         fun plusReservationCount()
 
-        fun updateReservationCount(reservationCount: Int)
+        fun updateReservationCount(count: Int)
 
         fun reservationCount(): Int
 

@@ -7,6 +7,8 @@ val posterImageSrc = R.drawable.harrypotter_poster
 val SCREENING_LOCAL_TIME = LocalDate.of(2024, 4, 1)
 const val TITLE = "해리 포터와 마법사의 돌"
 const val SCREENING_DATE = "2024.04.01"
+const val SCREENING_START_DATE = "2024.04.01"
+const val SCREENING_END_DATE = "2024.04.30"
 const val RUNNING_TIME = 152
 const val SUMMARY =
     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든," +

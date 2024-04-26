@@ -7,12 +7,8 @@ interface MovieTicketRepository {
     fun createMovieTicket(
         movieTitle: String,
         screeningDate: LocalDate,
+        reservationCount: Int,
     ): MovieTicket
 
     fun getMovieTicket(movieTicketId: Int): MovieTicket
-
-    fun updateReservationCount(
-        movieTicketId: Int,
-        count: Int,
-    )
 }

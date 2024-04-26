@@ -12,20 +12,13 @@ object MovieTicketRepositoryImpl : MovieTicketRepository {
     override fun createMovieTicket(
         movieTitle: String,
         screeningDate: LocalDate,
+        reservationCount: Int,
     ): MovieTicket {
         val id = IdGenerator.generateId()
-        val newTicket = MovieTicket(id, movieTitle, screeningDate)
+        val newTicket = MovieTicket(id, movieTitle, screeningDate, reservationCount)
         tickets[id] = newTicket
         return newTicket
     }
 
     override fun getMovieTicket(movieTicketId: Int): MovieTicket = tickets[movieTicketId] ?: throw IllegalStateException(ERROR_EMPTY_TICKET)
-
-    override fun updateReservationCount(
-        movieTicketId: Int,
-        count: Int,
-    ) {
-        val ticket = tickets[movieTicketId] ?: throw IllegalStateException(ERROR_EMPTY_TICKET)
-        ticket.updateCount(count)
-    }
 }

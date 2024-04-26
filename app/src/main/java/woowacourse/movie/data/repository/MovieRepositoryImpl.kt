@@ -6,6 +6,7 @@ import woowacourse.movie.domain.repository.MovieRepository
 
 object MovieRepositoryImpl : MovieRepository {
     private val movies: List<Movie> = SampleMovies.movies
+    private const val ERROR_INVALID_MOVIE_ID = "해당하는 영화가 없습니다."
 
     override fun getAllMovies(): List<Movie> {
         return movies
@@ -14,6 +15,6 @@ object MovieRepositoryImpl : MovieRepository {
     override fun getMovie(id: Int): Movie {
         return movies.find { movie: Movie ->
             movie.movieId == id
-        } ?: SampleMovies.defaultMovie
+        } ?: throw IllegalArgumentException(ERROR_INVALID_MOVIE_ID)
     }
 }

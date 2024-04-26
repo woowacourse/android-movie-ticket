@@ -2,12 +2,15 @@ package woowacourse.movie.presentation.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 import woowacourse.movie.presentation.uimodel.MovieUiModel
+import java.time.LocalDate
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private lateinit var movieDetailPresenter: MovieDetailContract.Presenter
@@ -28,6 +31,12 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
             MovieDetailPresenterImpl(this, MovieRepositoryImpl, MovieTicketRepositoryImpl, movieId)
 
         initClickListener()
+    }
+
+    override fun initSpinnerAdapter(list: List<LocalDate>) {
+        val adapter =
+            ArrayAdapter(this, R.layout.spinner_item, list)
+        findViewById<Spinner>(R.id.date_spinner).adapter = adapter
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -76,6 +85,6 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         const val INVALID_MOVIE_ID = -1
         const val EXTRA_MOVIE_ID = "movieId"
         const val EXTRA_MOVIE_TICKET_ID = "movieTicketId"
-        const val EXTRA_RESERVATION_COUNT = "reservationCount"
+        const val EXTRA_RESERVATION_COUNT = "count"
     }
 }

@@ -56,7 +56,7 @@ class MovieListAdapter(
             val imageResource = movie.posterName.toDrawableIdByName(context)
             imageResource?.let { posterImage.setImageResource(it) }
             title.text = movie.title
-            screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningDate)
+            screeningDate.text = context.getString(R.string.screening_date_format, movie.screeningStartDate, movie.screeningEndDate)
             runningTime.text = context.getString(R.string.running_time_format, movie.runningTime)
             reserveButton.setOnClickListener { onMovieReserved(movie.movieId) }
         }

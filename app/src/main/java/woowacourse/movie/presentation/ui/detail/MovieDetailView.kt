@@ -19,7 +19,11 @@ class MovieDetailView(private val view: View) {
         imageResource?.let { posterImage.setImageResource(it) }
         titleTextView.text = movieUiModel.title
         screeningDateTextView.text =
-            view.context.getString(R.string.screening_date_format, movieUiModel.screeningDate)
+            view.context.getString(
+                R.string.screening_date_format,
+                movieUiModel.screeningStartDate,
+                movieUiModel.screeningEndDate,
+            )
         runningTimeTextView.text =
             view.context.getString(R.string.running_time_format, movieUiModel.runningTime)
         summaryTextView.text = movieUiModel.summary
