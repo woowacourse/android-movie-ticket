@@ -14,7 +14,7 @@ class MovieSeatSelectionPresenter(
     reservationCount: Int,
 ) :
     MovieSeatSelectionContract.Presenter {
-    private val reservationDetail = ReservationDetail(reservationCount)
+    val reservationDetail = ReservationDetail(reservationCount)
     private lateinit var movieContent: MovieContent
 
     override fun loadMovieTitle(movieContentId: Long) {
@@ -43,11 +43,27 @@ class MovieSeatSelectionPresenter(
         col: Int,
     ) {
         if (reservationDetail.selectedSeat.contains(Seat(row, col))) {
-            reservationDetail.removeSeat(row, col)
-            view.showUnSelectedSeat(row, col)
-            return
+            unSelectingWork(row, col)
+        } else {
+            selectingWork(row, col)
         }
+        view.updateSelectCompletion(reservationDetail.checkSelectCompletion())
+        view.showReservationTotalAmount(reservationDetail.totalSeatAmount())
+    }
+
+    private fun selectingWork(
+        row: Int,
+        col: Int,
+    ) {
         if (reservationDetail.addSeat(row, col)) view.showSelectedSeat(row, col)
+    }
+
+    private fun unSelectingWork(
+        row: Int,
+        col: Int,
+    ) {
+        reservationDetail.removeSeat(row, col)
+        view.showUnSelectedSeat(row, col)
     }
 
     override fun reserveMovie(

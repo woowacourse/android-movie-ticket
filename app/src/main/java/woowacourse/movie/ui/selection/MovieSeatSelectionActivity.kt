@@ -19,6 +19,8 @@ import woowacourse.movie.model.movie.Seat
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import woowacourse.movie.ui.utils.positionToIndex
+import woowacourse.movie.ui.utils.toPosition
+import java.util.ArrayList
 
 class MovieSeatSelectionActivity :
     BaseActivity<MovieSeatSelectionContract.Presenter>(),
@@ -43,6 +45,30 @@ class MovieSeatSelectionActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setOnConfirmButtonListener()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val seatsIndex =
+            (presenter as MovieSeatSelectionPresenter)
+                .reservationDetail
+                .selectedSeat
+                .map {
+                    it.toString()
+                }
+        outState.putStringArrayList("abc", seatsIndex as ArrayList<String>)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.let {
+            val seats = it.getStringArrayList("abc")
+            seats?.forEach { seat ->
+                val position = seat.toPosition()
+                presenter.selectSeat(position.first, position.second)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -117,8 +143,6 @@ class MovieSeatSelectionActivity :
                 text = Seat(row, col).toString()
                 setOnClickListener {
                     presenter.selectSeat(row, col)
-                    presenter.loadTotalSeatAmount()
-                    presenter.updateSelectCompletion()
                 }
             }
         }
@@ -129,11 +153,10 @@ class MovieSeatSelectionActivity :
         col: Int,
     ) {
         seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[
-            positionToIndex(row, col),
-        ].setBackgroundColor(
-            ContextCompat.getColor(this, R.color.selected_seat),
-        )
+            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)]
+            .setBackgroundColor(
+                ContextCompat.getColor(this, R.color.selected_seat),
+            )
     }
 
     override fun showUnSelectedSeat(
@@ -141,11 +164,10 @@ class MovieSeatSelectionActivity :
         col: Int,
     ) {
         seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[
-            positionToIndex(row, col),
-        ].setBackgroundColor(
-            ContextCompat.getColor(this, R.color.unSelected_seat),
-        )
+            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)]
+            .setBackgroundColor(
+                ContextCompat.getColor(this, R.color.unSelected_seat),
+            )
     }
 
     override fun showReservationTotalAmount(amount: Int) {
