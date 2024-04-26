@@ -60,7 +60,7 @@ class SeatSelectPresenter(
         }
 
         selectedSeats.add(seat)
-        reservationAmount += SeatRating.from(seat).amount
+        reservationAmount += seat.amount()
         view.selectSeat(row, col, selectedSeats.isConfirm())
     }
 
@@ -70,7 +70,7 @@ class SeatSelectPresenter(
         col: Int,
     ) {
         selectedSeats.remove(seat)
-        reservationAmount -= SeatRating.from(seat).amount
+        reservationAmount -= seat.amount()
         view.unselectSeat(row, col)
     }
 

@@ -12,7 +12,7 @@ class Ticket(
 ) : Serializable {
     fun amount(): ReservationAmount {
         return selectedSeats.seats.fold(ReservationAmount(0)) { acc, seat ->
-            acc + SeatRating.from(seat).amount
+            acc + seat.amount()
         }
     }
 }
