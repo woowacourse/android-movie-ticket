@@ -8,6 +8,7 @@ import woowacourse.movie.domain.reservation.Quantity
 import woowacourse.movie.domain.screening.Movie
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.feature.main.ui.toUiModel
+import woowacourse.movie.feature.reservation.ui.toUiModel
 
 class ReservationPresenter(
     private val view: ReservationContract.View,
@@ -24,9 +25,10 @@ class ReservationPresenter(
         view.initializeMovieDetails(movie.toUiModel())
         view.setupReservationCompleteControls()
         view.setupTicketQuantityControls(quantity)
+        view.setupScreeningSchedulesControls(movie.screeningDate.schedules().toUiModel())
     }
 
-    override fun completeReservation() {
+    override fun completeSelectSchedule() {
         val screening = Screening(movie)
         val id = reservationRepository.save(screening, quantity)
         view.navigateToCompleteScreen(id)

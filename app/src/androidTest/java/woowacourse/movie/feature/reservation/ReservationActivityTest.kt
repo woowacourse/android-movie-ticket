@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -36,6 +37,7 @@ class ReservationActivityTest {
     @Test
     fun `영화_설명이_표시된다`() {
         onView(withId(R.id.reservation_content))
+            .perform(scrollTo())
             .check(matches(isDisplayed()))
     }
 

@@ -2,6 +2,7 @@ package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.domain.reservation.Quantity
 import woowacourse.movie.feature.main.ui.MovieModel
+import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 
 interface ReservationContract {
     interface View {
@@ -11,6 +12,8 @@ interface ReservationContract {
 
         fun setupTicketQuantityControls(quantity: Quantity)
 
+        fun setupScreeningSchedulesControls(screeningScheduleModel: ScreeningScheduleModel)
+
         fun updateTicketQuantity(newText: String)
 
         fun navigateToCompleteScreen(id: Long)
@@ -19,7 +22,7 @@ interface ReservationContract {
     interface Presenter {
         fun fetchMovieDetails(id: Long)
 
-        fun completeReservation()
+        fun completeSelectSchedule()
 
         fun increaseTicketQuantity()
 

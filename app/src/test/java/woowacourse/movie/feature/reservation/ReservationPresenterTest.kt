@@ -48,7 +48,7 @@ class ReservationPresenterTest {
         every { view.navigateToCompleteScreen(any()) } just runs
 
         // when
-        presenter.completeReservation()
+        presenter.completeSelectSchedule()
 
         // then
         verify { view.navigateToCompleteScreen(any()) }
