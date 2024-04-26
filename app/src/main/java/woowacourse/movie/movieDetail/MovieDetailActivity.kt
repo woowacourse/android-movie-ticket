@@ -1,15 +1,15 @@
 package woowacourse.movie.movieDetail
 
-import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.IntentCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
@@ -18,6 +18,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private var ticketNum = 1
     private lateinit var presenter: MovieDetailContract.Presenter
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)

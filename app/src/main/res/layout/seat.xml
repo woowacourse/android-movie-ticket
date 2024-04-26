@@ -34,76 +34,76 @@
         <TableRow>
 
             <Button
-                style="@style/RowAStyle"
+                style="@style/RowABStyle"
                 android:text="A1" />
 
             <Button
-                style="@style/RowAStyle"
+                style="@style/RowABStyle"
                 android:text="A2" />
 
             <Button
-                style="@style/RowAStyle"
+                style="@style/RowABStyle"
                 android:text="A3" />
 
             <Button
-                style="@style/RowAStyle"
+                style="@style/RowABStyle"
                 android:text="A4" />
         </TableRow>
         <!-- B행 버튼들 -->
         <TableRow>
 
             <Button
-                style="@style/RowBStyle"
+                style="@style/RowABStyle"
                 android:text="B1" />
 
             <Button
-                style="@style/RowBStyle"
+                style="@style/RowABStyle"
                 android:text="B2" />
 
             <Button
-                style="@style/RowBStyle"
+                style="@style/RowABStyle"
                 android:text="B3" />
 
             <Button
-                style="@style/RowBStyle"
+                style="@style/RowABStyle"
                 android:text="B4" />
         </TableRow>
         <!-- C행 버튼들 -->
         <TableRow>
 
             <Button
-                style="@style/RowCStyle"
+                style="@style/RowCDStyle"
                 android:text="C1" />
 
             <Button
-                style="@style/RowCStyle"
+                style="@style/RowCDStyle"
                 android:text="C2" />
 
             <Button
-                style="@style/RowCStyle"
+                style="@style/RowCDStyle"
                 android:text="C3" />
 
             <Button
-                style="@style/RowCStyle"
+                style="@style/RowCDStyle"
                 android:text="C4" />
         </TableRow>
         <!-- D행 버튼들 -->
         <TableRow>
 
             <Button
-                style="@style/RowDStyle"
+                style="@style/RowCDStyle"
                 android:text="D1" />
 
             <Button
-                style="@style/RowDStyle"
+                style="@style/RowCDStyle"
                 android:text="D2" />
 
             <Button
-                style="@style/RowDStyle"
+                style="@style/RowCDStyle"
                 android:text="D3" />
 
             <Button
-                style="@style/RowDStyle"
+                style="@style/RowCDStyle"
                 android:text="D4" />
         </TableRow>
         <!-- E행 버튼들 -->
@@ -150,7 +150,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="해리 포터와 마법사의 돌" />
+                tools:text="Movie Title Default"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="0원" />
+                tools:text="Default Charge" />
         </LinearLayout>
 
         <TextView

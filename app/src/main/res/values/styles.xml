@@ -1,56 +1,35 @@
 <resources>
-    <!-- A행 스타일 -->
-    <style name="RowAStyle">
+
+    <style name="RowABStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:textSize">22sp</item>
         <item name="android:layout_margin">2dp</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:backgroundTint">@android:color/white</item>
-        <item name="android:textColor">#0000FF</item> <!-- 빨간색 -->
+        <item name="android:textColor">#B455A2</item>
     </style>
 
-    <!-- B행 스타일 -->
-    <style name="RowBStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:backgroundTint">@android:color/white</item>
-        <item name="android:textColor">#0000FF</item> <!-- 파란색 -->
-    </style>
-
-    <!-- C행 스타일 -->
-    <style name="RowCStyle">
+    <style name="RowCDStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:layout_margin">2dp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">22sp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:backgroundTint">@android:color/white</item>
-        <item name="android:textColor">#00FF00</item> <!-- 초록색 -->
+        <item name="android:textColor">#00FF00</item>
     </style>
 
-    <!-- D행 스타일 -->
-    <style name="RowDStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:backgroundTint">@android:color/white</item>
-        <item name="android:textColor">#00FF00</item> <!-- 노란색 -->
-    </style>
-
-    <!-- E행 스타일 -->
     <style name="RowEStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:layout_margin">2dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:backgroundTint">@android:color/white</item>
-        <item name="android:textColor">#FFA500</item> <!-- 주황색 -->
+        <item name="android:textColor">#4B89DC</item>
     </style>
 </resources>
