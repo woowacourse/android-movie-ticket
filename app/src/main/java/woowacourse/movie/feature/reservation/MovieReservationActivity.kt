@@ -45,16 +45,19 @@ class MovieReservationActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        val movieId = movieId()
-        if (isError(movieId)) {
-            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
-            return
-        }
-
-        initializeView(movieId)
+        if(validateError()) return
+        initializeView(movieId())
     }
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieRepositoryImpl)
+
+    private fun validateError(): Boolean {
+        if (isError(movieId())) {
+            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
+            return true
+        }
+        return false
+    }
 
     private fun movieId(): Long {
         return intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)

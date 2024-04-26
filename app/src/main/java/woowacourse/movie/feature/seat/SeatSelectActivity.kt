@@ -34,17 +34,9 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_seat_select)
 
-        val movieId = movieId()
-        val screeningDateTime = screeningDateTime()
-        val reservationCountValue = reservationCountValue()
-
-        if (isError(movieId, screeningDateTime, reservationCountValue)) {
-            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
-            return
-        }
+        if (validateError()) return
 
         seatViews =
             seatTable
@@ -53,20 +45,18 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
                 .map { it.children.filterIsInstance<TextView>().toList() }
                 .toList()
 
-        updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
-        presenter.loadMovieData(movieId)
-        presenter.initializeSeatTable(seatViews.size, seatViews[0].size)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
+        initializeView()
     }
 
     override fun initializePresenter() = SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
+
+    private fun validateError(): Boolean {
+        if (isError(movieId(), screeningDateTime(), reservationCountValue())) {
+            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
+            return true
+        }
+        return false
+    }
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
@@ -94,6 +84,16 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         finish()
     }
 
+    private fun initializeView() {
+        presenter.loadMovieData(movieId())
+        presenter.initializeSeatTable(seatViews.size, seatViews[0].size)
+        updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
+        confirmButton.setOnClickListener {
+            presenter.confirmSeatSelection()
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     override fun initializeMovie(movie: SeatSelectMovieUiModel) {
         titleText.text = movie.titleMessage
     }
@@ -106,10 +106,6 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
             seatView.setOnClickListener {
                 presenter.selectSeat(row, col)
             }
-        }
-
-        confirmButton.setOnClickListener {
-            presenter.confirmSeatSelection()
         }
     }
 
@@ -127,7 +123,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
     }
 
     override fun showCannotSelectSeat() {
-        Toast.makeText(this, R.string.cannot_select_seat, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.cannot_select_seat, Toast.LENGTH_LONG).show()
     }
 
     override fun selectSeat(
@@ -136,9 +132,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         isConfirm: Boolean,
     ) {
         seatViews[row][col].setBackgroundColor(ContextCompat.getColor(this, R.color.yellow))
-        if (isConfirm) {
-            confirmButton.isEnabled = true
-        }
+        confirmButton.isEnabled = isConfirm
     }
 
     override fun unselectSeat(
@@ -161,6 +155,13 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
                 dialog.dismiss()
             }
             .show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

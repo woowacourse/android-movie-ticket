@@ -30,28 +30,19 @@ class MovieReservationCompleteActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
 
-        val ticket = ticket()
-        if (isError(ticket)) {
-            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
-            return
-        }
-
-        presenter.loadMovieData(ticket!!.movieId)
-        addBackPressedCallback()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun addBackPressedCallback() {
-        val onBackPressedCallback =
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    MovieHomeActivity.startActivity(this@MovieReservationCompleteActivity)
-                }
-            }
-        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+        if (validateError()) return
+        initializeView()
     }
 
     override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieRepositoryImpl)
+
+    private fun validateError(): Boolean {
+        if (isError(ticket())) {
+            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
+            return true
+        }
+        return false
+    }
 
     private fun ticket(): Ticket? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -69,11 +60,10 @@ class MovieReservationCompleteActivity :
         finish()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> MovieHomeActivity.startActivity(this)
-        }
-        return super.onOptionsItemSelected(item)
+    private fun initializeView() {
+        presenter.loadMovieData(ticket()!!.movieId)
+        addBackPressedCallback()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun setUpReservationCompleteView(movie: Movie) {
@@ -84,6 +74,23 @@ class MovieReservationCompleteActivity :
             seatsInfoText.text = seatsInfoMessage
             reservationAmountText.text = reservationAmountMessage
         }
+    }
+
+    private fun addBackPressedCallback() {
+        val onBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    MovieHomeActivity.startActivity(this@MovieReservationCompleteActivity)
+                }
+            }
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> MovieHomeActivity.startActivity(this)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

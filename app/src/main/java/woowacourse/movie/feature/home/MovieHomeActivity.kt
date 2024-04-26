@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.feature.home.list.MovieListAdapter
+import woowacourse.movie.feature.home.listener.ReservationButtonClickListener
 import woowacourse.movie.feature.home.ui.MovieUiModel
 import woowacourse.movie.feature.home.ui.toMovieListUiModels
 import woowacourse.movie.feature.reservation.MovieReservationActivity
@@ -25,15 +26,15 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
 
     override fun initializePresenter() = MovieHomePresenter(this, MovieRepositoryImpl)
 
-    override fun setUpMovieList(movies: List<Movie>) {
+    override fun initializeMovieList(movies: List<Movie>) {
         val movies = movies.toMovieListUiModels(this, R.drawable.img_advertisement, ADVERTISEMENT_INTERVAL)
-        movieList.adapter =
-            MovieListAdapter(movies) { _, position ->
-                MovieReservationActivity.startActivity(
-                    this@MovieHomeActivity,
-                    (movies[position] as MovieUiModel).id,
-                )
-            }
+        val reservationButtonClickListener = ReservationButtonClickListener { _, position ->
+            MovieReservationActivity.startActivity(
+                this@MovieHomeActivity,
+                (movies[position] as MovieUiModel).id,
+            )
+        }
+        movieList.adapter = MovieListAdapter(movies, reservationButtonClickListener)
     }
 
     companion object {

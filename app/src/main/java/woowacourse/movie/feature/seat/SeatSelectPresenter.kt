@@ -18,7 +18,7 @@ class SeatSelectPresenter(
     SeatSelectContract.Presenter {
     private lateinit var seats: Seats
     private val selectedSeats = SelectedSeats(ReservationCount(reservationCountValue))
-    private var reservationAmount = ReservationAmount(0)
+    private var reservationAmount = ReservationAmount()
 
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
