@@ -1,9 +1,7 @@
 package woowacourse.movie.presentation.screen.detail
 
-import android.content.Intent
 import woowacourse.movie.data.MovieDao
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Payment
 import woowacourse.movie.model.Theater
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
@@ -16,7 +14,6 @@ class MovieDetailPresenter(
     MovieDetailContract.Presenter {
     var ticket: Ticket = Ticket()
         private set
-    private val payment: Payment = Payment()
     private lateinit var movie: Movie
     private val theater: Theater by lazy {
         Theater(movie)
@@ -53,12 +50,6 @@ class MovieDetailPresenter(
         view.updateTicketCount(ticket.count())
     }
 
-    override fun onClickedSelectSeatButton(intent: Intent) {
-        intent.putExtra("movieId", movie.id)
-        intent.putExtra("ticket", ticket)
-        intent.putExtra("payment", payment)
-    }
-
     override fun ticketCount(): Int = ticket.count()
 
     override fun restoreTicketCount(count: Int) {
@@ -80,5 +71,9 @@ class MovieDetailPresenter(
 
     override fun registerScreenTime(time: LocalTime) {
         screenTime = time
+    }
+
+    override fun loadMovieDetail() {
+        view.navigateToReservationSeat(movie.id, ticket)
     }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
+import woowacourse.movie.model.Ticket
 import woowacourse.movie.presentation.reservation.seat.ReservationSeatActivity
 import woowacourse.movie.presentation.screen.movie.ScreeningMovieActivity.Companion.MOVIE_ID
 import java.time.LocalDate
@@ -97,6 +98,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
     }
 
+    override fun navigateToReservationSeat(movieId: Int, ticket: Ticket) {
+        val intent = Intent(this, ReservationSeatActivity::class.java)
+        intent.putExtra(MOVIE_ID, movieId)
+        intent.putExtra(TICKET, ticket)
+        this.startActivity(intent)
+    }
+
     private fun bindSpinner() {
         dateSpinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
@@ -144,11 +152,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private fun bindSelectSeatButton() {
         selectSeatButton.setOnClickListener {
             presenter.createTicket()
-            val intent = Intent(this, ReservationSeatActivity::class.java)
-            presenter.onClickedSelectSeatButton(
-                intent,
-            )
-            this.startActivity(intent)
+            presenter.loadMovieDetail()
         }
     }
 

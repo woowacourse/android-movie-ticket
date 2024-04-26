@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.screen.detail
 
-import android.content.Intent
+import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -22,6 +22,8 @@ interface MovieDetailContract {
         fun updateTicketCount(count: Int)
 
         fun updateTimeSpinner(times: List<LocalTime>)
+
+        fun navigateToReservationSeat(movieId: Int, ticket: Ticket)
     }
 
     interface Presenter {
@@ -30,8 +32,6 @@ interface MovieDetailContract {
         fun subTicketCount()
 
         fun addTicketCount()
-
-        fun onClickedSelectSeatButton(intent: Intent)
 
         fun ticketCount(): Int
 
@@ -44,5 +44,7 @@ interface MovieDetailContract {
         fun registerScreenDate(date: LocalDate)
 
         fun registerScreenTime(time: LocalTime)
+
+        fun loadMovieDetail()
     }
 }
