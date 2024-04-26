@@ -32,3 +32,7 @@ fun SeatBoard.emptySeats(): Set<Seat> {
 fun SeatBoard.bannedSeats(): Set<Seat> {
     return totalSeats().filter { it.state == SeatState.BANNED }.toSet()
 }
+
+fun SeatBoard.totalPrice(): Long {
+    return totalSeats().sumOf { it.price.price }
+}

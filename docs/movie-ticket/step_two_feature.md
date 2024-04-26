@@ -38,9 +38,13 @@
 - [x] : 좌석 등급 마다 Price 가 다르다.
   - [x] : A: 12,000원, B: 10,000원, S: 15,000원
 - [x] : 좌석 상태: RESERVED, BAN, EMPTY, NONE
-- [ ] : 선택된 좌석을 취소할 때 EMPTY 상태가 된다.
-- [ ] : 좌석을 선택할 인원이 정해져 있다.
-
+- [x] : Selected 된 좌석을 다시 선택 하면 EMPTY 상태가 된다.
+- [x] : Empty 된 좌석을 선택 하면 Selected 상태가 된다.
+- [x] : Ban 된 좌석을 선택하면 실패한다.
+- [x] : reserved 된 좌석을 선택하면 실패한다.
+- [x] : 좌석을 선택할 인원이 정해져 있다.
+- [x] : 좌석을 선택할 인원이 다 선택되면 선택이 완료된다.
+- [x] : 선택이 완료 됐을 때, 빈 좌석을 선택 하면 실패한다.
 # 리팩토링
 - [x] : FakeRepository 를 DefaultRepository 로 이름을 바꾼다.
 - [x] : Ui Test 를 위한 FakeRepository 를 만든다.
