@@ -12,12 +12,12 @@ import woowacourse.movie.model.data.MovieRepository
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
-    reservationCount: ReservationCount,
+    reservationCountValue: Int,
     private val movieRepository: MovieRepository,
 ) :
     SeatSelectContract.Presenter {
     private lateinit var seats: Seats
-    private val selectedSeats = SelectedSeats(reservationCount)
+    private val selectedSeats = SelectedSeats(ReservationCount(reservationCountValue))
     private var reservationAmount = ReservationAmount(0)
 
     override fun loadMovieData(movieId: Long) {
@@ -69,5 +69,9 @@ class SeatSelectPresenter(
         selectedSeats.remove(seat)
         reservationAmount -= SeatRating.from(seat).amount
         view.unselectSeat(row, col)
+    }
+
+    override fun confirmSeatSelection() {
+        view.moveReservationCompleteView()
     }
 }

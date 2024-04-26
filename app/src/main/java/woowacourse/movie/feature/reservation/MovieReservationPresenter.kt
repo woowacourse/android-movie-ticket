@@ -2,7 +2,6 @@ package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.model.ReservationCount
 import woowacourse.movie.model.ScreeningDate
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.rangeTo
 import java.time.LocalDateTime
@@ -43,8 +42,7 @@ class MovieReservationPresenter(
     ) {
         val formatter = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm")
         val screeningDateTime = LocalDateTime.parse("$screeningDateValue $screeningTimeValue", formatter)
-        val ticket = Ticket(screeningDateTime, reservationCount)
-        view.moveSeatSelectView(ticket)
+        view.moveSeatSelectView(screeningDateTime, reservationCount.count)
     }
 
     override fun updateReservationCount(reservationCountValue: Int) {

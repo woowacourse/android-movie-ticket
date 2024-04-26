@@ -19,17 +19,14 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
+import java.time.LocalDateTime
 
-class SeatSelectActivity(
-    private val seatRow: Int = 5,
-    private val seatCol: Int = 4,
-) : BaseActivity<SeatSelectContract.Presenter>(), SeatSelectContract.View {
+class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSelectContract.View {
     private val seatTable by lazy { findViewById<TableLayout>(R.id.seat_table) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
     private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
     private lateinit var seatViews: List<List<TextView>>
-    private val selectedSeat by lazy { listOf<String>() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +34,10 @@ class SeatSelectActivity(
         setContentView(R.layout.activity_seat_select)
 
         val movieId = movieId()
-        val ticket = ticket()
-        if (isError(movieId, ticket)) {
+        val screeningDateTime = screeningDateTime()
+        val reservationCountValue = reservationCountValue()
+
+        if (isError(movieId, screeningDateTime, reservationCountValue)) {
             handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
             return
         }
@@ -52,27 +51,30 @@ class SeatSelectActivity(
 
         updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         presenter.loadMovieData(movieId)
-        presenter.initializeSeatTable(seatRow, seatCol)
+        presenter.initializeSeatTable(seatViews.size, seatViews[0].size)
     }
 
     override fun initializePresenter() =
-        SeatSelectPresenter(this, ticket()!!.reservationCount, MovieRepositoryImpl)
+        SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
 
     private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
-    private fun ticket(): Ticket? {
+    private fun screeningDateTime(): LocalDateTime? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(TICKET_KEY, Ticket::class.java)
+            intent.getSerializableExtra(SCREENING_DATE_TIME_KEY, LocalDateTime::class.java)
         } else {
-            intent.getParcelableExtra(TICKET_KEY) as? Ticket
+            intent.getSerializableExtra(SCREENING_DATE_TIME_KEY) as? LocalDateTime
         }
     }
 
+    private fun reservationCountValue() = intent.getIntExtra(RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+
     private fun isError(
         movieId: Long,
-        ticket: Ticket?,
+        screeningDateTime: LocalDateTime?,
+        reservationCountValue: Int,
     ): Boolean {
-        return movieId == MOVIE_ID_DEFAULT_VALUE || ticket == null
+        return movieId == MOVIE_ID_DEFAULT_VALUE || screeningDateTime == null || reservationCountValue == RESERVATION_COUNT_DEFAULT_VALUE
     }
 
     override fun handleError(throwable: Throwable) {
@@ -96,7 +98,7 @@ class SeatSelectActivity(
         }
 
         confirmButton.setOnClickListener {
-
+            presenter.confirmSeatSelection()
         }
     }
 
@@ -129,21 +131,29 @@ class SeatSelectActivity(
         confirmButton.isEnabled = false
     }
 
+    override fun moveReservationCompleteView() {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         private val TAG = SeatSelectActivity::class.simpleName
         private const val INITIAL_RESERVATION_AMOUNT = 0
         private const val MOVIE_ID_KEY = "movie_id"
         private const val MOVIE_ID_DEFAULT_VALUE = -1L
-        private const val TICKET_KEY = "ticket_id"
+        private const val SCREENING_DATE_TIME_KEY = "screening_date_time_key"
+        private const val RESERVATION_COUNT_KEY = "reservation_count_key"
+        private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
 
         fun startActivity(
             context: Context,
             movieId: Long,
-            ticket: Ticket,
+            screeningDateTime: LocalDateTime,
+            reservationCountValue: Int,
         ) {
             Intent(context, SeatSelectActivity::class.java).run {
                 putExtra(MOVIE_ID_KEY, movieId)
-                putExtra(TICKET_KEY, ticket)
+                putExtra(SCREENING_DATE_TIME_KEY, screeningDateTime)
+                putExtra(RESERVATION_COUNT_KEY, reservationCountValue)
                 context.startActivity(this)
             }
         }

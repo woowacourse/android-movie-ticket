@@ -6,6 +6,7 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
+import java.time.LocalDateTime
 
 interface MovieReservationContract {
     interface View : ErrorListener {
@@ -18,7 +19,7 @@ interface MovieReservationContract {
 
         fun updateReservationCount(reservationCountValue: Int)
 
-        fun moveSeatSelectView(ticket: Ticket)
+        fun moveSeatSelectView(screeningDateTime: LocalDateTime, reservationCountValue: Int)
 
         fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>)
     }

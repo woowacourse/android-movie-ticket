@@ -23,6 +23,7 @@ import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
@@ -151,8 +152,11 @@ class MovieReservationActivity :
         reservationCountText.text = reservationCountValue.toString()
     }
 
-    override fun moveSeatSelectView(ticket: Ticket) {
-        SeatSelectActivity.startActivity(this, movieId(), ticket)
+    override fun moveSeatSelectView(
+        screeningDateTime: LocalDateTime,
+        reservationCountValue: Int,
+    ) {
+        SeatSelectActivity.startActivity(this, movieId(), screeningDateTime, reservationCountValue)
     }
 
     override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {

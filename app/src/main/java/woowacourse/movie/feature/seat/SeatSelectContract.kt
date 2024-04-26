@@ -18,6 +18,8 @@ interface SeatSelectContract {
         fun selectSeat(row: Int, col: Int, isConfirm: Boolean)
 
         fun unselectSeat(row: Int, col: Int)
+
+        fun moveReservationCompleteView()
     }
 
     interface Presenter : BasePresenter {
@@ -32,5 +34,7 @@ interface SeatSelectContract {
             row: Int,
             col: Int
         )
+
+        fun confirmSeatSelection()
     }
 }
