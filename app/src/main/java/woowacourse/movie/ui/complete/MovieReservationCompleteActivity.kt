@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.complete
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -9,6 +10,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.base.BaseActivity
+import woowacourse.movie.ui.home.MovieHomeActivity
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
@@ -46,7 +48,7 @@ class MovieReservationCompleteActivity :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> finish()
+            android.R.id.home -> startActivity(Intent(this, MovieHomeActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
