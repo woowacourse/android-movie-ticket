@@ -29,6 +29,24 @@ object MockMovies {
                 imageName = "harry_potter_poster_2",
                 description = "해리 포터와 비밀의 방",
             ),
+            Movie(
+                movieId = 3,
+                title = "해리 포터와 아즈카반의 죄수",
+                screeningStartDate = LocalDate.of(2024, 5, 1),
+                screeningEndDate = LocalDate.of(2024, 5, 31),
+                runningTime = 141,
+                imageName = "harry_potter_poster_3",
+                description = "해리 포터와 아즈카반의 죄수",
+            ),
+            Movie(
+                movieId = 4,
+                title = "해리 포터와 불의 잔",
+                screeningStartDate = LocalDate.of(2024, 6, 1),
+                screeningEndDate = LocalDate.of(2024, 6, 30),
+                runningTime = 157,
+                imageName = "harry_potter_poster_4",
+                description = "해리 포터와 불의 잔",
+            ),
         )
 
     val defaultMovie =
