@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movies_list_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -8,6 +8,5 @@ interface MovieAdapterContract {
     }
 
     interface Model {
-        fun setMovies(screenings: List<Movie>)
     }
 }

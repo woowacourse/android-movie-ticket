@@ -1,83 +1,63 @@
 package woowacourse.movie.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.format.format
 import woowacourse.movie.model.movie.Movie
 
 class MovieAdapter(
+    private val movies: List<Movie>,
     private val screeningListView: MovieListContract.View,
 ) :
-    BaseAdapter(),
+    RecyclerView.Adapter<MovieAdapter.MovieHolder>(),
         MovieAdapterContract.Model,
         MovieAdapterContract.View {
-    private var movies: List<Movie> = listOf()
 
-    override fun setMovies(screenings: List<Movie>) {
-        this.movies = screenings
-    }
-
-    override fun getCount(): Int = movies.size
-
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItemCount(): Int = movies.size
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup,
-    ): View {
-        val listItemView =
-            convertView
-                ?: LayoutInflater.from(parent.context)
-                    .inflate(R.layout.movie_list_item, parent, false)
-        val viewHolder =
-            if (convertView != null) {
-                listItemView.tag as ViewHolder
-            } else {
-                val viewHolder = ViewHolder(listItemView)
-                listItemView.tag = viewHolder
-                viewHolder
-            }
-        val movie: Movie = getItem(position)
-        viewHolder.bind(movie, position)
-        return listItemView
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.movie_list_item, parent, false)
+        return MovieHolder(
+            title = view.findViewById<TextView>(R.id.movie_title),
+            screeningDate = view.findViewById<TextView>(R.id.movie_screening_date),
+            runningTime = view.findViewById<TextView>(R.id.movie_item_running_time),
+            detailButton = view.findViewById<Button>(R.id.movie_details_button),
+            itemView = view,
+        )
+    }
+
+    override fun onBindViewHolder(holder: MovieHolder, position: Int) {
+        val movie: Movie = movies[position]
+        val movieDetail = movie.movieDetail
+        holder.title.text = movieDetail.title.format()
+        holder.screeningDate.text = "상영일: ${movie.screeningDate.format()}"
+        holder.runningTime.text = "러닝타임: ${movieDetail.runningTime.format()}"
     }
 
     override fun notifyItemClicked(position: Int) {
         screeningListView.navigateToMovieDetail(position)
     }
 
-    inner class ViewHolder(
-        private val title: TextView,
-        private val screeningDate: TextView,
-        private val runningTime: TextView,
-        private val detailButton: Button,
-    ) {
-        constructor(itemView: View) : this(
-            title = itemView.findViewById<TextView>(R.id.movie_title),
-            screeningDate = itemView.findViewById<TextView>(R.id.movie_screening_date),
-            runningTime = itemView.findViewById<TextView>(R.id.movie_item_running_time),
-            detailButton = itemView.findViewById<Button>(R.id.movie_details_button),
-        )
-
-        fun bind(
-            movie: Movie,
-            position: Int,
-        ) {
-            val movieDetail = movie.movieDetail
-            title.text = movieDetail.title.format()
-            screeningDate.text = "상영일: ${movie.screeningDate.format()}"
-            runningTime.text = "러닝타임: ${movieDetail.runningTime.format()}"
+    inner class MovieHolder(
+        val title: TextView,
+        val screeningDate: TextView,
+        val runningTime: TextView,
+        val detailButton: Button,
+        itemView: View,
+    ): RecyclerView.ViewHolder(itemView) {
+        init{
             detailButton.setOnClickListener {
-                notifyItemClicked(position)
+                notifyItemClicked(adapterPosition)
             }
         }
     }
