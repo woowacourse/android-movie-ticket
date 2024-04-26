@@ -19,7 +19,7 @@ class SeatSelectionPresenterTest {
     private lateinit var mockSeatRepository: SeatRepository
     private lateinit var presenter: SeatSelectionPresenter
     private val ticketModel = TicketModel(
-        "어벤져스",
+        "해리포터",
         LocalDate.now(),
         LocalDateTime.now(),
         listOf("A1", "A2", "A3"),
