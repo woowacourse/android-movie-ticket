@@ -6,8 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.ui.ScreenDetailUI
+import woowacourse.movie.ui.toUi
 
 class ScreenDetailScreenView(context: Context, attrs: AttributeSet? = null) : ScreenDetailView,
     ConstraintLayout(context, attrs) {
@@ -30,6 +30,4 @@ class ScreenDetailScreenView(context: Context, attrs: AttributeSet? = null) : Sc
             this@ScreenDetailScreenView.dateRange.text = dateRange.toUi()
         }
     }
-
-    private fun DateRange.toUi(): String = "$start ~ $endInclusive"
 }

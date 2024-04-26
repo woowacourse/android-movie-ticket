@@ -1,5 +1,6 @@
 package woowacourse.movie.ui
 
+import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.Image
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Screen
@@ -8,7 +9,7 @@ fun Screen.toPreviewUI(image: Image<Any>) =
     ScreenPreviewUI(
         id = id,
         moviePreviewUI = movie.toPreviewUI(image),
-        date = date,
+        dateRange = dateRange,
     )
 
 fun Movie.toPreviewUI(image: Image<Any>) =
@@ -30,3 +31,5 @@ fun Screen.toDetailUI(image: Image<Any>) =
             ),
         dateRange = dateRange,
     )
+
+fun DateRange.toUi(): String = "$start ~ $endInclusive"

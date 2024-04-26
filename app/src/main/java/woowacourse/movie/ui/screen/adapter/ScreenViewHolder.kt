@@ -8,6 +8,7 @@ import woowacourse.movie.R
 import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.ViewHolder
 import woowacourse.movie.ui.screen.OnItemClickListener
+import woowacourse.movie.ui.toUi
 
 class ScreenViewHolder(
     private val view: View,
@@ -30,7 +31,7 @@ class ScreenViewHolder(
         with(screen) {
             poster.setImageResource(moviePreviewUI.image.imageSource as Int)
             title.text = moviePreviewUI.title
-            this@ScreenViewHolder.date.text = this.date
+            this@ScreenViewHolder.date.text = this.dateRange.toUi()
             runningTime.text = moviePreviewUI.runningTime.toString()
         }
     }
