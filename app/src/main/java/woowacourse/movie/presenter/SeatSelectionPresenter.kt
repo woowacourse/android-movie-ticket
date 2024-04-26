@@ -26,18 +26,17 @@ class SeatSelectionPresenter(
         numOfTickets: Int,
         date: String?,
         time: String?,
+        title: String?,
     ) {
-        if (date == null || time == null) {
+        if (date == null || time == null || title == null) {
             view.showToastMessage("상영 시간 정보가 비어있습니다.")
             return
         }
         boxOffice = BoxOffice(Count(numOfTickets), BookingDateTime.of(date, time))
         when (val screening = MovieData.findScreeningDataById(screeningId)) {
             is Result.Success -> {
-                println(screening.data.theater.theaterSize)
-                println(screening.data.theater.rowClassInfo)
                 val theater = screening.data.theater
-                view.initializeSeatTable(theater.theaterSize, theater.rowClassInfo)
+                view.initializeSeatTable(theater.theaterSize, theater.rowClassInfo, title, boxOffice.totalPrice)
             }
 
             is Result.Error -> {

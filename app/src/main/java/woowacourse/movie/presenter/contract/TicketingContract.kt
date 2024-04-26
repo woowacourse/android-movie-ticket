@@ -20,6 +20,7 @@ interface TicketingContract {
             screeningId: Long,
             count: Int,
             bookingDateTime: BookingDateTime,
+            movieTitle: String?,
         )
 
         fun showToastMessage(message: String)

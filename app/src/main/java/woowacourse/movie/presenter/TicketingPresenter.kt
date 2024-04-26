@@ -62,6 +62,7 @@ class TicketingPresenter(
                     screeningId = screening.data.screeningId,
                     count = count.value,
                     bookingDateTime = BookingDateTime(date, time),
+                    movieTitle = screening.data.movie?.title,
                 )
             }
 

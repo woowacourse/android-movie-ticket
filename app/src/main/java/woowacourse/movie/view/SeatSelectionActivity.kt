@@ -22,6 +22,7 @@ import woowacourse.movie.presenter.SeatSelectionPresenter
 import woowacourse.movie.presenter.contract.SeatSelectionContract
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_COUNT
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_DATE
+import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_MOVIE_TITLE
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_SCREENING_ID
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TIME
 
@@ -39,11 +40,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
         val screeningId = intent.getLongExtra(EXTRA_SCREENING_ID, -1)
         val count = intent.getIntExtra(EXTRA_COUNT, 0)
+        val title = intent.getStringExtra(EXTRA_MOVIE_TITLE)
         val date = intent.getStringExtra(EXTRA_DATE)
         val time = intent.getStringExtra(EXTRA_TIME)
 
         presenter = SeatSelectionPresenter(this)
-        presenter.initializeSeats(screeningId, count, date, time)
+        presenter.initializeSeats(screeningId, count, date, time, title)
 
         button.setOnClickListener {
             AlertDialog.Builder(this)
@@ -63,7 +65,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun initializeSeatTable(
         theaterSize: TheaterSize,
         rowClassInfo: Map<Int, SeatClass>,
+        movieTitle: String,
+        totalPrice: Int,
     ) {
+        findViewById<TextView>(R.id.tv_movie_title).text = movieTitle
+        findViewById<TextView>(R.id.tv_total_price).text =
+            getString(R.string.text_total_price, totalPrice)
         seats.isStretchAllColumns = true
         initializeRows(theaterSize, rowClassInfo)
     }

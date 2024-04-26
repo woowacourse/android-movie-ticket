@@ -106,12 +106,14 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         screeningId: Long,
         count: Int,
         bookingDateTime: BookingDateTime,
+        movieTitle: String?,
     ) {
         Intent(this, SeatSelectionActivity::class.java).apply {
             putExtra(EXTRA_SCREENING_ID, screeningId)
             putExtra(EXTRA_COUNT, count)
             putExtra(EXTRA_DATE, bookingDateTime.date.toString())
             putExtra(EXTRA_TIME, bookingDateTime.time.toString())
+            putExtra(EXTRA_MOVIE_TITLE, movieTitle)
             startActivity(this)
             finish()
         }
@@ -163,6 +165,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         const val EXTRA_COUNT = "count"
         const val EXTRA_DATE = "movie_date"
         const val EXTRA_TIME = "movie_time"
+        const val EXTRA_MOVIE_TITLE = "movie_title"
         const val EXTRA_DEFAULT_SCREENING_ID = -1L
         private const val DEFAULT_COUNT = 1
         private const val KEY_COUNT = "count"

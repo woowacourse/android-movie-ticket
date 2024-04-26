@@ -9,6 +9,8 @@ interface SeatSelectionContract {
         fun initializeSeatTable(
             theaterSize: TheaterSize,
             rowClassInfo: Map<Int, SeatClass>,
+            movieTitle: String,
+            totalPrice: Int,
         )
 
         fun selectSeat(
@@ -45,6 +47,7 @@ interface SeatSelectionContract {
             numOfTickets: Int,
             date: String?,
             time: String?,
+            title: String?,
         )
 
         fun makeReservation(
