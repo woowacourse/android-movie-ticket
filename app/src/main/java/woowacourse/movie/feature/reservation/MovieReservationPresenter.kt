@@ -1,11 +1,10 @@
 package woowacourse.movie.feature.reservation
 
+import woowacourse.movie.feature.reservation.ui.screeningDateTime
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.reservation.ReservationCount
 import woowacourse.movie.model.time.ScreeningDate
 import woowacourse.movie.model.time.rangeTo
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
@@ -13,17 +12,17 @@ class MovieReservationPresenter(
 ) : MovieReservationContract.Presenter {
     private lateinit var reservationCount: ReservationCount
 
-    override fun setUpReservationCount() {
-        reservationCount = ReservationCount()
-        view.updateReservationCount(reservationCount.count)
-    }
-
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
         view.setUpReservationView(movie)
 
         val screeningDates = (movie.startScreeningDate..movie.endScreeningDate).toList()
         view.initializeSpinner(screeningDates, screeningDates[0].screeningTimes())
+    }
+
+    override fun setUpReservationCount() {
+        reservationCount = ReservationCount()
+        view.updateReservationCount(reservationCount.count)
     }
 
     override fun decreaseReservationCount() {
@@ -40,8 +39,7 @@ class MovieReservationPresenter(
         screeningDateValue: String,
         screeningTimeValue: String,
     ) {
-        val formatter = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm")
-        val screeningDateTime = LocalDateTime.parse("$screeningDateValue $screeningTimeValue", formatter)
+        val screeningDateTime = screeningDateTime(screeningDateValue, screeningTimeValue)
         view.moveSeatSelectView(screeningDateTime, reservationCount.count)
     }
 

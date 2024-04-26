@@ -14,7 +14,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.feature.reservation.ui.MovieReservationUiModel
+import woowacourse.movie.feature.reservation.ui.ReservationUiModel
+import woowacourse.movie.feature.reservation.ui.toReservationScreeningDateUiModels
+import woowacourse.movie.feature.reservation.ui.toReservationScreeningTimeUiModels
 import woowacourse.movie.feature.seat.SeatSelectActivity
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
@@ -23,7 +25,6 @@ import woowacourse.movie.model.time.ScreeningTime
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
@@ -51,7 +52,6 @@ class MovieReservationActivity :
         }
 
         initializeView(movieId)
-        setOnClickButtonListener()
     }
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieRepositoryImpl)
@@ -73,14 +73,8 @@ class MovieReservationActivity :
     private fun initializeView(movieId: Long) {
         presenter.loadMovieData(movieId)
         presenter.setUpReservationCount()
+        setOnClickButtonListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setOnClickButtonListener() {
@@ -100,8 +94,8 @@ class MovieReservationActivity :
         }
     }
 
-    override fun setUpReservationView(movie: Movie) {
-        val reservation = MovieReservationUiModel.of(this, movie)
+    override fun setUpReservationView(movie: Movie) { // TODO: bind?? initialize 하고싶은데 위에랑 겹친다. 어쨌든 통일시켜야함
+        val reservation = ReservationUiModel.of(this, movie)
         with(reservation) {
             posterImage.setImageDrawable(posterImageDrawable)
             titleText.text = titleMessage
@@ -115,26 +109,30 @@ class MovieReservationActivity :
         screeningDates: List<ScreeningDate>,
         screeningTimes: List<ScreeningTime>,
     ) {
-        screeningDateSpinner.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates.map { it.message() })
-        screeningDateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    presenter.selectScreeningDate(screeningDates[position])
-                }
+        val screeningDateMessages = screeningDates.toReservationScreeningDateUiModels()
+        screeningDateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDateMessages)
+        screeningDateSpinner.onItemSelectedListener = onSpinnerItemSelectedListener { _, _, position, _ ->
+            presenter.selectScreeningDate(screeningDates[position])
+        }
 
-                override fun onNothingSelected(p0: AdapterView<*>?) { }
-            }
-        screeningTimeSpinner.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimes)
+        val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels()
+        screeningTimeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)
     }
 
-    private fun ScreeningDate.message() = date.format(DateTimeFormatter.ofPattern("yyyy-M-d"))
+    private fun onSpinnerItemSelectedListener(block: (AdapterView<*>?, View?, Int, Long) -> Unit): AdapterView.OnItemSelectedListener {
+        return object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                block(parent, view, position, id)
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) { }
+        }
+    }
 
     override fun updateReservationCount(reservationCountValue: Int) {
         reservationCountText.text = reservationCountValue.toString()
@@ -148,9 +146,15 @@ class MovieReservationActivity :
     }
 
     override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {
-        val screeningTimeMessage = screeningTimes.map { it.time.format(DateTimeFormatter.ofPattern("HH:mm")) }
-        screeningTimeSpinner.adapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessage)
+        val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels()
+        screeningTimeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

@@ -8,7 +8,7 @@ import woowacourse.movie.model.data.dto.Movie
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MovieReservationUiModel(
+class ReservationUiModel(
     val posterImageDrawable: Drawable?,
     val titleMessage: String,
     val screeningDateMessage: String,
@@ -19,8 +19,8 @@ class MovieReservationUiModel(
         fun of(
             context: Context,
             movie: Movie,
-        ): MovieReservationUiModel {
-            return MovieReservationUiModel(
+        ): ReservationUiModel {
+            return ReservationUiModel(
                 ContextCompat.getDrawable(context, movie.posterImageId),
                 movie.title,
                 screeningDateMessage(context, movie.startScreeningDate, movie.endScreeningDate),
