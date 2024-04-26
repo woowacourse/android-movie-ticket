@@ -21,8 +21,8 @@ data class MovieUiModel(
                 posterName = movie.posterName,
                 title = movie.title,
                 screeningDates = movie.screeningDates,
-                screeningStartDate = movie.screeningDates.minOrNull()?.dateToString() ?: "",
-                screeningEndDate = movie.screeningDates.maxOrNull()?.dateToString() ?: "",
+                screeningStartDate = movie.screeningDates.min().dateToString(),
+                screeningEndDate = movie.screeningDates.max().dateToString(),
                 runningTime = movie.runningTime,
                 summary = movie.summary,
             )

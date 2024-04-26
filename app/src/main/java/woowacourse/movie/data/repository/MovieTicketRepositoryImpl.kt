@@ -3,7 +3,7 @@ package woowacourse.movie.data.repository
 import woowacourse.movie.data.utils.IdGenerator
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.domain.repository.MovieTicketRepository
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 object MovieTicketRepositoryImpl : MovieTicketRepository {
     private val tickets = mutableMapOf<Int, MovieTicket>()
@@ -11,7 +11,7 @@ object MovieTicketRepositoryImpl : MovieTicketRepository {
 
     override fun createMovieTicket(
         movieTitle: String,
-        screeningDate: LocalDate,
+        screeningDate: LocalDateTime,
         reservationCount: Int,
     ): MovieTicket {
         val id = IdGenerator.generateId()

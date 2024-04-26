@@ -2,8 +2,10 @@ package woowacourse.movie.presentation.ui.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
@@ -11,6 +13,7 @@ import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 import woowacourse.movie.presentation.uimodel.MovieUiModel
 import java.time.LocalDate
+import java.time.LocalTime
 
 class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     private lateinit var movieDetailPresenter: MovieDetailContract.Presenter
@@ -33,10 +36,48 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         initClickListener()
     }
 
-    override fun initSpinnerAdapter(list: List<LocalDate>) {
+    override fun updateSpinnerAdapter(list: List<LocalDate>) {
         val adapter =
             ArrayAdapter(this, R.layout.spinner_item, list)
-        findViewById<Spinner>(R.id.date_spinner).adapter = adapter
+        reservationView.dateSpinner.adapter = adapter
+        reservationView.dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate = reservationView.dateSpinner.selectedItem
+                    movieDetailPresenter.updateMovieScheduleDate(selectedDate as LocalDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.d("MovieDetailActivity", "Nothing Selected")
+                }
+            }
+    }
+
+    override fun updateTimeSpinnerAdapter(list: List<LocalTime>) {
+        val adapter =
+            ArrayAdapter(this, R.layout.spinner_item, list)
+        reservationView.timeSpinner.adapter = adapter
+        reservationView.timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedTime = reservationView.timeSpinner.selectedItem
+                    movieDetailPresenter.updateMovieScheduleTime(selectedTime as LocalTime)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.d("MovieDetailActivity", "Nothing Selected")
+                }
+            }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

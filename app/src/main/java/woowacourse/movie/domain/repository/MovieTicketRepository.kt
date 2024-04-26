@@ -1,12 +1,12 @@
 package woowacourse.movie.domain.repository
 
 import woowacourse.movie.domain.model.MovieTicket
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 interface MovieTicketRepository {
     fun createMovieTicket(
         movieTitle: String,
-        screeningDate: LocalDate,
+        screeningDate: LocalDateTime,
         reservationCount: Int,
     ): MovieTicket
 
