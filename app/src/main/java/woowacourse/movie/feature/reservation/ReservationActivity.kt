@@ -124,7 +124,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>,
-                    view: View,
+                    view: View?,
                     position: Int,
                     id: Long,
                 ) {
@@ -143,7 +143,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>,
-                    view: View,
+                    view: View?,
                     position: Int,
                     id: Long,
                 ) {
