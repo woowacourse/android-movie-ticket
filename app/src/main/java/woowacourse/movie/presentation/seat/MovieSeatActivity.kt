@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
@@ -98,7 +99,19 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
             true -> {
                 with(seatCompleteBtn) {
                     setBackgroundColor(Color.MAGENTA)
-                    setOnClickListener { movieSeatPresenter.reservation() }
+                    setOnClickListener {
+                        AlertDialog.Builder(this@MovieSeatActivity)
+                            .setTitle("예매 확인")
+                            .setMessage("정말 예매하시겠습니까?")
+                            .setPositiveButton("예매 완료") { _, _ ->
+                                movieSeatPresenter.reservation()
+                            }
+                            .setNegativeButton("취소") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .setCancelable(false)
+                            .show()
+                    }
                 }
             }
             false -> {
