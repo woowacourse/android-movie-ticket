@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ScreenDateTimeUiModel(
-    val date: String,
-    val times: List<String>
+    val date: String = "",
+    val times: List<String> = emptyList(),
 ) : Parcelable
