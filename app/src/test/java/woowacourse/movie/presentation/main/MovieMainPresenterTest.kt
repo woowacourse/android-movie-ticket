@@ -9,7 +9,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import woowacourse.movie.MOVIES
+import woowacourse.movie.MOVIE
 import woowacourse.movie.domain.MovieRepository
 
 @ExtendWith(MockKExtension::class)
@@ -29,10 +29,10 @@ class MovieMainPresenterTest {
 
     @Test
     fun `loadMovies를 통해 initView에 데이터가 전달된다`() {
-        every { movieRepository.findAllMovies() } returns MOVIES
+        every { movieRepository.findAllMovies() } returns listOf(MOVIE)
         every { mainContractView.onInitView(any()) } just runs
 
         mainPresenter.loadMovies()
-        verify { mainContractView.onInitView(MOVIES) }
+        verify { mainContractView.onInitView(listOf(MOVIE)) }
     }
 }

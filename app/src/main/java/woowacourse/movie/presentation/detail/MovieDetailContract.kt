@@ -1,41 +1,48 @@
 package woowacourse.movie.presentation.detail
 
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.presentation.base.BaseContract
 import java.time.LocalDate
 import java.time.LocalTime
 
 interface MovieDetailContract {
     interface View : BaseContract.View {
-        fun onCountUpdate(count: Int)
+        fun onUpdateView(detailUiModel: DetailUiModel)
 
-        fun onInitView(movie: Movie)
+        fun updateDateList(
+            dates: List<LocalDate>?,
+            selectedPosition: Int?,
+        )
 
-        fun updateDate(dates: List<LocalDate>)
-
-        fun updateTime(times: List<LocalTime>)
+        fun updateTimeList(
+            times: List<LocalTime>?,
+            selectedPosition: Int?,
+        )
 
         fun onSelectSeatClicked(
-            movieId: Long,
-            movieScreenDateTimeId: Long,
+            movieId: Long?,
+            movieScreenDateTimeId: Long?,
             count: Int,
         )
     }
 
     interface Presenter {
-        fun display(id: Long)
+        fun loadMovie(id: Long)
 
         fun plusReservationCount()
 
         fun minusReservationCount()
 
         fun selectDate(
-            movie: Movie,
             localDate: LocalDate,
+            position: Int,
         )
 
         fun selectSeat(
-            movie: Movie,
+            localDate: LocalDate,
+            localTime: LocalTime,
+        )
+
+        fun restoreDateTime(
             localDate: LocalDate,
             localTime: LocalTime,
         )

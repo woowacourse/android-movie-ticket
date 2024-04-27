@@ -1,71 +1,99 @@
 package woowacourse.movie.presentation.detail
 
 import woowacourse.movie.data.MovieRepositoryImpl
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieRepository
-import woowacourse.movie.domain.ReservationCount
 import woowacourse.movie.utils.MovieErrorCode
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class MovieDetailPresenter(private val detailContractView: MovieDetailContract.View) :
-    MovieDetailContract.Presenter {
-    private var movieRepository: MovieRepository = MovieRepositoryImpl()
-    private var reservationCount = ReservationCount()
-    private var selectedLocalDate: LocalDate? = null
+class MovieDetailPresenter(
+    private val detailContractView: MovieDetailContract.View,
+    private val movieRepository: MovieRepository = MovieRepositoryImpl(),
+) : MovieDetailContract.Presenter {
+    private var uiModel: DetailUiModel = DetailUiModel()
 
-    override fun display(id: Long) {
+    override fun loadMovie(id: Long) {
         val movie = movieRepository.findMovieById(id)
         movie?.let {
-            detailContractView.onInitView(it)
-            detailContractView.updateDate(it.screenDateTime.map { it.dateTime.toLocalDate() }.toSet().toList())
-            detailContractView.updateTime(
-                it.screenDateTime.filter { screenDateTime ->
-                    it.screenDateTime.first().dateTime.isSameDate(screenDateTime.dateTime)
-                }.map {
-                    it.dateTime.toLocalTime()
-                },
-            )
+            val dates = it.screenDateTime.map { it.dateTime.toLocalDate() }.toSet().toList()
+            val times =
+                it.screenDateTime
+                    .filter { screenDateTime -> it.screenDateTime.first().dateTime.isSameDate(screenDateTime.dateTime) }
+                    .map {
+                        it.dateTime.toLocalTime()
+                    }
+            uiModel =
+                uiModel.copy(
+                    movie = it,
+                    localDates = dates,
+                    localTimes = times,
+                    selectedLocalDate = dates.firstOrNull(),
+                    selectedLocalTime = times.firstOrNull(),
+                )
+            detailContractView.onUpdateView(uiModel)
+            detailContractView.updateDateList(dates, 0)
+            detailContractView.updateTimeList(times, 0)
         } ?: detailContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
     }
 
-    fun LocalDateTime.isSameDate(localDateTime: LocalDateTime): Boolean {
-        return this.toLocalDate().isEqual(localDateTime.toLocalDate())
-    }
-
     override fun plusReservationCount() {
-        reservationCount.plus()
-        detailContractView.onCountUpdate(reservationCount.count)
+        uiModel =
+            uiModel.copy(
+                reservationCount = uiModel.reservationCount + 1,
+            )
+        detailContractView.onUpdateView(uiModel)
     }
 
     override fun minusReservationCount() {
-        reservationCount.minus()
-        detailContractView.onCountUpdate(reservationCount.count)
+        uiModel =
+            uiModel.copy(
+                reservationCount = uiModel.reservationCount - 1,
+            )
+        detailContractView.onUpdateView(uiModel)
     }
 
     override fun selectDate(
-        movie: Movie,
         localDate: LocalDate,
+        position: Int,
     ) {
-        if (selectedLocalDate == localDate) return
-
-        selectedLocalDate = localDate
-        detailContractView.updateTime(
-            movie.screenDateTime.filter { screenDateTime ->
-                screenDateTime.dateTime.toLocalDate().isEqual(localDate)
-            }.map {
-                it.dateTime.toLocalTime()
-            },
-        )
+        if (localDate == uiModel.selectedLocalDate) return // Spinner의 최초 itemSelectedListener 호출 (사람이 선택하지 않은 경우) 무시
+        uiModel =
+            uiModel.copy(
+                localTimes =
+                    uiModel.movie?.screenDateTime?.filter { screenDateTime ->
+                        screenDateTime.dateTime.toLocalDate().isEqual(localDate)
+                    }?.map {
+                        it.dateTime.toLocalTime()
+                    },
+                selectedLocalDate = localDate,
+                selectedLocalTime = null,
+            )
+        detailContractView.updateTimeList(uiModel.localTimes, null)
     }
 
     override fun selectSeat(
-        movie: Movie,
         localDate: LocalDate,
         localTime: LocalTime,
     ) {
-        val movieScreenTime = movie.screenDateTime.first { it.dateTime.isEqual(LocalDateTime.of(localDate, localTime)) }
-        detailContractView.onSelectSeatClicked(movie.id, movieScreenTime.id, reservationCount.count)
+        val movieScreenTime = uiModel.movie?.screenDateTime?.firstOrNull { it.dateTime.isEqual(LocalDateTime.of(localDate, localTime)) }
+        detailContractView.onSelectSeatClicked(uiModel.movie?.id, movieScreenTime?.id, uiModel.reservationCount.count)
+    }
+
+    override fun restoreDateTime(
+        localDate: LocalDate,
+        localTime: LocalTime,
+    ) {
+        uiModel =
+            uiModel.copy(
+                selectedLocalDate = localDate,
+                selectedLocalTime = localTime,
+            )
+        detailContractView.updateDateList(uiModel.localDates, uiModel.localDates?.indexOfFirst { it == localDate })
+        detailContractView.updateTimeList(uiModel.localTimes, uiModel.localTimes?.indexOfFirst { it == localTime })
+    }
+
+    private fun LocalDateTime.isSameDate(localDateTime: LocalDateTime): Boolean {
+        return this.toLocalDate().isEqual(localDateTime.toLocalDate())
     }
 }

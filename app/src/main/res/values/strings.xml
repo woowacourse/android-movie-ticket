@@ -4,7 +4,7 @@
     <string name="running_time">Running Time: </string>
     <string name="running_time_format">Mins</string>
     <string name="reserve_now">Reserve Now</string>
-    <string name="reserve_complete">Reserve Complete</string>
+    <string name="seat_selection">Select seat</string>
     <string name="movie_cancellation_policy">Cancellation is possible up to 15 minutes before the start of the movie screening.</string>
     <string name="reservation_count_type">Adult </string>
     <string name="reservation_count_format"> </string>
