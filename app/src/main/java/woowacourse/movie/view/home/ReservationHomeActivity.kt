@@ -31,7 +31,6 @@ class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract.Vie
             }
         movieRecyclerView.apply {
             adapter = movieCatalogAdapter
-            layoutManager = LinearLayoutManager(this@ReservationHomeActivity)
         }
     }
 
