@@ -1,9 +1,5 @@
 package woowacourse.movie
 
-import androidx.test.espresso.DataInteraction
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.matcher.ViewMatchers
-import org.hamcrest.Matchers
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Grade
 import woowacourse.movie.model.Movie
