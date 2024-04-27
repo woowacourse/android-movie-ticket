@@ -111,7 +111,7 @@ class DetailActivity : BaseActivity(), View {
             ArrayAdapter(
                 this@DetailActivity,
                 android.R.layout.simple_spinner_item,
-                screenDates.toDateString(),
+                screenDates.map { it.date },
             )
     }
 
@@ -120,7 +120,7 @@ class DetailActivity : BaseActivity(), View {
             ArrayAdapter(
                 this@DetailActivity,
                 android.R.layout.simple_spinner_item,
-                screenDate.toTimeString(),
+                screenDate.getSelectableTimes().map { it },
             )
     }
 
@@ -202,10 +202,6 @@ class DetailActivity : BaseActivity(), View {
         }
         return 0
     }
-
-    private fun List<ScreenDate>.toDateString(): List<LocalDate> = this.map { it.date }
-
-    private fun ScreenDate.toTimeString(): List<LocalTime> = this.getSelectableTimes().map { it }
 
     companion object {
         private const val DEFAULT_ID = -1
