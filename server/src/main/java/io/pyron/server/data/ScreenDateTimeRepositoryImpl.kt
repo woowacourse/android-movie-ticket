@@ -8,6 +8,6 @@ class ScreenDateTimeRepositoryImpl(
     private val screenDateTimeDao: ScreenDateTimeDao = ScreenDateTimeDao(),
 ) : ScreenDateTimeRepository {
     override fun findOneByMovieScreenDateTime(movieScreenDateTimeId: Long): ScreenDateTime? {
-        return screenDateTimeDao.findOneByMovieScreenDateTime(movieScreenDateTimeId = movieScreenDateTimeId)
+        return screenDateTimeDao.findOneByMovieScreenDateTimeId(movieScreenDateTimeId = movieScreenDateTimeId)
     }
 }

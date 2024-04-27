@@ -1,14 +1,14 @@
 package io.pyron.server.data
 
 import io.pyron.server.data.dao.MovieDao
-import io.pyron.server.data.dao.MovieWithDateTimeDao
+import io.pyron.server.data.dao.MovieWithScreenDateTimeDao
 import io.pyron.server.data.dto.MovieWithScreenDateTime
 import io.pyron.server.data.entity.Movie
 import io.pyron.server.domain.MovieServerRepository
 
-class MovieServerRepositoryImpl(
+class MovieRepositoryImpl(
     private val movieDao: MovieDao = MovieDao(),
-    private val movieWithDateTimeDao: MovieWithDateTimeDao = MovieWithDateTimeDao(),
+    private val movieWithScreenDateTimeDao: MovieWithScreenDateTimeDao = MovieWithScreenDateTimeDao(),
 ) : MovieServerRepository {
     override fun findAll(): List<Movie> {
         return movieDao.findAll()
@@ -19,10 +19,10 @@ class MovieServerRepositoryImpl(
     }
 
     override fun findAllMovieWithDateTimes(): List<MovieWithScreenDateTime> {
-        return movieWithDateTimeDao.findAll()
+        return movieWithScreenDateTimeDao.findAll()
     }
 
     override fun findMovieWithDateTime(id: Long): MovieWithScreenDateTime? {
-        return movieWithDateTimeDao.findOneById(id)
+        return movieWithScreenDateTimeDao.findOneById(id)
     }
 }

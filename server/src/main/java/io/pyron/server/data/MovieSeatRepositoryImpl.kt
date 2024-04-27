@@ -8,10 +8,10 @@ class MovieSeatRepositoryImpl(
     private val movieSeatDao: MovieSeatDao = MovieSeatDao(),
 ) : MovieSeatRepository {
     override fun findOneByMovieScreenDateTime(movieScreenDateTimeId: Long): List<MovieSeat> {
-        return movieSeatDao.findAllByMovieScreenDateTime(movieScreenDateTimeId)
+        return movieSeatDao.findAllByMovieScreenDateTimeId(movieScreenDateTimeId)
     }
 
-    override fun findOneById(seatId: Long): MovieSeat? {
-        return movieSeatDao.findOneById(seatId = seatId)
+    override fun findOneById(id: Long): MovieSeat? {
+        return movieSeatDao.findOneById(id = id)
     }
 }

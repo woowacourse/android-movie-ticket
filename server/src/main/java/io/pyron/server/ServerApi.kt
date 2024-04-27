@@ -1,7 +1,7 @@
 package io.pyron.server
 
+import io.pyron.server.data.MovieRepositoryImpl
 import io.pyron.server.data.MovieSeatRepositoryImpl
-import io.pyron.server.data.MovieServerRepositoryImpl
 import io.pyron.server.data.ScreenDateTimeRepositoryImpl
 import io.pyron.server.data.dto.MovieWithScreenDateTime
 import io.pyron.server.data.entity.MovieSeat
@@ -10,9 +10,9 @@ import io.pyron.server.domain.MovieSeatRepository
 import io.pyron.server.domain.MovieServerRepository
 import io.pyron.server.domain.ScreenDateTimeRepository
 
-// json 이라고 가정
+// json 형태로 리턴해준다고 가정
 class ServerApi(
-    private val movieServerRepository: MovieServerRepository = MovieServerRepositoryImpl(),
+    private val movieServerRepository: MovieServerRepository = MovieRepositoryImpl(),
     private val movieSeatRepository: MovieSeatRepository = MovieSeatRepositoryImpl(),
     private val screenDateTimeRepository: ScreenDateTimeRepository = ScreenDateTimeRepositoryImpl(),
 ) {

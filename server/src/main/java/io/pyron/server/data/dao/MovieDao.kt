@@ -1,14 +1,14 @@
 package io.pyron.server.data.dao
 
-import io.pyron.server.data.db.DB_MOVIES
+import io.pyron.server.data.db.dbMovies
 import io.pyron.server.data.entity.Movie
 
-class MovieDao() {
+class MovieDao {
     fun findAll(): List<Movie> {
-        return DB_MOVIES
+        return dbMovies
     }
 
     fun findOneById(id: Long): Movie? {
-        return DB_MOVIES.firstOrNull { it.id == id }
+        return dbMovies.firstOrNull { it.id == id }
     }
 }
