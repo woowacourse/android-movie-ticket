@@ -16,9 +16,10 @@ class FakeMovieRepository : MovieRepository {
 
     override fun screenSeats(
         screenMovieId: Long,
+        headCount: Int,
         dateTime: LocalDateTime,
     ): Result<SeatBoard> {
-        return runCatching { SeatBoard.STUB }
+        return runCatching { SeatBoard.STUB.copy(headCount = headCount.let(::HeadCount)) }
     }
 
     override fun screenMovies(): List<ScreeningMovie> = screenMovies
@@ -44,6 +45,7 @@ class FakeMovieRepository : MovieRepository {
                     screeningMovie = screenMovieById(id).getOrThrow(),
                     screenDateTime = dateTime,
                     headCount = count,
+                    seats = selectedSeats,
                 )
             reservationId
         }

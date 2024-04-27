@@ -4,7 +4,6 @@ import android.util.Log
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.board.Position
 import woowacourse.movie.model.board.SeatBoard
-import woowacourse.movie.model.board.SeatGrade
 import woowacourse.movie.model.board.onFailure
 import woowacourse.movie.model.board.onSuccess
 import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
@@ -21,14 +20,14 @@ class SeatSelectionPresenter(
         get() = SeatSelectionUiState(board.toUiModel(), navArgs)
 
     fun loadScreenSeats() {
-        repository.screenSeats(navArgs.screenMovieId, navArgs.selectedDateTime).onSuccess {
-            board = it
-            view.showMovieTitle(navArgs.movieTitle)
-            view.showSeatBoard(it.toUiModel())
-            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.S }}")
-            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.A }}")
-            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.B }}")
-        }
+        val (screenMovieId, title, selectedDateTime, headCount) = navArgs
+        repository.screenSeats(screenMovieId, selectedDateTime, headCount)
+            .onSuccess {
+                board = it
+                view.showMovieTitle(navArgs.movieTitle)
+                view.showSeatBoard(it.toUiModel())
+                checkCompleteSelection()
+            }
     }
 
     fun selectSeat(
@@ -39,6 +38,7 @@ class SeatSelectionPresenter(
             board = newBoard
             view.showSeat(selectedSeat.toUiModel())
             view.showTotalPrice(board.selectedSeatsPrice())
+            checkCompleteSelection()
         }.onFailure {
             view.showSelectionError()
         }
@@ -60,5 +60,23 @@ class SeatSelectionPresenter(
         view.showSeatBoard(state.seatBoard)
         view.showTotalPrice(board.selectedSeatsPrice())
         view.showMovieTitle(navArgs.movieTitle)
+        checkCompleteSelection()
+    }
+
+    private fun checkCompleteSelection() {
+        Log.d(
+            "로그",
+            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.selectedSeats.size}"
+        )
+        Log.d(
+            "로그",
+            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.headCount}"
+        )
+        Log.d(
+            "로그",
+            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.isCompletedSelection}"
+        );
+        if (board.isCompletedSelection) view.activateReservationButton()
+        else view.deactivateReservationButton()
     }
 }

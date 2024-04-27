@@ -15,4 +15,8 @@ interface SeatSelectionView {
     fun navigateToReservationResult(reservationId: Long)
 
     fun showSelectionError()
+
+    fun activateReservationButton()
+
+    fun deactivateReservationButton()
 }

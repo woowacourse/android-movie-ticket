@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 interface MovieRepository {
     fun screenSeats(
         screenMovieId: Long,
+        headCount: Int,
         dateTime: LocalDateTime,
     ): Result<SeatBoard>
 

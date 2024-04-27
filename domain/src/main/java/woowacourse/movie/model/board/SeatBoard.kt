@@ -2,7 +2,7 @@ package woowacourse.movie.model.board
 
 import woowacourse.movie.model.HeadCount
 
-data class SeatBoard internal constructor(
+data class SeatBoard(
     val headCount: HeadCount,
     private val totalSeats: Seats,
     val boardSize: BoardSize = BoardSize(20, 20),

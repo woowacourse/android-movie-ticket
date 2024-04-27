@@ -9,6 +9,7 @@ import android.widget.TableLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat
 import androidx.core.os.BundleCompat
 import woowacourse.movie.R
@@ -27,6 +28,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     private lateinit var priceView: TextView
     private lateinit var movieTitleView: TextView
     private lateinit var presenter: SeatSelectionPresenter
+
+    private lateinit var reservationButton: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +111,20 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
         showToast("선택할 수 없는 좌석 입니다.")
     }
 
+    override fun activateReservationButton() {
+        reservationButton.isClickable = true
+        reservationButton.setBackgroundColor(
+            ContextCompat.getColor(this, R.color.purple_500)
+        )
+    }
+
+    override fun deactivateReservationButton() {
+        reservationButton.isClickable = false
+        reservationButton.setBackgroundColor(
+            ContextCompat.getColor(this, R.color.gray)
+        )
+    }
+
     private fun initView() {
         reservationDialog =
             AlertDialog.Builder(this)
@@ -128,10 +145,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
                 text = getString(R.string.seat_total_price_format, 0)
             }
         movieTitleView = findViewById<TextView?>(R.id.tv_seat_selection_title)
+        reservationButton = findViewById<TextView>(R.id.tv_seat_selection_complete)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initClickListener() {
-        findViewById<TextView>(R.id.tv_seat_selection_complete).setOnClickListener {
+        reservationButton.setOnClickListener {
             reservationDialog.show()
         }
     }
