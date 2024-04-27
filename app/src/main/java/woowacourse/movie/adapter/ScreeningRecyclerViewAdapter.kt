@@ -113,7 +113,7 @@ class ScreeningRecyclerViewAdapter(
         }
     }
 
-    interface TicketingButtonClickListener {
+    fun interface TicketingButtonClickListener {
         fun onTicketingButtonClick(screeningId: Long)
     }
 
