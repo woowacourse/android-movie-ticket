@@ -15,7 +15,7 @@ fun ScreeningMovie.toScreenMovieUiModel(): ScreeningMovieUiModel {
     return ScreeningMovieUiModel(
         id = id,
         title = movie.title,
-        screenDate = "러닝타임: ${runningTime}분",
-        runningTime = "상영일: $screenStartDate ~ $screenEndDate",
+        screenDate = "상영일: $screenStartDate ~ $screenEndDate",
+        runningTime = "러닝타임: ${runningTime}분",
     )
 }
