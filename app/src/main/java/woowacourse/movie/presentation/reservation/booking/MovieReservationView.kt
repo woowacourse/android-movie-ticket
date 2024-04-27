@@ -8,15 +8,15 @@ interface MovieReservationView {
 
     fun showErrorView()
 
-    fun updateHeadCount(count: Int)
+    fun showHeadCount(count: Int)
 
-    fun updateTimePicker(times: List<String>)
+    fun showTimePicker(times: List<String>)
 
-    fun updateScreenDateAt(position: Int)
+    fun showScreenDateAt(position: Int)
 
-    fun updateTimePickerAt(position: Int)
+    fun showTimePickerAt(position: Int)
 
-    fun updateDatePicker(dates: List<String>)
+    fun showDatePicker(dates: List<String>)
 
     fun navigateToSeatSelection(navArgs: SeatSelectionNavArgs)
 }

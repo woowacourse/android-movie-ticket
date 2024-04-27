@@ -12,11 +12,11 @@ interface SeatSelectionView {
 
     fun showTotalPrice(price: Long)
 
-    fun navigateToReservationResult(reservationId: Long)
-
     fun showSelectionError()
 
     fun activateReservationButton()
 
     fun deactivateReservationButton()
+
+    fun navigateToReservationResult(reservationId: Long)
 }

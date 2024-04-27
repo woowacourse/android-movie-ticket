@@ -16,9 +16,9 @@ class MovieReservationPresenter(
         repository.screenMovieById(id).onSuccess { movie ->
             _uiState = movie.toReservationUiState()
             view.showMovieReservation(_uiState.movie)
-            view.updateDatePicker(_uiState.screenDates)
-            view.updateTimePicker(_uiState.screenTimes)
-            view.updateHeadCount(_uiState.headCount.count)
+            view.showDatePicker(_uiState.screenDates)
+            view.showTimePicker(_uiState.screenTimes)
+            view.showHeadCount(_uiState.headCount.count)
         }.onFailure {
             view.showErrorView()
         }
@@ -26,7 +26,7 @@ class MovieReservationPresenter(
 
     fun updateScreenDateAt(position: Int) {
         _uiState = _uiState.copy(selectedDate = _uiState.screenDateTimes[position])
-        view.updateTimePicker(_uiState.screenTimes)
+        view.showTimePicker(_uiState.screenTimes)
     }
 
     fun updateScreenTimeAt(position: Int) {
@@ -36,7 +36,7 @@ class MovieReservationPresenter(
     fun plusCount() {
         val newCount = _uiState.headCount.increase().count
         _uiState = _uiState.copy(count = newCount)
-        view.updateHeadCount(newCount)
+        view.showHeadCount(newCount)
     }
 
     fun minusCount() {
@@ -44,18 +44,18 @@ class MovieReservationPresenter(
         if (count.canDecrease()) {
             val newCount = _uiState.headCount.decrease().count
             _uiState = _uiState.copy(count = newCount)
-            view.updateHeadCount(newCount)
+            view.showHeadCount(newCount)
         }
     }
 
     fun restoreState(state: MovieReservationUiState) {
         _uiState = state
         view.showMovieReservation(_uiState.movie)
-        view.updateDatePicker(_uiState.screenDates)
-        view.updateTimePicker(_uiState.screenTimes)
-        view.updateTimePickerAt(_uiState.selectedTimePosition)
-        view.updateScreenDateAt(_uiState.selectedDatePosition)
-        view.updateHeadCount(_uiState.headCount.count)
+        view.showDatePicker(_uiState.screenDates)
+        view.showTimePicker(_uiState.screenTimes)
+        view.showTimePickerAt(_uiState.selectedTimePosition)
+        view.showScreenDateAt(_uiState.selectedDatePosition)
+        view.showHeadCount(_uiState.headCount.count)
     }
 
     fun completeReservation() {

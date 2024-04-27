@@ -84,28 +84,28 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         successLayout.visibility = View.GONE
     }
 
-    override fun updateHeadCount(count: Int) {
+    override fun showHeadCount(count: Int) {
         countView.text = count.toString()
     }
 
-    override fun updateTimePicker(times: List<String>) {
+    override fun showTimePicker(times: List<String>) {
         timeSpinnerAdapter.clear()
         timeSpinnerAdapter.addAll(times)
     }
 
-    override fun updateTimePickerAt(position: Int) {
+    override fun showTimePickerAt(position: Int) {
         timeSpinner.postDelayed({
             timeSpinner.setSelection(position, false)
         }, 100)
     }
 
-    override fun updateScreenDateAt(position: Int) {
+    override fun showScreenDateAt(position: Int) {
         dateSpinner.postDelayed({
             dateSpinner.setSelection(position, false)
         }, 100)
     }
 
-    override fun updateDatePicker(dates: List<String>) {
+    override fun showDatePicker(dates: List<String>) {
         dateSpinnerAdapter.clear()
         dateSpinnerAdapter.addAll(dates)
     }
