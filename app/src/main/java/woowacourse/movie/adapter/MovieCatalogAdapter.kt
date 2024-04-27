@@ -3,19 +3,23 @@ package woowacourse.movie.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
 class MovieCatalogAdapter(
     private val movies: List<Movie>,
     val movie: (Movie) -> Unit,
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<ViewHolder>() {
+    private val movieViewType = CatalogViewType.MOVIE.viewType
+    private val advertisementType = CatalogViewType.ADVERTISEMENT.viewType
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): RecyclerView.ViewHolder {
+    ): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return if (viewType == 0) {
+        return if (viewType == movieViewType) {
             val view = inflater.inflate(R.layout.item_movie_catalog, parent, false)
             MovieViewHolder(view)
         } else {
@@ -25,11 +29,11 @@ class MovieCatalogAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
+        holder: ViewHolder,
         position: Int,
     ) {
         val item = movies[position]
-        if (getItemViewType(position) == MOVIE) {
+        if (getItemViewType(position) == movieViewType) {
             (holder as MovieViewHolder).bind(item, movie)
         } else {
             (holder as AdvertisementViewHolder).bind()
@@ -40,15 +44,13 @@ class MovieCatalogAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return if (position % ADVERTISEMENT_INTERVAL == ADVERTISEMENT_POSITION) {
-            ADVERTISEMENT
+            advertisementType
         } else {
-            MOVIE
+            movieViewType
         }
     }
 
     companion object {
-        const val MOVIE = 0
-        const val ADVERTISEMENT = 1
         const val ADVERTISEMENT_INTERVAL = 4
         const val ADVERTISEMENT_POSITION = 3
     }
