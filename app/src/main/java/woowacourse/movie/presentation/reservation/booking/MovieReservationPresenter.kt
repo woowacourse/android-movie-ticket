@@ -1,81 +1,101 @@
 package woowacourse.movie.presentation.reservation.booking
 
+import android.os.Parcelable
+import android.util.Log
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.model.HeadCount
-import woowacourse.movie.model.ScreenDateTime
-import woowacourse.movie.model.ScreenDateTimes
-import woowacourse.movie.presentation.screening.formatScreenDates
-import woowacourse.movie.presentation.screening.formatScreenTimes
 import woowacourse.movie.repository.MovieRepository
-import java.time.LocalDate
-import java.time.LocalTime
-import kotlin.properties.Delegates
-
-data class MovieReservationUiState(
-    val id: Long,
-    val movie: MovieReservationUiModel,
-    val headCount: Int,
-    val selectedTime: String,
-    val selectedDate: String,
-)
 
 class MovieReservationPresenter(
     private val view: MovieReservationView,
     private val repository: MovieRepository,
-    initialCount: Int = DEFAULT_COUNT,
 ) {
-    private var id by Delegates.notNull<Long>()
-    private lateinit var time: LocalTime
-    private lateinit var date: LocalDate
-    private lateinit var screenDateTime: ScreenDateTime
-    private lateinit var screenDateTimes: ScreenDateTimes
-    private var count: HeadCount = HeadCount(initialCount)
+    private var _uiState: MovieReservationUiState = MovieReservationUiState()
+    val uiState: MovieReservationUiState
+        get() = _uiState
+
 
     fun loadScreenMovie(id: Long) {
         repository.screenMovieById(id).onSuccess { movie ->
-            this.id = id
-            screenDateTimes = movie.screenDateTimes
-            screenDateTime = screenDateTimes.first()
-            view.showMovieReservation(movie.toMovieReservationUiModel())
-            view.updateDatePicker(screenDateTimes.localDateTimes().let(::formatScreenDates))
-            view.updateTimePicker(formatScreenTimes(screenDateTime.times))
-            view.updateHeadCount(count.count)
+            _uiState = movie.toReservationUiState()
+            view.showMovieReservation(_uiState.movie)
+            view.updateDatePicker(_uiState.screenDates)
+            view.updateTimePicker(_uiState.screenTimes)
+            view.updateHeadCount(_uiState.headCount.count)
         }.onFailure {
             view.showErrorView()
         }
     }
 
     fun updateScreenDateAt(position: Int) {
-        date = screenDateTimes.dateTimes[position].date
-        screenDateTime = screenDateTimes.screenDateTimeAt(this.date)
-        view.updateTimePicker(formatScreenTimes(screenDateTime.times))
-        view.updateTimePickerAt(0)
+        _uiState = _uiState.copy(selectedDate = _uiState.screenDateTimes[position])
+        view.updateTimePicker(_uiState.screenTimes)
     }
 
     fun updateScreenTimeAt(position: Int) {
-        time = screenDateTime.times[position]
+        _uiState = _uiState.copy(selectedTime = _uiState.screenTimes[position])
     }
 
-    fun count(): Int = count.count
-
     fun plusCount() {
-        count = count.increase()
-        view.updateHeadCount(count.count)
+        val newCount = _uiState.headCount.increase().count
+        _uiState = _uiState.copy(count = newCount)
+        view.updateHeadCount(newCount)
     }
 
     fun minusCount() {
+        val count = _uiState.headCount
         if (count.canDecrease()) {
-            count = count.decrease()
-            view.updateHeadCount(count.count)
+            val newCount = _uiState.headCount.decrease().count
+            _uiState = _uiState.copy(count = newCount)
+            view.updateHeadCount(newCount)
         }
     }
 
-    fun completeReservation() {
-//        repository.reserveMovie(id, dateTime = dateTime, count = count).onSuccess {
-//            view.navigateToReservationResultView(it)
-//        }
+    fun restoreState(state: MovieReservationUiState) {
+        _uiState = state
+        view.showMovieReservation(_uiState.movie)
+        view.updateDatePicker(_uiState.screenDates)
+        view.updateTimePicker(_uiState.screenTimes)
+        view.updateTimePickerAt(_uiState.selectedTimePosition)
+        view.updateScreenDateAt(_uiState.selectedDatePosition)
+        view.updateHeadCount(_uiState.headCount.count)
     }
 
-    companion object {
-        private const val DEFAULT_COUNT = 1
+    fun completeReservation() {
+        val id = _uiState.id
+        val headCount = _uiState.headCount
+        val selectedTime = _uiState.selectedTime
+        val selectedDate = _uiState.selectedDate.date
+        val reservedDateTime = parseScreenDateTime(selectedDate, selectedTime)
+        repository.reserveMovie(id, dateTime = reservedDateTime, count = headCount).onSuccess {
+            view.navigateToReservationResultView(it)
+        }
     }
+}
+
+@Parcelize
+data class MovieReservationUiState(
+    val movie: ScreeningMovieUiModel = ScreeningMovieUiModel(),
+    val id: Long = -1,
+    private val count: Int = 1,
+    val screenDateTimes: List<ScreenDateTimeUiModel> = emptyList(),
+    val selectedDate: ScreenDateTimeUiModel = ScreenDateTimeUiModel(),
+    val selectedTime: String = "",
+) : Parcelable {
+
+    val selectedTimePosition: Int
+        get() = screenTimes.indexOf(selectedTime)
+
+    val selectedDatePosition: Int
+        get() = screenDates.indexOf(selectedDate.date)
+
+    val screenDates: List<String>
+        get() = screenDateTimes.map { it.date }
+
+    val screenTimes: List<String>
+        get() = selectedDate.times
+
+    @IgnoredOnParcel
+    val headCount: HeadCount = HeadCount(count)
 }

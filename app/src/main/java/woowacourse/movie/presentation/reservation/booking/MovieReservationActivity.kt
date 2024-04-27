@@ -14,6 +14,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.BundleCompat
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
@@ -39,21 +40,22 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.apply {
-            putInt(KEY_RESERVATION_COUNT, presenter.count())
-        }
+        outState.putParcelable(KEY_RESERVATION_UI_STATE, presenter.uiState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
-        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_ID)
-        presenter =
-            MovieReservationPresenter(
-                this,
-                MovieRepositoryFactory.movieRepository(),
-                count,
-            ).apply { loadScreenMovie(id) }
+        BundleCompat.getParcelable(
+            savedInstanceState,
+            KEY_RESERVATION_UI_STATE,
+            MovieReservationUiState::class.java
+        )?.let { uiState ->
+            presenter =
+                MovieReservationPresenter(
+                    this,
+                    MovieRepositoryFactory.movieRepository(),
+                ).apply { restoreState(uiState) }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -63,8 +65,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showMovieReservation(reservation: MovieReservationUiModel) {
-        val (id, title, imageRes, screenDate, description, runningTime) = reservation
+    override fun showMovieReservation(reservation: ScreeningMovieUiModel) {
+        val (title, imageRes, screenDate, description, runningTime) = reservation
         findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(imageRes)
         findViewById<TextView>(R.id.tv_reservation_title).text = title
         findViewById<TextView>(R.id.tv_reservation_movie_description).text = description
@@ -86,15 +88,23 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun updateTimePicker(times: List<String>) {
         timeSpinnerAdapter.clear()
         timeSpinnerAdapter.addAll(times)
-        // TODO 안해도 될지도?
-        timeSpinnerAdapter.notifyDataSetChanged()
+    }
+
+    override fun updateTimePickerAt(position: Int) {
+        timeSpinner.postDelayed({
+            timeSpinner.setSelection(position, false)
+        }, 100)
+    }
+
+    override fun updateScreenDateAt(position: Int) {
+        dateSpinner.postDelayed({
+            dateSpinner.setSelection(position, false)
+        }, 100)
     }
 
     override fun updateDatePicker(dates: List<String>) {
-        if (dateSpinnerAdapter.isEmpty.not()) dateSpinnerAdapter.clear()
+        dateSpinnerAdapter.clear()
         dateSpinnerAdapter.addAll(dates)
-        // TODO 안해도 될지도?
-        dateSpinnerAdapter.notifyDataSetChanged()
     }
 
     override fun navigateToReservationResultView(reservationId: Long) {
@@ -125,10 +135,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
             onItemSelectedListener = itemSelectListener { presenter.updateScreenTimeAt(it) }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun updateTimePickerAt(position: Int) {
-        timeSpinner.setSelection(position)
     }
 
     private fun initClickListener() {
@@ -170,7 +176,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     companion object {
         const val INVALID_ID: Long = -1
         val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
-        const val KEY_RESERVATION_COUNT: String = "KEY_RESERVATION_COUNT"
+        const val KEY_RESERVATION_UI_STATE: String = "KEY_RESERVATION_UI_STATE"
 
         @JvmStatic
         fun newIntent(
