@@ -56,7 +56,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         presenter.fetchData()
     }
 
-    fun updatePriceTextView() {
+    private fun updatePriceTextView() {
         val formattedPrice = DecimalFormat(TicketModel.DECIMAL_FORMAT).format(price)
         priceTv.text = this.getString(R.string.seat_price, formattedPrice)
     }
@@ -65,6 +65,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         movie: ScreeningModel,
         seatModels: List<SeatModel>,
     ) {
+        updatePriceTextView()
         movieTitleTv.text = movie.title
         seatTextViews.initText(seatModels)
         seatTextViews.setupClickListener { index, textView ->

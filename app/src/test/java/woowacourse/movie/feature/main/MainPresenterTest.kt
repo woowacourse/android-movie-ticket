@@ -29,7 +29,7 @@ class MainPresenterTest {
         every { repository.findAll() } returns listOf(MOCK_SCREENING)
         every { view.displayMovies(any()) } just runs
         // when
-        presenter.fetchMovieList()
+        presenter.fetchScreeningList()
         // Then
         verify { view.displayMovies(listOf(MOCK_SCREENING).map { it.toUiModel() }) }
     }

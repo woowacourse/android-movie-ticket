@@ -10,22 +10,22 @@ import woowacourse.movie.feature.main.ui.ScreeningModel
 import woowacourse.movie.feature.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private val movieListView: ListView by lazy {
+    private val screeningListView: ListView by lazy {
         findViewById(R.id.list_view)
     }
-
-    private val presenter = MainPresenter(this, MockScreeningRepository)
+    lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        presenter.fetchMovieList()
+        presenter = MainPresenter(this, MockScreeningRepository)
+        presenter.fetchScreeningList()
     }
 
-    override fun displayMovies(movies: List<ScreeningModel>) {
-        movieListView.adapter =
-            ListViewAdapter(movies) { position ->
-                presenter.selectMovie(movies[position].id)
+    override fun displayScreenings(screeningModels: List<ScreeningModel>) {
+        screeningListView.adapter =
+            ListViewAdapter(screeningModels) { position ->
+                presenter.selectMovie(screeningModels[position].id)
             }
     }
 

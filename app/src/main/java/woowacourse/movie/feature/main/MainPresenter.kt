@@ -5,9 +5,9 @@ import woowacourse.movie.feature.main.ui.toUiModel
 
 class MainPresenter(private val view: MainContract.View, private val repository: ScreeningRepository) :
     MainContract.Presenter {
-    override fun fetchMovieList() {
+    override fun fetchScreeningList() {
         val screenings = repository.findAll()
-        view.displayMovies(screenings.map { it.toUiModel() })
+        view.displayScreenings(screenings.map { it.toUiModel() })
     }
 
     override fun selectMovie(id: Long) {

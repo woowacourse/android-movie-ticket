@@ -4,13 +4,13 @@ import woowacourse.movie.feature.main.ui.ScreeningModel
 
 interface MainContract {
     interface View {
-        fun displayMovies(movies: List<ScreeningModel>)
+        fun displayScreenings(screeningModels: List<ScreeningModel>)
 
         fun navigateToReservationScreen(id: Long)
     }
 
     interface Presenter {
-        fun fetchMovieList()
+        fun fetchScreeningList()
 
         fun selectMovie(id: Long)
     }

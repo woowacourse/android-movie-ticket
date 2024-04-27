@@ -2,7 +2,6 @@ package woowacourse.movie.feature.seat
 
 import woowacourse.movie.data.MockScreeningRepository
 import woowacourse.movie.data.MockTicketRepository
-import woowacourse.movie.domain.screening.BasicScreeningScheduleSystem
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.feature.main.ui.toUiModel
@@ -23,11 +22,7 @@ class SeatSelectionPresenter(
 
     override fun fetchData() {
         screening = MockScreeningRepository.find(screeningId) ?: return
-        val dailySchedule =
-            BasicScreeningScheduleSystem().getSchedules(
-                screening.releaseDate,
-                screening.endDate,
-            ).dailySchedules[datePosition]
+        val dailySchedule = screening.schedule.dailySchedules[datePosition]
         date = dailySchedule.date
         time = dailySchedule.times[timePosition]
         view.initialize(screening.toUiModel(), seats.map { it.toUiModel() })
