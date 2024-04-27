@@ -133,7 +133,7 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="-"
-                app:layout_constraintBottom_toTopOf="@id/btn_reservation_complete"
+                app:layout_constraintBottom_toTopOf="@id/btn_navigate_seat_selection"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -155,17 +155,17 @@
                 android:layout_height="41dp"
                 android:layout_marginBottom="16dp"
                 android:text="+"
-                app:layout_constraintBottom_toTopOf="@id/btn_reservation_complete"
+                app:layout_constraintBottom_toTopOf="@id/btn_navigate_seat_selection"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
             <Button
-                android:id="@+id/btn_reservation_complete"
+                android:id="@+id/btn_navigate_seat_selection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:paddingVertical="11dp"
-                android:text="예매 완료"
+                android:text="좌석 선택"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

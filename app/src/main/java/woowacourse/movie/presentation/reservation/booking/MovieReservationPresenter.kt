@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.reservation.booking
 
 import woowacourse.movie.presentation.reservation.booking.model.MovieReservationUiState
+import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
 import woowacourse.movie.repository.MovieRepository
 
 class MovieReservationPresenter(
@@ -59,13 +60,16 @@ class MovieReservationPresenter(
     }
 
     fun completeReservation() {
-        val id = _uiState.id
-        val headCount = _uiState.headCount
         val selectedTime = _uiState.selectedTime
         val selectedDate = _uiState.selectedDate.date
         val reservedDateTime = parseScreenDateTime(selectedDate, selectedTime)
-        repository.reserveMovie(id, dateTime = reservedDateTime, count = headCount).onSuccess {
-            view.navigateToReservationResultView(it)
-        }
+        val seatSelectionNavArgs =
+            SeatSelectionNavArgs(
+                _uiState.id,
+                _uiState.movie.title,
+                _uiState.headCount.count,
+                reservedDateTime
+            )
+        view.navigateToSeatSelection(seatSelectionNavArgs)
     }
 }

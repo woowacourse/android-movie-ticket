@@ -62,6 +62,7 @@
             tools:text="0원" />
 
         <TextView
+            android:id="@+id/tv_seat_selection_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/purple_500"

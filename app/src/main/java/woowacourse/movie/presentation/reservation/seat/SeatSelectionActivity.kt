@@ -1,34 +1,64 @@
 package woowacourse.movie.presentation.reservation.seat
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
+import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
+import android.os.PersistableBundle
 import android.view.MenuItem
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
-import androidx.annotation.ColorRes
-import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.IntentCompat
+import androidx.core.os.BundleCompat
 import woowacourse.movie.R
-import woowacourse.movie.common.ui.dp
+import woowacourse.movie.common.ui.showToast
+import woowacourse.movie.data.MovieRepositoryFactory
+import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
+import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.reservation.seat.model.SeatBoardUiModel
+import woowacourse.movie.presentation.reservation.seat.model.SeatSelectionUiState
+import woowacourse.movie.presentation.reservation.seat.model.SeatUiModel
 
 
-class SeatSelectionActivity : AppCompatActivity() {
+class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
+    private lateinit var reservationDialog: AlertDialog
+    private lateinit var seatBoardView: SeatBoardView
+    private lateinit var tableLayout: TableLayout
+    private lateinit var priceView: TextView
+    private lateinit var movieTitleView: TextView
+    private lateinit var presenter: SeatSelectionPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
-        val tableLayout = findViewById<TableLayout>(R.id.tl_seat_selection)
-        val seatTableView = SeatTableView(
-            context = this,
-            tableLayout = tableLayout,
-            rowCount = 6,
-            columnCount = 5
-        )
+        initView()
+        initClickListener()
+        IntentCompat.getParcelableExtra(
+            intent,
+            KEY_SEAT_SELECTION,
+            SeatSelectionNavArgs::class.java
+        )?.let { navArgs ->
+            presenter = SeatSelectionPresenter(
+                repository = MovieRepositoryFactory.movieRepository(),
+                navArgs = navArgs,
+                view = this
+            ).apply { loadScreenSeats() }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putParcelable(KEY_SEAT_UI_STATE, presenter.uiState)
+    }
+
+    override fun onRestoreInstanceState(
+        savedInstanceState: Bundle,
+    ) {
+        super.onRestoreInstanceState(savedInstanceState)
+        BundleCompat.getParcelable(
+            savedInstanceState, KEY_SEAT_UI_STATE, SeatSelectionUiState::class.java
+        )?.let(presenter::restoreState)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -37,143 +67,86 @@ class SeatSelectionActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-}
 
-class SeatTableView(
-    context: Context,
-    private val tableLayout: TableLayout,
-    private val rowCount: Int,
-    private val columnCount: Int
-) {
-    private lateinit var seats: List<List<TextView>>
-
-    init {
-        createSeats(context)
+    override fun showMovieTitle(title: String) {
+        movieTitleView.text = title
     }
 
-    @SuppressLint("SetTextI18n", "ResourceAsColor")
-    private fun createSeats(context: Context) {
-        val seatViews = mutableListOf<List<TextView>>()
+    override fun showSeat(seat: SeatUiModel) {
+        seatBoardView.updateSeat(seat)
+    }
 
-        for (i in 0 until rowCount) {
-            val tableRow = TableRow(context)
-            tableRow.layoutParams = TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT,
-                TableLayout.LayoutParams.WRAP_CONTENT
-            )
-            val rowSeats = mutableListOf<TextView>()
-            for (j in 0 until columnCount) {
-                val textView = TextView(context).apply {
-                    layoutParams = TableRow.LayoutParams(
-                        0,
-                        TableRow.LayoutParams.WRAP_CONTENT,
-                        1f
-                    )
-                    setPadding(0, 20.dp, 0, 20.dp)
-                    setTextColor(ContextCompat.getColor(context, R.color.blue_700))
-                    setBackgroundColor(ContextCompat.getColor(context, R.color.white))
-                    background = GradientDrawable().apply {
-                        setCornerRadius(10f)
-                        setColor(Color.LTGRAY)
-                        setStroke(3.dp, Color.BLACK)
-                    }
-                    setOnClickListener {
-                        background = GradientDrawable().apply {
-                            setCornerRadius(10f)
-                            setColor(Color.BLACK)
-                            setStroke(3, Color.BLACK)
-                        }
-                    }
-                    setGravity(Gravity.CENTER);
-                    textSize = 16f
-                    text = "${'A' + i}${j + 1}"
-                }
-                tableRow.addView(textView)
-                rowSeats.add(textView)
+    override fun showSeatBoard(board: SeatBoardUiModel) {
+        seatBoardView = SeatBoardView(
+            context = this,
+            tableLayout = tableLayout,
+            rowCount = board.rowCount,
+            columnCount = board.columnCount
+        ).apply {
+            updateSeats(board.seats)
+            setBoardClickListener{ x, y -> presenter.selectSeat(x, y) }
+        }
+    }
+
+    override fun showTotalPrice(price: Long) {
+        priceView.text = getString(R.string.seat_total_price_format, price)
+    }
+
+    override fun navigateToReservationResult(reservationId: Long) {
+        val intent = ReservationResultActivity.newIntent(this, reservationId).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+
+    }
+
+    override fun showSelectionError() {
+        showToast("선택할 수 없는 좌석 입니다.")
+    }
+
+    private fun initView() {
+        reservationDialog = AlertDialog.Builder(this)
+            .setTitle("예매 확인")
+            .setMessage("예매를 완료하시겠습니까?")
+            .setCancelable(false)
+            .setPositiveButton("확인") { _, _ ->
+                presenter.completeReservation()
             }
-            seatViews.add(rowSeats)
-            tableLayout.addView(tableRow)
-        }
-
-        seats = seatViews
-    }
-
-    @SuppressLint("ResourceAsColor")
-    fun updateSeat(seat: SeatUiModel) {
-        val (x, y, state, seatClass) = seat
-        val textColor = seatClass.textColor
-        val (backGroundColor, iconRes: Int?) = state.backGroundColor to state.iconRes
-        val seat = seats[x][y]
-        seat.setTextColor(textColor)
-        seat.setBackgroundColor(backGroundColor)
-        seat.background = ContextCompat.getDrawable(seat.context, iconRes);
-    }
-
-    fun updateSeats(seats: List<SeatUiModel>) {
-        seats.forEach(this::updateSeat)
-    }
-
-    fun disableClickListener() {
-        seats.applyOnChildren { seat ->
-            seat.setOnClickListener(null)
-        }
-    }
-
-    fun setBoardClickListener(clickListener: SeatClickListener) {
-        seats.applyOnChildren { seat, x, y ->
-            seat.setOnClickListener { clickListener.onClick(x + 1, y + 1) }
-        }
-    }
-
-    private fun List<List<TextView>>.applyOnChildren(action: (TextView, Int, Int) -> Unit) {
-        seats.forEachIndexed { x, row ->
-            row.forEachIndexed { y, textView ->
-                action(textView, x, y)
+            .setNegativeButton("취소") { _, _ ->
+                reservationDialog.dismiss()
             }
+            .create()
+        tableLayout = findViewById(R.id.tl_seat_selection)
+
+        priceView = findViewById<TextView?>(R.id.tv_seat_selection_price).apply {
+            text = getString(R.string.seat_total_price_format, 0)
         }
+        movieTitleView = findViewById<TextView?>(R.id.tv_seat_selection_title)
     }
 
-    private fun List<List<TextView>>.applyOnChildren(action: (TextView) -> Unit) {
-        seats.forEach { row ->
-            row.forEach { textView ->
-                action(textView)
-            }
+    private fun initClickListener() {
+        findViewById<TextView>(R.id.tv_seat_selection_complete).setOnClickListener {
+            reservationDialog.show()
         }
-    }
-
-    fun interface SeatClickListener {
-        fun onClick(
-            x: Int,
-            y: Int,
-        )
     }
 
     companion object {
-        private const val INITIAL_RESOURCE = 0
+        const val KEY_SEAT_SELECTION: String = "KEY_SEAT_SELECTION"
+        private const val KEY_SEAT_UI_STATE: String = "KEY_SEAT_UI_STATE"
+
+        @JvmStatic
+        fun newIntent(
+            context: Context,
+            navArgs: SeatSelectionNavArgs
+        ): Intent =
+            Intent(context, SeatSelectionActivity::class.java).apply {
+                putExtra(KEY_SEAT_SELECTION, navArgs)
+            }
     }
 }
 
-data class SeatUiModel(
-    val x: Int,
-    val y: Int,
-    val state: SeatState,
-    val seatClass: SeatClass,
-)
 
-enum class SeatClass(@ColorRes val textColor: Int) {
-    B(R.color.purple_500),
-    A(R.color.green_300),
-    S(R.color.blue_700),
-}
 
-private const val EMPTY_ICON = 0
 
-enum class SeatState(
-    @ColorRes val backGroundColor: Int,
-    @DrawableRes val iconRes: Int = EMPTY_ICON
-) {
-    EMPTY(R.color.white, R.drawable.img_movie_poster),
-    SELECT(R.color.white),
-    RESERVED(R.color.white);
 
-}
+

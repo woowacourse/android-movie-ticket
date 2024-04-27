@@ -63,7 +63,7 @@ class SeatBoardBuilder : DslBuilder<SeatBoard> {
         validatePositionsInBoardSize(reservedPositions)
         validatePositionsInBoardSize(bannedPositions)
         totalSeats = createSeats()
-        return SeatBoard(headCount, totalSeats)
+        return SeatBoard(headCount, totalSeats, boardSize)
     }
 
     private fun createSeats(): Seats {

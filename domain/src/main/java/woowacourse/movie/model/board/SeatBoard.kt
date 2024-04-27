@@ -3,10 +3,11 @@ package woowacourse.movie.model.board
 import woowacourse.movie.model.HeadCount
 
 data class SeatBoard internal constructor(
-    private val headCount: HeadCount,
+    val headCount: HeadCount,
     private val totalSeats: Seats,
+    val boardSize: BoardSize = BoardSize(20, 20),
 ) {
-    private val selectedSeats: Seats = totalSeats.selectedSeats()
+    val selectedSeats: Seats = totalSeats.selectedSeats()
     private val seatMap: Map<Position, Seat> = totalSeats.toSeatMap()
 
     val isCompletedSelection get() = (selectedSeats.size == headCount.count)
@@ -35,6 +36,33 @@ data class SeatBoard internal constructor(
 
             SeatState.RESERVED -> Failure
             SeatState.BANNED -> Failure
+        }
+    }
+
+    companion object {
+        val STUB = buildSeatBoard {
+            size(5, 5)
+            headCount(HeadCount(2))
+            reservedSeatPositions(
+                setOf(
+                    Position(1, 1),
+                    Position(1, 3),
+                    Position(3, 2),
+                    Position(3, 1),
+                    Position(4, 0),
+                    Position(4, 4),
+                )
+            )
+            bannedPositions(
+                setOf(
+                    Position(1, 0),
+                    Position(2, 0),
+                    Position(3, 0),
+                    Position(1, 4),
+                    Position(2, 4),
+                    Position(3, 4),
+                )
+            )
         }
     }
 }

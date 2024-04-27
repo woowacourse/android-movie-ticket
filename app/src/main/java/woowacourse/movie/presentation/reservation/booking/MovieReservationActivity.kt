@@ -17,8 +17,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.BundleCompat
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryFactory
+import woowacourse.movie.presentation.reservation.booking.model.MovieReservationUiState
 import woowacourse.movie.presentation.reservation.booking.model.ScreeningMovieUiModel
-import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
+import woowacourse.movie.presentation.reservation.seat.SeatSelectionActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var presenter: MovieReservationPresenter
@@ -108,8 +110,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         dateSpinnerAdapter.addAll(dates)
     }
 
-    override fun navigateToReservationResultView(reservationId: Long) {
-        val intent = ReservationResultActivity.newIntent(this, reservationId)
+    override fun navigateToSeatSelection(navArgs: SeatSelectionNavArgs) {
+        val intent = SeatSelectionActivity.newIntent(this, navArgs)
         startActivity(intent)
     }
 
@@ -143,7 +145,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         minusButton.setOnClickListener {
             presenter.minusCount()
         }
-        findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
+        findViewById<Button>(R.id.btn_navigate_seat_selection).setOnClickListener {
             presenter.completeReservation()
         }
         dateSpinner.onItemSelectedListener = itemSelectListener { presenter.updateScreenDateAt(it) }

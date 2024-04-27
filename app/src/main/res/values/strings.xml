@@ -5,4 +5,5 @@
 취소가 가능합니다.</string>
     <string name="reservation_head_count_format">일반 %d명</string>
     <string name="reservation_total_price_format">%,d원 (현장 결제)</string>
+    <string name="seat_total_price_format">%,d원</string>
 </resources>

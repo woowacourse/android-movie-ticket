@@ -2,7 +2,9 @@ package woowacourse.movie.data
 
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.MovieReservation
-import woowacourse.movie.model.ScreeningMovie
+import woowacourse.movie.model.board.SeatBoard
+import woowacourse.movie.model.board.Seats
+import woowacourse.movie.model.date.ScreeningMovie
 import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDateTime
 
@@ -11,6 +13,9 @@ object DefaultMovieRepository : MovieRepository {
         List<ScreeningMovie>(1000) { ScreeningMovie.STUB.copy(id = it.toLong()) }
     private var reservations: List<MovieReservation> = emptyList()
     private var reservationId: Long = 0
+    override fun screenSeats(screenMovieId: Long, dateTime: LocalDateTime): Result<SeatBoard> {
+        return runCatching { SeatBoard.STUB }
+    }
 
     override fun screenMovies(): List<ScreeningMovie> = screenMovies
 
@@ -26,6 +31,7 @@ object DefaultMovieRepository : MovieRepository {
         id: Long,
         dateTime: LocalDateTime,
         count: HeadCount,
+        selectedSeats: Seats
     ): Result<Long> {
         return runCatching {
             reservations +=
