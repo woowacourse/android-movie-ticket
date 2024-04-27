@@ -10,7 +10,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 
 class ListViewAdapter(
-    private val movies: List<MovieModel>,
+    private val movies: List<ScreeningModel>,
     private val itemClickListener: OnItemClickListener,
 ) : BaseAdapter() {
     fun interface OnItemClickListener {

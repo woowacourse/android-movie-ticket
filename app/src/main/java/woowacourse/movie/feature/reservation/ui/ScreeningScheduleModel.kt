@@ -7,7 +7,5 @@ data class ScreeningScheduleModel(val dailySchedules: List<DailyScheduleModel>) 
 }
 
 fun ScreeningSchedule.toUiModel(): ScreeningScheduleModel {
-    return ScreeningScheduleModel(
-        dailySchedules.map { it.toUiModel() }
-    )
+    return ScreeningScheduleModel(dailySchedules.map { it.toUiModel() })
 }

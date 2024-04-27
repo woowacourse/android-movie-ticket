@@ -7,33 +7,31 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.data.MovieRepository
-import woowacourse.movie.domain.screening.Movie
-import woowacourse.movie.domain.screening.ScreeningDate
+import woowacourse.movie.data.ScreeningRepository
+import woowacourse.movie.domain.TestFixture.MOCK_SCREENING
 import woowacourse.movie.feature.main.ui.toUiModel
-import java.time.LocalDate
 
 class MainPresenterTest {
     private lateinit var presenter: MainPresenter
     private lateinit var view: MainContract.View
-    private lateinit var repository: MovieRepository
+    private lateinit var repository: ScreeningRepository
 
     @BeforeEach
     fun setup() {
         view = mockk<MainContract.View>()
-        repository = mockk<MovieRepository>()
+        repository = mockk<ScreeningRepository>()
         presenter = MainPresenter(view, repository)
     }
 
     @Test
-    fun `리스트를 불러오면 `() {
+    fun `영화 리스트를 불러와 뷰에 보여준다`() {
         // given
-        every { repository.findAll() } returns MOCK_MOVIES
+        every { repository.findAll() } returns listOf(MOCK_SCREENING)
         every { view.displayMovies(any()) } just runs
         // when
         presenter.fetchMovieList()
         // Then
-        verify { view.displayMovies(MOCK_MOVIES.map { it.toUiModel() }) }
+        verify { view.displayMovies(listOf(MOCK_SCREENING).map { it.toUiModel() }) }
     }
 
     @Test
@@ -44,21 +42,5 @@ class MainPresenterTest {
         presenter.selectMovie(0)
         // Then
         verify { view.navigateToReservationScreen(0) }
-    }
-
-    companion object {
-        val MOCK_MOVIE: Movie =
-            Movie(
-                0,
-                0,
-                "제목",
-                "설명",
-                ScreeningDate(
-                    LocalDate.of(2024, 3, 1),
-                    LocalDate.of(2024, 4, 30),
-                ),
-                0,
-            )
-        val MOCK_MOVIES = mutableListOf(MOCK_MOVIE)
     }
 }
