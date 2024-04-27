@@ -1,5 +1,6 @@
 package woowacourse.movie.main.view
 
+import AdvertisementViewHolder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -32,6 +33,15 @@ class MovieMainActivityTest {
         onView(withId(R.id.movieRecyclerView)).check(
             matches(
                 matchViewHolderAtPosition(2, MovieViewHolder::class.java),
+            ),
+        )
+    }
+
+    @Test
+    fun `영화_목록의_4번째_아이템은_영화가_보여진다`() {
+        onView(withId(R.id.movieRecyclerView)).check(
+            matches(
+                matchViewHolderAtPosition(3, AdvertisementViewHolder::class.java),
             ),
         )
     }
