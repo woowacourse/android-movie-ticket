@@ -16,17 +16,10 @@ object TestFixture {
     const val FIRST_ITEM_POSITION = 0
     val movies: List<Movie> = ScreeningDao().findAll()
 
-    val moviesFirstItem: DataInteraction =
-        Espresso.onData(
-            Matchers.anything(),
-        ).inAdapterView(
-            ViewMatchers.withId(R.id.recycler_view_reservation_home),
-        ).atPosition(FIRST_ITEM_POSITION)
-
     fun makeMockTicket(): Ticket {
         val movie = movies[FIRST_ITEM_POSITION]
         val dateTime = ScreeningDateTime(movie.screeningPeriod[0].toString(), movie.screeningTimes.weekDay[0].toString())
-        return Ticket(1, dateTime)
+        return Ticket(2, dateTime)
     }
 
     fun makeMockSeats(): Seats {

@@ -29,10 +29,9 @@ class ReservationFinishedActivityTest {
             ).apply {
                 putExtra("movieId", FIRST_ITEM_POSITION)
                 putExtra("ticket", makeMockTicket())
+                putExtra("seats", makeMockSeats())
             },
         )
-    private val ticket = makeMockTicket()
-    private val seats = makeMockSeats()
 
     @Test
     fun `예매한_영화의_제목을_보여준다`() {
@@ -43,7 +42,7 @@ class ReservationFinishedActivityTest {
     fun `예매한_영화의_상영일을_보여준다`() {
         onView(
             withId(R.id.text_view_reservation_finished_screening_date),
-        ).check(matches(withText(ticket.screeningDateTime.date)))
+        ).check(matches(withText(makeMockTicket().screeningDateTime.date)))
     }
 
     @Test
@@ -51,7 +50,7 @@ class ReservationFinishedActivityTest {
         onView(withId(R.id.text_view_reservation_finished_number_of_tickets)).check(
             matches(
                 withText(
-                    "1",
+                    "2",
                 ),
             ),
         )
@@ -59,7 +58,13 @@ class ReservationFinishedActivityTest {
 
     @Test
     fun `예매한_영화의_총_결제금액을_보여준다`() {
-        onView(withId(R.id.text_view_reservation_finished_ticket_price)).check(matches(withText(ticket.calculatePrice(seats))))
+        onView(withId(R.id.text_view_reservation_finished_ticket_price)).check(
+            matches(
+                withText(
+                    "25,000",
+                ),
+            ),
+        )
     }
 
     @Test
