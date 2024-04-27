@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.seat.SeatActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.reservation.ReservationResultActivity"
             android:exported="false" />
         <activity

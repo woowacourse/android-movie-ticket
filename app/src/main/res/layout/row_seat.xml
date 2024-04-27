@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/seat_selector"
+        android:minWidth="@dimen/size_16"
+        android:minHeight="@dimen/size_0"
+        tools:text="A1"
+        android:textStyle="bold"
+        android:textSize="@dimen/size_22"
+        android:paddingHorizontal="@dimen/size_24"
+        android:paddingVertical="@dimen/size_27" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/seat_selector"
+        android:minWidth="@dimen/size_0"
+        android:minHeight="@dimen/size_0"
+        tools:text="A1"
+        android:textStyle="bold"
+        android:textSize="@dimen/size_22"
+        android:paddingHorizontal="@dimen/size_24"
+        android:paddingVertical="@dimen/size_27"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/seat_selector"
+        android:minWidth="@dimen/size_0"
+        android:minHeight="@dimen/size_0"
+        tools:text="A3"
+        android:textStyle="bold"
+        android:textSize="@dimen/size_22"
+        android:paddingHorizontal="@dimen/size_24"
+        android:paddingVertical="@dimen/size_27"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/seat_selector"
+        android:minWidth="@dimen/size_0"
+        android:minHeight="@dimen/size_0"
+        tools:text="A4"
+        android:textStyle="bold"
+        android:textSize="@dimen/size_22"
+        android:paddingHorizontal="@dimen/size_24"
+        android:paddingVertical="@dimen/size_27"/>
+
+</TableRow>

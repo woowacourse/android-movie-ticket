@@ -11,6 +11,7 @@ import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
+import woowacourse.movie.presentation.ui.seat.SeatActivity
 import woowacourse.movie.presentation.uimodel.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime
@@ -113,7 +114,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     }
 
     override fun moveToReservationPage(movieTicketId: Int) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
+        val intent = Intent(this, SeatActivity::class.java)
         intent.putExtra(EXTRA_MOVIE_TICKET_ID, movieTicketId)
         startActivity(intent)
     }
