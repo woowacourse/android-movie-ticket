@@ -1,5 +1,6 @@
 package woowacourse.movie.seat
 
+import android.content.Intent
 import woowacourse.movie.model.theater.Seat
 
 interface TheaterSeatContract {
@@ -8,6 +9,7 @@ interface TheaterSeatContract {
         fun updateTotalPrice(price: Int)
         fun showConfirmationDialog()
         fun setSeatBackground(seatId: String, color: String)
+        fun navigateToNextPage()
     }
 
     interface Presenter {

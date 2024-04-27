@@ -1,16 +1,20 @@
 package woowacourse.movie.seat
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.Seat
+import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 
 @SuppressLint("DiscouragedApi")
 class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
@@ -19,8 +23,12 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.seat)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initializePresenter()
         setupSeats()
+        findViewById<Button>(R.id.confirm_button).setOnClickListener {
+            showConfirmationDialog()
+        }
     }
 
     private fun initializePresenter() {
@@ -50,7 +58,20 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     }
 
     override fun showConfirmationDialog() {
-        // Implementation of dialog showing logic
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("예매 확인")
+        builder.setMessage("정말 예매하시겠습니까?")
+        builder.setPositiveButton("예매 완료") { _, _ ->
+            navigateToNextPage()
+        }
+        builder.setNegativeButton("취소") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.setCancelable(false)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
 
     override fun setSeatBackground(seatId: String, color: String) {
@@ -62,5 +83,17 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
 
     override fun updateTotalPrice(price: Int) {
         findViewById<TextView>(R.id.total_price).text = "Total Price: $price"
+    }
+
+    override fun navigateToNextPage() {
+        val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
+
+        }
+        startActivity(intent)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        finish()
+        return true
     }
 }
