@@ -5,6 +5,7 @@ import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.model.schedule.WeekdayTimeTable
 import woowacourse.movie.model.schedule.WeekendTimeTable
 import woowacourse.movie.repository.PseudoReservationRepository
@@ -18,8 +19,9 @@ class MovieDetailPresenter(
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
     private var ticketNum: Int = 1,
 ) : MovieDetailContract.Presenter {
-    private lateinit var movie: Movie
     private lateinit var period: ScreeningPeriod
+    private lateinit var movie: Movie
+    private lateinit var screeningDateTime: ScreeningDateTime
 
     override fun loadMovie(movieId: Int) {
         movie = movieRepository.getMovie(movieId)
@@ -43,10 +45,7 @@ class MovieDetailPresenter(
         }
     }
 
-    override fun purchase(
-        movieId: Int,
-    ) {
-        val movie = movieRepository.getMovie(movieId)
+    override fun purchase() {
         val reservation = Reservation(movie, ticketNum)
         reservationRepository.putReservation(reservation)
         // TODO: if it goes fail, view have to notify that something went wrong
@@ -58,5 +57,9 @@ class MovieDetailPresenter(
         val timeTable = if(date.isWeekend()) WeekendTimeTable(date) else WeekdayTimeTable(date)
         val times = timeTable.getScreeningTimes()
         view.displayScreeningTimes(times)
+    }
+
+    override fun selectScreeningTime(time: ScreeningDateTime) {
+        screeningDateTime = time
     }
 }

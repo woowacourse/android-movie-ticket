@@ -11,11 +11,9 @@ import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.schedule.ScreeningDate
-import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.movie.Movie
-import woowacourse.movie.model.schedule.ScreeningTime
-import woowacourse.movie.model.schedule.ScreeningTimeTable
+import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.presenter.MovieDetailPresenter
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
@@ -45,7 +43,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             presenter.minusTicketNum()
         }
         ticketBuyButton.setOnClickListener {
-            presenter.purchase(movieId)
+            presenter.purchase()
         }
     }
 
@@ -75,7 +73,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         TODO("Not yet implemented")
     }
 
-    override fun displayScreeningTimes(times: List<ScreeningTime>) {
+    override fun displayScreeningTimes(times: List<ScreeningDateTime>) {
         TODO("Not yet implemented")
     }
 

@@ -12,9 +12,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningPeriod
-import woowacourse.movie.model.schedule.ScreeningTime
+import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)
 class MovieDetailPresenterTest {
@@ -66,7 +67,8 @@ class MovieDetailPresenterTest {
     @Test
     fun `확인 버튼을 누르면 결제 확인 화면으로 넘어간다`() {
         every { view.displayMovie(any()) } just runs
-        presenter.purchase(0)
+        presenter.loadMovie(0)
+        presenter.purchase()
         verify { view.navigateToPurchaseConfirmation() }
     }
 
@@ -94,7 +96,7 @@ class MovieDetailPresenterTest {
         every { view.displayScreeningDates(any()) } just runs
         val date = ScreeningDate(LocalDate.of(2024, 4, 27))// saturday
         presenter.selectScreeningDate(date)
-        val times = (9..24 step 2).map{ScreeningTime.of(date.date, it, 0)}
+        val times = (9..24 step 2).map{ScreeningDateTime.of(date.date, it, 0)}
         verify { view.displayScreeningTimes(times) }
     }
 
@@ -103,7 +105,7 @@ class MovieDetailPresenterTest {
         every { view.displayScreeningDates(any()) } just runs
         val date = ScreeningDate(LocalDate.of(2024, 4, 26))// friday
         presenter.selectScreeningDate(date)
-        val times = (10..24 step 2).map{ScreeningTime.of(date.date, it, 0)}
+        val times = (10..24 step 2).map{ScreeningDateTime.of(date.date, it, 0)}
         verify { view.displayScreeningTimes(times) }
     }
 }
