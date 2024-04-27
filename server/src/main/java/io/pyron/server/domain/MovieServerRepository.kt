@@ -1,16 +1,14 @@
 package io.pyron.server.domain
 
+import io.pyron.server.data.dto.MovieWithScreenDateTime
 import io.pyron.server.data.entity.Movie
-import io.pyron.server.data.dto.MovieWithDateTime
 
 interface MovieServerRepository {
+    fun findAll(): List<Movie>
 
-    fun findAllMovies(): List<Movie>
+    fun findOneById(id: Long): Movie?
 
-    fun findOneMovieById(id: Long): Movie?
+    fun findAllMovieWithDateTimes(): List<MovieWithScreenDateTime>
 
-    fun findAllMovieWithDateTimes(): List<MovieWithDateTime>
-
-    fun findOneMovieWithDateTime(id: Long): MovieWithDateTime?
-
+    fun findMovieWithDateTime(id: Long): MovieWithScreenDateTime?
 }

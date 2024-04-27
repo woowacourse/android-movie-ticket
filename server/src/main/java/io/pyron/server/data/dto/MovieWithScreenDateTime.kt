@@ -1,11 +1,11 @@
 package io.pyron.server.data.dto
-import java.time.LocalDateTime
+import io.pyron.server.data.entity.ScreenDateTime
 
-data class MovieWithDateTime(
+data class MovieWithScreenDateTime(
     val id: Long,
     val thumbnailUrl: String,
     val title: String,
     val description: String,
-    val dateTime: List<LocalDateTime>,
+    val screenDateTimes: List<ScreenDateTime>,
     val runningTime: Int,
 )

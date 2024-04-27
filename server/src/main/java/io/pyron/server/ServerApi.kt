@@ -1,20 +1,38 @@
 package io.pyron.server
 
+import io.pyron.server.data.MovieSeatRepositoryImpl
 import io.pyron.server.data.MovieServerRepositoryImpl
-import io.pyron.server.data.dto.MovieWithDateTime
-import io.pyron.server.data.entity.Movie
+import io.pyron.server.data.ScreenDateTimeRepositoryImpl
+import io.pyron.server.data.dto.MovieWithScreenDateTime
+import io.pyron.server.data.entity.MovieSeat
+import io.pyron.server.data.entity.ScreenDateTime
+import io.pyron.server.domain.MovieSeatRepository
 import io.pyron.server.domain.MovieServerRepository
+import io.pyron.server.domain.ScreenDateTimeRepository
 
-class ServerApi(private val movieServerRepository: MovieServerRepository = MovieServerRepositoryImpl()) {
-
-    // json 이라고 가정
-    fun findAllMovieWithDateTimes(): List<MovieWithDateTime> {
+// json 이라고 가정
+class ServerApi(
+    private val movieServerRepository: MovieServerRepository = MovieServerRepositoryImpl(),
+    private val movieSeatRepository: MovieSeatRepository = MovieSeatRepositoryImpl(),
+    private val screenDateTimeRepository: ScreenDateTimeRepository = ScreenDateTimeRepositoryImpl(),
+) {
+    fun findAllMovieWithDateTimes(): List<MovieWithScreenDateTime> {
         return movieServerRepository.findAllMovieWithDateTimes()
     }
 
-    // json 이라고 가정
-    fun findOneMovieWithDateTime(id: Long): MovieWithDateTime? {
-        return movieServerRepository.findOneMovieWithDateTime(id)
+    fun findOneMovieWithDateTime(id: Long): MovieWithScreenDateTime? {
+        return movieServerRepository.findMovieWithDateTime(id)
     }
 
+    fun findSeatsByScreenDateTime(movieScreenDateTimeId: Long): List<MovieSeat> {
+        return movieSeatRepository.findOneByMovieScreenDateTime(movieScreenDateTimeId)
+    }
+
+    fun findScreenDateTimeByMovieScreenDateTime(movieScreenDateTimeId: Long): ScreenDateTime? {
+        return screenDateTimeRepository.findOneByMovieScreenDateTime(movieScreenDateTimeId)
+    }
+
+    fun findSeatById(seatId: Long): MovieSeat? {
+        return movieSeatRepository.findOneById(seatId)
+    }
 }
