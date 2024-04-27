@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.reservation
 
+import android.widget.Button
 import woowacourse.movie.model.Grade
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
@@ -33,12 +34,19 @@ interface SeatSelectionContract {
     }
 
     interface View {
-        fun showSeatNumber(
+        fun initializeSeatsTable(
             index: Int,
             seat: Seat,
         )
 
         fun setUpSeatColorByGrade(grade: Grade): Int
+
+        fun Button.showSeatNumber(seat: Seat)
+
+        fun Button.updateReservationInformation(
+            index: Int,
+            seat: Seat,
+        )
 
         fun updateSeatSelectedState(
             index: Int,

@@ -33,7 +33,7 @@ class SeatSelectionPresenter(
     override fun loadSeatNumber() {
         val seats = seatsDao.findAll()
         seats.forEachIndexed { index, seat ->
-            view.showSeatNumber(index, seat)
+            view.initializeSeatsTable(index, seat)
         }
     }
 

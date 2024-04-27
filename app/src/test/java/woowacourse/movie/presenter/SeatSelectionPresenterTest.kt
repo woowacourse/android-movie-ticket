@@ -35,9 +35,9 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `좌석별 번호를 보여준다`() {
-        every { view.showSeatNumber(any(), any()) } just runs
+        every { view.initializeSeatsTable(any(), any()) } just runs
         presenter.loadSeatNumber()
-        verify(exactly = 20) { view.showSeatNumber(any(), any()) }
+        verify(exactly = 20) { view.initializeSeatsTable(any(), any()) }
     }
 
     @Test

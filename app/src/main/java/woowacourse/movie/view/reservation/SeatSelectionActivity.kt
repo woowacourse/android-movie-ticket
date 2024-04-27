@@ -1,6 +1,5 @@
 package woowacourse.movie.view.reservation
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -86,25 +85,36 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun showSeatNumber(
+    override fun initializeSeatsTable(
         index: Int,
         seat: Seat,
     ) {
         seatsTable[index].apply {
-            text = getString(R.string.select_seat_number, seat.row, seat.column)
-            setTextColor(setUpSeatColorByGrade(seat.grade))
-            setOnClickListener {
-                val seatsCount = seatsTable.count { seat -> seat.isSelected }
-                if (seatsCount < ticket.count || it.isSelected) {
-                    updateSeatSelectedState(index, isSelected)
-                    val updatedSeatsCount = seatsTable.count { seat -> seat.isSelected }
-                    presenter.manageSelectedSeats(it.isSelected, index, seat)
-                    presenter.updateTotalPrice(it.isSelected, seat)
-                    setConfirmButtonEnabled(updatedSeatsCount)
-                }
+            showSeatNumber(seat)
+            updateReservationInformation(index, seat)
+        }
+    }
+
+    override fun Button.showSeatNumber(seat: Seat) {
+        text = getString(R.string.select_seat_number, seat.row, seat.column)
+        setTextColor(setUpSeatColorByGrade(seat.grade))
+    }
+
+    override fun Button.updateReservationInformation(
+        index: Int,
+        seat: Seat,
+    ) {
+        setOnClickListener {
+            if (getSeatsCount() < ticket.count || isSelected) {
+                updateSeatSelectedState(index, isSelected)
+                presenter.manageSelectedSeats(isSelected, index, seat)
+                presenter.updateTotalPrice(isSelected, seat)
+                setConfirmButtonEnabled(getSeatsCount())
             }
         }
     }
+
+    private fun getSeatsCount() = seatsTable.count { seat -> seat.isSelected }
 
     override fun setUpSeatColorByGrade(grade: Grade): Int {
         return when (grade) {
