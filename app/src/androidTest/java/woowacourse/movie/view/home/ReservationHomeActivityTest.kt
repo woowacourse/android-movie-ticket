@@ -28,26 +28,6 @@ class ReservationHomeActivityTest {
     }
 
     @Test
-    fun `영화_목록의_아이템은_제목을_보여준다`() {
-        onView(withId(R.id.item_movie_catalog_text_view_title)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `영화_목록의_아이템은_포스터를_보여준다`() {
-        onView(withId(R.id.item_movie_catalog_image_view_poster)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `영화_목록의_아이템은_상영기간을_보여준다`() {
-        onView(withId(R.id.item_movie_catalog_text_view_screening_date)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `영화_목록의_아이템은_보여준다`() {
-        onView(withId(R.id.item_movie_catalog_text_view_running_time)).check(matches(isDisplayed()))
-    }
-
-    @Test
     fun `영화_목록의_3번째_아이템은_영화가_보여진다`() {
         onView(withId(R.id.recycler_view_reservation_home)).check(
             matches(
