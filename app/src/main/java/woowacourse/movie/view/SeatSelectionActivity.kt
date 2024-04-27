@@ -53,50 +53,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         initializeReservationButton(screeningId, count)
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun initializePresenter(
-        savedInstanceState: Bundle?,
-        screeningId: Long,
-        count: Int,
-        date: String?,
-        time: String?,
-        title: String?,
-    ) {
-        presenter = SeatSelectionPresenter(this)
-        savedInstanceState?.let {
-            val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
-            selectedSeats?.let {
-                presenter.loadSeats(
-                    screeningId = screeningId,
-                    numOfTickets = count,
-                    date = date,
-                    time = time,
-                    title = title,
-                    seats = selectedSeats.toList(),
-                )
-            }
-        } ?: presenter.loadSeats(screeningId, count, date, time, title, emptyList())
-    }
-
-    private fun initializeReservationButton(
-        screeningId: Long,
-        count: Int,
-    ) {
-        button.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle(getString(R.string.dialog_reservation_title))
-                .setMessage(getString(R.string.dialog_reservation_message))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
-                    presenter.makeReservation(screeningId, count)
-                }
-                .setNegativeButton(getString(R.string.dialog_negative_button)) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArray(KEY_SELECTED_SEATS, presenter.selectedSeats.toTypedArray())
@@ -114,68 +70,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             getString(R.string.text_total_price, totalPrice)
         seats.isStretchAllColumns = true
         initializeRows(theaterSize, rowClassInfo, selectedSeats)
-    }
-
-    private fun TextView.setSeatStyle(
-        rowIndex: Int,
-        columnIndex: Int,
-        seatClass: SeatClass,
-        selectedSeats: List<BookingSeat>,
-    ) {
-        val rowChar = convertRowNumberIntoChar(rowIndex)
-        text =
-            this@SeatSelectionActivity.getString(
-                R.string.text_seat_position,
-                rowChar,
-                columnIndex + 1,
-            )
-        gravity = Gravity.CENTER
-
-        val textColor =
-            when (seatClass) {
-                SeatClass.S -> R.color.green
-                SeatClass.A -> R.color.purple_500
-                SeatClass.B -> R.color.blue
-            }
-        setTextSize(COMPLEX_UNIT_SP, 22f)
-        setTextColor(ContextCompat.getColor(this@SeatSelectionActivity, textColor))
-        setPadding(40 * resources.displayMetrics.density.toInt())
-        if (BookingSeat(rowIndex, columnIndex, seatClass) in selectedSeats) {
-            setBackgroundColor(
-                getColor(R.color.yellow),
-            )
-        }
-    }
-
-    private fun convertRowNumberIntoChar(rowIndex: Int) = (START_ROW_CHAR.code + rowIndex).toChar()
-
-    private fun initializeRows(
-        theaterSize: TheaterSize,
-        rowClassInfo: Map<Int, SeatClass>,
-        selectedSeats: List<BookingSeat>,
-    ) {
-        rows = List(theaterSize.rows) { TableRow(this) }
-        rows.forEachIndexed { rowIndex, tableRow ->
-            val seatClass = rowClassInfo[rowIndex + 1]
-            seatClass?.let { grade ->
-                repeat(theaterSize.columns) { columnIndex ->
-                    val seatItem = TextView(this)
-                    seatItem.apply {
-                        setSeatStyle(rowIndex, columnIndex, seatClass, selectedSeats)
-                        setOnClickListener {
-                            presenter.updateSeat(
-                                rowIndex,
-                                columnIndex,
-                                seatClass,
-                                theaterSize.columns,
-                            )
-                        }
-                    }
-                    tableRow.addView(seatItem)
-                }
-            }
-            seats.addView(tableRow)
-        }
     }
 
     override fun toggleSeat(
@@ -198,24 +92,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         } else {
             seatItems[row * columnSize + column].cancelSeat()
         }
-    }
-
-    private fun TextView.selectSeat() {
-        setBackgroundColor(
-            ContextCompat.getColor(
-                this@SeatSelectionActivity,
-                R.color.yellow,
-            ),
-        )
-    }
-
-    private fun TextView.cancelSeat() {
-        setBackgroundColor(
-            ContextCompat.getColor(
-                this@SeatSelectionActivity,
-                R.color.white,
-            ),
-        )
     }
 
     override fun updateTotalPrice(totalPrice: Int) {
@@ -280,6 +156,153 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun initializePresenter(
+        savedInstanceState: Bundle?,
+        screeningId: Long,
+        count: Int,
+        date: String?,
+        time: String?,
+        title: String?,
+    ) {
+        presenter = SeatSelectionPresenter(this)
+        savedInstanceState?.let {
+            val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
+            selectedSeats?.let {
+                presenter.loadSeats(
+                    screeningId = screeningId,
+                    numOfTickets = count,
+                    date = date,
+                    time = time,
+                    title = title,
+                    seats = selectedSeats.toList(),
+                )
+            }
+        } ?: presenter.loadSeats(screeningId, count, date, time, title, emptyList())
+    }
+
+    private fun initializeReservationButton(
+        screeningId: Long,
+        count: Int,
+    ) {
+        button.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.dialog_reservation_title))
+                .setMessage(getString(R.string.dialog_reservation_message))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
+                    presenter.makeReservation(screeningId, count)
+                }
+                .setNegativeButton(getString(R.string.dialog_negative_button)) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+    }
+
+    private fun initializeRows(
+        theaterSize: TheaterSize,
+        rowClassInfo: Map<Int, SeatClass>,
+        selectedSeats: List<BookingSeat>,
+    ) {
+        rows = List(theaterSize.rows) { TableRow(this) }
+        rows.forEachIndexed { rowIndex, tableRow ->
+            val seatClass = rowClassInfo[rowIndex + 1]
+            tableRow.initializeSingleRow(seatClass, theaterSize, rowIndex, selectedSeats)
+            seats.addView(tableRow)
+        }
+    }
+
+    private fun convertRowNumberIntoChar(rowIndex: Int) = (START_ROW_CHAR.code + rowIndex).toChar()
+
+    private fun TableRow.initializeSingleRow(
+        seatClass: SeatClass?,
+        theaterSize: TheaterSize,
+        rowIndex: Int,
+        selectedSeats: List<BookingSeat>,
+    ) {
+        seatClass?.let { grade ->
+            repeat(theaterSize.columns) { columnIndex ->
+                val seatItem = TextView(this@SeatSelectionActivity)
+                seatItem.initializeSeatItem(
+                    rowIndex = rowIndex,
+                    columnIndex = columnIndex,
+                    seatClass = grade,
+                    selectedSeats = selectedSeats,
+                    theaterSize = theaterSize,
+                )
+                addView(seatItem)
+            }
+        }
+    }
+
+    private fun TextView.initializeSeatItem(
+        rowIndex: Int,
+        columnIndex: Int,
+        seatClass: SeatClass,
+        selectedSeats: List<BookingSeat>,
+        theaterSize: TheaterSize,
+    ) {
+        setSeatStyle(rowIndex, columnIndex, seatClass, selectedSeats)
+        setOnClickListener {
+            presenter.updateSeat(
+                row = rowIndex,
+                column = columnIndex,
+                seatClass = seatClass,
+                columnSize = theaterSize.columns,
+            )
+        }
+    }
+
+    private fun TextView.setSeatStyle(
+        rowIndex: Int,
+        columnIndex: Int,
+        seatClass: SeatClass,
+        selectedSeats: List<BookingSeat>,
+    ) {
+        val rowChar = convertRowNumberIntoChar(rowIndex)
+        text =
+            this@SeatSelectionActivity.getString(
+                R.string.text_seat_position,
+                rowChar,
+                columnIndex + 1,
+            )
+        gravity = Gravity.CENTER
+
+        val textColor =
+            when (seatClass) {
+                SeatClass.S -> R.color.green
+                SeatClass.A -> R.color.purple_500
+                SeatClass.B -> R.color.blue
+            }
+        setTextSize(COMPLEX_UNIT_SP, 22f)
+        setTextColor(ContextCompat.getColor(this@SeatSelectionActivity, textColor))
+        setPadding(40 * resources.displayMetrics.density.toInt())
+        if (BookingSeat(rowIndex, columnIndex, seatClass) in selectedSeats) {
+            setBackgroundColor(
+                getColor(R.color.yellow),
+            )
+        }
+    }
+
+    private fun TextView.selectSeat() {
+        setBackgroundColor(
+            ContextCompat.getColor(
+                this@SeatSelectionActivity,
+                R.color.yellow,
+            ),
+        )
+    }
+
+    private fun TextView.cancelSeat() {
+        setBackgroundColor(
+            ContextCompat.getColor(
+                this@SeatSelectionActivity,
+                R.color.white,
+            ),
+        )
     }
 
     companion object {
