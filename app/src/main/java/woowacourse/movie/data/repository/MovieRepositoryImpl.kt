@@ -38,6 +38,7 @@ object MovieRepositoryImpl : MovieRepository {
             ),
             summary = "",
         )
+    private const val DATE_TERM: Long = 1
     private const val END_TIME = 24
     private const val TIME_TERM = 2
 
@@ -54,10 +55,16 @@ object MovieRepositoryImpl : MovieRepository {
 
     override fun getScreeningDateInfo(movieId: Int): List<LocalDate> {
         val screeningInfo = findMovieById(movieId).screeningInfo
-        val dateCount = screeningInfo.endDate.dayOfYear - screeningInfo.startDate.dayOfYear
-        val dateList = List(size = dateCount) {
-            screeningInfo.startDate.plusDays(dateCount.toLong())
+        val startDate = screeningInfo.startDate
+        val endDate = screeningInfo.endDate
+        val dateList = mutableListOf<LocalDate>()
+
+        var currentDate = startDate
+        while (!currentDate.isAfter(endDate)) {
+            dateList.add(currentDate)
+            currentDate = currentDate.plusDays(DATE_TERM)
         }
+
         return dateList
     }
 

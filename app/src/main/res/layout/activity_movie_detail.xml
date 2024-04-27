@@ -80,7 +80,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/size_150" />
+                android:layout_height="@dimen/size_200" />
 
         </LinearLayout>
 
@@ -88,34 +88,55 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_138"
+        android:layout_height="@dimen/size_180"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Spinner
+            android:id="@+id/dateSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20"
+            android:layout_marginTop="@dimen/size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_weight="1"/>
+
+        <Spinner
+            android:id="@+id/timeSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_20"
+            android:layout_marginTop="@dimen/size_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_weight="1"/>
 
         <Button
             android:id="@+id/minusButton"
             android:layout_width="@dimen/size_65"
             android:layout_height="@dimen/size_45"
             android:layout_marginStart="@dimen/size_20"
-            android:layout_marginTop="@dimen/size_9"
+            android:layout_marginTop="@dimen/size_16"
             android:text="@string/minus"
             android:textSize="@dimen/size_20"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/dateSpinner" />
 
         <Button
             android:id="@+id/plusButton"
             android:layout_width="@dimen/size_65"
             android:layout_height="@dimen/size_45"
             android:layout_marginEnd="@dimen/size_20"
-            android:layout_marginTop="@dimen/size_9"
+            android:layout_marginTop="@dimen/size_16"
             android:text="@string/plus"
             android:textSize="@dimen/size_20"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/timeSpinner" />
 
         <TextView
             android:id="@+id/reservationCount"

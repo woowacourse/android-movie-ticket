@@ -2,25 +2,26 @@ package woowacourse.movie.presentation.presenter
 
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.reservation.ReservationCount
+import woowacourse.movie.domain.model.reservation.ScreeningMovieInfo
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.contract.MovieDetailContract
 import woowacourse.movie.presentation.uimodel.MovieUiModel
+import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieDetailPresenterImpl(
-    movieId: Int,
+    val movieId: Int,
     private val movieRepository: MovieRepository = MovieRepositoryImpl,
 ) : MovieDetailContract.Presenter {
     private var view: MovieDetailContract.View? = null
     private val movie: Movie = movieRepository.findMovieById(movieId)
-    private val movieTicket: MovieTicket = createMovieTicket()
+    private val screeningMovieInfo: ScreeningMovieInfo = setScreeningMovieInfo()
+    private val reservationCount: ReservationCount = ReservationCount()
 
-    private fun createMovieTicket(): MovieTicket {
-        return MovieTicket(
-            movie.title,
-            movie.screeningInfo.startDate.format(DateTimeFormatter.ISO_LOCAL_DATE),
-        )
+    private fun setScreeningMovieInfo(): ScreeningMovieInfo {
+        return ScreeningMovieInfo(movie.title, movie.screeningInfo)
     }
 
     override fun attachView(view: MovieDetailContract.View) {
@@ -34,29 +35,75 @@ class MovieDetailPresenterImpl(
 
     override fun onViewSetUp() {
         view?.showMovieDetail(MovieUiModel(movie))
+        loadScreeningDates(movieId)
+    }
+
+    override fun loadScreeningDates(movieId: Int) {
+        val dates = movieRepository.getScreeningDateInfo(movieId).map { date ->
+            date.format(DEFAULT_DATE_FORMAT)
+        }
+        val times = getScreeningTimeSchedule(screeningMovieInfo.dateTime.screeningDate.isWeekend())
+        view?.setScreeningDatesAndTimes(dates, times, DEFAULT_DATA_INDEX)
+    }
+
+    override fun loadScreeningTimes(isWeekend: Boolean) {
+        val times = getScreeningTimeSchedule(isWeekend)
+        view?.updateScreeningTimes(times, DEFAULT_DATA_INDEX)
+    }
+
+    override fun selectDate(date: String) {
+        val screeningDate = LocalDate.parse(date, DEFAULT_DATE_FORMAT)
+        screeningMovieInfo.changeDate(
+            year = screeningDate.year,
+            month = screeningDate.monthValue,
+            day = screeningDate.dayOfMonth,
+        )
+        loadScreeningTimes(screeningMovieInfo.dateTime.screeningDate.isWeekend())
+    }
+
+    override fun selectTime(time: String) {
+        val screeningTime = LocalTime.parse(time)
+        screeningMovieInfo.changeTime(
+            hour = screeningTime.hour,
+            minute = screeningTime.minute
+        )
     }
 
     override fun minusReservationCount() {
-        movieTicket.minusCount()
-        view?.showReservationCount(movieTicket.count)
+        reservationCount.minusCount()
+        view?.showReservationCount(reservationCount.count)
     }
 
     override fun plusReservationCount() {
-        movieTicket.plusCount()
-        view?.showReservationCount(movieTicket.count)
+        reservationCount.plusCount()
+        view?.showReservationCount(reservationCount.count)
     }
 
     override fun initReservationCount(count: Int) {
-        movieTicket.initCount(count)
-        view?.showReservationCount(movieTicket.count)
+        reservationCount.initCount(count)
+        view?.showReservationCount(reservationCount.count)
     }
 
     override fun onReserveButtonClicked() {
+        // TODO: 임시 데이터, 좌석 예약 정보에 따라 전달되는 값 변경 필요
         view?.moveToReservationResult(
-            title = movieTicket.movieTitle,
-            screeningStartDate = movieTicket.screeningDate,
-            reservationCount = movieTicket.count,
-            totalPrice = movieTicket.totalPrice(),
+            title = screeningMovieInfo.title,
+            screeningStartDate = screeningMovieInfo.dateTime.screeningDate.date.toString(),
+            reservationCount = reservationCount.count,
+            totalPrice = 0,
         )
+    }
+
+    private fun getScreeningTimeSchedule(isWeekend: Boolean): List<String> {
+        val times = movieRepository.getScreeningTimeInfo(isWeekend).map { time ->
+            time.format(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT))
+        }
+        return times
+    }
+
+    companion object {
+        val DEFAULT_DATE_FORMAT: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
+        const val DEFAULT_TIME_FORMAT = "HH:mm"
+        const val DEFAULT_DATA_INDEX = 0
     }
 }

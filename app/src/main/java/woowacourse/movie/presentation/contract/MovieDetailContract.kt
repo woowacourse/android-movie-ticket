@@ -6,6 +6,17 @@ interface MovieDetailContract {
     interface View {
         fun showMovieDetail(movieUiModel: MovieUiModel)
 
+        fun setScreeningDatesAndTimes(
+            dates: List<String>,
+            times: List<String>,
+            defaultDataIndex: Int,
+        )
+
+        fun updateScreeningTimes(
+            times: List<String>,
+            defaultDataIndex: Int,
+        )
+
         fun showReservationCount(count: Int)
 
         fun moveToReservationResult(
@@ -22,6 +33,14 @@ interface MovieDetailContract {
         fun detachView()
 
         fun onViewSetUp()
+
+        fun loadScreeningDates(movieId: Int)
+
+        fun loadScreeningTimes(isWeekend: Boolean)
+
+        fun selectDate(date: String)
+
+        fun selectTime(time: String)
 
         fun minusReservationCount()
 
