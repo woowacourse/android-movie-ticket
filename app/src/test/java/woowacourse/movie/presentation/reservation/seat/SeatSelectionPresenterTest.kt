@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
 import woowacourse.movie.repository.MovieRepository
 
-
 @ExtendWith(MockKExtension::class)
 class SeatSelectionPresenterTest {
     @RelaxedMockK
@@ -30,9 +29,10 @@ class SeatSelectionPresenterTest {
         val board = stubSeatBoard()
         val expectedTitle = navArgs.movieTitle
         val expectedBoardUiModel = board.toUiModel()
-        every { repository.screenSeats(any(), any(), any()) } returns Result.success(
-            stubSeatBoard()
-        )
+        every { repository.screenSeats(any(), any(), any()) } returns
+            Result.success(
+                stubSeatBoard(),
+            )
         // when
         presenter.loadScreenSeats()
         // then

@@ -8,26 +8,30 @@ import woowacourse.movie.presentation.reservation.seat.model.SeatBoardUiModel
 import woowacourse.movie.presentation.reservation.seat.model.SeatSelectionUiState
 import java.time.LocalDateTime
 
-fun stubSeatSelectionNavArgs(): SeatSelectionNavArgs = SeatSelectionNavArgs(
-    screenMovieId = 1,
-    movieTitle = "해리 포터와 마법사의 돌",
-    selectedDateTime = LocalDateTime.now(),
-    headCount = 2,
-)
+fun stubSeatSelectionNavArgs(): SeatSelectionNavArgs =
+    SeatSelectionNavArgs(
+        screenMovieId = 1,
+        movieTitle = "해리 포터와 마법사의 돌",
+        selectedDateTime = LocalDateTime.now(),
+        headCount = 2,
+    )
 
-fun stubSeatSelectionUiState(): SeatSelectionUiState = SeatSelectionUiState(
-    seatBoard = stubSeatBoardUiModel(),
-    navArgs = stubSeatSelectionNavArgs(),
-)
+fun stubSeatSelectionUiState(): SeatSelectionUiState =
+    SeatSelectionUiState(
+        seatBoard = stubSeatBoardUiModel(),
+        navArgs = stubSeatSelectionNavArgs(),
+    )
 
-fun stubSeatBoardUiModel(): SeatBoardUiModel = SeatBoardUiModel(
-    columnCount = 5,
-    rowCount = 5,
-    headCount = 2,
-    seats = emptyList(),
-)
+fun stubSeatBoardUiModel(): SeatBoardUiModel =
+    SeatBoardUiModel(
+        columnCount = 5,
+        rowCount = 5,
+        headCount = 2,
+        seats = emptyList(),
+    )
 
-fun stubSeatBoard(): SeatBoard = buildSeatBoard {
-    size(5, 5)
-    headCount(HeadCount(2))
-}
+fun stubSeatBoard(): SeatBoard =
+    buildSeatBoard {
+        size(5, 5)
+        headCount(HeadCount(2))
+    }

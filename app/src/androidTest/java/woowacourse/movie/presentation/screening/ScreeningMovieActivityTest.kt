@@ -55,37 +55,38 @@ class ScreeningMovieActivityTest {
         val screenDate = screeningMovieUiModel.screenDate
         val runningTime = screeningMovieUiModel.runningTime
         // when : title 과 일치하는 아이템이 화면에 보여질 때까지 스크롤
-        val viewInteraction = onView(withId(R.id.rv_screening_movie))
-            .perform(
-                RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
-                    hasDescendant(
-                        withText(
-                            title
-                        )
-                    )
-                ).atPosition(0)
-            )
+        val viewInteraction =
+            onView(withId(R.id.rv_screening_movie))
+                .perform(
+                    RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
+                        hasDescendant(
+                            withText(
+                                title,
+                            ),
+                        ),
+                    ).atPosition(0),
+                )
 
         // then : 해당 View 가 screenDate 와 runningTime 을 가지고 있는지 확인
         viewInteraction.check(matches(hasDescendant(withText(screenDate))))
         viewInteraction.check(
-            matches(hasDescendant(withText(runningTime)))
+            matches(hasDescendant(withText(runningTime))),
         )
     }
 
     @Test
     @DisplayName("4 번째 아이템에 광고 이미지가 보여지는지 테스트")
     fun recyclerViewTest2() {
-        val viewInteraction = onView(withId(R.id.rv_screening_movie))
-            .perform(
-                RecyclerViewActions.scrollToHolder(
-                    instanceOf(AdViewHolder::class.java)
-                ).atPosition(0)
-            )
+        val viewInteraction =
+            onView(withId(R.id.rv_screening_movie))
+                .perform(
+                    RecyclerViewActions.scrollToHolder(
+                        instanceOf(AdViewHolder::class.java),
+                    ).atPosition(0),
+                )
 
         // then : 0번째 아이템에 대한 정보가 화면에 보여짐
         viewInteraction.check(matches(hasDescendant(withDrawable(R.drawable.img_woowacourse))))
-
     }
 
     private fun withDrawable(resourceId: Int): Matcher<View> {

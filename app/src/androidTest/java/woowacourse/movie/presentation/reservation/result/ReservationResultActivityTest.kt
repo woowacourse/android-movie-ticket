@@ -68,7 +68,7 @@ class ReservationResultActivityTest {
                 override fun screenSeats(
                     screenMovieId: Long,
                     headCount: Int,
-                    dateTime: LocalDateTime
+                    dateTime: LocalDateTime,
                 ): Result<SeatBoard> {
                     throw UnsupportedOperationException()
                 }
@@ -85,7 +85,7 @@ class ReservationResultActivityTest {
                     id: Long,
                     dateTime: LocalDateTime,
                     count: HeadCount,
-                    selectedSeats: Seats
+                    selectedSeats: Seats,
                 ): Result<Long> {
                     TODO("Not yet implemented")
                 }
@@ -97,7 +97,7 @@ class ReservationResultActivityTest {
                             screeningMovie = ScreeningMovie.STUB,
                             screenDateTime = LocalDateTime.now(),
                             headCount = HeadCount(1),
-                            seats = Seats()
+                            seats = Seats(),
                         ),
                     )
                 }
