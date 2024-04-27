@@ -29,6 +29,7 @@ import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_DATE
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_MOVIE_TITLE
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_SCREENING_ID
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TIME
+import java.time.format.DateTimeFormatter
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val button: Button by lazy { findViewById(R.id.btn_complete_reservation) }
@@ -122,7 +123,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         seatClass: SeatClass,
         selectedSeats: List<BookingSeat>,
     ) {
-        val rowChar = (START_ROW_CHAR.code + rowIndex).toChar()
+        val rowChar = convertRowNumberIntoChar(rowIndex)
         text =
             this@SeatSelectionActivity.getString(
                 R.string.text_seat_position,
@@ -146,6 +147,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             )
         }
     }
+
+    private fun convertRowNumberIntoChar(rowIndex: Int) = (START_ROW_CHAR.code + rowIndex).toChar()
 
     private fun initializeRows(
         theaterSize: TheaterSize,
@@ -243,16 +246,18 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun navigateToResultScreen(
         movieId: Long,
         count: Int,
-        seats: Array<String>,
+        seats: List<BookingSeat>,
         totalPrice: Int,
     ) {
+        val shownSeats = seats.map { getString(R.string.text_seat_position, convertRowNumberIntoChar(it.row), it.column + 1) }
+        val shownDate = presenter.dateTime.date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
         Intent(this, TicketingResultActivity::class.java).also {
             it.putExtra(EXTRA_MOVIE_ID, movieId)
                 .putExtra(EXTRA_NUM_TICKET, count)
-                .putExtra(EXTRA_SEATS, seats)
+                .putExtra(EXTRA_SEATS, shownSeats.toTypedArray())
                 .putExtra(EXTRA_PRICE, totalPrice)
-                .putExtra(EXTRA_DATE, presenter.dateTime.date)
-                .putExtra(EXTRA_TIME, presenter.dateTime.time)
+                .putExtra(EXTRA_DATE, shownDate)
+                .putExtra(EXTRA_TIME, presenter.dateTime.time.toString())
             startActivity(it)
         }
     }

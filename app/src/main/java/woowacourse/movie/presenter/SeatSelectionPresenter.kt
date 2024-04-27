@@ -88,7 +88,7 @@ class SeatSelectionPresenter(
         view.navigateToResultScreen(
             movieId = movieId,
             count = count,
-            seats = boxOffice.seats.map { "${it.row}${it.column}" }.toTypedArray(),
+            seats = boxOffice.seats,
             totalPrice = boxOffice.totalPrice,
         )
     }

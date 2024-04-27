@@ -40,17 +40,17 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:text="2024.1.1" />
+        tools:text="2024.1.1 17:00" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_number_of_people"
+        android:id="@+id/tv_number_of_people_seats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="20sp"
-        tools:text="예니 1명" />
+        tools:text="예니 2명 | B2, A1" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_price"

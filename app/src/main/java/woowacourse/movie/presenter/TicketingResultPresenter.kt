@@ -11,6 +11,9 @@ class TicketingResultPresenter(
         screeningId: Long,
         count: Int,
         totalPrice: Int,
+        date: String,
+        time: String,
+        seats: Array<String>,
     ) {
         when (val screening = MovieData.findScreeningDataById(screeningId)) {
             is Result.Success -> {
@@ -18,8 +21,10 @@ class TicketingResultPresenter(
                     ticketingResultView.assignInitialView(
                         count,
                         movie.title,
-                        screening.data.datePeriod.startDate,
+                        date,
+                        time,
                         totalPrice,
+                        seats.toList(),
                     )
                 }
             }

@@ -7,7 +7,6 @@
     <string name="text_plus_button">+</string>
     <string name="text_select_seat_button">좌석 선택</string>
     <string name="text_guide">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="text_number_of_people">일반 %d명</string>
     <string name="text_price">%,d원 (현장 결제)</string>
     <string name="text_screen">SCREEN</string>
     <string name="text_confirm_button">확인</string>
@@ -17,4 +16,7 @@
     <string name="dialog_reservation_message">정말 예매하시겠습니까?</string>
     <string name="dialog_positive_button">예매 완료</string>
     <string name="dialog_negative_button">취소</string>
+    <string name="text_reserved_datetime">%s %s</string>
+    <string name="text_reserved_count_seats">일반 %d명 | %s</string>
+    <string name="error_reservation_result">예약 결과를 불러올 수 없습니다.</string>
 </resources>

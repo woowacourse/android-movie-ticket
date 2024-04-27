@@ -43,7 +43,7 @@ interface SeatSelectionContract {
         fun navigateToResultScreen(
             movieId: Long,
             count: Int,
-            seats: Array<String>,
+            seats: List<BookingSeat>,
             totalPrice: Int,
         )
 

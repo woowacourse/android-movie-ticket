@@ -1,14 +1,14 @@
 package woowacourse.movie.presenter.contract
 
-import java.time.LocalDate
-
 interface TicketingResultContract {
     interface View {
         fun assignInitialView(
             numberOfPeople: Int,
             movieTitle: String,
-            movieDate: LocalDate,
+            movieDate: String,
+            movieTime: String,
             totalPrice: Int,
+            seats: List<String>,
         )
 
         fun showToastMessage(message: String)
@@ -19,6 +19,9 @@ interface TicketingResultContract {
             screeningId: Long,
             count: Int,
             totalPrice: Int,
+            date: String,
+            time: String,
+            seats: Array<String>,
         )
     }
 }
