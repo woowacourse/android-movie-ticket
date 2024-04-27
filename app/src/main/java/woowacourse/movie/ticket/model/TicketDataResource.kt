@@ -10,9 +10,9 @@ object TicketDataResource {
 
     var seats = listOf<Seat>()
 
-    var ticketCount: Count = Count(9999)
+    var ticketCount: Count = Count(1)
 
-    var screeningDate = "aaa"
+    var screeningDate = ""
 
-    var screeningTime = "aaa"
+    var screeningTime = ""
 }

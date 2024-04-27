@@ -31,14 +31,18 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
         setContentView(R.layout.activity_seats)
         initView()
         initSeats()
+        setOnSelectSeat()
+        setOnConfirmButtonClickListener()
+        processPresenterTask()
+    }
+
+    private fun processPresenterTask() {
         presenter.storeMovieId(intent.getLongExtra(EXTRA_MOVIE_ID_KEY, -1))
         presenter.storeDate(intent.getStringExtra(EXTRA_DATE_KEY) ?: "")
         presenter.storeTime(intent.getStringExtra(EXTRA_TIME_KEY) ?: "")
         presenter.setMovieTitleInfo()
         presenter.setPriceInfo()
         presenter.setSeatsTextInfo()
-        setOnSelectSeat()
-        setOnConfirmButtonClickListener()
     }
 
     private fun initView() {
@@ -50,29 +54,43 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
 
     override fun initSeats() {
         seats.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, tableRow ->
-            tableRow.children.filterIsInstance<TextView>().forEachIndexed { colIndex, cell ->
-                presenter.createSeat(rowIndex, colIndex)
-                cell.text = presenter.seat.coordinate
-            }
+            initRowOfSeats(tableRow, rowIndex)
         }
     }
 
-    override fun initSeatsView(info: Seat) {
-        seats.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, tableRow ->
-            tableRow.children.filterIsInstance<TextView>().forEachIndexed { colIndex, cell ->
-                cell.text = info.coordinate
-            }
+    private fun initRowOfSeats(
+        tableRow: TableRow,
+        rowIndex: Int,
+    ) {
+        tableRow.children.filterIsInstance<TextView>().forEachIndexed { colIndex, cell ->
+            presenter.createSeat(rowIndex, colIndex)
+            cell.text = presenter.seat.coordinate
         }
     }
 
     override fun setOnSelectSeat() {
         seats.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, tableRow ->
-            tableRow.children.filterIsInstance<TextView>().forEachIndexed { colIndex, cell ->
-                cell.setOnClickListener {
-                    presenter.selectSeat(rowIndex, colIndex)
-                    presenter.setSeatsCellsBackgroundColorInfo()
-                }
-            }
+            setOnSelectRow(tableRow, rowIndex)
+        }
+    }
+
+    private fun setOnSelectRow(
+        tableRow: TableRow,
+        rowIndex: Int,
+    ) {
+        tableRow.children.filterIsInstance<TextView>().forEachIndexed { colIndex, cell ->
+            setOnCellClickListener(cell, rowIndex, colIndex)
+        }
+    }
+
+    private fun setOnCellClickListener(
+        cell: TextView,
+        rowIndex: Int,
+        colIndex: Int,
+    ) {
+        cell.setOnClickListener {
+            presenter.selectSeat(rowIndex, colIndex)
+            presenter.setSeatsCellsBackgroundColorInfo()
         }
     }
 

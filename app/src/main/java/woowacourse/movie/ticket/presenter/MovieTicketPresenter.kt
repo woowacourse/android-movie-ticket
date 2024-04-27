@@ -12,9 +12,6 @@ import woowacourse.movie.ticket.model.TicketDataResource.seats
 class MovieTicketPresenter(
     val view: MovieTicketContract.View,
 ) : MovieTicketContract.Presenter {
-    private val ticketCount
-        get() = TicketDataResource.ticketCount
-
     override fun storeTicketCount(count: Count) {
         TicketDataResource.ticketCount = count
     }

@@ -18,8 +18,6 @@ interface SeatsContract {
 
         fun initSeats()
 
-        fun initSeatsView(info: Seat)
-
         fun startNextActivity(
             id: Long,
             title: String,
@@ -43,8 +41,6 @@ interface SeatsContract {
         )
 
         fun setSeatsTextInfo()
-
-        fun setSeatsViewInfo()
 
         fun setMovieTitleInfo()
 

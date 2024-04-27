@@ -70,8 +70,4 @@ class SeatsPresenter(val view: SeatsContract.View) : SeatsContract.Presenter {
     override fun setSeatsTextInfo() {
         view.setSeatsText(seat)
     }
-
-    override fun setSeatsViewInfo() {
-        view.initSeatsView(seat)
-    }
 }
