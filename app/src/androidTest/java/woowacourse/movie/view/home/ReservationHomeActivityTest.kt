@@ -9,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.Description
+import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
@@ -31,18 +32,7 @@ class ReservationHomeActivityTest {
     fun `영화_목록의_3번째_아이템은_영화가_보여진다`() {
         onView(withId(R.id.recycler_view_reservation_home)).check(
             matches(
-                object :
-                    TypeSafeMatcher<View>() {
-                    override fun describeTo(description: Description) {
-                        description.appendText("Checking ViewHolder at position $2")
-                    }
-
-                    override fun matchesSafely(view: View): Boolean {
-                        if (view !is RecyclerView) return false
-                        val viewHolder = view.findViewHolderForAdapterPosition(2)
-                        return viewHolder != null && MovieViewHolder::class.java.isInstance(viewHolder)
-                    }
-                },
+                matchViewHolderAtPosition(2, MovieViewHolder::class.java)
             ),
         )
     }
@@ -51,22 +41,27 @@ class ReservationHomeActivityTest {
     fun `영화_목록의_4번째_아이템은_광고가_보여진다`() {
         onView(withId(R.id.recycler_view_reservation_home)).check(
             matches(
-                object :
-                    TypeSafeMatcher<View>() {
-                    override fun describeTo(description: Description) {
-                        description.appendText("Checking ViewHolder at position $3")
-                    }
-
-                    override fun matchesSafely(view: View): Boolean {
-                        if (view !is RecyclerView) return false
-                        val viewHolder = view.findViewHolderForAdapterPosition(3)
-                        return viewHolder != null &&
-                            AdvertisementViewHolder::class.java.isInstance(
-                                viewHolder,
-                            )
-                    }
-                },
+                matchViewHolderAtPosition(3, AdvertisementViewHolder::class.java)
             ),
         )
+    }
+
+    private fun matchViewHolderAtPosition(
+        position: Int,
+        viewHolderClass: Class<out RecyclerView.ViewHolder>,
+    ): Matcher<View> {
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description) {
+                description.appendText("Checking ViewHolder at position $position")
+            }
+
+            override fun matchesSafely(view: View): Boolean {
+                if (view !is RecyclerView) return false
+                val viewHolder = view.findViewHolderForAdapterPosition(position)
+                return viewHolder != null && viewHolderClass.isInstance(
+                    viewHolder,
+                )
+            }
+        }
     }
 }
