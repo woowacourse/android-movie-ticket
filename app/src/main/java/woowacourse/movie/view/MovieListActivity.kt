@@ -2,6 +2,7 @@ package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,9 +24,12 @@ class MovieListActivity :
         presenter = MovieListPresenter(this)
     }
 
-    override fun initializeScreeningList(screenings: List<Screening>) {
+    override fun initializeScreeningList(
+        screenings: List<Screening>,
+        @DrawableRes advertisementDrawableId: Int,
+    ) {
         val movies = findViewById<RecyclerView>(R.id.rv_movies)
-        movies.adapter = ScreeningRecyclerViewAdapter(screenings, this)
+        movies.adapter = ScreeningRecyclerViewAdapter(screenings, advertisementDrawableId, this)
         movies.layoutManager = LinearLayoutManager(this)
     }
 

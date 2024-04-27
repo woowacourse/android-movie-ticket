@@ -22,4 +22,5 @@
     <string name="error_reservation_result">예약 결과를 불러올 수 없습니다.</string>
     <string name="format_datetime">yyyy.M.d</string>
     <string name="text_screening_period">%s ~ %s</string>
+    <string name="description_advertisement">advertisement</string>
 </resources>

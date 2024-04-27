@@ -5,6 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.assertAll
+import woowacourse.movie.R
 import woowacourse.movie.adapter.ScreeningRecyclerViewAdapter
 import woowacourse.movie.model.screening.DatePeriod
 import woowacourse.movie.model.screening.Screening
@@ -33,6 +34,7 @@ class MovieListActivityTest {
         val adapter =
             ScreeningRecyclerViewAdapter(
                 screeningItems = screenings,
+                advertisementDrawableId = R.drawable.screening_advertisement,
                 ticketingButtonClickListener = {},
             )
 

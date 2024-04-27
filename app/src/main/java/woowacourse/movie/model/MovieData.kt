@@ -95,6 +95,8 @@ object MovieData {
             ),
         )
 
+    val ADVERTISEMENT_DRAWABLE_ID = R.drawable.screening_advertisement
+
     fun findMovieById(id: Long): Result<Movie> {
         val movie = MOVIES.find { it.movieId == id }
         return movie?.let { Result.Success(it) } ?: Result.Error("존재하지 않는 아이디 값입니다.")
