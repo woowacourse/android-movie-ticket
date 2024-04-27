@@ -112,6 +112,6 @@ class MovieDetailPresenterTest {
         presenter.reserveMovie(0, "2024-04-01", "10:00")
 
         // Then
-        verify { view.navigateToSeatSelectionView(any(), any(), any(), any()) }
+        verify { view.navigateToSeatSelectionView(0, "2024-04-01", "10:00", any()) }
     }
 }
