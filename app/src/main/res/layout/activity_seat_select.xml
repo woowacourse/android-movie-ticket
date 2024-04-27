@@ -5,6 +5,320 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_grey"
     tools:context=".seat.SeatSelectActivity">
+
+    <TextView
+        android:id="@+id/text_view_seat_select_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="@color/grey"
+        android:gravity="center"
+        android:paddingVertical="9dp"
+        android:text="SCREEN"
+        android:textAppearance="@style/Bold24"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:id="@+id/grid_layout_seat_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:layout_marginTop="56dp"
+        android:columnCount="4"
+        android:rowCount="5"
+        app:layout_constraintEnd_toEndOf="@id/text_view_seat_select_screen"
+        app:layout_constraintStart_toStartOf="@id/text_view_seat_select_screen"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_seat_select_screen">
+
+        <TextView
+            android:id="@+id/seatA1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="A1"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatA2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="A2"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatA3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="A3"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatA4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="A4"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatB1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="B1"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatB2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="B2"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatB3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="B3"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatB4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="B4"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/purple" />
+
+        <TextView
+            android:id="@+id/seatC1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="C1"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/seatC2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="C2"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/seatC3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="C3"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/seatC4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="C4"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+
+        <TextView
+            android:id="@+id/seatD1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="D1"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/seatD2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="D2"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/seatD3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="D3"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/seatD4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="D4"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:id="@+id/seatE1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="E1"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/seatE2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="E2"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/seatE3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="E3"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/seatE4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:padding="25dp"
+            android:text="E4"
+            android:textAppearance="@style/Bold24"
+            android:textColor="@color/blue" />
+
+    </GridLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/text_view_seat_select_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/Bold20"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/grey"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_view_seat_select_movie_title"
+            app:layout_constraintTop_toBottomOf="@id/text_view_seat_select_movie_title"
+            tools:text="0원" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_seat_select_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:enabled="false"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
