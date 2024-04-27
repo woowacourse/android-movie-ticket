@@ -20,6 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -29,7 +30,7 @@ class MovieDetailActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieDetailActivity::class.java,
-        ).apply { putExtra("movieId", 0L) }
+        ).apply { putExtra(EXTRA_MOVIE_ID, 0L) }
 
     @get:Rule
     val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)
