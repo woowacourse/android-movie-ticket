@@ -18,9 +18,6 @@ import woowacourse.movie.ui.detail.view.DateTimeSpinnerView
 import woowacourse.movie.ui.detail.view.ScreenDetailScreenView
 import woowacourse.movie.ui.detail.view.ScreenDetailTicketView
 import woowacourse.movie.ui.reservation.ReservationActivity
-import java.lang.IllegalStateException
-import java.time.DayOfWeek
-import java.time.LocalDate
 
 class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     private val presenter: ScreenDetailContract.Presenter by lazy {
@@ -57,7 +54,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        with(outState){
+        with(outState) {
             putInt(PUT_TICKET_STATE_KEY, ticketView.ticketCount())
             putInt(PUT_DATE_POSITION_KEY, dateTimeSpinnerView.selectedDatePosition())
             putInt(PUT_TIME_POSITION_KEY, dateTimeSpinnerView.selectedTimePosition())

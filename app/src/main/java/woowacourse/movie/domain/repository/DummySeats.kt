@@ -32,5 +32,5 @@ class DummySeats : SeatsRepository {
         Seat(Position(4, 1), Grade.A),
         Seat(Position(4, 2), Grade.A),
         Seat(Position(4, 3), Grade.A),
-        )
+    )
 }

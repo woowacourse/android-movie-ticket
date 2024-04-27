@@ -16,7 +16,6 @@ import java.time.LocalDate
 
 class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = null) : DateTimeSpinnerView,
     ConstraintLayout(context, attrs) {
-
     private lateinit var dateAdapter: ArrayAdapter<LocalDate>
     private lateinit var timeAdapter: ArrayAdapter<CharSequence>
 
@@ -34,7 +33,6 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         initDateSpinnerSelection()
         initTimeSpinnerSelection()
     }
-
 
     override fun restoreDatePosition(position: Int) {
         dateSpinner.setSelection(position)
@@ -65,47 +63,57 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
     }
 
     private fun initDateSpinnerSelection() {
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val date = dateAdapter.getItem(position)
-                date?.let {
-                    timeAdapter.clear()
-                    timeAdapter.addAll(decideTime(isWeekDay(date)))
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val date = dateAdapter.getItem(position)
+                    date?.let {
+                        timeAdapter.clear()
+                        timeAdapter.addAll(decideTime(isWeekDay(date)))
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
                 }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
-            }
-        }
     }
 
     private fun initTimeSpinnerSelection() {
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                // TODO: 로직 구현해야 함
-            }
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    // TODO: 로직 구현해야 함
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
+                }
             }
+    }
+
+    private fun decideTime(isWeek: Boolean): List<String> =
+        if (isWeek) {
+            weekDayTimes
+        } else {
+            weekEndTimes
         }
-    }
 
-
-    private fun decideTime(isWeek: Boolean): List<String> = if (isWeek) {
-        weekDayTimes
-    } else {
-        weekEndTimes
-    }
-
-    private fun isWeekDay(date: LocalDate?): Boolean = date?.let {
-        it.dayOfWeek in DayOfWeek.MONDAY..DayOfWeek.FRIDAY
-    } ?: throw IllegalStateException("Spinner's item is null!!")
+    private fun isWeekDay(date: LocalDate?): Boolean =
+        date?.let {
+            it.dayOfWeek in DayOfWeek.MONDAY..DayOfWeek.FRIDAY
+        } ?: throw IllegalStateException("Spinner's item is null!!")
 
     private val weekDayTimes = listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
     private val weekEndTimes = listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
 }
-
-
-
