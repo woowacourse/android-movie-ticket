@@ -15,7 +15,7 @@ import woowacourse.movie.data.FakeMovieRepository
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.MovieReservation
-import woowacourse.movie.model.ScreeningMovie
+import woowacourse.movie.model.date.ScreeningMovie
 import woowacourse.movie.repository.MovieRepository
 import woowacourse.movie.utils.context
 import java.time.LocalDateTime

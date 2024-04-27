@@ -95,9 +95,9 @@ class SeatBoardBuilderTest {
     fun `모든 좌석의 가격을 10_000원으로 설정할 수 있다`() {
         // given
         val seatPrice = Price(10_000)
-        val width = 2
-        val height = 2
-        val expectTotalPrice = 40_000
+        val width = 3
+        val height = 3
+        val expectTotalPrice = 90_000
         // when
         val pricePolicy = SeatPricePolicy { seatPrice }
         val board = buildSeatBoard {
