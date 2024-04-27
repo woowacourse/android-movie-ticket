@@ -14,4 +14,14 @@ class SeatsTest {
 
         assertThat(seats.totalPrice()).isEqualTo(27_000)
     }
+
+    @Test
+    fun `count of the seats`() {
+        val seats =
+            Seats(
+                Seat(Position(0, 0), Grade.S),
+                Seat(Position(0, 1), Grade.A),
+            )
+        assertThat(seats.count()).isEqualTo(2)
+    }
 }
