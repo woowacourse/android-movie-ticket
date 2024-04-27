@@ -30,7 +30,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun updateMovies(movies: List<ScreeningMovieUiModel>) {
+    override fun showMovies(movies: List<ScreeningMovieUiModel>) {
         adapter.submitList(movies)
     }
 

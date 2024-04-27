@@ -7,7 +7,7 @@ class ScreeningMoviePresenter(
     private val repository: MovieRepository,
 ) {
     init {
-        view.updateMovies(repository.screenMovies().map { it.toScreenMovieUiModel() })
+        view.showMovies(repository.screenMovies().map { it.toScreenMovieUiModel() })
     }
 
     fun startReservation(id: Long) {
