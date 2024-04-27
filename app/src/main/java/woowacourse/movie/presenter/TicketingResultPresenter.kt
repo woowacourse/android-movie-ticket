@@ -19,12 +19,12 @@ class TicketingResultPresenter(
             is Result.Success -> {
                 screening.data.movie?.let { movie ->
                     ticketingResultView.assignInitialView(
-                        count,
-                        movie.title,
-                        date,
-                        time,
-                        totalPrice,
-                        seats.toList(),
+                        numberOfPeople = count,
+                        movieTitle = movie.title,
+                        movieDate = date,
+                        movieTime = time,
+                        totalPrice = totalPrice,
+                        seats = seats.toList(),
                     )
                 }
             }
