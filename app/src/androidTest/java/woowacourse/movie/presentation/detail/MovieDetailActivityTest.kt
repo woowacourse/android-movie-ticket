@@ -3,17 +3,25 @@ package woowacourse.movie.presentation.detail
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.CoreMatchers.containsString
+import org.hamcrest.CoreMatchers.instanceOf
+import org.hamcrest.CoreMatchers.`is`
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import java.time.LocalDate
+import java.time.LocalTime
 
 @RunWith(AndroidJUnit4::class)
 class MovieDetailActivityTest {
@@ -34,8 +42,8 @@ class MovieDetailActivityTest {
 
     @Test
     fun `선택된_영화의_상영일이_표시된다`() {
-        onView(withId(R.id.detailDate))
-            .check(matches(withText("2024.4.17")))
+        onView(withId(R.id.detailPeriod))
+            .check(matches(withText("2024.04.01~2024.04.30")))
     }
 
     @Test
@@ -60,11 +68,46 @@ class MovieDetailActivityTest {
     @Test
     fun `화면이_회전되어도_예매인원수가_유지된다`() {
         onView(withId(R.id.detailPlusBtn)).perform(click())
+
         activityRule.scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
         onView(withId(R.id.detailReservCount))
             .check(matches(withText("2")))
+    }
+
+    @Test
+    fun `스피너의_날짜를_선택하면_해당_날짜가_보인다`() {
+        onView(withId(R.id.detailDateSpinner)).perform(click())
+        onData(allOf(`is`(instanceOf(LocalDate::class.java)), `is`(LocalDate.of(2024, 4, 10)))).perform(click())
+        onView(withId(R.id.detailDateSpinner)).check(matches(withSpinnerText(containsString("2024-04-10"))))
+    }
+
+    @Test
+    fun `스피너의_시간을_선택하면_해당_시간이_보인다`() {
+        onView(withId(R.id.detailTimeSpinner)).perform(click())
+        onData(allOf(`is`(instanceOf(LocalTime::class.java)), `is`(LocalTime.of(14, 0)))).perform(click())
+        onView(withId(R.id.detailTimeSpinner)).check(matches(withSpinnerText(containsString("14:00"))))
+    }
+
+    @Test
+    fun `스피너의_날짜를_선택하고_화면을_회전해도_해당_날짜가_유지된다`() {
+        onView(withId(R.id.detailDateSpinner)).perform(click())
+        onData(allOf(`is`(instanceOf(LocalDate::class.java)), `is`(LocalDate.of(2024, 4, 10)))).perform(click())
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+        onView(withId(R.id.detailDateSpinner)).check(matches(withSpinnerText(containsString("2024-04-10"))))
+    }
+
+    @Test
+    fun `스피너의_시간을_선택하고_화면을_회전해도_해당_시간이_유지된다`() {
+        onView(withId(R.id.detailTimeSpinner)).perform(click())
+        onData(allOf(`is`(instanceOf(LocalTime::class.java)), `is`(LocalTime.of(14, 0)))).perform(click())
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+        onView(withId(R.id.detailTimeSpinner)).check(matches(withSpinnerText(containsString("14:00"))))
     }
 
     @Test

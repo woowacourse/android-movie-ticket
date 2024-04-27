@@ -33,7 +33,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     private val detailImage: ImageView by lazy { findViewById(R.id.detailImage) }
     private val detailTitle: TextView by lazy { findViewById(R.id.detailTitle) }
-    private val detailDate: TextView by lazy { findViewById(R.id.detailDate) }
+    private val detailDate: TextView by lazy { findViewById(R.id.detailPeriod) }
     private val minusButton: Button by lazy { findViewById(R.id.detailMinusBtn) }
     private val plusButton: Button by lazy { findViewById(R.id.detailPlusBtn) }
     private val detailDateSpinner: Spinner by lazy { findViewById(R.id.detailDateSpinner) }
