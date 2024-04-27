@@ -1,8 +1,6 @@
 package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.model.data.dto.Movie
-import woowacourse.movie.model.time.ScreeningDate
-import woowacourse.movie.model.time.ScreeningTime
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
 import java.time.LocalDateTime
@@ -12,8 +10,8 @@ interface MovieReservationContract {
         fun initializeReservationView(movie: Movie)
 
         fun initializeSpinner(
-            screeningDates: List<ScreeningDate>,
-            screeningTimes: List<ScreeningTime>,
+            screeningDatesMessage: List<String>,
+            screeningTimesMessage: List<String>,
         )
 
         fun updateReservationCount(reservationCountValue: Int)
@@ -23,7 +21,7 @@ interface MovieReservationContract {
             reservationCountValue: Int,
         )
 
-        fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>)
+        fun updateScreeningTimeSpinner(screeningTimes: List<String>)
     }
 
     interface Presenter : BasePresenter {
@@ -42,6 +40,6 @@ interface MovieReservationContract {
 
         fun updateReservationCount(reservationCountValue: Int)
 
-        fun selectScreeningDate(screeningDate: ScreeningDate)
+        fun selectScreeningDate(screeningDateMessage: String)
     }
 }

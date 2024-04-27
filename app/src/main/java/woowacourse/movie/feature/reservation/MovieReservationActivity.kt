@@ -14,14 +14,10 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.feature.reservation.ui.ReservationScreeningDatesUiModel
-import woowacourse.movie.feature.reservation.ui.ReservationScreeningTimesUiModel
 import woowacourse.movie.feature.reservation.ui.ReservationUiModel
 import woowacourse.movie.feature.seat.SeatSelectActivity
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
-import woowacourse.movie.model.time.ScreeningDate
-import woowacourse.movie.model.time.ScreeningTime
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
@@ -139,18 +135,16 @@ class MovieReservationActivity :
     }
 
     override fun initializeSpinner(
-        screeningDates: List<ScreeningDate>,
-        screeningTimes: List<ScreeningTime>,
+        screeningDatesMessage: List<String>,
+        screeningTimesMessage: List<String>,
     ) {
-        val screeningDateMessages = ReservationScreeningDatesUiModel.of(screeningDates)
-        screeningDateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDateMessages.messages)
+        screeningDateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDatesMessage)
         screeningDateSpinner.onItemSelectedListener =
             spinnerItemSelectedListener { _, _, position, _ ->
-                presenter.selectScreeningDate(screeningDates[position])
+                presenter.selectScreeningDate(screeningDatesMessage[position])
             }
 
-        val screeningTimeMessages = ReservationScreeningTimesUiModel.of(screeningTimes)
-        screeningTimeSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages.messages)
+        screeningTimeSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimesMessage)
         screeningTimeSpinner.adapter = screeningTimeSpinnerAdapter
     }
 
@@ -180,10 +174,9 @@ class MovieReservationActivity :
         SeatSelectActivity.startActivity(this, movieId(), screeningDateTime, reservationCountValue)
     }
 
-    override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {
-        val screeningTimeMessages = ReservationScreeningTimesUiModel.of(screeningTimes)
+    override fun updateScreeningTimeSpinner(screeningTimes: List<String>) {
         screeningTimeSpinnerAdapter.clear()
-        screeningTimeSpinnerAdapter.addAll(screeningTimeMessages.messages)
+        screeningTimeSpinnerAdapter.addAll(screeningTimes)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

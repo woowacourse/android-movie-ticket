@@ -1,6 +1,9 @@
 package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.feature.reservation.ui.screeningDateTime
+import woowacourse.movie.feature.reservation.ui.convertLocalDateTime
+import woowacourse.movie.feature.reservation.ui.screeningDateMessage
+import woowacourse.movie.feature.reservation.ui.screeningTimeMessage
+import woowacourse.movie.feature.reservation.ui.toScreeningDate
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.reservation.ReservationCount
 import woowacourse.movie.model.time.ScreeningDate
@@ -17,7 +20,10 @@ class MovieReservationPresenter(
         view.initializeReservationView(movie)
 
         val screeningDates = (movie.startScreeningDate..movie.endScreeningDate).toList()
-        view.initializeSpinner(screeningDates, screeningDates[0].screeningTimes())
+        view.initializeSpinner(
+            screeningDates.screeningDateMessage(),
+            screeningDates[0].screeningTimes().screeningTimeMessage(),
+        )
     }
 
     override fun initializeReservationCount() {
@@ -39,8 +45,8 @@ class MovieReservationPresenter(
         screeningDateValue: String,
         screeningTimeValue: String,
     ) {
-        val screeningDateTime = screeningDateTime(screeningDateValue, screeningTimeValue)
-        view.moveSeatSelectView(screeningDateTime, reservationCount.count)
+        val screeningLocalDateTime = convertLocalDateTime(screeningDateValue, screeningTimeValue)
+        view.moveSeatSelectView(screeningLocalDateTime, reservationCount.count)
     }
 
     override fun updateReservationCount(reservationCountValue: Int) {
@@ -54,8 +60,8 @@ class MovieReservationPresenter(
         view.updateReservationCount(reservationCount.count)
     }
 
-    override fun selectScreeningDate(screeningDate: ScreeningDate) {
-        val screeningTimes = screeningDate.screeningTimes()
-        view.updateScreeningTimeSpinner(screeningTimes)
+    override fun selectScreeningDate(screeningDateMessage: String) {
+        val screeningTimes = screeningDateMessage.toScreeningDate().screeningTimes()
+        view.updateScreeningTimeSpinner(screeningTimes.screeningTimeMessage())
     }
 }
