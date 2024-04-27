@@ -126,7 +126,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         title.text = movie.title
     }
 
-    override fun showTotalPrice(amount: Int) {
+    override fun showAmount(amount: Int) {
         price.text = convertAmountFormat(this, amount)
     }
 

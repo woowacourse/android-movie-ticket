@@ -18,7 +18,7 @@ class SeatSelectionPresenter(
     override fun restoreReservation(count: Int) {
         ticket.restoreTicket(count)
         view.setConfirmButtonEnabled(ticket.count)
-        view.showTotalPrice(ticket.calculatePrice(seats))
+        view.showAmount(ticket.calculateAmount(seats))
     }
 
     override fun restoreSeats(
@@ -57,8 +57,8 @@ class SeatSelectionPresenter(
         isSelected: Boolean,
         seat: Seat,
     ) {
-        val totalPrice = ticket.calculatePrice(seats)
-        view.showTotalPrice(totalPrice)
+        val totalPrice = ticket.calculateAmount(seats)
+        view.showAmount(totalPrice)
     }
 
     override fun initializeConfirmButton() {

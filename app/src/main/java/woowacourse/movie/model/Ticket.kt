@@ -32,7 +32,7 @@ class Ticket(
         return Success
     }
 
-    fun calculatePrice(seats: Seats): Int {
+    fun calculateAmount(seats: Seats): Int {
         return seats.seats.sumOf { it.grade.price }
     }
 

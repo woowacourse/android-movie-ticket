@@ -49,9 +49,9 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `총 결제 금액을 보여준다`() {
-        every { view.showTotalPrice(any()) } just runs
+        every { view.showAmount(any()) } just runs
         presenter.updateTotalPrice(true, Seat('E', 1, Grade.A))
-        verify { view.showTotalPrice(37_000) }
+        verify { view.showAmount(37_000) }
     }
 
     @Test
@@ -71,9 +71,9 @@ class SeatSelectionPresenterTest {
     @Test
     fun `예약 상태를 복구한다`() {
         every { view.setConfirmButtonEnabled(any()) } just runs
-        every { view.showTotalPrice(37_000) } just runs
+        every { view.showAmount(37_000) } just runs
         presenter.restoreReservation(3)
         verify { view.setConfirmButtonEnabled(any()) }
-        verify { view.showTotalPrice(37_000) }
+        verify { view.showAmount(37_000) }
     }
 }

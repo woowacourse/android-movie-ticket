@@ -52,7 +52,7 @@ class TicketTest {
         seats.manageSelected(true, Seat('C', 1, Grade.S))
 
         val ticket = Ticket()
-        val actual = ticket.calculatePrice(seats)
+        val actual = ticket.calculateAmount(seats)
 
         assertThat(actual).isEqualTo(25_000)
     }

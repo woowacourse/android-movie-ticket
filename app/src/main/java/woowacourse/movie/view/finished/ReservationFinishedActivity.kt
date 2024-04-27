@@ -55,7 +55,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         seats: Seats,
     ) {
         numberOfTickets.text = ticket.count.toString()
-        ticketPrice.text = convertAmountFormat(this, ticket.calculatePrice(seats))
+        ticketPrice.text = convertAmountFormat(this, ticket.calculateAmount(seats))
         seatsNumber.text =
             seats.seats.joinToString(getString(R.string.reservation_finished_seat_separator)) { "${it.row}${it.column}" }
         screeningDate.text = ticket.screeningDateTime.date

@@ -57,7 +57,7 @@ interface SeatSelectionContract {
 
         fun showMovieTitle(movie: Movie)
 
-        fun showTotalPrice(amount: Int)
+        fun showAmount(amount: Int)
 
         fun launchReservationConfirmDialog(seats: Seats)
 
