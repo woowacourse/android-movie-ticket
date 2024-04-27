@@ -1,9 +1,13 @@
 package woowacourse.movie.ui.detail.view
 
 import woowacourse.movie.domain.model.DateRange
+import woowacourse.movie.domain.model.ScreenTimePolicy
 
 interface DateTimeSpinnerView {
-    fun show(dateRange: DateRange)
+    fun show(
+        dateRange: DateRange,
+        screenTimePolicy: ScreenTimePolicy,
+    )
 
     fun restoreDatePosition(position: Int)
 

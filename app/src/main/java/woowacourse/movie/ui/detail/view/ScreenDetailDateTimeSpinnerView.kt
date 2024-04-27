@@ -10,14 +10,14 @@ import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.DateRange
-import java.lang.IllegalStateException
-import java.time.DayOfWeek
+import woowacourse.movie.domain.model.ScreenTimePolicy
 import java.time.LocalDate
+import java.time.LocalTime
 
 class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = null) : DateTimeSpinnerView,
     ConstraintLayout(context, attrs) {
     private lateinit var dateAdapter: ArrayAdapter<LocalDate>
-    private lateinit var timeAdapter: ArrayAdapter<CharSequence>
+    private lateinit var timeAdapter: ArrayAdapter<LocalTime>
 
     private val dateSpinner: Spinner by lazy { findViewById(R.id.spn_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.spn_time) }
@@ -26,11 +26,14 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         inflate(context, R.layout.holder_spinner_date_time, this)
     }
 
-    override fun show(dateRange: DateRange) {
+    override fun show(
+        dateRange: DateRange,
+        screenTimePolicy: ScreenTimePolicy,
+    ) {
         initDateAdapter(dateRange)
-        initTimeAdapter(dateRange.start)
+        initTimeAdapter(dateRange.start, screenTimePolicy)
 
-        initDateSpinnerSelection()
+        initDateSpinnerSelection(screenTimePolicy)
         initTimeSpinnerSelection()
     }
 
@@ -56,13 +59,17 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         dateSpinner.adapter = dateAdapter
     }
 
-    private fun initTimeAdapter(date: LocalDate) {
-        timeAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, decideTime(isWeekDay(date)).toList())
+    private fun initTimeAdapter(
+        date: LocalDate,
+        screenTimePolicy: ScreenTimePolicy,
+    ) {
+        timeAdapter =
+            ArrayAdapter(context, android.R.layout.simple_spinner_item, screenTimePolicy.screeningTimes(date).toList())
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         timeSpinner.adapter = timeAdapter
     }
 
-    private fun initDateSpinnerSelection() {
+    private fun initDateSpinnerSelection(screenTimePolicy: ScreenTimePolicy) {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -74,7 +81,7 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
                     val date = dateAdapter.getItem(position)
                     date?.let {
                         timeAdapter.clear()
-                        timeAdapter.addAll(decideTime(isWeekDay(date)))
+                        timeAdapter.addAll(screenTimePolicy.screeningTimes(date).toList())
                     }
                 }
 
@@ -101,19 +108,4 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
                 }
             }
     }
-
-    private fun decideTime(isWeek: Boolean): List<String> =
-        if (isWeek) {
-            weekDayTimes
-        } else {
-            weekEndTimes
-        }
-
-    private fun isWeekDay(date: LocalDate?): Boolean =
-        date?.let {
-            it.dayOfWeek in DayOfWeek.MONDAY..DayOfWeek.FRIDAY
-        } ?: throw IllegalStateException("Spinner's item is null!!")
-
-    private val weekDayTimes = listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
-    private val weekEndTimes = listOf("10:00", "12:00", "14:00", "16:00", "18:00", "20:00", "22:00")
 }

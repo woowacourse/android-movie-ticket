@@ -1,8 +1,10 @@
 package woowacourse.movie.ui.detail
 
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
+import woowacourse.movie.domain.model.WeeklyScreenTimePolicy
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
@@ -14,6 +16,7 @@ class ScreenDetailPresenter(
     private val movieRepository: MovieRepository,
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
+    private val screenTimePolicy: ScreenTimePolicy = WeeklyScreenTimePolicy(),
 ) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
     private var datePosition: Int = 0
@@ -23,7 +26,7 @@ class ScreenDetailPresenter(
         try {
             val loadedScreen = screen(screenId)
             view.showScreen(loadedScreen.toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
-            view.showDateTimePicker(loadedScreen.dateRange)
+            view.showDateTimePicker(loadedScreen.dateRange, screenTimePolicy)
         } catch (e: Exception) {
             when (e) {
                 is NoSuchElementException -> view.goToBack(e)

@@ -4,8 +4,8 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-class WeeklyScreenTimePolicy(private val date: LocalDate) : ScreenTimePolicy {
-    override fun screeningTimes(): List<LocalTime> {
+class WeeklyScreenTimePolicy : ScreenTimePolicy {
+    override fun screeningTimes(date: LocalDate): List<LocalTime> {
         return if (date.dayOfWeek in DayOfWeek.MONDAY..DayOfWeek.FRIDAY) {
             WEEKDAY_SCREEN_TIME
         } else {

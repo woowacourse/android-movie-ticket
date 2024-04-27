@@ -29,7 +29,6 @@ class ScreenDetailActivityTest {
                 putExtra("screenId", 1)
             },
         )
-    // DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)),
 
     private val plusBtn: ViewInteraction = onView(withId(R.id.btn_plus))
     private val minusBtn: ViewInteraction = onView(withId(R.id.btn_minus))

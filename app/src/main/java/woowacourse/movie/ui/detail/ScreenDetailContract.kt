@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.detail
 
 import woowacourse.movie.domain.model.DateRange
+import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.ui.ScreenDetailUI
 
 interface ScreenDetailContract {
@@ -9,7 +10,10 @@ interface ScreenDetailContract {
 
         fun showTicket(count: Int)
 
-        fun showDateTimePicker(dateRange: DateRange)
+        fun showDateTimePicker(
+            dateRange: DateRange,
+            screenTimePolicy: ScreenTimePolicy,
+        )
 
         fun navigateToReservation(navigationId: Int)
 

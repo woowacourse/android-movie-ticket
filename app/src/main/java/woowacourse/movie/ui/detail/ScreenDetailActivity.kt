@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.DateRange
+import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.domain.model.WeeklyScreenTimePolicy
 import woowacourse.movie.domain.repository.DummyMovies
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
@@ -26,6 +28,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
             DummyMovies(),
             DummyScreens(),
             DummyReservation,
+            WeeklyScreenTimePolicy(),
         )
     }
 
@@ -87,8 +90,11 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         ticketView.updateTicketCount(count)
     }
 
-    override fun showDateTimePicker(dateRange: DateRange) {
-        dateTimeSpinnerView.show(dateRange)
+    override fun showDateTimePicker(
+        dateRange: DateRange,
+        screenTimePolicy: ScreenTimePolicy,
+    ) {
+        dateTimeSpinnerView.show(dateRange, screenTimePolicy)
     }
 
     override fun navigateToReservation(navigationId: Int) {
