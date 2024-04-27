@@ -7,7 +7,9 @@ data class SeatModel(
     val col: Int,
     val grade: String,
     val price: Long,
-)
+) {
+    fun joinRowColText(): String = row + col.toString()
+}
 
 fun Seat.toUiModel(): SeatModel =
     SeatModel(

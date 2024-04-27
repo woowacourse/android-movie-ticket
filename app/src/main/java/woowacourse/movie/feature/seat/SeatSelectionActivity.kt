@@ -58,7 +58,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     private fun updatePriceTextView() {
         val formattedPrice = DecimalFormat(TicketModel.DECIMAL_FORMAT).format(price)
-        priceTv.text = this.getString(R.string.seat_price, formattedPrice)
+        priceTv.text = getString(R.string.seat_price, formattedPrice)
     }
 
     override fun initialize(

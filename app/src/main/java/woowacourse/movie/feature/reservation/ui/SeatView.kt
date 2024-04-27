@@ -5,7 +5,7 @@ import android.widget.TextView
 class SeatView(private val spaceViews: List<TextView>) {
     fun initText(seatModels: List<SeatModel>) {
         spaceViews.forEachIndexed { index, textView ->
-            textView.text = seatModels[index].row + seatModels[index].col.toString()
+            textView.text = seatModels[index].joinRowColText()
         }
     }
 
