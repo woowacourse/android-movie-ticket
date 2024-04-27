@@ -9,6 +9,8 @@ import woowacourse.movie.domain.model.ScreenView
 import woowacourse.movie.domain.model.ScreenView.Ads
 import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.presentation.ui.screen.ScreenActionHandler
+import woowacourse.movie.presentation.ui.screen.adapter.ScreenRecyclerViewViewHolder.AdsViewHolder
+import woowacourse.movie.presentation.ui.screen.adapter.ScreenRecyclerViewViewHolder.ScreenViewHolder
 
 class ScreenRecyclerViewAdapter(
     private val screenActionHandler: ScreenActionHandler,
