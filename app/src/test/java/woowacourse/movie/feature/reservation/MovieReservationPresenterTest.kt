@@ -149,7 +149,7 @@ class MovieReservationPresenterTest {
         every { view.updateScreeningTimeSpinner(any()) } just runs
 
         // when
-        presenter.selectScreeningDate(ScreeningDate.of(2024, 4, 27))
+        presenter.selectScreeningDate("2024-4-27")
 
         // then
         verify { view.updateScreeningTimeSpinner(any()) }

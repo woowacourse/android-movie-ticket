@@ -8,7 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.setUpForSelectSeat
-import woowacourse.movie.model.SelectedSeats
+import woowacourse.movie.feature.SelectedSeats
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.seat.Seat
@@ -22,7 +22,7 @@ class SeatSelectPresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk<SeatSelectContract.View>()
-        presenter = SeatSelectPresenter(view, reservationCount, repository)
+        presenter = SeatSelectPresenter(view, repository)
     }
 
     @Test
@@ -43,7 +43,7 @@ class SeatSelectPresenterTest {
         every { view.initializeSeatTable(any()) } just runs
 
         // when
-        presenter.initializeSeatTable(5, 4)
+        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // then
         verify { view.initializeSeatTable(any()) }
@@ -53,7 +53,7 @@ class SeatSelectPresenterTest {
     fun `2행 3열 좌석을 선택하면 10,000원이 화면에 보인다`() {
         // given
         view.setUpForSelectSeat()
-        presenter.initializeSeatTable(5, 4)
+        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         // 2행 3열 좌석은 인덱스 [1][2]에 저장되어 있다
@@ -68,7 +68,7 @@ class SeatSelectPresenterTest {
     fun `2열 3행, 4열 4행 좌석을 선택하면 25,000원이 화면에 보인다`() {
         // given
         view.setUpForSelectSeat()
-        presenter.initializeSeatTable(5, 4)
+        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         presenter.selectSeat(1, 2)
@@ -86,7 +86,7 @@ class SeatSelectPresenterTest {
     fun `2행 3열, 4행 4열을 선택한 상태에서 2행 3열을 다시 선택하면, 금액이 줄어들고 선택이 해제된다`() {
         // given
         view.setUpForSelectSeat()
-        presenter.initializeSeatTable(5, 4)
+        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
         presenter.selectSeat(1, 2)
         presenter.selectSeat(3, 3)
 
@@ -102,7 +102,7 @@ class SeatSelectPresenterTest {
     fun `예매 인원이 2명이고 3개의 좌석을 선택하면, 더이상 선택할 수 없다는 메시지를 보여준다`() {
         // given
         view.setUpForSelectSeat()
-        presenter.initializeSeatTable(5, 4)
+        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
         presenter.selectSeat(1, 2)
         presenter.selectSeat(3, 3)
 
@@ -117,6 +117,8 @@ class SeatSelectPresenterTest {
     fun `확인 버튼을 클릭하면 예매 완료 페이지로 이동한다`() {
         // given
         every { view.moveReservationCompleteView(any()) } just runs
+        every { view.initializeSeatTable(any()) } just runs
+        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         presenter.confirmSeatSelection()
@@ -129,7 +131,7 @@ class SeatSelectPresenterTest {
     fun `선택한 좌석을 2행 3열과 4행 1열으로 변경한다`() {
         // given
         view.setUpForSelectSeat()
-        presenter.initializeSeatTable(5, 4)
+        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         presenter.updateSelectedSeats(
@@ -137,7 +139,7 @@ class SeatSelectPresenterTest {
         )
 
         // then
-        verify { view.selectSeat(1, 2, false) }
+        verify { view.selectSeat(1, 2, true) }
         verify { view.selectSeat(3, 0, true) }
         verify { view.updateReservationAmount(10_000) }
         verify { view.updateReservationAmount(25_000) }
