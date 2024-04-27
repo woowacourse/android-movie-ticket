@@ -3,13 +3,13 @@ package io.pyron.server.data.dao
 import io.pyron.server.data.db.dbMovieScreenDateTimes
 import io.pyron.server.data.db.dbMovies
 import io.pyron.server.data.db.dbScreenDateTimes
-import io.pyron.server.data.dto.MovieWithScreenDateTime
+import io.pyron.server.data.dto.MovieWithScreenDateTimeDTO
 
 // Movie - ScreenDateTime 조인
 class MovieWithScreenDateTimeDao {
-    fun findAll(): List<MovieWithScreenDateTime> {
+    fun findAll(): List<MovieWithScreenDateTimeDTO> {
         return dbMovies.map { movie ->
-            MovieWithScreenDateTime(
+            MovieWithScreenDateTimeDTO(
                 id = movie.id,
                 title = movie.title,
                 description = movie.description,
@@ -26,10 +26,10 @@ class MovieWithScreenDateTimeDao {
         }
     }
 
-    fun findOneById(id: Long): MovieWithScreenDateTime? {
+    fun findOneById(id: Long): MovieWithScreenDateTimeDTO? {
         return dbMovies.firstOrNull { it.id == id }
             ?.let { movie ->
-                MovieWithScreenDateTime(
+                MovieWithScreenDateTimeDTO(
                     id = movie.id,
                     title = movie.title,
                     description = movie.description,

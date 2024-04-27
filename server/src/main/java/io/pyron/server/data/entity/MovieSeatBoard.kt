@@ -1,6 +1,6 @@
 package io.pyron.server.data.entity
 
-data class MovieSeatBoard(
+class MovieSeatBoard(
     val id: Long,
     val movieScreenDateTimeId: Long,
 )

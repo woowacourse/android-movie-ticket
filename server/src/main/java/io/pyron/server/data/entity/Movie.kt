@@ -1,6 +1,6 @@
 package io.pyron.server.data.entity
 
-data class Movie(
+class Movie(
     val id: Long,
     val thumbnailUrl: String,
     val title: String,
