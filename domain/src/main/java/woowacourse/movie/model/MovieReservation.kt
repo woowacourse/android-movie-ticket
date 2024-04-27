@@ -1,5 +1,6 @@
 package woowacourse.movie.model
 
+import woowacourse.movie.model.date.ScreeningMovie
 import java.time.LocalDateTime
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
