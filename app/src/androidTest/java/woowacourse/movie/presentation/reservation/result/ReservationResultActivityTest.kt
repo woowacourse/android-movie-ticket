@@ -15,6 +15,8 @@ import woowacourse.movie.data.FakeMovieRepository
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.MovieReservation
+import woowacourse.movie.model.board.SeatBoard
+import woowacourse.movie.model.board.Seats
 import woowacourse.movie.model.date.ScreeningMovie
 import woowacourse.movie.repository.MovieRepository
 import woowacourse.movie.utils.context
@@ -63,6 +65,14 @@ class ReservationResultActivityTest {
     private fun launchSuccessScenario(): ActivityScenario<ReservationResultActivity> {
         MovieRepositoryFactory.setMovieRepository(
             object : MovieRepository {
+                override fun screenSeats(
+                    screenMovieId: Long,
+                    headCount: Int,
+                    dateTime: LocalDateTime
+                ): Result<SeatBoard> {
+                    throw UnsupportedOperationException()
+                }
+
                 override fun screenMovies(): List<ScreeningMovie> {
                     throw UnsupportedOperationException()
                 }
@@ -75,8 +85,9 @@ class ReservationResultActivityTest {
                     id: Long,
                     dateTime: LocalDateTime,
                     count: HeadCount,
+                    selectedSeats: Seats
                 ): Result<Long> {
-                    throw UnsupportedOperationException()
+                    TODO("Not yet implemented")
                 }
 
                 override fun movieReservationById(id: Long): Result<MovieReservation> {
@@ -86,6 +97,7 @@ class ReservationResultActivityTest {
                             screeningMovie = ScreeningMovie.STUB,
                             screenDateTime = LocalDateTime.now(),
                             headCount = HeadCount(1),
+                            seats = Seats()
                         ),
                     )
                 }
