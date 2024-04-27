@@ -26,6 +26,11 @@ class SeatSelectionPresenterTest {
     @BeforeEach
     fun setUp() {
         presenter = SeatSelectionPresenter(view, SeatsDao(), ScreeningDao())
+        with(presenter) {
+            manageSelectedSeats(true, 0, Seat('A', 1, Grade.B))
+            manageSelectedSeats(true, 0, Seat('C', 1, Grade.S))
+            manageSelectedSeats(true, 0, Seat('E', 1, Grade.A))
+        }
     }
 
     @Test
@@ -45,11 +50,7 @@ class SeatSelectionPresenterTest {
     @Test
     fun `총 결제 금액을 보여준다`() {
         every { view.showTotalPrice(any()) } just runs
-        with(presenter) {
-            updateTotalPrice(true, Seat('A', 1, Grade.B))
-            updateTotalPrice(true, Seat('C', 1, Grade.S))
-            updateTotalPrice(true, Seat('E', 1, Grade.A))
-        }
+        presenter.updateTotalPrice(true, Seat('E', 1, Grade.A))
         verify { view.showTotalPrice(37_000) }
     }
 
@@ -70,9 +71,9 @@ class SeatSelectionPresenterTest {
     @Test
     fun `화면 회전 시 예약 상태를 복구한다`() {
         every { view.setConfirmButtonEnabled(any()) } just runs
-        every { view.showTotalPrice(0) } just runs
-        presenter.restoreReservation(0)
+        every { view.showTotalPrice(37_000) } just runs
+        presenter.restoreReservation(3)
         verify { view.setConfirmButtonEnabled(any()) }
-        verify { view.showTotalPrice(0) }
+        verify { view.showTotalPrice(37_000) }
     }
 }
