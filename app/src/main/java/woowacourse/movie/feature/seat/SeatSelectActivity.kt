@@ -19,6 +19,7 @@ import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.reservation.ReservationCount
 import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BaseActivity
@@ -30,6 +31,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
     private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
+    private lateinit var selectedSeats: SelectedSeats
     private lateinit var seatViews: List<List<TextView>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
 
         if (validateError()) return
 
+        selectedSeats = SelectedSeats(ReservationCount(reservationCountValue()))
         seatViews =
             seatTable
                 .children
@@ -50,16 +53,17 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val selectedSeats =
+        val savedSelectedSeats =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 savedInstanceState.getSerializable(SELECTED_SEATS_KEY, SelectedSeats::class.java)
             } else {
                 savedInstanceState.getSerializable(SELECTED_SEATS_KEY) as? SelectedSeats
             } ?: return
+        selectedSeats = savedSelectedSeats
         presenter.updateSelectedSeats(selectedSeats)
     }
 
-    override fun initializePresenter() = SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
+    override fun initializePresenter() = SeatSelectPresenter(this, MovieRepositoryImpl)
 
     private fun validateError(): Boolean {
         if (isError(movieId(), screeningDateTime(), reservationCountValue())) {
@@ -97,7 +101,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
 
     private fun initializeView() {
         presenter.loadMovieData(movieId())
-        presenter.initializeSeatTable(seatViews.size, seatViews[0].size)
+        presenter.initializeSeatTable(selectedSeats, seatViews.size, seatViews[0].size)
         updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         confirmButton.setOnClickListener {
             presenter.confirmSeatSelection()
@@ -181,7 +185,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putSerializable(
             SELECTED_SEATS_KEY,
-            (presenter as SeatSelectPresenter).selectedSeats,
+            selectedSeats,
         )
         super.onSaveInstanceState(outState)
     }

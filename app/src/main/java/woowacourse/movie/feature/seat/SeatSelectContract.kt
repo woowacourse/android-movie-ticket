@@ -34,6 +34,7 @@ interface SeatSelectContract {
         fun loadMovieData(movieId: Long)
 
         fun initializeSeatTable(
+            selectedSeats: SelectedSeats,
             row: Int,
             col: Int,
         )

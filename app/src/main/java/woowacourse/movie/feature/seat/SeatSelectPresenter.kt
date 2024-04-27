@@ -4,19 +4,17 @@ import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.reservation.ReservationAmount
-import woowacourse.movie.model.reservation.ReservationCount
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.Seats
 import woowacourse.movie.model.seat.SelectedSeats
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
-    reservationCountValue: Int,
     private val movieRepository: MovieRepository,
 ) :
     SeatSelectContract.Presenter {
     private lateinit var seats: Seats
-    val selectedSeats = SelectedSeats(ReservationCount(reservationCountValue))
+    private lateinit var selectedSeats: SelectedSeats
     private var reservationAmount = ReservationAmount()
 
     override fun loadMovieData(movieId: Long) {
@@ -26,9 +24,11 @@ class SeatSelectPresenter(
     }
 
     override fun initializeSeatTable(
+        selectedSeats: SelectedSeats,
         row: Int,
         col: Int,
     ) {
+        this.selectedSeats = selectedSeats
         seats = Seats(row, col)
         val seatsUiModel = SeatSelectTableUiModel.from(seats)
         view.initializeSeatTable(seatsUiModel)
@@ -78,9 +78,11 @@ class SeatSelectPresenter(
     }
 
     override fun updateSelectedSeats(selectedSeats: SelectedSeats) {
-        this.selectedSeats.clear()
-        selectedSeats.seats.forEach {
-            selectSeat(it.row - 1, it.col - 1)
+        this.selectedSeats = selectedSeats
+        selectedSeats.seats.forEach { seat ->
+            reservationAmount += seat.amount()
+            view.selectSeat(seat.row - 1, seat.col - 1, selectedSeats.isConfirm())
+            view.updateReservationAmount(reservationAmount.amount)
         }
     }
 }
