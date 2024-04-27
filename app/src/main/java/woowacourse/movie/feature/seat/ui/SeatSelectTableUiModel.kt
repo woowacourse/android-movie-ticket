@@ -1,5 +1,6 @@
 package woowacourse.movie.feature.seat.ui
 
+import androidx.annotation.ColorRes
 import woowacourse.movie.R
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SeatRating
@@ -7,6 +8,7 @@ import woowacourse.movie.model.seat.Seats
 
 class SeatSelectTableUiModel(
     val seatMessage: String,
+    @ColorRes
     val seatColorId: Int,
 ) {
     companion object {

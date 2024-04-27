@@ -1,14 +1,14 @@
 package woowacourse.movie.feature.reservation.ui
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
+import androidx.annotation.DrawableRes
 import woowacourse.movie.R
 import woowacourse.movie.model.data.dto.Movie
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ReservationUiModel(
+    @DrawableRes
     val posterImageId: Int,
     val titleMessage: String,
     val screeningDateMessage: String,

@@ -6,7 +6,6 @@ import woowacourse.movie.feature.reservation.ui.screeningTimeMessage
 import woowacourse.movie.feature.reservation.ui.toScreeningDate
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.reservation.ReservationCount
-import woowacourse.movie.model.time.ScreeningDate
 import woowacourse.movie.model.time.rangeTo
 
 class MovieReservationPresenter(
