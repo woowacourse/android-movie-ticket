@@ -166,6 +166,8 @@ class SeatSelectionActivity : BaseActivity(), View {
             userSeat.seats.forEach { seat ->
                 presenter.clickSeat(seat)
             }
+            presenter.calculateSeat()
+            presenter.checkAllSeatsSelected()
         }
     }
 
