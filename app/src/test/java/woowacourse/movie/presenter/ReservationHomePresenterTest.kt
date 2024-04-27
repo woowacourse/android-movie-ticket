@@ -36,8 +36,8 @@ class ReservationHomePresenterTest {
                 emptyList(),
                 ScreeningTimes(emptyList(), emptyList()),
                 "",
-                ""
-            )
+                "",
+            ),
         )
         verify { view.navigateToDetail(0) }
     }

@@ -8,7 +8,6 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
-import woowacourse.movie.model.Failure
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
@@ -20,7 +19,6 @@ import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.DE
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
 import woowacourse.movie.view.reservation.SeatSelectionActivity.Companion.SEATS
 import java.io.Serializable
-import java.lang.IllegalArgumentException
 import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
