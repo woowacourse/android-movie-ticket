@@ -1,17 +1,14 @@
 package woowacourse.movie.presentation.screening
 
-import androidx.test.espresso.Espresso.onData
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.hamcrest.CoreMatchers.containsString
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -43,37 +40,28 @@ class ScreeningMovieActivityTest {
 
     @Test
     @DisplayName("상영중인 영화가 화면에 보여지는지 테스트")
-    fun listviewTest() {
+    fun recyclerViewTest() {
         // given
         val screeningMovieUiModel = screenMovieUiModel()
         val title = screeningMovieUiModel.title
         val screenDate = screeningMovieUiModel.screenDate
         val runningTime = screeningMovieUiModel.runningTime
-        // when
-        val dataInteraction =
-            onData(`is`(withItemContent(containsString(title))))
-                .inAdapterView(withId(R.id.rv_screening_movie))
-                .atPosition(0)
-        // then
-        dataInteraction.onChildView(withId(R.id.tv_movie_running_time))
-            .check(matches(withText(runningTime)))
-        dataInteraction.onChildView(withId(R.id.tv_movie_running_date))
-            .check(matches(withText(screenDate)))
-        dataInteraction.onChildView(withId(R.id.tv_movie_title))
-            .check(matches(withText(title)))
-    }
+        // when : title 과 일치하는 아이템이 화면에 보여질 때까지 스크롤
+        val viewInteraction = onView(withId(R.id.rv_screening_movie))
+            .perform(
+                RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
+                    hasDescendant(
+                        withText(
+                            title
+                        )
+                    )
+                ).atPosition(0)
+            )
 
-    private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreeningMovieUiModel> {
-        return object :
-            TypeSafeMatcher<ScreeningMovieUiModel>(ScreeningMovieUiModel::class.java) {
-            override fun matchesSafely(screeningMovieUiModel: ScreeningMovieUiModel): Boolean {
-                return itemTextMatcher.matches(screeningMovieUiModel.title)
-            }
-
-            override fun describeTo(description: Description) {
-                description.appendText("with item content matching: ")
-                itemTextMatcher.describeTo(description)
-            }
-        }
+        // then : 해당 View 가 screenDate 와 runningTime 을 가지고 있는지 확인
+        viewInteraction.check(matches(hasDescendant(withText(screenDate))))
+        viewInteraction.check(
+            matches(hasDescendant(withText(runningTime)))
+        )
     }
 }
