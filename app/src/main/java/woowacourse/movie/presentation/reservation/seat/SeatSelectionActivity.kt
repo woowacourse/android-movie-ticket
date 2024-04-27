@@ -114,14 +114,14 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     override fun activateReservationButton() {
         reservationButton.isClickable = true
         reservationButton.setBackgroundColor(
-            ContextCompat.getColor(this, R.color.purple_500)
+            ContextCompat.getColor(this, R.color.purple_500),
         )
     }
 
     override fun deactivateReservationButton() {
         reservationButton.isClickable = false
         reservationButton.setBackgroundColor(
-            ContextCompat.getColor(this, R.color.gray)
+            ContextCompat.getColor(this, R.color.gray),
         )
     }
 

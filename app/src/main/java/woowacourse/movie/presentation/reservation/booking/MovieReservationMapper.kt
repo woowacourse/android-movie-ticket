@@ -8,6 +8,7 @@ import woowacourse.movie.presentation.reservation.booking.model.MovieReservation
 import woowacourse.movie.presentation.reservation.booking.model.ScreenDateTimeUiModel
 import woowacourse.movie.presentation.reservation.booking.model.ScreeningMovieUiModel
 import woowacourse.movie.presentation.reservation.result.ReservationResultUiModel
+import woowacourse.movie.presentation.reservation.seat.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -15,10 +16,12 @@ import java.time.format.DateTimeFormatter
 
 private const val DATE_PATTERN = "yyyy.MM.dd"
 private const val TIME_PATTERN = "HH:mm"
+private const val DATE_TIME_PATTERN = "yyyy.MM.dd HH:mm"
 private const val DATE_FORMAT = "상영일: %s ~ %s"
 private const val RUNNING_TIME_FORMAT = "러닝타임: %d분"
 private val DateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
 private val TimeFormatter = DateTimeFormatter.ofPattern(TIME_PATTERN)
+private val ScreenDateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN)
 private const val DEFAULT_HEAD_COUNT = 1
 
 fun ScreeningMovie.toReservationUiState(): MovieReservationUiState {
@@ -68,13 +71,18 @@ private fun ScreenDateTime.toUiModel(): ScreenDateTimeUiModel {
 
 fun MovieReservation.toUiModel(): ReservationResultUiModel {
     val screenDate: String =
-        screenDateTime.toLocalDate().format(DateFormatter)
+        screenDateTime.format(ScreenDateTimeFormatter)
+    val seatFormat =
+        seats.selectedSeats().seats.map {
+            it.toUiModel().formatSeatPosition()
+        }.joinToString()
     return ReservationResultUiModel(
         movie.title,
         cancelDeadLine.inWholeMinutes.toInt(),
         screenDate,
         headCount.count,
         totalPrice.price.toInt(),
+        seatFormat,
     )
 }
 

@@ -34,13 +34,13 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     }
 
     override fun showResult(reservationResult: ReservationResultUiModel) {
-        val (title, cancelDeadLine, date, count, totalPrice) = reservationResult
+        val (title, cancelDeadLine, date, count, totalPrice, seat) = reservationResult
         findViewById<TextView>(R.id.tv_result_title).text = title
         findViewById<TextView>(R.id.tv_result_cancel_deadline).text =
             getString(R.string.reservation_cancel_deadline_format, cancelDeadLine)
         findViewById<TextView>(R.id.tv_result_running_date).text = date
         findViewById<TextView>(R.id.tv_result_count).text =
-            getString(R.string.reservation_head_count_format, count)
+            getString(R.string.reservation_head_count_format, count, seat)
         findViewById<TextView>(R.id.tv_result_total_price).text =
             getString(R.string.reservation_total_price_format, totalPrice)
     }

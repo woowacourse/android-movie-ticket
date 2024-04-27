@@ -66,17 +66,20 @@ class SeatSelectionPresenter(
     private fun checkCompleteSelection() {
         Log.d(
             "로그",
-            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.selectedSeats.size}"
+            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.selectedSeats.size}",
         )
         Log.d(
             "로그",
-            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.headCount}"
+            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.headCount}",
         )
         Log.d(
             "로그",
-            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.isCompletedSelection}"
-        );
-        if (board.isCompletedSelection) view.activateReservationButton()
-        else view.deactivateReservationButton()
+            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.isCompletedSelection}",
+        )
+        if (board.isCompletedSelection) {
+            view.activateReservationButton()
+        } else {
+            view.deactivateReservationButton()
+        }
     }
 }
