@@ -29,7 +29,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movieResultPresenter = MovieResultPresenter(this)
-        movieResultPresenter.display(
+        movieResultPresenter.loadResult(
             intent.getLongExtra(EXTRA_MOVIE_ID, NOT_FOUND_MOVIE_ID),
             intent.getLongExtra(EXTRA_MOVIE_SCREEN_DATE_TIME_ID, NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID),
             intent.getLongArrayExtra(MovieIntentConstants.EXTRA_MOVIE_SEATS_ID_LIST)?.toList() ?: emptyList(),
@@ -40,7 +40,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         )
     }
 
-    override fun onInitView(resultUiModel: ResultUiModel) {
+    override fun onUpdateView(resultUiModel: ResultUiModel) {
         with(resultUiModel) {
             completeTitleTextView.text = this.movieTitle
             completeDateTextView.text = this.localDateTime.toString()

@@ -4,11 +4,11 @@ import woowacourse.movie.presentation.base.BaseContract
 
 interface MovieResultContract {
     interface View : BaseContract.View {
-        fun onInitView(resultUiModel: ResultUiModel)
+        fun onUpdateView(resultUiModel: ResultUiModel)
     }
 
     interface Presenter {
-        fun display(
+        fun loadResult(
             movieId: Long,
             movieScreenDateTimeId: Long,
             seatIds: List<Long>,

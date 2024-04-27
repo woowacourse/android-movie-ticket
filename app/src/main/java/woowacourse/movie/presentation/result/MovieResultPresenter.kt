@@ -4,15 +4,14 @@ import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.MovieRepository
 import woowacourse.movie.utils.MovieErrorCode
 
-class MovieResultPresenter(private val resultContractView: MovieResultContract.View) :
+class MovieResultPresenter(
+    private val resultContractView: MovieResultContract.View,
+    private var movieRepository: MovieRepository = MovieRepositoryImpl(),
+) :
     MovieResultContract.Presenter {
-    private var movieRepository: MovieRepository = MovieRepositoryImpl()
+    private var uiModel: ResultUiModel = ResultUiModel()
 
-    private var _uiModel: ResultUiModel = ResultUiModel()
-    val uiModel: ResultUiModel
-        get() = _uiModel
-
-    override fun display(
+    override fun loadResult(
         movieId: Long,
         movieScreenDateTimeId: Long,
         seatIds: List<Long>,
@@ -24,13 +23,13 @@ class MovieResultPresenter(private val resultContractView: MovieResultContract.V
         val movieSeats = seatIds.map { movieRepository.findSeatById(it) }
 
         if (movie != null && screenDateTime != null) {
-            _uiModel =
-                _uiModel.copy(
+            uiModel =
+                uiModel.copy(
                     movieTitle = movie.title,
                     localDateTime = screenDateTime.dateTime,
                     seats = movieSeats,
                 )
-            resultContractView.onInitView(resultUiModel = _uiModel)
+            resultContractView.onUpdateView(resultUiModel = uiModel)
         } else {
             resultContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
         }

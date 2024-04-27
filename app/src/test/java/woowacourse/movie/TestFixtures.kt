@@ -29,6 +29,20 @@ val MOVIE =
         runningTime = 152,
     )
 
+val SCREEN_DATE_TIME =
+    ScreenDateTime(
+        id = 0,
+        dateTime = LocalDateTime.of(LocalDate.of(2024, 4, 1), LocalTime.of(10, 0)),
+    )
+
+val SEAT =
+    MovieSeat(
+        id = 0,
+        movieSeatBoardId = 0,
+        number = 0,
+        tier = Tier.S,
+    )
+
 val SEATS =
     listOf(
         MovieSeat(
