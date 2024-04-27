@@ -67,12 +67,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
             selectedSeats?.let {
                 presenter.loadSeats(
-                    screeningId,
-                    count,
-                    date,
-                    time,
-                    title,
-                    selectedSeats.toList(),
+                    screeningId = screeningId,
+                    numOfTickets = count,
+                    date = date,
+                    time = time,
+                    title = title,
+                    seats = selectedSeats.toList(),
                 )
             }
         } ?: presenter.loadSeats(screeningId, count, date, time, title, emptyList())

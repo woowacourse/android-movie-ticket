@@ -95,14 +95,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         countText.text = count.toString()
     }
 
-    override fun updateDate(date: String) {
-        ticketingPresenter.updateDate(date)
-    }
-
-    override fun updateTime(time: String) {
-        ticketingPresenter.updateTime(time)
-    }
-
     override fun navigateToSeatSelection(
         screeningId: Long,
         count: Int,
@@ -161,15 +153,15 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         id: Long,
     ) {
         when (parent?.id) {
-            R.id.spinner_date -> updateDate(parent.getItemAtPosition(position).toString())
-            R.id.spinner_time -> updateTime(parent.getItemAtPosition(position).toString())
+            R.id.spinner_date -> ticketingPresenter.updateDate(parent.getItemAtPosition(position).toString())
+            R.id.spinner_time -> ticketingPresenter.updateTime(parent.getItemAtPosition(position).toString())
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         when (parent?.id) {
-            R.id.spinner_date -> updateDate(parent.getItemAtPosition(0).toString())
-            R.id.spinner_time -> updateTime(parent.getItemAtPosition(0).toString())
+            R.id.spinner_date -> ticketingPresenter.updateDate(parent.getItemAtPosition(0).toString())
+            R.id.spinner_time -> ticketingPresenter.updateTime(parent.getItemAtPosition(0).toString())
         }
     }
 

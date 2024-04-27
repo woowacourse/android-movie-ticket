@@ -13,10 +13,6 @@ interface TicketingContract {
 
         fun updateCount(count: Int)
 
-        fun updateDate(date: String)
-
-        fun updateTime(time: String)
-
         fun navigateToSeatSelection(
             screeningId: Long,
             count: Int,
@@ -30,7 +26,7 @@ interface TicketingContract {
     }
 
     interface Presenter {
-//        fun initializeTicketingData()
+        fun initializeTicketingData()
 
         fun decreaseCount()
 
@@ -41,7 +37,5 @@ interface TicketingContract {
         fun updateDate(date: String)
 
         fun updateTime(time: String)
-
-        fun initializeTicketingData()
     }
 }
