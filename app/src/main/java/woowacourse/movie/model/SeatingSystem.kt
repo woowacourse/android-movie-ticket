@@ -18,11 +18,6 @@ class SeatingSystem(
 
     fun isSelected(index: Int): Boolean = seats[index] in selectedSeats
 
-    fun updateSelectedSeats(selectedSeatsIndexes: List<Int>) {
-        _selectedSeats.clear()
-        _selectedSeats.addAll(selectedSeatsIndexes.map { seats[it] }.toMutableSet())
-    }
-
     fun trySelectSeat(index: Int): Result<Seat> {
         return if (canSelectSeat()) {
             val selected = seats[index]

@@ -32,9 +32,9 @@ class SeatSelectionPresenter(
     override fun updateSeatSelection(index: Int) {
         if (seatingSystem.isSelected(index)) {
             unSelectSeat(index)
-            return
+        } else {
+            selectSeat(index)
         }
-        selectSeat(index)
     }
 
     private fun unSelectSeat(index: Int) {
