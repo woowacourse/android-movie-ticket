@@ -9,7 +9,6 @@ import io.mockk.just
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import woowacourse.movie.model.date.ScreeningMovie
 import woowacourse.movie.repository.MovieRepository
 
 @ExtendWith(MockKExtension::class)
@@ -43,7 +42,7 @@ class ScreeningMoviePresenterTest {
     fun `id 를 통해 상영 영화를 불러오는 것에 성공하면, 예약 화면으로 이동한다`() {
         // given
         val screenId = 1L
-        every { repository.screenMovieById(any()) } returns Result.success(ScreeningMovie.STUB)
+        every { repository.screenMovieById(any()) } returns Result.success(stubScreenMovie())
         // when
         presenter.startReservation(screenId)
         // then

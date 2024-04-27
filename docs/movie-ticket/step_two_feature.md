@@ -57,3 +57,10 @@ Spinner 의 MaxHeight 를 설정하거나 ItemMaxCount 를 제한하려 했으�
 windowManager 에서 관리되는 View 이기 때문에 Spinner 의 기본 내장 함수로 제어하는 방법이 없었습니다.
 따라서, Spinner 를 CustomView 로 만들어서 FixedHeight 를 설정하는 방법을 사용했습니다..  
 MaxHeight 나 itemCount 를 설정하는 방법이 있을까요..?
+
+## 2) Image Espresso Test
+
+영화 목록 중 4 번째 이미지에 `R.id.img_ad` 이미지가 들어가는지 확인해보고 싶었지만..  
+아직 방법을 찾지 못했습니다.  
+
+혹시, 이미지 뷰는 어떻게 테스트 하는지 힌트를 주실 수 있을까요?? 🥲

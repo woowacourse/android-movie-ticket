@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.reservation.seat
 
-import android.util.Log
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.board.Position
 import woowacourse.movie.model.board.SeatBoard
@@ -24,7 +23,7 @@ class SeatSelectionPresenter(
         repository.screenSeats(screenMovieId, selectedDateTime, headCount)
             .onSuccess {
                 board = it
-                view.showMovieTitle(navArgs.movieTitle)
+                view.showMovieTitle(title)
                 view.showSeatBoard(it.toUiModel())
                 checkCompleteSelection()
             }
@@ -64,18 +63,6 @@ class SeatSelectionPresenter(
     }
 
     private fun checkCompleteSelection() {
-        Log.d(
-            "로그",
-            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.selectedSeats.size}",
-        )
-        Log.d(
-            "로그",
-            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.headCount}",
-        )
-        Log.d(
-            "로그",
-            "SeatSelectionPresenter - checkCompleteSelection() - isCompletedSelection ${board.isCompletedSelection}",
-        )
         if (board.isCompletedSelection) {
             view.activateReservationButton()
         } else {
