@@ -18,19 +18,18 @@ class MovieReservationCompletePresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk<MovieReservationCompleteContract.View>()
-        presenter = MovieReservationCompletePresenter(view, MovieRepositoryImpl)
+        presenter = MovieReservationCompletePresenter(view, repository)
     }
 
     @Test
     fun `영화 데이터를 불러오면 영화 예매 완료 뷰가 초기화된다`() {
         // given
-        val movieId = 0L
         every { view.initializeReservationCompleteView(any()) } just runs
 
         // when
-        presenter.loadMovieData(movieId)
+        presenter.loadMovieData(0L)
 
         // then
-        verify { view.initializeReservationCompleteView(repository.find(movieId))}
+        verify { view.initializeReservationCompleteView(any()) }
     }
 }

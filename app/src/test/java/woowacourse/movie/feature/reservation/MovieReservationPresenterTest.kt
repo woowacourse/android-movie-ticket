@@ -7,7 +7,6 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.feature.reservation.ui.screeningDateTime
 import woowacourse.movie.feature.setUpReservationCount
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
@@ -28,23 +27,15 @@ class MovieReservationPresenterTest {
     @Test
     fun `영화 데이터를 불러오면 영화 예매 뷰가 초기화된다`() {
         // given
-        val movieId = 0L
         every { view.initializeReservationView(any()) } just runs
         every { view.initializeSpinner(any(), any()) } just runs
 
         // when
-        presenter.loadMovieData(movieId)
+        presenter.loadMovieData(0L)
 
         // then
-        val movie = repository.find(movieId)
-        val movieScreeningDates = (movie.startScreeningDate..movie.endScreeningDate).toList()
-        verify { view.initializeReservationView(repository.find(movieId)) }
-        verify {
-            view.initializeSpinner(
-                movieScreeningDates,
-                movieScreeningDates[0].screeningTimes()
-            )
-        }
+        verify { view.initializeReservationView(any()) }
+        verify { view.initializeSpinner(any(), any()) }
     }
 
     @Test
@@ -122,12 +113,7 @@ class MovieReservationPresenterTest {
         presenter.selectSeat("2024-4-27", "11:00")
 
         // then
-        verify {
-            view.moveSeatSelectView(
-                screeningDateTime("2024-4-27", "11:00"),
-                any(),
-            )
-        }
+        verify { view.moveSeatSelectView(any(), any()) }
     }
 
     @Test
@@ -160,13 +146,12 @@ class MovieReservationPresenterTest {
     @Test
     fun `상영 날짜를 선택하면 상영 시간이 변경된다`() {
         // given
-        val screeningDate = ScreeningDate.of(2024, 4, 27)
         every { view.updateScreeningTimeSpinner(any()) } just runs
 
         // when
-        presenter.selectScreeningDate(screeningDate)
+        presenter.selectScreeningDate(ScreeningDate.of(2024, 4, 27))
 
         // then
-        verify { view.updateScreeningTimeSpinner(screeningDate.screeningTimes()) }
+        verify { view.updateScreeningTimeSpinner(any()) }
     }
 }

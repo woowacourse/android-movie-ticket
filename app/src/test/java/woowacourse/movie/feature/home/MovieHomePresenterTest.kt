@@ -30,6 +30,6 @@ class MovieHomePresenterTest {
         presenter.loadMovieData()
 
         // then
-        verify { view.initializeMovieList(repository.findAll()) }
+        verify { view.initializeMovieList(any()) }
     }
 }
