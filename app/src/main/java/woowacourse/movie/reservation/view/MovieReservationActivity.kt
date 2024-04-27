@@ -2,6 +2,7 @@ package woowacourse.movie.reservation.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -13,11 +14,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.list.model.Movie
-import woowacourse.movie.list.view.MovieListActivity.Companion.EXTRA_MOVIE_KEY
+import woowacourse.movie.list.view.MovieListActivity.Companion.EXTRA_MOVIE_ID_KEY
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.Count
 import woowacourse.movie.reservation.presenter.MovieReservationPresenter
-import woowacourse.movie.ticket.view.MovieTicketActivity
+import woowacourse.movie.seats.view.SeatsActivity
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -37,6 +38,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private var toast: Toast? = null
     lateinit var selectedDate: LocalDate
     lateinit var selectedTime: LocalTime
+    var movieId: Long = -1
     override val presenter = MovieReservationPresenter(this@MovieReservationActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +46,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         setContentView(R.layout.activity_movie_reservation)
         initView()
         presenter.setCurrentResultTicketCountInfo()
-        presenter.storeMovieId(intent.getLongExtra(EXTRA_MOVIE_KEY, 0))
+        movieId = intent.getLongExtra(EXTRA_MOVIE_ID_KEY, 0)
+        presenter.storeMovieId(movieId)
         presenter.setMovieInfo()
         presenter.setSpinnerInfo()
         presenter.setSpinnerDateItemInfo()
@@ -128,6 +131,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun showToast(message: String) {
         toast?.cancel()
         toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
+        Log.d("alsong", "$toast, $message")
         toast?.show()
     }
 
@@ -154,8 +158,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun startMovieTicketActivity(info: Count) {
-        val intent = Intent(this, MovieTicketActivity::class.java)
+        val intent = Intent(this, SeatsActivity::class.java)
         intent.putExtra(EXTRA_COUNT_KEY, info)
+        intent.putExtra(EXTRA_MOVIE_ID_KEY, movieId)
         intent.putExtra(EXTRA_DATE_KEY, selectedDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN)))
         intent.putExtra(EXTRA_TIME_KEY, selectedTime.toString())
         this.startActivity(intent)

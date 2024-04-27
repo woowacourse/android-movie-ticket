@@ -30,12 +30,12 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     override fun setOnListViewClickListener() {
         listView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, MovieReservationActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE_KEY, position.toLong())
+            intent.putExtra(EXTRA_MOVIE_ID_KEY, position.toLong())
             this.startActivity(intent)
         }
     }
 
     companion object {
-        const val EXTRA_MOVIE_KEY = "movie_id_key"
+        const val EXTRA_MOVIE_ID_KEY = "movie_id_key"
     }
 }

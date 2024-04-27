@@ -258,6 +258,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/seats_movie_title"
                 android:layout_width="270dp"
                 android:layout_height="40dp"
                 android:layout_gravity="left"
@@ -269,6 +270,7 @@
                 tools:text="해리 포터와 마법사의 돌"/>
 
             <TextView
+                android:id="@+id/seats_totla_price"
                 android:layout_width="270dp"
                 android:layout_height="45sp"
                 android:layout_gravity="top"

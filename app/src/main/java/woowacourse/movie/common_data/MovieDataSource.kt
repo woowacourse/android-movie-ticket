@@ -1,6 +1,7 @@
-package woowacourse.movie.list.model
+package woowacourse.movie.common_data
 
 import woowacourse.movie.R
+import woowacourse.movie.list.model.Movie
 import java.time.LocalDate
 
 object MovieDataSource {
