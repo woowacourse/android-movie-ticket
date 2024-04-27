@@ -27,6 +27,10 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_ticket)
         initViewById()
+        processPresenterTask()
+    }
+
+    private fun processPresenterTask() {
         presenter.storeTicketCount(getSerializableCountData(intent))
         presenter.storeMovieId(intent.getLongExtra(ID_KEY, -1))
         presenter.storeScreeningDate(intent.getStringExtra(DATE_KEY) ?: "ddd")
