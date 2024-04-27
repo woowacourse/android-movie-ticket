@@ -102,7 +102,6 @@ class MovieReservationCompleteActivity :
             ticket: Ticket,
         ) {
             Intent(context, MovieReservationCompleteActivity::class.java).run {
-                Log.e(TAG, "${ticket.selectedSeats.seats.size}")
                 putExtra(TICKET_KEY, ticket)
                 context.startActivity(this)
             }

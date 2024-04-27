@@ -44,5 +44,7 @@ interface SeatSelectContract {
         )
 
         fun confirmSeatSelection()
+
+        fun updateSelectedSeats(selectedSeats: SelectedSeats)
     }
 }

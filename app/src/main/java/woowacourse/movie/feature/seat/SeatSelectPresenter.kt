@@ -16,7 +16,7 @@ class SeatSelectPresenter(
 ) :
     SeatSelectContract.Presenter {
     private lateinit var seats: Seats
-    private val selectedSeats = SelectedSeats(ReservationCount(reservationCountValue))
+    val selectedSeats = SelectedSeats(ReservationCount(reservationCountValue))
     private var reservationAmount = ReservationAmount()
 
     override fun loadMovieData(movieId: Long) {
@@ -75,5 +75,12 @@ class SeatSelectPresenter(
 
     override fun confirmSeatSelection() {
         view.moveReservationCompleteView(selectedSeats)
+    }
+
+    override fun updateSelectedSeats(selectedSeats: SelectedSeats) {
+        this.selectedSeats.clear()
+        selectedSeats.seats.forEach {
+            selectSeat(it.row - 1, it.col - 1)
+        }
     }
 }

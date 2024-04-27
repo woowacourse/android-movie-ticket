@@ -48,6 +48,17 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         initializeView()
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val selectedSeats =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                savedInstanceState.getSerializable(SELECTED_SEATS_KEY, SelectedSeats::class.java)
+            } else {
+                savedInstanceState.getSerializable(SELECTED_SEATS_KEY) as? SelectedSeats
+            } ?: return
+        presenter.updateSelectedSeats(selectedSeats)
+    }
+
     override fun initializePresenter() = SeatSelectPresenter(this, reservationCountValue(), MovieRepositoryImpl)
 
     private fun validateError(): Boolean {
@@ -149,7 +160,10 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
             .setTitle(resources.getString(R.string.reservation_confirm))
             .setMessage(resources.getString(R.string.reservation_question))
             .setPositiveButton(resources.getString(R.string.reservation_complete)) { _, _ ->
-                MovieReservationCompleteActivity.startActivity(this, Ticket(movieId(), screeningDateTime()!!, selectedSeats))
+                MovieReservationCompleteActivity.startActivity(
+                    this,
+                    Ticket(movieId(), screeningDateTime()!!, selectedSeats),
+                )
             }
             .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
@@ -164,6 +178,14 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(
+            SELECTED_SEATS_KEY,
+            (presenter as SeatSelectPresenter).selectedSeats,
+        )
+        super.onSaveInstanceState(outState)
+    }
+
     companion object {
         private val TAG = SeatSelectActivity::class.simpleName
         private const val INITIAL_RESERVATION_AMOUNT = 0
@@ -172,6 +194,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         private const val SCREENING_DATE_TIME_KEY = "screening_date_time_key"
         private const val RESERVATION_COUNT_KEY = "reservation_count_key"
         private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
+        private const val SELECTED_SEATS_KEY = "selected_seats_key"
 
         fun startActivity(
             context: Context,

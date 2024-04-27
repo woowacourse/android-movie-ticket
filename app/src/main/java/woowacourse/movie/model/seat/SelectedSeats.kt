@@ -29,6 +29,8 @@ class SelectedSeats(val reservationCount: ReservationCount) : Serializable {
         }
     }
 
+    fun clear() = _seats.clear()
+
     operator fun contains(seat: Seat) = _seats.contains(seat)
 
     companion object {
