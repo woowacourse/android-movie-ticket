@@ -62,14 +62,14 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `화면 회전 시 선택된 좌석들을 복구한다`() {
+    fun `선택된 좌석들을 복구한다`() {
         every { view.restoreSelectedSeats(any()) } just runs
         presenter.restoreSeats(Seats(), emptyList())
         verify { view.restoreSelectedSeats(any()) }
     }
 
     @Test
-    fun `화면 회전 시 예약 상태를 복구한다`() {
+    fun `예약 상태를 복구한다`() {
         every { view.setConfirmButtonEnabled(any()) } just runs
         every { view.showTotalPrice(37_000) } just runs
         presenter.restoreReservation(3)
