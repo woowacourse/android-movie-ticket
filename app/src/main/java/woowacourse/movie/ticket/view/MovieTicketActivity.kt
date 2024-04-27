@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.reservation.model.Count
 import woowacourse.movie.seats.model.Seat
 import woowacourse.movie.seats.view.SeatsActivity.Companion.DATE_KEY
 import woowacourse.movie.seats.view.SeatsActivity.Companion.ID_KEY
@@ -34,15 +33,10 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
         presenter.storeScreeningTime(intent.getStringExtra(TIME_KEY) ?: "ddd")
         presenter.storePrice(intent.getIntExtra(PRICE_KEY, 0))
         presenter.storeSeats(intent.getSerializableExtra(SEATS_KEY) as List<Seat>)
-        presenter.setTicketInfo()
         presenter.setScreeningDateInfo()
         presenter.setScreeningTimeInfo()
         presenter.setSeatsInfo()
-        presenter.setCountInfo()
-    }
-
-    override fun showCount(count: Int) {
-        this.count.text = count.toString()
+        presenter.setTicketInfo()
     }
 
     override fun showSeats(seats: List<Seat>) {
@@ -62,11 +56,11 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     override fun showTicketView(
         movieTitle: String,
         moviePrice: Int,
-        ticketCount: Count,
+        ticketCount: Int,
     ) {
         title.text = movieTitle
-        price.text = TICKET_PRICE.format(moviePrice * ticketCount.number)
-        count.text = TICKET_COUNT.format(ticketCount.number)
+        price.text = TICKET_PRICE.format(moviePrice)
+        count.text = TICKET_COUNT.format(ticketCount)
     }
 
     override fun showScreeningDate(info: String) {
@@ -80,6 +74,5 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     companion object {
         private const val TICKET_PRICE = "%,d원 (현장결제)"
         private const val TICKET_COUNT = "일반 %d명"
-        private const val DATE_PATTERN = "yyyy.MM.dd"
     }
 }

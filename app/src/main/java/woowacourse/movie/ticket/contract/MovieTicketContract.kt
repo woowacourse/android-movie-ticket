@@ -14,12 +14,10 @@ interface MovieTicketContract {
         fun showTicketView(
             movieTitle: String,
             moviePrice: Int,
-            ticketCount: Count,
+            ticketCount: Int,
         )
 
         fun showSeats(seats: List<Seat>)
-
-        fun showCount(count: Int)
     }
 
     interface Presenter {
@@ -42,7 +40,5 @@ interface MovieTicketContract {
         fun storeSeats(seats: List<Seat>)
 
         fun setSeatsInfo()
-
-        fun setCountInfo()
     }
 }

@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="일반 1명"/>
+            tools:text="A1"/>
 
     </LinearLayout>
 
