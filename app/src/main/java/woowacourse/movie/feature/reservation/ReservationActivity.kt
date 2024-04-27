@@ -15,7 +15,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.reservation.Quantity
-import woowacourse.movie.feature.main.ui.MovieModel
+import woowacourse.movie.feature.main.ui.ScreeningModel
 import woowacourse.movie.feature.reservation.ui.DailyScheduleModel
 import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 import woowacourse.movie.feature.seat.SeatSelectionActivity
@@ -66,20 +66,22 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         findViewById<Spinner>(R.id.spinner_time)
     }
 
-    private var timePosition: Int = 0
-    private var datePosition: Int = 0
+    private var timeSpinnerPosition: Int = 0
+    private var dateSpinnerPosition: Int = 0
+    private val quantity = Quantity()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val id = getMovieId()
-        presenter.fetchMovieDetails(id)
+
+        val movieId = intent.getLongExtra(SCREENING_ID, -1L)
+        presenter.fetchMovieDetails(movieId)
+        setupReservationCompleteControls()
+        setupTicketQuantityControls()
     }
 
-    private fun getMovieId() = intent.getLongExtra(MOVIE_ID, -1L)
-
-    override fun initializeMovieDetails(movie: MovieModel) {
+    override fun initializeMovieDetails(movie: ScreeningModel) {
         val openingDayText = movie.getFormattedScreeningPeriod(this)
         val runningTimeText = movie.getFormattedRunningTime(this)
         posterIv.setImageResource(movie.poster)
@@ -87,16 +89,19 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         movieContentTv.text = movie.content
         openingDayTv.text = openingDayText
         runningTimeTv.text = runningTimeText
+        updateTicketQuantity(quantity.value)
     }
 
     override fun setupScreeningSchedulesControls(screeningScheduleModel: ScreeningScheduleModel) {
         val dailySchedules = screeningScheduleModel.dailySchedules
-        val dateSpinnerAdapter = buildArrayAdapter(
-            screeningScheduleModel.getScheduleDates().toList(),
-        )
-        val timeSpinnerAdapter = buildArrayAdapter(
-            dailySchedules.first().times.toList()
-        )
+        val dateSpinnerAdapter =
+            buildArrayAdapter(
+                screeningScheduleModel.getScheduleDates().toList(),
+            )
+        val timeSpinnerAdapter =
+            buildArrayAdapter(
+                dailySchedules.first().times.toList(),
+            )
         dateSpinner.adapter = dateSpinnerAdapter
         timeSpinner.adapter = timeSpinnerAdapter
         setUpDateSpinnerSelection(dailySchedules, timeSpinnerAdapter)
@@ -107,54 +112,56 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         return ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
-            items
+            items,
         )
     }
 
     private fun setUpDateSpinnerSelection(
         dailySchedules: List<DailyScheduleModel>,
-        timeSpinnerAdapter: ArrayAdapter<String>
+        timeSpinnerAdapter: ArrayAdapter<String>,
     ) {
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                datePosition = position
-                updateTimeSpinnerItems(timeSpinnerAdapter, dailySchedules)
-            }
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long,
+                ) {
+                    dateSpinnerPosition = position
+                    updateTimeSpinnerItems(timeSpinnerAdapter, dailySchedules)
+                }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                Log.d("테스트", "dateSpinner")
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    Log.d("테스트", "dateSpinner")
+                }
             }
-        }
     }
 
     private fun setUpTimeSpinnerSelection() {
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                timePosition = position
-            }
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long,
+                ) {
+                    timeSpinnerPosition = position
+                }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                Log.d("테스트", "timeSpinner")
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    Log.d("테스트", "timeSpinner")
+                }
             }
-        }
     }
 
     private fun updateTimeSpinnerItems(
         timeSpinnerAdapter: ArrayAdapter<String>,
-        dailySchedules: List<DailyScheduleModel>
+        dailySchedules: List<DailyScheduleModel>,
     ) {
         timeSpinnerAdapter.clear()
-        timeSpinnerAdapter.addAll(dailySchedules[datePosition].times)
+        timeSpinnerAdapter.addAll(dailySchedules[dateSpinnerPosition].times)
     }
 
     override fun setupReservationCompleteControls() {
@@ -163,18 +170,32 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
     }
 
-    override fun navigateToCompleteScreen(id: Long) {
-        startActivity(SeatSelectionActivity.getIntent(this, id))
+    override fun navigateToCompleteScreen() {
+        val id = intent.getLongExtra(SCREENING_ID, -1)
+        startActivity(
+            SeatSelectionActivity.getIntent(
+                this,
+                id,
+                dateSpinnerPosition,
+                timeSpinnerPosition,
+                quantity.value,
+            ),
+        )
     }
 
-    override fun setupTicketQuantityControls(quantity: Quantity) {
-        updateTicketQuantity(quantity.value.toString())
-        minusBtn.setOnClickListener { presenter.decreaseTicketQuantity() }
-        plusBtn.setOnClickListener { presenter.increaseTicketQuantity() }
+    override fun setupTicketQuantityControls() {
+        minusBtn.setOnClickListener {
+            quantity.decrease()
+            updateTicketQuantity(quantity.value)
+        }
+        plusBtn.setOnClickListener {
+            quantity.increase()
+            updateTicketQuantity(quantity.value)
+        }
     }
 
-    override fun updateTicketQuantity(newText: String) {
-        quantityTv.text = newText
+    override fun updateTicketQuantity(newQuantity: Int) {
+        quantityTv.text = newQuantity.toString()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -187,14 +208,14 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     }
 
     companion object {
-        const val MOVIE_ID = "movie_id"
+        const val SCREENING_ID = "screening_id"
 
         fun getIntent(
             context: Context,
             id: Long,
         ): Intent {
             return Intent(context, ReservationActivity::class.java).apply {
-                putExtra(MOVIE_ID, id)
+                putExtra(SCREENING_ID, id)
             }
         }
     }

@@ -15,7 +15,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.feature.reservation.ReservationActivity.Companion.MOVIE_ID
+import woowacourse.movie.feature.reservation.ReservationActivity.Companion.SCREENING_ID
 
 @RunWith(AndroidJUnit4::class)
 class ReservationActivityTest {
@@ -23,7 +23,7 @@ class ReservationActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationActivity::class.java,
-        ).also { it.putExtra(MOVIE_ID, 0L) }
+        ).also { it.putExtra(SCREENING_ID, 0L) }
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule<ReservationActivity>(intent)
@@ -67,6 +67,8 @@ class ReservationActivityTest {
 
     @Test
     fun `수량은_0_이하로_감소하지_않는다`() {
+        onView(withId(R.id.btn_minus)).perform(click())
+        onView(withId(R.id.btn_minus)).perform(click())
         onView(withId(R.id.btn_minus)).perform(click())
         onView(withId(R.id.btn_minus)).perform(click())
 
