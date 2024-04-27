@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -21,6 +22,8 @@ import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_DATE_POSITION
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_TIME_POSITION
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.formatScreeningPeriod
@@ -57,22 +60,32 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         movieDetailPresenter = MovieDetailPresenter(this)
 
         movieDetailPresenter.display(intent.getLongExtra(MovieIntentConstants.EXTRA_MOVIE_ID, NOT_FOUND_MOVIE_ID))
+    }
 
+    override fun onRestoreInstanceState(
+        savedInstanceState: Bundle?,
+        persistentState: PersistableBundle?,
+    ) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState)
         savedInstanceState?.let {
             reservationCount.text = it.getInt(EXTRA_MOVIE_RESERVATION_COUNT).toString()
+            detailDateSpinner.setSelection(it.getInt(EXTRA_MOVIE_RESERVATION_DATE_POSITION))
+            detailTimeSpinner.setSelection(it.getInt(EXTRA_MOVIE_RESERVATION_TIME_POSITION))
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(EXTRA_MOVIE_RESERVATION_COUNT, reservationCount.text.toString().toInt())
+        outState.putInt(EXTRA_MOVIE_RESERVATION_DATE_POSITION, detailDateSpinner.selectedItemPosition)
+        outState.putInt(EXTRA_MOVIE_RESERVATION_TIME_POSITION, detailTimeSpinner.selectedItemPosition)
     }
 
     override fun onInitView(movie: Movie) {
         with(movie) {
             detailImage.load(this.thumbnailUrl)
             detailTitle.text = this.title
-            detailDate.text = formatScreeningPeriod(movie.dateTime.map { it.dateTime })
+            detailDate.text = formatScreeningPeriod(movie.screenDateTime.map { it.dateTime })
             detailRunningTime.text = "${this.runningTime}"
             detailDescription.text = this.description
             minusButton.setOnClickListener {

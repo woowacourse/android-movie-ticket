@@ -13,15 +13,16 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
     MovieDetailContract.Presenter {
     private var movieRepository: MovieRepository = MovieRepositoryImpl()
     private var reservationCount = ReservationCount()
+    private var selectedLocalDate: LocalDate? = null
 
     override fun display(id: Long) {
         val movie = movieRepository.findMovieById(id)
         movie?.let {
             detailContractView.onInitView(it)
-            detailContractView.updateDate(it.dateTime.map { it.dateTime.toLocalDate() }.toSet().toList())
+            detailContractView.updateDate(it.screenDateTime.map { it.dateTime.toLocalDate() }.toSet().toList())
             detailContractView.updateTime(
-                it.dateTime.filter { screenDateTime ->
-                    it.dateTime.first().dateTime.isSameDate(screenDateTime.dateTime)
+                it.screenDateTime.filter { screenDateTime ->
+                    it.screenDateTime.first().dateTime.isSameDate(screenDateTime.dateTime)
                 }.map {
                     it.dateTime.toLocalTime()
                 },
@@ -47,9 +48,12 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
         movie: Movie,
         localDate: LocalDate,
     ) {
+        if (selectedLocalDate == localDate) return
+
+        selectedLocalDate = localDate
         detailContractView.updateTime(
-            movie.dateTime.filter { screenDateTime ->
-                screenDateTime.dateTime.toLocalDate().isEqual(screenDateTime.dateTime.toLocalDate())
+            movie.screenDateTime.filter { screenDateTime ->
+                screenDateTime.dateTime.toLocalDate().isEqual(localDate)
             }.map {
                 it.dateTime.toLocalTime()
             },
@@ -61,7 +65,7 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
         localDate: LocalDate,
         localTime: LocalTime,
     ) {
-        val movieScreenTime = movie.dateTime.first { it.dateTime.isEqual(LocalDateTime.of(localDate, localTime)) }
+        val movieScreenTime = movie.screenDateTime.first { it.dateTime.isEqual(LocalDateTime.of(localDate, localTime)) }
         detailContractView.onSelectSeatClicked(movie.id, movieScreenTime.id, reservationCount.count)
     }
 }

@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.presentation.adapter.MovieAdapter
 import woowacourse.movie.presentation.detail.MovieDetailActivity
 import woowacourse.movie.utils.MovieErrorCode
@@ -16,7 +17,8 @@ import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     private lateinit var movieDetailActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var movieMainPresenter: MovieMainPresenter
-    private val movieList: ListView by lazy { findViewById<ListView>(R.id.mainList) }
+    private lateinit var movieAdapter: MovieAdapter
+    private val movieList: ListView by lazy { findViewById(R.id.mainList) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,8 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
         }
     }
 
-    override fun onInitAdapter(adapter: MovieAdapter) {
-        movieList.adapter = adapter
+    override fun onInitView(movies: List<Movie>) {
+        movieAdapter = MovieAdapter(::onMovieItemClick, movies)
+        movieList.adapter = movieAdapter
     }
 }

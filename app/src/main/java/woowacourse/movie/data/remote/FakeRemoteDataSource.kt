@@ -1,6 +1,5 @@
 package woowacourse.movie.data.remote
 
-// server
 import io.pyron.server.ServerApi
 import io.pyron.server.data.entity.Tier
 import woowacourse.movie.data.remote.dto.MovieResponse
@@ -8,7 +7,7 @@ import woowacourse.movie.data.remote.dto.MovieSeatResponse
 import woowacourse.movie.data.remote.dto.ScreenDateTimeResponse
 import woowacourse.movie.data.remote.dto.TierResponse
 
-// 서버로부터 json으로 받는다고 가정!
+// 서버로부터 json으로 받는 느낌
 class FakeRemoteDataSource(private val serverApi: ServerApi = ServerApi()) : RemoteDataSource {
     override fun findAllMovies(): List<MovieResponse> {
         return serverApi.findAllMovieWithDateTimes().map {

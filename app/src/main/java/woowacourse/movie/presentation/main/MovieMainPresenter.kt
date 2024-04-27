@@ -2,16 +2,13 @@ package woowacourse.movie.presentation.main
 
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.MovieRepository
-import woowacourse.movie.presentation.adapter.MovieAdapter
 
-class MovieMainPresenter(private val movieChoiceContractView: MovieMainContract.View) :
+class MovieMainPresenter(
+    private val movieChoiceContractView: MovieMainContract.View,
+    private val movieRepository: MovieRepository = MovieRepositoryImpl(),
+) :
     MovieMainContract.Presenter {
-    private val movieRepository: MovieRepository = MovieRepositoryImpl()
-
-    private lateinit var movieAdapter: MovieAdapter
-
     override fun loadMovies() {
-        movieAdapter = MovieAdapter(movieChoiceContractView::onMovieItemClick, movieRepository.findAllMovies())
-        movieChoiceContractView.onInitAdapter(movieAdapter)
+        movieChoiceContractView.onInitView(movieRepository.findAllMovies())
     }
 }
