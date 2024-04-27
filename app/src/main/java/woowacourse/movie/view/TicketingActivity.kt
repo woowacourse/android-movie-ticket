@@ -18,6 +18,7 @@ import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
+import java.time.LocalTime
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSelectedListener {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
@@ -121,6 +122,18 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
 
     override fun showToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateAvailableTimes(times: List<LocalTime>) {
+        findViewById<Spinner>(R.id.spinner_time).apply {
+            adapter =
+                ArrayAdapter(
+                    this@TicketingActivity,
+                    android.R.layout.simple_spinner_item,
+                    times,
+                )
+            onItemSelectedListener = this@TicketingActivity
+        }
     }
 
     private fun initializeButtons() {

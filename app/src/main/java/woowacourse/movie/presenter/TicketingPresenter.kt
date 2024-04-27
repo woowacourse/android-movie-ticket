@@ -74,6 +74,8 @@ class TicketingPresenter(
 
     override fun updateDate(date: String) {
         this.date = LocalDate.parse(date)
+        availableTimes = AvailableTimes.of(LocalDate.parse(date))
+        ticketingContractView.updateAvailableTimes(availableTimes.localTimes)
     }
 
     override fun updateTime(time: String) {
