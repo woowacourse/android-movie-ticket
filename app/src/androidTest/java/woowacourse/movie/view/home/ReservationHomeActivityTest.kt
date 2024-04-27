@@ -32,7 +32,7 @@ class ReservationHomeActivityTest {
     fun `영화_목록의_3번째_아이템은_영화가_보여진다`() {
         onView(withId(R.id.recycler_view_reservation_home)).check(
             matches(
-                matchViewHolderAtPosition(2, MovieViewHolder::class.java)
+                matchViewHolderAtPosition(2, MovieViewHolder::class.java),
             ),
         )
     }
@@ -41,7 +41,7 @@ class ReservationHomeActivityTest {
     fun `영화_목록의_4번째_아이템은_광고가_보여진다`() {
         onView(withId(R.id.recycler_view_reservation_home)).check(
             matches(
-                matchViewHolderAtPosition(3, AdvertisementViewHolder::class.java)
+                matchViewHolderAtPosition(3, AdvertisementViewHolder::class.java),
             ),
         )
     }
@@ -58,9 +58,10 @@ class ReservationHomeActivityTest {
             override fun matchesSafely(view: View): Boolean {
                 if (view !is RecyclerView) return false
                 val viewHolder = view.findViewHolderForAdapterPosition(position)
-                return viewHolder != null && viewHolderClass.isInstance(
-                    viewHolder,
-                )
+                return viewHolder != null &&
+                    viewHolderClass.isInstance(
+                        viewHolder,
+                    )
             }
         }
     }
