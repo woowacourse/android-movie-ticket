@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -90,7 +91,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         seat: Seat,
     ) {
         seatsTable[index].apply {
-            text = getString(R.string.select_seat_number).format(seat.row, seat.column)
+            text = getString(R.string.select_seat_number, seat.row, seat.column)
             setTextColor(setUpSeatColorByGrade(seat.grade))
             setOnClickListener {
                 val seatsCount = seatsTable.count { seat -> seat.isSelected }
