@@ -17,11 +17,12 @@ class FakeScreenRepository : ScreenRepository {
 
     override fun findById(id: Int): Result<Screen> = runCatching { screens.find { it.id == id } ?: throw NoSuchElementException() }
 
-    override fun seats(screenId: Int): Seats = Seats(
-        Seat(Position(0, 0), Grade.S),
-        Seat(Position(1, 1), Grade.A),
-        Seat(Position(2, 2), Grade.B),
-    )
+    override fun seats(screenId: Int): Seats =
+        Seats(
+            Seat(Position(0, 0), Grade.S),
+            Seat(Position(1, 1), Grade.A),
+            Seat(Position(2, 2), Grade.B),
+        )
 
     companion object {
         val fakeScreen1 = Screen(1, FakeMovieRepository.fakeMovie1, "1", 1, DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)))

@@ -36,12 +36,12 @@ class ScreenDetailPresenterTest {
         ScreenDetailUI(
             id = 1,
             movieDetailUI =
-            MovieDetailUI(
-                title = "title1",
-                runningTime = 1,
-                description = "description1",
-                image = FakeImage("1"),
-            ),
+                MovieDetailUI(
+                    title = "title1",
+                    runningTime = 1,
+                    description = "description1",
+                    image = FakeImage("1"),
+                ),
             dateRange = DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)),
         )
 

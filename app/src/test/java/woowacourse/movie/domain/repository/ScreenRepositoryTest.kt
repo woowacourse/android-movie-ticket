@@ -49,11 +49,12 @@ class ScreenRepositoryTest {
     @Test
     fun `상영관의 좌석을 모두 가져온다`() {
         val actual = repository.seats(1)
-        val expected = Seats(
-            Seat(Position(0, 0), Grade.S),
-            Seat(Position(1, 1), Grade.A),
-            Seat(Position(2, 2), Grade.B),
-        )
+        val expected =
+            Seats(
+                Seat(Position(0, 0), Grade.S),
+                Seat(Position(1, 1), Grade.A),
+                Seat(Position(2, 2), Grade.B),
+            )
 
         assertThat(actual).isEqualTo(expected)
     }
