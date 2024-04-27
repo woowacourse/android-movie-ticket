@@ -16,9 +16,9 @@ class SeatSelectionPresenter(
     private val datePosition: Int,
     private val timePosition: Int,
 ) : SeatSelectionContract.Presenter {
-    lateinit var screening: Screening
-    lateinit var date: LocalDate
-    lateinit var time: LocalTime
+    private lateinit var screening: Screening
+    private lateinit var date: LocalDate
+    private lateinit var time: LocalTime
 
     override fun fetchData() {
         screening = MockScreeningRepository.find(screeningId) ?: return
@@ -36,7 +36,13 @@ class SeatSelectionPresenter(
             MockTicketRepository.save(
                 screening.movie,
                 schedule = LocalDateTime.of(date, time),
-                seats = seatList.toList(),
+                seats =
+                    seatList.map {
+                        Seat.of(
+                            it[0].toString(),
+                            it[1].toString(),
+                        )
+                    },
                 price = price,
             )
         view.navigateToReservationCompleted(ticketId)

@@ -2,6 +2,7 @@ package woowacourse.movie.data
 
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDateTime
 
 interface TicketRepository {
@@ -12,7 +13,7 @@ interface TicketRepository {
     fun save(
         movie: Movie,
         schedule: LocalDateTime,
-        seats: List<String>,
+        seats: List<Seat>,
         price: Long,
     ): Long
 }

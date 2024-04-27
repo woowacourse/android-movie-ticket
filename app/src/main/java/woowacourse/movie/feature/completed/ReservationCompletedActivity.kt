@@ -37,7 +37,7 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     override fun initializeReservationDetails(ticket: TicketModel) {
         movieTitleTv.text = ticket.title
         reservationDateTv.text = ticket.formatDateTime()
-        quantityTv.text = ticket.formatQuantity(this)
+        quantityTv.text = ticket.formatSeat(this)
         priceTv.text = ticket.formatPrice(this)
     }
 

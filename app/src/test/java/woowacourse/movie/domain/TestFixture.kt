@@ -3,6 +3,7 @@ package woowacourse.movie.domain
 import woowacourse.movie.R
 import woowacourse.movie.domain.screening.BasicScreeningScheduleSystem
 import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -15,8 +16,6 @@ object TestFixture {
             "설명",
             120,
         )
-
-    val MOCK_MOVIES = mutableListOf(MOCK_MOVIE)
 
     val WEEKEND_TIMES =
         listOf(
@@ -51,6 +50,18 @@ object TestFixture {
             BasicScreeningScheduleSystem(),
         )
 
+    private val MOCK_SEATS: List<Seat> =
+        listOf(
+            Seat(
+                "A",
+                1,
+            ),
+            Seat(
+                "A",
+                2,
+            ),
+        )
+
     val MOCK_TICKET =
         Ticket(
             0L,
@@ -59,7 +70,7 @@ object TestFixture {
                 LocalDate.of(2024, 4, 27),
                 LocalTime.of(9, 0, 0),
             ),
-            listOf("A1", "A2"),
+            MOCK_SEATS,
             20000,
         )
 }

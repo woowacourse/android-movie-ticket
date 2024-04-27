@@ -3,6 +3,7 @@ package woowacourse.movie.data
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDateTime
 
 object MockTicketRepository : TicketRepository {
@@ -20,7 +21,7 @@ object MockTicketRepository : TicketRepository {
                 0,
                 MOCK_MOVIE,
                 LocalDateTime.now(),
-                listOf("A1"),
+                listOf(Seat("A", 1)),
                 10000,
             ),
         )
@@ -32,7 +33,7 @@ object MockTicketRepository : TicketRepository {
     override fun save(
         movie: Movie,
         schedule: LocalDateTime,
-        seats: List<String>,
+        seats: List<Seat>,
         price: Long,
     ): Long {
         val item =

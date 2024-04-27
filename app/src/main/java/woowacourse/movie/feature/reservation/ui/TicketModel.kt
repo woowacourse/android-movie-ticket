@@ -20,7 +20,7 @@ data class TicketModel(
         return String.format(context.getString(R.string.reservation_price), formattedPrice)
     }
 
-    fun formatQuantity(context: Context) =
+    fun formatSeat(context: Context) =
         String.format(
             context.getString(R.string.reservation_quantity),
             seats.size,
@@ -45,7 +45,7 @@ fun Ticket.toUiModel(): TicketModel {
         title = movie.title,
         date = schedule.format(dateFormatter),
         time = schedule.format(timeFormatter),
-        seats = seats.sorted(),
+        seats = seats.map { it.row + it.col.toString() }.sorted(),
         price = price,
     )
 }
