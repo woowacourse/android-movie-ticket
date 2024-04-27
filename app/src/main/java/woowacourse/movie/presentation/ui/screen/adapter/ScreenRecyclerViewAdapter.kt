@@ -5,20 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Ads
-import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.ScreenViewType
+import woowacourse.movie.domain.model.ScreenView
+import woowacourse.movie.domain.model.ScreenView.Ads
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.presentation.ui.screen.ScreenActionHandler
 
 class ScreenRecyclerViewAdapter(
     private val screenActionHandler: ScreenActionHandler,
-    private var screens: MutableList<ScreenViewType> = mutableListOf(),
+    private var screens: MutableList<ScreenView> = mutableListOf(),
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun getItemViewType(position: Int): Int {
         return when (screens[position]) {
             is Screen -> VIEW_TYPE_SCREEN
             is Ads -> VIEW_TYPE_ADS
-            else -> VIEW_TYPE_ADS
         }
     }
 
@@ -60,7 +59,7 @@ class ScreenRecyclerViewAdapter(
         }
     }
 
-    fun updateScreens(newScreens: List<ScreenViewType>) {
+    fun updateScreens(newScreens: List<ScreenView>) {
         screens.clear()
         screens.addAll(newScreens)
         notifyDataSetChanged()

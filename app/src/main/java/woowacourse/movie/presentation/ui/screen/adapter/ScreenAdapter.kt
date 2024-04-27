@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.presentation.ui.screen.ScreenActionHandler
 
 class ScreenAdapter(

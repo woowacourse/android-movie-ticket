@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.ui.seatselection
 
-import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.presentation.model.UserSeat
 import java.time.LocalDateTime
 

@@ -1,11 +1,11 @@
 package woowacourse.movie.domain.repository
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Ads
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenDate
-import woowacourse.movie.domain.model.ScreenViewType
+import woowacourse.movie.domain.model.ScreenView
+import woowacourse.movie.domain.model.ScreenView.Ads
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.domain.model.SeatBoard
 import java.time.LocalDate
 
@@ -42,7 +42,7 @@ class DummyScreens : ScreenRepository {
             )
         }
 
-    override fun load(): List<ScreenViewType> =
+    override fun load(): List<ScreenView> =
         temp.flatMap { screen ->
             listOf(
                 screen.copy(id = (screen.id * 3) + 1),

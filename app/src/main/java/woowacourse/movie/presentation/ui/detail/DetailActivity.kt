@@ -11,8 +11,8 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenDate
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.model.ReservationInfo

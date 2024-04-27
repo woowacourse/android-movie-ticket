@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.basic.presentation.fakerepository.FakeScreenRepository
 import woowacourse.movie.basic.presentation.ui.screen.fake.FakeScreenView
 import woowacourse.movie.basic.utils.getDummyScreen
-import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.presentation.ui.screen.ScreenPresenter
 
 class ScreenPresenterTest {

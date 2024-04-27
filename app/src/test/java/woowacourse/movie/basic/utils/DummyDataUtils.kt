@@ -3,7 +3,6 @@ package woowacourse.movie.basic.utils
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenDate
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatBoard

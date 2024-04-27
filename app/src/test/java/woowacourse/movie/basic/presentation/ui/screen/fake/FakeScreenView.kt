@@ -1,17 +1,17 @@
 package woowacourse.movie.basic.presentation.ui.screen.fake
 
-import woowacourse.movie.domain.model.ScreenViewType
+import woowacourse.movie.domain.model.ScreenView
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.ui.screen.ScreenContract
 
 class FakeScreenView : ScreenContract.View {
-    var screens: List<ScreenViewType>? = null
+    var screens: List<ScreenView>? = null
     var detailScreenId: Int? = null
     var toastMessage: MessageType? = null
     var snackBarMessage: MessageType? = null
     var throwable: Throwable? = null
 
-    override fun showScreens(screens: List<ScreenViewType>) {
+    override fun showScreens(screens: List<ScreenView>) {
         this.screens = screens
     }
 

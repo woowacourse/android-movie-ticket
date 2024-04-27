@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Ads
+import woowacourse.movie.domain.model.ScreenView.Ads
 
 class AdsViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     private val poster: ImageView = view.findViewById(R.id.iv_ads)

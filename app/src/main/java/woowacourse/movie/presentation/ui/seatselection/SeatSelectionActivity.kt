@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatRank
 import woowacourse.movie.domain.repository.DummyReservation
