@@ -18,8 +18,8 @@ class Movie(
                     Synopsis("defaultSynopsis"),
                 ),
                 ScreeningPeriod(
-                    ScreeningDate(LocalDate.of(2222, 2, 2)) ,
                     ScreeningDate(LocalDate.of(1111, 1, 1)) ,
+                    ScreeningDate(LocalDate.of(2222, 2, 2)) ,
                 ),
             )
     }
