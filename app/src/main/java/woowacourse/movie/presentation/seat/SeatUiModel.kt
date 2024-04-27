@@ -8,7 +8,8 @@ data class SeatUiModel(
     val movieScreenDateTimeId: Long = -1,
     val movieTitle: String? = null,
     val countThreshold: Int = 0,
-    val selectedCount: Int = 0,
-    val totalPrice: Int = 0,
     val selectedSeat: List<MovieSeat> = mutableListOf(),
-) : Serializable
+) : Serializable {
+    val selectedCount: Int = selectedSeat.size
+    val totalPrice: Int = selectedSeat.sumOf { it.tier.price }
+}

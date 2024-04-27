@@ -18,25 +18,26 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSeat
 import woowacourse.movie.presentation.result.MovieResultActivity
 import woowacourse.movie.utils.MovieErrorCode
-import woowacourse.movie.utils.MovieIntentConstants
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SEATS_ID_LIST
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SELECTED_SEAT_INDEXES
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_TOTAL_PRICE
+import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
+import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT
+import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.formatCurrency
 
 class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
     private lateinit var reservationCompleteActivityLauncher: ActivityResultLauncher<Intent>
     private lateinit var movieSeatPresenter: MovieSeatPresenter
+    private lateinit var seatButtons: List<Button>
 
     private val seatTable: TableLayout by lazy { findViewById(R.id.seatTable) }
     private val seatMoviePrice: TextView by lazy { findViewById(R.id.seatMoviePrice) }
     private val seatCompleteBtn: TextView by lazy { findViewById(R.id.seatCompleteBtn) }
     private val seatMovieTitle: TextView by lazy { findViewById(R.id.seatMovieTitle) }
-
-    private lateinit var seatButtons: List<Button>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,18 +53,18 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
 
         movieSeatPresenter = MovieSeatPresenter(this)
 
-        movieSeatPresenter.display(
+        movieSeatPresenter.loadSeats(
             intent.getLongExtra(
-                MovieIntentConstants.EXTRA_MOVIE_ID,
-                MovieIntentConstants.NOT_FOUND_MOVIE_ID,
+                EXTRA_MOVIE_ID,
+                NOT_FOUND_MOVIE_ID,
             ),
             intent.getLongExtra(
-                MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID,
-                MovieIntentConstants.NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID,
+                EXTRA_MOVIE_SCREEN_DATE_TIME_ID,
+                NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID,
             ),
             intent.getIntExtra(
-                MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT,
-                MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT,
+                EXTRA_MOVIE_RESERVATION_COUNT,
+                NOT_FOUND_MOVIE_RESERVATION_COUNT,
             ),
         )
     }
@@ -79,7 +80,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
 
         seatButtons.forEachIndexed { index, button ->
             button.setOnClickListener {
-                movieSeatPresenter.clickSeat(index, seats[index], it.isSelected)
+                movieSeatPresenter.selectSeat(index, seats[index], it.isSelected)
             }
         }
     }
@@ -126,9 +127,9 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState?.let {
+        savedInstanceState.let {
             (it.getSerializable(EXTRA_MOVIE_SELECTED_SEAT_INDEXES) as SeatUiModel).selectedSeat.forEachIndexed { index, movieSeat ->
-                movieSeatPresenter.clickSeat(movieSeat.number, movieSeat, false)
+                movieSeatPresenter.selectSeat(movieSeat.number, movieSeat, false)
             }
         }
     }

@@ -5,16 +5,18 @@ import woowacourse.movie.domain.MovieRepository
 import woowacourse.movie.domain.MovieSeat
 import woowacourse.movie.utils.MovieErrorCode
 
-class MovieSeatPresenter(private val seatContractView: MovieSeatContract.View) : MovieSeatContract.Presenter {
-    private var movieRepository: MovieRepository = MovieRepositoryImpl()
+class MovieSeatPresenter(
+    private val seatContractView: MovieSeatContract.View,
+    private var movieRepository: MovieRepository = MovieRepositoryImpl(),
+) : MovieSeatContract.Presenter {
     private var _uiModel: SeatUiModel = SeatUiModel()
     val uiModel: SeatUiModel
         get() = _uiModel
 
-    override fun display(
+    override fun loadSeats(
         movieId: Long,
         movieScreenDateTimeId: Long,
-        count: Int,
+        countThreshold: Int,
     ) {
         val movie = movieRepository.findMovieById(movieId)
         val seats =
@@ -27,36 +29,25 @@ class MovieSeatPresenter(private val seatContractView: MovieSeatContract.View) :
                     movieId = movieId,
                     movieTitle = it.title,
                     movieScreenDateTimeId = movieScreenDateTimeId,
-                    countThreshold = count,
+                    countThreshold = countThreshold,
                 )
             seatContractView.onInitView(it, seats)
         } ?: seatContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
     }
 
-    override fun clickSeat(
+    override fun selectSeat(
         buttonIndex: Int,
         movieSeat: MovieSeat,
-        isSelected: Boolean,
+        selectedState: Boolean,
     ) {
-        when (isSelected) {
+        when (selectedState) {
             true -> {
-                _uiModel =
-                    _uiModel.copy(
-                        totalPrice = _uiModel.totalPrice - movieSeat.tier.price,
-                        selectedSeat = _uiModel.selectedSeat - movieSeat,
-                        selectedCount = _uiModel.selectedCount - 1,
-                    )
+                _uiModel = _uiModel.copy(selectedSeat = _uiModel.selectedSeat - movieSeat)
                 seatContractView.onSeatUpdate(buttonIndex, isSelected = false)
             }
             false -> {
                 if (_uiModel.selectedCount < _uiModel.countThreshold) {
-                    _uiModel =
-                        _uiModel.copy(
-                            totalPrice = _uiModel.totalPrice + movieSeat.tier.price,
-                            selectedSeat = _uiModel.selectedSeat + movieSeat,
-                            selectedCount = _uiModel.selectedCount + 1,
-                        )
-
+                    _uiModel = _uiModel.copy(selectedSeat = _uiModel.selectedSeat + movieSeat)
                     seatContractView.onSeatUpdate(buttonIndex, isSelected = true)
                 }
             }

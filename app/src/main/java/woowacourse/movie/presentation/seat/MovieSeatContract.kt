@@ -30,16 +30,16 @@ interface MovieSeatContract {
     }
 
     interface Presenter {
-        fun display(
+        fun loadSeats(
             movieId: Long,
-            movieSeatDateTimeId: Long,
-            count: Int,
+            movieScreenDateTimeId: Long,
+            countThreshold: Int,
         )
 
-        fun clickSeat(
+        fun selectSeat(
             buttonIndex: Int,
             movieSeat: MovieSeat,
-            isSelected: Boolean,
+            selectedState: Boolean,
         )
 
         fun reservation()

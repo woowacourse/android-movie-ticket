@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.presentation.result
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -12,7 +12,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.presentation.result.MovieResultActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieResultActivityTest {
