@@ -5,5 +5,7 @@ interface ScreeningMovieView {
 
     fun navigateToReservationView(movieId: Long)
 
+    fun navigateToAdView()
+
     fun showErrorView()
 }

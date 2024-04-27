@@ -17,4 +17,8 @@ class ScreeningMoviePresenter(
             view.showErrorView()
         }
     }
+
+    fun startAd() {
+        view.navigateToAdView()
+    }
 }

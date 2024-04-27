@@ -52,7 +52,7 @@ class ScreeningMovieActivityTest {
         // when
         val dataInteraction =
             onData(`is`(withItemContent(containsString(title))))
-                .inAdapterView(withId(R.id.list_screening_movie))
+                .inAdapterView(withId(R.id.rv_screening_movie))
                 .atPosition(0)
         // then
         dataInteraction.onChildView(withId(R.id.tv_movie_running_time))

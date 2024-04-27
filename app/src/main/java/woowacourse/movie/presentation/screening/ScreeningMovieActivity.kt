@@ -1,19 +1,22 @@
 package woowacourse.movie.presentation.screening
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.presentation.reservation.booking.MovieReservationActivity
+import woowacourse.movie.presentation.screening.adapter.MovieAdapter
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     private lateinit var presenter: ScreeningMoviePresenter
-    private lateinit var moviesView: ListView
-    private lateinit var adapter: ScreeningMovieAdapter
+    private lateinit var movieRecyclerView: RecyclerView
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     }
 
     override fun updateMovies(movies: List<ScreeningMovieUiModel>) {
-        adapter.updateMovies(movies)
+        adapter.submitList(movies)
     }
 
     override fun navigateToReservationView(movieId: Long) {
@@ -36,17 +39,28 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
         startActivity(intent)
     }
 
+    override fun navigateToAdView() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(AD_URL))
+        startActivity(intent)
+    }
+
     override fun showErrorView() {
         val errorLayout = findViewById<LinearLayout>(R.id.cl_screening_movie_error)
-        val successLayout = findViewById<ListView>(R.id.list_screening_movie)
+        val successLayout = findViewById<RecyclerView>(R.id.rv_screening_movie)
         errorLayout.visibility = View.VISIBLE
         successLayout.visibility = View.GONE
     }
 
     private fun initViews() {
-        moviesView = findViewById<ListView>(R.id.list_screening_movie)
+        movieRecyclerView = findViewById<RecyclerView>(R.id.rv_screening_movie)
         adapter =
-            ScreeningMovieAdapter { id -> presenter.startReservation(id) }
-                .also { moviesView.adapter = it }
+            MovieAdapter(
+                onClickReservationButton = { presenter.startReservation(it) },
+                onClickAd = { presenter.startAd() }
+            ).also { movieRecyclerView.adapter = it }
+    }
+
+    companion object {
+        private const val AD_URL = "https://www.woowacourse.io/"
     }
 }
