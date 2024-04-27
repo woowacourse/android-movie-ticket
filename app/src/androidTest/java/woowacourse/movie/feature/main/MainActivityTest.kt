@@ -20,19 +20,25 @@ class MainActivityTest {
 
     @Test
     fun `영화리스트가_화면에_표시된다`() {
-        onView(withId(R.id.list_view))
+        onView(withId(R.id.rv_screening))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `포스터가_화면에_표시된다`() {
-        onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0)
+        onData(anything()).inAdapterView(withId(R.id.rv_screening)).atPosition(0)
             .onChildView(withId(R.id.list_img_poster))
     }
 
     @Test
     fun `영화_제목이_화면에_표시된다`() {
-        onData(anything()).inAdapterView(withId(R.id.list_view)).atPosition(0)
+        onData(anything()).inAdapterView(withId(R.id.rv_screening)).atPosition(0)
             .onChildView(withId(R.id.list_movie_title))
+    }
+
+    @Test
+    fun `광고가_화면에_표시된다`() {
+        onData(anything()).inAdapterView(withId(R.id.rv_screening)).atPosition(0)
+            .onChildView(withId(R.id.iv_advertisement))
     }
 }
