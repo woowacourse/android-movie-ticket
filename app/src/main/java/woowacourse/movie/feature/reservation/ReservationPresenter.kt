@@ -21,8 +21,4 @@ class ReservationPresenter(
         view.initializeMovieDetails(screening.toUiModel())
         view.setupScreeningSchedulesControls(schedule.toUiModel())
     }
-
-    override fun completeSelectSchedule() {
-        view.navigateToCompleteScreen()
-    }
 }

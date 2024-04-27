@@ -20,7 +20,5 @@ interface ReservationContract {
 
     interface Presenter {
         fun fetchMovieDetails(movieId: Long)
-
-        fun completeSelectSchedule()
     }
 }

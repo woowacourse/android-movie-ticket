@@ -55,7 +55,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     }
 
     private val completeBtn by lazy {
-        findViewById<Button>(R.id.btn_reservation_completed)
+        findViewById<Button>(R.id.btn_select_seat)
     }
 
     private val dateSpinner by lazy {
@@ -166,7 +166,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun setupReservationCompleteControls() {
         completeBtn.setOnClickListener {
-            presenter.completeSelectSchedule()
+            if (0 < quantity.value) navigateToCompleteScreen()
         }
     }
 

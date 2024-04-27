@@ -36,16 +36,4 @@ class ReservationPresenterTest {
         verify { view.initializeMovieDetails(any()) }
         verify { view.setupScreeningSchedulesControls(any()) }
     }
-
-    @Test
-    fun `예약이 끝나면 예약 완료 페이지로 이동한다`() {
-        // given
-        every { view.navigateToCompleteScreen() } just runs
-
-        // when
-        presenter.completeSelectSchedule()
-
-        // then
-        verify { view.navigateToCompleteScreen() }
-    }
 }
