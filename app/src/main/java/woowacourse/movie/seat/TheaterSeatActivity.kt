@@ -3,20 +3,25 @@ package woowacourse.movie.seat
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.Seat
+import woowacourse.movie.model.theater.Theater
 import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 
 @SuppressLint("DiscouragedApi")
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     private lateinit var presenter: TheaterSeatPresenter
 
@@ -26,6 +31,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initializePresenter()
         setupSeats()
+
         findViewById<Button>(R.id.confirm_button).setOnClickListener {
             showConfirmationDialog()
         }
@@ -62,7 +68,18 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
         builder.setTitle("예매 확인")
         builder.setMessage("정말 예매하시겠습니까?")
         builder.setPositiveButton("예매 완료") { _, _ ->
-            navigateToNextPage()
+            val theater = intent.getSerializableExtra("Theater", Theater::class.java)
+            val ticketPrice=findViewById<TextView>(R.id.total_price).text
+            if (theater != null) {
+                val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
+                    putExtra("ticketPrice", ticketPrice.toString())
+                    putExtra("seatNumber", presenter.getSelectedSeatNumbers())
+                    putExtra("Theater", theater)
+                }
+                navigateToNextPage(intent)
+            } else {
+                Log.e("TheaterSeatActivity", "Theater data is not available.")
+            }
         }
         builder.setNegativeButton("취소") { dialog, _ ->
             dialog.dismiss()
@@ -73,6 +90,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
+
 
     override fun setSeatBackground(seatId: String, color: String) {
         val buttonId = resources.getIdentifier(seatId, "id", packageName)
@@ -85,10 +103,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
         findViewById<TextView>(R.id.total_price).text = "Total Price: $price"
     }
 
-    override fun navigateToNextPage() {
-        val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
-
-        }
+    override fun navigateToNextPage(intent: Intent) {
         startActivity(intent)
     }
 

@@ -24,10 +24,10 @@ import java.time.format.DateTimeFormatter
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private var ticketNum = 1
     private lateinit var presenter: MovieDetailContract.Presenter
-    lateinit var dateSpinner: Spinner
-    lateinit var timeSpinner: Spinner
-    lateinit var dateAdapter: ArrayAdapter<String>
-    lateinit var timeAdapter: ArrayAdapter<String>
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
+    private lateinit var dateAdapter: ArrayAdapter<String>
+    private lateinit var timeAdapter: ArrayAdapter<String>
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +75,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         }
         while (time <= 24) {
             times.add("${time}:00")
-            time+=2
+            time += 2
         }
         timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, times)
         timeSpinner.adapter = timeAdapter

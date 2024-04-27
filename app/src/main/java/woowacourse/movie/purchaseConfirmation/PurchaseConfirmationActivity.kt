@@ -1,6 +1,7 @@
 package woowacourse.movie.purchaseConfirmation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +11,7 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.purchase_confirmation)
-
+        val ticketPrice = intent.getStringExtra("ticketPrice")
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val presenter = PurchaseConfirmationActivityPresenter(intent)
@@ -19,7 +20,7 @@ class PurchaseConfirmationActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.purchase_movie_running_time).text =
             movie?.runningTime.toString()
         findViewById<TextView>(R.id.ticket_charge).text =
-            getString(R.string.price_format, presenter.calculate())
+            getString(R.string.price_format, ticketPrice)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
