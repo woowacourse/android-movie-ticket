@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".feature.seat.SeatSelectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.completed.ReservationCompletedActivity"
             android:exported="false" />
         <activity
