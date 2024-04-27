@@ -64,46 +64,31 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `선택해야_하는_좌석의_개수가_4일때_4개의_좌석을_선택하면_좌석_선택_버튼이_활성화_된다`() {
-        activityRule.scenario.onActivity {
-            val view =
-                it.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { it.children }.filterIsInstance<TextView>().toList()
+        // given
+        performSeatsSelection(selected = listOf(0, 1, 2, 3))
 
-            view[0].performClick()
-            view[1].performClick()
-            view[2].performClick()
-            view[3].performClick()
-        }
+        // when & then
         onView(withId(R.id.btn_done)).check(matches(isEnabled()))
     }
 
     @Test
     fun `선택해야_하는_좌석의_개수가_4일때_3개의_좌석을_선택하면_좌석_선택_버튼이_활성화_되지_않는다`() {
-        activityRule.scenario.onActivity { context ->
-            val view =
-                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { row -> row.children }.filterIsInstance<TextView>().toList()
+        // given
+        performSeatsSelection(selected = listOf(0, 1, 2))
 
-            view[0].performClick()
-            view[1].performClick()
-            view[2].performClick()
-        }
+        // when & then
         onView(withId(R.id.btn_done)).check(matches(not(isEnabled())))
     }
 
     @Test
     fun `좌석_선택_버튼이_활성화_되었을_때_버튼을_누르면_다이얼로그가_나타난다`() {
-        activityRule.scenario.onActivity { context ->
-            val view =
-                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { row -> row.children }.filterIsInstance<TextView>().toList()
+        // given
+        performSeatsSelection(selected = listOf(0, 1, 2, 3))
 
-            view[0].performClick()
-            view[1].performClick()
-            view[2].performClick()
-            view[3].performClick()
-        }
+        // when
         onView(withId(R.id.btn_done)).perform(click())
+
+        // then
         checkReservationDialogExists()
     }
 
@@ -144,8 +129,16 @@ class SeatSelectionActivityTest {
             val view =
                 context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
                     .flatMap { row -> row.children }.filterIsInstance<TextView>().first()
-
             action(context, view)
+        }
+    }
+
+    private fun performSeatsSelection(selected: List<Int>) {
+        activityRule.scenario.onActivity { context ->
+            val view =
+                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
+                    .flatMap { row -> row.children }.filterIsInstance<TextView>().toList()
+            selected.forEach { position -> view[position].performClick() }
         }
     }
 }
