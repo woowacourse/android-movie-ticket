@@ -5,7 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.assertAll
-import woowacourse.movie.adapter.ScreeningAdapter
+import woowacourse.movie.adapter.ScreeningRecyclerViewAdapter
 import woowacourse.movie.model.screening.DatePeriod
 import woowacourse.movie.model.screening.Screening
 import java.time.LocalDate
@@ -31,14 +31,14 @@ class MovieListActivityTest {
                 ),
             )
         val adapter =
-            ScreeningAdapter(
-                screenings = screenings,
-                onTicketingButtonClick = {},
+            ScreeningRecyclerViewAdapter(
+                screeningItems = screenings,
+                ticketingButtonClickListener = {},
             )
 
-        val screeningItem = adapter.getItem(0) as Screening
+        val screeningItem = screenings.first()
         assertAll(
-            { assertEquals(1, adapter.count) },
+            { assertEquals(1, adapter.itemCount) },
             { assertEquals("해리 포터와 마법사의 돌", screeningItem.movie?.title) },
             { assertEquals(LocalDate.of(2024, 3, 1), screeningItem.datePeriod.startDate) },
             { assertEquals(LocalDate.of(2024, 3, 31), screeningItem.datePeriod.endDate) },

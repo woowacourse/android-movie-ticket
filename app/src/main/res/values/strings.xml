@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="text_running_time">%d분</string>
     <string name="title_date">상영일: %s ~ %s</string>
     <string name="title_running_time">러닝타임: %d분</string>
     <string name="text_ticketing_button">지금 예매</string>
@@ -19,4 +20,6 @@
     <string name="text_reserved_datetime">%s %s</string>
     <string name="text_reserved_count_seats">일반 %d명 | %s</string>
     <string name="error_reservation_result">예약 결과를 불러올 수 없습니다.</string>
+    <string name="format_datetime">yyyy.M.d</string>
+    <string name="text_screening_period">%s ~ %s</string>
 </resources>

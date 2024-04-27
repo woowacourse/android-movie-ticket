@@ -249,8 +249,16 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         seats: List<BookingSeat>,
         totalPrice: Int,
     ) {
-        val shownSeats = seats.map { getString(R.string.text_seat_position, convertRowNumberIntoChar(it.row), it.column + 1) }
-        val shownDate = presenter.dateTime.date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+        val shownSeats =
+            seats.map {
+                getString(
+                    R.string.text_seat_position,
+                    convertRowNumberIntoChar(it.row),
+                    it.column + 1,
+                )
+            }
+        val shownDate =
+            presenter.dateTime.date.format(DateTimeFormatter.ofPattern(getString(R.string.format_datetime)))
         Intent(this, TicketingResultActivity::class.java).also {
             it.putExtra(EXTRA_MOVIE_ID, movieId)
                 .putExtra(EXTRA_NUM_TICKET, count)
