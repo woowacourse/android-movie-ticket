@@ -104,7 +104,7 @@ class SeatSelectionActivityTest {
             view[3].performClick()
         }
         onView(withId(R.id.btn_done)).perform(click())
-        checkDialogExists()
+        checkReservationDialogExists()
     }
 
     @Test
@@ -122,19 +122,19 @@ class SeatSelectionActivityTest {
 
         onView(withId(R.id.btn_done)).perform(click())
         onView(withId(android.R.id.button2)).perform(click())
-        checkDialogDoesNotExist()
+        checkReservationDialogDoesNotExist()
     }
 
-    private fun checkDialogExists() {
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하겠습니까?")).check(matches(isDisplayed()))
+    private fun checkReservationDialogExists() {
+        onView(withText(R.string.dialog_reservation_title)).check(matches(isDisplayed()))
+        onView(withText(R.string.dialog_reservation_message)).check(matches(isDisplayed()))
         onView(withId(android.R.id.button1)).check(matches(isDisplayed()))
         onView(withId(android.R.id.button2)).check(matches(isDisplayed()))
     }
 
-    private fun checkDialogDoesNotExist() {
-        onView(withText("예매 확인")).check(doesNotExist())
-        onView(withText("정말 예매하겠습니까?")).check(doesNotExist())
+    private fun checkReservationDialogDoesNotExist() {
+        onView(withText(R.string.dialog_reservation_title)).check(doesNotExist())
+        onView(withText(R.string.dialog_reservation_message)).check(doesNotExist())
         onView(withId(android.R.id.button1)).check(doesNotExist())
         onView(withId(android.R.id.button2)).check(doesNotExist())
     }
