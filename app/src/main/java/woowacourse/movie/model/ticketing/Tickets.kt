@@ -2,7 +2,7 @@ package woowacourse.movie.model.ticketing
 
 import woowacourse.movie.model.theater.SeatClass
 
-class Tickets(val value: List<Ticket>) {
+class Tickets(private val value: List<Ticket>) {
     init {
         val bookedSeats = value.map(Ticket::bookingSeat)
         require(bookedSeats.size == bookedSeats.distinct().size) { ERROR_DUPLICATED_SEAT }
