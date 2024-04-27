@@ -40,6 +40,7 @@ class MovieReservationActivity :
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
     private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
     private val seatSelectButton by lazy { findViewById<Button>(R.id.seat_select_button) }
+    private lateinit var screeningTimeSpinnerAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +48,37 @@ class MovieReservationActivity :
 
         if (validateError()) return
         initializeView(movieId())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        restoreReservationCount(savedInstanceState)
+        restoreScreeningDateSpinner(savedInstanceState)
+        restoreScreeningTimeSpinner(savedInstanceState)
+    }
+
+    private fun restoreReservationCount(savedInstanceState: Bundle) {
+        val reservationCountValue =
+            savedInstanceState.getInt(MOVIE_RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+        presenter.updateReservationCount(reservationCountValue)
+    }
+
+    private fun restoreScreeningDateSpinner(savedInstanceState: Bundle) {
+        val screeningDateSpinnerPosition =
+            savedInstanceState.getInt(
+                SCREENING_DATE_SPINNER_POSITION_KEY,
+                SCREENING_DATE_SPINNER_POSITION_DEFAULT_VALUE,
+            )
+        screeningDateSpinner.setSelection(screeningDateSpinnerPosition)
+    }
+
+    private fun restoreScreeningTimeSpinner(savedInstanceState: Bundle) {
+        val screeningTimeSpinnerPosition =
+            savedInstanceState.getInt(
+                SCREENING_TIME_SPINNER_POSITION_KEY,
+                SCREENING_TIME_SPINNER_POSITION_DEFAULT_VALUE,
+            )
+        screeningTimeSpinner.setSelection(screeningTimeSpinnerPosition)
     }
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieRepositoryImpl)
@@ -59,9 +91,7 @@ class MovieReservationActivity :
         return false
     }
 
-    private fun movieId(): Long {
-        return intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
-    }
+    private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
 
     private fun isError(movieId: Long): Boolean {
         return movieId == MOVIE_ID_DEFAULT_VALUE
@@ -115,15 +145,16 @@ class MovieReservationActivity :
         val screeningDateMessages = screeningDates.toReservationScreeningDateUiModels().map { it.screeningDateMessage }
         screeningDateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDateMessages)
         screeningDateSpinner.onItemSelectedListener =
-            onSpinnerItemSelectedListener { _, _, position, _ ->
+            spinnerItemSelectedListener { _, _, position, _ ->
                 presenter.selectScreeningDate(screeningDates[position])
             }
 
         val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels().map { it.screeningTimeMessage }
-        screeningTimeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)
+        screeningTimeSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)
+        screeningTimeSpinner.adapter = screeningTimeSpinnerAdapter
     }
 
-    private fun onSpinnerItemSelectedListener(block: (AdapterView<*>?, View?, Int, Long) -> Unit): AdapterView.OnItemSelectedListener {
+    private fun spinnerItemSelectedListener(block: (AdapterView<*>?, View?, Int, Long) -> Unit): AdapterView.OnItemSelectedListener {
         return object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -134,7 +165,7 @@ class MovieReservationActivity :
                 block(parent, view, position, id)
             }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) { }
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
     }
 
@@ -150,8 +181,8 @@ class MovieReservationActivity :
     }
 
     override fun updateScreeningTimeSpinner(screeningTimes: List<ScreeningTime>) {
-        val screeningTimeMessages = screeningTimes.toReservationScreeningTimeUiModels().map { it.screeningTimeMessage }
-        screeningTimeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimeMessages)
+        screeningTimeSpinnerAdapter.clear()
+        screeningTimeSpinnerAdapter.addAll(screeningTimes.toReservationScreeningTimeUiModels().map { it.screeningTimeMessage })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -161,10 +192,29 @@ class MovieReservationActivity :
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(MOVIE_RESERVATION_COUNT_KEY, reservationCountText.text.toString().toInt())
+        outState.putInt(
+            SCREENING_DATE_SPINNER_POSITION_KEY,
+            screeningDateSpinner.selectedItemPosition
+        )
+        outState.putInt(
+            SCREENING_TIME_SPINNER_POSITION_KEY,
+            screeningTimeSpinner.selectedItemPosition
+        )
+        super.onSaveInstanceState(outState)
+    }
+
     companion object {
         private val TAG = MovieReservationActivity::class.simpleName
         private const val MOVIE_ID_KEY = "movie_id"
         private const val MOVIE_ID_DEFAULT_VALUE = -1L
+        private const val MOVIE_RESERVATION_COUNT_KEY = "reservation_count_key"
+        private const val RESERVATION_COUNT_DEFAULT_VALUE = 1
+        private const val SCREENING_DATE_SPINNER_POSITION_KEY = "date_spinner_position_key"
+        private const val SCREENING_DATE_SPINNER_POSITION_DEFAULT_VALUE = 0
+        private const val SCREENING_TIME_SPINNER_POSITION_KEY = "time_spinner_position_key"
+        private const val SCREENING_TIME_SPINNER_POSITION_DEFAULT_VALUE = 0
 
         fun startActivity(
             context: Context,
