@@ -4,6 +4,9 @@ import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.WeekdayTimeTable
+import woowacourse.movie.model.schedule.WeekendTimeTable
 import woowacourse.movie.repository.PseudoReservationRepository
 import woowacourse.movie.repository.PseudoMovieRepository
 import woowacourse.movie.repository.ReservationRepository
@@ -25,7 +28,7 @@ class MovieDetailPresenter(
 
     override fun loadScreeningPeriod(period: ScreeningPeriod) {
         this.period = period
-        view.displayScreeningDates(period)
+        view.displayScreeningDates(period.dates)
     }
 
     override fun plusTicketNum() {
@@ -51,8 +54,9 @@ class MovieDetailPresenter(
         view.navigateToPurchaseConfirmation()
     }
 
-    override fun selectScreeningDate(dateIndex: Int) {
-        val date = period.dates[dateIndex]
-        view.displayScreeningTimes(date)
+    override fun selectScreeningDate(date: ScreeningDate) {
+        val timeTable = if(date.isWeekend()) WeekendTimeTable(date) else WeekdayTimeTable(date)
+        val times = timeTable.getScreeningTimes()
+        view.displayScreeningTimes(times)
     }
 }

@@ -3,15 +3,16 @@ package woowacourse.movie.contract
 import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.schedule.ScreeningTime
 
 
 interface MovieDetailContract {
     interface View {
         fun displayMovie(movieBrief: Movie)
 
-        fun displayScreeningDates(period: ScreeningPeriod)
+        fun displayScreeningDates(dates: List<ScreeningDate>)
 
-        fun displayScreeningTimes(date: ScreeningDate)
+        fun displayScreeningTimes(times: List<ScreeningTime>)
 
         fun displayTicketNum(ticketNum: Int)
 
@@ -24,7 +25,7 @@ interface MovieDetailContract {
 
         fun loadScreeningPeriod(period: ScreeningPeriod)
 
-        fun selectScreeningDate(dateIndex: Int)
+        fun selectScreeningDate(date: ScreeningDate)
 
         fun plusTicketNum()
 

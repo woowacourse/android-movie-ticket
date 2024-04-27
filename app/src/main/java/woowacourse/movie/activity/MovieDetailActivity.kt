@@ -14,6 +14,8 @@ import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.schedule.ScreeningTime
+import woowacourse.movie.model.schedule.ScreeningTimeTable
 import woowacourse.movie.presenter.MovieDetailPresenter
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
@@ -69,11 +71,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             movieDetail.synopsis.format()
     }
 
-    override fun displayScreeningDates(period: ScreeningPeriod) {
+    override fun displayScreeningDates(dates: List<ScreeningDate>) {
         TODO("Not yet implemented")
     }
 
-    override fun displayScreeningTimes(date: ScreeningDate) {
+    override fun displayScreeningTimes(times: List<ScreeningTime>) {
         TODO("Not yet implemented")
     }
 
