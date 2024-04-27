@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import woowacourse.movie.model.schedule.RegularTimeTable
+import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningTime
 import woowacourse.movie.model.schedule.WeekdayTimeTable
 import woowacourse.movie.model.schedule.WeekendTimeTable
@@ -39,9 +40,9 @@ class ScreeningTimeTest {
     @Test
     fun `주말엔 9시부터 24시까지 2시간 간격으로 영화를 상영한다`() {
         val date = LocalDate.of(2024, 4, 27) // saturday
+        val screeningDate = ScreeningDate(date)
 
-
-        val weekendTimeTable = WeekendTimeTable(date)
+        val weekendTimeTable = WeekendTimeTable(screeningDate)
 
         val start = 9
         val end = 24
@@ -56,9 +57,9 @@ class ScreeningTimeTest {
     @Test
     fun `평일엔 10시부터 24시까지 2시간 간격으로 영화를 상영한다`() {
         val date = LocalDate.of(2024, 4, 26) // friday
+        val screeningDate = ScreeningDate(date)
 
-
-        val weekdayTimeTable = WeekdayTimeTable(date)
+        val weekdayTimeTable = WeekdayTimeTable(screeningDate)
 
         val start = 10
         val end = 24
