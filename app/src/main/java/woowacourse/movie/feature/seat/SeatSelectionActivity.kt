@@ -1,12 +1,14 @@
 package woowacourse.movie.feature.seat
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
@@ -18,10 +20,7 @@ import woowacourse.movie.feature.reservation.ui.TicketModel
 import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
-    private val movieId by lazy {
-        val a = intent.getLongExtra(SCREENING_ID, -1L)
-        a
-    }
+    private val movieId by lazy { intent.getLongExtra(SCREENING_ID, -1L) }
     private val datePosition by lazy { intent.getIntExtra(DATE_POSITION, -1) }
     private val timePosition by lazy { intent.getIntExtra(TIME_POSITION, -1) }
     private val quantity by lazy { intent.getIntExtra(QUANTITY, -1) }
@@ -88,12 +87,30 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
         seatConfirmText.setOnClickListener {
             if (seatList.size == quantity) {
-                presenter.saveReservation(seatList, price)
+                showReservationConfirmDialog()
             } else {
                 Toast.makeText(this, "${quantity}개의 좌석을 선택해 주세요.", Toast.LENGTH_SHORT)
                     .show()
             }
         }
+    }
+
+    private fun showReservationConfirmDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("예매 확인")
+            .setMessage("정말 예매하시겠습니까?")
+            .setNegativeButton(
+                "취소",
+                DialogInterface.OnClickListener { _, _ ->
+                },
+            )
+            .setPositiveButton(
+                "예매 완료",
+                DialogInterface.OnClickListener { _, _ ->
+                    presenter.saveReservation(seatList, price)
+                },
+            )
+        builder.show()
     }
 
     override fun navigateToReservationCompleted(reservationId: Long) {
