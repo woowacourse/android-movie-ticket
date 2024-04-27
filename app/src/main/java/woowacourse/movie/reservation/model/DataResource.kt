@@ -14,7 +14,7 @@ object DataResource {
             LocalTime.of(9 + index * 2, 0, 0)
         }
 
-    val screeningTimesWeekDays =
+    val screeningTimesWeekdays =
         List(8) { index ->
             if (index != 7) {
                 LocalTime.of(10 + index * 2, 0, 0)

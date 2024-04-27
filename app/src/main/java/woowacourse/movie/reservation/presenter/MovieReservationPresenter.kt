@@ -46,7 +46,7 @@ class MovieReservationPresenter(
     }
 
     override fun setSpinnerInfo() {
-        view.showSpinnerInfo(DataResource.screeningDates, DataResource.screeningTimesWeekDays)
+        view.showSpinnerInfo(DataResource.screeningDates, DataResource.screeningTimesWeekdays)
     }
 
     override fun setSpinnerDateItemInfo() {
@@ -54,6 +54,6 @@ class MovieReservationPresenter(
     }
 
     override fun setSpinnerTimeItemInfo() {
-        view.setOnSpinnerTimeItemSelectedListener(DataResource.screeningTimesWeekDays)
+        view.setOnSpinnerTimeItemSelectedListener(DataResource.screeningTimesWeekdays)
     }
 }
