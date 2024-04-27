@@ -12,7 +12,7 @@ object MovieData {
             Movie(
                 movieId = 0,
                 title = "해리 포터와 마법사의 돌",
-                thumbnailResourceId = R.drawable.movie1,
+                thumbnailResourceId = R.drawable.thumbnail_movie1,
                 runningTime = 152,
                 introduction =
                     """
@@ -22,7 +22,7 @@ object MovieData {
             Movie(
                 movieId = 1,
                 title = "해리 포터와 비밀의 방",
-                thumbnailResourceId = R.drawable.movie1,
+                thumbnailResourceId = R.drawable.thumbnail_movie2,
                 runningTime = 162,
                 introduction =
                     """
@@ -32,7 +32,7 @@ object MovieData {
             Movie(
                 movieId = 2,
                 title = "해리 포터와 아즈카반의 죄수",
-                thumbnailResourceId = R.drawable.movie1,
+                thumbnailResourceId = R.drawable.thumbnail_movie3,
                 runningTime = 141,
                 introduction =
                     """
@@ -42,7 +42,7 @@ object MovieData {
             Movie(
                 movieId = 3,
                 title = "해리 포터와 불의 잔",
-                thumbnailResourceId = R.drawable.movie1,
+                thumbnailResourceId = R.drawable.thumbnail_movie4,
                 runningTime = 157,
                 introduction =
                     """
@@ -74,8 +74,8 @@ object MovieData {
                     ),
             ),
             Screening.of(
-                screeningId = 0,
-                movieId = 0,
+                screeningId = 2,
+                movieId = 2,
                 datePeriod =
                     DatePeriod(
                         startDate = LocalDate.of(2024, 5, 1),
@@ -84,8 +84,8 @@ object MovieData {
                     ),
             ),
             Screening.of(
-                screeningId = 0,
-                movieId = 0,
+                screeningId = 3,
+                movieId = 3,
                 datePeriod =
                     DatePeriod(
                         startDate = LocalDate.of(2024, 6, 1),

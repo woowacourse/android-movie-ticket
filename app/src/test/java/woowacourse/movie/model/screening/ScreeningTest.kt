@@ -25,7 +25,7 @@ class ScreeningTest {
             Movie(
                 movieId = 0,
                 title = "해리 포터와 마법사의 돌",
-                thumbnailResourceId = R.drawable.movie1,
+                thumbnailResourceId = R.drawable.thumbnail_movie1,
                 runningTime = 152,
                 introduction =
                     """
