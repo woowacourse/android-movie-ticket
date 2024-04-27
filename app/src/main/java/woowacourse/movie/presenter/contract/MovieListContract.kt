@@ -14,5 +14,7 @@ interface MovieListContract {
 
     interface Presenter {
         fun startReservation(screeningId: Long)
+
+        fun loadScreeningData()
     }
 }

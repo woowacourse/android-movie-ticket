@@ -22,6 +22,7 @@ class MovieListActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
         presenter = MovieListPresenter(this)
+        presenter.loadScreeningData()
     }
 
     override fun initializeScreeningList(

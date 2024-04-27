@@ -5,7 +5,7 @@ import woowacourse.movie.model.MovieData.SCREENING_DATA
 import woowacourse.movie.presenter.contract.MovieListContract
 
 class MovieListPresenter(private val movieListContractView: MovieListContract.View) : MovieListContract.Presenter {
-    init {
+    override fun loadScreeningData() {
         movieListContractView.initializeScreeningList(SCREENING_DATA, ADVERTISEMENT_DRAWABLE_ID)
     }
 
