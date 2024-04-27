@@ -8,8 +8,8 @@ import java.time.LocalTime
 class ScreenTimePolicyTest {
     @Test
     fun `screening time of weekend is from 10H to 22H step 2H`() {
-        val screenTimePolicy = WeeklyScreenTimePolicy(LocalDate.of(2024, 4, 27)) // saturday
-        val actual = screenTimePolicy.screeningTimes()
+        val screenTimePolicy = WeeklyScreenTimePolicy() // saturday
+        val actual = screenTimePolicy.screeningTimes(LocalDate.of(2024, 4, 27))
 
         val expected =
             listOf(
@@ -27,8 +27,8 @@ class ScreenTimePolicyTest {
 
     @Test
     fun `screeningTime of weekday is from 09 to 23 step 2H`() {
-        val screenTimePolicy = WeeklyScreenTimePolicy(LocalDate.of(2024, 4, 26)) // friday
-        val actual = screenTimePolicy.screeningTimes()
+        val screenTimePolicy = WeeklyScreenTimePolicy() // friday
+        val actual = screenTimePolicy.screeningTimes(LocalDate.of(2024, 4, 26))
 
         val expected =
             listOf(
