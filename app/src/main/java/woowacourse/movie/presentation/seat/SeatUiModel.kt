@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.seat
 
 import woowacourse.movie.domain.MovieSeat
+import java.io.Serializable
 
 data class SeatUiModel(
     val movieId: Long = -1,
@@ -10,4 +11,4 @@ data class SeatUiModel(
     val selectedCount: Int = 0,
     val totalPrice: Int = 0,
     val selectedSeat: List<MovieSeat> = mutableListOf(),
-)
+) : Serializable

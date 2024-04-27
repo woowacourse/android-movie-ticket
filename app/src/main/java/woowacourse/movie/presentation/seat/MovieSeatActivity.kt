@@ -23,6 +23,7 @@ import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SEATS_ID_LIST
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SELECTED_SEAT_INDEXES
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_TOTAL_PRICE
 import woowacourse.movie.utils.formatCurrency
 
@@ -121,6 +122,20 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
                 }
             }
         }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState?.let {
+            (it.getSerializable(EXTRA_MOVIE_SELECTED_SEAT_INDEXES) as SeatUiModel).selectedSeat.forEachIndexed { index, movieSeat ->
+                movieSeatPresenter.clickSeat(movieSeat.number, movieSeat, false)
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(EXTRA_MOVIE_SELECTED_SEAT_INDEXES, movieSeatPresenter.uiModel)
     }
 
     override fun onReservationComplete(

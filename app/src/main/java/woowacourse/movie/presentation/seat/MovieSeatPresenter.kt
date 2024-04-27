@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.seat
 
-import android.util.Log
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.MovieRepository
 import woowacourse.movie.domain.MovieSeat
@@ -57,7 +56,6 @@ class MovieSeatPresenter(private val seatContractView: MovieSeatContract.View) :
                             selectedSeat = _uiModel.selectedSeat + movieSeat,
                             selectedCount = _uiModel.selectedCount + 1,
                         )
-                    Log.d("DFSDFS", _uiModel.selectedSeat.size.toString())
 
                     seatContractView.onSeatUpdate(buttonIndex, isSelected = true)
                 }
@@ -68,7 +66,6 @@ class MovieSeatPresenter(private val seatContractView: MovieSeatContract.View) :
     }
 
     override fun reservation() {
-        Log.d("DFSDFS", _uiModel.selectedSeat.size.toString())
         seatContractView.onReservationComplete(
             _uiModel.movieId,
             _uiModel.movieScreenDateTimeId,

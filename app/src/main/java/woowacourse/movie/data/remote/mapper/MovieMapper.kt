@@ -10,7 +10,7 @@ object MovieMapper {
             thumbnailUrl = movieResponse.thumbnailUrl,
             title = movieResponse.title,
             description = movieResponse.description,
-            dateTime = movieResponse.dateTime.map { ScreenDateTimeMapper.fromScreenDateTimeResponse(it) },
+            screenDateTime = movieResponse.dateTime.map { ScreenDateTimeMapper.fromScreenDateTimeResponse(it) },
             runningTime = movieResponse.runningTime,
         )
     }

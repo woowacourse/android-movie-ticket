@@ -65,7 +65,7 @@ class MovieViewHolder(itemView: View) {
     ) {
         thumbnail.load(movie.thumbnailUrl)
         title.text = movie.title
-        date.text = formatScreeningPeriod(movie.dateTime.map { it.dateTime })
+        date.text = formatScreeningPeriod(movie.screenDateTime.map { it.dateTime })
         runningTime.text = "${movie.runningTime}"
         reservation.setOnClickListener {
             onMovieItemClick(movie.id)
