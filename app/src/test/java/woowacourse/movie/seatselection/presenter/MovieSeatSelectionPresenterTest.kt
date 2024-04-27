@@ -32,7 +32,7 @@ class MovieSeatSelectionPresenterTest {
         presenter.loadMovieTitle(0)
 
         // Then
-        verify { view.displayMovieTitle("타이타닉") }
+        verify { view.displayMovieTitle("타이타닉 0") }
     }
 
     @Test

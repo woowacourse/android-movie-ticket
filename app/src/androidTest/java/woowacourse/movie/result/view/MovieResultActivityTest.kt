@@ -38,7 +38,7 @@ class MovieResultActivityTest {
     @Test
     fun `예매한_영화의_제목이_표시된다`() {
         onView(withId(R.id.resultTitle))
-            .check(matches(withText("타이타닉")))
+            .check(matches(withText("타이타닉 0")))
     }
 
     @Test
