@@ -1,3 +1,18 @@
 package woowacourse.movie.feature.reservation.ui
 
-data class SeatModel(val row: String, val column: Int, val grade: String)
+import woowacourse.movie.domain.seat.Seat
+
+data class SeatModel(
+    val row: String,
+    val col: Int,
+    val grade: String,
+    val price: Long,
+)
+
+fun Seat.toUiModel(): SeatModel =
+    SeatModel(
+        row = row,
+        col = col,
+        grade = grade.name,
+        price = price,
+    )
