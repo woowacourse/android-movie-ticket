@@ -39,8 +39,11 @@ class MovieReservationCompleteUiModel(
         ): String {
             val seats = selectedSeats.seats.sortedWith(compareBy({ it.row }, { it.col }))
             val seatsMessage = seats.joinToString(separator = ", ") { it.message() }
-            return context.resources.getString(R.string.seats_info)
-                .format(selectedSeats.reservationCount.count, seatsMessage)
+            return context.resources.getString(
+                R.string.seats_info,
+                selectedSeats.reservationCount.count,
+                seatsMessage,
+            )
         }
 
         private fun Seat.message() = "${(row + 'A'.code - 1).toChar()}$col"
@@ -48,6 +51,6 @@ class MovieReservationCompleteUiModel(
         private fun reservationAmountMessage(
             context: Context,
             ticket: Ticket,
-        ): String = context.resources.getString(R.string.reservation_amount).format(ticket.amount().amount)
+        ): String = context.resources.getString(R.string.reservation_amount, ticket.amount().amount)
     }
 }

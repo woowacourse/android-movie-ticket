@@ -9,7 +9,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ReservationUiModel(
-    val posterImageDrawable: Drawable?,
+    val posterImageId: Int,
     val titleMessage: String,
     val screeningDateMessage: String,
     val runningTimeMessage: String,
@@ -21,7 +21,7 @@ class ReservationUiModel(
             movie: Movie,
         ): ReservationUiModel {
             return ReservationUiModel(
-                ContextCompat.getDrawable(context, movie.posterImageId),
+                movie.posterImageId,
                 movie.title,
                 screeningDateMessage(context, movie.startScreeningDate, movie.endScreeningDate),
                 runningTimeMessage(context, movie.runningTime),
@@ -34,8 +34,11 @@ class ReservationUiModel(
             startScreeningDate: LocalDate,
             endScreeningDate: LocalDate,
         ): String {
-            return context.resources.getString(R.string.screening_date)
-                .format(startScreeningDate.message(), endScreeningDate.message())
+            return context.resources.getString(
+                R.string.screening_date,
+                startScreeningDate.message(),
+                endScreeningDate.message(),
+            )
         }
 
         private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
@@ -44,7 +47,7 @@ class ReservationUiModel(
             context: Context,
             runningTime: Int,
         ): String {
-            return context.getString(R.string.running_time).format(runningTime)
+            return context.resources.getString(R.string.running_time, runningTime)
         }
     }
 }

@@ -130,7 +130,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
 
     override fun updateReservationAmount(reservationAmountValue: Int) {
         reservationAmountText.text =
-            resources.getString(R.string.seat_reservation_amount).format(reservationAmountValue)
+            resources.getString(R.string.seat_reservation_amount, reservationAmountValue)
     }
 
     override fun showCannotSelectSeat() {

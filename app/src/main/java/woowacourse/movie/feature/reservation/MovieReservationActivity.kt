@@ -130,7 +130,7 @@ class MovieReservationActivity :
     override fun initializeReservationView(movie: Movie) {
         val reservation = ReservationUiModel.of(this, movie)
         with(reservation) {
-            posterImage.setImageDrawable(posterImageDrawable)
+            posterImage.setImageResource(posterImageId)
             titleText.text = titleMessage
             screeningDateText.text = screeningDateMessage
             runningTimeText.text = runningTimeMessage
@@ -197,11 +197,11 @@ class MovieReservationActivity :
         outState.putInt(MOVIE_RESERVATION_COUNT_KEY, reservationCountText.text.toString().toInt())
         outState.putInt(
             SCREENING_DATE_SPINNER_POSITION_KEY,
-            screeningDateSpinner.selectedItemPosition
+            screeningDateSpinner.selectedItemPosition,
         )
         outState.putInt(
             SCREENING_TIME_SPINNER_POSITION_KEY,
-            screeningTimeSpinner.selectedItemPosition
+            screeningTimeSpinner.selectedItemPosition,
         )
         super.onSaveInstanceState(outState)
     }
