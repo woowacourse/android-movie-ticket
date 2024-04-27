@@ -7,5 +7,11 @@ interface MovieReservationView {
 
     fun updateHeadCount(count: Int)
 
+    fun updateTimePicker(times: List<String>)
+
+    fun updateTimePickerAt(position: Int)
+
+    fun updateDatePicker(dates: List<String>)
+
     fun navigateToReservationResultView(reservationId: Long)
 }

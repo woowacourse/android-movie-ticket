@@ -12,7 +12,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
@@ -24,50 +23,15 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var countView: TextView
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
-    private lateinit var reservationDialog: AlertDialog
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
+    private lateinit var timeSpinnerAdapter: ArrayAdapter<String>
+    private lateinit var dateSpinnerAdapter: ArrayAdapter<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_movie)
-        val dateSpinner = findViewById<Spinner>(R.id.sp_reservation_date).apply {
-            val itemList = listOf("2021-08-01", "2021-08-02", "2021-08-03")
-            adapter = ArrayAdapter(
-                this@MovieReservationActivity,
-                android.R.layout.simple_spinner_item,
-                itemList
-            )
-        }
-        val timeSpinner = findViewById<Spinner>(R.id.sp_reservation_time).apply {
-            val itemList = listOf("10:00", "13:00", "16:00", "19:00", "22:00")
-            adapter = ArrayAdapter(
-                this@MovieReservationActivity,
-                android.R.layout.simple_spinner_item,
-                itemList
-            )
-        }.apply {
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-//                    Toast.makeText(this@MovieReservationActivity, "position $position", Toast.LENGTH_SHORT).show()
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-        }
-        reservationDialog = AlertDialog.Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("예매를 완료하시겠습니까?")
-            .setCancelable(false)
-            .setPositiveButton("확인") { _, _ ->
-                presenter.completeReservation()
-            }
-            .setNegativeButton("취소") { _, _ ->
-                reservationDialog.dismiss()
-            }
-            .create()
         initView()
         initClickListener()
         if (savedInstanceState == null) initPresenter()
@@ -119,6 +83,20 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         countView.text = count.toString()
     }
 
+    override fun updateTimePicker(times: List<String>) {
+        timeSpinnerAdapter.clear()
+        timeSpinnerAdapter.addAll(times)
+        // TODO 안해도 될지도?
+        timeSpinnerAdapter.notifyDataSetChanged()
+    }
+
+    override fun updateDatePicker(dates: List<String>) {
+        if (dateSpinnerAdapter.isEmpty.not()) dateSpinnerAdapter.clear()
+        dateSpinnerAdapter.addAll(dates)
+        // TODO 안해도 될지도?
+        dateSpinnerAdapter.notifyDataSetChanged()
+    }
+
     override fun navigateToReservationResultView(reservationId: Long) {
         val intent = ReservationResultActivity.newIntent(this, reservationId)
         startActivity(intent)
@@ -128,7 +106,29 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         countView = findViewById(R.id.tv_reservation_count)
         plusButton = findViewById(R.id.btn_reservation_plus)
         minusButton = findViewById(R.id.btn_reservation_minus)
+        dateSpinnerAdapter = ArrayAdapter(
+            this@MovieReservationActivity,
+            android.R.layout.simple_spinner_item,
+            mutableListOf<String>()
+        )
+        dateSpinner = findViewById<Spinner>(R.id.sp_reservation_date).apply {
+            adapter = dateSpinnerAdapter
+            onItemSelectedListener = itemSelectListener { presenter.updateScreenDateAt(it) }
+        }
+        timeSpinnerAdapter = ArrayAdapter(
+            this@MovieReservationActivity,
+            android.R.layout.simple_spinner_item,
+            mutableListOf<String>()
+        )
+        timeSpinner = findViewById<Spinner>(R.id.sp_reservation_time).apply {
+            adapter = timeSpinnerAdapter
+            onItemSelectedListener = itemSelectListener { presenter.updateScreenTimeAt(it) }
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun updateTimePickerAt(position: Int) {
+        timeSpinner.setSelection(position)
     }
 
     private fun initClickListener() {
@@ -139,7 +139,22 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
             presenter.minusCount()
         }
         findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
-            reservationDialog.show()
+            presenter.completeReservation()
+        }
+    }
+
+    private inline fun itemSelectListener(crossinline onSelected: (Int) -> Unit): AdapterView.OnItemSelectedListener {
+        return object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                onSelected(position)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
