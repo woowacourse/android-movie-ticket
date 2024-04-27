@@ -27,11 +27,11 @@ class MainPresenterTest {
     fun `영화 리스트를 불러와 뷰에 보여준다`() {
         // given
         every { repository.findAll() } returns listOf(MOCK_SCREENING)
-        every { view.displayMovies(any()) } just runs
+        every { view.displayScreenings(any()) } just runs
         // when
         presenter.fetchScreeningList()
         // Then
-        verify { view.displayMovies(listOf(MOCK_SCREENING).map { it.toUiModel() }) }
+        verify { view.displayScreenings(listOf(MOCK_SCREENING).map { it.toUiModel() }) }
     }
 
     @Test
@@ -39,7 +39,7 @@ class MainPresenterTest {
         // given
         every { view.navigateToReservationScreen(any()) } just runs
         // when
-        presenter.selectMovie(0)
+        presenter.selectScreening(0)
         // Then
         verify { view.navigateToReservationScreen(0) }
     }

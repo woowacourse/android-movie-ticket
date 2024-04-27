@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun displayScreenings(screeningModels: List<ScreeningModel>) {
         screeningListView.adapter =
             ListViewAdapter(screeningModels) { position ->
-                presenter.selectMovie(screeningModels[position].id)
+                presenter.selectScreening(screeningModels[position].id)
             }
     }
 
-    override fun navigateToReservationScreen(id: Long) {
-        startActivity(ReservationActivity.getIntent(this, id))
+    override fun navigateToReservationScreen(screeningId: Long) {
+        startActivity(ReservationActivity.getIntent(this, screeningId))
     }
 }

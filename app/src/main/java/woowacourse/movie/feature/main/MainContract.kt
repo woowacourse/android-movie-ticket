@@ -12,6 +12,6 @@ interface MainContract {
     interface Presenter {
         fun fetchScreeningList()
 
-        fun selectMovie(id: Long)
+        fun selectScreening(id: Long)
     }
 }

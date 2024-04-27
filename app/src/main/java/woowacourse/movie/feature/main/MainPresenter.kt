@@ -10,7 +10,7 @@ class MainPresenter(private val view: MainContract.View, private val repository:
         view.displayScreenings(screenings.map { it.toUiModel() })
     }
 
-    override fun selectMovie(id: Long) {
+    override fun selectScreening(id: Long) {
         view.navigateToReservationScreen(id)
     }
 }
