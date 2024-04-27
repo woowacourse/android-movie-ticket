@@ -18,24 +18,26 @@ class ScreeningRecyclerViewAdapter(
     private val advertisementDrawableId: Int,
     private val ticketingButtonClickListener: TicketingButtonClickListener,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private lateinit var ticketingButton: Button
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): RecyclerView.ViewHolder {
         val context = parent.context
         val layoutInflater = LayoutInflater.from(context)
+        val view: View
         return when (viewType) {
             TYPE_SCREENING -> {
-                val view = layoutInflater.inflate(R.layout.item_movie, parent, false)
+                view = layoutInflater.inflate(R.layout.item_movie, parent, false)
                 ScreeningViewHolder(view).also { viewHolder ->
-                    val ticketingButton: Button = view.findViewById(R.id.btn_ticketing)
-                    ticketingButton.setOnClickListener {
-                        ticketingButtonClickListener.onTicketingButtonClick(screeningItems[viewHolder.adapterPosition].screeningId)
-                    }
+                    ticketingButton = view.findViewById(R.id.btn_ticketing)
+                    initializeTicketingButton(viewHolder)
                 }
             }
+
             else -> {
-                val view = layoutInflater.inflate(R.layout.item_advertisement, parent, false)
+                view = layoutInflater.inflate(R.layout.item_advertisement, parent, false)
                 AdvertisementViewHolder(view)
             }
         }
@@ -63,6 +65,14 @@ class ScreeningRecyclerViewAdapter(
         }
     }
 
+    private fun initializeTicketingButton(viewHolder: ScreeningViewHolder) {
+        ticketingButton.setOnClickListener {
+            ticketingButtonClickListener.onTicketingButtonClick(
+                screeningItems[viewHolder.adapterPosition - viewHolder.adapterPosition / INTERVAL_ADVERTISEMENT].screeningId,
+            )
+        }
+    }
+
     class ScreeningViewHolder(
         itemView: View,
     ) : RecyclerView.ViewHolder(itemView) {
@@ -84,9 +94,9 @@ class ScreeningRecyclerViewAdapter(
             val context = itemView.context
             screeningItem.movie?.let { movie ->
                 title.text = movie.title
-                date.text = context.getString(R.string.text_screening_period, startDate, endDate)
+                date.text = context.getString(R.string.title_date, startDate, endDate)
+                runningTime.text = context.getString(R.string.title_running_time, movie.runningTime)
                 thumbnail.setImageResource(movie.thumbnailResourceId)
-                runningTime.text = context.getString(R.string.text_running_time, movie.runningTime)
             }
         }
     }
@@ -103,7 +113,7 @@ class ScreeningRecyclerViewAdapter(
         }
     }
 
-    fun interface TicketingButtonClickListener {
+    interface TicketingButtonClickListener {
         fun onTicketingButtonClick(screeningId: Long)
     }
 
