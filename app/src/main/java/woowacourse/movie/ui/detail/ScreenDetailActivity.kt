@@ -91,14 +91,6 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         dateTimeSpinnerView.show(dateRange)
     }
 
-    override fun showDateWithPosition(datePosition: Int) {
-        dateTimeSpinnerView.restoreDatePosition(datePosition)
-    }
-
-    override fun showTimeWithPosition(timePosition: Int) {
-        dateTimeSpinnerView.restoreTimePosition(timePosition)
-    }
-
     override fun navigateToReservation(navigationId: Int) {
         ReservationActivity.startActivity(this, navigationId)
         finish()

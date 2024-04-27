@@ -11,10 +11,6 @@ interface ScreenDetailContract {
 
         fun showDateTimePicker(dateRange: DateRange)
 
-        fun showDateWithPosition(datePosition: Int)
-
-        fun showTimeWithPosition(timePosition: Int)
-
         fun navigateToReservation(navigationId: Int)
 
         fun showToastMessage(e: Throwable)
