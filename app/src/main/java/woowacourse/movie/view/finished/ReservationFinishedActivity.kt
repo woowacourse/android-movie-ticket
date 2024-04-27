@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MovieUtils.convertAmountFormat
 import woowacourse.movie.MovieUtils.intentSerializable
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
@@ -18,7 +19,6 @@ import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
 import woowacourse.movie.view.reservation.SeatSelectionActivity.Companion.SEATS
-import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
     private val presenter: ReservationFinishedPresenter = ReservationFinishedPresenter(this, ScreeningDao())
@@ -55,7 +55,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         seats: Seats,
     ) {
         numberOfTickets.text = ticket.count.toString()
-        ticketPrice.text = DecimalFormat(getString(R.string.all_price)).format(ticket.calculatePrice(seats))
+        ticketPrice.text = convertAmountFormat(this, ticket.calculatePrice(seats))
         seatsNumber.text =
             seats.seats.joinToString(getString(R.string.reservation_finished_seat_separator)) { "${it.row}${it.column}" }
         screeningDate.text = ticket.screeningDateTime.date

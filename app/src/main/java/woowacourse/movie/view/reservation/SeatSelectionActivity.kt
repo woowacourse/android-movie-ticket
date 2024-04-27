@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.MovieUtils.bundleSerializable
+import woowacourse.movie.MovieUtils.convertAmountFormat
 import woowacourse.movie.MovieUtils.intentSerializable
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
@@ -24,7 +25,6 @@ import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
 import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
-import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val presenter: SeatSelectionPresenter = SeatSelectionPresenter(this, SeatsDao(), ScreeningDao())
@@ -127,7 +127,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun showTotalPrice(amount: Int) {
-        price.text = DecimalFormat(getString(R.string.all_price)).format(amount)
+        price.text = convertAmountFormat(this, amount)
     }
 
     override fun navigateToFinished(seats: Seats) {

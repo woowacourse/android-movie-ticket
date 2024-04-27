@@ -1,9 +1,11 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import java.io.Serializable
+import java.text.DecimalFormat
 import java.time.LocalDate
 
 object MovieUtils {
@@ -12,6 +14,11 @@ object MovieUtils {
         val end = period.last().toString()
         return "%s~%s".format(start, end)
     }
+
+    fun convertAmountFormat(
+        context: Context,
+        amount: Int,
+    ): String = DecimalFormat(context.getString(R.string.all_price)).format(amount)
 
     fun <T : Serializable> Bundle.bundleSerializable(
         key: String,
