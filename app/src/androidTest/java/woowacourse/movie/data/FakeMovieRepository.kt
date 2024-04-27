@@ -13,7 +13,11 @@ class FakeMovieRepository : MovieRepository {
         List<ScreeningMovie>(1000) { ScreeningMovie.STUB.copy(id = it.toLong()) }
     private var reservations: List<MovieReservation> = emptyList()
     private var reservationId: Long = 0
-    override fun screenSeats(screenMovieId: Long, dateTime: LocalDateTime): Result<SeatBoard> {
+
+    override fun screenSeats(
+        screenMovieId: Long,
+        dateTime: LocalDateTime,
+    ): Result<SeatBoard> {
         return runCatching { SeatBoard.STUB }
     }
 
@@ -31,7 +35,7 @@ class FakeMovieRepository : MovieRepository {
         id: Long,
         dateTime: LocalDateTime,
         count: HeadCount,
-        selectedSeats: Seats
+        selectedSeats: Seats,
     ): Result<Long> {
         return runCatching {
             reservations +=

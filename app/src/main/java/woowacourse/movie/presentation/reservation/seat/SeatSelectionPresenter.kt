@@ -11,7 +11,6 @@ import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNav
 import woowacourse.movie.presentation.reservation.seat.model.SeatSelectionUiState
 import woowacourse.movie.repository.MovieRepository
 
-
 class SeatSelectionPresenter(
     private val repository: MovieRepository,
     private val navArgs: SeatSelectionNavArgs,
@@ -26,13 +25,16 @@ class SeatSelectionPresenter(
             board = it
             view.showMovieTitle(navArgs.movieTitle)
             view.showSeatBoard(it.toUiModel())
-            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.S }}");
-            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.A }}");
-            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.B }}");
+            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.S }}")
+            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.A }}")
+            Log.d("로그", "${it.totalSeats().filter { it.grade == SeatGrade.B }}")
         }
     }
 
-    fun selectSeat(x: Int, y: Int) {
+    fun selectSeat(
+        x: Int,
+        y: Int,
+    ) {
         board.select(Position(x, y)).onSuccess { newBoard, selectedSeat ->
             board = newBoard
             view.showSeat(selectedSeat.toUiModel())

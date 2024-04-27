@@ -3,19 +3,22 @@ package woowacourse.movie.model.date
 import java.time.LocalDate
 import java.time.LocalTime
 
-
 interface ScreenDateTimesGenerator {
     fun generate(list: List<LocalDate>): ScreenDateTimes
 }
 
 object DefaultScreenDateTimesGenerator : ScreenDateTimesGenerator {
     override fun generate(list: List<LocalDate>): ScreenDateTimes {
-
-        val screenDateTimes = list.map { date ->
-            val times = if (date.isWeekend()) generateWeekendTimes()
-            else generateWeekdayTimes()
-            ScreenDateTime(date, times)
-        }
+        val screenDateTimes =
+            list.map { date ->
+                val times =
+                    if (date.isWeekend()) {
+                        generateWeekendTimes()
+                    } else {
+                        generateWeekdayTimes()
+                    }
+                ScreenDateTime(date, times)
+            }
         return ScreenDateTimes(screenDateTimes)
     }
 

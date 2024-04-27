@@ -9,5 +9,5 @@ data class SeatSelectionNavArgs(
     val screenMovieId: Long = -1,
     val movieTitle: String = "",
     val headCount: Int = 1,
-    val selectedDateTime: LocalDateTime = LocalDateTime.now()
+    val selectedDateTime: LocalDateTime = LocalDateTime.now(),
 ) : Parcelable

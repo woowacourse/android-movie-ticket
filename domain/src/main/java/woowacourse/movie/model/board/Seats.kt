@@ -2,7 +2,6 @@ package woowacourse.movie.model.board
 
 @JvmInline
 value class Seats(val seats: List<Seat> = emptyList()) {
-
     val size: Int get() = seats.size
 
     init {
@@ -12,11 +11,13 @@ value class Seats(val seats: List<Seat> = emptyList()) {
 
     constructor(vararg seats: Seat) : this(seats.toList())
 
-
     fun replace(newSeat: Seat): Seats {
         return seats.map {
-            if (it.position == newSeat.position) newSeat
-            else it
+            if (it.position == newSeat.position) {
+                newSeat
+            } else {
+                it
+            }
         }.let(::Seats)
     }
 

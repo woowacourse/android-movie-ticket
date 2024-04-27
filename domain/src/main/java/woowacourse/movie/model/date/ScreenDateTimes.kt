@@ -1,7 +1,6 @@
 package woowacourse.movie.model.date
 
 data class ScreenDateTimes(val dateTimes: List<ScreenDateTime>) {
-
     val size = dateTimes.size
 
     init {

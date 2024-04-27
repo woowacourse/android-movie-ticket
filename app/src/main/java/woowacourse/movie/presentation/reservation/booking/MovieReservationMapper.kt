@@ -78,7 +78,10 @@ fun MovieReservation.toUiModel(): ReservationResultUiModel {
     )
 }
 
-fun parseScreenDateTime(date: String, time: String): LocalDateTime {
+fun parseScreenDateTime(
+    date: String,
+    time: String,
+): LocalDateTime {
     val localDate = LocalDate.parse(date, DateFormatter)
     val localTime = LocalTime.parse(time, TimeFormatter)
     return localDate.atTime(localTime)

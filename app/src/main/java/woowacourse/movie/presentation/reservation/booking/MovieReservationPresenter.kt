@@ -12,7 +12,6 @@ class MovieReservationPresenter(
     val uiState: MovieReservationUiState
         get() = _uiState
 
-
     fun loadScreenMovie(id: Long) {
         repository.screenMovieById(id).onSuccess { movie ->
             _uiState = movie.toReservationUiState()
@@ -68,7 +67,7 @@ class MovieReservationPresenter(
                 _uiState.id,
                 _uiState.movie.title,
                 _uiState.headCount.count,
-                reservedDateTime
+                reservedDateTime,
             )
         view.navigateToSeatSelection(seatSelectionNavArgs)
     }

@@ -16,7 +16,10 @@ import woowacourse.movie.model.Price
 class SeatBoardBuilderTest {
     @ParameterizedTest
     @CsvSource(value = ["4,4", "5,3", "5,4"])
-    fun `예약 좌석이 Board 범위를 벗어 나면 예외`(x: Int, y: Int) {
+    fun `예약 좌석이 Board 범위를 벗어 나면 예외`(
+        x: Int,
+        y: Int,
+    ) {
         shouldThrow<IllegalArgumentException> {
             buildSeatBoard {
                 size(width = 5, height = 4)
@@ -27,7 +30,10 @@ class SeatBoardBuilderTest {
 
     @ParameterizedTest
     @CsvSource(value = ["4,4", "5,3", "5,4"])
-    fun `금지 좌석이 Board 범위를 벗어 나면 예외`(x: Int, y: Int) {
+    fun `금지 좌석이 Board 범위를 벗어 나면 예외`(
+        x: Int,
+        y: Int,
+    ) {
         shouldThrow<IllegalArgumentException> {
             buildSeatBoard {
                 size(width = 5, height = 4)
@@ -69,9 +75,10 @@ class SeatBoardBuilderTest {
         val positions = setOf(Position(3, 3), Position(2, 3))
         val expectSize = 2
         // when
-        val board = buildSeatBoard {
-            reservedSeatPositions(positions)
-        }
+        val board =
+            buildSeatBoard {
+                reservedSeatPositions(positions)
+            }
         val reservedSeats = board.reserveSeats()
         // then
         reservedSeats.size shouldBe expectSize
@@ -83,9 +90,10 @@ class SeatBoardBuilderTest {
         val positions = setOf(Position(3, 3), Position(2, 3))
         val expectSize = 2
         // when
-        val board = buildSeatBoard {
-            bannedPositions(positions)
-        }
+        val board =
+            buildSeatBoard {
+                bannedPositions(positions)
+            }
         val bannedPosition = board.bannedSeats()
         // then
         bannedPosition.size shouldBe expectSize
@@ -100,10 +108,11 @@ class SeatBoardBuilderTest {
         val expectTotalPrice = 90_000
         // when
         val pricePolicy = SeatPricePolicy { seatPrice }
-        val board = buildSeatBoard {
-            size(width, height)
-            pricePolicy(pricePolicy)
-        }
+        val board =
+            buildSeatBoard {
+                size(width, height)
+                pricePolicy(pricePolicy)
+            }
         val totalPrice = board.totalPrice()
         // then
         totalPrice shouldBe expectTotalPrice

@@ -7,14 +7,12 @@ annotation class BoardDsl
 
 @BoardDsl
 interface DslBuilder<T> {
-
     fun build(): T
 }
 
 fun buildSeatBoard(block: SeatBoardBuilder.() -> Unit): SeatBoard {
     return SeatBoardBuilder().apply(block).build()
 }
-
 
 class SeatBoardBuilder : DslBuilder<SeatBoard> {
     private var boardSize: BoardSize = DEFAULT_BOARD_SIZE
@@ -25,7 +23,10 @@ class SeatBoardBuilder : DslBuilder<SeatBoard> {
     private var reservedPositions: Set<Position> = emptySet()
     private var bannedPositions: Set<Position> = emptySet()
 
-    fun size(width: Int, height: Int) {
+    fun size(
+        width: Int,
+        height: Int,
+    ) {
         boardSize = BoardSize(width, height)
     }
 
@@ -70,14 +71,15 @@ class SeatBoardBuilder : DslBuilder<SeatBoard> {
         val widthRange = 0 until boardSize.width
         val heightRange = 0 until boardSize.height
 
-        val initSeats = heightRange.map { x ->
-            widthRange.map { y ->
-                val position = Position(x, y)
-                val grade = gradePolicy.grade(position)
-                val price = pricePolicy.price(grade)
-                Seat(position, price, grade, SeatState.EMPTY)
+        val initSeats =
+            heightRange.map { x ->
+                widthRange.map { y ->
+                    val position = Position(x, y)
+                    val grade = gradePolicy.grade(position)
+                    val price = pricePolicy.price(grade)
+                    Seat(position, price, grade, SeatState.EMPTY)
+                }.toMutableList()
             }.toMutableList()
-        }.toMutableList()
         bannedPositions.forEach { (x, y) ->
             initSeats[x][y] = initSeats[x][y].copy(state = SeatState.BANNED)
         }

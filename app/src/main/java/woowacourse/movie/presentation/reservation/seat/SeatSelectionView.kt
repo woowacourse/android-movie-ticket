@@ -4,7 +4,6 @@ import woowacourse.movie.presentation.reservation.seat.model.SeatBoardUiModel
 import woowacourse.movie.presentation.reservation.seat.model.SeatUiModel
 
 interface SeatSelectionView {
-
     fun showMovieTitle(title: String)
 
     fun showSeat(seat: SeatUiModel)

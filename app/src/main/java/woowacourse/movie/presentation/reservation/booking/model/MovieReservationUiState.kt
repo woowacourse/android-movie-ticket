@@ -14,7 +14,6 @@ data class MovieReservationUiState(
     val selectedDate: ScreenDateTimeUiModel = ScreenDateTimeUiModel(),
     val selectedTime: String = "",
 ) : Parcelable {
-
     val selectedTimePosition: Int
         get() = screenTimes.indexOf(selectedTime)
 

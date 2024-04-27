@@ -12,7 +12,7 @@ class SeatsTest {
         shouldThrow<IllegalArgumentException> {
             Seats(
                 seat(1, 2),
-                seat(1, 2)
+                seat(1, 2),
             )
         }
     }
@@ -22,7 +22,7 @@ class SeatsTest {
         shouldNotThrow<IllegalArgumentException> {
             Seats(
                 seat(1, 1),
-                seat(1, 2)
+                seat(1, 2),
             )
         }
     }
@@ -30,10 +30,11 @@ class SeatsTest {
     @Test
     fun `좌석들의 총 금액을 구할 수 있다`() {
         // given
-        val seats = Seats(
-            seat(1, 1, price = 1_000),
-            seat(1, 2, price = 1_000),
-        )
+        val seats =
+            Seats(
+                seat(1, 1, price = 1_000),
+                seat(1, 2, price = 1_000),
+            )
         val expect = 2_000
         // when
         val actual = seats.totalPrice()

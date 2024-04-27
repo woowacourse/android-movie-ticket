@@ -51,7 +51,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         BundleCompat.getParcelable(
             savedInstanceState,
             KEY_RESERVATION_UI_STATE,
-            MovieReservationUiState::class.java
+            MovieReservationUiState::class.java,
         )?.let { uiState ->
             presenter =
                 MovieReservationPresenter(
@@ -119,22 +119,26 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         countView = findViewById(R.id.tv_reservation_count)
         plusButton = findViewById(R.id.btn_reservation_plus)
         minusButton = findViewById(R.id.btn_reservation_minus)
-        dateSpinnerAdapter = ArrayAdapter(
-            this@MovieReservationActivity,
-            android.R.layout.simple_spinner_item,
-            mutableListOf<String>()
-        )
-        dateSpinner = findViewById<Spinner>(R.id.sp_reservation_date).apply {
-            adapter = dateSpinnerAdapter
-        }
-        timeSpinnerAdapter = ArrayAdapter(
-            this@MovieReservationActivity,
-            android.R.layout.simple_spinner_item,
-            mutableListOf<String>()
-        )
-        timeSpinner = findViewById<Spinner>(R.id.sp_reservation_time).apply {
-            adapter = timeSpinnerAdapter
-        }
+        dateSpinnerAdapter =
+            ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                mutableListOf<String>(),
+            )
+        dateSpinner =
+            findViewById<Spinner>(R.id.sp_reservation_date).apply {
+                adapter = dateSpinnerAdapter
+            }
+        timeSpinnerAdapter =
+            ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                mutableListOf<String>(),
+            )
+        timeSpinner =
+            findViewById<Spinner>(R.id.sp_reservation_time).apply {
+                adapter = timeSpinnerAdapter
+            }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

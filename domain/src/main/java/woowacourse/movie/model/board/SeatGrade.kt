@@ -1,5 +1,7 @@
 package woowacourse.movie.model.board
 
 enum class SeatGrade {
-    A, B, S
+    A,
+    B,
+    S,
 }

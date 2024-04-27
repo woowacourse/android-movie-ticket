@@ -17,7 +17,6 @@ import woowacourse.movie.common.ui.dp
 import woowacourse.movie.presentation.reservation.seat.model.SeatStateUiModel
 import woowacourse.movie.presentation.reservation.seat.model.SeatUiModel
 
-
 class SeatBoardView(
     context: Context,
     private val tableLayout: TableLayout,
@@ -35,10 +34,11 @@ class SeatBoardView(
 
         for (i in 0 until rowCount) {
             val tableRow = TableRow(context)
-            tableRow.layoutParams = TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT,
-                TableLayout.LayoutParams.WRAP_CONTENT
-            )
+            tableRow.layoutParams =
+                TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.MATCH_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT,
+                )
             val rowSeats = mutableListOf<TextView>()
             for (j in 0 until columnCount) {
                 val textView = TextView(context).also { it.initSeatView() }
@@ -52,23 +52,25 @@ class SeatBoardView(
     }
 
     private fun TextView.initSeatView() {
-        layoutParams = TableRow.LayoutParams(
-            0,
-            TableRow.LayoutParams.WRAP_CONTENT,
-            1f
-        )
+        layoutParams =
+            TableRow.LayoutParams(
+                0,
+                TableRow.LayoutParams.WRAP_CONTENT,
+                1f,
+            )
         setPadding(0, 20.dp, 0, 20.dp)
         setGravity(Gravity.CENTER)
-        background = GradientDrawable().apply {
-            setCornerRadius(10f)
-            setColor(
-                ContextCompat.getColor(
-                    context,
-                    SeatStateUiModel.EMPTY.backGroundColor
+        background =
+            GradientDrawable().apply {
+                setCornerRadius(10f)
+                setColor(
+                    ContextCompat.getColor(
+                        context,
+                        SeatStateUiModel.EMPTY.backGroundColor,
+                    ),
                 )
-            )
-            setStroke(3.dp, Color.BLACK)
-        }
+                setStroke(3.dp, Color.BLACK)
+            }
         val drawable = ContextCompat.getDrawable(context, SeatStateUiModel.SELECT.iconRes)
         drawable?.setBounds(0, 0, 28.dp, 28.dp)
         setCompoundDrawables(null, null, drawable, null)
@@ -82,11 +84,12 @@ class SeatBoardView(
         val (backGroundColor, iconRes: Int) = state.backGroundColor to state.iconRes
         val seatView = seats[x][y]
         with(seatView) {
-            background = GradientDrawable().apply {
-                setCornerRadius(10f)
-                setColor(ContextCompat.getColor(context, backGroundColor))
-                setStroke(3, Color.BLACK)
-            }
+            background =
+                GradientDrawable().apply {
+                    setCornerRadius(10f)
+                    setColor(ContextCompat.getColor(context, backGroundColor))
+                    setStroke(3, Color.BLACK)
+                }
             val drawable = ContextCompat.getDrawable(context, iconRes)
             drawable?.setBounds(0, 0, 25.dp, 25.dp)
             setCompoundDrawables(null, null, drawable, null)

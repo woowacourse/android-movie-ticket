@@ -2,7 +2,6 @@ package woowacourse.movie.model
 
 @JvmInline
 value class Price(val price: Long) {
-
     constructor(price: Int) : this(price.toLong())
 
     init {

@@ -20,7 +20,7 @@ fun SeatBoard.toUiModel(): SeatBoardUiModel {
         columnCount = boardSize.width,
         rowCount = boardSize.height,
         headCount = headCount.count,
-        seats = toSeatsUiModel()
+        seats = toSeatsUiModel(),
     )
 }
 
@@ -36,7 +36,7 @@ fun Seat.toUiModel(): SeatUiModel {
         y = position.y,
         state = state.toUiModel(),
         seatGradeUiModel = grade.toUiModel(),
-        price = price.price
+        price = price.price,
     )
 }
 
@@ -72,7 +72,7 @@ private fun SeatUiModel.toDomain(): Seat {
         position = Position(x, y),
         state = state.toDomain(),
         grade = seatGradeUiModel.toDomain(),
-        price = Price(price)
+        price = Price(price),
     )
 }
 

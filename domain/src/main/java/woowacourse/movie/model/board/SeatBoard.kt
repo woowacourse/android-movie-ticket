@@ -27,8 +27,9 @@ data class SeatBoard internal constructor(
             }
 
             SeatState.EMPTY -> {
-                if (isCompletedSelection) Failure
-                else {
+                if (isCompletedSelection) {
+                    Failure
+                } else {
                     val newSeat = seat.copy(state = SeatState.SELECTED)
                     Success(board = copy(totalSeats = totalSeats.replace(newSeat)), newSeat)
                 }
@@ -40,31 +41,30 @@ data class SeatBoard internal constructor(
     }
 
     companion object {
-        val STUB = buildSeatBoard {
-            size(5, 5)
-            headCount(HeadCount(2))
-            reservedSeatPositions(
-                setOf(
-                    Position(1, 1),
-                    Position(1, 3),
-                    Position(3, 2),
-                    Position(3, 1),
-                    Position(4, 0),
-                    Position(4, 4),
+        val STUB =
+            buildSeatBoard {
+                size(5, 5)
+                headCount(HeadCount(2))
+                reservedSeatPositions(
+                    setOf(
+                        Position(1, 1),
+                        Position(1, 3),
+                        Position(3, 2),
+                        Position(3, 1),
+                        Position(4, 0),
+                        Position(4, 4),
+                    ),
                 )
-            )
-            bannedPositions(
-                setOf(
-                    Position(1, 0),
-                    Position(2, 0),
-                    Position(3, 0),
-                    Position(1, 4),
-                    Position(2, 4),
-                    Position(3, 4),
+                bannedPositions(
+                    setOf(
+                        Position(1, 0),
+                        Position(2, 0),
+                        Position(3, 0),
+                        Position(1, 4),
+                        Position(2, 4),
+                        Position(3, 4),
+                    ),
                 )
-            )
-        }
+            }
     }
 }
-
-

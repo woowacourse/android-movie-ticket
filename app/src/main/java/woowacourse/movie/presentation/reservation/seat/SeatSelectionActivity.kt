@@ -20,7 +20,6 @@ import woowacourse.movie.presentation.reservation.seat.model.SeatBoardUiModel
 import woowacourse.movie.presentation.reservation.seat.model.SeatSelectionUiState
 import woowacourse.movie.presentation.reservation.seat.model.SeatUiModel
 
-
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     private lateinit var reservationDialog: AlertDialog
     private lateinit var seatBoardView: SeatBoardView
@@ -37,27 +36,31 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
         IntentCompat.getParcelableExtra(
             intent,
             KEY_SEAT_SELECTION,
-            SeatSelectionNavArgs::class.java
+            SeatSelectionNavArgs::class.java,
         )?.let { navArgs ->
-            presenter = SeatSelectionPresenter(
-                repository = MovieRepositoryFactory.movieRepository(),
-                navArgs = navArgs,
-                view = this
-            ).apply { loadScreenSeats() }
+            presenter =
+                SeatSelectionPresenter(
+                    repository = MovieRepositoryFactory.movieRepository(),
+                    navArgs = navArgs,
+                    view = this,
+                ).apply { loadScreenSeats() }
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    override fun onSaveInstanceState(
+        outState: Bundle,
+        outPersistentState: PersistableBundle,
+    ) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState.putParcelable(KEY_SEAT_UI_STATE, presenter.uiState)
     }
 
-    override fun onRestoreInstanceState(
-        savedInstanceState: Bundle,
-    ) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         BundleCompat.getParcelable(
-            savedInstanceState, KEY_SEAT_UI_STATE, SeatSelectionUiState::class.java
+            savedInstanceState,
+            KEY_SEAT_UI_STATE,
+            SeatSelectionUiState::class.java,
         )?.let(presenter::restoreState)
     }
 
@@ -77,15 +80,16 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     }
 
     override fun showSeatBoard(board: SeatBoardUiModel) {
-        seatBoardView = SeatBoardView(
-            context = this,
-            tableLayout = tableLayout,
-            rowCount = board.rowCount,
-            columnCount = board.columnCount
-        ).apply {
-            updateSeats(board.seats)
-            setBoardClickListener{ x, y -> presenter.selectSeat(x, y) }
-        }
+        seatBoardView =
+            SeatBoardView(
+                context = this,
+                tableLayout = tableLayout,
+                rowCount = board.rowCount,
+                columnCount = board.columnCount,
+            ).apply {
+                updateSeats(board.seats)
+                setBoardClickListener { x, y -> presenter.selectSeat(x, y) }
+            }
     }
 
     override fun showTotalPrice(price: Long) {
@@ -93,11 +97,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     }
 
     override fun navigateToReservationResult(reservationId: Long) {
-        val intent = ReservationResultActivity.newIntent(this, reservationId).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
+        val intent =
+            ReservationResultActivity.newIntent(this, reservationId).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
         startActivity(intent)
-
     }
 
     override fun showSelectionError() {
@@ -105,22 +109,24 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     }
 
     private fun initView() {
-        reservationDialog = AlertDialog.Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("예매를 완료하시겠습니까?")
-            .setCancelable(false)
-            .setPositiveButton("확인") { _, _ ->
-                presenter.completeReservation()
-            }
-            .setNegativeButton("취소") { _, _ ->
-                reservationDialog.dismiss()
-            }
-            .create()
+        reservationDialog =
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("예매를 완료하시겠습니까?")
+                .setCancelable(false)
+                .setPositiveButton("확인") { _, _ ->
+                    presenter.completeReservation()
+                }
+                .setNegativeButton("취소") { _, _ ->
+                    reservationDialog.dismiss()
+                }
+                .create()
         tableLayout = findViewById(R.id.tl_seat_selection)
 
-        priceView = findViewById<TextView?>(R.id.tv_seat_selection_price).apply {
-            text = getString(R.string.seat_total_price_format, 0)
-        }
+        priceView =
+            findViewById<TextView?>(R.id.tv_seat_selection_price).apply {
+                text = getString(R.string.seat_total_price_format, 0)
+            }
         movieTitleView = findViewById<TextView?>(R.id.tv_seat_selection_title)
     }
 
@@ -137,16 +143,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
         @JvmStatic
         fun newIntent(
             context: Context,
-            navArgs: SeatSelectionNavArgs
+            navArgs: SeatSelectionNavArgs,
         ): Intent =
             Intent(context, SeatSelectionActivity::class.java).apply {
                 putExtra(KEY_SEAT_SELECTION, navArgs)
             }
     }
 }
-
-
-
-
-
-

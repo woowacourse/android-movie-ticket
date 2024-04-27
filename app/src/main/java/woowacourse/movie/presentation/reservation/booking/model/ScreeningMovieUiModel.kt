@@ -5,7 +5,6 @@ import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.R
 
-
 @Parcelize
 data class ScreeningMovieUiModel(
     val title: String = "",

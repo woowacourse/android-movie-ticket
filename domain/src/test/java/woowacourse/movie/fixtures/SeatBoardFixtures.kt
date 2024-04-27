@@ -6,7 +6,10 @@ import woowacourse.movie.model.board.SeatBoard
 import woowacourse.movie.model.board.SeatState
 import woowacourse.movie.model.board.buildSeatBoard
 
-fun seatBoard(headCount: Int = 2, vararg totalSeats: Seat): SeatBoard {
+fun seatBoard(
+    headCount: Int = 2,
+    vararg totalSeats: Seat,
+): SeatBoard {
     return buildSeatBoard {
         headCount(HeadCount(headCount))
         totalSeats(totalSeats.toList())

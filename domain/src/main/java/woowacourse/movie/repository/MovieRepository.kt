@@ -8,7 +8,6 @@ import woowacourse.movie.model.date.ScreeningMovie
 import java.time.LocalDateTime
 
 interface MovieRepository {
-
     fun screenSeats(
         screenMovieId: Long,
         dateTime: LocalDateTime,
@@ -22,7 +21,7 @@ interface MovieRepository {
         id: Long,
         dateTime: LocalDateTime,
         count: HeadCount,
-        selectedSeats: Seats
+        selectedSeats: Seats,
     ): Result<Long>
 
     fun movieReservationById(id: Long): Result<MovieReservation>

@@ -21,7 +21,6 @@ import woowacourse.movie.utils.context
 import java.time.LocalDateTime
 
 class ReservationResultActivityTest {
-
     @Before
     fun setUp() {
         MovieRepositoryFactory.setMovieRepository(repository = FakeMovieRepository())

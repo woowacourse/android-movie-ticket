@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.model.Price
 
 class DefaultSeatPricePolicyTest {
-
     @Test
     fun `S 등급의 좌석은 15_000원 이다`() {
         // given

@@ -8,7 +8,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Before
@@ -20,7 +19,6 @@ import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.utils.context
 
 class MovieReservationActivityTest {
-
     @Before
     fun setUp() {
         MovieRepositoryFactory.setMovieRepository(repository = FakeMovieRepository())
@@ -61,7 +59,7 @@ class MovieReservationActivityTest {
     @Test
     @DisplayName(
         "count 가 1일 때, plus button 클릭 시 count 가 2로 증가하고" +
-                " minus button 클릭 시 count 가 1로 감소하는 지 테스트",
+            " minus button 클릭 시 count 가 1로 감소하는 지 테스트",
     )
     fun button_test1() {
         launchSuccessScenario()
@@ -92,7 +90,7 @@ class MovieReservationActivityTest {
     @Test
     @DisplayName(
         "count 가 1일 때, plus 버튼을 눌러 2로 만든 후" +
-                "화면 회전 시에도 count 가 2가 유지",
+            "화면 회전 시에도 count 가 2가 유지",
     )
     fun restore_count_test() {
         val scenario = launchSuccessScenario()

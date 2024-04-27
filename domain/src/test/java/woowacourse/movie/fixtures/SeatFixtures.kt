@@ -11,15 +11,16 @@ private val DEFAULT_GRADE = SeatGrade.B
 private val DEFAULT_STATE = SeatState.EMPTY
 
 fun seat(
-    x: Int, y: Int,
+    x: Int,
+    y: Int,
     price: Long = DEFAULT_PRICE,
     grade: SeatGrade = DEFAULT_GRADE,
-    state: SeatState = DEFAULT_STATE
+    state: SeatState = DEFAULT_STATE,
 ) = seat(Position(x, y), price, grade, state)
 
 fun seat(
     position: Position,
     price: Long = DEFAULT_PRICE,
     grade: SeatGrade = DEFAULT_GRADE,
-    state: SeatState = DEFAULT_STATE
+    state: SeatState = DEFAULT_STATE,
 ) = Seat(position, Price(price), grade, state)
