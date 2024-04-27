@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import woowacourse.movie.model.schedule.RegularTimeTable
 import woowacourse.movie.model.schedule.ScreeningDate
-import woowacourse.movie.model.schedule.ScreeningTime
+import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.model.schedule.WeekdayTimeTable
 import woowacourse.movie.model.schedule.WeekendTimeTable
 import java.time.LocalDate
 
-class ScreeningTimeTest {
+class ScreeningDateTimeTest {
     @Test
     fun `영화 상영 시간 범위는 오전 9시부터 자정까지다`() {
         val date = LocalDate.of(2024, 4, 26)
-        assertThrows<IllegalArgumentException> { ScreeningTime.of(date, 6, 0) }
+        assertThrows<IllegalArgumentException> { ScreeningDateTime.of(date, 6, 0) }
     }
 
     @Test
@@ -25,13 +25,13 @@ class ScreeningTimeTest {
         val end = 21
         val interval = 1
 
-        val startTime = ScreeningTime.of(date, start, 0)
-        val endTime = ScreeningTime.of(date, end, 0)
+        val startTime = ScreeningDateTime.of(date, start, 0)
+        val endTime = ScreeningDateTime.of(date, end, 0)
 
         val timeTable = RegularTimeTable(startTime, endTime, interval)
 
         val expected = (start..end step interval).map {
-            ScreeningTime.of(date, it, 0)
+            ScreeningDateTime.of(date, it, 0)
         }
         val actual = timeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
@@ -48,7 +48,7 @@ class ScreeningTimeTest {
         val end = 24
         val interval = 2
         val expected = (start..end step interval).map {
-            ScreeningTime.of(date, it, 0)
+            ScreeningDateTime.of(date, it, 0)
         }
         val actual = weekendTimeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
@@ -65,7 +65,7 @@ class ScreeningTimeTest {
         val end = 24
         val interval = 2
         val expected = (start..end step interval).map {
-            ScreeningTime.of(date, it, 0)
+            ScreeningDateTime.of(date, it, 0)
         }
         val actual = weekdayTimeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)

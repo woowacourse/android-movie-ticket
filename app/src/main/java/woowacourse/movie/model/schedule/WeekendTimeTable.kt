@@ -3,8 +3,8 @@ package woowacourse.movie.model.schedule
 class WeekendTimeTable(
     private val screeningDate: ScreeningDate
 ) : ScreeningTimeTable by RegularTimeTable(
-    start = ScreeningTime.of(screeningDate.date, 9, 0),
-    end = ScreeningTime.of(screeningDate.date, 24, 0),
+    start = ScreeningDateTime.of(screeningDate.date, 9, 0),
+    end = ScreeningDateTime.of(screeningDate.date, 24, 0),
     2
 ) {
     init {
