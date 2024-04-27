@@ -16,7 +16,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.core.view.forEachIndexed
 import androidx.core.view.setPadding
 import woowacourse.movie.R
 import woowacourse.movie.model.theater.SeatClass
@@ -67,7 +66,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         savedInstanceState?.let {
             val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
             selectedSeats?.let {
-                presenter.initializeSeats(
+                presenter.loadSeats(
                     screeningId,
                     count,
                     date,
@@ -76,7 +75,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                     selectedSeats.toList(),
                 )
             }
-        } ?: presenter.initializeSeats(screeningId, count, date, time, title, emptyList())
+        } ?: presenter.loadSeats(screeningId, count, date, time, title, emptyList())
     }
 
     private fun initializeReservationButton(

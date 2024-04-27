@@ -51,7 +51,7 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun initializeSeats(
+        fun loadSeats(
             screeningId: Long,
             numOfTickets: Int,
             date: String?,

@@ -27,7 +27,7 @@ class TicketingResultPresenterTest {
         presenter.initializeTicketingResult(0, 1, 10000, "2024-01-01", "11:00", arrayOf("A1"))
         // then
         verify {
-            view.assignInitialView(any(), any(), any(), any(), any(), any())
+            view.assignInitialView(1, "해리 포터와 마법사의 돌", "2024-01-01", "11:00", 10000, listOf("A1"))
         }
     }
 
@@ -39,7 +39,7 @@ class TicketingResultPresenterTest {
         presenter.initializeTicketingResult(-1, 1, 10000, "2024-01-01", "11:00", arrayOf("A1"))
         // then
         verify {
-            view.showToastMessage(any())
+            view.showToastMessage("존재하지 않는 상영 정보입니다.")
         }
     }
 }

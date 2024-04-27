@@ -20,7 +20,7 @@ class SeatSelectionPresenter(
     val dateTime: BookingDateTime
         get() = boxOffice.bookingDateTime
 
-    override fun initializeSeats(
+    override fun loadSeats(
         screeningId: Long,
         numOfTickets: Int,
         date: String?,
@@ -76,11 +76,6 @@ class SeatSelectionPresenter(
         }
     }
 
-    private fun updateBottomBarViews() {
-        view.updateTotalPrice(boxOffice.totalPrice)
-        view.updateButtonStatus(boxOffice.isSubmitAvailable)
-    }
-
     override fun makeReservation(
         movieId: Long,
         count: Int,
@@ -91,5 +86,10 @@ class SeatSelectionPresenter(
             seats = boxOffice.seats,
             totalPrice = boxOffice.totalPrice,
         )
+    }
+
+    private fun updateBottomBarViews() {
+        view.updateTotalPrice(boxOffice.totalPrice)
+        view.updateButtonStatus(boxOffice.isSubmitAvailable)
     }
 }
