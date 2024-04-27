@@ -19,6 +19,15 @@ interface SeatsContract {
         fun initSeats()
 
         fun initSeatsView(info: Seat)
+
+        fun startNextActivity(
+            id: Long,
+            title: String,
+            date: String,
+            time: String,
+            seats: List<Seat>,
+            price: Int,
+        )
     }
 
     interface Presenter {
@@ -40,5 +49,16 @@ interface SeatsContract {
         fun setMovieTitleInfo()
 
         fun storeMovieId(movieId: Long)
+
+        fun startNextActivity()
+
+        fun storeDate(date: String)
+
+        fun storeTime(time: String)
+
+        fun selectSeat(
+            rowIndex: Int,
+            colIndex: Int,
+        )
     }
 }

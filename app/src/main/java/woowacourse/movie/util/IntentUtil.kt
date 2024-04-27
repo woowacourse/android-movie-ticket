@@ -25,4 +25,12 @@ object IntentUtil {
             intent.getSerializableExtra(EXTRA_COUNT_KEY) as Count
         }
     }
+
+//    fun getSerializableSeatsData(intent: Intent): List<Any?> {
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            intent.getSerializableExtra(SEATS_KEY, List::class.java) ?: listOf(Seat.of(-1, -1))
+//        } else {
+//            intent.getSerializableExtra(SEATS_KEY) as List<*>
+//        }
+//    }
 }

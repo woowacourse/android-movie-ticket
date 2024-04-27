@@ -5,10 +5,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.reservation.model.Count
-import woowacourse.movie.reservation.view.MovieReservationActivity.Companion.EXTRA_DATE_KEY
-import woowacourse.movie.reservation.view.MovieReservationActivity.Companion.EXTRA_TIME_KEY
+import woowacourse.movie.seats.model.Seat
+import woowacourse.movie.seats.view.SeatsActivity.Companion.DATE_KEY
+import woowacourse.movie.seats.view.SeatsActivity.Companion.ID_KEY
+import woowacourse.movie.seats.view.SeatsActivity.Companion.PRICE_KEY
+import woowacourse.movie.seats.view.SeatsActivity.Companion.SEATS_KEY
+import woowacourse.movie.seats.view.SeatsActivity.Companion.TIME_KEY
 import woowacourse.movie.ticket.contract.MovieTicketContract
-import woowacourse.movie.ticket.model.Ticket
 import woowacourse.movie.ticket.presenter.MovieTicketPresenter
 import woowacourse.movie.util.IntentUtil.getSerializableCountData
 
@@ -18,6 +21,7 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     private lateinit var screeningTime: TextView
     private lateinit var price: TextView
     private lateinit var count: TextView
+    private lateinit var seats: TextView
     override val presenter: MovieTicketPresenter = MovieTicketPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,11 +29,25 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
         setContentView(R.layout.activity_movie_ticket)
         initViewById()
         presenter.storeTicketCount(getSerializableCountData(intent))
-        presenter.storeScreeningDate(intent.getStringExtra(EXTRA_DATE_KEY) ?: "")
-        presenter.storeScreeningTime(intent.getStringExtra(EXTRA_TIME_KEY) ?: "")
+        presenter.storeMovieId(intent.getLongExtra(ID_KEY, -1))
+        presenter.storeScreeningDate(intent.getStringExtra(DATE_KEY) ?: "ddd")
+        presenter.storeScreeningTime(intent.getStringExtra(TIME_KEY) ?: "ddd")
+        presenter.storePrice(intent.getIntExtra(PRICE_KEY, 0))
+        presenter.storeSeats(intent.getSerializableExtra(SEATS_KEY) as List<Seat>)
         presenter.setTicketInfo()
         presenter.setScreeningDateInfo()
         presenter.setScreeningTimeInfo()
+        presenter.setSeatsInfo()
+        presenter.setCountInfo()
+    }
+
+    override fun showCount(count: Int) {
+        this.count.text = count.toString()
+    }
+
+    override fun showSeats(seats: List<Seat>) {
+        val seatsCoordinate = seats.map { it.coordinate }
+        this.seats.text = seatsCoordinate.joinToString()
     }
 
     private fun initViewById() {
@@ -38,14 +56,16 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
         screeningTime = findViewById(R.id.ticket_screening_time)
         price = findViewById(R.id.ticket_price)
         count = findViewById(R.id.ticket_number_of_people)
+        seats = findViewById(R.id.seats)
     }
 
     override fun showTicketView(
-        info: Ticket,
+        movieTitle: String,
+        moviePrice: Int,
         ticketCount: Count,
     ) {
-        title.text = info.title
-        price.text = TICKET_PRICE.format(info.price * ticketCount.number)
+        title.text = movieTitle
+        price.text = TICKET_PRICE.format(moviePrice * ticketCount.number)
         count.text = TICKET_COUNT.format(ticketCount.number)
     }
 

@@ -2,11 +2,15 @@ package woowacourse.movie.seats.model
 
 import android.graphics.Color
 import woowacourse.movie.seats.model.SeatsDataSource.seatTotalPrice
+import java.io.Serializable
 
-class Seat private constructor(val rowIndex: Int, val colIndex: Int) {
-    private var selected = false
+class Seat private constructor(val rowIndex: Int, val colIndex: Int) : Serializable {
+    var selected = false
+        private set
+
     var cellBackgroundColor = Color.WHITE
         private set
+
     private val rank: SeatRank
         get() = SeatRank.of(rowIndex)
 

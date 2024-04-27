@@ -1,20 +1,25 @@
 package woowacourse.movie.ticket.contract
 
 import woowacourse.movie.reservation.model.Count
-import woowacourse.movie.ticket.model.Ticket
+import woowacourse.movie.seats.model.Seat
 
 interface MovieTicketContract {
     interface View {
         val presenter: Presenter
 
-        fun showTicketView(
-            info: Ticket,
-            ticketCount: Count,
-        )
-
         fun showScreeningDate(info: String)
 
         fun showScreeningTime(info: String)
+
+        fun showTicketView(
+            movieTitle: String,
+            moviePrice: Int,
+            ticketCount: Count,
+        )
+
+        fun showSeats(seats: List<Seat>)
+
+        fun showCount(count: Int)
     }
 
     interface Presenter {
@@ -29,5 +34,15 @@ interface MovieTicketContract {
         fun setScreeningDateInfo()
 
         fun setScreeningTimeInfo()
+
+        fun storeMovieId(id: Long)
+
+        fun storePrice(price: Int)
+
+        fun storeSeats(seats: List<Seat>)
+
+        fun setSeatsInfo()
+
+        fun setCountInfo()
     }
 }

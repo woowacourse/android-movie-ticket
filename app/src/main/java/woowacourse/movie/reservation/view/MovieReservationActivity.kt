@@ -38,7 +38,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private var toast: Toast? = null
     lateinit var selectedDate: LocalDate
     lateinit var selectedTime: LocalTime
-    var movieId: Long = -1
+    private var movieId: Long = -1
     override val presenter = MovieReservationPresenter(this@MovieReservationActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {

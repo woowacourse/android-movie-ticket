@@ -4,7 +4,11 @@ import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.seats.contract.SeatsContract
 import woowacourse.movie.seats.model.Seat
 import woowacourse.movie.seats.model.SeatsDataSource
+import woowacourse.movie.seats.model.SeatsDataSource.date
+import woowacourse.movie.seats.model.SeatsDataSource.movieId
 import woowacourse.movie.seats.model.SeatsDataSource.seatTotalPrice
+import woowacourse.movie.seats.model.SeatsDataSource.selectedSeats
+import woowacourse.movie.seats.model.SeatsDataSource.time
 
 class SeatsPresenter(val view: SeatsContract.View) : SeatsContract.Presenter {
     override lateinit var seat: Seat
@@ -16,6 +20,34 @@ class SeatsPresenter(val view: SeatsContract.View) : SeatsContract.Presenter {
         seat = Seat.of(rowIndex, colIndex)
     }
 
+    override fun selectSeat(
+        rowIndex: Int,
+        colIndex: Int,
+    ) {
+        seat = Seat.of(rowIndex, colIndex)
+        if (!seat.selected) selectedSeats.add(seat)
+        if (seat.selected) selectedSeats.remove(seat)
+    }
+
+    override fun startNextActivity() {
+        view.startNextActivity(
+            movieId,
+            MovieDataSource.movieList[movieId.toInt()].title,
+            date,
+            time,
+            selectedSeats,
+            seatTotalPrice,
+        )
+    }
+
+    override fun storeDate(date: String) {
+        SeatsDataSource.date = date
+    }
+
+    override fun storeTime(time: String) {
+        SeatsDataSource.time = time
+    }
+
     override fun setPriceInfo() {
         view.setTotalPrice(seatTotalPrice)
     }
@@ -25,7 +57,7 @@ class SeatsPresenter(val view: SeatsContract.View) : SeatsContract.Presenter {
     }
 
     override fun setMovieTitleInfo() {
-        val id = SeatsDataSource.movieId.toInt()
+        val id = movieId.toInt()
         view.setMovieTitle(MovieDataSource.movieList[id].title)
     }
 

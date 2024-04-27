@@ -11,10 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.list.view.MovieListActivity.Companion.EXTRA_MOVIE_ID_KEY
+import woowacourse.movie.reservation.view.MovieReservationActivity.Companion.EXTRA_DATE_KEY
+import woowacourse.movie.reservation.view.MovieReservationActivity.Companion.EXTRA_TIME_KEY
 import woowacourse.movie.seats.contract.SeatsContract
 import woowacourse.movie.seats.model.Seat
 import woowacourse.movie.seats.presenter.SeatsPresenter
 import woowacourse.movie.ticket.view.MovieTicketActivity
+import java.io.Serializable
 
 class SeatsActivity : AppCompatActivity(), SeatsContract.View {
     override val presenter: SeatsContract.Presenter = SeatsPresenter(this)
@@ -29,6 +32,8 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
         initView()
         initSeats()
         presenter.storeMovieId(intent.getLongExtra(EXTRA_MOVIE_ID_KEY, -1))
+        presenter.storeDate(intent.getStringExtra(EXTRA_DATE_KEY) ?: "")
+        presenter.storeTime(intent.getStringExtra(EXTRA_TIME_KEY) ?: "")
         presenter.setMovieTitleInfo()
         presenter.setPriceInfo()
         presenter.setSeatsTextInfo()
@@ -64,7 +69,7 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
         seats.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, tableRow ->
             tableRow.children.filterIsInstance<TextView>().forEachIndexed { colIndex, cell ->
                 cell.setOnClickListener {
-                    presenter.createSeat(rowIndex, colIndex)
+                    presenter.selectSeat(rowIndex, colIndex)
                     presenter.setSeatsCellsBackgroundColorInfo()
                 }
             }
@@ -85,30 +90,53 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
         priceView.text = TOTAL_PRICE.format(info)
     }
 
-    private fun setOnConfirmButtonClickListener()  {
+    private fun setOnConfirmButtonClickListener() {
         confirmButton.setOnClickListener {
             showDialog()
         }
     }
 
-    private fun showDialog()  {
+    private fun showDialog() {
         AlertDialog.Builder(this)
             .setMessage("정말 예매하시겠습니까?")
             .setNegativeButton("취소") { _, _ ->
                 // nothing
             }.setPositiveButton("예매 완료") { _, _ ->
-                val intent = Intent(this, MovieTicketActivity::class.java)
-                startActivity(intent)
+                presenter.startNextActivity()
             }.setCancelable(false).show()
+    }
+
+    override fun startNextActivity(
+        id: Long,
+        title: String,
+        date: String,
+        time: String,
+        seats: List<Seat>,
+        price: Int,
+    ) {
+        val intent = Intent(this, MovieTicketActivity::class.java)
+        intent.putExtra(ID_KEY, id)
+        intent.putExtra(TITLE_KEY, title)
+        intent.putExtra(DATE_KEY, date)
+        intent.putExtra(TIME_KEY, time)
+        intent.putExtra(SEATS_KEY, seats as Serializable)
+        intent.putExtra(PRICE_KEY, price)
+        startActivity(intent)
     }
 
     override fun setSeatCellBackgroundColor(info: Seat) {
         val row = seats.getChildAt(info.rowIndex) as TableRow
-        val cell = row.getChildAt(info.colIndex) // cell을 nulllable로 선언해야 하나?
+        val cell = row.getChildAt(info.colIndex)
         cell.setBackgroundColor(info.cellBackgroundColor)
     }
 
     companion object {
-        private const val TOTAL_PRICE = "%d원"
+        const val TOTAL_PRICE = "%d원"
+        const val ID_KEY = "id_key"
+        const val TITLE_KEY = "title_key"
+        const val DATE_KEY = "date_key"
+        const val TIME_KEY = "time_key"
+        const val SEATS_KEY = "seats_key"
+        const val PRICE_KEY = "price_key"
     }
 }

@@ -1,8 +1,13 @@
 package woowacourse.movie.ticket.presenter
 
+import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.reservation.model.Count
+import woowacourse.movie.seats.model.Seat
 import woowacourse.movie.ticket.contract.MovieTicketContract
 import woowacourse.movie.ticket.model.TicketDataResource
+import woowacourse.movie.ticket.model.TicketDataResource.movieId
+import woowacourse.movie.ticket.model.TicketDataResource.price
+import woowacourse.movie.ticket.model.TicketDataResource.seats
 
 class MovieTicketPresenter(
     val view: MovieTicketContract.View,
@@ -14,8 +19,12 @@ class MovieTicketPresenter(
         TicketDataResource.ticketCount = count
     }
 
+    override fun storeMovieId(id: Long) {
+        movieId = id
+    }
+
     override fun setTicketInfo() {
-        view.showTicketView(TicketDataResource.ticket[0], ticketCount)
+        view.showTicketView(MovieDataSource.movieList[movieId.toInt()].title, price, ticketCount)
     }
 
     override fun storeScreeningDate(date: String) {
@@ -28,6 +37,22 @@ class MovieTicketPresenter(
 
     override fun setScreeningDateInfo() {
         view.showScreeningDate(TicketDataResource.screeningDate)
+    }
+
+    override fun storePrice(price: Int) {
+        TicketDataResource.price = price
+    }
+
+    override fun storeSeats(seats: List<Seat>) {
+        TicketDataResource.seats = seats
+    }
+
+    override fun setSeatsInfo() {
+        view.showSeats(seats)
+    }
+
+    override fun setCountInfo() {
+        view.showCount(seats.size)
     }
 
     override fun setScreeningTimeInfo() {

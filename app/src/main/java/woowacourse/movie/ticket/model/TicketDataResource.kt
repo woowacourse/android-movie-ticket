@@ -1,22 +1,18 @@
 package woowacourse.movie.ticket.model
 
-import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.reservation.model.Count
+import woowacourse.movie.seats.model.Seat
 
 object TicketDataResource {
-    val ticket =
-        listOf(
-            Ticket(
-                MovieDataSource.movieList[0].title,
-                MovieDataSource.movieList[0].screeningDate,
-                13_000,
-                0,
-            ),
-        )
+    var movieId: Long = -1
 
-    var ticketCount: Count = Count(0)
+    var price: Int = -1
 
-    var screeningDate = ""
+    var seats = listOf<Seat>()
 
-    var screeningTime = ""
+    var ticketCount: Count = Count(9999)
+
+    var screeningDate = "aaa"
+
+    var screeningTime = "aaa"
 }
