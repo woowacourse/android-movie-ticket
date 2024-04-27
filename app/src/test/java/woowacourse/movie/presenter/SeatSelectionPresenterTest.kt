@@ -59,42 +59,6 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `날짜_정보가_누락되면_좌석_정보를_표출하지_못하고_토스트_메시지를_출력한다`() {
-        // given
-        every { view.showToastMessage(any()) } just runs
-        // when
-        presenter.loadSeats(-1L, 1, null, "11:00", "해리 포터와 마법사의 돌", emptyList())
-        // then
-        verify {
-            view.showToastMessage("상영 시간 정보가 비어있습니다.")
-        }
-    }
-
-    @Test
-    fun `시간_정보가_누락되면_좌석_정보를_표출하지_못하고_토스트_메시지를_출력한다`() {
-        // given
-        every { view.showToastMessage(any()) } just runs
-        // when
-        presenter.loadSeats(-1L, 1, "2024-03-01", null, "해리 포터와 마법사의 돌", emptyList())
-        // then
-        verify {
-            view.showToastMessage("상영 시간 정보가 비어있습니다.")
-        }
-    }
-
-    @Test
-    fun `영화_제목_정보가_누락되면_좌석_정보를_표출하지_못하고_토스트_메시지를_출력한다`() {
-        // given
-        every { view.showToastMessage(any()) } just runs
-        // when
-        presenter.loadSeats(-1L, 1, "2024-03-01", "11:00", null, emptyList())
-        // then
-        verify {
-            view.showToastMessage("상영 시간 정보가 비어있습니다.")
-        }
-    }
-
-    @Test
     fun `좌석_정보를_업데이트하면_좌석_뷰의_배경색이_변경된다`() {
         // given
         every { view.initializeSeatTable(any(), any(), any(), any(), any()) } just runs
