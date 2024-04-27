@@ -12,7 +12,7 @@ import woowacourse.movie.presentation.ui.screen.ScreenActionHandler
 
 class ScreenRecyclerViewAdapter(
     private val screenActionHandler: ScreenActionHandler,
-    private var screens: MutableList<ScreenView> = mutableListOf(),
+    private val screens: MutableList<ScreenView> = mutableListOf(),
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun getItemViewType(position: Int): Int {
         return when (screens[position]) {
@@ -63,6 +63,14 @@ class ScreenRecyclerViewAdapter(
         screens.clear()
         screens.addAll(newScreens)
         notifyDataSetChanged()
+    }
+
+    fun updateScreen(
+        position: Int,
+        newScreen: ScreenView,
+    ) {
+        screens[position] = newScreen
+        notifyItemChanged(position)
     }
 
     companion object {
