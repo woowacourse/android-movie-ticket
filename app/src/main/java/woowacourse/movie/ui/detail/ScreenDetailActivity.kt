@@ -65,8 +65,8 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         super.onSaveInstanceState(outState)
         outState.putInt(PUT_TICKET_STATE_KEY, ticketView.ticketCount())
 
-        outState.putInt("datePositionKey", dateSpinner.selectedItemPosition)
-        outState.putInt("timePositionKey", timeSpinner.selectedItemPosition)
+        outState.putInt(PUT_DATE_POSITION_KEY, dateSpinner.selectedItemPosition)
+        outState.putInt(PUT_TIME_POSITION_KEY, timeSpinner.selectedItemPosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -78,12 +78,14 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
             presenter.saveTicket(count)
             presenter.loadTicket()
 
-            val datePosition = bundle.getInt("datePositionKey")
+            val datePosition = bundle.getInt(PUT_DATE_POSITION_KEY)
             presenter.saveDatePosition(datePosition)
             presenter.loadDatePosition()
-            val timePosition = bundle.getInt("timePositionKey")
+
+            val timePosition = bundle.getInt(PUT_TIME_POSITION_KEY)
             presenter.saveTimePosition(timePosition)
             presenter.loadTimePosition()
+
         }
     }
 
@@ -104,18 +106,23 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val date = dateAdapter.getItem(position)
                 presenter.saveDatePosition(position)
-                showTimePicker(date?: throw IllegalStateException("Spinner's item is null!!"))
+                presenter.loadTimePosition()
+
+                timeAdapter.clear()
+                timeAdapter.addAll(decideTime(isWeekDay(date)))
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.d("ScreenDetailActivity", "onNothingSelected")
             }
         }
     }
 
     override fun showTimePicker(date: LocalDate) {
-//        timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, decideTime(isWeek(date)))
-        timeAdapter = ArrayAdapter.createFromResource(this, decideTime(isWeek(date)), android.R.layout.simple_spinner_item)
+        timeAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            decideTime(isWeekDay(date)).toMutableList().toList()
+        )
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         timeSpinner.adapter = timeAdapter
 
@@ -125,7 +132,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.d("ScreenDetailActivity", "onNothingSelected")
+                Log.d("ScreenDetailActivity", "Nothing Selected")
             }
         }
     }
@@ -138,14 +145,20 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         timeSpinner.setSelection(timePosition)
     }
 
-    private fun isWeek(date: LocalDate?) = date?.let {
+    private fun isWeekDay(date: LocalDate?): Boolean = date?.let {
         it.dayOfWeek in DayOfWeek.MONDAY..DayOfWeek.FRIDAY
     } ?: throw IllegalStateException("Spinner's item is null!!")
 
     private val weekDayTimes = listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
     private val weekEndTimes = listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
 
-    private fun decideTime(isWeek: Boolean): Int = if(isWeek) R.array.weekday_time else R.array.weekend_time
+    private fun decideTime2(isWeek: Boolean): Int = if (isWeek) R.array.weekday_time else R.array.weekend_time
+
+    private fun decideTime(isWeek: Boolean): List<String> = if (isWeek) {
+        weekDayTimes
+    } else {
+        weekEndTimes
+    }
 
     override fun navigateToReservation(navigationId: Int) {
         ReservationActivity.startActivity(this, navigationId)
@@ -207,6 +220,8 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         private const val DEFAULT_ID = -1
         private const val PUT_EXTRA_KEY_ID = "screenId"
         private const val PUT_TICKET_STATE_KEY = "ticketCount"
+        private const val PUT_DATE_POSITION_KEY = "datePosition"
+        private const val PUT_TIME_POSITION_KEY = "timePosition"
 
         fun startActivity(
             context: Context,
