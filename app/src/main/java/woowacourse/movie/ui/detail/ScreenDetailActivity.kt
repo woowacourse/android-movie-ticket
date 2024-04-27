@@ -3,12 +3,7 @@ package woowacourse.movie.ui.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -19,6 +14,9 @@ import woowacourse.movie.domain.repository.DummyMovies
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.ScreenDetailUI
+import woowacourse.movie.ui.detail.view.DateTimeSpinnerView
+import woowacourse.movie.ui.detail.view.ScreenDetailScreenView
+import woowacourse.movie.ui.detail.view.ScreenDetailTicketView
 import woowacourse.movie.ui.reservation.ReservationActivity
 import java.lang.IllegalStateException
 import java.time.DayOfWeek
@@ -36,11 +34,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
 
     private val screenDetailView: ScreenDetailScreenView by lazy { findViewById(R.id.screen_detail_screen_view) }
     private val ticketView: ScreenDetailTicketView by lazy { findViewById(R.id.screen_detail_ticket_view) }
-    private val dateSpinner: Spinner by lazy { findViewById(R.id.spn_date) }
-    private val timeSpinner: Spinner by lazy { findViewById(R.id.spn_time) }
-
-    private lateinit var dateAdapter: ArrayAdapter<LocalDate>
-    private lateinit var timeAdapter: ArrayAdapter<CharSequence>
+    private val dateTimeSpinnerView: DateTimeSpinnerView by lazy { findViewById(R.id.screen_detail_date_time_spinner_view) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,10 +57,11 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(PUT_TICKET_STATE_KEY, ticketView.ticketCount())
-
-        outState.putInt(PUT_DATE_POSITION_KEY, dateSpinner.selectedItemPosition)
-        outState.putInt(PUT_TIME_POSITION_KEY, timeSpinner.selectedItemPosition)
+        with(outState){
+            putInt(PUT_TICKET_STATE_KEY, ticketView.ticketCount())
+            putInt(PUT_DATE_POSITION_KEY, dateTimeSpinnerView.selectedDatePosition())
+            putInt(PUT_TIME_POSITION_KEY, dateTimeSpinnerView.selectedTimePosition())
+        }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -76,16 +71,14 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
             val count = bundle.getInt(PUT_TICKET_STATE_KEY)
             ticketView.restoreTicketCount(count)
             presenter.saveTicket(count)
-            presenter.loadTicket()
 
             val datePosition = bundle.getInt(PUT_DATE_POSITION_KEY)
+            dateTimeSpinnerView.restoreDatePosition(datePosition)
             presenter.saveDatePosition(datePosition)
-            presenter.loadDatePosition()
 
             val timePosition = bundle.getInt(PUT_TIME_POSITION_KEY)
+            dateTimeSpinnerView.restoreTimePosition(timePosition)
             presenter.saveTimePosition(timePosition)
-            presenter.loadTimePosition()
-
         }
     }
 
@@ -97,67 +90,16 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         ticketView.updateTicketCount(count)
     }
 
-    override fun showDatePicker(dateRange: DateRange) {
-        dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dateRange.allDates())
-        dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        dateSpinner.adapter = dateAdapter
-
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val date = dateAdapter.getItem(position)
-                presenter.saveDatePosition(position)
-                presenter.loadTimePosition()
-
-                timeAdapter.clear()
-                timeAdapter.addAll(decideTime(isWeekDay(date)))
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-    }
-
-    override fun showTimePicker(date: LocalDate) {
-        timeAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            decideTime(isWeekDay(date)).toMutableList().toList()
-        )
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        timeSpinner.adapter = timeAdapter
-
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                presenter.saveTimePosition(position)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.d("ScreenDetailActivity", "Nothing Selected")
-            }
-        }
+    override fun showDateTimePicker(dateRange: DateRange) {
+        dateTimeSpinnerView.show(dateRange)
     }
 
     override fun showDateWithPosition(datePosition: Int) {
-        dateSpinner.setSelection(datePosition)
+        dateTimeSpinnerView.restoreDatePosition(datePosition)
     }
 
     override fun showTimeWithPosition(timePosition: Int) {
-        timeSpinner.setSelection(timePosition)
-    }
-
-    private fun isWeekDay(date: LocalDate?): Boolean = date?.let {
-        it.dayOfWeek in DayOfWeek.MONDAY..DayOfWeek.FRIDAY
-    } ?: throw IllegalStateException("Spinner's item is null!!")
-
-    private val weekDayTimes = listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
-    private val weekEndTimes = listOf("09:00", "11:00", "13:00", "15:00", "17:00", "19:00", "21:00", "23:00")
-
-    private fun decideTime2(isWeek: Boolean): Int = if (isWeek) R.array.weekday_time else R.array.weekend_time
-
-    private fun decideTime(isWeek: Boolean): List<String> = if (isWeek) {
-        weekDayTimes
-    } else {
-        weekEndTimes
+        dateTimeSpinnerView.restoreTimePosition(timePosition)
     }
 
     override fun navigateToReservation(navigationId: Int) {

@@ -2,7 +2,6 @@ package woowacourse.movie.ui.detail
 
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.ui.ScreenDetailUI
-import java.time.LocalDate
 
 interface ScreenDetailContract {
     interface View {
@@ -10,9 +9,7 @@ interface ScreenDetailContract {
 
         fun showTicket(count: Int)
 
-        fun showDatePicker(dateRange: DateRange)
-
-        fun showTimePicker(date: LocalDate)
+        fun showDateTimePicker(dateRange: DateRange)
 
         fun showDateWithPosition(datePosition: Int)
 
@@ -36,11 +33,7 @@ interface ScreenDetailContract {
 
         fun saveDatePosition(datePosition: Int)
 
-        fun loadDatePosition()
-
         fun saveTimePosition(timePosition: Int)
-
-        fun loadTimePosition()
 
         fun saveTicket(count: Int)
 

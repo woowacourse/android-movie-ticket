@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.ScreenDetailActivity">
 
-    <woowacourse.movie.ui.detail.ScreenDetailScreenView
+    <woowacourse.movie.ui.detail.view.ScreenDetailScreenView
         android:id="@+id/screen_detail_screen_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -15,31 +15,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spn_date"
+    <woowacourse.movie.ui.detail.view.ScreenDetailDateTimeSpinnerView
+        android:id="@+id/screen_detail_date_time_spinner_view"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/screen_detail_ticket_view"
-        app:layout_constraintEnd_toStartOf="@+id/spn_time"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/screen_detail_screen_view" />
 
-    <Spinner
-        android:id="@+id/spn_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/spn_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spn_date"
-        app:layout_constraintTop_toTopOf="@+id/spn_date" />
-
-    <woowacourse.movie.ui.detail.ScreenDetailTicketView
+    <woowacourse.movie.ui.detail.view.ScreenDetailTicketView
         android:id="@+id/screen_detail_ticket_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

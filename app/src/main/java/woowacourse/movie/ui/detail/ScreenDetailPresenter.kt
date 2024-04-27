@@ -23,8 +23,7 @@ class ScreenDetailPresenter(
         try {
             val loadedScreen = screen(screenId)
             view.showScreen(loadedScreen.toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
-            view.showDatePicker(loadedScreen.dateRange)
-            view.showTimePicker(loadedScreen.dateRange.start)
+            view.showDateTimePicker(loadedScreen.dateRange)
         } catch (e: Exception) {
             when (e) {
                 is NoSuchElementException -> view.goToBack(e)
@@ -41,16 +40,8 @@ class ScreenDetailPresenter(
         this.datePosition = datePosition
     }
 
-    override fun loadDatePosition(){
-        view.showDateWithPosition(datePosition)
-    }
-
     override fun saveTimePosition(timePosition: Int) {
         this.timePosition = timePosition
-    }
-
-    override fun loadTimePosition(){
-        view.showTimeWithPosition(timePosition)
     }
 
     override fun saveTicket(count: Int) {
