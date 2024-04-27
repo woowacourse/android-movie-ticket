@@ -150,41 +150,57 @@ class DetailActivity : BaseActivity(), View {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
+        restoreTicketCount(savedInstanceState)
+        restoreSelectedDate(savedInstanceState)
+        restoreSelectedTime(savedInstanceState)
+    }
+
+    private fun restoreTicketCount(savedInstanceState: Bundle) {
         val count = savedInstanceState.getInt(PUT_TICKET_STATE_KEY, DEFAULT_TICKET_COUNT)
         if (count != DEFAULT_TICKET_COUNT) {
             presenter.updateTicket(count)
         }
+    }
 
+    private fun restoreSelectedDate(savedInstanceState: Bundle) {
         val savedLocalDate =
             savedInstanceState.getSerializable(PUT_STATE_KEY_SELECTED_DATE) as LocalDate?
         savedLocalDate?.let { localDate ->
             presenter.registerDate(localDate)
-            var position = 0
-            presenter.uiModel.selectableDates.forEachIndexed { index, screenDate ->
-                if (screenDate.date == localDate) {
-                    position = index
-                    return@forEachIndexed
-                }
-            }
+            val position = findPositionForSelectedDate(localDate)
+            presenter.createTimeSpinnerAdapter(ScreenDate(localDate))
             dateSpinner.setSelection(position)
         }
+    }
 
+    private fun findPositionForSelectedDate(selectedDate: LocalDate): Int {
+        presenter.uiModel.selectableDates.forEachIndexed { index, screenDate ->
+            if (screenDate.date == selectedDate) {
+                return index
+            }
+        }
+        return 0
+    }
+
+    private fun restoreSelectedTime(savedInstanceState: Bundle) {
         val savedLocalTime =
             savedInstanceState.getSerializable(PUT_STATE_KEY_SELECTED_TIME) as LocalTime?
-
         savedLocalTime?.let { localTime ->
             presenter.registerTime(localTime)
-            var position = 0
-            presenter.uiModel.selectedDate?.let { screenDate ->
-                screenDate.getSelectableTimes().forEachIndexed { index, screenTime ->
-                    if (screenTime == localTime) {
-                        position = index
-                        return@forEachIndexed
-                    }
-                }
-            }
+            val position = findPositionForSelectedTime(localTime)
             timeSpinner.setSelection(position)
         }
+    }
+
+    private fun findPositionForSelectedTime(selectedTime: LocalTime): Int {
+        presenter.uiModel.selectedDate?.let { screenDate ->
+            screenDate.getSelectableTimes().forEachIndexed { index, screenTime ->
+                if (screenTime == selectedTime) {
+                    return index
+                }
+            }
+        }
+        return 0
     }
 
     private fun List<ScreenDate>.toDateString(): List<LocalDate> = this.map { it.date }
