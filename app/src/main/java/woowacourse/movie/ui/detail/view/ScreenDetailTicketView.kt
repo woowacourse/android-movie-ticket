@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.detail
+package woowacourse.movie.ui.detail.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
+import woowacourse.movie.ui.detail.ScreenDetailContract
 
 class ScreenDetailTicketView(
     context: Context,

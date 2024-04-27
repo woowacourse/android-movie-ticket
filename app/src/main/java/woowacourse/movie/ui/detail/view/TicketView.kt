@@ -1,4 +1,6 @@
-package woowacourse.movie.ui.detail
+package woowacourse.movie.ui.detail.view
+
+import woowacourse.movie.ui.detail.ScreenDetailContract
 
 interface TicketView {
     fun initClickListener(

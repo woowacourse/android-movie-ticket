@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.detail
+package woowacourse.movie.ui.detail.view
 
 import android.content.Context
 import android.util.AttributeSet
