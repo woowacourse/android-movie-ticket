@@ -1,11 +1,11 @@
 package woowacourse.movie.view.finished
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MovieUtils.intentSerializable
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
@@ -18,7 +18,6 @@ import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.DEFAULT_MOVIE_ID
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
 import woowacourse.movie.view.reservation.SeatSelectionActivity.Companion.SEATS
-import java.io.Serializable
 import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
@@ -69,17 +68,6 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
             finish()
-        }
-    }
-
-    private fun <T : Serializable> Intent.intentSerializable(
-        key: String,
-        clazz: Class<T>,
-    ): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.getSerializableExtra(key, clazz)
-        } else {
-            this.getSerializableExtra(key) as T?
         }
     }
 }

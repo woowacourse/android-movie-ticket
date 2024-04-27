@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,6 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.MovieUtils.bundleSerializable
 import woowacourse.movie.MovieUtils.convertPeriodFormat
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
@@ -22,7 +22,6 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.presenter.reservation.ReservationDetailContract
 import woowacourse.movie.presenter.reservation.ReservationDetailPresenter
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
-import java.io.Serializable
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {
     private val presenter: ReservationDetailPresenter = ReservationDetailPresenter(this, ScreeningDao())
@@ -171,17 +170,6 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
             val time = screeningTimeSpinner.selectedItem.toString()
             val dateTime = ScreeningDateTime(date, time)
             presenter.initializeReservationButton(movieId, dateTime)
-        }
-    }
-
-    private fun <T : Serializable> Bundle.bundleSerializable(
-        key: String,
-        clazz: Class<T>,
-    ): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.getSerializable(key, clazz)
-        } else {
-            this.getSerializable(key) as T?
         }
     }
 

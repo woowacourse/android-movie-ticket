@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
@@ -10,6 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import woowacourse.movie.MovieUtils.bundleSerializable
+import woowacourse.movie.MovieUtils.intentSerializable
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.db.SeatsDao
@@ -23,7 +24,6 @@ import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
 import woowacourse.movie.view.finished.ReservationFinishedActivity
 import woowacourse.movie.view.home.ReservationHomeActivity
 import woowacourse.movie.view.reservation.ReservationDetailActivity.Companion.TICKET
-import java.io.Serializable
 import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
@@ -174,28 +174,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private fun initializeConfirmButton() {
         confirmButton.setOnClickListener {
             presenter.initializeConfirmButton()
-        }
-    }
-
-    private fun <T : Serializable> Bundle.bundleSerializable(
-        key: String,
-        clazz: Class<T>,
-    ): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.getSerializable(key, clazz)
-        } else {
-            this.getSerializable(key) as T?
-        }
-    }
-
-    private fun <T : Serializable> Intent.intentSerializable(
-        key: String,
-        clazz: Class<T>,
-    ): T? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.getSerializableExtra(key, clazz)
-        } else {
-            this.getSerializableExtra(key) as T?
         }
     }
 
