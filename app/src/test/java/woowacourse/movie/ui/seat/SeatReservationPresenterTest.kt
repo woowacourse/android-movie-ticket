@@ -9,8 +9,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Grade
 import woowacourse.movie.domain.model.Position
+import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.repository.FakeReservationRepository
 import woowacourse.movie.domain.repository.FakeScreenRepository
 
 class SeatReservationPresenterTest {
@@ -24,6 +26,7 @@ class SeatReservationPresenterTest {
             SeatReservationPresenter(
                 view = mockView,
                 screenRepository = FakeScreenRepository(),
+                reservationRepository = FakeReservationRepository(),
             )
     }
 
@@ -43,5 +46,20 @@ class SeatReservationPresenterTest {
 
         // then
         verify(exactly = 1) { mockView.showSeats(fakeSeats) }
+    }
+
+    @Test
+    fun `navigate to completeReservation when reservation success`() {
+        // given
+        every { mockView.navigateToCompleteReservation(2) } just runs
+
+        // when
+        presenter.reserve(
+            screen = Screen.NULL,
+            seats = Seats(Seat(Position(0, 0), Grade.S)),
+        )
+
+        // then
+        verify(exactly = 1) { mockView.navigateToCompleteReservation(2) }
     }
 }
