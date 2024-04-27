@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.main.ui
+package woowacourse.movie.feature.main.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.feature.main.ui.ScreeningModel
 
 class ListViewAdapter(
     private val movies: List<ScreeningModel>,

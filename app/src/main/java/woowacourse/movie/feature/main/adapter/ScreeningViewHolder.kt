@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.main.ui
+package woowacourse.movie.feature.main.adapter
 
 import android.view.View
 import android.widget.Button
@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.feature.main.ui.ScreeningModel
 
 class ScreeningViewHolder(
     val view: View,

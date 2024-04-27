@@ -27,11 +27,11 @@ class MainPresenterTest {
     fun `영화 리스트를 불러와 뷰에 보여준다`() {
         // given
         every { repository.findAll() } returns listOf(MOCK_SCREENING)
-        every { view.displayScreenings(any()) } just runs
+        every { view.displayScreenings(any(), any()) } just runs
         // when
         presenter.fetchScreeningList()
         // Then
-        verify { view.displayScreenings(listOf(MOCK_SCREENING).map { it.toUiModel() }) }
+        verify { view.displayScreenings(listOf(MOCK_SCREENING).map { it.toUiModel() }, any()) }
     }
 
     @Test

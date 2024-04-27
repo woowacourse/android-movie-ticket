@@ -1,10 +1,11 @@
-package woowacourse.movie.feature.main.ui
+package woowacourse.movie.feature.main.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.feature.main.ui.ScreeningModel
 
 class ScreeningAdapter(
     private val screenings: List<ScreeningModel>,

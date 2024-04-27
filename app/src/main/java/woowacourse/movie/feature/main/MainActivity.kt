@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.MockScreeningRepository
-import woowacourse.movie.feature.main.ui.ScreeningAdapter
+import woowacourse.movie.feature.main.adapter.ScreeningAdapter
 import woowacourse.movie.feature.main.ui.ScreeningModel
 import woowacourse.movie.feature.reservation.ReservationActivity
 
