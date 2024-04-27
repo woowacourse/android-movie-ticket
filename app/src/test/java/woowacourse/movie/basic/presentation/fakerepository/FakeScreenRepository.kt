@@ -15,7 +15,7 @@ class FakeScreenRepository(private val screens: List<Screen>) : ScreenRepository
 
     override fun findByScreenId(id: Int): Result<Screen> {
         return runCatching {
-            screens.find { it.id == id } ?: throw NoSuchElementException()
+            screens.find { screen -> screen.id == id } ?: throw NoSuchElementException()
         }
     }
 }

@@ -12,9 +12,9 @@ import java.time.LocalDate
 class DummyScreens : ScreenRepository {
     // TODO 더미 데이터
     private val temp =
-        List(2500) {
+        List(2500) { id ->
             Screen(
-                id = it,
+                id = id,
                 movie =
                     Movie(
                         title = "해리 포터와 마법사의 돌",
@@ -54,8 +54,10 @@ class DummyScreens : ScreenRepository {
 
     override fun loadSeatBoard(id: Int): Result<SeatBoard> =
         runCatching {
-            DummySeatBoard.seatBoards.find { it.id == id } ?: throw NoSuchElementException()
+            DummySeatBoard.seatBoards.find { seatBoard -> seatBoard.id == id }
+                ?: throw NoSuchElementException()
         }
 
-    override fun findByScreenId(id: Int): Result<Screen> = runCatching { temp.find { it.id == id } ?: throw NoSuchElementException() }
+    override fun findByScreenId(id: Int): Result<Screen> =
+        runCatching { temp.find { screen -> screen.id == id } ?: throw NoSuchElementException() }
 }

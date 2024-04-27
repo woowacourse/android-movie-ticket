@@ -79,10 +79,10 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `선택해야_하는_좌석의_개수가_4일때_3개의_좌석을_선택하면_좌석_선택_버튼이_활성화_되지_않는다`() {
-        activityRule.scenario.onActivity {
+        activityRule.scenario.onActivity { context ->
             val view =
-                it.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { it.children }.filterIsInstance<TextView>().toList()
+                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
+                    .flatMap { row -> row.children }.filterIsInstance<TextView>().toList()
 
             view[0].performClick()
             view[1].performClick()
@@ -93,10 +93,10 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `좌석_선택_버튼이_활성화_되었을_때_버튼을_누르면_다이얼로그가_나타난다`() {
-        activityRule.scenario.onActivity {
+        activityRule.scenario.onActivity { context ->
             val view =
-                it.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { it.children }.filterIsInstance<TextView>().toList()
+                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
+                    .flatMap { row -> row.children }.filterIsInstance<TextView>().toList()
 
             view[0].performClick()
             view[1].performClick()
@@ -109,10 +109,10 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `예약_확정_다이얼로그에서_취소_버튼_클릭_시_다이얼로그가_사라진다`() {
-        activityRule.scenario.onActivity {
+        activityRule.scenario.onActivity { context ->
             val view =
-                it.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { it.children }.filterIsInstance<TextView>().toList()
+                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
+                    .flatMap { row -> row.children }.filterIsInstance<TextView>().toList()
 
             view[0].performClick()
             view[1].performClick()
@@ -140,12 +140,12 @@ class SeatSelectionActivityTest {
     }
 
     private fun performSeatsSelection(action: (context: Context, view: TextView) -> Unit) {
-        activityRule.scenario.onActivity {
+        activityRule.scenario.onActivity { context ->
             val view =
-                it.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { it.children }.filterIsInstance<TextView>().first()
+                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
+                    .flatMap { row -> row.children }.filterIsInstance<TextView>().first()
 
-            action(it, view)
+            action(context, view)
         }
     }
 }

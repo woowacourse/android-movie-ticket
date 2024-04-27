@@ -24,7 +24,7 @@ object DummyReservation : ReservationRepository {
 
     override fun findByReservationId(id: Int): Result<Reservation> {
         return runCatching {
-            val reservation = reservations.find { it.id == id }
+            val reservation = reservations.find { reservation -> reservation.id == id }
             reservation ?: throw NoSuchElementException("예약 정보를 찾을 수 없습니다.")
         }
     }
