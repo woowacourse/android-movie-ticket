@@ -15,7 +15,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.main.view.adapter.MovieAdapter
+import woowacourse.movie.main.view.adapter.MovieViewHolder
 
 @RunWith(AndroidJUnit4::class)
 class MovieMainActivityTest {
@@ -31,7 +31,7 @@ class MovieMainActivityTest {
     fun `영화_목록의_3번째_아이템은_영화가_보여진다`() {
         onView(withId(R.id.movieRecyclerView)).check(
             matches(
-                matchViewHolderAtPosition(2, MovieAdapter.MovieViewHolder::class.java),
+                matchViewHolderAtPosition(2, MovieViewHolder::class.java),
             ),
         )
     }
