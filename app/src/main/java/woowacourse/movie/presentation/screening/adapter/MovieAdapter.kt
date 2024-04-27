@@ -10,7 +10,7 @@ import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 
 class MovieAdapter(
     private val onClickReservationButton: (id: Long) -> Unit,
-    private val onClickAd: () -> Unit
+    private val onClickAd: () -> Unit,
 ) :
     ListAdapter<ScreeningMovieUiModel, RecyclerView.ViewHolder>(movieComparator) {
     private lateinit var inflater: LayoutInflater
@@ -22,7 +22,10 @@ class MovieAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
         return when (ScreenItemType.entries[viewType]) {
             ScreenItemType.MOVIE -> {
@@ -37,7 +40,10 @@ class MovieAdapter(
         }
     }
 
-    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        viewHolder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         val data = currentList[position]
         when (viewHolder) {
             is MovieViewHolder -> viewHolder.bind(data)
@@ -51,7 +57,7 @@ class MovieAdapter(
         private val movieComparator =
             ItemDiffCallback<ScreeningMovieUiModel>(
                 onItemsTheSame = { old, new -> old.id == new.id },
-                onContentsTheSame = { old, new -> old == new }
+                onContentsTheSame = { old, new -> old == new },
             )
     }
 }

@@ -9,9 +9,10 @@ import woowacourse.movie.R
 import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 
 class AdViewHolder(view: View, onClickAd: () -> Unit) : RecyclerView.ViewHolder(view) {
-    val adView: ImageView = view.findViewById<ImageView?>(R.id.iv_ad).apply {
-        setOnClickListener { onClickAd() }
-    }
+    val adView: ImageView =
+        view.findViewById<ImageView?>(R.id.iv_ad).apply {
+            setOnClickListener { onClickAd() }
+        }
 }
 
 class MovieViewHolder(
