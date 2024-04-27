@@ -1,9 +1,6 @@
 package woowacourse.movie.domain
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.pricing.UniformPricingSystem
-import woowacourse.movie.domain.reservation.Quantity
-import woowacourse.movie.domain.reservation.TicketMachine
 import woowacourse.movie.domain.screening.BasicScreeningScheduleSystem
 import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
@@ -45,19 +42,6 @@ object TestFixture {
             LocalTime.of(0, 0, 0),
         )
 
-//    fun reservationBuilder(
-//        quantityValue: Int,
-//        pricingSystem: PricingSystem,
-//    ): TicketMachine {
-//        val screening = screeningBuilder()
-//        return TicketMachine(
-//            0,
-//            screening,
-//            Quantity(quantityValue),
-//            pricingSystem,
-//        )
-//    }
-
     val MOCK_SCREENING =
         Screening(
             0,
@@ -77,12 +61,5 @@ object TestFixture {
             ),
             listOf("A1", "A2"),
             20000,
-        )
-
-    val MOCK_TICKET_MACHINE =
-        TicketMachine(
-            MOCK_SCREENING,
-            Quantity(3),
-            UniformPricingSystem(),
         )
 }
