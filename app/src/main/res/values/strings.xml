@@ -13,4 +13,8 @@
     <string name="text_confirm_button">확인</string>
     <string name="text_total_price">%,d원</string>
     <string name="text_seat_position">%c%d</string>
+    <string name="dialog_reservation_title">예매 확인</string>
+    <string name="dialog_reservation_message">정말 예매하시겠습니까?</string>
+    <string name="dialog_positive_button">예매 완료</string>
+    <string name="dialog_negative_button">취소</string>
 </resources>

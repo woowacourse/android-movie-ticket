@@ -49,6 +49,19 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         val date = intent.getStringExtra(EXTRA_DATE)
         val time = intent.getStringExtra(EXTRA_TIME)
 
+        initializePresenter(savedInstanceState, screeningId, count, date, time, title)
+        initializeReservationButton(screeningId, count)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun initializePresenter(
+        savedInstanceState: Bundle?,
+        screeningId: Long,
+        count: Int,
+        date: String?,
+        time: String?,
+        title: String?,
+    ) {
         presenter = SeatSelectionPresenter(this)
         savedInstanceState?.let {
             val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
@@ -63,16 +76,21 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 )
             }
         } ?: presenter.initializeSeats(screeningId, count, date, time, title, emptyList())
+    }
 
+    private fun initializeReservationButton(
+        screeningId: Long,
+        count: Int,
+    ) {
         button.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
+                .setTitle(getString(R.string.dialog_reservation_title))
+                .setMessage(getString(R.string.dialog_reservation_message))
                 .setCancelable(false)
-                .setPositiveButton("예") { _, _ ->
+                .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
                     presenter.makeReservation(screeningId, count)
                 }
-                .setNegativeButton("아니요") { dialog, _ ->
+                .setNegativeButton(getString(R.string.dialog_negative_button)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()

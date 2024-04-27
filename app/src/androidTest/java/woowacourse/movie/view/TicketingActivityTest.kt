@@ -56,13 +56,22 @@ class TicketingActivityTest {
     }
 
     @Test
-    fun `인원수_증가_후_화면_회전_시에도_인원수가_유지된다`() {
+    fun `인원수_증가_및_신청_일시_변경_후_화면_회전_시에도_데이터가_유지된다`() {
         val activityScenario = activityRule.scenario
         onView(withId(R.id.btn_plus)).perform(click())
+        onView(withId(R.id.spinner_date)).perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(LocalDate::class.java)),
+                `is`(LocalDate.of(2024, 3, 8)),
+            ),
+        ).perform(click())
         activityScenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
+
         onView(withId(R.id.tv_count)).check(matches(withText("2")))
+        onView(withId(R.id.spinner_date)).check(matches(withSpinnerText(containsString("2024-03-08"))))
     }
 
     @Test
