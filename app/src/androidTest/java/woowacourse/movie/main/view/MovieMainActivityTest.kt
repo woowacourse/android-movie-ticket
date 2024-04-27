@@ -38,7 +38,7 @@ class MovieMainActivityTest {
     }
 
     @Test
-    fun `영화_목록의_4번째_아이템은_영화가_보여진다`() {
+    fun `영화_목록의_4번째_아이템은_광고가_보여진다`() {
         onView(withId(R.id.movieRecyclerView)).check(
             matches(
                 matchViewHolderAtPosition(3, AdvertisementViewHolder::class.java),
