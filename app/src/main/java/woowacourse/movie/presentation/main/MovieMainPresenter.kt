@@ -11,7 +11,7 @@ class MovieMainPresenter(private val movieChoiceContractView: MovieMainContract.
     private lateinit var movieAdapter: MovieAdapter
 
     override fun loadMovies() {
-        movieAdapter = MovieAdapter(movieChoiceContractView::onMovieItemClick, movieRepository.findAll())
+        movieAdapter = MovieAdapter(movieChoiceContractView::onMovieItemClick, movieRepository.findAllMovies())
         movieChoiceContractView.onInitAdapter(movieAdapter)
     }
 }

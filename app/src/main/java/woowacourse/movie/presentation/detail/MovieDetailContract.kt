@@ -15,11 +15,10 @@ interface MovieDetailContract {
 
         fun updateTime(times: List<LocalTime>)
 
-        fun onReservationComplete(
-            id: Long,
+        fun onSelectSeatClicked(
+            movieId: Long,
+            movieScreenDateTimeId: Long,
             count: Int,
-            localDate: LocalDate,
-            localTime: LocalTime,
         )
     }
 
@@ -35,8 +34,8 @@ interface MovieDetailContract {
             localDate: LocalDate,
         )
 
-        fun reservation(
-            id: Long,
+        fun selectSeat(
+            movie: Movie,
             localDate: LocalDate,
             localTime: LocalTime,
         )

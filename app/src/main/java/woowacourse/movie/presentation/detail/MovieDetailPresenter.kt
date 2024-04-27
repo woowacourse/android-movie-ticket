@@ -15,15 +15,15 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
     private var reservationCount = ReservationCount()
 
     override fun display(id: Long) {
-        val movie = movieRepository.findOneById(id)
+        val movie = movieRepository.findMovieById(id)
         movie?.let {
             detailContractView.onInitView(it)
-            detailContractView.updateDate(it.dateTime.map { it.toLocalDate() }.toSet().toList())
+            detailContractView.updateDate(it.dateTime.map { it.dateTime.toLocalDate() }.toSet().toList())
             detailContractView.updateTime(
-                it.dateTime.filter { localDateTime ->
-                    it.dateTime.first().isSameDate(localDateTime)
+                it.dateTime.filter { screenDateTime ->
+                    it.dateTime.first().dateTime.isSameDate(screenDateTime.dateTime)
                 }.map {
-                    it.toLocalTime()
+                    it.dateTime.toLocalTime()
                 },
             )
         } ?: detailContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
@@ -48,19 +48,20 @@ class MovieDetailPresenter(private val detailContractView: MovieDetailContract.V
         localDate: LocalDate,
     ) {
         detailContractView.updateTime(
-            movie.dateTime.filter { localDateTime ->
-                localDateTime.toLocalDate().isEqual(localDate)
+            movie.dateTime.filter { screenDateTime ->
+                screenDateTime.dateTime.toLocalDate().isEqual(screenDateTime.dateTime.toLocalDate())
             }.map {
-                it.toLocalTime()
+                it.dateTime.toLocalTime()
             },
         )
     }
 
-    override fun reservation(
-        id: Long,
+    override fun selectSeat(
+        movie: Movie,
         localDate: LocalDate,
         localTime: LocalTime,
     ) {
-        detailContractView.onReservationComplete(id, reservationCount.count, localDate, localTime)
+        val movieScreenTime = movie.dateTime.first { it.dateTime.isEqual(LocalDateTime.of(localDate, localTime)) }
+        detailContractView.onSelectSeatClicked(movie.id, movieScreenTime.id, reservationCount.count)
     }
 }

@@ -17,3 +17,23 @@ fun formatCurrency(amount: Int): String {
     val formatter = DecimalFormat("#,###")
     return formatter.format(amount.toLong())
 }
+
+fun mapNumberToLetter(number: Int): String {
+    val row =
+        when (number / 4) {
+            0 -> "A"
+            1 -> "B"
+            2 -> "C"
+            3 -> "D"
+            else -> "E"
+        }
+
+    val col =
+        when (number % 4) {
+            0 -> "1"
+            1 -> "2"
+            2 -> "3"
+            else -> "4"
+        }
+    return row + col
+}

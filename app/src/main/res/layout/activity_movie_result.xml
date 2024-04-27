@@ -78,6 +78,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/resultDivider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toRightOf="@id/resultReservCountFormat"
+        app:layout_constraintRight_toLeftOf="@id/resultSeats"
+        app:layout_constraintTop_toTopOf="@id/resultReservCount"
+        app:layout_constraintBottom_toBottomOf="@id/resultReservCount"
+        android:textColor="@color/black"
+        android:text=" | "/>
+
+    <TextView
+        android:id="@+id/resultSeats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        tools:text="B3, B2"
+        app:layout_constraintLeft_toRightOf="@id/resultDivider"
+        app:layout_constraintTop_toTopOf="@id/resultReservCount"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/resultReservCount"/>
+
+    <TextView
         android:id="@+id/resultReservCountFormat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +110,7 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/resultReservCount"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/resultDivider"
         app:layout_constraintTop_toBottomOf="@id/resultDate"
         app:layout_constraintTop_toTopOf="parent" />
 

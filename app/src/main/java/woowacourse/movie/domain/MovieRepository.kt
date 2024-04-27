@@ -1,7 +1,13 @@
 package woowacourse.movie.domain
 
 interface MovieRepository {
-    fun findAll(): List<Movie>
+    fun findAllMovies(): List<Movie>
 
-    fun findOneById(id: Long): Movie?
+    fun findMovieById(movieId: Long): Movie?
+
+    fun findSeatsByMovieScreenDateTimeId(movieScreenDateTimeId: Long): List<MovieSeat>
+
+    fun findSeatById(seatId: Long): MovieSeat?
+
+    fun findScreenDateTimeByMovieScreenDateTimeId(movieScreenDateTimeId: Long): ScreenDateTime?
 }

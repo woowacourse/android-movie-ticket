@@ -16,20 +16,19 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.presentation.result.MovieResultActivity
+import woowacourse.movie.presentation.seat.MovieSeatActivity
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
-import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_DATE
-import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_TIME
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.formatScreeningPeriod
 import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
-    private lateinit var reservationCompleteActivityResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var movieSeatActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var movieDetailPresenter: MovieDetailPresenter
 
     private val detailImage: ImageView by lazy { findViewById(R.id.detailImage) }
@@ -49,7 +48,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         setContentView(R.layout.activity_movie_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        reservationCompleteActivityResultLauncher =
+        movieSeatActivityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 if (it.resultCode == MovieErrorCode.INVALID_MOVIE_ID.code) {
                     Toast.makeText(this, MovieErrorCode.INVALID_MOVIE_ID.msg, Toast.LENGTH_SHORT).show()
@@ -73,7 +72,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         with(movie) {
             detailImage.load(this.thumbnailUrl)
             detailTitle.text = this.title
-            detailDate.text = formatScreeningPeriod(movie.dateTime)
+            detailDate.text = formatScreeningPeriod(movie.dateTime.map { it.dateTime })
             detailRunningTime.text = "${this.runningTime}"
             detailDescription.text = this.description
             minusButton.setOnClickListener {
@@ -83,8 +82,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 movieDetailPresenter.plusReservationCount()
             }
             reservationCompleteButton.setOnClickListener {
-                movieDetailPresenter.reservation(
-                    this.id,
+                movieDetailPresenter.selectSeat(
+                    this,
                     detailDateSpinner.selectedItem as LocalDate,
                     detailTimeSpinner.selectedItem as LocalTime,
                 )
@@ -134,18 +133,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         finish()
     }
 
-    override fun onReservationComplete(
-        id: Long,
+    override fun onSelectSeatClicked(
+        movieId: Long,
+        movieScreenDateTimeId: Long,
         count: Int,
-        localDate: LocalDate,
-        localTime: LocalTime,
     ) {
-        Intent(this, MovieResultActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_ID, id)
+        Intent(this, MovieSeatActivity::class.java).apply {
+            putExtra(EXTRA_MOVIE_ID, movieId)
+            putExtra(EXTRA_MOVIE_SCREEN_DATE_TIME_ID, movieScreenDateTimeId)
             putExtra(EXTRA_MOVIE_RESERVATION_COUNT, count)
-            putExtra(EXTRA_MOVIE_RESERVATION_DATE, localDate.toString())
-            putExtra(EXTRA_MOVIE_RESERVATION_TIME, localTime.toString())
-            reservationCompleteActivityResultLauncher.launch(this)
+            movieSeatActivityResultLauncher.launch(this)
         }
     }
 }
