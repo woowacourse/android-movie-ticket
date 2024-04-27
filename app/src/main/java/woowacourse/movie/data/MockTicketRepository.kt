@@ -2,7 +2,7 @@ package woowacourse.movie.data
 
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.screening.Movie
+import woowacourse.movie.domain.Movie
 import java.time.LocalDateTime
 
 object MockTicketRepository : TicketRepository {

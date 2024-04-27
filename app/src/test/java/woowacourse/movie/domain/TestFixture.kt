@@ -5,7 +5,6 @@ import woowacourse.movie.domain.pricing.UniformPricingSystem
 import woowacourse.movie.domain.reservation.Quantity
 import woowacourse.movie.domain.reservation.TicketMachine
 import woowacourse.movie.domain.screening.BasicScreeningScheduleSystem
-import woowacourse.movie.domain.screening.Movie
 import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
 import java.time.LocalDateTime

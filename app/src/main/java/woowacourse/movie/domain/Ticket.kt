@@ -1,6 +1,5 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.domain.screening.Movie
 import java.time.LocalDateTime
 
 data class Ticket(

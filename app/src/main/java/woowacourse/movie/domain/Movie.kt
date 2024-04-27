@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.screening
+package woowacourse.movie.domain
 
 data class Movie(
     val poster: Int,

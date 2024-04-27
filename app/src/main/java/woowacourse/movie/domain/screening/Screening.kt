@@ -1,5 +1,6 @@
 package woowacourse.movie.domain.screening
 
+import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
 data class Screening(
