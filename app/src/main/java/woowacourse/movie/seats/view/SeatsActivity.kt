@@ -1,5 +1,7 @@
 package woowacourse.movie.seats.view
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
@@ -12,6 +14,7 @@ import woowacourse.movie.list.view.MovieListActivity.Companion.EXTRA_MOVIE_ID_KE
 import woowacourse.movie.seats.contract.SeatsContract
 import woowacourse.movie.seats.model.Seat
 import woowacourse.movie.seats.presenter.SeatsPresenter
+import woowacourse.movie.ticket.view.MovieTicketActivity
 
 class SeatsActivity : AppCompatActivity(), SeatsContract.View {
     override val presenter: SeatsContract.Presenter = SeatsPresenter(this)
@@ -30,6 +33,7 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
         presenter.setPriceInfo()
         presenter.setSeatsTextInfo()
         setOnSelectSeat()
+        setOnConfirmButtonClickListener()
     }
 
     private fun initView() {
@@ -79,6 +83,23 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
 
     override fun setTotalPrice(info: Int) {
         priceView.text = TOTAL_PRICE.format(info)
+    }
+
+    private fun setOnConfirmButtonClickListener()  {
+        confirmButton.setOnClickListener {
+            showDialog()
+        }
+    }
+
+    private fun showDialog()  {
+        AlertDialog.Builder(this)
+            .setMessage("정말 예매하시겠습니까?")
+            .setNegativeButton("취소") { _, _ ->
+                // nothing
+            }.setPositiveButton("예매 완료") { _, _ ->
+                val intent = Intent(this, MovieTicketActivity::class.java)
+                startActivity(intent)
+            }.setCancelable(false).show()
     }
 
     override fun setSeatCellBackgroundColor(info: Seat) {

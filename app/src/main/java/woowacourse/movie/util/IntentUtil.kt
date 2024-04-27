@@ -20,7 +20,7 @@ object IntentUtil {
 
     fun getSerializableCountData(intent: Intent): Count {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(EXTRA_COUNT_KEY, Count::class.java) ?: Count(3)
+            intent.getSerializableExtra(EXTRA_COUNT_KEY, Count::class.java) ?: Count(1)
         } else {
             intent.getSerializableExtra(EXTRA_COUNT_KEY) as Count
         }

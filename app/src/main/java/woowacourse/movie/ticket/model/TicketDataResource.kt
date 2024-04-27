@@ -14,7 +14,7 @@ object TicketDataResource {
             ),
         )
 
-    var ticketCount: Count = Count(1)
+    var ticketCount: Count = Count(0)
 
     var screeningDate = ""
 
