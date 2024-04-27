@@ -123,7 +123,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         )
         dateSpinner = findViewById<Spinner>(R.id.sp_reservation_date).apply {
             adapter = dateSpinnerAdapter
-            onItemSelectedListener = itemSelectListener { presenter.updateScreenDateAt(it) }
         }
         timeSpinnerAdapter = ArrayAdapter(
             this@MovieReservationActivity,
@@ -132,7 +131,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         )
         timeSpinner = findViewById<Spinner>(R.id.sp_reservation_time).apply {
             adapter = timeSpinnerAdapter
-            onItemSelectedListener = itemSelectListener { presenter.updateScreenTimeAt(it) }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -147,6 +145,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
             presenter.completeReservation()
         }
+        dateSpinner.onItemSelectedListener = itemSelectListener { presenter.updateScreenDateAt(it) }
+        timeSpinner.onItemSelectedListener = itemSelectListener { presenter.updateScreenTimeAt(it) }
     }
 
     private inline fun itemSelectListener(crossinline onSelected: (Int) -> Unit): AdapterView.OnItemSelectedListener {

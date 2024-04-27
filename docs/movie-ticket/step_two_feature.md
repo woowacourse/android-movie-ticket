@@ -46,3 +46,8 @@
 # 리팩토링
 - [x] : FakeRepository 를 DefaultRepository 로 이름을 바꾼다.
 - [x] : Ui Test 를 위한 FakeRepository 를 만든다.
+
+# 고민
+
+Spinner 의 MaxHeight 를 설정하거나 ItemMaxCount 를 제한하려 했으나 시간에 쫓겨 실패했습니다..
+Height 가 FIxed 인 Spinner로 대체..

@@ -108,19 +108,21 @@
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toTopOf="@id/btn_reservation_minus">
 
-                <Spinner
+                <woowacourse.movie.presentation.reservation.booking.MovieReservationPicker
                     android:id="@+id/sp_reservation_date"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:maxHeight="100dp" />
 
                 <Space
                     android:layout_width="20dp"
                     android:layout_height="wrap_content" />
 
-                <Spinner
+                <woowacourse.movie.presentation.reservation.booking.MovieReservationPicker
                     android:id="@+id/sp_reservation_time"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:maxHeight="100dp" />
 
             </LinearLayout>
 
