@@ -30,4 +30,16 @@ class TicketingResultPresenterTest {
             view.assignInitialView(any(), any(), any(), any(), any(), any())
         }
     }
+
+    @Test
+    fun `유효하지_않은_상영_아이디가_주어지면_예매_결과를_표출하지_못하고_토스트_메시지를_출력한다`() {
+        // given
+        every { view.showToastMessage(any()) } just runs
+        // when
+        presenter.initializeTicketingResult(-1, 1, 10000, "2024-01-01", "11:00", arrayOf("A1"))
+        // then
+        verify {
+            view.showToastMessage(any())
+        }
+    }
 }
