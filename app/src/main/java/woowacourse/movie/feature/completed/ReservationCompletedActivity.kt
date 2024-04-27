@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.feature.reservation.ui.ReservationModel
+import woowacourse.movie.feature.reservation.ui.TicketModel
 
 class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
@@ -32,13 +32,13 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
         presenter.fetchReservationDetails(id)
     }
 
-    private fun getReservationId(): Long = intent.getLongExtra(RESERVATION_ID, -1L)
+    private fun getReservationId(): Long = intent.getLongExtra(TICKET_ID, -1L)
 
-    override fun initializeReservationDetails(reservation: ReservationModel) {
-        movieTitleTv.text = reservation.title
-        reservationDateTv.text = reservation.schedule
-        quantityTv.text = reservation.formatQuantity(this)
-        priceTv.text = reservation.formatPrice(this)
+    override fun initializeReservationDetails(ticket: TicketModel) {
+        movieTitleTv.text = ticket.title
+        reservationDateTv.text = ticket.formatDateTime()
+        quantityTv.text = ticket.formatQuantity(this)
+        priceTv.text = ticket.formatPrice(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -51,14 +51,14 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
     }
 
     companion object {
-        const val RESERVATION_ID = "reservation_id"
+        const val TICKET_ID = "ticket_id"
 
         fun getIntent(
             context: Context,
             id: Long,
         ): Intent {
             return Intent(context, ReservationCompletedActivity::class.java).apply {
-                putExtra(RESERVATION_ID, id)
+                putExtra(TICKET_ID, id)
             }
         }
     }

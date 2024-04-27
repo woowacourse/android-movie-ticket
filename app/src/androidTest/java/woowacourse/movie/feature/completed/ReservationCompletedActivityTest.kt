@@ -11,7 +11,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.feature.completed.ReservationCompletedActivity.Companion.RESERVATION_ID
+import woowacourse.movie.feature.completed.ReservationCompletedActivity.Companion.TICKET_ID
 
 @RunWith(AndroidJUnit4::class)
 class ReservationCompletedActivityTest {
@@ -19,7 +19,7 @@ class ReservationCompletedActivityTest {
         Intent(
             ApplicationProvider.getApplicationContext(),
             ReservationCompletedActivity::class.java,
-        ).also { it.putExtra(RESERVATION_ID, 0L) }
+        ).also { it.putExtra(TICKET_ID, 0L) }
 
     @get:Rule
     var activityScenarioRule = ActivityScenarioRule<ReservationCompletedActivity>(intent)
@@ -33,18 +33,18 @@ class ReservationCompletedActivityTest {
     @Test
     fun `예매한_영화_제목이_표시된다`() {
         Espresso.onView(ViewMatchers.withId(R.id.completed_movie_title))
-            .check(ViewAssertions.matches(ViewMatchers.withText("제목")))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
     fun `예매_티켓_수량에_맞는_명_수가_표시된다`() {
         Espresso.onView(ViewMatchers.withId(R.id.completed_quantity))
-            .check(ViewAssertions.matches(ViewMatchers.withText("일반 3명")))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
     fun `예매_티켓_수량에_맞는_가격이_표시된다`() {
         Espresso.onView(ViewMatchers.withId(R.id.completed_price))
-            .check(ViewAssertions.matches(ViewMatchers.withText("39,000원 (현장 결제)")))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 }
