@@ -40,16 +40,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
-        val movieId =
-            intent.getIntExtra(
-                ReservationHomeActivity.MOVIE_ID,
-                ReservationDetailActivity.DEFAULT_MOVIE_ID,
-            )
-        ticket = intent.intentSerializable(TICKET, Ticket::class.java) ?: Ticket()
-        seatsTable =
-            seatTableLayout.children.filterIsInstance<TableRow>().flatMap { it.children }
-                .filterIsInstance<Button>().toList()
-
+        val movieId = takeMovieId()
+        ticket = takeTicket()
+        seatsTable = collectSeatsInTableLayout()
         with(presenter) {
             loadSeatNumber()
             loadMovie(movieId)
@@ -114,8 +107,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    private fun getSeatsCount() = seatsTable.count { seat -> seat.isSelected }
-
     override fun setUpSeatColorByGrade(grade: Grade): Int {
         return when (grade) {
             Grade.B -> getColor(R.color.purple_500)
@@ -150,12 +141,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         confirmButton.isEnabled = count >= ticket.count
     }
 
-    private fun initializeConfirmButton() {
-        confirmButton.setOnClickListener {
-            presenter.initializeConfirmButton()
-        }
-    }
-
     override fun launchReservationConfirmDialog(seats: Seats) {
         if (confirmButton.isEnabled) {
             AlertDialog.Builder(this)
@@ -169,6 +154,26 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 }
                 .setCancelable(false)
                 .show()
+        }
+    }
+
+    private fun takeMovieId() =
+        intent.getIntExtra(
+            ReservationHomeActivity.MOVIE_ID,
+            ReservationDetailActivity.DEFAULT_MOVIE_ID,
+        )
+
+    private fun takeTicket(): Ticket = intent.intentSerializable(TICKET, Ticket::class.java) ?: Ticket()
+
+    private fun collectSeatsInTableLayout(): List<Button> =
+        seatTableLayout.children.filterIsInstance<TableRow>().flatMap { it.children }
+            .filterIsInstance<Button>().toList()
+
+    private fun getSeatsCount(): Int = seatsTable.count { seat -> seat.isSelected }
+
+    private fun initializeConfirmButton() {
+        confirmButton.setOnClickListener {
+            presenter.initializeConfirmButton()
         }
     }
 
