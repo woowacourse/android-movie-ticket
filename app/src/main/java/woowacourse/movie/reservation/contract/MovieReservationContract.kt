@@ -37,7 +37,7 @@ interface MovieReservationContract {
 
         fun setTicketingButtonClickInfo()
 
-        fun storeMovieData(movieData: Movie)
+        fun storeMovieId(movieId: Long)
 
         fun setMovieInfo()
 

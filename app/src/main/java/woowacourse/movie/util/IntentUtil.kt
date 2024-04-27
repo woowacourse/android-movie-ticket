@@ -2,8 +2,8 @@ package woowacourse.movie.util
 
 import android.content.Intent
 import android.os.Build
+import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.list.model.Movie
-import woowacourse.movie.list.model.MovieDataSource
 import woowacourse.movie.list.view.MovieListActivity.Companion.EXTRA_MOVIE_KEY
 import woowacourse.movie.reservation.model.Count
 import woowacourse.movie.reservation.view.MovieReservationActivity.Companion.EXTRA_COUNT_KEY

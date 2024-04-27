@@ -10,7 +10,6 @@ import woowacourse.movie.list.contract.MovieListContract
 import woowacourse.movie.list.model.Movie
 import woowacourse.movie.list.presenter.MovieListPresenter
 import woowacourse.movie.reservation.view.MovieReservationActivity
-import java.io.Serializable
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private lateinit var listView: ListView
@@ -28,15 +27,15 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         listView.adapter = MovieListAdapter(this, info)
     }
 
-    override fun setOnListViewClickListener(info: ArrayList<Movie>) {
+    override fun setOnListViewClickListener() {
         listView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, MovieReservationActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE_KEY, info[position] as Serializable)
+            intent.putExtra(EXTRA_MOVIE_KEY, position.toLong())
             this.startActivity(intent)
         }
     }
 
     companion object {
-        const val EXTRA_MOVIE_KEY = "movie_key"
+        const val EXTRA_MOVIE_KEY = "movie_id_key"
     }
 }

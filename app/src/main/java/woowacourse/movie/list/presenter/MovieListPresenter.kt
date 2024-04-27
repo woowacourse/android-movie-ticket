@@ -1,7 +1,7 @@
 package woowacourse.movie.list.presenter
 
+import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.list.contract.MovieListContract
-import woowacourse.movie.list.model.MovieDataSource
 
 class MovieListPresenter(
     val view: MovieListContract.View,
@@ -13,6 +13,6 @@ class MovieListPresenter(
     }
 
     override fun setListViewClickListenerInfo() {
-        view.setOnListViewClickListener(movieList)
+        view.setOnListViewClickListener()
     }
 }

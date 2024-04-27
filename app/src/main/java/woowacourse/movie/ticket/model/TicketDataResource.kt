@@ -1,6 +1,6 @@
 package woowacourse.movie.ticket.model
 
-import woowacourse.movie.list.model.MovieDataSource
+import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.reservation.model.Count
 
 object TicketDataResource {

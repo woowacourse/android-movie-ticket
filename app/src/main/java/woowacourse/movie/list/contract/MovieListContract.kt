@@ -1,15 +1,14 @@
 package woowacourse.movie.list.contract
 
 import woowacourse.movie.list.model.Movie
-import woowacourse.movie.list.presenter.MovieListPresenter
 
 interface MovieListContract {
     interface View {
-        val presenter: MovieListPresenter
+        val presenter: Presenter
 
         fun showMoviesInfo(info: ArrayList<Movie>)
 
-        fun setOnListViewClickListener(info: ArrayList<Movie>)
+        fun setOnListViewClickListener()
     }
 
     interface Presenter {

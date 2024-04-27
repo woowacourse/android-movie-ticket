@@ -13,11 +13,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.list.model.Movie
+import woowacourse.movie.list.view.MovieListActivity.Companion.EXTRA_MOVIE_KEY
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.Count
 import woowacourse.movie.reservation.presenter.MovieReservationPresenter
 import woowacourse.movie.ticket.view.MovieTicketActivity
-import woowacourse.movie.util.IntentUtil.getSerializableMovieData
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -44,7 +44,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         setContentView(R.layout.activity_movie_reservation)
         initView()
         presenter.setCurrentResultTicketCountInfo()
-        presenter.storeMovieData(getSerializableMovieData(intent))
+        presenter.storeMovieId(intent.getLongExtra(EXTRA_MOVIE_KEY, 0))
         presenter.setMovieInfo()
         presenter.setSpinnerInfo()
         presenter.setSpinnerDateItemInfo()
@@ -115,7 +115,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun setMovieView(info: Movie) {
-        presenter.storeMovieData(getSerializableMovieData(intent))
         val formattedScreeningDate =
             info.screeningDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))
 
