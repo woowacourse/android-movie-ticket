@@ -1,5 +1,7 @@
 package woowacourse.movie.presentation.reservation.booking
 
+import woowacourse.movie.presentation.reservation.booking.model.ScreeningMovieUiModel
+
 interface MovieReservationView {
     fun showMovieReservation(reservation: ScreeningMovieUiModel)
 

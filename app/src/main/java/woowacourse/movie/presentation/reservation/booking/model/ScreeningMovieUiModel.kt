@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.reservation.booking
+package woowacourse.movie.presentation.reservation.booking.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes

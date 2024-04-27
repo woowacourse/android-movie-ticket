@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.BundleCompat
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryFactory
+import woowacourse.movie.presentation.reservation.booking.model.ScreeningMovieUiModel
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
