@@ -105,9 +105,14 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         finish()
     }
 
+    // TODO: delete
     override fun navigateToSeatsReservation(screenId: Int, count: Int, date: LocalDate, time: LocalTime) {
         SeatReservationActivity.startActivity(this, screenId)
         finish()
+    }
+
+    override fun navigateToSeatsReservation(timeReservationId: Int) {
+        SeatReservationActivity.startActivity(context = this, timeReservationId = timeReservationId)
     }
 
     override fun goToBack(e: Throwable) {

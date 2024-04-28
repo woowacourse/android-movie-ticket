@@ -20,7 +20,10 @@ interface ScreenDetailContract {
         // TODO: delete
         fun navigateToReservation(navigationId: Int)
 
+        // TODO: delete
         fun navigateToSeatsReservation(screenId: Int, count: Int, date: LocalDate, time: LocalTime)
+
+        fun navigateToSeatsReservation(timeReservationId: Int)
 
         fun showToastMessage(e: Throwable)
 

@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.detail
 
 import woowacourse.movie.domain.model.DateRange
+import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
@@ -11,6 +12,7 @@ import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
 import woowacourse.movie.ui.toDetailUI
 import java.lang.IllegalStateException
+import java.time.LocalDate
 
 class ScreenDetailPresenter(
     private val view: ScreenDetailContract.View,
@@ -20,7 +22,7 @@ class ScreenDetailPresenter(
     private val screenTimePolicy: ScreenTimePolicy = WeeklyScreenTimePolicy(),
 ) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
-    private lateinit var dateRange: DateRange
+    private var dateRange = DateRange(LocalDate.now(), LocalDate.now())
     private var datePosition: Int = 0
     private var timePosition: Int = 0
 
@@ -93,11 +95,17 @@ class ScreenDetailPresenter(
     }
 
     override fun reserve2(screenId: Int) {
-        view.navigateToSeatsReservation(
-            screenId = screenId,
+        reservationRepository.saveTimeReservation(
+            screen(screenId),
             count = ticket.count,
-            date = dateRange.allDates()[datePosition],
-            time = screenTimePolicy.screeningTimes(dateRange.allDates()[datePosition])[timePosition],
-        )
+            dateTime = DateTime(
+                dateRange.allDates()[datePosition],
+                screenTimePolicy.screeningTimes(dateRange.allDates()[datePosition])[timePosition],
+            ),
+        ).onSuccess { timeReservationId ->
+            view.navigateToSeatsReservation(timeReservationId)
+        }.onFailure { e ->
+            view.showToastMessage(e)
+        }
     }
 }

@@ -11,6 +11,7 @@ import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.FakeImage
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.FakeMovieRepository
+import woowacourse.movie.domain.repository.FakeReservationRepository
 import woowacourse.movie.domain.repository.FakeScreenRepository
 import woowacourse.movie.ui.MovieDetailUI
 import woowacourse.movie.ui.ScreenDetailUI
@@ -28,7 +29,7 @@ class ScreenDetailPresenterTest {
                 view = mockView,
                 movieRepository = FakeMovieRepository(),
                 screenRepository = FakeScreenRepository(),
-                reservationRepository = DummyReservation,
+                reservationRepository = FakeReservationRepository(),
             )
     }
 
@@ -45,7 +46,7 @@ class ScreenDetailPresenterTest {
             dateRange = DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)),
         )
 
-    @Test
+    @Test // todo: modify test
     fun `영화 정보를 표시`() {
         // given
         every { mockView.showScreen(fakeScreenDetailUI) } just runs
@@ -107,5 +108,17 @@ class ScreenDetailPresenterTest {
 
         // then
         verify(exactly = 1) { mockView.showToastMessage(any()) }
+    }
+
+    @Test
+    fun `reserve with date, time and ticket count`() {
+        // given
+        every { mockView.navigateToSeatsReservation(2) } just runs
+
+        // when
+        presenter.reserve2(1)
+
+        // then
+        verify(exactly = 1) { mockView.navigateToSeatsReservation(2) }
     }
 }

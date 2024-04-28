@@ -64,15 +64,12 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     }
 
     companion object {
-        private const val PUT_EXTRA_KEY_RESERVATION_ID = "reservationId"
-        private const val DEFAULT_RESERVATION_ID = -1
+        private const val TIME_RESERVATION_ID = "timeReservationId"
 
-        fun startActivity(
-            context: Context,
-            reservationId: Int,
-        ) {
-            val intent = Intent(context, SeatReservationActivity::class.java)
-            intent.putExtra(PUT_EXTRA_KEY_RESERVATION_ID, reservationId)
+        fun startActivity(context: Context, timeReservationId: Int) {
+            val intent = Intent(context, SeatReservationActivity::class.java).apply {
+                putExtra(TIME_RESERVATION_ID, timeReservationId)
+            }
             context.startActivity(intent)
         }
     }
