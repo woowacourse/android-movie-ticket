@@ -9,7 +9,7 @@ import woowacourse.movie.domain.repository.SeatRepository
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.toTicketModel
 import woowacourse.movie.presentation.seat.model.MovieSeatModel
-import woowacourse.movie.presentation.seat.model.SeatSelectType
+import woowacourse.movie.presentation.seat.model.SeatSelectState
 import woowacourse.movie.presentation.seat.model.toMovieSeat
 import woowacourse.movie.presentation.seat.model.toMovieSeatModel
 import java.io.Serializable
@@ -36,20 +36,20 @@ class SeatSelectionPresenter(
         val seat = seatRepository.getAvailableSeat(rowIndex, columIndex)
         if (seat.seatName.isEmpty()) return
         reservationMovieSeats.setSeatSelectType(seat)
-        when (reservationMovieSeats.seatSelectType) {
-            SeatSelectType.ADD -> {
+        when (reservationMovieSeats.seatSelectState) {
+            SeatSelectState.ADD -> {
                 reservationMovieSeats.addSeat(seat)
                 view.showSelectedSeat(rowIndex, columIndex)
                 view.showCurrentResultTicketPriceView(reservationMovieSeats.getSeatPrice())
             }
 
-            SeatSelectType.REMOVE -> {
+            SeatSelectState.REMOVE -> {
                 reservationMovieSeats.deleteSeat(seat)
                 view.showUnSelectedSeat(rowIndex, columIndex)
                 view.showCurrentResultTicketPriceView(reservationMovieSeats.getSeatPrice())
             }
 
-            SeatSelectType.PREVENT -> {}
+            SeatSelectState.PREVENT -> {}
         }
         updateSeatTypeInView()
     }
@@ -75,7 +75,7 @@ class SeatSelectionPresenter(
     }
 
     override fun confirmSeatResult() {
-        if (reservationMovieSeats.seatSelectType == SeatSelectType.PREVENT) {
+        if (reservationMovieSeats.seatSelectState == SeatSelectState.PREVENT) {
             view.showDialog()
         }
     }
@@ -95,9 +95,9 @@ class SeatSelectionPresenter(
 
     private fun updateSeatTypeInView() {
         reservationMovieSeats.updateSeatSelectType()
-        when (reservationMovieSeats.seatSelectType) {
-            SeatSelectType.ADD, SeatSelectType.REMOVE -> view.offConfirmAvailableView()
-            SeatSelectType.PREVENT -> view.onConfirmAvailableView()
+        when (reservationMovieSeats.seatSelectState) {
+            SeatSelectState.ADD, SeatSelectState.REMOVE -> view.offConfirmAvailableView()
+            SeatSelectState.PREVENT -> view.onConfirmAvailableView()
         }
     }
 

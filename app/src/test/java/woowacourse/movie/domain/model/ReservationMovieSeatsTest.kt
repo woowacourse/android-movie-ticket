@@ -2,7 +2,7 @@ package woowacourse.movie.domain.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import woowacourse.movie.presentation.seat.model.SeatSelectType
+import woowacourse.movie.presentation.seat.model.SeatSelectState
 
 class ReservationMovieSeatsTest {
     @Test
@@ -31,7 +31,7 @@ class ReservationMovieSeatsTest {
         reservationMovieSeats.setSeatSelectType(MovieSeat("A1", SeatType.A))
 
         // Then
-        assertEquals(SeatSelectType.REMOVE, reservationMovieSeats.seatSelectType)
+        assertEquals(SeatSelectState.REMOVE, reservationMovieSeats.seatSelectState)
     }
 
     @Test
@@ -75,6 +75,6 @@ class ReservationMovieSeatsTest {
         reservationMovieSeats.updateSeatSelectType()
 
         // Then
-        assertEquals(SeatSelectType.ADD, reservationMovieSeats.seatSelectType)
+        assertEquals(SeatSelectState.ADD, reservationMovieSeats.seatSelectState)
     }
 }
