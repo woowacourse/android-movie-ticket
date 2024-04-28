@@ -23,6 +23,7 @@ class MovieDetailPresenter(
     override fun loadMovie(movieId: Int) {
         this.movieId = movieId
         movie = movieRepository.getMovie(movieId)
+        loadScreeningPeriod(movie.screeningPeriod)
         view.displayMovie(movie)
     }
 

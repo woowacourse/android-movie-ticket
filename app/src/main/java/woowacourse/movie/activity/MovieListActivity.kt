@@ -22,7 +22,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
             MovieListPresenter(
                 view = this,
             )
-        movieRecyclerView = findViewById(R.id.movies_list_item)
+        movieRecyclerView = findViewById(R.id.movies_recycler_view)
         presenter.loadMovies()
     }
 

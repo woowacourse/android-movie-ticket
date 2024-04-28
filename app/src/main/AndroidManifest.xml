@@ -17,7 +17,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,6 +24,8 @@
             android:parentActivityName=".activity.MovieListActivity"/>
         <activity android:name=".activity.PurchaseConfirmationActivity"
             android:parentActivityName=".activity.MovieListActivity"/>
+        <activity android:name=".activity.SeatSelectionActivity"
+            android:parentActivityName=".activity.MovieDetailActivity"/>
     </application>
 
 </manifest>

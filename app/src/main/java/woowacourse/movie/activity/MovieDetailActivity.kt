@@ -1,18 +1,28 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
+import woowacourse.movie.adapter.DateSpinnerAdapter
+import woowacourse.movie.adapter.TimeSpinnerAdapter
 import woowacourse.movie.contract.MovieDetailContract
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.presenter.MovieDetailPresenter
+import woowacourse.movie.uimodel.SeatPlan
 import woowacourse.movie.uimodel.format
 import java.time.LocalDateTime
 
@@ -21,11 +31,14 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private val numberOfPurchases by lazy {
         findViewById<TextView>(R.id.quantity_text_view)
     }
+    lateinit var presenter: MovieDetailPresenter
+    lateinit var timeSpinner: Spinner
+    lateinit var dateSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
-        val presenter = MovieDetailPresenter(this)
+        presenter = MovieDetailPresenter(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         findViewById<ImageView>(R.id.movie_thumbnail)
@@ -34,6 +47,9 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         val ticketPlusButton = findViewById<Button>(R.id.plus_button)
         val ticketMinusButton = findViewById<Button>(R.id.minus_button)
         val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
+        dateSpinner = findViewById<Spinner>(R.id.movie_screening_date_spinner)
+        timeSpinner = findViewById<Spinner>(R.id.movie_screening_time_spinner)
+
         val movieId = intent.getIntExtra("MovieId", -1)
         presenter.loadMovie(movieId)
         ticketPlusButton.setOnClickListener {
@@ -57,12 +73,12 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         return super.onContextItemSelected(item)
     }
 
-    override fun displayMovie(movieBrief: Movie) {
-        val movieDetail = movieBrief.movieDetail
+    override fun displayMovie(movie: Movie) {
+        val movieDetail = movie.movieDetail
         findViewById<TextView>(R.id.movie_title_large).text =
             movieDetail.title.format()
         findViewById<TextView>(R.id.movie_release_date_large).text =
-            movieBrief.screeningPeriod.format()
+            movie.screeningPeriod.format()
         findViewById<TextView>(R.id.movie_running_time).text =
             movieDetail.runningTime.format()
         findViewById<TextView>(R.id.movie_synopsis).text =
@@ -70,11 +86,38 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     override fun displayScreeningDates(dates: List<ScreeningDate>) {
-        TODO("Not yet implemented")
+
+        dateSpinner.adapter = DateSpinnerAdapter(dates)
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                presenter.selectScreeningDate(dates[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
     }
 
     override fun displayScreeningTimes(times: List<ScreeningDateTime>) {
-        TODO("Not yet implemented")
+        timeSpinner.adapter = TimeSpinnerAdapter(times)
+        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                presenter.selectScreeningTime(times[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
     }
 
     override fun displayTicketNum(ticketNum: Int) {
@@ -87,6 +130,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         ticketNum: Int,
         reservedDateTime: LocalDateTime,
     ) {
-        TODO("Not yet implemented")
+        val seatPlan = SeatPlan(movieId, ticketNum, reservedDateTime)
+        val intent =
+            Intent(this, SeatSelectionActivity::class.java).apply {
+                putExtra("SeatPlan", seatPlan)
+            }
+        startActivity(intent)
     }
 }
