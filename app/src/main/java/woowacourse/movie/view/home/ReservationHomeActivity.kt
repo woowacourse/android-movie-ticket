@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieCatalogAdapter
+import woowacourse.movie.db.AdvertisementDao
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.presenter.home.ReservationHomeContract
 import woowacourse.movie.presenter.home.ReservationHomePresenter
@@ -25,7 +26,10 @@ class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract.Vie
 
     private fun initMovieRecyclerView() {
         val movieCatalogAdapter =
-            MovieCatalogAdapter(ScreeningDao().findAll()) { movie ->
+            MovieCatalogAdapter(
+                ScreeningDao().findAll(),
+                AdvertisementDao().findAll(),
+            ) { movie ->
                 presenter.loadMovie(movie)
             }
         movieRecyclerView.apply {

@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
+import woowacourse.movie.model.Advertisement
 import woowacourse.movie.model.Movie
 
 class MovieCatalogAdapter(
     private val movies: List<Movie>,
+    private val advertisements: List<Advertisement>,
     val movie: (Movie) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     private val movieViewType = CatalogViewType.MOVIE.viewType
@@ -32,11 +34,12 @@ class MovieCatalogAdapter(
         holder: ViewHolder,
         position: Int,
     ) {
-        val item = movies[position]
         if (getItemViewType(position) == movieViewType) {
+            val item = movies[position]
             (holder as MovieViewHolder).bind(item, movie)
         } else {
-            (holder as AdvertisementViewHolder).bind()
+            val item = advertisements[position - ADVERTISEMENT_POSITION]
+            (holder as AdvertisementViewHolder).bind(item)
         }
     }
 
