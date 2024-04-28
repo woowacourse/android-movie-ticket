@@ -70,7 +70,7 @@ object MovieDataSource {
             Movie(
                 "해리 포터와 죽음의 성물",
                 R.drawable.harry_potter_7_poster,
-                LocalDate.of(2024, 8, 1),
+                LocalDate.of(2024, 9, 1),
                 152,
                 """
                 해리포터와 죽음의 성물

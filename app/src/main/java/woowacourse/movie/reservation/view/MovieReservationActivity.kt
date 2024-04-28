@@ -48,6 +48,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         initView()
         presenter.setCurrentResultTicketCountInfo()
         movieId = intent.getLongExtra(EXTRA_MOVIE_ID_KEY, 0)
+        Log.d("", "onCreate: $movieId")
         presenter.storeMovieId(movieId)
         presenter.setMovieInfo()
         presenter.setSpinnerInfo()
@@ -135,7 +136,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun setMovieView(info: Movie) {
         val formattedScreeningDate =
-            info.screeningDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))
+            info.firstScreeningDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN))
 
         titleView.text = info.title
         screeningDateView.text = formattedScreeningDate

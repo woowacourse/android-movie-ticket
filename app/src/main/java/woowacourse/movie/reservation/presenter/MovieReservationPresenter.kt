@@ -3,7 +3,6 @@ package woowacourse.movie.reservation.presenter
 import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.DataResource
-import woowacourse.movie.reservation.model.MovieReservationData
 import woowacourse.movie.reservation.model.MovieReservationTicketCountData
 
 class MovieReservationPresenter(
@@ -19,11 +18,11 @@ class MovieReservationPresenter(
     }
 
     override fun storeMovieId(movieId: Long) {
-        MovieReservationData.movieId = movieId
+        DataResource.movieId = movieId
     }
 
     override fun setMovieInfo() {
-        val movieId = MovieReservationData.movieId.toInt()
+        val movieId = DataResource.movieId.toInt()
         view.setMovieView(MovieDataSource.movieList[movieId])
     }
 

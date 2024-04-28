@@ -59,7 +59,7 @@ class MovieListAdapter(
 
     private fun setViewHolder(movie: Movie) {
         val formattedScreeningDate =
-            movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+            movie.firstScreeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 
         movieViewHolder.title.text = movie.title
         movieViewHolder.poster.setImageResource(movie.posterResourceId)

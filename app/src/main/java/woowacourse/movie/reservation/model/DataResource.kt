@@ -1,13 +1,22 @@
 package woowacourse.movie.reservation.model
 
+import android.util.Log
+import woowacourse.movie.common_data.MovieDataSource
 import java.time.LocalDate
 import java.time.LocalTime
 
 object DataResource {
-    val screeningDates =
-        List(31) {
-            LocalDate.of(2024, 3, it + 1)
-        }
+    var movieId: Long = 0
+
+    private val firstScreeningDate
+        get() = MovieDataSource.movieList[movieId.toInt()].firstScreeningDate
+
+    val screeningDates
+        get() =
+            List(firstScreeningDate.lengthOfMonth()) {
+                Log.d("al", "$firstScreeningDate")
+                LocalDate.of(2024, firstScreeningDate.monthValue, it + 1)
+            }
 
     val screeningTimesWeekends =
         List(8) { index ->

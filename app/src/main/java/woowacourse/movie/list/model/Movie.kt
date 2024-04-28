@@ -6,7 +6,7 @@ import java.time.LocalDate
 data class Movie(
     val title: String,
     val posterResourceId: Int,
-    val screeningDate: LocalDate,
+    val firstScreeningDate: LocalDate,
     val runningTime: Int,
     val description: String,
     val id: Long,
