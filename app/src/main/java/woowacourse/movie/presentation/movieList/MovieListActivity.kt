@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.movieList
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
@@ -22,7 +21,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     override fun displayMovies(movies: List<Movie>) {
         val movieList: RecyclerView = findViewById(R.id.rv_movies)
         movieList.adapter = MovieAdapter(movies, presenter)
-        movieList.layoutManager = LinearLayoutManager(this)
     }
 
     override fun navigate(movieId: Int) {
