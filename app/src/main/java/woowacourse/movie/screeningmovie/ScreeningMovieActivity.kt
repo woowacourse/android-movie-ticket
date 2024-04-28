@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.DummyMovies
 import woowacourse.movie.moviereservation.MovieReservationActivity
@@ -23,7 +24,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     }
 
     override fun showMovies(movies: List<ScreenMovieUiModel>) {
-        val listView = findViewById<ListView>(R.id.list_view)
+        val listView = findViewById<RecyclerView>(R.id.rcv_screening_movie)
         listView.adapter =
             MovieAdapter(movies) { presenter.startReservation(it) }
     }

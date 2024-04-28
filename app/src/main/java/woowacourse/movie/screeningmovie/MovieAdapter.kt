@@ -3,62 +3,82 @@ package woowacourse.movie.screeningmovie
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 
 class MovieAdapter(
     private val movies: List<ScreenMovieUiModel>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
-) :
-    BaseAdapter() {
-    override fun getCount(): Int = movies.size
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun getItem(position: Int): ScreenMovieUiModel = movies[position]
+    private val movieItems = movies.toMutableList()
 
-    override fun getItemId(position: Int): Long = movies[position].id
+    class MovieViewHolder(
+        itemView: View,
+        private val onClickReservationButton: (id: Long) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+        private val postImageView: ImageView = itemView.findViewById(R.id.iv_movie_post)
+        private val title: TextView = itemView.findViewById(R.id.tv_movie_title)
+        private val date: TextView = itemView.findViewById(R.id.tv_movie_running_date)
+        private val runningTime: TextView = itemView.findViewById(R.id.tv_movie_running_time)
+        private val button: Button = itemView.findViewById(R.id.btn_movie_reservation)
 
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val holder: MovieViewHolder
-        val view: View
-
-        if (convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
-            holder = MovieViewHolder(view)
-            view.setTag(VIEW_HOLDER_ID, holder)
-        } else {
-            view = convertView
-            holder = convertView.getTag(VIEW_HOLDER_ID) as MovieViewHolder
+        fun onBind(item: ScreenMovieUiModel) {
+            postImageView.setImageResource(item.imageRes)
+            title.text = item.title
+            date.text = item.screenDate
+            runningTime.text = item.runningTime
+            button.setOnClickListener {
+                onClickReservationButton(item.id)
+            }
         }
-
-        val movie = getItem(position)
-
-        holder.postImageView.setImageResource(movie.imageRes)
-        holder.title.text = movie.title
-        holder.date.text = movie.screenDate
-        holder.runningTime.text = movie.runningTime
-
-        view.findViewById<Button>(R.id.btn_movie_reservation).setOnClickListener {
-            onClickReservationButton(movie.id)
-        }
-
-        return view
     }
 
-    class MovieViewHolder(view: View) {
-        val postImageView: ImageView = view.findViewById(R.id.iv_movie_post)
-        val title: TextView = view.findViewById(R.id.tv_movie_title)
-        val date: TextView = view.findViewById(R.id.tv_movie_running_date)
-        val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
+    class AdvertiseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            position == 0 -> MOVIE
+            position % 4 == 0 -> ADVERTISE
+            else -> MOVIE
+        }
     }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            MOVIE -> {
+                val view =
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_screening_movie, parent, false)
+                MovieViewHolder(view, onClickReservationButton)
+            }
+
+            ADVERTISE -> {
+                val view =
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_screening_advertise, parent, false)
+                AdvertiseViewHolder(view)
+            }
+
+            else -> throw IllegalArgumentException()
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == MOVIE) {
+            (holder as MovieViewHolder).onBind(movieItems.removeFirst())
+        }
+    }
+
+    override fun getItemCount(): Int = movies.size + movies.size / 4
 
     companion object {
-        private val VIEW_HOLDER_ID = R.id.movie_view_holder
+        private const val MOVIE = 0
+        private const val ADVERTISE = 1
     }
+
 }

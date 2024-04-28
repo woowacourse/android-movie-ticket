@@ -28,7 +28,7 @@ class ScreeningMovieActivityTest {
     @Before
     fun setUp() {
         activityRule.scenario.onActivity { activity ->
-            val listView = activity.findViewById<ListView>(R.id.list_view)
+            val listView = activity.findViewById<ListView>(R.id.rcv_screening_movie)
             val items =
                 listOf(
                     screenMovieUiModel1,
@@ -48,7 +48,7 @@ class ScreeningMovieActivityTest {
     @DisplayName("title이 `해리 포터와 마법사의 돌`인 item 중 첫 번째 뷰의 상영 시간은 `러닝타임: 152분` 이다. ")
     fun `itemValues_are_placed_in_textView_when_listView_is_created`() {
         onData(`is`(withItemContent(containsString(screenMovieUiModel1.title))))
-            .inAdapterView(withId(R.id.list_view))
+            .inAdapterView(withId(R.id.rcv_screening_movie))
             .atPosition(0)
             .onChildView(withId(R.id.tv_movie_running_time))
             .check(matches(withText(screenMovieUiModel1.runningTime)))
