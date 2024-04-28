@@ -41,8 +41,8 @@ class MovieAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            position == 0 -> MOVIE
-            position % 4 == 0 -> ADVERTISE
+            position == TOP_VIEW -> MOVIE
+            position % ADVERTISE_INTERVAL == 0 -> ADVERTISE
             else -> MOVIE
         }
     }
@@ -79,6 +79,8 @@ class MovieAdapter(
     companion object {
         private const val MOVIE = 0
         private const val ADVERTISE = 1
+        private const val ADVERTISE_INTERVAL = 4
+        private const val TOP_VIEW = 0
     }
 
 }
