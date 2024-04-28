@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
+import woowacourse.movie.presentation.seat.SeatSelectionPresenter
 import woowacourse.movie.presentation.utils.toCustomString
 
 class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
@@ -43,11 +44,11 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private fun getReservationTicket(): TicketModel {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(
-                MovieReservationPresenter.KEY_NAME_TICKET,
+                SeatSelectionPresenter.KEY_NAME_TICKET,
                 TicketModel::class.java,
             ) ?: TicketModel.defaultTicket
         } else {
-            intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel
+            intent.getSerializableExtra(SeatSelectionPresenter.KEY_NAME_TICKET) as? TicketModel
                 ?: TicketModel.defaultTicket
         }
     }
