@@ -24,4 +24,24 @@ class SeatsTest {
             )
         assertThat(seats.count()).isEqualTo(2)
     }
+
+    @Test
+    fun `find the max row of the seats`() {
+        val seats =
+            Seats(
+                Seat(Position(0, 0), Grade.S),
+                Seat(Position(1, 1), Grade.A),
+            )
+        assertThat(seats.maxRow()).isEqualTo(2)
+    }
+
+    @Test
+    fun `find the max column of the seats`() {
+        val seats =
+            Seats(
+                Seat(Position(0, 0), Grade.S),
+                Seat(Position(1, 1), Grade.A),
+            )
+        assertThat(seats.maxColumn()).isEqualTo(2)
+    }
 }

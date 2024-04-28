@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model
 
-data class Position(private val row: Int, private val col: Int) {
+data class Position(val row: Int, val col: Int) {
     init {
         require(row in MIN_ROW_INDEX..MAX_ROW_INDEX) { "row: $MIN_ROW_INDEX ~ $MAX_ROW_INDEX" }
         require(col in MIN_COL_INDEX..MAX_COL_INDEX) { "col: $MIN_COL_INDEX ~ $MAX_COL_INDEX" }
