@@ -3,6 +3,8 @@ package woowacourse.movie.ui.detail
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.ui.ScreenDetailUI
+import java.time.LocalDate
+import java.time.LocalTime
 
 interface ScreenDetailContract {
     interface View {
@@ -15,7 +17,10 @@ interface ScreenDetailContract {
             screenTimePolicy: ScreenTimePolicy,
         )
 
+        // TODO: delete
         fun navigateToReservation(navigationId: Int)
+
+        fun navigateToSeatsReservation(screenId: Int, count: Int, date: LocalDate, time: LocalTime)
 
         fun showToastMessage(e: Throwable)
 
@@ -41,6 +46,9 @@ interface ScreenDetailContract {
 
         fun minusTicket()
 
+        // TODO: delete
         fun reserve(screenId: Int)
+
+        fun reserve2(screenId: Int)
     }
 }

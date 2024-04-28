@@ -32,7 +32,7 @@ class ScreenDetailTicketView(
             presenter.minusTicket()
         }
         reserveBtn.setOnClickListener {
-            presenter.reserve(screenId)
+            presenter.reserve2(screenId)
         }
     }
 

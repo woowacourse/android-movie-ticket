@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.detail
 
+import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
@@ -19,6 +20,7 @@ class ScreenDetailPresenter(
     private val screenTimePolicy: ScreenTimePolicy = WeeklyScreenTimePolicy(),
 ) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
+    private lateinit var dateRange: DateRange
     private var datePosition: Int = 0
     private var timePosition: Int = 0
 
@@ -26,7 +28,8 @@ class ScreenDetailPresenter(
         try {
             val loadedScreen = screen(screenId)
             view.showScreen(loadedScreen.toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
-            view.showDateTimePicker(loadedScreen.dateRange, screenTimePolicy)
+            dateRange = loadedScreen.dateRange
+            view.showDateTimePicker(dateRange, screenTimePolicy)
         } catch (e: Exception) {
             when (e) {
                 is NoSuchElementException -> view.goToBack(e)
@@ -87,5 +90,14 @@ class ScreenDetailPresenter(
         }.onFailure { e ->
             view.showToastMessage(e)
         }
+    }
+
+    override fun reserve2(screenId: Int) {
+        view.navigateToSeatsReservation(
+            screenId = screenId,
+            count = ticket.count,
+            date = dateRange.allDates()[datePosition],
+            time = screenTimePolicy.screeningTimes(dateRange.allDates()[datePosition])[timePosition],
+        )
     }
 }
