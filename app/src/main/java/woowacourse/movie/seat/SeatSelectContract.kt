@@ -8,7 +8,10 @@ interface SeatSelectContract {
 
         fun showReservationCheck()
 
-        fun changeSeatColor()
+        fun changeSeatColor(
+            isSelected: Boolean,
+            onColor: (Int) -> Unit,
+        )
 
         fun moveToReservationFinished()
     }
@@ -16,8 +19,8 @@ interface SeatSelectContract {
     interface Presenter {
         fun loadMovieTitle()
 
-        fun selectSeat()
+        fun selectSeat(onColor: (Int) -> Unit)
 
-        fun unselectSeat()
+        fun unselectSeat(onColor: (Int) -> Unit)
     }
 }

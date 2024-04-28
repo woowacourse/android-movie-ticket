@@ -4,16 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.GridLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.model.Rank
 import woowacourse.movie.model.Ticket
 
 class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
+    private val seats: GridLayout by lazy { findViewById(R.id.grid_layout_seat_select) }
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.text_view_seat_select_movie_title) }
 
-    private lateinit var selectPresenter: SeatSelectPresenter
+    private lateinit var presenter: SeatSelectPresenter
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +29,38 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             intent.getSerializableExtra(TICKET, Ticket::class.java)
                 ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
 
-        selectPresenter = SeatSelectPresenter(this, movieId, ticket)
-        selectPresenter.loadMovieTitle()
+        presenter = SeatSelectPresenter(this, movieId, ticket)
+        presenter.loadMovieTitle()
+
+        seats.children
+            .filterIsInstance<TextView>()
+            .forEachIndexed { index, textView ->
+                val rank =
+                    when (index / 4) {
+                        0, 1 -> {
+                            Rank.A
+                        }
+                        2, 3 -> {
+                            Rank.S
+                        }
+                        else -> {
+                            Rank.B
+                        }
+                    }
+
+                textView.setOnClickListener {
+                    if (it.isSelected) {
+                        presenter.selectSeat { color ->
+                            it.setBackgroundColor(getColor(color))
+                        }
+                    } else {
+                        presenter.unselectSeat { color ->
+                            it.setBackgroundColor(getColor(color))
+                        }
+                    }
+                    it.isSelected = !it.isSelected
+                }
+            }
     }
 
     override fun showMovieTitle(movieTitle: String) {
@@ -41,8 +75,15 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         TODO("Not yet implemented")
     }
 
-    override fun changeSeatColor() {
-        TODO("Not yet implemented")
+    override fun changeSeatColor(
+        isSelected: Boolean,
+        onColor: (Int) -> Unit,
+    ) {
+        if (isSelected) {
+            onColor(R.color.white)
+        } else {
+            onColor(R.color.yellow)
+        }
     }
 
     override fun moveToReservationFinished() {

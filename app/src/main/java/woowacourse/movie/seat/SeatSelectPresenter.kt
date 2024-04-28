@@ -14,11 +14,11 @@ class SeatSelectPresenter(
         view.showMovieTitle(title)
     }
 
-    override fun selectSeat() {
-        TODO("Not yet implemented")
+    override fun selectSeat(onColor: (Int) -> Unit) {
+        view.changeSeatColor(false, onColor)
     }
 
-    override fun unselectSeat() {
-        TODO("Not yet implemented")
+    override fun unselectSeat(onColor: (Int) -> Unit) {
+        view.changeSeatColor(true, onColor)
     }
 }
