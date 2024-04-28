@@ -14,20 +14,6 @@ interface SeatSelectionContract {
             selectedSeats: List<BookingSeat>,
         )
 
-//        fun selectSeat(
-//            textView: TextView,
-//            row: Int,
-//            column: Int,
-//            seatClass: SeatClass,
-//        )
-//
-//        fun cancelSeat(
-//            textView: TextView,
-//            row: Int,
-//            column: Int,
-//            seatClass: SeatClass,
-//        )
-
         fun toggleSeat(
             row: Int,
             column: Int,
@@ -65,19 +51,6 @@ interface SeatSelectionContract {
             count: Int,
         )
 
-        //        fun addSeat(
-// //            textView: TextView,
-//            row: Int,
-//            column: Int,
-//            seatClass: SeatClass,
-//        )
-//
-//        fun removeSeat(
-// //            textView: TextView,
-//            row: Int,
-//            column: Int,
-//            seatClass: SeatClass,
-//        )
         fun updateSeat(
             row: Int,
             column: Int,
