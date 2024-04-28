@@ -31,17 +31,18 @@ class PurchaseConfirmationActivityTest {
             Synopsis("wow!"),
         )
     private val seats = mapOf(
-        "B1" to Seat('B', 1, "B등급")
+        "B1" to Seat('B', 1, "B"),
+        "C1" to Seat('S', 1, "B"),
+        "E1" to Seat('A', 1, "B"),
     )
     private val theater = Theater(movie, seats)
-    private val ticketNum = 3
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             PurchaseConfirmationActivity::class.java,
         ).also {
             it.putExtra("Theater", theater)
-            it.putExtra("ticketNum", ticketNum)
+            it.putExtra("ticketPrice", "Total Price: 30000")
         }
 
     @get:Rule
@@ -60,8 +61,8 @@ class PurchaseConfirmationActivityTest {
     }
 
     @Test
-    fun 티켓가격계산_총가격정확히표시되는지검증() {
+    fun 티켓_가격_표시되는지검증() {
         Espresso.onView(withId(R.id.ticket_charge))
-            .check(matches(ViewMatchers.withText("price: ${theater.getSeatCharge("B1") * ticketNum}")))
+            .check(matches(ViewMatchers.withText("Total Price: 30000")))
     }
 }

@@ -48,6 +48,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
         android:layout_below="@id/purchase_movie_running_time"
-        android:text="@string/_1_ticket_n_price_13_000" />
+        android:text="@string/price" />
 
 </RelativeLayout>
