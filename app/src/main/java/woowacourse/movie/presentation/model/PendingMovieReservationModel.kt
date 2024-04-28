@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.model
 
+import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.PendingMovieReservation
 import java.io.Serializable
 
@@ -7,7 +8,16 @@ data class PendingMovieReservationModel(
     val title: String,
     val movieDate: MovieDateModel,
     val count: Int,
-) : Serializable
+) : Serializable {
+    companion object {
+        private const val DEFAULT_PENDING_RESERVATION_TITLE = "예약정보가 존재하지 않습니다."
+        val defaultPendingMovieReservation = PendingMovieReservationModel(
+            title = DEFAULT_PENDING_RESERVATION_TITLE,
+            count = 0,
+            movieDate = MovieDate().toMovieDateModel(),
+        )
+    }
+}
 
 
 fun PendingMovieReservation.toPendingMovieReservationModel(): PendingMovieReservationModel {
