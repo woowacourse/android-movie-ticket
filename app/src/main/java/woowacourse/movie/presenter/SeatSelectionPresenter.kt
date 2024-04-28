@@ -1,10 +1,16 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.contract.SeatSelectionContract
+import woowacourse.movie.model.Reservation
 import woowacourse.movie.model.Theater
 import woowacourse.movie.model.pricing.TierPricePolicy
+import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.model.seat.Position
+import woowacourse.movie.repository.MovieRepository
+import woowacourse.movie.repository.PseudoMovieRepository
 import woowacourse.movie.repository.PseudoReservationRepository
+import woowacourse.movie.repository.PseudoTheaterRepository
 import woowacourse.movie.repository.ReservationRepository
 import woowacourse.movie.repository.TheaterRepository
 import java.lang.IllegalArgumentException
@@ -12,7 +18,7 @@ import java.time.LocalDateTime
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
-    private val theaterRepository: TheaterRepository,
+    private val theaterRepository: TheaterRepository = PseudoTheaterRepository(),
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
 ) : SeatSelectionContract.Presenter {
     private lateinit var theater: Theater
@@ -53,7 +59,7 @@ class SeatSelectionPresenter(
         if (selectedPositions.size >= ticketNum) return
         selectedPositions.add(position)
         view.displaySelectedSeat(position)
-        checkConfirm()
+        checkTicketMax()
     }
 
     private fun deSelectSeat(position: Position) {
@@ -63,7 +69,7 @@ class SeatSelectionPresenter(
         view.deActivateConfirm()
     }
 
-    private fun checkConfirm() {
+    private fun checkTicketMax() {
         if (selectedPositions.size == ticketNum) view.activateConfirm()
     }
 
@@ -72,6 +78,13 @@ class SeatSelectionPresenter(
     }
 
     override fun purchase() {
+        val reservation = Reservation(
+            movieId,
+            ScreeningDateTime(reservedDateTime),
+            selectedPositions.toList(),
+            getTicketPrice()
+        )
+        reservationRepository.putReservation(reservation)
         view.navigateToPurchaseConfirmation()
     }
 }

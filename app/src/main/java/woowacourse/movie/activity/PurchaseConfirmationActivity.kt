@@ -31,10 +31,14 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
     }
 
     override fun displayReservation(reservation: Reservation) {
+        //TODO
+        /*
         val movie = reservation.movieBrief
         val movieDetail = movie.movieDetail
         findViewById<TextView>(R.id.movie_title_confirmation).text = movieDetail.title.format()
         findViewById<TextView>(R.id.purchase_movie_running_time).text = movieDetail.runningTime.format()
         findViewById<TextView>(R.id.ticket_charge).text = reservation.getCharge().toString()
+
+         */
     }
 }
