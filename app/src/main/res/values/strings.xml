@@ -10,4 +10,6 @@
     <string name="seat_price">%s원</string>
     <string name="reservation_price">%s원 (현장 결제)</string>
     <string name="reservation_quantity">일반 %d명 | %s</string>
+    <string name="screen">SCREEN</string>
+    <string name="certify">확인</string>
 </resources>
