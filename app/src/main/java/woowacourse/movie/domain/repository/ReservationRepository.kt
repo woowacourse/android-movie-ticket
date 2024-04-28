@@ -1,5 +1,6 @@
 package woowacourse.movie.domain.repository
 
+import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Reservation2
 import woowacourse.movie.domain.model.Screen
@@ -13,7 +14,13 @@ interface ReservationRepository {
 
     fun save(
         screen: Screen,
-        seat: Seats,
+        seats: Seats,
+    ): Result<Int>
+
+    fun saveTimeReservation(
+        screen: Screen,
+        count: Int,
+        dateTime: DateTime,
     ): Result<Int>
 
     fun findById(id: Int): Result<Reservation>
