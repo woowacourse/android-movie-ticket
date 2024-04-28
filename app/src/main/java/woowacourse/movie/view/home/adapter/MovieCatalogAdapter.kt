@@ -36,7 +36,7 @@ class MovieCatalogAdapter(
         holder: ViewHolder,
         position: Int,
     ) {
-        when(getItemViewType(position)) {
+        when (getItemViewType(position)) {
             movieViewType -> {
                 val item = movies[position]
                 (holder as MovieViewHolder).bind(item, movie)
