@@ -1,10 +1,14 @@
 package woowacourse.movie.model.seat
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.model.reservation.ReservationAmount
 import woowacourse.movie.model.reservation.ReservationCount
-import java.io.Serializable
 
-class SelectedSeats(val reservationCount: ReservationCount) : Serializable {
+@Parcelize
+class SelectedSeats(
+    val reservationCount: ReservationCount,
+) : Parcelable {
     private val _seats: MutableList<Seat> = mutableListOf()
     val seats: List<Seat>
         get() = _seats.toList()

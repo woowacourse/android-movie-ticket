@@ -20,7 +20,6 @@ import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.reservation.ReservationCount
-import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BaseActivity
 import java.lang.IllegalArgumentException
@@ -55,9 +54,9 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         super.onRestoreInstanceState(savedInstanceState)
         val savedSelectedSeats =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState.getSerializable(SELECTED_SEATS_KEY, SelectedSeats::class.java)
+                savedInstanceState.getParcelable(SELECTED_SEATS_KEY, SelectedSeats::class.java)
             } else {
-                savedInstanceState.getSerializable(SELECTED_SEATS_KEY) as? SelectedSeats
+                savedInstanceState.getParcelable(SELECTED_SEATS_KEY) as? SelectedSeats
             } ?: return
         selectedSeats = savedSelectedSeats
         presenter.updateSelectedSeats(selectedSeats)
@@ -166,7 +165,9 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
             .setPositiveButton(resources.getString(R.string.reservation_complete)) { _, _ ->
                 MovieReservationCompleteActivity.startActivity(
                     this,
-                    Ticket(movieId(), screeningDateTime()!!, selectedSeats),
+                    movieId(),
+                    screeningDateTime()!!,
+                    selectedSeats.seats,
                 )
             }
             .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
@@ -183,7 +184,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putSerializable(
+        outState.putParcelable(
             SELECTED_SEATS_KEY,
             selectedSeats,
         )

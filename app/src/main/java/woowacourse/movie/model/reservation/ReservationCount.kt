@@ -1,8 +1,10 @@
 package woowacourse.movie.model.reservation
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-class ReservationCount(val count: Int = DEFAULT_VALUE) : Serializable {
+@Parcelize
+class ReservationCount(val count: Int = DEFAULT_VALUE) : Parcelable {
     init {
         require(count in MIN_VALUE..MAX_VALUE) { INVALID_COUNT_MESSAGE }
     }

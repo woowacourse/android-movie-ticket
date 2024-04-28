@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.setUpReservationCount
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
-import woowacourse.movie.model.time.ScreeningDate
 import woowacourse.movie.model.time.rangeTo
 
 class MovieReservationPresenterTest {

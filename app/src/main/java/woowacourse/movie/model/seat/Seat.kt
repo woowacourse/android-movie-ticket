@@ -1,7 +1,9 @@
 package woowacourse.movie.model.seat
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-data class Seat(val row: Int, val col: Int) : Serializable {
+@Parcelize
+data class Seat(val row: Int, val col: Int) : Parcelable {
     fun amount() = SeatRating.from(this).amount
 }

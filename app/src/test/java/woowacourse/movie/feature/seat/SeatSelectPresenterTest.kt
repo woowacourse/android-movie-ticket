@@ -7,8 +7,8 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.feature.setUpForSelectSeat
 import woowacourse.movie.feature.SelectedSeats
+import woowacourse.movie.feature.setUpForSelectSeat
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.seat.Seat
