@@ -2,16 +2,13 @@ package woowacourse.movie.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
@@ -86,38 +83,39 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     override fun displayScreeningDates(dates: List<ScreeningDate>) {
-
         dateSpinner.adapter = DateSpinnerAdapter(dates)
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                presenter.selectScreeningDate(dates[position])
-            }
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    presenter.selectScreeningDate(dates[position])
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
             }
-        }
     }
 
     override fun displayScreeningTimes(times: List<ScreeningDateTime>) {
         timeSpinner.adapter = TimeSpinnerAdapter(times)
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                presenter.selectScreeningTime(times[position])
-            }
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    presenter.selectScreeningTime(times[position])
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
             }
-        }
     }
 
     override fun displayTicketNum(ticketNum: Int) {

@@ -23,7 +23,11 @@ data class ScreeningDate(val date: LocalDate) {
     }
 
     companion object {
-        fun of(year: Int, month: Int, day: Int): ScreeningDate {
+        fun of(
+            year: Int,
+            month: Int,
+            day: Int,
+        ): ScreeningDate {
             return ScreeningDate(LocalDate.of(year, month, day))
         }
     }

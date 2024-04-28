@@ -19,7 +19,7 @@ class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
     private val theaterRepository: TheaterRepository = PseudoTheaterRepository(),
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
-    private val movieRepository: MovieRepository = PseudoMovieRepository()
+    private val movieRepository: MovieRepository = PseudoMovieRepository(),
 ) : SeatSelectionContract.Presenter {
     private lateinit var theater: Theater
     private val selectedPositions: MutableSet<Position> = mutableSetOf()

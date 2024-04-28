@@ -9,4 +9,4 @@ class SeatPlan(
     val movieId: Int,
     val ticketNum: Int,
     val reservedDateTime: LocalDateTime,
-): Parcelable
+) : Parcelable

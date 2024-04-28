@@ -29,16 +29,17 @@ class PseudoMovieRepository : MovieRepository {
                     synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys
                     synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys
                     synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys
-                    """.trimIndent().replace("\n", "")
+                    """.trimIndent().replace("\n", ""),
                 ),
             )
-        private val pseudoMovie = Movie(
-            pseudoMovieDetail,
-            ScreeningPeriod(
-                ScreeningDate.of(2024, 4, 26),
-                ScreeningDate.of(2024, 4, 28),
+        private val pseudoMovie =
+            Movie(
+                pseudoMovieDetail,
+                ScreeningPeriod(
+                    ScreeningDate.of(2024, 4, 26),
+                    ScreeningDate.of(2024, 4, 28),
+                ),
             )
-        )
 
         private val movies = List(11) { pseudoMovie }
     }

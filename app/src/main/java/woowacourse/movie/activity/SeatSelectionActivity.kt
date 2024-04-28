@@ -10,7 +10,6 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -34,37 +33,43 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         confirmButton = findViewById<TextView>(R.id.purchase_confirm)
         movieTitle = findViewById(R.id.seat_selection_movie_title)
         ticketPrice = findViewById(R.id.seat_selection_ticket_price)
-        presenter = SeatSelectionPresenter(
-            view = this,
-        )
-        val seatPlan = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("SeatPlan", SeatPlan::class.java)
-        } else {
-            intent.getParcelableExtra(Intent.EXTRA_STREAM) as? SeatPlan
-        }
+        presenter =
+            SeatSelectionPresenter(
+                view = this,
+            )
+        val seatPlan =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra("SeatPlan", SeatPlan::class.java)
+            } else {
+                intent.getParcelableExtra(Intent.EXTRA_STREAM) as? SeatPlan
+            }
         if (seatPlan != null) {
             presenter.loadData(
                 seatPlan.movieId,
                 seatPlan.ticketNum,
-                seatPlan.reservedDateTime
+                seatPlan.reservedDateTime,
             )
-            Log.d("select",seatPlan.movieId.toString())
-        } else finish()
+            Log.d("select", seatPlan.movieId.toString())
+        } else {
+            finish()
+        }
         confirmButton.setOnClickListener {
             presenter.askConfirm()
         }
     }
 
     override fun displayTheater(theater: Theater) {
-        gridLayout = findViewById<GridLayout>(R.id.seat_selection_grid_layout).apply {
-            columnCount = theater.cols
-        }
-        theater.tiers.forEach { (position, tier) ->
-            val color = when (tier) {
-                Tier.B -> getColor(R.color.purple)
-                Tier.S -> getColor(R.color.green)
-                Tier.A -> getColor(R.color.blue)
+        gridLayout =
+            findViewById<GridLayout>(R.id.seat_selection_grid_layout).apply {
+                columnCount = theater.cols
             }
+        theater.tiers.forEach { (position, tier) ->
+            val color =
+                when (tier) {
+                    Tier.B -> getColor(R.color.purple)
+                    Tier.S -> getColor(R.color.green)
+                    Tier.A -> getColor(R.color.blue)
+                }
             val seatView =
                 LayoutInflater.from(this).inflate(R.layout.seat_button, null, false)
             val button = seatView.findViewById<Button>(R.id.seat_button)
@@ -112,15 +117,16 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun displayConfirmDialog() {
-        //val dialog = CustomDialog()
-        val dialog = AlertDialog.Builder(this)
-            .setTitle("결제 확인")
-            .setMessage("결제하시겠습니까?")
-            .setPositiveButton("예") { _, _ -> presenter.purchase() }
-            .setNegativeButton("아니요") { dialog, _ ->
-                dialog.dismiss()
-            }.setCancelable(false)
-            .create()
+        // val dialog = CustomDialog()
+        val dialog =
+            AlertDialog.Builder(this)
+                .setTitle("결제 확인")
+                .setMessage("결제하시겠습니까?")
+                .setPositiveButton("예") { _, _ -> presenter.purchase() }
+                .setNegativeButton("아니요") { dialog, _ ->
+                    dialog.dismiss()
+                }.setCancelable(false)
+                .create()
         dialog.window?.setDimAmount(0.5f) // 0.5는 50% 투명도를 나타냅니다.
         dialog.window?.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         dialog.show()
