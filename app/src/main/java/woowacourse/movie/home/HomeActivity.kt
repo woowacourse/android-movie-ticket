@@ -1,15 +1,16 @@
 package woowacourse.movie.home
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieCatalogAdapter
+import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.detail.MovieDetailActivity
 import woowacourse.movie.model.Movie
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
-    private val movieList: ListView by lazy { findViewById(R.id.list_view_reservation_home) }
+    private val movieList: RecyclerView by lazy { findViewById(R.id.recycler_view_reservation_home) }
     private lateinit var homePresenter: HomePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +22,9 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     override fun showMovies(movies: List<Movie>) {
+        movieList.layoutManager = LinearLayoutManager(this)
         movieList.adapter =
-            MovieCatalogAdapter(this, movies) { movieId ->
+            MovieAdapter(movies) { movieId ->
                 homePresenter.deliverMovie(movieId)
             }
     }

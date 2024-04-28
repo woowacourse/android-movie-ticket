@@ -9,6 +9,6 @@ object TestFixture {
         Espresso.onData(
             Matchers.anything(),
         ).inAdapterView(
-            ViewMatchers.withId(R.id.list_view_reservation_home),
+            ViewMatchers.withId(R.id.recycler_view_reservation_home),
         ).atPosition(0)
 }
