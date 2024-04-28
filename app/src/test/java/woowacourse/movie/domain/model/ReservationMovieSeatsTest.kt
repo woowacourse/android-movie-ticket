@@ -7,8 +7,8 @@ class ReservationMovieSeatsTest {
     @Test
     fun `getTotalSeatPrice_메서드가_올바른_가격을_반환하는지_확인한다`() {
         // Given
-        val seatA = MovieSeat("A1", SeatType.A)
-        val seatB = MovieSeat("B2", SeatType.B)
+        val seatA = MovieSeat("A", 1, SeatType.A)
+        val seatB = MovieSeat("B", 2, SeatType.B)
         val seats = arrayListOf(seatA, seatB)
         val reservationMovieSeats = ReservationMovieSeats(ticketCount = 5)
         reservationMovieSeats.userSeats.addAll(seats)
@@ -24,10 +24,10 @@ class ReservationMovieSeatsTest {
     fun `setSeatSelectType_메서드가_적절한_SeatSelectType을_설정하는지_확인한다`() {
         // Given
         val reservationMovieSeats = ReservationMovieSeats(ticketCount = 5)
-        reservationMovieSeats.userSeats.add(MovieSeat("A1", SeatType.A))
+        reservationMovieSeats.userSeats.add(MovieSeat("A", 1, SeatType.A))
 
         // When
-        reservationMovieSeats.setSeatSelectType(MovieSeat("A1", SeatType.A))
+        reservationMovieSeats.setSeatSelectType(MovieSeat("A", 1, SeatType.A))
 
         // Then
         assertEquals(SeatSelectState.REMOVE, reservationMovieSeats.seatSelectState)
@@ -37,7 +37,7 @@ class ReservationMovieSeatsTest {
     fun `좌석을_선택하면_선택된_좌석_리스트에_추가된다`() {
         // Given
         val reservationMovieSeats = ReservationMovieSeats(ticketCount = 5)
-        val seat = MovieSeat("A1", SeatType.A)
+        val seat = MovieSeat("A", 1, SeatType.A)
 
         // When
         reservationMovieSeats.addSeat(seat)
@@ -50,8 +50,8 @@ class ReservationMovieSeatsTest {
     @Test
     fun `선택된_좌석을_재선택하면_선택이_해제된다`() {
         // Given
-        val seatA = MovieSeat("A1", SeatType.A)
-        val seatB = MovieSeat("B2", SeatType.B)
+        val seatA = MovieSeat("A", 1, SeatType.A)
+        val seatB = MovieSeat("B", 2, SeatType.B)
         val seats = arrayListOf(seatA, seatB)
         val reservationMovieSeats = ReservationMovieSeats(ticketCount = 5)
         reservationMovieSeats.userSeats.addAll(seats)
@@ -68,7 +68,12 @@ class ReservationMovieSeatsTest {
     fun `updateSeatSelectType_메서드가_적절한_SeatSelectType을_설정하는지_확인한다`() {
         // Given
         val reservationMovieSeats = ReservationMovieSeats(ticketCount = 5)
-        reservationMovieSeats.userSeats.addAll(listOf(MovieSeat("A1", SeatType.A), MovieSeat("B2", SeatType.B)))
+        reservationMovieSeats.userSeats.addAll(
+            listOf(
+                MovieSeat("A", 1, SeatType.A),
+                MovieSeat("B", 2, SeatType.B)
+            )
+        )
 
         // When
         reservationMovieSeats.updateSeatSelectType()

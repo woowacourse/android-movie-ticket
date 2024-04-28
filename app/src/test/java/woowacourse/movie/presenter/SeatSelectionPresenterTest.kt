@@ -29,7 +29,8 @@ class SeatSelectionPresenterTest {
     fun setUp() {
         mockView = mockk(relaxed = true)
         mockSeatRepository = mockk(relaxed = true)
-        presenter = SeatSelectionPresenter(pendingMovieReservationModel, mockView, mockSeatRepository)
+        presenter =
+            SeatSelectionPresenter(pendingMovieReservationModel, mockView, mockSeatRepository)
     }
 
     @Test
@@ -40,7 +41,12 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `loadSeat은 좌석 정보를 뷰에 표시해야 한다`() {
-        val seats = listOf(listOf(MovieSeat("A1", SeatType.S), MovieSeat("A2", SeatType.S)))
+        val seats = listOf(
+            listOf(
+                MovieSeat("A", 1, SeatType.S),
+                MovieSeat("A", 2, SeatType.S)
+            )
+        )
         every { mockSeatRepository.getAvailableSeats() } returns seats
 
         presenter.loadSeat()
@@ -52,7 +58,7 @@ class SeatSelectionPresenterTest {
     fun `selectSeat은 선택된 좌석에 따라 뷰를 업데이트 해야 한다`() {
         val rowIndex = 0
         val columnIndex = 0
-        val seat = MovieSeat("A1", SeatType.S)
+        val seat = MovieSeat("A", 1, SeatType.S)
         every { mockSeatRepository.getAvailableSeat(rowIndex, columnIndex) } returns seat
 
         presenter.selectSeat(rowIndex, columnIndex)
