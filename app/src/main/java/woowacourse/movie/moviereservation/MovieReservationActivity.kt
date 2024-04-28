@@ -163,6 +163,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         dateSpinner.adapter = dateAdapter
         timeSpinner.adapter = timeAdapter
 
+        setSpinnerClickListener(screeningDateTimesUiModel)
+    }
+
+    private fun setSpinnerClickListener(screeningDateTimesUiModel: ScreeningDateTimesUiModel) {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
