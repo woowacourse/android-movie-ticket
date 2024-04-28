@@ -11,13 +11,3 @@ data class Movie(
     val synopsis: String,
     val id: Long = 0,
 )
-
-val nullMovie =
-    Movie(
-        0,
-        "오류가 발생했습니다.",
-        LocalDate.of(1, 1, 1),
-        LocalDate.of(1, 1, 1),
-        0,
-        "",
-    )

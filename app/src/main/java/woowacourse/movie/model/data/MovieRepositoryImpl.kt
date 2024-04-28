@@ -2,12 +2,12 @@ package woowacourse.movie.model.data
 
 import woowacourse.movie.R
 import woowacourse.movie.model.data.dto.Movie
-import woowacourse.movie.model.data.dto.nullMovie
 import java.time.LocalDate
 
 object MovieRepositoryImpl : MovieRepository {
     private var id: Long = 0
     private val movies = mutableMapOf<Long, Movie>()
+    private const val NOT_EXIST_ID_MESSAGE = "해당하는 아이디의 영화를 찾을 수 없습니다."
 
     init {
         save(
@@ -34,7 +34,7 @@ object MovieRepositoryImpl : MovieRepository {
     }
 
     override fun find(id: Long): Movie {
-        return movies[id] ?: nullMovie
+        return movies[id] ?: throw IllegalArgumentException(NOT_EXIST_ID_MESSAGE)
     }
 
     override fun findAll(): List<Movie> {
