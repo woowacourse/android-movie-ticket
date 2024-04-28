@@ -14,11 +14,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.reservation.Quantity
 import woowacourse.movie.feature.main.ui.ScreeningModel
 import woowacourse.movie.feature.reservation.ui.DailyScheduleModel
 import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 import woowacourse.movie.feature.seat.SeatSelectionActivity
+
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter = ReservationPresenter(this)
@@ -35,13 +35,12 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val timeSpinner by lazy { findViewById<Spinner>(R.id.spinner_time) }
     private var timeSpinnerPosition: Int = 0
     private var dateSpinnerPosition: Int = 0
-    private val quantity = Quantity()
+    private var quantity: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         val screeningId = intent.getLongExtra(SCREENING_ID, -1L)
         presenter.fetchScreeningDetails(screeningId)
         setupReservationCompleteControls()
@@ -56,7 +55,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         movieContentTv.text = movie.content
         openingDayTv.text = openingDayText
         runningTimeTv.text = runningTimeText
-        updateTicketQuantity(quantity.value)
+        updateTicketQuantity(quantity)
     }
 
     override fun setupScreeningSchedulesControls(screeningScheduleModel: ScreeningScheduleModel) {
@@ -133,7 +132,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun setupReservationCompleteControls() {
         completeBtn.setOnClickListener {
-            if (0 < quantity.value) navigateToCompleteScreen()
+            if (0 < quantity) navigateToCompleteScreen()
         }
     }
 
@@ -145,24 +144,23 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 id,
                 dateSpinnerPosition,
                 timeSpinnerPosition,
-                quantity.value,
+                quantity,
             ),
         )
     }
 
     override fun setupTicketQuantityControls() {
         minusBtn.setOnClickListener {
-            quantity.decrease()
-            updateTicketQuantity(quantity.value)
+            presenter.decreaseQuantity()
         }
         plusBtn.setOnClickListener {
-            quantity.increase()
-            updateTicketQuantity(quantity.value)
+            presenter.increaseQuantity()
         }
     }
 
     override fun updateTicketQuantity(newQuantity: Int) {
         quantityTv.text = newQuantity.toString()
+        quantity = newQuantity
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -172,6 +170,17 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("quantity", quantity)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        quantity = savedInstanceState.getInt("quantity")
+        updateTicketQuantity(quantity)
     }
 
     companion object {
