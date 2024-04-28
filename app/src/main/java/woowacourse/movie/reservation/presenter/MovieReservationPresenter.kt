@@ -1,6 +1,5 @@
 package woowacourse.movie.reservation.presenter
 
-import android.util.Log
 import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.DataResource
@@ -16,7 +15,6 @@ class MovieReservationPresenter(
         get() = model.ticketCount
 
     override fun setCurrentResultTicketCountInfo() {
-        Log.d("alsong", "setCurrentResultTicketCountInfo: $ticketCount")
         view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
@@ -31,14 +29,12 @@ class MovieReservationPresenter(
 
     override fun setPlusButtonClickInfo() {
         model.plusTicketCount()
-        Log.d("alsong", "setPlusButtonClickInfo: $ticketCount")
         view.showCurrentResultTicketCountView(ticketCount.number)
     }
 
     override fun setMinusButtonClickInfo() {
         runCatching {
             model.minusTicketCount()
-            Log.d("alsong", "setMinusButtonClickInfo: $ticketCount")
             view.showCurrentResultTicketCountView(ticketCount.number)
         }.onFailure {
             view.showToast(it.message ?: "")

@@ -8,6 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.seats.contract.SeatsContract
+import woowacourse.movie.seats.model.SeatsDataSource.seat
 import woowacourse.movie.seats.presenter.SeatsPresenter
 
 class SeatsTest {
@@ -21,22 +22,20 @@ class SeatsTest {
     }
 
     @Test
-    fun `좌석을 선택하면 가격에 반영되어야 한다`() {
-        every { view.setTotalPrice(any()) } just runs
-        // when
-        presenter.createSeat(1, 1)
-        presenter.setPriceInfo()
-        // then
-        verify { view.setTotalPrice(10_000) }
-    }
-
-    @Test
-    fun `좌석을 선택하면 셀의 색깔이 노란색으로 바뀌어야 한다`() {
-        every { view.setSeatCellBackgroundColor(any()) } just runs
+    fun `좌석을 선택하면 셀의 색깔이 노란색으로 바뀌고 총 가격이 갱신되어야 한다`() {
+        every {
+            seat.select()
+            view.setSeatCellBackgroundColor(any())
+            view.setTotalPrice(any())
+        } just runs
         // when
         presenter.createSeat(1, 1)
         presenter.setSeatsCellsBackgroundColorInfo()
         // then
-        verify { view.setSeatCellBackgroundColor(presenter.seat) }
+        verify {
+            seat.select()
+            view.setSeatCellBackgroundColor(seat)
+            view.setTotalPrice(10000)
+        }
     }
 }

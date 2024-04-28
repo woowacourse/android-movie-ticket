@@ -149,7 +149,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun showToast(message: String) {
         toast?.cancel()
         toast = Toast.makeText(this, message, Toast.LENGTH_SHORT)
-        Log.d("alsong", "$toast, $message")
         toast?.show()
     }
 

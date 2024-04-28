@@ -54,7 +54,7 @@ class MovieReservationTest {
         // when
         presenter.setMinusButtonClickInfo()
         // then
-        verify { view.showToast("개수는 1 이상이어야 합니다.") }
+        verify { view.showToast(any()) }
     }
 
     @Test

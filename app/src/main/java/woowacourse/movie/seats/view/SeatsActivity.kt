@@ -71,7 +71,7 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
     override fun initCell(
         cell: TextView,
         seat: Seat,
-    )  {
+    ) {
         cell.text = seat.coordinate
         cell.setBackgroundColor(seat.cellBackgroundColor)
     }

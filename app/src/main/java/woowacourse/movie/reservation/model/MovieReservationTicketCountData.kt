@@ -6,6 +6,10 @@ object MovieReservationTicketCountData {
     var ticketCount = Count(MIN_TICKET_COUNT)
         private set
 
+    fun initTicketCount() {
+        ticketCount = Count(MIN_TICKET_COUNT)
+    }
+
     fun minusTicketCount() {
         ticketCount--
     }
