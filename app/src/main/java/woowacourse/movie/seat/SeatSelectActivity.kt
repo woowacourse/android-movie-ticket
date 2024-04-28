@@ -107,7 +107,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     }
 
     override fun moveToReservationFinished(
-        movieTitle: String,
+        movieId: Int,
         ticket: Ticket,
         seats: String,
         totalPrice: Int,
@@ -115,7 +115,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         startActivity(
             ReservationFinishedActivity.getIntent(
                 this,
-                movieTitle,
+                movieId,
                 ticket,
                 seats,
                 totalPrice,

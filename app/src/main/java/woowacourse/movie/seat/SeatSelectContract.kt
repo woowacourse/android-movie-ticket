@@ -21,7 +21,7 @@ interface SeatSelectContract {
         fun showConfirmDialog()
 
         fun moveToReservationFinished(
-            movieTitle: String,
+            movieId: Int,
             ticket: Ticket,
             seats: String,
             totalPrice: Int,

@@ -1,20 +1,18 @@
 package woowacourse.movie.reservation
 
-import woowacourse.movie.model.Movie
-
 interface ReservationFinishedContract {
     interface View {
-        fun showMovieInformation(movie: Movie)
-
-        fun showReservationHistory(
-            ticketCount: Int,
-            price: Int,
+        fun showReservationInformation(
+            movieTitle: String,
+            screeningDate: String,
+            screeningTime: String,
+            people: Int,
+            seats: String,
+            totalPrice: Int,
         )
     }
 
     interface Presenter {
-        fun loadMovieInformation()
-
         fun loadReservationInformation()
     }
 }

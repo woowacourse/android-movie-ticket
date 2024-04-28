@@ -6,20 +6,20 @@ import woowacourse.movie.model.Ticket
 class ReservationFinishedPresenter(
     private val view: ReservationFinishedContract.View,
     private val movieId: Int,
-    ticketCount: Int,
+    private val ticket: Ticket,
+    private val seats: String,
+    private val totalPrice: Int,
 ) : ReservationFinishedContract.Presenter {
-    private val ticket = Ticket(ticketCount)
-
-    override fun loadMovieInformation() {
-        val movies = Movies.obtainMovie(movieId)
-
-        view.showMovieInformation(movies)
-    }
-
     override fun loadReservationInformation() {
-        val numberOfTickets = ticket.count
-        val price = ticket.calculatePrice()
+        val movieTitle = Movies.obtainMovie(movieId).title
 
-        view.showReservationHistory(numberOfTickets, price)
+        view.showReservationInformation(
+            movieTitle,
+            ticket.screeningDate,
+            ticket.screeningTime,
+            ticket.count,
+            seats,
+            totalPrice,
+        )
     }
 }

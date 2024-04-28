@@ -24,7 +24,7 @@ class SeatSelectPresenter(
 
     override fun loadReservationInformation() {
         view.moveToReservationFinished(
-            Movies.obtainMovie(movieId).title,
+            movieId,
             ticket,
             seats.joinToString(", "),
             Rank.calculateTotalPrice(getRanks(seats)),
