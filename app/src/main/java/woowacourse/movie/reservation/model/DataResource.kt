@@ -1,6 +1,5 @@
 package woowacourse.movie.reservation.model
 
-import android.util.Log
 import woowacourse.movie.common_data.MovieDataSource
 import java.time.LocalDate
 import java.time.LocalTime
@@ -14,7 +13,6 @@ object DataResource {
     val screeningDates
         get() =
             List(firstScreeningDate.lengthOfMonth()) {
-                Log.d("al", "$firstScreeningDate")
                 LocalDate.of(2024, firstScreeningDate.monthValue, it + 1)
             }
 
@@ -31,4 +29,6 @@ object DataResource {
                 LocalTime.of(0, 0, 0)
             }
         }
+
+    var selectedScreeningTime = LocalTime.of(0, 0, 0)
 }

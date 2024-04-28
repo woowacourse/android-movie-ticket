@@ -2,7 +2,6 @@ package woowacourse.movie.list.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -32,7 +31,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         listView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, MovieReservationActivity::class.java)
             intent.putExtra(EXTRA_MOVIE_ID_KEY, position.toLong())
-            Log.d("", "setOnListViewClickListener: $position")
             this.startActivity(intent)
         }
     }

@@ -1,6 +1,8 @@
 package woowacourse.movie.reservation.model
 
-class MovieReservationTicketCountData {
+object MovieReservationTicketCountData {
+    private const val MIN_TICKET_COUNT = 1
+
     var ticketCount = Count(MIN_TICKET_COUNT)
         private set
 
@@ -10,9 +12,5 @@ class MovieReservationTicketCountData {
 
     fun plusTicketCount() {
         ticketCount++
-    }
-
-    companion object {
-        private const val MIN_TICKET_COUNT = 1
     }
 }

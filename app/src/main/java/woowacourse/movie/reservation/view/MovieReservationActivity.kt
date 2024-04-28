@@ -48,7 +48,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         initView()
         presenter.setCurrentResultTicketCountInfo()
         movieId = intent.getLongExtra(EXTRA_MOVIE_ID_KEY, 0)
-        Log.d("", "onCreate: $movieId")
+        Log.d("", "onCreate")
         presenter.storeMovieId(movieId)
         presenter.setMovieInfo()
         presenter.setSpinnerInfo()
@@ -126,6 +126,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                     id: Long,
                 ) {
                     selectedTime = screeningTimes[position]
+                    presenter.storeselectedTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -184,21 +185,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         )
         intent.putExtra(EXTRA_TIME_KEY, selectedTime.toString())
         this.startActivity(intent)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val count = findViewById<TextView>(R.id.ticket_count).text.toString().toInt()
-        outState.putInt(EXTRA_COUNT_KEY, count)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.let {
-            val count = it.getInt(EXTRA_COUNT_KEY)
-            val countTextView = findViewById<TextView>(R.id.ticket_count)
-            countTextView.text = count.toString()
-        }
     }
 
     companion object {
