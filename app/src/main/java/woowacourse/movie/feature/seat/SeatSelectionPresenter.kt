@@ -22,8 +22,8 @@ class SeatSelectionPresenter(
         view.initialize(screening.toUiModel(), seats.map { it.toUiModel() })
     }
 
-    fun saveReservation(
-        seatList: MutableList<String>,
+    override fun saveTicket(
+        seatList: List<String>,
         price: Long,
     ) {
         val dailySchedule = screening.schedule.dailySchedules[datePosition]

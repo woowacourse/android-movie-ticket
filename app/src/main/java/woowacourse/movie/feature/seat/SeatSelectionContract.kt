@@ -15,5 +15,10 @@ interface SeatSelectionContract {
 
     interface Presenter {
         fun fetchData()
+
+        fun saveTicket(
+            seatList: List<String>,
+            price: Long,
+        )
     }
 }

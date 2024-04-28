@@ -114,7 +114,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             .setPositiveButton(
                 "예매 완료",
                 DialogInterface.OnClickListener { _, _ ->
-                    presenter.saveReservation(selectedSeatList, price)
+                    presenter.saveTicket(selectedSeatList.toList(), price)
                 },
             )
         builder.show()
