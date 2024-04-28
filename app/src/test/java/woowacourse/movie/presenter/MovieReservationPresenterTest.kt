@@ -4,7 +4,6 @@ import android.util.Log
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.data.DateRepositoryImpl
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.model.TicketModel
@@ -53,7 +52,7 @@ class MovieReservationPresenterTest {
                 view = mockView,
                 movieId = 1,
                 movieRepository = MovieRepositoryImpl(),
-                dateRepository = DateRepositoryImpl(),
+                dateMaker = DateRepositoryImpl(),
             )
     }
 

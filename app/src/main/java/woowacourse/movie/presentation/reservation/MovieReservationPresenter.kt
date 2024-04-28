@@ -3,23 +3,20 @@ package woowacourse.movie.presentation.reservation
 import android.os.Bundle
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.PendingMovieReservation
-import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.TicketCounter
-import woowacourse.movie.domain.repository.DateRepository
+import woowacourse.movie.domain.DateMaker
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.model.MovieDateModel
 import woowacourse.movie.presentation.model.toMovieDateModel
 import woowacourse.movie.presentation.model.toPendingMovieReservationModel
-import woowacourse.movie.presentation.model.toTicketModel
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
     private val movieId: Int,
     private val movieRepository: MovieRepository,
-    private val dateRepository: DateRepository,
+    private val dateMaker: DateMaker,
 ) : MovieReservationContract.Presenter {
     private val ticketCounter: TicketCounter = TicketCounter()
     private val movieDate: MovieDate = MovieDate()
@@ -32,11 +29,11 @@ class MovieReservationPresenter(
         startDate: LocalDate,
         endDate: LocalDate,
     ) {
-        view.showDate(dateRepository.getDatesBetween(startDate, endDate))
+        view.showDate(dateMaker.getDatesBetween(startDate, endDate))
     }
 
     override fun loadTime(currentDate: LocalDate) {
-        view.showTime(dateRepository.getDateTimes(currentDate))
+        view.showTime(dateMaker.getDateTimes(currentDate))
     }
 
     override fun decreaseTicketCount() {

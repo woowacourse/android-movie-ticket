@@ -12,14 +12,13 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.DateRepositoryImpl
 import woowacourse.movie.data.MovieRepositoryImpl
+import woowacourse.movie.domain.DateMaker
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.TicketCounter
 import woowacourse.movie.presentation.model.MovieDateModel
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
-import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.model.toMovieDateModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter.Companion.KEY_MOVIE_DATE
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter.Companion.KEY_TICKET_COUNT
@@ -29,7 +28,6 @@ import woowacourse.movie.presentation.utils.toCustomString
 import woowacourse.movie.presentation.utils.toDrawableIdByName
 import java.io.Serializable
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
@@ -50,7 +48,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             view = this@MovieReservationActivity,
             movieId = loadMovieId(),
             movieRepository = MovieRepositoryImpl(),
-            dateRepository = DateRepositoryImpl(),
+            dateMaker = DateMaker(),
         )
     }
 

@@ -1,12 +1,11 @@
-package woowacourse.movie.data
+package woowacourse.movie.domain
 
-import woowacourse.movie.domain.repository.DateRepository
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class DateRepositoryImpl : DateRepository {
-    override fun getDatesBetween(
+class DateMaker {
+    fun getDatesBetween(
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<LocalDate> {
@@ -21,25 +20,21 @@ class DateRepositoryImpl : DateRepository {
         return dates
     }
 
-    override fun getDateTimes(date: LocalDate): List<LocalTime> {
+    fun getDateTimes(date: LocalDate): List<LocalTime> {
         val dateTimeList = mutableListOf<LocalTime>()
 
         val startTime =
             if (date.dayOfWeek.value in WEEKEND_START_DATE..WEEKEND_END_DATE) {
                 LocalDateTime.of(date, LocalTime.of(WEEKEND_START_HOUR, DEFAULT_MINUTE))
-                    .toLocalTime()
             } else {
                 LocalDateTime.of(date, LocalTime.of(WEEKDAY_START_HOUR, DEFAULT_MINUTE))
-                    .toLocalTime()
             }
 
-        val endTime =
-            LocalDateTime.of(date.plusDays(DAYS_TO_ADD), LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE))
-                .toLocalTime()
+        val endTime = LocalDateTime.of(date.plusDays(DAYS_TO_ADD), LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE))
 
         var currentTime = startTime
         while (currentTime.isBefore(endTime)) {
-            dateTimeList.add(currentTime)
+            dateTimeList.add(currentTime.toLocalTime())
             currentTime = currentTime.plusHours(SCREENING_TERM)
         }
 

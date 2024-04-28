@@ -2,12 +2,12 @@ package woowacourse.movie.domain.repository
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import woowacourse.movie.data.DateRepositoryImpl
+import woowacourse.movie.domain.DateMaker
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class DateRepositoryTest {
-    private val repository: DateRepository = DateRepositoryImpl()
+class DateMakerTest {
+    private val dateMaker: DateMaker = DateMaker()
 
     @Test
     fun `getDatesBetween 메서드가 주어진 시작일과 종료일 사이의 날짜를 올바르게 반환하는지 확인한다`() {
@@ -24,7 +24,7 @@ class DateRepositoryTest {
             )
 
         // When
-        val dates = repository.getDatesBetween(startDate, endDate)
+        val dates = dateMaker.getDatesBetween(startDate, endDate)
 
         // Then
         assertEquals(expectedDates, dates)
@@ -46,7 +46,7 @@ class DateRepositoryTest {
             )
 
         // When
-        val times = repository.getDateTimes(date)
+        val times = dateMaker.getDateTimes(date)
 
         // Then
         assertEquals(expectedTimes, times)
