@@ -3,7 +3,6 @@ package woowacourse.movie.domain.movie
 class Screen private constructor(
     val id: Long = currentId++,
     val movieId: Long,
-    // val screenDateTime: LocalDateTime? = LocalDateTime.now()
 ) {
     companion object {
         var currentId = 1L
