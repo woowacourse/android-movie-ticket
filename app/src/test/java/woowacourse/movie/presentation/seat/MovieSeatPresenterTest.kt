@@ -123,10 +123,10 @@ class MovieSeatPresenterTest {
 
     @Test
     fun `reservation() 하면 onReservationComplete()가 호출된다`() {
-        every { seatContractView.onReservationComplete(any(), any(), any(), any(), any()) } just runs
+        every { seatContractView.onReservationComplete(any(), any(), any()) } just runs
 
         seatPresenter.reservation()
 
-        verify { seatContractView.onReservationComplete(any(), any(), any(), any(), any()) }
+        verify { seatContractView.onReservationComplete(any(), any(), any()) }
     }
 }

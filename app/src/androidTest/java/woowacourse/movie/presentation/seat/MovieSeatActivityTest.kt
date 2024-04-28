@@ -87,7 +87,7 @@ class MovieSeatActivityTest {
         )
         onView(withId(R.id.seatCompleteBtn)).perform(click())
 
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
+        onView(withText(R.string.reservation_dialog_title)).check(matches(isDisplayed()))
     }
 
     @Test

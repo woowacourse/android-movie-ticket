@@ -120,7 +120,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         reservationCount.text = detailUiModel.reservationCount.count.toString()
     }
 
-    override fun updateDateList(
+    override fun onUpdateDate(
         dates: List<LocalDate>?,
         selectedPosition: Int?,
     ) {
@@ -137,7 +137,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         }
     }
 
-    override fun updateTimeList(
+    override fun onUpdateTime(
         times: List<LocalTime>?,
         selectedPosition: Int?,
     ) {

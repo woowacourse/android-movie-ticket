@@ -24,8 +24,6 @@ interface MovieSeatContract {
             movieId: Long,
             movieScreenDateTimeId: Long,
             movieSeatIds: List<Long>,
-            count: Int,
-            totalPrice: Int,
         )
     }
 

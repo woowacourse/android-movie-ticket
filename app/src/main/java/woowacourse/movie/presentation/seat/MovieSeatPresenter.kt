@@ -61,8 +61,6 @@ class MovieSeatPresenter(
             _uiModel.movieId,
             _uiModel.movieScreenDateTimeId,
             _uiModel.selectedSeat.map { it.id },
-            _uiModel.selectedCount,
-            _uiModel.totalPrice,
         )
     }
 }

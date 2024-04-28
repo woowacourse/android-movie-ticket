@@ -8,12 +8,12 @@ interface MovieDetailContract {
     interface View : BaseContract.View {
         fun onUpdateView(detailUiModel: DetailUiModel)
 
-        fun updateDateList(
+        fun onUpdateDate(
             dates: List<LocalDate>?,
             selectedPosition: Int?,
         )
 
-        fun updateTimeList(
+        fun onUpdateTime(
             times: List<LocalTime>?,
             selectedPosition: Int?,
         )

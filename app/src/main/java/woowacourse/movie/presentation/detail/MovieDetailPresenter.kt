@@ -32,8 +32,8 @@ class MovieDetailPresenter(
                     selectedLocalTime = times.firstOrNull(),
                 )
             detailContractView.onUpdateView(uiModel)
-            detailContractView.updateDateList(dates, 0)
-            detailContractView.updateTimeList(times, 0)
+            detailContractView.onUpdateDate(dates, 0)
+            detailContractView.onUpdateTime(times, 0)
         } ?: detailContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
     }
 
@@ -69,7 +69,7 @@ class MovieDetailPresenter(
                 selectedLocalDate = localDate,
                 selectedLocalTime = null,
             )
-        detailContractView.updateTimeList(uiModel.localTimes, null)
+        detailContractView.onUpdateTime(uiModel.localTimes, null)
     }
 
     override fun selectSeat(
@@ -89,8 +89,8 @@ class MovieDetailPresenter(
                 selectedLocalDate = localDate,
                 selectedLocalTime = localTime,
             )
-        detailContractView.updateDateList(uiModel.localDates, uiModel.localDates?.indexOfFirst { it == localDate })
-        detailContractView.updateTimeList(uiModel.localTimes, uiModel.localTimes?.indexOfFirst { it == localTime })
+        detailContractView.onUpdateDate(uiModel.localDates, uiModel.localDates?.indexOfFirst { it == localDate })
+        detailContractView.onUpdateTime(uiModel.localTimes, uiModel.localTimes?.indexOfFirst { it == localTime })
     }
 
     private fun LocalDateTime.isSameDate(localDateTime: LocalDateTime): Boolean {

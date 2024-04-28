@@ -143,8 +143,6 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
         movieId: Long,
         movieScreenDateTimeId: Long,
         movieSeatIds: List<Long>,
-        count: Int,
-        totalPrice: Int,
     ) {
         Intent(this, MovieResultActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_ID, movieId)
