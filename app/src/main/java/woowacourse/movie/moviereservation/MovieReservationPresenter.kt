@@ -1,6 +1,5 @@
 package woowacourse.movie.moviereservation
 
-import android.util.Log
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.moviereservation.uimodel.BookingInfoUiModel
 import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
