@@ -1,7 +1,9 @@
 package woowacourse.movie.model.movie
 
-class ReservationDetail(private val reservationCount: Int) {
-    private val _selectedSeat = mutableListOf<Seat>()
+class ReservationDetail(
+    private val reservationCount: Int,
+    private val _selectedSeat: MutableList<Seat> = mutableListOf(),
+) {
     val selectedSeat: List<Seat>
         get() = _selectedSeat.toList().sortedWith(compareBy({ it.row }, { it.col }))
 
