@@ -11,14 +11,14 @@ class ReservationPresenter(private val view: ReservationContract.View) : Reserva
 
     override fun onClickedPlusButton(count: Int) {
         if (count < 99) {
-            view.updateCount(count + 1)
+            view.updateTicketCount(count + 1)
         } else {
-            view.updateCount(count)
+            view.updateTicketCount(count)
         }
     }
 
     override fun onClickedSubButton(count: Int) {
-        if (count > 1) view.updateCount(count - 1)
+        if (count > 1) view.updateTicketCount(count - 1)
     }
 
     override fun onClickedReservation(

@@ -1,11 +1,16 @@
 package woowacourse.movie.ui.home
 
 import woowacourse.movie.domain.movie.ScreenView
+import woowacourse.movie.repository.ScreenListRepository
 
 interface HomeContract {
-    interface View
+    interface View {
+        fun startReservationActivity(screenId: Long)
+        fun showScreens(screenListRepository: ScreenListRepository)
+    }
 
     interface Presenter {
-        fun loadList(): List<ScreenView>
+        fun onScreenSelected(screenId: Long)
+        fun loadScreens(screenListRepository: ScreenListRepository)
     }
 }

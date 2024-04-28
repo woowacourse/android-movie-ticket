@@ -7,9 +7,8 @@ interface ReservationContract {
     interface View {
         fun showMovie(existingMovie: Movie)
 
-        fun updateCount(count: Int)
+        fun updateTicketCount(count: Int)
 
-        // needed - naming signature change
         fun showTicket(ticket: Ticket)
     }
 
@@ -17,15 +16,12 @@ interface ReservationContract {
         fun loadMovie()
 
         fun onClickedPlusButton(count: Int)
-        // fun addCount()
 
         fun onClickedSubButton(count: Int)
 
-        // subCount()
         fun onClickedReservation(
             existingMovie: Movie,
             count: Int,
         )
-        // completeReservation()
     }
 }

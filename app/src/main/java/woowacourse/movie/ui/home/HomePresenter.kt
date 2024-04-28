@@ -1,10 +1,14 @@
 package woowacourse.movie.ui.home
 
-import woowacourse.movie.domain.movie.ScreenView
-import woowacourse.movie.repository.DummyScreenList
+import woowacourse.movie.repository.ScreenListRepository
 
-class HomePresenter : HomeContract.Presenter {
-    override fun loadList(): List<ScreenView> {
-        return DummyScreenList.list
+
+class HomePresenter(private val view: HomeContract.View) : HomeContract.Presenter {
+    override fun onScreenSelected(screenId: Long) {
+        view.startReservationActivity(screenId)
+    }
+
+    override fun loadScreens(screenListRepository: ScreenListRepository) {
+        view.showScreens(screenListRepository)
     }
 }

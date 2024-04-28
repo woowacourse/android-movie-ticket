@@ -12,20 +12,22 @@ import java.io.Serializable
 import java.text.DecimalFormat
 import java.time.format.DateTimeFormatter
 
-class ResultActivity : AppCompatActivity() {
+class ResultActivity : AppCompatActivity(), ResultContract.View {
+    private lateinit var presenter: ResultContract.Presenter
     private lateinit var resultViewGroup: ResultViewGroup
-    private lateinit var title: String
-    private lateinit var ticket: Ticket
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        title = intent.getStringExtra("screenTitle") ?: ""
-        ticket = intent.intentSerializable("ticket", Ticket::class.java) ?: Ticket(-1)
+        val title = intent.getStringExtra("screenTitle") ?: ""
+        val ticket = intent.intentSerializable("ticket", Ticket::class.java) ?: Ticket(-1)
+
         bindViews()
-        initViews()
+
+        presenter = ResultPresenter(this)
+        presenter.loadResult(title, ticket)
     }
 
     private fun <T : Serializable> Intent.intentSerializable(
@@ -44,7 +46,7 @@ class ResultActivity : AppCompatActivity() {
         return true
     }
 
-    fun bindViews() {
+    private fun bindViews() {
         resultViewGroup = ResultViewGroup(
             titleTextView = findViewById(R.id.result_title_textview),
             screenDateTime = findViewById(R.id.result_screen_time_textview),
@@ -54,7 +56,7 @@ class ResultActivity : AppCompatActivity() {
         )
     }
 
-    fun initViews() {
+    override fun showResult(title: String, ticket: Ticket) {
         resultViewGroup.setUpData(title, ticket)
     }
 }
@@ -81,7 +83,6 @@ class ResultViewGroup(
 
     companion object {
         val dec = DecimalFormat("#,###")
-
         val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYY.M.d")
     }
 }
