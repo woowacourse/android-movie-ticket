@@ -19,7 +19,6 @@ import woowacourse.movie.feature.reservation.ui.DailyScheduleModel
 import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 import woowacourse.movie.feature.seat.SeatSelectionActivity
 
-
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter = ReservationPresenter(this)
     private val quantityTv by lazy { findViewById<TextView>(R.id.reservation_quantity) }

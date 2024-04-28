@@ -1,6 +1,5 @@
 package woowacourse.movie.feature.reservation
 
-import android.util.Log
 import woowacourse.movie.data.MockScreeningRepository
 import woowacourse.movie.data.ScreeningRepository
 import woowacourse.movie.domain.reservation.Quantity
@@ -22,12 +21,12 @@ class ReservationPresenter(
         view.setupScreeningSchedulesControls(screening.schedule.toUiModel())
     }
 
-    fun increaseQuantity() {
+    override fun increaseQuantity() {
         quantity.increase()
         view.updateTicketQuantity(quantity.value)
     }
 
-    fun decreaseQuantity() {
+    override fun decreaseQuantity() {
         quantity.decrease()
         view.updateTicketQuantity(quantity.value)
     }

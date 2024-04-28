@@ -20,5 +20,9 @@ interface ReservationContract {
 
     interface Presenter {
         fun fetchScreeningDetails(screeningId: Long)
+
+        fun increaseQuantity()
+
+        fun decreaseQuantity()
     }
 }
