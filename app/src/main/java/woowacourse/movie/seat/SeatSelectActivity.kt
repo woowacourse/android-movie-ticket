@@ -21,8 +21,9 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         setContentView(R.layout.activity_seat_select)
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
-        val ticket = intent.getSerializableExtra(TICKET, Ticket::class.java)
-            ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
+        val ticket =
+            intent.getSerializableExtra(TICKET, Ticket::class.java)
+                ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
 
         selectPresenter = SeatSelectPresenter(this, movieId, ticket)
         selectPresenter.loadMovieTitle()

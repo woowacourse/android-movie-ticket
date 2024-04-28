@@ -1,7 +1,6 @@
 package woowacourse.movie.seat
 
 import woowacourse.movie.db.Movies
-import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Ticket
 
 class SeatSelectPresenter(
