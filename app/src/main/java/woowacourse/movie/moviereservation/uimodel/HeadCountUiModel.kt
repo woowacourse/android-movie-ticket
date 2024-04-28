@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 import woowacourse.movie.model.HeadCount
 
 @Parcelize
-data class HeadCountUiModel(val count: String = HeadCount.MIN_COUNT.toString()) : Parcelable {
+data class HeadCountUiModel(val count: String) : Parcelable {
     constructor(count: Int) : this(count.toString())
 }
