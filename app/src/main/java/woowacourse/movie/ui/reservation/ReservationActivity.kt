@@ -42,6 +42,24 @@ class ReservationActivity : AppCompatActivity() {
         setUpSpinner(intent.getLongExtra("screenId", 0), DummyScreenList)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("count", reservationViewGroup.countTextView.text.toString().toInt())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.let {
+            val count = it.getInt("count", 1)
+            if (count != 1) {
+                repeat(count - 1) {
+                    ticket.addCount()
+                }
+            }
+            reservationViewGroup.countTextView.text = count.toString()
+        }
+    }
+
     private fun setUpSpinner(
         screenId: Long,
         screenListRepository: ScreenListRepository,
@@ -50,6 +68,7 @@ class ReservationActivity : AppCompatActivity() {
         timeSpinner = findViewById(R.id.reservation_screen_time_spinner)
 
         val dateList = getDateList(screenId, screenListRepository)
+        ticket.date = LocalDate.parse(dateList[0])
 
         val dateAdapter =
             ArrayAdapter(
@@ -59,6 +78,7 @@ class ReservationActivity : AppCompatActivity() {
             )
 
         val timeList = ScreenTime(ticket.date).timeList()
+        ticket.time = timeList[0]
 
         var timeAdapter =
             ArrayAdapter(
@@ -111,7 +131,7 @@ class ReservationActivity : AppCompatActivity() {
         screenId: Long,
         screenListRepository: ScreenListRepository,
     ): List<String> {
-        val screenData = screenListRepository.findOrNull(screenId) as Screen
+        val screenData = screenListRepository.findOrNull(screenId) as Screen?
         val dateList = mutableListOf<String>()
         if (screenData != null) {
             val movieData = DummyMovieList.findOrNull(id = screenData.movieId)
@@ -200,7 +220,7 @@ class ReservationViewGroup(
         screenId: Long,
         screenListRepository: ScreenListRepository,
     ) {
-        val screenData = screenListRepository.findOrNull(screenId) as Screen
+        val screenData = screenListRepository.findOrNull(screenId) as Screen?
         if (screenData != null) {
             val movieData = DummyMovieList.findOrNull(id = screenData.movieId)
             if (movieData != null) {
