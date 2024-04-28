@@ -1,3 +1,4 @@
+/*
 package woowacourse.movie.presentation.screen.movie.adapter
 
 import android.content.Context
@@ -32,19 +33,19 @@ class MovieListAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val viewHolder: ViewHolder
+        val movieViewHolder: MovieViewHolder
         val item = movies[position]
 
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false)
-            viewHolder = ViewHolder(view)
-            view.tag = viewHolder
+            movieViewHolder = MovieViewHolder(view)
+            view.tag = movieViewHolder
         } else {
             view = convertView
-            viewHolder = convertView.tag as ViewHolder
+            movieViewHolder = convertView.tag as MovieViewHolder
         }
 
-        with(viewHolder) {
+        with(movieViewHolder) {
             image.setImageResource(item.img)
             title.text = item.title
             screenDate.text = item.screenDateToString()
@@ -55,3 +56,4 @@ class MovieListAdapter(
         return view
     }
 }
+*/

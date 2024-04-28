@@ -2,12 +2,12 @@ package woowacourse.movie.presentation.screen.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
 import woowacourse.movie.presentation.screen.detail.MovieDetailActivity
-import woowacourse.movie.presentation.screen.movie.adapter.MovieListAdapter
+import woowacourse.movie.presentation.screen.movie.adapter.MovieAdapter
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View {
     private val presenter: ScreeningMoviePresenter by lazy {
@@ -18,16 +18,14 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_movie)
 
-        val movieAdapter =
-            MovieListAdapter(
-                this,
-                MovieDao().findAll(),
-            ) { movie ->
-                presenter.registerMovie(movie)
-            }
+        val movieAdapter = MovieAdapter { presenter.registerMovie(it) }
 
-        val listView = findViewById<ListView>(R.id.movie_list)
-        listView.apply { adapter = movieAdapter }
+
+        val recyclerView = findViewById<RecyclerView>(R.id.movie_rlv)
+        recyclerView.adapter = movieAdapter
+        val item = MovieDao().findAll()
+        // 어뎁터한테 item 넣어주기
+        movieAdapter.submitList(item)
     }
 
     override fun startNextActivity(movieId: Int) {
