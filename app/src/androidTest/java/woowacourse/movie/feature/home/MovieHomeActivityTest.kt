@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.feature.checkViewHolderType
 import woowacourse.movie.feature.child
-import woowacourse.movie.feature.equalTextItem
+import woowacourse.movie.feature.equalTextOnRecyclerViewItem
 import woowacourse.movie.feature.firstMovie
 import woowacourse.movie.feature.home.list.viewholder.MovieAdvertisementViewHolder
 import woowacourse.movie.feature.home.list.viewholder.MovieViewHolder
@@ -33,7 +33,7 @@ class MovieHomeActivityTest {
     fun `영화_목록_첫_번째_항목의_영화_제목이_보인다`() {
         view(R.id.movie_list)
             .child(0)
-            .equalTextItem(firstMovie.title)
+            .equalTextOnRecyclerViewItem(firstMovie.title)
     }
 
     @Test
@@ -45,14 +45,14 @@ class MovieHomeActivityTest {
             )
         view(R.id.movie_list)
             .child(0)
-            .equalTextItem(screeningDateRangeMessage)
+            .equalTextOnRecyclerViewItem(screeningDateRangeMessage)
     }
 
     @Test
     fun `영화_목록_첫_번째_항목의_러닝_타임이_보인다`() {
         view(R.id.movie_list)
             .child(0)
-            .equalTextItem("러닝타임: %d분".format(firstMovie.runningTime))
+            .equalTextOnRecyclerViewItem("러닝타임: %d분".format(firstMovie.runningTime))
     }
 
     @Test
@@ -66,6 +66,6 @@ class MovieHomeActivityTest {
         view(R.id.movie_list)
             .checkViewHolderType(3, MovieAdvertisementViewHolder::class.java)
     }
-}
 
-private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+    private fun LocalDate.message() = format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+}
