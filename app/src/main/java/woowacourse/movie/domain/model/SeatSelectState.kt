@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.seat.model
+package woowacourse.movie.domain.model
 
 enum class SeatSelectState {
     ADD,

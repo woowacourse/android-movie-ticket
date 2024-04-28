@@ -1,7 +1,5 @@
 package woowacourse.movie.domain.model
 
-import woowacourse.movie.presentation.seat.model.SeatSelectState
-
 class ReservationMovieSeats(
     private val ticketCount: Int,
 ) {

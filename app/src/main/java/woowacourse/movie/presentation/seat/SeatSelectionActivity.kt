@@ -18,7 +18,7 @@ import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.seat.SeatSelectionPresenter.Companion.KEY_NAME_SEATS
-import woowacourse.movie.presentation.seat.model.MovieSeatModel
+import woowacourse.movie.presentation.model.MovieSeatModel
 import java.io.Serializable
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {

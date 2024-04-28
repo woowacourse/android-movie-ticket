@@ -8,10 +8,10 @@ import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.repository.SeatRepository
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.toTicketModel
-import woowacourse.movie.presentation.seat.model.MovieSeatModel
-import woowacourse.movie.presentation.seat.model.SeatSelectState
-import woowacourse.movie.presentation.seat.model.toMovieSeat
-import woowacourse.movie.presentation.seat.model.toMovieSeatModel
+import woowacourse.movie.presentation.model.MovieSeatModel
+import woowacourse.movie.domain.model.SeatSelectState
+import woowacourse.movie.presentation.model.toMovieSeat
+import woowacourse.movie.presentation.model.toMovieSeatModel
 import java.io.Serializable
 
 class SeatSelectionPresenter(

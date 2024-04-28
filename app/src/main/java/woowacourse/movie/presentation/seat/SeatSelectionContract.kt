@@ -4,7 +4,7 @@ import android.os.Bundle
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
-import woowacourse.movie.presentation.seat.model.MovieSeatModel
+import woowacourse.movie.presentation.model.MovieSeatModel
 
 interface SeatSelectionContract {
     interface View {

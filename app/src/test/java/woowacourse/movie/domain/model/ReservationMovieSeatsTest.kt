@@ -2,7 +2,6 @@ package woowacourse.movie.domain.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import woowacourse.movie.presentation.seat.model.SeatSelectState
 
 class ReservationMovieSeatsTest {
     @Test
