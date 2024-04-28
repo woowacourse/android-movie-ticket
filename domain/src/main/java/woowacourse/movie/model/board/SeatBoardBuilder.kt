@@ -58,7 +58,7 @@ class SeatBoardBuilder : DslBuilder<SeatBoard> {
     override fun build(): SeatBoard {
         if (totalSeats.isEmpty().not()) {
             validateSeatsInBoardSize(totalSeats)
-            return SeatBoard(headCount, totalSeats)
+            return SeatBoard(headCount, totalSeats, boardSize)
         }
         validateSamePosition()
         validatePositionsInBoardSize(reservedPositions)
