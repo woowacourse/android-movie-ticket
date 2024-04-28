@@ -25,7 +25,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
     override fun showMovies(movies: List<ScreenMovieUiModel>) {
         val listView = findViewById<RecyclerView>(R.id.rcv_screening_movie)
         listView.adapter =
-            MovieAdapter(movies) { presenter.startReservation(it) }
+            MovieAdapter(insertAdvertisements(movies, 3)) { presenter.startReservation(it) }
     }
 
     override fun onClickReservationButton(screenMovieId: Long) {

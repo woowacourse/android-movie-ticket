@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 
 class MovieAdapter(
-    private val movies: List<ScreenMovieUiModel>,
+    private val movies: List<ScreeningMovieItem>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val movieItems = movies.toMutableList()
 
     class MovieViewHolder(
         itemView: View,
@@ -39,10 +38,9 @@ class MovieAdapter(
     class AdvertiseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun getItemViewType(position: Int): Int {
-        return when {
-            position == TOP_VIEW -> MOVIE
-            position % ADVERTISE_INTERVAL == 0 -> ADVERTISE
-            else -> MOVIE
+        return when(movies[position]) {
+            is ScreenMovieUiModel -> MOVIE
+            is AdvertiseUiModel -> ADVERTISE
         }
     }
 
@@ -74,16 +72,14 @@ class MovieAdapter(
         position: Int,
     ) {
         if (getItemViewType(position) == MOVIE) {
-            (holder as MovieViewHolder).onBind(movieItems.removeFirst())
+            (holder as MovieViewHolder).onBind(movies[position] as ScreenMovieUiModel)
         }
     }
 
-    override fun getItemCount(): Int = movies.size + movies.size / ADVERTISE_INTERVAL
+    override fun getItemCount(): Int = movies.size
 
     companion object {
         private const val MOVIE = 0
         private const val ADVERTISE = 1
-        private const val ADVERTISE_INTERVAL = 4
-        private const val TOP_VIEW = 0
     }
 }
