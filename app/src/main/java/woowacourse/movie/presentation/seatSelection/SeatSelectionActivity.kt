@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
@@ -84,13 +83,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun updateSelectedSeatUI(index: Int) {
-        val clickedColor = ContextCompat.getColor(this, R.color.clickedSeat_bgr)
-        seatItems[index].setBackgroundColor(clickedColor)
+        seatItems[index].isSelected = true
     }
 
     override fun updateUnSelectedSeatUI(index: Int) {
-        val unClickedColor = ContextCompat.getColor(this, R.color.unClickedSeat_bgr)
-        seatItems[index].setBackgroundColor(unClickedColor)
+        seatItems[index].isSelected = false
     }
 
     override fun updateTotalPrice(price: Int) {
