@@ -20,6 +20,7 @@ import woowacourse.movie.selectseat.uimodel.PriceUiModel
 import woowacourse.movie.selectseat.uimodel.SeatUiModel
 import woowacourse.movie.selectseat.uimodel.SeatsUiModel
 import woowacourse.movie.selectseat.uimodel.SelectResult
+import woowacourse.movie.util.bundleParcelable
 import woowacourse.movie.util.intentParcelable
 
 class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
@@ -42,6 +43,29 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
 
         initView()
         clickReserveButton()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putParcelable(EXTRA_SEATS_ID, seats)
+    }
+
+    override fun onRestoreInstanceState(
+        savedInstanceState: Bundle,
+    ) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val selectedSeats =
+            savedInstanceState.bundleParcelable(EXTRA_SEATS_ID, SeatsUiModel::class.java)
+        selectedSeats?.let {
+            seats = selectedSeats
+            seats.selectedSeats().forEach {
+                val seatView = tableChildView(it.row, it.col)
+                seatView.isChecked = true
+            }
+            presenter.calculatePrice(seats.selectedSeats())
+        }
     }
 
     private fun initView() {
@@ -158,6 +182,7 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
 
     companion object {
         private const val EXTRA_BOOKING_ID: String = "bookingId"
+        private const val EXTRA_SEATS_ID: String = "seatsId"
 
         fun getIntent(
             context: Context,
