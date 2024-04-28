@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.ui.seat
 
 import woowacourse.movie.domain.repository.MovieTicketRepository
 import woowacourse.movie.domain.repository.SeatRepository
+import woowacourse.movie.presentation.uimodel.SeatSelectionResult
 import woowacourse.movie.presentation.uimodel.SeatUIModel
 import woowacourse.movie.presentation.uimodel.SeatsUIModel
 
@@ -43,13 +44,22 @@ class SeatPresenter(
     }
     
     override fun onSeatClicked(seatIndex: Int) {
-        val success = seatsUIModel.toggleSeatSelection(seatIndex)
-        
-        if (!success) {
-            view.showMessage(MAX_SELECTABLE_SEATS_EXCEEDED_MESSAGE)
-        } else {
-            view.showSeats(seatsUIModel)
-            updateTotalPriceDisplay()
+        val result = seatsUIModel.toggleSeatSelection(seatIndex)
+        when (result) {
+            is SeatSelectionResult.Success -> {
+                view.showSeats(seatsUIModel)
+                updateTotalPriceDisplay()
+                view.updateConfirmButton(false)
+            }
+            is SeatSelectionResult.MaxCapacityReached -> {
+                view.showSeats(seatsUIModel)
+                updateTotalPriceDisplay()
+                view.updateConfirmButton(true)
+            }
+            is SeatSelectionResult.Failure -> {
+                view.showMessage(MAX_SELECTABLE_SEATS_EXCEEDED_MESSAGE)
+                view.updateConfirmButton(false)
+            }
         }
     }
     

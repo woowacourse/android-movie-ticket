@@ -4,16 +4,19 @@ data class SeatsUIModel(
     val seats: List<SeatUIModel>,
     private val maxSelectableSeats: Int
 ) {
-    fun toggleSeatSelection(index: Int): Boolean {
+    fun toggleSeatSelection(index: Int): SeatSelectionResult {
         val seatUIModel = seats[index]
         if (seatUIModel.isSelected) {
             seatUIModel.isSelected = false
-            return true
+            return SeatSelectionResult.Success
         } else if (selectedCount() < maxSelectableSeats) {
             seatUIModel.isSelected = true
-            return true
+            if (selectedCount() == maxSelectableSeats) {
+                return SeatSelectionResult.MaxCapacityReached
+            }
+            return SeatSelectionResult.Success
         }
-        return false
+        return SeatSelectionResult.Failure
     }
     
     private fun selectedCount(): Int = seats.count { it.isSelected }

@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.ui.seat
 
+import android.content.Intent
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -10,18 +11,18 @@ import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.data.repository.SeatRepositoryImpl
 import woowacourse.movie.domain.model.SeatGrade
 import woowacourse.movie.presentation.base.BaseActivity
+import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 import woowacourse.movie.presentation.uimodel.SeatsUIModel
 
 class SeatActivity : BaseActivity(), SeatContract.View {
     private lateinit var presenter: SeatPresenter
-    
-    override fun getLayoutResId(): Int = R.layout.activity_seat
-    
     private lateinit var seatBoard: TableLayout
     private lateinit var title: TextView
     private lateinit var totalPrice: TextView
     private lateinit var confirmButton: Button
     private lateinit var seatsTable: List<Button>
+    
+    override fun getLayoutResId(): Int = R.layout.activity_seat
     
     override fun onCreateSetup() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -34,6 +35,10 @@ class SeatActivity : BaseActivity(), SeatContract.View {
         confirmButton = findViewById(R.id.confirm_button)
         seatsTable = seatBoard.children.filterIsInstance<TableRow>().flatMap { it.children }
             .filterIsInstance<Button>().toList()
+        
+        confirmButton.setOnClickListener {
+            moveToReservationResult(movieTicketId)
+        }
         
         presenter = SeatPresenter(this, MovieTicketRepositoryImpl, SeatRepositoryImpl, movieTicketId)
     }
@@ -54,12 +59,15 @@ class SeatActivity : BaseActivity(), SeatContract.View {
         }
     }
     
-    private fun loadSeatColor(grade: SeatGrade): Int {
-        return when (grade) {
-            SeatGrade.B -> getColor(R.color.purple_500)
-            SeatGrade.A -> getColor(R.color.teal_700)
-            SeatGrade.S -> getColor(R.color.blue_500)
-        }
+    override fun moveToReservationResult(movieTicketId: Int) {
+        val intent = Intent(this, ReservationResultActivity::class.java)
+        intent.putExtra(EXTRA_MOVIE_TICKET_ID, movieTicketId)
+        startActivity(intent)
+    }
+    
+    override fun updateConfirmButton(enabled: Boolean) {
+        confirmButton.isEnabled = enabled
+        confirmButton.isSelected = enabled
     }
     
     override fun showTotalPrice(total: Int) {
@@ -68,6 +76,14 @@ class SeatActivity : BaseActivity(), SeatContract.View {
     
     override fun showMessage(message: String) {
         showSnackBar(message)
+    }
+    
+    private fun loadSeatColor(grade: SeatGrade): Int {
+        return when (grade) {
+            SeatGrade.B -> getColor(R.color.purple_500)
+            SeatGrade.A -> getColor(R.color.teal_700)
+            SeatGrade.S -> getColor(R.color.blue_500)
+        }
     }
     
     companion object {
