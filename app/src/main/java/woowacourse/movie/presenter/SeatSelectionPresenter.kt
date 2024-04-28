@@ -58,4 +58,12 @@ class SeatSelectionPresenter(
     private fun checkConfirm() {
         if (selectedPositions.size == ticketNum) view.activateConfirm()
     }
+
+    override fun askConfirm() {
+        view.displayConfirmDialog()
+    }
+
+    override fun purchase() {
+        view.navigateToPurchaseConfirmation()
+    }
 }

@@ -117,4 +117,18 @@ class PositionSelectionPresenterTest {
 
         verify { view.displayTicketPrice(25000) }
     }
+
+    @Test
+    fun `확인 버튼을 누르면 예매 확정 확인 다이얼로그를 표기한다`() {
+        every { view.displayTheater(any()) } just runs
+        presenter.askConfirm()
+        verify { view.displayConfirmDialog() }
+    }
+
+    @Test
+    fun `예매 확정 확인 다이얼로그에서 확인 버튼을 누르면 결제 확인 화면으로 넘어간다`() {
+        every { view.displayConfirmDialog() } just runs
+        presenter.purchase()
+        verify { view.navigateToPurchaseConfirmation() }
+    }
 }

@@ -11,9 +11,13 @@ interface SeatSelectionContract {
         fun activateConfirm()
         fun deActivateConfirm()
         fun displayTicketPrice(price: Int)
+        fun displayConfirmDialog()
+        fun navigateToPurchaseConfirmation()
     }
     interface Presenter{
         fun loadTheater()
         fun toggleSeatSelection(position: Position)
+        fun askConfirm()
+        fun purchase()
     }
 }
