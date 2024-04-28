@@ -17,7 +17,8 @@ class ScreeningDateTimeSystem(
 
         var currentDate = startDate
         while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-            val isWeekend = currentDate.dayOfWeek == DayOfWeek.SATURDAY || currentDate.dayOfWeek == DayOfWeek.SUNDAY
+            val isWeekend =
+                currentDate.dayOfWeek == DayOfWeek.SATURDAY || currentDate.dayOfWeek == DayOfWeek.SUNDAY
             val startTime = if (isWeekend) weekendStartTime else weekStartTime
             val timeSlots = createTimes(startTime)
             resultList.add(ScreenDateTime(currentDate, timeSlots))

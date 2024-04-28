@@ -18,8 +18,9 @@
         <activity
             android:name=".reservationresult.ReservationResultActivity"
             android:exported="false" />
-        <activity android:name=".selectseat.SelectSeatActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".selectseat.SelectSeatActivity"
+            android:exported="false" />
         <activity
             android:name=".screeningmovie.ScreeningMovieActivity"
             android:exported="true">

@@ -179,10 +179,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="360:78"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
@@ -215,9 +215,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:backgroundTint="@drawable/sel_reserve_btn"
+            android:enabled="false"
             android:fontFamily="@font/roboto_bold"
             android:text="확인"
-            android:enabled="false"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

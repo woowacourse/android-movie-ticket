@@ -12,7 +12,12 @@ data class SeatUiModel(
     val col: Int,
     val state: SeatState = SeatState.NONE,
 ) : Parcelable {
-    constructor(row: Int, col: Int, seatRate: SeatRate) : this(positionFormat(row, col), color(seatRate), row, col)
+    constructor(row: Int, col: Int, seatRate: SeatRate) : this(
+        positionFormat(row, col),
+        color(seatRate),
+        row,
+        col,
+    )
 
     fun changeState(): SeatUiModel = SeatUiModel(showPosition, rateColor, row, col, state.reserveState())
 
