@@ -5,37 +5,47 @@ import woowacourse.movie.model.Count
 import woowacourse.movie.model.MovieData
 import woowacourse.movie.model.Result
 import woowacourse.movie.model.theater.SeatClass
-import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.contract.SeatSelectionContract
 import woowacourse.movie.view.state.TicketingForm
+import woowacourse.movie.view.state.TicketingResult
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
 ) : SeatSelectionContract.Presenter {
     private lateinit var boxOffice: BoxOffice
-
-    val selectedSeats: List<BookingSeat>
-        get() = boxOffice.seats
-
-    val dateTime: BookingDateTime
-        get() = boxOffice.bookingDateTime
+    lateinit var ticketingResult: TicketingResult
+        private set
 
     override fun loadSeats(
-        ticketingState: TicketingForm,
+        ticketingForm: TicketingForm,
         seats: List<BookingSeat>,
     ) {
         boxOffice =
-            BoxOffice(Count(ticketingState.numberOfTickets.currentValue), ticketingState.bookingDateTime, seats)
-        when (val screening = MovieData.findScreeningDataById(ticketingState.screeningId)) {
+            BoxOffice(
+                Count(ticketingForm.numberOfTickets.currentValue),
+                ticketingForm.bookingDateTime,
+                seats,
+            )
+
+        when (val screening = MovieData.findScreeningDataById(ticketingForm.screeningId)) {
             is Result.Success -> {
+                ticketingResult =
+                    TicketingResult(
+                        movieTitle = screening.data.movie?.title ?: "",
+                        numberOfTickets = ticketingForm.numberOfTickets.currentValue,
+                        date = ticketingForm.bookingDateTime.date,
+                        time = ticketingForm.bookingDateTime.time,
+                        seats = emptyList(),
+                        price = boxOffice.totalPrice,
+                    )
                 val theater = screening.data.theater
                 view.initializeSeatTable(
                     theater.theaterSize,
                     theater.rowClassInfo,
-                    ticketingState.movieTitle,
+                    ticketingForm.movieTitle,
                     boxOffice.totalPrice,
-                    selectedSeats,
+                    boxOffice.seats,
                 )
             }
 
@@ -52,7 +62,7 @@ class SeatSelectionPresenter(
         columnSize: Int,
     ) {
         val selectedSeat = BookingSeat(row, column, seatClass)
-        val isSelected = selectedSeat in selectedSeats
+        val isSelected = selectedSeat in ticketingResult.seats
         val newSeats: List<BookingSeat> =
             if (isSelected) {
                 boxOffice.seats - selectedSeat
@@ -62,6 +72,8 @@ class SeatSelectionPresenter(
 
         when (val updateResult = boxOffice.updateSeats(newSeats)) {
             is Result.Success -> {
+                ticketingResult =
+                    ticketingResult.copy(seats = boxOffice.seats, price = boxOffice.totalPrice)
                 view.toggleSeat(row, column, seatClass, !isSelected, columnSize)
                 updateBottomBarViews()
             }
@@ -70,16 +82,8 @@ class SeatSelectionPresenter(
         }
     }
 
-    override fun makeReservation(
-        movieId: Long,
-        count: Int,
-    ) {
-        view.navigateToResultScreen(
-            movieId = movieId,
-            count = count,
-            seats = boxOffice.seats,
-            totalPrice = boxOffice.totalPrice,
-        )
+    override fun makeReservation() {
+        view.navigateToResultScreen(ticketingResult)
     }
 
     private fun updateBottomBarViews() {

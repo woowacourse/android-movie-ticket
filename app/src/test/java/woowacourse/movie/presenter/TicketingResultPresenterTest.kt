@@ -7,7 +7,12 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.theater.SeatClass
+import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.contract.TicketingResultContract
+import woowacourse.movie.view.state.TicketingResult
+import java.time.LocalDate
+import java.time.LocalTime
 
 class TicketingResultPresenterTest {
     private lateinit var view: TicketingResultContract.View
@@ -22,21 +27,30 @@ class TicketingResultPresenterTest {
     @Test
     fun `예매_결과를_표시한다`() {
         // given
-        every { view.assignInitialView(any(), any(), any(), any(), any(), any()) } just runs
+        every { view.assignInitialView(any()) } just runs
         // when
-        presenter.initializeTicketingResult(0, 1, 10000, "2024-01-01", "11:00", arrayOf("A1"))
+        val ticketingResult =
+            TicketingResult(
+                movieTitle = "해리 포터와 마법사의 돌",
+                numberOfTickets = 1,
+                date = LocalDate.of(2024, 1, 1),
+                time = LocalTime.of(11, 0),
+                seats = listOf(BookingSeat(0, 0, SeatClass.B)),
+                price = 10000,
+            )
+        presenter.initializeTicketingResult(ticketingResult)
         // then
         verify {
-            view.assignInitialView(1, "해리 포터와 마법사의 돌", "2024-01-01", "11:00", 10000, listOf("A1"))
+            view.assignInitialView(ticketingResult)
         }
     }
 
     @Test
-    fun `유효하지_않은_상영_아이디가_주어지면_예매_결과를_표출하지_못하고_토스트_메시지를_출력한다`() {
+    fun `상영_결과가_존재하지_않으면_예매_결과를_표출하지_못하고_토스트_메시지를_출력한다`() {
         // given
         every { view.showToastMessage(any()) } just runs
         // when
-        presenter.initializeTicketingResult(-1, 1, 10000, "2024-01-01", "11:00", arrayOf("A1"))
+        presenter.initializeTicketingResult(null)
         // then
         verify {
             view.showToastMessage("존재하지 않는 상영 정보입니다.")

@@ -7,10 +7,16 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.Count
 import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.theater.TheaterSize
+import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.contract.SeatSelectionContract
+import woowacourse.movie.view.state.TicketingForm
+import woowacourse.movie.view.state.TicketingResult
+import java.time.LocalDate
+import java.time.LocalTime
 
 class SeatSelectionPresenterTest {
     private lateinit var view: SeatSelectionContract.View
@@ -27,7 +33,17 @@ class SeatSelectionPresenterTest {
         // given
         every { view.initializeSeatTable(any(), any(), any(), any(), any()) } just runs
         // when
-        presenter.loadSeats(0L, 1, "2024-03-01", "11:00", "해리 포터와 마법사의 돌", emptyList())
+        val ticketingForm =
+            TicketingForm(
+                0L,
+                "해리 포터와 마법사의 돌",
+                Count(1),
+                BookingDateTime(
+                    LocalDate.of(2024, 3, 1),
+                    LocalTime.of(11, 0),
+                ),
+            )
+        presenter.loadSeats(ticketingForm, emptyList())
         // then
         verify {
             view.initializeSeatTable(
@@ -51,7 +67,17 @@ class SeatSelectionPresenterTest {
         // given
         every { view.showToastMessage(any()) } just runs
         // when
-        presenter.loadSeats(-1L, 1, "2024-03-01", "11:00", "해리 포터와 마법사의 돌", emptyList())
+        val ticketingForm =
+            TicketingForm(
+                -1L,
+                "해리 포터와 마법사의 돌",
+                Count(1),
+                BookingDateTime(
+                    LocalDate.of(2024, 3, 1),
+                    LocalTime.of(11, 0),
+                ),
+            )
+        presenter.loadSeats(ticketingForm, emptyList())
         // then
         verify {
             view.showToastMessage("존재하지 않는 상영 정보입니다.")
@@ -66,7 +92,17 @@ class SeatSelectionPresenterTest {
         every { view.updateTotalPrice(any()) } just runs
         every { view.updateButtonStatus(any()) } just runs
         // when
-        presenter.loadSeats(0L, 1, "2024-03-01", "11:00", "해리 포터와 마법사의 돌", emptyList())
+        val ticketingForm =
+            TicketingForm(
+                0L,
+                "해리 포터와 마법사의 돌",
+                Count(1),
+                BookingDateTime(
+                    LocalDate.of(2024, 3, 1),
+                    LocalTime.of(11, 0),
+                ),
+            )
+        presenter.loadSeats(ticketingForm, emptyList())
         presenter.updateSeat(1, 1, SeatClass.B, 4)
         // then
         verify {
@@ -95,14 +131,17 @@ class SeatSelectionPresenterTest {
         every { view.initializeSeatTable(any(), any(), any(), any(), any()) } just runs
         every { view.showToastMessage(any()) } just runs
         // when
-        presenter.loadSeats(
-            0L,
-            1,
-            "2024-03-01",
-            "11:00",
-            "해리 포터와 마법사의 돌",
-            listOf(BookingSeat(1, 2, SeatClass.B)),
-        )
+        val ticketingForm =
+            TicketingForm(
+                0L,
+                "해리 포터와 마법사의 돌",
+                Count(1),
+                BookingDateTime(
+                    LocalDate.of(2024, 3, 1),
+                    LocalTime.of(11, 0),
+                ),
+            )
+        presenter.loadSeats(ticketingForm, listOf(BookingSeat(1, 2, SeatClass.B)))
         presenter.updateSeat(1, 1, SeatClass.B, 4)
         // then
         verify {
@@ -118,26 +157,38 @@ class SeatSelectionPresenterTest {
         every { view.toggleSeat(any(), any(), any(), any(), any()) } just runs
         every { view.updateTotalPrice(any()) } just runs
         every { view.updateButtonStatus(any()) } just runs
-        every { view.navigateToResultScreen(any(), any(), any(), any()) } just runs
+        every { view.navigateToResultScreen(any()) } just runs
         // when
-        presenter.loadSeats(
-            0L,
-            1,
-            "2024-03-01",
-            "11:00",
-            "해리 포터와 마법사의 돌",
-            emptyList(),
-        )
+        val ticketingForm =
+            TicketingForm(
+                0L,
+                "해리 포터와 마법사의 돌",
+                Count(1),
+                BookingDateTime(
+                    LocalDate.of(2024, 3, 1),
+                    LocalTime.of(11, 0),
+                ),
+            )
+        presenter.loadSeats(ticketingForm, emptyList())
         presenter.updateSeat(1, 1, SeatClass.B, 4)
-        presenter.makeReservation(0L, 1)
+        presenter.makeReservation()
 
         // then
+        val ticketingResult =
+            TicketingResult(
+                "해리 포터와 마법사의 돌",
+                1,
+                LocalDate.of(2024, 3, 1),
+                LocalTime.of(11, 0),
+                listOf(BookingSeat(1, 1, SeatClass.B)),
+                10000,
+            )
         verify {
             view.initializeSeatTable(any(), any(), any(), any(), any())
             view.toggleSeat(any(), any(), any(), any(), any())
             view.updateTotalPrice(any())
             view.updateButtonStatus(true)
-            view.navigateToResultScreen(0L, 1, listOf(BookingSeat(1, 1, SeatClass.B)), 10000)
+            view.navigateToResultScreen(ticketingResult)
         }
     }
 }

@@ -40,11 +40,6 @@ class SeatSelectionActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 SeatSelectionActivity::class.java,
             ).apply {
-//                putExtra("screening_id", 0L)
-//                putExtra("count", 4)
-//                putExtra("movie_date", "2024-04-01")
-//                putExtra("movie_time", "11:00")
-//                putExtra("movie_title", "해리 포터와 마법사의 돌")
                 putExtra(
                     "ticketing_information",
                     TicketingForm(

@@ -23,11 +23,9 @@ import woowacourse.movie.model.theater.TheaterSize
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.SeatSelectionPresenter
 import woowacourse.movie.presenter.contract.SeatSelectionContract
-import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_DATE
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TICKETING_INFORMATION
-import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TIME
 import woowacourse.movie.view.state.TicketingForm
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.view.state.TicketingResult
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val button: Button by lazy { findViewById(R.id.btn_complete_reservation) }
@@ -50,16 +48,13 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             intent.getParcelableExtra(EXTRA_TICKETING_INFORMATION, TicketingForm::class.java)
         ticketingInformation?.let { ticketingState ->
             initializePresenter(savedInstanceState, ticketingState)
-            initializeReservationButton(
-                ticketingState.screeningId,
-                ticketingInformation.numberOfTickets.currentValue,
-            )
+            initializeReservationButton()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArray(KEY_SELECTED_SEATS, presenter.selectedSeats.toTypedArray())
+        outState.putParcelableArray(KEY_SELECTED_SEATS, presenter.ticketingResult.seats.toTypedArray())
     }
 
     override fun initializeSeatTable(
@@ -114,29 +109,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun navigateToResultScreen(
-        movieId: Long,
-        count: Int,
-        seats: List<BookingSeat>,
-        totalPrice: Int,
-    ) {
-        val shownSeats =
-            seats.map {
-                getString(
-                    R.string.text_seat_position,
-                    convertRowNumberIntoChar(it.row),
-                    it.column + 1,
-                )
-            }
-        val shownDate =
-            presenter.dateTime.date.format(DateTimeFormatter.ofPattern(getString(R.string.format_datetime)))
+    override fun navigateToResultScreen(ticketingResult: TicketingResult) {
         Intent(this, TicketingResultActivity::class.java).also {
-            it.putExtra(EXTRA_MOVIE_ID, movieId)
-                .putExtra(EXTRA_NUM_TICKET, count)
-                .putExtra(EXTRA_SEATS, shownSeats.toTypedArray())
-                .putExtra(EXTRA_PRICE, totalPrice)
-                .putExtra(EXTRA_DATE, shownDate)
-                .putExtra(EXTRA_TIME, presenter.dateTime.time.toString())
+            it.putExtra(EXTRA_TICKETING_RESULT, ticketingResult)
             startActivity(it)
         }
     }
@@ -163,22 +138,19 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         savedInstanceState?.let {
             val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
             selectedSeats?.let {
-                presenter.loadSeats(ticketingState = ticketingState, seats = selectedSeats.toList())
+                presenter.loadSeats(ticketingForm = ticketingState, seats = selectedSeats.toList())
             }
         } ?: presenter.loadSeats(ticketingState, emptyList())
     }
 
-    private fun initializeReservationButton(
-        screeningId: Long,
-        count: Int,
-    ) {
+    private fun initializeReservationButton() {
         button.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.dialog_reservation_title))
                 .setMessage(getString(R.string.dialog_reservation_message))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
-                    presenter.makeReservation(screeningId, count)
+                    presenter.makeReservation()
                 }
                 .setNegativeButton(getString(R.string.dialog_negative_button)) { dialog, _ ->
                     dialog.dismiss()
@@ -291,10 +263,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     companion object {
-        const val EXTRA_MOVIE_ID = "movie_id"
-        const val EXTRA_NUM_TICKET = "num_of_tickets"
-        const val EXTRA_SEATS = "seats"
-        const val EXTRA_PRICE = "price"
+        const val EXTRA_TICKETING_RESULT = "ticketing_result"
         private const val KEY_SELECTED_SEATS = "selected_seats"
         private const val START_ROW_CHAR = 'A'
     }

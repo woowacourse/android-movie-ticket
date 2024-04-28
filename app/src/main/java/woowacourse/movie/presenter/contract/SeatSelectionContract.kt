@@ -4,6 +4,7 @@ import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.theater.TheaterSize
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.view.state.TicketingForm
+import woowacourse.movie.view.state.TicketingResult
 
 interface SeatSelectionContract {
     interface View {
@@ -27,26 +28,18 @@ interface SeatSelectionContract {
 
         fun updateButtonStatus(isAvailable: Boolean)
 
-        fun navigateToResultScreen(
-            movieId: Long,
-            count: Int,
-            seats: List<BookingSeat>,
-            totalPrice: Int,
-        )
+        fun navigateToResultScreen(ticketingResult: TicketingResult)
 
         fun showToastMessage(message: String)
     }
 
     interface Presenter {
         fun loadSeats(
-            ticketingState: TicketingForm,
+            ticketingForm: TicketingForm,
             seats: List<BookingSeat>,
         )
 
-        fun makeReservation(
-            movieId: Long,
-            count: Int,
-        )
+        fun makeReservation()
 
         fun updateSeat(
             row: Int,

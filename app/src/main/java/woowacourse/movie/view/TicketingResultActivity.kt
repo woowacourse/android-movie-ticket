@@ -1,67 +1,61 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.presenter.TicketingResultPresenter
 import woowacourse.movie.presenter.contract.TicketingResultContract
-import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_MOVIE_ID
-import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_NUM_TICKET
-import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_PRICE
-import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_SEATS
-import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_DATE
-import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TIME
+import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_TICKETING_RESULT
+import woowacourse.movie.view.state.TicketingResult
+import java.time.format.DateTimeFormatter
 
 class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticketing_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val count = intent.getIntExtra(EXTRA_NUM_TICKET, EXTRA_DEFAULT_COUNT)
-        val movieId = intent.getLongExtra(EXTRA_MOVIE_ID, EXTRA_DEFAULT_MOVIE_ID)
-        val totalPrice = intent.getIntExtra(EXTRA_PRICE, EXTRA_DEFAULT_TOTAL_PRICE)
-        val date = intent.getStringExtra(EXTRA_DATE)
-        val time = intent.getStringExtra(EXTRA_TIME)
-        val seats = intent.getStringArrayExtra(EXTRA_SEATS)
-
-        if (date != null && time != null && seats != null) {
-            val ticketingResultPresenter = TicketingResultPresenter(this)
-            ticketingResultPresenter.initializeTicketingResult(movieId, count, totalPrice, date, time, seats)
-        } else {
-            showToastMessage(getString(R.string.error_reservation_result))
-        }
-
+        val ticketingResultPresenter = TicketingResultPresenter(this)
+        val ticketingResult =
+            intent.getParcelableExtra(EXTRA_TICKETING_RESULT, TicketingResult::class.java)
+        ticketingResultPresenter.initializeTicketingResult(ticketingResult)
         initializeOnBackPressedCallback()
     }
 
-    override fun assignInitialView(
-        numberOfPeople: Int,
-        movieTitle: String,
-        movieDate: String,
-        movieTime: String,
-        totalPrice: Int,
-        seats: List<String>,
-    ) {
+    override fun assignInitialView(ticketingResult: TicketingResult) {
         val movieTitleText = findViewById<TextView>(R.id.tv_movie_title)
         val movieDateText = findViewById<TextView>(R.id.tv_movie_date)
         val numberOfPeopleAndSeatsText = findViewById<TextView>(R.id.tv_number_of_people_seats)
         val priceText = findViewById<TextView>(R.id.tv_price)
 
-        movieTitleText.text = movieTitle
-        movieDateText.text = getString(R.string.text_reserved_datetime, movieDate, movieTime)
+        val shownSeats =
+            ticketingResult.seats.map {
+                getString(
+                    R.string.text_seat_position,
+                    convertRowNumberIntoChar(it.row),
+                    it.column + 1,
+                )
+            }
+        val shownDate =
+            ticketingResult.date.format(DateTimeFormatter.ofPattern(getString(R.string.format_datetime)))
+
+        movieTitleText.text = ticketingResult.movieTitle
+        movieDateText.text = getString(R.string.text_reserved_datetime, shownDate, ticketingResult.time.toString())
         numberOfPeopleAndSeatsText.text =
             getString(
                 R.string.text_reserved_count_seats,
-                numberOfPeople,
-                seats.joinToString(SEPARATOR_SEATS),
+                ticketingResult.numberOfTickets,
+                shownSeats.joinToString(SEPARATOR_SEATS),
             )
-        priceText.text = getString(R.string.text_price, totalPrice)
+        priceText.text = getString(R.string.text_price, ticketingResult.price)
     }
 
     override fun showToastMessage(message: String) {
@@ -88,10 +82,10 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         }
     }
 
+    private fun convertRowNumberIntoChar(rowIndex: Int) = (START_ROW_CHAR.code + rowIndex).toChar()
+
     companion object {
-        private const val EXTRA_DEFAULT_COUNT = 0
-        private const val EXTRA_DEFAULT_MOVIE_ID = -1L
-        private const val EXTRA_DEFAULT_TOTAL_PRICE = 0
         private const val SEPARATOR_SEATS = ", "
+        private const val START_ROW_CHAR = 'A'
     }
 }

@@ -10,6 +10,11 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.model.theater.SeatClass
+import woowacourse.movie.model.ticketing.BookingSeat
+import woowacourse.movie.view.state.TicketingResult
+import java.time.LocalDate
+import java.time.LocalTime
 
 class TicketingResultActivityTest {
     @get:Rule
@@ -19,15 +24,24 @@ class TicketingResultActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 TicketingResultActivity::class.java,
             ).apply {
-                putExtra("movie_id", 0L)
-                putExtra("num_of_tickets", 5)
                 putExtra(
-                    "seats",
-                    arrayOf("A1", "B1", "C1", "D1", "E1"),
+                    "ticketing_result",
+                    TicketingResult(
+                        movieTitle = "해리 포터와 마법사의 돌",
+                        numberOfTickets = 5,
+                        date = LocalDate.of(2024, 3, 1),
+                        time = LocalTime.of(15, 0),
+                        seats =
+                            listOf(
+                                BookingSeat(0, 0, SeatClass.B),
+                                BookingSeat(1, 0, SeatClass.B),
+                                BookingSeat(2, 0, SeatClass.S),
+                                BookingSeat(3, 0, SeatClass.S),
+                                BookingSeat(4, 0, SeatClass.A),
+                            ),
+                        price = 62000,
+                    ),
                 )
-                putExtra("price", 62000)
-                putExtra("movie_date", "2024.3.1")
-                putExtra("movie_time", "15:00")
             },
         )
 

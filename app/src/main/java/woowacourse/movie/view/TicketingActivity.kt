@@ -169,8 +169,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
 
     companion object {
         const val EXTRA_SCREENING_ID = "screening_id"
-        const val EXTRA_DATE = "movie_date"
-        const val EXTRA_TIME = "movie_time"
         const val EXTRA_TICKETING_INFORMATION = "ticketing_information"
         const val EXTRA_DEFAULT_SCREENING_ID = -1L
         private const val DEFAULT_COUNT = 1
