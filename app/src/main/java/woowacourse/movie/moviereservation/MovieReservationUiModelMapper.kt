@@ -11,8 +11,8 @@ fun ScreeningMovie.toMovieReservationUiModel(): MovieReservationUiModel =
     MovieReservationUiModel(
         id,
         movie.title,
-        screenDateTimes.first().date,
-        screenDateTimes.last().date,
+        startDate,
+        endDate,
         movie.description,
         movie.runningTime.time,
     )
