@@ -52,7 +52,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.parcelable<SeatSelectionUiState>(
-            KEY_SEAT_UI_STATE
+            KEY_SEAT_UI_STATE,
         )?.let(presenter::restoreState)
     }
 

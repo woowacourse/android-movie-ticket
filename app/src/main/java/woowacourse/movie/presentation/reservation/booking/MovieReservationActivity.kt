@@ -35,7 +35,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_movie)
-
         initView()
         initClickListener()
         if (savedInstanceState == null) initPresenter()
@@ -49,7 +48,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.parcelable<MovieReservationUiState>(
-            KEY_RESERVATION_UI_STATE
+            KEY_RESERVATION_UI_STATE,
         )?.let { uiState ->
             presenter =
                 MovieReservationPresenter(
