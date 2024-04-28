@@ -11,7 +11,7 @@ import woowacourse.movie.db.screening.ScreeningDatabase
 import woowacourse.movie.model.movie.Movie
 
 @RunWith(AndroidJUnit4::class)
-class MovieDaoTest {
+class ScreeningDaoTest {
     private val dao = ScreeningDao()
     private val movies = ScreeningDatabase.movies
 
