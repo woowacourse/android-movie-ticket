@@ -3,14 +3,18 @@ package woowacourse.movie.feature.seat
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.data.MovieRepository
+import woowacourse.movie.model.data.TicketRepository
 import woowacourse.movie.model.reservation.ReservationAmount
+import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.Seats
 import woowacourse.movie.model.seat.SelectedSeats
+import java.time.LocalDateTime
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
     private val movieRepository: MovieRepository,
+    private val ticketRepository: TicketRepository,
 ) :
     SeatSelectContract.Presenter {
     private lateinit var seats: Seats
@@ -73,8 +77,13 @@ class SeatSelectPresenter(
         view.unselectSeat(row, col)
     }
 
-    override fun confirmSeatSelection() {
-        view.moveReservationCompleteView(selectedSeats)
+    override fun confirmSeatSelection(
+        movieId: Long,
+        screeningDateTime: LocalDateTime,
+    ) {
+        val ticket = Ticket(movieId, screeningDateTime, selectedSeats)
+        val ticketId = ticketRepository.save(ticket)
+        view.moveReservationCompleteView(ticketId)
     }
 
     override fun updateSelectedSeats(selectedSeats: SelectedSeats) {

@@ -11,18 +11,22 @@ import woowacourse.movie.feature.SelectedSeats
 import woowacourse.movie.feature.setUpForSelectSeat
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.data.TicketRepository
+import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.seat.Seat
+import java.time.LocalDateTime
 
 class SeatSelectPresenterTest {
     private lateinit var view: SeatSelectContract.View
-    private val repository: MovieRepository = MovieRepositoryImpl
+    private val movieRepository: MovieRepository = MovieRepositoryImpl
+    private val ticketRepository: TicketRepository = TicketRepositoryImpl
     private lateinit var presenter: SeatSelectPresenter
     private val reservationCount = 2
 
     @BeforeEach
     fun setUp() {
         view = mockk<SeatSelectContract.View>()
-        presenter = SeatSelectPresenter(view, repository)
+        presenter = SeatSelectPresenter(view, movieRepository, ticketRepository)
     }
 
     @Test
@@ -121,7 +125,7 @@ class SeatSelectPresenterTest {
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
-        presenter.confirmSeatSelection()
+        presenter.confirmSeatSelection(0L, LocalDateTime.of(2024, 4, 1, 9, 0))
 
         // then
         verify { view.moveReservationCompleteView(any()) }

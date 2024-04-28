@@ -3,9 +3,11 @@ package woowacourse.movie.model
 import org.assertj.core.api.Assertions.assertThat
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.model.reservation.ReservationCount
+import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SelectedSeats
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 val movie1 =
     Movie(
@@ -39,4 +41,23 @@ fun SelectedSeats(
     return SelectedSeats(ReservationCount(count)).apply {
         seat.forEach { select(it) }
     }
+}
+
+val ticket1 =
+    Ticket(
+        0L,
+        LocalDateTime.of(2024, 4, 20, 9, 0),
+        SelectedSeats(ReservationCount(3)),
+    )
+
+val ticket2 = ticket1.copy(movieId = 1L)
+val ticket3 = ticket1.copy(movieId = 2L)
+
+fun equalTicket(
+    actual: Ticket,
+    expected: Ticket,
+) {
+    assertThat(actual.movieId).isEqualTo(expected.movieId)
+    assertThat(actual.screeningDateTime).isEqualTo(actual.screeningDateTime)
+    assertThat(actual.selectedSeats).isEqualTo(actual.selectedSeats)
 }

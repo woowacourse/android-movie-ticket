@@ -19,6 +19,7 @@ import woowacourse.movie.feature.complete.MovieReservationCompleteActivity
 import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.data.MovieRepositoryImpl
+import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.reservation.ReservationCount
 import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BaseActivity
@@ -62,7 +63,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         presenter.updateSelectedSeats(selectedSeats)
     }
 
-    override fun initializePresenter() = SeatSelectPresenter(this, MovieRepositoryImpl)
+    override fun initializePresenter() = SeatSelectPresenter(this, MovieRepositoryImpl, TicketRepositoryImpl)
 
     private fun validateError(): Boolean {
         if (isError(movieId(), screeningDateTime(), reservationCountValue())) {
@@ -103,7 +104,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         presenter.initializeSeatTable(selectedSeats, seatViews.size, seatViews[0].size)
         updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         confirmButton.setOnClickListener {
-            presenter.confirmSeatSelection()
+            presenter.confirmSeatSelection(movieId(), screeningDateTime()!!)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -157,18 +158,13 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         confirmButton.isEnabled = false
     }
 
-    override fun moveReservationCompleteView(selectedSeats: SelectedSeats) {
+    override fun moveReservationCompleteView(ticketId: Long) {
         AlertDialog.Builder(this)
             .setCancelable(false)
             .setTitle(resources.getString(R.string.reservation_confirm))
             .setMessage(resources.getString(R.string.reservation_question))
             .setPositiveButton(resources.getString(R.string.reservation_complete)) { _, _ ->
-                MovieReservationCompleteActivity.startActivity(
-                    this,
-                    movieId(),
-                    screeningDateTime()!!,
-                    selectedSeats.seats,
-                )
+                MovieReservationCompleteActivity.startActivity(this, ticketId)
             }
             .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()

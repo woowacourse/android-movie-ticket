@@ -5,6 +5,7 @@ import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BasePresenter
 import woowacourse.movie.utils.ErrorListener
+import java.time.LocalDateTime
 
 interface SeatSelectContract {
     interface View : ErrorListener {
@@ -27,7 +28,7 @@ interface SeatSelectContract {
             col: Int,
         )
 
-        fun moveReservationCompleteView(selectedSeats: SelectedSeats)
+        fun moveReservationCompleteView(ticketId: Long)
     }
 
     interface Presenter : BasePresenter {
@@ -44,7 +45,10 @@ interface SeatSelectContract {
             col: Int,
         )
 
-        fun confirmSeatSelection()
+        fun confirmSeatSelection(
+            movieId: Long,
+            screeningDateTime: LocalDateTime,
+        )
 
         fun updateSelectedSeats(selectedSeats: SelectedSeats)
     }
