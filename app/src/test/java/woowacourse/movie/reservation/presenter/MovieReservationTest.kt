@@ -68,11 +68,11 @@ class MovieReservationTest {
 
     @Test
     fun `날짜와 시간을 선택하는 스피너가 보여야 한다`() {
-        every { view.showSpinnerInfo(any(), any()) } just runs
+        every { view.showSpinner(any(), any()) } just runs
         // when
         presenter.setSpinnerInfo()
         // then
-        verify { view.showSpinnerInfo(any(), any()) }
+        verify { view.showSpinner(any(), any()) }
     }
 
     @Test

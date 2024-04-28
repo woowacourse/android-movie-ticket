@@ -18,7 +18,7 @@ interface MovieReservationContract {
 
         fun showToast(message: String)
 
-        fun showSpinnerInfo(
+        fun showSpinner(
             screeningDates: List<LocalDate>,
             screeningTimes: List<LocalTime>,
         )
