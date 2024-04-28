@@ -306,7 +306,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/btn_seat_confirm"
+        android:id="@+id/btn_reservation_confirm"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:background="@color/purple_500"
@@ -324,9 +324,9 @@
         android:layout_height="0dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_seat_confirm"
+        app:layout_constraintEnd_toStartOf="@id/btn_reservation_confirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_seat_confirm" />
+        app:layout_constraintTop_toTopOf="@id/btn_reservation_confirm" />
 
     <TextView
         android:id="@+id/tv_screen_movie_title"

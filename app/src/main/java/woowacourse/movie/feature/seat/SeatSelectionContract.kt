@@ -7,7 +7,7 @@ interface SeatSelectionContract {
     interface View {
         fun initialize(
             movie: ScreeningModel,
-            map: List<SeatModel>,
+            seats: List<SeatModel>,
         )
 
         fun navigateToReservationCompleted(reservationId: Long)

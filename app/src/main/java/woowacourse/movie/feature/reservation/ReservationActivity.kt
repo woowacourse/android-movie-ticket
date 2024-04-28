@@ -22,50 +22,17 @@ import woowacourse.movie.feature.seat.SeatSelectionActivity
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter = ReservationPresenter(this)
-    private val quantityTv by lazy {
-        findViewById<TextView>(R.id.reservation_quantity)
-    }
-
-    private val posterIv by lazy {
-        findViewById<ImageView>(R.id.reservation_poster)
-    }
-
-    private val movieTitleTv by lazy {
-        findViewById<TextView>(R.id.reservation_movie_title)
-    }
-
-    private val movieContentTv by lazy {
-        findViewById<TextView>(R.id.reservation_content)
-    }
-
-    private val openingDayTv by lazy {
-        findViewById<TextView>(R.id.reservation_opening_day)
-    }
-
-    private val runningTimeTv by lazy {
-        findViewById<TextView>(R.id.reservation_running_time)
-    }
-
-    private val minusBtn by lazy {
-        findViewById<Button>(R.id.btn_minus)
-    }
-
-    private val plusBtn by lazy {
-        findViewById<Button>(R.id.btn_plus)
-    }
-
-    private val completeBtn by lazy {
-        findViewById<Button>(R.id.btn_select_seat)
-    }
-
-    private val dateSpinner by lazy {
-        findViewById<Spinner>(R.id.spinner_date)
-    }
-
-    private val timeSpinner by lazy {
-        findViewById<Spinner>(R.id.spinner_time)
-    }
-
+    private val quantityTv by lazy { findViewById<TextView>(R.id.reservation_quantity) }
+    private val posterIv by lazy { findViewById<ImageView>(R.id.reservation_poster) }
+    private val movieTitleTv by lazy { findViewById<TextView>(R.id.reservation_movie_title) }
+    private val movieContentTv by lazy { findViewById<TextView>(R.id.reservation_content) }
+    private val openingDayTv by lazy { findViewById<TextView>(R.id.reservation_opening_day) }
+    private val runningTimeTv by lazy { findViewById<TextView>(R.id.reservation_running_time) }
+    private val minusBtn by lazy { findViewById<Button>(R.id.btn_minus) }
+    private val plusBtn by lazy { findViewById<Button>(R.id.btn_plus) }
+    private val completeBtn by lazy { findViewById<Button>(R.id.btn_select_seat) }
+    private val dateSpinner by lazy { findViewById<Spinner>(R.id.spinner_date) }
+    private val timeSpinner by lazy { findViewById<Spinner>(R.id.spinner_time) }
     private var timeSpinnerPosition: Int = 0
     private var dateSpinnerPosition: Int = 0
     private val quantity = Quantity()

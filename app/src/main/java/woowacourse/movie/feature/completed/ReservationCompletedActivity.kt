@@ -11,18 +11,10 @@ import woowacourse.movie.feature.reservation.ui.TicketModel
 
 class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
-    private val movieTitleTv by lazy {
-        findViewById<TextView>(R.id.completed_movie_title)
-    }
-    private val reservationDateTv by lazy {
-        findViewById<TextView>(R.id.completed_reservation_date)
-    }
-    private val quantityTv by lazy {
-        findViewById<TextView>(R.id.completed_quantity)
-    }
-    private val priceTv by lazy {
-        findViewById<TextView>(R.id.completed_price)
-    }
+    private val movieTitleTv by lazy { findViewById<TextView>(R.id.completed_movie_title) }
+    private val reservationDateTv by lazy { findViewById<TextView>(R.id.completed_reservation_date) }
+    private val quantityTv by lazy { findViewById<TextView>(R.id.completed_quantity) }
+    private val priceTv by lazy { findViewById<TextView>(R.id.completed_price) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

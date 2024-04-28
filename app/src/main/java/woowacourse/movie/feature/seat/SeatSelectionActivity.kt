@@ -14,8 +14,8 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.feature.completed.ReservationCompletedActivity
 import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.reservation.ui.SeatBoardView
 import woowacourse.movie.feature.reservation.ui.SeatModel
-import woowacourse.movie.feature.reservation.ui.SeatView
 import woowacourse.movie.feature.reservation.ui.TicketModel
 import java.text.DecimalFormat
 
@@ -24,7 +24,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val datePosition by lazy { intent.getIntExtra(DATE_POSITION, -1) }
     private val timePosition by lazy { intent.getIntExtra(TIME_POSITION, -1) }
     private val quantity by lazy { intent.getIntExtra(QUANTITY, -1) }
-    private val seatList: MutableList<String> = emptyList<String>().toMutableList()
+    private val selectedSeatList: MutableList<String> = emptyList<String>().toMutableList()
     private val presenter by lazy {
         SeatSelectionPresenter(
             this,
@@ -33,11 +33,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             timePosition,
         )
     }
-
     private val movieTitleTv by lazy { findViewById<TextView>(R.id.tv_screen_movie_title) }
     private val priceTv by lazy { findViewById<TextView>(R.id.tv_seat_price) }
-    private val seatTextViews: SeatView by lazy { createSeatTextViews().let(::SeatView) }
-    private val seatConfirmText by lazy { findViewById<TextView>(R.id.btn_seat_confirm) }
+    private val seatBoardView: SeatBoardView by lazy { createSeatTextViews().let(::SeatBoardView) }
+    private val reservationConfirmTv by lazy { findViewById<TextView>(R.id.btn_reservation_confirm) }
     private var price: Long = 0
 
     private fun createSeatTextViews(): List<TextView> =
@@ -66,28 +65,36 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     ) {
         updatePriceTextView()
         movieTitleTv.text = movie.title
-        seatTextViews.initText(seatModels)
-        seatTextViews.setupClickListener { index, textView ->
-            if (textView.isSelected) {
-                seatList.remove(textView.text.toString())
-                textView.isSelected = !textView.isSelected
-                price -= seatModels[index].price
-                updatePriceTextView()
+        seatBoardView.initText(seatModels)
+        seatBoardView.setupClickListener { index, seatView ->
+            setUpClickedSeatViewControl(seatView, seatModels, index)
+        }
+        reservationConfirmTv.setOnClickListener {
+            if (selectedSeatList.size == quantity) {
+                showReservationConfirmDialog()
             } else {
-                if (seatList.size < quantity) {
-                    seatList.add(textView.text.toString())
-                    textView.isSelected = !textView.isSelected
-                    price += seatModels[index].price
-                    updatePriceTextView()
-                } else {
-                    Toast.makeText(this, "${quantity}개의 좌석을 선택해 주세요.", Toast.LENGTH_SHORT)
-                        .show()
-                }
+                Toast.makeText(this, "${quantity}개의 좌석을 선택해 주세요.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
-        seatConfirmText.setOnClickListener {
-            if (seatList.size == quantity) {
-                showReservationConfirmDialog()
+    }
+
+    private fun setUpClickedSeatViewControl(
+        seatView: TextView,
+        seatModels: List<SeatModel>,
+        index: Int,
+    ) {
+        if (seatView.isSelected) {
+            selectedSeatList.remove(seatView.text.toString())
+            price -= seatModels[index].price
+            seatView.isSelected = !seatView.isSelected
+            updatePriceTextView()
+        } else {
+            if (selectedSeatList.size < quantity) {
+                selectedSeatList.add(seatView.text.toString())
+                price += seatModels[index].price
+                seatView.isSelected = !seatView.isSelected
+                updatePriceTextView()
             } else {
                 Toast.makeText(this, "${quantity}개의 좌석을 선택해 주세요.", Toast.LENGTH_SHORT)
                     .show()
@@ -107,7 +114,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             .setPositiveButton(
                 "예매 완료",
                 DialogInterface.OnClickListener { _, _ ->
-                    presenter.saveReservation(seatList, price)
+                    presenter.saveReservation(selectedSeatList, price)
                 },
             )
         builder.show()

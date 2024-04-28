@@ -2,7 +2,7 @@ package woowacourse.movie.feature.reservation.ui
 
 import android.widget.TextView
 
-class SeatView(private val spaceViews: List<TextView>) {
+class SeatBoardView(private val spaceViews: List<TextView>) {
     fun initText(seatModels: List<SeatModel>) {
         spaceViews.forEachIndexed { index, textView ->
             textView.text = seatModels[index].joinRowColText()
