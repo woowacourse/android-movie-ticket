@@ -1,7 +1,6 @@
 package woowacourse.movie.repository
 
 import woowacourse.movie.domain.movie.Movie
-import woowacourse.movie.domain.movie.Screen
 import woowacourse.movie.domain.movie.ScreenView
 
 interface ScreenListRepository {

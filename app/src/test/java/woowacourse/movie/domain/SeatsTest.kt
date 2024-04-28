@@ -38,8 +38,8 @@ class SeatsTest {
 
         assertThat(seats.totalPrice).isEqualTo(
             PRICE_GRADE_A +
-            PRICE_GRADE_B +
-            PRICE_GRADE_S
+                PRICE_GRADE_B +
+                PRICE_GRADE_S,
         )
     }
 
@@ -62,7 +62,7 @@ class SeatsTest {
         val size = seats.seatList.size
 
         seats.delete(SEAT_GRADE_S)
-        assertThat(seats.seatList.size).isEqualTo(size-1)
+        assertThat(seats.seatList.size).isEqualTo(size - 1)
     }
 
     @Test
@@ -73,9 +73,8 @@ class SeatsTest {
         val size = seats.seatList.size
 
         seats.delete("A", 1)
-        assertThat(seats.seatList.size).isEqualTo(size-1)
+        assertThat(seats.seatList.size).isEqualTo(size - 1)
     }
-
 
     companion object {
         private val SEAT_GRADE_S = Seat("A", 1, SeatGrade.S)

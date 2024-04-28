@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.ScreenView
 import woowacourse.movie.repository.DummyScreenList
 import woowacourse.movie.repository.ScreenListRepository
 import woowacourse.movie.ui.home.adapter.ScreenRecyclerAdapter

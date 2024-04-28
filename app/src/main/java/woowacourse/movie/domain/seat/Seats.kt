@@ -15,8 +15,11 @@ class Seats : Serializable {
         _seatList.add(seat)
     }
 
-    fun delete(row: String, col: Int) {
-        if(isExist(row, col)) {
+    fun delete(
+        row: String,
+        col: Int,
+    ) {
+        if (isExist(row, col)) {
             _seatList.removeIf { seat ->
                 seat.samePositionWith(row, col)
             }
@@ -29,9 +32,12 @@ class Seats : Serializable {
         }
     }
 
-    private fun isExist(row: String, col: Int): Boolean {
-        _seatList.forEach {seat ->
-            if(seat.samePositionWith(row, col)) return true
+    private fun isExist(
+        row: String,
+        col: Int,
+    ): Boolean {
+        _seatList.forEach { seat ->
+            if (seat.samePositionWith(row, col)) return true
         }
         return false
     }

@@ -11,7 +11,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.ui.home.HomeActivity
 
-
 @RunWith(AndroidJUnit4::class)
 class HomeActivityTest {
     @get:Rule

@@ -3,7 +3,6 @@ package woowacourse.movie
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -27,13 +26,13 @@ class SeatSelectionActivityTest {
         ticket.date = LocalDate.of(2024, 3, 1)
         ticket.time = "10:00"
 
-        intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            ResultActivity::class.java,
-        ).putExtra("ticket", ticket)
-            .putExtra("screenTitle", "해리 포터와 마법사의 돌")
+        intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                ResultActivity::class.java,
+            ).putExtra("ticket", ticket)
+                .putExtra("screenTitle", "해리 포터와 마법사의 돌")
     }
-
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ResultActivity>(intent)

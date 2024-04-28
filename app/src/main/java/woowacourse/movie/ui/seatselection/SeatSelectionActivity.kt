@@ -29,7 +29,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var priceTextView: TextView
     private lateinit var confirmTextView: TextView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
@@ -78,7 +77,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         initSeatsClickListener(seats)
     }
 
-
     private fun initSeatsClickListener(seats: List<Seat>) {
         seatLayout.children.filterIsInstance<TableRow>().flatMap { it.children }
             .filterIsInstance<TextView>().forEachIndexed { idx, view ->
@@ -87,7 +85,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         initConfirmClickListener()
     }
 
-    private fun toggleSeatSelection(view: TextView, seat: Seat) {
+    private fun toggleSeatSelection(
+        view: TextView,
+        seat: Seat,
+    ) {
         val backgroundColor = view.background as ColorDrawable
         when (backgroundColor.color) {
             getColor(R.color.seat_selected) -> {
@@ -112,7 +113,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun navigateToResultActivity(ticket: Ticket, title: String) {
+    override fun navigateToResultActivity(
+        ticket: Ticket,
+        title: String,
+    ) {
         MaterialAlertDialogBuilder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
@@ -134,13 +138,19 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun updateSeatSelection(seat: Seat, occupied: Boolean) {
+    override fun updateSeatSelection(
+        seat: Seat,
+        occupied: Boolean,
+    ) {
         seatLayout.children.filterIsInstance<TableRow>().flatMap { it.children }
             .filterIsInstance<TextView>().filterIndexed { index, _ ->
-                index == (seat.row[0] - 'A')*seatsRow + (seat.col - 1)
+                index == (seat.row[0] - 'A') * seatsRow + (seat.col - 1)
             }.forEach { view ->
-                if (occupied) view.setBackgroundColor(getColor(R.color.seat_selected))
-                else view.setBackgroundColor(getColor(R.color.seat_unselected))
+                if (occupied) {
+                    view.setBackgroundColor(getColor(R.color.seat_selected))
+                } else {
+                    view.setBackgroundColor(getColor(R.color.seat_unselected))
+                }
             }
     }
 
@@ -149,7 +159,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun updateConfirmButton(isEnabled: Boolean) {
-        if (isEnabled) confirmTextView.setBackgroundColor(getColor(R.color.confirm_deactivated))
-        else confirmTextView.setBackgroundColor(getColor(R.color.confirm_activated))
+        if (isEnabled) {
+            confirmTextView.setBackgroundColor(getColor(R.color.confirm_deactivated))
+        } else {
+            confirmTextView.setBackgroundColor(getColor(R.color.confirm_activated))
+        }
     }
 }

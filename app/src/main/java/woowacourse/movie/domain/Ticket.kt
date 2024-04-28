@@ -3,9 +3,8 @@ package woowacourse.movie.domain
 import woowacourse.movie.domain.seat.Seats
 import java.io.Serializable
 import java.time.LocalDate
-import java.time.LocalTime
 
-class Ticket(val screenId: Long): Serializable {
+class Ticket(val screenId: Long) : Serializable {
     var count: Int = DEFAULT_TICKET_COUNT
     val seats: Seats = Seats()
     lateinit var date: LocalDate

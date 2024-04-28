@@ -6,7 +6,6 @@ import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SeatGrade
 
 class SeatTest {
-
     @Test
     fun `SeatGrade에 따라 Seat에 맞는 금액을 가지고 있다`() {
         assertThat(SEAT_GRADE_S.price).isEqualTo(PRICE_GRADE_S)

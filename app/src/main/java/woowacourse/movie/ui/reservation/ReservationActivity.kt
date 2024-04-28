@@ -2,7 +2,6 @@ package woowacourse.movie.ui.reservation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -13,10 +12,10 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.movie.ScreenTime
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.domain.movie.Screen
+import woowacourse.movie.domain.movie.ScreenTime
 import woowacourse.movie.repository.DummyMovieList
 import woowacourse.movie.repository.DummyScreenList
 import woowacourse.movie.repository.ScreenListRepository
@@ -60,7 +59,10 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setUpSpinner(screenId: Long, screenListRepository: ScreenListRepository) {
+    private fun setUpSpinner(
+        screenId: Long,
+        screenListRepository: ScreenListRepository,
+    ) {
         dateSpinner = findViewById(R.id.reservation_screen_date_spinner)
         timeSpinner = findViewById(R.id.reservation_screen_time_spinner)
 
@@ -74,14 +76,20 @@ class ReservationActivity : AppCompatActivity() {
     private fun setUpDateSpinner(dateList: List<String>) {
         val dateAdapter = ArrayAdapter(this@ReservationActivity, R.layout.date_spinner_item, dateList)
         dateSpinner.adapter = dateAdapter
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                ticket.date = LocalDate.parse(dateSpinner.getItemAtPosition(p2) as String)
-                updateTimeSpinner()
-            }
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    p0: AdapterView<*>?,
+                    p1: View?,
+                    p2: Int,
+                    p3: Long,
+                ) {
+                    ticket.date = LocalDate.parse(dateSpinner.getItemAtPosition(p2) as String)
+                    updateTimeSpinner()
+                }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
     }
 
     private fun setUpTimeSpinner() {
@@ -90,13 +98,19 @@ class ReservationActivity : AppCompatActivity() {
 
         val timeAdapter = ArrayAdapter(this@ReservationActivity, R.layout.date_spinner_item, timeList)
         timeSpinner.adapter = timeAdapter
-        timeSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                ticket.time = timeSpinner.getItemAtPosition(p2) as String
-            }
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    p0: AdapterView<*>?,
+                    p1: View?,
+                    p2: Int,
+                    p3: Long,
+                ) {
+                    ticket.time = timeSpinner.getItemAtPosition(p2) as String
+                }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
     }
 
     private fun updateTimeSpinner() {
@@ -104,7 +118,6 @@ class ReservationActivity : AppCompatActivity() {
         val timeAdapter = ArrayAdapter(this@ReservationActivity, R.layout.date_spinner_item, screenTime)
         timeSpinner.adapter = timeAdapter
     }
-
 
     private fun getDateList(
         screenId: Long,

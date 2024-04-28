@@ -5,7 +5,7 @@ import woowacourse.movie.domain.movie.ScreenView.Companion.currentId
 class Screen private constructor(
     override val id: Long = currentId++,
     val movieId: Long,
-): ScreenView {
+) : ScreenView {
     companion object {
         fun from(movie: Movie): Screen {
             return Screen(movieId = movie.id)

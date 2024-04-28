@@ -15,6 +15,7 @@ class ScreenViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val runningTime: TextView = itemView.findViewById(R.id.item_running_time_textview)
     private val screenDate: TextView = itemView.findViewById(R.id.item_screen_date_textview)
     private val reservationButton: Button = itemView.findViewById(R.id.item_reservation_button)
+
     fun bind(
         screen: Screen,
         onReservationButtonClick: (Long) -> Unit,

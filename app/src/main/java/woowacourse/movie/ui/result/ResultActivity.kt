@@ -47,16 +47,20 @@ class ResultActivity : AppCompatActivity(), ResultContract.View {
     }
 
     private fun bindViews() {
-        resultViewGroup = ResultViewGroup(
-            titleTextView = findViewById(R.id.result_title_textview),
-            screenDateTime = findViewById(R.id.result_screen_time_textview),
-            seatCountTextView = findViewById(R.id.result_seats_count_textview),
-            seatsTextView = findViewById(R.id.result_seats_textview),
-            priceTextView = findViewById(R.id.result_price_textview)
-        )
+        resultViewGroup =
+            ResultViewGroup(
+                titleTextView = findViewById(R.id.result_title_textview),
+                screenDateTime = findViewById(R.id.result_screen_time_textview),
+                seatCountTextView = findViewById(R.id.result_seats_count_textview),
+                seatsTextView = findViewById(R.id.result_seats_textview),
+                priceTextView = findViewById(R.id.result_price_textview),
+            )
     }
 
-    override fun showResult(title: String, ticket: Ticket) {
+    override fun showResult(
+        title: String,
+        ticket: Ticket,
+    ) {
         resultViewGroup.setUpData(title, ticket)
     }
 }
@@ -68,16 +72,20 @@ class ResultViewGroup(
     val seatsTextView: TextView,
     val priceTextView: TextView,
 ) {
-    fun setUpData(title: String, ticket: Ticket) {
+    fun setUpData(
+        title: String,
+        ticket: Ticket,
+    ) {
         titleTextView.text = title
         screenDateTime.text = "${ticket.date.format(dateFormat)} ${ticket.time}"
         seatCountTextView.text = ticket.count.toString()
-        seatsTextView.text = ticket.seats.seatList.sortedWith(
-            compareBy(
-                {it.row},
-                {it.col}
-            )
-        ).joinToString { it.row + it.col.toString() }
+        seatsTextView.text =
+            ticket.seats.seatList.sortedWith(
+                compareBy(
+                    { it.row },
+                    { it.col },
+                ),
+            ).joinToString { it.row + it.col.toString() }
         priceTextView.text = dec.format(ticket.seats.totalPrice)
     }
 

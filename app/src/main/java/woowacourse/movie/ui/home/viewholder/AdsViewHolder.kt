@@ -10,6 +10,7 @@ import woowacourse.movie.domain.movie.Ads
 
 class AdsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val image: ImageView = itemView.findViewById(R.id.ads_imageview)
+
     fun bind(ads: Ads) {
         image.setImageResource(ads.imgRes)
         image.setOnClickListener {
