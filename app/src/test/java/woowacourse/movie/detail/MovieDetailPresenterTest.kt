@@ -1,4 +1,4 @@
-package woowacourse.movie.reservation.detail
+package woowacourse.movie.detail
 
 import io.mockk.every
 import io.mockk.just
@@ -7,8 +7,6 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.detail.MovieDetailContract
-import woowacourse.movie.detail.MovieDetailPresenter
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 
