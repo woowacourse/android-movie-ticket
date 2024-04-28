@@ -12,6 +12,8 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -82,4 +84,16 @@ fun DataInteraction.click(): ViewInteraction {
 
 fun ViewInteraction.equalTextSpinnerItem(text: String): ViewInteraction {
     return check(matches(withSpinnerText(containsString(text))))
+}
+
+fun viewWithText(text: String): ViewInteraction {
+    return onView(withText(text))
+}
+
+fun ViewInteraction.checkEnabled(): ViewInteraction {
+    return check(matches(isEnabled()))
+}
+
+fun ViewInteraction.checkDisabled(): ViewInteraction {
+    return check(matches(isNotEnabled()))
 }

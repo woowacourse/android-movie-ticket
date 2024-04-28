@@ -190,7 +190,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
     companion object {
         private val TAG = SeatSelectActivity::class.simpleName
         private const val INITIAL_RESERVATION_AMOUNT = 0
-        private const val MOVIE_ID_KEY = "movie_id"
+        private const val MOVIE_ID_KEY = "movie_id_key"
         private const val MOVIE_ID_DEFAULT_VALUE = -1L
         private const val SCREENING_DATE_TIME_KEY = "screening_date_time_key"
         private const val RESERVATION_COUNT_KEY = "reservation_count_key"

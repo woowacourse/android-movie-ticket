@@ -201,7 +201,7 @@ class MovieReservationActivity :
 
     companion object {
         private val TAG = MovieReservationActivity::class.simpleName
-        private const val MOVIE_ID_KEY = "movie_id"
+        private const val MOVIE_ID_KEY = "movie_id_key"
         private const val MOVIE_ID_DEFAULT_VALUE = -1L
         private const val MOVIE_RESERVATION_COUNT_KEY = "reservation_count_key"
         private const val RESERVATION_COUNT_DEFAULT_VALUE = 1

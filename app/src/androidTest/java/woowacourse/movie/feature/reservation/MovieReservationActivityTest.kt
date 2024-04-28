@@ -27,7 +27,7 @@ class MovieReservationActivityTest {
             ApplicationProvider.getApplicationContext(),
             MovieReservationActivity::class.java,
         ).apply {
-            putExtra("movie_id", FIRST_MOVIE_ID)
+            putExtra("movie_id_key", FIRST_MOVIE_ID)
         }
 
     @get:Rule
