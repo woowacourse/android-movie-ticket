@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.reservation.seat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TextView
@@ -45,11 +44,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
         }
     }
 
-    override fun onSaveInstanceState(
-        outState: Bundle,
-        outPersistentState: PersistableBundle,
-    ) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_SEAT_UI_STATE, presenter.uiState)
     }
 
@@ -78,7 +74,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
     override fun showSeatBoard(board: SeatBoardUiModel) {
         seatBoardView =
             SeatBoardView(
-                context = this,
                 tableLayout = tableLayout,
                 rowCount = board.rowCount,
                 columnCount = board.columnCount,

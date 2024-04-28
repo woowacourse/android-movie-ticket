@@ -18,7 +18,6 @@ import woowacourse.movie.presentation.reservation.seat.model.SeatStateUiModel
 import woowacourse.movie.presentation.reservation.seat.model.SeatUiModel
 
 class SeatBoardView(
-    context: Context,
     private val tableLayout: TableLayout,
     private val rowCount: Int,
     private val columnCount: Int,
@@ -26,7 +25,8 @@ class SeatBoardView(
     private lateinit var seats: List<List<TextView>>
 
     init {
-        initSeatsView(context)
+        tableLayout.removeAllViews()
+        initSeatsView(tableLayout.context)
     }
 
     private fun initSeatsView(context: Context) {
