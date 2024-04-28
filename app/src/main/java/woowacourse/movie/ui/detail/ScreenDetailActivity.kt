@@ -19,10 +19,7 @@ import woowacourse.movie.ui.ScreenDetailUI
 import woowacourse.movie.ui.detail.view.DateTimeSpinnerView
 import woowacourse.movie.ui.detail.view.ScreenDetailScreenView
 import woowacourse.movie.ui.detail.view.ScreenDetailTicketView
-import woowacourse.movie.ui.reservation.ReservationActivity
 import woowacourse.movie.ui.seat.SeatReservationActivity
-import java.time.LocalDate
-import java.time.LocalTime
 
 class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     private val presenter: ScreenDetailContract.Presenter by lazy {
@@ -98,17 +95,6 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         screenTimePolicy: ScreenTimePolicy,
     ) {
         dateTimeSpinnerView.show(dateRange, screenTimePolicy)
-    }
-
-    override fun navigateToReservation(navigationId: Int) {
-        ReservationActivity.startActivity(this, navigationId)
-        finish()
-    }
-
-    // TODO: delete
-    override fun navigateToSeatsReservation(screenId: Int, count: Int, date: LocalDate, time: LocalTime) {
-        SeatReservationActivity.startActivity(this, screenId)
-        finish()
     }
 
     override fun navigateToSeatsReservation(timeReservationId: Int) {

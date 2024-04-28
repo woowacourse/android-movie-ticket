@@ -84,17 +84,6 @@ class ScreenDetailPresenter(
     }
 
     override fun reserve(screenId: Int) {
-        reservationRepository.save(
-            screen(screenId),
-            ticket.count,
-        ).onSuccess { id ->
-            view.navigateToReservation(id)
-        }.onFailure { e ->
-            view.showToastMessage(e)
-        }
-    }
-
-    override fun reserve2(screenId: Int) {
         reservationRepository.saveTimeReservation(
             screen(screenId),
             count = ticket.count,

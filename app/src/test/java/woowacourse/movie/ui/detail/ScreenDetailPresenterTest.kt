@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.FakeImage
-import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.FakeMovieRepository
 import woowacourse.movie.domain.repository.FakeReservationRepository
 import woowacourse.movie.domain.repository.FakeScreenRepository
@@ -116,7 +115,7 @@ class ScreenDetailPresenterTest {
         every { mockView.navigateToSeatsReservation(2) } just runs
 
         // when
-        presenter.reserve2(1)
+        presenter.reserve(1)
 
         // then
         verify(exactly = 1) { mockView.navigateToSeatsReservation(2) }
