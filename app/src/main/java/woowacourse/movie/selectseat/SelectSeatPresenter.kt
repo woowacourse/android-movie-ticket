@@ -19,9 +19,7 @@ class SelectSeatPresenter(
         }
     }
 
-    override fun loadReservationInfo(
-        movieId: Long,
-    ) {
+    override fun loadReservationInfo(movieId: Long) {
         runCatching {
             repository.screenMovieById(movieId)
         }.onSuccess {
@@ -43,7 +41,7 @@ class SelectSeatPresenter(
                 bookingInfoUiModel.movieId,
                 bookingInfoUiModel.localDateTime(),
                 bookingInfoUiModel.count.toHeadCount(),
-                ReserveSeats(selectedSeats.toSeats())
+                ReserveSeats(selectedSeats.toSeats()),
             )
         }.onSuccess {
             view.navigateToResult(it)

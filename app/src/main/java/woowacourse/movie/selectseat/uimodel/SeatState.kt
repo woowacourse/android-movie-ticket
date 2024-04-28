@@ -2,11 +2,11 @@ package woowacourse.movie.selectseat.uimodel
 
 enum class SeatState {
     SELECTED,
-    NONE,;
+    NONE, ;
 
-    fun reserveState(): SeatState = when (this) {
-        SELECTED -> NONE
-        NONE -> SELECTED
-    }
+    fun reserveState(): SeatState =
+        when (this) {
+            SELECTED -> NONE
+            NONE -> SELECTED
+        }
 }
-

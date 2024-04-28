@@ -36,140 +36,140 @@
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
+                android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn"
                 android:button="@null"
-                android:gravity="center"
-                android:layout_height="90dp" />
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
                 android:layout_height="90dp"
-                android:gravity="center"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:button="@null"
-                android:gravity="center"
                 android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center" />
 
         </TableRow>
 

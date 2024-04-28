@@ -3,7 +3,6 @@ package woowacourse.movie.selectseat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.CheckBox
@@ -109,50 +108,52 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
         }
     }
 
-
     private fun showClickResult() {
         when (val selectResult = selectResult()) {
-            is SelectResult.Exceed -> Toast.makeText(
-                this,
-                selectResult.message,
-                Toast.LENGTH_SHORT
-            ).show()
+            is SelectResult.Exceed ->
+                Toast.makeText(
+                    this,
+                    selectResult.message,
+                    Toast.LENGTH_SHORT,
+                ).show()
 
-            is SelectResult.LessSelect -> Toast.makeText(
-                this,
-                selectResult.message,
-                Toast.LENGTH_SHORT
-            ).show()
+            is SelectResult.LessSelect ->
+                Toast.makeText(
+                    this,
+                    selectResult.message,
+                    Toast.LENGTH_SHORT,
+                ).show()
 
             is SelectResult.Success -> confirmAlertDialog().show()
         }
     }
 
-    private fun confirmAlertDialog()  = AlertDialog.Builder(this)
+    private fun confirmAlertDialog() =
+        AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
             .setPositiveButton("예매 완료") { _, _ ->
                 presenter.completeReservation(
                     bookingInfoUiModel,
-                    seats.selectedSeats()
+                    seats.selectedSeats(),
                 )
             }
             .setNegativeButton("취소") { dialog, _ ->
                 dialog.dismiss()
             }
 
-
-
     private fun selectResult(): SelectResult {
-        if (bookingInfoUiModel.maxSelectSize() < seats.selectedSeats().size) return SelectResult.Exceed(
-            "예매 인원을 초과하여 좌석을 선택할 수 없습니다."
-        )
-        else if (bookingInfoUiModel.maxSelectSize() > seats.selectedSeats().size) return SelectResult.LessSelect(
-            "좌석을 더 선택해주세요"
-        ) else {
+        if (bookingInfoUiModel.maxSelectSize() < seats.selectedSeats().size) {
+            return SelectResult.Exceed(
+                "예매 인원을 초과하여 좌석을 선택할 수 없습니다.",
+            )
+        } else if (bookingInfoUiModel.maxSelectSize() > seats.selectedSeats().size) {
+            return SelectResult.LessSelect(
+                "좌석을 더 선택해주세요",
+            )
+        } else {
             return SelectResult.Success
         }
-
     }
 
     companion object {

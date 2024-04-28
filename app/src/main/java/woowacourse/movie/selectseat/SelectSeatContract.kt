@@ -21,9 +21,7 @@ interface SelectSeatContract {
     interface Presenter {
         fun loadSeat(movieId: Long)
 
-        fun loadReservationInfo(
-            movieId: Long,
-        )
+        fun loadReservationInfo(movieId: Long)
 
         fun calculatePrice(selectedSeats: List<SeatUiModel>)
 

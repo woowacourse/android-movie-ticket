@@ -7,7 +7,7 @@ import java.time.LocalTime
 class ScreeningDateTimeSystem(
     private val weekStartTime: Int = WEEK_START_TIME,
     private val weekendStartTime: Int = WEEKEND_START_TIME,
-    private val screeningTimeInterval:Int = SCREENING_TIME_INTERVAL,
+    private val screeningTimeInterval: Int = SCREENING_TIME_INTERVAL,
 ) {
     fun generate(
         startDate: LocalDate,

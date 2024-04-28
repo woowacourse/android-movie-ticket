@@ -1,6 +1,5 @@
 package woowacourse.movie.selectseat.uimodel
 
-
 data class PriceUiModel(
     val price: String,
 ) {
