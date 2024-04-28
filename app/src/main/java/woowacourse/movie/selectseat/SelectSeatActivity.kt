@@ -66,6 +66,7 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
             }
             presenter.calculatePrice(seats.selectedSeats())
         }
+        reserveBtn.isEnabled = seats.selectedSeats().isNotEmpty()
     }
 
     private fun initView() {
@@ -95,10 +96,15 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
             seatView.text = seatUiModel.showPosition
             seatView.setTextColor(getColor(seatUiModel.rateColor.color))
             seatView.setOnClickListener {
-                seats = seats.changeState(seatUiModel)
-                presenter.calculatePrice(seats.selectedSeats())
+                updateDate(seatUiModel)
             }
         }
+    }
+
+    private fun updateDate(seatUiModel: SeatUiModel) {
+        seats = seats.changeState(seatUiModel)
+        presenter.calculatePrice(seats.selectedSeats())
+        reserveBtn.isEnabled = seats.selectedSeats().isNotEmpty()
     }
 
     override fun showMovieInfo(
@@ -128,7 +134,6 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
     private fun clickReserveButton() {
         reserveBtn.setOnClickListener {
             showClickResult()
-            confirmAlertDialog()
         }
     }
 
@@ -148,7 +153,7 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
                     Toast.LENGTH_SHORT,
                 ).show()
 
-            is SelectResult.Success -> confirmAlertDialog().show()
+            is SelectResult.Success -> confirmAlertDialog()
         }
     }
 
@@ -156,6 +161,7 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
+            .setCancelable(false)
             .setPositiveButton("예매 완료") { _, _ ->
                 presenter.completeReservation(
                     bookingInfoUiModel,
@@ -164,7 +170,7 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
             }
             .setNegativeButton("취소") { dialog, _ ->
                 dialog.dismiss()
-            }
+            }.show()
 
     private fun selectResult(): SelectResult {
         if (bookingInfoUiModel.maxSelectSize() < seats.selectedSeats().size) {
