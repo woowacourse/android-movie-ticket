@@ -10,7 +10,9 @@ object DummyScreenList : ScreenListRepository {
     private val _list: MutableList<Screen> = mutableListOf()
 
     init {
-        addToList(DummyMovieList.list)
+        repeat(100) {
+            addToList(DummyMovieList.list)
+        }
     }
 
     override fun listSize(): Int = _list.size
@@ -27,6 +29,12 @@ object DummyScreenList : ScreenListRepository {
         movieList.forEach { movie ->
             addToList(movie)
         }
+    }
+
+    override fun find(id: Long): Screen {
+        val screen = findOrNull(id)
+        require(screen != null) { "There is no such Screen in database!" }
+        return screen
     }
 
     override fun findOrNull(id: Long): Screen? {

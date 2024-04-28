@@ -30,7 +30,7 @@ object DummyMovieList : MovieListRepository {
                 id = 3,
                 title = "해리 포터와 아즈카반의 죄수",
                 runningTime = 141,
-                screenPeriod = listOf(LocalDate.of(2024, 5, 1),LocalDate.of(2024, 5, 31)),
+                screenPeriod = listOf(LocalDate.of(2024, 5, 1), LocalDate.of(2024, 5, 31)),
                 description = "해리포터와 아즈카반의 죄수 영화에 대한 설명입니다",
                 imgResId = R.drawable.harry_potter_3,
             ),
@@ -38,6 +38,18 @@ object DummyMovieList : MovieListRepository {
 
     override fun listSize(): Int {
         return _list.size
+    }
+
+    override fun find(id: Long): Movie {
+        val movie = findOrNull(id)
+        require(movie != null) { "There is no such movie" }
+        return movie
+    }
+
+    override fun find(title: String): Movie {
+        val movie = findOrNull(title)
+        require(movie != null) { "There is no such movie" }
+        return movie
     }
 
     override fun findOrNull(id: Long): Movie? {
