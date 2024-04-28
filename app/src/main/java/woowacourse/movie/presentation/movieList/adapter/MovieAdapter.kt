@@ -21,12 +21,17 @@ class MovieAdapter(
         viewType: Int,
     ): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        if (viewType == MOVIE_VIEW_TYPE) {
-            val itemView = inflater.inflate(R.layout.item_movie, parent, false)
-            return MovieViewHolder(itemView, listener)
+        return when (viewType) {
+            MOVIE_VIEW_TYPE -> {
+                val itemView = inflater.inflate(R.layout.item_movie, parent, false)
+                MovieViewHolder(itemView, listener)
+            }
+
+            else -> {
+                val itemView = inflater.inflate(R.layout.item_ad, parent, false)
+                AdViewHolder(itemView)
+            }
         }
-        val itemView = inflater.inflate(R.layout.item_ad, parent, false)
-        return AdViewHolder(itemView)
     }
 
     override fun onBindViewHolder(
