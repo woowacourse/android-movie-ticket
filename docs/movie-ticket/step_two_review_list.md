@@ -4,4 +4,4 @@
 - [x]: MovieRepository movieReservationById 반환값 nullable
 - [ ]: SeatSelection 화면 회전 대응 로직 수정
 - [ ]: Landscape 구현
-- [ ]: MovieReservationPresenter - loadScreenMovie 공통 로직 빼기
+- [x]: MovieReservationPresenter - loadScreenMovie 공통 로직 빼기

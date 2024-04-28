@@ -15,10 +15,7 @@ class MovieReservationPresenter(
     fun loadScreenMovie(id: Long) {
         repository.screenMovieById(id).onSuccess { movie ->
             _uiState = movie.toReservationUiState()
-            view.showMovieReservation(_uiState.movie)
-            view.showDatePicker(_uiState.screenDates)
-            view.showTimePicker(_uiState.screenTimes)
-            view.showHeadCount(_uiState.headCount.count)
+            updateReservationView()
         }.onFailure {
             view.showErrorView()
         }
@@ -50,12 +47,9 @@ class MovieReservationPresenter(
 
     fun restoreState(state: MovieReservationUiState) {
         _uiState = state
-        view.showMovieReservation(_uiState.movie)
-        view.showDatePicker(_uiState.screenDates)
-        view.showTimePicker(_uiState.screenTimes)
+        updateReservationView()
         view.showTimePickerAt(_uiState.selectedTimePosition)
         view.showScreenDateAt(_uiState.selectedDatePosition)
-        view.showHeadCount(_uiState.headCount.count)
     }
 
     fun completeReservation() {
@@ -70,5 +64,12 @@ class MovieReservationPresenter(
                 reservedDateTime,
             )
         view.navigateToSeatSelection(seatSelectionNavArgs)
+    }
+
+    private fun updateReservationView() {
+        view.showMovieReservation(_uiState.movie)
+        view.showDatePicker(_uiState.screenDates)
+        view.showTimePicker(_uiState.screenTimes)
+        view.showHeadCount(_uiState.headCount.count)
     }
 }
