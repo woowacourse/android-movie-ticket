@@ -1,11 +1,10 @@
 package woowacourse.movie.contract
 
-import woowacourse.movie.model.schedule.ScreeningDate
-import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningDateTime
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import java.time.LocalDateTime
-
 
 interface MovieDetailContract {
     interface View {
@@ -17,7 +16,11 @@ interface MovieDetailContract {
 
         fun displayTicketNum(ticketNum: Int)
 
-        fun navigateToSeatSelection(movieId: Int, ticketNum: Int, reservedDateTime: LocalDateTime)
+        fun navigateToSeatSelection(
+            movieId: Int,
+            ticketNum: Int,
+            reservedDateTime: LocalDateTime,
+        )
     }
 
     interface Presenter {

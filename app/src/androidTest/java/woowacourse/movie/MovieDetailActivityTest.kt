@@ -18,7 +18,6 @@ class MovieDetailActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieDetailActivity::class.java)
 
-
     @Test
     fun plusButtonTest() {
         Espresso.onView(withId(R.id.plus_button))

@@ -1,14 +1,14 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.contract.MovieDetailContract
-import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningDateTime
+import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.schedule.WeekdayTimeTable
 import woowacourse.movie.model.schedule.WeekendTimeTable
-import woowacourse.movie.repository.PseudoMovieRepository
 import woowacourse.movie.repository.MovieRepository
+import woowacourse.movie.repository.PseudoMovieRepository
 
 class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
@@ -48,7 +48,7 @@ class MovieDetailPresenter(
     }
 
     override fun selectScreeningDate(date: ScreeningDate) {
-        val timeTable = if(date.isWeekend()) WeekendTimeTable(date) else WeekdayTimeTable(date)
+        val timeTable = if (date.isWeekend()) WeekendTimeTable(date) else WeekdayTimeTable(date)
         val times = timeTable.getScreeningTimes()
         view.displayScreeningTimes(times)
     }

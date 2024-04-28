@@ -5,6 +5,5 @@ interface MovieAdapterContract {
         fun notifyItemClicked(position: Int)
     }
 
-    interface Model {
-    }
+    interface Model
 }

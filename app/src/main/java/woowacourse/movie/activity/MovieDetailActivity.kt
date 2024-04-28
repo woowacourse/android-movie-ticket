@@ -1,6 +1,5 @@
 package woowacourse.movie.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
@@ -10,11 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieDetailContract
-import woowacourse.movie.model.schedule.ScreeningDate
-import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.presenter.MovieDetailPresenter
+import woowacourse.movie.uimodel.format
 import java.time.LocalDateTime
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
@@ -86,7 +85,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     override fun navigateToSeatSelection(
         movieId: Int,
         ticketNum: Int,
-        reservedDateTime: LocalDateTime
+        reservedDateTime: LocalDateTime,
     ) {
         TODO("Not yet implemented")
     }

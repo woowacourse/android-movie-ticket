@@ -19,7 +19,6 @@ class ScreeningDateTimeTest {
 
     @Test
     fun `일정 시간 간격으로 영화를 상영한다`() {
-
         val date = LocalDate.of(2024, 4, 26) // friday
         val start = 9
         val end = 21
@@ -30,9 +29,10 @@ class ScreeningDateTimeTest {
 
         val timeTable = RegularTimeTable(startTime, endTime, interval)
 
-        val expected = (start..end step interval).map {
-            ScreeningDateTime.of(date, it, 0)
-        }
+        val expected =
+            (start..end step interval).map {
+                ScreeningDateTime.of(date, it, 0)
+            }
         val actual = timeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
     }
@@ -47,9 +47,10 @@ class ScreeningDateTimeTest {
         val start = 9
         val end = 24
         val interval = 2
-        val expected = (start..end step interval).map {
-            ScreeningDateTime.of(date, it, 0)
-        }
+        val expected =
+            (start..end step interval).map {
+                ScreeningDateTime.of(date, it, 0)
+            }
         val actual = weekendTimeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
     }
@@ -64,9 +65,10 @@ class ScreeningDateTimeTest {
         val start = 10
         val end = 24
         val interval = 2
-        val expected = (start..end step interval).map {
-            ScreeningDateTime.of(date, it, 0)
-        }
+        val expected =
+            (start..end step interval).map {
+                ScreeningDateTime.of(date, it, 0)
+            }
         val actual = weekdayTimeTable.getScreeningTimes()
         assertThat(actual).isEqualTo(expected)
     }

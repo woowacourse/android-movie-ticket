@@ -19,7 +19,6 @@ import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)
 class PositionSelectionPresenterTest {
-
     @RelaxedMockK
     lateinit var view: SeatSelectionContract.View
 
@@ -31,11 +30,12 @@ class PositionSelectionPresenterTest {
 
     @BeforeEach
     fun setUp() {
-        presenter = SeatSelectionPresenter(
-            view,
-            theaterRepository,
-            reservationRepository
-        )
+        presenter =
+            SeatSelectionPresenter(
+                view,
+                theaterRepository,
+                reservationRepository,
+            )
         presenter.loadData(1, 1, LocalDateTime.MIN)
     }
 

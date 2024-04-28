@@ -8,9 +8,11 @@ data class ScreeningDate(val date: LocalDate) {
     fun isWeekend(): Boolean {
         return date.dayOfWeek == DayOfWeek.SUNDAY || date.dayOfWeek == DayOfWeek.SATURDAY
     }
+
     fun isWeekday(): Boolean {
         return !isWeekend()
     }
+
     operator fun rangeTo(other: ScreeningDate): List<ScreeningDate> {
         val startDate = this.date
         val endDate = other.date

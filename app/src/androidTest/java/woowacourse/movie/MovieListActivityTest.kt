@@ -14,10 +14,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.activity.MovieListActivity
-import woowacourse.movie.model.movie.MovieDetail
-import woowacourse.movie.model.movie.RunningTime
-import woowacourse.movie.model.movie.Synopsis
-import woowacourse.movie.model.movie.Title
 import woowacourse.movie.uimodel.MovieBrief
 
 @RunWith(AndroidJUnit4::class)
@@ -27,7 +23,7 @@ class MovieListActivityTest {
         MovieBrief(
             "차람과 하디의 진지한 여행기",
             "상영일: 2024.2.25",
-            "230분" ,
+            "230분",
         )
 
     @get:Rule

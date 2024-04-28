@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.contract.MovieListContract
-import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.presenter.MovieListPresenter
 import woowacourse.movie.uimodel.MovieBrief
 
