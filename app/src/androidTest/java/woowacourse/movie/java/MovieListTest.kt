@@ -20,7 +20,7 @@ class MovieListTest {
 
     @Test
     fun `영화_목록을_볼_수_있다`() {
-        onView(withId(R.id.movie_list_view)).check(matches(isDisplayed()))
+        onView(withId(R.id.movie_recycler_view)).check(matches(isDisplayed()))
     }
 
     @Test

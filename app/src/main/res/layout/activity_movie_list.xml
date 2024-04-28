@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".list.view.MovieListActivity">
 
-    <ListView
-        android:id="@+id/movie_list_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movie_recycler_view"
         tools:listitem="@layout/movie_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -2,7 +2,6 @@ package woowacourse.movie.reservation.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -48,7 +47,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         initView()
         presenter.setCurrentResultTicketCountInfo()
         movieId = intent.getLongExtra(EXTRA_MOVIE_ID_KEY, 0)
-        Log.d("", "onCreate")
         presenter.storeMovieId(movieId)
         presenter.setMovieInfo()
         presenter.setSpinnerInfo()

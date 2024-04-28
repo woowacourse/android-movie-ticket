@@ -1,6 +1,5 @@
 package woowacourse.movie.list.adapter
 
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -9,5 +8,4 @@ class MovieViewHolder(
     val poster: ImageView,
     val screeningDate: TextView,
     val runningTime: TextView,
-    val movieReservationButton: Button,
 )

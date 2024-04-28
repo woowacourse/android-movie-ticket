@@ -6,13 +6,13 @@ interface MovieListContract {
     interface View {
         val presenter: Presenter
 
-        fun showMoviesInfo(info: ArrayList<Movie>)
+        fun showMoviesInfo(movies: List<Movie>)
 
         fun setOnListViewClickListener()
     }
 
     interface Presenter {
-        val movieList: ArrayList<Movie>
+        val movieList: List<Movie>
 
         fun setMoviesInfo()
 

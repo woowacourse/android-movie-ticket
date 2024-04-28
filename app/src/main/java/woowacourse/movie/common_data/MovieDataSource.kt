@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 object MovieDataSource {
     val movieList =
-        arrayListOf(
+        listOf(
             Movie(
                 "해리 포터와 마법사의 돌",
                 R.drawable.harry_potter_1_poster,
