@@ -52,7 +52,7 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
         seats = findViewById(R.id.seats)
     }
 
-    override fun initSeats() {
+    private fun initSeats() {
         seats.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, tableRow ->
             initRowOfSeats(tableRow, rowIndex)
         }
@@ -64,8 +64,16 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
     ) {
         tableRow.children.filterIsInstance<TextView>().forEachIndexed { colIndex, cell ->
             presenter.createSeat(rowIndex, colIndex)
-            cell.text = presenter.seat.coordinate
+            presenter.initCell(cell)
         }
+    }
+
+    override fun initCell(
+        cell: TextView,
+        seat: Seat,
+    )  {
+        cell.text = seat.coordinate
+        cell.setBackgroundColor(seat.cellBackgroundColor)
     }
 
     override fun setOnSelectSeat() {

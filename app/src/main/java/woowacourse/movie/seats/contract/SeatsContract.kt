@@ -1,5 +1,6 @@
 package woowacourse.movie.seats.contract
 
+import android.widget.TextView
 import woowacourse.movie.seats.model.Seat
 
 interface SeatsContract {
@@ -16,8 +17,6 @@ interface SeatsContract {
 
         fun setSeatsText(info: Seat)
 
-        fun initSeats()
-
         fun startNextActivity(
             id: Long,
             title: String,
@@ -26,11 +25,14 @@ interface SeatsContract {
             seats: List<Seat>,
             price: Int,
         )
+
+        fun initCell(
+            cell: TextView,
+            seat: Seat,
+        )
     }
 
     interface Presenter {
-        var seat: Seat
-
         fun setPriceInfo()
 
         fun setSeatsCellsBackgroundColorInfo()
@@ -56,5 +58,7 @@ interface SeatsContract {
             rowIndex: Int,
             colIndex: Int,
         )
+
+        fun initCell(cell: TextView)
     }
 }

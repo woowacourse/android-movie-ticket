@@ -1,17 +1,21 @@
 package woowacourse.movie.seats.presenter
 
+import android.widget.TextView
 import woowacourse.movie.common_data.MovieDataSource
 import woowacourse.movie.seats.contract.SeatsContract
 import woowacourse.movie.seats.model.Seat
 import woowacourse.movie.seats.model.SeatsDataSource
 import woowacourse.movie.seats.model.SeatsDataSource.date
 import woowacourse.movie.seats.model.SeatsDataSource.movieId
+import woowacourse.movie.seats.model.SeatsDataSource.seat
 import woowacourse.movie.seats.model.SeatsDataSource.seatTotalPrice
 import woowacourse.movie.seats.model.SeatsDataSource.selectedSeats
 import woowacourse.movie.seats.model.SeatsDataSource.time
 
 class SeatsPresenter(val view: SeatsContract.View) : SeatsContract.Presenter {
-    override lateinit var seat: Seat
+    override fun initCell(cell: TextView) {
+        view.initCell(cell, seat)
+    }
 
     override fun createSeat(
         rowIndex: Int,
