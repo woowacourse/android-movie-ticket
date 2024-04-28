@@ -10,6 +10,7 @@ interface SeatSelectionContract {
         fun displayDeSelectedSeat(position: Position)
         fun activateConfirm()
         fun deActivateConfirm()
+        fun displayTicketPrice(price: Int)
     }
     interface Presenter{
         fun loadTheater()

@@ -1,7 +1,5 @@
 package woowacourse.movie.model.pricing
 
-import woowacourse.movie.model.seat.Seat
-
 class TierPricePolicy(private val tier: Tier) : PricePolicy {
     override fun getPrice(): Int =
        when (tier) {

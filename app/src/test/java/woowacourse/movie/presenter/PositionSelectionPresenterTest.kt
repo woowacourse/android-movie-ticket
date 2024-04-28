@@ -11,10 +11,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.contract.SeatSelectionContract
 import woowacourse.movie.model.seat.Position
+import woowacourse.movie.repository.PseudoTheaterRepository
 import woowacourse.movie.repository.TheaterRepository
 
 @ExtendWith(MockKExtension::class)
-class SeatSelectionPresenterTest {
+class PositionSelectionPresenterTest {
 
     @RelaxedMockK
     lateinit var view: SeatSelectionContract.View
@@ -41,7 +42,7 @@ class SeatSelectionPresenterTest {
     fun `선택되지 않은 좌석을 선택했을 때 좌석을 선택 상태로 표기해야 한다`() {
         every { view.displayTheater(any()) } just runs
 
-        val position = Position(0, 0)
+        val position = Position(1, 1)
         presenter.toggleSeatSelection(position)
 
         verify { view.displaySelectedSeat(position) }
@@ -50,7 +51,7 @@ class SeatSelectionPresenterTest {
     @Test
     fun `이미 선택된 좌석을 선택했을 때 좌석을 선택 안됨 상태로 표기해야 한다`() {
         every { view.displayTheater(any()) } just runs
-        val position = Position(0, 0)
+        val position = Position(1, 1)
         presenter.toggleSeatSelection(position)
 
         presenter.toggleSeatSelection(position)
@@ -63,10 +64,10 @@ class SeatSelectionPresenterTest {
         every { view.displayTheater(any()) } just runs
         presenter = SeatSelectionPresenter(view, theaterRepository, 3)
 
-        val position1 = Position(0, 0)
-        val position2 = Position(1, 0)
-        val position3 = Position(2, 0)
-        val position4 = Position(3, 0)
+        val position1 = Position(1, 1)
+        val position2 = Position(2, 1)
+        val position3 = Position(3, 1)
+        val position4 = Position(4, 1)
         presenter.toggleSeatSelection(position1)
         presenter.toggleSeatSelection(position2)
         presenter.toggleSeatSelection(position3)
@@ -80,9 +81,9 @@ class SeatSelectionPresenterTest {
         every { view.displayTheater(any()) } just runs
         presenter = SeatSelectionPresenter(view, theaterRepository, 3)
 
-        val position1 = Position(0, 0)
-        val position2 = Position(1, 0)
-        val position3 = Position(2, 0)
+        val position1 = Position(1, 1)
+        val position2 = Position(2, 1)
+        val position3 = Position(3, 1)
         presenter.toggleSeatSelection(position1)
         presenter.toggleSeatSelection(position2)
         presenter.toggleSeatSelection(position3)
@@ -94,10 +95,26 @@ class SeatSelectionPresenterTest {
     fun `선택 해제를 하면 확인 버튼이 비활성화 된다`() {
         every { view.displayTheater(any()) } just runs
         presenter = SeatSelectionPresenter(view, theaterRepository, 1)
-        val position1 = Position(0, 0)
+        val position1 = Position(1, 1)
         presenter.toggleSeatSelection(position1)
+
         presenter.toggleSeatSelection(position1)
 
         verify { view.deActivateConfirm() }
+    }
+
+    @Test
+    fun `좌석을 선택하면 하단에 선택한 좌석 수를 반영한 최종 가격이 표시된다`() {
+        every { view.displayTheater(any()) } just runs
+        theaterRepository = PseudoTheaterRepository()
+        presenter = SeatSelectionPresenter(view, theaterRepository, 2)
+        presenter.loadTheater()
+
+        val position1 = Position(1, 1) // B Tier Seat, 10000₩
+        val position2 = Position(1, 3) // S Tier Seat, 15000₩
+        presenter.toggleSeatSelection(position1)
+        presenter.toggleSeatSelection(position2)
+
+        verify { view.displayTicketPrice(25000) }
     }
 }

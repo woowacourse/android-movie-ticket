@@ -2,7 +2,6 @@ package woowacourse.movie.model
 
 import woowacourse.movie.model.pricing.Tier
 import woowacourse.movie.model.seat.Position
-import woowacourse.movie.model.seat.Seat
 
 class Theater(rows: Int, cols: Int) {
     private val positions: Set<Position> = (1..rows).flatMap { y ->
@@ -10,12 +9,13 @@ class Theater(rows: Int, cols: Int) {
             Position(x, y)
         }
     }.toSet()
-    val seats: Map<Position, Seat> = positions.map {
-        val seat = when (it.y) {
-            3, 4 -> Seat(Tier.S)
-            5 -> Seat(Tier.A)
-            else -> Seat(Tier.B)
+    val tiers: Map<Position, Tier> = positions.map {
+        val tier = when (it.y) {
+            3, 4 -> Tier.S
+            5 -> Tier.A
+            else -> Tier.B
         }
-        Pair(it, seat)
+        Pair(it, tier)
     }.toMap()
+
 }
