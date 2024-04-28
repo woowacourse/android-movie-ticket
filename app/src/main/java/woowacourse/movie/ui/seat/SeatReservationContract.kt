@@ -1,11 +1,12 @@
 package woowacourse.movie.ui.seat
 
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 
 interface SeatReservationContract {
     interface View {
-        fun showSeats(seat: Seats)
+        fun showSeats(seats: Seats)
 
         fun navigateToCompleteReservation(reservationId: Int)
 
