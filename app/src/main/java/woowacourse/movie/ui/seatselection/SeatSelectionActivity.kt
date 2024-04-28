@@ -11,6 +11,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.seat.Seat
@@ -40,8 +41,6 @@ class SeatSelectionActivity : AppCompatActivity() {
         seatLayout = findViewById(R.id.seat_tablelayout)
         initView()
         initSeatBoard(DummySeatList)
-        Log.d("ticket", "${ticket.count}")
-
     }
 
     private fun <T : Serializable> Intent.intentSerializable(
@@ -92,8 +91,6 @@ class SeatSelectionActivity : AppCompatActivity() {
                             if (backgroundColor.color == getColor(R.color.seat_unselected)) {
                                 view.setBackgroundColor(getColor(R.color.seat_selected))
                                 ticket.seats.add(seats[idx])
-                                Log.d("count", "${ticket.seats.seatList.size}")
-                                Log.d("count", "${ticket.count}")
                             }
                         }
                     }
@@ -103,11 +100,18 @@ class SeatSelectionActivity : AppCompatActivity() {
             }
 
         confirmTextView.setOnClickListener {
-            if((it.background as ColorDrawable).color == getColor(R.color.confirm_activated)) {
-                val intent = Intent(this@SeatSelectionActivity, ResultActivity::class.java)
-                intent.putExtra("screenTitle", title)
-                intent.putExtra("ticket", ticket)
-                startActivity(intent)
+            if ((it.background as ColorDrawable).color == getColor(R.color.confirm_activated)) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("예매 확인")
+                    .setMessage("정말 예매하시겠습니까?")
+                    .setNegativeButton("취소") { _, _ -> }
+                    .setPositiveButton("예매 완료") { _, _ ->
+                        val intent = Intent(this@SeatSelectionActivity, ResultActivity::class.java)
+                        intent.putExtra("screenTitle", title)
+                        intent.putExtra("ticket", ticket)
+                        startActivity(intent)
+                    }
+                    .show()
             }
         }
     }
@@ -117,7 +121,7 @@ class SeatSelectionActivity : AppCompatActivity() {
     }
 
     private fun updateConfirmView() {
-        if(!countIsSufficient()) confirmTextView.setBackgroundColor(getColor(R.color.confirm_deactivated))
+        if (!countIsSufficient()) confirmTextView.setBackgroundColor(getColor(R.color.confirm_deactivated))
         else confirmTextView.setBackgroundColor(getColor(R.color.confirm_activated))
     }
 
