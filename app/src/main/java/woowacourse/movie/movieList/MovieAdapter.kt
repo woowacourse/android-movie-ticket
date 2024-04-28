@@ -1,72 +1,83 @@
-package woowacourse.movie.movieList
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDisplayData
 
+@Suppress("DEPRECATION")
 class MovieAdapter(
-    context: Context,
-    items: List<Any>, // 'Any' type to handle both movies and ads
+    private val context: Context,
+    private val items: MutableList<Any>,
     private val onClick: (Int) -> Unit
-) : ArrayAdapter<Any>(context, 0, items) {
-
-    private val ITEM_VIEW_TYPE_MOVIE = 0
-    private val ITEM_VIEW_TYPE_AD = 1
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return if ((position + 1) % 4 == 0) ITEM_VIEW_TYPE_AD else ITEM_VIEW_TYPE_MOVIE
     }
 
-    override fun getViewTypeCount(): Int {
-        return 2
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val viewType = getItemViewType(position)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(context)
         return when (viewType) {
             ITEM_VIEW_TYPE_MOVIE -> {
-                val listItemView = convertView ?: LayoutInflater.from(context)
-                    .inflate(R.layout.movie_list_item, parent, false)
-                val movieData = getItem(position) as MovieDisplayData
-                listItemView.findViewById<TextView>(R.id.movie_title).text = movieData.title
-                listItemView.findViewById<TextView>(R.id.movie_release_date).text =
-                    movieData.releaseDate
-                listItemView.findViewById<TextView>(R.id.movie_duration).text =
-                    movieData.runningTime
-                listItemView.findViewById<Button>(R.id.movie_details_button).setOnClickListener {
-                    onClick(position)
-                }
-                listItemView
+                val view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
+                MovieViewHolder(view, onClick)
             }
 
             ITEM_VIEW_TYPE_AD -> {
-                convertView ?: LayoutInflater.from(context)
-                    .inflate(R.layout.ad_layout, parent, false)
+                val view = layoutInflater.inflate(R.layout.ad_layout, parent, false)
+                AdViewHolder(view)
             }
 
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
-    override fun getCount(): Int {
-        val originalCount = super.getCount()
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MovieViewHolder -> holder.bind(items[position] as MovieDisplayData)
+            is AdViewHolder -> holder.bind()
+        }
+    }
+
+    override fun getItemCount(): Int {
+        val originalCount = items.size
         return originalCount + originalCount / 3
     }
 
-    override fun getItem(position: Int): Any? {
-        val adjustedPosition = position - position / 4
-        return if (getItemViewType(position) == ITEM_VIEW_TYPE_MOVIE) super.getItem(adjustedPosition) else null
+    fun updateItems(displayData: List<MovieDisplayData>) {
+        items.clear()
+        items.addAll(displayData)
+        notifyDataSetChanged()
     }
 
-    fun updateItems(items: List<MovieDisplayData>) {
-        clear()
-        addAll(items)
-        notifyDataSetChanged()
+    companion object {
+        private const val ITEM_VIEW_TYPE_MOVIE = 0
+        private const val ITEM_VIEW_TYPE_AD = 1
+    }
+
+    class MovieViewHolder(view: View, private val onClick: (Int) -> Unit) :
+        RecyclerView.ViewHolder(view) {
+        private val titleTextView: TextView = view.findViewById(R.id.movie_title)
+        private val releaseDateTextView: TextView = view.findViewById(R.id.movie_release_date)
+        private val durationTextView: TextView = view.findViewById(R.id.movie_duration)
+        private val detailButton: Button = view.findViewById(R.id.movie_details_button)
+
+        fun bind(movie: MovieDisplayData) {
+            titleTextView.text = movie.title
+            releaseDateTextView.text = movie.releaseDate
+            durationTextView.text = movie.runningTime
+            detailButton.setOnClickListener {
+                onClick(adapterPosition)
+            }
+        }
+    }
+
+
+    class AdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bind() {}
     }
 }
