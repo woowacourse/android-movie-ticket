@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model.reservation
 
-class NewMovieTicket(
+class MovieTicket(
     val ticketId: Long,
     val screeningMovieInfo: ScreeningMovieInfo,
     val reservationInfo: ReservationInfo,

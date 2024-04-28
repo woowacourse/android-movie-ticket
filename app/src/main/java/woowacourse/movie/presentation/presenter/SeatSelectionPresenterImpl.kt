@@ -1,11 +1,9 @@
 package woowacourse.movie.presentation.presenter
 
-import android.graphics.Color
 import woowacourse.movie.data.repository.ScreeningMovieInfoRepositoryImpl
 import woowacourse.movie.data.repository.SeatRepositoryImpl
-import woowacourse.movie.domain.model.reservation.NewMovieTicket
+import woowacourse.movie.domain.model.reservation.MovieTicket
 import woowacourse.movie.domain.model.reservation.ReservationInfo
-import woowacourse.movie.domain.model.reservation.seat.SeatRank
 import woowacourse.movie.domain.repository.SeatRepository
 import woowacourse.movie.presentation.contract.SeatSelectionContract
 import woowacourse.movie.presentation.uimodel.MovieTicketUiModel
@@ -54,7 +52,7 @@ class SeatSelectionPresenterImpl(
     override fun onAcceptButtonClicked() {
         val movieTicketUiModel =
             MovieTicketUiModel(
-                NewMovieTicket(
+                MovieTicket(
                     0,
                     screeningMovieInfoRepository.getScreeningMovieInfo()!!,
                     reservationInfo,

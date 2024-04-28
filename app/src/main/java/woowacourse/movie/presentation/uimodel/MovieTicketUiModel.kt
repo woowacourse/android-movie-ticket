@@ -2,7 +2,7 @@ package woowacourse.movie.presentation.uimodel
 
 import android.os.Parcel
 import android.os.Parcelable
-import woowacourse.movie.domain.model.reservation.NewMovieTicket
+import woowacourse.movie.domain.model.reservation.MovieTicket
 import woowacourse.movie.presentation.view.SeatSelectionActivity.Companion.SEAT_COL_START_VALUE
 import woowacourse.movie.presentation.view.SeatSelectionActivity.Companion.SEAT_POSITION_TEXT_FORMAT
 import woowacourse.movie.presentation.view.SeatSelectionActivity.Companion.SEAT_ROW_START_VALUE
@@ -47,7 +47,7 @@ data class MovieTicketUiModel(
         return 0
     }
 
-    constructor(movieTicket: NewMovieTicket) : this(
+    constructor(movieTicket: MovieTicket) : this(
         movieTicket.ticketId,
         movieTicket.screeningMovieInfo.title,
         movieTicket.screeningMovieInfo.dateTime.screeningDate.date.format(DEFAULT_DATE_FORMAT),
