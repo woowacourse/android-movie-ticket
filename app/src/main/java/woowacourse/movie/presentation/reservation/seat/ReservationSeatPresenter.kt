@@ -22,7 +22,7 @@ class ReservationSeatPresenter(
     override fun fetch(intent: Intent) {
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         movie = dao.find(movieId)
-        ticket = intent.getSerializableExtra(TICKET) as Ticket
+        ticket = intent.getSerializableExtra(TICKET) as Ticket? ?: ticket
         view.setUpView(movie.title)
     }
 

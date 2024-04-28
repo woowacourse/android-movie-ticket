@@ -21,9 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:text="SCREEN"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            tools:text="SCREEN" />
+            android:textSize="25sp" />
     </LinearLayout>
 
     <TableLayout
@@ -47,6 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:gravity="center"
                 android:text="A1"
                 android:textColor="@color/purple_500"
@@ -54,8 +55,10 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/seat_tv_item2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:gravity="center"
                 android:padding="20dp"
                 android:text="A2"
@@ -141,8 +144,10 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/seat_tv_item10"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:gravity="center"
                 android:text="C2"
                 android:textColor="@color/custom_green"
@@ -225,8 +230,10 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/seat_tv_item18"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:gravity="center"
                 android:text="E2"
                 android:textColor="@color/custom_blue"
@@ -277,6 +284,7 @@
         app:layout_constraintTop_toTopOf="@id/guideline_bottom">
 
         <TextView
+            android:id="@+id/seat_title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -285,9 +293,10 @@
             tools:text="해리 포터와 마법사의 돌" />
 
         <TextView
+            android:id="@+id/seat_selection_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="0원" />
+            android:text="0원" />
 
     </LinearLayout>
 
@@ -304,11 +313,9 @@
         app:layout_constraintTop_toTopOf="@id/guideline_bottom">
 
         <TextView
+            android:id="@+id/seat_complete_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:onClick="onTextViewClick"
-            android:padding="20dp"
             android:text="확인"
             android:textColor="@color/white"
             android:textSize="19sp"

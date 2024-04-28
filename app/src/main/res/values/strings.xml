@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="price_format">%,d</string>
+    <string name="price_format">%,d원</string>
 </resources>
