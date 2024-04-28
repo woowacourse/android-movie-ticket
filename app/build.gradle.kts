@@ -63,6 +63,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     testImplementation("io.mockk:mockk:1.13.5")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
