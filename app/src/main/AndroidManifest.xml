@@ -16,11 +16,6 @@
             android:name=".presentation.seat.SeatSelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.seat.SeatSelectionMainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_seat_selection_main"
-            android:theme="@style/Theme.Movie" />
-        <activity
             android:name=".presentation.screen.MovieScreenActivity"
             android:exported="true">
             <intent-filter>
