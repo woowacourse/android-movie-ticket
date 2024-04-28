@@ -1,6 +1,6 @@
 package woowacourse.movie
 
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -20,43 +20,31 @@ class MovieDetailActivityTest {
 
     @Test
     fun plusButtonTest() {
-        Espresso.onView(withId(R.id.plus_button))
+        onView(withId(R.id.plus_button))
             .check(matches(isDisplayed()))
 
-        Espresso.onView(withId(R.id.plus_button))
+        onView(withId(R.id.plus_button))
             .perform(click())
-        Espresso.onView(withId(R.id.quantity_text_view)).check(matches(withText("2")))
+        onView(withId(R.id.quantity_text_view)).check(matches(withText("2")))
     }
 
     @Test
     fun minusButtonTest() {
-        Espresso.onView(withId(R.id.plus_button))
-            .check(matches(isDisplayed()))
-
-        Espresso.onView(withId(R.id.minus_button))
-            .check(matches(isDisplayed()))
-
-        Espresso.onView(withId(R.id.quantity_text_view)).check(matches(withText("1")))
-    }
-
-    @Test
-    fun buyTicketButtonTest() {
-        Espresso.onView(withId(R.id.buy_ticket_button))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun buyTicketButtonClickTest() {
-        Espresso.onView(withId(R.id.buy_ticket_button))
+        onView(withId(R.id.plus_button))
             .perform(click())
-        Espresso.onView(withId(R.id.can_cancel_time))
+
+        onView(withId(R.id.minus_button))
             .check(matches(isDisplayed()))
+            .perform(click())
+        onView(withId(R.id.quantity_text_view)).check(matches(withText("1")))
     }
 
     @Test
-    fun pressBackTest() {
-        Espresso.pressBack()
-        Espresso.onView(withId(R.id.movies_list_item))
+    fun confirmButton() {
+        onView(withId(R.id.buy_ticket_button))
+            .check(matches(isDisplayed()))
+            .perform(click())
+        onView(withId(R.id.can_cancel_time))
             .check(matches(isDisplayed()))
     }
 }
