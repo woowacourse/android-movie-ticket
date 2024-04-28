@@ -5,12 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -78,7 +78,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
                 }
                 navigateToNextPage(intent)
             } else {
-                Log.e("TheaterSeatActivity", "Theater data is not available.")
+                Toast.makeText(this, "Theater data is not available.", Toast.LENGTH_SHORT).show()
             }
         }
         builder.setNegativeButton("취소") { dialog, _ ->

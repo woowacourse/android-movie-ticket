@@ -26,7 +26,7 @@ class MovieListPresenter(private val view: MovieListActivity) {
                     2, 3 -> "S"
                     else -> "A"
                 }
-                seats[seatId] = Seat(('A' + row).toChar(), col, grade)
+                seats[seatId] = Seat(('A' + row), col, grade)
             }
         }
         return seats
@@ -46,7 +46,7 @@ class MovieListPresenter(private val view: MovieListActivity) {
         }
     }
 
-    private val theaters: List<Theater> = generateTheaters(10000)
+    private val theaters: List<Theater> = generateTheaters(GENERATE_DUMMY_DATA_NUM)
 
     private fun convertToDisplayData(theaters: List<Theater>): List<MovieDisplayData> {
         return theaters.map { theater ->
@@ -69,5 +69,9 @@ class MovieListPresenter(private val view: MovieListActivity) {
     fun loadMovies() {
         val displayData = convertToDisplayData(theaters)
         view.updateAdapter(displayData)
+    }
+
+    companion object {
+        const val GENERATE_DUMMY_DATA_NUM = 10000
     }
 }
