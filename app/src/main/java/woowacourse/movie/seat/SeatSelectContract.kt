@@ -29,6 +29,8 @@ interface SeatSelectContract {
     }
 
     interface Presenter {
+        fun loadSavedData()
+
         fun loadMovieTitle()
 
         fun loadReservationInformation()

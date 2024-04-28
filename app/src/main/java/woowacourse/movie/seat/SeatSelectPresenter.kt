@@ -8,8 +8,14 @@ class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
     private val movieId: Int,
     private val ticket: Ticket,
+    val seats: MutableList<String> = mutableListOf(),
 ) : SeatSelectContract.Presenter {
-    private val seats = mutableListOf<String>()
+    private val totalPrice
+        get() = Rank.calculateTotalPrice(getRanks(seats))
+
+    override fun loadSavedData() {
+        view.showTotalPrice(totalPrice)
+    }
 
     override fun confirm() {
         view.showConfirmDialog()
@@ -17,7 +23,6 @@ class SeatSelectPresenter(
 
     override fun loadMovieTitle() {
         val title = Movies.obtainMovie(movieId).title
-        val totalPrice = Rank.calculateTotalPrice(getRanks(seats))
 
         view.showReservationInfo(title, totalPrice)
     }
@@ -36,7 +41,6 @@ class SeatSelectPresenter(
         onColor: (Int) -> Unit,
     ) {
         seats.add(seat)
-        val totalPrice = Rank.calculateTotalPrice(getRanks(seats))
         val isAvailable = ticket.count == seats.size
 
         view.showTotalPrice(totalPrice)
@@ -49,7 +53,6 @@ class SeatSelectPresenter(
         onColor: (Int) -> Unit,
     ) {
         seats.remove(seat)
-        val totalPrice = Rank.calculateTotalPrice(getRanks(seats))
         val isAvailable = ticket.count == seats.size
 
         view.showTotalPrice(totalPrice)
@@ -60,8 +63,8 @@ class SeatSelectPresenter(
     private fun getRanks(seat: List<String>): List<Rank> {
         return seat.map {
             when (it[0]) {
-                'S' -> Rank.S
-                'A' -> Rank.A
+                'C', 'D' -> Rank.S
+                'A', 'B' -> Rank.A
                 else -> Rank.B
             }
         }

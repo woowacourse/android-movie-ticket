@@ -34,7 +34,13 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             intent.getSerializableExtra(TICKET, Ticket::class.java)
                 ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
 
-        presenter = SeatSelectPresenter(this, movieId, ticket)
+        presenter =
+            if (savedInstanceState == null) {
+                SeatSelectPresenter(this, movieId, ticket)
+            } else {
+                val seats = savedInstanceState.getStringArray("seats")
+                SeatSelectPresenter(this, movieId, ticket, seats!!.toMutableList())
+            }
         presenter.loadMovieTitle()
 
         seats.children
@@ -57,6 +63,12 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         reservationButton.setOnClickListener {
             presenter.confirm()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putStringArray("seats", presenter.seats.toTypedArray())
     }
 
     override fun showReservationInfo(
