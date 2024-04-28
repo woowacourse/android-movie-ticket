@@ -3,6 +3,7 @@ package woowacourse.movie.moviereservation.uimodel
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 @Parcelize
@@ -18,6 +19,10 @@ data class BookingInfoUiModel(
         SelectedDateUiModel(date = date),
         SelectedTimeUiModel(time = time),
     )
+
+    fun maxSelectSize() = count.count.toInt()
+
+    fun localDateTime() = LocalDateTime.of(date.getLocalDate(), time.getLocalTime())
 
     fun updateCount(updatedCount: HeadCountUiModel): BookingInfoUiModel = BookingInfoUiModel(movieId, updatedCount, date, time)
 

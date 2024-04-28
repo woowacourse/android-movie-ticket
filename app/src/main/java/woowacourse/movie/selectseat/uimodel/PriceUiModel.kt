@@ -1,7 +1,8 @@
 package woowacourse.movie.selectseat.uimodel
 
+
 data class PriceUiModel(
     val price: String,
 ) {
-    constructor(price: Int) : this(price.toString() + "원")
+    constructor(price: Int) : this(String.format("%,d", price) + "원")
 }
