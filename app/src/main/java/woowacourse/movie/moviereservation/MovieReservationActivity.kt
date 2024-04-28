@@ -24,7 +24,7 @@ import woowacourse.movie.selectseat.SelectSeatActivity
 import woowacourse.movie.util.bundleParcelable
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
-    private lateinit var presenter: MovieReservationPresenter
+    private lateinit var presenter: MovieReservationContract.Presenter
     private lateinit var countView: TextView
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
@@ -39,7 +39,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        val id = intent.getLongExtra(EXTRA_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
+        val id = movieId()
         initView()
         initClickListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -49,6 +49,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             )
 
         showInitView(id)
+    }
+
+    private fun movieId(): Long {
+        val movieId = intent.getLongExtra(EXTRA_SCREEN_MOVIE_ID, INVALID_SCREEN_MOVIE_ID)
+        if (movieId == INVALID_SCREEN_MOVIE_ID) {
+            error("movieId에 관한 정보가 없습니다.")
+        }
+        return movieId
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
