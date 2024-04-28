@@ -93,12 +93,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             presenter.increaseTicketCount()
         }
         ticketingButton.setOnClickListener {
-            requestTicketCount { ticketCount ->
-                presenter.reservation(
-                    title = titleView.text.toString(),
-                    count = ticketCount,
-                )
-            }
+            presenter.reservation(
+                title = titleView.text.toString(),
+                count = presenter.getTicketCount(),
+            )
         }
     }
 
@@ -115,9 +113,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun showCurrentResultTicketCountView() {
-        requestTicketCount { ticketCount ->
-            ticketCountView.text = ticketCount.toString()
-        }
+        ticketCountView.text = presenter.getTicketCount().toString()
     }
 
     override fun showDate(dates: List<LocalDate>) {
@@ -167,15 +163,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun moveToSeatSelection(pendingMovieReservation: PendingMovieReservationModel) {
         val intent = Intent(this@MovieReservationActivity, SeatSelectionActivity::class.java)
-        intent.putExtra(MovieReservationPresenter.KEY_NAME_PENDING_RESERVATION, pendingMovieReservation as Serializable)
+        intent.putExtra(
+            MovieReservationPresenter.KEY_NAME_PENDING_RESERVATION,
+            pendingMovieReservation as Serializable
+        )
         this@MovieReservationActivity.startActivity(intent)
     }
 
-    override fun requestTicketCount(count: (Int) -> Unit) {
-        count(presenter.getTicketCount())
-    }
-
-    private fun loadSavedData(savedInstanceState: Bundle?){
+    private fun loadSavedData(savedInstanceState: Bundle?) {
         val savedCount =
             savedInstanceState?.getInt(KEY_TICKET_COUNT) ?: TicketCounter.MIN_TICKET_COUNT
         val defaultMovieDateTimeModel = MovieDateTime().toMovieDateModel()

@@ -20,8 +20,6 @@ interface MovieReservationContract {
         fun showTime(times: List<LocalTime>)
 
         fun moveToSeatSelection(pendingMovieReservation: PendingMovieReservationModel)
-
-        fun requestTicketCount(count: (Int) -> Unit)
     }
 
     interface Presenter {
