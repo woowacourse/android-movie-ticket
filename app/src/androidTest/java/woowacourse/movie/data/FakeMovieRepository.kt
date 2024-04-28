@@ -51,11 +51,7 @@ class FakeMovieRepository : MovieRepository {
         }
     }
 
-    override fun movieReservationById(id: Long): Result<MovieReservation> {
-        return runCatching {
-            reservations.find { it.id == id } ?: error(
-                "$id : id에 해당 하는 예약 내역이 없습니다.",
-            )
-        }
+    override fun movieReservationById(id: Long): MovieReservation? {
+        return reservations.find { it.id == id }
     }
 }

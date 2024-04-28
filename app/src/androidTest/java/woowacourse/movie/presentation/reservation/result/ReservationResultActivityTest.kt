@@ -87,7 +87,7 @@ class ReservationResultActivityTest {
                     count: HeadCount,
                     selectedSeats: Seats,
                 ): Result<Long> {
-                    TODO("Not yet implemented")
+                    throw UnsupportedOperationException()
                 }
 
                 override fun movieReservationById(id: Long): Result<MovieReservation> {

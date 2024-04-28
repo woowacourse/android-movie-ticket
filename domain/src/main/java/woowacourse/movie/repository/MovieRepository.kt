@@ -25,5 +25,5 @@ interface MovieRepository {
         selectedSeats: Seats,
     ): Result<Long>
 
-    fun movieReservationById(id: Long): Result<MovieReservation>
+    fun movieReservationById(id: Long): MovieReservation?
 }
