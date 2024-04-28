@@ -35,19 +35,55 @@
 
         <TableRow android:gravity="center">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:background="@drawable/sel_seat_btn"
+                android:button="@null"
+                android:gravity="center"
+                android:layout_height="90dp" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
                 android:layout_height="90dp"
+                android:gravity="center"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
                 android:layout_height="90dp"
+                android:gravity="center"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
                 android:layout_height="90dp"
+                android:gravity="center"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+        </TableRow>
+
+        <TableRow android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:background="@drawable/sel_seat_btn" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:background="@drawable/sel_seat_btn" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:background="@drawable/sel_seat_btn" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
@@ -55,39 +91,27 @@
 
         <TableRow android:gravity="center">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
                 android:layout_height="90dp"
+                android:gravity="center"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
                 android:layout_height="90dp"
+                android:gravity="center"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
                 android:layout_height="90dp"
+                android:gravity="center"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
-
-        </TableRow>
-
-        <TableRow android:gravity="center">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
-
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
@@ -95,19 +119,27 @@
 
         <TableRow android:gravity="center">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
@@ -115,19 +147,27 @@
 
         <TableRow android:gravity="center">
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:layout_height="90dp"
+                android:gravity="center"
+                android:background="@drawable/sel_seat_btn" />
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_btn" />
-
-            <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:button="@null"
+                android:gravity="center"
                 android:layout_height="90dp"
                 android:background="@drawable/sel_seat_btn" />
 
@@ -169,7 +209,8 @@
             app:layout_constraintTop_toBottomOf="@id/tv_select_seat_title"
             tools:text="0원" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
+            android:id="@+id/btn_select_seat_reserve"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@color/gray_300"
