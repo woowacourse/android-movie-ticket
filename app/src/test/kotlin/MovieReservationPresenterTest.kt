@@ -26,7 +26,7 @@ class MovieReservationPresenterTest {
     @DisplayName("영화 정보를 불러오면 화면에 나타난다")
     fun show_movie_info_When_load_movie_data() {
         every { view.showMovieInfo(any()) } just Runs
-        every { view.showScreeningDateTime(any()) } just Runs
+        every { view.showDefaultBookingInfo(any(), any()) } just Runs
 
         presenter.loadMovieDetail(1)
 
@@ -67,25 +67,5 @@ class MovieReservationPresenterTest {
 
         verify(exactly = 1) { view.showCantDecreaseError(1) }
         verify(exactly = 0) { view.updateHeadCount(any()) }
-    }
-
-    @Test
-    @DisplayName("예매에 성공하면 결과 화면으로 이동한다.")
-    fun go_to_Result_view_When_reservation_success() {
-        every { view.navigateToReservationResultView(any()) } just Runs
-
-        presenter.completeReservation(1, HeadCountUiModel("1"))
-
-        verify(exactly = 1) { view.navigateToReservationResultView(any()) }
-    }
-
-    @Test
-    @DisplayName("예매에 실패하면 에러 메시지를 띄운다.")
-    fun show_error_message_When_reservation_fail() {
-        every { view.showMovieReservationError() } just Runs
-
-        presenter.completeReservation(0, HeadCountUiModel("1"))
-
-        verify(exactly = 1) { view.showMovieReservationError() }
     }
 }

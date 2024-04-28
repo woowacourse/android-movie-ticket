@@ -2,10 +2,9 @@ package woowacourse.movie.moviereservation
 
 import android.util.Log
 import woowacourse.movie.model.HeadCount
+import woowacourse.movie.moviereservation.uimodel.BookingInfoUiModel
 import woowacourse.movie.moviereservation.uimodel.HeadCountUiModel
 import woowacourse.movie.repository.MovieRepository
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
@@ -13,11 +12,19 @@ class MovieReservationPresenter(
 ) : MovieReservationContract.Presenter {
     override fun loadMovieDetail(screenMovieId: Long) {
         runCatching {
-            val screeningMovie = repository.screenMovieById(screenMovieId)
+            repository.screenMovieById(screenMovieId)
+        }.onSuccess { screeningMovie ->
             view.showMovieInfo(screeningMovie.toMovieReservationUiModel())
-            view.showScreeningDateTime(screeningMovie.toScreeningDateTimeUiModel())
+            view.showDefaultBookingInfo(
+                screeningMovie.toScreeningDateTimeUiModel(),
+                BookingInfoUiModel(
+                    screenMovieId,
+                    HeadCount.MIN_COUNT,
+                    screeningMovie.startDate,
+                    screeningMovie.screenDateTimes.first().times.first(),
+                ),
+            )
         }.onFailure {
-            Log.d("테스트", "${it.message}")
             view.showScreeningMovieError()
         }
     }
@@ -36,26 +43,5 @@ class MovieReservationPresenter(
         }.onFailure {
             view.showCantDecreaseError(HeadCount.MIN_COUNT)
         }
-    }
-
-    override fun completeReservation(
-        screenMovieId: Long,
-        currentCount: HeadCountUiModel,
-    ) {
-        runCatching {
-            repository.reserveMovie(
-                screenMovieId,
-                dateTime = repository.screenMovieById(screenMovieId).screenDateTimes.first().date.toDefaultLocalDateTime(),
-                count = currentCount.toHeadCount(),
-            )
-        }.onSuccess {
-            view.navigateToReservationResultView(it)
-        }.onFailure {
-            view.showMovieReservationError()
-        }
-    }
-
-    companion object {
-        private fun LocalDate.toDefaultLocalDateTime(): LocalDateTime = this.atTime(0, 0, 0)
     }
 }
