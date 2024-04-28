@@ -4,6 +4,7 @@
     <dimen name="seat_margin">34dp</dimen>
 
     <dimen name="size_0">0dp</dimen>
+    <dimen name="size_2">2dp</dimen>
     <dimen name="size_6">6dp</dimen>
     <dimen name="size_8">8dp</dimen>
     <dimen name="size_9">9dp</dimen>

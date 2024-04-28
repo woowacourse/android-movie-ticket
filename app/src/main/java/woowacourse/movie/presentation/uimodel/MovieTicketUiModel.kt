@@ -7,6 +7,7 @@ data class MovieTicketUiModel(
     val movieTitle: String,
     val screeningDate: String,
     val reservationCount: Int,
+    val reservationSeats: String,
     val totalPrice: Int,
 ) {
     companion object {
@@ -15,6 +16,7 @@ data class MovieTicketUiModel(
                 movieTitle = movieTicket.movieTitle,
                 screeningDate = movieTicket.screeningDate.dateToString(),
                 reservationCount = movieTicket.reservationCount,
+                reservationSeats = movieTicket.reservationSeats.toString(),
                 totalPrice = movieTicket.totalPrice(),
             )
         }

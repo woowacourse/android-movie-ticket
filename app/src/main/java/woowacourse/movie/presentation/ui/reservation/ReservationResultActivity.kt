@@ -22,8 +22,8 @@ class ReservationResultActivity : BaseActivity(), ReservationResultContract.View
     override fun showTicketData(movieTicket: MovieTicketUiModel) {
         findViewById<TextView>(R.id.title).text = movieTicket.movieTitle
         findViewById<TextView>(R.id.screeningDate).text = movieTicket.screeningDate
-        findViewById<TextView>(R.id.reservationCount).text =
-            getString(R.string.reservation_count_format, movieTicket.reservationCount)
+        findViewById<TextView>(R.id.reservationCountAndSeats).text =
+            getString(R.string.reservation_count_format, movieTicket.reservationCount, movieTicket.reservationSeats.toString())
         findViewById<TextView>(R.id.totalPrice).text =
             getString(R.string.total_price_format, movieTicket.totalPrice)
     }
