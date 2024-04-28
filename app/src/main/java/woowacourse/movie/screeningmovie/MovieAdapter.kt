@@ -78,7 +78,7 @@ class MovieAdapter(
         }
     }
 
-    override fun getItemCount(): Int = movies.size + movies.size / 4
+    override fun getItemCount(): Int = movies.size + movies.size / ADVERTISE_INTERVAL
 
     companion object {
         private const val MOVIE = 0
