@@ -7,8 +7,17 @@
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="min_reservation_count_text">1</string>
+    <string name="seats_selection_text">좌석 선택</string>
+    <string name="screen">SCREEN</string>
+    <string name="default_seat_position">A1</string>
+    <string name="seat_total_price_format">%1$,d원</string>
+    <string name="confirmation_text">확인</string>
+    <string name="reservation_confirm_message">선택한 좌석으로 예매를 진행할까요?</string>
     <string name="reservation_finish_text">예매 완료</string>
+    <string name="cancel_text">취소</string>
     <string name="reservation_cancel_info">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="reservation_count_format">일반 %1$d명</string>
+    <string name="screening_time_format">%1$s ~ %2$s</string>
+    <string name="running_time">(%1$d분)</string>
+    <string name="reservation_info_format">일반 %1$d명 | %2$s</string>
     <string name="reservation_total_price_format">%1$,d원 (현장 결제)</string>
 </resources>

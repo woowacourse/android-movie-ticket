@@ -25,7 +25,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         findViewById(R.id.timeSpinner)
     }
     private val reservationCountTextView: TextView by lazy {
-        findViewById(R.id.reservationCount)
+        findViewById(R.id.reservationInfo)
     }
     private val reserveButton: Button by lazy {
         findViewById(R.id.reserveButton)
@@ -162,19 +162,14 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         reservationCountTextView.text = count.toString()
     }
 
-    override fun moveToReservationResult(
-        title: String,
-        screeningStartDate: String,
+    override fun moveToSeatSelection(
         reservationCount: Int,
-        totalPrice: Int,
+        title: String,
     ) {
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        intent.putExtra(ReservationResultActivity.INTENT_TITLE, title)
-        intent.putExtra(ReservationResultActivity.INTENT_SCREENING_DATE, screeningStartDate)
-        intent.putExtra(ReservationResultActivity.INTENT_RESERVATION_COUNT, reservationCount)
-        intent.putExtra(ReservationResultActivity.INTENT_TOTAL_PRICE, totalPrice)
+        val intent = Intent(this, SeatSelectionActivity::class.java)
+        intent.putExtra(SeatSelectionActivity.INTENT_TITLE, title)
+        intent.putExtra(SeatSelectionActivity.INTENT_RESERVATION_COUNT, reservationCount)
         startActivity(intent)
-
     }
 
     private fun setReserveButton() {

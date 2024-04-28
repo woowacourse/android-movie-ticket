@@ -1,10 +1,12 @@
 package woowacourse.movie.presentation.presenter
 
 import woowacourse.movie.data.repository.MovieRepositoryImpl
+import woowacourse.movie.data.repository.ScreeningMovieInfoRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.reservation.ReservationCount
 import woowacourse.movie.domain.model.reservation.ScreeningMovieInfo
 import woowacourse.movie.domain.repository.MovieRepository
+import woowacourse.movie.domain.repository.ScreeningMovieInfoRepository
 import woowacourse.movie.presentation.contract.MovieDetailContract
 import woowacourse.movie.presentation.uimodel.MovieUiModel
 import java.time.LocalDate
@@ -19,6 +21,8 @@ class MovieDetailPresenterImpl(
     private val movie: Movie = movieRepository.findMovieById(movieId)
     private val screeningMovieInfo: ScreeningMovieInfo = setScreeningMovieInfo()
     private val reservationCount: ReservationCount = ReservationCount()
+    private val screeningMovieInfoRepository: ScreeningMovieInfoRepository =
+        ScreeningMovieInfoRepositoryImpl
 
     private fun setScreeningMovieInfo(): ScreeningMovieInfo {
         return ScreeningMovieInfo(movie.title, movie.screeningInfo)
@@ -85,13 +89,8 @@ class MovieDetailPresenterImpl(
     }
 
     override fun onReserveButtonClicked() {
-        // TODO: 임시 데이터, 좌석 예약 정보에 따라 전달되는 값 변경 필요
-        view?.moveToReservationResult(
-            title = screeningMovieInfo.title,
-            screeningStartDate = screeningMovieInfo.dateTime.screeningDate.date.toString(),
-            reservationCount = reservationCount.count,
-            totalPrice = 0,
-        )
+        screeningMovieInfoRepository.saveMovieInfo(screeningMovieInfo)
+        view?.moveToSeatSelection(reservationCount.count, screeningMovieInfo.title)
     }
 
     private fun getScreeningTimeSchedule(isWeekend: Boolean): List<String> {

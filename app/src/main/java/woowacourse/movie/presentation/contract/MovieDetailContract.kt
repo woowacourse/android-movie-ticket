@@ -19,11 +19,9 @@ interface MovieDetailContract {
 
         fun showReservationCount(count: Int)
 
-        fun moveToReservationResult(
-            title: String,
-            screeningStartDate: String,
+        fun moveToSeatSelection(
             reservationCount: Int,
-            totalPrice: Int,
+            title: String,
         )
     }
 

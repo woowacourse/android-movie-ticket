@@ -5,7 +5,7 @@ import woowacourse.movie.domain.model.reservation.seat.SelectedSeats
 
 class ReservationInfo(
     val reservationCount: Int,
-    seatingChart: SeatingChart,
+    val seatingChart: SeatingChart,
 ) {
     val selectedSeats = SelectedSeats(seatingChart, reservationCount)
 }

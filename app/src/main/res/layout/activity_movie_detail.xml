@@ -139,7 +139,7 @@
             app:layout_constraintTop_toBottomOf="@id/timeSpinner" />
 
         <TextView
-            android:id="@+id/reservationCount"
+            android:id="@+id/reservationInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLength="3"
@@ -159,7 +159,7 @@
             android:layout_marginStart="@dimen/size_20"
             android:layout_marginEnd="@dimen/size_20"
             android:layout_marginBottom="@dimen/size_20"
-            android:text="@string/reservation_finish_text"
+            android:text="@string/seats_selection_text"
             android:textSize="@dimen/size_20"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

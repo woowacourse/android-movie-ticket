@@ -1,8 +1,8 @@
 package woowacourse.movie.domain.model.reservation.seat
 
 class SeatingChart(
-    private val rowCount: Int = ROW_SEAT_COUNT,
-    private val colCount: Int = COL_SEAT_COUNT,
+    val rowCount: Int = ROW_SEAT_COUNT,
+    val colCount: Int = COL_SEAT_COUNT,
 ) {
     fun classifySeatByRow(
         row: Int,
@@ -25,6 +25,14 @@ class SeatingChart(
             row in MIN_POS_NUM until rowCount
                 && col in MIN_POS_NUM until colCount
         ) { IllegalArgumentException("좌석의 범위를 벗어났습니다.") }
+    }
+
+    fun getSeatRankInfo(): List<IntRange> {
+        return listOf(
+            B_RANK_ROW,
+            S_RANK_ROW,
+            A_RANK_ROW,
+        )
     }
 
     companion object {
