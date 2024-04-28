@@ -21,4 +21,10 @@ data class ScreeningDate(val date: LocalDate) {
             it.plusDays(1)
         }.map { ScreeningDate(it) }.take(days + 1).toList()
     }
+
+    companion object {
+        fun of(year: Int, month: Int, day: Int): ScreeningDate {
+            return ScreeningDate(LocalDate.of(year, month, day))
+        }
+    }
 }
