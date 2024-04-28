@@ -14,11 +14,11 @@ import woowacourse.movie.data.SeatRepositoryImpl
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.SeatType
 import woowacourse.movie.presentation.detail.TicketDetailActivity
+import woowacourse.movie.presentation.model.MovieSeatModel
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.seat.SeatSelectionPresenter.Companion.KEY_NAME_SEATS
-import woowacourse.movie.presentation.model.MovieSeatModel
 import java.io.Serializable
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
@@ -42,12 +42,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         presenter.loadSeat()
         val saveSates =
             savedInstanceState?.getSerializable(KEY_NAME_SEATS) as? List<MovieSeatModel> ?: listOf()
-        presenter.initSavedInstance(saveSates)
+        presenter.initSavedInstanceData(saveSates)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        presenter.saveInstance(outState)
+        saveInstance(outState)
     }
 
     private fun initView() {
@@ -158,6 +158,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     ): TextView {
         val tableRowAtIndex = seatTable.getChildAt(rowIndex) as TableRow
         return tableRowAtIndex.getChildAt(columnIndex) as TextView
+    }
+
+    private fun saveInstance(outState: Bundle) {
+        val movieModels = presenter.makeSavedSeats()
+        outState.putSerializable(KEY_NAME_SEATS, movieModels as Serializable)
     }
 
     companion object {

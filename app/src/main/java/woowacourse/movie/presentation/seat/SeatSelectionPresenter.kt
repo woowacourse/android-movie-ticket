@@ -1,18 +1,16 @@
 package woowacourse.movie.presentation.seat
 
-import android.os.Bundle
 import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.ReservationMovieSeats
+import woowacourse.movie.domain.model.SeatSelectState
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.repository.SeatRepository
-import woowacourse.movie.presentation.model.PendingMovieReservationModel
-import woowacourse.movie.presentation.model.toTicketModel
 import woowacourse.movie.presentation.model.MovieSeatModel
-import woowacourse.movie.domain.model.SeatSelectState
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.toMovieSeat
 import woowacourse.movie.presentation.model.toMovieSeatModel
-import java.io.Serializable
+import woowacourse.movie.presentation.model.toTicketModel
 
 class SeatSelectionPresenter(
     private val pendingMovieReservationModel: PendingMovieReservationModel,
@@ -63,10 +61,10 @@ class SeatSelectionPresenter(
             Ticket(
                 title = pendingMovieReservationModel.title,
                 movieDateTime =
-                    MovieDateTime(
-                        pendingMovieReservationModel.movieDate.screeningDate,
-                        pendingMovieReservationModel.movieDate.screeningTime,
-                    ),
+                MovieDateTime(
+                    pendingMovieReservationModel.movieDate.screeningDate,
+                    pendingMovieReservationModel.movieDate.screeningTime,
+                ),
                 count = pendingMovieReservationModel.count,
                 price = reservationMovieSeats.getTotalSeatPrice(),
                 seats = reservationMovieSeats.userSeats,
@@ -80,17 +78,16 @@ class SeatSelectionPresenter(
         }
     }
 
-    override fun saveInstance(outState: Bundle) {
-        val movieModels = reservationMovieSeats.userSeats.map { it.toMovieSeatModel() }
-        outState.putSerializable(KEY_NAME_SEATS, movieModels as Serializable)
-    }
-
-    override fun initSavedInstance(seats: List<MovieSeatModel>) {
+    override fun initSavedInstanceData(seats: List<MovieSeatModel>) {
         seatRepository
             .getSeatRowAndColumn(seats.map { it.toMovieSeat() })
             .forEach {
                 selectSeat(it.first, it.second)
             }
+    }
+
+    override fun makeSavedSeats(): List<MovieSeatModel> {
+        return reservationMovieSeats.userSeats.map { it.toMovieSeatModel() }
     }
 
     private fun updateSeatTypeInView() {

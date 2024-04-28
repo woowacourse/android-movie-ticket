@@ -1,10 +1,9 @@
 package woowacourse.movie.presentation.seat
 
-import android.os.Bundle
 import woowacourse.movie.domain.model.MovieSeat
+import woowacourse.movie.presentation.model.MovieSeatModel
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
-import woowacourse.movie.presentation.model.MovieSeatModel
 
 interface SeatSelectionContract {
     interface View {
@@ -31,6 +30,7 @@ interface SeatSelectionContract {
         fun moveToTicketDetail(ticket: TicketModel)
 
         fun showDialog()
+
     }
 
     interface Presenter {
@@ -49,8 +49,8 @@ interface SeatSelectionContract {
 
         fun confirmSeatResult()
 
-        fun saveInstance(outState: Bundle)
+        fun initSavedInstanceData(seats: List<MovieSeatModel>)
 
-        fun initSavedInstance(seats: List<MovieSeatModel>)
+        fun makeSavedSeats() : List<MovieSeatModel>
     }
 }
