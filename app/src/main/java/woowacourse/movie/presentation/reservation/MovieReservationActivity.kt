@@ -57,18 +57,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         setContentView(R.layout.activity_movie_reservation)
         initView()
         presenter.loadMovie()
-        val savedCount =
-            savedInstanceState?.getInt(KEY_TICKET_COUNT) ?: TicketCounter.MIN_TICKET_COUNT
-        val defaultMovieDateTimeModel = MovieDateTime().toMovieDateModel()
-        val savedDate =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState?.getSerializable(KEY_MOVIE_DATE, MovieDateModel::class.java)
-                    ?: defaultMovieDateTimeModel
-            } else {
-                savedInstanceState?.getSerializable(KEY_MOVIE_DATE) as? MovieDateModel
-                    ?: defaultMovieDateTimeModel
-            }
-        presenter.initSavedInstance(savedCount, savedDate)
+        loadSavedData(savedInstanceState)
         showCurrentResultTicketCountView()
         setClickListener()
     }
@@ -184,5 +173,20 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun requestTicketCount(count: (Int) -> Unit) {
         count(presenter.getTicketCount())
+    }
+
+    private fun loadSavedData(savedInstanceState: Bundle?){
+        val savedCount =
+            savedInstanceState?.getInt(KEY_TICKET_COUNT) ?: TicketCounter.MIN_TICKET_COUNT
+        val defaultMovieDateTimeModel = MovieDateTime().toMovieDateModel()
+        val savedDate =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                savedInstanceState?.getSerializable(KEY_MOVIE_DATE, MovieDateModel::class.java)
+                    ?: defaultMovieDateTimeModel
+            } else {
+                savedInstanceState?.getSerializable(KEY_MOVIE_DATE) as? MovieDateModel
+                    ?: defaultMovieDateTimeModel
+            }
+        presenter.initSavedInstance(savedCount, savedDate)
     }
 }
