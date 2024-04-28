@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import java.io.Serializable
 import java.text.DecimalFormat
 import java.time.LocalDate
@@ -19,6 +20,14 @@ object MovieUtils {
         context: Context,
         amount: Int,
     ): String = DecimalFormat(context.getString(R.string.all_price)).format(amount)
+
+    fun makeToast(
+        context: Context,
+        message: String,
+    ) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT)
+            .show()
+    }
 
     fun <T : Serializable> Bundle.bundleSerializable(
         key: String,

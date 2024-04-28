@@ -10,10 +10,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.MovieUtils.bundleSerializable
 import woowacourse.movie.MovieUtils.convertPeriodFormat
+import woowacourse.movie.MovieUtils.makeToast
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.model.Movie
@@ -68,11 +68,18 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.let {
-            val ticket = it.bundleSerializable(TICKET, Ticket::class.java) ?: Ticket()
-            val selectedTimeId = it.getInt(SCREENING_TIME, 0)
-            presenter.ticket.restoreTicket(ticket.count)
-            numberOfTickets.text = presenter.ticket.count.toString()
+        savedInstanceState.let { bundle ->
+            runCatching {
+                bundle.bundleSerializable(TICKET, Ticket::class.java) ?: throw NoSuchElementException()
+            }.onSuccess { ticket ->
+                presenter.ticket.restoreTicket(ticket.count)
+                numberOfTickets.text = presenter.ticket.count.toString()
+            }.onFailure {
+                showErrorToast()
+                finish()
+            }
+
+            val selectedTimeId = bundle.getInt(SCREENING_TIME, 0)
             updateScreeningTimes(movieId, selectedTimeId)
         }
     }
@@ -110,10 +117,9 @@ class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract
         numberOfTickets.text = count.toString()
     }
 
-    override fun showResultToast() {
-        Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT)
-            .show()
-    }
+    override fun showResultToast() = makeToast(this, getString(R.string.invalid_number_of_tickets))
+
+    override fun showErrorToast() = makeToast(this, getString(R.string.all_error))
 
     override fun navigateToSeatSelection(
         movieId: Int,

@@ -64,5 +64,7 @@ interface SeatSelectionContract {
         fun navigateToFinished(seats: Seats)
 
         fun restoreSelectedSeats(selectedSeats: List<Int>)
+
+        fun showErrorToast()
     }
 }

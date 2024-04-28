@@ -24,6 +24,8 @@ interface ReservationDetailContract {
             movieId: Int,
             ticket: Ticket,
         )
+
+        fun showErrorToast()
     }
 
     interface Presenter {

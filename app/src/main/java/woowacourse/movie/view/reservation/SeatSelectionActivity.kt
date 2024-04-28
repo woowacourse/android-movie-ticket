@@ -12,6 +12,7 @@ import androidx.core.view.children
 import woowacourse.movie.MovieUtils.bundleSerializable
 import woowacourse.movie.MovieUtils.convertAmountFormat
 import woowacourse.movie.MovieUtils.intentSerializable
+import woowacourse.movie.MovieUtils.makeToast
 import woowacourse.movie.R
 import woowacourse.movie.db.ScreeningDao
 import woowacourse.movie.db.SeatsDao
@@ -61,13 +62,13 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.let {
-            val ticket = it.bundleSerializable(TICKET, Ticket::class.java) ?: Ticket()
-            val seats = it.bundleSerializable(SEATS, Seats::class.java) ?: Seats()
-            val index = it.getIntegerArrayList(SEATS_INDEX) ?: emptyList<Int>()
-            with(presenter) {
-                restoreSeats(seats, index.toList())
-                restoreReservation(ticket.count)
+        savedInstanceState.let { bundle ->
+            runCatching {
+                restoreSeatsData(bundle)
+                restoreReservationData(bundle)
+            }.onFailure {
+                showErrorToast()
+                finish()
             }
         }
     }
@@ -157,6 +158,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
+    override fun showErrorToast() = makeToast(this, getString(R.string.all_error))
+
     private fun takeMovieId() =
         intent.getIntExtra(
             ReservationHomeActivity.MOVIE_ID,
@@ -175,6 +178,17 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         confirmButton.setOnClickListener {
             presenter.initializeConfirmButton()
         }
+    }
+
+    private fun restoreReservationData(bundle: Bundle) {
+        val ticket = bundle.bundleSerializable(TICKET, Ticket::class.java) ?: throw NoSuchElementException()
+        presenter.restoreReservation(ticket.count)
+    }
+
+    private fun restoreSeatsData(bundle: Bundle) {
+        val seats = bundle.bundleSerializable(SEATS, Seats::class.java) ?: throw NoSuchElementException()
+        val index = bundle.getIntegerArrayList(SEATS_INDEX) ?: throw NoSuchElementException()
+        presenter.restoreSeats(seats, index.toList())
     }
 
     companion object {

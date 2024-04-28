@@ -3,6 +3,7 @@
 
     <!-- common -->
     <string name="all_price">#,###</string>
+    <string name="all_error">"예기치 못한 오류가 발생했습니다."</string>
 
     <!-- ReservationDetailActivity -->
     <string name="invalid_number_of_tickets">"범위를 벗어난 티켓 갯수입니다."</string>
