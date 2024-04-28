@@ -16,6 +16,8 @@ interface SeatSelectContract {
             onColor: (Int) -> Unit,
         )
 
+        fun showConfirmDialog()
+
         fun moveToReservationFinished()
     }
 
@@ -31,5 +33,7 @@ interface SeatSelectContract {
             position: Int,
             onColor: (Int) -> Unit,
         )
+
+        fun confirm()
     }
 }

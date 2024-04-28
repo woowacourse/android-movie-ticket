@@ -11,6 +11,10 @@ class SeatSelectPresenter(
 ) : SeatSelectContract.Presenter {
     private val ranks = mutableListOf<Rank>()
 
+    override fun confirm() {
+        view.showConfirmDialog()
+    }
+
     override fun loadMovieTitle() {
         val title = Movies.obtainMovie(movieId).title
         val totalPrice = Rank.calculateTotalPrice(ranks)

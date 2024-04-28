@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
@@ -50,6 +51,10 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
                     it.isSelected = !it.isSelected
                 }
             }
+
+        reservationButton.setOnClickListener {
+            presenter.confirm()
+        }
     }
 
     override fun showReservationInfo(
@@ -83,6 +88,18 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         } else {
             onColor(R.color.yellow)
         }
+    }
+
+    override fun showConfirmDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("예매 확인")
+            .setMessage("정말 예매하시겠습니까?")
+            .setPositiveButton("예매 완료") { _, _ -> }
+            .setNegativeButton("취소") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
     }
 
     override fun moveToReservationFinished() {
