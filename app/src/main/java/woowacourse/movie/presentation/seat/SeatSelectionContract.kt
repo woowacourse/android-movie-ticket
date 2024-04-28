@@ -2,12 +2,13 @@ package woowacourse.movie.presentation.seat
 
 import android.os.Bundle
 import woowacourse.movie.domain.model.MovieSeat
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.seat.model.MovieSeatModel
 
 interface SeatSelectionContract {
     interface View {
-        fun showTicket(ticketModel: TicketModel)
+        fun showTicket(pendingMovieReservationModel: PendingMovieReservationModel)
 
         fun showSeat(seats: List<List<MovieSeat>>)
 

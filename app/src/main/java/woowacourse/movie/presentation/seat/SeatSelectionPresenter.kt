@@ -6,6 +6,7 @@ import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.MovieSeats
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.repository.SeatRepository
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.model.toTicketModel
 import woowacourse.movie.presentation.seat.model.MovieSeatModel
@@ -15,14 +16,14 @@ import woowacourse.movie.presentation.seat.model.toMovieSeatModel
 import java.io.Serializable
 
 class SeatSelectionPresenter(
-    private val ticketModel: TicketModel,
+    private val pendingMovieReservationModel: PendingMovieReservationModel,
     private val view: SeatSelectionContract.View,
     private val seatRepository: SeatRepository,
 ) : SeatSelectionContract.Presenter {
-    private val movieSeats = MovieSeats(ticketModel.count)
+    private val movieSeats = MovieSeats(pendingMovieReservationModel.count)
 
     override fun loadTicket() {
-        view.showTicket(ticketModel = ticketModel)
+        view.showTicket(pendingMovieReservationModel = pendingMovieReservationModel)
     }
 
     override fun loadSeat() {
@@ -61,13 +62,13 @@ class SeatSelectionPresenter(
     override fun ticketing() {
         val ticket =
             Ticket(
-                title = ticketModel.title,
+                title = pendingMovieReservationModel.title,
                 movieDate =
                     MovieDate(
-                        ticketModel.screeningDate,
-                        ticketModel.screeningTime,
+                        pendingMovieReservationModel.movieDate.screeningDate,
+                        pendingMovieReservationModel.movieDate.screeningTime,
                     ),
-                count = ticketModel.count,
+                count = pendingMovieReservationModel.count,
                 price = movieSeats.getSeatPrice(),
                 seats = movieSeats.userSeats,
             ).toTicketModel()
@@ -103,5 +104,6 @@ class SeatSelectionPresenter(
 
     companion object {
         const val KEY_NAME_SEATS = "seats"
+        const val KEY_NAME_TICKET = "ticket"
     }
 }
