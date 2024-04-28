@@ -40,13 +40,13 @@ class SeatSelectionPresenter(
             SeatSelectState.ADD -> {
                 reservationMovieSeats.addSeat(seat)
                 view.showSelectedSeat(rowIndex, columIndex)
-                view.showCurrentResultTicketPriceView(reservationMovieSeats.getSeatPrice())
+                view.showCurrentResultTicketPriceView(reservationMovieSeats.getTotalSeatPrice())
             }
 
             SeatSelectState.REMOVE -> {
                 reservationMovieSeats.deleteSeat(seat)
                 view.showUnSelectedSeat(rowIndex, columIndex)
-                view.showCurrentResultTicketPriceView(reservationMovieSeats.getSeatPrice())
+                view.showCurrentResultTicketPriceView(reservationMovieSeats.getTotalSeatPrice())
             }
 
             SeatSelectState.PREVENT -> {}
@@ -68,7 +68,7 @@ class SeatSelectionPresenter(
                         pendingMovieReservationModel.movieDate.screeningTime,
                     ),
                 count = pendingMovieReservationModel.count,
-                price = reservationMovieSeats.getSeatPrice(),
+                price = reservationMovieSeats.getTotalSeatPrice(),
                 seats = reservationMovieSeats.userSeats,
             ).toTicketModel()
         view.moveToTicketDetail(ticket)

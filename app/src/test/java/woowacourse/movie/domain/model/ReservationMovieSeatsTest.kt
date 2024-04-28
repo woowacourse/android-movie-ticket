@@ -6,7 +6,7 @@ import woowacourse.movie.presentation.seat.model.SeatSelectState
 
 class ReservationMovieSeatsTest {
     @Test
-    fun `getSeatPrice_메서드가_올바른_가격을_반환하는지_확인한다`() {
+    fun `getTotalSeatPrice_메서드가_올바른_가격을_반환하는지_확인한다`() {
         // Given
         val seatA = MovieSeat("A1", SeatType.A)
         val seatB = MovieSeat("B2", SeatType.B)
@@ -15,7 +15,7 @@ class ReservationMovieSeatsTest {
         reservationMovieSeats.userSeats.addAll(seats)
 
         // When
-        val totalPrice = reservationMovieSeats.getSeatPrice()
+        val totalPrice = reservationMovieSeats.getTotalSeatPrice()
 
         // Then
         assertEquals(SeatType.A.price + SeatType.B.price, totalPrice)

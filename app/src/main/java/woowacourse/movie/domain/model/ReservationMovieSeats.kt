@@ -10,7 +10,7 @@ class ReservationMovieSeats(
     var seatSelectState = SeatSelectState.ADD
         private set
 
-    fun getSeatPrice(): Int {
+    fun getTotalSeatPrice(): Int {
         return userSeats.sumOf { it.seatType.price }
     }
 
