@@ -1,10 +1,9 @@
 package woowacourse.movie.domain.model
 
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
-class MovieDate(
+class MovieDateTime(
     movieDate: LocalDate = LocalDate.now(),
     movieTime: LocalTime = LocalTime.now(),
 ) {

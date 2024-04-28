@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.reservation
 
 import android.os.Bundle
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.PendingMovieReservation
 import woowacourse.movie.domain.model.TicketCounter
 import woowacourse.movie.domain.DateMaker
@@ -19,7 +19,7 @@ class MovieReservationPresenter(
     private val dateMaker: DateMaker,
 ) : MovieReservationContract.Presenter {
     private val ticketCounter: TicketCounter = TicketCounter()
-    private val movieDate: MovieDate = MovieDate()
+    private val movieDateTime: MovieDateTime = MovieDateTime()
 
     override fun loadMovie() {
         view.showMovie(movieRepository.getMovie(movieId))
@@ -57,18 +57,18 @@ class MovieReservationPresenter(
         val pendingMovieReservation =
             PendingMovieReservation(
                 title = title,
-                movieDate = movieDate,
+                movieDateTime = movieDateTime,
                 count = count,
             ).toPendingMovieReservationModel()
         view.moveToSeatSelection(pendingMovieReservation)
     }
 
     override fun selectDate(newDate: LocalDate) {
-        movieDate.setCurrentDate(newDate)
+        movieDateTime.setCurrentDate(newDate)
     }
 
     override fun selectTime(newTime: LocalTime) {
-        movieDate.setCurrentTime(newTime)
+        movieDateTime.setCurrentTime(newTime)
     }
 
     override fun initSavedInstance(
@@ -83,7 +83,7 @@ class MovieReservationPresenter(
 
     override fun saveInstance(outState: Bundle) {
         outState.putInt(KEY_TICKET_COUNT, ticketCounter.ticketCount)
-        outState.putSerializable(KEY_MOVIE_DATE, movieDate.toMovieDateModel())
+        outState.putSerializable(KEY_MOVIE_DATE, movieDateTime.toMovieDateModel())
     }
 
     companion object {

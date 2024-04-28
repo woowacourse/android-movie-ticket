@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.seat
 
 import android.os.Bundle
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.ReservationMovieSeats
 import woowacourse.movie.domain.model.Ticket
@@ -62,8 +62,8 @@ class SeatSelectionPresenter(
         val ticket =
             Ticket(
                 title = pendingMovieReservationModel.title,
-                movieDate =
-                    MovieDate(
+                movieDateTime =
+                    MovieDateTime(
                         pendingMovieReservationModel.movieDate.screeningDate,
                         pendingMovieReservationModel.movieDate.screeningTime,
                     ),

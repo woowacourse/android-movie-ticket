@@ -12,7 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.presentation.model.toTicketModel
 
@@ -21,7 +21,7 @@ class TicketDetailActivityTest {
     private val ticket =
         Ticket(
             title = "해리 포터와 마법사의 돌",
-            movieDate = MovieDate(),
+            movieDateTime = MovieDateTime(),
             count = 2,
             price = Movie.DEFAULT_MOVIE_PRICE,
             seats = listOf(),

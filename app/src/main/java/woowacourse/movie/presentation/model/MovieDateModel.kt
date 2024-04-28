@@ -1,9 +1,8 @@
 package woowacourse.movie.presentation.model
 
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import java.io.Serializable
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieDateModel(
@@ -11,7 +10,7 @@ class MovieDateModel(
     val screeningTime: LocalTime,
 ) : Serializable
 
-fun MovieDate.toMovieDateModel(): MovieDateModel {
+fun MovieDateTime.toMovieDateModel(): MovieDateModel {
     return MovieDateModel(
         screeningDate = currentDate,
         screeningTime = currentTime,

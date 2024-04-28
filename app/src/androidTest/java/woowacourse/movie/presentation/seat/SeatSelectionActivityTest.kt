@@ -16,7 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.toMovieDateModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
@@ -34,7 +34,7 @@ class SeatSelectionActivityTest {
                 val pendingMovieReservationModel =
                     PendingMovieReservationModel(
                         title = "해리 포터와 마법사의 돌",
-                        movieDate = MovieDate().toMovieDateModel(),
+                        movieDate = MovieDateTime().toMovieDateModel(),
                         count = 2,
                     )
                 putExtra(

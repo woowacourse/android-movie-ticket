@@ -15,7 +15,7 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.DateMaker
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.TicketCounter
 import woowacourse.movie.presentation.model.MovieDateModel
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
@@ -59,14 +59,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         presenter.loadMovie()
         val savedCount =
             savedInstanceState?.getInt(KEY_TICKET_COUNT) ?: TicketCounter.MIN_TICKET_COUNT
-        val defaultMovieDateModel = MovieDate().toMovieDateModel()
+        val defaultMovieDateTimeModel = MovieDateTime().toMovieDateModel()
         val savedDate =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 savedInstanceState?.getSerializable(KEY_MOVIE_DATE, MovieDateModel::class.java)
-                    ?: defaultMovieDateModel
+                    ?: defaultMovieDateTimeModel
             } else {
                 savedInstanceState?.getSerializable(KEY_MOVIE_DATE) as? MovieDateModel
-                    ?: defaultMovieDateModel
+                    ?: defaultMovieDateTimeModel
             }
         presenter.initSavedInstance(savedCount, savedDate)
         showCurrentResultTicketCountView()

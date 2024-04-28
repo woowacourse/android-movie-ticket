@@ -3,21 +3,16 @@ package woowacourse.movie.presenter
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import net.bytebuddy.asm.Advice.Local
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.SeatType
 import woowacourse.movie.domain.repository.SeatRepository
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
-import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.model.toMovieDateModel
 import woowacourse.movie.presentation.seat.SeatSelectionContract
 import woowacourse.movie.presentation.seat.SeatSelectionPresenter
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.LocalTime
 
 class SeatSelectionPresenterTest {
     private lateinit var mockView: SeatSelectionContract.View
@@ -26,7 +21,7 @@ class SeatSelectionPresenterTest {
     private val pendingMovieReservationModel =
         PendingMovieReservationModel(
             "해리포터",
-            MovieDate().toMovieDateModel(),
+            MovieDateTime().toMovieDateModel(),
             3,
         )
 

@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.model
 import woowacourse.movie.domain.model.Ticket
 import java.io.Serializable
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 class TicketModel(
@@ -31,8 +30,8 @@ class TicketModel(
 fun Ticket.toTicketModel(): TicketModel {
     return TicketModel(
         title = title,
-        screeningDate = movieDate.currentDate,
-        screeningTime = movieDate.currentTime,
+        screeningDate = movieDateTime.currentDate,
+        screeningTime = movieDateTime.currentTime,
         count = count,
         price = price,
         seats = seats.map { it.seatName },

@@ -3,33 +3,32 @@ package woowacourse.movie.domain.model
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
-class MovieDateTest {
+class MovieDateTimeTest {
     @Test
     fun `setCurrentDate 메서드가 올바르게 동작하는지 확인한다`() {
         // Given
-        val movieDate = MovieDate()
+        val movieDateTime = MovieDateTime()
         val newDate = LocalDate.of(2024, 5, 15)
 
         // When
-        movieDate.setCurrentDate(newDate)
+        movieDateTime.setCurrentDate(newDate)
 
         // Then
-        assertEquals(newDate, movieDate.currentDate)
+        assertEquals(newDate, movieDateTime.currentDate)
     }
 
     @Test
     fun `setCurrentTime 메서드가 올바르게 동작하는지 확인한다`() {
         // Given
-        val movieDate = MovieDate()
+        val movieDateTime = MovieDateTime()
         val newTime = LocalTime.of( 10, 30)
 
         // When
-        movieDate.setCurrentTime(newTime)
+        movieDateTime.setCurrentTime(newTime)
 
         // Then
-        assertEquals(newTime, movieDate.currentTime)
+        assertEquals(newTime, movieDateTime.currentTime)
     }
 }

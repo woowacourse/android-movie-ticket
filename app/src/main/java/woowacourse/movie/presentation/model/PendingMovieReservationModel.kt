@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.model
 
-import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.PendingMovieReservation
 import java.io.Serializable
 
@@ -14,7 +14,7 @@ data class PendingMovieReservationModel(
         val defaultPendingMovieReservation = PendingMovieReservationModel(
             title = DEFAULT_PENDING_RESERVATION_TITLE,
             count = 0,
-            movieDate = MovieDate().toMovieDateModel(),
+            movieDate = MovieDateTime().toMovieDateModel(),
         )
     }
 }
@@ -23,7 +23,7 @@ data class PendingMovieReservationModel(
 fun PendingMovieReservation.toPendingMovieReservationModel(): PendingMovieReservationModel {
     return PendingMovieReservationModel(
         title = title,
-        movieDate = movieDate.toMovieDateModel(),
+        movieDate = movieDateTime.toMovieDateModel(),
         count = count
     )
 }
