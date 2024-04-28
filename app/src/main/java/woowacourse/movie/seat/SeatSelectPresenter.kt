@@ -9,7 +9,7 @@ class SeatSelectPresenter(
     private val movieId: Int,
     private val ticket: Ticket,
 ) : SeatSelectContract.Presenter {
-    private val ranks = mutableListOf<Rank>()
+    private val seats = mutableListOf<String>()
 
     override fun confirm() {
         view.showConfirmDialog()
@@ -17,18 +17,27 @@ class SeatSelectPresenter(
 
     override fun loadMovieTitle() {
         val title = Movies.obtainMovie(movieId).title
-        val totalPrice = Rank.calculateTotalPrice(ranks)
+        val totalPrice = Rank.calculateTotalPrice(getRanks(seats))
 
         view.showReservationInfo(title, totalPrice)
     }
 
+    override fun loadReservationInformation() {
+        view.moveToReservationFinished(
+            Movies.obtainMovie(movieId).title,
+            ticket,
+            seats.joinToString(", "),
+            Rank.calculateTotalPrice(getRanks(seats)),
+        )
+    }
+
     override fun selectSeat(
-        position: Int,
+        seat: String,
         onColor: (Int) -> Unit,
     ) {
-        ranks.add(getRank(position))
-        val totalPrice = Rank.calculateTotalPrice(ranks)
-        val isAvailable = ticket.count == ranks.size
+        seats.add(seat)
+        val totalPrice = Rank.calculateTotalPrice(getRanks(seats))
+        val isAvailable = ticket.count == seats.size
 
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(false, onColor)
@@ -36,30 +45,25 @@ class SeatSelectPresenter(
     }
 
     override fun unselectSeat(
-        position: Int,
+        seat: String,
         onColor: (Int) -> Unit,
     ) {
-        ranks.remove(getRank(position))
-        val totalPrice = Rank.calculateTotalPrice(ranks)
-        val isAvailable = ticket.count == ranks.size
+        seats.remove(seat)
+        val totalPrice = Rank.calculateTotalPrice(getRanks(seats))
+        val isAvailable = ticket.count == seats.size
 
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(true, onColor)
         view.showReservationCheck(isAvailable)
     }
 
-    private fun getRank(position: Int): Rank =
-        when (position / 4) {
-            0, 1 -> {
-                Rank.A
-            }
-
-            2, 3 -> {
-                Rank.S
-            }
-
-            else -> {
-                Rank.B
+    private fun getRanks(seat: List<String>): List<Rank> {
+        return seat.map {
+            when (it[0]) {
+                'S' -> Rank.S
+                'A' -> Rank.A
+                else -> Rank.B
             }
         }
+    }
 }

@@ -2,11 +2,14 @@ package woowacourse.movie.reservation
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -19,16 +22,15 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
     private lateinit var presenter: ReservationFinishedPresenter
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_finished)
 
-        val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
-        val ticketCount = intent.getIntExtra(TICKET_COUNT, DEFAULT_TICKET_COUNT)
-
-        presenter = ReservationFinishedPresenter(this, movieId, ticketCount)
-        presenter.loadMovieInformation()
-        presenter.loadReservationInformation()
+        val movieTitle = intent.getStringExtra(MOVIE_TITLE)
+        val ticket = intent.getSerializableExtra(TICKET, Ticket::class.java)
+        val seats = intent.getStringExtra(SEATS)
+        val totalPrice = intent.getIntExtra(TOTAL_PRICE, 0)
     }
 
     override fun showMovieInformation(movie: Movie) {
@@ -56,19 +58,23 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
     }
 
     companion object {
-        private const val MOVIE_ID = "movieId"
-        private const val TICKET_COUNT = "ticketCount"
-        private const val DEFAULT_MOVIE_ID = 0
-        private const val DEFAULT_TICKET_COUNT = 0
+        private const val MOVIE_TITLE = "movieTitle"
+        private const val TICKET = "ticket"
+        private const val SEATS = "seats"
+        private const val TOTAL_PRICE = "totalPrice"
 
         fun getIntent(
             context: Context,
-            movieId: Int,
-            ticketCount: Int,
+            movieTitle: String,
+            ticket: Ticket,
+            seats: String,
+            totalPrice: Int,
         ): Intent {
             return Intent(context, ReservationFinishedActivity::class.java)
-                .putExtra(MOVIE_ID, movieId)
-                .putExtra(TICKET_COUNT, ticketCount)
+                .putExtra(MOVIE_TITLE, movieTitle)
+                .putExtra(TICKET, ticket)
+                .putExtra(SEATS, seats)
+                .putExtra(TOTAL_PRICE, totalPrice)
         }
     }
 }

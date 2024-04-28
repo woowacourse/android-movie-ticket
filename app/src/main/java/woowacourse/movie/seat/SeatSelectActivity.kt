@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.Ticket
+import woowacourse.movie.reservation.ReservationFinishedActivity
 
 class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     private val seats: GridLayout by lazy { findViewById(R.id.grid_layout_seat_select) }
@@ -37,14 +38,14 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
 
         seats.children
             .filterIsInstance<TextView>()
-            .forEachIndexed { index, textView ->
+            .forEach { textView ->
                 textView.setOnClickListener {
                     if (it.isSelected) {
-                        presenter.unselectSeat(index) { color ->
+                        presenter.unselectSeat(textView.text.toString()) { color ->
                             it.setBackgroundColor(getColor(color))
                         }
                     } else {
-                        presenter.selectSeat(index) { color ->
+                        presenter.selectSeat(textView.text.toString()) { color ->
                             it.setBackgroundColor(getColor(color))
                         }
                     }
@@ -94,7 +95,9 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _, _ -> }
+            .setPositiveButton("예매 완료") { _, _ ->
+                presenter.loadReservationInformation()
+            }
             .setNegativeButton("취소") { dialog, _ ->
                 dialog.dismiss()
             }
@@ -102,8 +105,21 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             .show()
     }
 
-    override fun moveToReservationFinished() {
-        TODO("Not yet implemented")
+    override fun moveToReservationFinished(
+        movieTitle: String,
+        ticket: Ticket,
+        seats: String,
+        totalPrice: Int,
+    ) {
+        startActivity(
+            ReservationFinishedActivity.getIntent(
+                this,
+                movieTitle,
+                ticket,
+                seats,
+                totalPrice,
+            ),
+        )
     }
 
     companion object {

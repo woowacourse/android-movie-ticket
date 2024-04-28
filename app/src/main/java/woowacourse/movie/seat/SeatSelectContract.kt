@@ -1,5 +1,7 @@
 package woowacourse.movie.seat
 
+import woowacourse.movie.model.Ticket
+
 interface SeatSelectContract {
     interface View {
         fun showReservationInfo(
@@ -18,19 +20,26 @@ interface SeatSelectContract {
 
         fun showConfirmDialog()
 
-        fun moveToReservationFinished()
+        fun moveToReservationFinished(
+            movieTitle: String,
+            ticket: Ticket,
+            seats: String,
+            totalPrice: Int,
+        )
     }
 
     interface Presenter {
         fun loadMovieTitle()
 
+        fun loadReservationInformation()
+
         fun selectSeat(
-            position: Int,
+            seat: String,
             onColor: (Int) -> Unit,
         )
 
         fun unselectSeat(
-            position: Int,
+            seat: String,
             onColor: (Int) -> Unit,
         )
 
