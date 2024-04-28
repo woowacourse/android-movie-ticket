@@ -3,42 +3,44 @@ package woowacourse.movie.presenter
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import net.bytebuddy.asm.Advice.Local
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.SeatType
 import woowacourse.movie.domain.repository.SeatRepository
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
+import woowacourse.movie.presentation.model.toMovieDateModel
 import woowacourse.movie.presentation.seat.SeatSelectionContract
 import woowacourse.movie.presentation.seat.SeatSelectionPresenter
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class SeatSelectionPresenterTest {
     private lateinit var mockView: SeatSelectionContract.View
     private lateinit var mockSeatRepository: SeatRepository
     private lateinit var presenter: SeatSelectionPresenter
-    private val ticketModel =
-        TicketModel(
+    private val pendingMovieReservationModel =
+        PendingMovieReservationModel(
             "해리포터",
-            LocalDate.now(),
-            LocalDateTime.now(),
-            listOf("A1", "A2", "A3"),
+            MovieDate().toMovieDateModel(),
             3,
-            12000,
         )
 
     @BeforeEach
     fun setUp() {
         mockView = mockk(relaxed = true)
         mockSeatRepository = mockk(relaxed = true)
-        presenter = SeatSelectionPresenter(ticketModel, mockView, mockSeatRepository)
+        presenter = SeatSelectionPresenter(pendingMovieReservationModel, mockView, mockSeatRepository)
     }
 
     @Test
     fun `loadTicket은 티켓 정보를 뷰에 표시해야 한다`() {
         presenter.loadTicket()
-        verify { mockView.showTicket(ticketModel) }
+        verify { mockView.showTicket(pendingMovieReservationModel) }
     }
 
     @Test
