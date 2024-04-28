@@ -1,7 +1,6 @@
 package woowacourse.movie.presentation.seat
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
@@ -27,6 +26,7 @@ import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.formatCurrency
+import woowacourse.movie.utils.mapSeatNumberToLetter
 
 class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
     private lateinit var reservationCompleteActivityLauncher: ActivityResultLauncher<Intent>
@@ -78,6 +78,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
                 .filterIsInstance<Button>().toList()
 
         seatButtons.forEachIndexed { index, button ->
+            button.text = mapSeatNumberToLetter(index)
             button.setOnClickListener {
                 movieSeatPresenter.selectSeat(index, seats[index], it.isSelected)
             }
@@ -99,15 +100,15 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
         when (isEnable) {
             true -> {
                 with(seatCompleteBtn) {
-                    setBackgroundColor(Color.MAGENTA)
+                    setBackgroundColor(getColor(R.color.purple_500))
                     setOnClickListener {
                         AlertDialog.Builder(this@MovieSeatActivity)
-                            .setTitle("예매 확인")
-                            .setMessage("정말 예매하시겠습니까?")
-                            .setPositiveButton("예매 완료") { _, _ ->
+                            .setTitle(getString(R.string.reservation_dialog_title))
+                            .setMessage(getString(R.string.reservation_dialog_content))
+                            .setPositiveButton(getString(R.string.reservation_complete)) { _, _ ->
                                 movieSeatPresenter.reservation()
                             }
-                            .setNegativeButton("취소") { dialog, _ ->
+                            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                                 dialog.dismiss()
                             }
                             .setCancelable(false)
@@ -117,7 +118,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
             }
             false -> {
                 with(seatCompleteBtn) {
-                    setBackgroundColor(Color.GRAY)
+                    setBackgroundColor(getColor(R.color.gray))
                     setOnClickListener { }
                 }
             }

@@ -13,4 +13,8 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
     <string name="default_reservation_count">1</string>
+    <string name="reservation_dialog_title">Confirm Reservation</string>
+    <string name="reservation_dialog_content">Are you sure you want to make a reservation?</string>
+    <string name="reservation_complete">Reservation Complete</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -12,7 +12,7 @@ import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.formatCurrency
 import woowacourse.movie.utils.formatLocalDateTime
-import woowacourse.movie.utils.mapNumberToLetter
+import woowacourse.movie.utils.mapSeatNumberToLetter
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     private val completeTitleTextView: TextView by lazy { findViewById(R.id.resultTitle) }
@@ -41,7 +41,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
             completeDateTextView.text = formatLocalDateTime(this.localDateTime)
             completeReservationCountTextView.text = "${this.reservationCount}"
             completeReservationPriceTextView.text = formatCurrency(this.totalPrice)
-            completeReservationSeasTextView.text = this.seats.map { mapNumberToLetter(it!!.number) }.joinToString(separator = ",")
+            completeReservationSeasTextView.text = this.seats.map { mapSeatNumberToLetter(it!!.number) }.joinToString(separator = ",")
         }
     }
 

@@ -2,11 +2,11 @@ package woowacourse.movie.presentation.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.presentation.adapter.MovieAdapter
@@ -18,7 +18,7 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
     private lateinit var movieDetailActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var movieMainPresenter: MovieMainPresenter
     private lateinit var movieAdapter: MovieAdapter
-    private val movieList: ListView by lazy { findViewById(R.id.mainList) }
+    private val movieList: RecyclerView by lazy { findViewById(R.id.mainList) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

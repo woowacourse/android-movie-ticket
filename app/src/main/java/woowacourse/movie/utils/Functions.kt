@@ -23,7 +23,7 @@ fun formatCurrency(amount: Int): String {
     return formatter.format(amount.toLong())
 }
 
-fun mapNumberToLetter(number: Int): String {
+fun mapSeatNumberToLetter(number: Int): String {
     val row =
         when (number / 4) {
             0 -> "A"
