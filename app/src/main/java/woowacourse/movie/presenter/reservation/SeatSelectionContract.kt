@@ -1,10 +1,10 @@
 package woowacourse.movie.presenter.reservation
 
 import android.widget.Button
-import woowacourse.movie.model.Grade
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Seat
-import woowacourse.movie.model.Seats
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.seats.Grade
+import woowacourse.movie.model.seats.Seat
+import woowacourse.movie.model.seats.Seats
 
 interface SeatSelectionContract {
     interface Presenter {

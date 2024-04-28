@@ -1,12 +1,12 @@
 package woowacourse.movie
 
-import woowacourse.movie.db.ScreeningDao
-import woowacourse.movie.model.Grade
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ScreeningDateTime
-import woowacourse.movie.model.Seat
-import woowacourse.movie.model.Seats
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.db.screening.ScreeningDao
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.ScreeningDateTime
+import woowacourse.movie.model.seats.Grade
+import woowacourse.movie.model.seats.Seat
+import woowacourse.movie.model.seats.Seats
+import woowacourse.movie.model.ticket.Ticket
 
 object TestFixture {
     const val FIRST_ITEM_POSITION = 0

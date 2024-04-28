@@ -11,16 +11,16 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.MovieUtils.bundleSerializable
-import woowacourse.movie.MovieUtils.convertPeriodFormat
-import woowacourse.movie.MovieUtils.makeToast
 import woowacourse.movie.R
-import woowacourse.movie.db.ScreeningDao
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ScreeningDateTime
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.db.screening.ScreeningDao
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.ScreeningDateTime
+import woowacourse.movie.model.ticket.Ticket
 import woowacourse.movie.presenter.reservation.ReservationDetailContract
 import woowacourse.movie.presenter.reservation.ReservationDetailPresenter
+import woowacourse.movie.utils.MovieUtils.bundleSerializable
+import woowacourse.movie.utils.MovieUtils.convertPeriodFormat
+import woowacourse.movie.utils.MovieUtils.makeToast
 import woowacourse.movie.view.home.ReservationHomeActivity.Companion.MOVIE_ID
 
 class ReservationDetailActivity : AppCompatActivity(), ReservationDetailContract.View {

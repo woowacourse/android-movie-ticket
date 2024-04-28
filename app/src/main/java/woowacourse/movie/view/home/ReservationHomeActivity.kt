@@ -5,11 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieCatalogAdapter
-import woowacourse.movie.db.AdvertisementDao
-import woowacourse.movie.db.ScreeningDao
+import woowacourse.movie.db.advertisement.AdvertisementDao
+import woowacourse.movie.db.screening.ScreeningDao
 import woowacourse.movie.presenter.home.ReservationHomeContract
 import woowacourse.movie.presenter.home.ReservationHomePresenter
+import woowacourse.movie.view.home.adapter.MovieCatalogAdapter
 import woowacourse.movie.view.reservation.ReservationDetailActivity
 
 class ReservationHomeActivity : AppCompatActivity(), ReservationHomeContract.View {

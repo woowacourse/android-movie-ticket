@@ -1,9 +1,9 @@
 package woowacourse.movie.presenter.finished
 
-import woowacourse.movie.db.ScreeningDao
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.Seats
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.db.screening.ScreeningDao
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.seats.Seats
+import woowacourse.movie.model.ticket.Ticket
 
 class ReservationFinishedPresenter(
     private val view: ReservationFinishedContract.View,

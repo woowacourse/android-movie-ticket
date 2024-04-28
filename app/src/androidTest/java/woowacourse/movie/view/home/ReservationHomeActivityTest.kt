@@ -15,8 +15,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.adapter.AdvertisementViewHolder
-import woowacourse.movie.adapter.MovieViewHolder
+import woowacourse.movie.view.home.adapter.viewholder.AdvertisementViewHolder
+import woowacourse.movie.view.home.adapter.viewholder.MovieViewHolder
 
 @RunWith(AndroidJUnit4::class)
 class ReservationHomeActivityTest {

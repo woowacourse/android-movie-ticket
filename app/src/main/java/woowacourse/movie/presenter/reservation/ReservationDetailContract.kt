@@ -1,9 +1,9 @@
 package woowacourse.movie.presenter.reservation
 
-import woowacourse.movie.model.ChangeTicketCountResult
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ScreeningDateTime
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.ScreeningDateTime
+import woowacourse.movie.model.result.ChangeTicketCountResult
+import woowacourse.movie.model.ticket.Ticket
 
 interface ReservationDetailContract {
     interface View {
