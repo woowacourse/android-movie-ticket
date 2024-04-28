@@ -5,14 +5,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.utils.MovieErrorCode
-import woowacourse.movie.utils.MovieIntentConstants
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID
+import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SEATS_ID_LIST
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
-import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.formatCurrency
+import woowacourse.movie.utils.formatLocalDateTime
 import woowacourse.movie.utils.mapNumberToLetter
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
@@ -32,20 +31,16 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         movieResultPresenter.loadResult(
             intent.getLongExtra(EXTRA_MOVIE_ID, NOT_FOUND_MOVIE_ID),
             intent.getLongExtra(EXTRA_MOVIE_SCREEN_DATE_TIME_ID, NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID),
-            intent.getLongArrayExtra(MovieIntentConstants.EXTRA_MOVIE_SEATS_ID_LIST)?.toList() ?: emptyList(),
-            intent.getIntExtra(
-                EXTRA_MOVIE_RESERVATION_COUNT,
-                NOT_FOUND_MOVIE_RESERVATION_COUNT,
-            ),
+            intent.getLongArrayExtra(EXTRA_MOVIE_SEATS_ID_LIST)?.toList() ?: emptyList(),
         )
     }
 
     override fun onUpdateView(resultUiModel: ResultUiModel) {
         with(resultUiModel) {
             completeTitleTextView.text = this.movieTitle
-            completeDateTextView.text = this.localDateTime.toString()
-            completeReservationCountTextView.text = "${this.seats.size}"
-            completeReservationPriceTextView.text = formatCurrency(this.seats.sumOf { it?.tier?.price ?: 0 })
+            completeDateTextView.text = formatLocalDateTime(this.localDateTime)
+            completeReservationCountTextView.text = "${this.reservationCount}"
+            completeReservationPriceTextView.text = formatCurrency(this.totalPrice)
             completeReservationSeasTextView.text = this.seats.map { mapNumberToLetter(it!!.number) }.joinToString(separator = ",")
         }
     }

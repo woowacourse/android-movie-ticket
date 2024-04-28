@@ -12,7 +12,6 @@ interface MovieResultContract {
             movieId: Long,
             movieScreenDateTimeId: Long,
             seatIds: List<Long>,
-            count: Int,
         )
     }
 }

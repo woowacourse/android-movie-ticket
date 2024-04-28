@@ -23,7 +23,6 @@ import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_RESERVATION_COUN
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SEATS_ID_LIST
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SELECTED_SEAT_INDEXES
-import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_TOTAL_PRICE
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID
@@ -150,8 +149,6 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
             putExtra(EXTRA_MOVIE_ID, movieId)
             putExtra(EXTRA_MOVIE_SCREEN_DATE_TIME_ID, movieScreenDateTimeId)
             putExtra(EXTRA_MOVIE_SEATS_ID_LIST, movieSeatIds.toLongArray())
-            putExtra(EXTRA_MOVIE_TOTAL_PRICE, totalPrice)
-            putExtra(EXTRA_MOVIE_RESERVATION_COUNT, count)
             reservationCompleteActivityLauncher.launch(this)
         }
     }

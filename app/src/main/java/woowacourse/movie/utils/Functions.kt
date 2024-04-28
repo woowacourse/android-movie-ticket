@@ -13,6 +13,11 @@ fun formatToLocalDate(localDateTime: LocalDateTime): String {
     return localDateTime.format(formatter)
 }
 
+fun formatLocalDateTime(localDateTime: LocalDateTime): String {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+    return localDateTime.format(formatter)
+}
+
 fun formatCurrency(amount: Int): String {
     val formatter = DecimalFormat("#,###")
     return formatter.format(amount.toLong())

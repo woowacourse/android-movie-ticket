@@ -15,7 +15,6 @@ class MovieResultPresenter(
         movieId: Long,
         movieScreenDateTimeId: Long,
         seatIds: List<Long>,
-        count: Int,
     ) {
         val movie = movieRepository.findMovieById(movieId)
         val screenDateTime =
