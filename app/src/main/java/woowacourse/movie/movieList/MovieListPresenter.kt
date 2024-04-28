@@ -1,6 +1,6 @@
 package woowacourse.movie.movieList
 
-import android.content.Intent
+import MovieListView
 import woowacourse.movie.model.MovieDisplayData
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
@@ -9,10 +9,9 @@ import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
 import woowacourse.movie.model.theater.Seat
 import woowacourse.movie.model.theater.Theater
-import woowacourse.movie.movieDetail.MovieDetailActivity
 import java.time.LocalDate
 
-class MovieListPresenter(private val view: MovieListActivity) {
+class MovieListPresenter(private val view: MovieListView) {
     private fun generateSeats(): Map<String, Seat> {
         val seats = mutableMapOf<String, Seat>()
         val rows = 5
@@ -60,10 +59,7 @@ class MovieListPresenter(private val view: MovieListActivity) {
 
     fun onDetailButtonClicked(position: Int) {
         val theater = theaters[position]
-        val intent = Intent(view, MovieDetailActivity::class.java).apply {
-            putExtra("Theater", theater)
-        }
-        view.startActivity(intent)
+        view.navigateToMovieDetail(theater)
     }
 
     fun loadMovies() {

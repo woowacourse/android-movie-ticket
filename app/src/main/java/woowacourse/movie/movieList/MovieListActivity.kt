@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDisplayData
+import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.movieDetail.MovieDetailActivity
 
 class MovieListActivity : AppCompatActivity(), MovieListView {
     private val moviesListView: ListView by lazy { findViewById(R.id.movies_list_item) }
@@ -29,15 +31,18 @@ class MovieListActivity : AppCompatActivity(), MovieListView {
         presenter.loadMovies()
     }
 
-    override fun startActivity(intent: Intent) {
-        super.startActivity(intent)
-    }
-
     override fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun updateAdapter(displayData: List<MovieDisplayData>) {
         adapter.updateItems(items = displayData)
+    }
+
+    override fun navigateToMovieDetail(theater: Theater) {
+        val intent = Intent(this, MovieDetailActivity::class.java).apply {
+            putExtra("Theater", theater)
+        }
+        startActivity(intent)
     }
 }
