@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.IntentCompat
-import androidx.core.os.BundleCompat
 import woowacourse.movie.R
+import woowacourse.movie.common.ui.parcelable
 import woowacourse.movie.common.ui.showToast
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
@@ -36,11 +35,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
         setContentView(R.layout.activity_seat_selection)
         initView()
         initClickListener()
-        IntentCompat.getParcelableExtra(
-            intent,
-            KEY_SEAT_SELECTION,
-            SeatSelectionNavArgs::class.java,
-        )?.let { navArgs ->
+        intent.parcelable<SeatSelectionNavArgs>(KEY_SEAT_SELECTION)?.let { navArgs ->
             presenter =
                 SeatSelectionPresenter(
                     repository = MovieRepositoryFactory.movieRepository(),
@@ -60,10 +55,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        BundleCompat.getParcelable(
-            savedInstanceState,
-            KEY_SEAT_UI_STATE,
-            SeatSelectionUiState::class.java,
+        savedInstanceState.parcelable<SeatSelectionUiState>(
+            KEY_SEAT_UI_STATE
         )?.let(presenter::restoreState)
     }
 

@@ -14,8 +14,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.os.BundleCompat
 import woowacourse.movie.R
+import woowacourse.movie.common.ui.parcelable
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.presentation.reservation.booking.model.MovieReservationUiState
 import woowacourse.movie.presentation.reservation.booking.model.ScreeningMovieUiModel
@@ -48,10 +48,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        BundleCompat.getParcelable(
-            savedInstanceState,
-            KEY_RESERVATION_UI_STATE,
-            MovieReservationUiState::class.java,
+        savedInstanceState.parcelable<MovieReservationUiState>(
+            KEY_RESERVATION_UI_STATE
         )?.let { uiState ->
             presenter =
                 MovieReservationPresenter(
