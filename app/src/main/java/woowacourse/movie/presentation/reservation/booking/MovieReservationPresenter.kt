@@ -23,7 +23,6 @@ class MovieReservationPresenter(
 
     fun updateScreenDateAt(position: Int) {
         _uiState = _uiState.copy(selectedDate = _uiState.screenDateTimes[position])
-        view.showTimePicker(_uiState.screenTimes)
     }
 
     fun updateScreenTimeAt(position: Int) {
