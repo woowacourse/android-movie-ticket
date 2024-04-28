@@ -12,7 +12,6 @@ import woowacourse.movie.feature.FIRST_MOVIE_ID
 import woowacourse.movie.feature.click
 import woowacourse.movie.feature.equalText
 import woowacourse.movie.feature.firstMovie
-import woowacourse.movie.feature.runningTimeMessage
 import woowacourse.movie.feature.scroll
 import woowacourse.movie.feature.view
 import java.time.LocalDate
@@ -51,7 +50,7 @@ class MovieReservationActivityTest {
     @Test
     fun `화면이_띄워지면_러닝타임이_보인다`() {
         view(R.id.running_time_text)
-            .equalText(firstMovie.runningTimeMessage())
+            .equalText("러닝타임: %d분".format(firstMovie.runningTime))
     }
 
     @Test

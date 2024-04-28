@@ -51,6 +51,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("org.assertj:assertj-core:3.25.3")

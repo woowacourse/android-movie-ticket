@@ -63,16 +63,18 @@ class MovieReservationCompleteActivityTest {
         @JvmStatic
         @BeforeClass
         fun setUp() {
-            val selectedSeats = SelectedSeats(ReservationCount(3)).apply {
-                select(Seat(1, 2)) // A2
-                select(Seat(3, 3)) // C3
-                select(Seat(5, 1)) // E1
-            }
-            val ticket = Ticket(
-                FIRST_MOVIE_ID,
-                LocalDateTime.of(2024, 4, 20, 9, 0),
-                selectedSeats,
-            )
+            val selectedSeats =
+                SelectedSeats(ReservationCount(3)).apply {
+                    select(Seat(1, 2)) // A2
+                    select(Seat(3, 3)) // C3
+                    select(Seat(5, 1)) // E1
+                }
+            val ticket =
+                Ticket(
+                    FIRST_MOVIE_ID,
+                    LocalDateTime.of(2024, 4, 20, 9, 0),
+                    selectedSeats,
+                )
             TicketRepositoryImpl.save(ticket)
         }
     }
