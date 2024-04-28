@@ -28,6 +28,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private lateinit var timeSpinner: Spinner
     private lateinit var dateAdapter: ArrayAdapter<String>
     private lateinit var timeAdapter: ArrayAdapter<String>
+    private val plusButton: Button by lazy { findViewById(R.id.plus_button) }
+    private val minusButton: Button by lazy { findViewById(R.id.minus_button) }
+    private val seatConfirmationButton: Button by lazy { findViewById(R.id.seat_confirmation_button) }
+    private val quantityText: TextView by lazy { findViewById(R.id.quantity_text_view) }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,16 +101,17 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         return parsedDate.dayOfWeek == DayOfWeek.SATURDAY || parsedDate.dayOfWeek == DayOfWeek.SUNDAY
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setupEventListeners() {
-        findViewById<Button>(R.id.plus_button).setOnClickListener {
+        plusButton.setOnClickListener {
             presenter.onTicketPlusClicked(ticketNum)
         }
 
-        findViewById<Button>(R.id.minus_button).setOnClickListener {
+        minusButton.setOnClickListener {
             presenter.onTicketMinusClicked(ticketNum)
         }
 
-        findViewById<Button>(R.id.seat_confirmation_button).setOnClickListener {
+        seatConfirmationButton.setOnClickListener {
             val theater = presenter.getTheater()
             val intent = Intent(this, TheaterSeatActivity::class.java).apply {
                 putExtra("ticketNum", ticketNum)
@@ -133,7 +138,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun onTicketCountChanged(ticketNum: Int) {
         this.ticketNum = ticketNum
-        findViewById<TextView>(R.id.quantity_text_view).text = this.ticketNum.toString()
+        quantityText.text = this.ticketNum.toString()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
