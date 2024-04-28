@@ -44,7 +44,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     }
 
     private fun setupSeats() {
-        val tableLayout = findViewById<TableLayout>(R.id.tableLayout)
+        val tableLayout = findViewById<TableLayout>(R.id.seatTable)
         tableLayout.children.filterIsInstance<TableRow>()
             .forEach { row ->
                 row.children.filterIsInstance<Button>()
