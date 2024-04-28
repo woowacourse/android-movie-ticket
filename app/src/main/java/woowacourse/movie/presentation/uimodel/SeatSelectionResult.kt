@@ -1,7 +1,11 @@
 package woowacourse.movie.presentation.uimodel
 
 sealed class SeatSelectionResult {
-    object Success : SeatSelectionResult()
-    object Failure : SeatSelectionResult()
-    object MaxCapacityReached : SeatSelectionResult()
+    data object Success : SeatSelectionResult()
+
+    data object Failure : SeatSelectionResult()
+
+    data object MaxCapacityReached : SeatSelectionResult()
+
+    data object AlreadyMaxCapacityReached : SeatSelectionResult()
 }

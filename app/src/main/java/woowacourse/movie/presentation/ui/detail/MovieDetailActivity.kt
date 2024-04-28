@@ -10,7 +10,6 @@ import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.ui.reservation.ReservationResultActivity
 import woowacourse.movie.presentation.ui.seat.SeatActivity
 import woowacourse.movie.presentation.uimodel.MovieUiModel
 import java.time.LocalDate

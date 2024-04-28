@@ -1,16 +1,15 @@
 package woowacourse.movie.domain.model
 
-import java.time.LocalDate
+import java.time.LocalDateTime
 
-class MovieTicket(
+data class MovieTicket(
     val id: Int,
     val movieTitle: String,
-    val screeningDate: LocalDate,
+    val screeningDate: LocalDateTime,
     val reservationCount: Int,
+    val reservationSeats: Seats = Seats(emptyList()),
 ) {
-    fun totalPrice() = reservationCount * PRICE_PER_TICKET
+    fun reserveSeats(seats: List<Seat>) = copy(reservationSeats = Seats(seats))
 
-    companion object {
-        const val PRICE_PER_TICKET = 13000
-    }
+    fun totalPrice() = reservationSeats.totalPrice()
 }

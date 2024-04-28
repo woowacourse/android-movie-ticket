@@ -4,5 +4,5 @@ import woowacourse.movie.domain.model.Seat
 
 data class SeatUIModel(
     val seat: Seat,
-    var isSelected: Boolean = false
+    var isSelected: Boolean = false,
 )

@@ -1,11 +1,13 @@
 package woowacourse.movie.presentation.uimodel
 
+import woowacourse.movie.domain.model.Seat
+
 data class SeatsUIModel(
-    val seats: List<SeatUIModel>,
-    private val maxSelectableSeats: Int
+    val seatUIModels: List<SeatUIModel>,
+    private val maxSelectableSeats: Int,
 ) {
     fun toggleSeatSelection(index: Int): SeatSelectionResult {
-        val seatUIModel = seats[index]
+        val seatUIModel = seatUIModels[index]
         if (seatUIModel.isSelected) {
             seatUIModel.isSelected = false
             return SeatSelectionResult.Success
@@ -15,13 +17,15 @@ data class SeatsUIModel(
                 return SeatSelectionResult.MaxCapacityReached
             }
             return SeatSelectionResult.Success
+        } else if (selectedCount() == maxSelectableSeats) {
+            return SeatSelectionResult.AlreadyMaxCapacityReached
         }
         return SeatSelectionResult.Failure
     }
-    
-    private fun selectedCount(): Int = seats.count { it.isSelected }
-    
-    fun selectedSeats(): List<SeatUIModel> = seats.filter { it.isSelected }
-    
-    fun totalPrice(): Int = selectedSeats().sumOf { it.seat.seatGrade.price }
+
+    private fun selectedCount(): Int = seatUIModels.count { it.isSelected }
+
+    fun selectedSeats(): List<Seat> = seatUIModels.filter { it.isSelected }.map { it.seat }
+
+    fun totalPrice(): Int = selectedSeats().sumOf { it.seatGrade.price }
 }
