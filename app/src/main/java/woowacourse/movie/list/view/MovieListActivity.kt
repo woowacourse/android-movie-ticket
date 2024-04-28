@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.list.adapter.MovieAdapter
 import woowacourse.movie.list.contract.MovieListContract
+import woowacourse.movie.list.model.Advertisement
 import woowacourse.movie.list.model.Movie
 import woowacourse.movie.list.presenter.MovieListPresenter
 import woowacourse.movie.reservation.view.MovieReservationActivity
@@ -27,8 +28,12 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         presenter.setListViewClickListenerInfo()
     }
 
-    override fun showMoviesInfo(movies: List<Movie>) {
-        movieAdapter = MovieAdapter(movies)
+    override fun showMoviesInfo(
+        movies: List<Movie>,
+        advertisements: List<Advertisement>,
+    ) {
+        movieAdapter = MovieAdapter(movies, advertisements)
+
         recyclerView.adapter = movieAdapter
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }

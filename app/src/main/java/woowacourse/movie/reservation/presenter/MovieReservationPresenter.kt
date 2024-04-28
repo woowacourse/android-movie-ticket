@@ -1,6 +1,6 @@
 package woowacourse.movie.reservation.presenter
 
-import woowacourse.movie.common_data.MovieDataSource
+import woowacourse.movie.common.MovieDataSource
 import woowacourse.movie.reservation.contract.MovieReservationContract
 import woowacourse.movie.reservation.model.DataResource
 import woowacourse.movie.reservation.model.MovieReservationTicketCountData

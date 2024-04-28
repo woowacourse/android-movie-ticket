@@ -1,6 +1,6 @@
 package woowacourse.movie.reservation.model
 
-import woowacourse.movie.common_data.MovieDataSource
+import woowacourse.movie.common.MovieDataSource
 import java.time.LocalDate
 import java.time.LocalTime
 

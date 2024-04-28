@@ -11,19 +11,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.ticket.model.Ticket
 import woowacourse.movie.ticket.view.MovieTicketActivity
-import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
 class MovieTicketTest {
-    private val ticket =
-        Ticket(
-            "해리 포터와 마법사의 돌",
-            LocalDateTime.of(2024, 3, 1, 0, 0, 0),
-            13_000,
-            0,
-        )
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
