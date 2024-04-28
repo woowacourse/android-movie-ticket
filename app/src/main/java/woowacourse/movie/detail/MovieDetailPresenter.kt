@@ -10,8 +10,12 @@ import java.time.LocalDate
 class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
     private val movieId: Int,
-    private val ticket: Ticket = Ticket(),
+    val ticket: Ticket = Ticket(),
 ) : MovieDetailContract.Presenter {
+    override fun loadSavedData() {
+        view.updateCount(ticket.count)
+    }
+
     override fun loadMovie() {
         view.showMovieInformation(Movies.obtainMovie(movieId))
     }

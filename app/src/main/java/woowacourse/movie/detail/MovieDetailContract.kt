@@ -23,6 +23,8 @@ interface MovieDetailContract {
     }
 
     interface Presenter {
+        fun loadSavedData()
+
         fun increaseCount()
 
         fun decreaseCount()

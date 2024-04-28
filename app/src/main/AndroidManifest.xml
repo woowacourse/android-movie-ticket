@@ -18,8 +18,7 @@
             android:parentActivityName=".detail.MovieDetailActivity" />
         <activity
             android:name=".home.HomeActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,13 +28,11 @@
         <activity
             android:name=".reservation.ReservationFinishedActivity"
             android:exported="false"
-            android:parentActivityName=".home.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".home.HomeActivity" />
         <activity
             android:name=".detail.MovieDetailActivity"
             android:exported="false"
-            android:parentActivityName=".home.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".home.HomeActivity" />
     </application>
 
 </manifest>

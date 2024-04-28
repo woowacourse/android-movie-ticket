@@ -42,7 +42,20 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
 
-        presenter = MovieDetailPresenter(this, movieId)
+        presenter =
+            if (savedInstanceState == null) {
+                MovieDetailPresenter(this, movieId)
+            } else {
+                val numberOfTicket = savedInstanceState.getInt("ticketCount")
+                MovieDetailPresenter(
+                    this,
+                    movieId,
+                    Ticket(numberOfTicket),
+                ).also {
+                    it.loadSavedData()
+                }
+            }
+
         presenter.loadMovie()
         presenter.loadScreeningDates()
 
@@ -55,6 +68,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         reservationButton.setOnClickListener {
             presenter.deliverReservationInformation()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("ticketCount", presenter.ticket.count)
     }
 
     override fun showScreeningDates(screeningDates: List<LocalDate>) {
