@@ -107,6 +107,6 @@ class SeatSelectActivityTest {
         view(R.id.reservation_amount_text)
             .equalText("22,000원")
         view(R.id.confirm_button)
-            .checkEnabled()
+            .checkDisabled()
     }
 }

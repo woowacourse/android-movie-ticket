@@ -58,12 +58,14 @@ class MovieHomeActivityTest {
     @Test
     fun `영화_목록_첫_번째_항목은_영화_정보다`() {
         view(R.id.movie_list)
+            .child(0)
             .checkViewHolderType(0, MovieViewHolder::class.java)
     }
 
     @Test
     fun `영화_목록_네_번째_항목은_광고다`() {
         view(R.id.movie_list)
+            .child(3)
             .checkViewHolderType(3, MovieAdvertisementViewHolder::class.java)
     }
 
