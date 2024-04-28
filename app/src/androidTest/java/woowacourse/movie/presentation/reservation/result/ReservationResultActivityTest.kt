@@ -90,15 +90,13 @@ class ReservationResultActivityTest {
                     throw UnsupportedOperationException()
                 }
 
-                override fun movieReservationById(id: Long): Result<MovieReservation> {
-                    return Result.success(
-                        MovieReservation(
-                            id = 1,
-                            screeningMovie = ScreeningMovie.STUB,
-                            screenDateTime = LocalDateTime.now(),
-                            headCount = HeadCount(1),
-                            seats = Seats(),
-                        ),
+                override fun movieReservationById(id: Long): MovieReservation? {
+                    return MovieReservation(
+                        id = 1,
+                        screeningMovie = ScreeningMovie.STUB,
+                        screenDateTime = LocalDateTime.now(),
+                        headCount = HeadCount(1),
+                        seats = Seats(),
                     )
                 }
             },

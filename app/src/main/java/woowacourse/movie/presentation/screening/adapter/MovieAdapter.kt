@@ -17,8 +17,8 @@ class MovieAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            position.isAdPosition() -> ScreenItemType.AD.ordinal
-            else -> ScreenItemType.MOVIE.ordinal
+            position.isAdPosition() -> ScreenItemType.AD.id
+            else -> ScreenItemType.MOVIE.id
         }
     }
 
@@ -27,7 +27,9 @@ class MovieAdapter(
         viewType: Int,
     ): RecyclerView.ViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
-        return when (ScreenItemType.entries[viewType]) {
+        val viewType = ScreenItemType.entries.find { it.id == viewType }
+            ?: error("InValid 한 viewType 입니다. viewType: $viewType")
+        return when (viewType) {
             ScreenItemType.MOVIE -> {
                 val view = inflater.inflate(R.layout.item_screening_movie, parent, false)
                 MovieViewHolder(view) { onClickReservationButton(getItem(it).id) }
