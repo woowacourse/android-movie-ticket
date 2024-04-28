@@ -169,7 +169,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="Movie Title Default"/>
+                tools:text="Movie Title Default" />
 
             <TextView
                 android:id="@+id/total_price"

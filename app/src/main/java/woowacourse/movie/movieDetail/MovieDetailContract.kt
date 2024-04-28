@@ -1,6 +1,5 @@
 package woowacourse.movie.movieDetail
 
-import android.content.Context
 import android.content.Intent
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.theater.Theater

@@ -69,7 +69,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
         builder.setMessage("정말 예매하시겠습니까?")
         builder.setPositiveButton("예매 완료") { _, _ ->
             val theater = intent.getSerializableExtra("Theater", Theater::class.java)
-            val ticketPrice=findViewById<TextView>(R.id.total_price).text
+            val ticketPrice = findViewById<TextView>(R.id.total_price).text
             if (theater != null) {
                 val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
                     putExtra("ticketPrice", ticketPrice.toString())

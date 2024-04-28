@@ -1,7 +1,6 @@
 package woowacourse.movie.purchaseConfirmation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity

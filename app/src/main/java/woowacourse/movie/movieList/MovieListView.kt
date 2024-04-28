@@ -1,4 +1,3 @@
-import android.content.Context
 import android.content.Intent
 import woowacourse.movie.model.MovieDisplayData
 
