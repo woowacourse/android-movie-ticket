@@ -27,8 +27,9 @@ class MovieAdapter(
         viewType: Int,
     ): RecyclerView.ViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
-        val viewType = ScreenItemType.entries.find { it.id == viewType }
-            ?: error("InValid 한 viewType 입니다. viewType: $viewType")
+        val viewType =
+            ScreenItemType.entries.find { it.id == viewType }
+                ?: error("InValid 한 viewType 입니다. viewType: $viewType")
         return when (viewType) {
             ScreenItemType.MOVIE -> {
                 val view = inflater.inflate(R.layout.item_screening_movie, parent, false)
