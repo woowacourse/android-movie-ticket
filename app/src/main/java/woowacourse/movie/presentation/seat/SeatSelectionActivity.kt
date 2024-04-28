@@ -85,7 +85,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 rows.children.filterIsInstance<TextView>()
                     .forEachIndexed { columIndex, view ->
                         val currentSeat = seats[rowIndex][columIndex]
-                        view.text = currentSeat.seatName
+                        view.text = "${currentSeat.seatRow}${currentSeat.seatColumn}"
                         view.setTextColor(
                             when (currentSeat.seatType) {
                                 SeatType.S -> getColor(R.color.seat_s_text_color)

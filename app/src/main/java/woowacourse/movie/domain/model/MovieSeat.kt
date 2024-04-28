@@ -1,6 +1,7 @@
 package woowacourse.movie.domain.model
 
 data class MovieSeat(
-    val seatName: String,
+    val seatRow: String,
+    val seatColumn: Int,
     val seatType: SeatType,
 )

@@ -5,20 +5,23 @@ import woowacourse.movie.domain.model.SeatType
 import java.io.Serializable
 
 class MovieSeatModel(
-    val seatName: String,
+    val seatRow: String,
+    val seatColumn: Int,
     val seatType: SeatType,
 ) : Serializable
 
 fun MovieSeat.toMovieSeatModel(): MovieSeatModel {
     return MovieSeatModel(
-        seatName = seatName,
+        seatRow = seatRow,
+        seatColumn = seatColumn,
         seatType = seatType,
     )
 }
 
 fun MovieSeatModel.toMovieSeat(): MovieSeat {
     return MovieSeat(
-        seatName = seatName,
+        seatRow = seatRow,
+        seatColumn = seatColumn,
         seatType = seatType,
     )
 }

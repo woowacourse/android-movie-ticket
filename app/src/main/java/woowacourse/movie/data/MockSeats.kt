@@ -17,11 +17,12 @@ object MockSeats {
                         else -> SeatType.A
                     }
                 MovieSeat(
-                    seatName = "$row$column",
+                    seatRow = row,
+                    seatColumn = column,
                     seatType = seatType,
                 )
             }
         }
 
-    val defaultSeat = MovieSeat(seatName = "", seatType = SeatType.S)
+    val defaultSeat = MovieSeat(seatRow = "", seatColumn = -1, seatType = SeatType.S)
 }

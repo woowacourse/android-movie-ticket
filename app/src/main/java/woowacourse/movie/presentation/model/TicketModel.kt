@@ -34,6 +34,6 @@ fun Ticket.toTicketModel(): TicketModel {
         screeningTime = movieDateTime.currentTime,
         count = count,
         price = price,
-        seats = seats.map { it.seatName },
+        seats = seats.map { "${it.seatRow}${it.seatColumn}" },
     )
 }
