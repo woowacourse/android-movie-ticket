@@ -14,6 +14,7 @@ import woowacourse.movie.data.SeatRepositoryImpl
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.SeatType
 import woowacourse.movie.presentation.detail.TicketDetailActivity
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.seat.SeatSelectionPresenter.Companion.KEY_NAME_SEATS
@@ -29,7 +30,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         SeatSelectionPresenter(
             view = this@SeatSelectionActivity,
             seatRepository = SeatRepositoryImpl(),
-            ticketModel = getReservationTicket(),
+            pendingMovieReservationModel = getPendingMovieReservation(),
         )
     }
 
@@ -57,23 +58,23 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         confirmButton.setOnClickListener {
             presenter.confirmSeatResult()
         }
+        moviePriceText.text = 0.toString()
     }
 
-    private fun getReservationTicket(): TicketModel {
+    private fun getPendingMovieReservation(): PendingMovieReservationModel {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(
-                MovieReservationPresenter.KEY_NAME_TICKET,
-                TicketModel::class.java,
-            ) ?: TicketModel.defaultTicket
+                MovieReservationPresenter.KEY_NAME_PENDING_RESERVATION,
+                PendingMovieReservationModel::class.java,
+            ) ?: PendingMovieReservationModel.defaultPendingMovieReservation
         } else {
-            intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel
-                ?: TicketModel.defaultTicket
+            intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_PENDING_RESERVATION) as? PendingMovieReservationModel
+                ?: PendingMovieReservationModel.defaultPendingMovieReservation
         }
     }
 
-    override fun showTicket(ticketModel: TicketModel) {
-        movieTitleText.text = ticketModel.title
-        moviePriceText.text = ticketModel.price.toString()
+    override fun showTicket(pendingMovieReservationModel: PendingMovieReservationModel) {
+        movieTitleText.text = pendingMovieReservationModel.title
     }
 
     override fun showSeat(seats: List<List<MovieSeat>>) {
@@ -133,7 +134,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun moveToTicketDetail(ticket: TicketModel) {
         val intent = Intent(this@SeatSelectionActivity, TicketDetailActivity::class.java)
-        intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticket as Serializable)
+        intent.putExtra(SeatSelectionPresenter.KEY_NAME_TICKET, ticket as Serializable)
         this@SeatSelectionActivity.startActivity(intent)
     }
 

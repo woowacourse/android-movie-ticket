@@ -2,6 +2,7 @@ package woowacourse.movie.domain.repository
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 interface DateRepository {
     fun getDatesBetween(
@@ -9,5 +10,5 @@ interface DateRepository {
         endDate: LocalDate,
     ): List<LocalDate>
 
-    fun getDateTimes(date: LocalDate): List<LocalDateTime>
+    fun getDateTimes(date: LocalDate): List<LocalTime>
 }

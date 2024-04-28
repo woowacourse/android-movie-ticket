@@ -7,6 +7,7 @@ import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 interface MovieReservationContract {
     interface View {
@@ -16,7 +17,7 @@ interface MovieReservationContract {
 
         fun showDate(dates: List<LocalDate>)
 
-        fun showTime(times: List<LocalDateTime>)
+        fun showTime(times: List<LocalTime>)
 
         fun moveToSeatSelection(pendingMovieReservation: PendingMovieReservationModel)
 
@@ -46,7 +47,7 @@ interface MovieReservationContract {
 
         fun selectDate(newDate: LocalDate)
 
-        fun selectTime(newTime: LocalDateTime)
+        fun selectTime(newTime: LocalTime)
 
         fun initSavedInstance(
             count: Int,

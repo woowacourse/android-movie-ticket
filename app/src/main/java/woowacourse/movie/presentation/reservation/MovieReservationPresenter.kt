@@ -13,6 +13,7 @@ import woowacourse.movie.presentation.model.toPendingMovieReservationModel
 import woowacourse.movie.presentation.model.toTicketModel
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
@@ -69,7 +70,7 @@ class MovieReservationPresenter(
         movieDate.setCurrentDate(newDate)
     }
 
-    override fun selectTime(newTime: LocalDateTime) {
+    override fun selectTime(newTime: LocalTime) {
         movieDate.setCurrentTime(newTime)
     }
 
@@ -90,7 +91,6 @@ class MovieReservationPresenter(
 
     companion object {
         const val KEY_NAME_PENDING_RESERVATION ="pendingReservation"
-        const val KEY_NAME_TICKET = "ticket"
         const val KEY_TICKET_COUNT = "ticketCount"
         const val KEY_MOVIE_DATE = "movieDate"
     }

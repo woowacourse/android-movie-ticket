@@ -4,11 +4,12 @@ import woowacourse.movie.domain.model.Ticket
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class TicketModel(
     val title: String,
     val screeningDate: LocalDate,
-    val screeningTime: LocalDateTime,
+    val screeningTime: LocalTime,
     val seats: List<String>,
     val count: Int,
     val price: Int,
@@ -19,7 +20,7 @@ class TicketModel(
             TicketModel(
                 price = 0,
                 screeningDate = LocalDate.now(),
-                screeningTime = LocalDateTime.now(),
+                screeningTime = LocalTime.now(),
                 title = DEFAULT_TICKET_TITLE,
                 seats = listOf(),
                 count = 1,

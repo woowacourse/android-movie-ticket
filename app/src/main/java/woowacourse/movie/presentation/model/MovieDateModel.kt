@@ -4,10 +4,11 @@ import woowacourse.movie.domain.model.MovieDate
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class MovieDateModel(
     val screeningDate: LocalDate,
-    val screeningTime: LocalDateTime,
+    val screeningTime: LocalTime,
 ) : Serializable
 
 fun MovieDate.toMovieDateModel(): MovieDateModel {

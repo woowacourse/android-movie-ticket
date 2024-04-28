@@ -30,6 +30,7 @@ import woowacourse.movie.presentation.utils.toDrawableIdByName
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private lateinit var titleView: TextView
@@ -155,7 +156,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             }
     }
 
-    override fun showTime(times: List<LocalDateTime>) {
+    override fun showTime(times: List<LocalTime>) {
         timeSpinner.adapter =
             ArrayAdapter(
                 this@MovieReservationActivity,
