@@ -2,15 +2,18 @@ package woowacourse.movie.movieDetail
 
 import android.content.Intent
 import android.os.Build
-import androidx.annotation.RequiresApi
 import woowacourse.movie.model.theater.Theater
 
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
     intent: Intent
 ) : MovieDetailContract.Presenter {
-    private val theater = intent.getSerializableExtra("Theater", Theater::class.java)
+    private val theater = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        intent.getSerializableExtra("Theater", Theater::class.java)
+    } else {
+        @Suppress("DEPRECATION")
+        TODO("VERSION.SDK_INT < TIRAMISU")
+    }
     val movie = theater?.movie
     override fun load() {
         movie?.let { view.initializeViews(it) }
