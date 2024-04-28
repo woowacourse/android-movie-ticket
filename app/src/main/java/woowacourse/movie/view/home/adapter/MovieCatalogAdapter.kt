@@ -16,7 +16,7 @@ class MovieCatalogAdapter(
     val movie: (Movie) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     private val movieViewType = CatalogViewType.MOVIE.viewType
-    private val advertisementType = CatalogViewType.ADVERTISEMENT.viewType
+    private val advertisementViewType = CatalogViewType.ADVERTISEMENT.viewType
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -36,27 +36,25 @@ class MovieCatalogAdapter(
         holder: ViewHolder,
         position: Int,
     ) {
-        if (getItemViewType(position) == movieViewType) {
-            val item = movies[position]
-            (holder as MovieViewHolder).bind(item, movie)
-        } else {
-            val item = advertisements[position - ADVERTISEMENT_POSITION]
-            (holder as AdvertisementViewHolder).bind(item)
+        when(getItemViewType(position)) {
+            movieViewType -> {
+                val item = movies[position]
+                (holder as MovieViewHolder).bind(item, movie)
+            }
+            advertisementViewType -> {
+                val item = advertisements[position - CatalogViewType.ADVERTISEMENT.position]
+                (holder as AdvertisementViewHolder).bind(item)
+            }
         }
     }
 
     override fun getItemCount() = movies.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % ADVERTISEMENT_INTERVAL == ADVERTISEMENT_POSITION) {
-            advertisementType
+        return if (position % CatalogViewType.ADVERTISEMENT.interval == CatalogViewType.ADVERTISEMENT.position) {
+            advertisementViewType
         } else {
             movieViewType
         }
-    }
-
-    companion object {
-        const val ADVERTISEMENT_INTERVAL = 4
-        const val ADVERTISEMENT_POSITION = 3
     }
 }
