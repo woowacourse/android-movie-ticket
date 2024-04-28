@@ -66,7 +66,7 @@ class ReservationResultActivityTest {
             matches(
                 withText(
                     testContext.getString(
-                        R.string.reservation_total_price_format,
+                        R.string.total_price_format,
                         13000,
                     ),
                 ),

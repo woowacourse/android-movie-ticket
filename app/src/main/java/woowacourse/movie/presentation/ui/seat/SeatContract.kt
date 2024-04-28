@@ -1,20 +1,22 @@
 package woowacourse.movie.presentation.ui.seat
 
-import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.presentation.uimodel.SeatsUIModel
 
 
 interface SeatContract {
     interface View {
         fun showMovieTitle(movieTitle: String)
         
-        fun showSeats(
-            seat: List<Seat>
-        )
+        fun showSeats(seatsUIModel: SeatsUIModel)
+        
+        fun showTotalPrice(total: Int)
         
         fun showMessage(message: String)
     }
-
+    
     interface Presenter {
         fun loadScreeningInformation()
+        
+        fun onSeatClicked(seatIndex: Int)
     }
 }

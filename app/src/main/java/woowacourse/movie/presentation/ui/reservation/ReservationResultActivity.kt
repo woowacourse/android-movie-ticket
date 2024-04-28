@@ -25,7 +25,7 @@ class ReservationResultActivity : BaseActivity(), ReservationResultContract.View
         findViewById<TextView>(R.id.reservationCount).text =
             getString(R.string.reservation_count_format, movieTicket.reservationCount)
         findViewById<TextView>(R.id.totalPrice).text =
-            getString(R.string.reservation_total_price_format, movieTicket.totalPrice)
+            getString(R.string.total_price_format, movieTicket.totalPrice)
     }
 
     override fun showMessage(message: String) {

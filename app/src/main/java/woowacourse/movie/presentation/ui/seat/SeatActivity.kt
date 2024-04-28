@@ -8,9 +8,9 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
 import woowacourse.movie.data.repository.SeatRepositoryImpl
-import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatGrade
 import woowacourse.movie.presentation.base.BaseActivity
+import woowacourse.movie.presentation.uimodel.SeatsUIModel
 
 class SeatActivity : BaseActivity(), SeatContract.View {
     private lateinit var presenter: SeatPresenter
@@ -30,6 +30,8 @@ class SeatActivity : BaseActivity(), SeatContract.View {
         
         seatBoard = findViewById(R.id.seat_board_layout)
         title = findViewById(R.id.title)
+        totalPrice = findViewById(R.id.total_price)
+        confirmButton = findViewById(R.id.confirm_button)
         seatsTable = seatBoard.children.filterIsInstance<TableRow>().flatMap { it.children }
             .filterIsInstance<Button>().toList()
         
@@ -40,12 +42,14 @@ class SeatActivity : BaseActivity(), SeatContract.View {
         title.text = movieTitle
     }
     
-    override fun showSeats(seat: List<Seat>) {
+    override fun showSeats(seatsUIModel: SeatsUIModel) {
         seatsTable.forEachIndexed { index, button ->
-            button.text = seat[index].toString()
-            button.setTextColor(loadSeatColor(seat[index].seatGrade))
+            val seatUIModel = seatsUIModel.seats[index]
+            button.text = seatUIModel.seat.toString()
+            button.setTextColor(loadSeatColor(seatUIModel.seat.seatGrade))
+            button.isSelected = seatUIModel.isSelected
             button.setOnClickListener {
-                button.isSelected = !button.isSelected
+                presenter.onSeatClicked(index)
             }
         }
     }
@@ -53,9 +57,13 @@ class SeatActivity : BaseActivity(), SeatContract.View {
     private fun loadSeatColor(grade: SeatGrade): Int {
         return when (grade) {
             SeatGrade.B -> getColor(R.color.purple_500)
-            SeatGrade.S -> getColor(R.color.teal_700)
-            SeatGrade.A -> getColor(R.color.blue_500)
+            SeatGrade.A -> getColor(R.color.teal_700)
+            SeatGrade.S -> getColor(R.color.blue_500)
         }
+    }
+    
+    override fun showTotalPrice(total: Int) {
+        totalPrice.text = getString(R.string.total_price_format, total)
     }
     
     override fun showMessage(message: String) {
