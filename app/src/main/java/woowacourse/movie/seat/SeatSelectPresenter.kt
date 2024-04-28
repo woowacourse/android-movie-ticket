@@ -24,9 +24,11 @@ class SeatSelectPresenter(
     ) {
         ranks.add(getRank(position))
         val totalPrice = Rank.calculateTotalPrice(ranks)
+        val isAvailable = ticket.count == ranks.size
 
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(false, onColor)
+        view.showReservationCheck(isAvailable)
     }
 
     override fun unselectSeat(
@@ -35,9 +37,11 @@ class SeatSelectPresenter(
     ) {
         ranks.remove(getRank(position))
         val totalPrice = Rank.calculateTotalPrice(ranks)
+        val isAvailable = ticket.count == ranks.size
 
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(true, onColor)
+        view.showReservationCheck(isAvailable)
     }
 
     private fun getRank(position: Int): Rank =

@@ -2,11 +2,14 @@ package woowacourse.movie.seat
 
 interface SeatSelectContract {
     interface View {
-        fun showReservationInfo(movieTitle: String, totalPrice: Int)
+        fun showReservationInfo(
+            movieTitle: String,
+            totalPrice: Int,
+        )
 
         fun showTotalPrice(totalPrice: Int)
 
-        fun showReservationCheck()
+        fun showReservationCheck(isAvailable: Boolean)
 
         fun changeSeatColor(
             isSelected: Boolean,

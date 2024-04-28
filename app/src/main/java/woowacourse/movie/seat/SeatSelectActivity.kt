@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -16,6 +17,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     private val seats: GridLayout by lazy { findViewById(R.id.grid_layout_seat_select) }
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.text_view_seat_select_movie_title) }
     private val totalPriceTextView: TextView by lazy { findViewById(R.id.text_view_seat_select_total_price) }
+    private val reservationButton: Button by lazy { findViewById(R.id.button_seat_select_confirm) }
 
     private lateinit var presenter: SeatSelectPresenter
 
@@ -50,7 +52,10 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             }
     }
 
-    override fun showReservationInfo(movieTitle: String, totalPrice: Int) {
+    override fun showReservationInfo(
+        movieTitle: String,
+        totalPrice: Int,
+    ) {
         movieTitleTextView.text = movieTitle
         totalPriceTextView.text = getString(R.string.seat_select_total_price, totalPrice)
     }
@@ -59,8 +64,14 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         totalPriceTextView.text = getString(R.string.seat_select_total_price, totalPrice)
     }
 
-    override fun showReservationCheck() {
-        TODO("Not yet implemented")
+    override fun showReservationCheck(isAvailable: Boolean) {
+        if (isAvailable) {
+            reservationButton.isEnabled = true
+            reservationButton.setBackgroundColor(getColor(R.color.blue))
+        } else {
+            reservationButton.isEnabled = false
+            reservationButton.setBackgroundColor(getColor(R.color.grey))
+        }
     }
 
     override fun changeSeatColor(
