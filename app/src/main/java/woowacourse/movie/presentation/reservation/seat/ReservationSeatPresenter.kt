@@ -50,6 +50,6 @@ class ReservationSeatPresenter(
     }
 
     override fun loadReservationInfo() {
-        view.navigateToResult(seats, ticket)
+        view.navigateToResult(seats, ticket,movie.id)
     }
 }

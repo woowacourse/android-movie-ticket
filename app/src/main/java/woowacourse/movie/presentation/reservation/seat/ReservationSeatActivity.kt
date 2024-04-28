@@ -17,6 +17,7 @@ import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 import woowacourse.movie.presentation.screen.detail.MovieDetailActivity.Companion.TICKET
+import woowacourse.movie.presentation.screen.movie.ScreeningMovieActivity.Companion.MOVIE_ID
 
 class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
     private val presenter: ReservationSeatPresenter by lazy {
@@ -97,8 +98,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         complete.setOnClickListener(null)
     }
 
-    override fun navigateToResult(seats: Seats, ticket: Ticket) {
+    override fun navigateToResult(seats: Seats, ticket: Ticket, movieId: Int) {
         val intent = Intent(this, ReservationResultActivity::class.java)
+        intent.putExtra(MOVIE_ID, movieId)
         intent.putExtra(TICKET, ticket)
         intent.putExtra(SEATS, seats)
         this.startActivity(intent)

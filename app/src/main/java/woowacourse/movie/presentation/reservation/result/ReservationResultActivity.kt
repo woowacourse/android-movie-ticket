@@ -6,6 +6,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
+import woowacourse.movie.model.Seats
+import woowacourse.movie.model.Ticket
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
     private val presenter: ReservationResultContract.Presenter by lazy {
@@ -14,12 +16,18 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
             MovieDao(),
         )
     }
+    private val titleTextView: TextView by lazy { findViewById(R.id.result_title_textview) }
+    private val screenDataTextView: TextView by lazy { findViewById(R.id.result_screen_date_textview) }
+    private val screenTimeTextView: TextView by lazy { findViewById(R.id.result_screen_time_textview) }
+    private val countTextView: TextView by lazy { findViewById(R.id.result_count_textview) }
+    private val priceTextView: TextView by lazy { findViewById(R.id.result_price_textview) }
+    private val seatsTextView: TextView by lazy { findViewById(R.id.result_seat_textview) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        presenter.fetchReservationDetail(intent)
+        presenter.fetch(intent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -27,35 +35,16 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         return true
     }
 
-    override fun setUpView(
-        title: String,
-        screenDate: String,
-        count: Int,
-        price: Int,
-    ) {
-        initTitle(title)
-        initScreenDate(screenDate)
-        initCount(count)
-        initPrice(price)
-    }
-
-    private fun initTitle(title: String) {
-        val titleTextView: TextView = findViewById(R.id.result_title_textview)
+    override fun showMovieInformation(title: String) {
         titleTextView.text = title
     }
 
-    private fun initScreenDate(screenDate: String) {
-        val screenDataTextView: TextView = findViewById(R.id.result_screen_date_textview)
-        screenDataTextView.text = screenDate
-    }
-
-    private fun initCount(count: Int) {
-        val countTextView: TextView = findViewById(R.id.result_count_textview)
-        countTextView.text = count.toString()
-    }
-
-    private fun initPrice(price: Int) {
-        val priceTextView: TextView = findViewById(R.id.result_price_textview)
-        priceTextView.text = getString(R.string.price_format, price)
+    override fun showReservationInformation(ticket: Ticket, seats: Seats) {
+        priceTextView.text = getString(R.string.price_format, seats.totalPrice())
+        countTextView.text = ticket.count.toString()
+        screenDataTextView.text = ticket.screeningInfo.first.toString()
+        screenTimeTextView.text = ticket.screeningInfo.second.toString()
+        seatsTextView.text =
+            seats.seats.joinToString(getString(R.string.seat_separator)) { " ${'A' + it.row}${it.col + 1}" }
     }
 }

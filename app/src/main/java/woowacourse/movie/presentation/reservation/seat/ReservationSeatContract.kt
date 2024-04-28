@@ -18,7 +18,7 @@ interface ReservationSeatContract {
 
         fun unableClickCompleteText()
 
-        fun navigateToResult(seats: Seats, ticket: Ticket)
+        fun navigateToResult(seats: Seats, ticket: Ticket, movieId: Int)
     }
 
     interface Presenter {
