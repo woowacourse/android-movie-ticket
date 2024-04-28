@@ -5,6 +5,8 @@ import woowacourse.movie.model.movie.MovieDetail
 import woowacourse.movie.model.movie.RunningTime
 import woowacourse.movie.model.movie.Synopsis
 import woowacourse.movie.model.movie.Title
+import woowacourse.movie.model.schedule.ScreeningDate
+import woowacourse.movie.model.schedule.ScreeningPeriod
 
 class PseudoMovieRepository : MovieRepository {
     override fun getMovies(): List<Movie> = movies
@@ -27,10 +29,16 @@ class PseudoMovieRepository : MovieRepository {
                     synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys
                     synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys
                     synopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsyssynopsys
-                    """.trimIndent().trimEnd(),
+                    """.trimIndent().replace("\n", "")
                 ),
             )
-        private val pseudoMovie = Movie.default
+        private val pseudoMovie = Movie(
+            pseudoMovieDetail,
+            ScreeningPeriod(
+                ScreeningDate.of(2024, 4, 26),
+                ScreeningDate.of(2024, 4, 28),
+            )
+        )
 
         private val movies = List(11) { pseudoMovie }
     }
