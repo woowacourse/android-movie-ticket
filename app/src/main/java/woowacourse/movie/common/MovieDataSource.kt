@@ -1,4 +1,4 @@
-package woowacourse.movie.common_data
+package woowacourse.movie.common
 
 import woowacourse.movie.R
 import woowacourse.movie.list.model.Movie
@@ -77,15 +77,5 @@ object MovieDataSource {
                 """.trimIndent(),
                 6,
             ),
-        )
-
-    val emptyMovie =
-        Movie(
-            "",
-            0,
-            LocalDate.of(0, 1, 1),
-            0,
-            "",
-            0,
         )
 }
