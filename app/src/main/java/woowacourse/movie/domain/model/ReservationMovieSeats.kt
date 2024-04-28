@@ -2,7 +2,7 @@ package woowacourse.movie.domain.model
 
 import woowacourse.movie.presentation.seat.model.SeatSelectType
 
-class MovieSeats(
+class ReservationMovieSeats(
     private val ticketCount: Int,
 ) {
     var userSeats = arrayListOf<MovieSeat>()

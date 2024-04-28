@@ -5,12 +5,15 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieRepositoryImpl
+import woowacourse.movie.domain.DateMaker
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.reservation.MovieReservationContract
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class MovieReservationPresenterTest {
     private lateinit var mockView: MockMovieReservationContractView
@@ -31,11 +34,11 @@ class MovieReservationPresenterTest {
             Log.d("showDate", "날짜가 보여집니다")
         }
 
-        override fun showTime(times: List<LocalDateTime>) {
+        override fun showTime(times: List<LocalTime>) {
             Log.d("showTime", "시간이 보여집니다")
         }
 
-        override fun moveToSeatSelection(ticketModel: TicketModel) {
+        override fun moveToSeatSelection(pendingMovieReservation: PendingMovieReservationModel) {
             Log.d("moveToTicketDetail", "티켓 디테일 화면으로 이동합니다")
         }
 
@@ -52,7 +55,7 @@ class MovieReservationPresenterTest {
                 view = mockView,
                 movieId = 1,
                 movieRepository = MovieRepositoryImpl(),
-                dateMaker = DateRepositoryImpl(),
+                dateMaker = DateMaker(),
             )
     }
 

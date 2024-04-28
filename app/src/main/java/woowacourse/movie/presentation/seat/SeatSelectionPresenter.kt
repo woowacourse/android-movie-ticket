@@ -3,11 +3,10 @@ package woowacourse.movie.presentation.seat
 import android.os.Bundle
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieSeat
-import woowacourse.movie.domain.model.MovieSeats
+import woowacourse.movie.domain.model.ReservationMovieSeats
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.repository.SeatRepository
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
-import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.model.toTicketModel
 import woowacourse.movie.presentation.seat.model.MovieSeatModel
 import woowacourse.movie.presentation.seat.model.SeatSelectType
@@ -20,7 +19,7 @@ class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
     private val seatRepository: SeatRepository,
 ) : SeatSelectionContract.Presenter {
-    private val movieSeats = MovieSeats(pendingMovieReservationModel.count)
+    private val reservationMovieSeats = ReservationMovieSeats(pendingMovieReservationModel.count)
 
     override fun loadTicket() {
         view.showTicket(pendingMovieReservationModel = pendingMovieReservationModel)
@@ -36,18 +35,18 @@ class SeatSelectionPresenter(
     ) {
         val seat = seatRepository.getSeat(rowIndex, columIndex)
         if (seat.seatName.isEmpty()) return
-        movieSeats.setSeatSelectType(seat)
-        when (movieSeats.seatSelectType) {
+        reservationMovieSeats.setSeatSelectType(seat)
+        when (reservationMovieSeats.seatSelectType) {
             SeatSelectType.ADD -> {
-                movieSeats.addSeat(seat)
+                reservationMovieSeats.addSeat(seat)
                 view.showSelectedSeat(rowIndex, columIndex)
-                view.showCurrentResultTicketPriceView(movieSeats.getSeatPrice())
+                view.showCurrentResultTicketPriceView(reservationMovieSeats.getSeatPrice())
             }
 
             SeatSelectType.REMOVE -> {
-                movieSeats.deleteSeat(seat)
+                reservationMovieSeats.deleteSeat(seat)
                 view.showUnSelectedSeat(rowIndex, columIndex)
-                view.showCurrentResultTicketPriceView(movieSeats.getSeatPrice())
+                view.showCurrentResultTicketPriceView(reservationMovieSeats.getSeatPrice())
             }
 
             SeatSelectType.PREVENT -> {}
@@ -56,7 +55,7 @@ class SeatSelectionPresenter(
     }
 
     override fun getSeats(): List<MovieSeat> {
-        return movieSeats.userSeats
+        return reservationMovieSeats.userSeats
     }
 
     override fun ticketing() {
@@ -69,20 +68,20 @@ class SeatSelectionPresenter(
                         pendingMovieReservationModel.movieDate.screeningTime,
                     ),
                 count = pendingMovieReservationModel.count,
-                price = movieSeats.getSeatPrice(),
-                seats = movieSeats.userSeats,
+                price = reservationMovieSeats.getSeatPrice(),
+                seats = reservationMovieSeats.userSeats,
             ).toTicketModel()
         view.moveToTicketDetail(ticket)
     }
 
     override fun confirmSeatResult() {
-        if (movieSeats.seatSelectType == SeatSelectType.PREVENT) {
+        if (reservationMovieSeats.seatSelectType == SeatSelectType.PREVENT) {
             view.showDialog()
         }
     }
 
     override fun saveInstance(outState: Bundle) {
-        val movieModels = movieSeats.userSeats.map { it.toMovieSeatModel() }
+        val movieModels = reservationMovieSeats.userSeats.map { it.toMovieSeatModel() }
         outState.putSerializable(KEY_NAME_SEATS, movieModels as Serializable)
     }
 
@@ -95,8 +94,8 @@ class SeatSelectionPresenter(
     }
 
     private fun updateSeatTypeInView() {
-        movieSeats.updateSeatSelectType()
-        when (movieSeats.seatSelectType) {
+        reservationMovieSeats.updateSeatSelectType()
+        when (reservationMovieSeats.seatSelectType) {
             SeatSelectType.ADD, SeatSelectType.REMOVE -> view.offConfirmAvailableView()
             SeatSelectType.PREVENT -> view.onConfirmAvailableView()
         }
