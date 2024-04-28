@@ -20,6 +20,8 @@ interface SeatSelectionContract {
 
         fun displayConfirmDialog()
 
+        fun displayMovieTitle(title: String)
+
         fun navigateToPurchaseConfirmation()
     }
 

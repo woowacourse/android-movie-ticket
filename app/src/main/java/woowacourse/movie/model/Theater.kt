@@ -3,7 +3,7 @@ package woowacourse.movie.model
 import woowacourse.movie.model.pricing.Tier
 import woowacourse.movie.model.seat.Position
 
-class Theater(rows: Int, cols: Int) {
+class Theater(val rows: Int, val cols: Int) {
     private val positions: Set<Position> =
         (1..rows).flatMap { y ->
             (1..cols).map { x ->

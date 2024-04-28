@@ -11,7 +11,7 @@ import woowacourse.movie.model.schedule.ScreeningPeriod
 class PseudoMovieRepository : MovieRepository {
     override fun getMovies(): List<Movie> = movies
 
-    override fun getMovie(screeningId: Int): Movie = movies.getOrNull(screeningId) ?: Movie.default
+    override fun getMovie(movieId: Int): Movie = movies.getOrNull(movieId) ?: Movie.default
 
     companion object {
         private val pseudoMovieDetail =

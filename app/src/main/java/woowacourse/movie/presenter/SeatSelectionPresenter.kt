@@ -6,6 +6,8 @@ import woowacourse.movie.model.Theater
 import woowacourse.movie.model.pricing.TierPricePolicy
 import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.model.seat.Position
+import woowacourse.movie.repository.MovieRepository
+import woowacourse.movie.repository.PseudoMovieRepository
 import woowacourse.movie.repository.PseudoReservationRepository
 import woowacourse.movie.repository.PseudoTheaterRepository
 import woowacourse.movie.repository.ReservationRepository
@@ -17,6 +19,7 @@ class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
     private val theaterRepository: TheaterRepository = PseudoTheaterRepository(),
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
+    private val movieRepository: MovieRepository = PseudoMovieRepository()
 ) : SeatSelectionContract.Presenter {
     private lateinit var theater: Theater
     private val selectedPositions: MutableSet<Position> = mutableSetOf()
@@ -29,10 +32,15 @@ class SeatSelectionPresenter(
         ticketNum: Int,
         reservedDateTime: LocalDateTime,
     ) {
-        this.movieId
+        this.movieId = movieId
         this.ticketNum = ticketNum
         this.reservedDateTime = reservedDateTime
+        val movieDetail = movieRepository.getMovie(this.movieId).movieDetail
+        val title = movieDetail.title.content
         theater = theaterRepository.getTheater()
+        view.deActivateConfirm()
+        updateTicketPrice()
+        view.displayMovieTitle(title)
         view.displayTheater(theater)
     }
 
