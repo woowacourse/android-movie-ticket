@@ -38,9 +38,6 @@ class MovieListActivity : AppCompatActivity(), MovieListView {
     }
 
     override fun updateAdapter(displayData: List<MovieDisplayData>) {
-        adapter.clear()
-        adapter.addAll(displayData)
-        adapter.notifyDataSetChanged()
+        adapter.updateItems(items = displayData)
     }
-
 }

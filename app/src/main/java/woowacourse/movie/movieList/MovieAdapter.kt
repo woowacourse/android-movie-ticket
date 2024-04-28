@@ -63,4 +63,10 @@ class MovieAdapter(
         val adjustedPosition = position - position / 4
         return if (getItemViewType(position) == ITEM_VIEW_TYPE_MOVIE) super.getItem(adjustedPosition) else null
     }
+
+    fun updateItems(items: List<MovieDisplayData>) {
+        clear()
+        addAll(items)
+        notifyDataSetChanged()
+    }
 }
