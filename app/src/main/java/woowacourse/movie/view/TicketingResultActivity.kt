@@ -1,9 +1,11 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.presenter.TicketingResultPresenter
@@ -34,6 +36,8 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         } else {
             showToastMessage(getString(R.string.error_reservation_result))
         }
+
+        initializeOnBackPressedCallback()
     }
 
     override fun assignInitialView(
@@ -65,8 +69,23 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) finish()
+        if (item.itemId == android.R.id.home) navigateBackToScreeningList()
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initializeOnBackPressedCallback() {
+        val onBackPressedCallBack =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() = navigateBackToScreeningList()
+            }
+        onBackPressedDispatcher.addCallback(onBackPressedCallBack)
+    }
+
+    private fun navigateBackToScreeningList() {
+        Intent(this@TicketingResultActivity, MovieListActivity::class.java).also {
+            it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(it)
+        }
     }
 
     companion object {
