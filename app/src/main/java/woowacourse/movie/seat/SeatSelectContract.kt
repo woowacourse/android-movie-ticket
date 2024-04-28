@@ -2,9 +2,9 @@ package woowacourse.movie.seat
 
 interface SeatSelectContract {
     interface View {
-        fun showMovieTitle(movieTitle: String)
+        fun showReservationInfo(movieTitle: String, totalPrice: Int)
 
-        fun showTotalPrice()
+        fun showTotalPrice(totalPrice: Int)
 
         fun showReservationCheck()
 
@@ -19,8 +19,14 @@ interface SeatSelectContract {
     interface Presenter {
         fun loadMovieTitle()
 
-        fun selectSeat(onColor: (Int) -> Unit)
+        fun selectSeat(
+            position: Int,
+            onColor: (Int) -> Unit,
+        )
 
-        fun unselectSeat(onColor: (Int) -> Unit)
+        fun unselectSeat(
+            position: Int,
+            onColor: (Int) -> Unit,
+        )
     }
 }

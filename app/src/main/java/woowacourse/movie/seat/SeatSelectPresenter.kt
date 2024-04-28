@@ -1,6 +1,7 @@
 package woowacourse.movie.seat
 
 import woowacourse.movie.db.Movies
+import woowacourse.movie.model.Rank
 import woowacourse.movie.model.Ticket
 
 class SeatSelectPresenter(
@@ -8,17 +9,49 @@ class SeatSelectPresenter(
     private val movieId: Int,
     private val ticket: Ticket,
 ) : SeatSelectContract.Presenter {
+    private val ranks = mutableListOf<Rank>()
+
     override fun loadMovieTitle() {
         val title = Movies.obtainMovie(movieId).title
+        val totalPrice = Rank.calculateTotalPrice(ranks)
 
-        view.showMovieTitle(title)
+        view.showReservationInfo(title, totalPrice)
     }
 
-    override fun selectSeat(onColor: (Int) -> Unit) {
+    override fun selectSeat(
+        position: Int,
+        onColor: (Int) -> Unit,
+    ) {
+        ranks.add(getRank(position))
+        val totalPrice = Rank.calculateTotalPrice(ranks)
+
+        view.showTotalPrice(totalPrice)
         view.changeSeatColor(false, onColor)
     }
 
-    override fun unselectSeat(onColor: (Int) -> Unit) {
+    override fun unselectSeat(
+        position: Int,
+        onColor: (Int) -> Unit,
+    ) {
+        ranks.remove(getRank(position))
+        val totalPrice = Rank.calculateTotalPrice(ranks)
+
+        view.showTotalPrice(totalPrice)
         view.changeSeatColor(true, onColor)
     }
+
+    private fun getRank(position: Int): Rank =
+        when (position / 4) {
+            0, 1 -> {
+                Rank.A
+            }
+
+            2, 3 -> {
+                Rank.S
+            }
+
+            else -> {
+                Rank.B
+            }
+        }
 }

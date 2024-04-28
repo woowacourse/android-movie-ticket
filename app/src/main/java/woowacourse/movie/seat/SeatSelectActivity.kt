@@ -10,12 +10,12 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.model.Rank
 import woowacourse.movie.model.Ticket
 
 class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     private val seats: GridLayout by lazy { findViewById(R.id.grid_layout_seat_select) }
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.text_view_seat_select_movie_title) }
+    private val totalPriceTextView: TextView by lazy { findViewById(R.id.text_view_seat_select_total_price) }
 
     private lateinit var presenter: SeatSelectPresenter
 
@@ -35,26 +35,13 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         seats.children
             .filterIsInstance<TextView>()
             .forEachIndexed { index, textView ->
-                val rank =
-                    when (index / 4) {
-                        0, 1 -> {
-                            Rank.A
-                        }
-                        2, 3 -> {
-                            Rank.S
-                        }
-                        else -> {
-                            Rank.B
-                        }
-                    }
-
                 textView.setOnClickListener {
                     if (it.isSelected) {
-                        presenter.selectSeat { color ->
+                        presenter.unselectSeat(index) { color ->
                             it.setBackgroundColor(getColor(color))
                         }
                     } else {
-                        presenter.unselectSeat { color ->
+                        presenter.selectSeat(index) { color ->
                             it.setBackgroundColor(getColor(color))
                         }
                     }
@@ -63,12 +50,13 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             }
     }
 
-    override fun showMovieTitle(movieTitle: String) {
+    override fun showReservationInfo(movieTitle: String, totalPrice: Int) {
         movieTitleTextView.text = movieTitle
+        totalPriceTextView.text = getString(R.string.seat_select_total_price, totalPrice)
     }
 
-    override fun showTotalPrice() {
-        TODO("Not yet implemented")
+    override fun showTotalPrice(totalPrice: Int) {
+        totalPriceTextView.text = getString(R.string.seat_select_total_price, totalPrice)
     }
 
     override fun showReservationCheck() {

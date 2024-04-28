@@ -297,9 +297,11 @@
             tools:text="해리 포터와 마법사의 돌" />
 
         <TextView
+            android:id="@+id/text_view_seat_select_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:text="@string/seat_select_total_price"
             android:textColor="@color/grey"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

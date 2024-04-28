@@ -15,6 +15,9 @@
     <string name="reservation_finished_person">일반 %d명</string>
     <string name="reservation_finished_price">%s원 (현장 결제)</string>
 
+    <!-- activity_seat_select -->
+    <string name="seat_select_total_price">%d원</string>
+
     <!-- item_movie_catalog -->
     <string name="movie_catalog_reservation_now">지금 예매</string>
 </resources>
