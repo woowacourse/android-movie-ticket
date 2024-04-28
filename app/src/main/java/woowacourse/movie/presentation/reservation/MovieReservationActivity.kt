@@ -18,6 +18,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.TicketCounter
 import woowacourse.movie.presentation.model.MovieDateModel
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import woowacourse.movie.presentation.model.toMovieDateModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter.Companion.KEY_MOVIE_DATE
@@ -105,7 +106,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
         ticketingButton.setOnClickListener {
             requestTicketCount { ticketCount ->
-                presenter.ticketing(
+                presenter.reservation(
                     title = titleView.text.toString(),
                     count = ticketCount,
                 )
@@ -176,9 +177,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             }
     }
 
-    override fun moveToSeatSelection(ticketModel: TicketModel) {
+    override fun moveToSeatSelection(pendingMovieReservation: PendingMovieReservationModel) {
         val intent = Intent(this@MovieReservationActivity, SeatSelectionActivity::class.java)
-        intent.putExtra(MovieReservationPresenter.KEY_NAME_TICKET, ticketModel as Serializable)
+        intent.putExtra(MovieReservationPresenter.KEY_NAME_PENDING_RESERVATION, pendingMovieReservation as Serializable)
         this@MovieReservationActivity.startActivity(intent)
     }
 

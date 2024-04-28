@@ -3,6 +3,7 @@ package woowacourse.movie.presentation.reservation
 import android.os.Bundle
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.model.MovieDateModel
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.TicketModel
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -17,7 +18,7 @@ interface MovieReservationContract {
 
         fun showTime(times: List<LocalDateTime>)
 
-        fun moveToSeatSelection(ticketModel: TicketModel)
+        fun moveToSeatSelection(pendingMovieReservation: PendingMovieReservationModel)
 
         fun requestTicketCount(count: (Int) -> Unit)
     }
@@ -38,7 +39,7 @@ interface MovieReservationContract {
 
         fun getTicketCount(): Int
 
-        fun ticketing(
+        fun reservation(
             title: String,
             count: Int,
         )

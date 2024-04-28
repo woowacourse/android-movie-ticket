@@ -2,12 +2,14 @@ package woowacourse.movie.presentation.reservation
 
 import android.os.Bundle
 import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.PendingMovieReservation
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.TicketCounter
 import woowacourse.movie.domain.repository.DateRepository
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.model.MovieDateModel
 import woowacourse.movie.presentation.model.toMovieDateModel
+import woowacourse.movie.presentation.model.toPendingMovieReservationModel
 import woowacourse.movie.presentation.model.toTicketModel
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -50,19 +52,17 @@ class MovieReservationPresenter(
         return ticketCounter.ticketCount
     }
 
-    override fun ticketing(
+    override fun reservation(
         title: String,
         count: Int,
     ) {
-        val ticket =
-            Ticket(
+        val pendingMovieReservation =
+            PendingMovieReservation(
                 title = title,
                 movieDate = movieDate,
                 count = count,
-                price = 0,
-                seats = listOf(),
-            ).toTicketModel()
-        view.moveToSeatSelection(ticket)
+            ).toPendingMovieReservationModel()
+        view.moveToSeatSelection(pendingMovieReservation)
     }
 
     override fun selectDate(newDate: LocalDate) {
@@ -89,6 +89,7 @@ class MovieReservationPresenter(
     }
 
     companion object {
+        const val KEY_NAME_PENDING_RESERVATION ="pendingReservation"
         const val KEY_NAME_TICKET = "ticket"
         const val KEY_TICKET_COUNT = "ticketCount"
         const val KEY_MOVIE_DATE = "movieDate"
