@@ -1,9 +1,8 @@
 package woowacourse.movie.reservationresult.uimodel
 
 data class SeatUiModel(
-    val showPosition: String
+    val showPosition: String,
 ) {
-
     constructor(row: Int, col: Int) : this(positionFormat(row, col))
 
     companion object {

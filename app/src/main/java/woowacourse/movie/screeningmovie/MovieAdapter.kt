@@ -13,12 +13,11 @@ class MovieAdapter(
     private val movies: List<ScreenMovieUiModel>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     private val movieItems = movies.toMutableList()
 
     class MovieViewHolder(
         itemView: View,
-        private val onClickReservationButton: (id: Long) -> Unit
+        private val onClickReservationButton: (id: Long) -> Unit,
     ) : RecyclerView.ViewHolder(itemView) {
         private val postImageView: ImageView = itemView.findViewById(R.id.iv_movie_post)
         private val title: TextView = itemView.findViewById(R.id.tv_movie_title)
@@ -47,8 +46,10 @@ class MovieAdapter(
         }
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         return when (viewType) {
             MOVIE -> {
                 val view =
@@ -68,7 +69,10 @@ class MovieAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         if (getItemViewType(position) == MOVIE) {
             (holder as MovieViewHolder).onBind(movieItems.removeFirst())
         }
@@ -82,5 +86,4 @@ class MovieAdapter(
         private const val ADVERTISE_INTERVAL = 4
         private const val TOP_VIEW = 0
     }
-
 }

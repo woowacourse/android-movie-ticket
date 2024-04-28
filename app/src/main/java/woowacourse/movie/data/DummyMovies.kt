@@ -8,10 +8,13 @@ import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDateTime
 
 object DummyMovies : MovieRepository {
-    private val screenMovies: List<ScreeningMovie> = listOf(
-        ScreeningMovie.STUB, ScreeningMovie.STUB, ScreeningMovie.STUB,
-        ScreeningMovie.STUB
-    )
+    private val screenMovies: List<ScreeningMovie> =
+        listOf(
+            ScreeningMovie.STUB,
+            ScreeningMovie.STUB,
+            ScreeningMovie.STUB,
+            ScreeningMovie.STUB,
+        )
     private var reservations: List<MovieReservation> = emptyList()
     private var reservationId: Long = 0
 

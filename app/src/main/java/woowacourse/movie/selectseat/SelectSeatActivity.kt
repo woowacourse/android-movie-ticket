@@ -51,9 +51,7 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
         outState.putParcelable(EXTRA_SEATS_ID, seats)
     }
 
-    override fun onRestoreInstanceState(
-        savedInstanceState: Bundle,
-    ) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
         val selectedSeats =

@@ -2,7 +2,6 @@ package woowacourse.movie.moviereservation.uimodel
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.model.HeadCount
 
 @Parcelize
 data class HeadCountUiModel(val count: String) : Parcelable {

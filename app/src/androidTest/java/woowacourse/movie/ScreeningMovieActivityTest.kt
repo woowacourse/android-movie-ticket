@@ -1,6 +1,6 @@
 package woowacourse.movie
 
-import android.widget.ListView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -28,7 +28,7 @@ class ScreeningMovieActivityTest {
     @Before
     fun setUp() {
         activityRule.scenario.onActivity { activity ->
-            val listView = activity.findViewById<ListView>(R.id.rcv_screening_movie)
+            val listView = activity.findViewById<RecyclerView>(R.id.rcv_screening_movie)
             val items =
                 listOf(
                     screenMovieUiModel1,

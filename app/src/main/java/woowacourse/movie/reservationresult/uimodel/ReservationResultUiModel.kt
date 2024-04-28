@@ -12,21 +12,20 @@ data class ReservationResultUiModel(
     val seats: List<SeatUiModel>,
     val totalPrice: PriceUiModel,
 ) {
-
     constructor(
         title: String,
         cancelDeadLine: Duration,
         dateTime: LocalDateTime,
         count: Int,
         seats: List<SeatUiModel>,
-        totalPrice: Int
+        totalPrice: Int,
     ) : this(
         title,
         cancelDeadLine.inWholeMinutes.toString(),
         dateTime.format(dateFormatter) + " " + dateTime.format(timeFormatter),
         HeadCountUiModel(count),
         seats,
-        PriceUiModel(totalPrice)
+        PriceUiModel(totalPrice),
     )
 
     companion object {

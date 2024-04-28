@@ -2,7 +2,6 @@ package woowacourse.movie.screeningmovie
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
