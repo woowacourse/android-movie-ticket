@@ -33,6 +33,10 @@ import java.time.format.DateTimeFormatter
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val button: Button by lazy { findViewById(R.id.btn_complete_reservation) }
     private val seats: TableLayout by lazy { findViewById(R.id.tl_seats) }
+    private val seatItems: List<TextView> by lazy {
+        seats.children.filterIsInstance<TableRow>().flatMap { it.children }
+            .filterIsInstance<TextView>().toList()
+    }
     private val price: TextView by lazy { findViewById(R.id.tv_total_price) }
     private lateinit var rows: List<TableRow>
     private lateinit var presenter: SeatSelectionPresenter
@@ -79,14 +83,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         isSelected: Boolean,
         columnSize: Int,
     ) {
-        val seatItems =
-            seats
-                .children
-                .filterIsInstance<TableRow>()
-                .flatMap { it.children }
-                .filterIsInstance<TextView>()
-                .toList()
-
         if (isSelected) {
             seatItems[row * columnSize + column].selectSeat()
         } else {
