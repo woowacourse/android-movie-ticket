@@ -2,6 +2,7 @@ package woowacourse.movie.contract
 
 import woowacourse.movie.model.Theater
 import woowacourse.movie.model.seat.Position
+import java.time.LocalDateTime
 
 interface SeatSelectionContract {
     interface View{
@@ -15,7 +16,7 @@ interface SeatSelectionContract {
         fun navigateToPurchaseConfirmation()
     }
     interface Presenter{
-        fun loadTheater()
+        fun loadData(movieId: Int, ticketNum: Int, reservedDateTime: LocalDateTime)
         fun toggleSeatSelection(position: Position)
         fun askConfirm()
         fun purchase()

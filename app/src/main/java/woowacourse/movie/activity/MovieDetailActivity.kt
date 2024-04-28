@@ -15,6 +15,7 @@ import woowacourse.movie.uimodel.format
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.presenter.MovieDetailPresenter
+import java.time.LocalDateTime
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private var ticketNum: Int = 1
@@ -43,7 +44,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             presenter.minusTicketNum()
         }
         ticketBuyButton.setOnClickListener {
-            presenter.purchase()
+            presenter.confirm()
         }
     }
 
@@ -82,8 +83,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         numberOfPurchases.text = this.ticketNum.toString()
     }
 
-    override fun navigateToPurchaseConfirmation() {
-        val intent = Intent(this, PurchaseConfirmationActivity::class.java)
-        startActivity(intent)
+    override fun navigateToSeatSelection(
+        movieId: Int,
+        ticketNum: Int,
+        reservedDateTime: LocalDateTime
+    ) {
+        TODO("Not yet implemented")
     }
 }

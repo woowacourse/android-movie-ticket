@@ -11,8 +11,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.contract.SeatSelectionContract
 import woowacourse.movie.model.seat.Position
+import woowacourse.movie.repository.PseudoReservationRepository
 import woowacourse.movie.repository.PseudoTheaterRepository
+import woowacourse.movie.repository.ReservationRepository
 import woowacourse.movie.repository.TheaterRepository
+import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)
 class PositionSelectionPresenterTest {
@@ -20,19 +23,24 @@ class PositionSelectionPresenterTest {
     @RelaxedMockK
     lateinit var view: SeatSelectionContract.View
 
-    @RelaxedMockK
-    lateinit var theaterRepository: TheaterRepository
+    private val theaterRepository: TheaterRepository = PseudoTheaterRepository()
+
+    private val reservationRepository: ReservationRepository = PseudoReservationRepository()
 
     lateinit var presenter: SeatSelectionPresenter
 
     @BeforeEach
     fun setUp() {
-        presenter = SeatSelectionPresenter(view, theaterRepository, 3)
+        presenter = SeatSelectionPresenter(
+            view,
+            theaterRepository,
+            reservationRepository
+        )
+        presenter.loadData(1, 1, LocalDateTime.MIN)
     }
 
     @Test
     fun `좌석을 표기할 수 있어야 한다`() {
-        presenter.loadTheater()
         verify {
             view.displayTheater(any())
         }
@@ -62,7 +70,6 @@ class PositionSelectionPresenterTest {
     @Test
     fun `티켓 수만큼 좌석을 선택할 수 있다`() {
         every { view.displayTheater(any()) } just runs
-        presenter = SeatSelectionPresenter(view, theaterRepository, 3)
 
         val position1 = Position(1, 1)
         val position2 = Position(2, 1)
@@ -79,7 +86,7 @@ class PositionSelectionPresenterTest {
     @Test
     fun `티켓 수만큼 좌석을 선택하면 확인 버튼이 활성화 된다`() {
         every { view.displayTheater(any()) } just runs
-        presenter = SeatSelectionPresenter(view, theaterRepository, 3)
+        presenter.loadData(1, 3, LocalDateTime.MIN)
 
         val position1 = Position(1, 1)
         val position2 = Position(2, 1)
@@ -94,7 +101,6 @@ class PositionSelectionPresenterTest {
     @Test
     fun `선택 해제를 하면 확인 버튼이 비활성화 된다`() {
         every { view.displayTheater(any()) } just runs
-        presenter = SeatSelectionPresenter(view, theaterRepository, 1)
         val position1 = Position(1, 1)
         presenter.toggleSeatSelection(position1)
 
@@ -106,9 +112,7 @@ class PositionSelectionPresenterTest {
     @Test
     fun `좌석을 선택하면 하단에 선택한 좌석 수를 반영한 최종 가격이 표시된다`() {
         every { view.displayTheater(any()) } just runs
-        theaterRepository = PseudoTheaterRepository()
-        presenter = SeatSelectionPresenter(view, theaterRepository, 2)
-        presenter.loadTheater()
+        presenter.loadData(1, 2, LocalDateTime.MIN)
 
         val position1 = Position(1, 1) // B Tier Seat, 10000₩
         val position2 = Position(1, 3) // S Tier Seat, 15000₩

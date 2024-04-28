@@ -65,14 +65,6 @@ class MovieDetailPresenterTest {
     }
 
     @Test
-    fun `확인 버튼을 누르면 결제 확인 화면으로 넘어간다`() {
-        every { view.displayMovie(any()) } just runs
-        presenter.loadMovie(0)
-        presenter.purchase()
-        verify { view.navigateToPurchaseConfirmation() }
-    }
-
-    @Test
     fun `상영일의 목록이 보여져야 한다`() {
         every { view.displayScreeningDates(any()) } just runs
         val startDate = ScreeningDate(LocalDate.of(1111, 1, 1))
@@ -96,7 +88,7 @@ class MovieDetailPresenterTest {
         every { view.displayScreeningDates(any()) } just runs
         val date = ScreeningDate(LocalDate.of(2024, 4, 27))// saturday
         presenter.selectScreeningDate(date)
-        val times = (9..24 step 2).map{ScreeningDateTime.of(date.date, it, 0)}
+        val times = (9..24 step 2).map { ScreeningDateTime.of(date.date, it, 0) }
         verify { view.displayScreeningTimes(times) }
     }
 
@@ -105,7 +97,18 @@ class MovieDetailPresenterTest {
         every { view.displayScreeningDates(any()) } just runs
         val date = ScreeningDate(LocalDate.of(2024, 4, 26))// friday
         presenter.selectScreeningDate(date)
-        val times = (10..24 step 2).map{ScreeningDateTime.of(date.date, it, 0)}
+        val times = (10..24 step 2).map { ScreeningDateTime.of(date.date, it, 0) }
         verify { view.displayScreeningTimes(times) }
+    }
+
+    @Test
+    fun `확인 버튼을 누르면 좌석 선택 화면으로 넘어간다`() {
+        every { view.displayMovie(any()) } just runs
+        presenter.loadMovie(0)
+        presenter.selectScreeningTime(ScreeningDateTime(LocalDateTime.MIN))
+
+        presenter.confirm()
+
+        verify { view.navigateToSeatSelection(0, any(), any()) }
     }
 }

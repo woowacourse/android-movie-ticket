@@ -4,6 +4,7 @@ import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningPeriod
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.schedule.ScreeningDateTime
+import java.time.LocalDateTime
 
 
 interface MovieDetailContract {
@@ -16,7 +17,7 @@ interface MovieDetailContract {
 
         fun displayTicketNum(ticketNum: Int)
 
-        fun navigateToPurchaseConfirmation()
+        fun navigateToSeatSelection(movieId: Int, ticketNum: Int, reservedDateTime: LocalDateTime)
     }
 
     interface Presenter {
@@ -32,6 +33,6 @@ interface MovieDetailContract {
 
         fun minusTicketNum()
 
-        fun purchase()
+        fun confirm()
     }
 }

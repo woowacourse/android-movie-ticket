@@ -2,21 +2,29 @@ package woowacourse.movie.presenter
 
 import woowacourse.movie.contract.SeatSelectionContract
 import woowacourse.movie.model.Theater
-import woowacourse.movie.model.pricing.PricePolicy
 import woowacourse.movie.model.pricing.TierPricePolicy
 import woowacourse.movie.model.seat.Position
+import woowacourse.movie.repository.PseudoReservationRepository
+import woowacourse.movie.repository.ReservationRepository
 import woowacourse.movie.repository.TheaterRepository
 import java.lang.IllegalArgumentException
+import java.time.LocalDateTime
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
     private val theaterRepository: TheaterRepository,
-    private val ticketNum: Int,
+    private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
 ) : SeatSelectionContract.Presenter {
     private lateinit var theater: Theater
     private val selectedPositions: MutableSet<Position> = mutableSetOf()
+    private var movieId: Int = -1
+    private var ticketNum: Int = -1
+    private lateinit var reservedDateTime: LocalDateTime
 
-    override fun loadTheater() {
+    override fun loadData(movieId: Int, ticketNum: Int, reservedDateTime: LocalDateTime) {
+        this.movieId
+        this.ticketNum = ticketNum
+        this.reservedDateTime = reservedDateTime
         theater = theaterRepository.getTheater()
         view.displayTheater(theater)
     }
