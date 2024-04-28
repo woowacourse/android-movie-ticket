@@ -124,6 +124,22 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         startActivity(ReservationCompletedActivity.getIntent(this, reservationId))
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putStringArrayList("selected_seats", ArrayList(selectedSeatList))
+        outState.putLong("price", price)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.getStringArrayList("selected_seats")?.forEach {
+            selectedSeatList.add(it)
+        }
+        price = savedInstanceState.getLong("price")
+        updatePriceTextView()
+        seatBoardView.update(selectedSeatList.toList())
+    }
+
     companion object {
         const val SCREENING_ID = "screening_id"
         const val TIME_POSITION = "time_position"

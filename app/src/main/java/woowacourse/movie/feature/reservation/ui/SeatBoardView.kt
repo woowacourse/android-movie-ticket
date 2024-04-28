@@ -16,4 +16,14 @@ class SeatBoardView(private val spaceViews: List<TextView>) {
             }
         }
     }
+
+    fun update(selectedSeatList: List<String>) {
+        selectedSeatList.forEach { selectedSeatText ->
+            spaceViews.forEach { singleSeat ->
+                if (selectedSeatText == singleSeat.text) {
+                    singleSeat.isSelected = true
+                }
+            }
+        }
+    }
 }

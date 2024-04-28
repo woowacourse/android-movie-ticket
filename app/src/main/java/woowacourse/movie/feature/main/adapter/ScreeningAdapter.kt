@@ -49,13 +49,11 @@ class ScreeningAdapter(
         when (holder) {
             is ScreeningViewHolder -> {
                 val positionExcludingAds = if (position > 3) position - 1 else position
-                Log.d("상영 테스트", "$positionExcludingAds")
                 holder.bind(screenings[positionExcludingAds])
             }
 
             is AdvertisementViewHolder -> {
                 val positionExcludingScreen = 0
-                Log.d("광고 테스트", "$positionExcludingScreen")
                 holder.bind(advertisements[positionExcludingScreen])
             }
         }
