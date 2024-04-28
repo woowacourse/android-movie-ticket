@@ -15,10 +15,10 @@ class BoxOffice(
         private set
 
     val isSubmitAvailable: Boolean
-        get() = seats.size == count.value
+        get() = seats.size == count.currentValue
 
     fun updateSeats(newSeats: List<BookingSeat>): Result<Unit> {
-        if (newSeats.size > count.value) {
+        if (newSeats.size > count.currentValue) {
             return Result.Error(ERROR_OVER_COUNT)
         }
         seats = newSeats

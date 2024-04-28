@@ -15,9 +15,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.screening.Screening
-import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
+import woowacourse.movie.view.state.TicketingForm
 import java.time.LocalTime
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSelectedListener {
@@ -30,22 +30,26 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         setContentView(R.layout.activity_ticketing)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ticketingPresenter = TicketingPresenter(this, screeningId, DEFAULT_COUNT)
-        ticketingPresenter.initializeTicketingData()
+        ticketingPresenter = TicketingPresenter(this)
+        ticketingPresenter.initializeTicketingData(screeningId, DEFAULT_COUNT)
         initializeButtons()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_COUNT, ticketingPresenter.countValue)
+        outState.putInt(KEY_COUNT, ticketingPresenter.ticketingForm.numberOfTickets.currentValue)
+        outState.putString(KEY_DATE, ticketingPresenter.ticketingForm.bookingDateTime.date.toString())
+        outState.putString(KEY_TIME, ticketingPresenter.ticketingForm.bookingDateTime.time.toString())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
             val count = it.getInt(KEY_COUNT, DEFAULT_COUNT)
-            ticketingPresenter = TicketingPresenter(this, screeningId, count)
-            countText.text = ticketingPresenter.countValue.toString()
+            val date = it.getString(KEY_DATE)
+            val time = it.getString(KEY_TIME)
+            ticketingPresenter.initializeTicketingData(screeningId, count, date, time)
+            countText.text = ticketingPresenter.ticketingForm.numberOfTickets.currentValue.toString()
         }
     }
 
@@ -85,7 +89,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
                 ArrayAdapter(
                     this@TicketingActivity,
                     android.R.layout.simple_spinner_item,
-                    ticketingPresenter.availableTimes.localTimes,
+                    ticketingPresenter.ticketingUiState.availableTimes.localTimes,
                 )
             onItemSelectedListener = this@TicketingActivity
         }
@@ -95,18 +99,16 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         countText.text = count.toString()
     }
 
-    override fun navigateToSeatSelection(
-        screeningId: Long,
-        count: Int,
-        bookingDateTime: BookingDateTime,
-        movieTitle: String?,
-    ) {
+    override fun navigateToSeatSelection(ticketingForm: TicketingForm) {
         Intent(this, SeatSelectionActivity::class.java).apply {
-            putExtra(EXTRA_SCREENING_ID, screeningId)
-            putExtra(EXTRA_COUNT, count)
-            putExtra(EXTRA_DATE, bookingDateTime.date.toString())
-            putExtra(EXTRA_TIME, bookingDateTime.time.toString())
-            putExtra(EXTRA_MOVIE_TITLE, movieTitle)
+            val ticketingState =
+                TicketingForm(
+                    screeningId,
+                    ticketingForm.movieTitle,
+                    ticketingForm.numberOfTickets,
+                    ticketingForm.bookingDateTime,
+                )
+            putExtra(EXTRA_TICKETING_INFORMATION, ticketingState)
             startActivity(this)
             finish()
         }
@@ -167,12 +169,13 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
 
     companion object {
         const val EXTRA_SCREENING_ID = "screening_id"
-        const val EXTRA_COUNT = "count"
         const val EXTRA_DATE = "movie_date"
         const val EXTRA_TIME = "movie_time"
-        const val EXTRA_MOVIE_TITLE = "movie_title"
+        const val EXTRA_TICKETING_INFORMATION = "ticketing_information"
         const val EXTRA_DEFAULT_SCREENING_ID = -1L
         private const val DEFAULT_COUNT = 1
         private const val KEY_COUNT = "count"
+        private const val KEY_DATE = "date"
+        private const val KEY_TIME = "time"
     }
 }

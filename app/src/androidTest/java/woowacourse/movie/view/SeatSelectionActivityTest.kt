@@ -27,6 +27,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.model.Count
+import woowacourse.movie.model.ticketing.BookingDateTime
+import woowacourse.movie.view.state.TicketingForm
 
 @RunWith(AndroidJUnit4::class)
 class SeatSelectionActivityTest {
@@ -37,11 +40,20 @@ class SeatSelectionActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 SeatSelectionActivity::class.java,
             ).apply {
-                putExtra("screening_id", 0L)
-                putExtra("count", 4)
-                putExtra("movie_date", "2024-04-01")
-                putExtra("movie_time", "11:00")
-                putExtra("movie_title", "해리 포터와 마법사의 돌")
+//                putExtra("screening_id", 0L)
+//                putExtra("count", 4)
+//                putExtra("movie_date", "2024-04-01")
+//                putExtra("movie_time", "11:00")
+//                putExtra("movie_title", "해리 포터와 마법사의 돌")
+                putExtra(
+                    "ticketing_information",
+                    TicketingForm(
+                        0L,
+                        "해리 포터와 마법사의 돌",
+                        Count(4),
+                        BookingDateTime.of("2024-04-01", "11:00"),
+                    ),
+                )
             },
         )
 

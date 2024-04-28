@@ -1,7 +1,7 @@
 package woowacourse.movie.presenter.contract
 
 import woowacourse.movie.model.screening.Screening
-import woowacourse.movie.model.ticketing.BookingDateTime
+import woowacourse.movie.view.state.TicketingForm
 import java.time.LocalTime
 
 interface TicketingContract {
@@ -13,12 +13,7 @@ interface TicketingContract {
 
         fun updateCount(count: Int)
 
-        fun navigateToSeatSelection(
-            screeningId: Long,
-            count: Int,
-            bookingDateTime: BookingDateTime,
-            movieTitle: String?,
-        )
+        fun navigateToSeatSelection(ticketingForm: TicketingForm)
 
         fun showToastMessage(message: String)
 
@@ -26,7 +21,12 @@ interface TicketingContract {
     }
 
     interface Presenter {
-        fun initializeTicketingData()
+        fun initializeTicketingData(
+            screeningId: Long,
+            initialCount: Int,
+            selectedDate: String? = null,
+            selectedTime: String? = null,
+        )
 
         fun decreaseCount()
 

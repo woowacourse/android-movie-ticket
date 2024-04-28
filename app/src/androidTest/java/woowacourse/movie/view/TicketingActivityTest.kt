@@ -57,6 +57,7 @@ class TicketingActivityTest {
 
     @Test
     fun `인원수_증가_및_신청_일시_변경_후_화면_회전_시에도_데이터가_유지된다`() {
+        // TODO 테스트 케이스 실패 해결하기
         val activityScenario = activityRule.scenario
         onView(withId(R.id.btn_plus)).perform(click())
         onView(withId(R.id.spinner_date)).perform(click())

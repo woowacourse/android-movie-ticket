@@ -23,11 +23,10 @@ import woowacourse.movie.model.theater.TheaterSize
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.SeatSelectionPresenter
 import woowacourse.movie.presenter.contract.SeatSelectionContract
-import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_COUNT
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_DATE
-import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_MOVIE_TITLE
-import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_SCREENING_ID
+import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TICKETING_INFORMATION
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TIME
+import woowacourse.movie.view.state.TicketingForm
 import java.time.format.DateTimeFormatter
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
@@ -47,14 +46,15 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         setContentView(R.layout.activity_seat_selection)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val screeningId = intent.getLongExtra(EXTRA_SCREENING_ID, -1)
-        val count = intent.getIntExtra(EXTRA_COUNT, 0)
-        val title = intent.getStringExtra(EXTRA_MOVIE_TITLE)
-        val date = intent.getStringExtra(EXTRA_DATE)
-        val time = intent.getStringExtra(EXTRA_TIME)
-
-        initializePresenter(savedInstanceState, screeningId, count, date, time, title)
-        initializeReservationButton(screeningId, count)
+        val ticketingInformation =
+            intent.getParcelableExtra(EXTRA_TICKETING_INFORMATION, TicketingForm::class.java)
+        ticketingInformation?.let { ticketingState ->
+            initializePresenter(savedInstanceState, ticketingState)
+            initializeReservationButton(
+                ticketingState.screeningId,
+                ticketingInformation.numberOfTickets.currentValue,
+            )
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -157,26 +157,15 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun initializePresenter(
         savedInstanceState: Bundle?,
-        screeningId: Long,
-        count: Int,
-        date: String?,
-        time: String?,
-        title: String?,
+        ticketingState: TicketingForm,
     ) {
         presenter = SeatSelectionPresenter(this)
         savedInstanceState?.let {
             val selectedSeats = it.getParcelableArray(KEY_SELECTED_SEATS, BookingSeat::class.java)
             selectedSeats?.let {
-                presenter.loadSeats(
-                    screeningId = screeningId,
-                    numOfTickets = count,
-                    date = date,
-                    time = time,
-                    title = title,
-                    seats = selectedSeats.toList(),
-                )
+                presenter.loadSeats(ticketingState = ticketingState, seats = selectedSeats.toList())
             }
-        } ?: presenter.loadSeats(screeningId, count, date, time, title, emptyList())
+        } ?: presenter.loadSeats(ticketingState, emptyList())
     }
 
     private fun initializeReservationButton(

@@ -8,6 +8,7 @@ import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.contract.SeatSelectionContract
+import woowacourse.movie.view.state.TicketingForm
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
@@ -21,30 +22,25 @@ class SeatSelectionPresenter(
         get() = boxOffice.bookingDateTime
 
     override fun loadSeats(
-        screeningId: Long,
-        numOfTickets: Int,
-        date: String?,
-        time: String?,
-        title: String?,
+        ticketingState: TicketingForm,
         seats: List<BookingSeat>,
     ) {
-        if (date != null && time != null && title != null) {
-            boxOffice = BoxOffice(Count(numOfTickets), BookingDateTime.of(date, time), seats)
-            when (val screening = MovieData.findScreeningDataById(screeningId)) {
-                is Result.Success -> {
-                    val theater = screening.data.theater
-                    view.initializeSeatTable(
-                        theater.theaterSize,
-                        theater.rowClassInfo,
-                        title,
-                        boxOffice.totalPrice,
-                        selectedSeats,
-                    )
-                }
+        boxOffice =
+            BoxOffice(Count(ticketingState.numberOfTickets.currentValue), ticketingState.bookingDateTime, seats)
+        when (val screening = MovieData.findScreeningDataById(ticketingState.screeningId)) {
+            is Result.Success -> {
+                val theater = screening.data.theater
+                view.initializeSeatTable(
+                    theater.theaterSize,
+                    theater.rowClassInfo,
+                    ticketingState.movieTitle,
+                    boxOffice.totalPrice,
+                    selectedSeats,
+                )
+            }
 
-                is Result.Error -> {
-                    view.showToastMessage(screening.message)
-                }
+            is Result.Error -> {
+                view.showToastMessage(screening.message)
             }
         }
     }

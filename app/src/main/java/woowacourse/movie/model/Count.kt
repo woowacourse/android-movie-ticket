@@ -1,10 +1,13 @@
 package woowacourse.movie.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.lang.IllegalStateException
 
-class Count(value: Int = INITIAL_COUNT) {
-    var value: Int = value
-        private set
+@Parcelize
+class Count(private var value: Int = INITIAL_COUNT) : Parcelable {
+    val currentValue: Int
+        get() = value
 
     init {
         require(value >= INITIAL_COUNT) { ERROR_NON_POSITIVE_NUMBER }

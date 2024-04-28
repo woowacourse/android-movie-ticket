@@ -3,6 +3,7 @@ package woowacourse.movie.presenter.contract
 import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.theater.TheaterSize
 import woowacourse.movie.model.ticketing.BookingSeat
+import woowacourse.movie.view.state.TicketingForm
 
 interface SeatSelectionContract {
     interface View {
@@ -38,11 +39,7 @@ interface SeatSelectionContract {
 
     interface Presenter {
         fun loadSeats(
-            screeningId: Long,
-            numOfTickets: Int,
-            date: String?,
-            time: String?,
-            title: String?,
+            ticketingState: TicketingForm,
             seats: List<BookingSeat>,
         )
 

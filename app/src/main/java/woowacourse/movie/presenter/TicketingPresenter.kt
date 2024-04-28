@@ -6,31 +6,49 @@ import woowacourse.movie.model.Result
 import woowacourse.movie.model.screening.AvailableTimes
 import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.presenter.contract.TicketingContract
+import woowacourse.movie.view.state.TicketingForm
+import woowacourse.movie.view.state.TicketingUiState
 import java.time.LocalDate
 import java.time.LocalTime
 
 class TicketingPresenter(
     private val ticketingContractView: TicketingContract.View,
-    screeningId: Long,
-    initialCount: Int,
 ) : TicketingContract.Presenter {
-    lateinit var availableTimes: AvailableTimes
+    lateinit var ticketingForm: TicketingForm
         private set
-    private val screening = findScreeningDataById(screeningId)
-    private val count = Count(initialCount)
-    private lateinit var date: LocalDate
-    private lateinit var time: LocalTime
+    lateinit var ticketingUiState: TicketingUiState
+        private set
 
-    val countValue: Int
-        get() = count.value
-
-    override fun initializeTicketingData() {
-        when (screening) {
+    override fun initializeTicketingData(
+        screeningId: Long,
+        initialCount: Int,
+        selectedDate: String?,
+        selectedTime: String?,
+    ) {
+        when (val screening = findScreeningDataById(screeningId)) {
             is Result.Success -> {
-                date = screening.data.dates.first()
-                availableTimes = AvailableTimes.of(date)
-                time = availableTimes.localTimes.first()
-                ticketingContractView.assignInitialView(screening.data, count.value)
+                val initialDate = selectedDate?.let { LocalDate.parse(it) } ?: screening.data.dates.first()
+                val availableTimes = AvailableTimes.of(initialDate)
+                ticketingUiState =
+                    TicketingUiState(
+                        screening = screening.data,
+                        availableTimes = availableTimes,
+                    )
+
+                ticketingForm =
+                    TicketingForm(
+                        screeningId = screeningId,
+                        movieTitle = screening.data.movie?.title ?: "",
+                        numberOfTickets = Count(initialCount),
+                        bookingDateTime =
+                            BookingDateTime(
+                                initialDate,
+                                selectedTime?.let { LocalTime.parse(it) } ?: availableTimes.localTimes.first(),
+                            ),
+                    )
+                ticketingContractView.assignInitialView(screening.data, initialCount)
+                updateDate(ticketingForm.bookingDateTime.date.toString())
+                updateTime(ticketingForm.bookingDateTime.time.toString())
             }
 
             is Result.Error -> {
@@ -41,8 +59,8 @@ class TicketingPresenter(
 
     override fun decreaseCount() {
         runCatching {
-            count.decrease()
-            ticketingContractView.updateCount(count.value)
+            ticketingForm.numberOfTickets.decrease()
+            ticketingContractView.updateCount(ticketingForm.numberOfTickets.currentValue)
         }.onFailure {
             it.message?.let { message ->
                 ticketingContractView.showToastMessage(message)
@@ -51,34 +69,38 @@ class TicketingPresenter(
     }
 
     override fun increaseCount() {
-        count.increase()
-        ticketingContractView.updateCount(count.value)
+        ticketingForm.numberOfTickets.increase()
+        ticketingContractView.updateCount(ticketingForm.numberOfTickets.currentValue)
     }
 
     override fun reserveTickets() {
-        when (screening) {
-            is Result.Success -> {
-                ticketingContractView.navigateToSeatSelection(
-                    screeningId = screening.data.screeningId,
-                    count = count.value,
-                    bookingDateTime = BookingDateTime(date, time),
-                    movieTitle = screening.data.movie?.title,
-                )
-            }
-
-            is Result.Error -> {
-                ticketingContractView.showToastMessage(screening.message)
-            }
-        }
+        ticketingContractView.navigateToSeatSelection(ticketingForm)
     }
 
     override fun updateDate(date: String) {
-        this.date = LocalDate.parse(date)
-        availableTimes = AvailableTimes.of(LocalDate.parse(date))
-        ticketingContractView.updateAvailableTimes(availableTimes.localTimes)
+        ticketingForm =
+            ticketingForm.copy(
+                bookingDateTime =
+                    BookingDateTime(
+                        LocalDate.parse(date),
+                        ticketingForm.bookingDateTime.time,
+                    ),
+            )
+        ticketingUiState =
+            ticketingUiState.copy(
+                availableTimes = AvailableTimes.of(LocalDate.parse(date)),
+            )
+        ticketingContractView.updateAvailableTimes(ticketingUiState.availableTimes.localTimes)
     }
 
     override fun updateTime(time: String) {
-        this.time = LocalTime.parse(time)
+        ticketingForm =
+            ticketingForm.copy(
+                bookingDateTime =
+                    BookingDateTime(
+                        ticketingForm.bookingDateTime.date,
+                        LocalTime.parse(time),
+                    ),
+            )
     }
 }
