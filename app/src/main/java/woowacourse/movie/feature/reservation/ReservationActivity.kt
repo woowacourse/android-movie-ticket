@@ -76,7 +76,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val screeningId = intent.getLongExtra(SCREENING_ID, -1L)
-        presenter.fetchMovieDetails(screeningId)
+        presenter.fetchScreeningDetails(screeningId)
         setupReservationCompleteControls()
         setupTicketQuantityControls()
     }

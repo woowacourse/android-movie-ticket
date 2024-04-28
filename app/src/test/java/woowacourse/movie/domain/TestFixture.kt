@@ -50,7 +50,7 @@ object TestFixture {
             BasicScreeningScheduleSystem(),
         )
 
-    private val MOCK_SEATS: List<Seat> =
+    val MOCK_SEATS: List<Seat> =
         listOf(
             Seat(
                 "A",

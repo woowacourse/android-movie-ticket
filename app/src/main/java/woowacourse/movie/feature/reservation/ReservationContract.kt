@@ -19,6 +19,6 @@ interface ReservationContract {
     }
 
     interface Presenter {
-        fun fetchMovieDetails(movieId: Long)
+        fun fetchScreeningDetails(screeningId: Long)
     }
 }

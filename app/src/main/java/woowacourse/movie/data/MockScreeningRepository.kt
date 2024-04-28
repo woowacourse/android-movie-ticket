@@ -3,9 +3,34 @@ package woowacourse.movie.data
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.domain.seat.Seat
 import java.time.LocalDate
 
 object MockScreeningRepository : ScreeningRepository {
+    private val defaultSeats: List<Seat> =
+        listOf(
+            Seat("A", 1),
+            Seat("A", 2),
+            Seat("A", 3),
+            Seat("A", 4),
+            Seat("B", 1),
+            Seat("B", 2),
+            Seat("B", 3),
+            Seat("B", 4),
+            Seat("C", 1),
+            Seat("C", 2),
+            Seat("C", 3),
+            Seat("C", 4),
+            Seat("D", 1),
+            Seat("D", 2),
+            Seat("D", 3),
+            Seat("D", 4),
+            Seat("E", 1),
+            Seat("E", 2),
+            Seat("E", 3),
+            Seat("E", 4),
+        )
+
     private val screenings: MutableList<Screening> =
         mutableListOf(
             Screening(
@@ -56,6 +81,8 @@ object MockScreeningRepository : ScreeningRepository {
                 LocalDate.of(2024, 6, 30),
             ),
         )
+
+    fun getSeats(screeningId: Long): List<Seat> = defaultSeats
 
     override fun findAll(): List<Screening> = screenings
 

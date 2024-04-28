@@ -6,9 +6,7 @@ import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.feature.main.ui.toUiModel
 import woowacourse.movie.feature.reservation.ui.toUiModel
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
@@ -17,14 +15,10 @@ class SeatSelectionPresenter(
     private val timePosition: Int,
 ) : SeatSelectionContract.Presenter {
     private lateinit var screening: Screening
-    private lateinit var date: LocalDate
-    private lateinit var time: LocalTime
 
     override fun fetchData() {
         screening = MockScreeningRepository.find(screeningId) ?: return
-        val dailySchedule = screening.schedule.dailySchedules[datePosition]
-        date = dailySchedule.date
-        time = dailySchedule.times[timePosition]
+        val seats = MockScreeningRepository.getSeats(screeningId)
         view.initialize(screening.toUiModel(), seats.map { it.toUiModel() })
     }
 
@@ -32,43 +26,24 @@ class SeatSelectionPresenter(
         seatList: MutableList<String>,
         price: Long,
     ) {
+        val dailySchedule = screening.schedule.dailySchedules[datePosition]
         val ticketId =
             MockTicketRepository.save(
-                screening.movie,
-                schedule = LocalDateTime.of(date, time),
+                movie = screening.movie,
+                schedule =
+                    LocalDateTime.of(
+                        dailySchedule.date,
+                        dailySchedule.times[timePosition],
+                    ),
                 seats =
                     seatList.map {
                         Seat.of(
-                            it[0].toString(),
-                            it[1].toString(),
+                            it[0],
+                            it[1],
                         )
                     },
                 price = price,
             )
         view.navigateToReservationCompleted(ticketId)
     }
-
-    private val seats: List<Seat> =
-        listOf(
-            Seat("A", 1),
-            Seat("A", 2),
-            Seat("A", 3),
-            Seat("A", 4),
-            Seat("B", 1),
-            Seat("B", 2),
-            Seat("B", 3),
-            Seat("B", 4),
-            Seat("C", 1),
-            Seat("C", 2),
-            Seat("C", 3),
-            Seat("C", 4),
-            Seat("D", 1),
-            Seat("D", 2),
-            Seat("D", 3),
-            Seat("D", 4),
-            Seat("E", 1),
-            Seat("E", 2),
-            Seat("E", 3),
-            Seat("E", 4),
-        )
 }

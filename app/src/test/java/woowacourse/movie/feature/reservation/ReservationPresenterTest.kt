@@ -30,7 +30,7 @@ class ReservationPresenterTest {
         every { view.setupScreeningSchedulesControls(any()) } just runs
 
         // when
-        presenter.fetchMovieDetails(0)
+        presenter.fetchScreeningDetails(0)
 
         // then
         verify { view.initializeMovieDetails(any()) }

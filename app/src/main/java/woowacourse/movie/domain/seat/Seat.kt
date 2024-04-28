@@ -6,10 +6,10 @@ data class Seat(val row: String, val col: Int) {
 
     companion object {
         fun of(
-            row: String,
-            col: String,
+            row: Char,
+            col: Char,
         ): Seat {
-            return Seat(row = row, col = col.toInt())
+            return Seat(row = row.toString(), col = col.toString().toInt())
         }
     }
 }

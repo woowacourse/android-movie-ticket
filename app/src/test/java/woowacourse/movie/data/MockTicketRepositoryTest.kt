@@ -3,6 +3,7 @@ package woowacourse.movie.data
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.TestFixture.MOCK_MOVIE
+import woowacourse.movie.domain.TestFixture.MOCK_SEATS
 import java.time.LocalDateTime
 
 class MockTicketRepositoryTest {
@@ -19,7 +20,7 @@ class MockTicketRepositoryTest {
         MockTicketRepository.save(
             MOCK_MOVIE,
             LocalDateTime.now(),
-            listOf(""),
+            MOCK_SEATS,
             30000,
         )
 

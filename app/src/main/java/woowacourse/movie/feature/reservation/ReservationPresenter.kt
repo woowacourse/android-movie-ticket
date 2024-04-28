@@ -13,7 +13,7 @@ class ReservationPresenter(
     ReservationContract.Presenter {
     private lateinit var screening: Screening
 
-    override fun fetchMovieDetails(screeningId: Long) {
+    override fun fetchScreeningDetails(screeningId: Long) {
         screening = screeningRepository.find(screeningId) ?: return
         view.initializeMovieDetails(screening.toUiModel())
         view.setupScreeningSchedulesControls(screening.schedule.toUiModel())
