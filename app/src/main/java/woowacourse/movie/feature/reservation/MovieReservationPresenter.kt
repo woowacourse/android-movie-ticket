@@ -53,7 +53,7 @@ class MovieReservationPresenter(
             runCatching {
                 ReservationCount(reservationCountValue)
             }.getOrElse {
-                view.handleError(it)
+                view.handleError(MovieReservationError.ReservationCountRange)
                 return
             }
         view.updateReservationCount(reservationCount.count)

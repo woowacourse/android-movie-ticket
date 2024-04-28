@@ -16,7 +16,6 @@ import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.utils.BaseActivity
-import java.lang.IllegalArgumentException
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
@@ -26,12 +25,13 @@ class MovieReservationCompleteActivity :
     private val seatsInfoText by lazy { findViewById<TextView>(R.id.seats_info_text) }
     private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
     private lateinit var ticket: Ticket
+    private var ticketId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
 
-        if (validateError()) return
+        initializeIntentValues()
         initializeView()
     }
 
@@ -39,21 +39,26 @@ class MovieReservationCompleteActivity :
         return MovieReservationCompletePresenter(this, MovieRepositoryImpl, TicketRepositoryImpl)
     }
 
-    private fun validateError(): Boolean {
-        if (isError(ticketId())) {
-            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
-            return true
-        }
-        return false
+    private fun initializeIntentValues() {
+        ticketId = ticketId()
     }
 
-    private fun ticketId() = intent.getLongExtra(TICKET_ID_KEY, TICKET_ID_DEFAULT_VALUE)
+    private fun ticketId(): Long {
+        val ticketId = intent.getLongExtra(TICKET_ID_KEY, TICKET_ID_DEFAULT_VALUE)
+        if (ticketId == TICKET_ID_DEFAULT_VALUE) {
+            handleError(MovieReservationCompleteError.InvalidReceivedTicketId)
+        }
+        return ticketId
+    }
 
-    private fun isError(ticketId: Long) = ticketId == TICKET_ID_DEFAULT_VALUE
-
-    override fun handleError(throwable: Throwable) {
-        Log.d(TAG, throwable.stackTrace.toString())
-        Toast.makeText(this, throwable.localizedMessage, Toast.LENGTH_LONG).show()
+    override fun handleError(error: MovieReservationCompleteError) {
+        val messageId =
+            when (error) {
+                MovieReservationCompleteError.InvalidReceivedTicketId -> R.string.invalid_ticket
+            }
+        val message = resources.getString(messageId)
+        Log.d(TAG, message)
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finish()
     }
 

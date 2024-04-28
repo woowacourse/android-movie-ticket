@@ -23,7 +23,6 @@ import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.reservation.ReservationCount
 import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BaseActivity
-import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 
 class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSelectContract.View {
@@ -33,12 +32,13 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
     private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
     private lateinit var selectedSeats: SelectedSeats
     private lateinit var seatViews: List<List<TextView>>
+    private lateinit var screeningDateTime: LocalDateTime
+    private var movieId = 0L
+    private var reservationCountValue = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_select)
-
-        if (validateError()) return
 
         selectedSeats = SelectedSeats(ReservationCount(reservationCountValue()))
         seatViews =
@@ -48,6 +48,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
                 .map { it.children.filterIsInstance<TextView>().toList() }
                 .toList()
 
+        initializeIntentValues()
         initializeView()
     }
 
@@ -65,46 +66,58 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
 
     override fun initializePresenter() = SeatSelectPresenter(this, MovieRepositoryImpl, TicketRepositoryImpl)
 
-    private fun validateError(): Boolean {
-        if (isError(movieId(), screeningDateTime(), reservationCountValue())) {
-            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
-            return true
+    private fun initializeIntentValues() {
+        movieId = movieId()
+        screeningDateTime = screeningDateTime()
+        reservationCountValue = reservationCountValue()
+    }
+
+    private fun movieId(): Long {
+        val movieId = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
+        if (movieId == MOVIE_ID_DEFAULT_VALUE) {
+            handleError(SeatSelectError.InvalidReceivedMovieId)
         }
-        return false
+        return movieId
     }
 
-    private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
+    private fun screeningDateTime(): LocalDateTime {
+        val screeningDateTime =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getSerializableExtra(SCREENING_DATE_TIME_KEY, LocalDateTime::class.java)
+            } else {
+                intent.getSerializableExtra(SCREENING_DATE_TIME_KEY) as? LocalDateTime
+            }
+        screeningDateTime ?: handleError(SeatSelectError.InvalidReceivedScreeningDateTime)
+        return screeningDateTime!!
+    }
 
-    private fun screeningDateTime(): LocalDateTime? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(SCREENING_DATE_TIME_KEY, LocalDateTime::class.java)
-        } else {
-            intent.getSerializableExtra(SCREENING_DATE_TIME_KEY) as? LocalDateTime
+    private fun reservationCountValue(): Int {
+        val reservationCountValue = intent.getIntExtra(RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
+        if (reservationCountValue == RESERVATION_COUNT_DEFAULT_VALUE) {
+            handleError(SeatSelectError.InvalidReceivedReservationCount)
         }
+        return reservationCountValue
     }
 
-    private fun reservationCountValue() = intent.getIntExtra(RESERVATION_COUNT_KEY, RESERVATION_COUNT_DEFAULT_VALUE)
-
-    private fun isError(
-        movieId: Long,
-        screeningDateTime: LocalDateTime?,
-        reservationCountValue: Int,
-    ): Boolean {
-        return movieId == MOVIE_ID_DEFAULT_VALUE || screeningDateTime == null || reservationCountValue == RESERVATION_COUNT_DEFAULT_VALUE
-    }
-
-    override fun handleError(throwable: Throwable) {
-        Log.d(TAG, throwable.stackTrace.toString())
-        Toast.makeText(this, throwable.localizedMessage, Toast.LENGTH_LONG).show()
+    override fun handleError(error: SeatSelectError) {
+        val messageId =
+            when (error) {
+                SeatSelectError.InvalidReceivedMovieId -> R.string.invalid_movie
+                SeatSelectError.InvalidReceivedReservationCount -> R.string.invalid_screening_date_time
+                SeatSelectError.InvalidReceivedScreeningDateTime -> R.string.invalid_reservation_count
+            }
+        val message = resources.getString(messageId)
+        Log.e(TAG, message)
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finish()
     }
 
     private fun initializeView() {
-        presenter.loadMovieData(movieId())
+        presenter.loadMovieData(movieId)
         presenter.initializeSeatTable(selectedSeats, seatViews.size, seatViews[0].size)
         updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         confirmButton.setOnClickListener {
-            presenter.confirmSeatSelection(movieId(), screeningDateTime()!!)
+            presenter.confirmSeatSelection(movieId, screeningDateTime)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

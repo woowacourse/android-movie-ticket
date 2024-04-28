@@ -19,7 +19,6 @@ import woowacourse.movie.feature.seat.SeatSelectActivity
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BaseActivity
-import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 
 class MovieReservationActivity :
@@ -37,12 +36,13 @@ class MovieReservationActivity :
     private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
     private val seatSelectButton by lazy { findViewById<Button>(R.id.seat_select_button) }
     private lateinit var screeningTimeSpinnerAdapter: ArrayAdapter<String>
+    private var movieId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
 
-        if (validateError()) return
+        initializeIntentValues()
         initializeView(movieId())
     }
 
@@ -79,23 +79,27 @@ class MovieReservationActivity :
 
     override fun initializePresenter() = MovieReservationPresenter(this, MovieRepositoryImpl)
 
-    private fun validateError(): Boolean {
-        if (isError(movieId())) {
-            handleError(IllegalArgumentException(resources.getString(R.string.invalid_key)))
-            return true
+    private fun initializeIntentValues() {
+        movieId = movieId()
+    }
+
+    private fun movieId(): Long {
+        val movieId = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
+        if (movieId == MOVIE_ID_DEFAULT_VALUE) {
+            handleError(MovieReservationError.InvalidReceivedMovieId)
         }
-        return false
+        return movieId
     }
 
-    private fun movieId() = intent.getLongExtra(MOVIE_ID_KEY, MOVIE_ID_DEFAULT_VALUE)
-
-    private fun isError(movieId: Long): Boolean {
-        return movieId == MOVIE_ID_DEFAULT_VALUE
-    }
-
-    override fun handleError(throwable: Throwable) {
-        Log.d(TAG, throwable.stackTrace.toString())
-        Toast.makeText(this, throwable.localizedMessage, Toast.LENGTH_LONG).show()
+    override fun handleError(error: MovieReservationError) {
+        val messageId =
+            when (error) {
+                MovieReservationError.InvalidReceivedMovieId -> R.string.invalid_movie
+                MovieReservationError.ReservationCountRange -> R.string.invalid_reservation_count
+            }
+        val message = resources.getString(messageId)
+        Log.e(TAG, message)
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         finish()
     }
 
@@ -138,13 +142,15 @@ class MovieReservationActivity :
         screeningDatesMessage: List<String>,
         screeningTimesMessage: List<String>,
     ) {
-        screeningDateSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDatesMessage)
+        screeningDateSpinner.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDatesMessage)
         screeningDateSpinner.onItemSelectedListener =
             spinnerItemSelectedListener { _, _, position, _ ->
                 presenter.selectScreeningDate(screeningDatesMessage[position])
             }
 
-        screeningTimeSpinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimesMessage)
+        screeningTimeSpinnerAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimesMessage)
         screeningTimeSpinner.adapter = screeningTimeSpinnerAdapter
     }
 

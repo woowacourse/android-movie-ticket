@@ -2,11 +2,10 @@ package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.model.data.dto.Movie
 import woowacourse.movie.utils.BasePresenter
-import woowacourse.movie.utils.ErrorListener
 import java.time.LocalDateTime
 
 interface MovieReservationContract {
-    interface View : ErrorListener {
+    interface View : MovieReservationErrorListener {
         fun initializeReservationView(movie: Movie)
 
         fun initializeSpinner(

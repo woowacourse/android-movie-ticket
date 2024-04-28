@@ -4,11 +4,10 @@ import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
 import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.model.seat.SelectedSeats
 import woowacourse.movie.utils.BasePresenter
-import woowacourse.movie.utils.ErrorListener
 import java.time.LocalDateTime
 
 interface SeatSelectContract {
-    interface View : ErrorListener {
+    interface View : SeatSelectErrorListener {
         fun initializeMovieView(movie: SeatSelectMovieUiModel)
 
         fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>)
