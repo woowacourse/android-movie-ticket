@@ -7,7 +7,6 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class Theater(private val movie: Movie) {
-
     fun screenTimes(date: LocalDate): List<LocalTime> {
         return when (date.dayOfWeek) {
             DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> Weekend.screenTimes()

@@ -20,7 +20,6 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View 
 
         val movieAdapter = MovieAdapter { presenter.registerMovie(it) }
 
-
         val recyclerView = findViewById<RecyclerView>(R.id.movie_rlv)
         recyclerView.adapter = movieAdapter
         val item = MovieDao().findAll()

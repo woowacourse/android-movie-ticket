@@ -39,7 +39,10 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         titleTextView.text = title
     }
 
-    override fun showReservationInformation(ticket: Ticket, seats: Seats) {
+    override fun showReservationInformation(
+        ticket: Ticket,
+        seats: Seats,
+    ) {
         priceTextView.text = getString(R.string.price_format, seats.totalPrice())
         countTextView.text = ticket.count.toString()
         screenDataTextView.text = ticket.screeningInfo.first.toString()

@@ -23,7 +23,10 @@ interface MovieDetailContract {
 
         fun updateTimeSpinner(times: List<LocalTime>)
 
-        fun navigateToReservationSeat(movieId: Int, ticket: Ticket)
+        fun navigateToReservationSeat(
+            movieId: Int,
+            ticket: Ticket,
+        )
     }
 
     interface Presenter {

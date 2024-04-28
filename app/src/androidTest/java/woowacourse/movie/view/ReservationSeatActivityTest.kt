@@ -51,26 +51,26 @@ class ReservationSeatActivityTest {
     private val device = UiDevice.getInstance(getInstrumentation())
 
     @Test
-    fun 액티비티가_시작하면_예약중인_영화의_title이_보인다() {
+    fun `액티비티가_시작하면_예약중인_영화의_title이_보인다`() {
         onView(withId(R.id.seat_title_textview))
             .check(matches(withText(movie.title)))
     }
 
     @Test
-    fun 액티비티가_시작하면_지불금액이_보인다() {
+    fun `액티비티가_시작하면_지불금액이_보인다`() {
         onView(withId(R.id.seat_selection_price))
             .check(matches(withText("0원")))
     }
 
     @Test
-    fun 특정좌석을_한번_클릭하면_배경색이_선택된_색상으로_변경된다() {
+    fun `특정좌석을_한번_클릭하면_배경색이_선택된_색상으로_변경된다`() {
         onView(withId(R.id.seat_tv_item10))
             .perform(click())
             .check(matches(withBackgroundColor(selectedColor)))
     }
 
     @Test
-    fun 특정좌석을_두번_클릭하면_배경색이_선택되지않은_색상으로_변경된다() {
+    fun `특정좌석을_두번_클릭하면_배경색이_선택되지않은_색상으로_변경된다`() {
         onView(withId(R.id.seat_tv_item10))
             .perform(click())
             .perform(click())
@@ -78,7 +78,7 @@ class ReservationSeatActivityTest {
     }
 
     @Test
-    fun 티켓의_수_만큼_좌석을_선택하고_확인버튼을_클릭하면_다이얼로그가_표시된다() {
+    fun `티켓의_수_만큼_좌석을_선택하고_확인버튼을_클릭하면_다이얼로그가_표시된다`() {
         onView(withId(R.id.seat_tv_item2)).perform(click())
         onView(withId(R.id.seat_tv_item10)).perform(click())
         onView(withId(R.id.seat_tv_item18)).perform(click())
@@ -90,7 +90,7 @@ class ReservationSeatActivityTest {
     }
 
     @Test
-    fun 티켓의_수_만큼_좌석을_선택하지않고_확인버튼을_클릭하면_다이얼로그가_표시되지않는다() {
+    fun `티켓의_수_만큼_좌석을_선택하지않고_확인버튼을_클릭하면_다이얼로그가_표시되지않는다`() {
         onView(withId(R.id.seat_tv_item2)).perform(click())
 
         onView(withId(R.id.reservation_complete_linear_layout))
@@ -100,7 +100,7 @@ class ReservationSeatActivityTest {
     }
 
     @Test
-    fun 다이얼로그가_표시된_상태에서_배경을_터치해도_사라지지_않는다() {
+    fun `다이얼로그가_표시된_상태에서_배경을_터치해도_사라지지_않는다`() {
         // given
         onView(withId(R.id.seat_tv_item2)).perform(click())
         onView(withId(R.id.seat_tv_item10)).perform(click())
@@ -117,7 +117,7 @@ class ReservationSeatActivityTest {
     }
 
     @Test
-    fun 화면_회전시_선택된_좌석이_유지된다() {
+    fun `화면_회전시_선택된_좌석이_유지된다`() {
         // given
         onView(withId(R.id.seat_tv_item2)).perform(click())
         onView(withId(R.id.seat_tv_item10)).perform(click())
@@ -133,7 +133,7 @@ class ReservationSeatActivityTest {
     }
 
     @Test
-    fun 화면_회전시_선택된_좌석의_가격이_유지된다() {
+    fun `화면_회전시_선택된_좌석의_가격이_유지된다`() {
         // given
         onView(withId(R.id.seat_tv_item2)).perform(click())
         onView(withId(R.id.seat_tv_item10)).perform(click())

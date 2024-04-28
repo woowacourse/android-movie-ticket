@@ -39,7 +39,6 @@ class MovieDetailPresenter(
         }
     }
 
-
     override fun subTicketCount() {
         ticket.subCount()
         view.updateTicketCount(ticket.count())

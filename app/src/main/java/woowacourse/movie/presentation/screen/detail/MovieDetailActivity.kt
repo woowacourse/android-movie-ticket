@@ -98,7 +98,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
     }
 
-    override fun navigateToReservationSeat(movieId: Int, ticket: Ticket) {
+    override fun navigateToReservationSeat(
+        movieId: Int,
+        ticket: Ticket,
+    ) {
         val intent = Intent(this, ReservationSeatActivity::class.java)
         intent.putExtra(MOVIE_ID, movieId)
         intent.putExtra(TICKET, ticket)
@@ -106,33 +109,35 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     }
 
     private fun bindSpinner() {
-        dateSpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val item = dateSpinner.adapter.getItem(position) as LocalDate
-                presenter.onSelectedDateTime(item)
-                presenter.registerScreenDate(item)
+        dateSpinner.onItemSelectedListener =
+            object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val item = dateSpinner.adapter.getItem(position) as LocalDate
+                    presenter.onSelectedDateTime(item)
+                    presenter.registerScreenDate(item)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+        timeSpinner.onItemSelectedListener =
+            object : OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    presenter.registerScreenTime(timeSpinner.adapter.getItem(position) as LocalTime)
+                }
 
-        timeSpinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                presenter.registerScreenTime(timeSpinner.adapter.getItem(position) as LocalTime)
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
     }
 
     private fun initDateSpinner(dates: List<LocalDate>) {

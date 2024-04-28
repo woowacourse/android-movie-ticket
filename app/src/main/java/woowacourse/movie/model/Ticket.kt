@@ -6,7 +6,7 @@ import java.time.LocalTime
 
 class Ticket(
     count: Int = DEFAULT_AMOUNT,
-    screeningInfo: Pair<LocalDate, LocalTime> = DEFAULT_SCREEN_INFO
+    screeningInfo: Pair<LocalDate, LocalTime> = DEFAULT_SCREEN_INFO,
 ) : Serializable {
     var count: Int = count
         private set

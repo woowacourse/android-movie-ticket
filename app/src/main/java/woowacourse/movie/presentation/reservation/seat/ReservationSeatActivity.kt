@@ -66,13 +66,19 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         priceTextView.text = getString(R.string.price_format, price)
     }
 
-    override fun updateSeatColorToWhite(row: Int, col: Int) {
+    override fun updateSeatColorToWhite(
+        row: Int,
+        col: Int,
+    ) {
         val tableRow = tableLayout.getChildAt(row) as TableRow
         val textView = tableRow.getChildAt(col) as TextView
         textView.setBackgroundColor(getColor(R.color.white))
     }
 
-    override fun updateSeatColorToYellow(row: Int, col: Int) {
+    override fun updateSeatColorToYellow(
+        row: Int,
+        col: Int,
+    ) {
         val tableRow = tableLayout.getChildAt(row) as TableRow
         val textView = tableRow.getChildAt(col) as TextView
         textView.setBackgroundColor(getColor(R.color.yellow))
@@ -98,7 +104,11 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         complete.setOnClickListener(null)
     }
 
-    override fun navigateToResult(seats: Seats, ticket: Ticket, movieId: Int) {
+    override fun navigateToResult(
+        seats: Seats,
+        ticket: Ticket,
+        movieId: Int,
+    ) {
         val intent = Intent(this, ReservationResultActivity::class.java)
         intent.putExtra(MOVIE_ID, movieId)
         intent.putExtra(TICKET, ticket)

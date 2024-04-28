@@ -10,21 +10,34 @@ interface ReservationSeatContract {
 
         fun showSeatPrice(price: Int)
 
-        fun updateSeatColorToWhite(row: Int, col: Int)
+        fun updateSeatColorToWhite(
+            row: Int,
+            col: Int,
+        )
 
-        fun updateSeatColorToYellow(row: Int, col: Int)
+        fun updateSeatColorToYellow(
+            row: Int,
+            col: Int,
+        )
 
         fun ableClickCompleteText()
 
         fun unableClickCompleteText()
 
-        fun navigateToResult(seats: Seats, ticket: Ticket, movieId: Int)
+        fun navigateToResult(
+            seats: Seats,
+            ticket: Ticket,
+            movieId: Int,
+        )
     }
 
     interface Presenter {
         fun fetch(intent: Intent)
 
-        fun onClickedSeat(row: Int, col: Int)
+        fun onClickedSeat(
+            row: Int,
+            col: Int,
+        )
 
         fun checkSeatsCount()
 

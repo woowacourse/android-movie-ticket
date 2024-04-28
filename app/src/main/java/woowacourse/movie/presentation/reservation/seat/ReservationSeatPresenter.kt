@@ -26,7 +26,10 @@ class ReservationSeatPresenter(
         view.setUpView(movie.title)
     }
 
-    override fun onClickedSeat(row: Int, col: Int) {
+    override fun onClickedSeat(
+        row: Int,
+        col: Int,
+    ) {
         seat = Seat(row, col)
         when (seat in seats) {
             true -> {
@@ -50,6 +53,6 @@ class ReservationSeatPresenter(
     }
 
     override fun loadReservationInfo() {
-        view.navigateToResult(seats, ticket,movie.id)
+        view.navigateToResult(seats, ticket, movie.id)
     }
 }

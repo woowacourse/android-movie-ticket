@@ -62,5 +62,3 @@ class TheaterTest {
         assertThat(screenDates).contains(movie.screenDate[1])
     }
 }
-
-

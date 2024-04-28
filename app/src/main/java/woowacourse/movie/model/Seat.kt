@@ -6,7 +6,6 @@ data class Seat(
     val row: Int,
     val col: Int,
 ) : Serializable {
-
     fun grade(): Grade {
         return when (row) {
             in ROW_RANGE_GRADE_B -> Grade.B

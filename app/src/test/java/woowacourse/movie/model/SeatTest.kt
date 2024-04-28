@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class SeatTest {
-
     @Test
     fun `좌석이 1행이면 좌석의 등급은 B이다`() {
         // given,when
@@ -22,7 +21,6 @@ class SeatTest {
         // then
         assertThat(seat.grade()).isEqualTo(Grade.S)
     }
-
 
     @Test
     fun `좌석이 5행이면 좌석의 등급은 A이다`() {
@@ -46,7 +44,6 @@ class SeatTest {
         assertThat(price).isEqualTo(10_000)
     }
 
-
     @Test
     fun `좌석의 등급이 S이면 가격은 15_000이다`() {
         // given
@@ -59,7 +56,6 @@ class SeatTest {
         // then
         assertThat(price).isEqualTo(15_000)
     }
-
 
     @Test
     fun `좌석의 등급이 A이면 가격은 12_000이다`() {
@@ -74,4 +70,3 @@ class SeatTest {
         assertThat(price).isEqualTo(12_000)
     }
 }
-
