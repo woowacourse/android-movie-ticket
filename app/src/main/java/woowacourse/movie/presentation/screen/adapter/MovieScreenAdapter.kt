@@ -9,7 +9,7 @@ import woowacourse.movie.domain.model.Movie
 
 class MovieScreenAdapter(
     private val context: Context,
-    private val ad: String,
+    private val ads: List<String>,
     private var movies: List<Movie> = listOf(),
     private val onMovieSelected: (Int) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -44,7 +44,7 @@ class MovieScreenAdapter(
         when (holder.itemViewType) {
             AD_VIEW_TYPE -> {
                 val adHolder = holder as AdViewHolder
-                adHolder.bind(ad)
+                adHolder.bind(ads.random())
             }
 
             MOVIE_VIEW_TYPE -> {

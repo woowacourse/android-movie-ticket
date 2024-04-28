@@ -30,11 +30,11 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
 
     private fun initView() {
         movieRecyclerView = findViewById(R.id.movie_recycler_view)
-        presenter.requestAd { ad ->
+        presenter.requestAd { ads ->
             movieAdapter =
                 MovieScreenAdapter(
                     context = this@MovieScreenActivity,
-                    ad = ad,
+                    ads = ads,
                     onMovieSelected = { movieId ->
                         moveToReservation(movieId)
                     },

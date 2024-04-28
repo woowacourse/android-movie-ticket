@@ -1,5 +1,5 @@
 package woowacourse.movie.domain.repository
 
 interface AdRepository {
-    fun getRandomAd(): String
+    fun getAds(): List<String>
 }

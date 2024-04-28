@@ -17,8 +17,8 @@ class MovieScreenPresenter(
         view.moveToReservation(movieId)
     }
 
-    override fun requestAd(ad: (String) -> Unit) {
-        ad(adRepository.getRandomAd())
+    override fun requestAd(ad: (List<String>) -> Unit) {
+        ad(adRepository.getAds())
     }
 
     companion object {

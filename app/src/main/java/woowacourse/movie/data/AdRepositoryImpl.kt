@@ -3,7 +3,7 @@ package woowacourse.movie.data
 import woowacourse.movie.domain.repository.AdRepository
 
 class AdRepositoryImpl : AdRepository {
-    override fun getRandomAd(): String {
-        return MockAds.sampleAds.random()
+    override fun getAds(): List<String> {
+        return MockAds.sampleAds
     }
 }

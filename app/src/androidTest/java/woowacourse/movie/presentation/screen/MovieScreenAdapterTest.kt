@@ -21,7 +21,7 @@ class MovieScreenAdapterTest {
         context = InstrumentationRegistry.getInstrumentation().context
         adapter =
             MovieScreenAdapter(
-                context, "ad_placeholder",
+                context, listOf("ad_placeholder"),
                 listOf(
                     MockMovies.defaultMovie,
                     MockMovies.defaultMovie,
