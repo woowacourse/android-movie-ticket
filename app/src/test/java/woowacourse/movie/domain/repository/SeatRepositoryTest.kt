@@ -11,7 +11,7 @@ class SeatRepositoryTest {
     @Test
     fun `getSeats 메서드가 적절한 좌석 리스트를 반환하는지 확인한다`() {
         // When
-        val seats = repository.getSeats()
+        val seats = repository.getAvailableSeats()
 
         // Then
         assertEquals(MockSeats.sampleSeats, seats)
@@ -23,7 +23,7 @@ class SeatRepositoryTest {
         val expectedSeat = MockSeats.sampleSeats[1][2]
 
         // When
-        val seat = repository.getSeat(1, 2)
+        val seat = repository.getAvailableSeat(1, 2)
 
         // Then
         assertEquals(expectedSeat, seat)
@@ -35,7 +35,7 @@ class SeatRepositoryTest {
         val expectedDefaultSeat = MockSeats.defaultSeat
 
         // When
-        val seat = repository.getSeat(10, 10)
+        val seat = repository.getAvailableSeat(10, 10)
 
         // Then
         assertEquals(expectedDefaultSeat, seat)

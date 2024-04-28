@@ -26,14 +26,14 @@ class SeatSelectionPresenter(
     }
 
     override fun loadSeat() {
-        view.showSeat(seatRepository.getSeats())
+        view.showSeat(seatRepository.getAvailableSeats())
     }
 
     override fun selectSeat(
         rowIndex: Int,
         columIndex: Int,
     ) {
-        val seat = seatRepository.getSeat(rowIndex, columIndex)
+        val seat = seatRepository.getAvailableSeat(rowIndex, columIndex)
         if (seat.seatName.isEmpty()) return
         reservationMovieSeats.setSeatSelectType(seat)
         when (reservationMovieSeats.seatSelectType) {

@@ -4,11 +4,11 @@ import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.repository.SeatRepository
 
 class SeatRepositoryImpl : SeatRepository {
-    override fun getSeats(): List<List<MovieSeat>> {
+    override fun getAvailableSeats(): List<List<MovieSeat>> {
         return MockSeats.sampleSeats
     }
 
-    override fun getSeat(
+    override fun getAvailableSeat(
         row: Int,
         column: Int,
     ): MovieSeat {

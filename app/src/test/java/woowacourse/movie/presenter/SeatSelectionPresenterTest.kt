@@ -44,7 +44,7 @@ class SeatSelectionPresenterTest {
     @Test
     fun `loadSeat은 좌석 정보를 뷰에 표시해야 한다`() {
         val seats = listOf(listOf(MovieSeat("A1", SeatType.S), MovieSeat("A2", SeatType.S)))
-        every { mockSeatRepository.getSeats() } returns seats
+        every { mockSeatRepository.getAvailableSeats() } returns seats
 
         presenter.loadSeat()
 
@@ -56,7 +56,7 @@ class SeatSelectionPresenterTest {
         val rowIndex = 0
         val columnIndex = 0
         val seat = MovieSeat("A1", SeatType.S)
-        every { mockSeatRepository.getSeat(rowIndex, columnIndex) } returns seat
+        every { mockSeatRepository.getAvailableSeat(rowIndex, columnIndex) } returns seat
 
         presenter.selectSeat(rowIndex, columnIndex)
 

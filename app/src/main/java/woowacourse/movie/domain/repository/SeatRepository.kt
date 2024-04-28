@@ -3,9 +3,9 @@ package woowacourse.movie.domain.repository
 import woowacourse.movie.domain.model.MovieSeat
 
 interface SeatRepository {
-    fun getSeats(): List<List<MovieSeat>>
+    fun getAvailableSeats(): List<List<MovieSeat>>
 
-    fun getSeat(
+    fun getAvailableSeat(
         row: Int,
         column: Int,
     ): MovieSeat
