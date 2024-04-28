@@ -7,6 +7,9 @@ import android.widget.TextView
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieTicketRepositoryImpl
+import woowacourse.movie.data.repository.SeatRepositoryImpl
+import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.SeatGrade
 import woowacourse.movie.presentation.base.BaseActivity
 
 class SeatActivity : BaseActivity(), SeatContract.View {
@@ -18,42 +21,42 @@ class SeatActivity : BaseActivity(), SeatContract.View {
     private lateinit var title: TextView
     private lateinit var totalPrice: TextView
     private lateinit var confirmButton: Button
+    private lateinit var seatsTable: List<Button>
     
     override fun onCreateSetup() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         
         val movieTicketId = intent.getIntExtra(EXTRA_MOVIE_TICKET_ID, -1)
         
-        presenter = SeatPresenter(this, MovieTicketRepositoryImpl, movieTicketId)
-        
         seatBoard = findViewById(R.id.seat_board_layout)
-        
-        val seatsTable = seatBoard.children.filterIsInstance<TableRow>().flatMap { it.children }
+        title = findViewById(R.id.title)
+        seatsTable = seatBoard.children.filterIsInstance<TableRow>().flatMap { it.children }
             .filterIsInstance<Button>().toList()
         
-        seatsTable.indexOf(seatsTable[0])
-        
+        presenter = SeatPresenter(this, MovieTicketRepositoryImpl, SeatRepositoryImpl, movieTicketId)
     }
-
-//    fun showSeatNumber(
-//    index: Int,
-//    seat: Seat,
-//    ) {
-//        seatsTable[index].apply {
-//            text = getString(R.string.select_seat_number).format(seat.row, seat.column)
-//            setTextColor(setUpSeatColorByGrade(seat.grade))
-//            setOnClickListener {
-//                val seatsCount = seatsTable.count { seat -> seat.isSelected }
-//                if (seatsCount < ticket.count || it.isSelected) {
-//                    updateSeatSelectedState(index, isSelected)
-//                    val updatedSeatsCount = seatsTable.count { seat -> seat.isSelected }
-//                    presenter.manageSelectedSeats(it.isSelected, index, seat)
-//                    presenter.updateTotalPrice(it.isSelected, seat)
-//                    setConfirmButtonEnabled(updatedSeatsCount)
-//                }
-//            }
-//        }
-//    }
+    
+    override fun showMovieTitle(movieTitle: String) {
+        title.text = movieTitle
+    }
+    
+    override fun showSeats(seat: List<Seat>) {
+        seatsTable.forEachIndexed { index, button ->
+            button.text = seat[index].toString()
+            button.setTextColor(loadSeatColor(seat[index].seatGrade))
+            button.setOnClickListener {
+                button.isSelected = !button.isSelected
+            }
+        }
+    }
+    
+    private fun loadSeatColor(grade: SeatGrade): Int {
+        return when (grade) {
+            SeatGrade.B -> getColor(R.color.purple_500)
+            SeatGrade.S -> getColor(R.color.teal_700)
+            SeatGrade.A -> getColor(R.color.blue_500)
+        }
+    }
     
     override fun showMessage(message: String) {
         showSnackBar(message)
