@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.seatSelection
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -17,9 +18,6 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.SeatClass
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_COUNT
-import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_MOVIE_ID
-import woowacourse.movie.presentation.ticketing.TicketingActivity.Companion.EXTRA_SCREENING_DATE_TIME
 import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
 import woowacourse.movie.utils.formatSeat
 
@@ -103,10 +101,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun navigate(ticket: Ticket) {
-        Intent(this, TicketingResultActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_TICKET, ticket)
-            startActivity(this)
-        }
+        startActivity(TicketingResultActivity.createIntent(this, ticket))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -128,9 +123,24 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     companion object {
-        const val EXTRA_MOVIE_TICKET = "movie_ticket"
+        const val EXTRA_MOVIE_ID = "movie_id"
+        const val EXTRA_COUNT = "ticket_count"
+        const val EXTRA_SCREENING_DATE_TIME = "screening_date_time"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
         const val EXTRA_DEFAULT_TICKET_COUNT = -1
         const val KEY_SELECTED_SEATS = "selected_seats"
+
+        fun createIntent(
+            context: Context,
+            movieId: Int,
+            count: Int,
+            screeningDateTime: String,
+        ): Intent {
+            return Intent(context, SeatSelectionActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE_ID, movieId)
+                putExtra(EXTRA_COUNT, count)
+                putExtra(EXTRA_SCREENING_DATE_TIME, screeningDateTime)
+            }
+        }
     }
 }

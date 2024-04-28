@@ -1,5 +1,7 @@
 package woowacourse.movie.presentation.ticketingResult
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Seat
 import woowacourse.movie.model.Ticket
-import woowacourse.movie.presentation.seatSelection.SeatSelectionActivity.Companion.EXTRA_MOVIE_TICKET
 import woowacourse.movie.utils.formatSeat
 
 class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
@@ -56,5 +57,18 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val EXTRA_MOVIE_TICKET = "movie_ticket"
+
+        fun createIntent(
+            context: Context,
+            movieTicket: Ticket,
+        ): Intent {
+            return Intent(context, TicketingResultActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE_TICKET, movieTicket)
+            }
+        }
     }
 }

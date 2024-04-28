@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.ticketing
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -111,12 +112,10 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
         movieId: Int,
         count: Int,
     ) {
-        Intent(this, SeatSelectionActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_ID, movieId)
-            putExtra(EXTRA_COUNT, count)
-            putExtra(EXTRA_SCREENING_DATE_TIME, "${movieDateSpinner.selectedItem} ${movieTimeSpinner.selectedItem}")
-            startActivity(this)
-        }
+        val screeningDateTime = "${movieDateSpinner.selectedItem} ${movieTimeSpinner.selectedItem}"
+        startActivity(
+            SeatSelectionActivity.createIntent(this, movieId, count, screeningDateTime),
+        )
     }
 
     override fun showErrorMessage(message: String?) {
@@ -150,11 +149,18 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View {
 
     companion object {
         const val EXTRA_MOVIE_ID = "movie_id"
-        const val EXTRA_COUNT = "ticket_count"
-        const val EXTRA_SCREENING_DATE_TIME = "screening_date_time"
         const val EXTRA_DEFAULT_MOVIE_ID = -1
         const val KEY_SAVED_COUNT = "saved_count"
         const val SAVED_DEFAULT_VALUE = -1
         const val KEY_SELECTED_TIME_POSITION = "selected_time_position"
+
+        fun createIntent(
+            context: Context,
+            movieId: Int,
+        ): Intent {
+            return Intent(context, TicketingActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE_ID, movieId)
+            }
+        }
     }
 }
