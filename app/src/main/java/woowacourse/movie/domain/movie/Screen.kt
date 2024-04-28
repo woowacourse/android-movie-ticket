@@ -1,12 +1,12 @@
 package woowacourse.movie.domain.movie
 
-class Screen private constructor(
-    val id: Long = currentId++,
-    val movieId: Long,
-) {
-    companion object {
-        var currentId = 1L
+import woowacourse.movie.domain.movie.ScreenView.Companion.currentId
 
+class Screen private constructor(
+    override val id: Long = currentId++,
+    val movieId: Long,
+): ScreenView {
+    companion object {
         fun from(movie: Movie): Screen {
             return Screen(movieId = movie.id)
         }

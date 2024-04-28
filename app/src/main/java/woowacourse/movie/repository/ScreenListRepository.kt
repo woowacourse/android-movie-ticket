@@ -2,15 +2,16 @@ package woowacourse.movie.repository
 
 import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.domain.movie.Screen
+import woowacourse.movie.domain.movie.ScreenView
 
 interface ScreenListRepository {
-    val list: List<Screen>
+    val list: List<ScreenView>
 
     fun listSize(): Int
 
     fun addToList(movie: Movie)
 
-    fun addToList(screen: Screen)
+    fun addToList(screenView: ScreenView)
 
     fun addToList(movieList: List<Movie>)
 
@@ -21,7 +22,7 @@ interface ScreenListRepository {
      * @return Screen object which matches with id value in database
      */
 
-    fun find(id: Long): Screen
+    fun find(id: Long): ScreenView
 
-    fun findOrNull(id: Long): Screen?
+    fun findOrNull(id: Long): ScreenView?
 }
