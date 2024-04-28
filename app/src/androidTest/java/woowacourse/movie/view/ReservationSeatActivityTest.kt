@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -30,7 +31,6 @@ import woowacourse.movie.presentation.reservation.seat.ReservationSeatActivity.C
 import woowacourse.movie.presentation.reservation.seat.ReservationSeatActivity.Companion.DIALOG_NEGATIVE
 import woowacourse.movie.presentation.reservation.seat.ReservationSeatActivity.Companion.DIALOG_POSITIVE
 import woowacourse.movie.presentation.reservation.seat.ReservationSeatActivity.Companion.DIALOG_TITLE
-import woowacourse.movie.presentation.screen.detail.MovieDetailActivity
 import woowacourse.movie.presentation.screen.detail.MovieDetailActivity.Companion.TICKET
 
 @RunWith(AndroidJUnit4::class)
@@ -44,7 +44,7 @@ class ReservationSeatActivityTest {
             .putExtra(TICKET, Ticket(3))
 
     @get:Rule
-    val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)
+    val activityRule = ActivityScenarioRule<ReservationSeatActivity>(intent)
     private val context = getInstrumentation().targetContext
     private val unSelectedColor = ContextCompat.getColor(context, R.color.white)
     private val selectedColor = ContextCompat.getColor(context, R.color.yellow)
@@ -114,6 +114,40 @@ class ReservationSeatActivityTest {
 
         // then
         checkDialogExists()
+    }
+
+    @Test
+    fun 화면_회전시_선택된_좌석이_유지된다() {
+        // given
+        onView(withId(R.id.seat_tv_item2)).perform(click())
+        onView(withId(R.id.seat_tv_item10)).perform(click())
+
+        // when
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // then
+        onView(withId(R.id.seat_tv_item2)).check(matches(withBackgroundColor(selectedColor)))
+        onView(withId(R.id.seat_tv_item10)).check(matches(withBackgroundColor(selectedColor)))
+    }
+
+    @Test
+    fun 화면_회전시_선택된_좌석의_가격이_유지된다() {
+        // given
+        onView(withId(R.id.seat_tv_item2)).perform(click())
+        onView(withId(R.id.seat_tv_item10)).perform(click())
+        onView(withId(R.id.seat_selection_price))
+            .check(matches(withText("25,000원")))
+
+        // when
+        activityRule.scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // then
+        onView(withId(R.id.seat_selection_price))
+            .check(matches(withText("25,000원")))
     }
 
     private fun withBackgroundColor(expectedColor: Int): Matcher<View> {

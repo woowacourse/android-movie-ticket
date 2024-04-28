@@ -17,7 +17,7 @@ class ReservationSeatPresenter(
     private var ticket: Ticket = Ticket()
     private lateinit var seat: Seat
     private lateinit var movie: Movie
-    private val seats: Seats by lazy { Seats() }
+    val seats: Seats by lazy { Seats() }
 
     override fun fetch(intent: Intent) {
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)

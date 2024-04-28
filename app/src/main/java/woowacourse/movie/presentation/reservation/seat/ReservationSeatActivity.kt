@@ -35,6 +35,23 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         addClickListener()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.apply {
+            putSerializable(SEATS, presenter.seats)
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val seats = savedInstanceState.getSerializable(SEATS) as Seats?
+        seats?.let { seats ->
+            seats.seats.forEach { seat ->
+                presenter.onClickedSeat(seat.row, seat.col)
+            }
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()
         return true
@@ -108,9 +125,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
 
     companion object {
         const val SEATS = "seats"
-         const val DIALOG_TITLE = "예매 확인"
-         const val DIALOG_MESSAGE = "정말 예매하시겠습니까?"
-         const val DIALOG_POSITIVE = "예매완료"
-         const val DIALOG_NEGATIVE = "취소"
+        const val DIALOG_TITLE = "예매 확인"
+        const val DIALOG_MESSAGE = "정말 예매하시겠습니까?"
+        const val DIALOG_POSITIVE = "예매완료"
+        const val DIALOG_NEGATIVE = "취소"
     }
 }
