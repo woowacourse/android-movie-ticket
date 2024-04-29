@@ -17,7 +17,7 @@ class MovieHomePresenterTest {
 
     @BeforeEach
     fun setUp() {
-        view = mockk<MovieHomeContract.View>()
+        view = mockk<MovieHomeContract.View>(relaxed = true)
         presenter = MovieHomePresenter(view, MovieContentsImpl)
     }
 

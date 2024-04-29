@@ -12,6 +12,7 @@ import woowacourse.movie.model.movie.ReservationDetail
 import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.complete.MovieReservationCompleteContract
 import woowacourse.movie.ui.complete.MovieReservationCompletePresenter
+import java.time.LocalDateTime
 
 class MovieReservationCompletePresenterTest {
     private lateinit var presenter: MovieReservationCompletePresenter
@@ -19,9 +20,15 @@ class MovieReservationCompletePresenterTest {
 
     @BeforeEach
     fun setUp() {
-        view = mockk<MovieReservationCompleteContract.View>()
+        view = mockk<MovieReservationCompleteContract.View>(relaxed = true)
         presenter = MovieReservationCompletePresenter(view, UserTicketsImpl)
-        UserTicketsImpl.save(UserTicket("", "", "", ReservationDetail(1)))
+        UserTicketsImpl.save(
+            UserTicket(
+                "",
+                LocalDateTime.of(2024, 3, 28, 10, 0),
+                ReservationDetail(1),
+            ),
+        )
     }
 
     @Test
