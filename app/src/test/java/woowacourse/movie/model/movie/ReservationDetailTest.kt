@@ -11,14 +11,13 @@ class ReservationDetailTest {
     @Test
     fun `좌석을 선택한다`() {
         // given
-        val reservationDetail = ReservationDetail(10)
+        val reservationDetail = ReservationDetail(10, mutableListOf(A1_SEAT))
 
         // when
-        reservationDetail.addSeat(0, 0)
         val actual = reservationDetail.selectedSeat[0]
 
-        // then=
-        assertThat(actual).isEqualTo(Seat(0, 0))
+        // then
+        assertThat(actual).isEqualTo(A1_SEAT)
     }
 
     @Test
