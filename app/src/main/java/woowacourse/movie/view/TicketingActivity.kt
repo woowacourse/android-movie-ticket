@@ -95,6 +95,31 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         }
         findViewById<TextView>(R.id.tv_introduction).apply { text = screening.movie.introduction }
 
+        initializeDateSpinner(screening, date)
+        initializeTimeSpinner(time)
+    }
+
+    private fun initializeTimeSpinner(time: LocalTime?) {
+        timeSpinner.apply {
+            adapter =
+                ArrayAdapter(
+                    this@TicketingActivity,
+                    android.R.layout.simple_spinner_item,
+                    ticketingPresenter.ticketingUiState.availableTimes.localTimes,
+                )
+            onItemSelectedListener = this@TicketingActivity
+            val position =
+                time?.let {
+                    ticketingPresenter.ticketingUiState.availableTimes.localTimes.indexOf(it)
+                } ?: 0
+            setSelection(position)
+        }
+    }
+
+    private fun initializeDateSpinner(
+        screening: Screening,
+        date: LocalDate?,
+    ) {
         dateSpinner.apply {
             adapter =
                 ArrayAdapter(
@@ -107,21 +132,6 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
             val position =
                 date?.let {
                     screening.dates.indexOf(it)
-                } ?: 0
-            setSelection(position)
-        }
-
-        timeSpinner.apply {
-            adapter =
-                ArrayAdapter(
-                    this@TicketingActivity,
-                    android.R.layout.simple_spinner_item,
-                    ticketingPresenter.ticketingUiState.availableTimes.localTimes,
-                )
-            onItemSelectedListener = this@TicketingActivity
-            val position =
-                time?.let {
-                    ticketingPresenter.ticketingUiState.availableTimes.localTimes.indexOf(it)
                 } ?: 0
             setSelection(position)
         }
