@@ -103,13 +103,7 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
             val seat = baseSeats[index]
             view.text = getString(R.string.seat, formatRow(seat.row), formatColumn(seat.column))
 
-            val seatColor =
-                when (seat.grade) {
-                    MovieGrade.B_GRADE -> R.color.b_grade
-                    MovieGrade.S_GRADE -> R.color.s_grade
-                    MovieGrade.A_GRADE -> R.color.a_grade
-                }
-            view.setTextColor(ContextCompat.getColor(this, seatColor))
+            view.setTextColor(ContextCompat.getColor(this, seat.grade.getSeatColor()))
 
             view.setOnClickListener {
                 seatSelectionPresenter.clickTableSeat(index)
@@ -167,6 +161,14 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
     private fun setUpCompleteButton() {
         completeButton.setOnClickListener {
             displayDialog()
+        }
+    }
+
+    private fun MovieGrade.getSeatColor(): Int {
+        return when (this) {
+            MovieGrade.B_GRADE -> R.color.b_grade
+            MovieGrade.S_GRADE -> R.color.s_grade
+            MovieGrade.A_GRADE -> R.color.a_grade
         }
     }
 }

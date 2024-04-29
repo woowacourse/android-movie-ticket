@@ -64,7 +64,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
             resultCount.text = movieTicket.seats.count.toString()
             resultSeats.text =
                 movieTicket.seats.selectedSeats.joinToString(", ") { seat ->
-                    getString(R.string.seat, formatRow(seat.row), seat.column)
+                    getString(R.string.seat, formatRow(seat.row), seat.column.toString())
                 }
             resultPrice.text = formatPrice(movieTicket.seats.totalPrice())
         }
