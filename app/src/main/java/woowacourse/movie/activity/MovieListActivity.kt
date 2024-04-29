@@ -6,12 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.adapter.AdapterClickListenter
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.presenter.MovieListPresenter
 import woowacourse.movie.ui.MovieBrief
 
-class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+class MovieListActivity : AppCompatActivity(), MovieListContract.View, AdapterClickListenter {
     private lateinit var movieRecyclerView: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
 
@@ -38,5 +39,9 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
                 putExtra("MovieId", movieId)
             }
         startActivity(intent)
+    }
+
+    override fun onClick(position: Int) {
+        navigateToMovieDetail(position)
     }
 }

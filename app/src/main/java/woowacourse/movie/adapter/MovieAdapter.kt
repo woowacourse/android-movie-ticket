@@ -8,12 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
-import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.ui.MovieBrief
 
 class MovieAdapter(
     private val movieBriefs: List<MovieBrief>,
-    private val screeningListView: MovieListContract.View,
+    private val adapterClickListenter: AdapterClickListenter
 ) : RecyclerView.Adapter<ViewHolder>(),
     MovieAdapterContract.Model,
     MovieAdapterContract.View {
@@ -59,7 +58,7 @@ class MovieAdapter(
     }
 
     override fun notifyItemClicked(position: Int) {
-        screeningListView.navigateToMovieDetail(position)
+        adapterClickListenter.onClick(position)
     }
 
     inner class MovieHolder(
