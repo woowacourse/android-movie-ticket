@@ -34,7 +34,7 @@ class ReservationResultActivityTest {
     @Before
     fun setup() {
         // given 테스트용 예매 정보 생성
-        MovieTicketRepositoryImpl.createMovieTicket(TITLE, SCREENING_LOCAL_TIME)
+        MovieTicketRepositoryImpl.createMovieTicket(TITLE, SCREENING_LOCAL_DATE_TIME, 1)
     }
 
     @Test

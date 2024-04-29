@@ -2,9 +2,11 @@ package woowacourse.movie.presentation.view
 
 import woowacourse.movie.R
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 val posterImageSrc = R.drawable.harrypotter_poster
 val SCREENING_LOCAL_TIME = LocalDate.of(2024, 4, 1)
+val SCREENING_LOCAL_DATE_TIME = LocalDateTime.of(2024, 4, 1, 10, 0)
 const val TITLE = "해리 포터와 마법사의 돌"
 const val SCREENING_DATE = "2024.04.01"
 const val SCREENING_START_DATE = "2024.04.01"
