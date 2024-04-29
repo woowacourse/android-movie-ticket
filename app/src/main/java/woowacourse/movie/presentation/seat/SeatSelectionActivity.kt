@@ -38,8 +38,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
         initView()
-        presenter.loadTicket()
-        presenter.loadSeat()
+        presenter.loadData()
         val saveSates =
             savedInstanceState?.getSerializable(KEY_NAME_SEATS) as? List<MovieSeatModel> ?: listOf()
         presenter.initSavedInstanceData(saveSates)
@@ -85,17 +84,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 rows.children.filterIsInstance<TextView>()
                     .forEachIndexed { columIndex, view ->
                         val currentSeat = seats[rowIndex][columIndex]
-                        view.text = "${currentSeat.seatRow}${currentSeat.seatColumn}"
-                        view.setTextColor(
-                            when (currentSeat.seatType) {
-                                SeatType.S -> getColor(R.color.seat_s_text_color)
-                                SeatType.A -> getColor(R.color.seat_a_text_color)
-                                SeatType.B -> getColor(R.color.seat_b_text_color)
-                            },
-                        )
-                        view.setOnClickListener {
-                            presenter.selectSeat(rowIndex, columIndex)
-                        }
+                        setSeatText(view, currentSeat)
+                        setSeatListener(view,rowIndex,columIndex)
                     }
             }
     }
@@ -163,6 +153,30 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private fun saveInstance(outState: Bundle) {
         val movieModels = presenter.makeSavedSeats()
         outState.putSerializable(KEY_NAME_SEATS, movieModels as Serializable)
+    }
+
+    private fun setSeatText(
+        view: TextView,
+        currentSeat: MovieSeat,
+    ){
+        view.text = "${currentSeat.seatRow}${currentSeat.seatColumn}"
+        view.setTextColor(
+            when (currentSeat.seatType) {
+                SeatType.S -> getColor(R.color.seat_s_text_color)
+                SeatType.A -> getColor(R.color.seat_a_text_color)
+                SeatType.B -> getColor(R.color.seat_b_text_color)
+            },
+        )
+    }
+
+    private fun setSeatListener(
+        view: TextView,
+        rowIndex: Int,
+        columIndex: Int,
+    ){
+        view.setOnClickListener {
+            presenter.selectSeat(rowIndex, columIndex)
+        }
     }
 
     companion object {

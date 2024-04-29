@@ -19,11 +19,8 @@ class SeatSelectionPresenter(
 ) : SeatSelectionContract.Presenter {
     private val reservationMovieSeats = ReservationMovieSeats(pendingMovieReservationModel.count)
 
-    override fun loadTicket() {
+    override fun loadData() {
         view.showTicket(pendingMovieReservationModel = pendingMovieReservationModel)
-    }
-
-    override fun loadSeat() {
         view.showSeat(seatRepository.getAvailableSeats())
     }
 

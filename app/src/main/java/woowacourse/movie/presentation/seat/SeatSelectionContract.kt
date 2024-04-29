@@ -34,9 +34,8 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadTicket()
+        fun loadData()
 
-        fun loadSeat()
 
         fun selectSeat(
             rowIndex: Int,

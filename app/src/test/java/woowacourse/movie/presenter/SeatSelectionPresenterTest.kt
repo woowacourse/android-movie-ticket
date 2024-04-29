@@ -35,7 +35,7 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `loadTicket은 티켓 정보를 뷰에 표시해야 한다`() {
-        presenter.loadTicket()
+        presenter.loadData()
         verify { mockView.showTicket(pendingMovieReservationModel) }
     }
 
