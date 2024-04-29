@@ -16,6 +16,7 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSeat
+import woowacourse.movie.domain.Tier
 import woowacourse.movie.presentation.result.MovieResultActivity
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
@@ -79,9 +80,16 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
                 .filterIsInstance<Button>().toList()
 
         seatButtons.forEachIndexed { index, button ->
-            button.text = mapSeatNumberToLetter(index)
-            button.setOnClickListener {
-                movieSeatPresenter.selectSeat(index, seats[index], it.isSelected)
+            with(button) {
+                text = mapSeatNumberToLetter(index)
+                when (seats[index].tier) {
+                    Tier.S -> setTextColor(context.getColor(R.color.s_tier_color))
+                    Tier.A -> setTextColor(context.getColor(R.color.a_tier_color))
+                    Tier.B -> setTextColor(context.getColor(R.color.b_tier_color))
+                }
+                setOnClickListener {
+                    movieSeatPresenter.selectSeat(index, seats[index], isSelected)
+                }
             }
         }
     }

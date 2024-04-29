@@ -77,13 +77,12 @@ class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     companion object {
         private const val SAMPLE_IMG_SRC =
-            "https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2F" +
-                "prod-files-secure.s3.us-west-2.amazonaws.com%" +
-                "2Ff71cbdcd-b763-41af-9bbb-42abdb18bd6a%2F924f98cd-0a25-4463-90b5-" +
-                "c222313c4437%2F%25E1%2584%258B%25E1%2585%25AE%25E1%2584%2590%25E1%2585%25A6%25E1%2584" +
-                "%258F%25E1%2585%25A9_%25E1%2584%2589%25E1%2585%25A1%25E1%2584%258B%25E1%2585%25B5%25E1%" +
-                "2584%2590%25E1%2585%25B3_%25E1%2584%2592%25E1%2585%25A" +
-                "6%25E1%2584%2583%25E1%2585%25A5_2000x1333.png&blockId=c2dd0879-c2b5-484e-bbe8-5545f70aa320&width=3600"
+            "https://s3-alpha-sig.figma.com/img/e1aa/0753/a796f5d7ba7df41bb1cfaa64dd2d8167?" +
+                "Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ht2jSxu-~W6VC3LYqfcpwmWkfqJs9qXmBjqzUFp" +
+                "kLalMeo3TFLrJlJJDwGl8EfhRtRweS5c8ZHpyg6vyaGJ-3wvGO~gjmtGyiw-LWvIfhz7QpwamHn3M~" +
+                "fFOFD8SBgd~WhNsBzHV7lVT2jm3wongpDHxoJbg733-od8dYRQMJOy-YFS0OIRGSwAKsoNSEOqR7trP8tQCfQliSjo81VBqX" +
+                "tutKmHXXDCPeDu-7uDCf~rnfiRmjgdQMPs8NhCniJXPuPjZnJXL0ebKO0ivMkPCXDN0HaawxE1doNn3xYtXb9" +
+                "60mP9U0oTWI3am74uNyXgx5fC1wAQB0HeJy~wg9ZpjSA__"
     }
 }
 
