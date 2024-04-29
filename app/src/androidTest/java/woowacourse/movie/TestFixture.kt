@@ -9,11 +9,11 @@ import woowacourse.movie.model.seats.Seats
 import woowacourse.movie.model.ticket.Ticket
 
 object TestFixture {
-    const val FIRST_ITEM_POSITION = 0
+    const val FIRST_MOVIE_ITEM_POSITION = 0
     val movies: List<Movie> = ScreeningDao().findAll()
 
     fun makeMockTicket(): Ticket {
-        val movie = movies[FIRST_ITEM_POSITION]
+        val movie = movies[FIRST_MOVIE_ITEM_POSITION]
         val dateTime = ScreeningDateTime(movie.screeningPeriod[0].toString(), movie.screeningTimes.weekDay[0].toString())
         return Ticket(2, dateTime)
     }

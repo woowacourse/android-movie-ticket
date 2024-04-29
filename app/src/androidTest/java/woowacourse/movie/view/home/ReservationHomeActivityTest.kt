@@ -69,7 +69,7 @@ class ReservationHomeActivityTest {
                 ).atPosition(FIRST_ITEM_POSITION),
             )
 
-        onView(withText(movies[TestFixture.FIRST_ITEM_POSITION].title)).check(matches(isDisplayed()))
+        onView(withText(movies[TestFixture.FIRST_MOVIE_ITEM_POSITION].title)).check(matches(isDisplayed()))
     }
 
     @Test
