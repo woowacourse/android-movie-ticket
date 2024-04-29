@@ -4,7 +4,7 @@ import woowacourse.movie.model.theater.Seat
 
 class TheaterSeatPresenter(
     private val view: TheaterSeatContract.View,
-    val ticketLimit: Int
+    private val ticketLimit: Int
 ) :
     TheaterSeatContract.Presenter {
     private val seats: MutableMap<String, Seat> = mutableMapOf()
@@ -36,7 +36,6 @@ class TheaterSeatPresenter(
         calculateAndUpdateTotalPrice()
     }
 
-
     override fun updateSeatBackground(seatId: String) {
         val seat = seats[seatId] ?: return
         if (seat.chosen) {
@@ -45,7 +44,6 @@ class TheaterSeatPresenter(
             view.setSeatBackground(seatId, "#FFFFFF")
         }
     }
-
 
     override fun calculateTotalPrice(): Int {
         return seats.values.filter { it.chosen }.sumOf { it.price }
