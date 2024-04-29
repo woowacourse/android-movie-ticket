@@ -43,16 +43,15 @@ data class SeatBoard(
     companion object {
         val STUB =
             buildSeatBoard {
-                size(5, 5)
+                size(4, 5)
                 headCount(HeadCount(2))
                 reservedSeatPositions(
                     setOf(
                         Position(1, 1),
-                        Position(1, 3),
                         Position(3, 2),
                         Position(3, 1),
                         Position(4, 0),
-                        Position(4, 4),
+                        Position(0, 3),
                     ),
                 )
                 bannedPositions(
@@ -60,9 +59,9 @@ data class SeatBoard(
                         Position(1, 0),
                         Position(2, 0),
                         Position(3, 0),
-                        Position(1, 4),
-                        Position(2, 4),
-                        Position(3, 4),
+                        Position(1, 3),
+                        Position(2, 3),
+                        Position(3, 3),
                     ),
                 )
             }
