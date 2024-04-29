@@ -11,15 +11,9 @@ interface SeatSelectionContract {
 
         fun showSeat(seats: List<List<MovieSeat>>)
 
-        fun showSelectedSeat(
-            rowIndex: Int,
-            columnIndex: Int,
-        )
+        fun showSelectedSeat(seat: MovieSeat)
 
-        fun showUnSelectedSeat(
-            rowIndex: Int,
-            columnIndex: Int,
-        )
+        fun showUnSelectedSeat(seat: MovieSeat)
 
         fun showCurrentResultTicketPriceView(seatPrice: Int)
 
@@ -35,7 +29,6 @@ interface SeatSelectionContract {
 
     interface Presenter {
         fun loadData()
-
 
         fun selectSeat(
             rowIndex: Int,

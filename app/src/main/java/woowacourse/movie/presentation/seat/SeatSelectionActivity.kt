@@ -90,23 +90,17 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             }
     }
 
-    override fun showSelectedSeat(
-        rowIndex: Int,
-        columnIndex: Int,
-    ) {
+    override fun showSelectedSeat(seat: MovieSeat) {
         getTableTextView(
-            rowIndex = rowIndex,
-            columnIndex = columnIndex,
+            rowIndex = seat.getRowIndex(),
+            columnIndex = seat.getColumnIndex(),
         ).setBackgroundColor(getColor(R.color.select_seat_color))
     }
 
-    override fun showUnSelectedSeat(
-        rowIndex: Int,
-        columnIndex: Int,
-    ) {
+    override fun showUnSelectedSeat(seat: MovieSeat) {
         getTableTextView(
-            rowIndex = rowIndex,
-            columnIndex = columnIndex,
+            rowIndex = seat.getRowIndex(),
+            columnIndex = seat.getColumnIndex(),
         ).setBackgroundColor(getColor(R.color.white))
     }
 

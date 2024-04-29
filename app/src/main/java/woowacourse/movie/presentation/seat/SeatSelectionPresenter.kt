@@ -34,13 +34,13 @@ class SeatSelectionPresenter(
         when (reservationMovieSeats.seatSelectState) {
             SeatSelectState.ADD -> {
                 reservationMovieSeats.addSeat(seat)
-                view.showSelectedSeat(rowIndex, columIndex)
+                view.showSelectedSeat(seat)
                 view.showCurrentResultTicketPriceView(reservationMovieSeats.getTotalSeatPrice())
             }
 
             SeatSelectState.REMOVE -> {
                 reservationMovieSeats.deleteSeat(seat)
-                view.showUnSelectedSeat(rowIndex, columIndex)
+                view.showUnSelectedSeat(seat)
                 view.showCurrentResultTicketPriceView(reservationMovieSeats.getTotalSeatPrice())
             }
 
