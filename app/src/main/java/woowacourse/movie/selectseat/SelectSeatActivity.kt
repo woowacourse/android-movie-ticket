@@ -10,6 +10,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -137,23 +138,16 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
 
     private fun showClickResult() {
         when (val selectResult = selectResult()) {
-            is SelectResult.Exceed ->
-                Toast.makeText(
-                    this,
-                    selectResult.message,
-                    Toast.LENGTH_SHORT,
-                ).show()
-
-            is SelectResult.LessSelect ->
-                Toast.makeText(
-                    this,
-                    selectResult.message,
-                    Toast.LENGTH_SHORT,
-                ).show()
-
+            is SelectResult.Exceed -> showErrorToastMessage(selectResult.message)
+            is SelectResult.LessSelect -> showErrorToastMessage(selectResult.message)
             is SelectResult.Success -> confirmAlertDialog()
         }
     }
+
+    private fun showErrorToastMessage(messageRes: String) {
+        Toast.makeText(this, messageRes, Toast.LENGTH_SHORT).show()
+    }
+
 
     private fun confirmAlertDialog() =
         AlertDialog.Builder(this)
@@ -170,19 +164,17 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
                 dialog.dismiss()
             }.show()
 
-    private fun selectResult(): SelectResult {
-        if (bookingInfoUiModel.maxSelectSize() < seats.selectedSeats().size) {
-            return SelectResult.Exceed(
-                "예매 인원을 초과하여 좌석을 선택할 수 없습니다.",
-            )
-        } else if (bookingInfoUiModel.maxSelectSize() > seats.selectedSeats().size) {
-            return SelectResult.LessSelect(
-                "좌석을 더 선택해주세요",
-            )
-        } else {
-            return SelectResult.Success
-        }
+    private fun selectResult(): SelectResult = when {
+        bookingInfoUiModel.maxSelectSize() < seats.selectedSeats().size -> SelectResult.Exceed(
+            getString(R.string.select_more_seat_error_message),
+        )
+
+        bookingInfoUiModel.maxSelectSize() > seats.selectedSeats().size -> SelectResult.LessSelect(
+            getString(R.string.select_less_seat_error_message),
+        )
+        else -> SelectResult.Success
     }
+
 
     companion object {
         private const val EXTRA_BOOKING_ID: String = "bookingId"
