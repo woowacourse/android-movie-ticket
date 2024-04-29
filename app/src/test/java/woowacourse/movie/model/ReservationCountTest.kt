@@ -24,7 +24,7 @@ class ReservationCountTest {
             reservationCount
                 .plus(1)
                 .plus(1)
-                .minus(1),
+                .minus(1).count,
         ).isEqualTo(2)
     }
 
@@ -35,7 +35,7 @@ class ReservationCountTest {
             reservationCount
                 .minus(1)
                 .minus(1)
-                .minus(1),
+                .minus(1).count,
         ).isEqualTo(1)
     }
 }
