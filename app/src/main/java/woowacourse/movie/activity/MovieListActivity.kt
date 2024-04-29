@@ -9,7 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.presenter.MovieListPresenter
-import woowacourse.movie.uimodel.MovieBrief
+import woowacourse.movie.ui.MovieBrief
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private lateinit var movieRecyclerView: RecyclerView

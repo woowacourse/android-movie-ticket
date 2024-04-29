@@ -1,4 +1,4 @@
-package woowacourse.movie.uimodel
+package woowacourse.movie.ui
 
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.movie.RunningTime

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieListContract
-import woowacourse.movie.uimodel.MovieBrief
+import woowacourse.movie.ui.MovieBrief
 
 class MovieAdapter(
     private val movieBriefs: List<MovieBrief>,

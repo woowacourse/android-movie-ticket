@@ -5,5 +5,5 @@ import woowacourse.movie.model.movie.Movie
 interface MovieRepository {
     fun getMovies(): List<Movie>
 
-    fun getMovie(screeningId: Int): Movie
+    fun getMovie(movieId: Int): Movie
 }

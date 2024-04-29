@@ -34,7 +34,7 @@ class PurchaseConfirmationActivityTest {
 
     @Test
     fun runningTimeTest() {
-        Espresso.onView(withId(R.id.purchase_movie_running_time))
+        Espresso.onView(withId(R.id.purchase_confirmation_screening_datetime))
             .check(matches(ViewMatchers.withText("222분")))
     }
 

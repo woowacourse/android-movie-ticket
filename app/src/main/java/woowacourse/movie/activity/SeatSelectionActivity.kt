@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.GridLayout
@@ -18,7 +17,7 @@ import woowacourse.movie.model.Theater
 import woowacourse.movie.model.pricing.Tier
 import woowacourse.movie.model.seat.Position
 import woowacourse.movie.presenter.SeatSelectionPresenter
-import woowacourse.movie.uimodel.SeatPlan
+import woowacourse.movie.ui.SeatPlan
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter

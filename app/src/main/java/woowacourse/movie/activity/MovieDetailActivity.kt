@@ -19,8 +19,8 @@ import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.presenter.MovieDetailPresenter
-import woowacourse.movie.uimodel.SeatPlan
-import woowacourse.movie.uimodel.format
+import woowacourse.movie.ui.SeatPlan
+import woowacourse.movie.ui.format
 import java.time.LocalDateTime
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
