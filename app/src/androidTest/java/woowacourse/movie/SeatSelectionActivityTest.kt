@@ -22,7 +22,9 @@ import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.presentation.seatSelection.SeatSelectionActivity
-import woowacourse.movie.presentation.ticketing.TicketingActivity
+import woowacourse.movie.presentation.seatSelection.SeatSelectionActivity.Companion.EXTRA_COUNT
+import woowacourse.movie.presentation.seatSelection.SeatSelectionActivity.Companion.EXTRA_MOVIE_ID
+import woowacourse.movie.presentation.seatSelection.SeatSelectionActivity.Companion.EXTRA_SCREENING_DATE_TIME
 
 class SeatSelectionActivityTest {
     @get:Rule
@@ -32,9 +34,9 @@ class SeatSelectionActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 SeatSelectionActivity::class.java,
             ).apply {
-                putExtra(TicketingActivity.EXTRA_MOVIE_ID, 0)
-                putExtra(TicketingActivity.EXTRA_COUNT, 2) // 선택 가능한 좌석 개수
-                putExtra(TicketingActivity.EXTRA_SCREENING_DATE_TIME, "")
+                putExtra(EXTRA_MOVIE_ID, 0)
+                putExtra(EXTRA_COUNT, 2) // 선택 가능한 좌석 개수
+                putExtra(EXTRA_SCREENING_DATE_TIME, "")
             },
         )
     private val context = InstrumentationRegistry.getInstrumentation().targetContext

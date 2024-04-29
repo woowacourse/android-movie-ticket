@@ -16,7 +16,7 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Seat
-import woowacourse.movie.model.SeatClass
+import woowacourse.movie.model.SeatGrade
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.presentation.ticketingResult.TicketingResultActivity
 import woowacourse.movie.utils.formatSeat
@@ -66,10 +66,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             val seat = seats[index]
             textView.text = formatSeat(seat)
             val colorCode =
-                when (seat.seatClass) {
-                    SeatClass.B_CLASS -> "#8E13EF"
-                    SeatClass.A_CLASS -> "#1B48E9"
-                    SeatClass.S_CLASS -> "#19D358"
+                when (seat.seatGrade) {
+                    SeatGrade.B_CLASS -> "#8E13EF"
+                    SeatGrade.A_CLASS -> "#1B48E9"
+                    SeatGrade.S_CLASS -> "#19D358"
                 }
             textView.setTextColor(Color.parseColor(colorCode))
             textView.setOnClickListener { presenter.updateSeatSelection(index) }

@@ -35,7 +35,7 @@ class SeatingSystem(
 
     fun canSelectSeat(): Boolean = availableSeatCount > selectedSeats.size
 
-    fun getTotalPrice(): Int = selectedSeats.sumOf { it.seatClass.price }
+    fun getTotalPrice(): Int = selectedSeats.sumOf { it.seatGrade.price }
 
     fun getSelectedSeatsIndex(): List<Int> = selectedSeats.map { (it.row * colSize) + it.col }
 }

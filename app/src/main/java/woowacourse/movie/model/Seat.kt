@@ -2,9 +2,9 @@ package woowacourse.movie.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.model.SeatClass.Companion.determineSeatGrade
+import woowacourse.movie.model.SeatGrade.Companion.determineSeatGrade
 
 @Parcelize
 data class Seat(val row: Int, val col: Int) : Parcelable {
-    val seatClass: SeatClass = determineSeatGrade(row + 1)
+    val seatGrade: SeatGrade = determineSeatGrade(row + 1)
 }
