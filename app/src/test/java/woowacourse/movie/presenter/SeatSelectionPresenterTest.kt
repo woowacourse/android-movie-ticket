@@ -64,7 +64,7 @@ class SeatSelectionPresenterTest {
         presenter.selectSeat(rowIndex, columnIndex)
 
         verify {
-            mockView.showSelectedSeat(rowIndex, columnIndex)
+            mockView.showSelectedSeat(seat)
             mockView.showCurrentResultTicketPriceView(any())
         }
     }
