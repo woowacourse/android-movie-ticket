@@ -17,9 +17,18 @@ class MovieRepositoryImplTest {
 
     @Test
     fun `영화를 저장한다`() {
-        val id = MovieRepositoryImpl.save(movie1)
-        val actual = MovieRepositoryImpl.find(id)
+        MovieRepositoryImpl.save(movie1)
+        val actual = MovieRepositoryImpl.find(movie1.id)
         equalMovie(actual, movie1)
+    }
+
+    @Test
+    fun `이미 존재하는 id의 영화를 저장하려는 경우 예외가 발생한다`() {
+        MovieRepositoryImpl.save(movie1)
+
+        assertThrows<IllegalStateException> {
+            MovieRepositoryImpl.save(movie2.copy(id = movie1.id))
+        }
     }
 
     @Test
@@ -43,10 +52,10 @@ class MovieRepositoryImplTest {
         // given
         MovieRepositoryImpl.save(movie1)
         MovieRepositoryImpl.save(movie2)
-        val id = MovieRepositoryImpl.save(movie3)
+        MovieRepositoryImpl.save(movie3)
 
         // when
-        val actual = MovieRepositoryImpl.find(id)
+        val actual = MovieRepositoryImpl.find(movie3.id)
 
         // then
         equalMovie(actual, movie3)
@@ -79,9 +88,9 @@ class MovieRepositoryImplTest {
     @Test
     fun `모든 영화를 삭제한다`() {
         // given
-        MovieRepositoryImpl.save(movie1.copy(title = "1"))
-        MovieRepositoryImpl.save(movie1.copy(title = "2"))
-        MovieRepositoryImpl.save(movie1.copy(title = "3"))
+        MovieRepositoryImpl.save(movie1)
+        MovieRepositoryImpl.save(movie2)
+        MovieRepositoryImpl.save(movie3)
 
         // when
         MovieRepositoryImpl.deleteAll()

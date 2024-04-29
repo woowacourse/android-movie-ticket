@@ -11,6 +11,7 @@ import java.time.LocalDateTime
 
 val movie1 =
     Movie(
+        id = 0L,
         posterImageId = 0,
         title = "해리 포터와 마법사의 돌",
         startScreeningDate = LocalDate.of(2024, 3, 1),
@@ -19,8 +20,8 @@ val movie1 =
         synopsis = "해리",
     )
 
-val movie2 = movie1.copy(title = "해리 포터와 마법사의 돌2")
-val movie3 = movie1.copy(title = "해리 포터와 마법사의 돌3")
+val movie2 = movie1.copy(id = 1L, title = "해리 포터와 마법사의 돌2")
+val movie3 = movie1.copy(id = 2L, title = "해리 포터와 마법사의 돌3")
 
 fun equalMovie(
     actual: Movie,

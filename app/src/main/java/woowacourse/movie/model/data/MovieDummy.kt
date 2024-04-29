@@ -7,6 +7,7 @@ import java.time.LocalDate
 val movieDummy =
     List(100) {
         Movie(
+            id = it.toLong(),
             posterImageId = R.drawable.img_movie_poster,
             title = "해리 포터와 마법사의 돌 ${it + 1}",
             startScreeningDate = LocalDate.of(2024, 3, 1),
