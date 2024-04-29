@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/seat_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -16,6 +17,7 @@
         android:paddingVertical="@dimen/size_27" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/seat_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -29,6 +31,7 @@
         android:paddingVertical="@dimen/size_27"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/seat_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -42,6 +45,7 @@
         android:paddingVertical="@dimen/size_27"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/seat_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

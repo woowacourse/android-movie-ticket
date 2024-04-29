@@ -31,7 +31,7 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, INVALID_MOVIE_ID)
 
         movieDetailPresenter =
-            MovieDetailPresenterImpl(this, MovieRepositoryImpl, MovieTicketRepositoryImpl, movieId)
+            MovieDetailPresenter(this, MovieRepositoryImpl, MovieTicketRepositoryImpl, movieId)
 
         initClickListener()
     }

@@ -10,7 +10,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class MovieDetailPresenterImpl(
+class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
     private val movieRepository: MovieRepository,
     private val movieTicketRepository: MovieTicketRepository,
