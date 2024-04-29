@@ -290,5 +290,5 @@ object Movies {
 
     fun obtainMovies(): List<Movie> = movies.toList()
 
-    fun obtainMovie(movieId: Int): Movie = movies[movieId]
+    fun obtainMovie(id: Int): Movie = movies[id]
 }
