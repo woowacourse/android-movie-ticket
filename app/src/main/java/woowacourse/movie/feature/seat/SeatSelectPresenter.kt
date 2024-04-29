@@ -79,7 +79,6 @@ class SeatSelectPresenter(
             view.handleError(SeatSelectError.NegativeReservationAmount)
             return
         }
-        reservationAmount -= seat.amount()
         view.unselectSeat(row, col)
     }
 

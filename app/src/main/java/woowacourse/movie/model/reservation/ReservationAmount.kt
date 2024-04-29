@@ -2,7 +2,7 @@ package woowacourse.movie.model.reservation
 
 class ReservationAmount(val amount: Int = INITIALIZE_AMOUNT) {
     init {
-        require(amount > 0) { NEGATIVE_NUMBER_MESSAGE }
+        require(amount >= 0) { NEGATIVE_NUMBER_MESSAGE }
     }
 
     operator fun plus(value: ReservationAmount): ReservationAmount {
