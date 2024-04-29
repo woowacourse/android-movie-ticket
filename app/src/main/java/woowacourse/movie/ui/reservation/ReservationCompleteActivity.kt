@@ -3,7 +3,6 @@ package woowacourse.movie.ui.reservation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,10 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
 
     private val title: TextView by lazy { findViewById(R.id.tv_reservation_title) }
     private val date: TextView by lazy { findViewById(R.id.tv_reservation_date) }
+    private val time: TextView by lazy { findViewById(R.id.tv_reservation_time) }
+
     private val count: TextView by lazy { findViewById(R.id.tv_reservation_count) }
+    private val reservedSeats: TextView by lazy { findViewById(R.id.tv_reserved_seats) }
     private val amount: TextView by lazy { findViewById(R.id.tv_reservation_amount) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,25 +37,18 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
         presenter.loadReservation2(id)
     }
 
-    override fun showReservation(reservation: Reservation) {
-        with(reservation) {
-            title.text = screen.movie.title
-            date.text = screen.date
-            count.text = getString(R.string.reserve_count).format(this.ticket.count)
-            amount.text = currency()
-        }
-    }
-
     override fun showReservation2(reservation2: Reservation2) {
         with(reservation2) {
             title.text = screen.movie.title
-            date.text = screen.date
             count.text = getString(R.string.reserve_count).format(this.ticket.count)
+            date.text = dateTime?.date.toString()
+            time.text = dateTime?.time.toString()
+            amount.text = currency()
+            reservedSeats.text = seats.seats.joinToString(separator = ",") { "${'A' + it.position.row}${it.position.col + 1}"}
         }
     }
-
-    private fun Reservation.currency(): String =
-        getString(R.string.reserve_amount, Currency.of(Locale.getDefault().country).format(totalPrice))
+    private fun Reservation2.currency(): String =
+        getString(R.string.reserve_amount, Currency.of(Locale.getDefault().country).format(seats.totalPrice()))
 
     override fun showToastMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

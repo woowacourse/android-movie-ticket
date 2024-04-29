@@ -28,13 +28,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        tools:text="해리 포터와 마법사의 둘"
         android:textColor="@color/black"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_guide_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_guide_title"
+        tools:text="해리 포터와 마법사의 둘" />
 
 
     <TextView
@@ -42,24 +42,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        tools:text="2024.3.1"
+        android:layout_marginEnd="10dp"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_reservation_time"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reservation_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_reservation_title"
+        tools:text="2024.3.1" />
+
+    <TextView
+        android:id="@+id/tv_reservation_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_reservation_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_reservation_date"
+        app:layout_constraintTop_toTopOf="@+id/tv_reservation_date"
+        tools:text="17:00" />
+
 
     <TextView
         android:id="@+id/tv_reservation_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        tools:text="일반 1명"
+        android:layout_marginEnd="10dp"
         android:textColor="@color/black"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_reserved_seats"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reservation_date" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_reservation_date"
+        tools:text="일반 1명 | " />
+
+    <TextView
+        android:id="@+id/tv_reserved_seats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_reservation_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_reservation_count"
+        app:layout_constraintTop_toTopOf="@+id/tv_reservation_count"
+        tools:text="B3, B4" />
 
 
     <TextView
@@ -67,10 +96,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        tools:text="13,000원(현장 결제)"
         android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_reservation_count" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_reservation_count"
+        tools:text="13,000원(현장 결제)" />
 </androidx.constraintlayout.widget.ConstraintLayout>
