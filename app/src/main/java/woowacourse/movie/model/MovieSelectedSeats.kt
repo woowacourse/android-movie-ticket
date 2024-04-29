@@ -2,8 +2,8 @@ package woowacourse.movie.model
 
 class MovieSelectedSeats(
     val count: Int,
-    rowSize: Int = 5,
-    private val columnSize: Int = 4,
+    rowSize: Int = DEFAULT_ROW_SIZE,
+    private val columnSize: Int = DEFAULT_COLUMN_SIZE,
 ) {
     val baseSeats =
         List(rowSize * columnSize) { index ->
@@ -34,5 +34,10 @@ class MovieSelectedSeats(
         return selectedSeats.map { seat ->
             seat.row * columnSize + seat.column
         }.toIntArray()
+    }
+
+    companion object {
+        private const val DEFAULT_ROW_SIZE = 5
+        private const val DEFAULT_COLUMN_SIZE = 4
     }
 }
