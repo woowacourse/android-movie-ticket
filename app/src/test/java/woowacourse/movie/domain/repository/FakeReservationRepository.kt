@@ -1,7 +1,7 @@
 package woowacourse.movie.domain.repository
 
 import woowacourse.movie.domain.model.DateTime
-import woowacourse.movie.domain.model.Reservation2
+import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.Ticket
@@ -10,7 +10,7 @@ import woowacourse.movie.domain.model.TimeReservation
 class FakeReservationRepository : ReservationRepository {
     private val reservations =
         mutableListOf(
-            Reservation2.NULL,
+            Reservation.NULL,
         )
 
     private val timeReservations =
@@ -39,7 +39,7 @@ class FakeReservationRepository : ReservationRepository {
         timeReservations.find { it.id == timeReservationId }
             ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
 
-    override fun findById2(id: Int): Result<Reservation2> =
+    override fun findById2(id: Int): Result<Reservation> =
         runCatching {
             val reservation = reservations.find { it.id == id }
             reservation ?: throw NoSuchElementException()

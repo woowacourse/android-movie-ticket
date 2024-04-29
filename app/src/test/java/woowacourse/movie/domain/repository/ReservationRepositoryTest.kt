@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Grade
 import woowacourse.movie.domain.model.Position
-import woowacourse.movie.domain.model.Reservation2
+import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
@@ -24,7 +24,7 @@ class ReservationRepositoryTest {
     fun `find reservation by id`() {
         val reservation = repository.findById2(-1).getOrThrow()
         assertThat(reservation).isEqualTo(
-            Reservation2(
+            Reservation(
                 id = -1,
                 screen = Screen.NULL,
                 ticket = Ticket(1),

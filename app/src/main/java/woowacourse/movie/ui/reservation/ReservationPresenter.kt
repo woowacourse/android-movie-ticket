@@ -6,10 +6,10 @@ class ReservationPresenter(
     private val view: ReservationContract.View,
     private val repository: ReservationRepository,
 ) : ReservationContract.Presenter {
-    override fun loadReservation2(reservation2Id: Int) {
-        repository.findById2(reservation2Id)
+    override fun loadReservation(reservationId: Int) {
+        repository.findById2(reservationId)
             .onSuccess {
-                view.showReservation2(it)
+                view.showReservation(it)
             }
             .onFailure { e ->
                 when (e) {

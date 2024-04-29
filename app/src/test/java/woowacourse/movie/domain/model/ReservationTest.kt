@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 
-class Reservation2Test {
+class ReservationTest {
     @Test
     fun `throw exception when the count of seats is not equal to count of ticket`() {
         assertThrows<IllegalArgumentException> {
-            Reservation2(
+            Reservation(
                 1,
                 Screen.NULL,
                 Ticket(1),
@@ -23,7 +23,7 @@ class Reservation2Test {
     @Test
     fun `the count of seats is equal to count of ticket`() {
         assertDoesNotThrow {
-            Reservation2(
+            Reservation(
                 1,
                 Screen.NULL,
                 Ticket(2),

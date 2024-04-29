@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Reservation2
+import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.ui.Currency
 import java.util.Locale
@@ -33,11 +33,11 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
 
     private fun initView() {
         val id = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_ID, DEFAULT_RESERVATION_ID)
-        presenter.loadReservation2(id)
+        presenter.loadReservation(id)
     }
 
-    override fun showReservation2(reservation2: Reservation2) {
-        with(reservation2) {
+    override fun showReservation(reservation: Reservation) {
+        with(reservation) {
             title.text = screen.movie.title
             count.text = getString(R.string.reserve_count).format(this.ticket.count)
             date.text = dateTime?.date.toString()
@@ -46,7 +46,7 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
             reservedSeats.text = seats.seats.joinToString(separator = ",") { "${'A' + it.position.row}${it.position.col + 1}"}
         }
     }
-    private fun Reservation2.currency(): String =
+    private fun Reservation.currency(): String =
         getString(R.string.reserve_amount, Currency.of(Locale.getDefault().country).format(seats.totalPrice()))
 
     override fun showToastMessage(message: String) {
