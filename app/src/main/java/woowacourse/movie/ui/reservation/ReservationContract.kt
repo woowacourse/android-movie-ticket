@@ -17,5 +17,7 @@ interface ReservationContract {
 
     interface Presenter {
         fun loadReservation(id: Int)
+
+        fun loadReservation2(reservation2Id: Int)
     }
 }
