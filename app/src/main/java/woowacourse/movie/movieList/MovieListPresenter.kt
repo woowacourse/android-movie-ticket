@@ -33,6 +33,10 @@ class MovieListPresenter(private val view: MovieListView) {
 
 
     private fun generateTheaters(count: Int): List<Theater> {
+        return makeDummyData(count)
+    }
+
+    private fun makeDummyData(count: Int): List<Theater> {
         return (1..count).map { i ->
             val movie = MovieInfo(
                 Title("차람과 하디의 진지한 여행기 $i"),
