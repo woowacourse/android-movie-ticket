@@ -59,19 +59,6 @@ class SeatReservationPresenter(
         }
     }
 
-    override fun reserve(
-        screen: Screen,
-        seats: Seats,
-    ) {
-        reservationRepository.save(screen, seats)
-            .onSuccess {
-                view.navigateToCompleteReservation(it)
-            }
-            .onFailure {
-                view.showSeatReservationFail(it)
-            }
-    }
-
     private fun screen(id: Int): Screen {
         screenRepository.findById(id = id).onSuccess { screen ->
             return screen
@@ -82,9 +69,12 @@ class SeatReservationPresenter(
     }
 
     override fun reserve(screenId: Int) {
+        val timeReservation = reservationRepository.loadTimeReservation(screenId)
+
         reservationRepository.save(
             screen(screenId),
             Seats(selectedSeats),
+            timeReservation.dateTime
         ).onSuccess { id ->
             view.navigateToCompleteReservation(id)
         }.onFailure { e ->

@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.seat
 
 import woowacourse.movie.domain.model.Position
-import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TimeReservation
 
@@ -28,11 +27,6 @@ interface SeatReservationContract {
         fun loadTimeReservations(timeReservationId: Int)
 
         fun selectSeat(position: Position, seatView: android.view.View)
-
-        fun reserve(
-            screen: Screen,
-            seats: Seats,
-        )
 
         fun reserve(screenId: Int)
     }

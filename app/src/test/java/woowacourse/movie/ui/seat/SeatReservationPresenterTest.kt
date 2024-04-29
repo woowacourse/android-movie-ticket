@@ -47,19 +47,4 @@ class SeatReservationPresenterTest {
         // then
         verify(exactly = 1) { mockView.showSeats(fakeSeats) }
     }
-
-    @Test
-    fun `navigate to completeReservation when reservation success`() {
-        // given
-        every { mockView.navigateToCompleteReservation(2) } just runs
-
-        // when
-        presenter.reserve(
-            screen = Screen.NULL,
-            seats = Seats(Seat(Position(0, 0), Grade.S)),
-        )
-
-        // then
-        verify(exactly = 1) { mockView.navigateToCompleteReservation(2) }
-    }
 }
