@@ -71,7 +71,7 @@ class SeatSelectionPresenter(
 
     override fun confirmSeatResult() {
         if (reservationMovieSeats.seatSelectState == SeatSelectState.PREVENT) {
-            view.showDialog()
+            view.showReservationConfirmationDialog()
         }
     }
 

@@ -128,7 +128,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         this@SeatSelectionActivity.startActivity(intent)
     }
 
-    override fun showDialog() {
+    override fun showReservationConfirmationDialog() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.reservation_confirm_title))
             .setCancelable(false)

@@ -80,6 +80,6 @@ class SeatSelectionPresenterTest {
     fun `confirmSeatResult은 조건에 따라 대화상자를 표시해야 한다`() {
         presenter.confirmSeatResult()
 
-        verify(exactly = 0) { mockView.showDialog() }
+        verify(exactly = 0) { mockView.showReservationConfirmationDialog() }
     }
 }

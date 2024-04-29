@@ -29,7 +29,7 @@ interface SeatSelectionContract {
 
         fun moveToTicketDetail(ticket: TicketModel)
 
-        fun showDialog()
+        fun showReservationConfirmationDialog()
 
     }
 
