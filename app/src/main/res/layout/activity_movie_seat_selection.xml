@@ -43,241 +43,125 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginBottom="96dp"
                 android:background="@color/white"
-
                 app:layout_constraintTop_toBottomOf="@id/screen">
 
                 <TableRow>
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        style="@style/B_CLASS_STYLE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        style="@style/B_CLASS_STYLE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        style="@style/B_CLASS_STYLE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        style="@style/B_CLASS_STYLE"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
+                        style="@style/B_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/B_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/B_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/B_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/b_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/S_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/s_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                 </TableRow>
 
                 <TableRow>
 
                     <TextView
+                        style="@style/A_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/a_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/A_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/a_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/A_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/a_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        style="@style/A_CLASS_STYLE"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:paddingHorizontal="24dp"
-                        android:paddingVertical="28dp"
-                        android:textColor="@color/a_class_seat"
-                        android:textSize="23sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content" />
 
                 </TableRow>
 

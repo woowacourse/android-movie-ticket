@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="A_CLASS_STYLE">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="android:paddingVertical">28dp</item>
+        <item name="android:textColor">@color/a_class_seat</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="S_CLASS_STYLE">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="android:paddingVertical">28dp</item>
+        <item name="android:textColor">@color/s_class_seat</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="B_CLASS_STYLE">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="android:paddingVertical">28dp</item>
+        <item name="android:textColor">@color/b_class_seat</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
