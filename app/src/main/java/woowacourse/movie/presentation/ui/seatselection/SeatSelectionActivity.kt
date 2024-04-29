@@ -84,7 +84,7 @@ class SeatSelectionActivity : BaseActivity(), View {
             }
 
         btnDone.setOnClickListener {
-            showDialog()
+            showReservationDialog()
         }
     }
 
@@ -124,7 +124,7 @@ class SeatSelectionActivity : BaseActivity(), View {
         btnDone.isEnabled = isActivate
     }
 
-    private fun showDialog() {
+    private fun showReservationDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.dialog_reservation_title))
         builder.setMessage(getString(R.string.dialog_reservation_message))
