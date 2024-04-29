@@ -23,7 +23,7 @@ class ScreenDetailTicketView(
     override fun initClickListener(
         screenId: Int,
         ticketReserveListener: TicketReserveListener<Int>,
-    )  {
+    ) {
         plusBtn.setOnClickListener {
             ticketReserveListener.increaseTicket()
         }

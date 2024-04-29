@@ -9,7 +9,7 @@ import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter
-import woowacourse.movie.ui.screen.adapter.ScreenViewHolderContainer
+import woowacourse.movie.ui.screen.adapter.ScreenViewHolderCaches
 
 class ScreenActivity : AppCompatActivity(), ScreenContract.View {
     private lateinit var adapter: ScreenAdapter
@@ -34,7 +34,7 @@ class ScreenActivity : AppCompatActivity(), ScreenContract.View {
         adapter =
             ScreenAdapter(
                 emptyList(),
-                ScreenViewHolderContainer { screenId ->
+                ScreenViewHolderCaches { screenId ->
                     ScreenDetailActivity.startActivity(this, screenId)
                 },
             )

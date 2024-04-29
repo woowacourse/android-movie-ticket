@@ -9,14 +9,16 @@ import woowacourse.movie.ui.ViewHolder
 import woowacourse.movie.ui.ViewHolderContainer
 import woowacourse.movie.ui.screen.OnItemClickListener
 
-class ScreenViewHolderContainer(private val onScreenClickListener: OnItemClickListener<Int>) :
+class ScreenViewHolderCaches(private val onScreenClickListener: OnItemClickListener<Int>) :
     ViewHolderContainer<ScreenPreviewUI> {
-    private val viewHolders = mutableMapOf<View, ViewHolder<ScreenPreviewUI>>()
+    private val viewHolders = mutableListOf<ViewHolder<ScreenPreviewUI>>()
 
     override fun viewHolder(
         convertView: View?,
         parent: ViewGroup,
-    ): ViewHolder<ScreenPreviewUI> = viewHolders[convertView] ?: createViewHolder(parent, onScreenClickListener)
+    ): ViewHolder<ScreenPreviewUI> =
+        viewHolders.find { it.view() == convertView }
+            ?: createViewHolder(parent, onScreenClickListener)
 
     private fun createViewHolder(
         parent: ViewGroup,
@@ -24,7 +26,7 @@ class ScreenViewHolderContainer(private val onScreenClickListener: OnItemClickLi
     ): ScreenViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
         val viewHolder = ScreenViewHolder(view, onScreenClickListener)
-        viewHolders[view] = viewHolder
+        viewHolders.add(viewHolder)
         return viewHolder
     }
 }
