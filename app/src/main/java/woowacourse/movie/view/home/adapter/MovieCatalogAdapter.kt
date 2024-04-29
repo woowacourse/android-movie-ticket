@@ -10,10 +10,12 @@ import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.view.home.adapter.viewholder.AdvertisementViewHolder
 import woowacourse.movie.view.home.adapter.viewholder.MovieViewHolder
 
+typealias OnClickReservationButton = (Movie) -> Unit
+
 class MovieCatalogAdapter(
     private val movies: List<Movie>,
     private val advertisements: List<Advertisement>,
-    val movie: (Movie) -> Unit,
+    private val movie: OnClickReservationButton,
 ) : RecyclerView.Adapter<ViewHolder>() {
     private val movieViewType = CatalogViewType.MOVIE.viewType
     private val advertisementViewType = CatalogViewType.ADVERTISEMENT.viewType
