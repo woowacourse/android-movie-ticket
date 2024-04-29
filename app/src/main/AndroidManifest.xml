@@ -25,7 +25,7 @@
         <activity android:name=".activity.PurchaseConfirmationActivity"
             android:parentActivityName=".activity.MovieListActivity"/>
         <activity android:name=".activity.SeatSelectionActivity"
-            android:parentActivityName=".activity.MovieDetailActivity"/>
+            android:parentActivityName=".activity.MovieListActivity"/>
     </application>
 
 </manifest>

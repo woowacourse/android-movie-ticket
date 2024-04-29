@@ -15,11 +15,12 @@ import woowacourse.movie.ui.MovieBrief
 class MovieListActivity : AppCompatActivity(), MovieListContract.View, AdapterClickListenter {
     private lateinit var movieRecyclerView: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
+    private lateinit var presenter: MovieListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_list_activity)
-        val presenter =
+        presenter =
             MovieListPresenter(
                 view = this,
             )
