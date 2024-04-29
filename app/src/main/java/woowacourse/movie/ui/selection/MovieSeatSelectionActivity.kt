@@ -24,6 +24,7 @@ class MovieSeatSelectionActivity :
     MovieSeatSelectionContract.View {
     private val userTicketId by lazy { userTicketId() }
     private val seatTable by lazy { findViewById<TableLayout>(R.id.seat_table) }
+    private val seats by lazy { seatTable.makeSeats() }
     private val movieTitle by lazy { findViewById<TextView>(R.id.movie_title_text) }
     private val totalSeatAmount by lazy { findViewById<TextView>(R.id.total_seat_amount_text) }
     private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
@@ -39,6 +40,10 @@ class MovieSeatSelectionActivity :
 
         setOnConfirmButtonListener()
     }
+
+    private fun TableLayout.makeSeats(): List<TextView> =
+        children.filterIsInstance<TableRow>().flatMap { it.children }
+            .filterIsInstance<TextView>().toList()
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -93,8 +98,7 @@ class MovieSeatSelectionActivity :
             MOVIE_CONTENT_ID_DEFAULT_VALUE,
         )
 
-    override fun initializePresenter(): MovieSeatSelectionContract.Presenter =
-        MovieSeatSelectionPresenter(this, UserTicketsImpl)
+    override fun initializePresenter(): MovieSeatSelectionContract.Presenter = MovieSeatSelectionPresenter(this, UserTicketsImpl)
 
     override fun showMovieTitle(title: String) {
         movieTitle.text = title
@@ -114,7 +118,7 @@ class MovieSeatSelectionActivity :
         row: Int,
     ) {
         repeat(colSize) { col ->
-            theaterSeat(row, col).apply {
+            seats[positionToIndex(row, col)].apply {
                 text = Seat(row, col).toString()
                 setOnClickListener {
                     presenter.selectSeat(row, col)
@@ -124,21 +128,15 @@ class MovieSeatSelectionActivity :
         }
     }
 
-    private fun theaterSeat(row: Int, col: Int) =
-        seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)]
-
     override fun showSelectedSeat(index: Int) {
-        seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[index]
+        seats[index]
             .setBackgroundColor(
                 ContextCompat.getColor(this, R.color.selected_seat),
             )
     }
 
     override fun showUnSelectedSeat(index: Int) {
-        seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[index]
+        seats[index]
             .setBackgroundColor(
                 ContextCompat.getColor(this, R.color.unSelected_seat),
             )
