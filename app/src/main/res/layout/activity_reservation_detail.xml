@@ -5,12 +5,12 @@
     android:id="@+id/constraint_layout_reservation_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.detail.ReservationDetailActivity">
+    tools:context=".view.reservation.ReservationDetailActivity">
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_layout_reservation_detail_reservation_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -72,13 +72,6 @@
                 app:layout_constraintTop_toBottomOf="@id/text_view_reservation_running_time"
                 tools:text="《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다." />
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_reservation_summary" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
@@ -87,21 +80,42 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="20dp"
+        android:id="@+id/constraint_layout_reservation_detail_reservation_info"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <Spinner
+            android:id="@+id/spinner_reservation_detail_screening_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:entries="@array/screening_date"
+            app:layout_constraintEnd_toStartOf="@id/spinner_reservation_detail_screening_time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner_reservation_detail_screening_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="9dp"
+            android:entries="@array/screening_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/spinner_reservation_detail_screening_date"
+            app:layout_constraintTop_toTopOf="@id/spinner_reservation_detail_screening_date" />
+
         <Button
             android:id="@+id/button_reservation_detail_minus"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/reservation_detail_minus"
             android:textAppearance="@style/Bold20"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/spinner_reservation_detail_screening_date" />
 
         <TextView
             android:id="@+id/text_view_reservation_detail_number_of_tickets"
@@ -116,19 +130,20 @@
 
         <Button
             android:id="@+id/button_reservation_detail_plus"
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:text="@string/reservation_detail_plus"
             android:textAppearance="@style/Bold20"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/button_reservation_detail_minus" />
 
         <Button
             android:id="@+id/button_reservation_detail_finished"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/reservation_detail_finished_reservation"
+            android:paddingVertical="8dp"
+            android:text="@string/reservation_detail_select_seat"
             android:textAppearance="@style/Bold20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

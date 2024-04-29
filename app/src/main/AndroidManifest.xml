@@ -26,8 +26,12 @@
             android:parentActivityName=".view.home.ReservationHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".view.detail.ReservationDetailActivity"
+            android:name=".view.reservation.ReservationDetailActivity"
             android:parentActivityName=".view.home.ReservationHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.reservation.SeatSelectionActivity"
+            android:parentActivityName=".view.reservation.ReservationDetailActivity"
             android:exported="false" />
     </application>
 

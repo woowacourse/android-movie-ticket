@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout_seat_selection"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    tools:context=".view.reservation.SeatSelectionActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/constraint_layout_seat_selection_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textview_seat_selection_screen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="34dp"
+                android:background="@color/dark_gray"
+                android:paddingVertical="9dp"
+                android:text="@string/select_seat_screen"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TableLayout
+                android:id="@+id/table_layout_seat_selection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="56dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_seat_selection_screen">
+
+                <include
+                    android:id="@+id/include_seat_selection_first_row"
+                    layout="@layout/layout_seat_row" />
+
+                <include
+                    android:id="@+id/include_seat_selection_second_row"
+                    layout="@layout/layout_seat_row" />
+
+                <include
+                    android:id="@+id/include_seat_selection_third_row"
+                    layout="@layout/layout_seat_row" />
+
+                <include
+                    android:id="@+id/include_seat_selection_fourth_row"
+                    layout="@layout/layout_seat_row" />
+
+                <include
+                    android:id="@+id/include_seat_selection_fifth_row"
+                    layout="@layout/layout_seat_row" />
+
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_seat_selection_confirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textview_seat_selection_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/Bold18"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@id/button_seat_selection_confirm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/textview_seat_selection_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/medium_gray"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textview_seat_selection_title"
+            app:layout_constraintTop_toBottomOf="@id/textview_seat_selection_title"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/textview_seat_selection_price_unit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/select_seat_price_unit"
+            android:textColor="@color/medium_gray"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/textview_seat_selection_price"
+            app:layout_constraintStart_toEndOf="@id/textview_seat_selection_price"
+            app:layout_constraintTop_toTopOf="@id/textview_seat_selection_price" />
+
+        <Button
+            android:id="@+id/button_seat_selection_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/selector_confirm"
+            android:enabled="false"
+            android:text="@string/select_seat_confirm"
+            android:textAppearance="@style/Bold18"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
