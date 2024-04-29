@@ -2,7 +2,8 @@ package woowacourse.movie.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.presentation.adapter.MovieListAdapter
 import woowacourse.movie.presentation.base.BaseActivity
@@ -28,7 +29,9 @@ class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions
     }
 
     override fun showMovieList() {
-        findViewById<ListView>(R.id.movieList).adapter = adapter
+        val movieListView = findViewById<RecyclerView>(R.id.movieList)
+        movieListView.layoutManager = LinearLayoutManager(this)
+        movieListView.adapter = adapter
     }
 
     override fun reserveMovie(movieId: Int) {

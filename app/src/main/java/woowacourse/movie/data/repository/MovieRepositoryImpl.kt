@@ -43,7 +43,7 @@ object MovieRepositoryImpl : MovieRepository {
     private const val TIME_TERM = 2
 
     override fun createMovieList(): List<Movie> {
-        movies = listOf(dummyMovie)
+        movies = createDummyMovies()
         return movies
     }
 
@@ -82,7 +82,7 @@ object MovieRepositoryImpl : MovieRepository {
     }
 
     private fun createDummyMovies(): List<Movie> {
-        return List(size = 100) { idx ->
+        return List(size = 10000) { idx ->
             dummyMovie.copy(
                 movieId = idx,
                 title = dummyMovie.title + " $idx",
