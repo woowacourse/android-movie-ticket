@@ -114,8 +114,7 @@ class MovieSeatSelectionActivity :
         row: Int,
     ) {
         repeat(colSize) { col ->
-            seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-                .filterIsInstance<TextView>().toList()[positionToIndex(row, col)].apply {
+            theaterSeat(row, col).apply {
                 text = Seat(row, col).toString()
                 setOnClickListener {
                     presenter.selectSeat(row, col)
@@ -124,6 +123,10 @@ class MovieSeatSelectionActivity :
             }
         }
     }
+
+    private fun theaterSeat(row: Int, col: Int) =
+        seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
+            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)]
 
     override fun showSelectedSeat(index: Int) {
         seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
