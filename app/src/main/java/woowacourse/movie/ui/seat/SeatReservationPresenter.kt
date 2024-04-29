@@ -1,5 +1,8 @@
 package woowacourse.movie.ui.seat
 
+import android.util.Log
+import android.view.View
+import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
@@ -12,21 +15,39 @@ class SeatReservationPresenter(
     private val reservationRepository: ReservationRepository,
 ) : SeatReservationContract.Presenter {
     private val selectedSeats = mutableListOf<Seat>()
-    private val ticketCount = 0 // 받아오기
+    private var ticketCount = 0 // 받아오기
+    private var seats: Seats = Seats()
 
     override fun loadSeats(screenId: Int) {
         val seats = screenRepository.seats(screenId)
+        this.seats = seats
         view.showSeats(seats)
     }
 
     override fun loadTimeReservations(timeReservationId: Int) {
+        val timeReservation = reservationRepository.loadTimeReservation(timeReservationId)
+        ticketCount = timeReservation.ticket.count
+
         view.showTimeReservations(
             reservationRepository.loadTimeReservation(timeReservationId)
         )
     }
 
-    override fun selectSeat(seat: Seat) {
-        TODO("Not yet implemented")
+    override fun selectSeat(position: Position, seatView: View) {
+        val seat = seats.findSeat(position)
+        Log.d("selectedSeats", "before add or remove ${selectedSeats.toString()}")
+        if (selectedSeats.size >= ticketCount) {
+            view.showToast(IllegalArgumentException("exceed ticket count that can be reserved."))
+            return
+        }
+
+        seatView.isSelected = !seatView.isSelected // 선택 상태 토글
+        if (selectedSeats.contains(seat)) {
+            selectedSeats.remove(seat)
+        } else {
+            selectedSeats.add(seat)
+        }
+        Log.d("selectedSeats", "after add or remove ${selectedSeats.toString()}")
     }
 
     override fun reserve(

@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TimeReservation
 import woowacourse.movie.domain.repository.DummyReservation
@@ -50,8 +51,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
                             }
                         setBackgroundResource(R.drawable.holder_seat_selector)
                         setOnClickListener {
-                            Toast.makeText(context, "Clicked row: $row , col: $column", Toast.LENGTH_SHORT).show()
-                            isSelected = !isSelected // 선택 상태 토글
+                            presenter.selectSeat(position = Position(row, column), this)
                         }
                         gravity = Gravity.CENTER
                         text = "${'A' + row} ${column + 1}"
@@ -64,6 +64,10 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     override fun showTimeReservations(timeReservation: TimeReservation) {
         val screen = timeReservation.screen
         movieTitle.text = screen.movie.title
+    }
+
+    override fun showToast(e: Throwable) {
+        Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
     }
 
     override fun navigateToCompleteReservation(reservationId: Int) {

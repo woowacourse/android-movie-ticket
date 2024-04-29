@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.seat
 
+import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
-import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TimeReservation
 
@@ -14,6 +14,8 @@ interface SeatReservationContract {
         fun navigateToCompleteReservation(reservationId: Int)
 
         fun showSeatReservationFail(throwable: Throwable)
+
+        fun showToast(e: Throwable)
     }
 
     interface Presenter {
@@ -21,7 +23,7 @@ interface SeatReservationContract {
 
         fun loadTimeReservations(timeReservationId: Int)
 
-        fun selectSeat(seat: Seat)
+        fun selectSeat(position: Position, seatView: android.view.View)
 
         fun reserve(
             screen: Screen,
