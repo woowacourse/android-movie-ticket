@@ -8,7 +8,7 @@ import woowacourse.movie.R
 import woowacourse.movie.data.DummyMovies
 import woowacourse.movie.moviereservation.MovieReservationActivity
 
-class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
+class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View {
     private lateinit var presenter: ScreenMoviePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
             MovieAdapter(insertAdvertisements(movies, 3)) { presenter.startReservation(it) }
     }
 
-    override fun onClickReservationButton(screenMovieId: Long) {
-        startActivity(MovieReservationActivity.getIntent(this, screenMovieId))
+    override fun onClickReservationButton(screeningMovieId: Long) {
+        startActivity(MovieReservationActivity.getIntent(this, screeningMovieId))
     }
 }
