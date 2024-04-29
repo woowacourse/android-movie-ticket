@@ -24,7 +24,7 @@ class MovieSeatSelectionPresenterTest {
     @Test
     fun `영화관 좌석정보를 불러온다`() {
         // given
-        every { view.showTheater(any(), any()) } just runs
+        every { view.showTheater(any(), any()) }
 
         // when
         presenter.loadTheater()
@@ -36,9 +36,9 @@ class MovieSeatSelectionPresenterTest {
     @Test
     fun `좌석을 선택한다`() {
         // given
-        every { view.showSelectedSeat(any(), any()) } just runs
-        every { view.updateSelectCompletion(any()) } just runs
-        every { view.showReservationTotalAmount(any()) } just runs
+        every { view.showSelectedSeat(any(), any()) }
+        every { view.updateSelectCompletion(any()) }
+        every { view.showReservationTotalAmount(any()) }
 
         // when
         presenter.selectSeat(1, 1)
@@ -52,7 +52,7 @@ class MovieSeatSelectionPresenterTest {
     @Test
     fun `영화 타이틀을 가져온다`() {
         // given
-        every { view.showMovieTitle(any()) } just runs
+        every { view.showMovieTitle(any()) }
 
         // when
         presenter.loadMovieTitle(0L)
