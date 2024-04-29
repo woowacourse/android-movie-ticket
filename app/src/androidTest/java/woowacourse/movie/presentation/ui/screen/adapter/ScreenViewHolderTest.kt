@@ -14,6 +14,7 @@ import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.presentation.ui.screen.ScreenActivity
 import woowacourse.movie.presentation.ui.screen.ScreenContract
 import woowacourse.movie.presentation.ui.screen.ScreenPresenter
+import woowacourse.movie.presentation.ui.screen.adapter.ScreenRecyclerViewViewHolder.ScreenViewHolder
 import woowacourse.movie.presentation.ui.screen.fake.FakeScreenView
 import woowacourse.movie.presentation.utils.getDummyScreen
 
