@@ -108,8 +108,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun initializePresenter() =
-        MovieReservationPresenter(this, MovieContentsImpl, UserTicketsImpl)
+    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl, UserTicketsImpl)
 
     private fun movieContentId() = intent.getLongExtra(MovieReservationKey.ID, DEFAULT_VALUE)
 

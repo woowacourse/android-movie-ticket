@@ -1,15 +1,16 @@
 package woowacourse.movie.model.ui.selection
 
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
-import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.data.UserTicketsImpl
+import woowacourse.movie.model.movie.ReservationDetail
+import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.selection.MovieSeatSelectionContract
 import woowacourse.movie.ui.selection.MovieSeatSelectionPresenter
+import java.time.LocalDateTime
 
 class MovieSeatSelectionPresenterTest {
     private lateinit var presenter: MovieSeatSelectionPresenter
@@ -19,17 +20,28 @@ class MovieSeatSelectionPresenterTest {
     fun setUp() {
         view = mockk<MovieSeatSelectionContract.View>(relaxed = true)
         presenter = MovieSeatSelectionPresenter(view, UserTicketsImpl)
+        UserTicketsImpl.save(
+            UserTicket(
+                "",
+                LocalDateTime.of(2024, 3, 28, 10, 0),
+                ReservationDetail(1),
+            ),
+        )
     }
 
     @Test
     fun `영화관 좌석정보를 불러온다`() {
         // given
+        every { view.showMovieTitle(any()) }
+        every { view.showReservationTotalAmount(any()) }
         every { view.showTheater(any(), any()) }
 
         // when
-        presenter.loadTheater()
+        presenter.loadTheaterInfo(0L)
 
         // then
+        verify { view.showMovieTitle(any()) }
+        verify { view.showReservationTotalAmount(any()) }
         verify { view.showTheater(any(), any()) }
     }
 
@@ -55,7 +67,7 @@ class MovieSeatSelectionPresenterTest {
         every { view.showMovieTitle(any()) }
 
         // when
-        presenter.loadMovieTitle(0L)
+        presenter.loadTheaterInfo(0L)
 
         // then
         verify { view.showMovieTitle(any()) }

@@ -18,6 +18,7 @@ import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.ReservationDetail
 import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.selection.MovieSeatSelectionKey
+import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationCompleteActivityTest {
@@ -91,8 +92,7 @@ class MovieReservationCompleteActivityTest {
             UserTicketsImpl.save(
                 UserTicket(
                     title = "해리",
-                    screeningStartDate = "2024-03-28",
-                    screeningStartTime = "21:00",
+                    screeningStartDateTime = LocalDateTime.of(2024, 3, 28, 21, 0),
                     reservationDetail = reservationDetail,
                 ),
             )

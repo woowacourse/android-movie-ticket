@@ -32,17 +32,15 @@ class MovieSeatSelectionActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_seat_selection)
 
-        presenter.loadTheater()
-        presenter.loadMovieTitle(userTicketId)
-        presenter.loadTotalSeatAmount()
+        presenter.loadTheaterInfo(userTicketId)
         presenter.updateSelectCompletion()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setOnConfirmButtonListener()
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 //        val seatsIndex =
 //            (presenter as MovieSeatSelectionPresenter)
 //                .reservationDetail
@@ -54,10 +52,10 @@ class MovieSeatSelectionActivity :
 //            MovieSeatSelectionKey.SEAT_INFO,
 //            seatsIndex as ArrayList<String>,
 //        )
-//    }
-//
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//        super.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
 //
 //        savedInstanceState.let {
 //            val seats = it.getStringArrayList(MovieSeatSelectionKey.SEAT_INFO)
@@ -66,7 +64,7 @@ class MovieSeatSelectionActivity :
 //                presenter.selectSeat(position.first, position.second)
 //            }
 //        }
-//    }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

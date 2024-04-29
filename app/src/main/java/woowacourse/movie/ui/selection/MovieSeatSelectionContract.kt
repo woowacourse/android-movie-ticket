@@ -29,11 +29,7 @@ interface MovieSeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadMovieTitle(ticketId: Long)
-
-        fun loadTotalSeatAmount()
-
-        fun loadTheater()
+        fun loadTheaterInfo(ticketId: Long)
 
         fun updateSelectCompletion()
 

@@ -11,21 +11,15 @@ class MovieSeatSelectionPresenter(
     MovieSeatSelectionContract.Presenter {
     private lateinit var userTicket: UserTicket
 
-    override fun loadMovieTitle(ticketId: Long) {
+    override fun loadTheaterInfo(ticketId: Long) {
         try {
             userTicket = userTickets.find(ticketId)
             view.showMovieTitle(userTicket.title)
+            view.showReservationTotalAmount(userTicket.reservationDetail.totalSeatAmount())
+            view.showTheater(Seat.ROW_LEN, Seat.COL_LEN)
         } catch (e: NoSuchElementException) {
             view.showError(e)
         }
-    }
-
-    override fun loadTotalSeatAmount() {
-        view.showReservationTotalAmount(userTicket.reservationDetail.totalSeatAmount())
-    }
-
-    override fun loadTheater() {
-        view.showTheater(Seat.ROW_LEN, Seat.COL_LEN)
     }
 
     override fun updateSelectCompletion() {
