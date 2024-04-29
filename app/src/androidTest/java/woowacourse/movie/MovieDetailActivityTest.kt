@@ -44,7 +44,7 @@ class MovieDetailActivityTest {
         onView(withId(R.id.buy_ticket_button))
             .check(matches(isDisplayed()))
             .perform(click())
-        onView(withId(R.id.can_cancel_time))
+        onView(withId(R.id.seat_button))
             .check(matches(isDisplayed()))
     }
 }
