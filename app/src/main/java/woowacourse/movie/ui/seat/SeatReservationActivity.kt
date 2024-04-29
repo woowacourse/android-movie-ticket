@@ -24,6 +24,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
 
     private val movieTitle: TextView by lazy { findViewById(R.id.tv_seat_reservation_movie_title) }
     private val totalPrice: TextView by lazy { findViewById(R.id.tv_seat_reservation_total_price) }
+    private val reserveCompleteBtn: TextView by lazy { findViewById(R.id.btn_seat_reservation_complete) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +71,16 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
 
     override fun showTotalPrice(seats: Seats) {
         totalPrice.text = Currency.of(Locale.getDefault().country).format(seats.totalPrice())
+    }
+
+    override fun activateReservation(boolean: Boolean) {
+        if (boolean) {
+            reserveCompleteBtn.isEnabled = true
+            reserveCompleteBtn.setBackgroundColor(getColor(R.color.complete_activated))
+        } else {
+            reserveCompleteBtn.isEnabled = false
+            reserveCompleteBtn.setBackgroundColor(getColor(R.color.complete_deactivated))
+        }
     }
 
     override fun showToast(e: Throwable) {

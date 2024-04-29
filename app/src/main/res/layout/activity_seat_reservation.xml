@@ -72,11 +72,12 @@
         android:id="@+id/btn_seat_reservation_complete"
         android:layout_width="100dp"
         android:layout_height="0dp"
-        android:background="@color/button_ok"
+        android:background="@color/complete_deactivated"
         android:text="@string/ok"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cl_seat_reservation_bottom" />

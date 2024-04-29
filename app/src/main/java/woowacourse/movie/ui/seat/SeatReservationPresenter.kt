@@ -51,6 +51,11 @@ class SeatReservationPresenter(
         Log.d("selectedSeats", "after add or remove ${selectedSeats.toString()}")
 
         view.showTotalPrice(Seats(selectedSeats))
+        if (selectedSeats.count() == ticketCount) {
+            view.activateReservation(true)
+        } else {
+            view.activateReservation(false)
+        }
     }
 
     override fun reserve(
