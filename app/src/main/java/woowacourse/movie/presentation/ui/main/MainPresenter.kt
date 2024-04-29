@@ -3,7 +3,7 @@ package woowacourse.movie.presentation.ui.main
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.uimodel.MovieUiModel
 
-class MainPresenterImpl(
+class MainPresenter(
     private val view: MainContract.View,
     private val movieRepository: MovieRepository,
 ) : MainContract.Presenter {

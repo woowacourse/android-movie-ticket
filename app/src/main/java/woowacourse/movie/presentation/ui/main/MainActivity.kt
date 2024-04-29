@@ -16,7 +16,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun onCreateSetup() {
-        presenter = MainPresenterImpl(this, MovieRepositoryImpl)
+        presenter = MainPresenter(this, MovieRepositoryImpl)
     }
 
     override fun showMovieList(movieList: List<MovieUiModel>) {
