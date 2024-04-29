@@ -7,7 +7,7 @@ import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.ScreenAd
 
 fun Screen.toPreviewUI(image: Image<Any>) =
-    ScreenPreviewUI(
+    ScreenAd.ScreenPreviewUi(
         id = id,
         moviePreviewUI = movie.toPreviewUI(image),
         dateRange = dateRange,
@@ -34,12 +34,3 @@ fun Screen.toDetailUI(image: Image<Any>) =
     )
 
 fun DateRange.toUi(): String = "$start ~ $endInclusive"
-
-
-fun ScreenPreviewUI.toUi2(): ScreenAd.ScreenPreviewUi {
-    return ScreenAd.ScreenPreviewUi(
-        id = id,
-        moviePreviewUI = moviePreviewUI,
-        dateRange = dateRange,
-    )
-}

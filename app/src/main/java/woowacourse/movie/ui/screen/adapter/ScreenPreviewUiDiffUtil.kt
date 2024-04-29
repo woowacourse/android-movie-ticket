@@ -4,11 +4,17 @@ import androidx.recyclerview.widget.DiffUtil
 import woowacourse.movie.domain.model.ScreenAd
 
 class ScreenPreviewUiDiffUtil : DiffUtil.ItemCallback<ScreenAd>() {
-    override fun areItemsTheSame(oldItem: ScreenAd, newItem: ScreenAd): Boolean {
+    override fun areItemsTheSame(
+        oldItem: ScreenAd,
+        newItem: ScreenAd,
+    ): Boolean {
         return oldItem.equalsWith(newItem)
     }
 
-    override fun areContentsTheSame(oldItem: ScreenAd, newItem: ScreenAd): Boolean {
+    override fun areContentsTheSame(
+        oldItem: ScreenAd,
+        newItem: ScreenAd,
+    ): Boolean {
         return oldItem.equalsWith(newItem)
     }
 }
