@@ -44,7 +44,7 @@ interface SeatSelectContract {
             col: Int,
         )
 
-        fun confirmSeatSelection(
+        fun finishSeatSelection(
             movieId: Long,
             screeningDateTime: LocalDateTime,
         )

@@ -125,7 +125,7 @@ class SeatSelectPresenterTest {
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
-        presenter.confirmSeatSelection(0L, LocalDateTime.of(2024, 4, 1, 9, 0))
+        presenter.finishSeatSelection(0L, LocalDateTime.of(2024, 4, 1, 9, 0))
 
         // then
         verify { view.moveReservationCompleteView(any()) }

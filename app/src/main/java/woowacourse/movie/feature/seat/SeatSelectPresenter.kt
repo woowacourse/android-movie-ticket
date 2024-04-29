@@ -83,7 +83,7 @@ class SeatSelectPresenter(
         view.unselectSeat(row, col)
     }
 
-    override fun confirmSeatSelection(
+    override fun finishSeatSelection(
         movieId: Long,
         screeningDateTime: LocalDateTime,
     ) {

@@ -118,7 +118,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         presenter.initializeSeatTable(selectedSeats, seatViews.size, seatViews[0].size)
         updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         confirmButton.setOnClickListener {
-            presenter.confirmSeatSelection(movieId, screeningDateTime)
+            presenter.finishSeatSelection(movieId, screeningDateTime)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
