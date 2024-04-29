@@ -41,6 +41,6 @@ class PseudoMovieRepository : MovieRepository {
                 ),
             )
 
-        private val movies = List(11) { pseudoMovie }
+        private val movies = List(10000) { pseudoMovie }
     }
 }
