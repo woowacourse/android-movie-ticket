@@ -43,8 +43,8 @@ fun Ticket.toUiModel(): TicketModel {
         DateTimeFormatter.ofPattern(TicketModel.TIME_FORMAT, Locale.getDefault())
     return TicketModel(
         title = movie.title,
-        date = schedule.format(dateFormatter),
-        time = schedule.format(timeFormatter),
+        date = reservationDateTime.format(dateFormatter),
+        time = reservationDateTime.format(timeFormatter),
         seats = seats.map { it.row + it.col.toString() }.sorted(),
         price = price,
     )
