@@ -3,7 +3,6 @@ package woowacourse.movie.ui.home
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
@@ -25,7 +24,6 @@ class MovieHomeActivity : BaseActivity<MovieHomeContract.Presenter>(), MovieHome
     }
 
     override fun showMovieContents(movieContents: List<MovieContent>) {
-        movieContentList.layoutManager = LinearLayoutManager(this)
         movieContentList.adapter =
             MovieContentAdapter(movieContents) { view, id ->
                 Intent(view.context, MovieReservationActivity::class.java).run {

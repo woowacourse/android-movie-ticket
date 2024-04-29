@@ -11,6 +11,7 @@
         android:id="@+id/movie_content_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_movie_content" />
 
