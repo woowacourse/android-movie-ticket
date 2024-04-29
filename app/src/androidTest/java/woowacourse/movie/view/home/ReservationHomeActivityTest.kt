@@ -34,21 +34,30 @@ class ReservationHomeActivityTest {
     }
 
     @Test
-    fun `영화_목록의_3번째_아이템은_영화가_보여진다`() {
-        onView(withId(R.id.recycler_view_reservation_home)).check(
-            matches(
-                matchViewHolderAtPosition(2, MovieViewHolder::class.java),
-            ),
-        )
+    fun `영화_목록을_3번째_아이템으로_스크롤_했을_시_영화가_보여진다`() {
+        onView(withId(R.id.recycler_view_reservation_home))
+            .perform(
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(2),
+            ).check(
+                matches(
+                    matchViewHolderAtPosition(2, MovieViewHolder::class.java),
+                ),
+            )
     }
 
     @Test
-    fun `영화_목록의_4번째_아이템은_광고가_보여진다`() {
-        onView(withId(R.id.recycler_view_reservation_home)).check(
-            matches(
-                matchViewHolderAtPosition(3, AdvertisementViewHolder::class.java),
-            ),
-        )
+    fun `영화_목록을_4번째_아이템으로_스크롤_했을_시_광고가_보여진다`() {
+        onView(withId(R.id.recycler_view_reservation_home))
+            .perform(
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(3),
+            ).check(
+                matches(
+                    matchViewHolderAtPosition(
+                        3,
+                        AdvertisementViewHolder::class.java,
+                    ),
+                ),
+            )
     }
 
     @Test
