@@ -11,7 +11,7 @@ class Seat private constructor(val rowIndex: Int, val colIndex: Int) : Serializa
     var cellBackgroundColor = Color.WHITE
         private set
 
-    private val rank: SeatRank
+    val rank: SeatRank
         get() = SeatRank.of(rowIndex)
 
     val coordinate: String
