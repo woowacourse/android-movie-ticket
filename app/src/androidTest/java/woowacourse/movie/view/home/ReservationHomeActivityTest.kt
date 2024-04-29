@@ -37,10 +37,10 @@ class ReservationHomeActivityTest {
     fun `영화_목록을_3번째_아이템으로_스크롤_했을_시_영화가_보여진다`() {
         onView(withId(R.id.recycler_view_reservation_home))
             .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(2),
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(THIRD_ITEM_POSITION),
             ).check(
                 matches(
-                    matchViewHolderAtPosition(2, MovieViewHolder::class.java),
+                    matchViewHolderAtPosition(THIRD_ITEM_POSITION, MovieViewHolder::class.java),
                 ),
             )
     }
@@ -49,11 +49,11 @@ class ReservationHomeActivityTest {
     fun `영화_목록을_4번째_아이템으로_스크롤_했을_시_광고가_보여진다`() {
         onView(withId(R.id.recycler_view_reservation_home))
             .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(3),
+                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(FOURTH_ITEM_POSITION),
             ).check(
                 matches(
                     matchViewHolderAtPosition(
-                        3,
+                        FOURTH_ITEM_POSITION,
                         AdvertisementViewHolder::class.java,
                     ),
                 ),
@@ -66,7 +66,7 @@ class ReservationHomeActivityTest {
             .perform(
                 RecyclerViewActions.scrollToHolder(
                     instanceOf(MovieViewHolder::class.java),
-                ).atPosition(0),
+                ).atPosition(FIRST_ITEM_POSITION),
             )
 
         onView(withText(movies[TestFixture.FIRST_ITEM_POSITION].title)).check(matches(isDisplayed()))
@@ -78,7 +78,7 @@ class ReservationHomeActivityTest {
             .perform(
                 RecyclerViewActions.scrollToHolder(
                     instanceOf(AdvertisementViewHolder::class.java),
-                ).atPosition(0),
+                ).atPosition(FIRST_ITEM_POSITION),
             )
 
         onView(withId(R.id.image_view_item_advertisement)).check(matches(isDisplayed()))
@@ -102,5 +102,11 @@ class ReservationHomeActivityTest {
                     )
             }
         }
+    }
+
+    companion object {
+        const val FIRST_ITEM_POSITION = 0
+        const val THIRD_ITEM_POSITION = 2
+        const val FOURTH_ITEM_POSITION = 3
     }
 }
