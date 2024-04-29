@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.Reservation2
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.ui.Currency
 import java.util.Locale
@@ -31,8 +32,7 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
 
     private fun initView() {
         val id = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_ID, DEFAULT_RESERVATION_ID)
-        // TODO: presenter.loadReservation2(id)
-//        presenter.loadReservation(id)
+        presenter.loadReservation2(id)
     }
 
     override fun showReservation(reservation: Reservation) {
@@ -41,6 +41,14 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
             date.text = screen.date
             count.text = getString(R.string.reserve_count).format(this.ticket.count)
             amount.text = currency()
+        }
+    }
+
+    override fun showReservation2(reservation2: Reservation2) {
+        with(reservation2) {
+            title.text = screen.movie.title
+            date.text = screen.date
+            count.text = getString(R.string.reserve_count).format(this.ticket.count)
         }
     }
 
