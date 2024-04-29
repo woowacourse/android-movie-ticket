@@ -49,7 +49,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         dateSpinner = findViewById<Spinner>(R.id.movie_screening_date_spinner)
         timeSpinner = findViewById<Spinner>(R.id.movie_screening_time_spinner)
 
-        //val movieId = intent.getIntExtra("MovieId", -1)
+        // val movieId = intent.getIntExtra("MovieId", -1)
         presenter.loadMovie(movieId)
         ticketPlusButton.setOnClickListener {
             presenter.plusTicketNum()
@@ -142,7 +142,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             }
         startActivity(intent)
     }
-    companion object{
+
+    companion object {
         private const val MOVIE_ID = "MOVIE_ID"
     }
 }

@@ -51,11 +51,10 @@ class MovieAdapter(
         position: Int,
     ) {
         val viewType = getItemViewType(position)
-        if (viewType == TYPE_MOVIE)
-            {
-                val movieBrief: MovieBrief = movieBriefs[position]
-                (holder as MovieHolder).bind(movieBrief)
-            }
+        if (viewType == TYPE_MOVIE) {
+            val movieBrief: MovieBrief = movieBriefs[position]
+            (holder as MovieHolder).bind(movieBrief)
+        }
     }
 
     override fun notifyItemClicked(position: Int) {
