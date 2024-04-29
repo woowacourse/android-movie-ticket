@@ -52,9 +52,11 @@ class MovieSeatSelectionActivity :
         super.onRestoreInstanceState(savedInstanceState)
 
         val seats = savedInstanceState.getIntegerArrayList(MovieSeatSelectionKey.SEAT_INFO)
-        seats?.forEach { seatIndex ->
-            presenter.recoverSeatSelection(seatIndex)
-            selectedSeatInfo.add(seatIndex)
+        seats?.let {
+            it.forEach { seatIndex ->
+                presenter.recoverSeatSelection(seatIndex)
+                selectedSeatInfo.add(seatIndex)
+            }
         }
     }
 
@@ -91,7 +93,8 @@ class MovieSeatSelectionActivity :
             MOVIE_CONTENT_ID_DEFAULT_VALUE,
         )
 
-    override fun initializePresenter(): MovieSeatSelectionContract.Presenter = MovieSeatSelectionPresenter(this, UserTicketsImpl)
+    override fun initializePresenter(): MovieSeatSelectionContract.Presenter =
+        MovieSeatSelectionPresenter(this, UserTicketsImpl)
 
     override fun showMovieTitle(title: String) {
         movieTitle.text = title
