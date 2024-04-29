@@ -25,7 +25,7 @@ class MovieDetailPresenter(
     override fun onTicketPlusClicked(currentTicketNum: Int) {
         if (currentTicketNum < 10) {
             ticketNum = currentTicketNum + 1
-            view.onTicketCountChanged(currentTicketNum)
+            view.onTicketCountChanged(ticketNum)
         } else {
             view.showToast("최대 티켓 수량에 도달했습니다.")
         }
@@ -44,14 +44,29 @@ class MovieDetailPresenter(
         return this.theater
     }
 
+    override fun getTicketNum(): Int {
+        return ticketNum
+    }
+
     override fun updateTimeSpinner(date: String) {
         val times = mutableListOf<String>()
-        var time = if (isWeekend(date)) 9 else 10
+        val startHour = if (isWeekend(date)) 9 else 10
+        var time = startHour
         while (time <= 24) {
-            times.add("${time}:00")
+            times.add("$time:00")
             time += 2
         }
         view.updateTimeAdapter(times)
+    }
+
+    override fun generateDateRange(startDate: LocalDate, endDate: LocalDate) {
+        val dates = mutableListOf<String>()
+        var date = startDate
+        while (!date.isAfter(endDate)) {
+            dates.add(date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
+            date = date.plusDays(1)
+        }
+        view.updateDateAdapter(dates)
     }
 
     private fun isWeekend(date: String): Boolean {

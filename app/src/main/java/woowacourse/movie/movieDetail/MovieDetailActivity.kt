@@ -18,7 +18,6 @@ import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.seat.TheaterSeatActivity
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private var ticketNum = 1
@@ -42,64 +41,12 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             view = this@MovieDetailActivity,
             intent = intent,
         )
-        initSpinners()
         presenter.load()
         setupEventListeners()
+        presenter.generateDateRange(LocalDate.of(2024, 4, 1), LocalDate.of(2024, 4, 28))
+
     }
 
-    private fun initSpinners() {
-        val startDate = LocalDate.of(2024, 4, 1)
-        val endDate = LocalDate.of(2024, 4, 28)
-        val dates = generateDateRange(startDate, endDate)
-        dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dates)
-        dateSpinner.adapter = dateAdapter
-
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                presenter.updateTimeSpinner(dates[position])
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-    }
-
-    private fun generateDateRange(startDate: LocalDate, endDate: LocalDate): ArrayList<String> {
-        val dates = ArrayList<String>()
-        var date = startDate
-        while (!date.isAfter(endDate)) {
-            dates.add(date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
-            date = date.plusDays(1)
-        }
-        return dates
-    }
-
-    private fun setupEventListeners() {
-        plusButton.setOnClickListener {
-            presenter.onTicketPlusClicked(ticketNum)
-        }
-
-        minusButton.setOnClickListener {
-            presenter.onTicketMinusClicked(ticketNum)
-        }
-
-        seatConfirmationButton.setOnClickListener {
-            val theater = presenter.getTheater()
-            val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                Intent(this, TheaterSeatActivity::class.java).apply {
-                    putExtra("ticketNum", ticketNum)
-                    putExtra("Theater", theater)
-                }
-            } else {
-                TODO("VERSION.SDK_INT < TIRAMISU")
-            }
-            navigateToPurchaseConfirmation(intent)
-        }
-    }
 
     override fun initializeViews(movieInfo: MovieInfo) {
         findViewById<TextView>(R.id.movie_title_large).text = movieInfo.title.toString()
@@ -116,13 +63,29 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         startActivity(intent)
     }
 
-    override fun onTicketCountChanged(ticketNum: Int) {
-        this.ticketNum = ticketNum
-        quantityText.text = this.ticketNum.toString()
+    override fun onTicketCountChanged(currentTicketNum: Int) {
+        quantityText.text = currentTicketNum.toString()
     }
 
     override fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateDateAdapter(dates: List<String>) {
+        dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dates)
+        dateSpinner.adapter = dateAdapter
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                presenter.updateTimeSpinner(dates[position])
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
     }
 
     override fun updateTimeAdapter(times: List<String>) {
@@ -133,5 +96,28 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()
         return true
+    }
+
+    private fun setupEventListeners() {
+        plusButton.setOnClickListener {
+            presenter.onTicketPlusClicked(ticketNum)
+        }
+
+        minusButton.setOnClickListener {
+            presenter.onTicketMinusClicked(ticketNum)
+        }
+
+        seatConfirmationButton.setOnClickListener {
+            val theater = presenter.getTheater()
+            val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Intent(this, TheaterSeatActivity::class.java).apply {
+                    putExtra("ticketNum", presenter.getTicketNum())
+                    putExtra("Theater", theater)
+                }
+            } else {
+                TODO("VERSION.SDK_INT < TIRAMISU")
+            }
+            navigateToPurchaseConfirmation(intent)
+        }
     }
 }
