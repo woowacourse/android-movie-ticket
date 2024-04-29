@@ -1,7 +1,6 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.model.BoxOffice
-import woowacourse.movie.model.Count
 import woowacourse.movie.model.MovieData
 import woowacourse.movie.model.Result
 import woowacourse.movie.model.theater.SeatClass
@@ -21,31 +20,25 @@ class SeatSelectionPresenter(
         ticketingForm: TicketingForm,
         seats: List<BookingSeat>,
     ) {
-        boxOffice =
-            BoxOffice(
-                Count(ticketingForm.numberOfTickets.currentValue),
-                ticketingForm.bookingDateTime,
-                seats,
-            )
-
+        boxOffice = BoxOffice.of(ticketingForm.numberOfTickets, seats)
         when (val screening = MovieData.findScreeningDataById(ticketingForm.screeningId)) {
             is Result.Success -> {
                 ticketingResult =
                     TicketingResult(
-                        movieTitle = screening.data.movie?.title ?: "",
+                        movieTitle = ticketingForm.movieTitle,
                         numberOfTickets = ticketingForm.numberOfTickets.currentValue,
                         date = ticketingForm.bookingDateTime.date,
                         time = ticketingForm.bookingDateTime.time,
                         seats = emptyList(),
                         price = boxOffice.totalPrice,
                     )
-                val theater = screening.data.theater
+
                 view.initializeSeatTable(
-                    theater.theaterSize,
-                    theater.rowClassInfo,
-                    ticketingForm.movieTitle,
-                    boxOffice.totalPrice,
-                    boxOffice.seats,
+                    theaterSize = screening.data.theater.theaterSize,
+                    rowClassInfo = screening.data.theater.rowClassInfo,
+                    movieTitle = ticketingForm.movieTitle,
+                    totalPrice = boxOffice.totalPrice,
+                    selectedSeats = boxOffice.seats,
                 )
             }
 

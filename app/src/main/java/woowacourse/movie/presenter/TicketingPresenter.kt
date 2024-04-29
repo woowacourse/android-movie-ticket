@@ -27,7 +27,8 @@ class TicketingPresenter(
     ) {
         when (val screening = findScreeningDataById(screeningId)) {
             is Result.Success -> {
-                val initialDate = selectedDate?.let { LocalDate.parse(it) } ?: screening.data.dates.first()
+                val initialDate =
+                    selectedDate?.let { LocalDate.parse(it) } ?: screening.data.dates.first()
                 val availableTimes = AvailableTimes.of(initialDate)
                 ticketingUiState =
                     TicketingUiState(
@@ -38,12 +39,13 @@ class TicketingPresenter(
                 ticketingForm =
                     TicketingForm(
                         screeningId = screeningId,
-                        movieTitle = screening.data.movie?.title ?: "",
+                        movieTitle = screening.data.movie.title,
                         numberOfTickets = Count(initialCount),
                         bookingDateTime =
                             BookingDateTime(
                                 initialDate,
-                                selectedTime?.let { LocalTime.parse(it) } ?: availableTimes.localTimes.first(),
+                                selectedTime?.let { LocalTime.parse(it) }
+                                    ?: availableTimes.localTimes.first(),
                             ),
                     )
                 ticketingContractView.assignInitialView(screening.data, initialCount)
@@ -81,10 +83,7 @@ class TicketingPresenter(
         ticketingForm =
             ticketingForm.copy(
                 bookingDateTime =
-                    BookingDateTime(
-                        LocalDate.parse(date),
-                        ticketingForm.bookingDateTime.time,
-                    ),
+                    BookingDateTime(LocalDate.parse(date), ticketingForm.bookingDateTime.time),
             )
         ticketingUiState =
             ticketingUiState.copy(

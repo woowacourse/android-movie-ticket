@@ -1,12 +1,13 @@
 package woowacourse.movie.model.screening
 
 import woowacourse.movie.model.MovieData
+import woowacourse.movie.model.Result
 import woowacourse.movie.model.theater.Theater
 import java.time.LocalDate
 
 class Screening private constructor(
     val screeningId: Long,
-    val movie: Movie?,
+    val movie: Movie,
     val theater: Theater,
     val datePeriod: DatePeriod,
 ) {
@@ -22,18 +23,23 @@ class Screening private constructor(
         }
 
     companion object {
+        private const val ERROR_INVALID_SCREENING_ID = "존재하지 않는 상영 정보입니다."
+
         fun of(
             screeningId: Long,
             movieId: Long,
             datePeriod: DatePeriod,
         ): Screening {
-            val movie = MovieData.findMovieById(movieId)
-            return Screening(
-                screeningId,
-                movie.data,
-                Theater.of(),
-                datePeriod,
-            )
+            return when (val movie = MovieData.findMovieById(movieId)) {
+                is Result.Success ->
+                    Screening(
+                        screeningId,
+                        movie.data,
+                        Theater.of(),
+                        datePeriod,
+                    )
+                is Result.Error -> throw IllegalArgumentException(ERROR_INVALID_SCREENING_ID)
+            }
         }
     }
 }

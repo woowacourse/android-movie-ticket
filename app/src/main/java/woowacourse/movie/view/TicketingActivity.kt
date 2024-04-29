@@ -23,7 +23,12 @@ import java.time.LocalTime
 class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSelectedListener {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
-    private val screeningId by lazy { intent.getLongExtra(EXTRA_SCREENING_ID, EXTRA_DEFAULT_SCREENING_ID) }
+    private val screeningId by lazy {
+        intent.getLongExtra(
+            EXTRA_SCREENING_ID,
+            EXTRA_DEFAULT_SCREENING_ID,
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +43,14 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(KEY_COUNT, ticketingPresenter.ticketingForm.numberOfTickets.currentValue)
-        outState.putString(KEY_DATE, ticketingPresenter.ticketingForm.bookingDateTime.date.toString())
-        outState.putString(KEY_TIME, ticketingPresenter.ticketingForm.bookingDateTime.time.toString())
+        outState.putString(
+            KEY_DATE,
+            ticketingPresenter.ticketingForm.bookingDateTime.date.toString(),
+        )
+        outState.putString(
+            KEY_TIME,
+            ticketingPresenter.ticketingForm.bookingDateTime.time.toString(),
+        )
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -49,7 +60,8 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
             val date = it.getString(KEY_DATE)
             val time = it.getString(KEY_TIME)
             ticketingPresenter.initializeTicketingData(screeningId, count, date, time)
-            countText.text = ticketingPresenter.ticketingForm.numberOfTickets.currentValue.toString()
+            countText.text =
+                ticketingPresenter.ticketingForm.numberOfTickets.currentValue.toString()
         }
     }
 
@@ -63,16 +75,20 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         count: Int,
     ) {
         updateCount(count)
-        findViewById<ImageView>(R.id.iv_thumbnail).apply { screening.movie?.let { setImageResource(it.thumbnailResourceId) } }
-        findViewById<TextView>(R.id.tv_title).apply { text = screening.movie?.title }
+        findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(screening.movie.thumbnailResourceId) }
+        findViewById<TextView>(R.id.tv_title).apply { text = screening.movie.title }
         findViewById<TextView>(R.id.tv_date).apply {
             text =
-                getString(R.string.title_date, screening.datePeriod.startDate.toString(), screening.datePeriod.endDate.toString())
+                getString(
+                    R.string.title_date,
+                    screening.datePeriod.startDate.toString(),
+                    screening.datePeriod.endDate.toString(),
+                )
         }
         findViewById<TextView>(R.id.tv_running_time).apply {
-            text = getString(R.string.title_running_time, screening.movie?.runningTime)
+            text = getString(R.string.title_running_time, screening.movie.runningTime)
         }
-        findViewById<TextView>(R.id.tv_introduction).apply { text = screening.movie?.introduction }
+        findViewById<TextView>(R.id.tv_introduction).apply { text = screening.movie.introduction }
 
         findViewById<Spinner>(R.id.spinner_date).apply {
             adapter =
@@ -155,15 +171,29 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         id: Long,
     ) {
         when (parent?.id) {
-            R.id.spinner_date -> ticketingPresenter.updateDate(parent.getItemAtPosition(position).toString())
-            R.id.spinner_time -> ticketingPresenter.updateTime(parent.getItemAtPosition(position).toString())
+            R.id.spinner_date ->
+                ticketingPresenter.updateDate(
+                    parent.getItemAtPosition(position).toString(),
+                )
+
+            R.id.spinner_time ->
+                ticketingPresenter.updateTime(
+                    parent.getItemAtPosition(position).toString(),
+                )
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         when (parent?.id) {
-            R.id.spinner_date -> ticketingPresenter.updateDate(parent.getItemAtPosition(0).toString())
-            R.id.spinner_time -> ticketingPresenter.updateTime(parent.getItemAtPosition(0).toString())
+            R.id.spinner_date ->
+                ticketingPresenter.updateDate(
+                    parent.getItemAtPosition(0).toString(),
+                )
+
+            R.id.spinner_time ->
+                ticketingPresenter.updateTime(
+                    parent.getItemAtPosition(0).toString(),
+                )
         }
     }
 

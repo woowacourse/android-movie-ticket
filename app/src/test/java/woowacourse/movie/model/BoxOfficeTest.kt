@@ -5,10 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import woowacourse.movie.model.theater.SeatClass
-import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.model.ticketing.BookingSeat
-import java.time.LocalDate
-import java.time.LocalTime
 
 class BoxOfficeTest {
     private lateinit var boxOffice: BoxOffice
@@ -16,9 +13,8 @@ class BoxOfficeTest {
     @BeforeEach
     fun setUp() {
         boxOffice =
-            BoxOffice(
+            BoxOffice.of(
                 Count(5),
-                BookingDateTime(LocalDate.of(2024, 3, 1), LocalTime.of(11, 0)),
                 emptyList(),
             )
     }
@@ -26,9 +22,8 @@ class BoxOfficeTest {
     @Test
     fun `매표소_데이터에_따른_올바른_가격을_반환한다`() {
         val boxOffice =
-            BoxOffice(
+            BoxOffice.of(
                 Count(5),
-                BookingDateTime(LocalDate.of(2024, 3, 1), LocalTime.of(11, 0)),
                 listOf(
                     BookingSeat(1, 1, SeatClass.B),
                     BookingSeat(2, 3, SeatClass.S),

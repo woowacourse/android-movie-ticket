@@ -92,12 +92,11 @@ class ScreeningRecyclerViewAdapter(
                 )
 
             val context = itemView.context
-            screeningItem.movie?.let { movie ->
-                title.text = movie.title
-                date.text = context.getString(R.string.title_date, startDate, endDate)
-                runningTime.text = context.getString(R.string.title_running_time, movie.runningTime)
-                thumbnail.setImageResource(movie.thumbnailResourceId)
-            }
+            title.text = screeningItem.movie.title
+            date.text = context.getString(R.string.title_date, startDate, endDate)
+            runningTime.text =
+                context.getString(R.string.title_running_time, screeningItem.movie.runningTime)
+            thumbnail.setImageResource(screeningItem.movie.thumbnailResourceId)
         }
     }
 
