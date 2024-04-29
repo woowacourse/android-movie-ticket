@@ -108,7 +108,8 @@ class MovieReservationActivity :
         }
     }
 
-    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl, UserTicketsImpl)
+    override fun initializePresenter() =
+        MovieReservationPresenter(this, MovieContentsImpl, UserTicketsImpl)
 
     private fun movieContentId() = intent.getLongExtra(MovieReservationKey.ID, DEFAULT_VALUE)
 
@@ -164,9 +165,10 @@ class MovieReservationActivity :
     }
 
     override fun showMovieTimeSelection(timeRange: List<LocalTime>) {
-        val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeRange)
-        timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        movieTimeSpinner.adapter = timeAdapter
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, timeRange).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            movieTimeSpinner.adapter = this
+        }
     }
 
     override fun moveMovieSeatSelectionPage(userTicketId: Long) {
