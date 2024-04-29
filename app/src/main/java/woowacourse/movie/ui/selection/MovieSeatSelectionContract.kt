@@ -29,7 +29,7 @@ interface MovieSeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadMovieTitle(movieContentId: Long)
+        fun loadMovieTitle(ticketId: Long)
 
         fun loadTotalSeatAmount()
 
@@ -42,9 +42,6 @@ interface MovieSeatSelectionContract {
             col: Int,
         )
 
-        fun reserveMovie(
-            date: String,
-            time: String,
-        )
+        fun reserveMovie(ticketId: Long)
     }
 }

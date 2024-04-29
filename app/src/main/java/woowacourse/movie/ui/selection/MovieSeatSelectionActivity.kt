@@ -13,22 +13,16 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.Seat
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
 import woowacourse.movie.ui.utils.positionToIndex
-import woowacourse.movie.ui.utils.toPosition
-import java.util.ArrayList
 
 class MovieSeatSelectionActivity :
     BaseActivity<MovieSeatSelectionContract.Presenter>(),
     MovieSeatSelectionContract.View {
-    private val movieContentId by lazy { movieContentId() }
-    private val reservationCount by lazy { reservationCount() }
-    private val selectedDate by lazy { selectedDate() }
-    private val selectedTime by lazy { selectedTime() }
+    private val userTicketId by lazy { userTicketId() }
     private val seatTable by lazy { findViewById<TableLayout>(R.id.seat_table) }
     private val movieTitle by lazy { findViewById<TextView>(R.id.movie_title_text) }
     private val totalSeatAmount by lazy { findViewById<TextView>(R.id.total_seat_amount_text) }
@@ -39,7 +33,7 @@ class MovieSeatSelectionActivity :
         setContentView(R.layout.activity_movie_seat_selection)
 
         presenter.loadTheater()
-        presenter.loadMovieTitle(movieContentId)
+        presenter.loadMovieTitle(userTicketId)
         presenter.loadTotalSeatAmount()
         presenter.updateSelectCompletion()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -47,32 +41,32 @@ class MovieSeatSelectionActivity :
         setOnConfirmButtonListener()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val seatsIndex =
-            (presenter as MovieSeatSelectionPresenter)
-                .reservationDetail
-                .selectedSeat
-                .map {
-                    it.toString()
-                }
-        outState.putStringArrayList(
-            MovieSeatSelectionKey.SEAT_INFO,
-            seatsIndex as ArrayList<String>,
-        )
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        savedInstanceState.let {
-            val seats = it.getStringArrayList(MovieSeatSelectionKey.SEAT_INFO)
-            seats?.forEach { seat ->
-                val position = seat.toPosition()
-                presenter.selectSeat(position.first, position.second)
-            }
-        }
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        val seatsIndex =
+//            (presenter as MovieSeatSelectionPresenter)
+//                .reservationDetail
+//                .selectedSeat
+//                .map {
+//                    it.toString()
+//                }
+//        outState.putStringArrayList(
+//            MovieSeatSelectionKey.SEAT_INFO,
+//            seatsIndex as ArrayList<String>,
+//        )
+//    }
+//
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//
+//        savedInstanceState.let {
+//            val seats = it.getStringArrayList(MovieSeatSelectionKey.SEAT_INFO)
+//            seats?.forEach { seat ->
+//                val position = seat.toPosition()
+//                presenter.selectSeat(position.first, position.second)
+//            }
+//        }
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -93,10 +87,7 @@ class MovieSeatSelectionActivity :
             .setTitle(R.string.reservation_confirm)
             .setMessage(R.string.reservation_confirm_comment)
             .setPositiveButton(R.string.reservation_complete) { _, _ ->
-                presenter.reserveMovie(
-                    selectedDate,
-                    selectedTime,
-                )
+                presenter.reserveMovie(userTicketId)
             }
             .setNegativeButton(R.string.cancel) { dialog, _ ->
                 dialog.dismiss()
@@ -104,24 +95,13 @@ class MovieSeatSelectionActivity :
             .show()
     }
 
-    private fun movieContentId() =
+    private fun userTicketId() =
         intent.getLongExtra(
-            MovieSeatSelectionKey.MOVIE_CONTENT_ID,
+            MovieSeatSelectionKey.TICKET_ID,
             MOVIE_CONTENT_ID_DEFAULT_VALUE,
         )
 
-    private fun reservationCount() =
-        intent.getIntExtra(
-            MovieSeatSelectionKey.COUNT,
-            RESERVATION_COUNT_DEFAULT_VALUE,
-        )
-
-    private fun selectedDate(): String = intent.getStringExtra(MovieSeatSelectionKey.DATE).toString()
-
-    private fun selectedTime() = intent?.getStringExtra(MovieSeatSelectionKey.TIME).toString()
-
-    override fun initializePresenter(): MovieSeatSelectionContract.Presenter =
-        MovieSeatSelectionPresenter(this, MovieContentsImpl, UserTicketsImpl, reservationCount)
+    override fun initializePresenter(): MovieSeatSelectionContract.Presenter = MovieSeatSelectionPresenter(this, UserTicketsImpl)
 
     override fun showMovieTitle(title: String) {
         movieTitle.text = title
@@ -205,6 +185,5 @@ class MovieSeatSelectionActivity :
     companion object {
         private val TAG = MovieSeatSelectionActivity::class.simpleName
         private const val MOVIE_CONTENT_ID_DEFAULT_VALUE = -1L
-        private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
     }
 }

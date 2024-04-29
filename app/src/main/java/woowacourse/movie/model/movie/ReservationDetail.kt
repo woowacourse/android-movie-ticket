@@ -1,7 +1,7 @@
 package woowacourse.movie.model.movie
 
 class ReservationDetail(
-    private val reservationCount: Int,
+    val reservationCount: Int,
     private val _selectedSeat: MutableList<Seat> = mutableListOf(),
 ) {
     val selectedSeat: List<Seat>

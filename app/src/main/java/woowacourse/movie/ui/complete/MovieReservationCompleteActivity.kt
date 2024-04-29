@@ -11,13 +11,13 @@ import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.home.MovieHomeActivity
+import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
     MovieReservationCompleteContract.View {
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
-    private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
-    private val screeningTimeText by lazy { findViewById<TextView>(R.id.screening_time_text) }
+    private val screeningDateTimeText by lazy { findViewById<TextView>(R.id.screening_date_time_text) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
     private val reservationSeatText by lazy { findViewById<TextView>(R.id.reservation_seat_text) }
     private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
@@ -56,8 +56,8 @@ class MovieReservationCompleteActivity :
     override fun showTicket(userTicket: UserTicket) {
         userTicket.run {
             titleText.text = title
-            screeningDateText.text = date
-            screeningTimeText.text = time
+            screeningDateTimeText.text =
+                screeningStartDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
             reservationCountText.text =
                 resources.getString(R.string.reservation_count)
                     .format(reservationDetail.selectedSeat.size)

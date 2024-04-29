@@ -91,8 +91,8 @@ class MovieReservationCompleteActivityTest {
             UserTicketsImpl.save(
                 UserTicket(
                     title = "해리",
-                    date = "2024-03-28",
-                    time = "21:00",
+                    screeningStartDate = "2024-03-28",
+                    screeningStartTime = "21:00",
                     reservationDetail = reservationDetail,
                 ),
             )

@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.selection.MovieSeatSelectionActivity
@@ -65,8 +66,8 @@ class MovieReservationActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    val value = movieTimeSpinner.getItemAtPosition(position).toString()
-                    presenter.selectTime(value)
+                    val value = movieTimeSpinner.getItemAtPosition(position)
+                    presenter.selectTime(value as LocalTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -107,7 +108,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
+    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl, UserTicketsImpl)
 
     private fun movieContentId() = intent.getLongExtra(MovieReservationKey.ID, DEFAULT_VALUE)
 
@@ -168,16 +169,9 @@ class MovieReservationActivity :
         movieTimeSpinner.adapter = timeAdapter
     }
 
-    override fun moveMovieSeatSelectionPage(
-        reservationCount: Int,
-        selectedDate: String,
-        selectedTime: String,
-    ) {
+    override fun moveMovieSeatSelectionPage(userTicketId: Long) {
         Intent(this, MovieSeatSelectionActivity::class.java).run {
-            putExtra(MovieReservationKey.ID, movieContentId())
-            putExtra(MovieReservationKey.COUNT, reservationCount)
-            putExtra(MovieReservationKey.DATE, selectedDate)
-            putExtra(MovieReservationKey.TIME, selectedTime)
+            putExtra(MovieReservationKey.TICKET_ID, userTicketId)
             startActivity(this)
         }
     }

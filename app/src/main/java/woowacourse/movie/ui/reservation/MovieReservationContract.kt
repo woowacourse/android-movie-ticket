@@ -16,11 +16,7 @@ interface MovieReservationContract {
 
         fun showMovieTimeSelection(timeRange: List<LocalTime>)
 
-        fun moveMovieSeatSelectionPage(
-            reservationCount: Int,
-            selectedDate: String,
-            selectedTime: String,
-        )
+        fun moveMovieSeatSelectionPage(userTicketId: Long)
     }
 
     interface Presenter {
@@ -30,7 +26,7 @@ interface MovieReservationContract {
 
         fun selectDate(date: LocalDate)
 
-        fun selectTime(time: String)
+        fun selectTime(time: LocalTime)
 
         fun decreaseCount()
 
