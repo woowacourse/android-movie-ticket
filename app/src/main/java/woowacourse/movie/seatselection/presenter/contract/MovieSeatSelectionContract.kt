@@ -24,10 +24,12 @@ interface MovieSeatSelectionContract {
     interface Presenter {
         fun loadMovieTitle(id: Long)
 
-        fun loadTableSeats()
+        fun loadTableSeats(count: Int)
 
         fun clickTableSeat(index: Int)
 
         fun clickPositiveButton()
+
+        fun updateSelectedSeats(count: Int)
     }
 }

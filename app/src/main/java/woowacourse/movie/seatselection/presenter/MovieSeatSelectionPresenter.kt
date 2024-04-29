@@ -7,19 +7,23 @@ import woowacourse.movie.seatselection.presenter.contract.MovieSeatSelectionCont
 
 class MovieSeatSelectionPresenter(
     private val movieSeatSelectionContractView: MovieSeatSelectionContract.View,
-    count: Int,
 ) : MovieSeatSelectionContract.Presenter {
-    val movieSelectedSeats: MovieSelectedSeats = MovieSelectedSeats(count)
+    lateinit var movieSelectedSeats: MovieSelectedSeats
 
     override fun loadMovieTitle(id: Long) {
         val movieData = getMovieById(id)
         movieData?.let { movie ->
-            movieSeatSelectionContractView.displayMovieTitle(movieData.title)
+            movieSeatSelectionContractView.displayMovieTitle(movie.title)
         }
     }
 
-    override fun loadTableSeats() {
+    override fun loadTableSeats(count: Int) {
+        movieSelectedSeats = MovieSelectedSeats(count)
         movieSeatSelectionContractView.setUpTableSeats(movieSelectedSeats.baseSeats)
+    }
+
+    override fun updateSelectedSeats(count: Int) {
+        movieSelectedSeats = MovieSelectedSeats(count)
     }
 
     override fun clickTableSeat(index: Int) {

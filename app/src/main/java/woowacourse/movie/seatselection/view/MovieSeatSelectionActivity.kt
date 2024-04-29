@@ -50,11 +50,7 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         seatSelectionPresenter =
-            MovieSeatSelectionPresenter(
-                this,
-                intent?.getIntExtra(KEY_MOVIE_COUNT, INVALID_VALUE_MOVIE_COUNT)
-                    ?: INVALID_VALUE_MOVIE_COUNT,
-            )
+            MovieSeatSelectionPresenter(this)
 
         seatSelectionPresenter.loadMovieTitle(
             intent.getLongExtra(
@@ -62,9 +58,14 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
                 INVALID_VALUE_MOVIE_ID,
             ),
         )
-        seatSelectionPresenter.loadTableSeats()
 
-        setUpSelectedSeats(savedInstanceState?.getIntArray(KEY_SELECTED_POSITIONS))
+        seatSelectionPresenter.loadTableSeats(
+            intent.getIntExtra(
+                KEY_MOVIE_COUNT,
+                INVALID_VALUE_MOVIE_COUNT,
+            ),
+        )
+
         setUpCompleteButton()
     }
 
@@ -72,6 +73,20 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
         super.onSaveInstanceState(outState)
         val selectedPositions = seatSelectionPresenter.movieSelectedSeats.getSelectedPositions()
         outState.putIntArray(KEY_SELECTED_POSITIONS, selectedPositions)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val savedCount =
+            savedInstanceState.getInt(
+                KEY_MOVIE_COUNT,
+                INVALID_VALUE_MOVIE_COUNT,
+            )
+        seatSelectionPresenter.updateSelectedSeats(savedCount)
+
+        val selectedPositions = savedInstanceState.getIntArray(KEY_SELECTED_POSITIONS)
+        setUpSelectedSeats(selectedPositions)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

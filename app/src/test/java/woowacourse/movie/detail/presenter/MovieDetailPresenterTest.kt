@@ -34,7 +34,7 @@ class MovieDetailPresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk()
-        presenter = MovieDetailPresenter(view, null, null)
+        presenter = MovieDetailPresenter(view)
         mockkObject(MovieRepository)
     }
 

@@ -44,5 +44,9 @@ interface MovieDetailContract {
             date: String,
             time: String,
         )
+
+        fun updateRevervationCount(count: Int)
+
+        fun updateTimeSpinnerPosition(position: Int)
     }
 }

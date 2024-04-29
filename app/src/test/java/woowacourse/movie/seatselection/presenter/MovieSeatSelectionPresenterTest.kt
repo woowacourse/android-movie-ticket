@@ -19,7 +19,8 @@ class MovieSeatSelectionPresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk()
-        presenter = MovieSeatSelectionPresenter(view, 3)
+        presenter = MovieSeatSelectionPresenter(view)
+        presenter.updateSelectedSeats(3)
         mockkObject(MovieRepository)
     }
 
@@ -41,7 +42,7 @@ class MovieSeatSelectionPresenterTest {
         every { view.setUpTableSeats(any()) } just runs
 
         // When
-        presenter.loadTableSeats()
+        presenter.loadTableSeats(3)
 
         // Then
         verify { view.setUpTableSeats(any()) }
@@ -67,6 +68,7 @@ class MovieSeatSelectionPresenterTest {
         every { view.navigateToResultView(any()) } just runs
 
         // When
+
         presenter.clickPositiveButton()
 
         // Then

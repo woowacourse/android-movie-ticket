@@ -5,6 +5,10 @@ class MovieCount(val count: Int = DEFAULT_COUNT) {
         require(count in MIN_COUNT..MAX_COUNT) { INVALID_COUNT_MESSAGE }
     }
 
+    fun update(count: Int): MovieCount {
+        return MovieCount(count)
+    }
+
     operator fun dec(): MovieCount {
         if (count == MIN_COUNT) return this
         return MovieCount(count - OFFSET_COUNT)

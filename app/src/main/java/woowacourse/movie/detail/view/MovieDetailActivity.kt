@@ -51,11 +51,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         movieDetailPresenter =
-            MovieDetailPresenter(
-                this,
-                savedInstanceState?.getInt(KEY_ITEM_POSITION),
-                savedInstanceState?.getInt(KEY_MOVIE_COUNT),
-            )
+            MovieDetailPresenter(this)
         movieDetailPresenter.loadMovieDetail(
             intent.getLongExtra(
                 KEY_MOVIE_ID,
@@ -66,10 +62,22 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
         val position = runningTimeSpinner.selectedItemPosition
         outState.putInt(KEY_ITEM_POSITION, position)
+
         val count = reservationCount.text.toString().toInt()
         outState.putInt(KEY_MOVIE_COUNT, count)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val savedPosition = savedInstanceState.getInt(KEY_ITEM_POSITION)
+        movieDetailPresenter.updateTimeSpinnerPosition(savedPosition)
+
+        val savedCount = savedInstanceState.getInt(KEY_MOVIE_COUNT)
+        movieDetailPresenter.updateRevervationCount(savedCount)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
