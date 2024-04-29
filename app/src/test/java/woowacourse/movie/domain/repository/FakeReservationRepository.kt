@@ -18,28 +18,37 @@ class FakeReservationRepository : ReservationRepository {
             TimeReservation.NULL,
         )
 
-    override fun save(screen: Screen, seats: Seats, dateTime: DateTime): Result<Int> {
+    override fun save(
+        screen: Screen,
+        seats: Seats,
+        dateTime: DateTime,
+    ): Result<Int> {
         TODO("Not yet implemented")
     }
 
-    override fun saveTimeReservation(screen: Screen, count: Int, dateTime: DateTime): Result<Int> = runCatching {
-        val id = timeReservations.size + 1
-        timeReservations.add(
-            TimeReservation(
-                id = timeReservations.size + 1,
-                screen = screen,
-                ticket = Ticket(count),
-                dateTime = dateTime,
+    override fun saveTimeReservation(
+        screen: Screen,
+        count: Int,
+        dateTime: DateTime,
+    ): Result<Int> =
+        runCatching {
+            val id = timeReservations.size + 1
+            timeReservations.add(
+                TimeReservation(
+                    id = timeReservations.size + 1,
+                    screen = screen,
+                    ticket = Ticket(count),
+                    dateTime = dateTime,
+                ),
             )
-        )
-        id
-    }
+            id
+        }
 
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
         timeReservations.find { it.id == timeReservationId }
             ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
 
-    override fun findById2(id: Int): Result<Reservation> =
+    override fun findById(id: Int): Result<Reservation> =
         runCatching {
             val reservation = reservations.find { it.id == id }
             reservation ?: throw NoSuchElementException()

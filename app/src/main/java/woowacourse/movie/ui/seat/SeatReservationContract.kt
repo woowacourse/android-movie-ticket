@@ -26,7 +26,10 @@ interface SeatReservationContract {
 
         fun loadTimeReservations(timeReservationId: Int)
 
-        fun selectSeat(position: Position, seatView: android.view.View)
+        fun selectSeat(
+            position: Position,
+            seatView: android.view.View,
+        )
 
         fun reserve(screenId: Int)
     }

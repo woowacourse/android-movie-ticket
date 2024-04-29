@@ -16,7 +16,7 @@ interface ScreenDetailContract {
             dateRange: DateRange,
             screenTimePolicy: ScreenTimePolicy,
             selectDateListener: SelectDateListener,
-            selectTimeListener: SelectTimeListener
+            selectTimeListener: SelectTimeListener,
         )
 
         fun navigateToSeatsReservation(timeReservationId: Int)

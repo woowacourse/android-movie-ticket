@@ -31,7 +31,7 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
         selectDateListener: SelectDateListener,
-        selectTimeListener: SelectTimeListener
+        selectTimeListener: SelectTimeListener,
     ) {
         initDateAdapter(dateRange)
         initTimeAdapter(dateRange.start, screenTimePolicy)
@@ -39,7 +39,6 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         initDateSpinnerSelection(screenTimePolicy, selectDateListener)
         initTimeSpinnerSelection(selectTimeListener)
     }
-
 
     override fun restoreDatePosition(position: Int) {
         dateSpinner.setSelection(position)
@@ -73,7 +72,10 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         timeSpinner.adapter = timeAdapter
     }
 
-    private fun initDateSpinnerSelection(screenTimePolicy: ScreenTimePolicy, selectDateListener: SelectDateListener) {
+    private fun initDateSpinnerSelection(
+        screenTimePolicy: ScreenTimePolicy,
+        selectDateListener: SelectDateListener,
+    ) {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -96,7 +98,10 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
             }
     }
 
-    private fun initDateSpinnerSelection(screenTimePolicy: ScreenTimePolicy, presenter: ScreenDetailContract.Presenter) {
+    private fun initDateSpinnerSelection(
+        screenTimePolicy: ScreenTimePolicy,
+        presenter: ScreenDetailContract.Presenter,
+    ) {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(

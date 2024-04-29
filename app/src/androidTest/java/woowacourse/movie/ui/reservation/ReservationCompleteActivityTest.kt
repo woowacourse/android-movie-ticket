@@ -43,5 +43,5 @@ class ReservationCompleteActivityTest {
         onView(withId(R.id.tv_reservation_amount)).check(matches(withText("13,000원 (현장 결제)")))
     }
 
-    private fun testFixtureReservationId(): Result<Int> = throw NotImplementedError()// TODO: save new Reservation
+    private fun testFixtureReservationId(): Result<Int> = throw NotImplementedError() // TODO: save new Reservation
 }

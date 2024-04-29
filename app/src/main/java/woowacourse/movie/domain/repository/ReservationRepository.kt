@@ -10,7 +10,7 @@ interface ReservationRepository {
     fun save(
         screen: Screen,
         seats: Seats,
-        dateTime: DateTime
+        dateTime: DateTime,
     ): Result<Int>
 
     fun saveTimeReservation(
@@ -19,7 +19,7 @@ interface ReservationRepository {
         dateTime: DateTime,
     ): Result<Int>
 
-    fun loadTimeReservation(timeReservationId: Int) : TimeReservation
+    fun loadTimeReservation(timeReservationId: Int): TimeReservation
 
-    fun findById2(id: Int): Result<Reservation>
+    fun findById(id: Int): Result<Reservation>
 }

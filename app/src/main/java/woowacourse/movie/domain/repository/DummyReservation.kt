@@ -15,7 +15,7 @@ object DummyReservation : ReservationRepository {
     override fun save(
         screen: Screen,
         seats: Seats,
-        dateTime: DateTime
+        dateTime: DateTime,
     ): Result<Int> {
         return runCatching {
             val id = reservations.size + 1
@@ -24,7 +24,11 @@ object DummyReservation : ReservationRepository {
         }
     }
 
-    override fun saveTimeReservation(screen: Screen, count: Int, dateTime: DateTime): Result<Int> {
+    override fun saveTimeReservation(
+        screen: Screen,
+        count: Int,
+        dateTime: DateTime,
+    ): Result<Int> {
         return runCatching {
             val id = timeReservation.size + 1
             timeReservation.add(TimeReservation(id, screen, Ticket(count), dateTime))
@@ -33,9 +37,11 @@ object DummyReservation : ReservationRepository {
     }
 
     override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
-        timeReservation.find { it.id == timeReservationId } ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
+        timeReservation.find {
+            it.id == timeReservationId
+        } ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
 
-    override fun findById2(id: Int): Result<Reservation> {
+    override fun findById(id: Int): Result<Reservation> {
         return runCatching {
             val reservation = reservations.find { it.id == id }
             reservation ?: throw IllegalArgumentException("예약 정보를 찾을 수 없습니다.")

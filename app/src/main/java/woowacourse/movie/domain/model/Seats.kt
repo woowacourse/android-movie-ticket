@@ -13,5 +13,8 @@ data class Seats(
 
     fun maxRow(): Int = seats.maxOf { it.position.row + 1 }
 
-    fun findSeat(position: Position): Seat = seats.find { it.position == position } ?: throw NoSuchElementException("there is no seat in $position")
+    fun findSeat(position: Position): Seat =
+        seats.find {
+            it.position == position
+        } ?: throw NoSuchElementException("there is no seat in $position")
 }

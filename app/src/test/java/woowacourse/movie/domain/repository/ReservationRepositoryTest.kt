@@ -22,16 +22,16 @@ class ReservationRepositoryTest {
 
     @Test
     fun `find reservation by id`() {
-        val reservation = repository.findById2(-1).getOrThrow()
+        val reservation = repository.findById(-1).getOrThrow()
         assertThat(reservation).isEqualTo(
             Reservation(
                 id = -1,
                 screen = Screen.NULL,
                 ticket = Ticket(1),
                 seats =
-                Seats(
-                    Seat(Position(0, 0), Grade.S),
-                ),
+                    Seats(
+                        Seat(Position(0, 0), Grade.S),
+                    ),
             ),
         )
     }

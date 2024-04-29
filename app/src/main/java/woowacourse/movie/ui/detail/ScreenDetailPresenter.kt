@@ -87,10 +87,11 @@ class ScreenDetailPresenter(
         reservationRepository.saveTimeReservation(
             screen(screenId),
             count = ticket.count,
-            dateTime = DateTime(
-                dateRange.allDates()[datePosition],
-                screenTimePolicy.screeningTimes(dateRange.allDates()[datePosition])[timePosition],
-            ),
+            dateTime =
+                DateTime(
+                    dateRange.allDates()[datePosition],
+                    screenTimePolicy.screeningTimes(dateRange.allDates()[datePosition])[timePosition],
+                ),
         ).onSuccess { timeReservationId ->
             view.navigateToSeatsReservation(timeReservationId)
         }.onFailure { e ->

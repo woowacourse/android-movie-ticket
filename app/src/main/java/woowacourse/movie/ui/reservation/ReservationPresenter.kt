@@ -7,7 +7,7 @@ class ReservationPresenter(
     private val repository: ReservationRepository,
 ) : ReservationContract.Presenter {
     override fun loadReservation(reservationId: Int) {
-        repository.findById2(reservationId)
+        repository.findById(reservationId)
             .onSuccess {
                 view.showReservation(it)
             }

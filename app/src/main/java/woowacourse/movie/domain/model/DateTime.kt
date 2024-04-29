@@ -5,7 +5,7 @@ import java.time.LocalTime
 
 data class DateTime(
     val date: LocalDate,
-    val time: LocalTime
+    val time: LocalTime,
 ) {
     companion object {
         val NULL = DateTime(LocalDate.now(), LocalTime.now())

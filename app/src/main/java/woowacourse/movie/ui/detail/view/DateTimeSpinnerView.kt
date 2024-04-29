@@ -8,7 +8,7 @@ interface DateTimeSpinnerView {
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
         selectDateListener: SelectDateListener,
-        selectTimeListener: SelectTimeListener
+        selectTimeListener: SelectTimeListener,
     )
 
     fun restoreDatePosition(position: Int)

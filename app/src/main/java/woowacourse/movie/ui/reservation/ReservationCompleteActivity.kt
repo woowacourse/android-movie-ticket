@@ -43,9 +43,10 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.Vie
             date.text = dateTime?.date.toString()
             time.text = dateTime?.time.toString()
             amount.text = currency()
-            reservedSeats.text = seats.seats.joinToString(separator = ",") { "${'A' + it.position.row}${it.position.col + 1}"}
+            reservedSeats.text = seats.seats.joinToString(separator = ",") { "${'A' + it.position.row}${it.position.col + 1}" }
         }
     }
+
     private fun Reservation.currency(): String =
         getString(R.string.reserve_amount, Currency.of(Locale.getDefault().country).format(seats.totalPrice()))
 

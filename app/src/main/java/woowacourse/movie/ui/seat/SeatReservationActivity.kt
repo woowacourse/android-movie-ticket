@@ -36,7 +36,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         presenter.loadTimeReservations(id)
         totalPrice.text = "0원"
 
-        reserveCompleteBtn.setOnClickListener{
+        reserveCompleteBtn.setOnClickListener {
             presenter.reserve(id)
         }
     }
@@ -105,10 +105,14 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         private const val TIME_RESERVATION_ID = "timeReservationId"
         private const val DEFAULT_ID = -1
 
-        fun startActivity(context: Context, timeReservationId: Int) {
-            val intent = Intent(context, SeatReservationActivity::class.java).apply {
-                putExtra(TIME_RESERVATION_ID, timeReservationId)
-            }
+        fun startActivity(
+            context: Context,
+            timeReservationId: Int,
+        ) {
+            val intent =
+                Intent(context, SeatReservationActivity::class.java).apply {
+                    putExtra(TIME_RESERVATION_ID, timeReservationId)
+                }
             context.startActivity(intent)
         }
     }

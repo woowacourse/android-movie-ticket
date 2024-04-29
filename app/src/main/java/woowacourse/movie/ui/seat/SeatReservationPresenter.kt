@@ -30,13 +30,16 @@ class SeatReservationPresenter(
         ticketCount = timeReservation.ticket.count
 
         view.showTimeReservations(
-            reservationRepository.loadTimeReservation(timeReservationId)
+            reservationRepository.loadTimeReservation(timeReservationId),
         )
     }
 
-    override fun selectSeat(position: Position, seatView: View) {
+    override fun selectSeat(
+        position: Position,
+        seatView: View,
+    ) {
         val seat = seats.findSeat(position)
-        Log.d("selectedSeats", "before add or remove ${selectedSeats.toString()}")
+        Log.d("selectedSeats", "before add or remove $selectedSeats")
 
         if (selectedSeats.contains(seat)) {
             seatView.isSelected = !seatView.isSelected // 선택 상태 토글
@@ -49,7 +52,7 @@ class SeatReservationPresenter(
                 selectedSeats.add(seat)
             }
         }
-        Log.d("selectedSeats", "after add or remove ${selectedSeats.toString()}")
+        Log.d("selectedSeats", "after add or remove $selectedSeats")
 
         view.showTotalPrice(Seats(selectedSeats))
         if (selectedSeats.count() == ticketCount) {
@@ -74,7 +77,7 @@ class SeatReservationPresenter(
         reservationRepository.save(
             screen(screenId),
             Seats(selectedSeats),
-            timeReservation.dateTime
+            timeReservation.dateTime,
         ).onSuccess { id ->
             view.navigateToCompleteReservation(id)
         }.onFailure { e ->

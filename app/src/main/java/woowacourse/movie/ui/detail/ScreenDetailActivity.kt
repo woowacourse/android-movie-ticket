@@ -57,7 +57,8 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     }
 
     private fun initClickListener(screenId: Int) {
-        ticketView.initClickListener(screenId = screenId,
+        ticketView.initClickListener(
+            screenId = screenId,
             object : TicketReserveListener<Int> {
                 override fun increaseTicket() {
                     presenter.plusTicket()
@@ -70,7 +71,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
                 override fun reserve(screenId: Int) {
                     presenter.reserve(screenId)
                 }
-            }
+            },
         )
     }
 
@@ -113,7 +114,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
         selectDateListener: SelectDateListener,
-        selectTimeListener: SelectTimeListener
+        selectTimeListener: SelectTimeListener,
     ) {
         dateTimeSpinnerView.show(dateRange, screenTimePolicy, selectDateListener, selectTimeListener)
     }
