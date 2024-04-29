@@ -18,6 +18,7 @@ import woowacourse.movie.model.pricing.Tier
 import woowacourse.movie.model.seat.Position
 import woowacourse.movie.presenter.SeatSelectionPresenter
 import woowacourse.movie.ui.SeatPlan
+import woowacourse.movie.ui.format
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter
@@ -74,7 +75,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             val button = seatView.findViewById<Button>(R.id.seat_button)
             button.apply {
                 setTextColor(color)
-                text = "${position.x}${position.y}"
+                text = position.format()
                 id = R.id.seat_button * 100 + position.x * 10 + position.y
             }
             button.setOnClickListener {
