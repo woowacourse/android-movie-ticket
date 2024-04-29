@@ -10,6 +10,11 @@ class ReservationFinishedPresenter(
     private val seats: String,
     private val totalPrice: Int,
 ) : ReservationFinishedContract.Presenter {
+
+    init {
+        loadReservationInformation()
+    }
+
     override fun loadReservationInformation() {
         val movieTitle = Movies.obtainMovie(movieId).title
 

@@ -12,11 +12,10 @@ import woowacourse.movie.model.Ticket
 import java.text.DecimalFormat
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
-    private val titleTextView: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
-    private val screeningScheduleTextView: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_schedule) }
-
-    private val seatInformationTextView: TextView by lazy { findViewById(R.id.text_view_reservation_finished_seat_information) }
-    private val ticketPriceTextView: TextView by lazy { findViewById(R.id.text_view_reservation_finished_ticket_price) }
+    private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
+    private val screeningSchedule: TextView by lazy { findViewById(R.id.text_view_reservation_finished_screening_schedule) }
+    private val seatInformation: TextView by lazy { findViewById(R.id.text_view_reservation_finished_seat_information) }
+    private val ticketPrice: TextView by lazy { findViewById(R.id.text_view_reservation_finished_ticket_price) }
 
     private lateinit var presenter: ReservationFinishedPresenter
 
@@ -25,12 +24,12 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_finished)
 
-        val movieId = intent.getIntExtra(MOVIE_ID, 0)
+        val movieId = intent.getIntExtra(MOVIE_ID, MOVIE_ID_DEFAULT_VALUE)
         val ticket =
             intent.getSerializableExtra(TICKET, Ticket::class.java)
                 ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
-        val seats = intent.getStringExtra(SEATS) ?: ""
-        val totalPrice = intent.getIntExtra(TOTAL_PRICE, 0)
+        val seats = intent.getStringExtra(SEATS) ?: throw IllegalArgumentException("빈 자리가 넘어 왔습니다.")
+        val totalPrice = intent.getIntExtra(TOTAL_PRICE, TOTAL_PRICE_DEFAULT_VALUE)
 
         presenter =
             ReservationFinishedPresenter(
@@ -40,7 +39,6 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
                 seats,
                 totalPrice,
             )
-        presenter.loadReservationInformation()
     }
 
     override fun showReservationInformation(
@@ -51,17 +49,17 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         seats: String,
         totalPrice: Int,
     ) {
-        titleTextView.text = movieTitle
-        screeningScheduleTextView.text =
+        title.text = movieTitle
+        screeningSchedule.text =
             getString(R.string.reservation_finished_schedule, screeningDate, screeningTime)
-        seatInformationTextView.text =
+        seatInformation.text =
             getString(R.string.reservation_finished_person, people, seats)
-        ticketPriceTextView.text =
+        ticketPrice.text =
             getString(R.string.reservation_finished_price, convertPriceFormat(totalPrice))
     }
 
     private fun convertPriceFormat(price: Int): String {
-        val decimalFormat = DecimalFormat("#,###")
+        val decimalFormat = DecimalFormat(PRICE_FORMAT)
         return decimalFormat.format(price)
     }
 
@@ -70,6 +68,9 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         private const val TICKET = "ticket"
         private const val SEATS = "seats"
         private const val TOTAL_PRICE = "totalPrice"
+        private const val MOVIE_ID_DEFAULT_VALUE = 0
+        private const val TOTAL_PRICE_DEFAULT_VALUE = 0
+        private const val PRICE_FORMAT = "#,###"
 
         fun getIntent(
             context: Context,
