@@ -50,6 +50,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         setUpViewById()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        setUpButtonAction()
+
         movieDetailPresenter =
             MovieDetailPresenter(this)
         movieDetailPresenter.loadMovieDetail(
@@ -98,12 +100,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             detailDescription.text = movie.description
             reservationCount.text = movieCount.count.toString()
 
-            minusButton.setOnClickListener {
-                movieDetailPresenter.minusReservationCount()
-            }
-            plusButton.setOnClickListener {
-                movieDetailPresenter.plusReservationCount()
-            }
             seatSelectionButton.setOnClickListener {
                 movieDetailPresenter.reserveMovie(
                     movie.id,
@@ -174,6 +170,15 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             putExtra(KEY_MOVIE_TIME, time)
             putExtra(KEY_MOVIE_COUNT, count)
             startActivity(this)
+        }
+    }
+
+    private fun setUpButtonAction() {
+        minusButton.setOnClickListener {
+            movieDetailPresenter.minusReservationCount()
+        }
+        plusButton.setOnClickListener {
+            movieDetailPresenter.plusReservationCount()
         }
     }
 
