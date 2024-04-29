@@ -19,6 +19,8 @@ import woowacourse.movie.ui.ScreenDetailUI
 import woowacourse.movie.ui.detail.view.DateTimeSpinnerView
 import woowacourse.movie.ui.detail.view.ScreenDetailScreenView
 import woowacourse.movie.ui.detail.view.ScreenDetailTicketView
+import woowacourse.movie.ui.detail.view.SelectDateListener
+import woowacourse.movie.ui.detail.view.SelectTimeListener
 import woowacourse.movie.ui.detail.view.TicketReserveListener
 import woowacourse.movie.ui.seat.SeatReservationActivity
 
@@ -110,8 +112,10 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
     override fun showDateTimePicker(
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
+        selectDateListener: SelectDateListener,
+        selectTimeListener: SelectTimeListener
     ) {
-        dateTimeSpinnerView.show(dateRange, screenTimePolicy, presenter)
+        dateTimeSpinnerView.show(dateRange, screenTimePolicy, selectDateListener, selectTimeListener)
     }
 
     override fun navigateToSeatsReservation(timeReservationId: Int) {

@@ -30,13 +30,14 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
     override fun show(
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
-        presenter: ScreenDetailContract.Presenter,
+        selectDateListener: SelectDateListener,
+        selectTimeListener: SelectTimeListener
     ) {
         initDateAdapter(dateRange)
         initTimeAdapter(dateRange.start, screenTimePolicy)
 
-        initDateSpinnerSelection(screenTimePolicy, presenter)
-        initTimeSpinnerSelection(presenter)
+        initDateSpinnerSelection(screenTimePolicy, selectDateListener)
+        initTimeSpinnerSelection(selectTimeListener)
     }
 
 
@@ -72,6 +73,29 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         timeSpinner.adapter = timeAdapter
     }
 
+    private fun initDateSpinnerSelection(screenTimePolicy: ScreenTimePolicy, selectDateListener: SelectDateListener) {
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val date = dateAdapter.getItem(position)
+                    date?.let {
+                        timeAdapter.clear()
+                        timeAdapter.addAll(screenTimePolicy.screeningTimes(date).toList())
+                    }
+                    selectDateListener.selectDate(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
+                }
+            }
+    }
+
     private fun initDateSpinnerSelection(screenTimePolicy: ScreenTimePolicy, presenter: ScreenDetailContract.Presenter) {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -87,6 +111,24 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
                         timeAdapter.addAll(screenTimePolicy.screeningTimes(date).toList())
                     }
                     presenter.saveDatePosition(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.e("ScreenDetailDateTimeSpinnerView", "Nothing Selected")
+                }
+            }
+    }
+
+    private fun initTimeSpinnerSelection(selectTimeListener: SelectTimeListener) {
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectTimeListener.selectTime(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {

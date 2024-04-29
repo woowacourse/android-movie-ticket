@@ -31,7 +31,7 @@ class ScreenDetailPresenter(
             val loadedScreen = screen(screenId)
             view.showScreen(loadedScreen.toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
             dateRange = loadedScreen.dateRange
-            view.showDateTimePicker(dateRange, screenTimePolicy)
+            view.showDateTimePicker(dateRange, screenTimePolicy, ::saveDatePosition, ::saveTimePosition)
         } catch (e: Exception) {
             when (e) {
                 is NoSuchElementException -> view.goToBack(e)

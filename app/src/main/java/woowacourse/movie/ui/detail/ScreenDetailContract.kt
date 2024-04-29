@@ -3,8 +3,8 @@ package woowacourse.movie.ui.detail
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.ui.ScreenDetailUI
-import java.time.LocalDate
-import java.time.LocalTime
+import woowacourse.movie.ui.detail.view.SelectDateListener
+import woowacourse.movie.ui.detail.view.SelectTimeListener
 
 interface ScreenDetailContract {
     interface View {
@@ -15,6 +15,8 @@ interface ScreenDetailContract {
         fun showDateTimePicker(
             dateRange: DateRange,
             screenTimePolicy: ScreenTimePolicy,
+            selectDateListener: SelectDateListener,
+            selectTimeListener: SelectTimeListener
         )
 
         fun navigateToSeatsReservation(timeReservationId: Int)
