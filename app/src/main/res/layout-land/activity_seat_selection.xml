@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.seatSelection.SeatSelectionActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.76" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/gl_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EAEAEA">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="32dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="32dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_screen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#494949"
+                android:gravity="center"
+                android:paddingVertical="12dp"
+                android:text="@string/text_screen"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TableLayout
+                android:id="@+id/tl_seats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_screen">
+
+                <TableRow android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_seat_item_0"
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_seat_item_1"
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_seat_item_2"
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_seat_item_3"
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+                </TableRow>
+
+                <TableRow android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+                </TableRow>
+
+                <TableRow android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+                </TableRow>
+
+                <TableRow android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+                </TableRow>
+
+                <TableRow android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/seatItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="A1" />
+                </TableRow>
+
+
+            </TableLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_total_price"
+        app:layout_constraintEnd_toEndOf="@id/gl_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/gl_form"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="영화 제목" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_total_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="12dp"
+        android:textColor="#727272"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gl_btn"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="0원" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_complete"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/selector_complete_btn"
+        android:enabled="false"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:text="@string/text_complete_button"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/gl_btn"
+        app:layout_constraintTop_toTopOf="@id/gl_form" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
