@@ -5,6 +5,7 @@ import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Reservation2
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.TimeReservation
 
 interface ReservationRepository {
     fun save(
@@ -22,6 +23,8 @@ interface ReservationRepository {
         count: Int,
         dateTime: DateTime,
     ): Result<Int>
+    
+    fun loadTimeReservation(timeReservationId: Int) : TimeReservation
 
     fun findById(id: Int): Result<Reservation>
 

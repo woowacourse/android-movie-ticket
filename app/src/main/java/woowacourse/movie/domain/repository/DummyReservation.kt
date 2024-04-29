@@ -46,6 +46,9 @@ object DummyReservation : ReservationRepository {
         }
     }
 
+    override fun loadTimeReservation(timeReservationId: Int): TimeReservation =
+        timeReservation.find { it.id == timeReservationId } ?: throw NoSuchElementException("TimeReservation not found with timeReservationId: $timeReservationId.")
+
     // TODO: delete method (refactoring)
     override fun findById(id: Int): Result<Reservation> {
         return runCatching {

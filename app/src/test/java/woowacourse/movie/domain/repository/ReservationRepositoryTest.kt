@@ -10,6 +10,7 @@ import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.domain.model.TimeReservation
 
 class ReservationRepositoryTest {
     private lateinit var repository: ReservationRepository
@@ -42,9 +43,9 @@ class ReservationRepositoryTest {
                 screen = Screen.NULL,
                 ticket = Ticket(1),
                 seats =
-                    Seats(
-                        Seat(Position(0, 0), Grade.S),
-                    ),
+                Seats(
+                    Seat(Position(0, 0), Grade.S),
+                ),
             ),
         )
     }
@@ -73,5 +74,12 @@ class ReservationRepositoryTest {
                 seats = seats,
             ),
         )
+    }
+
+    @Test
+    fun `find the timeReservation with timeReservationId`() {
+        val timeReservation = repository.loadTimeReservation(0)
+
+        assertThat(timeReservation).isEqualTo(TimeReservation.NULL)
     }
 }
