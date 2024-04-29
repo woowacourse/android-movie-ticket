@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class ReservationMovieSeatsTest {
     @Test
-    fun `getTotalSeatPrice_메서드가_올바른_가격을_반환하는지_확인한다`() {
+    fun `올바른_모든_티켓_가격을_반환하는지_확인한다`() {
         // Given
         val seatA = MovieSeat("A", 1, SeatType.A)
         val seatB = MovieSeat("B", 2, SeatType.B)
@@ -21,7 +21,7 @@ class ReservationMovieSeatsTest {
     }
 
     @Test
-    fun `setSeatSelectType_메서드가_적절한_SeatSelectType을_설정하는지_확인한다`() {
+    fun `영화_선택_상태를_변경하면_적절한_상태로_변경되는지_확인한다`() {
         // Given
         val reservationMovieSeats = ReservationMovieSeats(ticketCount = 5)
         reservationMovieSeats.userSeats.add(MovieSeat("A", 1, SeatType.A))
@@ -65,7 +65,7 @@ class ReservationMovieSeatsTest {
     }
 
     @Test
-    fun `updateSeatSelectType_메서드가_적절한_SeatSelectType을_설정하는지_확인한다`() {
+    fun `좌석을_선택한_후_적절한_영화_선택_상태를_가지는지_확인한다`() {
         // Given
         val reservationMovieSeats = ReservationMovieSeats(ticketCount = 5)
         reservationMovieSeats.userSeats.addAll(

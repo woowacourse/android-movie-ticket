@@ -34,13 +34,13 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `loadTicket은 티켓 정보를 뷰에 표시해야 한다`() {
+    fun `티켓을 불러오면 티켓 정보를 뷰에 표시해야 한다`() {
         presenter.loadData()
         verify { mockView.showTicket(pendingMovieReservationModel) }
     }
 
     @Test
-    fun `loadSeat은 좌석 정보를 뷰에 표시해야 한다`() {
+    fun `시트를 불러오면 좌석 정보를 뷰에 표시해야 한다`() {
         val seats = listOf(
             listOf(
                 MovieSeat("A", 1, SeatType.S),
@@ -55,7 +55,7 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `selectSeat은 선택된 좌석에 따라 뷰를 업데이트 해야 한다`() {
+    fun `시트를 선택하면 선택된 좌석에 따라 뷰를 업데이트 해야 한다`() {
         val rowIndex = 0
         val columnIndex = 0
         val seat = MovieSeat("A", 1, SeatType.S)
@@ -70,14 +70,14 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `ticketing은 최종 티켓 정보를 이동시켜야 한다`() {
+    fun `티켓을 발급하면 최종 티켓 정보를 이동시켜야 한다`() {
         presenter.ticketing()
 
         verify { mockView.moveToTicketDetail(any()) }
     }
 
     @Test
-    fun `confirmSeatResult은 조건에 따라 대화상자를 표시해야 한다`() {
+    fun `현재 시트 결과를 요청하면 조건에 따라 대화상자를 표시해야 한다`() {
         presenter.confirmSeatResult()
 
         verify(exactly = 0) { mockView.showReservationConfirmationDialog() }

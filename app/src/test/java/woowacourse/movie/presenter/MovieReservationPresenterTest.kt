@@ -57,13 +57,13 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `decreaseTicketCount과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
+    fun `티켓을_감소하면_상호작용으로_현재_티켓의_수량을_뷰에_보여지게_한다`() {
         presenter.decreaseTicketCount()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }
 
     @Test
-    fun `increaseTicketCount과_상호작용으로_showCurrentResultTicketCountView를_호출해야_한다`() {
+    fun `티켓을_증가하면_상호작용으로_현재_티켓의_수량을_뷰에_보여지게_한다`() {
         presenter.increaseTicketCount()
         assertEquals(true, mockView.showCurrentResultTicketCountViewCalled)
     }

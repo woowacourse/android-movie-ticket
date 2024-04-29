@@ -10,7 +10,7 @@ class DateMakerTest {
     private val dateMaker: DateMaker = DateMaker()
 
     @Test
-    fun `getDatesBetween 메서드가 주어진 시작일과 종료일 사이의 날짜를 올바르게 반환하는지 확인한다`() {
+    fun `주어진 시작일과 종료일 사이의 날짜를 올바르게 반환하는지 확인한다`() {
         // Given
         val startDate = LocalDate.of(2024, 4, 1)
         val endDate = LocalDate.of(2024, 4, 5)
@@ -31,7 +31,7 @@ class DateMakerTest {
     }
 
     @Test
-    fun `getDateTimes 메서드가 올바른 날짜에 대한 상영 시간을 올바르게 반환하는지 확인한다`() {
+    fun `원하는 날짜에 대한 상영 시간을 올바르게 반환하는지 확인한다`() {
         // Given
         val date = LocalDate.of(2024, 4, 1)
         val expectedTimes =
