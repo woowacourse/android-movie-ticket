@@ -57,7 +57,7 @@ class MovieReservationPresenter(
         view.setOnSpinnerTimeItemSelectedListener(DataResource.screeningTimesWeekdays)
     }
 
-    override fun storeselectedTime(selectedTime: LocalTime) {
+    override fun storeSelectedTime(selectedTime: LocalTime) {
         DataResource.selectedScreeningTime = selectedTime
     }
 }

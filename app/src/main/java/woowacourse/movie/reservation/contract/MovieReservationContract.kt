@@ -47,6 +47,6 @@ interface MovieReservationContract {
 
         fun setSpinnerTimeItemInfo()
 
-        fun storeselectedTime(selectedTime: LocalTime)
+        fun storeSelectedTime(selectedTime: LocalTime)
     }
 }

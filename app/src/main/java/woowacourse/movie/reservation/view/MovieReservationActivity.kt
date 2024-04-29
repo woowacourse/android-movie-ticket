@@ -124,7 +124,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                     id: Long,
                 ) {
                     selectedTime = screeningTimes[position]
-                    presenter.storeselectedTime(selectedTime)
+                    presenter.storeSelectedTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {

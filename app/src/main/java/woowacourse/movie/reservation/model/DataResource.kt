@@ -30,5 +30,5 @@ object DataResource {
             }
         }
 
-    var selectedScreeningTime = LocalTime.of(0, 0, 0)
+    var selectedScreeningTime: LocalTime = LocalTime.of(0, 0, 0)
 }
