@@ -14,7 +14,6 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Grade
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Position
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seat

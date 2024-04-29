@@ -25,8 +25,11 @@ class FakeScreenRepository : ScreenRepository {
         )
 
     companion object {
-        val fakeScreen1 = Screen(1, FakeMovieRepository.fakeMovie1, "1", 1, DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)))
-        val fakeScreen2 = Screen(2, FakeMovieRepository.fakeMovie2, "2", 2, DateRange(LocalDate.of(2024, 3, 2), LocalDate.of(2024, 3, 4)))
-        val fakeScreen3 = Screen(2, FakeMovieRepository.fakeMovie3, "3", 3, DateRange(LocalDate.of(2024, 3, 3), LocalDate.of(2024, 3, 5)))
+        val fakeScreen1 =
+            Screen(1, FakeMovieRepository.fakeMovie1, DateRange(LocalDate.of(2024, 3, 1), LocalDate.of(2024, 3, 3)))
+        val fakeScreen2 =
+            Screen(2, FakeMovieRepository.fakeMovie2, DateRange(LocalDate.of(2024, 3, 2), LocalDate.of(2024, 3, 4)))
+        val fakeScreen3 =
+            Screen(2, FakeMovieRepository.fakeMovie3, DateRange(LocalDate.of(2024, 3, 3), LocalDate.of(2024, 3, 5)))
     }
 }
