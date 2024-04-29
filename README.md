@@ -85,6 +85,39 @@ MVC와 다른 점은 추상화라고 할 수 있는데, MVP는 추상화를 통�
 
 반대로, Unit Test는 기능 및 비즈니스 로직을 담당하는 부분을 테스트하는 데 적합하다고 생각한다.
 
+## ListView vs RecyclerView
+
+ListView와 RecyclerView 모두 리스트뷰를 구현하기 위해 사용되는 라이브러리이며 무엇인가를 재활용하여 특정 아이템을 스크롤 한다는 공통점이 있다.
+그러나 ListView는 View를 재활용하고 RecyclerView는 ViewHolder를 재활용한다.
+
+### ListView
+
+1. 단일 뷰로 이루어진 뷰를 표시하고 재활용한다.
+2. getView()를 구현해야 한다.
+    - convertView가 null일 경우에만 inflate 시킨 후 캐싱한다.
+    - 재사용된 View가 넘어오면 새롭게 inflate하지 않고 캐싱된 View를 가져온다.
+    - 그 후 View를 바인딩시켜 반환시킨다.
+3. View를 계속 바인딩 시키는 것은 큰 비용이 발생한다.
+4. 세로 방향 레이아웃 및 스크롤만 가능하다.
+5. ViewHolder 패턴을 통해 RecyclerView와 유사하게 구현할 수 있다.(메모리 사용량 감소, 성능 향상) 그러나 ViewHolder 패턴이 강제되지 않아 개발자가
+   실수할 수 있고, 애니메이션 및 다양한 레이아웃 관리 등의 RecyclerView의 기능을 구현하기 어렵다.
+
+### RecyclerView
+
+1. ViewHolder 패턴을 강제화하여 아이템을 재사용하므로 메모리 사용량이 줄어들고 스크롤 성능이 향상된다.
+2. 다양한 레이아웃 매니저를 제공하여 수직, 수평, 그리드 형태 등 다양한 레이아웃을 구현할 수 있다.
+3. ItemAnimator를 통해 아이템 추가, 삭제, 이동 등의 애니메이션을 쉽게 구현할 수 있다.
+
+### ViewHolder 패턴이 뭔데???
+
+ViewHolder 패턴은 각 View 객체를 ViewHolder라는 클래스에 보관함으로써
+findViewById의 반복적 호출을 줄여 속도 개선을 할 수 있도록 하는 패턴이다.
+즉, bind한 View를 재활용하는 것이다.
+
+### 결론적으로..
+
+RecyclerView는 ListView에 비해 성능이 우수하고 유연성이 높으며, 대부분의 경우에는 RecyclerView를 사용하는 것이 좋다.
+
 ## MockK 적용기
 
 ## ListView vs RecyclerView
