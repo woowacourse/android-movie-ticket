@@ -1,10 +1,13 @@
 package woowacourse.movie.result.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.main.view.MovieMainActivity
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.result.presenter.MovieResultPresenter
 import woowacourse.movie.result.presenter.contract.MovieResultContract
@@ -35,6 +38,7 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         setContentView(R.layout.activity_movie_result)
         setUpViewById()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setUpBackButton()
 
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.loadMovieTicket(
@@ -72,5 +76,19 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         resultCount = findViewById(R.id.resultReservCount)
         resultSeats = findViewById(R.id.resultSeats)
         resultPrice = findViewById(R.id.resultReservPrice)
+    }
+
+    private fun setUpBackButton() {
+        val onBackPressedDispatcher = onBackPressedDispatcher
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val intent = Intent(this@MovieResultActivity, MovieMainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                }
+            },
+        )
     }
 }

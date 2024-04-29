@@ -66,10 +66,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val count = reservationCount.text.toString().toInt()
-        outState.putInt(KEY_MOVIE_COUNT, count)
         val position = runningTimeSpinner.selectedItemPosition
         outState.putInt(KEY_ITEM_POSITION, position)
+        val count = reservationCount.text.toString().toInt()
+        outState.putInt(KEY_MOVIE_COUNT, count)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
