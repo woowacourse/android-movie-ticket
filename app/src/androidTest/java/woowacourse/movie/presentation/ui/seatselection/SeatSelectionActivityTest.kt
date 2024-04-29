@@ -94,19 +94,14 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `예약_확정_다이얼로그에서_취소_버튼_클릭_시_다이얼로그가_사라진다`() {
-        activityRule.scenario.onActivity { context ->
-            val view =
-                context.findViewById<TableLayout>(R.id.tl_seat_board).children.filterIsInstance<TableRow>()
-                    .flatMap { row -> row.children }.filterIsInstance<TextView>().toList()
+        // given
+        performSeatsSelection(selected = listOf(0, 1, 2, 3))
 
-            view[0].performClick()
-            view[1].performClick()
-            view[2].performClick()
-            view[3].performClick()
-        }
-
+        // when
         onView(withId(R.id.btn_done)).perform(click())
         onView(withId(android.R.id.button2)).perform(click())
+
+        // then
         checkReservationDialogDoesNotExist()
     }
 
