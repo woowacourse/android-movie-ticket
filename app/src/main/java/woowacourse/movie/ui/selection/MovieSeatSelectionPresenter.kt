@@ -3,6 +3,7 @@ package woowacourse.movie.ui.selection
 import woowacourse.movie.model.data.UserTickets
 import woowacourse.movie.model.movie.Seat
 import woowacourse.movie.model.movie.UserTicket
+import woowacourse.movie.ui.utils.positionToIndex
 
 class MovieSeatSelectionPresenter(
     private val view: MovieSeatSelectionContract.View,
@@ -39,11 +40,17 @@ class MovieSeatSelectionPresenter(
         view.showReservationTotalAmount(userTicket.reservationDetail.totalSeatAmount())
     }
 
+    override fun recoverSeatSelection(index: Int) {
+        view.showSelectedSeat(index)
+    }
+
     private fun selectingWork(
         row: Int,
         col: Int,
     ) {
-        if (userTicket.reservationDetail.addSeat(row, col)) view.showSelectedSeat(row, col)
+        if (userTicket.reservationDetail.addSeat(row, col)) {
+            view.showSelectedSeat(positionToIndex(row, col))
+        }
     }
 
     private fun unSelectingWork(
@@ -51,7 +58,7 @@ class MovieSeatSelectionPresenter(
         col: Int,
     ) {
         userTicket.reservationDetail.removeSeat(row, col)
-        view.showUnSelectedSeat(row, col)
+        view.showUnSelectedSeat(positionToIndex(row, col))
     }
 
     override fun reserveMovie(ticketId: Long) {

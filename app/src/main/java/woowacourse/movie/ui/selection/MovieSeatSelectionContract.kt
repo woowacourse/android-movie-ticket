@@ -11,15 +11,9 @@ interface MovieSeatSelectionContract {
             colSize: Int,
         )
 
-        fun showSelectedSeat(
-            row: Int,
-            col: Int,
-        )
+        fun showSelectedSeat(index: Int)
 
-        fun showUnSelectedSeat(
-            row: Int,
-            col: Int,
-        )
+        fun showUnSelectedSeat(index: Int)
 
         fun showReservationTotalAmount(amount: Int)
 
@@ -37,6 +31,8 @@ interface MovieSeatSelectionContract {
             row: Int,
             col: Int,
         )
+
+        fun recoverSeatSelection(index: Int)
 
         fun reserveMovie(ticketId: Long)
     }

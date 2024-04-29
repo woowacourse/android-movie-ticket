@@ -27,6 +27,7 @@ class MovieSeatSelectionActivity :
     private val movieTitle by lazy { findViewById<TextView>(R.id.movie_title_text) }
     private val totalSeatAmount by lazy { findViewById<TextView>(R.id.total_seat_amount_text) }
     private val confirmButton by lazy { findViewById<Button>(R.id.confirm_button) }
+    private val selectedSeatInfo = mutableListOf<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,29 +42,20 @@ class MovieSeatSelectionActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-//        val seatsIndex =
-//            (presenter as MovieSeatSelectionPresenter)
-//                .reservationDetail
-//                .selectedSeat
-//                .map {
-//                    it.toString()
-//                }
-//        outState.putStringArrayList(
-//            MovieSeatSelectionKey.SEAT_INFO,
-//            seatsIndex as ArrayList<String>,
-//        )
+        outState.putIntegerArrayList(
+            MovieSeatSelectionKey.SEAT_INFO,
+            selectedSeatInfo as ArrayList<Int>,
+        )
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-//
-//        savedInstanceState.let {
-//            val seats = it.getStringArrayList(MovieSeatSelectionKey.SEAT_INFO)
-//            seats?.forEach { seat ->
-//                val position = seat.toPosition()
-//                presenter.selectSeat(position.first, position.second)
-//            }
-//        }
+
+        val seats = savedInstanceState.getIntegerArrayList(MovieSeatSelectionKey.SEAT_INFO)
+        seats?.forEach { seatIndex ->
+            presenter.recoverSeatSelection(seatIndex)
+            selectedSeatInfo.add(seatIndex)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -124,28 +116,23 @@ class MovieSeatSelectionActivity :
                 text = Seat(row, col).toString()
                 setOnClickListener {
                     presenter.selectSeat(row, col)
+                    selectedSeatInfo.add(positionToIndex(row, col))
                 }
             }
         }
     }
 
-    override fun showSelectedSeat(
-        row: Int,
-        col: Int,
-    ) {
+    override fun showSelectedSeat(index: Int) {
         seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)]
+            .filterIsInstance<TextView>().toList()[index]
             .setBackgroundColor(
                 ContextCompat.getColor(this, R.color.selected_seat),
             )
     }
 
-    override fun showUnSelectedSeat(
-        row: Int,
-        col: Int,
-    ) {
+    override fun showUnSelectedSeat(index: Int) {
         seatTable.children.filterIsInstance<TableRow>().flatMap { it.children }
-            .filterIsInstance<TextView>().toList()[positionToIndex(row, col)]
+            .filterIsInstance<TextView>().toList()[index]
             .setBackgroundColor(
                 ContextCompat.getColor(this, R.color.unSelected_seat),
             )
