@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AppCompat.TextView.Seat.Selection.Table.Row" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:layout_width">73dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:textSize">22dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/white</item>
+
+    </style>
+
+    <style name="Theme.AppCompat.TextView.Seat.Selection.Table.Row.Purple" parent="Theme.AppCompat.TextView.Seat.Selection.Table.Row">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
+
+    <style name="Theme.AppCompat.TextView.Seat.Selection.Table.Row.Green" parent="Theme.AppCompat.TextView.Seat.Selection.Table.Row">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="Theme.AppCompat.TextView.Seat.Selection.Table.Row.Blue" parent="Theme.AppCompat.TextView.Seat.Selection.Table.Row">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+</resources>
+

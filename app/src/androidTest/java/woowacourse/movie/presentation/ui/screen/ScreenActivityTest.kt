@@ -19,26 +19,6 @@ class ScreenActivityTest {
 
     @Test
     fun `상영_목록이_표시된다`() {
-        onView(withId(R.id.lv_screen)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `영화_제목이_표시된다`() {
-        onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `상영일이_표시된다`() {
-        onView(withId(R.id.tv_screen_date)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `상영_포스터가_표시된다`() {
-        onView(withId(R.id.iv_poster)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `상영_러닝_타임이_표시된다`() {
-        onView(withId(R.id.tv_screen_running_time)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_screen)).check(matches(isDisplayed()))
     }
 }

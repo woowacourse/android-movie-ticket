@@ -5,12 +5,13 @@ import android.content.Intent
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.Presenter
 import woowacourse.movie.presentation.ui.reservation.ReservationContract.View
-import java.text.NumberFormat
-import java.util.Locale
+import woowacourse.movie.presentation.utils.currency
+import woowacourse.movie.presentation.utils.toScreeningDate
 
 class ReservationActivity : BaseActivity(), View {
     override val layoutResourceId: Int
@@ -29,24 +30,16 @@ class ReservationActivity : BaseActivity(), View {
 
     override fun showReservation(reservation: Reservation) {
         with(reservation) {
-            title.text = screen.movie.title
-            date.text = screen.date
-            count.text = getString(R.string.reserve_count, this.ticket.count)
-            amount.text = currency()
+            title.text = movie.title
+            date.text = dateTime.toScreeningDate()
+            count.text = getString(R.string.reserve_count, ticketCount, seats.toSeatString())
+            amount.text = totalPrice.currency(this@ReservationActivity)
         }
     }
 
-    private fun Reservation.currency(): String {
-        val amount =
-            when (Locale.getDefault().country) {
-                Locale.KOREA.country -> getString(R.string.price_format_kor, totalPrice)
-                else -> NumberFormat.getCurrencyInstance(Locale.getDefault()).format(totalPrice)
-            }
-
-        return getString(R.string.reserve_amount, amount)
-    }
-
     override fun back() = finish()
+
+    private fun List<Seat>.toSeatString(): String = this.joinToString(", ") { "${it.column}${it.row}" }
 
     companion object {
         private const val PUT_EXTRA_KEY_RESERVATION_ID = "reservationId"

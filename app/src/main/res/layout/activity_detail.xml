@@ -10,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="9dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_minus"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/spn_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -101,6 +101,24 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <Spinner
+        android:id="@+id/spn_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginBottom="21dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_minus"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spn_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:forceHasOverlappingRendering="false"
+        app:layout_constraintBottom_toTopOf="@+id/btn_minus"
+        app:layout_constraintStart_toEndOf="@+id/spn_date" />
+
     <Button
         android:id="@+id/btn_minus"
         android:layout_width="wrap_content"
@@ -118,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_reserve_done"
+        app:layout_constraintBottom_toTopOf="@+id/btn_select_seat"
         app:layout_constraintEnd_toStartOf="@+id/btn_plus"
         app:layout_constraintStart_toEndOf="@+id/btn_minus"
         tools:text="1" />
@@ -136,12 +154,12 @@
 
 
     <Button
-        android:id="@+id/btn_reserve_done"
+        android:id="@+id/btn_select_seat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/reserve_done"
+        android:text="@string/select_seat"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
