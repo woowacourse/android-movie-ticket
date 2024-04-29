@@ -257,6 +257,7 @@ class SeatSelectionPresenterTest {
     @Test
     fun `SeatSelectionPresenter가 예매 정보가 잘못되었을 때 예매 완료 버튼을 누르면(reverse), view에게 메시지(Exception)와 뒤로 돌아가라고() 전달한다(back)`() {
         // given
+        val exception = NoSuchElementException()
         every { screenRepository.findByScreenId(any()) } returns Result.success(getDummyScreen())
         every {
             reservationRepository.saveReservation(
@@ -265,7 +266,7 @@ class SeatSelectionPresenterTest {
                 any(),
                 any(),
             )
-        } returns Result.failure(NoSuchElementException())
+        } returns Result.failure(exception)
         every { view.showScreen(any()) } just runs
         every { view.showSnackBar(e = any()) } just runs
         every { view.back() } just runs
@@ -276,7 +277,7 @@ class SeatSelectionPresenterTest {
         presenter.reserve()
 
         // then
-        verify { view.showSnackBar(e = any()) }
+        verify { view.showSnackBar(e = exception) }
         verify { view.back() }
     }
 }
