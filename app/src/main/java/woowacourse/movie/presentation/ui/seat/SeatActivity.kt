@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.ui.seat
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -34,7 +35,23 @@ class SeatActivity : BaseActivity(), SeatContract.View {
         totalPrice = findViewById(R.id.total_price)
         confirmButton = findViewById(R.id.confirm_button)
 
-        presenter = SeatPresenter(this, MovieTicketRepositoryImpl, SeatRepositoryImpl, movieTicketId)
+        presenter =
+            SeatPresenter(this, MovieTicketRepositoryImpl, SeatRepositoryImpl, movieTicketId)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val selectedIndices = presenter.selectedSeats()
+        outState.putIntegerArrayList("selected_seats", selectedIndices)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val selectedIndices =
+            savedInstanceState.getIntegerArrayList("selected_seats") ?: arrayListOf()
+        selectedIndices.forEach {
+            presenter.onSeatClicked(it)
+        }
     }
 
     override fun initClickListener() {

@@ -8,51 +8,63 @@
     android:background="@color/gray_100"
     tools:context=".presentation.ui.seat.SeatActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/seat_margin"
-        android:layout_marginEnd="@dimen/seat_margin"
-        android:src="@drawable/screen"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TableLayout
-        android:id="@+id/seat_board_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/seat_margin"
-        android:layout_marginTop="@dimen/size_56"
-        android:layout_marginBottom="@dimen/size_78"
-        android:layout_marginEnd="@dimen/seat_margin"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <include
-            android:id="@+id/first_row"
-            layout="@layout/row_seat" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/seat_margin"
+                android:layout_marginEnd="@dimen/seat_margin"
+                android:src="@drawable/screen"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/second_row"
-            layout="@layout/row_seat" />
+            <TableLayout
+                android:id="@+id/seat_board_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/seat_margin"
+                android:layout_marginTop="@dimen/size_56"
+                android:layout_marginEnd="@dimen/seat_margin"
+                android:layout_marginBottom="@dimen/size_80"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintVertical_bias="0">
 
-        <include
-            android:id="@+id/third_row"
-            layout="@layout/row_seat" />
+                <include
+                    android:id="@+id/first_row"
+                    layout="@layout/row_seat" />
 
-        <include
-            android:id="@+id/fourth_row"
-            layout="@layout/row_seat" />
+                <include
+                    android:id="@+id/second_row"
+                    layout="@layout/row_seat" />
 
-        <include
-            android:id="@+id/fifth_row"
-            layout="@layout/row_seat" />
-    </TableLayout>
+                <include
+                    android:id="@+id/third_row"
+                    layout="@layout/row_seat" />
+
+                <include
+                    android:id="@+id/fourth_row"
+                    layout="@layout/row_seat" />
+
+                <include
+                    android:id="@+id/fifth_row"
+                    layout="@layout/row_seat" />
+            </TableLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -81,9 +93,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_regular"
+            android:text="@string/total_price_text"
             android:textColor="@color/gray_300"
             android:textSize="@dimen/size_18"
-            android:text="@string/total_price_text"
             app:layout_constraintStart_toStartOf="@+id/title"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
@@ -94,9 +106,9 @@
             android:background="@drawable/confirm_selector"
             android:enabled="false"
             android:text="@string/confirm_text"
-            android:textStyle="bold"
-            android:textSize="@dimen/size_18"
             android:textColor="@color/white"
+            android:textSize="@dimen/size_18"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -25,5 +25,7 @@ interface SeatContract {
         fun onSeatClicked(seatIndex: Int)
 
         fun requestReservationResult()
+
+        fun selectedSeats(): ArrayList<Int>
     }
 }

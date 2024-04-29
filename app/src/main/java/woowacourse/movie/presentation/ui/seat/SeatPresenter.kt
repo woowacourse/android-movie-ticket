@@ -78,6 +78,10 @@ class SeatPresenter(
         }
     }
 
+    override fun selectedSeats(): ArrayList<Int> {
+        return seatsUIModel.selectedSeatIndices().toCollection(ArrayList())
+    }
+
     private fun updateTotalPriceDisplay() {
         val total = seatsUIModel.totalPrice()
         view.showTotalPrice(total)

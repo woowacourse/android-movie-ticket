@@ -48,7 +48,7 @@
 
 - [x] 영화 목록을 노출할 때 ListView를 사용한다.
 - [x] UI 테스트를 작성해야 한다.
-- [ ] 화면이 회전되었을 때 데이터를 유지하기 위해 savedInstanceState를 활용한다.
+- [x] 화면이 회전되었을 때 데이터를 유지하기 위해 savedInstanceState를 활용한다.
 - [x] TableLayout을 사용한다.
 - [ ]  기능 요구 사항에 대한 테스트를 작성해야 한다.
     - Given 좌석이 선택되어 있다

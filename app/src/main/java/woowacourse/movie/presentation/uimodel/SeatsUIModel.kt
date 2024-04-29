@@ -27,5 +27,14 @@ data class SeatsUIModel(
 
     fun selectedSeats(): List<Seat> = seatUIModels.filter { it.isSelected }.map { it.seat }
 
+    fun selectedSeatIndices(): List<Int> =
+        seatUIModels.mapIndexedNotNull { index, seatUIModel ->
+            if (seatUIModel.isSelected) {
+                index
+            } else {
+                null
+            }
+        }
+
     fun totalPrice(): Int = selectedSeats().sumOf { it.seatGrade.price }
 }
