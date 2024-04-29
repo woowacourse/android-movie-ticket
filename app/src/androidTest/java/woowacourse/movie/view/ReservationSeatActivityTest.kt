@@ -86,7 +86,7 @@ class ReservationSeatActivityTest {
         onView(withId(R.id.reservation_complete_linear_layout))
             .perform(click())
 
-        checkDialogExists()
+        checkDialogExists(DIALOG_TITLE, DIALOG_MESSAGE)
     }
 
     @Test
@@ -96,7 +96,7 @@ class ReservationSeatActivityTest {
         onView(withId(R.id.reservation_complete_linear_layout))
             .perform(click())
 
-        checkDialogDoesNotExist()
+        checkDialogDoesNotExist(DIALOG_TITLE, DIALOG_MESSAGE)
     }
 
     @Test
@@ -107,13 +107,13 @@ class ReservationSeatActivityTest {
         onView(withId(R.id.seat_tv_item18)).perform(click())
         onView(withId(R.id.reservation_complete_linear_layout))
             .perform(click())
-        checkDialogExists()
+        checkDialogExists(DIALOG_TITLE, DIALOG_MESSAGE)
 
         // when
         device.click(0, 0)
 
         // then
-        checkDialogExists()
+        checkDialogExists(DIALOG_TITLE, DIALOG_MESSAGE)
     }
 
     @Test
@@ -163,16 +163,22 @@ class ReservationSeatActivityTest {
         }
     }
 
-    private fun checkDialogExists() {
-        onView(withText(DIALOG_TITLE)).check(matches(isDisplayed()))
-        onView(withText(DIALOG_MESSAGE)).check(matches(isDisplayed()))
+    private fun checkDialogExists(
+        title: String,
+        message: String,
+    ) {
+        onView(withText(title)).check(matches(isDisplayed()))
+        onView(withText(message)).check(matches(isDisplayed()))
         onView(withText(DIALOG_POSITIVE)).check(matches(isDisplayed()))
         onView(withText(DIALOG_NEGATIVE)).check(matches(isDisplayed()))
     }
 
-    private fun checkDialogDoesNotExist() {
-        onView(withText(DIALOG_TITLE)).check(doesNotExist())
-        onView(withText(DIALOG_MESSAGE)).check(doesNotExist())
+    private fun checkDialogDoesNotExist(
+        title: String,
+        message: String,
+    ) {
+        onView(withText(title)).check(doesNotExist())
+        onView(withText(message)).check(doesNotExist())
         onView(withText(DIALOG_POSITIVE)).check(doesNotExist())
         onView(withText(DIALOG_NEGATIVE)).check(doesNotExist())
     }
