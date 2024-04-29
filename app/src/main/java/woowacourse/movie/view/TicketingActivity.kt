@@ -19,17 +19,17 @@ import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.utils.ErrorMessage
+import java.time.LocalDate
 import java.time.LocalTime
 
 class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSelectedListener {
     private val countText by lazy { findViewById<TextView>(R.id.tv_count) }
     private lateinit var ticketingPresenter: TicketingPresenter
     private val screeningId by lazy {
-        intent.getLongExtra(
-            EXTRA_SCREENING_ID,
-            EXTRA_DEFAULT_SCREENING_ID,
-        )
+        intent.getLongExtra(EXTRA_SCREENING_ID, EXTRA_DEFAULT_SCREENING_ID)
     }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.spinner_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.spinner_time) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,9 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         ticketingPresenter = TicketingPresenter(this)
-        ticketingPresenter.initializeTicketingData(screeningId, DEFAULT_COUNT)
+        if (savedInstanceState == null) {
+            ticketingPresenter.initializeTicketingData(screeningId, DEFAULT_COUNT)
+        }
         initializeButtons()
     }
 
@@ -74,6 +76,8 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
     override fun assignInitialView(
         screening: Screening,
         count: Int,
+        date: LocalDate?,
+        time: LocalTime?,
     ) {
         updateCount(count)
         findViewById<ImageView>(R.id.iv_thumbnail).apply { setImageResource(screening.movie.thumbnailResourceId) }
@@ -91,17 +95,23 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         }
         findViewById<TextView>(R.id.tv_introduction).apply { text = screening.movie.introduction }
 
-        findViewById<Spinner>(R.id.spinner_date).apply {
+        dateSpinner.apply {
             adapter =
                 ArrayAdapter(
                     this@TicketingActivity,
                     android.R.layout.simple_spinner_item,
                     screening.dates,
                 )
+
             onItemSelectedListener = this@TicketingActivity
+            val position =
+                date?.let {
+                    screening.dates.indexOf(it)
+                } ?: 0
+            setSelection(position)
         }
 
-        findViewById<Spinner>(R.id.spinner_time).apply {
+        timeSpinner.apply {
             adapter =
                 ArrayAdapter(
                     this@TicketingActivity,
@@ -109,6 +119,11 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
                     ticketingPresenter.ticketingUiState.availableTimes.localTimes,
                 )
             onItemSelectedListener = this@TicketingActivity
+            val position =
+                time?.let {
+                    ticketingPresenter.ticketingUiState.availableTimes.localTimes.indexOf(it)
+                } ?: 0
+            setSelection(position)
         }
     }
 
@@ -135,7 +150,7 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
     }
 
     override fun updateAvailableTimes(times: List<LocalTime>) {
-        findViewById<Spinner>(R.id.spinner_time).apply {
+        timeSpinner.apply {
             adapter =
                 ArrayAdapter(
                     this@TicketingActivity,

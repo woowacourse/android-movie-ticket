@@ -45,13 +45,18 @@ class DatesTest {
         return generateSequence(startDate) { it.plusDays(1) }
             .takeWhile { it in dates }
             .toList()
+    }
 
-//        val dates = mutableListOf(startDate)
-//        var span = 0L
-//        while (startDate.plusDays(span) < endDate) {
-//            dates.add(startDate.plusDays(span))
-//            span++
-//        }
-//        return dates
+    private fun dates2(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): List<LocalDate> {
+        val dates = mutableListOf(startDate)
+        var span = 0L
+        while (startDate.plusDays(span) < endDate) {
+            dates.add(startDate.plusDays(span))
+            span++
+        }
+        return dates
     }
 }

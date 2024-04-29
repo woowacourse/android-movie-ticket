@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.presenter.contract.TicketingContract
 import woowacourse.movie.view.utils.ErrorMessage
-import java.time.LocalTime
 
 class TicketingPresenterTest {
     private lateinit var view: TicketingContract.View
@@ -24,26 +23,11 @@ class TicketingPresenterTest {
     @Test
     fun `예매를_위한_영화_정보를_불러온다`() {
         // given
-        every { view.assignInitialView(any(), any()) } just runs
-        every { view.updateAvailableTimes(any()) } just runs
+        every { view.assignInitialView(any(), any(), any(), any()) } just runs
         // when
         presenter.initializeTicketingData(0L, 1)
         // then
-        verify { view.assignInitialView(any(), 1) }
-        verify {
-            view.updateAvailableTimes(
-                listOf(
-                    LocalTime.of(9, 0),
-                    LocalTime.of(11, 0),
-                    LocalTime.of(13, 0),
-                    LocalTime.of(15, 0),
-                    LocalTime.of(17, 0),
-                    LocalTime.of(19, 0),
-                    LocalTime.of(21, 0),
-                    LocalTime.of(23, 0),
-                ),
-            )
-        }
+        verify { view.assignInitialView(any(), 1, any(), any()) }
     }
 
     @Test
@@ -61,16 +45,14 @@ class TicketingPresenterTest {
     @Test
     fun `감소_버튼을_클릭하면_티켓_수가_줄어든다`() {
         // given
-        every { view.assignInitialView(any(), any()) } just runs
-        every { view.updateAvailableTimes(any()) } just runs
+        every { view.assignInitialView(any(), any(), any(), any()) } just runs
         every { view.updateCount(any()) } just runs
         // when
         presenter.initializeTicketingData(0, 2)
         presenter.decreaseCount()
         // then
         verify {
-            view.assignInitialView(any(), any())
-            view.updateAvailableTimes(any())
+            view.assignInitialView(any(), any(), any(), any())
             view.updateCount(1)
         }
     }
@@ -78,16 +60,14 @@ class TicketingPresenterTest {
     @Test
     fun `최소_티켓_개수인_상태에서_감소_버튼을_클릭하면_티켓_수가_줄어들지_않고_토스트_메시지가_출력된다`() {
         // given
-        every { view.assignInitialView(any(), any()) } just runs
-        every { view.updateAvailableTimes(any()) } just runs
+        every { view.assignInitialView(any(), any(), any(), any()) } just runs
         every { view.showToastMessage(any()) } just runs
         // when
         presenter.initializeTicketingData(0, 1)
         presenter.decreaseCount()
         // then
         verify {
-            view.assignInitialView(any(), any())
-            view.updateAvailableTimes(any())
+            view.assignInitialView(any(), any(), any(), any())
             view.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER)
         }
     }
@@ -95,16 +75,14 @@ class TicketingPresenterTest {
     @Test
     fun `증가_버튼을_클릭하면_티켓_수가_증가한다`() {
         // given
-        every { view.assignInitialView(any(), any()) } just runs
-        every { view.updateAvailableTimes(any()) } just runs
+        every { view.assignInitialView(any(), any(), any(), any()) } just runs
         every { view.updateCount(any()) } just runs
         // when
         presenter.initializeTicketingData(0, 1)
         presenter.increaseCount()
         // then
         verify {
-            view.assignInitialView(any(), any())
-            view.updateAvailableTimes(any())
+            view.assignInitialView(any(), any(), any(), any())
             view.updateCount(2)
         }
     }
@@ -112,16 +90,14 @@ class TicketingPresenterTest {
     @Test
     fun `좌석_선택_버튼을_누르면_좌석_선택_화면으로_이동한다`() {
         // given
-        every { view.assignInitialView(any(), any()) } just runs
-        every { view.updateAvailableTimes(any()) } just runs
+        every { view.assignInitialView(any(), any(), any(), any()) } just runs
         every { view.navigateToSeatSelection(any()) } just runs
         // when
         presenter.initializeTicketingData(0, 1)
         presenter.reserveTickets()
         // then
         verify {
-            view.assignInitialView(any(), any())
-            view.updateAvailableTimes(any())
+            view.assignInitialView(any(), any(), any(), any())
             view.navigateToSeatSelection(any())
         }
     }
@@ -129,14 +105,14 @@ class TicketingPresenterTest {
     @Test
     fun `예약_날짜를_변경하면_스피너의_현재_날짜에_반영되며_예약_가능한_시간도_업데이트된다`() {
         // given
-        every { view.assignInitialView(any(), any()) } just runs
+        every { view.assignInitialView(any(), any(), any(), any()) } just runs
         every { view.updateAvailableTimes(any()) } just runs
         // when
         presenter.initializeTicketingData(0, 1)
         presenter.updateDate("2024-03-08")
         // then
         verify {
-            view.assignInitialView(any(), any())
+            view.assignInitialView(any(), any(), any(), any())
             view.updateAvailableTimes(any())
         }
     }

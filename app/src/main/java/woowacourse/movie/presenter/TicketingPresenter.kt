@@ -49,9 +49,12 @@ class TicketingPresenter(
                                     ?: availableTimes.localTimes.first(),
                             ),
                     )
-                ticketingContractView.assignInitialView(screening.data, initialCount)
-                updateDate(ticketingForm.bookingDateTime.date.toString())
-                updateTime(ticketingForm.bookingDateTime.time.toString())
+                ticketingContractView.assignInitialView(
+                    screening.data,
+                    initialCount,
+                    ticketingForm.bookingDateTime.date,
+                    ticketingForm.bookingDateTime.time,
+                )
             }
 
             is Result.Error -> ticketingContractView.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
@@ -63,7 +66,7 @@ class TicketingPresenter(
             ticketingForm.numberOfTickets.decrease()
             ticketingContractView.updateCount(ticketingForm.numberOfTickets.currentValue)
         }.onFailure {
-            it.message?.let { message -> ticketingContractView.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER) }
+            ticketingContractView.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER)
         }
     }
 
