@@ -9,7 +9,6 @@ class MovieAdapter(
     private val movies: List<ScreeningMovieItem>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) : RecyclerView.Adapter<ScreeningViewHolder>() {
-
     override fun getItemViewType(position: Int): Int {
         return when (movies[position]) {
             is ScreenMovieUiModel -> MOVIE
@@ -40,9 +39,11 @@ class MovieAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ScreeningViewHolder, position: Int) {
-
-        when(holder) {
+    override fun onBindViewHolder(
+        holder: ScreeningViewHolder,
+        position: Int,
+    ) {
+        when (holder) {
             is AdvertiseViewHolder -> (holder as MovieViewHolder).onBind(movies[position] as ScreenMovieUiModel)
             is MovieViewHolder -> { }
         }

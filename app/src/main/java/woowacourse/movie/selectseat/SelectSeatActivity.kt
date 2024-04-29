@@ -10,7 +10,6 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
@@ -148,7 +147,6 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
         Toast.makeText(this, messageRes, Toast.LENGTH_SHORT).show()
     }
 
-
     private fun confirmAlertDialog() =
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
@@ -164,17 +162,19 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
                 dialog.dismiss()
             }.show()
 
-    private fun selectResult(): SelectResult = when {
-        bookingInfoUiModel.maxSelectSize() < seats.selectedSeats().size -> SelectResult.Exceed(
-            getString(R.string.select_more_seat_error_message),
-        )
+    private fun selectResult(): SelectResult =
+        when {
+            bookingInfoUiModel.maxSelectSize() < seats.selectedSeats().size ->
+                SelectResult.Exceed(
+                    getString(R.string.select_more_seat_error_message),
+                )
 
-        bookingInfoUiModel.maxSelectSize() > seats.selectedSeats().size -> SelectResult.LessSelect(
-            getString(R.string.select_less_seat_error_message),
-        )
-        else -> SelectResult.Success
-    }
-
+            bookingInfoUiModel.maxSelectSize() > seats.selectedSeats().size ->
+                SelectResult.LessSelect(
+                    getString(R.string.select_less_seat_error_message),
+                )
+            else -> SelectResult.Success
+        }
 
     companion object {
         private const val EXTRA_BOOKING_ID: String = "bookingId"

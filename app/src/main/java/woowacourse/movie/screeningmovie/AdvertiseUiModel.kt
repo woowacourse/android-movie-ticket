@@ -4,5 +4,5 @@ import androidx.annotation.DrawableRes
 import woowacourse.movie.R
 
 data class AdvertiseUiModel(
-    @DrawableRes val image:Int = R.drawable.img_advertisement
-): ScreeningMovieItem
+    @DrawableRes val image: Int = R.drawable.img_advertisement,
+) : ScreeningMovieItem

@@ -2,8 +2,6 @@ package woowacourse.movie.study
 
 import android.content.Context
 import android.widget.ArrayAdapter
-import androidx.test.core.app.ApplicationProvider
-import org.junit.Before
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

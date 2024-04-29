@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 
-sealed class ScreeningViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+sealed class ScreeningViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 class MovieViewHolder(
     itemView: View,
