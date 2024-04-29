@@ -114,11 +114,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         moviePriceText.text = seatPrice.toString()
     }
 
-    override fun offConfirmAvailableView() {
+    override fun offConfirmAvailable() {
         confirmButton.setBackgroundColor(getColor(R.color.seat_un_confirm_background))
     }
 
-    override fun onConfirmAvailableView() {
+    override fun onConfirmAvailable() {
         confirmButton.setBackgroundColor(getColor(R.color.seat_confirm_background))
     }
 

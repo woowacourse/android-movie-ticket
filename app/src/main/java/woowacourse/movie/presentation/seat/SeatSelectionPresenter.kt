@@ -90,8 +90,8 @@ class SeatSelectionPresenter(
     private fun updateSeatTypeInView() {
         reservationMovieSeats.updateSeatSelectType()
         when (reservationMovieSeats.seatSelectState) {
-            SeatSelectState.ADD, SeatSelectState.REMOVE -> view.offConfirmAvailableView()
-            SeatSelectState.PREVENT -> view.onConfirmAvailableView()
+            SeatSelectState.ADD, SeatSelectState.REMOVE -> view.offConfirmAvailable()
+            SeatSelectState.PREVENT -> view.onConfirmAvailable()
         }
     }
 

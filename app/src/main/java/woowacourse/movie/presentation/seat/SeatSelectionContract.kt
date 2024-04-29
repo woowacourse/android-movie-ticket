@@ -23,9 +23,9 @@ interface SeatSelectionContract {
 
         fun showCurrentResultTicketPriceView(seatPrice: Int)
 
-        fun offConfirmAvailableView()
+        fun offConfirmAvailable()
 
-        fun onConfirmAvailableView()
+        fun onConfirmAvailable()
 
         fun moveToTicketDetail(ticket: TicketModel)
 
