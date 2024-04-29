@@ -36,18 +36,21 @@ class SeatReservationPresenter(
     override fun selectSeat(position: Position, seatView: View) {
         val seat = seats.findSeat(position)
         Log.d("selectedSeats", "before add or remove ${selectedSeats.toString()}")
-        if (selectedSeats.size >= ticketCount) {
-            view.showToast(IllegalArgumentException("exceed ticket count that can be reserved."))
-            return
-        }
 
-        seatView.isSelected = !seatView.isSelected // 선택 상태 토글
         if (selectedSeats.contains(seat)) {
+            seatView.isSelected = !seatView.isSelected // 선택 상태 토글
             selectedSeats.remove(seat)
         } else {
-            selectedSeats.add(seat)
+            if (selectedSeats.size >= ticketCount) {
+                view.showToast(IllegalArgumentException("exceed ticket count that can be reserved."))
+            } else {
+                seatView.isSelected = !seatView.isSelected // 선택 상태 토글
+                selectedSeats.add(seat)
+            }
         }
         Log.d("selectedSeats", "after add or remove ${selectedSeats.toString()}")
+
+        view.showTotalPrice(Seats(selectedSeats))
     }
 
     override fun reserve(

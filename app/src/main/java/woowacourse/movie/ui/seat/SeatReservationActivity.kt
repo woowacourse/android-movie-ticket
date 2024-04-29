@@ -15,6 +15,8 @@ import woowacourse.movie.domain.model.TimeReservation
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.domain.repository.DummySeats
+import woowacourse.movie.ui.Currency
+import java.util.Locale
 
 class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.View {
     private val presenter = SeatReservationPresenter(this, DummyScreens(DummySeats()), DummyReservation)
@@ -64,6 +66,10 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     override fun showTimeReservations(timeReservation: TimeReservation) {
         val screen = timeReservation.screen
         movieTitle.text = screen.movie.title
+    }
+
+    override fun showTotalPrice(seats: Seats) {
+        totalPrice.text = Currency.of(Locale.getDefault().country).format(seats.totalPrice())
     }
 
     override fun showToast(e: Throwable) {
