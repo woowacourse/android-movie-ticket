@@ -24,7 +24,6 @@ interface SeatSelectionContract {
         fun moveToTicketDetail(ticket: TicketModel)
 
         fun showReservationConfirmationDialog()
-
     }
 
     interface Presenter {
@@ -43,6 +42,6 @@ interface SeatSelectionContract {
 
         fun initSavedInstanceData(seats: List<MovieSeatModel>)
 
-        fun makeSavedSeats() : List<MovieSeatModel>
+        fun makeSavedSeats(): List<MovieSeatModel>
     }
 }

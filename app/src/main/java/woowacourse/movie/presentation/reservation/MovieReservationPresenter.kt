@@ -1,10 +1,10 @@
 package woowacourse.movie.presentation.reservation
 
 import android.os.Bundle
+import woowacourse.movie.domain.DateMaker
 import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.PendingMovieReservation
 import woowacourse.movie.domain.model.TicketCounter
-import woowacourse.movie.domain.DateMaker
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presentation.model.MovieDateModel
 import woowacourse.movie.presentation.model.toMovieDateModel
@@ -87,7 +87,7 @@ class MovieReservationPresenter(
     }
 
     companion object {
-        const val KEY_NAME_PENDING_RESERVATION ="pendingReservation"
+        const val KEY_NAME_PENDING_RESERVATION = "pendingReservation"
         const val KEY_TICKET_COUNT = "ticketCount"
         const val KEY_MOVIE_DATE = "movieDate"
     }

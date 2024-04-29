@@ -10,7 +10,6 @@ import org.junit.runner.RunWith
 import woowacourse.movie.data.MockMovies
 import woowacourse.movie.presentation.screen.adapter.MovieScreenAdapter
 
-
 @RunWith(AndroidJUnit4::class)
 class MovieScreenAdapterTest {
     private lateinit var context: Context

@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.presentation.model.TicketModel
-import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import woowacourse.movie.presentation.seat.SeatSelectionPresenter
 import woowacourse.movie.presentation.utils.toCustomString
 

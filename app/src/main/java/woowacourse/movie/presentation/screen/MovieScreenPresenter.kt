@@ -11,7 +11,7 @@ class MovieScreenPresenter(
     override fun loadScreenData() {
         val movies = movieRepository.getMovies()
         val ads = adRepository.getAds()
-        view.showScreenData(movies,ads)
+        view.showScreenData(movies, ads)
     }
 
     override fun startReservation(movieId: Int) {

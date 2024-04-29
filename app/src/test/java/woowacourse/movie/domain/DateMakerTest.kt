@@ -2,7 +2,6 @@ package woowacourse.movie.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.DateMaker
 import java.time.LocalDate
 import java.time.LocalDateTime
 

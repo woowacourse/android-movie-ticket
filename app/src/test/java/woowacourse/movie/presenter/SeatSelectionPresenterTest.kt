@@ -41,12 +41,13 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `시트를 불러오면 좌석 정보를 뷰에 표시해야 한다`() {
-        val seats = listOf(
+        val seats =
             listOf(
-                MovieSeat("A", 1, SeatType.S),
-                MovieSeat("A", 2, SeatType.S)
+                listOf(
+                    MovieSeat("A", 1, SeatType.S),
+                    MovieSeat("A", 2, SeatType.S),
+                ),
             )
-        )
         every { mockSeatRepository.getAvailableSeats() } returns seats
 
         presenter.loadData()

@@ -11,19 +11,19 @@ data class PendingMovieReservationModel(
 ) : Serializable {
     companion object {
         private const val DEFAULT_PENDING_RESERVATION_TITLE = "예약정보가 존재하지 않습니다."
-        val defaultPendingMovieReservation = PendingMovieReservationModel(
-            title = DEFAULT_PENDING_RESERVATION_TITLE,
-            count = 0,
-            movieDate = MovieDateTime().toMovieDateModel(),
-        )
+        val defaultPendingMovieReservation =
+            PendingMovieReservationModel(
+                title = DEFAULT_PENDING_RESERVATION_TITLE,
+                count = 0,
+                movieDate = MovieDateTime().toMovieDateModel(),
+            )
     }
 }
-
 
 fun PendingMovieReservation.toPendingMovieReservationModel(): PendingMovieReservationModel {
     return PendingMovieReservationModel(
         title = title,
         movieDate = movieDateTime.toMovieDateModel(),
-        count = count
+        count = count,
     )
 }

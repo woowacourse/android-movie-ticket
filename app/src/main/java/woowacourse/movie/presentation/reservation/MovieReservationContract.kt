@@ -4,9 +4,7 @@ import android.os.Bundle
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.model.MovieDateModel
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
-import woowacourse.movie.presentation.model.TicketModel
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 interface MovieReservationContract {

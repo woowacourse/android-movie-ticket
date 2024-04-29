@@ -58,10 +58,10 @@ class SeatSelectionPresenter(
             Ticket(
                 title = pendingMovieReservationModel.title,
                 movieDateTime =
-                MovieDateTime(
-                    pendingMovieReservationModel.movieDate.screeningDate,
-                    pendingMovieReservationModel.movieDate.screeningTime,
-                ),
+                    MovieDateTime(
+                        pendingMovieReservationModel.movieDate.screeningDate,
+                        pendingMovieReservationModel.movieDate.screeningTime,
+                    ),
                 count = pendingMovieReservationModel.count,
                 price = reservationMovieSeats.getTotalSeatPrice(),
                 seats = reservationMovieSeats.userSeats,

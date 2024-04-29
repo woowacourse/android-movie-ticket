@@ -4,13 +4,13 @@ data class MovieSeat(
     val seatRow: String,
     val seatColumn: Int,
     val seatType: SeatType,
-){
-    fun getRowIndex(): Int{
+) {
+    fun getRowIndex(): Int {
         return seatRow[0].code - MIN_ROW.code
     }
 
-    fun getColumnIndex(): Int{
-        return seatColumn-1
+    fun getColumnIndex(): Int {
+        return seatColumn - 1
     }
 
     companion object {

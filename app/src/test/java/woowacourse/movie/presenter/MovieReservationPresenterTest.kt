@@ -13,7 +13,6 @@ import woowacourse.movie.presentation.reservation.MovieReservationPresenter
 import java.time.LocalDate
 import java.time.LocalTime
 
-
 class MovieReservationPresenterTest {
     private lateinit var view: MovieReservationContract.View
     private lateinit var movieRepository: MovieRepository

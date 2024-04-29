@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.screen
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.AdRepositoryImpl
@@ -33,7 +32,10 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
         presenter.loadScreenData()
     }
 
-    override fun showScreenData(movies: List<Movie>, ads: List<String>) {
+    override fun showScreenData(
+        movies: List<Movie>,
+        ads: List<String>,
+    ) {
         movieAdapter =
             MovieScreenAdapter(
                 context = this@MovieScreenActivity,
@@ -45,7 +47,6 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
             )
         movieRecyclerView.adapter = movieAdapter
     }
-
 
     override fun moveToReservation(movieId: Int) {
         val intent = Intent(this, MovieReservationActivity::class.java)

@@ -39,7 +39,7 @@ class SeatSelectionActivityTest {
                     )
                 putExtra(
                     MovieReservationPresenter.KEY_NAME_PENDING_RESERVATION,
-                    pendingMovieReservationModel
+                    pendingMovieReservationModel,
                 )
             },
         )

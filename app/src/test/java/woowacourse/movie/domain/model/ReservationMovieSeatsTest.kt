@@ -71,8 +71,8 @@ class ReservationMovieSeatsTest {
         reservationMovieSeats.userSeats.addAll(
             listOf(
                 MovieSeat("A", 1, SeatType.A),
-                MovieSeat("B", 2, SeatType.B)
-            )
+                MovieSeat("B", 2, SeatType.B),
+            ),
         )
 
         // When

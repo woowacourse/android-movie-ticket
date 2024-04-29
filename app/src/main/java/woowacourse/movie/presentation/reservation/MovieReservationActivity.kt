@@ -165,7 +165,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         val intent = Intent(this@MovieReservationActivity, SeatSelectionActivity::class.java)
         intent.putExtra(
             MovieReservationPresenter.KEY_NAME_PENDING_RESERVATION,
-            pendingMovieReservation as Serializable
+            pendingMovieReservation as Serializable,
         )
         this@MovieReservationActivity.startActivity(intent)
     }
