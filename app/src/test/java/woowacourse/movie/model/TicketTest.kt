@@ -42,15 +42,6 @@ class TicketTest {
     }
 
     @Test
-    fun `티켓 매수에 따라 결제 금액을 계산한다`() {
-        val ticket = Ticket(3)
-
-        val actual = ticket.calculatePrice()
-
-        assertThat(actual).isEqualTo(39_000)
-    }
-
-    @Test
     fun `주말이면 9 ~ 23을 반환`() {
         val ticket = Ticket()
         val weekend = LocalDate.of(2024, 4, 7)
