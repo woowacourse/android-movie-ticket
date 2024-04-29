@@ -24,6 +24,7 @@ import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     private lateinit var presenter: TheaterSeatPresenter
+    private val totalPrice: TextView by lazy { findViewById(R.id.total_price) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,7 +101,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     }
 
     override fun updateTotalPrice(price: Int) {
-        findViewById<TextView>(R.id.total_price).text = "Total Price: $price"
+        totalPrice.text = "Total Price: $price"
     }
 
     override fun navigateToNextPage(intent: Intent) {
