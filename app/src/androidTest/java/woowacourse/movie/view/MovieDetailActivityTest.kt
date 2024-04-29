@@ -37,13 +37,13 @@ class MovieDetailActivityTest {
     @Test
     fun 액티비티가_시작하면_title이_보인다() {
         onView(withId(R.id.reservation_title_textview))
-            .check(matches(withText("해리포터와 마법사의 돌")))
+            .check(matches(withText(movie.title)))
     }
 
     @Test
     fun 액티비티가_시작하면_running_time이_보인다() {
         onView(withId(R.id.reservation_running_time_textview))
-            .check(matches(withText("152")))
+            .check(matches(withText(movie.runningTime.toString())))
     }
 
     @Test
