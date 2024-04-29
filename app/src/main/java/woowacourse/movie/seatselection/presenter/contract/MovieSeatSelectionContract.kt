@@ -11,7 +11,7 @@ interface MovieSeatSelectionContract {
 
         fun updateSeatBackgroundColor(
             index: Int,
-            backgroundColor: Int,
+            isSelected: Boolean,
         )
 
         fun displayDialog()

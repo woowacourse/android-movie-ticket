@@ -119,9 +119,10 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
 
     override fun updateSeatBackgroundColor(
         index: Int,
-        backgroundColor: Int,
+        isSelected: Boolean,
     ) {
-        tableSeats[index].setBackgroundColor(ContextCompat.getColor(this, backgroundColor))
+        val backGroundColor = if (isSelected) R.color.white else R.color.selected
+        tableSeats[index].setBackgroundColor(ContextCompat.getColor(this, backGroundColor))
     }
 
     override fun displayDialog() {
