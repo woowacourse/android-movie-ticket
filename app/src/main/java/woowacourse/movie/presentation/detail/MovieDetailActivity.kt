@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -171,5 +172,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             putExtra(EXTRA_MOVIE_RESERVATION_COUNT, count)
             movieSeatActivityResultLauncher.launch(this)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 }

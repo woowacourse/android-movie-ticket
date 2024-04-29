@@ -1,9 +1,12 @@
 package woowacourse.movie.presentation.result
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.presentation.main.MovieMainActivity
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_SCREEN_DATE_TIME_ID
@@ -27,11 +30,27 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
         setContentView(R.layout.activity_movie_result)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        setUpBackButtonCallback()
+
         movieResultPresenter = MovieResultPresenter(this)
         movieResultPresenter.loadResult(
             intent.getLongExtra(EXTRA_MOVIE_ID, NOT_FOUND_MOVIE_ID),
             intent.getLongExtra(EXTRA_MOVIE_SCREEN_DATE_TIME_ID, NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID),
             intent.getLongArrayExtra(EXTRA_MOVIE_SEATS_ID_LIST)?.toList() ?: emptyList(),
+        )
+    }
+
+    private fun setUpBackButtonCallback() {
+        val onBackPressedDispatcher = onBackPressedDispatcher
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val intent = Intent(this@MovieResultActivity, MovieMainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                }
+            },
         )
     }
 

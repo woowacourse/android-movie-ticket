@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.seat
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -156,5 +157,10 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
         // 에러 발생 시에, 이전 액티비티로 이동하며 메세지 전달
         setResult(errorCode.code)
         finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -19,11 +19,10 @@
         <activity
             android:name=".presentation.result.MovieResultActivity"
             android:exported="false"
-            android:parentActivityName=".presentation.detail.MovieDetailActivity" />
+            android:parentActivityName=".presentation.main.MovieMainActivity" />
         <activity
             android:name=".presentation.detail.MovieDetailActivity"
-            android:exported="false"
-            android:parentActivityName=".presentation.main.MovieMainActivity" />
+            android:exported="false" />
         <activity
             android:name=".presentation.main.MovieMainActivity"
             android:exported="true">
