@@ -11,6 +11,7 @@ import woowacourse.movie.model.theater.SeatClass
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.contract.TicketingResultContract
 import woowacourse.movie.view.state.TicketingResult
+import woowacourse.movie.view.utils.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -53,7 +54,7 @@ class TicketingResultPresenterTest {
         presenter.initializeTicketingResult(null)
         // then
         verify {
-            view.showToastMessage("존재하지 않는 상영 정보입니다.")
+            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
         }
     }
 }

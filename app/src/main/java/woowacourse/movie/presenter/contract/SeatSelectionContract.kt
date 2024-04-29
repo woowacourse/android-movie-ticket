@@ -5,6 +5,7 @@ import woowacourse.movie.model.theater.TheaterSize
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.state.TicketingResult
+import woowacourse.movie.view.utils.ErrorMessage
 
 interface SeatSelectionContract {
     interface View {
@@ -30,7 +31,7 @@ interface SeatSelectionContract {
 
         fun navigateToResultScreen(ticketingResult: TicketingResult)
 
-        fun showToastMessage(message: String)
+        fun showToastMessage(error: ErrorMessage)
     }
 
     interface Presenter {

@@ -2,6 +2,7 @@ package woowacourse.movie.presenter.contract
 
 import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.view.state.TicketingForm
+import woowacourse.movie.view.utils.ErrorMessage
 import java.time.LocalTime
 
 interface TicketingContract {
@@ -15,7 +16,7 @@ interface TicketingContract {
 
         fun navigateToSeatSelection(ticketingForm: TicketingForm)
 
-        fun showToastMessage(message: String)
+        fun showToastMessage(error: ErrorMessage)
 
         fun updateAvailableTimes(times: List<LocalTime>)
     }

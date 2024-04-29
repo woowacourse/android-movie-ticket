@@ -8,6 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.presenter.contract.TicketingContract
+import woowacourse.movie.view.utils.ErrorMessage
 import java.time.LocalTime
 
 class TicketingPresenterTest {
@@ -53,7 +54,7 @@ class TicketingPresenterTest {
         presenter.initializeTicketingData(-1, 1)
         // then
         verify {
-            view.showToastMessage("존재하지 않는 상영 정보입니다.")
+            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
         }
     }
 
@@ -87,7 +88,7 @@ class TicketingPresenterTest {
         verify {
             view.assignInitialView(any(), any())
             view.updateAvailableTimes(any())
-            view.showToastMessage("구매 티켓은 1개 이상이어야 합니다.")
+            view.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER)
         }
     }
 

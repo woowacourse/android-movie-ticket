@@ -8,6 +8,7 @@ import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.contract.SeatSelectionContract
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.state.TicketingResult
+import woowacourse.movie.view.utils.ErrorMessage
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
@@ -43,7 +44,7 @@ class SeatSelectionPresenter(
             }
 
             is Result.Error -> {
-                view.showToastMessage(screening.message)
+                view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
             }
         }
     }
@@ -71,7 +72,7 @@ class SeatSelectionPresenter(
                 updateBottomBarViews()
             }
 
-            is Result.Error -> view.showToastMessage(updateResult.message)
+            is Result.Error -> view.showToastMessage(ErrorMessage.ERROR_OVER_COUNT)
         }
     }
 

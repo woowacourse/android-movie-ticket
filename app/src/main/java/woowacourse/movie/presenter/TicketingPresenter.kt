@@ -8,6 +8,7 @@ import woowacourse.movie.model.ticketing.BookingDateTime
 import woowacourse.movie.presenter.contract.TicketingContract
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.state.TicketingUiState
+import woowacourse.movie.view.utils.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -53,9 +54,7 @@ class TicketingPresenter(
                 updateTime(ticketingForm.bookingDateTime.time.toString())
             }
 
-            is Result.Error -> {
-                ticketingContractView.showToastMessage(screening.message)
-            }
+            is Result.Error -> ticketingContractView.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
         }
     }
 
@@ -64,9 +63,7 @@ class TicketingPresenter(
             ticketingForm.numberOfTickets.decrease()
             ticketingContractView.updateCount(ticketingForm.numberOfTickets.currentValue)
         }.onFailure {
-            it.message?.let { message ->
-                ticketingContractView.showToastMessage(message)
-            }
+            it.message?.let { message -> ticketingContractView.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER) }
         }
     }
 
@@ -86,9 +83,7 @@ class TicketingPresenter(
                     BookingDateTime(LocalDate.parse(date), ticketingForm.bookingDateTime.time),
             )
         ticketingUiState =
-            ticketingUiState.copy(
-                availableTimes = AvailableTimes.of(LocalDate.parse(date)),
-            )
+            ticketingUiState.copy(availableTimes = AvailableTimes.of(LocalDate.parse(date)))
         ticketingContractView.updateAvailableTimes(ticketingUiState.availableTimes.localTimes)
     }
 
@@ -96,10 +91,7 @@ class TicketingPresenter(
         ticketingForm =
             ticketingForm.copy(
                 bookingDateTime =
-                    BookingDateTime(
-                        ticketingForm.bookingDateTime.date,
-                        LocalTime.parse(time),
-                    ),
+                    BookingDateTime(ticketingForm.bookingDateTime.date, LocalTime.parse(time)),
             )
     }
 }

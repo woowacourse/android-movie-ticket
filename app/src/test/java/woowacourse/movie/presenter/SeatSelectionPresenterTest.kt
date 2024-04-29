@@ -15,6 +15,7 @@ import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.presenter.contract.SeatSelectionContract
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.state.TicketingResult
+import woowacourse.movie.view.utils.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -80,7 +81,7 @@ class SeatSelectionPresenterTest {
         presenter.loadSeats(ticketingForm, emptyList())
         // then
         verify {
-            view.showToastMessage("존재하지 않는 상영 정보입니다.")
+            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
         }
     }
 
@@ -146,7 +147,7 @@ class SeatSelectionPresenterTest {
         // then
         verify {
             view.initializeSeatTable(any(), any(), any(), any(), any())
-            view.showToastMessage("예약 가능 인원 수를 초과하였습니다.")
+            view.showToastMessage(ErrorMessage.ERROR_OVER_COUNT)
         }
     }
 
