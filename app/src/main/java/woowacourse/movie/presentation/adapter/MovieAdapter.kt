@@ -38,12 +38,10 @@ class MovieAdapter(
     ) {
         when (holder) {
             is MovieViewHolder -> {
-                val movieHolder = holder as MovieViewHolder
-                movieHolder.bind(MovieViewType.Screen(movies[0], onMovieItemClick))
+                holder.bind(MovieViewType.Screen(movies[0], onMovieItemClick))
             }
             is AdViewHolder -> {
-                val adHolder = holder as AdViewHolder
-                adHolder.bind()
+                holder.bind()
             }
         }
     }
