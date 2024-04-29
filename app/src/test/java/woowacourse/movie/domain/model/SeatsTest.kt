@@ -44,4 +44,16 @@ class SeatsTest {
             )
         assertThat(seats.maxColumn()).isEqualTo(2)
     }
+
+    @Test
+    fun `find seat with position`() {
+        val seats =
+            Seats(
+                Seat(Position(0, 0), Grade.S),
+                Seat(Position(1, 1), Grade.A),
+            )
+        val actual = seats.findSeat(Position(1, 1))
+
+        assertThat(actual).isEqualTo(Seat(Position(1, 1), Grade.A))
+    }
 }
