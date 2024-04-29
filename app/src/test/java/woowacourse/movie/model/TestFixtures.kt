@@ -11,12 +11,12 @@ import java.time.LocalDateTime
 
 val movie1 =
     Movie(
-        0,
-        "해리 포터와 마법사의 돌",
-        LocalDate.of(2024, 3, 1),
-        LocalDate.of(2024, 3, 20),
-        152,
-        "해리",
+        posterImageId = 0,
+        title = "해리 포터와 마법사의 돌",
+        startScreeningDate = LocalDate.of(2024, 3, 1),
+        endScreeningDate = LocalDate.of(2024, 3, 20),
+        runningTime = 152,
+        synopsis = "해리",
     )
 
 val movie2 = movie1.copy(title = "해리 포터와 마법사의 돌2")
@@ -45,9 +45,9 @@ fun SelectedSeats(
 
 val ticket1 =
     Ticket(
-        0L,
-        LocalDateTime.of(2024, 4, 20, 9, 0),
-        SelectedSeats(ReservationCount(3)),
+        movieId = 0L,
+        screeningDateTime = LocalDateTime.of(2024, 4, 20, 9, 0),
+        selectedSeats = SelectedSeats(ReservationCount(3)),
     )
 
 val ticket2 = ticket1.copy(movieId = 1L)

@@ -87,7 +87,11 @@ class SeatSelectPresenter(
         movieId: Long,
         screeningDateTime: LocalDateTime,
     ) {
-        val ticket = Ticket(movieId, screeningDateTime, selectedSeats)
+        val ticket = Ticket(
+            movieId = movieId,
+            screeningDateTime = screeningDateTime,
+            selectedSeats = selectedSeats,
+        )
         val ticketId = ticketRepository.save(ticket)
         view.moveReservationCompleteView(ticketId)
     }
