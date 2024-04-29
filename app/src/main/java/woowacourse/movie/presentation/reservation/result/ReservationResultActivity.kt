@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
+import woowacourse.movie.common.ui.startActivity
 import woowacourse.movie.data.MovieRepositoryFactory
+import woowacourse.movie.presentation.screening.ScreeningMovieActivity
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter
@@ -17,6 +20,8 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
+
+        initBackPressCallback()
         val id = intent.getLongExtra(KEY_RESERVATION_ID, INVALID_RESERVATION_ID)
         presenter =
             ReservationResultPresenter(
@@ -28,7 +33,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            finish()
+            onBackPressedDispatcher.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -50,6 +55,14 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
         val successLayout = findViewById<ConstraintLayout>(R.id.cl_reservation_result_success)
         errorLayout.visibility = ConstraintLayout.VISIBLE
         successLayout.visibility = ConstraintLayout.GONE
+    }
+
+    private fun initBackPressCallback() {
+        onBackPressedDispatcher.addCallback {
+            startActivity<ScreeningMovieActivity> {
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+        }
     }
 
     companion object {
