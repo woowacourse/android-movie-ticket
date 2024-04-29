@@ -7,14 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.ui.ClickListener
+import woowacourse.movie.ui.ReservationButtonClickListener
 import woowacourse.movie.ui.utils.getImageFromId
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(
     private val view: View,
-    private val clickListener: ClickListener,
+    private val reservationButtonClickListener: ReservationButtonClickListener,
 ) :
     RecyclerView.ViewHolder(view) {
     private val posterImage: ImageView = view.findViewById(R.id.poster_image)
@@ -35,7 +35,7 @@ class MovieViewHolder(
             runningTimeText.text =
                 view.context.resources.getString(R.string.running_time).format(runningTime)
             reservationButton.setOnClickListener {
-                clickListener.onClick(it, id)
+                reservationButtonClickListener.onClick(it, id)
             }
         }
     }

@@ -2,9 +2,9 @@ package woowacourse.movie.ui
 
 import android.view.View
 
-fun interface ClickListener {
+fun interface ReservationButtonClickListener {
     fun onClick(
         view: View,
-        id: Long,
+        movieContentId: Long,
     )
 }

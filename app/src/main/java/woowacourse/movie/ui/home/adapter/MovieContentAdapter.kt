@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.ui.ClickListener
+import woowacourse.movie.ui.ReservationButtonClickListener
 
 class MovieContentAdapter(
     private val movieContents: List<MovieContent>,
-    private val clickListener: ClickListener,
+    private val reservationButtonClickListener: ReservationButtonClickListener,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int) =
         if (isAdsTurn(position)) {
@@ -28,7 +28,7 @@ class MovieContentAdapter(
             val view =
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_movie_content, parent, false)
-            MovieViewHolder(view, clickListener)
+            MovieViewHolder(view, reservationButtonClickListener)
         } else {
             val view =
                 LayoutInflater.from(parent.context)
