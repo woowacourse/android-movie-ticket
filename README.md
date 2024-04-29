@@ -128,6 +128,29 @@ MockK를 도입하기 전에는 가짜 객체를 직접 구현하여 테스트�
 또, MockK의 장점을 전부 체감해보지는 못했기 때문에 여러 미션에서 활용해보고 싶다.
 
 ### 그런데 왜 Mockito가 아닌 MockK를 사용했나?!
-Mockito는 자바를 기반으로 만들어진 라이브러리라서 자바, 코틀린이 혼용된 프로젝트에서 사용을 고려할 수 있고, 전부 코틀린으로 만들어진 프로젝트라면 MockK 사용을 고려할 수 있다
-MockK가 Mockito에 비해 갖는 장점은 DSL을 통한 가독성 높은 코드 작성이 가능한 것, 코루틴 지원, 정적 함수(코틀린의 companion object function)의 mocking이다.
 
+Mockito는 자바를 기반으로 만들어진 라이브러리라서 자바, 코틀린이 혼용된 프로젝트에서 사용을 고려할 수 있고, 전부 코틀린으로 만들어진 프로젝트라면 MockK 사용을 고려할
+수 있다
+MockK가 Mockito에 비해 갖는 장점은 DSL을 통한 가독성 높은 코드 작성이 가능한 것, 코루틴 지원, 정적 함수(코틀린의 companion object function)
+의 mocking이다.
+
+## Kotest 적용기 (vs JUnit)
+
+미션 gradle에 Kotest가 있기도 하고... 코틀린으로 테스트 코드를 작성할 때 JUnit보다 Kotest가 더 좋다고 듣기도 해서... 한번 사용해 보면서 스스로 어떤
+차이가 있는 지 느껴 보기 위해 사용해 보았다.
+
+Kotest에는 String Spec, Behavior Spec, Describe Spec, Annotation Spec 등과 같은 다양한 테스트 스타일이 있다.
+나는 이중에서 BDD 스타일의 테스트 코드를 쉽게 작성할 수 있는 Behavior Spec을 사용했다.
+
+확실히 코틀린스럽게 DSL로 테스트 코드를 작성할 수 있다는게 인상적이었다. 또 JUnit에서 주석으로 명시했던 Given, When, Then을 안 쓰고 코드를 통해 의도를 밝힐
+수 있어 좋았다. 또, 아직은 사용해보지 못했지만 다양한 테스트 스타일을 활용하면 좋겠다는 생각도 했다. JUnit과 함께 Kotest도 학습해봐야겠다.
+
+그 외에도 학습하면서 Kotest에 대해서 알아보았다.
+
+- Kotest는 JVM 위에서 동작할 때 JUnit 플랫폼을 사용한다. 따라서 JUnit 프레임워크가 설치되어 있어야 한다.(나는 JUnit 필요없이, Kotest만을 사용하여
+  테스트 코드를 작성하는 줄 알았다. 그러나 gradle을 보아도 Kotest 라이브러리에 JUnit이 있는 것을 알 수 있다."io.kotest:kotest-runner-junit5:5.8.0")
+- 코틀린에서 제공하는 코틀린 특화 기능(Coroutine, Extension Function, Kotlin DSL등)을 지원한다.
+- 다양한 Assertions를 kotlin DSL스타일로 제공한다.
+
+*BDD(Behavior Driven Development)란 : TDD에서 파생된 개발 방법으로 시나리오를 기반으로 테스트 케이스를 작성하기 때문에 테스트를 이해하기
+쉽다. Given(주어진 환경에서)-When(이렇게 실현이 된다면)-Then(다음과 같은 결과가 나와야 한다) 구조를 기본 패턴으로 사용한다.
