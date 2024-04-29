@@ -1,33 +1,46 @@
 package woowacourse.movie.ui.screen.adapter
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import woowacourse.movie.R
 import woowacourse.movie.ui.ScreenPreviewUI
-import woowacourse.movie.ui.ViewHolderContainer
 
 class ScreenAdapter(
-    private var item: List<ScreenPreviewUI>,
-    private val viewHolderContainer: ViewHolderContainer<ScreenPreviewUI>,
-) : BaseAdapter() {
-    override fun getCount(): Int = item.size
+    private val onItemClick: (id: Int) -> Unit,
+) : ListAdapter<ScreenPreviewUI, ScreenViewHolder>(
+        object : DiffUtil.ItemCallback<ScreenPreviewUI>() {
+            override fun areItemsTheSame(
+                oldItem: ScreenPreviewUI,
+                newItem: ScreenPreviewUI,
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    override fun getItem(position: Int): ScreenPreviewUI = item[position]
-
-    override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(
-        position: Int,
-        convertView: View?,
+            override fun areContentsTheSame(
+                oldItem: ScreenPreviewUI,
+                newItem: ScreenPreviewUI,
+            ): Boolean {
+                return oldItem == newItem
+            }
+        },
+    ) {
+    override fun onCreateViewHolder(
         parent: ViewGroup,
-    ): View {
-        val viewHolder = viewHolderContainer.viewHolder(convertView, parent)
-        viewHolder.bind(item[position])
-        return viewHolder.view()
+        viewType: Int,
+    ): ScreenViewHolder {
+        val view =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.holder_screen, parent, false)
+        return ScreenViewHolder(view, onItemClick)
     }
 
-    fun updateScreens(screens: List<ScreenPreviewUI>) {
-        item = screens
-        notifyDataSetChanged()
+    override fun onBindViewHolder(
+        holder: ScreenViewHolder,
+        position: Int,
+    ) {
+        val screen = getItem(position)
+        holder.bind(screen)
     }
 }
