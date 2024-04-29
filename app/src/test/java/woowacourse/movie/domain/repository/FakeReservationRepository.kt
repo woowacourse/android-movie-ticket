@@ -1,7 +1,6 @@
 package woowacourse.movie.domain.repository
 
 import woowacourse.movie.domain.model.DateTime
-import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Reservation2
 import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.model.Seats

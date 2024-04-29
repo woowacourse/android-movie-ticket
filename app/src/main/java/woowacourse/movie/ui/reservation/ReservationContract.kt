@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.reservation
 
-import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Reservation2
 
 interface ReservationContract {

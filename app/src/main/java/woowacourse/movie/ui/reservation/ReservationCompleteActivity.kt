@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Reservation2
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.ui.Currency
