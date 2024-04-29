@@ -20,4 +20,5 @@
     <string name="running_time">(%1$d분)</string>
     <string name="reservation_info_format">일반 %1$d명 | %2$s</string>
     <string name="reservation_total_price_format">%1$,d원 (현장 결제)</string>
+    <string name="advertisement">광고</string>
 </resources>
