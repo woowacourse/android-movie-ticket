@@ -6,5 +6,11 @@ enum class CatalogViewType(val viewType: Int, val interval: Int = 0, val positio
         viewType = 1,
         interval = 4,
         position = 3,
-    ),
+    ), ;
+
+    companion object {
+        fun from(viewType: Int): CatalogViewType {
+            return entries.first { it.viewType == viewType }
+        }
+    }
 }

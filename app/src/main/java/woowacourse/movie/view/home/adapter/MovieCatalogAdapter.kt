@@ -38,12 +38,12 @@ class MovieCatalogAdapter(
         holder: ViewHolder,
         position: Int,
     ) {
-        when (getItemViewType(position)) {
-            movieViewType -> {
+        when (CatalogViewType.from(getItemViewType(position))) {
+            CatalogViewType.MOVIE -> {
                 val item = movies[position]
                 (holder as MovieViewHolder).bind(item, movie)
             }
-            advertisementViewType -> {
+            CatalogViewType.ADVERTISEMENT -> {
                 val item = advertisements[position - CatalogViewType.ADVERTISEMENT.position]
                 (holder as AdvertisementViewHolder).bind(item)
             }
