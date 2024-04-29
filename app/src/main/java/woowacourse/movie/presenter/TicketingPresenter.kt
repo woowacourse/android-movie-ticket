@@ -5,6 +5,8 @@ import woowacourse.movie.model.MovieData.findScreeningDataById
 import woowacourse.movie.model.Result
 import woowacourse.movie.model.screening.AvailableTimes
 import woowacourse.movie.model.ticketing.BookingDateTime
+import woowacourse.movie.presenter.contract.SelectedDate
+import woowacourse.movie.presenter.contract.SelectedTime
 import woowacourse.movie.presenter.contract.TicketingContract
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.state.TicketingUiState
@@ -23,13 +25,12 @@ class TicketingPresenter(
     override fun initializeTicketingData(
         screeningId: Long,
         initialCount: Int,
-        selectedDate: kotlin.String?,
-        selectedTime: kotlin.String?,
+        selectedDate: SelectedDate?,
+        selectedTime: SelectedTime?,
     ) {
         when (val screening = findScreeningDataById(screeningId)) {
             is Result.Success -> {
-                val initialDate =
-                    selectedDate?.let { LocalDate.parse(it) } ?: screening.data.dates.first()
+                val initialDate = selectedDate.toLocalDate(screening.data.dates)
                 val availableTimes = AvailableTimes.of(initialDate)
                 ticketingUiState =
                     TicketingUiState(
@@ -45,8 +46,7 @@ class TicketingPresenter(
                         bookingDateTime =
                             BookingDateTime(
                                 initialDate,
-                                selectedTime?.let { LocalTime.parse(it) }
-                                    ?: availableTimes.localTimes.first(),
+                                selectedTime.toLocalTime(availableTimes.localTimes),
                             ),
                     )
                 ticketingContractView.assignInitialView(
@@ -88,11 +88,17 @@ class TicketingPresenter(
         ticketingContractView.updateAvailableTimes(ticketingUiState.availableTimes.localTimes)
     }
 
-    override fun updateTime(time: kotlin.String) {
+    override fun updateTime(time: String) {
         ticketingForm =
             ticketingForm.copy(
                 bookingDateTime =
                     BookingDateTime(ticketingForm.bookingDateTime.date, LocalTime.parse(time)),
             )
     }
+
+    private fun SelectedDate?.toLocalDate(availableDates: List<LocalDate>): LocalDate =
+        this?.let { LocalDate.parse(it) } ?: availableDates.first()
+
+    private fun SelectedDate?.toLocalTime(availableTimes: List<LocalTime>): LocalTime =
+        this?.let { LocalTime.parse(this) } ?: availableTimes.first()
 }

@@ -60,7 +60,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun initializeSeatTable(
         theaterSize: TheaterSize,
         rowClassInfo: Map<Int, SeatClass>,
-        movieTitle: kotlin.String,
+        movieTitle: String,
         totalPrice: Int,
         selectedSeats: List<BookingSeat>,
     ) {

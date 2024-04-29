@@ -5,6 +5,9 @@ import woowacourse.movie.view.state.TicketingForm
 import java.time.LocalDate
 import java.time.LocalTime
 
+typealias SelectedDate = String
+typealias SelectedTime = String
+
 interface TicketingContract {
     interface View {
         fun assignInitialView(
@@ -27,8 +30,8 @@ interface TicketingContract {
         fun initializeTicketingData(
             screeningId: Long,
             initialCount: Int,
-            selectedDate: String? = null,
-            selectedTime: String? = null,
+            selectedDate: SelectedDate? = null,
+            selectedTime: SelectedTime? = null,
         )
 
         fun decreaseCount()
@@ -37,8 +40,8 @@ interface TicketingContract {
 
         fun reserveTickets()
 
-        fun updateDate(date: kotlin.String)
+        fun updateDate(date: String)
 
-        fun updateTime(time: kotlin.String)
+        fun updateTime(time: String)
     }
 }

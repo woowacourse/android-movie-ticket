@@ -11,7 +11,7 @@ interface SeatSelectionContract {
         fun initializeSeatTable(
             theaterSize: TheaterSize,
             rowClassInfo: Map<Int, SeatClass>,
-            movieTitle: kotlin.String,
+            movieTitle: String,
             totalPrice: Int,
             selectedSeats: List<BookingSeat>,
         )
