@@ -5,6 +5,8 @@ import woowacourse.movie.model.MovieSeat
 import woowacourse.movie.model.MovieSelectedSeats
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.result.presenter.contract.MovieResultContract
+import woowacourse.movie.util.Formatter.unFormatColumn
+import woowacourse.movie.util.Formatter.unFormatRow
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -21,7 +23,12 @@ class MovieResultPresenter(private val movieResultContractView: MovieResultContr
 
         val movieSelectedSeats = MovieSelectedSeats(count)
         seats.split(", ").forEach { seat ->
-            movieSelectedSeats.selectSeat(MovieSeat(seat[0] - 'A', seat.substring(1).toInt()))
+            movieSelectedSeats.selectSeat(
+                MovieSeat(
+                    unFormatRow(seat),
+                    unFormatColumn(seat),
+                ),
+            )
         }
 
         movieResultContractView.displayMovieTicket(

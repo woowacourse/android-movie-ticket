@@ -11,6 +11,8 @@ import woowacourse.movie.main.view.MovieMainActivity
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.result.presenter.MovieResultPresenter
 import woowacourse.movie.result.presenter.contract.MovieResultContract
+import woowacourse.movie.util.Formatter.formatPrice
+import woowacourse.movie.util.Formatter.formatRow
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
@@ -21,7 +23,6 @@ import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_DATE
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_SEATS
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
-import java.text.DecimalFormat
 
 class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
     private lateinit var resultTitle: TextView
@@ -63,9 +64,9 @@ class MovieResultActivity : AppCompatActivity(), MovieResultContract.View {
             resultCount.text = movieTicket.seats.count.toString()
             resultSeats.text =
                 movieTicket.seats.selectedSeats.joinToString(", ") { seat ->
-                    getString(R.string.seat, (seat.row + 'A'.code).toChar(), seat.column)
+                    getString(R.string.seat, formatRow(seat.row), seat.column)
                 }
-            resultPrice.text = DecimalFormat("#,###").format(movieTicket.seats.totalPrice())
+            resultPrice.text = formatPrice(movieTicket.seats.totalPrice())
         }
     }
 

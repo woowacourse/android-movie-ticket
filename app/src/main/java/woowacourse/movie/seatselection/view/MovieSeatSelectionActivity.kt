@@ -17,6 +17,9 @@ import woowacourse.movie.model.MovieSelectedSeats
 import woowacourse.movie.result.view.MovieResultActivity
 import woowacourse.movie.seatselection.presenter.MovieSeatSelectionPresenter
 import woowacourse.movie.seatselection.presenter.contract.MovieSeatSelectionContract
+import woowacourse.movie.util.Formatter.formatColumn
+import woowacourse.movie.util.Formatter.formatPrice
+import woowacourse.movie.util.Formatter.formatRow
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_COUNT
 import woowacourse.movie.util.MovieIntentConstant.INVALID_VALUE_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_COUNT
@@ -25,7 +28,6 @@ import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_SEATS
 import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_TIME
 import woowacourse.movie.util.MovieIntentConstant.KEY_SELECTED_POSITIONS
-import java.text.DecimalFormat
 
 class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContract.View {
     private lateinit var seatTitle: TextView
@@ -83,7 +85,7 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
     override fun setUpTableSeats(baseSeats: List<MovieSeat>) {
         tableSeats.forEachIndexed { index, view ->
             val seat = baseSeats[index]
-            view.text = getString(R.string.seat, ('A'.code + seat.row).toChar(), seat.column + 1)
+            view.text = getString(R.string.seat, formatRow(seat.row), formatColumn(seat.column))
             view.setTextColor(ContextCompat.getColor(this, seat.grade.color))
 
             view.setOnClickListener {
@@ -106,14 +108,14 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
     }
 
     override fun updateSelectResult(movieSelectedSeats: MovieSelectedSeats) {
-        seatPrice.text = DecimalFormat("#,###").format(movieSelectedSeats.totalPrice())
+        seatPrice.text = formatPrice(movieSelectedSeats.totalPrice())
         completeButton.isEnabled = movieSelectedSeats.isSelectionComplete()
     }
 
     override fun navigateToResultView(movieSelectedSeats: MovieSelectedSeats) {
         val seats =
             movieSelectedSeats.selectedSeats.map { seat ->
-                ((seat.row + 'A'.code).toChar() + (seat.column + 1).toString())
+                (formatRow(seat.row) + (formatColumn(seat.column)))
             }.joinToString(", ")
 
         Intent(this, MovieResultActivity::class.java).apply {
