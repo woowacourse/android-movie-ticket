@@ -1,4 +1,4 @@
-package woowacourse.movie.seat.presenter
+package woowacourse.movie.seats.presenter
 
 import io.mockk.every
 import io.mockk.just
@@ -9,9 +9,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.seats.contract.SeatsContract
 import woowacourse.movie.seats.model.SeatsDataSource.seat
-import woowacourse.movie.seats.presenter.SeatsPresenter
 
-class SeatsTest {
+class SeatsPresenterTest {
     private lateinit var view: SeatsContract.View
     private lateinit var presenter: SeatsContract.Presenter
 

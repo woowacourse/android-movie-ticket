@@ -1,4 +1,4 @@
-package woowacourse.movie.seat.model
+package woowacourse.movie.seats.model
 
 import android.graphics.Color
 import org.assertj.core.api.Assertions.assertThat
@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import woowacourse.movie.seats.model.Seat
-import woowacourse.movie.seats.model.SeatRank
 
 class SeatTest {
     @Test
