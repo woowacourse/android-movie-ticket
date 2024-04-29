@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -13,6 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.ui.result.ResultActivity
+import woowacourse.movie.ui.seatselection.SeatSelectionActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -26,19 +28,18 @@ class SeatSelectionActivityTest {
         ticket.date = LocalDate.of(2024, 3, 1)
         ticket.time = "10:00"
 
-        intent =
-            Intent(
-                ApplicationProvider.getApplicationContext(),
-                ResultActivity::class.java,
-            ).putExtra("ticket", ticket)
-                .putExtra("screenTitle", "해리 포터와 마법사의 돌")
+        intent = Intent(
+            ApplicationProvider.getApplicationContext(),
+            SeatSelectionActivity::class.java,
+        ).putExtra("ticket", ticket)
+            .putExtra("screenTitle", "해리 포터와 마법사의 돌")
     }
 
     @get:Rule
-    val activityRule = ActivityScenarioRule<ResultActivity>(intent)
+    val activityRule = ActivityScenarioRule<SeatSelectionActivity>(intent)
 
     @Test
-    fun `예매할_영화의_제목이_표시된다`() {
+    fun `좌석_표시된다`() {
         onView(withId(R.id.selection_title_textview))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }

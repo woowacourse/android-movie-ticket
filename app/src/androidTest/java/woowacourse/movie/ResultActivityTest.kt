@@ -21,21 +21,21 @@ import java.time.LocalDate
 class ResultActivityTest {
     private val ticket = Ticket(1L)
 
-    private var intent: Intent
+    private var intent : Intent
 
     init {
         ticket.count = 1
-        ticket.seats.add(Seat("A", 1, SeatGrade.A))
+        ticket.seats.add(Seat("A",1, SeatGrade.A))
         ticket.date = LocalDate.of(2024, 3, 1)
         ticket.time = "10:00"
 
-        intent =
-            Intent(
-                ApplicationProvider.getApplicationContext(),
-                ResultActivity::class.java,
-            ).putExtra("ticket", ticket)
-                .putExtra("screenTitle", "해리 포터와 마법사의 돌")
+        intent = Intent(
+            ApplicationProvider.getApplicationContext(),
+            ResultActivity::class.java,
+        ).putExtra("ticket", ticket)
+            .putExtra("screenTitle", "해리 포터와 마법사의 돌")
     }
+
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ResultActivity>(intent)
