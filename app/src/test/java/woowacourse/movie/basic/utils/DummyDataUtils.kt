@@ -4,6 +4,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.ScreenDate
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatBoard
 import woowacourse.movie.domain.model.SeatRank

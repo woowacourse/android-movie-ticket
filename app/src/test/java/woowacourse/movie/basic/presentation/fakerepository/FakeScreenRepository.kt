@@ -1,6 +1,6 @@
 package woowacourse.movie.basic.presentation.fakerepository
 
-import woowacourse.movie.domain.model.ScreenView
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.domain.model.SeatBoard
 import woowacourse.movie.domain.repository.ScreenRepository
 
@@ -13,7 +13,7 @@ class FakeScreenRepository(private val screens: List<Screen>) : ScreenRepository
         TODO("Not yet implemented")
     }
 
-    override fun findByScreenId(id: Int): Result<ScreenView.Screen> {
+    override fun findByScreenId(id: Int): Result<Screen> {
         return runCatching {
             screens.find { screen -> screen.id == id } ?: throw NoSuchElementException()
         }

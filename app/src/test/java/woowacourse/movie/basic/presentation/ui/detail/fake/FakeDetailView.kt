@@ -1,6 +1,7 @@
 package woowacourse.movie.basic.presentation.ui.detail.fake
 
 import woowacourse.movie.domain.model.ScreenDate
+import woowacourse.movie.domain.model.ScreenView.Screen
 import woowacourse.movie.presentation.model.MessageType
 import woowacourse.movie.presentation.model.ReservationInfo
 import woowacourse.movie.presentation.ui.detail.DetailContract

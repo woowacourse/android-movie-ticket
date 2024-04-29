@@ -18,6 +18,7 @@ import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.presentation.utils.currency
 import woowacourse.movie.presentation.utils.getDummyMovie
 import woowacourse.movie.presentation.utils.getDummyReservation
+import woowacourse.movie.presentation.utils.getDummySeats
 import woowacourse.movie.presentation.utils.toScreeningDate
 import java.time.LocalDateTime
 
@@ -26,7 +27,7 @@ class ReservationActivityTest {
     private val repository: ReservationRepository by lazy { DummyReservation }
     private var reservationId: Int
     private val reservation = getDummyReservation()
-    private val count = 1
+    private val count = 3
 
     @get:Rule
     val activityRule: ActivityScenarioRule<ReservationActivity> =
@@ -39,7 +40,7 @@ class ReservationActivityTest {
                     repository.saveReservation(
                         getDummyMovie(),
                         count,
-                        emptyList(),
+                        getDummySeats(),
                         LocalDateTime.now(),
                     ).getOrThrow()
                 putExtra("reservationId", reservationId)
@@ -58,7 +59,7 @@ class ReservationActivityTest {
 
     @Test
     fun `상영_영화_예매_수를_표시한다`() {
-        onView(withId(R.id.tv_reservation_count)).check(matches(withText("일반 ${count}명")))
+        onView(withId(R.id.tv_reservation_count)).check(matches(withText("일반 ${count}명 | A1, A2, A3")))
     }
 
     @Test
