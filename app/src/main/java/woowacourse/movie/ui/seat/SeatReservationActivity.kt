@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.TimeReservation
 import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.domain.repository.DummySeats
@@ -18,11 +19,16 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     private val presenter = SeatReservationPresenter(this, DummyScreens(DummySeats()), DummyReservation)
     private val seatsGridLayout: GridLayout by lazy { findViewById(R.id.gl_seat_reservation_seats) }
 
+    private val movieTitle: TextView by lazy { findViewById(R.id.tv_seat_reservation_movie_title) }
+    private val totalPrice: TextView by lazy { findViewById(R.id.tv_seat_reservation_total_price) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_reservation)
 
         presenter.loadSeats(1)
+        presenter.loadTimeReservations(intent.getIntExtra(TIME_RESERVATION_ID, 0))
+        totalPrice.text = "0원"
     }
 
     override fun showSeats(seats: Seats) {
@@ -53,6 +59,11 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
                 seatsGridLayout.addView(textView)
             }
         }
+    }
+
+    override fun showTimeReservations(timeReservation: TimeReservation) {
+        val screen = timeReservation.screen
+        movieTitle.text = screen.movie.title
     }
 
     override fun navigateToCompleteReservation(reservationId: Int) {
