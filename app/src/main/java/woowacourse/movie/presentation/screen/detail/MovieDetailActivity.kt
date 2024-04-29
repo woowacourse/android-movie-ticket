@@ -43,8 +43,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         presenter.fetchScreenInfo(movieId)
-        bindCountButtons()
-        bindSelectSeatButton()
+        addClickListenerToCountButtons()
+        accClickListenerToSeatButton()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -145,7 +145,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             ArrayAdapter(this, android.R.layout.simple_spinner_item, dates)
     }
 
-    private fun bindCountButtons() {
+    private fun addClickListenerToCountButtons() {
         addButton.setOnClickListener {
             presenter.addTicketCount()
         }
@@ -154,7 +154,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         }
     }
 
-    private fun bindSelectSeatButton() {
+    private fun accClickListenerToSeatButton() {
         selectSeatButton.setOnClickListener {
             presenter.createTicket()
             presenter.loadMovieDetail()
