@@ -134,7 +134,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun navigateToFinished(seats: Seats) {
         val intent = Intent(this, ReservationFinishedActivity::class.java)
         intent.putExtra(TICKET, ticket)
-        intent.putExtra("seats", seats)
+        intent.putExtra(SEATS, seats)
         startActivity(intent)
     }
 
