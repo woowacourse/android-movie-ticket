@@ -5,6 +5,7 @@ data class Reservation2(
     val screen: Screen,
     val ticket: Ticket,
     val seats: Seats,
+    val dateTime: DateTime? = null,
 ) {
     init {
         require(ticket.count == seats.count()) { "예약된 좌석 수와 티켓 수가 일치하지 않습니다." }

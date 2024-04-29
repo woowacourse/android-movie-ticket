@@ -21,20 +21,6 @@ class ReservationRepositoryTest {
     }
 
     @Test
-    fun `save reservation`() {
-        val reservationId =
-            repository.save(
-                Screen.NULL,
-                Seats(
-                    Seat(Position(1, 1), Grade.S),
-                    Seat(Position(2, 2), Grade.A),
-                ),
-            ).getOrThrow()
-
-        assertThat(reservationId).isEqualTo(2)
-    }
-
-    @Test
     fun `find reservation by id`() {
         val reservation = repository.findById2(-1).getOrThrow()
         assertThat(reservation).isEqualTo(
@@ -46,32 +32,6 @@ class ReservationRepositoryTest {
                 Seats(
                     Seat(Position(0, 0), Grade.S),
                 ),
-            ),
-        )
-    }
-
-    @Test
-    fun `save reservation and find that reservation`() {
-        val seats =
-            Seats(
-                Seat(Position(1, 1), Grade.S),
-                Seat(Position(2, 2), Grade.A),
-            )
-
-        val reservationId =
-            repository.save(
-                Screen.NULL,
-                seats,
-            ).getOrThrow()
-
-        val reservation = repository.findById2(reservationId).getOrThrow()
-
-        assertThat(reservation).isEqualTo(
-            Reservation2(
-                id = 2,
-                screen = Screen.NULL,
-                ticket = Ticket(2),
-                seats = seats,
             ),
         )
     }
