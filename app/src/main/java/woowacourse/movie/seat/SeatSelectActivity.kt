@@ -17,8 +17,8 @@ import woowacourse.movie.reservation.ReservationFinishedActivity
 
 class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     private val seats: GridLayout by lazy { findViewById(R.id.grid_layout_seat_select) }
-    private val movieTitleTextView: TextView by lazy { findViewById(R.id.text_view_seat_select_movie_title) }
-    private val totalPriceTextView: TextView by lazy { findViewById(R.id.text_view_seat_select_total_price) }
+    private val movieTitle: TextView by lazy { findViewById(R.id.text_view_seat_select_movie_title) }
+    private val totalPrice: TextView by lazy { findViewById(R.id.text_view_seat_select_total_price) }
     private val reservationButton: Button by lazy { findViewById(R.id.button_seat_select_confirm) }
 
     private lateinit var presenter: SeatSelectPresenter
@@ -38,10 +38,11 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             if (savedInstanceState == null) {
                 SeatSelectPresenter(this, movieId, ticket)
             } else {
-                val seats = savedInstanceState.getStringArray("seats")
-                SeatSelectPresenter(this, movieId, ticket, seats!!.toMutableList())
+                val seats =
+                    savedInstanceState.getStringArray(SEATS)
+                        ?: throw IllegalArgumentException("빈 자리가 넘어 왔습니다.")
+                SeatSelectPresenter(this, movieId, ticket, seats.toMutableList())
             }
-        presenter.loadMovieTitle()
 
         seats.children
             .filterIsInstance<TextView>()
@@ -68,19 +69,19 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putStringArray("seats", presenter.seats.toTypedArray())
+        outState.putStringArray(SEATS, presenter.seats.toTypedArray())
     }
 
     override fun showReservationInfo(
         movieTitle: String,
         totalPrice: Int,
     ) {
-        movieTitleTextView.text = movieTitle
-        totalPriceTextView.text = getString(R.string.seat_select_total_price, totalPrice)
+        this.movieTitle.text = movieTitle
+        this.totalPrice.text = getString(R.string.seat_select_total_price, totalPrice)
     }
 
     override fun showTotalPrice(totalPrice: Int) {
-        totalPriceTextView.text = getString(R.string.seat_select_total_price, totalPrice)
+        this.totalPrice.text = getString(R.string.seat_select_total_price, totalPrice)
     }
 
     override fun showReservationCheck(isAvailable: Boolean) {
@@ -138,6 +139,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     companion object {
         private const val MOVIE_ID = "movieId"
         private const val TICKET = "ticket"
+        private const val SEATS = "seats"
         private const val DEFAULT_MOVIE_ID = 0
 
         fun getIntent(

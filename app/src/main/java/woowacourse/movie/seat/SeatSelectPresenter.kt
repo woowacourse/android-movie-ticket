@@ -13,6 +13,10 @@ class SeatSelectPresenter(
     private val totalPrice
         get() = Rank.calculateTotalPrice(getRanks(seats))
 
+    init {
+        loadMovieTitle()
+    }
+
     override fun loadSavedData() {
         view.showTotalPrice(totalPrice)
     }
