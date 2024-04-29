@@ -38,21 +38,21 @@ class MovieResultPresenterTest {
         every { resultContractView.onError(any()) } just runs
         every { resultContractView.onUpdateView(any()) } just runs
 
-        resultPresenter.loadResult(0, 0, listOf(0), 1)
+        resultPresenter.loadResult(0, 0, listOf(0))
 
         verify(exactly = 1) { resultContractView.onUpdateView(any()) }
         verify(exactly = 0) { resultContractView.onError(any()) }
     }
 
     @Test
-    fun `loadResult()로 얻은 데이터가 없을 경우 onError()를 실행한다`() {
+    fun `loadResult()로 얻은 데이터가 없을 경우 onEror()를 실행한다`() {
         every { movieRepository.findMovieById(any()) } returns null
         every { movieRepository.findScreenDateTimeByMovieScreenDateTimeId(any()) } returns null
         every { movieRepository.findSeatById(any()) } returns null
         every { resultContractView.onError(any()) } just runs
         every { resultContractView.onUpdateView(any()) } just runs
 
-        resultPresenter.loadResult(0, 0, listOf(0), 1)
+        resultPresenter.loadResult(0, 0, listOf(0))
 
         verify(exactly = 0) { resultContractView.onUpdateView(any()) }
         verify(exactly = 1) { resultContractView.onError(any()) }
