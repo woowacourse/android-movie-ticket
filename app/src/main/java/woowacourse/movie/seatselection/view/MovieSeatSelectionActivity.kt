@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.model.MovieGrade
 import woowacourse.movie.model.MovieSeat
 import woowacourse.movie.model.MovieSelectedSeats
 import woowacourse.movie.result.view.MovieResultActivity
@@ -86,7 +87,14 @@ class MovieSeatSelectionActivity : AppCompatActivity(), MovieSeatSelectionContra
         tableSeats.forEachIndexed { index, view ->
             val seat = baseSeats[index]
             view.text = getString(R.string.seat, formatRow(seat.row), formatColumn(seat.column))
-            view.setTextColor(ContextCompat.getColor(this, seat.grade.color))
+
+            val seatColor =
+                when (seat.grade) {
+                    MovieGrade.B_GRADE -> R.color.b_grade
+                    MovieGrade.S_GRADE -> R.color.s_grade
+                    MovieGrade.A_GRADE -> R.color.a_grade
+                }
+            view.setTextColor(ContextCompat.getColor(this, seatColor))
 
             view.setOnClickListener {
                 seatSelectionPresenter.clickTableSeat(index)
