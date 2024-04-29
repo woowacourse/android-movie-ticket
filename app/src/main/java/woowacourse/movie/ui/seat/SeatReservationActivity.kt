@@ -16,6 +16,7 @@ import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.domain.repository.DummySeats
 import woowacourse.movie.ui.Currency
+import woowacourse.movie.ui.reservation.ReservationActivity
 import java.util.Locale
 
 class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.View {
@@ -30,9 +31,14 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_reservation)
 
-        presenter.loadSeats(1)
-        presenter.loadTimeReservations(intent.getIntExtra(TIME_RESERVATION_ID, 0))
+        val id = intent.getIntExtra(TIME_RESERVATION_ID, DEFAULT_ID)
+        presenter.loadSeats(id)
+        presenter.loadTimeReservations(id)
         totalPrice.text = "0원"
+
+        reserveCompleteBtn.setOnClickListener{
+            presenter.reserve(id)
+        }
     }
 
     override fun showSeats(seats: Seats) {
@@ -88,7 +94,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     }
 
     override fun navigateToCompleteReservation(reservationId: Int) {
-        TODO("Not yet implemented")
+        ReservationActivity.startActivity(this, reservationId)
     }
 
     override fun showSeatReservationFail(throwable: Throwable) {
@@ -97,6 +103,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
 
     companion object {
         private const val TIME_RESERVATION_ID = "timeReservationId"
+        private const val DEFAULT_ID = -1
 
         fun startActivity(context: Context, timeReservationId: Int) {
             val intent = Intent(context, SeatReservationActivity::class.java).apply {

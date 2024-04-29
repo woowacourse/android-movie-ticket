@@ -30,7 +30,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     private fun initView() {
         val id = intent.getIntExtra(PUT_EXTRA_KEY_RESERVATION_ID, DEFAULT_RESERVATION_ID)
-        presenter.loadReservation(id)
+        // TODO: presenter.loadReservation2(id)
+//        presenter.loadReservation(id)
     }
 
     override fun showReservation(reservation: Reservation) {

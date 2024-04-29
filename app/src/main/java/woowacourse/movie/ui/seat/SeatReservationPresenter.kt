@@ -8,6 +8,7 @@ import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
+import java.lang.IllegalStateException
 
 class SeatReservationPresenter(
     private val view: SeatReservationContract.View,
@@ -69,5 +70,25 @@ class SeatReservationPresenter(
             .onFailure {
                 view.showSeatReservationFail(it)
             }
+    }
+
+    private fun screen(id: Int): Screen {
+        screenRepository.findById(id = id).onSuccess { screen ->
+            return screen
+        }.onFailure { e ->
+            throw e
+        }
+        throw IllegalStateException("예기치 못한 오류")
+    }
+
+    override fun reserve(screenId: Int) {
+        reservationRepository.save(
+            screen(screenId),
+            Seats(selectedSeats),
+        ).onSuccess { id ->
+            view.navigateToCompleteReservation(id)
+        }.onFailure { e ->
+            view.showToast(e)
+        }
     }
 }

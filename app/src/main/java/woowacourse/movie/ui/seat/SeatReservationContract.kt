@@ -33,5 +33,7 @@ interface SeatReservationContract {
             screen: Screen,
             seats: Seats,
         )
+
+        fun reserve(screenId: Int)
     }
 }
