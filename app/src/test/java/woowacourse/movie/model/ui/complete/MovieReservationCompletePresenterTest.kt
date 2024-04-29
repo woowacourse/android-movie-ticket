@@ -1,6 +1,5 @@
 package woowacourse.movie.model.ui.complete
 
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
@@ -44,7 +43,6 @@ class MovieReservationCompletePresenterTest {
     fun `티켓 정보가 없을 경우 에러를 보여준다`() {
         // given
 
-
         // when
         presenter.loadTicket(-1L)
 
@@ -55,7 +53,6 @@ class MovieReservationCompletePresenterTest {
     @Test
     fun `에러를 처리한다`() {
         // given
-
 
         // when
         presenter.handleError(Throwable())

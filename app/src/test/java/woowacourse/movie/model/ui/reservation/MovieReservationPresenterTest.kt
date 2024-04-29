@@ -1,6 +1,5 @@
 package woowacourse.movie.model.ui.reservation
 
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
