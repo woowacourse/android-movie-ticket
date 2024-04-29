@@ -15,18 +15,8 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".ui.result.ResultActivity"
-            android:exported="false" />
         <activity
-            android:name=".ui.reservation.ReservationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.seatselection.SeatSelectionActivity"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Movie" />
-        <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
