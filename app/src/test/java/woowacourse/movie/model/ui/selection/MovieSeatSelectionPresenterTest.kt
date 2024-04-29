@@ -48,7 +48,7 @@ class MovieSeatSelectionPresenterTest {
     @Test
     fun `좌석을 선택한다`() {
         // given
-        every { view.showSelectedSeat(any(), any()) }
+        every { view.showSelectedSeat(any()) }
         every { view.updateSelectCompletion(any()) }
         every { view.showReservationTotalAmount(any()) }
 
@@ -56,7 +56,7 @@ class MovieSeatSelectionPresenterTest {
         presenter.selectSeat(1, 1)
 
         // then
-        verify { view.showSelectedSeat(any(), any()) }
+        verify { view.showSelectedSeat(any()) }
         verify { view.updateSelectCompletion(any()) }
         verify { view.showReservationTotalAmount(any()) }
     }

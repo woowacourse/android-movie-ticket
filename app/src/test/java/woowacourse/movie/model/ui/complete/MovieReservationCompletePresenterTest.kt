@@ -32,7 +32,6 @@ class MovieReservationCompletePresenterTest {
     @Test
     fun `티켓 정보를 가져온다`() {
         // given
-        every { view.showTicket(any()) }
 
         // when
         presenter.loadTicket(0L)
@@ -44,7 +43,7 @@ class MovieReservationCompletePresenterTest {
     @Test
     fun `티켓 정보가 없을 경우 에러를 보여준다`() {
         // given
-        every { view.showError(any()) }
+
 
         // when
         presenter.loadTicket(-1L)
@@ -56,7 +55,7 @@ class MovieReservationCompletePresenterTest {
     @Test
     fun `에러를 처리한다`() {
         // given
-        every { view.showError(any()) }
+
 
         // when
         presenter.handleError(Throwable())

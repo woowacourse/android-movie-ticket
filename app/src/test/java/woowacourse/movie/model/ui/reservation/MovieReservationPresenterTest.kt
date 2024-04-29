@@ -24,8 +24,6 @@ class MovieReservationPresenterTest {
     @Test
     fun `영화 정보를 표시한다`() {
         // given
-        every { view.showMovieContent(any()) }
-        every { view.showMovieDateSelection(any()) }
 
         // when
         presenter.loadMovieContent(0L)
@@ -38,7 +36,6 @@ class MovieReservationPresenterTest {
     @Test
     fun `영화 정보를 표시할수 없을 경우 에러를 표시한다`() {
         // given
-        every { view.showError(any()) }
 
         // when
         presenter.loadMovieContent(-1L)
@@ -50,7 +47,6 @@ class MovieReservationPresenterTest {
     @Test
     fun `예매 인원을 업데이트한다`() {
         // given
-        every { view.updateReservationCount(any()) }
 
         // when
         presenter.updateReservationCount(3)
@@ -62,7 +58,6 @@ class MovieReservationPresenterTest {
     @Test
     fun `영화 날짜를 선택한다`() {
         // given
-        every { view.showMovieTimeSelection(any()) }
 
         // when
         presenter.selectDate(LocalDate.of(2024, 3, 1))
@@ -74,7 +69,6 @@ class MovieReservationPresenterTest {
     @Test
     fun `예매인이 2에서 1로 감소한다`() {
         // given
-        every { view.updateReservationCount(any()) }
         presenter.updateReservationCount()
         presenter.increaseCount()
 
@@ -88,7 +82,6 @@ class MovieReservationPresenterTest {
     @Test
     fun `예매인이 1일때에서 2로 증가된다`() {
         // given
-        every { view.updateReservationCount(any()) }
         presenter.updateReservationCount()
 
         // when
@@ -101,7 +94,6 @@ class MovieReservationPresenterTest {
     @Test
     fun `에러를 처리한다`() {
         // given
-        every { view.showError(any()) }
 
         // when
         presenter.handleError(Throwable())

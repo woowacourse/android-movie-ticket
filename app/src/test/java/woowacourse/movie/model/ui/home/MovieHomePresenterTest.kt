@@ -22,7 +22,6 @@ class MovieHomePresenterTest {
     @Test
     fun `영화 목록을 가져온다`() {
         // given
-        every { view.showMovieContents(any()) }
 
         // when
         presenter.loadMovieContents()

@@ -11,25 +11,26 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.Matchers.not
+import org.junit.AfterClass
+import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.movie.MovieContent
+import woowacourse.movie.model.data.UserTicketsImpl
+import woowacourse.movie.model.movie.ReservationDetail
+import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.reservation.MovieReservationKey
+import java.time.LocalDateTime
 
 class MovieSeatSelectionActivityTest {
-    private val movieContent: MovieContent = MovieContentsImpl.find(0L)
+    private val userTicket: UserTicket = UserTicketsImpl.find(0L)
 
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             MovieSeatSelectionActivity::class.java,
         ).run {
-            putExtra(MovieReservationKey.ID, 0L)
-            putExtra(MovieReservationKey.COUNT, 2)
-            putExtra(MovieReservationKey.DATE, "2024-03-28")
-            putExtra(MovieReservationKey.TIME, "21:00")
+            putExtra(MovieReservationKey.TICKET_ID, 0L)
         }
 
     @get:Rule
@@ -39,7 +40,7 @@ class MovieSeatSelectionActivityTest {
     fun `화면이_띄워지면_영화_제목이_보인다`() {
         onView(withId(R.id.movie_title_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText(movieContent.title)))
+            .check(matches(withText(userTicket.title)))
     }
 
     @Test
@@ -82,5 +83,20 @@ class MovieSeatSelectionActivityTest {
 
         onView(withId(R.id.confirm_button))
             .check(matches(isEnabled()))
+    }
+
+    companion object {
+        @JvmStatic
+        @BeforeClass
+        fun setUp() {
+            UserTicketsImpl.save(
+                UserTicket(
+                    "해리포터와 마법사의 돌0",
+                    LocalDateTime.of(2024, 3, 28, 10, 0),
+                    ReservationDetail(2),
+                    0L,
+                ),
+            )
+        }
     }
 }
