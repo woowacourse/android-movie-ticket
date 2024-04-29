@@ -19,6 +19,7 @@ import woowacourse.movie.ui.ScreenDetailUI
 import woowacourse.movie.ui.detail.view.DateTimeSpinnerView
 import woowacourse.movie.ui.detail.view.ScreenDetailScreenView
 import woowacourse.movie.ui.detail.view.ScreenDetailTicketView
+import woowacourse.movie.ui.detail.view.TicketReserveListener
 import woowacourse.movie.ui.seat.SeatReservationActivity
 
 class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
@@ -53,8 +54,22 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         dateTimeSpinnerView.selectedDatePosition()
     }
 
-    private fun initClickListener(id: Int) {
-        ticketView.initClickListener(screenId = id, presenter = presenter)
+    private fun initClickListener(screenId: Int) {
+        ticketView.initClickListener(screenId = screenId,
+            object : TicketReserveListener<Int> {
+                override fun increaseTicket() {
+                    presenter.plusTicket()
+                }
+
+                override fun decreaseTicket() {
+                    presenter.minusTicket()
+                }
+
+                override fun reserve(screenId: Int) {
+                    presenter.reserve(screenId)
+                }
+            }
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

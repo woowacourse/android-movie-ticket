@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
-import woowacourse.movie.ui.detail.ScreenDetailContract
 
 class ScreenDetailTicketView(
     context: Context,
@@ -23,16 +22,16 @@ class ScreenDetailTicketView(
 
     override fun initClickListener(
         screenId: Int,
-        presenter: ScreenDetailContract.Presenter,
-    ) {
+        ticketReserveListener: TicketReserveListener<Int>
+    ){
         plusBtn.setOnClickListener {
-            presenter.plusTicket()
+            ticketReserveListener.increaseTicket()
         }
         minusBtn.setOnClickListener {
-            presenter.minusTicket()
+            ticketReserveListener.decreaseTicket()
         }
         reserveBtn.setOnClickListener {
-            presenter.reserve(screenId)
+            ticketReserveListener.reserve(screenId = screenId)
         }
     }
 
