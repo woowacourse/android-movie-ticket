@@ -3,6 +3,7 @@ package woowacourse.movie.ui.reservation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,7 @@ import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.ui.Currency
 import java.util.Locale
 
-class ReservationActivity : AppCompatActivity(), ReservationContract.View {
+class ReservationCompleteActivity : AppCompatActivity(), ReservationContract.View {
     private val presenter: ReservationContract.Presenter by lazy { ReservationPresenter(this, DummyReservation) }
 
     private val title: TextView by lazy { findViewById(R.id.tv_reservation_title) }
@@ -23,7 +24,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reservation)
+        setContentView(R.layout.activity_reservation_complete)
 
         initView()
     }
@@ -72,7 +73,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             context: Context,
             reservationId: Int,
         ) {
-            val intent = Intent(context, ReservationActivity::class.java)
+            val intent = Intent(context, ReservationCompleteActivity::class.java)
             intent.putExtra(PUT_EXTRA_KEY_RESERVATION_ID, reservationId)
             context.startActivity(intent)
         }

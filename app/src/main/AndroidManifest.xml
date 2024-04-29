@@ -16,7 +16,7 @@
             android:name=".ui.seat.SeatReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.reservation.ReservationActivity"
+            android:name=".ui.reservation.ReservationCompleteActivity"
             android:exported="false" />
         <activity
             android:name=".ui.detail.ScreenDetailActivity"

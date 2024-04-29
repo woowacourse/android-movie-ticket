@@ -16,7 +16,7 @@ import woowacourse.movie.domain.repository.DummyReservation
 import woowacourse.movie.domain.repository.DummyScreens
 import woowacourse.movie.domain.repository.DummySeats
 import woowacourse.movie.ui.Currency
-import woowacourse.movie.ui.reservation.ReservationActivity
+import woowacourse.movie.ui.reservation.ReservationCompleteActivity
 import java.util.Locale
 
 class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.View {
@@ -94,7 +94,7 @@ class SeatReservationActivity : AppCompatActivity(), SeatReservationContract.Vie
     }
 
     override fun navigateToCompleteReservation(reservationId: Int) {
-        ReservationActivity.startActivity(this, reservationId)
+        ReservationCompleteActivity.startActivity(this, reservationId)
     }
 
     override fun showSeatReservationFail(throwable: Throwable) {

@@ -17,11 +17,11 @@ import woowacourse.movie.domain.model.Screen
 import woowacourse.movie.domain.repository.DummyReservation
 
 @RunWith(AndroidJUnit4::class)
-class ReservationActivityTest {
+class ReservationCompleteActivityTest {
     @get:Rule
-    val activityRule: ActivityScenarioRule<ReservationActivity> =
-        ActivityScenarioRule<ReservationActivity>(
-            Intent(ApplicationProvider.getApplicationContext(), ReservationActivity::class.java).apply {
+    val activityRule: ActivityScenarioRule<ReservationCompleteActivity> =
+        ActivityScenarioRule<ReservationCompleteActivity>(
+            Intent(ApplicationProvider.getApplicationContext(), ReservationCompleteActivity::class.java).apply {
                 putExtra("reservationId", testFixtureReservationId())
             },
         )
