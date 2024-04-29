@@ -7,7 +7,6 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.ScreenAd
 import woowacourse.movie.domain.repository.DummyMovies
 import woowacourse.movie.domain.repository.DummyScreens
-import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter
 
@@ -26,23 +25,19 @@ class ScreenActivity : AppCompatActivity(), ScreenContract.View {
         setContentView(R.layout.activity_main)
 
         initAdapter()
-        screenPresenter.loadScreen2()
+        screenPresenter.loadScreen()
     }
 
     private fun initAdapter() {
         val recyclerView = findViewById<RecyclerView>(R.id.lv_screen)
         adapter =
-            ScreenAdapter {screenId ->
+            ScreenAdapter { screenId ->
                 ScreenDetailActivity.startActivity(this, screenId)
             }
         recyclerView.adapter = adapter
     }
 
-    override fun showScreens(screens: List<ScreenPreviewUI>) {
-//        adapter.submitList(screens)
-    }
-
-    override fun showScreens2(screens: List<ScreenAd>) {
+    override fun showScreens(screens: List<ScreenAd>) {
         adapter.submitList(screens)
     }
 }

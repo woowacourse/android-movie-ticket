@@ -13,10 +13,11 @@ class ScreenAdapter(
 ) : ListAdapter<ScreenAd, RecyclerView.ViewHolder>(ScreenPreviewUiDiffUtil()) {
     private lateinit var inflater: LayoutInflater
 
-    override fun getItemViewType(position: Int): Int = when {
-        ((position + 1) % ADVERTISEMENT_INTERVAL == 0) -> ScreenType.ADVERTISEMENT.id
-        else -> ScreenType.SCREEN.id
-    }
+    override fun getItemViewType(position: Int): Int =
+        when {
+            ((position + 1) % ADVERTISEMENT_INTERVAL == 0) -> ScreenType.ADVERTISEMENT.id
+            else -> ScreenType.SCREEN.id
+        }
 
     override fun getItemCount(): Int {
         val actualItemCount = super.getItemCount()
@@ -35,8 +36,9 @@ class ScreenAdapter(
     ): RecyclerView.ViewHolder {
         if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
 
-        val screenType = ScreenType.entries.find { it.id == viewType }
-            ?: throw IllegalArgumentException("Invalid viewType. viewType: $viewType")
+        val screenType =
+            ScreenType.entries.find { it.id == viewType }
+                ?: throw IllegalArgumentException("Invalid viewType. viewType: $viewType")
 
         return when (screenType) {
             ScreenType.SCREEN -> {
@@ -51,7 +53,10 @@ class ScreenAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         val item = getItem(position)
 
         if (item is ScreenAd.ScreenPreviewUi && holder is ScreenViewHolder) {
