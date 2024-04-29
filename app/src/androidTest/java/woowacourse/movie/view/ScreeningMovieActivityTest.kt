@@ -21,7 +21,7 @@ class ScreeningMovieActivityTest {
 
     @Test
     fun 영화_리스트를_보여준다() {
-        onView(withId(R.id.movie_list))
+        onView(withId(R.id.movie_rlv))
             .check(matches(isDisplayed()))
     }
 
