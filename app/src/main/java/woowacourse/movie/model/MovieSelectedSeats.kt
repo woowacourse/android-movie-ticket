@@ -5,7 +5,7 @@ class MovieSelectedSeats(
     rowSize: Int = DEFAULT_ROW_SIZE,
     private val columnSize: Int = DEFAULT_COLUMN_SIZE,
 ) {
-    val baseSeats =
+    private val baseSeats =
         List(rowSize * columnSize) { index ->
             val row = index / columnSize
             val column = index % columnSize
@@ -35,6 +35,8 @@ class MovieSelectedSeats(
             seat.row * columnSize + seat.column
         }.toIntArray()
     }
+
+    fun getBaseSeats(): List<MovieSeat> = baseSeats
 
     companion object {
         private const val DEFAULT_ROW_SIZE = 5

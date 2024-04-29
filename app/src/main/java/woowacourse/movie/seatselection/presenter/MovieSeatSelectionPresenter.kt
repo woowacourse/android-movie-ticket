@@ -19,7 +19,7 @@ class MovieSeatSelectionPresenter(
 
     override fun loadTableSeats(count: Int) {
         movieSelectedSeats = MovieSelectedSeats(count)
-        movieSeatSelectionContractView.setUpTableSeats(movieSelectedSeats.baseSeats)
+        movieSeatSelectionContractView.setUpTableSeats(movieSelectedSeats.getBaseSeats())
     }
 
     override fun updateSelectedSeats(count: Int) {
@@ -27,7 +27,7 @@ class MovieSeatSelectionPresenter(
     }
 
     override fun clickTableSeat(index: Int) {
-        val seat = movieSelectedSeats.baseSeats[index]
+        val seat = movieSelectedSeats.getBaseSeats()[index]
         if (movieSelectedSeats.isSelected(index)) {
             movieSeatSelectionContractView.updateSeatBackgroundColor(index, R.color.white)
             movieSelectedSeats.unSelectSeat(seat)

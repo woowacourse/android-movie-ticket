@@ -14,7 +14,7 @@ class MovieSelectedSeatsTest {
 
     @Test
     fun `기본 좌석 테이블은 5행 4열로 구성되어 있다`() {
-        assertThat(movieSelectedSeats.baseSeats.size).isEqualTo(5 * 4)
+        assertThat(movieSelectedSeats.getBaseSeats().size).isEqualTo(5 * 4)
     }
 
     @Test
