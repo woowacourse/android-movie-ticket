@@ -31,7 +31,10 @@ data class MovieTicketUiModel(
         parcel.createStringArrayList() ?: listOf(),
     )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
+    override fun writeToParcel(
+        parcel: Parcel,
+        flags: Int,
+    ) {
         parcel.writeLong(ticketId)
         parcel.writeString(title)
         parcel.writeString(screeningDate)
@@ -52,10 +55,10 @@ data class MovieTicketUiModel(
         movieTicket.screeningMovieInfo.title,
         movieTicket.screeningMovieInfo.dateTime.screeningDate.date.format(DEFAULT_DATE_FORMAT),
         movieTicket.screeningMovieInfo.dateTime.screeningDate.screeningTime.startTime.format(
-            DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)
+            DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT),
         ),
         movieTicket.screeningMovieInfo.dateTime.screeningDate.screeningTime.getEndTime().format(
-            DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT)
+            DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT),
         ),
         movieTicket.screeningMovieInfo.dateTime.screeningInfo.runningTime,
         movieTicket.reservationInfo.reservationCount,

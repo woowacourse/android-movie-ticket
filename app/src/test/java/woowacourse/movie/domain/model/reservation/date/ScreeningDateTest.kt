@@ -3,7 +3,6 @@ package woowacourse.movie.domain.model.reservation.date
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import woowacourse.movie.domain.model.reservation.date.ScreeningDate
 import java.time.LocalDate
 
 class ScreeningDateTest {

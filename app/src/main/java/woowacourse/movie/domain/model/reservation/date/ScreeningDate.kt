@@ -22,7 +22,7 @@ class ScreeningDate(
     fun changeDate(
         year: Int,
         month: Int,
-        day: Int
+        day: Int,
     ) {
         date = LocalDate.of(year, month, day)
         screeningTime.initStartTime(this.isWeekend())

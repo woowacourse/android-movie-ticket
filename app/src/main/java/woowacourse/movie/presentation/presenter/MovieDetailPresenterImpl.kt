@@ -43,9 +43,10 @@ class MovieDetailPresenterImpl(
     }
 
     override fun loadScreeningDates(movieId: Int) {
-        val dates = movieRepository.getScreeningDateInfo(movieId).map { date ->
-            date.format(DEFAULT_DATE_FORMAT)
-        }
+        val dates =
+            movieRepository.getScreeningDateInfo(movieId).map { date ->
+                date.format(DEFAULT_DATE_FORMAT)
+            }
         val times = getScreeningTimeSchedule(screeningMovieInfo.dateTime.screeningDate.isWeekend())
         view?.setScreeningDatesAndTimes(dates, times, DEFAULT_DATA_INDEX)
     }
@@ -69,7 +70,7 @@ class MovieDetailPresenterImpl(
         val screeningTime = LocalTime.parse(time)
         screeningMovieInfo.changeTime(
             hour = screeningTime.hour,
-            minute = screeningTime.minute
+            minute = screeningTime.minute,
         )
     }
 
@@ -94,9 +95,10 @@ class MovieDetailPresenterImpl(
     }
 
     private fun getScreeningTimeSchedule(isWeekend: Boolean): List<String> {
-        val times = movieRepository.getScreeningTimeInfo(isWeekend).map { time ->
-            time.format(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT))
-        }
+        val times =
+            movieRepository.getScreeningTimeInfo(isWeekend).map { time ->
+                time.format(DateTimeFormatter.ofPattern(DEFAULT_TIME_FORMAT))
+            }
         return times
     }
 

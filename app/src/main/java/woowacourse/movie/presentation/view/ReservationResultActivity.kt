@@ -28,7 +28,7 @@ class ReservationResultActivity : BaseActivity() {
             this.getString(
                 R.string.reservation_info_format,
                 ticket?.reservationCount,
-                seatsPositions
+                seatsPositions,
             )
         findViewById<TextView>(R.id.totalPrice).text =
             this.getString(R.string.reservation_total_price_format, ticket?.totalPrice)

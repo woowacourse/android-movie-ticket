@@ -39,7 +39,10 @@ class MovieListAdapter(
         return if (position % AD_INTERVAL_COUNT == 0 && position > 0) AD_TYPE else MOVIE_TYPE
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         return if (viewType == MOVIE_TYPE) {
             val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
@@ -51,7 +54,10 @@ class MovieListAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         when (holder) {
             is MovieViewHolder -> holder.bind(movieList[position])
             is AdViewHolder -> holder.bind(adList[getAdIndex(position)].imageId)

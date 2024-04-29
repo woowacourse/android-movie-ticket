@@ -14,10 +14,11 @@ class ScreeningTime(
     }
 
     fun initStartTime(isWeekend: Boolean) {
-        startTime = when (isWeekend) {
-            true -> LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE)
-            false -> LocalTime.of(DEFAULT_WEEKDAY_HOUR, DEFAULT_MINUTE)
-        }
+        startTime =
+            when (isWeekend) {
+                true -> LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE)
+                false -> LocalTime.of(DEFAULT_WEEKDAY_HOUR, DEFAULT_MINUTE)
+            }
     }
 
     fun changeStartTime(
@@ -44,11 +45,13 @@ class ScreeningTime(
         isWeekend: Boolean,
     ): Boolean {
         return when (isWeekend) {
-            true -> LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE) == time
-                    || LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE).isBefore(time)
+            true ->
+                LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE) == time ||
+                    LocalTime.of(DEFAULT_HOUR, DEFAULT_MINUTE).isBefore(time)
 
-            false -> LocalTime.of(DEFAULT_WEEKDAY_HOUR, DEFAULT_MINUTE) == time
-                    || LocalTime.of(DEFAULT_WEEKDAY_HOUR, DEFAULT_MINUTE).isBefore(time)
+            false ->
+                LocalTime.of(DEFAULT_WEEKDAY_HOUR, DEFAULT_MINUTE) == time ||
+                    LocalTime.of(DEFAULT_WEEKDAY_HOUR, DEFAULT_MINUTE).isBefore(time)
         }
     }
 

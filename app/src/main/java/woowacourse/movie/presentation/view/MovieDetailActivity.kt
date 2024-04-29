@@ -44,7 +44,6 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         savedInstanceState?.let {
             val count = it.getInt(SIS_COUNT_KEY)
             movieDetailPresenter.initReservationCount(count)
-            // TODO: sis에서 날짜랑 시간 불러와서 presenter에게 넘겨주기 
         }
 
         setupReservationCountButton()
@@ -60,7 +59,6 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
         super.onSaveInstanceState(outState)
         val count = reservationCountTextView.text.toString().toInt()
         outState.putInt(SIS_COUNT_KEY, count)
-        // TODO: sis에 날짜 선택 정보와 시간 선택 정보 저장하기
     }
 
     override fun showMovieDetail(movieUiModel: MovieUiModel) {
@@ -80,29 +78,39 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     override fun setScreeningDatesAndTimes(
         dates: List<String>,
         times: List<String>,
-        defaultDataIndex: Int
+        defaultDataIndex: Int,
     ) {
         attachDateSpinnerAdapter(dates, defaultDataIndex)
         attachTimeSpinnerAdapter(times, defaultDataIndex)
     }
 
-    private fun attachDateSpinnerAdapter(dates: List<String>, defaultDataIndex: Int) {
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dates).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
+    private fun attachDateSpinnerAdapter(
+        dates: List<String>,
+        defaultDataIndex: Int,
+    ) {
+        val adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, dates).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
         dateSpinner.adapter = adapter
         dateSpinner.setSelection(defaultDataIndex)
         onSelectDateListener()
     }
 
-    override fun updateScreeningTimes(times: List<String>, defaultDataIndex: Int) {
+    override fun updateScreeningTimes(
+        times: List<String>,
+        defaultDataIndex: Int,
+    ) {
         timeSpinnerAdapter.clear()
         timeSpinnerAdapter.addAll(times)
         timeSpinnerAdapter.notifyDataSetChanged()
         timeSpinner.setSelection(defaultDataIndex)
     }
 
-    private fun attachTimeSpinnerAdapter(times: List<String>, defaultDataIndex: Int) {
+    private fun attachTimeSpinnerAdapter(
+        times: List<String>,
+        defaultDataIndex: Int,
+    ) {
         timeSpinnerAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, times).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -113,39 +121,41 @@ class MovieDetailActivity : BaseActivity(), MovieDetailContract.View {
     }
 
     private fun onSelectDateListener() {
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                val selectedDate = parent.getItemAtPosition(position) as String
-                movieDetailPresenter.selectDate(selectedDate)
-            }
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate = parent.getItemAtPosition(position) as String
+                    movieDetailPresenter.selectDate(selectedDate)
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                dateSpinner.setSelection(DEFAULT_SPINNER_INDEX)
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    dateSpinner.setSelection(DEFAULT_SPINNER_INDEX)
+                }
             }
-        }
     }
 
     private fun onSelectTimeListener() {
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                val selectedTime = parent.getItemAtPosition(position) as String
-                movieDetailPresenter.selectTime(selectedTime)
-            }
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedTime = parent.getItemAtPosition(position) as String
+                    movieDetailPresenter.selectTime(selectedTime)
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                timeSpinner.setSelection(DEFAULT_SPINNER_INDEX)
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    timeSpinner.setSelection(DEFAULT_SPINNER_INDEX)
+                }
             }
-        }
     }
 
     private fun setupReservationCountButton() {

@@ -12,7 +12,7 @@ import woowacourse.movie.presentation.uimodel.MovieUiModel
 class MainPresenterImpl(
     private val movieRepository: MovieRepository = MovieRepositoryImpl,
     private val adRepository: AdRepository = AdRepositoryImpl,
-    ) :
+) :
     MainContract.Presenter {
     private var view: MainContract.View? = null
     private lateinit var movies: List<Movie>
@@ -35,7 +35,7 @@ class MainPresenterImpl(
     override fun loadMovie() {
         movies = movieRepository.createMovieList()
         view?.onUpdateMovies(
-            movies.map { MovieUiModel(it) }
+            movies.map { MovieUiModel(it) },
         )
     }
 

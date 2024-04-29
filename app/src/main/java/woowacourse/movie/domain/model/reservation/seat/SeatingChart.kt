@@ -22,8 +22,8 @@ class SeatingChart(
         col: Int,
     ) {
         require(
-            row in MIN_POS_NUM until rowCount
-                && col in MIN_POS_NUM until colCount
+            row in MIN_POS_NUM until rowCount &&
+                col in MIN_POS_NUM until colCount,
         ) { IllegalArgumentException("좌석의 범위를 벗어났습니다.") }
     }
 

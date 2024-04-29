@@ -8,7 +8,7 @@ import woowacourse.movie.R
 class AdViewHolder(
     itemView: View,
     private val bannerClickedListener: (Int) -> Unit,
-): RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView) {
     val adImage: ImageView = itemView.findViewById(R.id.adImage)
 
     init {

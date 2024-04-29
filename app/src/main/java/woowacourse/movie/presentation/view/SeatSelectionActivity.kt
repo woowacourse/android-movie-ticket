@@ -1,22 +1,17 @@
 package woowacourse.movie.presentation.view
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.Window
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.graphics.toColor
-import org.w3c.dom.Text
 import woowacourse.movie.R
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.contract.SeatSelectionContract
@@ -60,7 +55,11 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
         seatSelectionPresenter.detachView()
     }
 
-    override fun showSeatingChart(rowCount: Int, colCount: Int, seatRankInfo: List<IntRange>) {
+    override fun showSeatingChart(
+        rowCount: Int,
+        colCount: Int,
+        seatRankInfo: List<IntRange>,
+    ) {
         drawEachRowSeats(rowCount, colCount, seatRankInfo)
     }
 
@@ -70,12 +69,14 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
         seatRankInfo: List<IntRange>,
     ) {
         repeat(rowCount) { row ->
-            val rowSeats = TableRow(this).apply {
-                layoutParams = TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.WRAP_CONTENT,
-                    TableLayout.LayoutParams.WRAP_CONTENT,
-                )
-            }
+            val rowSeats =
+                TableRow(this).apply {
+                    layoutParams =
+                        TableLayout.LayoutParams(
+                            TableLayout.LayoutParams.WRAP_CONTENT,
+                            TableLayout.LayoutParams.WRAP_CONTENT,
+                        )
+                }
             rowSeats.setPadding(10, 10, 10, 10)
             val color = getColorByRank(seatRankInfo, row)
             drawEachColumnSeats(rowSeats, row, colCount, color)
@@ -102,21 +103,24 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
         color: Int,
     ) {
         repeat(colCount) { col ->
-            val seatView = TextView(this).apply {
-                layoutParams = TableRow.LayoutParams(
-                    TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT,
-                )
-                gravity = Gravity.CENTER
-                setPadding(15, 30, 15, 30)
-                textSize = 18f
-                text = String.format(
-                    SEAT_POSITION_TEXT_FORMAT,
-                    SEAT_ROW_START_VALUE + row,
-                    SEAT_COL_START_VALUE + col,
-                )
-                setSeatClickListener(this, row, col)
-            }
+            val seatView =
+                TextView(this).apply {
+                    layoutParams =
+                        TableRow.LayoutParams(
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                            TableRow.LayoutParams.WRAP_CONTENT,
+                        )
+                    gravity = Gravity.CENTER
+                    setPadding(15, 30, 15, 30)
+                    textSize = 18f
+                    text =
+                        String.format(
+                            SEAT_POSITION_TEXT_FORMAT,
+                            SEAT_ROW_START_VALUE + row,
+                            SEAT_COL_START_VALUE + col,
+                        )
+                    setSeatClickListener(this, row, col)
+                }
             seatView.setBackgroundColor(WHITE_COLOR)
             seatView.setTextColor(color)
             rowSeats.addView(seatView)
@@ -130,20 +134,22 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
     ) {
         seatView.setOnClickListener {
             seatSelectionPresenter.selectSeat(row, col)
-            Log.d("seat", "just clicked! row: ${row}, col: $col")
         }
     }
 
-    override fun changeSeatColor(row: Int, col: Int) {
-        Log.d("seat", "color must be changed! row: ${row}, col: $col")
+    override fun changeSeatColor(
+        row: Int,
+        col: Int,
+    ) {
         val seatsRow = seatingChartLayout.getChildAt(row) as TableRow
         val seatView = seatsRow.getChildAt(col) as TextView
         val currentColor = (seatView.background as? ColorDrawable)?.color
-        val newColor = when (currentColor) {
-            WHITE_COLOR -> YELLOW_COLOR
-            YELLOW_COLOR -> WHITE_COLOR
-            else -> WHITE_COLOR
-        }
+        val newColor =
+            when (currentColor) {
+                WHITE_COLOR -> YELLOW_COLOR
+                YELLOW_COLOR -> WHITE_COLOR
+                else -> WHITE_COLOR
+            }
         seatView.setBackgroundColor(newColor)
     }
 
@@ -175,11 +181,12 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
     }
 
     private fun showConfirmationDialog() {
-        val dialog = Dialog(this).apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setContentView(R.layout.reservation_confirm_dialog)
-            setCancelable(false)
-        }
+        val dialog =
+            Dialog(this).apply {
+                requestWindowFeature(Window.FEATURE_NO_TITLE)
+                setContentView(R.layout.reservation_confirm_dialog)
+                setCancelable(false)
+            }
 
         val cancelButton = dialog.findViewById<TextView>(R.id.cancelButton)
         cancelButton.setOnClickListener {

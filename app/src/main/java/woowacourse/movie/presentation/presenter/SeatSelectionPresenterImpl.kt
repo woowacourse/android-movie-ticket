@@ -35,12 +35,15 @@ class SeatSelectionPresenterImpl(
         view?.showSeatingChart(
             reservationInfo.seatingChart.rowCount,
             reservationInfo.seatingChart.colCount,
-            reservationInfo.seatingChart.getSeatRankInfo()
+            reservationInfo.seatingChart.getSeatRankInfo(),
         )
     }
 
     // TODO: 뷰에서 선택된 좌석을 ReservationInfo에 업데이트 - 선택 or 선택 해제
-    override fun selectSeat(row: Int, col: Int) {
+    override fun selectSeat(
+        row: Int,
+        col: Int,
+    ) {
         when (reservationInfo.selectedSeats.tryAddOrDeleteSeat(row, col)) {
             true -> view?.changeSeatColor(row, col)
             false -> view?.showAlreadyFilledSeatsSelectionMessage()
@@ -56,7 +59,7 @@ class SeatSelectionPresenterImpl(
                     0,
                     screeningMovieInfoRepository.getScreeningMovieInfo()!!,
                     reservationInfo,
-                )
+                ),
             )
         view?.moveToReservationResult(movieTicketUiModel)
     }

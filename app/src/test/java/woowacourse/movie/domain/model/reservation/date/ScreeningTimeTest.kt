@@ -4,7 +4,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import woowacourse.movie.domain.model.reservation.date.ScreeningTime
 import java.time.LocalTime
 
 class ScreeningTimeTest {
@@ -94,7 +93,7 @@ class ScreeningTimeTest {
         // when
         val actualEndTime = screeningTime.getEndTime()
 
-        //then
+        // then
         assertThat(actualEndTime).isEqualTo(LocalTime.of(endHour, endMinute))
     }
 }
