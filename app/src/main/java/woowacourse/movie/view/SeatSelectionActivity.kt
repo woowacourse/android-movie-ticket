@@ -26,7 +26,6 @@ import woowacourse.movie.presenter.contract.SeatSelectionContract
 import woowacourse.movie.view.TicketingActivity.Companion.EXTRA_TICKETING_INFORMATION
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.state.TicketingResult
-import woowacourse.movie.view.utils.ErrorMessage
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val button: Button by lazy { findViewById(R.id.btn_complete_reservation) }
@@ -61,7 +60,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun initializeSeatTable(
         theaterSize: TheaterSize,
         rowClassInfo: Map<Int, SeatClass>,
-        movieTitle: String,
+        movieTitle: kotlin.String,
         totalPrice: Int,
         selectedSeats: List<BookingSeat>,
     ) {
@@ -117,10 +116,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun showToastMessage(error: ErrorMessage) {
+    override fun showToastMessage(message: String) {
         Toast.makeText(
             this@SeatSelectionActivity,
-            error.value,
+            message,
             Toast.LENGTH_SHORT,
         ).show()
     }

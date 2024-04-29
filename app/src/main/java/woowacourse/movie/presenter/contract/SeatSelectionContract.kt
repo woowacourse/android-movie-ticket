@@ -5,14 +5,13 @@ import woowacourse.movie.model.theater.TheaterSize
 import woowacourse.movie.model.ticketing.BookingSeat
 import woowacourse.movie.view.state.TicketingForm
 import woowacourse.movie.view.state.TicketingResult
-import woowacourse.movie.view.utils.ErrorMessage
 
 interface SeatSelectionContract {
     interface View {
         fun initializeSeatTable(
             theaterSize: TheaterSize,
             rowClassInfo: Map<Int, SeatClass>,
-            movieTitle: String,
+            movieTitle: kotlin.String,
             totalPrice: Int,
             selectedSeats: List<BookingSeat>,
         )
@@ -31,7 +30,7 @@ interface SeatSelectionContract {
 
         fun navigateToResultScreen(ticketingResult: TicketingResult)
 
-        fun showToastMessage(error: ErrorMessage)
+        fun showToastMessage(message: String)
     }
 
     interface Presenter {

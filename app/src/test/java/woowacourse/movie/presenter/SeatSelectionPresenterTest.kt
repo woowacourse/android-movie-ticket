@@ -81,7 +81,7 @@ class SeatSelectionPresenterTest {
         presenter.loadSeats(ticketingForm, emptyList())
         // then
         verify {
-            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
+            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID.value)
         }
     }
 
@@ -147,7 +147,7 @@ class SeatSelectionPresenterTest {
         // then
         verify {
             view.initializeSeatTable(any(), any(), any(), any(), any())
-            view.showToastMessage(ErrorMessage.ERROR_OVER_COUNT)
+            view.showToastMessage(ErrorMessage.ERROR_OVER_COUNT.value)
         }
     }
 

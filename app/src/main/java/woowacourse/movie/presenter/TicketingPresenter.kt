@@ -23,8 +23,8 @@ class TicketingPresenter(
     override fun initializeTicketingData(
         screeningId: Long,
         initialCount: Int,
-        selectedDate: String?,
-        selectedTime: String?,
+        selectedDate: kotlin.String?,
+        selectedTime: kotlin.String?,
     ) {
         when (val screening = findScreeningDataById(screeningId)) {
             is Result.Success -> {
@@ -57,7 +57,7 @@ class TicketingPresenter(
                 )
             }
 
-            is Result.Error -> ticketingContractView.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
+            is Result.Error -> ticketingContractView.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID.value)
         }
     }
 
@@ -66,7 +66,7 @@ class TicketingPresenter(
             ticketingForm.numberOfTickets.decrease()
             ticketingContractView.updateCount(ticketingForm.numberOfTickets.currentValue)
         }.onFailure {
-            ticketingContractView.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER)
+            ticketingContractView.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER.value)
         }
     }
 
@@ -79,7 +79,7 @@ class TicketingPresenter(
         ticketingContractView.navigateToSeatSelection(ticketingForm)
     }
 
-    override fun updateDate(date: String) {
+    override fun updateDate(date: kotlin.String) {
         ticketingForm =
             ticketingForm.copy(
                 bookingDateTime =
@@ -90,7 +90,7 @@ class TicketingPresenter(
         ticketingContractView.updateAvailableTimes(ticketingUiState.availableTimes.localTimes)
     }
 
-    override fun updateTime(time: String) {
+    override fun updateTime(time: kotlin.String) {
         ticketingForm =
             ticketingForm.copy(
                 bookingDateTime =

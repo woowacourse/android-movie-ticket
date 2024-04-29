@@ -54,7 +54,7 @@ class TicketingResultPresenterTest {
         presenter.initializeTicketingResult(null)
         // then
         verify {
-            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
+            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID.value)
         }
     }
 }

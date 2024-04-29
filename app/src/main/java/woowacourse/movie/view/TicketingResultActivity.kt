@@ -14,7 +14,6 @@ import woowacourse.movie.presenter.TicketingResultPresenter
 import woowacourse.movie.presenter.contract.TicketingResultContract
 import woowacourse.movie.view.SeatSelectionActivity.Companion.EXTRA_TICKETING_RESULT
 import woowacourse.movie.view.state.TicketingResult
-import woowacourse.movie.view.utils.ErrorMessage
 import java.time.format.DateTimeFormatter
 
 class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.View {
@@ -59,8 +58,8 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
         priceText.text = getString(R.string.text_price, ticketingResult.price)
     }
 
-    override fun showToastMessage(error: ErrorMessage) {
-        Toast.makeText(this, error.value, Toast.LENGTH_SHORT).show()
+    override fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

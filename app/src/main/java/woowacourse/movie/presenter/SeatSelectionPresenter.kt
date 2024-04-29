@@ -44,7 +44,7 @@ class SeatSelectionPresenter(
             }
 
             is Result.Error -> {
-                view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
+                view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID.value)
             }
         }
     }
@@ -72,7 +72,7 @@ class SeatSelectionPresenter(
                 updateBottomBarViews()
             }
 
-            is Result.Error -> view.showToastMessage(ErrorMessage.ERROR_OVER_COUNT)
+            is Result.Error -> view.showToastMessage(ErrorMessage.ERROR_OVER_COUNT.value)
         }
     }
 

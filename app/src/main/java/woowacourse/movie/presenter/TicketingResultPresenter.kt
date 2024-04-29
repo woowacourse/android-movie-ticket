@@ -10,6 +10,6 @@ class TicketingResultPresenter(
     override fun initializeTicketingResult(ticketingResult: TicketingResult?) {
         ticketingResult?.let {
             ticketingResultView.assignInitialView(it)
-        } ?: ticketingResultView.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
+        } ?: ticketingResultView.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID.value)
     }
 }

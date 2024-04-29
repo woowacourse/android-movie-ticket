@@ -38,7 +38,7 @@ class TicketingPresenterTest {
         presenter.initializeTicketingData(-1, 1)
         // then
         verify {
-            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID)
+            view.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID.value)
         }
     }
 
@@ -68,7 +68,7 @@ class TicketingPresenterTest {
         // then
         verify {
             view.assignInitialView(any(), any(), any(), any())
-            view.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER)
+            view.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER.value)
         }
     }
 

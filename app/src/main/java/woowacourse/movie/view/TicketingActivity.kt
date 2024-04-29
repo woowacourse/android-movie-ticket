@@ -18,7 +18,6 @@ import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.presenter.TicketingPresenter
 import woowacourse.movie.presenter.contract.TicketingContract
 import woowacourse.movie.view.state.TicketingForm
-import woowacourse.movie.view.utils.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -155,8 +154,8 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
         }
     }
 
-    override fun showToastMessage(error: ErrorMessage) {
-        Toast.makeText(this, error.value, Toast.LENGTH_SHORT).show()
+    override fun showToastMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun updateAvailableTimes(times: List<LocalTime>) {

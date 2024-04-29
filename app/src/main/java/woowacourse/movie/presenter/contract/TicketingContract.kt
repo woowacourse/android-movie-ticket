@@ -2,7 +2,6 @@ package woowacourse.movie.presenter.contract
 
 import woowacourse.movie.model.screening.Screening
 import woowacourse.movie.view.state.TicketingForm
-import woowacourse.movie.view.utils.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -19,7 +18,7 @@ interface TicketingContract {
 
         fun navigateToSeatSelection(ticketingForm: TicketingForm)
 
-        fun showToastMessage(error: ErrorMessage)
+        fun showToastMessage(message: String)
 
         fun updateAvailableTimes(times: List<LocalTime>)
     }
@@ -38,8 +37,8 @@ interface TicketingContract {
 
         fun reserveTickets()
 
-        fun updateDate(date: String)
+        fun updateDate(date: kotlin.String)
 
-        fun updateTime(time: String)
+        fun updateTime(time: kotlin.String)
     }
 }
