@@ -89,15 +89,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     override fun ableClickCompleteText() {
         complete.setBackgroundColor(getColor(R.color.custom_purple))
         complete.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setTitle(DIALOG_TITLE)
-                .setMessage(DIALOG_MESSAGE)
-                .setPositiveButton(DIALOG_POSITIVE) { _, _ -> presenter.loadReservationInfo() }
-                .setNegativeButton(DIALOG_NEGATIVE) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            showReservationCompleteDialog(DIALOG_TITLE, DIALOG_MESSAGE)
         }
     }
 
@@ -123,6 +115,21 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
             .filterIsInstance<TextView>()
+    }
+
+    private fun showReservationCompleteDialog(
+        title: String,
+        message: String,
+    ) {
+        AlertDialog.Builder(this)
+            .setCancelable(false)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(DIALOG_POSITIVE) { _, _ -> presenter.loadReservationInfo() }
+            .setNegativeButton(DIALOG_NEGATIVE) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun addClickListener() {
