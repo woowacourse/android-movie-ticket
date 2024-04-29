@@ -151,13 +151,10 @@ class MovieSeatSelectionActivity :
     }
 
     override fun updateSelectCompletion(isComplete: Boolean) {
-        if (isComplete) {
-            confirmButton.isEnabled = true
-            confirmButton.isClickable = true
-            return
+        confirmButton.apply {
+            isEnabled = isComplete
+            isClickable = isComplete
         }
-        confirmButton.isEnabled = false
-        confirmButton.isClickable = false
     }
 
     override fun moveMovieReservationCompletePage(ticketId: Long) {
