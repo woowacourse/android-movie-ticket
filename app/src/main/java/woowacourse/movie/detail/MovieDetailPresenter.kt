@@ -12,6 +12,11 @@ class MovieDetailPresenter(
     private val movieId: Int,
     val ticket: Ticket = Ticket(),
 ) : MovieDetailContract.Presenter {
+    init {
+        loadMovie()
+        loadScreeningDates()
+    }
+
     override fun loadSavedData() {
         view.updateCount(ticket.count)
     }

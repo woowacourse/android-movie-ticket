@@ -8,7 +8,7 @@ interface MovieDetailContract {
     interface View {
         fun showMovieInformation(movie: Movie)
 
-        fun updateCount(ticketCount: Int)
+        fun updateCount(count: Int)
 
         fun showScreeningDates(screeningDates: List<LocalDate>)
 
@@ -25,15 +25,15 @@ interface MovieDetailContract {
     interface Presenter {
         fun loadSavedData()
 
-        fun increaseCount()
-
-        fun decreaseCount()
-
-        fun loadMovie()
-
         fun loadScreeningDates()
 
         fun loadScreeningTimes(date: LocalDate)
+
+        fun loadMovie()
+
+        fun increaseCount()
+
+        fun decreaseCount()
 
         fun updateScreeningDate(screeningDate: String)
 

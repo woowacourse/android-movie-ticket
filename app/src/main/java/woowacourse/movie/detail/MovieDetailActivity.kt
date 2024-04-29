@@ -46,7 +46,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             if (savedInstanceState == null) {
                 MovieDetailPresenter(this, movieId)
             } else {
-                val numberOfTicket = savedInstanceState.getInt("ticketCount")
+                val numberOfTicket = savedInstanceState.getInt(TICKET_COUNT)
                 MovieDetailPresenter(
                     this,
                     movieId,
@@ -55,10 +55,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                     it.loadSavedData()
                 }
             }
-
-        presenter.loadMovie()
-        presenter.loadScreeningDates()
-
         plusButton.setOnClickListener {
             presenter.increaseCount()
         }
@@ -72,7 +68,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("ticketCount", presenter.ticket.count)
+        outState.putInt(TICKET_COUNT, presenter.ticket.count)
     }
 
     override fun showScreeningDates(screeningDates: List<LocalDate>) {
@@ -139,8 +135,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         summary.text = movie.summary
     }
 
-    override fun updateCount(ticketCount: Int) {
-        numberOfTickets.text = ticketCount.toString()
+    override fun updateCount(count: Int) {
+        numberOfTickets.text = count.toString()
     }
 
     override fun showErrorToast() {
@@ -152,14 +148,16 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         firstDate: LocalDate,
         secondDate: LocalDate,
     ): String {
-        val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        val dateFormat = DateTimeFormatter.ofPattern(DATE_FORMAT)
 
         return "${firstDate.format(dateFormat)} ~ ${secondDate.format(dateFormat)}"
     }
 
     companion object {
         private const val MOVIE_ID = "movieId"
+        private const val TICKET_COUNT = "ticketCount"
         private const val DEFAULT_MOVIE_ID = 0
+        private const val DATE_FORMAT = "yyyy.MM.dd"
 
         fun getIntent(
             context: Context,
