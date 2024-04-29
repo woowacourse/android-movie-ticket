@@ -2,6 +2,7 @@ package woowacourse.movie.model.reservation
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class ReservationAmountTest {
     @Test
@@ -14,6 +15,13 @@ class ReservationAmountTest {
 
         // then
         assertThat(actual).isEqualTo(0)
+    }
+
+    @Test
+    fun `예메 금액은 음수가 될 수 없다`() {
+        assertThrows<IllegalArgumentException> {
+            ReservationAmount(-1)
+        }
     }
 
     @Test

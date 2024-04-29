@@ -21,4 +21,5 @@
     <string name="invalid_screening_date_time">유효하지 않은 상영 시간입니다.</string>
     <string name="invalid_reservation_count">유효하지 않은 예매 인원입니다.</string>
     <string name="invalid_ticket">유효하지 않은 티켓입니다.</string>
+    <string name="negative_reservation_amount">예매 금액은 0보다 작을 수 없습니다.</string>
 </resources>

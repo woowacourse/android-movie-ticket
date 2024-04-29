@@ -73,6 +73,12 @@ class SeatSelectPresenter(
         col: Int,
     ) {
         selectedSeats.unselect(seat)
+        runCatching {
+            reservationAmount -= seat.amount()
+        }.getOrElse {
+            view.handleError(SeatSelectError.NegativeReservationAmount)
+            return
+        }
         reservationAmount -= seat.amount()
         view.unselectSeat(row, col)
     }

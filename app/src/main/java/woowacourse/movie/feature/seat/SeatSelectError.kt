@@ -6,4 +6,6 @@ sealed interface SeatSelectError {
     data object InvalidReceivedScreeningDateTime : SeatSelectError
 
     data object InvalidReceivedReservationCount : SeatSelectError
+
+    data object NegativeReservationAmount : SeatSelectError
 }

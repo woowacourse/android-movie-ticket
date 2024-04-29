@@ -105,6 +105,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
                 SeatSelectError.InvalidReceivedMovieId -> R.string.invalid_movie
                 SeatSelectError.InvalidReceivedReservationCount -> R.string.invalid_screening_date_time
                 SeatSelectError.InvalidReceivedScreeningDateTime -> R.string.invalid_reservation_count
+                SeatSelectError.NegativeReservationAmount -> R.string.negative_reservation_amount
             }
         val message = resources.getString(messageId)
         Log.e(TAG, message)
