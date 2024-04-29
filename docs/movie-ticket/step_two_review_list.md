@@ -10,6 +10,8 @@
 - [x]: 영화 목록 - 피드마 대로 수정(비밀의 방, 아즈카반...)
 
 - [x]: 예약완료 화면에서 뒤로가기 시 사용자는 홈으로 돌아가기 구현
+- [x]: 홈 화면 재진입 시, 영화 목록을 다시 불러오기
+- [x]: ScreeningMoviePresenter - init 로직 loadScreenMovie 로 변경
 - [ ]: MovieAdapter 의 isAdPosition 상수화 혹은 전략 패턴
 - [ ]: MovieRepository 무분별한 error 삭제
 - [ ]: MovieReservationPresenter - CompleteReservation 네이밍 변경

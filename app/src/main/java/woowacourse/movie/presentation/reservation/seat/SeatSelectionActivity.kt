@@ -89,9 +89,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
 
     override fun navigateToReservationResult(reservationId: Long) {
         val intent =
-            ReservationResultActivity.newIntent(this, reservationId).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            }
+            ReservationResultActivity.newIntent(this, reservationId)
         startActivity(intent)
     }
 
