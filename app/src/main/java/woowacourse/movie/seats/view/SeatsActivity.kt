@@ -157,13 +157,13 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
     }
 
     companion object {
-        private const val TOTAL_PRICE = "%d원"
-        private const val ID_KEY = "id_key"
-        private const val TITLE_KEY = "title_key"
-        private const val DATE_KEY = "date_key"
-        private const val TIME_KEY = "time_key"
-        private const val SEATS_KEY = "seats_key"
-        private const val PRICE_KEY = "price_key"
+        const val TOTAL_PRICE = "%d원"
+        const val ID_KEY = "id_key"
+        const val TITLE_KEY = "title_key"
+        const val DATE_KEY = "date_key"
+        const val TIME_KEY = "time_key"
+        const val SEATS_KEY = "seats_key"
+        const val PRICE_KEY = "price_key"
         private const val MESSAGE_DIALOG = "정말 예매하시겠습니까?"
         private const val TEXT_CANCEL = "취소"
         private const val TEXT_CONFIRM = "예매 완료"
