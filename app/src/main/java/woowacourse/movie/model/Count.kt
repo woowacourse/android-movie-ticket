@@ -13,11 +13,15 @@ class Count(private var value: Int = INITIAL_COUNT) : Parcelable {
         require(value >= INITIAL_COUNT) { ERROR_NON_POSITIVE_NUMBER }
     }
 
-    fun increase() = value++
+    fun increase(): Int {
+        value++
+        return value
+    }
 
-    fun decrease() {
+    fun decrease(): Int {
         if (value <= 1) throw IllegalStateException(ERROR_NON_POSITIVE_NUMBER)
         value--
+        return value
     }
 
     companion object {

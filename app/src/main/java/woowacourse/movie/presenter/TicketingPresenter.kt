@@ -63,23 +63,21 @@ class TicketingPresenter(
 
     override fun decreaseCount() {
         runCatching {
-            ticketingForm.numberOfTickets.decrease()
-            ticketingContractView.updateCount(ticketingForm.numberOfTickets.currentValue)
+            ticketingContractView.updateCount(ticketingForm.numberOfTickets.decrease())
         }.onFailure {
             ticketingContractView.showToastMessage(ErrorMessage.ERROR_NON_POSITIVE_NUMBER.value)
         }
     }
 
     override fun increaseCount() {
-        ticketingForm.numberOfTickets.increase()
-        ticketingContractView.updateCount(ticketingForm.numberOfTickets.currentValue)
+        ticketingContractView.updateCount(ticketingForm.numberOfTickets.increase())
     }
 
     override fun reserveTickets() {
         ticketingContractView.navigateToSeatSelection(ticketingForm)
     }
 
-    override fun updateDate(date: kotlin.String) {
+    override fun updateDate(date: String) {
         ticketingForm =
             ticketingForm.copy(
                 bookingDateTime =
