@@ -69,11 +69,6 @@ class MovieScreenAdapter(
         return movies.size + adCount
     }
 
-    fun updateMovies(newMovies: List<Movie>) {
-        movies = newMovies
-        notifyItemInserted(movies.size - 1)
-    }
-
     companion object {
         private const val MOVIE_VIEW_TYPE = 0
         private const val AD_VIEW_TYPE = 1

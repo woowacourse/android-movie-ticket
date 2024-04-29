@@ -30,24 +30,22 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
 
     private fun initView() {
         movieRecyclerView = findViewById(R.id.movie_recycler_view)
-        presenter.requestAd { ads ->
-            movieAdapter =
-                MovieScreenAdapter(
-                    context = this@MovieScreenActivity,
-                    ads = ads,
-                    onMovieSelected = { movieId ->
-                        moveToReservation(movieId)
-                    },
-                )
-        }
-        movieRecyclerView.adapter = movieAdapter
-        movieRecyclerView.layoutManager = LinearLayoutManager(this@MovieScreenActivity)
-        presenter.loadScreenMovies()
+        presenter.loadScreenData()
     }
 
-    override fun showScreenMovies(movies: List<Movie>) {
-        movieAdapter.updateMovies(movies)
+    override fun showScreenData(movies: List<Movie>, ads: List<String>) {
+        movieAdapter =
+            MovieScreenAdapter(
+                context = this@MovieScreenActivity,
+                movies = movies,
+                ads = ads,
+                onMovieSelected = { movieId ->
+                    moveToReservation(movieId)
+                },
+            )
+        movieRecyclerView.adapter = movieAdapter
     }
+
 
     override fun moveToReservation(movieId: Int) {
         val intent = Intent(this, MovieReservationActivity::class.java)

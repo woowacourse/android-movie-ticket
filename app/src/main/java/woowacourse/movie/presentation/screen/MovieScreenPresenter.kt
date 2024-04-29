@@ -8,17 +8,14 @@ class MovieScreenPresenter(
     private val movieRepository: MovieRepository,
     private val adRepository: AdRepository,
 ) : MovieScreenContract.Presenter {
-    override fun loadScreenMovies() {
+    override fun loadScreenData() {
         val movies = movieRepository.getMovies()
-        view.showScreenMovies(movies)
+        val ads = adRepository.getAds()
+        view.showScreenData(movies,ads)
     }
 
     override fun startReservation(movieId: Int) {
         view.moveToReservation(movieId)
-    }
-
-    override fun requestAd(ad: (List<String>) -> Unit) {
-        ad(adRepository.getAds())
     }
 
     companion object {

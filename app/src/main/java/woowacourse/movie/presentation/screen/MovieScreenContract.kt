@@ -4,16 +4,17 @@ import woowacourse.movie.domain.model.Movie
 
 interface MovieScreenContract {
     interface View {
-        fun showScreenMovies(movies: List<Movie>)
+        fun showScreenData(
+            movies: List<Movie>,
+            ads: List<String>,
+        )
 
         fun moveToReservation(movieId: Int)
     }
 
     interface Presenter {
-        fun loadScreenMovies()
+        fun loadScreenData()
 
         fun startReservation(movieId: Int)
-
-        fun requestAd(ad: (List<String>) -> Unit)
     }
 }
