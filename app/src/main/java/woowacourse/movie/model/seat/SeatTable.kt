@@ -1,6 +1,6 @@
 package woowacourse.movie.model.seat
 
-class Seats(
+class SeatTable(
     row: Int,
     col: Int,
 ) {

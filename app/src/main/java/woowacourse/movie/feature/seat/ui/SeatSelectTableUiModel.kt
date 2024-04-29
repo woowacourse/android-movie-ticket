@@ -4,7 +4,7 @@ import androidx.annotation.ColorRes
 import woowacourse.movie.R
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SeatRating
-import woowacourse.movie.model.seat.Seats
+import woowacourse.movie.model.seat.SeatTable
 
 class SeatSelectTableUiModel(
     val seatMessage: String,
@@ -12,8 +12,8 @@ class SeatSelectTableUiModel(
     val seatColorId: Int,
 ) {
     companion object {
-        fun from(seats: Seats): List<List<SeatSelectTableUiModel>> {
-            return seats.table.map { row ->
+        fun from(seatTable: SeatTable): List<List<SeatSelectTableUiModel>> {
+            return seatTable.table.map { row ->
                 row.map { seat ->
                     SeatSelectTableUiModel(seat.message(), SeatRating.from(seat).colorId())
                 }

@@ -7,7 +7,7 @@ import woowacourse.movie.model.data.TicketRepository
 import woowacourse.movie.model.reservation.ReservationAmount
 import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.model.seat.Seat
-import woowacourse.movie.model.seat.Seats
+import woowacourse.movie.model.seat.SeatTable
 import woowacourse.movie.model.seat.SelectedSeats
 import java.time.LocalDateTime
 
@@ -17,7 +17,7 @@ class SeatSelectPresenter(
     private val ticketRepository: TicketRepository,
 ) :
     SeatSelectContract.Presenter {
-    private lateinit var seats: Seats
+    private lateinit var seatTable: SeatTable
     private lateinit var selectedSeats: SelectedSeats
     private var reservationAmount = ReservationAmount()
 
@@ -33,8 +33,8 @@ class SeatSelectPresenter(
         col: Int,
     ) {
         this.selectedSeats = selectedSeats
-        seats = Seats(row, col)
-        val seatsUiModel = SeatSelectTableUiModel.from(seats)
+        seatTable = SeatTable(row, col)
+        val seatsUiModel = SeatSelectTableUiModel.from(seatTable)
         view.initializeSeatTable(seatsUiModel)
     }
 
@@ -42,7 +42,7 @@ class SeatSelectPresenter(
         row: Int,
         col: Int,
     ) {
-        val seat = seats.table[row][col]
+        val seat = seatTable.table[row][col]
         if (seat !in selectedSeats) {
             applySelectSeat(seat, row, col)
         } else {
