@@ -85,7 +85,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                     .forEachIndexed { columIndex, view ->
                         val currentSeat = seats[rowIndex][columIndex]
                         setSeatText(view, currentSeat)
-                        setSeatListener(view,rowIndex,columIndex)
+                        setSeatListener(view, rowIndex, columIndex)
                     }
             }
     }
@@ -130,13 +130,13 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun showDialog() {
         AlertDialog.Builder(this)
-            .setTitle(RESERVATION_CONFIRM_TITLE)
+            .setTitle(getString(R.string.reservation_confirm_title))
             .setCancelable(false)
-            .setMessage(RESERVATION_MESSAGE)
-            .setPositiveButton(RESERVATION_OK) { _, _ ->
+            .setMessage(getString(R.string.reservation_message))
+            .setPositiveButton(getString(R.string.reservation_ok)) { _, _ ->
                 presenter.ticketing()
             }
-            .setNegativeButton(RESERVATION_CLOSE) { dialog, _ ->
+            .setNegativeButton(getString(R.string.reservation_close)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -158,7 +158,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private fun setSeatText(
         view: TextView,
         currentSeat: MovieSeat,
-    ){
+    ) {
         view.text = "${currentSeat.seatRow}${currentSeat.seatColumn}"
         view.setTextColor(
             when (currentSeat.seatType) {
@@ -173,16 +173,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         view: TextView,
         rowIndex: Int,
         columIndex: Int,
-    ){
+    ) {
         view.setOnClickListener {
             presenter.selectSeat(rowIndex, columIndex)
         }
-    }
-
-    companion object {
-        private const val RESERVATION_CONFIRM_TITLE = "예매 확인"
-        private const val RESERVATION_MESSAGE = "정말 예매하시겠습니까?"
-        private const val RESERVATION_OK = "예매 완료"
-        private const val RESERVATION_CLOSE = "취소"
     }
 }

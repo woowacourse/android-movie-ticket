@@ -9,4 +9,8 @@
     <string name="ticket_price">%,d원 (현장결제)</string>
     <string name="ticket_count">일반 %d명</string>
     <string name="title_activity_seat_selection_main">SeatSelectionMainActivity</string>
+    <string name="reservation_confirm_title">예매 확인</string>
+    <string name="reservation_message">정말 예매하시겠습니까?</string>
+    <string name="reservation_ok">예매 완료</string>
+    <string name="reservation_close">취소</string>
 </resources>

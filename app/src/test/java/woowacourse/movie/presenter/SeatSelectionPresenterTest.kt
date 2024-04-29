@@ -49,7 +49,7 @@ class SeatSelectionPresenterTest {
         )
         every { mockSeatRepository.getAvailableSeats() } returns seats
 
-        presenter.loadSeat()
+        presenter.loadData()
 
         verify { mockView.showSeat(seats) }
     }
