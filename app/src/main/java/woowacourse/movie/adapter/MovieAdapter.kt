@@ -12,7 +12,7 @@ import woowacourse.movie.ui.MovieBrief
 
 class MovieAdapter(
     private val movieBriefs: List<MovieBrief>,
-    private val adapterClickListenter: AdapterClickListenter
+    private val adapterClickListenter: AdapterClickListenter,
 ) : RecyclerView.Adapter<ViewHolder>(),
     MovieAdapterContract.Model,
     MovieAdapterContract.View {
@@ -38,12 +38,12 @@ class MovieAdapter(
         } else {
             val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.advertisement_list_item, parent, false)
-            object :ViewHolder(view){}
+            object : ViewHolder(view) {}
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position%3 == 2) TYPE_ADVERTISEMENT else TYPE_MOVIE
+        return if (position % 3 == 2) TYPE_ADVERTISEMENT else TYPE_MOVIE
     }
 
     override fun onBindViewHolder(
@@ -51,10 +51,11 @@ class MovieAdapter(
         position: Int,
     ) {
         val viewType = getItemViewType(position)
-        if(viewType == TYPE_MOVIE){
-            val movieBrief: MovieBrief = movieBriefs[position]
-            (holder as MovieHolder).bind(movieBrief)
-        }
+        if (viewType == TYPE_MOVIE)
+            {
+                val movieBrief: MovieBrief = movieBriefs[position]
+                (holder as MovieHolder).bind(movieBrief)
+            }
     }
 
     override fun notifyItemClicked(position: Int) {
@@ -80,7 +81,8 @@ class MovieAdapter(
             runningTime.text = movieBrief.runningTime
         }
     }
-    companion object{
+
+    companion object {
         private const val TYPE_MOVIE = 0
         private const val TYPE_ADVERTISEMENT = 1
     }

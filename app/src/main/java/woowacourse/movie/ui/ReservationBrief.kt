@@ -4,5 +4,5 @@ data class ReservationBrief(
     val movieTitle: String,
     val positions: List<String>,
     val screeningDateTime: String,
-    val price: String
+    val price: String,
 )
