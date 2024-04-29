@@ -4,6 +4,7 @@ import woowacourse.movie.model.movie.MovieContent
 import woowacourse.movie.model.movie.ReservationCount
 import woowacourse.movie.ui.HandleError
 import java.time.LocalDate
+import java.time.LocalTime
 
 interface MovieReservationContract {
     interface View : HandleError {
@@ -13,7 +14,7 @@ interface MovieReservationContract {
 
         fun showMovieDateSelection(dateRange: List<LocalDate>)
 
-        fun showMovieTimeSelection(timeRange: List<String>)
+        fun showMovieTimeSelection(timeRange: List<LocalTime>)
 
         fun moveMovieSeatSelectionPage(
             reservationCount: Int,

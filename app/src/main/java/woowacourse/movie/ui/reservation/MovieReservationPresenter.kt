@@ -2,7 +2,7 @@ package woowacourse.movie.ui.reservation
 
 import woowacourse.movie.model.data.MovieContents
 import woowacourse.movie.model.movie.ReservationCount
-import woowacourse.movie.model.movie.ScreeningDateTime
+import woowacourse.movie.model.movie.ScreeningDate
 import java.time.LocalDate
 
 class MovieReservationPresenter(
@@ -11,7 +11,7 @@ class MovieReservationPresenter(
 ) :
     MovieReservationContract.Presenter {
     private lateinit var reservationCount: ReservationCount
-    private lateinit var screeningDateTime: ScreeningDateTime
+    private lateinit var screeningDate: ScreeningDate
     private lateinit var movieTime: String
 
     override fun updateReservationCount(count: Int) {
@@ -20,8 +20,8 @@ class MovieReservationPresenter(
     }
 
     override fun selectDate(date: LocalDate) {
-        screeningDateTime = ScreeningDateTime(date)
-        view.showMovieTimeSelection(screeningDateTime.screeningTime())
+        screeningDate = ScreeningDate(date)
+        view.showMovieTimeSelection(screeningDate.screeningTime())
     }
 
     override fun selectTime(time: String) {
@@ -51,7 +51,7 @@ class MovieReservationPresenter(
     override fun reserveSeat() {
         view.moveMovieSeatSelectionPage(
             reservationCount.count,
-            screeningDateTime.date.toString(),
+            screeningDate.date.toString(),
             movieTime,
         )
     }

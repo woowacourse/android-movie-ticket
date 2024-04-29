@@ -19,6 +19,7 @@ import woowacourse.movie.ui.base.BaseActivity
 import woowacourse.movie.ui.selection.MovieSeatSelectionActivity
 import woowacourse.movie.ui.utils.getImageFromId
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
@@ -161,7 +162,7 @@ class MovieReservationActivity :
         }
     }
 
-    override fun showMovieTimeSelection(timeRange: List<String>) {
+    override fun showMovieTimeSelection(timeRange: List<LocalTime>) {
         val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, timeRange)
         timeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         movieTimeSpinner.adapter = timeAdapter
