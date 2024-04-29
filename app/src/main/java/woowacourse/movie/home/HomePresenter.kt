@@ -5,7 +5,6 @@ import woowacourse.movie.db.Movies
 class HomePresenter(
     private val view: HomeContract.View,
 ) : HomeContract.Presenter {
-
     init {
         loadMovies()
     }
