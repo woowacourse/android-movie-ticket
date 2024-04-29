@@ -21,9 +21,9 @@ class TicketingResultActivity : AppCompatActivity(), TicketingResultContract.Vie
 
         val movieTicket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(EXTRA_MOVIE_TICKET, Ticket::class.java)
+                intent.getParcelableExtra(EXTRA_MOVIE_TICKET, Ticket::class.java)
             } else {
-                intent.getSerializableExtra(EXTRA_MOVIE_TICKET) as Ticket
+                intent.getParcelableExtra(EXTRA_MOVIE_TICKET)
             }
         val ticketingResultPresenter = TicketingResultPresenter(this, movieTicket)
         ticketingResultPresenter.loadTicketInfo()

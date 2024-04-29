@@ -1,8 +1,11 @@
 package woowacourse.movie.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-data class Ticket(val movieTitle: String, val screeningDateTime: String, val selectedSeats: List<Seat>) : Serializable {
+@Parcelize
+data class Ticket(val movieTitle: String, val screeningDateTime: String, val selectedSeats: List<Seat>) :
+    Parcelable {
     val totalPrice = selectedSeats.sumOf { it.seatClass.price }
     val totalCount = selectedSeats.size
 }
