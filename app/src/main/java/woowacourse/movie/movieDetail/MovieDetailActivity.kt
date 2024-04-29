@@ -11,12 +11,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.seat.TheaterSeatActivity
-import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -61,26 +61,11 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 position: Int,
                 id: Long
             ) {
-                updateTimeSpinner(dates[position])
+                presenter.updateTimeSpinner(dates[position])
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
-    }
-
-    private fun updateTimeSpinner(date: String) {
-        val times = mutableListOf<String>()
-        var time = if (isWeekend(date)) {
-            9
-        } else {
-            10
-        }
-        while (time <= 24) {
-            times.add("${time}:00")
-            time += 2
-        }
-        timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, times)
-        timeSpinner.adapter = timeAdapter
     }
 
     private fun generateDateRange(startDate: LocalDate, endDate: LocalDate): ArrayList<String> {
@@ -91,12 +76,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             date = date.plusDays(1)
         }
         return dates
-    }
-
-    private fun isWeekend(date: String): Boolean {
-        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        val parsedDate = LocalDate.parse(date, formatter)
-        return parsedDate.dayOfWeek == DayOfWeek.SATURDAY || parsedDate.dayOfWeek == DayOfWeek.SUNDAY
     }
 
     private fun setupEventListeners() {
@@ -140,6 +119,15 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     override fun onTicketCountChanged(ticketNum: Int) {
         this.ticketNum = ticketNum
         quantityText.text = this.ticketNum.toString()
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateTimeAdapter(times: List<String>) {
+        timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, times)
+        timeSpinner.adapter = timeAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

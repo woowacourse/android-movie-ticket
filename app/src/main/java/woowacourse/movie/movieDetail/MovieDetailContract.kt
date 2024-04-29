@@ -9,12 +9,15 @@ interface MovieDetailContract {
         fun initializeViews(movieInfo: MovieInfo)
         fun navigateToPurchaseConfirmation(intent: Intent)
         fun onTicketCountChanged(ticketNum: Int)
+        fun showToast(message: String)
+        fun updateTimeAdapter(times: List<String>)
     }
 
     interface Presenter {
         fun load()
-        fun onTicketPlusClicked(ticketNum: Int)
-        fun onTicketMinusClicked(ticketNum: Int)
+        fun onTicketPlusClicked(currentTicketNum: Int)
+        fun onTicketMinusClicked(currentTicketNum: Int)
         fun getTheater(): Theater?
+        fun updateTimeSpinner(date: String)
     }
 }
