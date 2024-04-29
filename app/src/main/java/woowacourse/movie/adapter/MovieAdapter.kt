@@ -28,67 +28,64 @@ class MovieAdapter(
             view.findViewById(R.id.item_movie_catalog_text_view_running_time)
     }
 
-    inner class AdvertisementHolder(view: View) : ViewHolder(view) {
-        val advertisementImageView: ImageView = view.findViewById(R.id.item_advertisement)
+    inner class AdvertisementHolder(view: View) : ViewHolder(view)
+
+    override fun getItemCount(): Int = movies.size
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isTypeAdvertisement(position)) TYPE_ADVERTISEMENT else TYPE_MOVIE
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+
         return if (viewType == TYPE_MOVIE) {
-            val view =
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_movie_catalog, parent, false)
-            MovieHolder(view)
+            MovieHolder(view.inflate(R.layout.item_movie_catalog, parent, false))
         } else {
-            val view =
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_advertisement, parent, false)
-            AdvertisementHolder(view)
+            AdvertisementHolder(view.inflate(R.layout.item_advertisement, parent, false))
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if ((position + 1) % 4 == 0) TYPE_ADVERTISEMENT else TYPE_MOVIE
-    }
-
     override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
+        holder: ViewHolder,
         position: Int,
     ) {
         when (holder) {
             is MovieHolder -> {
-                val item = movies[position]
-                holder.title.text = item.title
-                holder.poster.setImageResource(item.poster)
+                val movie = movies[position]
+                holder.title.text = movie.title
+                holder.poster.setImageResource(movie.poster)
                 holder.screeningDate.text =
-                    convertDateFormat(item.firstScreeningDate, item.lastScreeningDate)
-                holder.runningTime.text = item.runningTime
+                    convertDateFormat(movie.firstScreeningDate, movie.lastScreeningDate)
+                holder.runningTime.text = movie.runningTime
                 holder.reservationButton.setOnClickListener {
-                    sendMovieId(item.id)
+                    sendMovieId(movie.id)
                 }
             }
 
-            else -> {
-                (holder as AdvertisementHolder)
-            }
+            is AdvertisementHolder -> {}
+
+            else -> throw IllegalArgumentException("존재 하지 않는 ViewHolder 입니다.")
         }
     }
 
-    override fun getItemCount(): Int = movies.size
+    private fun isTypeAdvertisement(position: Int): Boolean = (position + 1) % 4 == 0
 
     private fun convertDateFormat(
-        firstDate: LocalDate,
-        secondDate: LocalDate,
+        firstScreeningDate: LocalDate,
+        lastScreeningDate: LocalDate,
     ): String {
-        val dateFormat = DateTimeFormatter.ofPattern("yyyy.M.dd")
+        val dateFormat = DateTimeFormatter.ofPattern(DATE_PATTERN)
 
-        return "${firstDate.format(dateFormat)} ~ ${secondDate.format(dateFormat)}"
+        return "${firstScreeningDate.format(dateFormat)} ~ ${lastScreeningDate.format(dateFormat)}"
     }
 
     companion object {
-        private const val TYPE_MOVIE = 0
-        private const val TYPE_ADVERTISEMENT = 1
+        private const val TYPE_MOVIE = 1
+        private const val TYPE_ADVERTISEMENT = 2
+        private const val DATE_PATTERN = "yyyy.M.dd"
     }
 }
