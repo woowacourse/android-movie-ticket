@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.ui.MovieBrief
@@ -13,7 +14,7 @@ import woowacourse.movie.ui.MovieBrief
 class MovieAdapter(
     private val movieBriefs: List<MovieBrief>,
     private val screeningListView: MovieListContract.View,
-) : RecyclerView.Adapter<MovieAdapter.MovieHolder>(),
+) : RecyclerView.Adapter<ViewHolder>(),
     MovieAdapterContract.Model,
     MovieAdapterContract.View {
     override fun getItemCount(): Int = movieBriefs.size
@@ -23,25 +24,38 @@ class MovieAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): MovieHolder {
-        val view =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.movie_list_item, parent, false)
-        return MovieHolder(
-            title = view.findViewById<TextView>(R.id.movie_title),
-            screeningDate = view.findViewById<TextView>(R.id.movie_screening_date),
-            runningTime = view.findViewById<TextView>(R.id.movie_item_running_time),
-            detailButton = view.findViewById<Button>(R.id.movie_details_button),
-            itemView = view,
-        )
+    ): ViewHolder {
+        return if (viewType == TYPE_MOVIE) {
+            val view =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_list_item, parent, false)
+            MovieHolder(
+                title = view.findViewById<TextView>(R.id.movie_title),
+                screeningDate = view.findViewById<TextView>(R.id.movie_screening_date),
+                runningTime = view.findViewById<TextView>(R.id.movie_item_running_time),
+                detailButton = view.findViewById<Button>(R.id.movie_details_button),
+                itemView = view,
+            )
+        } else {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.advertisement_list_item, parent, false)
+            object :ViewHolder(view){}
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if(position%3 == 2) TYPE_ADVERTISEMENT else TYPE_MOVIE
     }
 
     override fun onBindViewHolder(
-        holder: MovieHolder,
+        holder: ViewHolder,
         position: Int,
     ) {
-        val movieBrief: MovieBrief = movieBriefs[position]
-        holder.bind(movieBrief)
+        val viewType = getItemViewType(position)
+        if(viewType == TYPE_MOVIE){
+            val movieBrief: MovieBrief = movieBriefs[position]
+            (holder as MovieHolder).bind(movieBrief)
+        }
     }
 
     override fun notifyItemClicked(position: Int) {
@@ -54,7 +68,7 @@ class MovieAdapter(
         val runningTime: TextView,
         val detailButton: Button,
         itemView: View,
-    ) : RecyclerView.ViewHolder(itemView) {
+    ) : ViewHolder(itemView) {
         init {
             detailButton.setOnClickListener {
                 notifyItemClicked(adapterPosition)
@@ -66,5 +80,9 @@ class MovieAdapter(
             screeningDate.text = movieBrief.screeningDate
             runningTime.text = movieBrief.runningTime
         }
+    }
+    companion object{
+        private const val TYPE_MOVIE = 0
+        private const val TYPE_ADVERTISEMENT = 1
     }
 }
