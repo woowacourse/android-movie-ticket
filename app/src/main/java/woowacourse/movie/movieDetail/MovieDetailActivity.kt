@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
@@ -33,7 +32,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private val seatConfirmationButton: Button by lazy { findViewById(R.id.seat_confirmation_button) }
     private val quantityText: TextView by lazy { findViewById(R.id.quantity_text_view) }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
@@ -101,7 +99,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         return parsedDate.dayOfWeek == DayOfWeek.SATURDAY || parsedDate.dayOfWeek == DayOfWeek.SUNDAY
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setupEventListeners() {
         plusButton.setOnClickListener {
             presenter.onTicketPlusClicked(ticketNum)
@@ -113,9 +110,13 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
         seatConfirmationButton.setOnClickListener {
             val theater = presenter.getTheater()
-            val intent = Intent(this, TheaterSeatActivity::class.java).apply {
-                putExtra("ticketNum", ticketNum)
-                putExtra("Theater", theater)
+            val intent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Intent(this, TheaterSeatActivity::class.java).apply {
+                    putExtra("ticketNum", ticketNum)
+                    putExtra("Theater", theater)
+                }
+            } else {
+                TODO("VERSION.SDK_INT < TIRAMISU")
             }
             navigateToPurchaseConfirmation(intent)
         }
