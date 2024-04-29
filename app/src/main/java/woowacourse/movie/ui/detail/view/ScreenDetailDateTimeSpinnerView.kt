@@ -11,13 +11,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.DateRange
 import woowacourse.movie.domain.model.ScreenTimePolicy
+import woowacourse.movie.ui.detail.ScreenDetailContract
 import java.time.LocalDate
 import java.time.LocalTime
 
 class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = null) : DateTimeSpinnerView,
     ConstraintLayout(context, attrs) {
     private lateinit var dateAdapter: ArrayAdapter<LocalDate>
-    private lateinit var timeAdapter: ArrayAdapter<LocalTime>
+    lateinit var timeAdapter: ArrayAdapter<LocalTime>
 
     private val dateSpinner: Spinner by lazy { findViewById(R.id.spn_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.spn_time) }
@@ -29,13 +30,15 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
     override fun show(
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
+        presenter: ScreenDetailContract.Presenter,
     ) {
         initDateAdapter(dateRange)
         initTimeAdapter(dateRange.start, screenTimePolicy)
 
-        initDateSpinnerSelection(screenTimePolicy)
-        initTimeSpinnerSelection()
+        initDateSpinnerSelection(screenTimePolicy, presenter)
+        initTimeSpinnerSelection(presenter)
     }
+
 
     override fun restoreDatePosition(position: Int) {
         dateSpinner.setSelection(position)
@@ -69,7 +72,7 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
         timeSpinner.adapter = timeAdapter
     }
 
-    private fun initDateSpinnerSelection(screenTimePolicy: ScreenTimePolicy) {
+    private fun initDateSpinnerSelection(screenTimePolicy: ScreenTimePolicy, presenter: ScreenDetailContract.Presenter) {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -83,6 +86,7 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
                         timeAdapter.clear()
                         timeAdapter.addAll(screenTimePolicy.screeningTimes(date).toList())
                     }
+                    presenter.saveDatePosition(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -91,7 +95,7 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
             }
     }
 
-    private fun initTimeSpinnerSelection() {
+    private fun initTimeSpinnerSelection(presenter: ScreenDetailContract.Presenter) {
         timeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -100,7 +104,7 @@ class ScreenDetailDateTimeSpinnerView(context: Context, attrs: AttributeSet? = n
                     position: Int,
                     id: Long,
                 ) {
-                    // TODO: 로직 구현해야 함
+                    presenter.saveTimePosition(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {

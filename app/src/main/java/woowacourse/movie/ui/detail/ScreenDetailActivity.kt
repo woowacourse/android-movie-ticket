@@ -49,6 +49,8 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
 
         presenter.loadScreen(id)
         presenter.loadTicket()
+
+        dateTimeSpinnerView.selectedDatePosition()
     }
 
     private fun initClickListener(id: Int) {
@@ -94,7 +96,7 @@ class ScreenDetailActivity : AppCompatActivity(), ScreenDetailContract.View {
         dateRange: DateRange,
         screenTimePolicy: ScreenTimePolicy,
     ) {
-        dateTimeSpinnerView.show(dateRange, screenTimePolicy)
+        dateTimeSpinnerView.show(dateRange, screenTimePolicy, presenter)
     }
 
     override fun navigateToSeatsReservation(timeReservationId: Int) {
