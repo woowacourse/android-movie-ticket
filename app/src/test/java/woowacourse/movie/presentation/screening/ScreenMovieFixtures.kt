@@ -4,8 +4,10 @@ import woowacourse.movie.model.ImageUrl
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.Price
 import woowacourse.movie.model.RunningTime
+import woowacourse.movie.model.date.ScreenDateTime
 import woowacourse.movie.model.date.ScreenDateTimes
 import woowacourse.movie.model.date.ScreeningMovie
+import java.time.LocalDate
 import kotlin.time.Duration.Companion.minutes
 
 fun stubScreenMovie(): ScreeningMovie =
@@ -13,7 +15,14 @@ fun stubScreenMovie(): ScreeningMovie =
         id = 1,
         movie = stubMovie(),
         price = Price(13_000),
-        screenDateTimes = ScreenDateTimes(emptyList()),
+        screenDateTimes = ScreenDateTimes(
+            listOf(
+                ScreenDateTime(
+                    date = LocalDate.now(),
+                    times = emptyList()
+                ),
+            )
+        )
     )
 
 fun stubMovie(): Movie =

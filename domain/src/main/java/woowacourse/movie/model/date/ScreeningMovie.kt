@@ -13,17 +13,17 @@ data class ScreeningMovie(
     val screenDateTimes: ScreenDateTimes = ScreenDateTimes(emptyList()),
 ) {
     companion object {
-        private val STUB: ScreeningMovie =
+        val STUB: ScreeningMovie =
             ScreeningMovie(
                 id = -1,
                 movie = Movie.STUB,
                 price = Price(10000),
                 screenDateTimes =
-                    DefaultScreenDateTimesGenerator.generate(
-                        (1..30).map {
-                            LocalDate.of(2024, 4, it)
-                        },
-                    ),
+                DefaultScreenDateTimesGenerator.generate(
+                    (1..30).map {
+                        LocalDate.of(2024, 4, it)
+                    },
+                ),
             )
         private val Stubs: List<ScreeningMovie> =
             listOf(
@@ -31,17 +31,17 @@ data class ScreeningMovie(
                 STUB.copy(movie = Movie.STUB.copy(title = "해리 포터와 비밀의 방")),
                 STUB.copy(
                     movie =
-                        Movie.STUB.copy(
-                            title = "해리 포터와 아즈카반의 죄수",
-                            runningTime = RunningTime(162.minutes),
-                        ),
+                    Movie.STUB.copy(
+                        title = "해리 포터와 아즈카반의 죄수",
+                        runningTime = RunningTime(162.minutes),
+                    ),
                 ),
                 STUB.copy(
                     movie =
-                        Movie.STUB.copy(
-                            title = "해리 포터와 불사조의 기사단",
-                            runningTime = RunningTime(172.minutes),
-                        ),
+                    Movie.STUB.copy(
+                        title = "해리 포터와 불사조의 기사단",
+                        runningTime = RunningTime(172.minutes),
+                    ),
                 ),
             )
 

@@ -9,8 +9,7 @@ import woowacourse.movie.repository.MovieRepository
 import java.time.LocalDateTime
 
 class FakeMovieRepository : MovieRepository {
-    private val screenMovies: List<ScreeningMovie> =
-        List<ScreeningMovie>(1000) { ScreeningMovie.STUB.copy(id = it.toLong()) }
+    private val screenMovies: List<ScreeningMovie> = ScreeningMovie.stubMovies()
     private var reservations: List<MovieReservation> = emptyList()
     private var reservationId: Long = 0
 
