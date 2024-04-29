@@ -1,44 +1,17 @@
 package woowacourse.movie.screeningmovie
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 
 class MovieAdapter(
     private val movies: List<ScreeningMovieItem>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    class MovieViewHolder(
-        itemView: View,
-        private val onClickReservationButton: (id: Long) -> Unit,
-    ) : RecyclerView.ViewHolder(itemView) {
-        private val postImageView: ImageView = itemView.findViewById(R.id.iv_movie_post)
-        private val title: TextView = itemView.findViewById(R.id.tv_movie_title)
-        private val date: TextView = itemView.findViewById(R.id.tv_movie_running_date)
-        private val runningTime: TextView = itemView.findViewById(R.id.tv_movie_running_time)
-        private val button: Button = itemView.findViewById(R.id.btn_movie_reservation)
-
-        fun onBind(item: ScreenMovieUiModel) {
-            postImageView.setImageResource(item.imageRes)
-            title.text = item.title
-            date.text = item.screenDate
-            runningTime.text = item.runningTime
-            button.setOnClickListener {
-                onClickReservationButton(item.id)
-            }
-        }
-    }
-
-    class AdvertiseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+) : RecyclerView.Adapter<ScreeningViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return when(movies[position]) {
+        return when (movies[position]) {
             is ScreenMovieUiModel -> MOVIE
             is AdvertiseUiModel -> ADVERTISE
         }
@@ -47,7 +20,7 @@ class MovieAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): RecyclerView.ViewHolder {
+    ): ScreeningViewHolder {
         return when (viewType) {
             MOVIE -> {
                 val view =
@@ -67,12 +40,11 @@ class MovieAdapter(
         }
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-    ) {
-        if (getItemViewType(position) == MOVIE) {
-            (holder as MovieViewHolder).onBind(movies[position] as ScreenMovieUiModel)
+    override fun onBindViewHolder(holder: ScreeningViewHolder, position: Int) {
+
+        when(holder) {
+            is AdvertiseViewHolder -> (holder as MovieViewHolder).onBind(movies[position] as ScreenMovieUiModel)
+            is MovieViewHolder -> { }
         }
     }
 
