@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    testOptions {
+        animationsDisabled = true
+    }
     packaging {
         resources {
             excludes += "META-INF/**"
