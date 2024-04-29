@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.ScreenAd
 import woowacourse.movie.ui.toUi
 
 class ScreenViewHolder(
@@ -18,7 +19,7 @@ class ScreenViewHolder(
     private val runningTime: TextView = view.findViewById(R.id.tv_screen_running_time)
     private val reserveButton: Button = view.findViewById(R.id.btn_reserve_now)
 
-    fun bind(screen: ScreenAd.ScreenPreviewUi2) {
+    fun bind(screen: ScreenAd.ScreenPreviewUi) {
         with(screen) {
             poster.setImageResource(moviePreviewUI.image.imageSource as Int)
             title.text = moviePreviewUI.title

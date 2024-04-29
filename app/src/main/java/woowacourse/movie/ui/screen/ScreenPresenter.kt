@@ -2,9 +2,9 @@ package woowacourse.movie.ui.screen
 
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.DrawableImage
+import woowacourse.movie.domain.model.ScreenAd
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ScreenRepository
-import woowacourse.movie.ui.screen.adapter.ScreenAd
 import woowacourse.movie.ui.toPreviewUI
 import woowacourse.movie.ui.toUi2
 
@@ -33,11 +33,4 @@ class ScreenPresenter(
 
         view.showScreens2(screens + ad)
     }
-
-//    override fun loadScreen(screenId: Int) {
-//        screenRepository.load(screenId)
-//            .let { screen ->
-//                view.showScreen(screen.toPreviewUI(image = movieRepository.imageSrc(screen.movie.id)))
-//            }
-//    }
 }

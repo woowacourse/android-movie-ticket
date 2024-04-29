@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.screen
 
+import woowacourse.movie.domain.model.ScreenAd
 import woowacourse.movie.ui.ScreenPreviewUI
-import woowacourse.movie.ui.screen.adapter.ScreenAd
 
 interface ScreenContract {
     interface View {
