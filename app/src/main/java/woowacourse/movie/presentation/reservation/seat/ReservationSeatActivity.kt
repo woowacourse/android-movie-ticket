@@ -18,6 +18,7 @@ import woowacourse.movie.model.Ticket
 import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
 import woowacourse.movie.presentation.screen.detail.MovieDetailActivity.Companion.TICKET
 import woowacourse.movie.presentation.screen.movie.ScreeningMovieActivity.Companion.MOVIE_ID
+import woowacourse.movie.util.bundleSerializable
 
 class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
     private val presenter: ReservationSeatPresenter by lazy {
@@ -45,8 +46,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val seats = savedInstanceState.getSerializable(SEATS) as Seats?
-        seats?.let { seats ->
+        val seats = savedInstanceState.bundleSerializable(SEATS, Seats::class.java)
+            ?: error("seats 정보가 없습니다.")
+        seats.let { seats ->
             seats.seats.forEach { seat ->
                 presenter.onClickedSeat(seat.row, seat.col)
             }
