@@ -18,14 +18,13 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         setContentView(R.layout.activity_reservation_home)
 
         homePresenter = HomePresenter(this)
-        homePresenter.loadMovies()
     }
 
     override fun showMovies(movies: List<Movie>) {
         movieList.layoutManager = LinearLayoutManager(this)
         movieList.adapter =
             MovieAdapter(movies) { movieId ->
-                homePresenter.deliverMovie(movieId)
+                homePresenter.deliverMovieId(movieId)
             }
     }
 

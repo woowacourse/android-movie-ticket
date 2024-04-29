@@ -12,6 +12,6 @@ interface HomeContract {
     interface Presenter {
         fun loadMovies()
 
-        fun deliverMovie(movieId: Int)
+        fun deliverMovieId(movieId: Int)
     }
 }
