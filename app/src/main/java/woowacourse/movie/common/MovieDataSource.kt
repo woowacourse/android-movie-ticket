@@ -5,6 +5,16 @@ import woowacourse.movie.list.model.Movie
 import java.time.LocalDate
 
 object MovieDataSource {
+    private val dummyMovie =
+        Movie(
+            "",
+            0,
+            LocalDate.of(0, 1, 1),
+            0,
+            "",
+            -1,
+        )
+
     val movieList =
         listOf(
             Movie(
@@ -37,6 +47,7 @@ object MovieDataSource {
                 """.trimIndent(),
                 2,
             ),
+            dummyMovie,
             Movie(
                 "해리 포터와 불의 잔",
                 R.drawable.harry_potter_4_poster,
@@ -67,6 +78,7 @@ object MovieDataSource {
                 """.trimIndent(),
                 5,
             ),
+            dummyMovie,
             Movie(
                 "해리 포터와 죽음의 성물",
                 R.drawable.harry_potter_7_poster,
