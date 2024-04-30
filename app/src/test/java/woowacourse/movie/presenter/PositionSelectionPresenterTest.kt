@@ -9,13 +9,13 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import woowacourse.movie.presentation.seat_selection.SeatSelectionContract
 import woowacourse.movie.model.seat.Position
-import woowacourse.movie.repository.reservation.PseudoReservationRepository
-import woowacourse.movie.repository.theater.PseudoTheaterRepository
-import woowacourse.movie.repository.reservation.ReservationRepository
-import woowacourse.movie.repository.theater.TheaterRepository
+import woowacourse.movie.presentation.seat_selection.SeatSelectionContract
 import woowacourse.movie.presentation.seat_selection.SeatSelectionPresenter
+import woowacourse.movie.repository.reservation.PseudoReservationRepository
+import woowacourse.movie.repository.reservation.ReservationRepository
+import woowacourse.movie.repository.theater.PseudoTheaterRepository
+import woowacourse.movie.repository.theater.TheaterRepository
 import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)

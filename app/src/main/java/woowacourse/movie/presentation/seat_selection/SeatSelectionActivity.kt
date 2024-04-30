@@ -10,14 +10,14 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.presentation.IntentKeys.SEAT_PLAN
 import woowacourse.movie.R
 import woowacourse.movie.model.Theater
 import woowacourse.movie.model.pricing.Tier
 import woowacourse.movie.model.seat.Position
+import woowacourse.movie.presentation.IntentKeys.SEAT_PLAN
+import woowacourse.movie.presentation.purchase_confirmation.PurchaseConfirmationActivity
 import woowacourse.movie.uimodel.SeatPlan
 import woowacourse.movie.uimodel.reservation.format
-import woowacourse.movie.presentation.purchase_confirmation.PurchaseConfirmationActivity
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter

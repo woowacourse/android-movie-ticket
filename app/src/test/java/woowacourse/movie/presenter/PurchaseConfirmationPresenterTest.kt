@@ -7,8 +7,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.presentation.purchase_confirmation.PurchaseConfirmationContract
-import woowacourse.movie.repository.reservation.ReservationRepository
 import woowacourse.movie.presentation.purchase_confirmation.PurchaseConfirmationPresenter
+import woowacourse.movie.repository.reservation.ReservationRepository
 
 @ExtendWith(MockKExtension::class)
 class PurchaseConfirmationPresenterTest {

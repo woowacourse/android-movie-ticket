@@ -8,11 +8,10 @@ import woowacourse.movie.model.seat.Position
 import woowacourse.movie.repository.movie.MovieRepository
 import woowacourse.movie.repository.movie.PseudoMovieRepository
 import woowacourse.movie.repository.reservation.PseudoReservationRepository
-import woowacourse.movie.repository.theater.PseudoTheaterRepository
 import woowacourse.movie.repository.reservation.ReservationRepository
+import woowacourse.movie.repository.theater.PseudoTheaterRepository
 import woowacourse.movie.repository.theater.TheaterRepository
 import woowacourse.movie.uimodel.movie.format
-import woowacourse.movie.uimodel.movie.toMovieDetail
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 

@@ -3,11 +3,10 @@ package woowacourse.movie.presentation.movie_list
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import woowacourse.movie.R
 import woowacourse.movie.presentation.IntentKeys.MOVIE_ID
 import woowacourse.movie.presentation.movie_detail.MovieDetailActivity
-import woowacourse.movie.R
 import woowacourse.movie.presentation.movie_list.adapter.AdapterClickListenter
 import woowacourse.movie.presentation.movie_list.adapter.MovieBriefAdapter
 import woowacourse.movie.uimodel.movie.MovieBrief

@@ -14,6 +14,7 @@ class MovieBriefAdapter(
     private val adapterClickListener: AdapterClickListenter,
 ) : RecyclerView.Adapter<ViewHolder>() {
     private val movieBriefs: MutableList<MovieBrief> = mutableListOf()
+
     override fun getItemCount(): Int = movieBriefs.size
 
     override fun getItemId(position: Int): Long = position.toLong()
@@ -75,7 +76,6 @@ class MovieBriefAdapter(
             runningTime.text = movieBrief.runningTime
         }
     }
-
 
     fun addList(movieBriefs: List<MovieBrief>) {
         val positionStart = this.movieBriefs.size
