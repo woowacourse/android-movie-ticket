@@ -45,46 +45,32 @@
             android:layout_height="match_parent">
 
             <TextView
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center"
-                android:text="A1"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="A1" />
 
             <TextView
                 android:id="@+id/seat_tv_item2"
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center"
                 android:padding="@dimen/size_20_dp"
-                android:text="A2"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="A2" />
 
             <TextView
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:padding="@dimen/size_20_dp"
-                android:text="A3"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="A3" />
 
             <TextView
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:padding="@dimen/size_20_dp"
-                android:text="A4"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="A4" />
         </TableRow>
 
         <TableRow
@@ -92,41 +78,29 @@
             android:layout_height="match_parent">
 
             <TextView
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:padding="@dimen/size_20_dp"
-                android:text="B1"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="B1" />
 
             <TextView
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="B2"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="B2" />
 
             <TextView
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="B3"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="B3" />
 
             <TextView
+                style="@style/seat_grade_B_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="B4"
-                android:textColor="@color/purple_500"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="B4" />
         </TableRow>
 
         <TableRow
@@ -134,43 +108,30 @@
             android:layout_height="match_parent">
 
             <TextView
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:padding="@dimen/size_20_dp"
-                android:text="C1"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="C1" />
 
             <TextView
                 android:id="@+id/seat_tv_item10"
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center"
-                android:text="C2"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="C2" />
 
             <TextView
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="C3"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="C3" />
 
             <TextView
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="C4"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="C4" />
         </TableRow>
 
         <TableRow
@@ -178,41 +139,29 @@
             android:layout_height="match_parent">
 
             <TextView
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:padding="@dimen/size_20_dp"
-                android:text="D1"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="D1" />
 
             <TextView
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="D2"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="D2" />
 
             <TextView
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="D3"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="D3" />
 
             <TextView
+                style="@style/seat_grade_A_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="D4"
-                android:textColor="@color/custom_green"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="D4" />
         </TableRow>
 
         <TableRow
@@ -220,43 +169,30 @@
             android:layout_height="match_parent">
 
             <TextView
+                style="@style/seat_grade_S_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:padding="@dimen/size_20_dp"
-                android:text="E1"
-                android:textColor="@color/custom_blue"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="E1" />
 
             <TextView
                 android:id="@+id/seat_tv_item18"
+                style="@style/seat_grade_S_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:gravity="center"
-                android:text="E2"
-                android:textColor="@color/custom_blue"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="E2" />
 
             <TextView
+                style="@style/seat_grade_S_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="E3"
-                android:textColor="@color/custom_blue"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="E3" />
 
             <TextView
+                style="@style/seat_grade_S_textview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="E4"
-                android:textColor="@color/custom_blue"
-                android:textSize="@dimen/size_22_sp"
-                android:textStyle="bold" />
+                android:text="E4" />
         </TableRow>
     </TableLayout>
 
