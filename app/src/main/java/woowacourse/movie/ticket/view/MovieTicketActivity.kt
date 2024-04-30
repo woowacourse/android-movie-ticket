@@ -31,7 +31,7 @@ class MovieTicketActivity : AppCompatActivity(), MovieTicketContract.View {
     }
 
     private fun processPresenterTask() {
-        presenter.storeTicketCount(getSerializableCountData(intent))
+        presenter.storeTicketCount(intent.getSerializableCountData())
         presenter.storeMovieId(intent.getLongExtra(ID_KEY, -1))
         presenter.storeScreeningDate(intent.getStringExtra(DATE_KEY) ?: "ddd")
         presenter.storeScreeningTime(intent.getStringExtra(TIME_KEY) ?: "ddd")
