@@ -9,7 +9,8 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import woowacourse.movie.contract.MovieListContract
+import woowacourse.movie.presentation.movie_list.MovieListContract
+import woowacourse.movie.presentation.movie_list.MovieListPresenter
 
 @ExtendWith(MockKExtension::class)
 class MovieListPresenterTest {

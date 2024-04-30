@@ -9,11 +9,12 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import woowacourse.movie.contract.MovieDetailContract
+import woowacourse.movie.presentation.movie_detail.MovieDetailContract
 import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.model.schedule.ScreeningPeriod
-import woowacourse.movie.repository.MovieRepository
+import woowacourse.movie.presentation.movie_detail.MovieDetailPresenter
+import woowacourse.movie.repository.movie.MovieRepository
 import java.time.LocalDate
 import java.time.LocalDateTime
 

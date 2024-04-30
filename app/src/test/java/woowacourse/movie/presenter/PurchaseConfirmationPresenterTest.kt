@@ -6,8 +6,9 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import woowacourse.movie.contract.PurchaseConfirmationContract
-import woowacourse.movie.repository.ReservationRepository
+import woowacourse.movie.presentation.purchase_confirmation.PurchaseConfirmationContract
+import woowacourse.movie.repository.reservation.ReservationRepository
+import woowacourse.movie.presentation.purchase_confirmation.PurchaseConfirmationPresenter
 
 @ExtendWith(MockKExtension::class)
 class PurchaseConfirmationPresenterTest {
@@ -26,7 +27,7 @@ class PurchaseConfirmationPresenterTest {
 
     @Test
     fun `영화 예매 정보를 표기해야 한다`() {
-        presenter.loadReservation(0)
+        presenter.loadReservation()
         verify { view.displayReservation(any()) }
     }
 }

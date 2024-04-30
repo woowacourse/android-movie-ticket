@@ -11,7 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.MovieDetailActivity
+import woowacourse.movie.presentation.movie_detail.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieDetailActivityTest {
