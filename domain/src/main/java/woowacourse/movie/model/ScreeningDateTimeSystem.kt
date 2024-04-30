@@ -16,27 +16,29 @@ class ScreeningDateTimeSystem(
         val resultList = mutableListOf<ScreenDateTime>()
 
         var currentDate = startDate
-        while (currentDate.isBefore(endDate) || currentDate.isEqual(endDate)) {
-            val isWeekend =
-                currentDate.dayOfWeek == DayOfWeek.SATURDAY || currentDate.dayOfWeek == DayOfWeek.SUNDAY
-            val startTime = if (isWeekend) weekendStartTime else weekStartTime
-            val timeSlots = createTimes(startTime)
-            resultList.add(ScreenDateTime(currentDate, timeSlots))
-
+        while (currentDate <= endDate) {
+            resultList.add(createScreenDateTimeFor(currentDate))
             currentDate = currentDate.plusDays(SCREENING_DATE_INTERVAL)
         }
         return resultList
     }
 
-    private fun createTimes(startHour: Int): List<LocalTime> {
-        val range = (startHour..MID_NIGHT step screeningTimeInterval)
-        return range.map { hour ->
-            if (hour == MID_NIGHT) {
-                LocalTime.of(ANOTHER_MID_NIGHT, DEFAULT_MINUTE)
-            } else {
-                LocalTime.of(hour, DEFAULT_MINUTE)
-            }
-        }.toList()
+    private fun createScreenDateTimeFor(date: LocalDate): ScreenDateTime {
+        val startTime = determineStartTimeFor(date)
+        val timeSlots = generateTimeSlotsFrom(startTime)
+        return ScreenDateTime(date, timeSlots)
+    }
+
+    private fun determineStartTimeFor(date: LocalDate): Int {
+        return if (date.isWeekend()) weekendStartTime else weekStartTime
+    }
+
+    private fun LocalDate.isWeekend() = this.dayOfWeek == DayOfWeek.SATURDAY || this.dayOfWeek == DayOfWeek.SUNDAY
+
+    private fun generateTimeSlotsFrom(startHour: Int): List<LocalTime> {
+        return (startHour until MID_NIGHT step screeningTimeInterval).map { hour ->
+            LocalTime.of(hour, DEFAULT_MINUTE)
+        } + LocalTime.MIDNIGHT
     }
 
     companion object {
@@ -46,6 +48,5 @@ class ScreeningDateTimeSystem(
         private const val SCREENING_TIME_INTERVAL = 2
         private const val SCREENING_DATE_INTERVAL = 1L
         private const val MID_NIGHT = 24
-        private const val ANOTHER_MID_NIGHT = 0
     }
 }
