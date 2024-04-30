@@ -76,14 +76,15 @@ class MovieBriefAdapter(
         }
     }
 
-    companion object {
-        private const val TYPE_MOVIE = 0
-        private const val TYPE_ADVERTISEMENT = 1
-    }
 
     fun addList(movieBriefs: List<MovieBrief>) {
         val positionStart = this.movieBriefs.size
         this.movieBriefs.addAll(movieBriefs)
         notifyItemRangeChanged(positionStart, movieBriefs.size)
+    }
+
+    companion object {
+        private const val TYPE_MOVIE = 0
+        private const val TYPE_ADVERTISEMENT = 1
     }
 }
