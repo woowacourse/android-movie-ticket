@@ -1,86 +1,72 @@
 package woowacourse.movie.ui.screen.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.ui.ScreenPreviewUI
-import woowacourse.movie.ui.screen.OnScreenClickListener
+import woowacourse.movie.domain.model.ScreenAd
+import woowacourse.movie.domain.model.ScreenType
 
 class ScreenAdapter(
-    private var item: List<ScreenPreviewUI>,
-    private val onScreenClickListener: OnScreenClickListener,
-) : BaseAdapter() {
-    override fun getCount(): Int = item.size
+    private val onItemClick: (id: Int) -> Unit,
+) : ListAdapter<ScreenAd, RecyclerView.ViewHolder>(ScreenPreviewUiDiffUtil()) {
+    private lateinit var inflater: LayoutInflater
 
-    override fun getItem(position: Int): ScreenPreviewUI = item[position]
+    override fun getItemViewType(position: Int): Int =
+        when {
+            ((position + 1) % ADVERTISEMENT_INTERVAL == 0) -> ScreenType.ADVERTISEMENT.id
+            else -> ScreenType.SCREEN.id
+        }
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemCount(): Int {
+        val actualItemCount = super.getItemCount()
+        val additionalAds = actualItemCount / ADVERTISEMENT_INTERVAL
+        return actualItemCount + additionalAds
+    }
 
-    override fun getView(
-        position: Int,
-        convertView: View?,
+    override fun getItem(position: Int): ScreenAd {
+        val adjustedPosition = position - (position / ADVERTISEMENT_INTERVAL)
+        return super.getItem(adjustedPosition)
+    }
+
+    override fun onCreateViewHolder(
         parent: ViewGroup,
-    ): View {
-        val viewHolder: ScreenViewHolder
-        if (convertView == null) {
-            viewHolder =
-                ScreenViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false),
-                    onScreenClickListener,
-                )
-            viewHolder.saveViewHolder()
-        } else {
-            viewHolder = convertView.viewHolder()
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
+        if (!::inflater.isInitialized) inflater = LayoutInflater.from(parent.context)
+
+        val screenType =
+            ScreenType.entries.find { it.id == viewType }
+                ?: throw IllegalArgumentException("Invalid viewType. viewType: $viewType")
+
+        return when (screenType) {
+            ScreenType.SCREEN -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.holder_screen, parent, false)
+                ScreenViewHolder(view, onItemClick)
+            }
+
+            ScreenType.ADVERTISEMENT -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.holder_advertisement, parent, false)
+                AdViewHolder(view, onItemClick)
+            }
         }
-
-        viewHolder.bind(item[position])
-        return viewHolder.view
     }
 
-    fun updateScreens(screens: List<ScreenPreviewUI>) {
-        item = screens
-        notifyDataSetChanged()
-    }
-
-    class ScreenViewHolder(
-        val view: View,
-        private val onScreenClickListener: OnScreenClickListener,
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
     ) {
-        private val poster: ImageView = view.findViewById(R.id.iv_poster)
-        private val title: TextView = view.findViewById(R.id.tv_title)
-        private val date: TextView = view.findViewById(R.id.tv_screen_date)
-        private val runningTime: TextView = view.findViewById(R.id.tv_screen_running_time)
-        private val reserveButton: Button = view.findViewById(R.id.btn_reserve_now)
+        val item = getItem(position)
 
-        fun saveViewHolder() {
-            view.tag = this
+        if (item is ScreenAd.ScreenPreviewUi && holder is ScreenViewHolder) {
+            holder.bind(item)
+        } else if (item is ScreenAd.Advertisement && holder is AdViewHolder) {
+            holder.bind(item)
         }
+    }
 
-        fun bind(screen: ScreenPreviewUI) {
-            initView(screen)
-            initClickListener(screen)
-        }
-
-        private fun initClickListener(screen: ScreenPreviewUI) {
-            reserveButton.setOnClickListener {
-                onScreenClickListener.onClick(screen.id)
-            }
-        }
-
-        private fun initView(screen: ScreenPreviewUI) {
-            with(screen) {
-                poster.setImageResource(moviePreviewUI.image.imageSource as Int)
-                title.text = moviePreviewUI.title
-                this@ScreenViewHolder.date.text = this.date
-                runningTime.text = moviePreviewUI.runningTime.toString()
-            }
-        }
+    companion object {
+        private const val ADVERTISEMENT_INTERVAL = 4
     }
 }
-
-private fun View.viewHolder(): ScreenAdapter.ScreenViewHolder = this.tag as ScreenAdapter.ScreenViewHolder

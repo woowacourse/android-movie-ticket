@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="seats_reservation_background">#EAEAEA</color>
+    <color name="seat_selected">#FAFF00</color>
+    <color name="button_ok">#B7B7B7</color>
+
+    <color name="complete_activated">#6200EE</color>
+    <color name="complete_deactivated">#B7B7B7</color>
+
+    <color name="screen">#494949</color>
 </resources>

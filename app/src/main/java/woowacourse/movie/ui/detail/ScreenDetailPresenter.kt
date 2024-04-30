@@ -1,95 +1,101 @@
 package woowacourse.movie.ui.detail
 
-import woowacourse.movie.domain.model.IScreen
-import woowacourse.movie.domain.model.Image
-import woowacourse.movie.domain.model.NullScreen
+import woowacourse.movie.domain.model.DateRange
+import woowacourse.movie.domain.model.DateTime
 import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.ScreenTimePolicy
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.domain.model.Ticket.Companion.MAX_TICKET_COUNT
 import woowacourse.movie.domain.model.Ticket.Companion.MIN_TICKET_COUNT
+import woowacourse.movie.domain.model.WeeklyScreenTimePolicy
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.repository.ReservationRepository
 import woowacourse.movie.domain.repository.ScreenRepository
-import woowacourse.movie.ui.MovieDetailUI
-import woowacourse.movie.ui.ScreenDetailUI
+import woowacourse.movie.ui.toDetailUI
+import java.lang.IllegalStateException
+import java.time.LocalDate
 
 class ScreenDetailPresenter(
     private val view: ScreenDetailContract.View,
     private val movieRepository: MovieRepository,
     private val screenRepository: ScreenRepository,
     private val reservationRepository: ReservationRepository,
+    private val screenTimePolicy: ScreenTimePolicy = WeeklyScreenTimePolicy(),
 ) : ScreenDetailContract.Presenter {
     private var ticket: Ticket = Ticket(MIN_TICKET_COUNT)
+    private var dateRange = DateRange(LocalDate.now(), LocalDate.now())
+    private var datePosition: Int = 0
+    private var timePosition: Int = 0
 
     override fun loadScreen(screenId: Int) {
-        when (val screen = screen(screenId)) {
-            is Screen -> {
-                val screenDetailUI = screen.toDetailUI(movieRepository.imageSrc(screen.movie.id))
-                view.showScreen(screenDetailUI)
-                view.showTicket(ticket.count)
-            }
-
-            is NullScreen -> {
-                when (screen.throwable) {
-                    is NoSuchElementException -> view.goToBack("해당하는 상영 정보가 없습니다.")
-                    else -> view.unexpectedFinish("예상치 못한 에러가 발생했습니다")
-                }
+        try {
+            val loadedScreen = screen(screenId)
+            view.showScreen(loadedScreen.toDetailUI(movieRepository.imageSrc(screen(screenId).movie.id)))
+            dateRange = loadedScreen.dateRange
+            view.showDateTimePicker(dateRange, screenTimePolicy, ::saveDatePosition, ::saveTimePosition)
+        } catch (e: Exception) {
+            when (e) {
+                is NoSuchElementException -> view.goToBack(e)
+                else -> view.unexpectedFinish(e)
             }
         }
     }
 
-    private fun screen(id: Int): IScreen {
+    override fun loadTicket() {
+        view.showTicket(ticket.count)
+    }
+
+    override fun saveDatePosition(datePosition: Int) {
+        this.datePosition = datePosition
+    }
+
+    override fun saveTimePosition(timePosition: Int) {
+        this.timePosition = timePosition
+    }
+
+    override fun saveTicket(count: Int) {
+        ticket = Ticket(count)
+    }
+
+    private fun screen(id: Int): Screen {
         screenRepository.findById(id = id).onSuccess { screen ->
             return screen
         }.onFailure { e ->
-            return NullScreen(throwable = e)
+            throw e
         }
-        return NullScreen()
+        throw IllegalStateException("예기치 못한 오류")
     }
 
     override fun plusTicket() {
-        val increasedTicket = ticket.increase()
-
-        if (increasedTicket.isInvalidCount()) {
-            view.showToastMessage("티켓 수량은 ${MAX_TICKET_COUNT}개 이하이어야 합니다.")
-            return
+        try {
+            ticket = ticket.increase()
+            view.showTicket(ticket.count)
+        } catch (e: IllegalArgumentException) {
+            view.showToastMessage(e)
         }
-        ticket = increasedTicket
-        view.showTicket(ticket.count)
     }
 
     override fun minusTicket() {
-        val decreasedTicket = ticket.decrease()
-
-        if (decreasedTicket.isInvalidCount()) {
-            view.showToastMessage("티켓 수량은 ${MIN_TICKET_COUNT}개 이상이어야 합니다.")
-            return
+        try {
+            ticket = ticket.decrease()
+            view.showTicket(ticket.count)
+        } catch (e: IllegalArgumentException) {
+            view.showToastMessage(e)
         }
-        ticket = decreasedTicket
-        view.showTicket(ticket.count)
     }
 
     override fun reserve(screenId: Int) {
-        reservationRepository.save(
+        reservationRepository.saveTimeReservation(
             screen(screenId),
-            ticket.count,
-        ).onSuccess { id ->
-            view.navigateToReservation(id)
+            count = ticket.count,
+            dateTime =
+                DateTime(
+                    dateRange.allDates()[datePosition],
+                    screenTimePolicy.screeningTimes(dateRange.allDates()[datePosition])[timePosition],
+                ),
+        ).onSuccess { timeReservationId ->
+            view.navigateToSeatsReservation(timeReservationId)
         }.onFailure { e ->
-            view.showToastMessage("예상치 못한 에러가 발생했습니다 : ${e.message}")
+            view.showToastMessage(e)
         }
     }
 }
-
-private fun IScreen.toDetailUI(image: Image<Any>) =
-    ScreenDetailUI(
-        id = id,
-        movieDetailUI =
-            MovieDetailUI(
-                title = movie.title,
-                runningTime = movie.runningTime,
-                description = movie.description,
-                image = image,
-            ),
-        date = date,
-    )

@@ -1,21 +1,17 @@
 package woowacourse.movie.domain.model
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 class TicketTest {
-    @Test
-    fun `티켓 개수가 1일 때 유효하다`() {
-        val ticket = Ticket(1)
-        assertFalse(ticket.isInvalidCount())
-    }
-
-    @Test
-    fun `티켓 개수가 0일 때 유효하지 않다`() {
-        val ticket = Ticket(0)
-        assertTrue(ticket.isInvalidCount())
+    @ParameterizedTest
+    @ValueSource(ints = [1, 2, 9, 10])
+    fun `티켓 개수가 1 ~ 10 이어야 한다`(count: Int) {
+        assertDoesNotThrow { Ticket(count) }
     }
 
     @Test
@@ -32,5 +28,11 @@ class TicketTest {
         val increasedTicket = ticket.decrease()
 
         assertThat(increasedTicket).isEqualTo(Ticket(2))
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [0, 11])
+    fun `티켓 개수가 1 ~ 10 이 아니면 예외를 던진다`(count: Int) {
+        assertThrows<IllegalArgumentException> { Ticket(count) }
     }
 }

@@ -15,10 +15,9 @@ class Currency private constructor() {
             )
 
         fun of(country: String): NumberFormat {
-            if (MU_FORMAT[country] == null)
-                {
-                    MU_FORMAT[country] = NumberFormat.getCurrencyInstance(Locale.getDefault())
-                }
+            if (MU_FORMAT[country] == null) {
+                MU_FORMAT[country] = NumberFormat.getCurrencyInstance(Locale.getDefault())
+            }
             return MU_FORMAT[country] ?: throw IllegalStateException("Not found country")
         }
     }

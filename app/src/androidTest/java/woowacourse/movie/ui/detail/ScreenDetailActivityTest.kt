@@ -3,14 +3,18 @@ package woowacourse.movie.ui.detail
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.CoreMatchers.anything
+import org.hamcrest.CoreMatchers.containsString
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -28,6 +32,8 @@ class ScreenDetailActivityTest {
 
     private val plusBtn: ViewInteraction = onView(withId(R.id.btn_plus))
     private val minusBtn: ViewInteraction = onView(withId(R.id.btn_minus))
+    private val dateSpinner: ViewInteraction = onView(withId(R.id.spn_date))
+    private val timeSpinner: ViewInteraction = onView(withId(R.id.spn_time))
 
     @Test
     fun `카운트가_10_미만일_때_플러스_버튼_눌러을_때_증가`() {
@@ -93,5 +99,69 @@ class ScreenDetailActivityTest {
         }
 
         onView(withId(R.id.tv_count)).check(matches(withText("2")))
+    }
+
+    @Test
+    fun `카운트가_2일_떄_화면을_가로로_회전한_후에_다시_카운트를_올리면_3이_된다`() {
+        // given
+        val activityScenario = activityRule.scenario
+        plusBtn.perform(click())
+
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // when
+        plusBtn.perform(click())
+
+        onView(withId(R.id.tv_count)).check(matches(withText("3")))
+    }
+
+    @Test
+    fun `set_first_date_in_dateSpinner_and_the_date_is_2024-03-01`() {
+        dateSpinner.perform(click())
+        onData(anything()).atPosition(0).perform(click()); // LocalDate.of(2024, 3, 2))
+
+        dateSpinner.check(matches(withSpinnerText(containsString("2024-03-01"))))
+    }
+
+    @Test
+    fun set_second_date_in_dateSpinner_and_check_the_first_time_is_09AM() {
+        dateSpinner.perform(click())
+        onData(anything()).atPosition(0).perform(click()); // LocalDate.of(2024, 3, 2))
+
+        timeSpinner.check(matches(withSpinnerText(containsString("09:00"))))
+    }
+
+    @Test
+    fun `set_second_date_in_dateSpinner_and_the_date_is_2024-03-02`() {
+        dateSpinner.perform(click())
+        onData(anything()).atPosition(1).perform(click()); // LocalDate.of(2024, 3, 2))
+
+        dateSpinner.check(matches(withSpinnerText(containsString("2024-03-02"))))
+    }
+
+    @Test
+    fun set_second_date_in_dateSpinner_and_check_the_first_time_is_10AM() {
+        dateSpinner.perform(click())
+        onData(anything()).atPosition(1).perform(click()); // LocalDate.of(2024, 3, 2))
+
+        timeSpinner.check(matches(withSpinnerText(containsString("10:00"))))
+    }
+
+    @Test
+    fun set_second_date_in_date_spinner_keep_the_date_when_device_is_rotated() {
+        dateSpinner.perform(click())
+        onData(anything()).atPosition(1).perform(click()); // LocalDate.of(2024, 3, 2))
+
+        dateSpinner.check(matches(withSpinnerText(containsString("2024-03-02"))))
+    }
+
+    @Test
+    fun set_second_time_in_time_spinner_keep_the_time_when_device_is_rotated() {
+        timeSpinner.perform(click())
+        onData(anything()).atPosition(1).perform(click()); // LocalDate.of(2024, 3, 1))
+
+        timeSpinner.check(matches(withSpinnerText(containsString("11:00"))))
     }
 }

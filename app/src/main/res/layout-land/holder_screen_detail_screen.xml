@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.view.ScreenDetailScreenView">
+
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:layout_width="200dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_poster" />
+
+    <ScrollView
+        android:id="@+id/sv_screen_information"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_poster"
+        app:layout_constraintTop_toTopOf="@+id/iv_poster">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="21dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="해리 포터와 마법사의 돌" />
+
+            <TextView
+                android:id="@+id/tv_screen_date_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:text="@string/screen_date"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+
+            <TextView
+                android:id="@+id/tv_screen_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_screen_date_guide"
+                app:layout_constraintStart_toEndOf="@+id/tv_screen_date_guide"
+                app:layout_constraintTop_toTopOf="@+id/tv_screen_date_guide"
+                tools:text="2024.3.1 ~ 2024.3.3" />
+
+            <TextView
+                android:id="@+id/tv_screen_running_time_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/screen_running_time_date"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_screen_date_guide"
+                app:layout_constraintTop_toBottomOf="@+id/tv_screen_date_guide" />
+
+
+            <TextView
+                android:id="@+id/tv_screen_running_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_screen_running_time_guide"
+                app:layout_constraintStart_toEndOf="@+id/tv_screen_running_time_guide"
+                app:layout_constraintTop_toTopOf="@+id/tv_screen_running_time_guide"
+                tools:text="152분" />
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="19dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_screen_running_time"
+                tools:text="《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다.
+                해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

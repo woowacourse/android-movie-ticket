@@ -1,11 +1,13 @@
 package woowacourse.movie.domain.model
 
 data class Ticket(val count: Int) {
+    init {
+        require(count in MIN_TICKET_COUNT..MAX_TICKET_COUNT) { "티켓 수량은 $MIN_TICKET_COUNT~$MAX_TICKET_COUNT 사이어야 합니다." }
+    }
+
     fun increase(): Ticket = copy(count = count + DEFAULT_PLUS_QUANTITY)
 
     fun decrease(): Ticket = copy(count = count - DEFAULT_MINUS_QUANTITY)
-
-    fun isInvalidCount(): Boolean = count < MIN_TICKET_COUNT || count > MAX_TICKET_COUNT
 
     companion object {
         const val MAX_TICKET_COUNT = 10

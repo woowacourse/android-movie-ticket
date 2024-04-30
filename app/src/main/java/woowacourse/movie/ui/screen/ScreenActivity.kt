@@ -1,12 +1,12 @@
 package woowacourse.movie.ui.screen
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.ScreenAd
 import woowacourse.movie.domain.repository.DummyMovies
 import woowacourse.movie.domain.repository.DummyScreens
-import woowacourse.movie.ui.ScreenPreviewUI
 import woowacourse.movie.ui.detail.ScreenDetailActivity
 import woowacourse.movie.ui.screen.adapter.ScreenAdapter
 
@@ -25,19 +25,19 @@ class ScreenActivity : AppCompatActivity(), ScreenContract.View {
         setContentView(R.layout.activity_main)
 
         initAdapter()
-        screenPresenter.loadScreens()
+        screenPresenter.loadScreen()
     }
 
     private fun initAdapter() {
-        val listView = findViewById<ListView>(R.id.lv_screen)
+        val recyclerView = findViewById<RecyclerView>(R.id.lv_screen)
         adapter =
-            ScreenAdapter(emptyList()) { screenId ->
+            ScreenAdapter { screenId ->
                 ScreenDetailActivity.startActivity(this, screenId)
             }
-        listView.adapter = adapter
+        recyclerView.adapter = adapter
     }
 
-    override fun showScreens(screens: List<ScreenPreviewUI>) {
-        adapter.updateScreens(screens)
+    override fun showScreens(screens: List<ScreenAd>) {
+        adapter.submitList(screens)
     }
 }

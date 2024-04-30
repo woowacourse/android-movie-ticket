@@ -1,19 +1,15 @@
 package woowacourse.movie.domain.repository
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Screen
+import woowacourse.movie.domain.model.Grade
+import woowacourse.movie.domain.model.Position
+import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.Seats
 
 class ScreenRepositoryTest {
-    private lateinit var repository: ScreenRepository
-
-    @BeforeEach
-    fun setUp() {
-        repository = DummyScreens()
-    }
+    private val repository = FakeScreenRepository()
 
     @Test
     fun `상영 정보들을 불러온다`() {
@@ -21,42 +17,9 @@ class ScreenRepositoryTest {
         val screens = repository.load()
         val expected =
             listOf(
-                Screen(
-                    id = 1,
-                    Movie(
-                        id = 1,
-                        "해리 포터와 마법사의 돌",
-                        151,
-                        "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
-                            "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
-                    ),
-                    "2024-03-01",
-                    13_000,
-                ),
-                Screen(
-                    id = 2,
-                    Movie(
-                        id = 2,
-                        "해리 포터와 마법사의 돌2",
-                        152,
-                        "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
-                            "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
-                    ),
-                    "2024-03-02",
-                    13_002,
-                ),
-                Screen(
-                    id = 3,
-                    Movie(
-                        id = 3,
-                        "해리 포터와 마법사의 돌3",
-                        153,
-                        "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
-                            "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
-                    ),
-                    "2024-03-03",
-                    13_003,
-                ),
+                FakeScreenRepository.fakeScreen1,
+                FakeScreenRepository.fakeScreen2,
+                FakeScreenRepository.fakeScreen3,
             )
 
         // then
@@ -65,24 +28,11 @@ class ScreenRepositoryTest {
 
     @Test
     fun `상영 ID를 통해 상영 정보를 불러온다`() {
-        // given & when
-        val screen = repository.findById(1).getOrThrow()
-        val expected =
-            Screen(
-                id = 1,
-                Movie(
-                    id = 1,
-                    "해리 포터와 마법사의 돌",
-                    151,
-                    "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, 판타지 영화이다. " +
-                        "해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다.",
-                ),
-                "2024-03-01",
-                13_000,
-            )
+        val actual = repository.findById(1).getOrThrow()
+        val expected = FakeScreenRepository.fakeScreen1
 
         // then
-        assertThat(screen).isEqualTo(expected)
+        assertThat(actual).isEqualTo(expected)
     }
 
     @Test
@@ -94,5 +44,18 @@ class ScreenRepositoryTest {
         assertThrows<NoSuchElementException> {
             result.getOrThrow()
         }
+    }
+
+    @Test
+    fun `상영관의 좌석을 모두 가져온다`() {
+        val actual = repository.seats(1)
+        val expected =
+            Seats(
+                Seat(Position(0, 0), Grade.S),
+                Seat(Position(1, 1), Grade.A),
+                Seat(Position(2, 2), Grade.B),
+            )
+
+        assertThat(actual).isEqualTo(expected)
     }
 }

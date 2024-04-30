@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/seats_reservation_background"
+    tools:context=".ui.seat.SeatReservationActivity">
+
+    <TextView
+        android:id="@+id/tv_seat_reservation_screen"
+        android:layout_width="292dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="56dp"
+        android:background="@color/screen"
+        android:gravity="center"
+        android:text="@string/screen"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/gl_seat_reservation_seats"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+        android:id="@+id/gl_seat_reservation_seats"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="34dp"
+        android:layout_marginBottom="96dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/cl_seat_reservation_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_seat_reservation_screen"
+        tools:columnCount="4"
+        tools:rowCount="5"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_seat_reservation_bottom"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_seat_reservation_complete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl_seat_reservation_seats">
+
+        <TextView
+            android:id="@+id/tv_seat_reservation_movie_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/tv_seat_reservation_total_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_seat_reservation_movie_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_seat_reservation_movie_title"
+            tools:text="20,000원" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_seat_reservation_complete"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:background="@color/complete_deactivated"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cl_seat_reservation_bottom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
