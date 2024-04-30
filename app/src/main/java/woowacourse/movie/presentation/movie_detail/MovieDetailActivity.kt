@@ -60,7 +60,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
             val ticketMinusButton = findViewById<Button>(R.id.minus_button)
             val ticketBuyButton = findViewById<Button>(R.id.buy_ticket_button)
 
-            // val movieId = intent.getIntExtra("MovieId", -1)
             presenter.loadMovie(movieId)
             ticketPlusButton.setOnClickListener {
                 presenter.plusTicketNum()
