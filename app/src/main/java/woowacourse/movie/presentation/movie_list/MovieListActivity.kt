@@ -33,7 +33,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View, AdapterCl
     override fun displayMovieBriefs(movieBriefs: List<MovieBrief>) {
         movieBriefAdapter.addList(movieBriefs)
         movieRecyclerView.adapter = movieBriefAdapter
-        movieRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun navigateToMovieDetail(movieId: Int) {
