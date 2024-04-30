@@ -17,12 +17,10 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private lateinit var recyclerView: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
     override val presenter = MovieListPresenter(this)
-    lateinit var movieIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
-        movieIntent = Intent(this, MovieReservationActivity::class.java)
         recyclerView = findViewById(R.id.movie_recycler_view)
         presenter.setMoviesInfo()
         presenter.setListViewClickListenerInfo()
@@ -39,6 +37,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     }
 
     override fun setOnListViewClickListener() {
+        val intent = Intent(this, MovieReservationActivity::class.java)
         movieAdapter.setItemClickListener(
             object : MovieAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
