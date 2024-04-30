@@ -14,14 +14,12 @@ class Count(private var value: Int = INITIAL_COUNT) : Parcelable {
     }
 
     fun increase(): Int {
-        value++
-        return value
+        return ++value
     }
 
     fun decrease(): Int {
         if (value <= 1) throw IllegalStateException(ERROR_NON_POSITIVE_NUMBER)
-        value--
-        return value
+        return --value
     }
 
     companion object {
