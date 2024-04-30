@@ -174,9 +174,9 @@
 
         <Button
             android:id="@+id/sub_button"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="@dimen/size_100_dp"
+            android:layout_height="@dimen/size_60_dp"
+            android:layout_marginTop="@dimen/size_20_dp"
             android:gravity="center"
             android:text="-"
             android:textSize="25sp"
@@ -199,8 +199,8 @@
 
         <Button
             android:id="@+id/add_button"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/size_100_dp"
+            android:layout_height="@dimen/size_60_dp"
             android:gravity="center"
             android:text="+"
             android:textSize="25sp"
@@ -211,9 +211,9 @@
         <Button
             android:id="@+id/select_seat_button"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/size_60_dp"
             android:text="좌석 선택"
-            android:textSize="20sp"
+            android:textSize="@dimen/size_20_sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

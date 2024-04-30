@@ -9,8 +9,8 @@
     <LinearLayout
         android:id="@+id/screen_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_50dp"
-        android:layout_marginHorizontal="@dimen/margin_40dp"
+        android:layout_height="@dimen/size_50_dp"
+        android:layout_marginHorizontal="@dimen/size_40_dp"
         android:background="@color/cardview_dark_background"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,16 +23,16 @@
             android:gravity="center"
             android:text="SCREEN"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_22sp" />
+            android:textSize="@dimen/size_22_sp" />
     </LinearLayout>
 
     <TableLayout
         android:id="@+id/seat_table_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_40dp"
-        android:layout_marginTop="@dimen/margin_100dp"
-        android:layout_marginBottom="@dimen/margin_100dp"
+        android:layout_marginHorizontal="@dimen/size_40_dp"
+        android:layout_marginTop="@dimen/size_100_dp"
+        android:layout_marginBottom="@dimen/size_100_dp"
         android:background="@color/white"
         android:stretchColumns="*"
         app:layout_constraintBottom_toTopOf="@id/reservation_status_linear_layout"
@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="A1"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -60,30 +60,30 @@
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:gravity="center"
-                android:padding="@dimen/padding_20dp"
+                android:padding="@dimen/size_20_dp"
                 android:text="A2"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/padding_20dp"
+                android:padding="@dimen/size_20_dp"
                 android:text="A3"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/padding_20dp"
+                android:padding="@dimen/size_20_dp"
                 android:text="A4"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -95,10 +95,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/padding_20dp"
+                android:padding="@dimen/size_20_dp"
                 android:text="B1"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:gravity="center"
                 android:text="B2"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -116,7 +116,7 @@
                 android:gravity="center"
                 android:text="B3"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -125,7 +125,7 @@
                 android:gravity="center"
                 android:text="B4"
                 android:textColor="@color/purple_500"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -137,10 +137,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/padding_20dp"
+                android:padding="@dimen/size_20_dp"
                 android:text="C1"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:gravity="center"
                 android:text="C2"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -160,7 +160,7 @@
                 android:gravity="center"
                 android:text="C3"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -169,7 +169,7 @@
                 android:gravity="center"
                 android:text="C4"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -181,10 +181,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/padding_20dp"
+                android:padding="@dimen/size_20_dp"
                 android:text="D1"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -193,7 +193,7 @@
                 android:gravity="center"
                 android:text="D2"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -202,7 +202,7 @@
                 android:gravity="center"
                 android:text="D3"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -211,7 +211,7 @@
                 android:gravity="center"
                 android:text="D4"
                 android:textColor="@color/custom_green"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -223,10 +223,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/padding_20dp"
+                android:padding="@dimen/size_20_dp"
                 android:text="E1"
                 android:textColor="@color/custom_blue"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -237,7 +237,7 @@
                 android:gravity="center"
                 android:text="E2"
                 android:textColor="@color/custom_blue"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -246,7 +246,7 @@
                 android:gravity="center"
                 android:text="E3"
                 android:textColor="@color/custom_blue"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -255,7 +255,7 @@
                 android:gravity="center"
                 android:text="E4"
                 android:textColor="@color/custom_blue"
-                android:textSize="@dimen/text_22sp"
+                android:textSize="@dimen/size_22_sp"
                 android:textStyle="bold" />
         </TableRow>
     </TableLayout>
@@ -275,8 +275,8 @@
         android:layout_height="0dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/padding_20dp"
-        android:paddingTop="@dimen/padding_15dp"
+        android:paddingLeft="@dimen/size_20_dp"
+        android:paddingTop="@dimen/size_15_dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/reservation_complete_linear_layout"
         app:layout_constraintHorizontal_weight="3"
@@ -288,7 +288,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_19sp"
+            android:textSize="@dimen/size_19_sp"
             android:textStyle="bold"
             tools:text="해리 포터와 마법사의 돌" />
 
@@ -318,7 +318,7 @@
             android:layout_height="wrap_content"
             android:text="확인"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_19sp"
+            android:textSize="@dimen/size_19_sp"
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

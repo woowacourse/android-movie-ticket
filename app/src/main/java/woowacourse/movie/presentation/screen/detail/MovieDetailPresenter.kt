@@ -12,8 +12,7 @@ class MovieDetailPresenter(
     private val dao: MovieDao,
 ) :
     MovieDetailContract.Presenter {
-    var ticket: Ticket = Ticket()
-        private set
+    private var ticket: Ticket = Ticket()
     private lateinit var movie: Movie
     private val theater: Theater by lazy {
         Theater(movie)

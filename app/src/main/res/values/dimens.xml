@@ -1,44 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <!-- height, width -->
-    <dimen name="height_30dp">30dp</dimen>
-    <dimen name="height_50dp">50dp</dimen>
-    <dimen name="height_70dp">70dp</dimen>
-    <dimen name="height_100dp">100dp</dimen>
-    <dimen name="height_120dp">120dp</dimen>
-    <dimen name="height_130dp">130dp</dimen>
-    <dimen name="width_30dp">30dp</dimen>
-    <dimen name="width_50dp">50dp</dimen>
-    <dimen name="width_70dp">70dp</dimen>
-    <dimen name="width_100dp">100dp</dimen>
-    <dimen name="width_120dp">120dp</dimen>
+    <!-- dp -->
+    <dimen name="size_10_dp">10dp</dimen>
+    <dimen name="size_15_dp">15dp</dimen>
+    <dimen name="size_20_dp">20dp</dimen>
+    <dimen name="size_30_dp">30dp</dimen>
+    <dimen name="size_35_dp">35dp</dimen>
+    <dimen name="size_40_dp">40dp</dimen>
+    <dimen name="size_48_dp">40dp</dimen>
+    <dimen name="size_50_dp">50dp</dimen>
+    <dimen name="size_60_dp">60dp</dimen>
+    <dimen name="size_70_dp">70dp</dimen>
+    <dimen name="size_80_dp">80dp</dimen>
+    <dimen name="size_100_dp">100dp</dimen>
+    <dimen name="size_120_dp">120dp</dimen>
+    <dimen name="size_130_dp">130dp</dimen>
+    <dimen name="size_140_dp">140dp</dimen>
 
-    <!-- margin,padding -->
-    <dimen name="margin_10dp">10dp</dimen>
-    <dimen name="margin_20dp">20dp</dimen>
-    <dimen name="margin_35dp">35dp</dimen>
-    <dimen name="margin_40dp">40dp</dimen>
-    <dimen name="margin_60dp">60dp</dimen>
-    <dimen name="margin_70dp">70dp</dimen>
-    <dimen name="margin_100dp">100dp</dimen>
-    <dimen name="padding_15dp">15dp</dimen>
-    <dimen name="padding_20dp">20dp</dimen>
-    <dimen name="padding_60dp">60dp</dimen>
-    <dimen name="padding_80dp">80dp</dimen>
-    <dimen name="padding_100dp">100dp</dimen>
-
-    <!-- text size -->
-    <dimen name="text_15sp">15sp</dimen>
-    <dimen name="text_17sp">17sp</dimen>
-    <dimen name="text_19sp">19sp</dimen>
-    <dimen name="text_20sp">20sp</dimen>
-    <dimen name="text_22sp">22sp</dimen>
-    <dimen name="text_24sp">24sp</dimen>
-    <dimen name="text_30sp">30sp</dimen>
-
-    <!-- button -->
-    <dimen name="button_width">120dp</dimen>
-    <dimen name="button_height">48dp</dimen>
-
+    <!-- sp -->
+    <dimen name="size_15_sp">15sp</dimen>
+    <dimen name="size_17_sp">17sp</dimen>
+    <dimen name="size_19_sp">19sp</dimen>
+    <dimen name="size_20_sp">20sp</dimen>
+    <dimen name="size_22_sp">22sp</dimen>
+    <dimen name="size_24_sp">24sp</dimen>
+    <dimen name="size_30_sp">30sp</dimen>
 </resources>
