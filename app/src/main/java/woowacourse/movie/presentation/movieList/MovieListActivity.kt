@@ -1,15 +1,14 @@
 package woowacourse.movie.presentation.movieList
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.presentation.movieList.adapter.MovieAdapter
 import woowacourse.movie.presentation.ticketing.TicketingActivity
 
-class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+class MovieListActivity : AppCompatActivity(), MovieListContract.View, MovieListClickListener {
     private val presenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,18 +18,15 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     }
 
     override fun displayMovies(movies: List<Movie>) {
-        val movieList: ListView = findViewById(R.id.lv_movies)
-        movieList.adapter = MovieAdapter(movies, presenter)
+        val movieList: RecyclerView = findViewById(R.id.rv_movies)
+        movieList.adapter = MovieAdapter(movies, this)
     }
 
     override fun navigate(movieId: Int) {
-        Intent(this, TicketingActivity::class.java).apply {
-            putExtra(EXTRA_MOVIE_ID, movieId)
-            startActivity(this)
-        }
+        startActivity(TicketingActivity.createIntent(this, movieId))
     }
 
-    companion object {
-        const val EXTRA_MOVIE_ID = "movie_id"
+    override fun ticketingButtonClick(movieId: Int) {
+        navigate(movieId)
     }
 }

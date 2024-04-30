@@ -9,25 +9,25 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/gl_form"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/gl_form"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_thumbnail"
                 android:layout_width="0dp"
                 android:layout_height="340dp"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_launcher_background"
-                android:scaleType="centerCrop"/>
+                tools:src="@drawable/ic_launcher_background" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_title"
@@ -91,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.44" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_start"
@@ -111,10 +111,13 @@
         android:id="@+id/sp_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_minus"
         app:layout_constraintEnd_toStartOf="@id/sp_time_slot"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintTop_toTopOf="@id/gl_form" />
+        app:layout_constraintTop_toTopOf="@id/gl_form"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Spinner
         android:id="@+id/sp_time_slot"
@@ -131,7 +134,7 @@
         android:text="@string/text_minus_button"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_choose_seat"
         app:layout_constraintStart_toStartOf="@id/gl_start"
         app:layout_constraintTop_toBottomOf="@id/sp_date" />
 
@@ -155,21 +158,21 @@
         android:text="@string/text_plus_button"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintBottom_toBottomOf="@id/btn_minus"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintTop_toTopOf="@id/btn_minus" />
 
     <Button
         android:id="@+id/btn_choose_seat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
         android:text="@string/text_select_seat_button"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:paddingVertical="12dp"
-        app:layout_constraintTop_toBottomOf="@id/btn_plus"
-        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/btn_minus" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

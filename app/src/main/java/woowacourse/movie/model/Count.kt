@@ -1,17 +1,21 @@
 package woowacourse.movie.model
 
-class Count(value: Int = INITIAL_COUNT) {
-    var value: Int = value
+class Count(number: Int = INITIAL_COUNT) {
+    var value: Int = number
         private set
 
     init {
-        require(value >= INITIAL_COUNT) { ERROR_NON_POSITIVE_NUMBER }
+        require(number >= INITIAL_COUNT) { ERROR_NON_POSITIVE_NUMBER + "$number" }
     }
 
     fun increase() = value++
 
     fun decrease() {
         if (value > 1) value--
+    }
+
+    fun update(newValue: Int) {
+        value = newValue
     }
 
     companion object {

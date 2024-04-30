@@ -1,20 +1,21 @@
 package woowacourse.movie.presentation.ticketingResult
 
-import java.time.LocalDate
+import woowacourse.movie.model.Seat
 
 interface TicketingResultContract {
     interface View {
-        fun assignInitialView(
-            numberOfPeople: Int,
+        fun displayTicketInfo(
             movieTitle: String,
-            movieDate: LocalDate,
-            price: Int,
+            movieDateTime: String,
+            ticketCount: Int,
+            selectedSeats: List<Seat>,
+            totalPrice: Int,
         )
 
-        fun showErrorMessage(message: String?)
+        fun showToastMessage(message: String?)
     }
 
     interface Presenter {
-        fun assignInitialView()
+        fun loadTicketInfo()
     }
 }
