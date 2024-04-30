@@ -6,7 +6,7 @@ import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SeatRating
 import woowacourse.movie.model.seat.SeatTable
 
-class SeatSelectTableUiModel(
+data class SeatSelectTableUiModel(
     val seatMessage: String,
     @ColorRes
     val seatColorId: Int,

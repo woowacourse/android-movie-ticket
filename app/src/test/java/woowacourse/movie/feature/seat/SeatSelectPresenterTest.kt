@@ -4,16 +4,21 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
+import io.mockk.slot
 import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.SelectedSeats
+import woowacourse.movie.feature.seat.ui.SeatSelectMovieUiModel
+import woowacourse.movie.feature.seat.ui.SeatSelectTableUiModel
 import woowacourse.movie.feature.setUpForSelectSeat
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.TicketRepository
 import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.seat.Seat
+import woowacourse.movie.model.seat.SeatTable
 import java.time.LocalDateTime
 
 class SeatSelectPresenterTest {
@@ -32,31 +37,41 @@ class SeatSelectPresenterTest {
     @Test
     fun `영화 데이터를 불러오면 영화 뷰가 초기화된다`() {
         // given
-        every { view.initializeMovieView(any()) } just runs
+        val movieUiModelSlot = slot<SeatSelectMovieUiModel>()
+        every { view.initializeMovieView(capture(movieUiModelSlot)) } just runs
 
         // when
         presenter.loadMovieData(0L)
 
         // then
-        verify { view.initializeMovieView(any()) }
+        val actual = movieUiModelSlot.captured
+        val expected = SeatSelectMovieUiModel.from(movieRepository.find(0L))
+        assertThat(actual).isEqualTo(expected)
+        verify { view.initializeMovieView(actual) }
     }
 
     @Test
     fun `좌석표를 초기화하면 좌석표 뷰가 초기화된다`() {
         // given
-        every { view.loadSeatTable(any()) } just runs
+        val seatsUiModelSlot = slot<List<List<SeatSelectTableUiModel>>>()
+        every { view.loadSeatTable(capture(seatsUiModelSlot)) } just runs
 
         // when
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // then
-        verify { view.loadSeatTable(any()) }
+        val actual = seatsUiModelSlot.captured
+        val expected = SeatSelectTableUiModel.from(SeatTable(5, 4))
+        assertThat(actual).isEqualTo(expected)
+        verify { view.loadSeatTable(actual) }
     }
 
     @Test
     fun `2행 3열 좌석을 선택하면 10,000원이 화면에 보인다`() {
         // given
+        val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
+        every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
@@ -64,14 +79,18 @@ class SeatSelectPresenterTest {
         presenter.selectSeat(1, 2)
 
         // then
+        val actual = reservationAmountSlot.captured
+        assertThat(actual).isEqualTo(10_000)
         verify { view.selectSeat(1, 2, false) }
-        verify { view.updateReservationAmount(10_000) }
+        verify { view.updateReservationAmount(actual) }
     }
 
     @Test
     fun `2열 3행, 4열 4행 좌석을 선택하면 25,000원이 화면에 보인다`() {
         // given
+        val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
+        every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
@@ -79,17 +98,19 @@ class SeatSelectPresenterTest {
         presenter.selectSeat(3, 3)
 
         // then
+        val actual = reservationAmountSlot.captured
+        assertThat(actual).isEqualTo(25_000)
         verify { view.selectSeat(1, 2, false) }
-        verify { view.updateReservationAmount(10_000) }
-
         verify { view.selectSeat(3, 3, true) }
-        verify { view.updateReservationAmount(25_000) }
+        verify { view.updateReservationAmount(actual) }
     }
 
     @Test
     fun `2행 3열, 4행 4열을 선택한 상태에서 2행 3열을 다시 선택하면, 금액이 줄어들고 선택이 해제된다`() {
         // given
+        val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
+        every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
         presenter.selectSeat(1, 2)
         presenter.selectSeat(3, 3)
@@ -98,7 +119,9 @@ class SeatSelectPresenterTest {
         presenter.selectSeat(1, 2)
 
         // then
-        verify { view.updateReservationAmount(15_000) }
+        val actual = reservationAmountSlot.captured
+        assertThat(actual).isEqualTo(15_000)
+        verify { view.updateReservationAmount(actual) }
         verify { view.unselectSeat(1, 2) }
     }
 
@@ -118,9 +141,10 @@ class SeatSelectPresenterTest {
     }
 
     @Test
-    fun `확인 버튼을 클릭하면 예매 완료 페이지로 이동한다`() {
+    fun `좌석 선택을 끝내면 예매 완료 페이지로 이동한다`() {
         // given
-        every { view.moveReservationCompleteView(any()) } just runs
+        val ticketIdSlot = slot<Long>()
+        every { view.moveReservationCompleteView(capture(ticketIdSlot)) } just runs
         every { view.loadSeatTable(any()) } just runs
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
@@ -128,13 +152,17 @@ class SeatSelectPresenterTest {
         presenter.finishSeatSelection(0L, LocalDateTime.of(2024, 4, 1, 9, 0))
 
         // then
-        verify { view.moveReservationCompleteView(any()) }
+        val actual = ticketIdSlot.captured
+        assertThat(actual).isEqualTo(0L)
+        verify { view.moveReservationCompleteView(actual) }
     }
 
     @Test
     fun `선택한 좌석을 2행 3열과 4행 1열으로 변경한다`() {
         // given
+        val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
+        every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
@@ -143,9 +171,10 @@ class SeatSelectPresenterTest {
         )
 
         // then
+        val actual = reservationAmountSlot.captured
+        assertThat(actual).isEqualTo(25_000)
         verify { view.selectSeat(1, 2, true) }
         verify { view.selectSeat(3, 0, true) }
-        verify { view.updateReservationAmount(10_000) }
-        verify { view.updateReservationAmount(25_000) }
+        verify { view.updateReservationAmount(actual) }
     }
 }
