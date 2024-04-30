@@ -37,243 +37,183 @@
 
         <TextView
             android:id="@+id/seatA1"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="A1"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatA2"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="A2"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatA3"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="A3"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatA4"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="A4"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatB1"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="B1"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatB2"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="B2"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatB3"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="B3"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatB4"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="B4"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/purple" />
 
         <TextView
             android:id="@+id/seatC1"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="C1"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/seatC2"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="C2"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/seatC3"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="C3"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/seatC4"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="C4"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
 
         <TextView
             android:id="@+id/seatD1"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="D1"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/seatD2"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="D2"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/seatD3"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="D3"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/seatD4"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="D4"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/seatE1"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="E1"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/blue" />
 
         <TextView
             android:id="@+id/seatE2"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="E2"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/blue" />
 
         <TextView
             android:id="@+id/seatE3"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="E3"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/blue" />
 
         <TextView
             android:id="@+id/seatE4"
+            style="@style/Bold20White"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
-            android:background="@color/white"
-            android:gravity="center"
-            android:padding="25dp"
             android:text="E4"
-            android:textAppearance="@style/Bold24"
             android:textColor="@color/blue" />
 
     </GridLayout>
