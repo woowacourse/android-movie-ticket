@@ -45,16 +45,20 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation)
         initView()
-        presenter.setCurrentResultTicketCountInfo()
         movieId = intent.getLongExtra(EXTRA_MOVIE_ID_KEY, 0)
+        doPresenterTask()
+        setOnPlusButtonClickListener()
+        setOnMinusButtonClickListener()
+        setOnTicketingButtonListener()
+    }
+
+    private fun doPresenterTask() {
+        presenter.setCurrentResultTicketCountInfo()
         presenter.storeMovieId(movieId)
         presenter.setMovieInfo()
         presenter.setSpinnerInfo()
         presenter.setSpinnerDateItemInfo()
         presenter.setSpinnerTimeItemInfo()
-        setOnPlusButtonClickListener()
-        setOnMinusButtonClickListener()
-        setOnTicketingButtonListener()
     }
 
     private fun initView() {
