@@ -1,22 +1,15 @@
 package woowacourse.movie.presenter.contract
 
+import woowacourse.movie.view.state.TicketingResult
+
 interface TicketingResultContract {
     interface View {
-        fun assignInitialView(
-            numberOfPeople: Int,
-            movieTitle: String,
-            movieDate: String,
-            price: Int,
-        )
+        fun assignInitialView(ticketingResult: TicketingResult)
 
         fun showToastMessage(message: String)
     }
 
     interface Presenter {
-        fun initializeTicketingResult(
-            movieId: Long,
-            count: Int,
-            totalPrice: Int,
-        )
+        fun initializeTicketingResult(ticketingResult: TicketingResult?)
     }
 }

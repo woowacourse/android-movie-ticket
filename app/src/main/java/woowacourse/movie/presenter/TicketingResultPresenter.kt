@@ -1,29 +1,15 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.model.MovieData.findMovieById
-import woowacourse.movie.model.Result
 import woowacourse.movie.presenter.contract.TicketingResultContract
+import woowacourse.movie.view.state.TicketingResult
+import woowacourse.movie.view.utils.ErrorMessage
 
 class TicketingResultPresenter(
     private val ticketingResultView: TicketingResultContract.View,
 ) : TicketingResultContract.Presenter {
-    override fun initializeTicketingResult(
-        movieId: Long,
-        count: Int,
-        totalPrice: Int,
-    ) {
-        when (val movie = findMovieById(movieId)) {
-            is Result.Success -> {
-                ticketingResultView.assignInitialView(
-                    count,
-                    movie.data.title,
-                    movie.data.date,
-                    totalPrice,
-                )
-            }
-            is Result.Error -> {
-                ticketingResultView.showToastMessage(movie.message)
-            }
-        }
+    override fun initializeTicketingResult(ticketingResult: TicketingResult?) {
+        ticketingResult?.let {
+            ticketingResultView.assignInitialView(it)
+        } ?: ticketingResultView.showToastMessage(ErrorMessage.ERROR_INVALID_SCREENING_ID.value)
     }
 }

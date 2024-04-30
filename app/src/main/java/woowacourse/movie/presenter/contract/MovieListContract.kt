@@ -1,13 +1,20 @@
 package woowacourse.movie.presenter.contract
 
-import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.model.screening.Screening
 
 interface MovieListContract {
     interface View {
-        fun navigateToTicketing(movieId: Long)
+        fun initializeScreeningList(
+            screenings: List<Screening>,
+            advertisementDrawableId: Int,
+        )
+
+        fun navigateToTicketing(screeningId: Long)
     }
 
     interface Presenter {
-        fun getAdapter(): MovieAdapter
+        fun startReservation(screeningId: Long)
+
+        fun loadScreeningData()
     }
 }

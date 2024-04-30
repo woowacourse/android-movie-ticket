@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cl_movie_list_activity"
-    tools:context=".MovieListActivity">
+    tools:context=".view.MovieListActivity">
 
-    <ListView
-        android:id="@+id/lv_movies"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_movies"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
