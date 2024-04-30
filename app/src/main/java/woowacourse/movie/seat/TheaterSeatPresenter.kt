@@ -49,9 +49,23 @@ class TheaterSeatPresenter(
         return seats.values.filter { it.chosen }.sumOf { it.price }
     }
 
-    override fun showConfirmationDialog() {
+    override fun showConfirmationDialog(
+        title: String,
+        message: String,
+        positiveLabel: String,
+        onPositiveButtonClicked: () -> Unit,
+        negativeLabel: String,
+        onNegativeButtonClicked: () -> Unit
+    ) {
         if (seats.values.any { it.chosen }) {
-            view.showConfirmationDialog()
+            view.showConfirmationDialog(
+                title,
+                message,
+                positiveLabel,
+                onPositiveButtonClicked,
+                negativeLabel,
+                onNegativeButtonClicked
+            )
         }
     }
 
