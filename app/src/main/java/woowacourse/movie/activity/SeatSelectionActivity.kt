@@ -3,7 +3,6 @@ package woowacourse.movie.activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.Button
@@ -18,8 +17,8 @@ import woowacourse.movie.model.Theater
 import woowacourse.movie.model.pricing.Tier
 import woowacourse.movie.model.seat.Position
 import woowacourse.movie.presenter.SeatSelectionPresenter
-import woowacourse.movie.ui.SeatPlan
-import woowacourse.movie.ui.format
+import woowacourse.movie.uiModels.SeatPlan
+import woowacourse.movie.uiModels.reservation.format
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private lateinit var presenter: SeatSelectionPresenter

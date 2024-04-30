@@ -9,6 +9,7 @@ import woowacourse.movie.model.schedule.WeekdayTimeTable
 import woowacourse.movie.model.schedule.WeekendTimeTable
 import woowacourse.movie.repository.MovieRepository
 import woowacourse.movie.repository.PseudoMovieRepository
+import woowacourse.movie.uiModels.movie.toMovieDetail
 
 class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
@@ -24,7 +25,7 @@ class MovieDetailPresenter(
         this.movieId = movieId
         movie = movieRepository.getMovie(movieId)
         loadScreeningPeriod(movie.screeningPeriod)
-        view.displayMovie(movie)
+        view.displayMovie(movie.toMovieDetail())
     }
 
     override fun loadScreeningPeriod(period: ScreeningPeriod) {

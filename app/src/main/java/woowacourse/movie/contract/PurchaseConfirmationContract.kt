@@ -1,6 +1,6 @@
 package woowacourse.movie.contract
 
-import woowacourse.movie.ui.ReservationBrief
+import woowacourse.movie.uiModels.reservation.ReservationBrief
 
 interface PurchaseConfirmationContract {
     interface View {

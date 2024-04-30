@@ -7,9 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.contract.PurchaseConfirmationContract
 import woowacourse.movie.presenter.PurchaseConfirmationPresenter
-import woowacourse.movie.ui.ReservationBrief
+import woowacourse.movie.uiModels.reservation.ReservationBrief
 
 class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationContract.View {
+    private val reservationBriefViews: ReservationBriefViews by lazy {
+        ReservationBriefViews(
+            findViewById<TextView>(R.id.movie_title_confirmation),
+            findViewById<TextView>(R.id.purchase_confirmation_screening_datetime),
+            findViewById<TextView>(R.id.ticket_position),
+            findViewById<TextView>(R.id.ticket_charge),
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.purchase_confirmation)
@@ -29,9 +38,6 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
     }
 
     override fun displayReservation(reservationBrief: ReservationBrief) {
-        findViewById<TextView>(R.id.movie_title_confirmation).text = reservationBrief.movieTitle
-        findViewById<TextView>(R.id.purchase_confirmation_screening_datetime).text = reservationBrief.screeningDateTime
-        findViewById<TextView>(R.id.ticket_position).text = reservationBrief.positions.joinToString(",")
-        findViewById<TextView>(R.id.ticket_charge).text = reservationBrief.price
+        reservationBriefViews.set(reservationBrief)
     }
 }

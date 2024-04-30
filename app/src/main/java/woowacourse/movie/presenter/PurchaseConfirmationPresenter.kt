@@ -5,7 +5,7 @@ import woowacourse.movie.repository.MovieRepository
 import woowacourse.movie.repository.PseudoMovieRepository
 import woowacourse.movie.repository.PseudoReservationRepository
 import woowacourse.movie.repository.ReservationRepository
-import woowacourse.movie.ui.toBrief
+import woowacourse.movie.uiModels.reservation.toReservationBrief
 
 class PurchaseConfirmationPresenter(
     private val view: PurchaseConfirmationContract.View,
@@ -17,7 +17,7 @@ class PurchaseConfirmationPresenter(
             reservationRepository.getLastReservation() ?: throw IllegalStateException(
                 GET_LAST_RESERVATION_ERROR,
             )
-        view.displayReservation(reservation.toBrief(movieRepository))
+        view.displayReservation(reservation.toReservationBrief(movieRepository))
     }
 
     companion object {

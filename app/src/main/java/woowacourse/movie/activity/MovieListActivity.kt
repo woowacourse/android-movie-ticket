@@ -11,7 +11,7 @@ import woowacourse.movie.adapter.AdapterClickListenter
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.contract.MovieListContract
 import woowacourse.movie.presenter.MovieListPresenter
-import woowacourse.movie.ui.MovieBrief
+import woowacourse.movie.uiModels.movie.MovieBrief
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View, AdapterClickListenter {
     private lateinit var movieRecyclerView: RecyclerView

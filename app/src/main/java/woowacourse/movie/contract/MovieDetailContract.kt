@@ -1,14 +1,14 @@
 package woowacourse.movie.contract
 
-import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.schedule.ScreeningDate
 import woowacourse.movie.model.schedule.ScreeningDateTime
 import woowacourse.movie.model.schedule.ScreeningPeriod
+import woowacourse.movie.uiModels.movie.MovieDetail
 import java.time.LocalDateTime
 
 interface MovieDetailContract {
     interface View {
-        fun displayMovie(movieBrief: Movie)
+        fun displayMovie(movieDetail: MovieDetail)
 
         fun displayScreeningDates(dates: List<ScreeningDate>)
 

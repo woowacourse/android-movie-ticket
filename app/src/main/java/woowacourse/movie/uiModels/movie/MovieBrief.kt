@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.uiModels.movie
 
 class MovieBrief(
     val title: String,
