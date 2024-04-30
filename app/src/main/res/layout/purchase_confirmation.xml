@@ -33,10 +33,19 @@
         android:text="@string/movie_title" />
 
     <TextView
-        android:id="@+id/purchase_movie_running_time"
+        android:id="@+id/reserved_seat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/movie_title_confirmation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="@string/reserved_seat" />
+
+    <TextView
+        android:id="@+id/purchase_movie_running_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reserved_seat"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:text="@string/screen_time" />
@@ -45,9 +54,9 @@
         android:id="@+id/ticket_charge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/purchase_movie_running_time"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:layout_below="@id/purchase_movie_running_time"
         android:text="@string/price" />
 
 </RelativeLayout>

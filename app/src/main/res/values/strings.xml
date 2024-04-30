@@ -15,4 +15,5 @@
     <string name="chose_seat">좌석 선택</string>
     <string name="screen_display">SCREEN</string>
     <string name="확인">확인</string>
+    <string name="reserved_seat">예약 좌석</string>
 </resources>
