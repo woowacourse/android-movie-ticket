@@ -8,6 +8,6 @@ interface PurchaseConfirmationContract {
     }
 
     interface Presenter {
-        fun loadReservation(reservationId: Int)
+        fun loadReservation()
     }
 }

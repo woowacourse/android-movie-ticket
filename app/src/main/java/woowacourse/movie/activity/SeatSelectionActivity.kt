@@ -11,6 +11,7 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.IntentKeys.SEAT_PLAN
 import woowacourse.movie.R
 import woowacourse.movie.contract.SeatSelectionContract
 import woowacourse.movie.model.Theater
@@ -39,7 +40,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             )
         val seatPlan =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra("SeatPlan", SeatPlan::class.java)
+                intent.getParcelableExtra(SEAT_PLAN, SeatPlan::class.java)
             } else {
                 intent.getParcelableExtra(Intent.EXTRA_STREAM) as? SeatPlan
             }
@@ -49,7 +50,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 seatPlan.ticketNum,
                 seatPlan.reservedDateTime,
             )
-            Log.d("select", seatPlan.movieId.toString())
         } else {
             finish()
         }

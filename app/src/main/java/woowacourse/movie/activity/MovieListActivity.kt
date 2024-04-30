@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import woowacourse.movie.IntentKeys.MOVIE_ID
 import woowacourse.movie.R
 import woowacourse.movie.adapter.AdapterClickListenter
 import woowacourse.movie.adapter.MovieAdapter
@@ -37,7 +38,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View, AdapterCl
     override fun navigateToMovieDetail(movieId: Int) {
         val intent =
             Intent(this, MovieDetailActivity::class.java).apply {
-                putExtra("MovieId", movieId)
+                putExtra(MOVIE_ID, movieId)
             }
         startActivity(intent)
     }

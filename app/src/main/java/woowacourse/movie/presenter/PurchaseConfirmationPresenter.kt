@@ -12,7 +12,7 @@ class PurchaseConfirmationPresenter(
     private val reservationRepository: ReservationRepository = PseudoReservationRepository(),
     private val movieRepository: MovieRepository = PseudoMovieRepository(),
 ) : PurchaseConfirmationContract.Presenter {
-    override fun loadReservation(reservationId: Int) {
+    override fun loadReservation() {
         val reservation =
             reservationRepository.getLastReservation() ?: throw IllegalStateException(
                 GET_LAST_RESERVATION_ERROR,

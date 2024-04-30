@@ -11,6 +11,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import woowacourse.movie.IntentKeys.MOVIE_ID
+import woowacourse.movie.IntentKeys.SEAT_PLAN
 import woowacourse.movie.R
 import woowacourse.movie.adapter.DateSpinnerAdapter
 import woowacourse.movie.adapter.TimeSpinnerAdapter
@@ -36,7 +38,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_detail)
-        movieId = savedInstanceState?.getInt(MOVIE_ID) ?: intent.getIntExtra("MovieId", -1)
+        movieId = savedInstanceState?.getInt(MOVIE_ID) ?: intent.getIntExtra(MOVIE_ID, -1)
         presenter = MovieDetailPresenter(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -138,12 +140,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         val seatPlan = SeatPlan(movieId, ticketNum, reservedDateTime)
         val intent =
             Intent(this, SeatSelectionActivity::class.java).apply {
-                putExtra("SeatPlan", seatPlan)
+                putExtra(SEAT_PLAN, seatPlan)
             }
         startActivity(intent)
-    }
-
-    companion object {
-        private const val MOVIE_ID = "MOVIE_ID"
     }
 }

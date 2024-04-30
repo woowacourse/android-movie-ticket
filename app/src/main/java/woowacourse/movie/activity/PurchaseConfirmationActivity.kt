@@ -15,8 +15,7 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
         setContentView(R.layout.purchase_confirmation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val presenter = PurchaseConfirmationPresenter(this)
-        val reservationId = intent.getIntExtra("ReservationId", -1)
-        presenter.loadReservation(reservationId)
+        presenter.loadReservation()
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
