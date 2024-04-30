@@ -39,14 +39,17 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     override fun setOnListViewClickListener() {
         val intent = Intent(this, MovieReservationActivity::class.java)
         movieAdapter.setItemClickListener(
-            object : MovieAdapter.OnItemClickListener {
-                override fun onClick(position: Int) {
-                    movieIntent.putExtra(EXTRA_MOVIE_ID_KEY, position.toLong())
-                    this@MovieListActivity.startActivity(movieIntent)
-                }
-            },
+            onItemClickListener(intent),
         )
     }
+
+    private fun onItemClickListener(intent: Intent) =
+        object : MovieAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                intent.putExtra(EXTRA_MOVIE_ID_KEY, position.toLong())
+                this@MovieListActivity.startActivity(intent)
+            }
+        }
 
     companion object {
         const val EXTRA_MOVIE_ID_KEY = "movie_id_key"
