@@ -2,22 +2,16 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.graphics.drawable.ColorDrawable
-import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.isSelected
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
-import org.hamcrest.Description
-import org.hamcrest.Matcher
 import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
@@ -39,15 +33,12 @@ class SeatSelectionActivityTest {
                 putExtra(EXTRA_SCREENING_DATE_TIME, "")
             },
         )
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private val unClickedColor = ContextCompat.getColor(context, R.color.unClickedSeat_bgr)
-    private val clickedColor = ContextCompat.getColor(context, R.color.clickedSeat_bgr)
 
     @Test
     fun `좌석을_선택하면_선택된_좌석의_배경색이_변한다`() {
         onView(withId(R.id.tv_seat_item_0))
             .perform(click())
-            .check(matches(withBackgroundColor(clickedColor)))
+            .check(matches(isSelected()))
     }
 
     @Test
@@ -55,7 +46,7 @@ class SeatSelectionActivityTest {
         onView(withId(R.id.tv_seat_item_0))
             .perform(click())
             .perform(click())
-            .check(matches(withBackgroundColor(unClickedColor)))
+            .check(matches(not(isSelected())))
     }
 
     @Test
@@ -92,20 +83,7 @@ class SeatSelectionActivityTest {
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
 
-        onView(withId(R.id.tv_seat_item_0)).check(matches(withBackgroundColor(clickedColor)))
-        onView(withId(R.id.tv_seat_item_1)).check(matches(withBackgroundColor(clickedColor)))
-    }
-
-    private fun withBackgroundColor(expectedColor: Int): Matcher<View> {
-        return object : BoundedMatcher<View, View>(View::class.java) {
-            override fun describeTo(description: Description?) {
-                description?.appendText("with background color: $expectedColor")
-            }
-
-            override fun matchesSafely(item: View?): Boolean {
-                val backgroundColor = (item?.background as? ColorDrawable)?.color ?: 0
-                return backgroundColor == expectedColor
-            }
-        }
+        onView(withId(R.id.tv_seat_item_0)).check(matches(isSelected()))
+        onView(withId(R.id.tv_seat_item_1)).check(matches(isSelected()))
     }
 }
