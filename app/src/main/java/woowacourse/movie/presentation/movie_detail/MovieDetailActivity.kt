@@ -37,8 +37,8 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
     private val dateSpinner: Spinner by lazy {
         findViewById<Spinner>(R.id.movie_screening_date_spinner)
     }
-    private val movieDetailViews by lazy {
-        MovieDetailViews(
+    private val movieDetailViewHolder by lazy {
+        MovieDetailViewHolder(
             findViewById<TextView>(R.id.movie_title_large),
             findViewById<TextView>(R.id.movie_release_date_large),
             findViewById<TextView>(R.id.movie_running_time),
@@ -89,7 +89,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         }
 
         override fun displayMovie(movieDetail: MovieDetail) {
-            movieDetailViews.set(movieDetail)
+            movieDetailViewHolder.set(movieDetail)
         }
 
         override fun displayScreeningDates(dates: List<ScreeningDate>) {

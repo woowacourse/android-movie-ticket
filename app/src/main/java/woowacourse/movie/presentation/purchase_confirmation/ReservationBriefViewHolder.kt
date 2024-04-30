@@ -3,7 +3,7 @@ package woowacourse.movie.presentation.purchase_confirmation
 import android.widget.TextView
 import woowacourse.movie.uimodel.reservation.ReservationBrief
 
-class ReservationBriefViews (
+class ReservationBriefViewHolder (
     private val title: TextView,
     private val screeningDateTime: TextView,
     private val positions: TextView,

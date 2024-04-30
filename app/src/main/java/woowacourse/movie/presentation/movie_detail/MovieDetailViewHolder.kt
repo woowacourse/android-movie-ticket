@@ -3,7 +3,7 @@ package woowacourse.movie.presentation.movie_detail
 import android.widget.TextView
 import woowacourse.movie.uimodel.movie.MovieDetail
 
-class MovieDetailViews(
+class MovieDetailViewHolder(
     private val title: TextView,
     private val screeningPeriod: TextView,
     private val runningTime: TextView,

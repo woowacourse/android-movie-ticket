@@ -8,8 +8,8 @@ import woowacourse.movie.R
 import woowacourse.movie.uimodel.reservation.ReservationBrief
 
 class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationContract.View {
-    private val reservationBriefViews: ReservationBriefViews by lazy {
-        ReservationBriefViews(
+    private val reservationBriefViewHolder: ReservationBriefViewHolder by lazy {
+        ReservationBriefViewHolder(
             findViewById<TextView>(R.id.movie_title_confirmation),
             findViewById<TextView>(R.id.purchase_confirmation_screening_datetime),
             findViewById<TextView>(R.id.ticket_position),
@@ -36,6 +36,6 @@ class PurchaseConfirmationActivity : AppCompatActivity(), PurchaseConfirmationCo
     }
 
     override fun displayReservation(reservationBrief: ReservationBrief) {
-        reservationBriefViews.set(reservationBrief)
+        reservationBriefViewHolder.set(reservationBrief)
     }
 }
