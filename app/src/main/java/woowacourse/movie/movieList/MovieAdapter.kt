@@ -11,7 +11,7 @@ import woowacourse.movie.model.MovieDisplayData
 @Suppress("DEPRECATION")
 class MovieAdapter(
     private val context: Context,
-    private val items: MutableList<Any>,
+    private val items: MutableList<MovieDisplayData>,
     private val onClick: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -51,7 +51,6 @@ class MovieAdapter(
     fun updateItems(displayData: List<MovieDisplayData>) {
         items.clear()
         items.addAll(displayData)
-        notifyDataSetChanged()
     }
 
     companion object {
