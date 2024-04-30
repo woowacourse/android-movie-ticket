@@ -1,5 +1,6 @@
 package woowacourse.movie.movieDetail
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -98,6 +99,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         return true
     }
 
+    @SuppressLint("NewApi")
     private fun setupEventListeners() {
         plusButton.setOnClickListener {
             presenter.onTicketPlusClicked(ticketNum)
@@ -115,7 +117,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                     putExtra("Theater", theater)
                 }
             } else {
-                TODO("VERSION.SDK_INT < TIRAMISU")
+                Intent(this, TheaterSeatActivity::class.java).apply {
+                    putExtra("ticketNum", presenter.getTicketNum())
+                    putExtra("Theater", theater)
+                }
             }
             navigateToPurchaseConfirmation(intent)
         }
