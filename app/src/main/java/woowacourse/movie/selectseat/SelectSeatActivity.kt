@@ -10,7 +10,6 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.DummyMovies
@@ -22,6 +21,7 @@ import woowacourse.movie.selectseat.uimodel.SeatsUiModel
 import woowacourse.movie.selectseat.uimodel.SelectResult
 import woowacourse.movie.util.bundleParcelable
 import woowacourse.movie.util.intentParcelable
+import woowacourse.movie.util.showAlertDialog
 
 class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
     private lateinit var seatTable: TableLayout
@@ -148,19 +148,19 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
     }
 
     private fun confirmAlertDialog() =
-        AlertDialog.Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setCancelable(false)
-            .setPositiveButton("예매 완료") { _, _ ->
+        showAlertDialog(
+            this,
+            "예매 확인",
+            "정말 예매하시겠습니까?",
+            "예매 완료",
+            onPositiveButtonClicked = {
                 presenter.completeReservation(
                     bookingInfoUiModel,
                     seats.selectedSeats(),
                 )
-            }
-            .setNegativeButton("취소") { dialog, _ ->
-                dialog.dismiss()
-            }.show()
+            },
+            "취소",
+        )
 
     private fun selectResult(): SelectResult =
         when {
@@ -173,6 +173,7 @@ class SelectSeatActivity : AppCompatActivity(), SelectSeatContract.View {
                 SelectResult.LessSelect(
                     getString(R.string.select_less_seat_error_message),
                 )
+
             else -> SelectResult.Success
         }
 

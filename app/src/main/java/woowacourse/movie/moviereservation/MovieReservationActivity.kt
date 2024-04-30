@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.DummyMovies
@@ -22,6 +21,7 @@ import woowacourse.movie.moviereservation.uimodel.ScreeningDateTimesUiModel
 import woowacourse.movie.reservationresult.ReservationResultActivity
 import woowacourse.movie.selectseat.SelectSeatActivity
 import woowacourse.movie.util.bundleParcelable
+import woowacourse.movie.util.showErrorToastMessage
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private lateinit var presenter: MovieReservationContract.Presenter
@@ -129,15 +129,15 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     override fun showScreeningMovieError() {
-        Toast.makeText(this, "영화 정보를 불러오는데 실패했습니다. 앱을 다시 실행해주세요.", Toast.LENGTH_SHORT).show()
+        showErrorToastMessage(this, getString(R.string.load_movie_error_message))
     }
 
     override fun showMovieReservationError() {
-        Toast.makeText(this, "영화 예매에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+        showErrorToastMessage(this, getString(R.string.reserve_error_message))
     }
 
     override fun showCantDecreaseError(minCount: Int) {
-        Toast.makeText(this, "$minCount 명 이상부터 예약할 수 있습니다.", Toast.LENGTH_SHORT).show()
+        showErrorToastMessage(this, getString(R.string.min_count_error_message, minCount))
     }
 
     override fun showDefaultBookingInfo(
