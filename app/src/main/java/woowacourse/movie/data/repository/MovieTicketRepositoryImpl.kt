@@ -2,8 +2,9 @@ package woowacourse.movie.data.repository
 
 import woowacourse.movie.data.utils.IdGenerator
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.repository.MovieTicketRepository
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 object MovieTicketRepositoryImpl : MovieTicketRepository {
     private val tickets = mutableMapOf<Int, MovieTicket>()
@@ -11,21 +12,24 @@ object MovieTicketRepositoryImpl : MovieTicketRepository {
 
     override fun createMovieTicket(
         movieTitle: String,
-        screeningDate: LocalDate,
+        screeningDate: LocalDateTime,
+        reservationCount: Int,
     ): MovieTicket {
         val id = IdGenerator.generateId()
-        val newTicket = MovieTicket(id, movieTitle, screeningDate)
+        val newTicket = MovieTicket(id, movieTitle, screeningDate, reservationCount)
         tickets[id] = newTicket
         return newTicket
     }
 
     override fun getMovieTicket(movieTicketId: Int): MovieTicket = tickets[movieTicketId] ?: throw IllegalStateException(ERROR_EMPTY_TICKET)
 
-    override fun updateReservationCount(
+    override fun updateReserveSeats(
         movieTicketId: Int,
-        count: Int,
-    ) {
-        val ticket = tickets[movieTicketId] ?: throw IllegalStateException(ERROR_EMPTY_TICKET)
-        ticket.updateCount(count)
+        seats: List<Seat>,
+    ): MovieTicket {
+        val ticket = getMovieTicket(movieTicketId)
+        val updatedTicket = ticket.reserveSeats(seats)
+        tickets[movieTicketId] = updatedTicket
+        return updatedTicket
     }
 }

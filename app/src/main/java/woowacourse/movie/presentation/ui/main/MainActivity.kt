@@ -1,7 +1,8 @@
 package woowacourse.movie.presentation.ui.main
 
 import android.content.Intent
-import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.repository.MovieRepositoryImpl
 import woowacourse.movie.presentation.base.BaseActivity
@@ -16,16 +17,19 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun onCreateSetup() {
-        presenter = MainPresenterImpl(this, MovieRepositoryImpl)
-        presenter.loadMovieList()
+        presenter = MainPresenter(this, MovieRepositoryImpl)
     }
-
+    
     override fun showMovieList(movieList: List<MovieUiModel>) {
-        adapter =
-            MovieListAdapter(movieList) { movieId ->
-                presenter.requestMovieDetail(movieId)
-            }
-        findViewById<ListView>(R.id.movieList).adapter = adapter
+        val recyclerView = findViewById<RecyclerView>(R.id.movieList).apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+        
+        adapter = MovieListAdapter(movieList) { movieId ->
+            presenter.requestMovieDetail(movieId)
+        }
+        
+        recyclerView.adapter = adapter
     }
 
     override fun moveToMovieDetail(movieId: Int) {

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Movie</string>
     <string name="reserve_button_text">지금 예매</string>
-    <string name="screening_date_format">상영일: %1$s</string>
+    <string name="screening_date_format">상영일: %1$s ~ %2$s</string>
     <string name="running_time_format">러닝타임: %1$d분</string>
     <string name="harry_potter_title">해리 포터와 마법사의 돌</string>
     <string name="harry_potter_screening_date">2024.3.1</string>
@@ -12,6 +12,11 @@
     <string name="min_reservation_count_text">1</string>
     <string name="reservation_finish_text">예매 완료</string>
     <string name="reservation_cancel_info">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="reservation_count_format">일반 %1$d명</string>
-    <string name="reservation_total_price_format">%1$,d원 (현장 결제)</string>
+    <string name="reservation_count_format">일반 %1$d명 | %2$s</string>
+    <string name="total_price_format">%1$,d원 (현장 결제)</string>
+    <string name="confirm_text">확인</string>
+    <string name="total_price_text">0원 (현장 결제)</string>
+    <string name="reservation_confirm_title">예매 확인</string>
+    <string name="reservation_confirm_message">정말 예매하시겠습니까?</string>
+    <string name="cancel">취소</string>
 </resources>

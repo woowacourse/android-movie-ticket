@@ -34,7 +34,7 @@ class ReservationResultActivityTest {
     @Before
     fun setup() {
         // given 테스트용 예매 정보 생성
-        MovieTicketRepositoryImpl.createMovieTicket(TITLE, SCREENING_LOCAL_TIME)
+        MovieTicketRepositoryImpl.createMovieTicket(TITLE, SCREENING_LOCAL_DATE_TIME, 1)
     }
 
     @Test
@@ -66,7 +66,7 @@ class ReservationResultActivityTest {
             matches(
                 withText(
                     testContext.getString(
-                        R.string.reservation_total_price_format,
+                        R.string.total_price_format,
                         13000,
                     ),
                 ),

@@ -113,7 +113,8 @@ class MovieDetailActivityTest {
                 withText(
                     testContext.getString(
                         R.string.screening_date_format,
-                        SCREENING_DATE,
+                        SCREENING_START_DATE,
+                        SCREENING_END_DATE,
                     ),
                 ),
             ),
