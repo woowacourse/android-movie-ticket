@@ -45,14 +45,8 @@ class TicketingActivity : AppCompatActivity(), TicketingContract.View, OnItemSel
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(KEY_COUNT, ticketingPresenter.ticketingForm.numberOfTickets.currentValue)
-        outState.putString(
-            KEY_DATE,
-            ticketingPresenter.ticketingForm.bookingDateTime.date.toString(),
-        )
-        outState.putString(
-            KEY_TIME,
-            ticketingPresenter.ticketingForm.bookingDateTime.time.toString(),
-        )
+        outState.putString(KEY_DATE, ticketingPresenter.bookingDateTime.date.toString())
+        outState.putString(KEY_TIME, ticketingPresenter.bookingDateTime.time.toString())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

@@ -22,6 +22,9 @@ class TicketingPresenter(
     lateinit var ticketingUiState: TicketingUiState
         private set
 
+    val bookingDateTime: BookingDateTime
+        get() = ticketingForm.bookingDateTime
+
     override fun initializeTicketingData(
         screeningId: Long,
         initialCount: Int,
