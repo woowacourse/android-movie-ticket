@@ -2,7 +2,7 @@ package woowacourse.movie.reservation.presenter
 
 import woowacourse.movie.common.MovieDataSource
 import woowacourse.movie.reservation.contract.MovieReservationContract
-import woowacourse.movie.reservation.model.DataResource
+import woowacourse.movie.reservation.model.MovieReservationDataResource
 import woowacourse.movie.reservation.model.MovieReservationTicketCountData
 import java.time.LocalTime
 
@@ -19,11 +19,11 @@ class MovieReservationPresenter(
     }
 
     override fun storeMovieId(movieId: Long) {
-        DataResource.movieId = movieId
+        MovieReservationDataResource.movieId = movieId
     }
 
     override fun setMovieInfo() {
-        val movieId = DataResource.movieId.toInt()
+        val movieId = MovieReservationDataResource.movieId.toInt()
         view.setMovieView(MovieDataSource.movieList[movieId])
     }
 
@@ -46,18 +46,18 @@ class MovieReservationPresenter(
     }
 
     override fun setSpinnerInfo() {
-        view.showSpinner(DataResource.screeningDates, DataResource.screeningTimesWeekdays)
+        view.showSpinner(MovieReservationDataResource.screeningDates, MovieReservationDataResource.screeningTimesWeekdays)
     }
 
     override fun setSpinnerDateItemInfo() {
-        view.setOnSpinnerDateItemSelectedListener(DataResource.screeningDates)
+        view.setOnSpinnerDateItemSelectedListener(MovieReservationDataResource.screeningDates)
     }
 
     override fun setSpinnerTimeItemInfo() {
-        view.setOnSpinnerTimeItemSelectedListener(DataResource.screeningTimesWeekdays)
+        view.setOnSpinnerTimeItemSelectedListener(MovieReservationDataResource.screeningTimesWeekdays)
     }
 
     override fun storeSelectedTime(selectedTime: LocalTime) {
-        DataResource.selectedScreeningTime = selectedTime
+        MovieReservationDataResource.selectedScreeningTime = selectedTime
     }
 }

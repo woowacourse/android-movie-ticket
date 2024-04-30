@@ -1,7 +1,7 @@
 package woowacourse.movie.reservation.model
 
-import woowacourse.movie.reservation.model.DataResource.screeningTimesWeekdays
-import woowacourse.movie.reservation.model.DataResource.screeningTimesWeekends
+import woowacourse.movie.reservation.model.MovieReservationDataResource.screeningTimesWeekdays
+import woowacourse.movie.reservation.model.MovieReservationDataResource.screeningTimesWeekends
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
