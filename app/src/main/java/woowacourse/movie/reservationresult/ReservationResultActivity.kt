@@ -12,12 +12,19 @@ import woowacourse.movie.reservationresult.uimodel.ReservationResultUiModel
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter
+    private lateinit var titleView: TextView
+    private lateinit var cancelDeadLineView: TextView
+    private lateinit var runningDateView: TextView
+    private lateinit var countAndSeatView: TextView
+    private lateinit var totalPriceView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_result)
 
         val reservationId = intent.getLongExtra(EXTRA_RESERVATION_ID, INVALID_RESERVATION_ID)
+
+        initView()
 
         presenter =
             ReservationResultPresenter(
@@ -26,6 +33,14 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
             )
         presenter.loadReservationResult(reservationId)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initView() {
+        titleView = findViewById(R.id.tv_result_title)
+        cancelDeadLineView = findViewById(R.id.tv_result_cancel_deadline)
+        runningDateView = findViewById(R.id.tv_result_running_date)
+        countAndSeatView = findViewById(R.id.tv_result_count)
+        totalPriceView = findViewById(R.id.tv_result_total_price)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -37,13 +52,13 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
 
     override fun showResult(reservationResult: ReservationResultUiModel) {
         with(reservationResult) {
-            findViewById<TextView>(R.id.tv_result_title).text = title
-            findViewById<TextView>(R.id.tv_result_cancel_deadline).text =
+            titleView.text = title
+            cancelDeadLineView.text =
                 getString(R.string.reservation_cancel_deadline_format, cancelDeadLine)
-            findViewById<TextView>(R.id.tv_result_running_date).text = dateTime
-            findViewById<TextView>(R.id.tv_result_count).text =
+            runningDateView.text = dateTime
+            countAndSeatView.text =
                 headCount.count + " | " + seats.joinToString { it.showPosition }
-            findViewById<TextView>(R.id.tv_result_total_price).text =
+            totalPriceView.text =
                 totalPrice.price
         }
     }
