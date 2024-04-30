@@ -1,5 +1,7 @@
 package woowacourse.movie.screeningmovie
 
+import woowacourse.movie.model.Advertisement
+import woowacourse.movie.model.ScreenView
 import woowacourse.movie.model.ScreeningMovie
 import java.time.format.DateTimeFormatter
 
@@ -15,3 +17,11 @@ fun ScreeningMovie.toScreenMovieUiModel(): ScreenMovieUiModel {
         runningTime = "상영일: $screenDate",
     )
 }
+
+fun List<ScreenView>.toScreenItems(): List<ScreeningItem> =
+    this.map { view ->
+        when (view) {
+            is ScreeningMovie -> view.toScreenMovieUiModel()
+            is Advertisement -> AdvertiseUiModel()
+        }
+    }

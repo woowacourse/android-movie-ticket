@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 
 class MovieAdapter(
-    private val movies: List<ScreeningMovieItem>,
+    private val movies: List<ScreeningItem>,
     private val onClickReservationButton: (id: Long) -> Unit = {},
 ) : RecyclerView.Adapter<ScreeningViewHolder>() {
     override fun getItemViewType(position: Int): Int {
@@ -44,8 +44,8 @@ class MovieAdapter(
         position: Int,
     ) {
         when (holder) {
-            is AdvertiseViewHolder -> (holder as MovieViewHolder).onBind(movies[position] as ScreenMovieUiModel)
-            is MovieViewHolder -> { }
+            is MovieViewHolder -> holder.onBind(movies[position] as ScreenMovieUiModel)
+            is AdvertiseViewHolder -> { }
         }
     }
 

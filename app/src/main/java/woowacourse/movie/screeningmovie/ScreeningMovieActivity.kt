@@ -15,6 +15,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_movie)
         presenter = ScreenMoviePresenter(this, DummyMovies)
+        presenter.loadScreeningMovies()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -22,10 +23,10 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showMovies(movies: List<ScreenMovieUiModel>) {
+    override fun showMovies(movies: List<ScreeningItem>) {
         val listView = findViewById<RecyclerView>(R.id.rcv_screening_movie)
         listView.adapter =
-            MovieAdapter(insertAdvertisements(movies, 3)) { presenter.startReservation(it) }
+            MovieAdapter(movies) { presenter.startReservation(it) }
     }
 
     override fun onClickReservationButton(screeningMovieId: Long) {
