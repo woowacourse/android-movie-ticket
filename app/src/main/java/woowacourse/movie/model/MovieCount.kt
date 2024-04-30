@@ -1,18 +1,22 @@
-package woowacourse.movie.detail.model
+package woowacourse.movie.model
 
-class MovieReservationCount(val count: Int = DEFAULT_COUNT) {
+class MovieCount(val count: Int = DEFAULT_COUNT) {
     init {
         require(count in MIN_COUNT..MAX_COUNT) { INVALID_COUNT_MESSAGE }
     }
 
-    operator fun dec(): MovieReservationCount {
-        if (count == MIN_COUNT) return this
-        return MovieReservationCount(count - OFFSET_COUNT)
+    fun update(count: Int): MovieCount {
+        return MovieCount(count)
     }
 
-    operator fun inc(): MovieReservationCount {
+    operator fun dec(): MovieCount {
+        if (count == MIN_COUNT) return this
+        return MovieCount(count - OFFSET_COUNT)
+    }
+
+    operator fun inc(): MovieCount {
         if (count == MAX_COUNT) return this
-        return MovieReservationCount(count + OFFSET_COUNT)
+        return MovieCount(count + OFFSET_COUNT)
     }
 
     companion object {

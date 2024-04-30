@@ -9,6 +9,7 @@
     tools:context=".detail.view.MovieDetailActivity">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -20,7 +21,7 @@
             <ImageView
                 android:id="@+id/detailImage"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="400dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/titanic"
@@ -54,7 +55,7 @@
                 app:layout_constraintTop_toBottomOf="@id/detailTitle" />
 
             <TextView
-                android:id="@+id/detailDate"
+                android:id="@+id/startDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="2024.3.1"
@@ -64,6 +65,31 @@
                 app:layout_constraintBottom_toBottomOf="@id/detailDateName"
                 app:layout_constraintLeft_toRightOf="@id/detailDateName"
                 app:layout_constraintTop_toTopOf="@id/detailDateName" />
+
+            <TextView
+                android:id="@+id/dateSeparator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" ~ "
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/detailDateName"
+                app:layout_constraintLeft_toRightOf="@id/startDate"
+                app:layout_constraintTop_toTopOf="@id/detailDateName" />
+
+
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="2024.3.5"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/detailDateName"
+                app:layout_constraintLeft_toRightOf="@id/dateSeparator"
+                app:layout_constraintTop_toTopOf="@id/detailDateName" />
+
 
             <TextView
                 android:id="@+id/detailRunningTimeName"
@@ -119,6 +145,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <Spinner
+            android:id="@+id/dateSpinner"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/runningTimeSpinner"
+            app:layout_constraintStart_toStartOf="@id/detailMinusBtn"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/runningTimeSpinner"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="@id/detailPlusBtn"
+            app:layout_constraintStart_toEndOf="@+id/dateSpinner"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/detailMinusBtn"
             android:layout_width="0dp"
@@ -127,8 +171,9 @@
             android:text="-"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/seatSelectionBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateSpinner" />
 
         <TextView
             android:id="@+id/detailReservCount"
@@ -138,10 +183,10 @@
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
+            app:layout_constraintBottom_toTopOf="@id/seatSelectionBtn"
             app:layout_constraintEnd_toStartOf="@+id/detailPlusBtn"
             app:layout_constraintStart_toEndOf="@+id/detailMinusBtn"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/dateSpinner" />
 
         <Button
             android:id="@+id/detailPlusBtn"
@@ -151,16 +196,17 @@
             android:text="+"
             android:textSize="25dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/detailReservCompleteBtn"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/seatSelectionBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/runningTimeSpinner" />
 
         <Button
-            android:id="@+id/detailReservCompleteBtn"
+            android:id="@+id/seatSelectionBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:padding="10dp"
-            android:text="예매 완료"
+            android:text="좌석 선택"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,6 +1,6 @@
 package woowacourse.movie.result.presenter.contract
 
-import woowacourse.movie.result.model.MovieTicket
+import woowacourse.movie.model.MovieTicket
 
 interface MovieResultContract {
     interface View {
@@ -10,7 +10,10 @@ interface MovieResultContract {
     interface Presenter {
         fun loadMovieTicket(
             id: Long,
+            date: String,
+            time: String,
             count: Int,
+            seats: String,
         )
     }
 }

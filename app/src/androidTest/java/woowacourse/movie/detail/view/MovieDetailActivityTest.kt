@@ -15,7 +15,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.utils.MovieIntentConstant.KEY_MOVIE_ID
+import woowacourse.movie.util.MovieIntentConstant.KEY_MOVIE_ID
 
 @RunWith(AndroidJUnit4::class)
 class MovieDetailActivityTest {
@@ -31,13 +31,19 @@ class MovieDetailActivityTest {
     @Test
     fun `선택된_영화의_제목이_표시된다`() {
         onView(withId(R.id.detailTitle))
-            .check(matches(withText("타이타닉")))
+            .check(matches(withText("타이타닉 0")))
     }
 
     @Test
-    fun `선택된_영화의_상영일이_표시된다`() {
-        onView(withId(R.id.detailDate))
-            .check(matches(withText("2024.4.17")))
+    fun `선택된_영화의_상영시작일이_표시된다`() {
+        onView(withId(R.id.startDate))
+            .check(matches(withText("2024-04-01")))
+    }
+
+    @Test
+    fun `선택된_영화의_상영종료일이_표시된다`() {
+        onView(withId(R.id.endDate))
+            .check(matches(withText("2024-04-28")))
     }
 
     @Test
@@ -67,9 +73,9 @@ class MovieDetailActivityTest {
 
     @Test
     fun `화면이_가로로_회전되어도_예매_인원수의_값이_유지된다`() {
-        val activityScenario = activityRule.scenario
         onView(withId(R.id.detailPlusBtn)).perform(click())
 
+        val activityScenario = activityRule.scenario
         activityScenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
@@ -79,7 +85,7 @@ class MovieDetailActivityTest {
 
     @Test
     fun `예매_예매_버튼을_클릭하면_영화_상세_페이지로_이동한다`() {
-        onView(withId((R.id.detailReservCompleteBtn))).perform(click())
-        onView(withId(R.id.resultActivity)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId((R.id.seatSelectionBtn))).perform(click())
+        onView(withId(R.id.seatSelectionActivity)).check(matches(ViewMatchers.isDisplayed()))
     }
 }

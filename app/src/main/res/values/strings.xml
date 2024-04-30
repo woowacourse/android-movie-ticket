@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="seat">%1$s%2$s</string>
 </resources>
