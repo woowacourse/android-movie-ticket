@@ -36,140 +36,80 @@
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
         </TableRow>
 
         <TableRow android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:layout_height="90dp"
-                android:background="@drawable/sel_seat_chb"
-                android:button="@null"
-                android:gravity="center" />
+                style="@style/SelectSeatStyle"/>
 
         </TableRow>
 
