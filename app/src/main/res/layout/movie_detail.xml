@@ -1,5 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -61,13 +62,40 @@
     </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chose"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/quantity_selector"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Spinner
+            android:id="@+id/movie_time_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/movie_dates"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <Spinner
+            android:id="@+id/movie_date_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/movie_times"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/quantity_selector"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@id/buy_ticket_button"
+        app:layout_constraintBottom_toTopOf="@id/seat_confirmation_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
 
         <Button
             android:id="@+id/minus_button"
@@ -103,11 +131,11 @@
 
 
     <Button
-        android:id="@+id/buy_ticket_button"
+        android:id="@+id/seat_confirmation_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/purple_700"
-        android:text="예매 완료"
+        android:text="@string/chose_seat"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

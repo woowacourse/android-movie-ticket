@@ -14,12 +14,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.movieList.MovieListActivity
 import woowacourse.movie.model.movieInfo.MovieDate
 import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
+import woowacourse.movie.movieList.MovieListActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)

@@ -1,0 +1,198 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="@color/dark_grey"
+        android:paddingVertical="9dp"
+        android:text="@string/screen_display"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/seatTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/screen"
+        android:paddingTop="100dp"
+        android:stretchColumns="*"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- A행 버튼들 -->
+        <TableRow>
+
+            <Button
+                android:id="@+id/A1"
+                style="@style/RowABStyle"
+                android:text="A1" />
+
+            <Button
+                android:id="@+id/A2"
+                style="@style/RowABStyle"
+                android:text="A2" />
+
+            <Button
+                android:id="@+id/A3"
+                style="@style/RowABStyle"
+                android:text="A3" />
+
+            <Button
+                android:id="@+id/A4"
+                style="@style/RowABStyle"
+                android:text="A4" />
+        </TableRow>
+        <!-- B행 버튼들 -->
+        <TableRow>
+
+            <Button
+                android:id="@+id/B1"
+                style="@style/RowABStyle"
+                android:text="B1" />
+
+            <Button
+                android:id="@+id/B2"
+                style="@style/RowABStyle"
+                android:text="B2" />
+
+            <Button
+                android:id="@+id/B3"
+                style="@style/RowABStyle"
+                android:text="B3" />
+
+            <Button
+                android:id="@+id/B4"
+                style="@style/RowABStyle"
+                android:text="B4" />
+        </TableRow>
+        <!-- C행 버튼들 -->
+        <TableRow>
+
+            <Button
+                android:id="@+id/C1"
+                style="@style/RowCDStyle"
+                android:text="C1" />
+
+            <Button
+                android:id="@+id/C2"
+                style="@style/RowCDStyle"
+                android:text="C2" />
+
+            <Button
+                android:id="@+id/C3"
+                style="@style/RowCDStyle"
+                android:text="C3" />
+
+            <Button
+                android:id="@+id/C4"
+                style="@style/RowCDStyle"
+                android:text="C4" />
+        </TableRow>
+        <!-- D행 버튼들 -->
+        <TableRow>
+
+            <Button
+                android:id="@+id/D1"
+                style="@style/RowCDStyle"
+                android:text="D1" />
+
+            <Button
+                android:id="@+id/D2"
+                style="@style/RowCDStyle"
+                android:text="D2" />
+
+            <Button
+                android:id="@+id/D3"
+                style="@style/RowCDStyle"
+                android:text="D3" />
+
+            <Button
+                android:id="@+id/D4"
+                style="@style/RowCDStyle"
+                android:text="D4" />
+        </TableRow>
+        <!-- E행 버튼들 -->
+        <TableRow>
+
+            <Button
+                android:id="@+id/E1"
+                style="@style/RowEStyle"
+                android:text="E1" />
+
+            <Button
+                android:id="@+id/E2"
+                style="@style/RowEStyle"
+                android:text="E2" />
+
+            <Button
+                android:id="@+id/E3"
+                style="@style/RowEStyle"
+                android:text="E3" />
+
+            <Button
+                android:id="@+id/E4"
+                style="@style/RowEStyle"
+                android:text="E4" />
+        </TableRow>
+    </TableLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="19dp">
+
+            <TextView
+                android:id="@+id/screen_movie_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Movie Title Default" />
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Default Charge" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="88dp"
+            android:height="78dp"
+            android:background="@color/purple_700"
+            android:gravity="center"
+            android:text="@string/확인"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

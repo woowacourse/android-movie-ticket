@@ -10,11 +10,5 @@ class PurchaseConfirmationActivityPresenter(intent: Intent) {
     } else {
         intent.getSerializableExtra("Theater") as? Theater
     }
-    private val numberOfTicket = intent.getIntExtra("ticketNum", 0)
-    private val ticketOfCharge = theater?.charge ?: 13000
     val movie = theater?.movie
-
-    fun calculate(): Int {
-        return numberOfTicket * ticketOfCharge
-    }
 }

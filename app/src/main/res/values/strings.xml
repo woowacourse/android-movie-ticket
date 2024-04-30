@@ -3,11 +3,17 @@
     <string name="release_date_yyyy_mm_dd">Release Date: YYYY.MM.DD</string>
     <string name="_0">0분</string>
     <string name="title">Title</string>
-    <string name="_1_ticket_n_price_13_000">1 Ticket\n Price: 13,000₩</string>
-    <string name="price_format">price: %d</string>
+    <string name="price">Price</string>
+    <string name="price_format">%s</string>
     <string name="movie_release_date">상영일: %s</string>
+    <string name="total_price">"Total Price: %d"</string>
     <string name="movie_duration">러닝타임: %s분</string>
     <string name="cancle_time">영화 상영 시작 시간 15분 전까지 취소가 가능합니다.</string>
     <string name="movie_title">Movie Title</string>
     <string name="screen_time">Screen time</string>
+    <string name="screen">Screen</string>
+    <string name="chose_seat">좌석 선택</string>
+    <string name="screen_display">SCREEN</string>
+    <string name="확인">확인</string>
+    <string name="reserved_seat">예약 좌석</string>
 </resources>

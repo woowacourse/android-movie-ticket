@@ -1,40 +1,42 @@
 package woowacourse.movie.movieList
 
+import MovieAdapter
 import MovieListView
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieDisplayData
+import woowacourse.movie.model.theater.Theater
+import woowacourse.movie.movieDetail.MovieDetailActivity
 
 class MovieListActivity : AppCompatActivity(), MovieListView {
-    private lateinit var moviesListView: ListView
+    private lateinit var moviesRecyclerView: RecyclerView
     private lateinit var presenter: MovieListPresenter
     private lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.movie_list)
-        presenter = MovieListPresenter(this)
-        moviesListView = findViewById(R.id.movies_list_item)
+        initializeViews()
         initAdapter()
     }
 
-    private fun initAdapter() {
+    private fun initializeViews() {
+        moviesRecyclerView = findViewById(R.id.movies_list)
+        moviesRecyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MovieAdapter(this, mutableListOf()) { position ->
             presenter.onDetailButtonClicked(position)
         }
-        moviesListView.adapter = adapter
-        presenter.loadMovies()
+        moviesRecyclerView.adapter = adapter
     }
 
-    override fun getContext(): Context = this
-
-    override fun startActivity(intent: Intent) {
-        super.startActivity(intent)
+    private fun initAdapter() {
+        presenter = MovieListPresenter(this)
+        presenter.loadMovies()
     }
 
     override fun showToast(message: String) {
@@ -42,9 +44,13 @@ class MovieListActivity : AppCompatActivity(), MovieListView {
     }
 
     override fun updateAdapter(displayData: List<MovieDisplayData>) {
-        adapter.clear()
-        adapter.addAll(displayData)
-        adapter.notifyDataSetChanged()
+        adapter.updateItems(displayData)
     }
 
+    override fun navigateToMovieDetail(theater: Theater) {
+        val intent = Intent(this, MovieDetailActivity::class.java).apply {
+            putExtra("Theater", theater)
+        }
+        startActivity(intent)
+    }
 }

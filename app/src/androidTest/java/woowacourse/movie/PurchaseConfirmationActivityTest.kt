@@ -16,6 +16,7 @@ import woowacourse.movie.model.movieInfo.MovieInfo
 import woowacourse.movie.model.movieInfo.RunningTime
 import woowacourse.movie.model.movieInfo.Synopsis
 import woowacourse.movie.model.movieInfo.Title
+import woowacourse.movie.model.theater.Seat
 import woowacourse.movie.model.theater.Theater
 import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 import java.time.LocalDate
@@ -29,15 +30,19 @@ class PurchaseConfirmationActivityTest {
             RunningTime(230),
             Synopsis("wow!"),
         )
-    private val theater = Theater(movie, 10000)
-    private val ticketNum=3
+    private val seats = mapOf(
+        "B1" to Seat('B', 1, "B"),
+        "C1" to Seat('S', 1, "B"),
+        "E1" to Seat('A', 1, "B"),
+    )
+    private val theater = Theater(movie, seats)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
             PurchaseConfirmationActivity::class.java,
         ).also {
             it.putExtra("Theater", theater)
-            it.putExtra("ticketNum", ticketNum)
+            it.putExtra("ticketPrice", "Total Price: 30000")
         }
 
     @get:Rule
@@ -56,8 +61,8 @@ class PurchaseConfirmationActivityTest {
     }
 
     @Test
-    fun 티켓가격계산_총가격정확히표시되는지검증() {
+    fun 티켓_가격_표시되는지검증() {
         Espresso.onView(withId(R.id.ticket_charge))
-            .check(matches(ViewMatchers.withText("price: ${theater.charge*ticketNum}")))
+            .check(matches(ViewMatchers.withText("Total Price: 30000")))
     }
 }
