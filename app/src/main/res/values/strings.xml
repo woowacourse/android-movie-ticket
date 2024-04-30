@@ -6,6 +6,7 @@
     <string name="price">Price</string>
     <string name="price_format">%s</string>
     <string name="movie_release_date">상영일: %s</string>
+    <string name="total_price">"Total Price: %d"</string>
     <string name="movie_duration">러닝타임: %s분</string>
     <string name="cancle_time">영화 상영 시작 시간 15분 전까지 취소가 가능합니다.</string>
     <string name="movie_title">Movie Title</string>

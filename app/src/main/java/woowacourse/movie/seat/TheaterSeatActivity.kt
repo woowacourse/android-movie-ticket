@@ -72,7 +72,7 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     }
 
     override fun updateTotalPrice(price: Int) {
-        totalPrice.text = "Total Price: $price"
+        totalPrice.text = getString(R.string.total_price, price)
     }
 
     override fun navigateToNextPage(intent: Intent) {
