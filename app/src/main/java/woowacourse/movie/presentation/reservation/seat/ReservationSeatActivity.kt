@@ -41,15 +41,16 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.apply {
-            putSerializable(SEATS, presenter.seats)
+            putSerializable(SEATS_KEY, presenter.seats)
         }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.bundleSerializable(SEATS, Seats::class.java)?.let { fetchedSeats ->
-            fetchedSeats.seats.forEach { seat -> presenter.onClickedSeat(seat.row, seat.col) }
-        } ?: showErrorMessage("좌석에 대한 정보가 없습니다.")
+        savedInstanceState.bundleSerializable(SEATS_KEY, Seats::class.java)
+            ?.let { fetchedSeats ->
+                fetchedSeats.seats.forEach { seat -> presenter.onClickedSeat(seat.row, seat.col) }
+            } ?: showErrorMessage("좌석에 대한 정보가 없습니다.")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -87,8 +88,12 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         complete.setBackgroundColor(getColor(R.color.custom_purple))
         complete.setOnClickListener {
             showDialog(
-                DIALOG_TITLE, DIALOG_MESSAGE, DIALOG_POSITIVE,
-                DIALOG_NEGATIVE, { presenter.loadReservationInfo() }, { }
+                getString(R.string.dialog_title),
+                getString(R.string.dialog_message),
+                getString(R.string.dialog_positive),
+                getString(R.string.dialog_negative),
+                { presenter.loadReservationInfo() },
+                { }
             )
         }
     }
@@ -106,7 +111,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         val intent = Intent(this, ReservationResultActivity::class.java)
         intent.putExtra(MOVIE_ID, movieId)
         intent.putExtra(TICKET, ticket)
-        intent.putExtra(SEATS, seats)
+        intent.putExtra(SEATS_KEY, seats)
         this.startActivity(intent)
     }
 
@@ -151,10 +156,6 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
 
     companion object {
-        const val SEATS = "seats"
-        const val DIALOG_TITLE = "예매 확인"
-        const val DIALOG_MESSAGE = "정말 예매하시겠습니까?"
-        const val DIALOG_POSITIVE = "예매완료"
-        const val DIALOG_NEGATIVE = "취소"
+        const val SEATS_KEY = "seats"
     }
 }
