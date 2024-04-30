@@ -9,7 +9,7 @@ import java.time.LocalTime
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
 ) : MovieReservationContract.Presenter {
-    private val model = MovieReservationTicketCountData
+    val model = MovieReservationTicketCountData
 
     private val ticketCount
         get() = model.ticketCount
