@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
@@ -46,13 +47,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val seats = savedInstanceState.bundleSerializable(SEATS, Seats::class.java)
-            ?: error("seats 정보가 없습니다.")
-        seats.let { seats ->
-            seats.seats.forEach { seat ->
-                presenter.onClickedSeat(seat.row, seat.col)
-            }
-        }
+        savedInstanceState.bundleSerializable(SEATS, Seats::class.java)?.let { fetchedSeats ->
+            fetchedSeats.seats.forEach { seat -> presenter.onClickedSeat(seat.row, seat.col) }
+        } ?: showErrorMessage("좌석에 대한 정보가 없습니다.")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -142,6 +139,10 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                 presenter.checkSeatsCount()
             }
         }
+    }
+
+    private fun showErrorMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
