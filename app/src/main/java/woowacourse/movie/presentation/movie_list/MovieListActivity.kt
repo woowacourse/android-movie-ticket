@@ -9,13 +9,15 @@ import woowacourse.movie.presentation.IntentKeys.MOVIE_ID
 import woowacourse.movie.presentation.movie_detail.MovieDetailActivity
 import woowacourse.movie.R
 import woowacourse.movie.presentation.movie_list.adapter.AdapterClickListenter
-import woowacourse.movie.presentation.movie_list.adapter.MovieAdapter
+import woowacourse.movie.presentation.movie_list.adapter.MovieBriefAdapter
 import woowacourse.movie.uimodel.movie.MovieBrief
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View, AdapterClickListenter {
     private lateinit var movieRecyclerView: RecyclerView
-    private lateinit var movieAdapter: MovieAdapter
     private lateinit var presenter: MovieListPresenter
+    private val movieBriefAdapter: MovieBriefAdapter by lazy {
+        MovieBriefAdapter(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +31,8 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View, AdapterCl
     }
 
     override fun displayMovieBriefs(movieBriefs: List<MovieBrief>) {
-        movieAdapter = MovieAdapter(movieBriefs, this)
-        movieRecyclerView.adapter = movieAdapter
+        movieBriefAdapter.addList(movieBriefs)
+        movieRecyclerView.adapter = movieBriefAdapter
         movieRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 

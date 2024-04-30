@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.uimodel.movie.MovieBrief
 
-class MovieAdapter(
-    private val movieBriefs: List<MovieBrief>,
-    private val adapterClickListenter: AdapterClickListenter,
-) : RecyclerView.Adapter<ViewHolder>(),
-    MovieAdapterContract.Model,
-    MovieAdapterContract.View {
+class MovieBriefAdapter(
+    private val adapterClickListener: AdapterClickListenter,
+) : RecyclerView.Adapter<ViewHolder>() {
+    private val movieBriefs: MutableList<MovieBrief> = mutableListOf()
     override fun getItemCount(): Int = movieBriefs.size
 
     override fun getItemId(position: Int): Long = position.toLong()
@@ -37,7 +35,8 @@ class MovieAdapter(
             )
         } else {
             val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.advertisement_list_item, parent, false)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.advertisement_list_item, parent, false)
             object : ViewHolder(view) {}
         }
     }
@@ -57,10 +56,6 @@ class MovieAdapter(
         }
     }
 
-    override fun notifyItemClicked(position: Int) {
-        adapterClickListenter.onClick(position)
-    }
-
     inner class MovieHolder(
         val title: TextView,
         val screeningDate: TextView,
@@ -70,7 +65,7 @@ class MovieAdapter(
     ) : ViewHolder(itemView) {
         init {
             detailButton.setOnClickListener {
-                notifyItemClicked(adapterPosition)
+                adapterClickListener.onClick(bindingAdapterPosition)
             }
         }
 
@@ -84,5 +79,11 @@ class MovieAdapter(
     companion object {
         private const val TYPE_MOVIE = 0
         private const val TYPE_ADVERTISEMENT = 1
+    }
+
+    fun addList(movieBriefs: List<MovieBrief>) {
+        val positionStart = this.movieBriefs.size
+        this.movieBriefs.addAll(movieBriefs)
+        notifyItemRangeChanged(positionStart, movieBriefs.size)
     }
 }
