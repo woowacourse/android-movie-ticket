@@ -16,9 +16,7 @@ class BoxOffice private constructor(
         get() = seats.size == count
 
     fun updateSeats(newSeats: List<BookingSeat>): Result<Unit> {
-        if (newSeats.size > count) {
-            return Result.Error(ERROR_OVER_COUNT)
-        }
+        if (newSeats.size > count) return Result.Error(ERROR_OVER_COUNT)
         seats = newSeats
         return Result.Success(Unit)
     }

@@ -64,7 +64,7 @@ class SeatSelectionPresenter(
                 boxOffice.seats + selectedSeat
             }
 
-        when (val updateResult = boxOffice.updateSeats(newSeats)) {
+        when (boxOffice.updateSeats(newSeats)) {
             is Result.Success -> {
                 ticketingResult =
                     ticketingResult.copy(seats = boxOffice.seats, price = boxOffice.totalPrice)
