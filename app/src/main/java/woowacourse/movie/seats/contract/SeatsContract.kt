@@ -17,7 +17,7 @@ interface SeatsContract {
 
         fun setSeatsText(info: Seat)
 
-        fun startNextActivity(
+        fun startActivityTransition(
             id: Long,
             title: String,
             date: String,

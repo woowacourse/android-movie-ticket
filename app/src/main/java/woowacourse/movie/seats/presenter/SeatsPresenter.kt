@@ -34,7 +34,7 @@ class SeatsPresenter(val view: SeatsContract.View) : SeatsContract.Presenter {
     }
 
     override fun startNextActivity() {
-        view.startNextActivity(
+        view.startActivityTransition(
             movieId,
             MovieDataSource.movieList[movieId.toInt()].title,
             date,

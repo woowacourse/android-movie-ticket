@@ -132,7 +132,7 @@ class SeatsActivity : AppCompatActivity(), SeatsContract.View {
             }.setCancelable(false).show()
     }
 
-    override fun startNextActivity(
+    override fun startActivityTransition(
         id: Long,
         title: String,
         date: String,
