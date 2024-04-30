@@ -11,7 +11,6 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
@@ -21,7 +20,6 @@ import woowacourse.movie.model.theater.Theater
 import woowacourse.movie.purchaseConfirmation.PurchaseConfirmationActivity
 
 @SuppressLint("DiscouragedApi")
-@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
     private lateinit var presenter: TheaterSeatPresenter
     private val totalPrice: TextView by lazy { findViewById(R.id.total_price) }
@@ -69,7 +67,11 @@ class TheaterSeatActivity : AppCompatActivity(), TheaterSeatContract.View {
         builder.setTitle("예매 확인")
         builder.setMessage("정말 예매하시겠습니까?")
         builder.setPositiveButton("예매 완료") { _, _ ->
-            val theater = intent.getSerializableExtra("Theater", Theater::class.java)
+            val theater = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getSerializableExtra("Theater", Theater::class.java)
+            } else {
+                TODO("VERSION.SDK_INT < TIRAMISU")
+            }
             val ticketPrice = findViewById<TextView>(R.id.total_price).text
             if (theater != null) {
                 val intent = Intent(this, PurchaseConfirmationActivity::class.java).apply {
