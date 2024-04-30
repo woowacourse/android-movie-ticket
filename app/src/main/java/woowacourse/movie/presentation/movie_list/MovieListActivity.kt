@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import woowacourse.movie.IntentKeys.MOVIE_ID
+import woowacourse.movie.presentation.IntentKeys.MOVIE_ID
 import woowacourse.movie.presentation.movie_detail.MovieDetailActivity
 import woowacourse.movie.R
 import woowacourse.movie.presentation.movie_list.adapter.AdapterClickListenter

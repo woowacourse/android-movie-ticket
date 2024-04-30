@@ -11,8 +11,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import woowacourse.movie.IntentKeys.MOVIE_ID
-import woowacourse.movie.IntentKeys.SEAT_PLAN
+import woowacourse.movie.presentation.IntentKeys.MOVIE_ID
+import woowacourse.movie.presentation.IntentKeys.SEAT_PLAN
 import woowacourse.movie.R
 import woowacourse.movie.presentation.seat_selection.SeatSelectionActivity
 import woowacourse.movie.model.schedule.ScreeningDate

@@ -10,7 +10,7 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.IntentKeys.SEAT_PLAN
+import woowacourse.movie.presentation.IntentKeys.SEAT_PLAN
 import woowacourse.movie.R
 import woowacourse.movie.model.Theater
 import woowacourse.movie.model.pricing.Tier

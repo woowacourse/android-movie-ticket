@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation
 
 object IntentKeys {
     const val MOVIE_ID = "MOVIE_ID"
