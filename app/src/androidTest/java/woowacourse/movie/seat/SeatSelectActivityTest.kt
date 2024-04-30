@@ -48,17 +48,17 @@ class SeatSelectActivityTest {
     }
 
     @Test
-    fun `영화_정보가_보여진다`() {
+    fun `영화_정보_해리_포터와_마법사의_돌가_보여진다`() {
         onView(withId(R.id.text_view_seat_select_movie_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
-    fun `영화_좌석이_보여진다`() {
+    fun `영화_좌석이_20개가_보여진다`() {
         onView(withId(R.id.grid_layout_seat_select)).check(matches(hasChildCount(20)))
     }
 
     @Test
-    fun `좌석을_선택하면_배경색이_변경된다`() {
+    fun `좌석을_선택하면_배경색이_노란색으로_변경된다`() {
         activityRule.scenario.onActivity {
             val item = seats.first()
             item.performClick()
@@ -68,7 +68,7 @@ class SeatSelectActivityTest {
     }
 
     @Test
-    fun `좌석_선택_취소하면_처음_색상으로_돌아간다`() {
+    fun `좌석_선택_취소하면_하얀색으로_돌아간다`() {
         activityRule.scenario.onActivity {
             val item = seats.first()
             repeat(2) { item.performClick() }
@@ -78,7 +78,7 @@ class SeatSelectActivityTest {
     }
 
     @Test
-    fun `확인버튼_선택_시_다이얼로그가_나타난다`() {
+    fun `확인버튼_선택_시_예매_확인_다이얼로그가_나타난다`() {
         activityRule.scenario.onActivity {
             val item = seats.first()
             item.performClick()

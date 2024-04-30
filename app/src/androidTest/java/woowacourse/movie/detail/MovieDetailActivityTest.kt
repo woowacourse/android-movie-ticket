@@ -30,7 +30,7 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun `빼기_버튼을_누르면_영화_티켓_수가_감소한다`() {
+    fun `빼기_버튼을_누르면_영화_티켓_수가_1만큼_감소한다`() {
         onView(withId(R.id.button_reservation_detail_plus)).perform(click())
 
         onView(withId(R.id.button_reservation_detail_minus)).perform(click())
@@ -39,14 +39,14 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun `더하기_버튼을_누르면_영화_티켓_수가_증가한다`() {
+    fun `더하기_버튼을_누르면_영화_티켓_수가_1만큼_증가한다`() {
         onView(withId(R.id.button_reservation_detail_plus)).perform(click())
 
         onView(withId(R.id.text_view_reservation_detail_number_of_tickets)).check(matches(withText("2")))
     }
 
     @Test
-    fun `상영날짜_선택시_선택한_날짜가_선택된다`() {
+    fun `2024_01_01_상영날짜_선택시_2024_01_01_날짜가_보여진다`() {
         onView(withId(R.id.spinner_reservation_detail_screening_date)).perform(click())
         onData(
             allOf(
@@ -58,7 +58,7 @@ class MovieDetailActivityTest {
     }
 
     @Test
-    fun `상영시간_선택시_선택한_시간이_선택된다`() {
+    fun `10_00_상영시간_선택시_10_00_상영시간이_보여진다`() {
         onView(withId(R.id.spinner_reservation_detail_screening_time)).perform(click())
         onData(
             allOf(
