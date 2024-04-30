@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#EAEAEA</color>
+    <color name="screen_text_background">#494949</color>
+    <color name="b_class_seat">#8E13EF</color>
+    <color name="s_class_seat">#19D358</color>
+    <color name="a_class_seat">#1B48E9</color>
+    <color name="selected_seat">#FFFF00</color>
+    <color name="unSelected_seat">#FFFFFF</color>
 </resources>

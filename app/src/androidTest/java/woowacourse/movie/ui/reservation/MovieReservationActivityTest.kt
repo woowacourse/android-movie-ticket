@@ -1,19 +1,16 @@
 package woowacourse.movie.ui.reservation
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -21,13 +18,10 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.model.movie.MovieDate
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @RunWith(AndroidJUnit4::class)
 class MovieReservationActivityTest {
-    private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
     private val movieContent: MovieContent = MovieContentsImpl.find(0L)
 
     private val intent =
@@ -50,32 +44,16 @@ class MovieReservationActivityTest {
 
     @Test
     fun `화면이_띄워지면_상영일이_보인다`() {
-        val screeningDate = dateFormatter(movieContent.screeningMovieDate)
-
         onView(withId(R.id.screening_date_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("상영일: $screeningDate")))
+            .check(matches(withText("상영일: 2024.03.01 ~ 2024.03.28")))
     }
 
     @Test
     fun `화면이_띄워지면_러닝타임이_보인다`() {
         onView(withId(R.id.running_time_text))
             .check(matches(isDisplayed()))
-            .check(matches(withText("러닝타임: ${MovieContentsImpl.find(0L).runningTime}분")))
-    }
-
-    @Test
-    fun `스크롤_하면_시놉시스가_보인다`() {
-        onView(withId(R.id.synopsis_text))
-            .check(matches(isDisplayed()))
-            .perform(scrollTo())
-            .check(
-                matches(
-                    withText(
-                        movieContent.synopsis,
-                    ),
-                ),
-            )
+            .check(matches(withText("러닝타임: ${movieContent.runningTime}분")))
     }
 
     @Test
@@ -155,12 +133,6 @@ class MovieReservationActivityTest {
             .check(matches(withText("3")))
     }
 
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
-        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
-    }
-
     companion object {
         @JvmStatic
         @BeforeClass
@@ -169,7 +141,8 @@ class MovieReservationActivityTest {
                 MovieContent(
                     "movie_poster",
                     "해리 포터와 마법사의 돌",
-                    MovieDate(2024, 3, 1),
+                    LocalDate.of(2024, 3, 1),
+                    LocalDate.of(2024, 3, 28),
                     152,
                     "《해리 포터와 마법사의 돌》은 2001년 J. K. 롤링의 동명 소설을 원작으로 하여 만든, 영국과 미국 합작, " +
                         "판타지 영화이다. 해리포터 시리즈 영화 8부작 중 첫 번째에 해당하는 작품이다. 크리스 콜럼버스가 감독을 맡았다. ",

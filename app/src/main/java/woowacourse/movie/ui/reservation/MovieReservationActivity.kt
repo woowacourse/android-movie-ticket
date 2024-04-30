@@ -4,25 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.model.data.MovieContentsImpl
+import woowacourse.movie.model.data.UserTicketsImpl
 import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.model.movie.MovieDate
-import woowacourse.movie.ui.HandleError
 import woowacourse.movie.ui.base.BaseActivity
-import woowacourse.movie.ui.complete.MovieReservationCompleteActivity
+import woowacourse.movie.ui.selection.MovieSeatSelectionActivity
 import woowacourse.movie.ui.utils.getImageFromId
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     BaseActivity<MovieReservationContract.Presenter>(),
-    MovieReservationContract.View,
-    HandleError {
+    MovieReservationContract.View {
     private val posterImage by lazy { findViewById<ImageView>(R.id.poster_image) }
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
     private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
@@ -32,6 +35,8 @@ class MovieReservationActivity :
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
     private val plusButton by lazy { findViewById<Button>(R.id.plus_button) }
     private val reservationButton by lazy { findViewById<Button>(R.id.reservation_button) }
+    private val movieDateSpinner by lazy { findViewById<Spinner>(R.id.screeningDate_spinner) }
+    private val movieTimeSpinner by lazy { findViewById<Spinner>(R.id.screeningTime_spinner) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +44,53 @@ class MovieReservationActivity :
 
         val movieContentId = movieContentId()
         if (movieContentId == DEFAULT_VALUE) {
-            handleError()
+            presenter.handleError(NoSuchElementException())
             return
         }
 
-        initializeUi(movieContentId)
+        presenter.loadMovieContent(movieContentId)
+        presenter.updateReservationCount()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        setOnClickMovieDateSpinnerListener()
+        setOnClickMovieTimeSpinnerListener()
         setOnClickButtonListener()
+    }
+
+    private fun setOnClickMovieTimeSpinnerListener() {
+        movieTimeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val value = movieTimeSpinner.getItemAtPosition(position)
+                    presenter.selectTime(value as LocalTime)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+    }
+
+    private fun setOnClickMovieDateSpinnerListener() {
+        movieDateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val movieDate = movieDateSpinner.getItemAtPosition(position)
+                    presenter.selectDate(movieDate as LocalDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -62,20 +108,14 @@ class MovieReservationActivity :
         }
     }
 
-    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl)
+    override fun initializePresenter() = MovieReservationPresenter(this, MovieContentsImpl, UserTicketsImpl)
 
     private fun movieContentId() = intent.getLongExtra(MovieReservationKey.ID, DEFAULT_VALUE)
 
-    override fun handleError() {
-        Log.e(TAG, "Invalid MovieContentKey")
+    override fun showError(throwable: Throwable) {
+        Log.e(TAG, throwable.message.toString())
         Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
         finish()
-    }
-
-    private fun initializeUi(movieContentId: Long) {
-        presenter.loadMovieContent(movieContentId)
-        presenter.updateReservationCount()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -95,45 +135,51 @@ class MovieReservationActivity :
         }
 
         reservationButton.setOnClickListener {
-            presenter.reserveMovie()
+            presenter.reserveSeat()
         }
     }
 
-    override fun showMovieContentUi(movieContent: MovieContent) {
+    override fun showMovieContent(movieContent: MovieContent) {
         movieContent.run {
             val image = imageId.getImageFromId(this@MovieReservationActivity)
             posterImage.setImageResource(image)
             titleText.text = title
             screeningDateText.text =
                 resources.getString(R.string.screening_date)
-                    .format(dateFormatter(screeningMovieDate))
+                    .format(dateFormatter(openingMovieDate), dateFormatter(endingMoviesDate))
             runningTimeText.text = resources.getString(R.string.running_time).format(runningTime)
             synopsisText.text = synopsis
         }
     }
 
-    override fun updateReservationCountUi(reservationCount: Int) {
+    override fun updateReservationCount(reservationCount: Int) {
         reservationCountText.text = reservationCount.toString()
     }
 
-    override fun moveMovieReservationCompleteView(reservationCount: Int) {
-        Intent(this, MovieReservationCompleteActivity::class.java).run {
-            putExtra(MovieReservationKey.ID, movieContentId())
-            putExtra(MovieReservationKey.COUNT, reservationCount)
+    override fun showMovieDateSelection(dateRange: List<LocalDate>) {
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, dateRange).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            movieDateSpinner.adapter = this
+        }
+    }
+
+    override fun showMovieTimeSelection(timeRange: List<LocalTime>) {
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, timeRange).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            movieTimeSpinner.adapter = this
+        }
+    }
+
+    override fun moveMovieSeatSelectionPage(userTicketId: Long) {
+        Intent(this, MovieSeatSelectionActivity::class.java).run {
+            putExtra(MovieReservationKey.TICKET_ID, userTicketId)
             startActivity(this)
         }
     }
 
-    override fun showError(e: Exception) {
-        Log.e(TAG, e.message.toString())
-        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
-        finish()
-    }
-
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
+    private fun dateFormatter(movieDate: LocalDate): String {
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
+        return movieDate.format(formatter)
     }
 
     companion object {

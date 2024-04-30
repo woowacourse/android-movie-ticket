@@ -1,104 +1,75 @@
 package woowacourse.movie.ui.complete
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieContentsImpl
-import woowacourse.movie.model.movie.MovieContent
-import woowacourse.movie.model.movie.MovieDate
-import woowacourse.movie.model.movie.Ticket
-import woowacourse.movie.ui.HandleError
+import woowacourse.movie.model.data.UserTicketsImpl
+import woowacourse.movie.model.movie.UserTicket
 import woowacourse.movie.ui.base.BaseActivity
-import java.time.LocalDate
+import woowacourse.movie.ui.home.MovieHomeActivity
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     BaseActivity<MovieReservationCompleteContract.Presenter>(),
-    MovieReservationCompleteContract.View,
-    HandleError {
+    MovieReservationCompleteContract.View {
     private val titleText by lazy { findViewById<TextView>(R.id.title_text) }
-    private val screeningDateText by lazy { findViewById<TextView>(R.id.screening_date_text) }
+    private val screeningDateTimeText by lazy { findViewById<TextView>(R.id.screening_date_time_text) }
     private val reservationCountText by lazy { findViewById<TextView>(R.id.reservation_count_text) }
+    private val reservationSeatText by lazy { findViewById<TextView>(R.id.reservation_seat_text) }
     private val reservationAmountText by lazy { findViewById<TextView>(R.id.reservation_amount_text) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_reservation_complete)
 
-        val movieContentId = movieContentId()
-        val reservationCount = reservationCount()
-        if (movieContentId == MOVIE_CONTENT_ID_DEFAULT_VALUE || reservationCount == RESERVATION_COUNT_DEFAULT_VALUE) {
-            handleError()
+        val userTicketId = userTicketId()
+        if (userTicketId == USER_TICKET_ID_DEFAULT_VALUE) {
+            presenter.handleError(NoSuchElementException())
             return
         }
 
-        setUpUi(movieContentId, reservationCount)
+        presenter.loadTicket(userTicketId)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun initializePresenter() = MovieReservationCompletePresenter(this, MovieContentsImpl)
+    override fun initializePresenter() = MovieReservationCompletePresenter(this, UserTicketsImpl)
 
-    private fun movieContentId() = intent.getLongExtra(MovieReservationCompleteKey.ID, MOVIE_CONTENT_ID_DEFAULT_VALUE)
+    private fun userTicketId() = intent.getLongExtra(MovieReservationCompleteKey.TICKET_ID, USER_TICKET_ID_DEFAULT_VALUE)
 
-    private fun reservationCount() = intent.getIntExtra(MovieReservationCompleteKey.COUNT, RESERVATION_COUNT_DEFAULT_VALUE)
-
-    override fun handleError() {
-        Log.e(TAG, "Invalid Key")
+    override fun showError(throwable: Throwable) {
+        Log.e(TAG, throwable.message.toString())
         Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
         finish()
-    }
-
-    private fun setUpUi(
-        movieContentId: Long,
-        reservationCount: Int,
-    ) {
-        presenter.loadMovieContent(movieContentId)
-        presenter.updateTicket(reservationCount)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> finish()
+            android.R.id.home -> startActivity(Intent(this, MovieHomeActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showMovieContentUi(movieContent: MovieContent) {
-        movieContent.run {
+    override fun showTicket(userTicket: UserTicket) {
+        userTicket.run {
             titleText.text = title
-            screeningDateText.text =
-                resources.getString(R.string.date)
-                    .format(dateFormatter(screeningMovieDate))
-        }
-    }
-
-    override fun updateTicketUi(ticket: Ticket) {
-        ticket.run {
+            screeningDateTimeText.text =
+                screeningStartDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
             reservationCountText.text =
-                resources.getString(R.string.reservation_count).format(reservationCount.count)
+                resources.getString(R.string.reservation_count)
+                    .format(reservationDetail.selectedSeat.size)
+            reservationSeatText.text = userTicket.reservationDetail.selectedSeat.joinToString()
             reservationAmountText.text =
-                resources.getString(R.string.reservation_amount).format(amount())
+                resources.getString(R.string.reservation_amount)
+                    .format(userTicket.reservationDetail.totalSeatAmount())
         }
-    }
-
-    override fun showError(e: Exception) {
-        Log.e(TAG, e.message.toString())
-        Toast.makeText(this, resources.getString(R.string.invalid_key), Toast.LENGTH_LONG).show()
-        finish()
-    }
-
-    private fun dateFormatter(movieDate: MovieDate): String {
-        val screeningDate = LocalDate.of(movieDate.year, movieDate.month, movieDate.day)
-        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        return screeningDate.format(formatter)
     }
 
     companion object {
         private val TAG = MovieReservationCompleteActivity::class.simpleName
-        private const val MOVIE_CONTENT_ID_DEFAULT_VALUE = -1L
-        private const val RESERVATION_COUNT_DEFAULT_VALUE = -1
+        private const val USER_TICKET_ID_DEFAULT_VALUE = -1L
     }
 }
