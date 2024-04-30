@@ -25,7 +25,7 @@ class MovieReservationPresenter(
         )
     }
 
-    override fun initializeReservationCount() {
+    override fun loadReservationCount() {
         reservationCount = ReservationCount()
         view.updateReservationCount(reservationCount.count)
     }

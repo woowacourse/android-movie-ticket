@@ -105,7 +105,7 @@ class MovieReservationActivity :
 
     private fun initializeView(movieId: Long) {
         presenter.loadMovieData(movieId)
-        presenter.initializeReservationCount()
+        presenter.loadReservationCount()
         setOnClickButtonListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

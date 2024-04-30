@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.setUpReservationCount
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
-import woowacourse.movie.model.time.rangeTo
 
 class MovieReservationPresenterTest {
     private lateinit var view: MovieReservationContract.View
@@ -43,7 +42,7 @@ class MovieReservationPresenterTest {
         every { view.updateReservationCount(any()) } just runs
 
         // when
-        presenter.initializeReservationCount()
+        presenter.loadReservationCount()
 
         // then
         verify { view.updateReservationCount(1) }
@@ -106,7 +105,7 @@ class MovieReservationPresenterTest {
         // given
         every { view.moveSeatSelectView(any(), any()) } just runs
         every { view.updateReservationCount(any()) } just runs
-        presenter.initializeReservationCount()
+        presenter.loadReservationCount()
 
         // when
         presenter.selectSeat("2024-4-27", "11:00")
@@ -119,7 +118,7 @@ class MovieReservationPresenterTest {
     fun `예약 인원을 4명으로 변경하면 4명이 된다`() {
         // given
         every { view.updateReservationCount(any()) } just runs
-        presenter.initializeReservationCount()
+        presenter.loadReservationCount()
 
         // when
         presenter.updateReservationCount(4)
@@ -133,7 +132,7 @@ class MovieReservationPresenterTest {
         // given
         every { view.handleError(any()) } just runs
         every { view.updateReservationCount(any()) } just runs
-        presenter.initializeReservationCount()
+        presenter.loadReservationCount()
 
         // when
         presenter.updateReservationCount(30)

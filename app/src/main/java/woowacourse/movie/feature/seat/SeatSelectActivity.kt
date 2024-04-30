@@ -127,7 +127,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         titleText.text = movie.titleMessage
     }
 
-    override fun initializeSeatTable(seats: List<List<SeatSelectTableUiModel>>) {
+    override fun loadSeatTable(seats: List<List<SeatSelectTableUiModel>>) {
         seatViewsIndexed { row, col, seatView ->
             seatView.text = seats[row][col].seatMessage
             val color = ContextCompat.getColor(this, seats[row][col].seatColorId)

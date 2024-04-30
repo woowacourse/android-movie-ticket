@@ -35,7 +35,7 @@ class SeatSelectPresenter(
         this.selectedSeats = selectedSeats
         seatTable = SeatTable(row, col)
         val seatsUiModel = SeatSelectTableUiModel.from(seatTable)
-        view.initializeSeatTable(seatsUiModel)
+        view.loadSeatTable(seatsUiModel)
     }
 
     override fun selectSeat(

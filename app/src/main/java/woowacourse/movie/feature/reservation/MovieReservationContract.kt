@@ -26,7 +26,7 @@ interface MovieReservationContract {
     interface Presenter : BasePresenter {
         fun loadMovieData(movieId: Long)
 
-        fun initializeReservationCount()
+        fun loadReservationCount()
 
         fun decreaseReservationCount()
 

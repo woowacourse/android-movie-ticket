@@ -10,7 +10,7 @@ import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SelectedSeats
 
 fun MovieReservationPresenter.setUpReservationCount(count: Int) {
-    initializeReservationCount()
+    loadReservationCount()
     repeat(count - 1) { increaseReservationCount() }
 }
 
@@ -19,7 +19,7 @@ fun SeatSelectContract.View.setUpForSelectSeat() {
     every { showCannotSelectSeat() } just runs
     every { unselectSeat(any(), any()) } just runs
     every { updateReservationAmount(any()) } just runs
-    every { initializeSeatTable(any()) } just runs
+    every { loadSeatTable(any()) } just runs
 }
 
 fun SelectedSeats(

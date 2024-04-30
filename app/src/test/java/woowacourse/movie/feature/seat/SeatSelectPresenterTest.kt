@@ -44,13 +44,13 @@ class SeatSelectPresenterTest {
     @Test
     fun `좌석표를 초기화하면 좌석표 뷰가 초기화된다`() {
         // given
-        every { view.initializeSeatTable(any()) } just runs
+        every { view.loadSeatTable(any()) } just runs
 
         // when
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // then
-        verify { view.initializeSeatTable(any()) }
+        verify { view.loadSeatTable(any()) }
     }
 
     @Test
@@ -121,7 +121,7 @@ class SeatSelectPresenterTest {
     fun `확인 버튼을 클릭하면 예매 완료 페이지로 이동한다`() {
         // given
         every { view.moveReservationCompleteView(any()) } just runs
-        every { view.initializeSeatTable(any()) } just runs
+        every { view.loadSeatTable(any()) } just runs
         presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
