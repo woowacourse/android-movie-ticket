@@ -7,77 +7,85 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/item_imageview"
         android:layout_width="80dp"
-        android:layout_height="130dp"
+        android:layout_height="0dp"
         android:scaleType="fitXY"
-        tools:src="@drawable/harry_image1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/harry_potter_1" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/item_title_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/image_view"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="해리포터와 마법사의 돌" />
+        app:layout_constraintStart_toEndOf="@id/item_imageview"
+        app:layout_constraintTop_toTopOf="@id/item_imageview"
+        tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
-        android:id="@+id/screen_date_header"
+        android:id="@+id/item_screen_date_header_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="상영일: "
-        app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/item_title_textview"
+        app:layout_constraintTop_toBottomOf="@id/item_title_textview" />
 
     <TextView
-        android:id="@+id/screen_date"
+        android:id="@+id/item_screen_date_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/screen_date_header"
-        app:layout_constraintStart_toEndOf="@+id/screen_date_header"
-        app:layout_constraintTop_toTopOf="@+id/screen_date_header"
-        tools:text="2024.03.01일" />
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/item_screen_date_header_textview"
+        app:layout_constraintStart_toEndOf="@id/item_screen_date_header_textview"
+        app:layout_constraintTop_toTopOf="@id/item_screen_date_header_textview"
+        tools:text="2024.3.1" />
 
     <TextView
-        android:id="@+id/running_time_header"
+        android:id="@+id/item_running_time_header_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="러닝타임: "
-        app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@+id/screen_date" />
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/item_screen_date_header_textview"
+        app:layout_constraintTop_toBottomOf="@id/item_screen_date_header_textview" />
 
     <TextView
-        android:id="@+id/running_time"
+        android:id="@+id/item_running_time_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/running_time_header"
-        app:layout_constraintStart_toEndOf="@+id/running_time_header"
-        app:layout_constraintTop_toTopOf="@+id/running_time_header"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/item_running_time_header_textview"
+        app:layout_constraintStart_toEndOf="@id/item_running_time_header_textview"
+        app:layout_constraintTop_toTopOf="@id/item_running_time_header_textview"
         tools:text="152" />
 
+
     <TextView
-        android:id="@+id/minute_textview"
+        android:id="@+id/item_minute_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="분"
-        app:layout_constraintBottom_toBottomOf="@+id/running_time_header"
-        app:layout_constraintStart_toEndOf="@+id/running_time"
-        app:layout_constraintTop_toTopOf="@+id/running_time_header" />
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/item_running_time_textview"
+        app:layout_constraintTop_toTopOf="@id/item_running_time_header_textview" />
 
     <Button
-        android:id="@+id/reservation_button"
+        android:id="@+id/item_reservation_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
         android:text="지금 예매"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/running_time" />
-
+        app:layout_constraintTop_toBottomOf="@id/item_running_time_header_textview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

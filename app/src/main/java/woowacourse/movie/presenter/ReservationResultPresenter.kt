@@ -1,5 +1,0 @@
-package woowacourse.movie.presenter
-
-import woowacourse.movie.contract.ReservationResultContract
-
-class ReservationResultPresenter : ReservationResultContract.Presenter
