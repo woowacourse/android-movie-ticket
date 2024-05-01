@@ -4,6 +4,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.screening.BasicScreeningScheduleSystem
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.SeatRow
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -53,11 +54,11 @@ object TestFixture {
     val MOCK_SEATS: List<Seat> =
         listOf(
             Seat(
-                "A",
+                SeatRow.A,
                 1,
             ),
             Seat(
-                "A",
+                SeatRow.A,
                 2,
             ),
         )

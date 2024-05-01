@@ -4,6 +4,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.SeatRow
 import java.time.LocalDateTime
 
 object MockTicketRepository : TicketRepository {
@@ -21,7 +22,7 @@ object MockTicketRepository : TicketRepository {
                 0,
                 MOCK_MOVIE,
                 LocalDateTime.now(),
-                listOf(Seat("A", 1)),
+                listOf(Seat(SeatRow.A, 1)),
                 10000,
             ),
         )

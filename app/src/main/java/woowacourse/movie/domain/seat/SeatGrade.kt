@@ -7,10 +7,10 @@ enum class SeatGrade(val price: Long) {
     ;
 
     companion object {
-        fun getGrade(row: String): SeatGrade {
+        fun getGrade(row: SeatRow): SeatGrade {
             return when (row) {
-                "A", "B" -> B
-                "C", "D" -> S
+                SeatRow.A, SeatRow.B -> B
+                SeatRow.C, SeatRow.D -> S
                 else -> A
             }
         }

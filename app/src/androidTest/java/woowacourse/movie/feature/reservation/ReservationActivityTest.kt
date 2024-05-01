@@ -51,9 +51,11 @@ class ReservationActivityTest {
     fun `플러스_버튼_클릭시_수량이_증가한다`() {
         onView(withId(R.id.btn_plus))
             .perform(click())
+            .perform(click())
+            .perform(click())
 
         onView(withId(R.id.reservation_quantity))
-            .check(matches(withText("1")))
+            .check(matches(withText("3")))
     }
 
     @Test

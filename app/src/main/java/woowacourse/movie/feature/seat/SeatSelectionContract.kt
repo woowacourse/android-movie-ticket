@@ -11,14 +11,23 @@ interface SeatSelectionContract {
         )
 
         fun navigateToReservationCompleted(reservationId: Long)
+
+        fun noticeReservationImpossible(quantity: Int)
+
+        fun updatePriceTextView(price: Long)
+
+        fun checkSeatSelected(index: Int)
+
+        fun confirmReservation()
     }
 
     interface Presenter {
         fun fetchData()
 
-        fun saveTicket(
-            seatList: List<String>,
-            price: Long,
-        )
+        fun saveTicket()
+
+        fun proceedReservation()
+
+        fun proceedSeatSelection(index: Int)
     }
 }

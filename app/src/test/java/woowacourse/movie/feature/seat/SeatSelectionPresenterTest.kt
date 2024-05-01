@@ -21,6 +21,7 @@ class SeatSelectionPresenterTest {
                 0,
                 0,
                 0,
+                1,
             )
     }
 
@@ -44,7 +45,7 @@ class SeatSelectionPresenterTest {
         presenter.fetchData()
 
         // when
-        presenter.saveTicket(listOf("A1"), 10000)
+        presenter.saveTicket()
 
         // then
         verify { view.navigateToReservationCompleted(any()) }

@@ -45,7 +45,7 @@ fun Ticket.toUiModel(): TicketModel {
         title = movie.title,
         date = reservationDateTime.format(dateFormatter),
         time = reservationDateTime.format(timeFormatter),
-        seats = seats.map { it.row + it.col.toString() }.sorted(),
+        seats = seats.map { it.row.name + it.col.toString() }.sorted(),
         price = price,
     )
 }

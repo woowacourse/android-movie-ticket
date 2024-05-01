@@ -20,7 +20,7 @@ import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 import woowacourse.movie.feature.seat.SeatSelectionActivity
 
 class ReservationActivity : AppCompatActivity(), ReservationContract.View {
-    private val presenter = ReservationPresenter(this)
+    private val presenter: ReservationContract.Presenter = ReservationPresenter(this)
     private val quantityTv by lazy { findViewById<TextView>(R.id.reservation_quantity) }
     private val posterIv by lazy { findViewById<ImageView>(R.id.reservation_poster) }
     private val movieTitleTv by lazy { findViewById<TextView>(R.id.reservation_movie_title) }

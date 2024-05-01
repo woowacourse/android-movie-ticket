@@ -13,7 +13,7 @@ data class SeatModel(
 
 fun Seat.toUiModel(): SeatModel =
     SeatModel(
-        row = row,
+        row = row.name,
         col = col,
         grade = grade.name,
         price = price,

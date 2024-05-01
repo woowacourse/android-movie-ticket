@@ -24,20 +24,19 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val datePosition by lazy { intent.getIntExtra(DATE_POSITION, -1) }
     private val timePosition by lazy { intent.getIntExtra(TIME_POSITION, -1) }
     private val quantity by lazy { intent.getIntExtra(QUANTITY, -1) }
-    private val selectedSeatList: MutableList<String> = emptyList<String>().toMutableList()
     private val presenter by lazy {
         SeatSelectionPresenter(
             this,
             movieId,
             datePosition,
             timePosition,
+            quantity,
         )
     }
     private val movieTitleTv by lazy { findViewById<TextView>(R.id.tv_screen_movie_title) }
     private val priceTv by lazy { findViewById<TextView>(R.id.tv_seat_price) }
     private val seatBoardView: SeatBoardView by lazy { createSeatTextViews().let(::SeatBoardView) }
     private val reservationConfirmTv by lazy { findViewById<TextView>(R.id.btn_reservation_confirm) }
-    private var price: Long = 0
 
     private fun createSeatTextViews(): List<TextView> =
         findViewById<TableLayout>(R.id.table_seat)
@@ -54,55 +53,40 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         presenter.fetchData()
     }
 
-    private fun updatePriceTextView() {
+    override fun initialize(
+        screeningModels: ScreeningModel,
+        seatModels: List<SeatModel>,
+    ) {
+        updatePriceTextView(0)
+        movieTitleTv.text = screeningModels.title
+        initializeSeatView(seatModels)
+        reservationConfirmTv.setOnClickListener {
+            presenter.proceedReservation()
+        }
+    }
+
+    override fun updatePriceTextView(price: Long) {
         val formattedPrice = DecimalFormat(TicketModel.DECIMAL_FORMAT).format(price)
         priceTv.text = getString(R.string.seat_price, formattedPrice)
     }
 
-    override fun initialize(
-        movie: ScreeningModel,
-        seatModels: List<SeatModel>,
-    ) {
-        updatePriceTextView()
-        movieTitleTv.text = movie.title
+    private fun initializeSeatView(seatModels: List<SeatModel>) {
         seatBoardView.initText(seatModels)
-        seatBoardView.setupClickListener { index, seatView ->
-            setUpClickedSeatViewControl(seatView, seatModels, index)
-        }
-        reservationConfirmTv.setOnClickListener {
-            if (selectedSeatList.size == quantity) {
-                showReservationConfirmDialog()
-            } else {
-                Toast.makeText(this, "${quantity}개의 좌석을 선택해 주세요.", Toast.LENGTH_SHORT)
-                    .show()
-            }
+        seatBoardView.setupClickListener { index, _ ->
+            presenter.proceedSeatSelection(index)
         }
     }
 
-    private fun setUpClickedSeatViewControl(
-        seatView: TextView,
-        seatModels: List<SeatModel>,
-        index: Int,
-    ) {
-        if (seatView.isSelected) {
-            selectedSeatList.remove(seatView.text.toString())
-            price -= seatModels[index].price
-            seatView.isSelected = !seatView.isSelected
-            updatePriceTextView()
-        } else {
-            if (selectedSeatList.size < quantity) {
-                selectedSeatList.add(seatView.text.toString())
-                price += seatModels[index].price
-                seatView.isSelected = !seatView.isSelected
-                updatePriceTextView()
-            } else {
-                Toast.makeText(this, "${quantity}개의 좌석을 선택해 주세요.", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
+    override fun checkSeatSelected(index: Int) {
+        seatBoardView.updateSingleSeat(index)
     }
 
-    private fun showReservationConfirmDialog() {
+    override fun noticeReservationImpossible(quantity: Int) {
+        Toast.makeText(this, "${quantity}개의 좌석을 선택해 주세요.", Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    override fun confirmReservation() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
@@ -114,7 +98,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             .setPositiveButton(
                 "예매 완료",
                 DialogInterface.OnClickListener { _, _ ->
-                    presenter.saveTicket(selectedSeatList.toList(), price)
+                    presenter.saveTicket()
                 },
             )
         builder.show()
@@ -122,22 +106,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun navigateToReservationCompleted(reservationId: Long) {
         startActivity(ReservationCompletedActivity.getIntent(this, reservationId))
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putStringArrayList("selected_seats", ArrayList(selectedSeatList))
-        outState.putLong("price", price)
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        savedInstanceState.getStringArrayList("selected_seats")?.forEach {
-            selectedSeatList.add(it)
-        }
-        price = savedInstanceState.getLong("price")
-        updatePriceTextView()
-        seatBoardView.update(selectedSeatList.toList())
     }
 
     companion object {

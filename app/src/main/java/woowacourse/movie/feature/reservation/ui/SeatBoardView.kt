@@ -26,4 +26,9 @@ class SeatBoardView(private val spaceViews: List<TextView>) {
             }
         }
     }
+
+    fun updateSingleSeat(index: Int) {
+        val isSelected = spaceViews[index].isSelected
+        spaceViews[index].isSelected = !isSelected
+    }
 }

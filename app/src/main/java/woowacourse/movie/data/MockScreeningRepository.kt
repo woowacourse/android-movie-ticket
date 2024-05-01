@@ -4,31 +4,32 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.SeatRow
 import java.time.LocalDate
 
 object MockScreeningRepository : ScreeningRepository {
     private val defaultSeats: List<Seat> =
         listOf(
-            Seat("A", 1),
-            Seat("A", 2),
-            Seat("A", 3),
-            Seat("A", 4),
-            Seat("B", 1),
-            Seat("B", 2),
-            Seat("B", 3),
-            Seat("B", 4),
-            Seat("C", 1),
-            Seat("C", 2),
-            Seat("C", 3),
-            Seat("C", 4),
-            Seat("D", 1),
-            Seat("D", 2),
-            Seat("D", 3),
-            Seat("D", 4),
-            Seat("E", 1),
-            Seat("E", 2),
-            Seat("E", 3),
-            Seat("E", 4),
+            Seat(SeatRow.A, 1),
+            Seat(SeatRow.A, 2),
+            Seat(SeatRow.A, 3),
+            Seat(SeatRow.A, 4),
+            Seat(SeatRow.B, 1),
+            Seat(SeatRow.B, 2),
+            Seat(SeatRow.B, 3),
+            Seat(SeatRow.B, 4),
+            Seat(SeatRow.C, 1),
+            Seat(SeatRow.C, 2),
+            Seat(SeatRow.C, 3),
+            Seat(SeatRow.C, 4),
+            Seat(SeatRow.D, 1),
+            Seat(SeatRow.D, 2),
+            Seat(SeatRow.D, 3),
+            Seat(SeatRow.D, 4),
+            Seat(SeatRow.E, 1),
+            Seat(SeatRow.E, 2),
+            Seat(SeatRow.E, 3),
+            Seat(SeatRow.E, 4),
         )
 
     private val screenings: MutableList<Screening> =
