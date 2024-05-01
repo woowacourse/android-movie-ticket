@@ -23,20 +23,26 @@ data class SeatBoard(
         return when (seat.state) {
             SeatState.SELECTED -> {
                 val newSeat = seat.copy(state = SeatState.EMPTY)
-                Success(board = copy(totalSeats = totalSeats.replace(newSeat)), newSeat)
+                SeatSelectionResult.Success(
+                    board = copy(totalSeats = totalSeats.replace(newSeat)),
+                    newSeat
+                )
             }
 
             SeatState.EMPTY -> {
                 if (isCompletedSelection) {
-                    Failure
+                    SeatSelectionResult.Failure
                 } else {
                     val newSeat = seat.copy(state = SeatState.SELECTED)
-                    Success(board = copy(totalSeats = totalSeats.replace(newSeat)), newSeat)
+                    SeatSelectionResult.Success(
+                        board = copy(totalSeats = totalSeats.replace(newSeat)),
+                        newSeat
+                    )
                 }
             }
 
-            SeatState.RESERVED -> Failure
-            SeatState.BANNED -> Failure
+            SeatState.RESERVED -> SeatSelectionResult.Failure
+            SeatState.BANNED -> SeatSelectionResult.Failure
         }
     }
 

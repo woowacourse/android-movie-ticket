@@ -15,7 +15,7 @@
 - [x]: MovieAdapter 의 isAdPosition 상수화 혹은 전략 패턴
 - [x]: MovieRepository 무분별한 error 삭제
 - [x]: MovieReservationPresenter - CompleteReservation 네이밍 변경
-- [ ]: SeatSelectionResult sealed class 들 {}로 묶기
+- [x]: SeatSelectionResult sealed class 들 {}로 묶기
 - [ ]: SeatBoardView 의 clickListener 생성자로 받기
 - [ ]: ScreeningMoviePresenterTest 함수명 변경 (에러화면을 보여준다)
 - [ ]: 값도 함께 검증하기
