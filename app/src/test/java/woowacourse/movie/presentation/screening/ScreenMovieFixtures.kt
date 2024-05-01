@@ -32,6 +32,8 @@ fun stubScreenMovies(): List<ScreeningMovie> =
         stubScreenMovie(),
     )
 
+fun List<ScreeningMovie>.toScreenMovieUiModel(): List<ScreeningMovieUiModel> = map { it.toScreenMovieUiModel() }
+
 fun stubMovie(): Movie =
     Movie(
         id = 1,

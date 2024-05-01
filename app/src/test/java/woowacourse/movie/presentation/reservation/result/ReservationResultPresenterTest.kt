@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.reservation.result
 
+import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -11,6 +12,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.presentation.reservation.booking.stubMovieReservation
+import woowacourse.movie.presentation.reservation.booking.toUiModel
 import woowacourse.movie.repository.MovieRepository
 
 @ExtendWith(MockKExtension::class)
@@ -28,6 +30,8 @@ class ReservationResultPresenterTest {
     fun `예매한 영화 정보 가져오는 것을 성공하면, 결과 화면을 보여준다`() {
         // given
         val id = 1L
+        val movieReservation = stubMovieReservation()
+        val movieReservationUiModel = movieReservation.toUiModel()
         val idSlot = slot<Long>()
         val reservationSlot = slot<ReservationResultUiModel>()
         every { repository.movieReservationById(capture(idSlot)) } returns stubMovieReservation()
@@ -38,6 +42,8 @@ class ReservationResultPresenterTest {
         verify { repository.movieReservationById(idSlot.captured) }
         verify { view.showResult(reservationSlot.captured) }
         verify(exactly = 0) { view.showErrorView() }
+        idSlot.captured shouldBe id
+        reservationSlot.captured shouldBe movieReservationUiModel
     }
 
     @Test
@@ -49,6 +55,7 @@ class ReservationResultPresenterTest {
         // when
         presenter.loadReservationResult(id)
         // then
+        idSlot.captured shouldBe id
         verify { repository.movieReservationById(idSlot.captured) }
         verify { view.showErrorView() }
         verify(exactly = 0) { view.showResult(any()) }

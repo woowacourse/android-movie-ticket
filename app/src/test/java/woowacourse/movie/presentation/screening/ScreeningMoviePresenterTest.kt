@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.screening
 
+import io.kotest.matchers.shouldBe
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -26,6 +27,8 @@ class ScreeningMoviePresenterTest {
     @Test
     fun `presenter 가 상영중인 영화들을 가져오면, view 가 영화 목록을 보여준다`() {
         // given
+        val screenMovies = stubScreenMovies()
+        val screenMoviesUiModels = screenMovies.toScreenMovieUiModel()
         val moviesSlot = slot<List<ScreeningMovieUiModel>>()
         every { repository.screenMovies() } returns stubScreenMovies()
         every { view.showMovies(capture(moviesSlot)) } just Runs
@@ -34,6 +37,7 @@ class ScreeningMoviePresenterTest {
         // then
         verify { repository.screenMovies() }
         verify { view.showMovies(moviesSlot.captured) }
+        moviesSlot.captured shouldBe screenMoviesUiModels
     }
 
     @Test
@@ -48,6 +52,7 @@ class ScreeningMoviePresenterTest {
         verify { repository.screenMovieById(slot.captured) }
         verify { view.navigateToReservationView(slot.captured) }
         verify(exactly = 0) { view.showErrorView() }
+        slot.captured shouldBe screenId
     }
 
     @Test
@@ -62,5 +67,6 @@ class ScreeningMoviePresenterTest {
         verify { repository.screenMovieById(slot.captured) }
         verify(exactly = 0) { view.navigateToReservationView(any()) }
         verify { view.showErrorView() }
+        slot.captured shouldBe screenId
     }
 }

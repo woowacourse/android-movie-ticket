@@ -52,6 +52,11 @@ class MovieReservationPresenterTest {
         verify { view.showDatePicker(screenDatesSlot.captured) }
         verify { view.showTimePicker(screenTimesSlot.captured) }
         verify { view.showHeadCount(headCountSlot.captured) }
+        idSlot.captured shouldBe id
+        screenDatesSlot.captured shouldBe presenter.uiState.screenDates
+        screenTimesSlot.captured shouldBe presenter.uiState.screenTimes
+        headCountSlot.captured shouldBe presenter.uiState.headCount.count
+        screenMovieSlot.captured shouldBe presenter.uiState.movie
     }
 
     @Test
@@ -137,5 +142,11 @@ class MovieReservationPresenterTest {
         verify { view.showHeadCount(headCountSlot.captured) }
         verify { view.showTimePickerAt(selectedTimePositionSlot.captured) }
         verify { view.showScreenDateAt(selectedDatePositionSlot.captured) }
+        screenMovieSlot.captured shouldBe presenter.uiState.movie
+        screenDatesSlot.captured shouldBe presenter.uiState.screenDates
+        screenTimesSlot.captured shouldBe presenter.uiState.screenTimes
+        headCountSlot.captured shouldBe presenter.uiState.headCount.count
+        selectedTimePositionSlot.captured shouldBe presenter.uiState.selectedTimePosition
+        selectedDatePositionSlot.captured shouldBe presenter.uiState.selectedDatePosition
     }
 }
