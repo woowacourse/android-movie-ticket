@@ -25,6 +25,7 @@ import woowacourse.movie.utils.MovieIntentConstants.EXTRA_PARSED_MOVIE_RESERVATI
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_PARSED_MOVIE_RESERVATION_TIME
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.formatScreeningPeriod
+import woowacourse.movie.utils.getSerializableCompat
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -94,12 +95,12 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         super.onRestoreInstanceState(savedInstanceState)
         with(savedInstanceState) {
             reservationCount.text = this.getInt(EXTRA_MOVIE_RESERVATION_COUNT).toString()
-            movieDetailPresenter.restoreDateTime(
-                this.getSerializable(EXTRA_PARSED_MOVIE_RESERVATION_DATE) as LocalDate,
-                this.getSerializable(
+            val date = this.getSerializableCompat<LocalDate>(EXTRA_PARSED_MOVIE_RESERVATION_DATE)
+            val time =
+                this.getSerializableCompat<LocalTime>(
                     EXTRA_PARSED_MOVIE_RESERVATION_TIME,
-                ) as LocalTime,
-            )
+                )
+            if (date != null && time != null) movieDetailPresenter.restoreDateTime(date, time)
         }
     }
 

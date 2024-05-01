@@ -9,30 +9,36 @@ class MovieSeatPresenter(
     private val seatContractView: MovieSeatContract.View,
     private var movieRepository: MovieRepository = MovieRepositoryImpl(),
 ) : MovieSeatContract.Presenter {
-    private var _uiModel: SeatUiModel = SeatUiModel()
-    val uiModel: SeatUiModel
-        get() = _uiModel
+    private var _seatUiModel: SeatUiModel = SeatUiModel()
+    private var movieInfoUiModel: MovieInfoUiModel = MovieInfoUiModel()
+    val seatUiModel: SeatUiModel
+        get() = _seatUiModel
 
     override fun loadSeats(
         movieId: Long,
         movieScreenDateTimeId: Long,
         countThreshold: Int,
     ) {
-        val movie = movieRepository.findMovieById(movieId)
+        val movie =
+            movieRepository.findMovieById(movieId) ?: run {
+                seatContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
+                return
+            }
         val seats =
             movieRepository.findSeatsByMovieScreenDateTimeId(
                 movieScreenDateTimeId,
             )
-        movie?.let {
-            _uiModel =
-                _uiModel.copy(
-                    movieId = movieId,
-                    movieTitle = it.title,
-                    movieScreenDateTimeId = movieScreenDateTimeId,
-                    countThreshold = countThreshold,
-                )
-            seatContractView.onInitView(it, seats)
-        } ?: seatContractView.onError(MovieErrorCode.INVALID_MOVIE_ID)
+        movieInfoUiModel =
+            movieInfoUiModel.copy(
+                movieId = movieId,
+                movieTitle = movie.title,
+                movieScreenDateTimeId = movieScreenDateTimeId,
+            )
+        _seatUiModel =
+            _seatUiModel.copy(
+                countThreshold = countThreshold,
+            )
+        seatContractView.onInitView(movie, seats)
     }
 
     override fun selectSeat(
@@ -40,27 +46,20 @@ class MovieSeatPresenter(
         movieSeat: MovieSeat,
         selectedState: Boolean,
     ) {
-        when (selectedState) {
-            true -> {
-                _uiModel = _uiModel.copy(selectedSeat = _uiModel.selectedSeat - movieSeat)
-                seatContractView.onSeatUpdate(buttonIndex, isSelected = false)
-            }
-            false -> {
-                if (_uiModel.selectedCount < _uiModel.countThreshold) {
-                    _uiModel = _uiModel.copy(selectedSeat = _uiModel.selectedSeat + movieSeat)
-                    seatContractView.onSeatUpdate(buttonIndex, isSelected = true)
-                }
-            }
+        // 최대 갯수보다 더 선택하면 ui모델에서 copy 결과로 null 반환
+        _seatUiModel.select(movieSeat, selectedState)?.let {
+            _seatUiModel = it
+            seatContractView.onSeatUpdate(buttonIndex, isSelected = !selectedState)
+            seatContractView.onPriceUpdate(_seatUiModel.totalPrice)
+            seatContractView.onReservationButtonChanged(_seatUiModel.countThreshold == _seatUiModel.selectedCount)
         }
-        seatContractView.onPriceUpdate(_uiModel.totalPrice)
-        seatContractView.onReservationButtonChanged(_uiModel.countThreshold == _uiModel.selectedCount)
     }
 
     override fun reservation() {
         seatContractView.onReservationComplete(
-            _uiModel.movieId,
-            _uiModel.movieScreenDateTimeId,
-            _uiModel.selectedSeat.map { it.id },
+            movieInfoUiModel.movieId,
+            movieInfoUiModel.movieScreenDateTimeId,
+            _seatUiModel.selectedSeat.map { it.id },
         )
     }
 }

@@ -28,6 +28,7 @@ import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_ID
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_RESERVATION_COUNT
 import woowacourse.movie.utils.MovieIntentConstants.NOT_FOUND_MOVIE_SCREEN_DATE_TIME_ID
 import woowacourse.movie.utils.formatCurrency
+import woowacourse.movie.utils.getSerializableCompat
 import woowacourse.movie.utils.mapSeatNumberToLetter
 
 class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
@@ -137,7 +138,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState.let {
-            (it.getSerializable(EXTRA_MOVIE_SELECTED_SEAT_INDEXES) as SeatUiModel).selectedSeat.forEachIndexed { index, movieSeat ->
+            it.getSerializableCompat<SeatUiModel>(EXTRA_MOVIE_SELECTED_SEAT_INDEXES)?.selectedSeat?.forEachIndexed { index, movieSeat ->
                 movieSeatPresenter.selectSeat(movieSeat.number, movieSeat, false)
             }
         }
@@ -145,7 +146,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(EXTRA_MOVIE_SELECTED_SEAT_INDEXES, movieSeatPresenter.uiModel)
+        outState.putSerializable(EXTRA_MOVIE_SELECTED_SEAT_INDEXES, movieSeatPresenter.seatUiModel)
     }
 
     override fun onReservationComplete(

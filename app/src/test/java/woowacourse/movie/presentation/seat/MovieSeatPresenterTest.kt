@@ -9,6 +9,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import woowacourse.movie.E1_SEAT
 import woowacourse.movie.MOVIE
 import woowacourse.movie.SEATS
 import woowacourse.movie.domain.MovieRepository
@@ -64,7 +65,7 @@ class MovieSeatPresenterTest {
         every { seatContractView.onReservationButtonChanged(any()) } just Runs
 
         seatPresenter.loadSeats(0, 0, 2)
-        seatPresenter.selectSeat(0, SEATS[0], false) // S 티어
+        seatPresenter.selectSeat(0, E1_SEAT, false) // S 티어
 
         verify { seatContractView.onSeatUpdate(0, isSelected = true) }
         verify { seatContractView.onPriceUpdate(15000) }

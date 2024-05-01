@@ -35,32 +35,16 @@ val SCREEN_DATE_TIME =
         dateTime = LocalDateTime.of(LocalDate.of(2024, 4, 1), LocalTime.of(10, 0)),
     )
 
+val A1_SEAT = MovieSeat(id = 0, movieSeatBoardId = 0, number = 0, tier = Tier.B)
+val C1_SEAT = MovieSeat(id = 8, movieSeatBoardId = 0, number = 8, tier = Tier.A)
+val E1_SEAT = MovieSeat(id = 16, movieSeatBoardId = 0, number = 16, tier = Tier.S)
+
 val SEAT =
-    MovieSeat(
-        id = 0,
-        movieSeatBoardId = 0,
-        number = 0,
-        tier = Tier.S,
-    )
+    E1_SEAT
 
 val SEATS =
     listOf(
-        MovieSeat(
-            id = 0,
-            movieSeatBoardId = 0,
-            number = 0,
-            tier = Tier.S,
-        ),
-        MovieSeat(
-            id = 1,
-            movieSeatBoardId = 0,
-            number = 1,
-            tier = Tier.A,
-        ),
-        MovieSeat(
-            id = 2,
-            movieSeatBoardId = 0,
-            number = 2,
-            tier = Tier.B,
-        ),
+        A1_SEAT,
+        C1_SEAT,
+        E1_SEAT,
     )
