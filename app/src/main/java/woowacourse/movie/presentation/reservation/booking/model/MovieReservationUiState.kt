@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.model.HeadCount
+import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 
 @Parcelize
 data class MovieReservationUiState(

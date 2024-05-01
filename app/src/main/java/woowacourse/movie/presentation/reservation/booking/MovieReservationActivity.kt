@@ -18,9 +18,9 @@ import woowacourse.movie.R
 import woowacourse.movie.common.ui.parcelable
 import woowacourse.movie.data.MovieRepositoryFactory
 import woowacourse.movie.presentation.reservation.booking.model.MovieReservationUiState
-import woowacourse.movie.presentation.reservation.booking.model.ScreeningMovieUiModel
 import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
 import woowacourse.movie.presentation.reservation.seat.SeatSelectionActivity
+import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var presenter: MovieReservationPresenter
@@ -66,7 +66,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     }
 
     override fun showMovieReservation(reservation: ScreeningMovieUiModel) {
-        val (title, imageRes, screenDate, description, runningTime) = reservation
+        val (_, title, imageRes, screenDate, description, runningTime) = reservation
         findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(imageRes)
         findViewById<TextView>(R.id.tv_reservation_title).text = title
         findViewById<TextView>(R.id.tv_reservation_movie_description).text = description

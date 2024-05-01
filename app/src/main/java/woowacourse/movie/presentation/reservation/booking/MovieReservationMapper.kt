@@ -6,9 +6,9 @@ import woowacourse.movie.model.date.ScreenDateTimes
 import woowacourse.movie.model.date.ScreeningMovie
 import woowacourse.movie.presentation.reservation.booking.model.MovieReservationUiState
 import woowacourse.movie.presentation.reservation.booking.model.ScreenDateTimeUiModel
-import woowacourse.movie.presentation.reservation.booking.model.ScreeningMovieUiModel
 import woowacourse.movie.presentation.reservation.result.ReservationResultUiModel
 import woowacourse.movie.presentation.reservation.seat.toUiModel
+import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
