@@ -40,4 +40,18 @@ class MovieScreenAdapterTest {
         val viewType = adapter.getItemViewType(3)
         TestCase.assertEquals(1, viewType)
     }
+
+    @Test
+    fun `어댑터에_10개의_영화를_3번_추가하면_총_30개의_영화와_10개의_광고를_가진다`() {
+        val repeatedMovies = List(3) { MockMovies.defaultMovie }
+        val expectedSize = repeatedMovies.size + repeatedMovies.size / 3
+        adapter =
+            MovieScreenAdapter(
+                context,
+                listOf("ad_placeholder"),
+                repeatedMovies
+            ) {}
+
+        TestCase.assertEquals(expectedSize, adapter.itemCount)
+    }
 }
