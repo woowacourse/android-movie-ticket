@@ -27,4 +27,4 @@
 - [x]: presenter 테스트를 진행하며 단순 any()로 verify 검증을 하는게 아닌, 실제 값을 검증하기..
 - [ ]: SeatSelectionPresenter test
 - [ ]: MovieReservationPresenter test
-- [ ]: ReservationResultPresenter test
+- [x]: ReservationResultPresenter test
