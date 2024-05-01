@@ -1,13 +1,10 @@
 package woowacourse.movie.feature.main
 
-import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 
 interface MainContract {
     interface View {
-        fun displayScreenings(
-            screeningModels: List<ScreeningModel>,
-            adImageResources: List<Int>,
-        )
+        fun displayScreenings(screeningItems: List<ScreeningItem>)
 
         fun navigateToReservationScreen(screeningId: Long)
     }

@@ -1,11 +1,11 @@
 package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 
 interface ReservationContract {
     interface View {
-        fun initializeMovieDetails(movie: ScreeningModel)
+        fun initializeMovieDetails(movie: ScreeningItem.ScreeningModel)
 
         fun setupReservationCompleteControls()
 

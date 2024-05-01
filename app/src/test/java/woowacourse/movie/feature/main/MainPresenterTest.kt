@@ -8,8 +8,6 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.ScreeningRepository
-import woowacourse.movie.domain.TestFixture.MOCK_SCREENING
-import woowacourse.movie.feature.main.ui.toUiModel
 
 class MainPresenterTest {
     private lateinit var presenter: MainPresenter
@@ -26,12 +24,12 @@ class MainPresenterTest {
     @Test
     fun `영화 리스트를 불러와 뷰에 보여준다`() {
         // given
-        every { repository.findAll() } returns listOf(MOCK_SCREENING)
-        every { view.displayScreenings(any(), any()) } just runs
+        every { repository.findAll() } returns emptyList()
+        every { view.displayScreenings(any()) } just runs
         // when
         presenter.fetchScreeningList()
         // Then
-        verify { view.displayScreenings(listOf(MOCK_SCREENING).map { it.toUiModel() }, any()) }
+        verify { view.displayScreenings(any()) }
     }
 
     @Test

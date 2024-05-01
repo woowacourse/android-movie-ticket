@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 
 class ScreeningViewHolder(
     val view: View,
@@ -18,7 +18,7 @@ class ScreeningViewHolder(
     private val runningTime: TextView = view.findViewById(R.id.running_time)
     private val reservationButton: Button = view.findViewById(R.id.btn_reservation)
 
-    fun bind(screening: ScreeningModel) {
+    fun bind(screening: ScreeningItem.ScreeningModel) {
         val screeningPeriodText = screening.getFormattedScreeningPeriod(view.context)
         val runningTimeText = screening.getFormattedRunningTime(view.context)
         with(this) {

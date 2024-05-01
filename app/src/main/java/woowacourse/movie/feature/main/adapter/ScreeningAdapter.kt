@@ -4,40 +4,49 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 
 class ScreeningAdapter(
-    private val screenings: List<ScreeningModel>,
-    private val advertisements: List<Int>,
+    private val screeningItems: List<ScreeningItem>,
     private val itemClickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun interface OnItemClickListener {
         fun onItemClick(screeningId: Long)
     }
 
-    override fun getItemCount(): Int = screenings.size + advertisements.size
+    override fun getItemCount(): Int = screeningItems.size
 
-    override fun getItemViewType(position: Int) =
-        if (position == 3) {
-            AD
-        } else {
-            SCREENING
+    override fun getItemViewType(position: Int): Int =
+        when (screeningItems[position]) {
+            is ScreeningItem.AdModel -> AD
+            is ScreeningItem.ScreeningModel -> SCREENING
         }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): RecyclerView.ViewHolder {
-        return if (viewType == SCREENING) {
-            val view =
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.listview_item, parent, false)
-            ScreeningViewHolder(view, itemClickListener)
-        } else {
-            val view =
-                LayoutInflater.from(parent.context)
-                    .inflate(R.layout.advertisement_item, parent, false)
-            AdvertisementViewHolder(view)
+        return when (viewType) {
+            SCREENING -> {
+                val view =
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.listview_item, parent, false)
+                ScreeningViewHolder(view, itemClickListener)
+            }
+
+            AD -> {
+                val view =
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.advertisement_item, parent, false)
+                AdvertisementViewHolder(view)
+            }
+
+            else -> {
+                val view =
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.advertisement_item, parent, false)
+                AdvertisementViewHolder(view)
+            }
         }
     }
 
@@ -46,15 +55,8 @@ class ScreeningAdapter(
         position: Int,
     ) {
         when (holder) {
-            is ScreeningViewHolder -> {
-                val positionExcludingAds = if (position > 3) position - 1 else position
-                holder.bind(screenings[positionExcludingAds])
-            }
-
-            is AdvertisementViewHolder -> {
-                val positionExcludingScreen = 0
-                holder.bind(advertisements[positionExcludingScreen])
-            }
+            is ScreeningViewHolder -> holder.bind(screeningItems[position] as ScreeningItem.ScreeningModel)
+            is AdvertisementViewHolder -> holder.bind(screeningItems[position] as ScreeningItem.AdModel)
         }
     }
 

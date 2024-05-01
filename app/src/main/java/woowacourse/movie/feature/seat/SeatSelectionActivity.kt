@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.feature.completed.ReservationCompletedActivity
-import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 import woowacourse.movie.feature.reservation.ui.SeatBoardView
 import woowacourse.movie.feature.reservation.ui.SeatModel
 import woowacourse.movie.feature.reservation.ui.TicketModel
@@ -54,7 +54,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun initialize(
-        screeningModels: ScreeningModel,
+        screeningModels: ScreeningItem.ScreeningModel,
         seatModels: List<SeatModel>,
     ) {
         updatePriceTextView(0)

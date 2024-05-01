@@ -14,7 +14,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 import woowacourse.movie.feature.reservation.ui.DailyScheduleModel
 import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 import woowacourse.movie.feature.seat.SeatSelectionActivity
@@ -46,7 +46,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         setupTicketQuantityControls()
     }
 
-    override fun initializeMovieDetails(movie: ScreeningModel) {
+    override fun initializeMovieDetails(movie: ScreeningItem.ScreeningModel) {
         val openingDayText = movie.getFormattedScreeningPeriod(this)
         val runningTimeText = movie.getFormattedRunningTime(this)
         posterIv.setImageResource(movie.poster)

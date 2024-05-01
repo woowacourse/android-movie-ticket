@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.MockScreeningRepository
 import woowacourse.movie.feature.main.adapter.ScreeningAdapter
-import woowacourse.movie.feature.main.ui.ScreeningModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 import woowacourse.movie.feature.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -23,13 +23,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.fetchScreeningList()
     }
 
-    override fun displayScreenings(
-        screeningModels: List<ScreeningModel>,
-        adImageResources: List<Int>,
-    ) {
+    override fun displayScreenings(screeningItems: List<ScreeningItem>) {
         rvScreening.layoutManager = LinearLayoutManager(this)
         rvScreening.adapter =
-            ScreeningAdapter(screeningModels, adImageResources) { screeningId ->
+            ScreeningAdapter(screeningItems) { screeningId ->
                 presenter.selectScreening(screeningId)
             }
     }

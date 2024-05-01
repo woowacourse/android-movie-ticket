@@ -1,8 +1,7 @@
 package woowacourse.movie.feature.main
 
-import woowacourse.movie.R
 import woowacourse.movie.data.ScreeningRepository
-import woowacourse.movie.feature.main.ui.toUiModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
 
 class MainPresenter(
     private val view: MainContract.View,
@@ -10,12 +9,8 @@ class MainPresenter(
 ) :
     MainContract.Presenter {
     override fun fetchScreeningList() {
-        val screenings = repository.findAll()
-        val adImageResources = listOf(R.drawable.woowa_ad)
-        view.displayScreenings(
-            screenings.map { it.toUiModel() },
-            adImageResources,
-        )
+        val screenings: List<ScreeningItem> = repository.findAll()
+        view.displayScreenings(screenings)
     }
 
     override fun selectScreening(screeningId: Long) {
