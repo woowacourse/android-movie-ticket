@@ -126,7 +126,8 @@ class MovieReservationPresenterTest {
     fun `좌석 선택 버튼을 누르면 해당 화면으로 이동한다`() {
         // given
         val screeningLocalDateTimeSlot = slot<LocalDateTime>()
-        every { view.moveSeatSelectView(capture(screeningLocalDateTimeSlot), any()) } just runs
+        val reservationCountSlot = slot<Int>()
+        every { view.moveSeatSelectView(capture(screeningLocalDateTimeSlot), capture(reservationCountSlot)) } just runs
         every { view.updateReservationCount(any()) } just runs
         presenter.loadReservationCount()
 
@@ -134,9 +135,9 @@ class MovieReservationPresenterTest {
         presenter.selectSeat("2024-4-27", "11:00")
 
         // then
-        val actual = screeningLocalDateTimeSlot.captured
-        assertThat(actual).isEqualTo(LocalDateTime.of(2024, 4, 27, 11, 0))
-        verify { view.moveSeatSelectView(actual, any()) }
+        assertThat(screeningLocalDateTimeSlot.captured).isEqualTo(LocalDateTime.of(2024, 4, 27, 11, 0))
+        assertThat(reservationCountSlot.captured).isEqualTo(1)
+        verify { view.moveSeatSelectView(screeningLocalDateTimeSlot.captured, reservationCountSlot.captured) }
     }
 
     @Test
