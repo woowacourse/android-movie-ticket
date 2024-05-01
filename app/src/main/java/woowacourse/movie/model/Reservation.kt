@@ -1,11 +1,11 @@
 package woowacourse.movie.model
 
-import woowacourse.movie.model.screening.Screening
-import java.io.Serializable
+import woowacourse.movie.model.schedule.ScreeningDateTime
+import woowacourse.movie.model.seat.Position
 
 class Reservation(
-    val screening: Screening,
-    val ticketNum: Int,
-) : Serializable {
-    fun getCharge(): Int = screening.charge * ticketNum
-}
+    val movieId: Int,
+    val reservedDateTime: ScreeningDateTime,
+    val positions: List<Position>,
+    val price: Int,
+)

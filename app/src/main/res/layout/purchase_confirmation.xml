@@ -1,53 +1,105 @@
 <!-- Screen 3: Purchase Confirmation View -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="0dp">
 
-    <RelativeLayout
-        android:id="@+id/can_cancel_time"
+    <TextView
+        android:id="@+id/confirmation_message"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/purple_200">
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="0dp"
+        android:background="@color/purple_200"
+        android:gravity="bottom|center"
+        android:text="영화 상영 시작 시간 15분 전까지 취소가 가능합니다."
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmation_message"
+        app:layout_constraintVertical_weight="7">
 
         <TextView
-            android:id="@+id/confirmation_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="13dp"
-            android:backgroundTint="@color/purple_700"
-            android:text="영화 상영 시작 시간 15분 전까지 취소가 가능합니다."
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </RelativeLayout>
+            android:id="@+id/movie_title_confirmation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom|center"
+            android:text="영화 제목"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/purchase_confirmation_screening_datetime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="0.8" />
 
+        <TextView
+            android:id="@+id/purchase_confirmation_screening_datetime"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="상영 시간"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/ticket_position"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title_confirmation"
+            app:layout_constraintVertical_weight="0.3" />
 
-    <TextView
-        android:id="@+id/movie_title_confirmation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/can_cancel_time"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="Movie Title" />
+        <TextView
+            android:id="@+id/ticket_position"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="좌석 위치"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/ticket_charge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/purchase_confirmation_screening_datetime"
+            app:layout_constraintVertical_weight="0.3" />
 
-    <TextView
-        android:id="@+id/purchase_movie_running_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movie_title_confirmation"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="Screen time" />
+        <TextView
+            android:id="@+id/ticket_charge"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="티켓 가격"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/spacer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ticket_position"
+            app:layout_constraintVertical_weight="0.3" />
 
-    <TextView
-        android:id="@+id/ticket_charge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:layout_below="@id/purchase_movie_running_time"
-        android:text="@string/_1_ticket_n_price_13_000" />
+        <Space
+            android:id="@+id/spacer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ticket_charge"
+            app:layout_constraintVertical_weight="3" />
 
-</RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
