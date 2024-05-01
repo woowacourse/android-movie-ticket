@@ -3,6 +3,7 @@ package woowacourse.movie.presentation.seat
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -20,7 +21,6 @@ import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.presentation.model.PendingMovieReservationModel
 import woowacourse.movie.presentation.model.toMovieDateModel
 import woowacourse.movie.presentation.reservation.MovieReservationPresenter
-import woowacourse.movie.utils.findTextViewByTextInTableLayout
 
 @RunWith(AndroidJUnit4::class)
 class SeatSelectionActivityTest {
@@ -91,4 +91,19 @@ class SeatSelectionActivityTest {
             assertNotEquals(expected, actual)
         }
     }
+}
+
+fun TableLayout.findTextViewByTextInTableLayout(text: String): TextView? {
+    for (i in 0 until this.childCount) {
+        val child = this.getChildAt(i)
+        if (child is TableRow) {
+            for (j in 0 until child.childCount) {
+                val grandChild = child.getChildAt(j)
+                if (grandChild is TextView && grandChild.text.toString() == text) {
+                    return grandChild
+                }
+            }
+        }
+    }
+    return null
 }
