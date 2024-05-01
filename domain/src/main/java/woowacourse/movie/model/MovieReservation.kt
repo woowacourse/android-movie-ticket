@@ -7,7 +7,7 @@ import kotlin.time.Duration.Companion.minutes
 data class MovieReservation(
     val id: Long,
     val movie: Movie,
-    val price: Price,
+    val reserveSeats: ReserveSeats,
     val screenDateTime: LocalDateTime,
     val headCount: HeadCount,
     val cancelDeadLine: Duration = 15.minutes,
@@ -16,16 +16,17 @@ data class MovieReservation(
         id: Long,
         screeningMovie: ScreeningMovie,
         screenDateTime: LocalDateTime,
+        reserveSeats: ReserveSeats,
         headCount: HeadCount,
         cancelDeadLine: Duration = 15.minutes,
     ) : this(
         id,
         screeningMovie.movie,
-        screeningMovie.price,
+        reserveSeats,
         screenDateTime,
         headCount = headCount,
         cancelDeadLine = cancelDeadLine,
     )
 
-    val totalPrice: Price get() = price * headCount.count
+    val totalPrice: Price get() = reserveSeats.totalPrice
 }

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_100">
+
+    <TextView
+        android:id="@+id/tv_select_seat_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:background="@color/gray_700"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="SCREEN"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tl_select_seat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="34dp"
+        android:layout_marginTop="56dp"
+        android:stretchColumns="*"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_select_seat_screen">
+
+        <TableRow android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+        </TableRow>
+
+        <TableRow android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+        </TableRow>
+
+        <TableRow android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+        </TableRow>
+
+        <TableRow android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+        </TableRow>
+
+        <TableRow android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                style="@style/SelectSeatStyle"/>
+
+        </TableRow>
+
+
+    </TableLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="360:78"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_select_seat_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_select_seat_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/tv_select_seat_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_500"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_select_seat_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_select_seat_title"
+            tools:text="0원" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_select_seat_reserve"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@drawable/sel_reserve_btn"
+            android:enabled="false"
+            android:fontFamily="@font/roboto_bold"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

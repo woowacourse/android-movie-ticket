@@ -6,7 +6,6 @@ class ReservationResultPresenter(
     private val repository: MovieRepository,
     private val view: ReservationResultView,
 ) {
-
     fun loadReservationResult(reservationId: Long) {
         val reservationResult =
             repository.movieReservationById(reservationId).toReservationResultUiModel()

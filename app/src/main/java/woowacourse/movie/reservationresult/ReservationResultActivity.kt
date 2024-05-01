@@ -7,10 +7,16 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.StubMovieRepository
+import woowacourse.movie.data.DummyMovies
+import woowacourse.movie.reservationresult.uimodel.ReservationResultUiModel
 
 class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     private lateinit var presenter: ReservationResultPresenter
+    private lateinit var titleView: TextView
+    private lateinit var cancelDeadLineView: TextView
+    private lateinit var runningDateView: TextView
+    private lateinit var countAndSeatView: TextView
+    private lateinit var totalPriceView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,13 +24,23 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
 
         val reservationId = intent.getLongExtra(EXTRA_RESERVATION_ID, INVALID_RESERVATION_ID)
 
+        initView()
+
         presenter =
             ReservationResultPresenter(
-                repository = StubMovieRepository,
+                repository = DummyMovies,
                 view = this,
             )
         presenter.loadReservationResult(reservationId)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initView() {
+        titleView = findViewById(R.id.tv_result_title)
+        cancelDeadLineView = findViewById(R.id.tv_result_cancel_deadline)
+        runningDateView = findViewById(R.id.tv_result_running_date)
+        countAndSeatView = findViewById(R.id.tv_result_count)
+        totalPriceView = findViewById(R.id.tv_result_total_price)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -35,15 +51,16 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultView {
     }
 
     override fun showResult(reservationResult: ReservationResultUiModel) {
-        val (title, cancelDeadLine, date, count, totalPrice) = reservationResult
-        findViewById<TextView>(R.id.tv_result_title).text = title
-        findViewById<TextView>(R.id.tv_result_cancel_deadline).text =
-            getString(R.string.reservation_cancel_deadline_format, cancelDeadLine)
-        findViewById<TextView>(R.id.tv_result_running_date).text = date
-        findViewById<TextView>(R.id.tv_result_count).text =
-            getString(R.string.reservation_head_count_format, count)
-        findViewById<TextView>(R.id.tv_result_total_price).text =
-            getString(R.string.reservation_total_price_format, totalPrice)
+        with(reservationResult) {
+            titleView.text = title
+            cancelDeadLineView.text =
+                getString(R.string.reservation_cancel_deadline_format, cancelDeadLine)
+            runningDateView.text = dateTime
+            countAndSeatView.text =
+                headCount.count + " | " + seats.joinToString { it.showPosition }
+            totalPriceView.text =
+                totalPrice.price
+        }
     }
 
     companion object {
