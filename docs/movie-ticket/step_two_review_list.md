@@ -18,29 +18,10 @@
 - [x]: SeatSelectionResult sealed class 들 {}로 묶기
 - [x]: SeatBoardView 의 clickListener 생성자로 받기
 - [x]: ScreeningMoviePresenterTest 함수명 변경 (에러화면을 보여준다)
-- [ ]: 값도 함께 검증하기
-```kotlin
-// Capturing 사용하기
-@Test
-fun `presenter 가 생성될 때, view 가 영화 목록을 보여준다`() {
-    // given
-    every { view.showMovies(any()) } just Runs
-    // when & then
-    verify { view.showMovies(any()) }
-}
-// 값도 함께 검증하기
- @Test
-    fun `presenter 가 생성될 때, 저장소에서 상영중인 영화들을 가져온다`() {
-        // given
-        every { repository.screenMovies() } returns listOf()
-        // when & then
-        verify { repository.screenMovies() }
-    }
-```
-- [ ]: Capture 사용하기 (Presenter test에)
 - [ ]: DefaultRepository 에서 ID 생성하는 부분 삭제
 - 추후 SeatBoardView 커스텀뷰로 개선하는거 공부
 
 ## Test
 - [x]: TimePicker, DatePicker 화면 대응 Ui Test 추가
 - [ ]: SeatSelection Ui Test
+- [x]: presenter 테스트를 진행하며 단순 any()로 verify 검증을 하는게 아닌, 실제 값을 검증하기..
