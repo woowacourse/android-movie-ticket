@@ -9,11 +9,10 @@ class MovieTheaterTest {
         val theater = MovieTheater(mapOf(SeatRate.S to listOf(1), SeatRate.A to listOf(2)), 2)
         val seats = theater.seats()
         assertThat(seats).contains(
-            Seat(SeatRate.S, 1, 1),
-            Seat(SeatRate.S, 1, 2),
-            Seat(SeatRate.A, 2, 1),
-            Seat(SeatRate.A, 2, 2),
+            Seat(SeatRate.S, 0, 0),
+            Seat(SeatRate.S, 0, 1),
+            Seat(SeatRate.A, 1, 0),
+            Seat(SeatRate.A, 1, 1),
         )
-        println(seats)
     }
 }

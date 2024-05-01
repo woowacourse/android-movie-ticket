@@ -2,6 +2,7 @@ package woowacourse.movie.study
 
 import android.content.Context
 import android.widget.ArrayAdapter
+import androidx.test.core.app.ApplicationProvider
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -20,7 +21,7 @@ class ArrayAdapterTest {
 
     @BeforeEach
     fun setUp() {
-        context = context
+        context = ApplicationProvider.getApplicationContext()
     }
 
     @Test
