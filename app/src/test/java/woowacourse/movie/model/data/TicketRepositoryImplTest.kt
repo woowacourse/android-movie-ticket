@@ -17,9 +17,18 @@ class TicketRepositoryImplTest {
 
     @Test
     fun `티켓을 저장한다`() {
-        val id = TicketRepositoryImpl.save(ticket1)
-        val actual = TicketRepositoryImpl.find(id)
+        TicketRepositoryImpl.save(ticket1)
+        val actual = TicketRepositoryImpl.find(ticket1.id)
         equalTicket(actual, ticket1)
+    }
+
+    @Test
+    fun `이미 존재하는 id의 티켓을 저장하려는 경우 예외가 발생한다`() {
+        TicketRepositoryImpl.save(ticket1)
+
+        assertThrows<IllegalStateException> {
+            TicketRepositoryImpl.save(ticket2.copy(id = ticket1.id))
+        }
     }
 
     @Test
@@ -27,10 +36,10 @@ class TicketRepositoryImplTest {
         // given
         TicketRepositoryImpl.save(ticket1)
         TicketRepositoryImpl.save(ticket2)
-        val id = TicketRepositoryImpl.save(ticket3)
+        TicketRepositoryImpl.save(ticket3)
 
         // when
-        val actual = TicketRepositoryImpl.find(id)
+        val actual = TicketRepositoryImpl.find(ticket3.id)
 
         // then
         equalTicket(actual, ticket3)

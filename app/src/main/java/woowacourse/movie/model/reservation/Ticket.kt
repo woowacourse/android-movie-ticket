@@ -4,7 +4,7 @@ import woowacourse.movie.model.seat.SelectedSeats
 import java.time.LocalDateTime
 
 data class Ticket(
-    val id: Long = 0,
+    val id: Long,
     val movieId: Long,
     val screeningDateTime: LocalDateTime,
     val selectedSeats: SelectedSeats,

@@ -71,6 +71,7 @@ class MovieReservationCompleteActivityTest {
                 }
             val ticket =
                 Ticket(
+                    id = 0L,
                     movieId = FIRST_MOVIE_ID,
                     screeningDateTime = LocalDateTime.of(2024, 4, 20, 9, 0),
                     selectedSeats = selectedSeats,

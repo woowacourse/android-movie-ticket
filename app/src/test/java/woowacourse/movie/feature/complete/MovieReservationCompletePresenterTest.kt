@@ -32,16 +32,16 @@ class MovieReservationCompletePresenterTest {
     @Test
     fun `티켓 데이터를 불러온다`() {
         // given
-        val id = ticketRepository.save(ticket1)
+        ticketRepository.save(ticket1)
         val ticketSlot = slot<Ticket>()
         every { view.initializeTicket(capture(ticketSlot)) } just runs
 
         // when
-        presenter.loadTicketData(id)
+        presenter.loadTicketData(0L)
 
         // then
         val actual = ticketSlot.captured
-        assertThat(actual.id).isEqualTo(id)
+        assertThat(actual.id).isEqualTo(0L)
         verify { view.initializeTicket(actual) }
     }
 

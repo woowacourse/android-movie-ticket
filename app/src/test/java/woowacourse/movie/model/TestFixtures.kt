@@ -46,13 +46,14 @@ fun SelectedSeats(
 
 val ticket1 =
     Ticket(
+        id = 0L,
         movieId = 0L,
         screeningDateTime = LocalDateTime.of(2024, 4, 20, 9, 0),
         selectedSeats = SelectedSeats(ReservationCount(3)),
     )
 
-val ticket2 = ticket1.copy(movieId = 1L)
-val ticket3 = ticket1.copy(movieId = 2L)
+val ticket2 = ticket1.copy(id = 1L)
+val ticket3 = ticket1.copy(id = 2L)
 
 fun equalTicket(
     actual: Ticket,

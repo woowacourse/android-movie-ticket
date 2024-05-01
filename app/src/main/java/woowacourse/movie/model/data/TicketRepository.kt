@@ -3,7 +3,7 @@ package woowacourse.movie.model.data
 import woowacourse.movie.model.reservation.Ticket
 
 interface TicketRepository {
-    fun save(ticket: Ticket): Long
+    fun save(ticket: Ticket)
 
     fun find(id: Long): Ticket
 
