@@ -7,7 +7,7 @@ import java.time.LocalTime
 
 class MovieDateTimeTest {
     @Test
-    fun `현재 날짜를 지정하는 메서드가 올바르게 동작하는지 확인한다`() {
+    fun `현재 날짜를 지정하는 메서드가 정확한 값을 저장하는지 확인한다`() {
         // Given
         val movieDateTime = MovieDateTime()
         val newDate = LocalDate.of(2024, 5, 15)
@@ -20,7 +20,7 @@ class MovieDateTimeTest {
     }
 
     @Test
-    fun `현재 시간을 지정하는 메서드가 올바르게 동작하는지 확인한다`() {
+    fun `현재 시간을 지정하는 메서드가 정확한 값을 저장하는지 확인한다`() {
         // Given
         val movieDateTime = MovieDateTime()
         val newTime = LocalTime.of(10, 30)
