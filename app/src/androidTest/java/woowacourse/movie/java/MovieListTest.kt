@@ -4,14 +4,13 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.view.MovieListActivity
+import woowacourse.movie.list.view.MovieListActivity
 
 @RunWith(AndroidJUnit4::class)
 class MovieListTest {
@@ -20,12 +19,6 @@ class MovieListTest {
 
     @Test
     fun `영화_목록을_볼_수_있다`() {
-        onView(withId(R.id.movie_list_view)).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `현재_텍스트_확인`() {
-        onView(withId(R.id.movie_title))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+        onView(withId(R.id.movie_recycler_view)).check(matches(isDisplayed()))
     }
 }

@@ -7,4 +7,5 @@
     <string name="screening_date_text">상영일 :</string>
     <string name="running_time_text">러닝타임 :</string>
     <string name="minute_text">분</string>
+    <string name="screen">SCREEN</string>
 </resources>

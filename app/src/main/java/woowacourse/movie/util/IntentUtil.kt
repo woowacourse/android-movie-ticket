@@ -2,15 +2,16 @@ package woowacourse.movie.util
 
 import android.content.Intent
 import android.os.Build
-import woowacourse.movie.model.Movie
-import woowacourse.movie.view.MovieListActivity.Companion.EXTRA_MOVIE_KEY
+import woowacourse.movie.reservation.model.Count
+import woowacourse.movie.reservation.view.MovieReservationActivity.Companion.EXTRA_COUNT_KEY
+import java.io.Serializable
 
 object IntentUtil {
-    fun getSerializableMovieData(intent: Intent): Movie? {
+    inline fun <reified T : Serializable> Intent.getSerializableCountData(): T {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(EXTRA_MOVIE_KEY, Movie::class.java)
+            this.getSerializableExtra(EXTRA_COUNT_KEY) as? T ?: Count(1) as T
         } else {
-            intent.getSerializableExtra(EXTRA_MOVIE_KEY) as? Movie
+            this.getSerializableExtra(EXTRA_COUNT_KEY) as T
         }
     }
 }
