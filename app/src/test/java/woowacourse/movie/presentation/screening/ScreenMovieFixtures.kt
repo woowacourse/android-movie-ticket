@@ -8,6 +8,7 @@ import woowacourse.movie.model.date.ScreenDateTime
 import woowacourse.movie.model.date.ScreenDateTimes
 import woowacourse.movie.model.date.ScreeningMovie
 import java.time.LocalDate
+import java.time.LocalTime
 import kotlin.time.Duration.Companion.minutes
 
 fun stubScreenMovie(): ScreeningMovie =
@@ -20,7 +21,7 @@ fun stubScreenMovie(): ScreeningMovie =
             listOf(
                 ScreenDateTime(
                     date = LocalDate.now(),
-                    times = emptyList(),
+                    times = listOf(LocalTime.now()),
                 ),
             ),
         ),
