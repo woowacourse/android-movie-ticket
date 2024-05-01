@@ -8,8 +8,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.presentation.adapter.MovieAdapter
+import woowacourse.movie.presentation.adapter.viewtype.MovieItemViewType
 import woowacourse.movie.presentation.detail.MovieDetailActivity
 import woowacourse.movie.utils.MovieErrorCode
 import woowacourse.movie.utils.MovieIntentConstants.EXTRA_MOVIE_ID
@@ -42,8 +42,8 @@ class MovieMainActivity : AppCompatActivity(), MovieMainContract.View {
         }
     }
 
-    override fun onInitView(movies: List<Movie>) {
-        movieAdapter = MovieAdapter(::onMovieItemClick, movies)
+    override fun onInitView(movieItems: List<MovieItemViewType>) {
+        movieAdapter = MovieAdapter(::onMovieItemClick, movieItems)
         movieList.adapter = movieAdapter
     }
 }

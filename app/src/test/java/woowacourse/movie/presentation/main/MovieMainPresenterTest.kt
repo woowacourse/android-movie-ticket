@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import woowacourse.movie.MOVIE
+import woowacourse.movie.MOVIE_ITEM
 import woowacourse.movie.domain.MovieRepository
 
 @ExtendWith(MockKExtension::class)
@@ -33,6 +34,6 @@ class MovieMainPresenterTest {
         every { mainContractView.onInitView(any()) } just runs
 
         mainPresenter.loadMovies()
-        verify { mainContractView.onInitView(listOf(MOVIE)) }
+        verify { mainContractView.onInitView(listOf(MOVIE_ITEM)) }
     }
 }

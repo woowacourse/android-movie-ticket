@@ -4,6 +4,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSeat
 import woowacourse.movie.domain.ScreenDateTime
 import woowacourse.movie.domain.Tier
+import woowacourse.movie.presentation.adapter.viewtype.MovieItemViewType
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -27,6 +28,11 @@ val MOVIE =
                 ),
             ),
         runningTime = 152,
+    )
+
+val MOVIE_ITEM =
+    MovieItemViewType.MovieView(
+        movie = MOVIE,
     )
 
 val SCREEN_DATE_TIME =

@@ -1,6 +1,5 @@
 package woowacourse.movie.utils
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import java.io.Serializable
@@ -56,11 +55,10 @@ inline fun <reified T : Serializable> Bundle.getSerializableCompat(key: String):
                 as? T
     }
 
-inline fun <reified T : Serializable> Intent.getSerializableCompat(key: String): T? =
-    when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializableExtra(key, T::class.java)
-        else ->
-            @Suppress("DEPRECATION")
-            getSerializableExtra(key)
-                as? T
-    }
+const val SAMPLE_AD_URL =
+    "https://s3-alpha-sig.figma.com/img/e1aa/0753/a796f5d7ba7df41bb1cfaa64dd2d8167?" +
+        "Expires=1715558400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ht2jSxu-~W6VC3LYqfcpwmWkfqJs9qXmBjqzUFp" +
+        "kLalMeo3TFLrJlJJDwGl8EfhRtRweS5c8ZHpyg6vyaGJ-3wvGO~gjmtGyiw-LWvIfhz7QpwamHn3M~" +
+        "fFOFD8SBgd~WhNsBzHV7lVT2jm3wongpDHxoJbg733-od8dYRQMJOy-YFS0OIRGSwAKsoNSEOqR7trP8tQCfQliSjo81VBqX" +
+        "tutKmHXXDCPeDu-7uDCf~rnfiRmjgdQMPs8NhCniJXPuPjZnJXL0ebKO0ivMkPCXDN0HaawxE1doNn3xYtXb9" +
+        "60mP9U0oTWI3am74uNyXgx5fC1wAQB0HeJy~wg9ZpjSA__"

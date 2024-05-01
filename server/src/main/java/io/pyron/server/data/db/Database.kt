@@ -26,7 +26,7 @@ var dbMovieSeatBoards = generateSeatBoardSample()
 // 좌석 샘플
 var dbSeats = generateSeatSample()
 
-fun generateMovieSample(): MutableList<Movie> {
+fun generateMovieSample(): List<Movie> {
     return mutableListOf<Movie>(
         Movie(
             id = 0,
@@ -43,7 +43,7 @@ fun generateMovieSample(): MutableList<Movie> {
     )
 }
 
-fun generateScreenDateTimeSample(): MutableList<ScreenDateTime> {
+fun generateScreenDateTimeSample(): List<ScreenDateTime> {
     val screenDateTimes = mutableListOf<ScreenDateTime>()
     val startDate = LocalDate.of(2024, 4, 1)
     val endDate = LocalDate.of(2024, 4, 30)
@@ -58,7 +58,7 @@ fun generateScreenDateTimeSample(): MutableList<ScreenDateTime> {
     return screenDateTimes
 }
 
-fun generateSeatBoardSample(): MutableList<MovieSeatBoard> {
+fun generateSeatBoardSample(): List<MovieSeatBoard> {
     val movieSeatBoards = mutableListOf<MovieSeatBoard>()
     var id: Long = 0
 
@@ -73,15 +73,18 @@ fun generateSeatBoardSample(): MutableList<MovieSeatBoard> {
     return movieSeatBoards
 }
 
-fun generateMovieScreenDateTimeSample(): MutableList<MovieScreenDateTime> {
+fun generateMovieScreenDateTimeSample(): List<MovieScreenDateTime> {
     val movieScreenDateTimes = mutableListOf<MovieScreenDateTime>()
-    for (index in 0 until 30 * 8) {
-        movieScreenDateTimes.add(MovieScreenDateTime(index.toLong(), 0, index.toLong()))
+
+    for (movieIndex in 0 until 2500) {
+        for (index in 0 until 30 * 8) {
+            movieScreenDateTimes.add(MovieScreenDateTime(index.toLong(), movieIndex.toLong(), index.toLong()))
+        }
     }
     return movieScreenDateTimes
 }
 
-fun generateSeatSample(): MutableList<MovieSeat> {
+fun generateSeatSample(): List<MovieSeat> {
     val movieSeats = mutableListOf<MovieSeat>()
     val rankBThreshold = 8
     val rankAThreshold = 16
@@ -107,7 +110,7 @@ fun generateSeatSample(): MutableList<MovieSeat> {
     return movieSeats
 }
 
-private fun generateLocalDateTimeSample(date: LocalDate): MutableList<LocalDateTime> {
+private fun generateLocalDateTimeSample(date: LocalDate): List<LocalDateTime> {
     val dateTimes = mutableListOf<LocalDateTime>()
 
     when (date.dayOfWeek) {
