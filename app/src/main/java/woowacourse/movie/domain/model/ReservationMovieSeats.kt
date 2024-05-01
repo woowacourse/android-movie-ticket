@@ -12,7 +12,7 @@ class ReservationMovieSeats(
         return userSeats.sumOf { it.seatType.price }
     }
 
-    fun setSeatSelectType(newSeat: MovieSeat) {
+    fun applyStateChange(newSeat: MovieSeat) {
         seatSelectState =
             if (isExitsSeat(newSeat)) {
                 SeatSelectState.REMOVE

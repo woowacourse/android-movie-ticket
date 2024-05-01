@@ -30,7 +30,7 @@ class SeatSelectionPresenter(
     ) {
         val seat = seatRepository.getAvailableSeat(rowIndex, columIndex)
         if (seat.seatRow.isEmpty()) return
-        reservationMovieSeats.setSeatSelectType(seat)
+        reservationMovieSeats.applyStateChange(seat)
         when (reservationMovieSeats.seatSelectState) {
             SeatSelectState.ADD -> {
                 reservationMovieSeats.addSeat(seat)

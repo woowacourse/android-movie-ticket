@@ -27,7 +27,7 @@ class ReservationMovieSeatsTest {
         reservationMovieSeats.userSeats.add(MovieSeat("A", 1, SeatType.A))
 
         // When
-        reservationMovieSeats.setSeatSelectType(MovieSeat("A", 1, SeatType.A))
+        reservationMovieSeats.applyStateChange(MovieSeat("A", 1, SeatType.A))
 
         // Then
         assertEquals(SeatSelectState.REMOVE, reservationMovieSeats.seatSelectState)
