@@ -56,6 +56,7 @@ class MovieReservationPresenter(
     ) {
         val pendingMovieReservation =
             PendingMovieReservation(
+                movieId = movieId,
                 title = title,
                 movieDateTime = movieDateTime,
                 count = count,
