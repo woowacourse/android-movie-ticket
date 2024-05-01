@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.seat.MovieSeatActivity"
+    android:background="#EAEAEA">
+
+
+    <TextView
+        android:id="@+id/seatScreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:text="SCREEN"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:padding="10dp"
+        android:background="#494949"/>
+
+
+    <TableLayout
+        android:id="@+id/seatTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seatScreen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:background="@color/white"
+        >
+
+        <include
+            android:id="@+id/include_seat_selection_first_row"
+            layout="@layout/table_row" />
+
+        <include
+            android:id="@+id/include_seat_selection_first_row"
+            layout="@layout/table_row" />
+
+        <include
+            android:id="@+id/include_seat_selection_first_row"
+            layout="@layout/table_row" />
+
+        <include
+            android:id="@+id/include_seat_selection_first_row"
+            layout="@layout/table_row" />
+
+        <include
+            android:id="@+id/include_seat_selection_first_row"
+            layout="@layout/table_row" />
+
+    </TableLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/seatMovieTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:text="해리포터와 마법사의 돌"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/seatMoviePrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="0"
+            android:textSize="17dp"
+            app:layout_constraintBottom_toBottomOf="@+id/seatMoviePriceFormat"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/seatMoviePriceFormat" />
+
+        <TextView
+            android:id="@+id/seatMoviePriceFormat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="10dp"
+            android:text="원"
+            android:textSize="15dp"
+            app:layout_constraintLeft_toRightOf="@id/seatMoviePrice"
+            app:layout_constraintTop_toBottomOf="@id/seatMovieTitle"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/seatCompleteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:padding="25dp"
+                android:text="확인"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
