@@ -12,7 +12,7 @@ fun stubSeatSelectionNavArgs(): SeatSelectionNavArgs =
     SeatSelectionNavArgs(
         screenMovieId = 1,
         movieTitle = "해리 포터와 마법사의 돌",
-        selectedDateTime = LocalDateTime.now(),
+        selectedDateTime = LocalDateTime.of(2024, 4, 30, 12, 30, 12),
         headCount = 2,
     )
 

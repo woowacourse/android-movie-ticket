@@ -19,8 +19,8 @@ class SeatSelectionPresenter(
         get() = SeatSelectionUiState(board.toUiModel(), navArgs)
 
     fun loadScreenSeats() {
-        val (screenMovieId, title, selectedDateTime, headCount) = navArgs
-        repository.screenSeats(screenMovieId, selectedDateTime, headCount)
+        val (screenMovieId, title, headCount, selectedDateTime) = navArgs
+        repository.screenSeats(screenMovieId, headCount, selectedDateTime)
             .onSuccess {
                 board = it
                 view.showMovieTitle(title)
