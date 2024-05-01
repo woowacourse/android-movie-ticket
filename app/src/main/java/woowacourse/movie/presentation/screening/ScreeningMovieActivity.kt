@@ -66,7 +66,7 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
             MovieAdapter(
                 onClickReservationButton = { presenter.startReservation(it) },
                 onClickAd = { presenter.startAd() },
-                isAdPosition = ::isAdPosition
+                isAdPosition = ::isAdPosition,
             ).also { movieRecyclerView.adapter = it }
     }
 

@@ -2,7 +2,6 @@ package woowacourse.movie.presentation.reservation.booking
 
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.MovieReservation
-import woowacourse.movie.model.Price
 import woowacourse.movie.model.board.Seats
 import woowacourse.movie.presentation.reservation.booking.model.MovieReservationUiState
 import woowacourse.movie.presentation.reservation.booking.model.ScreenDateTimeUiModel
@@ -18,7 +17,7 @@ fun stubMovieReservation(): MovieReservation {
         screenDateTime = LocalDateTime.now(),
         headCount = HeadCount(2),
         cancelDeadLine = 15.minutes,
-        seats = Seats()
+        seats = Seats(),
     )
 }
 
@@ -29,6 +28,6 @@ fun stubMovieReservationUiState(): MovieReservationUiState {
         count = 2,
         screenDateTimes = emptyList(),
         selectedDate = ScreenDateTimeUiModel(),
-        selectedTime = ""
+        selectedTime = "",
     )
 }

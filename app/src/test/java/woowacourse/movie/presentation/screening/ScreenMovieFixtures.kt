@@ -17,14 +17,14 @@ fun stubScreenMovie(): ScreeningMovie =
         movie = stubMovie(),
         price = Price(13_000),
         screenDateTimes =
-        ScreenDateTimes(
-            listOf(
-                ScreenDateTime(
-                    date = LocalDate.now(),
-                    times = listOf(LocalTime.now()),
+            ScreenDateTimes(
+                listOf(
+                    ScreenDateTime(
+                        date = LocalDate.now(),
+                        times = listOf(LocalTime.now()),
+                    ),
                 ),
             ),
-        ),
     )
 
 fun stubScreenMovies(): List<ScreeningMovie> =

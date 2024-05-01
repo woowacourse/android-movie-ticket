@@ -42,10 +42,11 @@ class SeatBoardView(
                 )
             val rowSeats = mutableListOf<TextView>()
             for (j in 0 until columnCount) {
-                val textView = TextView(context).also {
-                    it.initSeatView()
-                    it.setOnClickListener { seatClickListener.onClick(i, j) }
-                }
+                val textView =
+                    TextView(context).also {
+                        it.initSeatView()
+                        it.setOnClickListener { seatClickListener.onClick(i, j) }
+                    }
                 tableRow.addView(textView)
                 rowSeats.add(textView)
             }

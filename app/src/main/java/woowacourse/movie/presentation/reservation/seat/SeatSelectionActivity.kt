@@ -78,7 +78,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
                 tableLayout = tableLayout,
                 rowCount = board.rowCount,
                 columnCount = board.columnCount,
-                seatClickListener = presenter::selectSeat
+                seatClickListener = presenter::selectSeat,
             ).apply {
                 updateSeats(board.seats)
             }

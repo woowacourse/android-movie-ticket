@@ -74,7 +74,7 @@ class SeatSelectionPresenterTest {
         every { view.showTotalPrice(capture(totalPriceSlot)) } just Runs
         // when
         presenter.selectSeat(x, y)
-        //then
+        // then
         verify { view.showSeat(selectedSeatSlot.captured) }
         verify { view.showTotalPrice(totalPriceSlot.captured) }
         verify(exactly = 0) { view.showSelectionError() }
@@ -95,7 +95,6 @@ class SeatSelectionPresenterTest {
         }
     }
 
-
     @Test
     fun `영화 좌석에 실패했을 때, 선택 에러 화면을 보여준다`() {
         // given
@@ -104,7 +103,7 @@ class SeatSelectionPresenterTest {
         every { view.showSelectionError() } just Runs
         // when
         presenter.selectSeat(x, y)
-        //then
+        // then
         verify(exactly = 0) { view.showSeat(any()) }
         verify(exactly = 0) { view.showTotalPrice(any()) }
         verify { view.showSelectionError() }

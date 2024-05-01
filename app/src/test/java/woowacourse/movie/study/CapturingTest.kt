@@ -14,16 +14,17 @@ import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
 class CapturingTest {
-
     enum class Direction { NORTH, SOUTH }
+
     enum class RecordingOutcome { RECORDED }
+
     enum class RoadType { HIGHWAY }
 
     class Car {
         fun recordTelemetry(
             speed: Double,
             direction: Direction,
-            roadType: RoadType?
+            roadType: RoadType?,
         ): RecordingOutcome {
             throw UnsupportedOperationException("Not implemented")
         }
@@ -42,12 +43,13 @@ class CapturingTest {
 
         every {
             car.recordTelemetry(
-                speed = capture(speedSlot), // speed 값을 캡쳐하고, speedSlot 에 저장한다.
+                // speed 값을 캡쳐하고, speedSlot 에 저장한다.
+                speed = capture(speedSlot),
                 direction = Direction.NORTH,
                 roadType = capture(roadTypeSlot),
             )
         } answers { // answers 는 returns 에 비해 동적으로 값을 반환할 수 있음!
-            println("Speed: ${list}, roadType: ${roadTypeSlot.captured}") // list [] 빈값 출력
+            println("Speed: $list, roadType: ${roadTypeSlot.captured}") // list [] 빈값 출력
             // speedSlot.captured 는 speedSlot 에 저장된 값을 가져온다.
             // roadTypeSlot.captured 는 roadTypeSlot 에 저장된 값을 가져온다.
             println("Speed: ${speedSlot.captured}, roadType: ${roadTypeSlot.captured}")
@@ -57,23 +59,23 @@ class CapturingTest {
         car.recordTelemetry(speed = 15.0, direction = Direction.NORTH, RoadType.HIGHWAY)
         car.recordTelemetry(speed = 16.0, direction = Direction.NORTH, RoadType.HIGHWAY)
         // then
-        verifyOrder {// 순서대로 호출되는지
+        verifyOrder { // 순서대로 호출되는지
             car.recordTelemetry(
                 speed = or(15.0, 16.0),
                 direction = Direction.NORTH,
-                roadType = RoadType.HIGHWAY
+                roadType = RoadType.HIGHWAY,
             )
             car.recordTelemetry(
                 speed = 16.0,
                 direction = Direction.NORTH,
-                roadType = RoadType.HIGHWAY
+                roadType = RoadType.HIGHWAY,
             )
         }
         verify(exactly = 2) {
             car.recordTelemetry(
                 speed = any(),
                 direction = Direction.NORTH,
-                roadType = RoadType.HIGHWAY
+                roadType = RoadType.HIGHWAY,
             )
         }
         // confirmVerified 는 모든 verify 를 확인한다.
@@ -127,12 +129,12 @@ class CapturingTest {
             car.recordTelemetry(
                 speed = 15.0,
                 direction = Direction.NORTH,
-                roadType = RoadType.HIGHWAY
+                roadType = RoadType.HIGHWAY,
             )
             car.recordTelemetry(
                 speed = 16.0,
                 direction = Direction.NORTH,
-                roadType = RoadType.HIGHWAY
+                roadType = RoadType.HIGHWAY,
             )
         }
         confirmVerified(car)

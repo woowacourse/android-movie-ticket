@@ -25,7 +25,7 @@ data class SeatBoard(
                 val newSeat = seat.copy(state = SeatState.EMPTY)
                 SeatSelectionResult.Success(
                     board = copy(totalSeats = totalSeats.replace(newSeat)),
-                    newSeat
+                    newSeat,
                 )
             }
 
@@ -36,7 +36,7 @@ data class SeatBoard(
                     val newSeat = seat.copy(state = SeatState.SELECTED)
                     SeatSelectionResult.Success(
                         board = copy(totalSeats = totalSeats.replace(newSeat)),
-                        newSeat
+                        newSeat,
                     )
                 }
             }
