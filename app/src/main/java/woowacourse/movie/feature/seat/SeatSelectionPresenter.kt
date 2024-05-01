@@ -68,18 +68,22 @@ class SeatSelectionPresenter(
     }
 
     override fun saveTicket() {
-        val dailySchedule = screening.schedule.dailySchedules[datePosition]
+        val chosenDateTime = getChosenDateTime()
         val ticketId =
             MockTicketRepository.save(
                 movie = screening.movie,
-                schedule =
-                    LocalDateTime.of(
-                        dailySchedule.date,
-                        dailySchedule.times[timePosition],
-                    ),
+                schedule = chosenDateTime,
                 seats = selectedSeatList,
                 price = price,
             )
         view.navigateToReservationCompleted(ticketId)
+    }
+
+    private fun getChosenDateTime(): LocalDateTime {
+        val chosenDailySchedule = screening.schedule.dailySchedules[datePosition]
+        return LocalDateTime.of(
+            chosenDailySchedule.date,
+            chosenDailySchedule.times[timePosition],
+        )
     }
 }
