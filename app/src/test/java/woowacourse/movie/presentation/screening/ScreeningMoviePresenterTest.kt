@@ -55,7 +55,7 @@ class ScreeningMoviePresenterTest {
     }
 
     @Test
-    fun `id 를 통해 상영 영화를 불러오는 것에 실패하면, 에러 화면으로 이동한다`() {
+    fun `id 를 통해 상영 영화를 불러오는 것에 실패하면, 에러 화면을 보여준다`() {
         // given
         val screenId = 1L
         every { repository.screenMovieById(any()) } returns null

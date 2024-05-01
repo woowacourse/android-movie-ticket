@@ -17,7 +17,7 @@
 - [x]: MovieReservationPresenter - CompleteReservation 네이밍 변경
 - [x]: SeatSelectionResult sealed class 들 {}로 묶기
 - [x]: SeatBoardView 의 clickListener 생성자로 받기
-- [ ]: ScreeningMoviePresenterTest 함수명 변경 (에러화면을 보여준다)
+- [x]: ScreeningMoviePresenterTest 함수명 변경 (에러화면을 보여준다)
 - [ ]: 값도 함께 검증하기
 ```kotlin
 // Capturing 사용하기
@@ -38,7 +38,7 @@ fun `presenter 가 생성될 때, view 가 영화 목록을 보여준다`() {
     }
 ```
 - [ ]: Capture 사용하기 (Presenter test에)
-
+- [ ]: DefaultRepository 에서 ID 생성하는 부분 삭제
 - 추후 SeatBoardView 커스텀뷰로 개선하는거 공부
 
 ## Test
