@@ -27,7 +27,7 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `영화 데이터를 불러오면 영화 예매 뷰가 초기화된다`() {
+    fun `영화 데이터를 불러온다`() {
         // given
         val movieSlot = slot<Movie>()
         every { view.initializeReservationView(capture(movieSlot)) } just runs
@@ -156,7 +156,7 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `예약 인원을 30명으로 변경하면 에러 화면을 표시한다`() {
+    fun `예약 인원을 30명으로 변경하면 에러가 발생한다`() {
         // given
         val movieReservationErrorSlot = slot<MovieReservationError>()
         every { view.handleError(capture(movieReservationErrorSlot)) } just runs

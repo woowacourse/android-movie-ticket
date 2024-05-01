@@ -27,7 +27,7 @@ class SeatSelectPresenter(
         view.initializeMovieView(movieUiModel)
     }
 
-    override fun initializeSeatTable(
+    override fun loadSeatTable(
         selectedSeats: SelectedSeats,
         row: Int,
         col: Int,
@@ -35,7 +35,7 @@ class SeatSelectPresenter(
         this.selectedSeats = selectedSeats
         seatTable = SeatTable(row, col)
         val seatsUiModel = SeatSelectTableUiModel.from(seatTable)
-        view.loadSeatTable(seatsUiModel)
+        view.initializeSeatViews(seatsUiModel)
     }
 
     override fun selectSeat(

@@ -25,7 +25,7 @@ class MovieHomePresenterTest {
     }
 
     @Test
-    fun `영화 데이터를 불러오면 영화 목록 뷰가 초기화된다`() {
+    fun `영화 데이터를 불러온다`() {
         // given
         val moviesSlot = slot<List<Movie>>()
         every { view.initializeMovieList(capture(moviesSlot)) } just runs

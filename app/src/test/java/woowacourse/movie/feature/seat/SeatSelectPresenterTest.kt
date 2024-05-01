@@ -35,7 +35,7 @@ class SeatSelectPresenterTest {
     }
 
     @Test
-    fun `영화 데이터를 불러오면 영화 뷰가 초기화된다`() {
+    fun `영화 데이터를 불러온다`() {
         // given
         val movieUiModelSlot = slot<SeatSelectMovieUiModel>()
         every { view.initializeMovieView(capture(movieUiModelSlot)) } just runs
@@ -51,28 +51,28 @@ class SeatSelectPresenterTest {
     }
 
     @Test
-    fun `좌석표를 초기화하면 좌석표 뷰가 초기화된다`() {
+    fun `좌석표를 초기화한다`() {
         // given
         val seatsUiModelSlot = slot<List<List<SeatSelectTableUiModel>>>()
-        every { view.loadSeatTable(capture(seatsUiModelSlot)) } just runs
+        every { view.initializeSeatViews(capture(seatsUiModelSlot)) } just runs
 
         // when
-        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
+        presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // then
         val actual = seatsUiModelSlot.captured
         val expected = SeatSelectTableUiModel.from(SeatTable(5, 4))
         assertThat(actual).isEqualTo(expected)
-        verify { view.loadSeatTable(actual) }
+        verify { view.initializeSeatViews(actual) }
     }
 
     @Test
-    fun `2행 3열 좌석을 선택하면 10,000원이 화면에 보인다`() {
+    fun `2행 3열 좌석을 선택하면 금액이 10,000원이다`() {
         // given
         val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
         every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
-        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
+        presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         // 2행 3열 좌석은 인덱스 [1][2]에 저장되어 있다
@@ -86,12 +86,12 @@ class SeatSelectPresenterTest {
     }
 
     @Test
-    fun `2열 3행, 4열 4행 좌석을 선택하면 25,000원이 화면에 보인다`() {
+    fun `2열 3행, 4열 4행 좌석을 선택하면 금액이 25,000원이다`() {
         // given
         val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
         every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
-        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
+        presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         presenter.selectSeat(1, 2)
@@ -111,7 +111,7 @@ class SeatSelectPresenterTest {
         val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
         every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
-        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
+        presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)
         presenter.selectSeat(1, 2)
         presenter.selectSeat(3, 3)
 
@@ -126,10 +126,10 @@ class SeatSelectPresenterTest {
     }
 
     @Test
-    fun `예매 인원이 2명이고 3개의 좌석을 선택하면, 더이상 선택할 수 없다는 메시지를 보여준다`() {
+    fun `예매 인원이 2명이고 3개의 좌석을 선택하면, 더이상 선택할 수 없다`() {
         // given
         view.setUpForSelectSeat()
-        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
+        presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)
         presenter.selectSeat(1, 2)
         presenter.selectSeat(3, 3)
 
@@ -145,8 +145,8 @@ class SeatSelectPresenterTest {
         // given
         val ticketIdSlot = slot<Long>()
         every { view.moveReservationCompleteView(capture(ticketIdSlot)) } just runs
-        every { view.loadSeatTable(any()) } just runs
-        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
+        every { view.initializeSeatViews(any()) } just runs
+        presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         presenter.finishSeatSelection(0L, LocalDateTime.of(2024, 4, 1, 9, 0))
@@ -163,7 +163,7 @@ class SeatSelectPresenterTest {
         val reservationAmountSlot = slot<Int>()
         view.setUpForSelectSeat()
         every { view.updateReservationAmount(capture(reservationAmountSlot)) } just runs
-        presenter.initializeSeatTable(SelectedSeats(reservationCount), 5, 4)
+        presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)
 
         // when
         presenter.updateSelectedSeats(

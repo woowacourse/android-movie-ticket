@@ -10,7 +10,7 @@ interface SeatSelectContract {
     interface View : SeatSelectErrorListener {
         fun initializeMovieView(movie: SeatSelectMovieUiModel)
 
-        fun loadSeatTable(seats: List<List<SeatSelectTableUiModel>>)
+        fun initializeSeatViews(seats: List<List<SeatSelectTableUiModel>>)
 
         fun updateReservationAmount(reservationAmountValue: Int)
 
@@ -33,7 +33,7 @@ interface SeatSelectContract {
     interface Presenter : BasePresenter {
         fun loadMovieData(movieId: Long)
 
-        fun initializeSeatTable(
+        fun loadSeatTable(
             selectedSeats: SelectedSeats,
             row: Int,
             col: Int,

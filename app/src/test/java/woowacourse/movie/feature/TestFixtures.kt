@@ -19,7 +19,7 @@ fun SeatSelectContract.View.setUpForSelectSeat() {
     every { showCannotSelectSeat() } just runs
     every { unselectSeat(any(), any()) } just runs
     every { updateReservationAmount(any()) } just runs
-    every { loadSeatTable(any()) } just runs
+    every { initializeSeatViews(any()) } just runs
 }
 
 fun SelectedSeats(

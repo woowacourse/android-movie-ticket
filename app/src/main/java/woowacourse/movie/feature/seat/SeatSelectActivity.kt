@@ -115,7 +115,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
 
     private fun initializeView() {
         presenter.loadMovieData(movieId)
-        presenter.initializeSeatTable(selectedSeats, seatViews.size, seatViews[0].size)
+        presenter.loadSeatTable(selectedSeats, seatViews.size, seatViews[0].size)
         updateReservationAmount(INITIAL_RESERVATION_AMOUNT)
         confirmButton.setOnClickListener {
             presenter.finishSeatSelection(movieId, screeningDateTime)
@@ -127,7 +127,7 @@ class SeatSelectActivity : BaseActivity<SeatSelectContract.Presenter>(), SeatSel
         titleText.text = movie.titleMessage
     }
 
-    override fun loadSeatTable(seats: List<List<SeatSelectTableUiModel>>) {
+    override fun initializeSeatViews(seats: List<List<SeatSelectTableUiModel>>) {
         seatViewsIndexed { row, col, seatView ->
             seatView.text = seats[row][col].seatMessage
             val color = ContextCompat.getColor(this, seats[row][col].seatColorId)

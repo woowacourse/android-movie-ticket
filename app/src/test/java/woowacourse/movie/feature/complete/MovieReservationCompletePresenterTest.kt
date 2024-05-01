@@ -30,7 +30,7 @@ class MovieReservationCompletePresenterTest {
     }
 
     @Test
-    fun `티켓 데이터를 불러오면 티켓 뷰가 초기화된다`() {
+    fun `티켓 데이터를 불러온다`() {
         // given
         val id = ticketRepository.save(ticket1)
         val ticketSlot = slot<Ticket>()
@@ -46,7 +46,7 @@ class MovieReservationCompletePresenterTest {
     }
 
     @Test
-    fun `영화 데이터를 불러오면 영화 예매 완료 뷰가 초기화된다`() {
+    fun `영화 데이터를 불러온다`() {
         // given
         val movieSlot = slot<Movie>()
         every { view.initializeReservationCompleteView(capture(movieSlot)) } just runs
