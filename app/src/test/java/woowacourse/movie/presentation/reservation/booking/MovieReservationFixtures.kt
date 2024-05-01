@@ -15,7 +15,6 @@ fun stubMovieReservation(): MovieReservation {
     return MovieReservation(
         id = 1L,
         movie = stubMovie(),
-        price = Price(10_000),
         screenDateTime = LocalDateTime.now(),
         headCount = HeadCount(2),
         cancelDeadLine = 15.minutes,
