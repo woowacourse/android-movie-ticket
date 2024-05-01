@@ -25,6 +25,6 @@
 - [x]: TimePicker, DatePicker 화면 대응 Ui Test 추가
 - [ ]: SeatSelection Ui Test (화면 회전, 좌석 선택, price..)
 - [x]: presenter 테스트를 진행하며 단순 any()로 verify 검증을 하는게 아닌, 실제 값을 검증하기..
-- [ ]: SeatSelectionPresenter test
-- [ ]: MovieReservationPresenter test
+- [x]: SeatSelectionPresenter test
+- [x]: MovieReservationPresenter test
 - [x]: ReservationResultPresenter test

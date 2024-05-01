@@ -1,6 +1,7 @@
 package woowacourse.movie.presentation.reservation.seat
 
 import woowacourse.movie.model.HeadCount
+import woowacourse.movie.model.board.Position
 import woowacourse.movie.model.board.SeatBoard
 import woowacourse.movie.model.board.buildSeatBoard
 import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
@@ -34,4 +35,7 @@ fun stubSeatBoard(): SeatBoard =
     buildSeatBoard {
         size(5, 5)
         headCount(HeadCount(2))
+        bannedPositions(setOf(banPosition()))
     }
+
+fun banPosition(): Position = Position(1, 1)
