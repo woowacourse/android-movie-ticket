@@ -5,9 +5,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import woowacourse.movie.model.equalTicket
-import woowacourse.movie.model.ticket1
-import woowacourse.movie.model.ticket2
-import woowacourse.movie.model.ticket3
+import woowacourse.movie.model.movieId
+import woowacourse.movie.model.screeningDateTime
+import woowacourse.movie.model.selectedSeats
+import woowacourse.movie.model.ticket
 
 class TicketRepositoryImplTest {
     @BeforeEach
@@ -17,32 +18,23 @@ class TicketRepositoryImplTest {
 
     @Test
     fun `티켓을 저장한다`() {
-        TicketRepositoryImpl.save(ticket1)
-        val actual = TicketRepositoryImpl.find(ticket1.id)
-        equalTicket(actual, ticket1)
-    }
-
-    @Test
-    fun `이미 존재하는 id의 티켓을 저장하려는 경우 예외가 발생한다`() {
-        TicketRepositoryImpl.save(ticket1)
-
-        assertThrows<IllegalStateException> {
-            TicketRepositoryImpl.save(ticket2.copy(id = ticket1.id))
-        }
+        val id = TicketRepositoryImpl.save(0L, screeningDateTime, selectedSeats)
+        val actual = TicketRepositoryImpl.find(id)
+        equalTicket(actual, ticket)
     }
 
     @Test
     fun `특정 id의 티켓을 가져온다`() {
         // given
-        TicketRepositoryImpl.save(ticket1)
-        TicketRepositoryImpl.save(ticket2)
-        TicketRepositoryImpl.save(ticket3)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
+        val id = TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
 
         // when
-        val actual = TicketRepositoryImpl.find(ticket3.id)
+        val actual = TicketRepositoryImpl.find(id)
 
         // then
-        equalTicket(actual, ticket3)
+        equalTicket(actual, ticket.copy(id = id))
     }
 
     @Test
@@ -55,26 +47,23 @@ class TicketRepositoryImplTest {
     @Test
     fun `모든 티켓을 가져온다`() {
         // given
-        TicketRepositoryImpl.save(ticket1)
-        TicketRepositoryImpl.save(ticket2)
-        TicketRepositoryImpl.save(ticket3)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
 
         // when
         val actual = TicketRepositoryImpl.findAll()
 
         // then
         assertThat(actual.size).isEqualTo(3)
-        equalTicket(actual[0], ticket1)
-        equalTicket(actual[1], ticket2)
-        equalTicket(actual[2], ticket3)
     }
 
     @Test
     fun `모든 티켓을 삭제한다`() {
         // given
-        TicketRepositoryImpl.save(ticket1)
-        TicketRepositoryImpl.save(ticket2)
-        TicketRepositoryImpl.save(ticket3)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
+        TicketRepositoryImpl.save(movieId, screeningDateTime, selectedSeats)
 
         // when
         TicketRepositoryImpl.deleteAll()

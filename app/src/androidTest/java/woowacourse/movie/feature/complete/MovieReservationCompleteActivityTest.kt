@@ -15,7 +15,6 @@ import woowacourse.movie.feature.firstMovie
 import woowacourse.movie.feature.view
 import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.reservation.ReservationCount
-import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SelectedSeats
 import java.time.LocalDateTime
@@ -69,14 +68,11 @@ class MovieReservationCompleteActivityTest {
                     select(Seat(3, 3)) // C3
                     select(Seat(5, 1)) // E1
                 }
-            val ticket =
-                Ticket(
-                    id = 0L,
-                    movieId = FIRST_MOVIE_ID,
-                    screeningDateTime = LocalDateTime.of(2024, 4, 20, 9, 0),
-                    selectedSeats = selectedSeats,
-                )
-            TicketRepositoryImpl.save(ticket)
+            TicketRepositoryImpl.save(
+                FIRST_MOVIE_ID,
+                LocalDateTime.of(2024, 4, 20, 9, 0),
+                selectedSeats,
+            )
         }
     }
 }

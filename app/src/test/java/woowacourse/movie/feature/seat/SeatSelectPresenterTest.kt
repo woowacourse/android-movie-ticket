@@ -16,7 +16,6 @@ import woowacourse.movie.feature.setUpForSelectSeat
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.TicketRepository
-import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SeatTable
 import java.time.LocalDateTime
@@ -24,13 +23,14 @@ import java.time.LocalDateTime
 class SeatSelectPresenterTest {
     private lateinit var view: SeatSelectContract.View
     private val movieRepository: MovieRepository = MovieRepositoryImpl
-    private val ticketRepository: TicketRepository = TicketRepositoryImpl
+    private lateinit var ticketRepository: TicketRepository
     private lateinit var presenter: SeatSelectPresenter
     private val reservationCount = 2
 
     @BeforeEach
     fun setUp() {
         view = mockk<SeatSelectContract.View>()
+        ticketRepository = mockk<TicketRepository>()
         presenter = SeatSelectPresenter(view, movieRepository, ticketRepository)
     }
 
@@ -144,6 +144,7 @@ class SeatSelectPresenterTest {
     fun `좌석 선택을 끝내면 예매 완료 페이지로 이동한다`() {
         // given
         val ticketIdSlot = slot<Long>()
+        every { ticketRepository.save(any(), any(), any()) } returns 0L
         every { view.moveReservationCompleteView(capture(ticketIdSlot)) } just runs
         every { view.initializeSeatViews(any()) } just runs
         presenter.loadSeatTable(SelectedSeats(reservationCount), 5, 4)

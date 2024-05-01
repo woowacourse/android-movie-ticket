@@ -14,8 +14,10 @@ import woowacourse.movie.model.data.MovieRepositoryImpl
 import woowacourse.movie.model.data.TicketRepository
 import woowacourse.movie.model.data.TicketRepositoryImpl
 import woowacourse.movie.model.data.dto.Movie
+import woowacourse.movie.model.movieId
 import woowacourse.movie.model.reservation.Ticket
-import woowacourse.movie.model.ticket1
+import woowacourse.movie.model.screeningDateTime
+import woowacourse.movie.model.selectedSeats
 
 class MovieReservationCompletePresenterTest {
     private lateinit var view: MovieReservationCompleteContract.View
@@ -32,16 +34,16 @@ class MovieReservationCompletePresenterTest {
     @Test
     fun `티켓 데이터를 불러온다`() {
         // given
-        ticketRepository.save(ticket1)
+        val id = ticketRepository.save(movieId, screeningDateTime, selectedSeats)
         val ticketSlot = slot<Ticket>()
         every { view.initializeTicket(capture(ticketSlot)) } just runs
 
         // when
-        presenter.loadTicketData(0L)
+        presenter.loadTicketData(id)
 
         // then
         val actual = ticketSlot.captured
-        assertThat(actual.id).isEqualTo(0L)
+        assertThat(actual.id).isEqualTo(id)
         verify { view.initializeTicket(actual) }
     }
 

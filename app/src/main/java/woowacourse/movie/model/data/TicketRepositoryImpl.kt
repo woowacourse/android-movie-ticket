@@ -1,15 +1,21 @@
 package woowacourse.movie.model.data
 
 import woowacourse.movie.model.reservation.Ticket
+import woowacourse.movie.model.seat.SelectedSeats
+import java.time.LocalDateTime
 
 object TicketRepositoryImpl : TicketRepository {
     private val tickets = mutableMapOf<Long, Ticket>()
     private const val NOT_EXIST_ID_MESSAGE = "해당하는 아이디의 티켓을 찾을 수 없습니다."
-    private const val EXIST_ID_MESSAGE = "해당하는 아이디의 티켓이 이미 존재합니다."
 
-    override fun save(ticket: Ticket) {
-        check(!tickets.contains(ticket.id)) { EXIST_ID_MESSAGE }
+    override fun save(
+        movieId: Long,
+        screeningDateTime: LocalDateTime,
+        selectedSeats: SelectedSeats,
+    ): Long {
+        val ticket = GenerateTicket.ticket(movieId, screeningDateTime, selectedSeats)
         tickets[ticket.id] = ticket
+        return ticket.id
     }
 
     override fun find(id: Long): Ticket {

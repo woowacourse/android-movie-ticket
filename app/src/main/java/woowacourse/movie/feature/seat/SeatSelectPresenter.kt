@@ -6,7 +6,6 @@ import woowacourse.movie.model.data.GenerateTicket
 import woowacourse.movie.model.data.MovieRepository
 import woowacourse.movie.model.data.TicketRepository
 import woowacourse.movie.model.reservation.ReservationAmount
-import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SeatTable
 import woowacourse.movie.model.seat.SelectedSeats
@@ -87,9 +86,8 @@ class SeatSelectPresenter(
         movieId: Long,
         screeningDateTime: LocalDateTime,
     ) {
-        val ticket = GenerateTicket.ticket(movieId, screeningDateTime, selectedSeats)
-        ticketRepository.save(ticket)
-        view.moveReservationCompleteView(ticket.id)
+        val ticketId = ticketRepository.save(movieId, screeningDateTime, selectedSeats)
+        view.moveReservationCompleteView(ticketId)
     }
 
     override fun updateSelectedSeats(selectedSeats: SelectedSeats) {
