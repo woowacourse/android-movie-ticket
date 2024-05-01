@@ -40,7 +40,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
                     repository = MovieRepositoryFactory.movieRepository(),
                     navArgs = navArgs,
                     view = this,
-                ).apply { loadScreenSeats() }
+                )
+            presenter.loadScreenSeats()
         }
     }
 
@@ -77,9 +78,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionView {
                 tableLayout = tableLayout,
                 rowCount = board.rowCount,
                 columnCount = board.columnCount,
+                seatClickListener = presenter::selectSeat
             ).apply {
                 updateSeats(board.seats)
-                setBoardClickListener { x, y -> presenter.selectSeat(x, y) }
             }
     }
 

@@ -21,6 +21,7 @@ class SeatBoardView(
     private val tableLayout: TableLayout,
     private val rowCount: Int,
     private val columnCount: Int,
+    private val seatClickListener: SeatClickListener,
 ) {
     private lateinit var seats: List<List<TextView>>
 
@@ -41,7 +42,10 @@ class SeatBoardView(
                 )
             val rowSeats = mutableListOf<TextView>()
             for (j in 0 until columnCount) {
-                val textView = TextView(context).also { it.initSeatView() }
+                val textView = TextView(context).also {
+                    it.initSeatView()
+                    it.setOnClickListener { seatClickListener.onClick(i, j) }
+                }
                 tableRow.addView(textView)
                 rowSeats.add(textView)
             }
@@ -105,20 +109,6 @@ class SeatBoardView(
 
     fun updateSeats(seats: List<SeatUiModel>) {
         seats.forEach(this::updateSeat)
-    }
-
-    fun setBoardClickListener(clickListener: SeatClickListener) {
-        seats.applyOnChildren { seat, x, y ->
-            seat.setOnClickListener { clickListener.onClick(x, y) }
-        }
-    }
-
-    private fun List<List<TextView>>.applyOnChildren(action: (TextView, Int, Int) -> Unit) {
-        seats.forEachIndexed { x, row ->
-            row.forEachIndexed { y, textView ->
-                action(textView, x, y)
-            }
-        }
     }
 
     fun interface SeatClickListener {
