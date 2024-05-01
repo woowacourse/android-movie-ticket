@@ -11,11 +11,8 @@ class ScreeningMoviePresenter(
     }
 
     fun startReservation(id: Long) {
-        repository.screenMovieById(id).onSuccess {
-            view.navigateToReservationView(it.id)
-        }.onFailure {
-            view.showErrorView()
-        }
+        val screeningMovie = repository.screenMovieById(id) ?: return view.showErrorView()
+        view.navigateToReservationView(screeningMovie.id)
     }
 
     fun startAd() {

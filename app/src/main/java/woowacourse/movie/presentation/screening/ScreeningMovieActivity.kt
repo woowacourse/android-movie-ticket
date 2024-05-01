@@ -66,10 +66,18 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
             MovieAdapter(
                 onClickReservationButton = { presenter.startReservation(it) },
                 onClickAd = { presenter.startAd() },
+                isAdPosition = ::isAdPosition
             ).also { movieRecyclerView.adapter = it }
+    }
+
+    private fun isAdPosition(position: Int): Boolean {
+        return (position + AD_POSITION_OFFSET) % AD_POSITION == AD_POSITION_MOD
     }
 
     companion object {
         private const val AD_URL = "https://www.woowacourse.io/"
+        private const val AD_POSITION = 4
+        private const val AD_POSITION_OFFSET = 1
+        private const val AD_POSITION_MOD = 0
     }
 }

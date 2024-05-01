@@ -23,18 +23,22 @@ class ScreeningMoviePresenterTest {
     lateinit var presenter: ScreeningMoviePresenter
 
     @Test
-    fun `presenter 가 생성될 때, 저장소에서 상영중인 영화들을 가져온다`() {
+    fun `presenter 가 상영중인 영화들을 가져올 때, 저장소에서 상영중인 영화들을 가져온다`() {
         // given
         every { repository.screenMovies() } returns listOf()
-        // when & then
+        // when
+        presenter.loadScreenMovies()
+        // then
         verify { repository.screenMovies() }
     }
 
     @Test
-    fun `presenter 가 생성될 때, view 가 영화 목록을 보여준다`() {
+    fun `presenter 가 상영중인 영화들을 가져오면, view 가 영화 목록을 보여준다`() {
         // given
         every { view.showMovies(any()) } just Runs
-        // when & then
+        // when
+        presenter.loadScreenMovies()
+        // then
         verify { view.showMovies(any()) }
     }
 
@@ -42,7 +46,7 @@ class ScreeningMoviePresenterTest {
     fun `id 를 통해 상영 영화를 불러오는 것에 성공하면, 예약 화면으로 이동한다`() {
         // given
         val screenId = 1L
-        every { repository.screenMovieById(any()) } returns Result.success(stubScreenMovie())
+        every { repository.screenMovieById(any()) } returns stubScreenMovie()
         // when
         presenter.startReservation(screenId)
         // then
@@ -54,7 +58,7 @@ class ScreeningMoviePresenterTest {
     fun `id 를 통해 상영 영화를 불러오는 것에 실패하면, 에러 화면으로 이동한다`() {
         // given
         val screenId = 1L
-        every { repository.screenMovieById(any()) } returns Result.failure(IllegalArgumentException())
+        every { repository.screenMovieById(any()) } returns null
         // when
         presenter.startReservation(screenId)
         // then

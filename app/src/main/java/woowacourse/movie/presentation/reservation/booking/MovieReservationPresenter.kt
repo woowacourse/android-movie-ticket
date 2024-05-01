@@ -13,12 +13,9 @@ class MovieReservationPresenter(
         get() = _uiState
 
     fun loadScreenMovie(id: Long) {
-        repository.screenMovieById(id).onSuccess { movie ->
-            _uiState = movie.toReservationUiState()
-            updateReservationView()
-        }.onFailure {
-            view.showErrorView()
-        }
+        val screenMovie = repository.screenMovieById(id) ?: return view.showErrorView()
+        _uiState = screenMovie.toReservationUiState()
+        updateReservationView()
     }
 
     fun updateScreenDateAt(position: Int) {

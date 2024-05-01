@@ -11,13 +11,14 @@ import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 class MovieAdapter(
     private val onClickReservationButton: (id: Long) -> Unit,
     private val onClickAd: () -> Unit,
+    private val isAdPosition: (Int) -> Boolean,
 ) :
     ListAdapter<ScreeningMovieUiModel, RecyclerView.ViewHolder>(movieComparator) {
     private lateinit var inflater: LayoutInflater
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            position.isAdPosition() -> ScreenItemType.AD.id
+            isAdPosition(position) -> ScreenItemType.AD.id
             else -> ScreenItemType.MOVIE.id
         }
     }
@@ -53,8 +54,6 @@ class MovieAdapter(
             is AdViewHolder -> Unit
         }
     }
-
-    private fun Int.isAdPosition() = (this + 1) % 4 == 0
 
     companion object {
         private val movieComparator =
