@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.screening
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
@@ -23,10 +22,11 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_screening_movie)
         initViews()
-        presenter = ScreeningMoviePresenter(
-            this,
-            MovieRepositoryFactory.movieRepository()
-        ).apply { loadScreenMovies() }
+        presenter =
+            ScreeningMoviePresenter(
+                this,
+                MovieRepositoryFactory.movieRepository(),
+            ).apply { loadScreenMovies() }
     }
 
     override fun onNewIntent(intent: Intent?) {

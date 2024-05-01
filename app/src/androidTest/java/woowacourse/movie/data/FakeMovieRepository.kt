@@ -23,12 +23,8 @@ class FakeMovieRepository : MovieRepository {
 
     override fun screenMovies(): List<ScreeningMovie> = screenMovies
 
-    override fun screenMovieById(id: Long): Result<ScreeningMovie> {
-        return runCatching {
-            screenMovies.find { it.id == id } ?: error(
-                "$id : id에 해당 하는 영화가 없습니다.",
-            )
-        }
+    override fun screenMovieById(id: Long): ScreeningMovie? {
+        return screenMovies.find { it.id == id }
     }
 
     override fun reserveMovie(
@@ -38,10 +34,11 @@ class FakeMovieRepository : MovieRepository {
         selectedSeats: Seats,
     ): Result<Long> {
         return runCatching {
+            val screeningMovie = screenMovieById(id) ?: error("id: $id 에 해당하는 영화가 없습니다.")
             reservations +=
                 MovieReservation(
                     id = ++reservationId,
-                    screeningMovie = screenMovieById(id).getOrThrow(),
+                    screeningMovie = screeningMovie,
                     screenDateTime = dateTime,
                     headCount = count,
                     seats = selectedSeats,

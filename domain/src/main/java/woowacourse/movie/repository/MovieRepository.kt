@@ -16,7 +16,7 @@ interface MovieRepository {
 
     fun screenMovies(): List<ScreeningMovie>
 
-    fun screenMovieById(id: Long): Result<ScreeningMovie>
+    fun screenMovieById(id: Long): ScreeningMovie?
 
     fun reserveMovie(
         id: Long,

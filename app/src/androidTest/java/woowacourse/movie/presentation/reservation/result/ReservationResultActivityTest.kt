@@ -77,7 +77,7 @@ class ReservationResultActivityTest {
                     throw UnsupportedOperationException()
                 }
 
-                override fun screenMovieById(id: Long): Result<ScreeningMovie> {
+                override fun screenMovieById(id: Long): ScreeningMovie? {
                     throw UnsupportedOperationException()
                 }
 
