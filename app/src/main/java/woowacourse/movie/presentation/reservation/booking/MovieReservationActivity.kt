@@ -147,7 +147,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
             presenter.minusCount()
         }
         findViewById<Button>(R.id.btn_navigate_seat_selection).setOnClickListener {
-            presenter.completeReservation()
+            presenter.startSeatSelection()
         }
         dateSpinner.onItemSelectedListener = itemSelectListener { presenter.updateScreenDateAt(it) }
         timeSpinner.onItemSelectedListener = itemSelectListener { presenter.updateScreenTimeAt(it) }

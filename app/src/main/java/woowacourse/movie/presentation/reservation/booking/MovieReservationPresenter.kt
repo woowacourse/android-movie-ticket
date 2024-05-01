@@ -49,7 +49,7 @@ class MovieReservationPresenter(
         view.showScreenDateAt(_uiState.selectedDatePosition)
     }
 
-    fun completeReservation() {
+    fun startSeatSelection() {
         val selectedTime = _uiState.selectedTime
         val selectedDate = _uiState.selectedDate.date
         val reservedDateTime = parseScreenDateTime(selectedDate, selectedTime)
