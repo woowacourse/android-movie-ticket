@@ -1,25 +1,40 @@
 package woowacourse.movie.presentation.screening
 
-import androidx.test.espresso.Espresso.onData
+import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.hamcrest.CoreMatchers.containsString
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.Description
-import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.CoreMatchers.instanceOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.R
+import woowacourse.movie.data.FakeMovieRepository
+import woowacourse.movie.data.MovieRepositoryFactory
+import woowacourse.movie.presentation.screening.adapter.AdViewHolder
+import woowacourse.movie.presentation.utils.withDrawable
 
 class ScreeningMovieActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(ScreeningMovieActivity::class.java)
+
+    @Before
+    fun setUp() {
+        MovieRepositoryFactory.setMovieRepository(repository = FakeMovieRepository())
+    }
+
+    @After
+    fun tearDown() {
+        MovieRepositoryFactory.clear()
+    }
 
     @Test
     @DisplayName("ScreeningMovieActivity 가 화면에 보여지는지 테스트")
@@ -29,37 +44,48 @@ class ScreeningMovieActivityTest {
 
     @Test
     @DisplayName("상영중인 영화가 화면에 보여지는지 테스트")
-    fun listviewTest() {
+    fun recyclerViewTest() {
         // given
         val screeningMovieUiModel = screenMovieUiModel()
         val title = screeningMovieUiModel.title
         val screenDate = screeningMovieUiModel.screenDate
         val runningTime = screeningMovieUiModel.runningTime
-        // when
-        val dataInteraction =
-            onData(`is`(withItemContent(containsString(title))))
-                .inAdapterView(withId(R.id.list_screening_movie))
-                .atPosition(0)
-        // then
-        dataInteraction.onChildView(withId(R.id.tv_movie_running_time))
-            .check(matches(withText(runningTime)))
-        dataInteraction.onChildView(withId(R.id.tv_movie_running_date))
-            .check(matches(withText(screenDate)))
-        dataInteraction.onChildView(withId(R.id.tv_movie_title))
-            .check(matches(withText(title)))
+        // when : title 과 일치하는 아이템이 화면에 보여질 때까지 스크롤
+        val viewInteraction =
+            onView(withId(R.id.rv_screening_movie))
+                .perform(
+                    RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
+                        hasDescendant(
+                            withText(
+                                title,
+                            ),
+                        ),
+                    ).atPosition(0),
+                )
+
+        // then : 해당 View 가 screenDate 와 runningTime 을 가지고 있는지 확인
+        viewInteraction.check(matches(hasDescendant(withText(screenDate))))
+        viewInteraction.check(
+            matches(hasDescendant(withText(runningTime))),
+        )
     }
 
-    private fun withItemContent(itemTextMatcher: Matcher<String>): Matcher<ScreeningMovieUiModel> {
-        return object :
-            TypeSafeMatcher<ScreeningMovieUiModel>(ScreeningMovieUiModel::class.java) {
-            override fun matchesSafely(screeningMovieUiModel: ScreeningMovieUiModel): Boolean {
-                return itemTextMatcher.matches(screeningMovieUiModel.title)
-            }
+    @Test
+    @DisplayName("4 번째 아이템에 광고가 보여지는지 테스트")
+    fun recyclerViewTest2() {
+        // given
+        val adImageViewId = R.id.iv_ad
+        val adDrawableRes = R.drawable.img_woowacourse
+        // when
+        onView(withId(R.id.rv_screening_movie))
+            .perform(
+                RecyclerViewActions.scrollToHolder(
+                    instanceOf(AdViewHolder::class.java),
+                ).atPosition(0),
+            )
 
-            override fun describeTo(description: Description) {
-                description.appendText("with item content matching: ")
-                itemTextMatcher.describeTo(description)
-            }
-        }
+        // then : 0번째 아이템에 대한 정보가 화면에 보여짐
+        onView(withId(adImageViewId)).check(matches(isDisplayed()))
+        onView(withId(adImageViewId)).check(matches(withDrawable<ImageView>(adDrawableRes)))
     }
 }

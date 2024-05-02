@@ -8,10 +8,8 @@ class ReservationResultPresenter(
     private val view: ReservationResultView,
 ) {
     fun loadReservationResult(id: Long) {
-        repository.movieReservationById(id).onSuccess {
+        repository.movieReservationById(id)?.let {
             view.showResult(it.toUiModel())
-        }.onFailure {
-            view.showErrorView()
-        }
+        } ?: view.showErrorView()
     }
 }

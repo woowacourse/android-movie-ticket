@@ -5,21 +5,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import woowacourse.movie.R
+import woowacourse.movie.common.ui.parcelable
 import woowacourse.movie.data.MovieRepositoryFactory
-import woowacourse.movie.presentation.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.reservation.booking.model.MovieReservationUiState
+import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
+import woowacourse.movie.presentation.reservation.seat.SeatSelectionActivity
+import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     private lateinit var presenter: MovieReservationPresenter
     private lateinit var countView: TextView
     private lateinit var plusButton: Button
     private lateinit var minusButton: Button
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
+    private lateinit var timeSpinnerAdapter: ArrayAdapter<String>
+    private lateinit var dateSpinnerAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,21 +42,20 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.apply {
-            putInt(KEY_RESERVATION_COUNT, presenter.count())
-        }
+        outState.putParcelable(KEY_RESERVATION_UI_STATE, presenter.uiState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val count = savedInstanceState.getInt(KEY_RESERVATION_COUNT)
-        val id = intent.getLongExtra(KEY_SCREEN_MOVIE_ID, INVALID_ID)
-        presenter =
-            MovieReservationPresenter(
-                this,
-                MovieRepositoryFactory.movieRepository(),
-                count,
-            ).apply { loadScreenMovie(id) }
+        savedInstanceState.parcelable<MovieReservationUiState>(
+            KEY_RESERVATION_UI_STATE,
+        )?.let { uiState ->
+            presenter =
+                MovieReservationPresenter(
+                    this,
+                    MovieRepositoryFactory.movieRepository(),
+                ).apply { restoreState(uiState) }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,8 +65,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showMovieReservation(reservation: MovieReservationUiModel) {
-        val (id, title, imageRes, screenDate, description, runningTime) = reservation
+    override fun showMovieReservation(reservation: ScreeningMovieUiModel) {
+        val (_, title, imageRes, screenDate, description, runningTime) = reservation
         findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(imageRes)
         findViewById<TextView>(R.id.tv_reservation_title).text = title
         findViewById<TextView>(R.id.tv_reservation_movie_description).text = description
@@ -71,12 +81,34 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         successLayout.visibility = View.GONE
     }
 
-    override fun updateHeadCount(count: Int) {
+    override fun showHeadCount(count: Int) {
         countView.text = count.toString()
     }
 
-    override fun navigateToReservationResultView(reservationId: Long) {
-        val intent = ReservationResultActivity.newIntent(this, reservationId)
+    override fun showTimePicker(times: List<String>) {
+        timeSpinnerAdapter.clear()
+        timeSpinnerAdapter.addAll(times)
+    }
+
+    override fun showTimePickerAt(position: Int) {
+        timeSpinner.postDelayed({
+            timeSpinner.setSelection(position, false)
+        }, 100)
+    }
+
+    override fun showScreenDateAt(position: Int) {
+        dateSpinner.postDelayed({
+            dateSpinner.setSelection(position, false)
+        }, 100)
+    }
+
+    override fun showDatePicker(dates: List<String>) {
+        dateSpinnerAdapter.clear()
+        dateSpinnerAdapter.addAll(dates)
+    }
+
+    override fun navigateToSeatSelection(navArgs: SeatSelectionNavArgs) {
+        val intent = SeatSelectionActivity.newIntent(this, navArgs)
         startActivity(intent)
     }
 
@@ -84,6 +116,26 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         countView = findViewById(R.id.tv_reservation_count)
         plusButton = findViewById(R.id.btn_reservation_plus)
         minusButton = findViewById(R.id.btn_reservation_minus)
+        dateSpinnerAdapter =
+            ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                mutableListOf<String>(),
+            )
+        dateSpinner =
+            findViewById<Spinner>(R.id.sp_reservation_date).apply {
+                adapter = dateSpinnerAdapter
+            }
+        timeSpinnerAdapter =
+            ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                mutableListOf<String>(),
+            )
+        timeSpinner =
+            findViewById<Spinner>(R.id.sp_reservation_time).apply {
+                adapter = timeSpinnerAdapter
+            }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -94,8 +146,25 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
         minusButton.setOnClickListener {
             presenter.minusCount()
         }
-        findViewById<Button>(R.id.btn_reservation_complete).setOnClickListener {
-            presenter.completeReservation()
+        findViewById<Button>(R.id.btn_navigate_seat_selection).setOnClickListener {
+            presenter.startSeatSelection()
+        }
+        dateSpinner.onItemSelectedListener = itemSelectListener { presenter.updateScreenDateAt(it) }
+        timeSpinner.onItemSelectedListener = itemSelectListener { presenter.updateScreenTimeAt(it) }
+    }
+
+    private inline fun itemSelectListener(crossinline onSelected: (Int) -> Unit): AdapterView.OnItemSelectedListener {
+        return object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                onSelected(position)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
@@ -111,7 +180,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationView {
     companion object {
         const val INVALID_ID: Long = -1
         val KEY_SCREEN_MOVIE_ID: String? = this::class.java.canonicalName
-        const val KEY_RESERVATION_COUNT: String = "KEY_RESERVATION_COUNT"
+        const val KEY_RESERVATION_UI_STATE: String = "KEY_RESERVATION_UI_STATE"
 
         @JvmStatic
         fun newIntent(

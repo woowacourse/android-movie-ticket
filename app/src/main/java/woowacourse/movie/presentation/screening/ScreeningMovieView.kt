@@ -1,9 +1,11 @@
 package woowacourse.movie.presentation.screening
 
 interface ScreeningMovieView {
-    fun updateMovies(movies: List<ScreeningMovieUiModel>)
+    fun showMovies(movies: List<ScreeningMovieUiModel>)
+
+    fun showErrorView()
 
     fun navigateToReservationView(movieId: Long)
 
-    fun showErrorView()
+    fun navigateToAdView()
 }

@@ -101,6 +101,30 @@
             android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
+            <LinearLayout
+                android:id="@+id/layout_reservation_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toTopOf="@id/btn_reservation_minus">
+
+                <woowacourse.movie.presentation.reservation.booking.MovieReservationPicker
+                    android:id="@+id/sp_reservation_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:maxHeight="100dp" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content" />
+
+                <woowacourse.movie.presentation.reservation.booking.MovieReservationPicker
+                    android:id="@+id/sp_reservation_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:maxHeight="100dp" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_reservation_minus"
@@ -109,9 +133,8 @@
                 android:layout_marginBottom="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="-"
-                app:layout_constraintBottom_toTopOf="@id/btn_reservation_complete"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@id/btn_navigate_seat_selection"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/tv_reservation_count"
@@ -132,17 +155,17 @@
                 android:layout_height="41dp"
                 android:layout_marginBottom="16dp"
                 android:text="+"
-                app:layout_constraintBottom_toTopOf="@id/btn_reservation_complete"
+                app:layout_constraintBottom_toTopOf="@id/btn_navigate_seat_selection"
                 app:layout_constraintEnd_toEndOf="parent" />
 
 
             <Button
-                android:id="@+id/btn_reservation_complete"
+                android:id="@+id/btn_navigate_seat_selection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:paddingVertical="11dp"
-                android:text="예매 완료"
+                android:text="좌석 선택"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

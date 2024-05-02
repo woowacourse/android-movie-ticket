@@ -1,11 +1,22 @@
 package woowacourse.movie.presentation.reservation.booking
 
+import woowacourse.movie.presentation.reservation.booking.model.SeatSelectionNavArgs
+import woowacourse.movie.presentation.screening.ScreeningMovieUiModel
+
 interface MovieReservationView {
-    fun showMovieReservation(reservation: MovieReservationUiModel)
+    fun showMovieReservation(reservation: ScreeningMovieUiModel)
 
     fun showErrorView()
 
-    fun updateHeadCount(count: Int)
+    fun showHeadCount(count: Int)
 
-    fun navigateToReservationResultView(reservationId: Long)
+    fun showTimePicker(times: List<String>)
+
+    fun showScreenDateAt(position: Int)
+
+    fun showTimePickerAt(position: Int)
+
+    fun showDatePicker(dates: List<String>)
+
+    fun navigateToSeatSelection(navArgs: SeatSelectionNavArgs)
 }

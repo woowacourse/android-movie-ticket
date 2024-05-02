@@ -6,4 +6,5 @@ data class ReservationResultUiModel(
     val date: String,
     val headCount: Int,
     val totalPrice: Int,
+    val seats: String,
 )
