@@ -35,10 +35,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
     private val movieTitleTv by lazy { findViewById<TextView>(R.id.tv_screen_movie_title) }
     private val priceTv by lazy { findViewById<TextView>(R.id.tv_seat_price) }
-    private val seatBoardView: SeatBoardView by lazy { createSeatTextViews().let(::SeatBoardView) }
+    private val seatBoardView: SeatBoardView by lazy { collectSeatViews().let(::SeatBoardView) }
     private val reservationConfirmTv by lazy { findViewById<TextView>(R.id.btn_reservation_confirm) }
 
-    private fun createSeatTextViews(): List<TextView> =
+    private fun collectSeatViews(): List<TextView> =
         findViewById<TableLayout>(R.id.table_seat)
             .children
             .filterIsInstance<TableRow>()
