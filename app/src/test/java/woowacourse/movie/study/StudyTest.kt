@@ -10,7 +10,7 @@ class StudyTest {
     fun test1() {
         val startDate = LocalDate.of(2024, 1, 1)
         val endDate = LocalDate.of(2024, 1, 1)
-        val actual = spreadDateWithRange(startDate, endDate)
+        val actual = this.spreadDate4(startDate, endDate)
         assertThat(actual).hasSize(1)
     }
 
@@ -18,7 +18,7 @@ class StudyTest {
     fun test2() {
         val startDate = LocalDate.of(2024, 1, 1)
         val endDate = LocalDate.of(2024, 1, 2)
-        val actual = spreadDateWithRange(startDate, endDate)
+        val actual = this.spreadDate4(startDate, endDate)
         assertThat(actual).hasSize(2)
     }
 
@@ -26,7 +26,7 @@ class StudyTest {
     fun test3() {
         val startDate = LocalDate.of(2024, 11, 1)
         val endDate = LocalDate.of(2024, 12, 31)
-        val actual = spreadDateWithRange(startDate, endDate)
+        val actual = this.spreadDate4(startDate, endDate)
         assertThat(actual).hasSize(61)
     }
 
@@ -34,11 +34,11 @@ class StudyTest {
     fun test4() {
         val startDate = LocalDate.of(1999, 1, 1)
         val endDate = LocalDate.of(2199, 12, 31)
-        val actual = spreadDateWithRange(startDate, endDate)
+        val actual = this.spreadDate4(startDate, endDate)
         assertThat(actual).hasSize(73414)
     }
 
-    private fun spreadDateWithRange(
+    private fun spreadDate1(
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<LocalDate> {
@@ -47,7 +47,7 @@ class StudyTest {
             .toList()
     }
 
-    private fun spreadDateWithRange2(
+    private fun spreadDate2(
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<LocalDate> {
@@ -58,11 +58,24 @@ class StudyTest {
         return emptyList()
     }
 
-    private fun spreadDateWithDuration(
+    private fun spreadDate3(
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<LocalDate> {
         val diffDays = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays()
         return listOf(startDate) + List(diffDays.toInt()) { startDate.plusDays(1) }
+    }
+
+    private fun spreadDate4(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): List<LocalDate> {
+        var currentDate = startDate
+        val days = mutableListOf<LocalDate>()
+        while (currentDate.isBefore(endDate.plusDays(1))) {
+            days.add(startDate)
+            currentDate = currentDate.plusDays(1)
+        }
+        return days
     }
 }
