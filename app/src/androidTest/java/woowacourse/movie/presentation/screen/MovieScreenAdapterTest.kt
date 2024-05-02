@@ -49,7 +49,7 @@ class MovieScreenAdapterTest {
             MovieScreenAdapter(
                 context,
                 listOf("ad_placeholder"),
-                repeatedMovies
+                repeatedMovies,
             ) {}
 
         TestCase.assertEquals(expectedSize, adapter.itemCount)

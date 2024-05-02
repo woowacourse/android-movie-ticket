@@ -5,7 +5,7 @@ import woowacourse.movie.domain.model.PendingMovieReservation
 import java.io.Serializable
 
 data class PendingMovieReservationModel(
-    val movieId : Int,
+    val movieId: Int,
     val title: String,
     val movieDate: MovieDateModel,
     val count: Int,
