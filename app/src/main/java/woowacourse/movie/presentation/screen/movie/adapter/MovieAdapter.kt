@@ -60,7 +60,6 @@ class MovieAdapter(private val movie: (Movie) -> Unit) :
                     return oldItem == newItem
                 }
 
-
                 @SuppressLint("DiffUtilEquals")
                 override fun areContentsTheSame(
                     oldItem: ScreenView,

@@ -25,9 +25,10 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View 
         recyclerView.adapter = movieAdapter
         val item = MovieDao().findAll()
         val ads = listOf(R.drawable.ic_launcher_foreground, R.drawable.screening_advertisement)
-        val screenItem: List<ScreenView> = item.chunked(3).flatMap {
-            it.map { ScreenView.MovieView(it) } + ScreenView.AdView(ads.shuffled().first())
-        }
+        val screenItem: List<ScreenView> =
+            item.chunked(3).flatMap {
+                it.map { ScreenView.MovieView(it) } + ScreenView.AdView(ads.shuffled().first())
+            }
         movieAdapter.submitList(screenItem)
     }
 

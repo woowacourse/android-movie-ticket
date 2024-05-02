@@ -93,7 +93,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                 getString(R.string.dialog_positive),
                 getString(R.string.dialog_negative),
                 { presenter.loadReservationInfo() },
-                { }
+                { },
             )
         }
     }

@@ -4,7 +4,9 @@ import androidx.annotation.DrawableRes
 import woowacourse.movie.model.Movie
 
 sealed class ScreenView {
-    data class AdView(@DrawableRes val res: Int) : ScreenView() {
+    data class AdView(
+        @DrawableRes val res: Int,
+    ) : ScreenView() {
         companion object {
             const val id = 0
         }

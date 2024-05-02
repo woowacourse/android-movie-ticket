@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import java.io.Serializable
 
-
 inline fun <reified T : Serializable> Intent.intentSerializable(
     key: String,
     clazz: Class<T>,
@@ -27,4 +26,3 @@ inline fun <reified T : Serializable> Bundle.bundleSerializable(
         this.getSerializable(key) as T?
     }
 }
-

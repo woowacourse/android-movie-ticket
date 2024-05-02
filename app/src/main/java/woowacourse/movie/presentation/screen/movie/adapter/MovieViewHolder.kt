@@ -12,6 +12,7 @@ sealed class ScreenViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     class AdsItem(val view: View) :
         ScreenViewHolder(view) {
         private val banner = view.findViewById<ImageView>(R.id.advertisement_imageview)
+
         fun bind(drawable: Int) {
             banner.setImageResource(drawable)
         }
@@ -19,7 +20,7 @@ sealed class ScreenViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     class MovieItem(
         val view: View,
-        private val movie: (Movie) -> Unit
+        private val movie: (Movie) -> Unit,
     ) : ScreenViewHolder(view) {
         private val title: TextView = view.findViewById(R.id.title)
         private val screenDate: TextView = view.findViewById(R.id.screen_date)
