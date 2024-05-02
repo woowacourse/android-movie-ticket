@@ -1,73 +1,73 @@
 package woowacourse.movie.presentation.screen.movie.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
 class MovieAdapter(private val movie: (Movie) -> Unit) :
-    ListAdapter<Movie, RecyclerView.ViewHolder>(movieComparator) {
+    ListAdapter<ScreenView, ScreenViewHolder>(movieViewComparator) {
     override fun getItemViewType(position: Int): Int {
-        if ((position + 1) % ADS_INDEX == 0) {
-            return MovieViewHolderType.ADS.id
+        return when (currentList[position]) {
+            is ScreenView.MovieView -> ScreenView.MovieView.id
+            is ScreenView.AdView -> ScreenView.AdView.id
         }
-        return MovieViewHolderType.MOVIE.id
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): RecyclerView.ViewHolder {
+    ): ScreenViewHolder {
         return when (viewType) {
-            VIEW_TYPE_MOVIE -> {
+            ScreenView.MovieView.id -> {
                 val view =
                     LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-                MovieViewHolder(view, movie)
+                ScreenViewHolder.MovieItem(view, movie)
             }
 
-            else -> {
+            ScreenView.AdView.id -> {
                 val view =
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.movie_advertisment_item, parent, false)
-                AdvertisementViewHolder(view)
+                ScreenViewHolder.AdsItem(view)
             }
+
+            else -> error("뷰타입에 해당하는 viewType=${viewType}가 없습니다")
         }
     }
 
     override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
+        holder: ScreenViewHolder,
         position: Int,
     ) {
-        // viewholder -> item
         val item = getItem(position)
         when (holder) {
-            is MovieViewHolder -> (holder).bind(item)
-            is AdvertisementViewHolder -> Unit
+            is ScreenViewHolder.MovieItem -> holder.bind((item as ScreenView.MovieView).item)
+            is ScreenViewHolder.AdsItem -> holder.bind((item as ScreenView.AdView).res)
         }
     }
 
     companion object {
-        private val movieComparator =
-            object : DiffUtil.ItemCallback<Movie>() {
+        private val movieViewComparator =
+            object : DiffUtil.ItemCallback<ScreenView>() {
                 override fun areItemsTheSame(
-                    oldItem: Movie,
-                    newItem: Movie,
-                ): Boolean {
-                    return oldItem.id == newItem.id
-                }
-
-                override fun areContentsTheSame(
-                    oldItem: Movie,
-                    newItem: Movie,
+                    oldItem: ScreenView,
+                    newItem: ScreenView,
                 ): Boolean {
                     return oldItem == newItem
                 }
-            }
 
-        const val ADS_INDEX: Int = 5
-        const val VIEW_TYPE_MOVIE: Int = 0
+
+                @SuppressLint("DiffUtilEquals")
+                override fun areContentsTheSame(
+                    oldItem: ScreenView,
+                    newItem: ScreenView,
+                ): Boolean {
+                    return oldItem === newItem
+                }
+            }
     }
 }

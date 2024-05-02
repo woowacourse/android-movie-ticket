@@ -8,6 +8,7 @@ import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
 import woowacourse.movie.presentation.screen.detail.MovieDetailActivity
 import woowacourse.movie.presentation.screen.movie.adapter.MovieAdapter
+import woowacourse.movie.presentation.screen.movie.adapter.ScreenView
 
 class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View {
     private val presenter: ScreeningMoviePresenter by lazy {
@@ -23,8 +24,11 @@ class ScreeningMovieActivity : AppCompatActivity(), ScreeningMovieContract.View 
         val recyclerView = findViewById<RecyclerView>(R.id.movie_rlv)
         recyclerView.adapter = movieAdapter
         val item = MovieDao().findAll()
-        // 어뎁터한테 item 넣어주기
-        movieAdapter.submitList(item)
+        val ads = listOf(R.drawable.ic_launcher_foreground, R.drawable.screening_advertisement)
+        val screenItem: List<ScreenView> = item.chunked(3).flatMap {
+            it.map { ScreenView.MovieView(it) } + ScreenView.AdView(ads.shuffled().first())
+        }
+        movieAdapter.submitList(screenItem)
     }
 
     override fun startNextActivity(movieId: Int) {
