@@ -33,6 +33,7 @@ class SeatSelectionActivityTest {
             ).apply {
                 val pendingMovieReservationModel =
                     PendingMovieReservationModel(
+                        movieId = 0,
                         title = "해리 포터와 마법사의 돌",
                         movieDate = MovieDateTime().toMovieDateModel(),
                         count = 2,
