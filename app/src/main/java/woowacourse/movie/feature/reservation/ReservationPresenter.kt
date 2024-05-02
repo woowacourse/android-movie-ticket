@@ -17,8 +17,8 @@ class ReservationPresenter(
 
     override fun fetchScreeningDetails(screeningId: Long) {
         screening = screeningRepository.find(screeningId) ?: return
-        view.initializeMovieDetails(screening.toUiModel())
-        view.setupScreeningSchedulesControls(screening.schedule.toUiModel())
+        view.showMovieDetails(screening.toUiModel())
+        view.showScreeningSchedules(screening.schedule.toUiModel())
     }
 
     override fun increaseQuantity() {

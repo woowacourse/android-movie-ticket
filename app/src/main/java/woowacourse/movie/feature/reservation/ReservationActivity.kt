@@ -44,9 +44,10 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         presenter.fetchScreeningDetails(screeningId)
         setupReservationCompleteControls()
         setupTicketQuantityControls()
+        setUpTimeSpinnerSelection()
     }
 
-    override fun initializeMovieDetails(screening: ScreeningItem.ScreeningModel) {
+    override fun showMovieDetails(screening: ScreeningItem.ScreeningModel) {
         val screeningPeriodText = getFormattedScreeningPeriod(screening)
         val runningTimeText = getFormattedRunningTime(screening.runningTime)
         posterIv.setImageResource(screening.poster)
@@ -72,7 +73,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         )
     }
 
-    override fun setupScreeningSchedulesControls(screeningScheduleModel: ScreeningScheduleModel) {
+    override fun showScreeningSchedules(screeningScheduleModel: ScreeningScheduleModel) {
         val dailySchedules = screeningScheduleModel.dailySchedules
         val dateSpinnerAdapter =
             buildArrayAdapter(
@@ -85,7 +86,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         dateSpinner.adapter = dateSpinnerAdapter
         timeSpinner.adapter = timeSpinnerAdapter
         setUpDateSpinnerSelection(dailySchedules, timeSpinnerAdapter)
-        setUpTimeSpinnerSelection()
     }
 
     private fun buildArrayAdapter(items: List<String>): ArrayAdapter<String> {
@@ -144,7 +144,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         timeSpinnerAdapter.addAll(dailySchedules[dateSpinnerPosition].times)
     }
 
-    override fun setupReservationCompleteControls() {
+    private fun setupReservationCompleteControls() {
         completeBtn.setOnClickListener {
             if (0 < quantity) navigateToCompleteScreen()
         }

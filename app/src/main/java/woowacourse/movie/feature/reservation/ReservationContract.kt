@@ -5,11 +5,9 @@ import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 
 interface ReservationContract {
     interface View {
-        fun initializeMovieDetails(movie: ScreeningItem.ScreeningModel)
+        fun showMovieDetails(movie: ScreeningItem.ScreeningModel)
 
-        fun setupReservationCompleteControls()
-
-        fun setupScreeningSchedulesControls(screeningScheduleModel: ScreeningScheduleModel)
+        fun showScreeningSchedules(screeningScheduleModel: ScreeningScheduleModel)
 
         fun updateTicketQuantity(newQuantity: Int)
 

@@ -26,14 +26,14 @@ class ReservationPresenterTest {
     fun `영화 데이터를 가져와 화면에 표시한다`() {
         // given
         every { screeningRepository.find(any()) } returns MOCK_SCREENING
-        every { view.initializeMovieDetails(any()) } just runs
-        every { view.setupScreeningSchedulesControls(any()) } just runs
+        every { view.showMovieDetails(any()) } just runs
+        every { view.showScreeningSchedules(any()) } just runs
 
         // when
         presenter.fetchScreeningDetails(0)
 
         // then
-        verify { view.initializeMovieDetails(any()) }
-        verify { view.setupScreeningSchedulesControls(any()) }
+        verify { view.showMovieDetails(any()) }
+        verify { view.showScreeningSchedules(any()) }
     }
 }
