@@ -1,9 +1,8 @@
 package woowacourse.movie.feature.main.ui
 
-import android.content.Context
 import androidx.annotation.DrawableRes
-import woowacourse.movie.R
 import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.feature.util.DATE_FORMAT_DOT
 import java.io.Serializable
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -17,24 +16,7 @@ sealed interface ScreeningItem {
         val releaseDate: String,
         val endDate: String,
         val runningTime: Int,
-    ) : ScreeningItem, Serializable {
-        fun getFormattedScreeningPeriod(context: Context): String =
-            String.format(
-                context.getString(R.string.screening_period),
-                this.releaseDate,
-                this.endDate,
-            )
-
-        fun getFormattedRunningTime(context: Context): String =
-            String.format(
-                context.getString(R.string.running_time),
-                this.runningTime,
-            )
-
-        companion object {
-            const val DATE_FORMAT = "yyyy.M.d"
-        }
-    }
+    ) : ScreeningItem, Serializable
 
     data class AdModel(
         val id: Long = 0,
@@ -44,7 +26,7 @@ sealed interface ScreeningItem {
 
 fun Screening.toUiModel(): ScreeningItem.ScreeningModel {
     val formatter: DateTimeFormatter =
-        DateTimeFormatter.ofPattern(ScreeningItem.ScreeningModel.DATE_FORMAT, Locale.getDefault())
+        DateTimeFormatter.ofPattern(DATE_FORMAT_DOT, Locale.getDefault())
     return ScreeningItem.ScreeningModel(
         id = id,
         poster = movie.poster,

@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.feature.reservation.ui.TicketModel
+import woowacourse.movie.feature.util.DECIMAL_FORMAT
+import java.text.DecimalFormat
 
 class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedContract.View {
     private val presenter = ReservationCompletedPresenter(this)
@@ -28,9 +30,26 @@ class ReservationCompletedActivity : AppCompatActivity(), ReservationCompletedCo
 
     override fun initializeReservationDetails(ticket: TicketModel) {
         movieTitleTv.text = ticket.title
-        reservationDateTv.text = ticket.formatDateTime()
-        quantityTv.text = ticket.formatSeat(this)
-        priceTv.text = ticket.formatPrice(this)
+        reservationDateTv.text = "${ticket.date} ${ticket.time}"
+        quantityTv.text = formatSeat(this, ticket.seats)
+        priceTv.text = formatPrice(this, ticket.price)
+    }
+
+    private fun formatSeat(
+        context: Context,
+        seats: List<String>,
+    ) = String.format(
+        context.getString(R.string.reservation_quantity),
+        seats.size,
+        seats.joinToString(", "),
+    )
+
+    private fun formatPrice(
+        context: Context,
+        price: Long,
+    ): String {
+        val formattedPrice = DecimalFormat(DECIMAL_FORMAT).format(price)
+        return String.format(context.getString(R.string.reservation_price), formattedPrice)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

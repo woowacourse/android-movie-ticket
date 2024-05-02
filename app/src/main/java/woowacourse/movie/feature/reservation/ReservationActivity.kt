@@ -46,15 +46,30 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         setupTicketQuantityControls()
     }
 
-    override fun initializeMovieDetails(movie: ScreeningItem.ScreeningModel) {
-        val openingDayText = movie.getFormattedScreeningPeriod(this)
-        val runningTimeText = movie.getFormattedRunningTime(this)
-        posterIv.setImageResource(movie.poster)
-        movieTitleTv.text = movie.title
-        movieContentTv.text = movie.content
-        openingDayTv.text = openingDayText
+    override fun initializeMovieDetails(screening: ScreeningItem.ScreeningModel) {
+        val screeningPeriodText = getFormattedScreeningPeriod(screening)
+        val runningTimeText = getFormattedRunningTime(screening.runningTime)
+        posterIv.setImageResource(screening.poster)
+        movieTitleTv.text = screening.title
+        movieContentTv.text = screening.content
+        openingDayTv.text = screeningPeriodText
         runningTimeTv.text = runningTimeText
         updateTicketQuantity(quantity)
+    }
+
+    private fun getFormattedScreeningPeriod(screening: ScreeningItem.ScreeningModel): String {
+        return this.getString(
+            R.string.screening_period,
+            screening.releaseDate,
+            screening.endDate,
+        )
+    }
+
+    private fun getFormattedRunningTime(runningTime: Int): String {
+        return this.getString(
+            R.string.running_time,
+            runningTime,
+        )
     }
 
     override fun setupScreeningSchedulesControls(screeningScheduleModel: ScreeningScheduleModel) {
@@ -148,7 +163,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         )
     }
 
-    override fun setupTicketQuantityControls() {
+    private fun setupTicketQuantityControls() {
         minusBtn.setOnClickListener {
             presenter.decreaseQuantity()
         }

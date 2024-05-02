@@ -16,7 +16,7 @@ import woowacourse.movie.feature.completed.ReservationCompletedActivity
 import woowacourse.movie.feature.main.ui.ScreeningItem
 import woowacourse.movie.feature.reservation.ui.SeatBoardView
 import woowacourse.movie.feature.reservation.ui.SeatModel
-import woowacourse.movie.feature.reservation.ui.TicketModel
+import woowacourse.movie.feature.util.DECIMAL_FORMAT
 import java.text.DecimalFormat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
@@ -66,7 +66,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun updatePriceTextView(price: Long) {
-        val formattedPrice = DecimalFormat(TicketModel.DECIMAL_FORMAT).format(price)
+        val formattedPrice = DecimalFormat(DECIMAL_FORMAT).format(price)
         priceTv.text = getString(R.string.seat_price, formattedPrice)
     }
 

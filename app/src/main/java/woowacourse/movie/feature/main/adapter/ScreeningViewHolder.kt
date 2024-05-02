@@ -19,16 +19,33 @@ class ScreeningViewHolder(
     private val reservationButton: Button = view.findViewById(R.id.btn_reservation)
 
     fun bind(screening: ScreeningItem.ScreeningModel) {
-        val screeningPeriodText = screening.getFormattedScreeningPeriod(view.context)
-        val runningTimeText = screening.getFormattedRunningTime(view.context)
+        val screeningPeriod =
+            getFormattedScreeningPeriod(screening)
+        val runningTime =
+            getFormattedRunningTime(screening)
         with(this) {
             poster.setImageResource(screening.poster)
             title.text = screening.title
-            screeningPeriod.text = screeningPeriodText
-            runningTime.text = runningTimeText
+            this.screeningPeriod.text = screeningPeriod
+            this.runningTime.text = runningTime
             reservationButton.setOnClickListener {
                 itemClickListener.onItemClick(screening.id)
             }
         }
+    }
+
+    private fun getFormattedScreeningPeriod(screening: ScreeningItem.ScreeningModel): String {
+        return view.context.getString(
+            R.string.screening_period,
+            screening.releaseDate,
+            screening.endDate,
+        )
+    }
+
+    private fun getFormattedRunningTime(screening: ScreeningItem.ScreeningModel): String {
+        return view.context.getString(
+            R.string.running_time,
+            screening.runningTime,
+        )
     }
 }

@@ -9,8 +9,6 @@ interface ReservationContract {
 
         fun setupReservationCompleteControls()
 
-        fun setupTicketQuantityControls()
-
         fun setupScreeningSchedulesControls(screeningScheduleModel: ScreeningScheduleModel)
 
         fun updateTicketQuantity(newQuantity: Int)
