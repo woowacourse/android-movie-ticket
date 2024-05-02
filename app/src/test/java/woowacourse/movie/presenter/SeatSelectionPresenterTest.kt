@@ -1,0 +1,86 @@
+package woowacourse.movie.presenter
+
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.MovieDateTime
+import woowacourse.movie.domain.model.MovieSeat
+import woowacourse.movie.domain.model.SeatType
+import woowacourse.movie.domain.repository.SeatRepository
+import woowacourse.movie.presentation.model.PendingMovieReservationModel
+import woowacourse.movie.presentation.model.toMovieDateModel
+import woowacourse.movie.presentation.seat.SeatSelectionContract
+import woowacourse.movie.presentation.seat.SeatSelectionPresenter
+
+class SeatSelectionPresenterTest {
+    private lateinit var mockView: SeatSelectionContract.View
+    private lateinit var mockSeatRepository: SeatRepository
+    private lateinit var presenter: SeatSelectionPresenter
+    private val pendingMovieReservationModel =
+        PendingMovieReservationModel(
+            "해리포터",
+            MovieDateTime().toMovieDateModel(),
+            3,
+        )
+
+    @BeforeEach
+    fun setUp() {
+        mockView = mockk(relaxed = true)
+        mockSeatRepository = mockk(relaxed = true)
+        presenter =
+            SeatSelectionPresenter(pendingMovieReservationModel, mockView, mockSeatRepository)
+    }
+
+    @Test
+    fun `티켓을 불러오면 티켓 정보를 뷰에 표시해야 한다`() {
+        presenter.loadData()
+        verify { mockView.showTicket(pendingMovieReservationModel) }
+    }
+
+    @Test
+    fun `시트를 불러오면 좌석 정보를 뷰에 표시해야 한다`() {
+        val seats =
+            listOf(
+                listOf(
+                    MovieSeat("A", 1, SeatType.S),
+                    MovieSeat("A", 2, SeatType.S),
+                ),
+            )
+        every { mockSeatRepository.getAvailableSeats() } returns seats
+
+        presenter.loadData()
+
+        verify { mockView.showSeat(seats) }
+    }
+
+    @Test
+    fun `시트를 선택하면 선택된 좌석에 따라 뷰를 업데이트 해야 한다`() {
+        val rowIndex = 0
+        val columnIndex = 0
+        val seat = MovieSeat("A", 1, SeatType.S)
+        every { mockSeatRepository.getAvailableSeat(rowIndex, columnIndex) } returns seat
+
+        presenter.selectSeat(rowIndex, columnIndex)
+
+        verify {
+            mockView.showSelectedSeat(seat)
+            mockView.showCurrentResultTicketPriceView(any())
+        }
+    }
+
+    @Test
+    fun `티켓을 발급하면 최종 티켓 정보를 이동시켜야 한다`() {
+        presenter.ticketing()
+
+        verify { mockView.moveToTicketDetail(any()) }
+    }
+
+    @Test
+    fun `현재 시트 결과를 요청하면 조건에 따라 대화상자를 표시해야 한다`() {
+        presenter.confirmSeatResult()
+
+        verify(exactly = 0) { mockView.showReservationConfirmationDialog() }
+    }
+}

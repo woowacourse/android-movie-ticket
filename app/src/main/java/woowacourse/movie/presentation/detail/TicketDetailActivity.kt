@@ -5,15 +5,18 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.presentation.reservation.MovieReservationPresenter
-import woowacourse.movie.presentation.reservation.model.TicketModel
-import woowacourse.movie.utils.toCustomString
+import woowacourse.movie.presentation.model.TicketModel
+import woowacourse.movie.presentation.seat.SeatSelectionPresenter
+import woowacourse.movie.presentation.utils.toCustomString
 
 class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
     private lateinit var ticketTitle: TextView
     private lateinit var ticketScreeningDate: TextView
     private lateinit var ticketPrice: TextView
     private lateinit var ticketCount: TextView
+    private lateinit var ticketTime: TextView
+    private lateinit var ticketSeat: TextView
+
     private val presenter: TicketDetailPresenter by lazy {
         TicketDetailPresenter(
             view = this@TicketDetailActivity,
@@ -33,29 +36,32 @@ class TicketDetailActivity : AppCompatActivity(), TicketDetailContract.View {
         ticketScreeningDate = findViewById(R.id.ticket_screening_date)
         ticketPrice = findViewById(R.id.ticket_price)
         ticketCount = findViewById(R.id.ticket_number_of_people)
+        ticketTime = findViewById(R.id.ticket_screening_time)
+        ticketSeat = findViewById(R.id.ticket_seat)
     }
 
-    private fun getReservationTicket(): TicketModel? {
+    private fun getReservationTicket(): TicketModel {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getSerializableExtra(
-                MovieReservationPresenter.KEY_NAME_TICKET,
+                SeatSelectionPresenter.KEY_NAME_TICKET,
                 TicketModel::class.java,
-            )
+            ) ?: TicketModel.defaultTicket
         } else {
-            intent.getSerializableExtra(MovieReservationPresenter.KEY_NAME_TICKET) as? TicketModel
+            intent.getSerializableExtra(SeatSelectionPresenter.KEY_NAME_TICKET) as? TicketModel
+                ?: TicketModel.defaultTicket
         }
     }
 
-    override fun showTicket(ticketModel: TicketModel?) {
-        ticketModel ?: return
+    override fun showTicket(ticketModel: TicketModel) {
         ticketTitle.text = ticketModel.title
         ticketScreeningDate.text = ticketModel.screeningDate.toCustomString()
-        ticketPrice.text = String.format(TICKET_PRICE, ticketModel.price)
-        ticketCount.text = TICKET_COUNT.format(ticketModel.count)
+        ticketPrice.text = getString(R.string.ticket_price, ticketModel.price)
+        ticketCount.text = getString(R.string.ticket_count, ticketModel.count)
+        ticketTime.text = ticketModel.screeningTime.toCustomString()
+        ticketSeat.text = ticketModel.seats.joinToString(SEAT_SEPARATOR)
     }
 
     companion object {
-        private const val TICKET_PRICE = "%,d원 (현장결제)"
-        private const val TICKET_COUNT = "일반 %d명"
+        private const val SEAT_SEPARATOR = ", "
     }
 }

@@ -1,17 +1,20 @@
 package woowacourse.movie.presentation.screen
 
+import woowacourse.movie.domain.repository.AdRepository
 import woowacourse.movie.domain.repository.MovieRepository
 
 class MovieScreenPresenter(
     private val view: MovieScreenContract.View,
     private val movieRepository: MovieRepository,
+    private val adRepository: AdRepository,
 ) : MovieScreenContract.Presenter {
-    override fun loadScreenMovies() {
+    override fun loadScreenData() {
         val movies = movieRepository.getMovies()
-        view.showScreenMovies(movies)
+        val ads = adRepository.getAds()
+        view.showScreenData(movies, ads)
     }
 
-    override fun navigateToReservation(movieId: Int) {
+    override fun startReservation(movieId: Int) {
         view.moveToReservation(movieId)
     }
 

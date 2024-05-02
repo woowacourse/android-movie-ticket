@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        tools:text="@string/harry_potter_screening_date" />
+                        tools:text="2024.3.1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:textSize="16sp"
-                        tools:text="@string/harry_potter_running_time" />
+                        tools:text="152" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="19.87dp" />
+                    android:layout_height="20dp" />
 
                 <TextView
                     android:id="@+id/movie_detail_description"
@@ -120,7 +120,7 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="250dp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -131,14 +131,36 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingStart="20dp"
         android:paddingTop="10dp"
-        android:paddingEnd="20dp"
+        android:paddingHorizontal="20dp"
         android:paddingBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/date_spinner"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Space
+                android:layout_width="26dp"
+                android:layout_height="1dp"/>
+            <Spinner
+                android:id="@+id/time_spinner"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="20dp"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

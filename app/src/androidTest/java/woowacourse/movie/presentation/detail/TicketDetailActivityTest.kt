@@ -12,18 +12,19 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieDateTime
 import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.presentation.reservation.model.toTicketModel
-import java.time.LocalDate
+import woowacourse.movie.presentation.model.toTicketModel
 
 @RunWith(AndroidJUnit4::class)
-class TicketDetailTest {
+class TicketDetailActivityTest {
     private val ticket =
         Ticket(
-            "해리 포터와 마법사의 돌",
-            LocalDate.of(2024, 3, 1),
-            2,
-            Movie.DEFAULT_MOVIE_PRICE,
+            title = "해리 포터와 마법사의 돌",
+            movieDateTime = MovieDateTime(),
+            count = 2,
+            price = Movie.DEFAULT_MOVIE_PRICE,
+            seats = listOf(),
         ).toTicketModel()
     private val intent =
         Intent(

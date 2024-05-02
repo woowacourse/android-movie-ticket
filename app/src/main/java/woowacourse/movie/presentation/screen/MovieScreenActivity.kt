@@ -2,9 +2,10 @@ package woowacourse.movie.presentation.screen
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.data.AdRepositoryImpl
 import woowacourse.movie.data.MovieRepositoryImpl
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.reservation.MovieReservationActivity
@@ -12,11 +13,12 @@ import woowacourse.movie.presentation.screen.adapter.MovieScreenAdapter
 
 class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     private lateinit var movieAdapter: MovieScreenAdapter
-    private lateinit var movieListView: ListView
+    private lateinit var movieRecyclerView: RecyclerView
     private val presenter =
         MovieScreenPresenter(
             view = this@MovieScreenActivity,
             movieRepository = MovieRepositoryImpl(),
+            adRepository = AdRepositoryImpl(),
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,20 +28,24 @@ class MovieScreenActivity : AppCompatActivity(), MovieScreenContract.View {
     }
 
     private fun initView() {
-        movieListView = findViewById(R.id.movie_list_view)
+        movieRecyclerView = findViewById(R.id.movie_recycler_view)
+        presenter.loadScreenData()
+    }
+
+    override fun showScreenData(
+        movies: List<Movie>,
+        ads: List<String>,
+    ) {
         movieAdapter =
             MovieScreenAdapter(
                 context = this@MovieScreenActivity,
+                movies = movies,
+                ads = ads,
                 onMovieSelected = { movieId ->
                     moveToReservation(movieId)
                 },
             )
-        movieListView.adapter = movieAdapter
-        presenter.loadScreenMovies()
-    }
-
-    override fun showScreenMovies(movies: List<Movie>) {
-        movieAdapter.updateMovies(movies)
+        movieRecyclerView.adapter = movieAdapter
     }
 
     override fun moveToReservation(movieId: Int) {

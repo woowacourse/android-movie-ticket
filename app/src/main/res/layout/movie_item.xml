@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="12sp"
-            tools:text="@string/harry_potter_screening_date" />
+            tools:text="2024.3.1" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="12sp"
-            tools:text="@string/harry_potter_running_time" />
+            tools:text="152" />
 
         <TextView
             android:layout_width="wrap_content"

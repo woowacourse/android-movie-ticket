@@ -18,7 +18,7 @@ class TicketCounterTest {
     }
 
     @Test
-    fun `플러스 버튼을 누르면 티켓개수가 감소해야한다`() {
+    fun `1인 티켓 카운터의 수량을 증가시키면 2가 된다`() {
         // when
         ticketCounter.plusTicketCount()
 
@@ -27,7 +27,7 @@ class TicketCounterTest {
     }
 
     @Test
-    fun `마이너스 버튼을 누르면 티켓개수가 감소해야한다`() {
+    fun `3인 티켓 카운터의 수량을 감소시키면 2가 된다`() {
         // when
         ticketCounter.plusTicketCount()
         ticketCounter.plusTicketCount()
