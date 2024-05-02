@@ -4,9 +4,14 @@ import woowacourse.movie.feature.main.ui.ScreeningItem
 
 interface MainContract {
     interface View {
-        fun displayScreenings(screeningItems: List<ScreeningItem>)
+        fun displayScreenings(screeningItems: MutableList<ScreeningItem>)
 
         fun navigateToReservationScreen(screeningId: Long)
+
+        fun updateScreeningList(
+            positionStart: Int,
+            itemCount: Int,
+        )
     }
 
     interface Presenter {
