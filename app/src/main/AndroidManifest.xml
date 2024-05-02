@@ -27,6 +27,9 @@
         <activity
             android:name=".feature.complete.MovieReservationCompleteActivity"
             android:exported="false" />
+        <activity
+            android:name=".feature.seat.SeatSelectActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -1,70 +1,46 @@
 package woowacourse.movie.feature.home.list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
+import woowacourse.movie.feature.home.list.viewholder.MovieAdvertisementViewHolder
+import woowacourse.movie.feature.home.list.viewholder.MovieViewHolder
+import woowacourse.movie.feature.home.listener.ReservationButtonClickListener
+import woowacourse.movie.feature.home.ui.MovieAdvertisementUiModel
 import woowacourse.movie.feature.home.ui.MovieListUiModel
+import woowacourse.movie.feature.home.ui.MovieUiModel
 
 class MovieListAdapter(
     private val movies: List<MovieListUiModel>,
     private val reservationButtonClickListener: ReservationButtonClickListener,
-) : BaseAdapter() {
-    private class MovieListViewHolder(private val view: View) {
-        private val posterImage: ImageView by lazy { view.findViewById(R.id.poster_image) }
-        private val titleText: TextView by lazy { view.findViewById(R.id.title_text) }
-        private val screeningDateText: TextView by lazy { view.findViewById(R.id.screening_date_text) }
-        private val runningTimeText: TextView by lazy { view.findViewById(R.id.running_time_text) }
-        private val reservationButton: Button by lazy { view.findViewById(R.id.reservation_button) }
-
-        fun setUpMovieItemView(movie: MovieListUiModel) {
-            with(movie) {
-                posterImage.setImageDrawable(posterImageDrawable)
-                titleText.text = titleMessage
-                screeningDateText.text = screeningDateMessage
-                runningTimeText.text = runningTimeMessage
-            }
-        }
-
-        fun setOnClickReservationButton(
-            movieId: Long,
-            reservationButtonClickListener: ReservationButtonClickListener,
-        ) {
-            reservationButton.setOnClickListener {
-                reservationButtonClickListener.onClick(it, movieId)
-            }
-        }
-    }
-
-    override fun getCount(): Int = movies.size
-
-    override fun getItem(position: Int): MovieListUiModel = movies[position]
-
-    override fun getItemId(position: Int): Long = getItem(position).id
-
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val view: View
-        val viewHolder: MovieListViewHolder
-        if (convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
-            viewHolder = MovieListViewHolder(view)
-            view.tag = viewHolder
+) : RecyclerView.Adapter<ViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
+        return if (viewType == MovieListViewType.MOVIE.id) {
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+            MovieViewHolder(itemView, reservationButtonClickListener)
         } else {
-            view = convertView
-            viewHolder = view.tag as MovieListViewHolder
+            val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_movie_advertisement, parent, false)
+            MovieAdvertisementViewHolder(itemView)
         }
-
-        viewHolder.setUpMovieItemView(getItem(position))
-        viewHolder.setOnClickReservationButton(getItemId(position), reservationButtonClickListener)
-
-        return view
     }
+
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
+        if (movies[position].viewType == MovieListViewType.MOVIE) {
+            (holder as MovieViewHolder).bind(movies[position] as MovieUiModel)
+            return
+        }
+        (holder as MovieAdvertisementViewHolder).bind(movies[position] as MovieAdvertisementUiModel)
+    }
+
+    override fun getItemCount(): Int = movies.size
+
+    override fun getItemViewType(position: Int): Int = movies[position].viewType.id
 }

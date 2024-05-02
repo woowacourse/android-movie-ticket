@@ -1,22 +1,19 @@
 package woowacourse.movie.feature.complete
 
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.dto.Movie
+import woowacourse.movie.model.reservation.Ticket
 import woowacourse.movie.utils.BasePresenter
-import woowacourse.movie.utils.ErrorListener
 
 interface MovieReservationCompleteContract {
-    interface View : ErrorListener {
-        fun setUpReservationCompleteView(
-            movie: Movie,
-            ticket: Ticket,
-        )
+    interface View : MovieReservationCompleteErrorListener {
+        fun initializeTicket(ticket: Ticket)
+
+        fun initializeReservationCompleteView(movie: Movie)
     }
 
     interface Presenter : BasePresenter {
-        fun loadMovieData(
-            movieId: Long,
-            reservationCountValue: Int,
-        )
+        fun loadTicketData(ticketId: Long)
+
+        fun loadMovieData(movieId: Long)
     }
 }

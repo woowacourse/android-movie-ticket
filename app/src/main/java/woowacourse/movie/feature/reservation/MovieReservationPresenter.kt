@@ -1,7 +1,12 @@
 package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.model.ReservationCount
+import woowacourse.movie.feature.reservation.ui.convertLocalDateTime
+import woowacourse.movie.feature.reservation.ui.screeningDateMessage
+import woowacourse.movie.feature.reservation.ui.screeningTimeMessage
+import woowacourse.movie.feature.reservation.ui.toScreeningDate
 import woowacourse.movie.model.data.MovieRepository
+import woowacourse.movie.model.reservation.ReservationCount
+import woowacourse.movie.model.time.rangeTo
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
@@ -9,14 +14,20 @@ class MovieReservationPresenter(
 ) : MovieReservationContract.Presenter {
     private lateinit var reservationCount: ReservationCount
 
-    override fun setUpReservationCount() {
-        reservationCount = ReservationCount()
-        view.updateReservationCount(reservationCount.count)
-    }
-
     override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
-        view.setUpReservationView(movie)
+        view.initializeReservationView(movie)
+
+        val screeningDates = (movie.startScreeningDate..movie.endScreeningDate).toList()
+        view.initializeSpinner(
+            screeningDates.screeningDateMessage(),
+            screeningDates[0].screeningTimes().screeningTimeMessage(),
+        )
+    }
+
+    override fun loadReservationCount() {
+        reservationCount = ReservationCount()
+        view.updateReservationCount(reservationCount.count)
     }
 
     override fun decreaseReservationCount() {
@@ -29,8 +40,12 @@ class MovieReservationPresenter(
         view.updateReservationCount(reservationCount.count)
     }
 
-    override fun reserveMovie() {
-        view.moveReservationCompleteView(reservationCount.count)
+    override fun selectSeat(
+        screeningDateValue: String,
+        screeningTimeValue: String,
+    ) {
+        val screeningLocalDateTime = convertLocalDateTime(screeningDateValue, screeningTimeValue)
+        view.moveSeatSelectView(screeningLocalDateTime, reservationCount.count)
     }
 
     override fun updateReservationCount(reservationCountValue: Int) {
@@ -38,9 +53,14 @@ class MovieReservationPresenter(
             runCatching {
                 ReservationCount(reservationCountValue)
             }.getOrElse {
-                view.handleError(it)
+                view.handleError(MovieReservationError.ReservationCountRange)
                 return
             }
         view.updateReservationCount(reservationCount.count)
+    }
+
+    override fun selectScreeningDate(screeningDateMessage: String) {
+        val screeningTimes = screeningDateMessage.toScreeningDate().screeningTimes()
+        view.updateScreeningTimeSpinner(screeningTimes.screeningTimeMessage())
     }
 }

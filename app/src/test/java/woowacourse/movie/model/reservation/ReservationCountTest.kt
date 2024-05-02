@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.reservation
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -9,8 +9,8 @@ import org.junit.jupiter.params.provider.ValueSource
 
 class ReservationCountTest {
     @ParameterizedTest
-    @ValueSource(ints = [1, 13, 15, 50])
-    fun `예매 인원은 1~50 사이여야 한다`(count: Int) {
+    @ValueSource(ints = [1, 13, 15, 20])
+    fun `예매 인원은 1~20 사이여야 한다`(count: Int) {
         assertDoesNotThrow { ReservationCount(count) }
     }
 
@@ -21,7 +21,7 @@ class ReservationCountTest {
 
     @Test
     fun `예매 인원의 최대보다 큰 경우 예외가 발생한다`() {
-        assertThrows<IllegalArgumentException> { ReservationCount(51) }
+        assertThrows<IllegalArgumentException> { ReservationCount(21) }
     }
 
     @Test
@@ -78,13 +78,13 @@ class ReservationCountTest {
     @Test
     fun `예매 인원의 최대인 경우는 더이상 증가하지 않는다`() {
         // given
-        var reservationCount = ReservationCount(50)
+        var reservationCount = ReservationCount(20)
 
         // when
         reservationCount++
         val actual = reservationCount.count
 
         // then
-        assertThat(actual).isEqualTo(50)
+        assertThat(actual).isEqualTo(20)
     }
 }

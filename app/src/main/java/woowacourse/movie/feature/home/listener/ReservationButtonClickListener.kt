@@ -1,10 +1,10 @@
-package woowacourse.movie.feature.home.list
+package woowacourse.movie.feature.home.listener
 
 import android.view.View
 
 fun interface ReservationButtonClickListener {
     fun onClick(
         view: View,
-        movieId: Long,
+        moviePosition: Int,
     )
 }

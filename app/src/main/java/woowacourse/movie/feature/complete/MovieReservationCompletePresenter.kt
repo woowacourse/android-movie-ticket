@@ -1,26 +1,20 @@
 package woowacourse.movie.feature.complete
 
-import woowacourse.movie.model.ReservationCount
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.model.data.MovieRepository
+import woowacourse.movie.model.data.TicketRepository
 
 class MovieReservationCompletePresenter(
     private val view: MovieReservationCompleteContract.View,
     private val movieRepository: MovieRepository,
+    private val ticketRepository: TicketRepository,
 ) : MovieReservationCompleteContract.Presenter {
-    override fun loadMovieData(
-        movieId: Long,
-        reservationCountValue: Int,
-    ) {
+    override fun loadTicketData(ticketId: Long) {
+        val ticket = ticketRepository.find(ticketId)
+        view.initializeTicket(ticket)
+    }
+
+    override fun loadMovieData(movieId: Long) {
         val movie = movieRepository.find(movieId)
-        val reservationCount =
-            runCatching {
-                ReservationCount(reservationCountValue)
-            }.getOrElse {
-                view.handleError(it)
-                return
-            }
-        val ticket = Ticket(reservationCount)
-        view.setUpReservationCompleteView(movie, ticket)
+        view.initializeReservationCompleteView(movie)
     }
 }

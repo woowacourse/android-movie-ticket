@@ -5,7 +5,7 @@ import woowacourse.movie.utils.BasePresenter
 
 interface MovieHomeContract {
     interface View {
-        fun setUpMovieList(movies: List<Movie>)
+        fun initializeMovieList(movies: List<Movie>)
     }
 
     interface Presenter : BasePresenter {

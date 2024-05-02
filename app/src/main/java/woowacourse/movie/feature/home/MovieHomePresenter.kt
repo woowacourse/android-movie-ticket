@@ -8,6 +8,6 @@ class MovieHomePresenter(
 ) : MovieHomeContract.Presenter {
     override fun loadMovieData() {
         val movies = movieRepository.findAll()
-        view.setUpMovieList(movies)
+        view.initializeMovieList(movies)
     }
 }
