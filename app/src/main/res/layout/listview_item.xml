@@ -29,12 +29,12 @@
         tools:text="영화 제목" />
 
     <TextView
-        android:id="@+id/list_opening_day"
+        android:id="@+id/screening_period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
-        android:text="@string/opening_day"
+        android:text="@string/screening_period"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/list_img_poster"
@@ -50,7 +50,7 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/list_img_poster"
-        app:layout_constraintTop_toBottomOf="@id/list_opening_day" />
+        app:layout_constraintTop_toBottomOf="@id/screening_period" />
 
     <Button
         android:id="@+id/btn_reservation"

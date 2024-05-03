@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="opening_day">상영일: %s</string>
+    <string name="screening_period">상영일: %s ~ %s</string>
     <string name="running_time">러닝타임: %d분</string>
     <string name="reservation">지금 예매</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
-    <string name="reservation_completed">예매 완료</string>
+    <string name="select_seat">좌석 선택</string>
     <string name="reservation_completed_message">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다</string>
+    <string name="seat_price">%s원</string>
     <string name="reservation_price">%s원 (현장 결제)</string>
-    <string name="reservation_quantity">일반 %d명</string>
+    <string name="reservation_quantity">일반 %d명 | %s</string>
+    <string name="screen">SCREEN</string>
+    <string name="certify">확인</string>
 </resources>

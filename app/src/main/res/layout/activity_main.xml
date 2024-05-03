@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".feature.main.MainActivity">
 
-    <ListView
-        android:id="@+id/list_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_screening"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,4 +16,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/listview_item" />
 
+    <Button
+        android:id="@+id/btn_tmp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="@color/black"
+        android:text="데이터 추가"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

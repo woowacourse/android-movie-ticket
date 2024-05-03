@@ -1,16 +1,28 @@
 package woowacourse.movie.feature.main
 
-import woowacourse.movie.data.MovieRepository
-import woowacourse.movie.feature.main.ui.toUiModel
+import woowacourse.movie.data.ScreeningRepository
+import woowacourse.movie.feature.main.ui.ScreeningItem
 
-class MainPresenter(private val view: MainContract.View, private val repository: MovieRepository) :
+class MainPresenter(
+    private val view: MainContract.View,
+    private val repository: ScreeningRepository,
+) :
     MainContract.Presenter {
-    override fun fetchMovieList() {
-        val movies = repository.findAll()
-        view.displayMovies(movies.map { it.toUiModel() })
+    private var screenings: MutableList<ScreeningItem> = repository.findAll().toMutableList()
+
+    init {
+        view.displayScreenings(screenings)
     }
 
-    override fun selectMovie(id: Long) {
-        view.navigateToReservationScreen(id)
+    override fun fetchScreeningList() {
+        val newScreenings: MutableList<ScreeningItem> = repository.findAll().toMutableList()
+        screenings.addAll(newScreenings)
+        val positionStart = newScreenings.size
+        val itemCount = screenings.size
+        view.updateScreeningList(positionStart, itemCount)
+    }
+
+    override fun selectScreening(screeningId: Long) {
+        view.navigateToReservationScreen(screeningId)
     }
 }

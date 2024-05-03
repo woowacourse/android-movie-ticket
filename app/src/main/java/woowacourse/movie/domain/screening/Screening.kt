@@ -1,8 +1,14 @@
 package woowacourse.movie.domain.screening
 
+import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
 data class Screening(
+    val id: Long,
     val movie: Movie,
-    val schedule: Schedule = Schedule(LocalDate.of(2024, 3, 1)),
-)
+    val releaseDate: LocalDate,
+    val endDate: LocalDate,
+    private val scheduleSystem: ScreeningScheduleSystem = BasicScreeningScheduleSystem(),
+) {
+    val schedule: ScreeningSchedule = scheduleSystem.getSchedules(releaseDate, endDate)
+}

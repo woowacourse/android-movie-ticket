@@ -1,28 +1,24 @@
 package woowacourse.movie.feature.reservation
 
-import woowacourse.movie.domain.reservation.Quantity
-import woowacourse.movie.feature.main.ui.MovieModel
+import woowacourse.movie.feature.main.ui.ScreeningItem
+import woowacourse.movie.feature.reservation.ui.ScreeningScheduleModel
 
 interface ReservationContract {
     interface View {
-        fun initializeMovieDetails(movie: MovieModel)
+        fun showMovieDetails(movie: ScreeningItem.ScreeningModel)
 
-        fun setupReservationCompleteControls()
+        fun showScreeningSchedules(screeningScheduleModel: ScreeningScheduleModel)
 
-        fun setupTicketQuantityControls(quantity: Quantity)
+        fun updateTicketQuantity(newQuantity: Int)
 
-        fun updateTicketQuantity(newText: String)
-
-        fun navigateToCompleteScreen(id: Long)
+        fun navigateToCompleteScreen()
     }
 
     interface Presenter {
-        fun fetchMovieDetails(id: Long)
+        fun fetchScreeningDetails(screeningId: Long)
 
-        fun completeReservation()
+        fun increaseQuantity()
 
-        fun increaseTicketQuantity()
-
-        fun decreaseTicketQuantity()
+        fun decreaseQuantity()
     }
 }
