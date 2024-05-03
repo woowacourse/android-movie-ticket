@@ -79,10 +79,7 @@ class SeatSelectActivityTest {
 
     @Test
     fun `확인버튼_선택_시_예매_확인_다이얼로그가_나타난다`() {
-        activityRule.scenario.onActivity {
-            val item = seats.first()
-            item.performClick()
-        }
+        onView(withText("A1")).perform(click())
 
         onView(withId(R.id.button_seat_select_confirm)).perform(click())
         onView(withText("예매 확인")).check(matches(isDisplayed()))
