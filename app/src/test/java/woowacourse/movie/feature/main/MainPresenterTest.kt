@@ -18,14 +18,15 @@ class MainPresenterTest {
     fun setup() {
         view = mockk<MainContract.View>()
         repository = mockk<ScreeningRepository>()
+        every { repository.findAll() } returns emptyList()
+        every { view.displayScreenings(any()) } just runs
         presenter = MainPresenter(view, repository)
     }
 
     @Test
     fun `영화 리스트를 불러와 뷰에 보여준다`() {
         // given
-        every { repository.findAll() } returns emptyList()
-        every { view.displayScreenings(any()) } just runs
+        every { view.updateScreeningList(any(), any()) } just runs
         // when
         presenter.fetchScreeningList()
         // Then
