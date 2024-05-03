@@ -14,6 +14,6 @@ data class Movie(
 ) : Serializable {
     fun screenDateToString(): String {
         if (screenDate.size == 1) return screenDate[0].format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-        return screenDate.joinToString("~") { it.format(DateTimeFormatter.ofPattern("yyyy.M.d")) }
+        return screenDate.joinToString(" ~ ") { it.format(DateTimeFormatter.ofPattern("yyyy.M.d")) }
     }
 }

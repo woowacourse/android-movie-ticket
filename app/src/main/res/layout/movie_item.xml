@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="@dimen/size_10_dp">
 
     <ImageView
         android:id="@+id/poster_image"
-        android:layout_width="80dp"
-        android:layout_height="130dp"
+        android:layout_width="@dimen/size_80_dp"
+        android:layout_height="@dimen/size_130_dp"
         android:scaleType="fitXY"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,8 +19,8 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:textSize="20sp"
+        android:layout_marginStart="@dimen/size_10_dp"
+        android:textSize="@dimen/size_20_sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/poster_image"
         app:layout_constraintTop_toTopOf="parent"

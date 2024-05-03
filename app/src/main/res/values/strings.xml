@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="price_format">%,d</string>
+    <string name="price_format">%,d원</string>
+    <string name="seat_separator">,</string>
+
+    <!-- ReservationSeat -->
+    <string name="dialog_title">예매 확인</string>
+    <string name="dialog_message">정말 예매하시겠습니까?</string>
+    <string name="dialog_positive">예매 완료</string>
+    <string name="dialog_negative">취소</string>
 </resources>

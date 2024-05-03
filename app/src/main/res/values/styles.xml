@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="seat_grade_B_textview">
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/purple_500</item>
+        <item name="android:textSize">@dimen/size_22_sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="seat_grade_A_textview">
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/custom_green</item>
+        <item name="android:textSize">@dimen/size_22_sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="seat_grade_S_textview">
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/custom_blue</item>
+        <item name="android:textSize">@dimen/size_22_sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

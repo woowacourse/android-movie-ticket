@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.presentation.screen.ScreeningMovieActivity
+import woowacourse.movie.presentation.screen.movie.ScreeningMovieActivity
 
 @RunWith(AndroidJUnit4::class)
 class ScreeningMovieActivityTest {
@@ -21,7 +21,7 @@ class ScreeningMovieActivityTest {
 
     @Test
     fun 영화_리스트를_보여준다() {
-        onView(withId(R.id.movie_list))
+        onView(withId(R.id.movie_rlv))
             .check(matches(isDisplayed()))
     }
 

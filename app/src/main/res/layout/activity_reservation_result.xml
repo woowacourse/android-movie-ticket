@@ -10,9 +10,9 @@
     <LinearLayout
         android:id="@+id/notification_linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="@dimen/size_130_dp"
         android:background="@color/custom_purple"
-        android:paddingHorizontal="80dp"
+        android:paddingHorizontal="@dimen/size_80_dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,11 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/size_10_dp"
             android:gravity="center"
             android:text="영화 상영 시작 시간 15분 전까지 취소가 가능합니다."
             android:textColor="@color/white"
-            android:textSize="17sp" />
+            android:textSize="@dimen/size_17_sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,9 +40,9 @@
             android:id="@+id/result_title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="@dimen/size_35_dp"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="@dimen/size_24_sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,20 +53,37 @@
             android:id="@+id/result_screen_date_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="@dimen/size_100_dp"
+            android:layout_marginTop="@dimen/size_20_dp"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="@dimen/size_20_sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/result_screen_time_textview"
+            app:layout_constraintEnd_toStartOf="@id/result_screen_time_textview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/result_title_textview"
             tools:text="2024.3.1" />
 
+        <TextView
+            android:id="@+id/result_screen_time_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_20_dp"
+            android:layout_marginEnd="@dimen/size_100_dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_20_sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/result_screen_date_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/result_screen_date_textview"
+            app:layout_constraintTop_toBottomOf="@id/result_title_textview"
+            tools:text="17:00" />
+
         <LinearLayout
-            android:id="@+id/result_seat_info_textview"
+            android:id="@+id/result_seat_info_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="@dimen/size_70_dp"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/result_screen_date_textview"
             tools:layout_editor_absoluteX="0dp">
@@ -77,7 +94,7 @@
                 android:gravity="center"
                 android:text="일반 "
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/size_20_sp" />
 
             <TextView
                 android:id="@+id/result_count_textview"
@@ -85,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/size_20_sp"
                 tools:text="1" />
 
             <TextView
@@ -93,33 +110,43 @@
                 android:layout_height="wrap_content"
                 android:text="명"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/size_20_sp" />
+
+
+            <TextView
+                android:id="@+id/result_seat_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_20_sp"
+                tools:text="B3, D2" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/size_20_dp"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/result_seat_info_textview">
+            app:layout_constraintTop_toBottomOf="@id/result_seat_info_linear_layout">
 
             <TextView
                 android:id="@+id/result_price_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="@dimen/size_20_sp"
                 tools:text="13,000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="원 (현장결제)"
+                android:text=" (현장결제)"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="@dimen/size_20_dp" />
 
         </LinearLayout>
 

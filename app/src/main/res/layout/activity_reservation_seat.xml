@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/custom_gray">
+
+    <LinearLayout
+        android:id="@+id/screen_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50_dp"
+        android:layout_marginHorizontal="@dimen/size_40_dp"
+        android:background="@color/cardview_dark_background"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="SCREEN"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_22_sp" />
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/seat_table_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/size_40_dp"
+        android:layout_marginTop="@dimen/size_100_dp"
+        android:layout_marginBottom="@dimen/size_100_dp"
+        android:background="@color/white"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toTopOf="@id/reservation_status_linear_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/screen_linear_layout">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="A1" />
+
+            <TextView
+                android:id="@+id/seat_tv_item2"
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_20_dp"
+                android:text="A2" />
+
+            <TextView
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_20_dp"
+                android:text="A3" />
+
+            <TextView
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_20_dp"
+                android:text="A4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_20_dp"
+                android:text="B1" />
+
+            <TextView
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="B2" />
+
+            <TextView
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="B3" />
+
+            <TextView
+                style="@style/seat_grade_B_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="B4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_20_dp"
+                android:text="C1" />
+
+            <TextView
+                android:id="@+id/seat_tv_item10"
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="C2" />
+
+            <TextView
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="C3" />
+
+            <TextView
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="C4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_20_dp"
+                android:text="D1" />
+
+            <TextView
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="D2" />
+
+            <TextView
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="D3" />
+
+            <TextView
+                style="@style/seat_grade_A_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="D4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/seat_grade_S_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/size_20_dp"
+                android:text="E1" />
+
+            <TextView
+                android:id="@+id/seat_tv_item18"
+                style="@style/seat_grade_S_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="E2" />
+
+            <TextView
+                style="@style/seat_grade_S_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="E3" />
+
+            <TextView
+                style="@style/seat_grade_S_textview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="E4" />
+        </TableRow>
+    </TableLayout>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+
+    <LinearLayout
+        android:id="@+id/reservation_status_linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/size_20_dp"
+        android:paddingTop="@dimen/size_15_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/reservation_complete_linear_layout"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_bottom">
+
+        <TextView
+            android:id="@+id/seat_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_19_sp"
+            android:textStyle="bold"
+            tools:text="해리 포터와 마법사의 돌" />
+
+        <TextView
+            android:id="@+id/seat_selection_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0원" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reservation_complete_linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/material_dynamic_neutral60"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/reservation_status_linear_layout"
+        app:layout_constraintTop_toTopOf="@id/guideline_bottom">
+
+        <TextView
+            android:id="@+id/seat_complete_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_19_sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

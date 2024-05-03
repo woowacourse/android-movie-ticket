@@ -16,15 +16,15 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieDao
-import woowacourse.movie.presentation.reservation.booking.ReservationActivity
+import woowacourse.movie.presentation.screen.detail.MovieDetailActivity
 
 @RunWith(AndroidJUnit4::class)
-class ReservationActivityTest {
+class MovieDetailActivityTest {
     private val movie = MovieDao().find(0)
     private val intent =
         Intent(
             ApplicationProvider.getApplicationContext(),
-            ReservationActivity::class.java,
+            MovieDetailActivity::class.java,
         ).putExtra("img", movie.img)
             .putExtra("title", movie.title)
             .putExtra("description", movie.description)
@@ -32,18 +32,18 @@ class ReservationActivityTest {
             .putExtra("runningTime", movie.runningTime.toString())
 
     @get:Rule
-    val activityRule = ActivityScenarioRule<ReservationActivity>(intent)
+    val activityRule = ActivityScenarioRule<MovieDetailActivity>(intent)
 
     @Test
     fun 액티비티가_시작하면_title이_보인다() {
         onView(withId(R.id.reservation_title_textview))
-            .check(matches(withText("해리포터와 마법사의 돌")))
+            .check(matches(withText(movie.title)))
     }
 
     @Test
     fun 액티비티가_시작하면_running_time이_보인다() {
         onView(withId(R.id.reservation_running_time_textview))
-            .check(matches(withText("152")))
+            .check(matches(withText(movie.runningTime.toString())))
     }
 
     @Test
@@ -68,7 +68,7 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun sub_button을_클릭하면_count의_값이_1감소한다() {
+    fun 초기의_count값에서_add_button을_클릭하고_sub_button을_클릭하면_count의_값은_변화가없다() {
         // given
         onView(withId(R.id.add_button))
             .perform(click())
@@ -96,8 +96,8 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun 예매완료_버튼을_누르면_현재_레이아웃은_사라져야한다() {
-        onView(withId(R.id.reservation_complete_button))
+    fun 좌석선택_버튼을_누르면_현재_레이아웃은_사라져야한다() {
+        onView(withId(R.id.select_seat_button))
             .perform(click())
 
         onView(withId(R.id.reservation_layout))
