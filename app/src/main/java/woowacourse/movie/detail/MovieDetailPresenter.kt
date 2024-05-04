@@ -21,7 +21,7 @@ class MovieDetailPresenter(
     }
 
     override fun loadSavedData() {
-        view.updateCount(ticket.count)
+        view.showCount(ticket.count)
     }
 
     override fun loadMovie() {
@@ -71,7 +71,7 @@ class MovieDetailPresenter(
     private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
         when (result) {
             is InRange -> {
-                view.updateCount(ticket.count)
+                view.showCount(ticket.count)
             }
 
             is OutOfRange -> view.showErrorToast()

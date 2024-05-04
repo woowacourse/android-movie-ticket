@@ -9,7 +9,7 @@ interface MovieDetailContract {
     interface View {
         fun showMovieInformation(movie: Movie)
 
-        fun updateCount(count: Int)
+        fun showCount(count: Int)
 
         fun showScreeningDates(screeningDates: List<LocalDate>)
 

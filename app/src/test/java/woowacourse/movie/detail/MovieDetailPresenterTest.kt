@@ -35,20 +35,20 @@ class MovieDetailPresenterTest {
 
     @Test
     fun `인원이 10일 때 Count를 늘리면 인원이 1 증가한다`() {
-        every { view.updateCount(any()) } just runs
+        every { view.showCount(any()) } just runs
 
         presenter.increaseCount()
 
-        verify { view.updateCount(11) }
+        verify { view.showCount(11) }
     }
 
     @Test
     fun `인원이 10일 때 Count를 줄이면 인원이 1 감소한다`() {
-        every { view.updateCount(any()) } just runs
+        every { view.showCount(any()) } just runs
 
         presenter.decreaseCount()
 
-        verify { view.updateCount(9) }
+        verify { view.showCount(9) }
     }
 
     @Test

@@ -136,7 +136,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
         summary.text = movie.summary
     }
 
-    override fun updateCount(count: Int) {
+    override fun showCount(count: Int) {
         numberOfTickets.text = count.toString()
     }
 
