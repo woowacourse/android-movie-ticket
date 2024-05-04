@@ -7,7 +7,10 @@ interface MainContract {
     interface View {
         fun onUpdateMovies(movies: List<MovieUiModel>)
 
-        fun onUpdateAds(ads: List<Ad>, exposureCount: Int)
+        fun onUpdateAds(
+            ads: List<Ad>,
+            exposureCount: Int,
+        )
 
         fun showMovieList()
 

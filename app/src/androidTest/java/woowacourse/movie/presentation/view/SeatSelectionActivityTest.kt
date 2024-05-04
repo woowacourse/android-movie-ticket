@@ -148,7 +148,10 @@ class SeatSelectionActivityTest {
             .check(matches(withTextPatternMatching(Pattern.compile("^\\d{1,3}(,\\d{3})*원$"))))
     }
 
-    private fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> {
+    private fun nthChildOf(
+        parentMatcher: Matcher<View>,
+        childPosition: Int,
+    ): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("with $childPosition child view")

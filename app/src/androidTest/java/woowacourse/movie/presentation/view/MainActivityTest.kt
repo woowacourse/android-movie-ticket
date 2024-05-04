@@ -32,8 +32,8 @@ class MainActivityTest {
             onView(withId(R.id.movieList))
                 .perform(
                     RecyclerViewActions.scrollToHolder(
-                        instanceOf(MovieViewHolder::class.java)
-                    ).atPosition(idx)
+                        instanceOf(MovieViewHolder::class.java),
+                    ).atPosition(idx),
                 )
         }
     }
@@ -44,8 +44,8 @@ class MainActivityTest {
             onView(withId(R.id.movieList))
                 .perform(
                     RecyclerViewActions.scrollToHolder(
-                        instanceOf(AdViewHolder::class.java)
-                    ).atPosition(idx)
+                        instanceOf(AdViewHolder::class.java),
+                    ).atPosition(idx),
                 )
         }
     }

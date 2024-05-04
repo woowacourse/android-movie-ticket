@@ -12,7 +12,7 @@ import woowacourse.movie.presentation.uimodel.MovieTicketUiModel
 class SeatSelectionPresenterImpl(
     reservationCount: Int,
     seatRepository: SeatRepository = SeatRepositoryImpl,
-    private val screeningMovieInfoRepository: ScreeningMovieInfoRepository = ScreeningMovieInfoRepositoryImpl
+    private val screeningMovieInfoRepository: ScreeningMovieInfoRepository = ScreeningMovieInfoRepositoryImpl,
 ) : SeatSelectionContract.Presenter {
     private var view: SeatSelectionContract.View? = null
     private val reservationInfo =
@@ -31,7 +31,6 @@ class SeatSelectionPresenterImpl(
         loadSeatingChart()
     }
 
-    // TODO: 좌석 배치도 정보를 repository에서 불러와서, 좌석 예약 정보 설정하기
     override fun loadSeatingChart() {
         view?.showSeatingChart(
             reservationInfo.seatingChart.rowCount,
@@ -40,7 +39,6 @@ class SeatSelectionPresenterImpl(
         )
     }
 
-    // TODO: 뷰에서 선택된 좌석을 ReservationInfo에 업데이트 - 선택 or 선택 해제
     override fun selectSeat(
         row: Int,
         col: Int,

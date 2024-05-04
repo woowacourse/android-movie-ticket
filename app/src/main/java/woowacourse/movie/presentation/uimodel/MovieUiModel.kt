@@ -13,14 +13,15 @@ data class MovieUiModel(
     val summary: String,
 ) {
     companion object {
-        fun from(movie: Movie) = MovieUiModel(
-            movie.movieId,
-            movie.posterImageId,
-            movie.title,
-            movie.screeningInfo.startDate.format(DateTimeFormatter.ISO_LOCAL_DATE),
-            movie.screeningInfo.endDate.format(DateTimeFormatter.ISO_LOCAL_DATE),
-            movie.screeningInfo.runningTime,
-            movie.summary,
-        )
+        fun from(movie: Movie) =
+            MovieUiModel(
+                movie.movieId,
+                movie.posterImageId,
+                movie.title,
+                movie.screeningInfo.startDate.format(DateTimeFormatter.ISO_LOCAL_DATE),
+                movie.screeningInfo.endDate.format(DateTimeFormatter.ISO_LOCAL_DATE),
+                movie.screeningInfo.runningTime,
+                movie.summary,
+            )
     }
 }

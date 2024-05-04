@@ -144,10 +144,11 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
         val seatView = seatsRow.getChildAt(col) as TextView
         val isSelected = seatView.tag as Boolean
         seatView.tag = !isSelected
-        val newColor = when (isSelected) {
-            true -> UNSELECTED_COLOR
-            false -> SELECTED_COLOR
-        }
+        val newColor =
+            when (isSelected) {
+                true -> UNSELECTED_COLOR
+                false -> SELECTED_COLOR
+            }
         seatView.setBackgroundColor(newColor)
     }
 

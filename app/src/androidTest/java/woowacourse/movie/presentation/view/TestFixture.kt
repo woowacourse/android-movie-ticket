@@ -2,7 +2,6 @@ package woowacourse.movie.presentation.view
 
 import android.content.Context
 import android.content.Intent
-import woowacourse.movie.R
 import woowacourse.movie.presentation.uimodel.MovieTicketUiModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -18,17 +17,18 @@ val DEFAULT_SCREENING_DATE = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_
 val DEFAULT_SCREENING_END_DATE = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
 
 val selectedSeatList = listOf("C3", "B4")
-val testMovieTicketUiModel = MovieTicketUiModel(
-    ticketId = 0L,
-    title = DEFAULT_TITLE,
-    screeningDate = DEFAULT_SCREENING_DATE,
-    startTime = DEFAULT_SCREENING_DATE,
-    endTime = DEFAULT_SCREENING_END_DATE,
-    runningTime = DEFAULT_RUNNING_TIME,
-    reservationCount = RESERVATION_COUNT,
-    totalPrice = TOTAL_PRICE,
-    selectedSeats = selectedSeatList,
-)
+val testMovieTicketUiModel =
+    MovieTicketUiModel(
+        ticketId = 0L,
+        title = DEFAULT_TITLE,
+        screeningDate = DEFAULT_SCREENING_DATE,
+        startTime = DEFAULT_SCREENING_DATE,
+        endTime = DEFAULT_SCREENING_END_DATE,
+        runningTime = DEFAULT_RUNNING_TIME,
+        reservationCount = RESERVATION_COUNT,
+        totalPrice = TOTAL_PRICE,
+        selectedSeats = selectedSeatList,
+    )
 
 fun detailActivityIntent(context: Context): Intent =
     Intent(context, MovieDetailActivity::class.java).apply {
