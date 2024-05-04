@@ -20,7 +20,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
+import java.time.LocalDate
+import java.time.LocalTime
 
 class SeatSelectActivityTest {
     private lateinit var seats: Sequence<TextView>
@@ -33,7 +36,11 @@ class SeatSelectActivityTest {
                 SeatSelectActivity::class.java,
             ).apply {
                 putExtra("movieId", 0)
-                putExtra("ticket", Ticket(1, "2001.11.14", "10:00"))
+                putExtra("ticket", Ticket(1))
+                putExtra(
+                    "reservationSchedule",
+                    ReservationSchedule(LocalDate.of(2001, 11, 14), LocalTime.of(10, 0)),
+                )
             },
         )
 
@@ -63,7 +70,10 @@ class SeatSelectActivityTest {
             val item = seats.first()
             item.performClick()
 
-            assertEquals((item.background as ColorDrawable).color, ContextCompat.getColor(it, R.color.yellow))
+            assertEquals(
+                (item.background as ColorDrawable).color,
+                ContextCompat.getColor(it, R.color.yellow),
+            )
         }
     }
 
@@ -73,7 +83,10 @@ class SeatSelectActivityTest {
             val item = seats.first()
             repeat(2) { item.performClick() }
 
-            assertEquals((item.background as ColorDrawable).color, ContextCompat.getColor(it, R.color.white))
+            assertEquals(
+                (item.background as ColorDrawable).color,
+                ContextCompat.getColor(it, R.color.white),
+            )
         }
     }
 

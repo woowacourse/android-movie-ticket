@@ -1,6 +1,7 @@
 package woowacourse.movie.detail
 
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 
@@ -17,6 +18,7 @@ interface MovieDetailContract {
         fun moveToSeatSelect(
             movieTitle: String,
             ticket: Ticket,
+            reservationSchedule: ReservationSchedule,
         )
 
         fun showScreeningTimes(screeningTimes: List<String>)
@@ -35,7 +37,7 @@ interface MovieDetailContract {
 
         fun decreaseCount()
 
-        fun updateScreeningDate(screeningDate: String)
+        fun updateScreeningDate(screeningDate: LocalDate)
 
         fun updateScreeningTime(screeningTime: String)
 

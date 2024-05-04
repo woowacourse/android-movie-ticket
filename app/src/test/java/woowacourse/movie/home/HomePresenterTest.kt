@@ -15,6 +15,9 @@ class HomePresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk<HomeContract.View>()
+
+        every { view.showMediaContents(any()) } just runs
+
         presenter = HomePresenter(view)
     }
 

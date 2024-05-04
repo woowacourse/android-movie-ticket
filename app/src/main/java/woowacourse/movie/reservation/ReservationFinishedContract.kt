@@ -1,11 +1,14 @@
 package woowacourse.movie.reservation
 
+import java.time.LocalDate
+import java.time.LocalTime
+
 interface ReservationFinishedContract {
     interface View {
         fun showReservationInformation(
             movieTitle: String,
-            screeningDate: String,
-            screeningTime: String,
+            screeningDate: LocalDate,
+            screeningTime: LocalTime,
             people: Int,
             seats: String,
             totalPrice: Int,

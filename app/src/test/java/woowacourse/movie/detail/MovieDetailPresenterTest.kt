@@ -17,6 +17,10 @@ class MovieDetailPresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk<MovieDetailContract.View>()
+
+        every { view.showMovieInformation(any()) } just runs
+        every { view.showScreeningDates(any()) } just runs
+
         presenter = MovieDetailPresenter(view, 0, Ticket(10))
     }
 

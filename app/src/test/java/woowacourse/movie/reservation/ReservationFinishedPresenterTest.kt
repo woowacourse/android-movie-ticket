@@ -7,6 +7,7 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 
 class ReservationFinishedPresenterTest {
@@ -16,7 +17,19 @@ class ReservationFinishedPresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk<ReservationFinishedContract.View>()
-        presenter = ReservationFinishedPresenter(view, 0, Ticket(), "", 0)
+
+        every {
+            view.showReservationInformation(
+                any(),
+                any(),
+                any(),
+                any(),
+                any(),
+                any(),
+            )
+        } just runs
+
+        presenter = ReservationFinishedPresenter(view, 0, Ticket(), "", 0, ReservationSchedule())
     }
 
     @Test

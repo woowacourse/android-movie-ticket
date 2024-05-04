@@ -1,6 +1,7 @@
 package woowacourse.movie.reservation
 
 import woowacourse.movie.db.MediaContents
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 
 class ReservationFinishedPresenter(
@@ -9,6 +10,7 @@ class ReservationFinishedPresenter(
     private val ticket: Ticket,
     private val seats: String,
     private val totalPrice: Int,
+    private val reservationSchedule: ReservationSchedule,
 ) : ReservationFinishedContract.Presenter {
     init {
         loadReservationInformation()
@@ -19,8 +21,8 @@ class ReservationFinishedPresenter(
 
         view.showReservationInformation(
             movieTitle,
-            ticket.screeningDate,
-            ticket.screeningTime,
+            reservationSchedule.screeningDate,
+            reservationSchedule.screeningTime,
             ticket.count,
             seats,
             totalPrice,

@@ -4,13 +4,16 @@ import woowacourse.movie.db.MediaContents
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.InRange
 import woowacourse.movie.model.OutOfRange
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
+import java.time.LocalTime
 
 class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
     private val movieId: Int,
     val ticket: Ticket = Ticket(),
+    private val reservationSchedule: ReservationSchedule = ReservationSchedule(),
 ) : MovieDetailContract.Presenter {
     init {
         loadMovie()
@@ -26,22 +29,24 @@ class MovieDetailPresenter(
     }
 
     override fun loadScreeningTimes(date: LocalDate) {
-        view.showScreeningTimes(ticket.obtainScreeningTimes(date).map { "$it:00" })
+        view.showScreeningTimes(reservationSchedule.obtainScreeningTimes(date).map { "$it:00" })
     }
 
-    override fun updateScreeningDate(screeningDate: String) {
-        ticket.updateScreeningDate(screeningDate)
+    override fun updateScreeningDate(screeningDate: LocalDate) {
+        reservationSchedule.updateScreeningDate(screeningDate)
     }
 
     override fun updateScreeningTime(screeningTime: String) {
-        ticket.updateScreeningTime(screeningTime)
+        val (hour, minute) = screeningTime.split(":").map(String::toInt)
+
+        reservationSchedule.updateScreeningTime(LocalTime.of(hour % 24, minute))
     }
 
     override fun loadScreeningDates() {
         val movie = MediaContents.obtainMovie(movieId)
 
         view.showScreeningDates(
-            ticket.obtainScreeningDates(
+            reservationSchedule.obtainScreeningDates(
                 movie.firstScreeningDate,
                 movie.lastScreeningDate,
             ),
@@ -61,7 +66,7 @@ class MovieDetailPresenter(
     override fun deliverReservationInformation() {
         val movieTitle = MediaContents.obtainMovie(movieId).title
 
-        view.moveToSeatSelect(movieTitle, ticket)
+        view.moveToSeatSelect(movieTitle, ticket, reservationSchedule)
     }
 
     private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {

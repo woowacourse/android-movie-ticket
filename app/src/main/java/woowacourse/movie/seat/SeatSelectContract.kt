@@ -1,5 +1,6 @@
 package woowacourse.movie.seat
 
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 
 interface SeatSelectContract {
@@ -25,6 +26,7 @@ interface SeatSelectContract {
             ticket: Ticket,
             seats: String,
             totalPrice: Int,
+            reservationSchedule: ReservationSchedule,
         )
     }
 

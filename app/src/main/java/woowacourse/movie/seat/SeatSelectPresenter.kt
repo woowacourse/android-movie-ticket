@@ -2,12 +2,14 @@ package woowacourse.movie.seat
 
 import woowacourse.movie.db.MediaContents
 import woowacourse.movie.model.Rank
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
     private val movieId: Int,
     private val ticket: Ticket,
+    private val reservationSchedule: ReservationSchedule,
     val seats: MutableList<String> = mutableListOf(),
 ) : SeatSelectContract.Presenter {
     private val totalPrice
@@ -37,6 +39,7 @@ class SeatSelectPresenter(
             ticket,
             seats.joinToString(", "),
             Rank.calculateTotalPrice(getRanks(seats)),
+            reservationSchedule,
         )
     }
 

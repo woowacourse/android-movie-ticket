@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.reservation.ReservationFinishedActivity
 
@@ -31,17 +32,26 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
         val ticket =
-            intent.getSerializableExtra(TICKET, Ticket::class.java)
+            intent.getParcelableExtra(TICKET, Ticket::class.java)
                 ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
+        val reservationSchedule =
+            intent.getParcelableExtra(RESERVATION_SCHEDULE, ReservationSchedule::class.java)
+                ?: throw IllegalArgumentException("빈 예약 스케줄이 넘어 왔습니다.")
 
         presenter =
             if (savedInstanceState == null) {
-                SeatSelectPresenter(this, movieId, ticket)
+                SeatSelectPresenter(this, movieId, ticket, reservationSchedule)
             } else {
                 val seats =
                     savedInstanceState.getStringArray(SEATS)
                         ?: throw IllegalArgumentException("빈 자리가 넘어 왔습니다.")
-                SeatSelectPresenter(this, movieId, ticket, seats.toMutableList())
+                SeatSelectPresenter(
+                    this,
+                    movieId,
+                    ticket,
+                    reservationSchedule,
+                    seats.toMutableList(),
+                )
             }
 
         seats.children
@@ -124,6 +134,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         ticket: Ticket,
         seats: String,
         totalPrice: Int,
+        reservationSchedule: ReservationSchedule,
     ) {
         startActivity(
             ReservationFinishedActivity.getIntent(
@@ -132,6 +143,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
                 ticket,
                 seats,
                 totalPrice,
+                reservationSchedule,
             ),
         )
     }
@@ -140,16 +152,19 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         private const val MOVIE_ID = "movieId"
         private const val TICKET = "ticket"
         private const val SEATS = "seats"
+        private const val RESERVATION_SCHEDULE = "reservationSchedule"
         private const val DEFAULT_MOVIE_ID = 0
 
         fun getIntent(
             context: Context,
             movieId: String,
             ticket: Ticket,
+            reservationSchedule: ReservationSchedule,
         ): Intent {
             return Intent(context, SeatSelectActivity::class.java)
                 .putExtra(MOVIE_ID, movieId)
                 .putExtra(TICKET, ticket)
+                .putExtra(RESERVATION_SCHEDULE, reservationSchedule)
         }
     }
 }

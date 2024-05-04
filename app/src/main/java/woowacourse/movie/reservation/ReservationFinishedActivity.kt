@@ -8,8 +8,12 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 import java.text.DecimalFormat
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedContract.View {
     private val title: TextView by lazy { findViewById(R.id.text_view_reservation_finished_title) }
@@ -26,10 +30,13 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
         val movieId = intent.getIntExtra(MOVIE_ID, MOVIE_ID_DEFAULT_VALUE)
         val ticket =
-            intent.getSerializableExtra(TICKET, Ticket::class.java)
+            intent.getParcelableExtra(TICKET, Ticket::class.java)
                 ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
         val seats = intent.getStringExtra(SEATS) ?: throw IllegalArgumentException("빈 자리가 넘어 왔습니다.")
         val totalPrice = intent.getIntExtra(TOTAL_PRICE, TOTAL_PRICE_DEFAULT_VALUE)
+        val reservationSchedule =
+            intent.getParcelableExtra(RESERVATION_SCHEDULE, ReservationSchedule::class.java)
+                ?: throw IllegalArgumentException("빈 예약 스케줄이 넘어 왔습니다.")
 
         presenter =
             ReservationFinishedPresenter(
@@ -38,20 +45,25 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
                 ticket,
                 seats,
                 totalPrice,
+                reservationSchedule,
             )
     }
 
     override fun showReservationInformation(
         movieTitle: String,
-        screeningDate: String,
-        screeningTime: String,
+        screeningDate: LocalDate,
+        screeningTime: LocalTime,
         people: Int,
         seats: String,
         totalPrice: Int,
     ) {
         title.text = movieTitle
         screeningSchedule.text =
-            getString(R.string.reservation_finished_schedule, screeningDate, screeningTime)
+            getString(
+                R.string.reservation_finished_schedule,
+                convertDateFormat(screeningDate),
+                screeningTime,
+            )
         seatInformation.text =
             getString(R.string.reservation_finished_person, people, seats)
         ticketPrice.text =
@@ -63,6 +75,12 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         return decimalFormat.format(price)
     }
 
+    private fun convertDateFormat(screeningDate: LocalDate): String {
+        val dateFormat = DateTimeFormatter.ofPattern(DATE_PATTERN)
+
+        return screeningDate.format(dateFormat)
+    }
+
     companion object {
         private const val MOVIE_ID = "movieId"
         private const val TICKET = "ticket"
@@ -71,6 +89,8 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         private const val MOVIE_ID_DEFAULT_VALUE = 0
         private const val TOTAL_PRICE_DEFAULT_VALUE = 0
         private const val PRICE_FORMAT = "#,###"
+        private const val DATE_PATTERN = "yyyy.M.dd"
+        private const val RESERVATION_SCHEDULE = "reservationSchedule"
 
         fun getIntent(
             context: Context,
@@ -78,12 +98,14 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
             ticket: Ticket,
             seats: String,
             totalPrice: Int,
+            reservationSchedule: ReservationSchedule,
         ): Intent {
             return Intent(context, ReservationFinishedActivity::class.java)
                 .putExtra(MOVIE_ID, movieId)
                 .putExtra(TICKET, ticket)
                 .putExtra(SEATS, seats)
                 .putExtra(TOTAL_PRICE, totalPrice)
+                .putExtra(RESERVATION_SCHEDULE, reservationSchedule)
         }
     }
 }
