@@ -86,7 +86,7 @@ class MovieDetailPresenterTest {
     fun `영화의 상영 시간들이 나온다`() {
         every { view.showScreeningTimes(any()) } just runs
 
-        presenter.loadScreeningTimes(LocalDate.of(2024, 3, 1))
+        presenter.updateScreeningDate(LocalDate.of(2024, 3, 1))
 
         verify { view.showScreeningTimes(any()) }
     }

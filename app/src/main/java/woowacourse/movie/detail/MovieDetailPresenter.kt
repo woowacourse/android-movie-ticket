@@ -28,12 +28,11 @@ class MovieDetailPresenter(
         view.showMovieInformation(MediaContents.obtainMovie(movieId))
     }
 
-    override fun loadScreeningTimes(date: LocalDate) {
-        view.showScreeningTimes(reservationSchedule.obtainScreeningTimes(date).map { "$it:00" })
-    }
-
     override fun updateScreeningDate(screeningDate: LocalDate) {
         reservationSchedule.updateScreeningDate(screeningDate)
+
+        view.showScreeningTimes(
+            reservationSchedule.obtainScreeningTimes(screeningDate).map { "$it:00" })
     }
 
     override fun updateScreeningTime(screeningTime: String) {

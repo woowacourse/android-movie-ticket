@@ -89,7 +89,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                     id: Long,
                 ) {
                     val screeningDate = parent?.getItemAtPosition(position) as LocalDate
-                    presenter.loadScreeningTimes(screeningDate)
                     presenter.updateScreeningDate(screeningDate)
                 }
 

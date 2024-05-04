@@ -29,8 +29,6 @@ interface MovieDetailContract {
 
         fun loadScreeningDates()
 
-        fun loadScreeningTimes(date: LocalDate)
-
         fun loadMovie()
 
         fun increaseCount()
