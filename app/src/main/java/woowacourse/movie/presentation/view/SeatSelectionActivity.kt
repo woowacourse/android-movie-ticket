@@ -44,7 +44,6 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
         seatSelectionPresenter = SeatSelectionPresenterImpl(reservationCount)
         seatSelectionPresenter.attachView(this)
 
-        confirmButton.isEnabled = false
         confirmButton.setOnClickListener {
             showConfirmationDialog()
         }
