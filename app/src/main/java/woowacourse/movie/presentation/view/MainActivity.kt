@@ -30,8 +30,9 @@ class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions
         adapter.updateMovieList(movies)
     }
 
-    override fun onUpdateAds(ads: List<Ad>) {
+    override fun onUpdateAds(ads: List<Ad>, exposureCount: Int) {
         adapter.updateAdsList(ads)
+        adapter.setAdExposureCount(exposureCount)
     }
 
     override fun showMovieList() {

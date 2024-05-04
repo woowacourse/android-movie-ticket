@@ -30,7 +30,7 @@ class MainPresenterTest {
 
         // then
         verify { view.onUpdateMovies(any()) }
-        verify { view.onUpdateAds(any()) }
+        verify { view.onUpdateAds(any(), any()) }
     }
 
     @Test
@@ -44,7 +44,7 @@ class MainPresenterTest {
 
         // then
         verify(exactly = 0) { view.onUpdateMovies(any()) }
-        verify(exactly = 0) { view.onUpdateAds(any()) }
+        verify(exactly = 0) { view.onUpdateAds(any(), any()) }
     }
 
     @Test

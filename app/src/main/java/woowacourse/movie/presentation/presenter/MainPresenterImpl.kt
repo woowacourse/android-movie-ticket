@@ -41,7 +41,7 @@ class MainPresenterImpl(
 
     override fun loadAds() {
         ads = adRepository.getAds()
-        view?.onUpdateAds(ads)
+        view?.onUpdateAds(ads, adRepository.adExposureCount())
     }
 
     override fun onReserveButtonClicked(movieId: Int) {
