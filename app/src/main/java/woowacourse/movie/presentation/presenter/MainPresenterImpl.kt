@@ -35,7 +35,7 @@ class MainPresenterImpl(
     override fun loadMovie() {
         movies = movieRepository.createMovieList()
         view?.onUpdateMovies(
-            movies.map { MovieUiModel(it) },
+            movies.map { MovieUiModel.from(it) },
         )
     }
 

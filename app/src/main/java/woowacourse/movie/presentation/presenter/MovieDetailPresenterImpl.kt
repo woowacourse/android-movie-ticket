@@ -38,7 +38,7 @@ class MovieDetailPresenterImpl(
     }
 
     override fun onViewSetUp() {
-        view?.showMovieDetail(MovieUiModel(movie))
+        view?.showMovieDetail(MovieUiModel.from(movie))
         loadScreeningDates(movieId)
     }
 
