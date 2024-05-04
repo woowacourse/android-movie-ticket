@@ -49,25 +49,31 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
             )
     }
 
+    override fun showMovieInformation(movieTitle: String) {
+        title.text = movieTitle
+    }
+
     override fun showReservationInformation(
-        movieTitle: String,
-        screeningDate: LocalDate,
-        screeningTime: LocalTime,
         people: Int,
         seats: String,
         totalPrice: Int,
     ) {
-        title.text = movieTitle
+        seatInformation.text =
+            getString(R.string.reservation_finished_person, people, seats)
+        ticketPrice.text =
+            getString(R.string.reservation_finished_price, convertPriceFormat(totalPrice))
+    }
+
+    override fun showReservationSchedule(
+        screeningDate: LocalDate,
+        screeningTime: LocalTime,
+    ) {
         screeningSchedule.text =
             getString(
                 R.string.reservation_finished_schedule,
                 convertDateFormat(screeningDate),
                 screeningTime,
             )
-        seatInformation.text =
-            getString(R.string.reservation_finished_person, people, seats)
-        ticketPrice.text =
-            getString(R.string.reservation_finished_price, convertPriceFormat(totalPrice))
     }
 
     private fun convertPriceFormat(price: Int): String {

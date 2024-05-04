@@ -13,19 +13,29 @@ class ReservationFinishedPresenter(
     private val reservationSchedule: ReservationSchedule,
 ) : ReservationFinishedContract.Presenter {
     init {
+        loadMovieInformation()
         loadReservationInformation()
+        loadReservationSchedule()
+    }
+
+    override fun loadMovieInformation() {
+        val movieTitle = MediaContents.obtainMovie(movieId).title
+
+        view.showMovieInformation(movieTitle)
     }
 
     override fun loadReservationInformation() {
-        val movieTitle = MediaContents.obtainMovie(movieId).title
-
         view.showReservationInformation(
-            movieTitle,
-            reservationSchedule.screeningDate,
-            reservationSchedule.screeningTime,
             ticket.count,
             seats,
             totalPrice,
+        )
+    }
+
+    override fun loadReservationSchedule() {
+        view.showReservationSchedule(
+            reservationSchedule.screeningDate,
+            reservationSchedule.screeningTime,
         )
     }
 }

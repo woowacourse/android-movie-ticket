@@ -5,17 +5,25 @@ import java.time.LocalTime
 
 interface ReservationFinishedContract {
     interface View {
+        fun showMovieInformation(movieTitle: String)
+
         fun showReservationInformation(
-            movieTitle: String,
-            screeningDate: LocalDate,
-            screeningTime: LocalTime,
             people: Int,
             seats: String,
             totalPrice: Int,
         )
+
+        fun showReservationSchedule(
+            screeningDate: LocalDate,
+            screeningTime: LocalTime,
+        )
     }
 
     interface Presenter {
+        fun loadMovieInformation()
+
         fun loadReservationInformation()
+
+        fun loadReservationSchedule()
     }
 }
