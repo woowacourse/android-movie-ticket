@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.model.Advertisement
-import woowacourse.movie.model.MediaContent
+import woowacourse.movie.model.MediaContents
 import woowacourse.movie.model.Movie
 
 class MovieAdapter(
-    private val mediaContents: List<MediaContent>,
+    private val mediaContents: MediaContents,
     private val sendMovieId: (Int) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
-    override fun getItemCount(): Int = mediaContents.size
+    override fun getItemCount(): Int = mediaContents.value.size
 
-    override fun getItemViewType(position: Int): Int = if (isTypeAdvertisement(position)) TYPE_ADVERTISEMENT else TYPE_MOVIE
+    override fun getItemViewType(position: Int): Int = mediaContents.mediaContentsType(position)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,10 +23,18 @@ class MovieAdapter(
     ): ViewHolder {
         val view = LayoutInflater.from(parent.context)
 
-        return if (viewType == TYPE_MOVIE) {
-            MovieHolder(view.inflate(R.layout.item_movie_catalog, parent, false), sendMovieId)
-        } else {
-            AdvertisementHolder(view.inflate(R.layout.item_advertisement, parent, false))
+        return when (viewType) {
+            MediaContents.TYPE_MOVIE -> {
+                MovieHolder(view.inflate(R.layout.item_movie_catalog, parent, false), sendMovieId)
+            }
+
+            MediaContents.TYPE_ADVERTISEMENT -> {
+                AdvertisementHolder(view.inflate(R.layout.item_advertisement, parent, false))
+            }
+
+            else -> {
+                throw IllegalArgumentException("존재하지 않는 MediaContent 타입입니다.")
+            }
         }
     }
 
@@ -36,21 +44,14 @@ class MovieAdapter(
     ) {
         when (holder) {
             is MovieHolder -> {
-                val movie = mediaContents[position] as Movie
+                val movie = mediaContents.value[position] as Movie
                 holder.bind(movie)
             }
 
             is AdvertisementHolder -> {
-                val advertisement = mediaContents[position] as Advertisement
+                val advertisement = mediaContents.value[position] as Advertisement
                 holder.bind(advertisement)
             }
         }
-    }
-
-    private fun isTypeAdvertisement(position: Int): Boolean = mediaContents[position] is Advertisement
-
-    companion object {
-        private const val TYPE_MOVIE = 1
-        private const val TYPE_ADVERTISEMENT = 2
     }
 }

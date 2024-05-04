@@ -8,6 +8,7 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.detail.MovieDetailActivity
 import woowacourse.movie.model.MediaContent
+import woowacourse.movie.model.MediaContents
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
     private val movieList: RecyclerView by lazy { findViewById(R.id.recycler_view_reservation_home) }
@@ -23,7 +24,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     override fun showMediaContents(mediaContents: List<MediaContent>) {
         movieList.layoutManager = LinearLayoutManager(this)
         movieList.adapter =
-            MovieAdapter(mediaContents) { movieId ->
+            MovieAdapter(MediaContents(mediaContents)) { movieId ->
                 homePresenter.deliverMovieId(movieId)
             }
     }
