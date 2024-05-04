@@ -16,6 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.data.repository.MovieRepositoryImpl
 
 @RunWith(AndroidJUnit4::class)
 class MovieDetailActivityTest {
@@ -28,13 +29,14 @@ class MovieDetailActivityTest {
     @Test
     fun `영화_목록_화면에서_전달_받은_영화_정보를_화면에_나타낸다`() {
         onView(withId(R.id.posterImage)).check(matches(isDisplayed()))
-        onView(withId(R.id.title)).check(matches(withText(TITLE)))
+        onView(withId(R.id.title)).check(matches(withText(DEFAULT_TITLE)))
         onView(withId(R.id.screeningDate)).check(
             matches(
                 withText(
                     testContext.getString(
                         R.string.screening_date_format,
-                        SCREENING_DATE,
+                        DEFAULT_SCREENING_DATE,
+                        DEFAULT_SCREENING_END_DATE,
                     ),
                 ),
             ),
@@ -44,12 +46,24 @@ class MovieDetailActivityTest {
                 withText(
                     testContext.getString(
                         R.string.running_time_format,
-                        RUNNING_TIME,
+                        DEFAULT_RUNNING_TIME,
                     ),
                 ),
             ),
         )
-        onView(withId(R.id.summary)).check(matches(withText(SUMMARY)))
+        onView(withId(R.id.summary)).check(matches(withText(DEFAULT_SUMMARY)))
+    }
+
+    @Test
+    fun `상영_날짜를_선택하는_스피너가_나타난다`() {
+        onView(withId(R.id.dateSpinner))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `상영_시간을_선택하는_스피너가_나타난다`() {
+        onView(withId(R.id.timeSpinner))
+            .check(matches(isDisplayed()))
     }
 
     @Test

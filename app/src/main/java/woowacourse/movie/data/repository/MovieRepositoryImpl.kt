@@ -31,14 +31,14 @@ object MovieRepositoryImpl : MovieRepository {
         Movie(
             movieId = -1,
             posterImageId = R.drawable.img_noimg,
-            title = "",
+            title = "영화 제목",
             screeningInfo =
                 ScreeningInfo(
                     startDate = LocalDate.now(),
                     endDate = LocalDate.now(),
                     runningTime = 0,
                 ),
-            summary = "",
+            summary = "영화 줄거리",
         )
     private const val DATE_TERM: Long = 1
     private const val END_TIME = 24
