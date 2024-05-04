@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieAdapter
 import woowacourse.movie.detail.MovieDetailActivity
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MediaContent
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
     private val movieList: RecyclerView by lazy { findViewById(R.id.recycler_view_reservation_home) }
@@ -20,10 +20,10 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         homePresenter = HomePresenter(this)
     }
 
-    override fun showMovies(movies: List<Movie>) {
+    override fun showMediaContents(mediaContents: List<MediaContent>) {
         movieList.layoutManager = LinearLayoutManager(this)
         movieList.adapter =
-            MovieAdapter(movies) { movieId ->
+            MovieAdapter(mediaContents) { movieId ->
                 homePresenter.deliverMovieId(movieId)
             }
     }

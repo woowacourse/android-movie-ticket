@@ -1,6 +1,6 @@
 package woowacourse.movie.detail
 
-import woowacourse.movie.db.Movies
+import woowacourse.movie.db.MediaContents
 import woowacourse.movie.model.ChangeTicketCountResult
 import woowacourse.movie.model.InRange
 import woowacourse.movie.model.OutOfRange
@@ -22,7 +22,7 @@ class MovieDetailPresenter(
     }
 
     override fun loadMovie() {
-        view.showMovieInformation(Movies.obtainMovie(movieId))
+        view.showMovieInformation(MediaContents.obtainMovie(movieId))
     }
 
     override fun loadScreeningTimes(date: LocalDate) {
@@ -38,7 +38,7 @@ class MovieDetailPresenter(
     }
 
     override fun loadScreeningDates() {
-        val movie = Movies.obtainMovie(movieId)
+        val movie = MediaContents.obtainMovie(movieId)
 
         view.showScreeningDates(
             ticket.obtainScreeningDates(
@@ -59,7 +59,7 @@ class MovieDetailPresenter(
     }
 
     override fun deliverReservationInformation() {
-        val movieTitle = Movies.obtainMovie(movieId).title
+        val movieTitle = MediaContents.obtainMovie(movieId).title
 
         view.moveToSeatSelect(movieTitle, ticket)
     }

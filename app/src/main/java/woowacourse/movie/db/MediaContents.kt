@@ -1,11 +1,13 @@
 package woowacourse.movie.db
 
 import woowacourse.movie.R
+import woowacourse.movie.model.Advertisement
+import woowacourse.movie.model.MediaContent
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
-object Movies {
-    private val movies: List<Movie> =
+object MediaContents {
+    private val mediaContents: List<MediaContent> =
         listOf(
             Movie(
                 0,
@@ -100,6 +102,7 @@ object Movies {
                 가는데...
                 """.trimIndent(),
             ),
+            Advertisement(1, R.drawable.advertise),
             Movie(
                 3,
                 R.drawable.img_sorcerers_stone,
@@ -193,6 +196,7 @@ object Movies {
                 가는데...
                 """.trimIndent(),
             ),
+            Advertisement(1, R.drawable.advertise),
             Movie(
                 6,
                 R.drawable.img_sorcerers_stone,
@@ -286,9 +290,10 @@ object Movies {
                 가는데...
                 """.trimIndent(),
             ),
+            Advertisement(2, R.drawable.advertise),
         )
 
-    fun obtainMovies(): List<Movie> = movies.toList()
+    fun obtainMediaContents(): List<MediaContent> = mediaContents.toList()
 
-    fun obtainMovie(id: Int): Movie = movies[id]
+    fun obtainMovie(id: Int): Movie = mediaContents.filterIsInstance(Movie::class.java)[id]
 }

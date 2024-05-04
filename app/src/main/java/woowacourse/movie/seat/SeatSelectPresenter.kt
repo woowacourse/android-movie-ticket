@@ -1,6 +1,6 @@
 package woowacourse.movie.seat
 
-import woowacourse.movie.db.Movies
+import woowacourse.movie.db.MediaContents
 import woowacourse.movie.model.Rank
 import woowacourse.movie.model.Ticket
 
@@ -26,7 +26,7 @@ class SeatSelectPresenter(
     }
 
     override fun loadMovieTitle() {
-        val title = Movies.obtainMovie(movieId).title
+        val title = MediaContents.obtainMovie(movieId).title
 
         view.showReservationInfo(title, totalPrice)
     }

@@ -20,10 +20,10 @@ class HomePresenterTest {
 
     @Test
     fun `영화 리스트를 표시한다`() {
-        every { view.showMovies(any()) } just runs
+        every { view.showMediaContents(any()) } just runs
 
-        presenter.loadMovies()
+        presenter.loadMediaContents()
 
-        verify { view.showMovies(any()) }
+        verify { view.showMediaContents(any()) }
     }
 }

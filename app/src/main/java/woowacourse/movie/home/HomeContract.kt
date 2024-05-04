@@ -1,16 +1,16 @@
 package woowacourse.movie.home
 
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MediaContent
 
 interface HomeContract {
     interface View {
-        fun showMovies(movies: List<Movie>)
+        fun showMediaContents(mediaContents: List<MediaContent>)
 
         fun moveToReservationDetail(movieId: Int)
     }
 
     interface Presenter {
-        fun loadMovies()
+        fun loadMediaContents()
 
         fun deliverMovieId(movieId: Int)
     }

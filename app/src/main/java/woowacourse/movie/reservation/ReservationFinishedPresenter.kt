@@ -1,6 +1,6 @@
 package woowacourse.movie.reservation
 
-import woowacourse.movie.db.Movies
+import woowacourse.movie.db.MediaContents
 import woowacourse.movie.model.Ticket
 
 class ReservationFinishedPresenter(
@@ -15,7 +15,7 @@ class ReservationFinishedPresenter(
     }
 
     override fun loadReservationInformation() {
-        val movieTitle = Movies.obtainMovie(movieId).title
+        val movieTitle = MediaContents.obtainMovie(movieId).title
 
         view.showReservationInformation(
             movieTitle,
