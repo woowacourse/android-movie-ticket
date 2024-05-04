@@ -2,13 +2,16 @@ package woowacourse.movie.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.admodel.Ad
 import woowacourse.movie.presentation.adapter.MovieListAdapter
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.contract.MainContract
 import woowacourse.movie.presentation.presenter.MainPresenterImpl
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions {
     private lateinit var adapter: MovieListAdapter
@@ -17,26 +20,43 @@ class MainActivity : BaseActivity(), MainContract.View, MainContract.ViewActions
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun onCreateSetup(savedInstanceState: Bundle?) {
-        presenter = MainPresenterImpl(this)
-        adapter = MovieListAdapter(presenter.movies.movies, this)
+        adapter = MovieListAdapter(emptyList(), emptyList(), this)
+        presenter = MainPresenterImpl()
+        presenter.attachView(this)
         showMovieList()
     }
 
+    override fun onUpdateMovies(movies: List<MovieUiModel>) {
+        adapter.updateMovieList(movies)
+    }
+
+    override fun onUpdateAds(
+        ads: List<Ad>,
+        exposureCount: Int,
+    ) {
+        adapter.updateAdsList(ads)
+        adapter.setAdExposureCount(exposureCount)
+    }
+
     override fun showMovieList() {
-        findViewById<ListView>(R.id.movieList).adapter = adapter
+        val movieListView = findViewById<RecyclerView>(R.id.movieList)
+        movieListView.layoutManager = LinearLayoutManager(this)
+        movieListView.adapter = adapter
     }
 
-    override fun reserveMovie(movie: Movie) {
-        presenter.onReserveButtonClicked(movie)
+    override fun reserveMovie(movieId: Int) {
+        presenter.onReserveButtonClicked(movieId)
     }
 
-    override fun moveToMovieDetail(movie: Movie) {
+    override fun showAdContent(content: String) {
+        runOnUiThread {
+            Toast.makeText(this, content, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun moveToMovieDetail(movieId: Int) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra(MovieDetailActivity.INTENT_POSTER_IMAGE_ID, movie.posterImageId)
-        intent.putExtra(MovieDetailActivity.INTENT_TITLE, movie.title)
-        intent.putExtra(MovieDetailActivity.INTENT_SCREENING_DATE, movie.screeningDate)
-        intent.putExtra(MovieDetailActivity.INTENT_RUNNING_TIME, movie.runningTime)
-        intent.putExtra(MovieDetailActivity.INTENT_SUMMARY, movie.summary)
+        intent.putExtra(MovieDetailActivity.INTENT_MOVIE_ID, movieId)
         startActivity(intent)
     }
 }

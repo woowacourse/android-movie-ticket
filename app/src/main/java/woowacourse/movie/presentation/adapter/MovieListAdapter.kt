@@ -1,60 +1,91 @@
 package woowacourse.movie.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.admodel.Ad
+import woowacourse.movie.presentation.adapter.diffutil.MovieDiffCallback
 import woowacourse.movie.presentation.contract.MainContract
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 class MovieListAdapter(
-    private val movieList: List<Movie>,
+    private var movieList: List<MovieUiModel>,
+    private var adList: List<Ad>,
     private val listener: MainContract.ViewActions,
-) : BaseAdapter() {
-    override fun getCount(): Int = movieList.size
-
-    override fun getItem(index: Int): Movie = movieList[index]
-
-    override fun getItemId(index: Int): Long = index.toLong()
-
-    override fun getView(
-        index: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val view: View
-        val movieViewHolder: MovieViewHolder
-        if(convertView == null) {
-            view = createView(parent!!)
-            movieViewHolder = MovieViewHolder(view)
-            view.tag = movieViewHolder
-        } else {
-            view = convertView
-            movieViewHolder = convertView.tag as MovieViewHolder
-        }
-        val movie = movieList[index]
-        bindData(movieViewHolder, movie, parent!!)
-
-        return view
+    private var adExposureCount: Int = DEFAULT_AD_INTERVAL_COUNT,
+) : RecyclerView.Adapter<ViewHolder>() {
+    fun updateMovieList(newMovieList: List<MovieUiModel>) {
+        val diffCallback = MovieDiffCallback(movieList, newMovieList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        movieList = newMovieList
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    private fun createView(parent: ViewGroup): View {
-        return LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+    fun updateAdsList(ads: List<Ad>) {
+        adList = ads
     }
 
-    private fun bindData(
-        movieViewHolder: MovieViewHolder,
-        movie: Movie,
+    fun setAdExposureCount(exposureCount: Int) {
+        adExposureCount = exposureCount
+    }
+
+    private fun onReserveButtonClicked(position: Int) {
+        listener.reserveMovie(movieList[position].movieId)
+    }
+
+    private fun onAdClicked(position: Int) {
+        listener.showAdContent(adList[getAdIndex(position)].content)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return ListItemType.getTypeFromPosition(position, adExposureCount)
+    }
+
+    override fun onCreateViewHolder(
         parent: ViewGroup,
-    ) {
-        movieViewHolder.posterImage.setImageResource(movie.posterImageId)
-        movieViewHolder.title.text = movie.title
-        movieViewHolder.screeningDate.text = parent.context.getString(R.string.screening_date_format, movie.screeningDate)
-        movieViewHolder.runningTime.text = parent.context.getString(R.string.running_time_format, movie.runningTime)
+        viewType: Int,
+    ): ViewHolder {
+        return when (viewType) {
+            ListItemType.MOVIE_TYPE.code -> {
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+                MovieViewHolder(view, ::onReserveButtonClicked)
+            }
 
-        movieViewHolder.reserveButton.setOnClickListener {
-            listener.reserveMovie(movie)
+            ListItemType.AD_TYPE.code -> {
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.ad_item, parent, false)
+                AdViewHolder(view, ::onAdClicked)
+            }
+
+            else -> {
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+                MovieViewHolder(view, ::onReserveButtonClicked)
+            }
         }
+    }
+
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
+        when (holder) {
+            is MovieViewHolder -> holder.bind(movieList[position])
+            is AdViewHolder -> holder.bind(adList[getAdIndex(position)].imageId)
+        }
+    }
+
+    override fun getItemCount(): Int = movieList.size
+
+    private fun getAdIndex(listIndex: Int): Int {
+        return (listIndex / adExposureCount) % adList.size
+    }
+
+    companion object {
+        const val DEFAULT_AD_INTERVAL_COUNT = 4
     }
 }

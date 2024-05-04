@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.presentation.base.BaseActivity
+import woowacourse.movie.presentation.uimodel.MovieTicketUiModel
 
 class ReservationResultActivity : BaseActivity() {
     override fun getLayoutResId(): Int = R.layout.activity_reservation_result
@@ -14,23 +15,26 @@ class ReservationResultActivity : BaseActivity() {
     }
 
     private fun setUpFromIntent() {
-        val title = intent.getStringExtra(INTENT_TITLE) ?: ""
-        val screeningDate = intent.getStringExtra(INTENT_SCREENING_DATE) ?: ""
-        val reservationCount = intent.getIntExtra(INTENT_RESERVATION_COUNT, 0)
-        val totalPrice = intent.getIntExtra(INTENT_TOTAL_PRICE, 0)
+        val ticket = intent.getParcelableExtra<MovieTicketUiModel>(INTENT_TICKET)
+        val seatsPositions = ticket?.selectedSeats?.joinToString(", ")
 
-        findViewById<TextView>(R.id.title).text = title
-        findViewById<TextView>(R.id.screeningDate).text = screeningDate
-        findViewById<TextView>(R.id.reservationCount).text =
-            this.getString(R.string.reservation_count_format, reservationCount)
+        findViewById<TextView>(R.id.title).text = ticket?.title
+        findViewById<TextView>(R.id.screeningDate).text = ticket?.screeningDate
+        findViewById<TextView>(R.id.screeningTime).text =
+            this.getString(R.string.screening_time_format, ticket?.startTime, ticket?.endTime)
+        findViewById<TextView>(R.id.runningTime).text =
+            this.getString(R.string.running_time, ticket?.runningTime)
+        findViewById<TextView>(R.id.reservationInfo).text =
+            this.getString(
+                R.string.reservation_info_format,
+                ticket?.reservationCount,
+                seatsPositions,
+            )
         findViewById<TextView>(R.id.totalPrice).text =
-            this.getString(R.string.reservation_total_price_format, totalPrice)
+            this.getString(R.string.reservation_total_price_format, ticket?.totalPrice)
     }
 
     companion object {
-        const val INTENT_TITLE = "title"
-        const val INTENT_SCREENING_DATE = "screeningDate"
-        const val INTENT_RESERVATION_COUNT = "reservationCount"
-        const val INTENT_TOTAL_PRICE = "totalPrice"
+        const val INTENT_TICKET = "ticket"
     }
 }

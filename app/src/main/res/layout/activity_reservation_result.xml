@@ -44,12 +44,38 @@
         android:textColor="@color/black"
         android:textSize="@dimen/size_20"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/screeningTime"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
-        android:id="@+id/reservationCount"
+        android:id="@+id/screeningTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_36"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_20"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/screeningDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/runningTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_36"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_20"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/screeningTime" />
+
+    <TextView
+        android:id="@+id/reservationInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_80"
@@ -58,7 +84,7 @@
         android:textSize="@dimen/size_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/screeningDate" />
+        app:layout_constraintTop_toBottomOf="@+id/runningTime" />
 
     <TextView
         android:id="@+id/totalPrice"
@@ -70,5 +96,5 @@
         android:textSize="@dimen/size_20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reservationCount" />
+        app:layout_constraintTop_toBottomOf="@+id/reservationInfo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

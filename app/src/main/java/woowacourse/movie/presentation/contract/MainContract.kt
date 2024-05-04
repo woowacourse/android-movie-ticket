@@ -1,22 +1,39 @@
 package woowacourse.movie.presentation.contract
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Movies
+import woowacourse.movie.domain.admodel.Ad
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 interface MainContract {
     interface View {
+        fun onUpdateMovies(movies: List<MovieUiModel>)
+
+        fun onUpdateAds(
+            ads: List<Ad>,
+            exposureCount: Int,
+        )
+
         fun showMovieList()
 
-        fun moveToMovieDetail(movie: Movie)
+        fun moveToMovieDetail(movieId: Int)
     }
 
     interface Presenter {
-        val movies: Movies
+        fun attachView(view: View)
 
-        fun onReserveButtonClicked(movie: Movie)
+        fun detachView()
+
+        fun onViewSetUp()
+
+        fun loadMovie()
+
+        fun loadAds()
+
+        fun onReserveButtonClicked(movieId: Int)
     }
 
     interface ViewActions {
-        fun reserveMovie(movie: Movie)
+        fun reserveMovie(movieId: Int)
+
+        fun showAdContent(content: String)
     }
 }

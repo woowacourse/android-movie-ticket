@@ -21,16 +21,17 @@ class ReservationResultActivityTest {
 
     @Test
     fun `영화_상세_화면에서_전달_받은_예매_정보를_화면에_나타낸다`() {
-        onView(withId(R.id.title)).check(matches(withText(TITLE)))
-        onView(withId(R.id.screeningDate)).check(matches(withText(SCREENING_DATE)))
+        onView(withId(R.id.title)).check(matches(withText(DEFAULT_TITLE)))
+        onView(withId(R.id.screeningDate)).check(matches(withText(DEFAULT_SCREENING_DATE)))
         onView(
-            withId(R.id.reservationCount),
+            withId(R.id.reservationInfo),
         ).check(
             matches(
                 withText(
                     testContext.getString(
-                        R.string.reservation_count_format,
+                        R.string.reservation_info_format,
                         RESERVATION_COUNT,
+                        selectedSeatList.joinToString(", "),
                     ),
                 ),
             ),

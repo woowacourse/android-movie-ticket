@@ -1,29 +1,51 @@
 package woowacourse.movie.presentation.contract
 
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.presentation.uimodel.MovieUiModel
 
 interface MovieDetailContract {
     interface View {
-        fun showMovieDetail(
-            posterImageId: Int,
-            title: String,
-            screeningDate: String,
-            runningTime: Int,
-            summary: String,
+        fun showMovieDetail(movieUiModel: MovieUiModel)
+
+        fun setScreeningDatesAndTimes(
+            dates: List<String>,
+            times: List<String>,
+            defaultDataIndex: Int,
+        )
+
+        fun updateScreeningTimes(
+            times: List<String>,
+            defaultDataIndex: Int,
         )
 
         fun showReservationCount(count: Int)
 
-        fun moveToReservationResult()
+        fun moveToSeatSelection(
+            reservationCount: Int,
+            title: String,
+        )
     }
 
     interface Presenter {
-        val movieTicket: MovieTicket
+        fun attachView(view: View)
+
+        fun detachView()
+
+        fun onViewSetUp()
+
+        fun loadScreeningDates(movieId: Int)
+
+        fun loadScreeningTimes(isWeekend: Boolean)
+
+        fun selectDate(date: String)
+
+        fun selectTime(time: String)
 
         fun minusReservationCount()
 
         fun plusReservationCount()
 
         fun initReservationCount(count: Int)
+
+        fun onReserveButtonClicked()
     }
 }

@@ -14,6 +14,7 @@
     <dimen name="size_32">32dp</dimen>
     <dimen name="size_34">34dp</dimen>
     <dimen name="size_36">36dp</dimen>
+    <dimen name="size_40">40dp</dimen>
     <dimen name="size_45">45dp</dimen>
     <dimen name="size_65">65dp</dimen>
     <dimen name="size_76">76dp</dimen>
@@ -23,4 +24,7 @@
     <dimen name="size_132">132dp</dimen>
     <dimen name="size_138">138dp</dimen>
     <dimen name="size_150">150dp</dimen>
+    <dimen name="size_180">180dp</dimen>
+    <dimen name="size_200">200dp</dimen>
+    <dimen name="size_300">300dp</dimen>
 </resources>
