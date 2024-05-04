@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.view
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Window
@@ -118,9 +117,10 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
                             SEAT_ROW_START_VALUE + row,
                             SEAT_COL_START_VALUE + col,
                         )
+                    tag = false
                     setSeatClickListener(this, row, col)
                 }
-            seatView.setBackgroundColor(WHITE_COLOR)
+            seatView.setBackgroundColor(UNSELECTED_COLOR)
             seatView.setTextColor(color)
             rowSeats.addView(seatView)
         }
@@ -142,13 +142,12 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
     ) {
         val seatsRow = seatingChartLayout.getChildAt(row) as TableRow
         val seatView = seatsRow.getChildAt(col) as TextView
-        val currentColor = (seatView.background as? ColorDrawable)?.color
-        val newColor =
-            when (currentColor) {
-                WHITE_COLOR -> YELLOW_COLOR
-                YELLOW_COLOR -> WHITE_COLOR
-                else -> WHITE_COLOR
-            }
+        val isSelected = seatView.tag as Boolean
+        seatView.tag = !isSelected
+        val newColor = when (isSelected) {
+            true -> UNSELECTED_COLOR
+            false -> SELECTED_COLOR
+        }
         seatView.setBackgroundColor(newColor)
     }
 
@@ -213,7 +212,7 @@ class SeatSelectionActivity : BaseActivity(), SeatSelectionContract.View {
         val B_RANK_COLOR = Color.argb(255, 142, 19, 236)
         val A_RANK_COLOR = Color.argb(255, 25, 211, 88)
         val S_RANK_COLOR = Color.argb(255, 27, 72, 233)
-        const val WHITE_COLOR = Color.WHITE
-        const val YELLOW_COLOR = Color.YELLOW
+        const val UNSELECTED_COLOR = Color.WHITE
+        const val SELECTED_COLOR = Color.YELLOW
     }
 }
