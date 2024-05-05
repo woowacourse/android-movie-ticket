@@ -1,6 +1,6 @@
 package woowacourse.movie.home
 
-import woowacourse.movie.db.MediaContents
+import woowacourse.movie.db.MediaContentsDB
 
 class HomePresenter(
     private val view: HomeContract.View,
@@ -10,7 +10,7 @@ class HomePresenter(
     }
 
     override fun loadMediaContents() {
-        val mediaContents = MediaContents.obtainMediaContents().toList()
+        val mediaContents = MediaContentsDB.obtainMediaContents().toList()
         view.showMediaContents(mediaContents)
     }
 

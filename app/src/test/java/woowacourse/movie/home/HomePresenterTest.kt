@@ -7,6 +7,7 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.db.MediaContentsDB
 
 class HomePresenterTest {
     private lateinit var view: HomeContract.View
@@ -22,11 +23,11 @@ class HomePresenterTest {
     }
 
     @Test
-    fun `영화 리스트를 표시한다`() {
-        every { view.showMediaContents(any()) } just runs
+    fun `영화와 광고 리스트를 표시한다`() {
+        every { view.showMediaContents(MediaContentsDB.obtainMediaContents()) } just runs
 
         presenter.loadMediaContents()
 
-        verify { view.showMediaContents(any()) }
+        verify { view.showMediaContents(MediaContentsDB.obtainMediaContents()) }
     }
 }

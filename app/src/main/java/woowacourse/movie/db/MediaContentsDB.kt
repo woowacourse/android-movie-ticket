@@ -6,7 +6,7 @@ import woowacourse.movie.model.MediaContent
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
-object MediaContents {
+object MediaContentsDB {
     private val mediaContents: List<MediaContent> =
         listOf(
             Movie(
