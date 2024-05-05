@@ -48,7 +48,7 @@ class SeatSelectPresenter(
         onColor: (Int) -> Unit,
     ) {
         seats.add(seat)
-        val isAvailable = ticket.count == seats.size
+        val isAvailable = ticket.ticketCount == seats.size
 
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(false, onColor)
@@ -60,7 +60,7 @@ class SeatSelectPresenter(
         onColor: (Int) -> Unit,
     ) {
         seats.remove(seat)
-        val isAvailable = ticket.count == seats.size
+        val isAvailable = ticket.ticketCount == seats.size
 
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(true, onColor)

@@ -68,7 +68,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(TICKET_COUNT, presenter.ticket.count)
+        outState.putInt(TICKET_COUNT, presenter.ticket.ticketCount)
     }
 
     override fun showScreeningDates(screeningDates: List<LocalDate>) {

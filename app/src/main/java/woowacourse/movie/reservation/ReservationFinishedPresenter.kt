@@ -26,7 +26,7 @@ class ReservationFinishedPresenter(
 
     override fun loadReservationInformation() {
         view.showReservationInformation(
-            ticket.count,
+            ticket.ticketCount,
             seats,
             totalPrice,
         )

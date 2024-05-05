@@ -18,7 +18,7 @@ class MovieDetailPresenter(
     }
 
     override fun loadSavedData() {
-        view.showCount(ticket.count)
+        view.showCount(ticket.ticketCount)
     }
 
     override fun loadMovie() {
@@ -52,12 +52,12 @@ class MovieDetailPresenter(
 
     override fun increaseCount() {
         ticket.increaseCount()
-        view.showCount(ticket.count)
+        view.showCount(ticket.ticketCount)
     }
 
     override fun decreaseCount() {
         ticket.decreaseCount()
-        view.showCount(ticket.count)
+        view.showCount(ticket.ticketCount)
     }
 
     override fun deliverReservationInformation() {

@@ -10,7 +10,7 @@ class TicketTest {
 
         ticket.increaseCount()
 
-        assertThat(ticket.count).isEqualTo(11)
+        assertThat(ticket.ticketCount).isEqualTo(11)
     }
 
     @Test
@@ -19,7 +19,7 @@ class TicketTest {
 
         ticket.decreaseCount()
 
-        assertThat(ticket.count).isEqualTo(9)
+        assertThat(ticket.ticketCount).isEqualTo(9)
     }
 
     @Test
@@ -28,7 +28,7 @@ class TicketTest {
 
         ticket.decreaseCount()
 
-        assertThat(ticket.count).isEqualTo(1)
+        assertThat(ticket.ticketCount).isEqualTo(1)
     }
 
     @Test
@@ -37,6 +37,6 @@ class TicketTest {
 
         ticket.increaseCount()
 
-        assertThat(ticket.count).isEqualTo(100)
+        assertThat(ticket.ticketCount).isEqualTo(100)
     }
 }

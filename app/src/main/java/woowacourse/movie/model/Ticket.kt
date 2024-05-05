@@ -5,14 +5,14 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 class Ticket(
-    var count: Int = DEFAULT_TICKET_COUNT,
+    var ticketCount: Int = DEFAULT_TICKET_COUNT,
 ) : Parcelable {
     fun increaseCount() {
-        if (count < MAX_TICKET_COUNT) count++
+        if (ticketCount < MAX_TICKET_COUNT) ticketCount++
     }
 
     fun decreaseCount() {
-        if (count > MIN_TICKET_COUNT) count--
+        if (ticketCount > MIN_TICKET_COUNT) ticketCount--
     }
 
     companion object {
