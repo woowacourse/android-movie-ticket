@@ -1,5 +1,6 @@
 package woowacourse.movie.seat
 
+import android.widget.TextView
 import woowacourse.movie.db.MediaContentsDB
 import woowacourse.movie.model.Rank
 import woowacourse.movie.model.ReservationSchedule
@@ -44,21 +45,18 @@ class SeatSelectPresenter(
 
     override fun selectSeat(
         seat: String,
-        onColor: (Int) -> Unit,
+        isSelected: Boolean,
+        textView: TextView,
     ) {
-        seats.value.add(seat)
-        view.showTotalPrice(totalPrice)
-        view.changeSeatColor(false, onColor)
-        view.showReservationCheck(seats.isValidate())
-    }
+        if (isSelected) {
+            seats.value.remove(seat)
+            view.changeSeatColor(true, textView)
+        } else {
+            seats.value.add(seat)
+            view.changeSeatColor(false, textView)
+        }
 
-    override fun unselectSeat(
-        seat: String,
-        onColor: (Int) -> Unit,
-    ) {
-        seats.value.remove(seat)
         view.showTotalPrice(totalPrice)
-        view.changeSeatColor(true, onColor)
         view.showReservationCheck(seats.isValidate())
     }
 

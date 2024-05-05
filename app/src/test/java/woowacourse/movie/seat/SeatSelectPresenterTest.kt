@@ -20,7 +20,7 @@ class SeatSelectPresenterTest {
 
         every { view.showReservationInfo(any(), any()) } just runs
 
-        presenter = SeatSelectPresenter(view, 0, Seats(10), ReservationSchedule())
+        presenter = SeatSelectPresenter(view, 0, ReservationSchedule(), Seats(10))
     }
 
     @Test

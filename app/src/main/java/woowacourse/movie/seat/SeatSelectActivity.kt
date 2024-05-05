@@ -73,16 +73,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             .filterIsInstance<TextView>()
             .forEach { textView ->
                 textView.setOnClickListener {
-                    if (it.isSelected) {
-                        presenter.unselectSeat(textView.text.toString()) { color ->
-                            it.setBackgroundColor(getColor(color))
-                        }
-                    } else {
-                        presenter.selectSeat(textView.text.toString()) { color ->
-                            it.setBackgroundColor(getColor(color))
-                        }
-                    }
-                    it.isSelected = !it.isSelected
+                    presenter.selectSeat(textView.text.toString(), it.isSelected, textView)
                 }
             }
     }
@@ -117,13 +108,15 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
 
     override fun changeSeatColor(
         isSelected: Boolean,
-        onColor: (Int) -> Unit,
+        textView: TextView,
     ) {
         if (isSelected) {
-            onColor(R.color.white)
+            textView.setBackgroundColor(getColor(R.color.white))
         } else {
-            onColor(R.color.yellow)
+            textView.setBackgroundColor(getColor(R.color.yellow))
         }
+
+        textView.isSelected = isSelected
     }
 
     override fun showConfirmDialog() {

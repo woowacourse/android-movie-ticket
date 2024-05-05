@@ -1,5 +1,6 @@
 package woowacourse.movie.seat
 
+import android.widget.TextView
 import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Seats
 
@@ -16,7 +17,7 @@ interface SeatSelectContract {
 
         fun changeSeatColor(
             isSelected: Boolean,
-            onColor: (Int) -> Unit,
+            textView: TextView,
         )
 
         fun showConfirmDialog()
@@ -39,12 +40,8 @@ interface SeatSelectContract {
 
         fun selectSeat(
             seat: String,
-            onColor: (Int) -> Unit,
-        )
-
-        fun unselectSeat(
-            seat: String,
-            onColor: (Int) -> Unit,
+            isSelected: Boolean,
+            textView: TextView,
         )
 
         fun confirm()
