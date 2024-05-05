@@ -17,7 +17,7 @@ import woowacourse.movie.model.Seats
 import woowacourse.movie.reservation.ReservationFinishedActivity
 
 class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
-    private val seats: GridLayout by lazy { findViewById(R.id.grid_layout_seat_select) }
+    private val seatLayout: GridLayout by lazy { findViewById(R.id.grid_layout_seat_select) }
     private val movieTitle: TextView by lazy { findViewById(R.id.text_view_seat_select_movie_title) }
     private val totalPrice: TextView by lazy { findViewById(R.id.text_view_seat_select_total_price) }
     private val reservationButton: Button by lazy { findViewById(R.id.button_seat_select_confirm) }
@@ -38,22 +38,38 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
             intent.getParcelableExtra(RESERVATION_SCHEDULE, ReservationSchedule::class.java)
                 ?: throw IllegalArgumentException("빈 예약 스케줄이 넘어 왔습니다.")
 
+        initPresenter(savedInstanceState, movieId, reservationSchedule, seats)
+        initSeats()
+
+        reservationButton.setOnClickListener {
+            presenter.confirm()
+        }
+    }
+
+    private fun initPresenter(
+        savedInstanceState: Bundle?,
+        movieId: Int,
+        reservationSchedule: ReservationSchedule,
+        seats: Seats,
+    ) {
         presenter =
             if (savedInstanceState == null) {
                 SeatSelectPresenter(this, movieId, reservationSchedule, seats)
             } else {
-                val seats =
+                val loadedSeats =
                     savedInstanceState.getStringArray(SEATS)?.toMutableList()
                         ?: throw IllegalArgumentException("빈 자리가 넘어 왔습니다.")
                 SeatSelectPresenter(
                     this,
                     movieId,
                     reservationSchedule,
-                    Seats(value = seats),
+                    Seats(value = loadedSeats),
                 )
             }
+    }
 
-        this.seats.children
+    private fun initSeats() {
+        seatLayout.children
             .filterIsInstance<TextView>()
             .forEach { textView ->
                 textView.setOnClickListener {
@@ -69,10 +85,6 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
                     it.isSelected = !it.isSelected
                 }
             }
-
-        reservationButton.setOnClickListener {
-            presenter.confirm()
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
