@@ -1,9 +1,6 @@
 package woowacourse.movie.detail
 
 import woowacourse.movie.db.MediaContents
-import woowacourse.movie.model.ChangeTicketCountResult
-import woowacourse.movie.model.InRange
-import woowacourse.movie.model.OutOfRange
 import woowacourse.movie.model.ReservationSchedule
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
@@ -32,7 +29,8 @@ class MovieDetailPresenter(
         reservationSchedule.updateScreeningDate(screeningDate)
 
         view.showScreeningTimes(
-            reservationSchedule.obtainScreeningTimes(screeningDate).map { "$it:00" })
+            reservationSchedule.obtainScreeningTimes(screeningDate).map { "$it:00" },
+        )
     }
 
     override fun updateScreeningTime(screeningTime: String) {
@@ -53,28 +51,18 @@ class MovieDetailPresenter(
     }
 
     override fun increaseCount() {
-        val result = ticket.increaseCount()
-        handleNumberOfTicketsBounds(result)
+        ticket.increaseCount()
+        view.showCount(ticket.count)
     }
 
     override fun decreaseCount() {
-        val result = ticket.decreaseCount()
-        handleNumberOfTicketsBounds(result)
+        ticket.decreaseCount()
+        view.showCount(ticket.count)
     }
 
     override fun deliverReservationInformation() {
         val movieTitle = MediaContents.obtainMovie(movieId).title
 
         view.moveToSeatSelect(movieTitle, ticket, reservationSchedule)
-    }
-
-    private fun handleNumberOfTicketsBounds(result: ChangeTicketCountResult) {
-        when (result) {
-            is InRange -> {
-                view.showCount(ticket.count)
-            }
-
-            is OutOfRange -> view.showErrorToast()
-        }
     }
 }

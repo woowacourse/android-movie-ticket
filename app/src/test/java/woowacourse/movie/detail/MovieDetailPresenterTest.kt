@@ -52,28 +52,6 @@ class MovieDetailPresenterTest {
     }
 
     @Test
-    fun `인원이 1일 때 Count를 줄이면 에러 토스트가 나온다`() {
-        every { view.showErrorToast() } just runs
-
-        presenter = MovieDetailPresenter(view, 0, Ticket(1))
-
-        presenter.decreaseCount()
-
-        verify { view.showErrorToast() }
-    }
-
-    @Test
-    fun `인원이 100일 때 Count를 늘리면 에러 토스트가 나온다`() {
-        every { view.showErrorToast() } just runs
-
-        presenter = MovieDetailPresenter(view, 0, Ticket(100))
-
-        presenter.increaseCount()
-
-        verify { view.showErrorToast() }
-    }
-
-    @Test
     fun `영화의 상영 일들이 나온다`() {
         every { view.showScreeningDates(any()) } just runs
 

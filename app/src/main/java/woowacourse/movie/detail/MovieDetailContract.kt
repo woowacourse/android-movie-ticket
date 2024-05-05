@@ -13,8 +13,6 @@ interface MovieDetailContract {
 
         fun showScreeningDates(screeningDates: List<LocalDate>)
 
-        fun showErrorToast()
-
         fun moveToSeatSelect(
             movieTitle: String,
             ticket: Ticket,

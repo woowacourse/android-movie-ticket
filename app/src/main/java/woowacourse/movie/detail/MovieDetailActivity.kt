@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
@@ -138,11 +137,6 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun showCount(count: Int) {
         numberOfTickets.text = count.toString()
-    }
-
-    override fun showErrorToast() {
-        Toast.makeText(this, getString(R.string.invalid_number_of_tickets), Toast.LENGTH_SHORT)
-            .show()
     }
 
     private fun convertDateFormat(
