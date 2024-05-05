@@ -11,7 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -26,7 +26,7 @@ class ReservationFinishedActivityTest {
                 ReservationFinishedActivity::class.java,
             ).apply {
                 putExtra("movieId", 0)
-                putExtra("ticket", Ticket(1))
+                putExtra("ticket", Seats(1))
                 putExtra(
                     "reservationSchedule",
                     ReservationSchedule(LocalDate.of(2001, 11, 14), LocalTime.of(10, 0)),

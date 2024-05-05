@@ -8,7 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 
 class ReservationFinishedPresenterTest {
     private lateinit var view: ReservationFinishedContract.View
@@ -24,7 +24,7 @@ class ReservationFinishedPresenterTest {
             view.showReservationSchedule(any(), any())
         } just runs
 
-        presenter = ReservationFinishedPresenter(view, 0, Ticket(), "", 0, ReservationSchedule())
+        presenter = ReservationFinishedPresenter(view, 0, Seats(), "", 0, ReservationSchedule())
     }
 
     @Test

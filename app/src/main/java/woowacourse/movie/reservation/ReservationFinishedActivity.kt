@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 import java.text.DecimalFormat
 import java.time.LocalDate
 import java.time.LocalTime
@@ -30,7 +30,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
 
         val movieId = intent.getIntExtra(MOVIE_ID, MOVIE_ID_DEFAULT_VALUE)
         val ticket =
-            intent.getParcelableExtra(TICKET, Ticket::class.java)
+            intent.getParcelableExtra(TICKET, Seats::class.java)
                 ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
         val seats = intent.getStringExtra(SEATS) ?: throw IllegalArgumentException("빈 자리가 넘어 왔습니다.")
         val totalPrice = intent.getIntExtra(TOTAL_PRICE, TOTAL_PRICE_DEFAULT_VALUE)
@@ -101,7 +101,7 @@ class ReservationFinishedActivity : AppCompatActivity(), ReservationFinishedCont
         fun getIntent(
             context: Context,
             movieId: Int,
-            ticket: Ticket,
+            ticket: Seats,
             seats: String,
             totalPrice: Int,
             reservationSchedule: ReservationSchedule,

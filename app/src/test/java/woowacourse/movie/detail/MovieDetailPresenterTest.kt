@@ -7,7 +7,7 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 import java.time.LocalDate
 
 class MovieDetailPresenterTest {
@@ -21,7 +21,7 @@ class MovieDetailPresenterTest {
         every { view.showMovieInformation(any()) } just runs
         every { view.showScreeningDates(any()) } just runs
 
-        presenter = MovieDetailPresenter(view, 0, Ticket(10))
+        presenter = MovieDetailPresenter(view, 0, Seats(10))
     }
 
     @Test

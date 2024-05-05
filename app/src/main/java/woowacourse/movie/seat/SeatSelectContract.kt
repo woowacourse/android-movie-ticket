@@ -1,7 +1,7 @@
 package woowacourse.movie.seat
 
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 
 interface SeatSelectContract {
     interface View {
@@ -23,7 +23,7 @@ interface SeatSelectContract {
 
         fun moveToReservationFinished(
             movieId: Int,
-            ticket: Ticket,
+            ticket: Seats,
             seats: String,
             totalPrice: Int,
             reservationSchedule: ReservationSchedule,

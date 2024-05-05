@@ -3,17 +3,16 @@ package woowacourse.movie.seat
 import woowacourse.movie.db.MediaContentsDB
 import woowacourse.movie.model.Rank
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
     private val movieId: Int,
-    private val ticket: Ticket,
     private val reservationSchedule: ReservationSchedule,
-    val seats: MutableList<String> = mutableListOf(),
+    val seats: Seats,
 ) : SeatSelectContract.Presenter {
     private val totalPrice
-        get() = Rank.calculateTotalPrice(getRanks(seats))
+        get() = Rank.calculateTotalPrice(getRanks(seats.value))
 
     init {
         loadMovieTitle()
@@ -36,9 +35,9 @@ class SeatSelectPresenter(
     override fun loadReservationInformation() {
         view.moveToReservationFinished(
             movieId,
-            ticket,
-            seats.joinToString(", "),
-            Rank.calculateTotalPrice(getRanks(seats)),
+            seats,
+            seats.value.joinToString(", "),
+            Rank.calculateTotalPrice(getRanks(seats.value)),
             reservationSchedule,
         )
     }
@@ -47,24 +46,20 @@ class SeatSelectPresenter(
         seat: String,
         onColor: (Int) -> Unit,
     ) {
-        seats.add(seat)
-        val isAvailable = ticket.ticketCount == seats.size
-
+        seats.value.add(seat)
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(false, onColor)
-        view.showReservationCheck(isAvailable)
+        view.showReservationCheck(seats.isValidate())
     }
 
     override fun unselectSeat(
         seat: String,
         onColor: (Int) -> Unit,
     ) {
-        seats.remove(seat)
-        val isAvailable = ticket.ticketCount == seats.size
-
+        seats.value.remove(seat)
         view.showTotalPrice(totalPrice)
         view.changeSeatColor(true, onColor)
-        view.showReservationCheck(isAvailable)
+        view.showReservationCheck(seats.isValidate())
     }
 
     private fun getRanks(seat: List<String>): List<Rank> {

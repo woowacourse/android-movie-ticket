@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 import woowacourse.movie.reservation.ReservationFinishedActivity
 
 class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
@@ -31,8 +31,8 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieId = intent.getIntExtra(MOVIE_ID, DEFAULT_MOVIE_ID)
-        val ticket =
-            intent.getParcelableExtra(TICKET, Ticket::class.java)
+        val seats =
+            intent.getParcelableExtra(TICKET, Seats::class.java)
                 ?: throw IllegalArgumentException("빈 티켓이 넘어 왔습니다.")
         val reservationSchedule =
             intent.getParcelableExtra(RESERVATION_SCHEDULE, ReservationSchedule::class.java)
@@ -40,21 +40,20 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
 
         presenter =
             if (savedInstanceState == null) {
-                SeatSelectPresenter(this, movieId, ticket, reservationSchedule)
+                SeatSelectPresenter(this, movieId, reservationSchedule, seats)
             } else {
                 val seats =
-                    savedInstanceState.getStringArray(SEATS)
+                    savedInstanceState.getStringArray(SEATS)?.toMutableList()
                         ?: throw IllegalArgumentException("빈 자리가 넘어 왔습니다.")
                 SeatSelectPresenter(
                     this,
                     movieId,
-                    ticket,
                     reservationSchedule,
-                    seats.toMutableList(),
+                    Seats(value = seats),
                 )
             }
 
-        seats.children
+        this.seats.children
             .filterIsInstance<TextView>()
             .forEach { textView ->
                 textView.setOnClickListener {
@@ -79,7 +78,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putStringArray(SEATS, presenter.seats.toTypedArray())
+        outState.putParcelable(SEATS, presenter.seats)
     }
 
     override fun showReservationInfo(
@@ -131,7 +130,7 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
 
     override fun moveToReservationFinished(
         movieId: Int,
-        ticket: Ticket,
+        ticket: Seats,
         seats: String,
         totalPrice: Int,
         reservationSchedule: ReservationSchedule,
@@ -158,12 +157,12 @@ class SeatSelectActivity : AppCompatActivity(), SeatSelectContract.View {
         fun getIntent(
             context: Context,
             movieId: String,
-            ticket: Ticket,
+            seats: Seats,
             reservationSchedule: ReservationSchedule,
         ): Intent {
             return Intent(context, SeatSelectActivity::class.java)
                 .putExtra(MOVIE_ID, movieId)
-                .putExtra(TICKET, ticket)
+                .putExtra(TICKET, seats)
                 .putExtra(RESERVATION_SCHEDULE, reservationSchedule)
         }
     }

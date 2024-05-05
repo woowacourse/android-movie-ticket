@@ -2,12 +2,12 @@ package woowacourse.movie.reservation
 
 import woowacourse.movie.db.MediaContentsDB
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 
 class ReservationFinishedPresenter(
     private val view: ReservationFinishedContract.View,
     private val movieId: Int,
-    private val ticket: Ticket,
+    private val ticket: Seats,
     private val seats: String,
     private val totalPrice: Int,
     private val reservationSchedule: ReservationSchedule,

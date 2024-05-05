@@ -2,7 +2,7 @@ package woowacourse.movie.detail
 
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 import java.time.LocalDate
 
 interface MovieDetailContract {
@@ -15,7 +15,7 @@ interface MovieDetailContract {
 
         fun moveToSeatSelect(
             movieTitle: String,
-            ticket: Ticket,
+            seats: Seats,
             reservationSchedule: ReservationSchedule,
         )
 

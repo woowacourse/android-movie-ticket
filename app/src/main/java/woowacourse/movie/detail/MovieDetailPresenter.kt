@@ -2,14 +2,14 @@ package woowacourse.movie.detail
 
 import woowacourse.movie.db.MediaContentsDB
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 import java.time.LocalDate
 import java.time.LocalTime
 
 class MovieDetailPresenter(
     private val view: MovieDetailContract.View,
     private val movieId: Int,
-    val ticket: Ticket = Ticket(),
+    val seats: Seats = Seats(),
     private val reservationSchedule: ReservationSchedule = ReservationSchedule(),
 ) : MovieDetailContract.Presenter {
     init {
@@ -18,7 +18,7 @@ class MovieDetailPresenter(
     }
 
     override fun loadSavedData() {
-        view.showCount(ticket.ticketCount)
+        view.showCount(seats.ticketCount)
     }
 
     override fun loadMovie() {
@@ -51,18 +51,18 @@ class MovieDetailPresenter(
     }
 
     override fun increaseCount() {
-        ticket.increaseCount()
-        view.showCount(ticket.ticketCount)
+        seats.increaseCount()
+        view.showCount(seats.ticketCount)
     }
 
     override fun decreaseCount() {
-        ticket.decreaseCount()
-        view.showCount(ticket.ticketCount)
+        seats.decreaseCount()
+        view.showCount(seats.ticketCount)
     }
 
     override fun deliverReservationInformation() {
         val movieTitle = MediaContentsDB.obtainMovie(movieId).title
 
-        view.moveToSeatSelect(movieTitle, ticket, reservationSchedule)
+        view.moveToSeatSelect(movieTitle, seats, reservationSchedule)
     }
 }

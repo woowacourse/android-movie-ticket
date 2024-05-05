@@ -8,7 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 
 class SeatSelectPresenterTest {
     private lateinit var view: SeatSelectContract.View
@@ -20,7 +20,7 @@ class SeatSelectPresenterTest {
 
         every { view.showReservationInfo(any(), any()) } just runs
 
-        presenter = SeatSelectPresenter(view, 0, Ticket(10), ReservationSchedule())
+        presenter = SeatSelectPresenter(view, 0, Seats(10), ReservationSchedule())
     }
 
     @Test

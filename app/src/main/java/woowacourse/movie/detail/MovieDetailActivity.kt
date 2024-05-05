@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.ReservationSchedule
-import woowacourse.movie.model.Ticket
+import woowacourse.movie.model.Seats
 import woowacourse.movie.seat.SeatSelectActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -50,7 +50,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
                 MovieDetailPresenter(
                     this,
                     movieId,
-                    Ticket(numberOfTicket),
+                    Seats(numberOfTicket),
                 ).also {
                     it.loadSavedData()
                 }
@@ -68,7 +68,7 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(TICKET_COUNT, presenter.ticket.ticketCount)
+        outState.putInt(TICKET_COUNT, presenter.seats.ticketCount)
     }
 
     override fun showScreeningDates(screeningDates: List<LocalDate>) {
@@ -121,10 +121,10 @@ class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.View {
 
     override fun moveToSeatSelect(
         movieTitle: String,
-        ticket: Ticket,
+        seats: Seats,
         reservationSchedule: ReservationSchedule,
     ) {
-        startActivity(SeatSelectActivity.getIntent(this, movieTitle, ticket, reservationSchedule))
+        startActivity(SeatSelectActivity.getIntent(this, movieTitle, seats, reservationSchedule))
     }
 
     override fun showMovieInformation(movie: Movie) {
