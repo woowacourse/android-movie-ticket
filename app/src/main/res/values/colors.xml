@@ -9,4 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="skyblue">#FFADB7FE</color>
     <color name="dark_skyblue">#FF7D8CFF</color>
+    <color name="light_grey">#FFEAEAEA</color>
+    <color name="grey">#FF494949</color>
+    <color name="purple">#FF8E13EF</color>
+    <color name="green">#FF19D358</color>
+    <color name="blue">#FF1B48E9</color>
+    <color name="yellow">#FFFAFF00</color>
 </resources>

@@ -1,27 +1,35 @@
 package woowacourse.movie.home
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.adapter.MovieCatalogAdapter
-import woowacourse.movie.reservation.detail.ReservationDetailActivity
+import woowacourse.movie.adapter.MovieAdapter
+import woowacourse.movie.detail.MovieDetailActivity
+import woowacourse.movie.model.MediaContent
+import woowacourse.movie.model.MediaContents
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
-    private val movies: ListView by lazy { findViewById(R.id.list_view_reservation_home) }
-    private val homePresenter = HomePresenter(this)
+    private val movieList: RecyclerView by lazy { findViewById(R.id.recycler_view_reservation_home) }
+    private lateinit var homePresenter: HomePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservation_home)
 
-        movies.adapter =
-            MovieCatalogAdapter(this, homePresenter.obtainMovies()) { movieId ->
-                homePresenter.deliverMovie(movieId)
+        homePresenter = HomePresenter(this)
+    }
+
+    override fun showMediaContents(mediaContents: List<MediaContent>) {
+        movieList.layoutManager = LinearLayoutManager(this)
+        movieList.adapter =
+            MovieAdapter(MediaContents(mediaContents)) { movieId ->
+                homePresenter.deliverMovieId(movieId)
             }
     }
 
     override fun moveToReservationDetail(movieId: Int) {
-        startActivity(ReservationDetailActivity.getIntent(this, movieId))
+        startActivity(MovieDetailActivity.getIntent(this, movieId))
     }
 }

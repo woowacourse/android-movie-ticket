@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout_reservation_finished"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".reservation.finished.ReservationFinishedActivity">
+    tools:context=".reservation.ReservationFinishedActivity">
 
     <View
         android:id="@+id/view_reservation_finished"
@@ -40,72 +40,39 @@
         tools:text="해리 포터와 마법사의 돌" />
 
     <TextView
-        android:id="@+id/text_view_reservation_finished_screening_date"
+        android:id="@+id/text_view_reservation_finished_screening_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:text="@string/reservation_finished_schedule"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/text_view_reservation_finished_title"
         app:layout_constraintStart_toStartOf="@id/text_view_reservation_finished_title"
         app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_title"
-        tools:text="2024.3.1" />
+        tools:text="2024.3.1 17:00" />
 
     <TextView
-        android:id="@+id/text_view_reservation_finished_viewing_class"
+        android:id="@+id/text_view_reservation_finished_seat_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="@string/reservation_finished_general"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_number_of_tickets"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_screening_date" />
-
-    <TextView
-        android:id="@+id/text_view_reservation_finished_number_of_tickets"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_reservation_finished_viewing_class"
-        app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_person"
-        app:layout_constraintStart_toEndOf="@id/text_view_reservation_finished_viewing_class"
-        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_viewing_class"
-        tools:text="0" />
-
-    <TextView
-        android:id="@+id/text_view_reservation_finished_person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/reservation_finished_person"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_reservation_finished_viewing_class"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_view_reservation_finished_number_of_tickets"
-        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_viewing_class" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_screening_schedule" />
 
     <TextView
         android:id="@+id/text_view_reservation_finished_ticket_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:text="@string/reservation_finished_price"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/text_view_reservation_finished_price_unit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_number_of_tickets"
-        tools:text="0" />
-
-    <TextView
-        android:id="@+id/text_view_reservation_finished_price_unit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/reservation_finished_price_unit"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_reservation_finished_ticket_price"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_view_reservation_finished_ticket_price"
-        app:layout_constraintTop_toTopOf="@id/text_view_reservation_finished_ticket_price" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_reservation_finished_seat_information" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

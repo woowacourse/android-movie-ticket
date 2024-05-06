@@ -12,9 +12,12 @@
 
     <!-- activity_reservation_finished -->
     <string name="reservation_finished_notice">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="reservation_finished_general">일반</string>
-    <string name="reservation_finished_person">명</string>
-    <string name="reservation_finished_price_unit">원 (현장 결제)</string>
+    <string name="reservation_finished_schedule">%s %s</string>
+    <string name="reservation_finished_person">일반 %d명 | %s</string>
+    <string name="reservation_finished_price">%s원 (현장 결제)</string>
+
+    <!-- activity_seat_select -->
+    <string name="seat_select_total_price">%d원</string>
 
     <!-- item_movie_catalog -->
     <string name="movie_catalog_reservation_now">지금 예매</string>

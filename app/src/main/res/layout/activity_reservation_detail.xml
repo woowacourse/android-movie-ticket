@@ -5,7 +5,7 @@
     android:id="@+id/constraint_layout_reservation_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".reservation.detail.ReservationDetailActivity">
+    tools:context=".detail.MovieDetailActivity">
 
     <ScrollView
         android:layout_width="0dp"
@@ -74,7 +74,7 @@
 
             <Space
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="260dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_reservation_summary" />
@@ -94,14 +94,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <Spinner
+            android:id="@+id/spinner_reservation_detail_screening_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spinner_reservation_detail_screening_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_reservation_detail_screening_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/spinner_reservation_detail_screening_date" />
+
         <Button
             android:id="@+id/button_reservation_detail_minus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/reservation_detail_minus"
             android:textAppearance="@style/Bold20"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/spinner_reservation_detail_screening_date" />
 
         <TextView
             android:id="@+id/text_view_reservation_detail_number_of_tickets"
@@ -120,8 +137,9 @@
             android:layout_height="wrap_content"
             android:text="@string/reservation_detail_plus"
             android:textAppearance="@style/Bold20"
+            app:layout_constraintBottom_toBottomOf="@id/button_reservation_detail_minus"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/button_reservation_detail_minus" />
 
         <Button
             android:id="@+id/button_reservation_detail_finished"

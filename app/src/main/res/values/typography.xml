@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Bold20">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
@@ -7,6 +8,15 @@
 
     <style name="Bold24">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
+
+    <style name="Bold20White">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">25dp</item>
+    </style>
+
 </resources>
