@@ -1,17 +1,17 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("de.mannodermaus.android-junit5") version "1.10.0.0"
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.junit5)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
     namespace = "woowacourse.movie"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "woowacourse.movie"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -29,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
     packaging {
         resources {
@@ -44,20 +44,20 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.activity:activity-ktx:1.8.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    testImplementation("org.assertj:assertj-core:3.25.3")
-    testImplementation("io.kotest:kotest-runner-junit5:5.8.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-    androidTestImplementation("org.assertj:assertj-core:3.25.3")
-    androidTestImplementation("io.kotest:kotest-runner-junit5:5.8.0")
-    androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.3.0")
-    androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.3.0")
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.google.material)
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.kotest.runner.junit5)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.assertj.core)
+    androidTestImplementation(libs.junit.jupiter)
+    androidTestImplementation(libs.kotest.runner.junit5)
+    androidTestImplementation(libs.mannodermaus.junit5.core)
+    androidTestRuntimeOnly(libs.mannodermaus.junit5.runner)
 }
