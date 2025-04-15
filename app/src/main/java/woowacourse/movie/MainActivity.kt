@@ -1,10 +1,12 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +18,24 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        initListView()
+    }
+
+    private fun initListView() {
+        val movies =
+            listOf(
+                Movie(
+                    "해리 포터와 마법사의 돌",
+                    LocalDate.of(2025, 4, 1),
+                    150,
+                    R.drawable.poster_harry_potter_and_the_philosophers_stone,
+                ),
+            )
+
+        val movieListView = findViewById<ListView>(R.id.main)
+
+        val movieAdapter = MovieAdapter(movies)
+        movieListView.adapter = movieAdapter
     }
 }
