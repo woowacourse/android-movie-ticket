@@ -40,8 +40,21 @@ class MainActivity : AppCompatActivity() {
         movieListView.adapter = movieAdapter
     }
 
-    private val navigateToReservationResultActivity = {
-        val intent = Intent(this, ReservationResultActivity::class.java)
-        startActivity(intent)
+    private val navigateToReservationResultActivity: (String, String) -> Unit =
+        { title: String, date: String ->
+            val intent =
+                Intent(
+                    this,
+                    ReservationResultActivity::class.java,
+                ).apply {
+                    putExtra(EXTRA_TITLE, title)
+                    putExtra(EXTRA_DATE, date)
+                }
+            startActivity(intent)
+        }
+
+    companion object {
+        const val EXTRA_TITLE = "woowacourse.movie.EXTRA_TITLE"
+        const val EXTRA_DATE = "woowacourse.movie.EXTRA_DATE"
     }
 }

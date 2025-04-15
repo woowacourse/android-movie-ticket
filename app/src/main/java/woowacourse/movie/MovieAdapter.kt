@@ -10,7 +10,7 @@ import android.widget.TextView
 
 class MovieAdapter(
     movies: List<Movie>,
-    private val onClickReserveButton: () -> Unit,
+    private val onClickReserveButton: (String, String) -> Unit,
 ) : BaseAdapter() {
     private val movies: List<Movie> = movies.toList()
 
@@ -42,6 +42,7 @@ class MovieAdapter(
         with(movie) {
             val titleView = view.findViewById<TextView>(R.id.tv_item_movie_title)
             titleView.text = title
+
             val screeningDateView = view.findViewById<TextView>(R.id.tv_item_movie_screening_date)
             screeningDateView.text =
                 view.context.getString(
@@ -50,13 +51,21 @@ class MovieAdapter(
                     screeningMonth,
                     screeningDay,
                 )
+
             val runningTimeView = view.findViewById<TextView>(R.id.tv_item_movie_running_time)
             runningTimeView.text =
                 view.context.getString(R.string.item_movie_running_time, runningTime)
+
             val posterView = view.findViewById<ImageView>(R.id.iv_item_movie_poster)
             posterView.setImageResource(posterId)
+
             val reserveButton = view.findViewById<Button>(R.id.btn_item_movie_reserve)
-            reserveButton.setOnClickListener { onClickReserveButton() }
+            reserveButton.setOnClickListener {
+                onClickReserveButton(
+                    title,
+                    "$screeningYear.$screeningMonth.$screeningDay",
+                )
+            }
         }
     }
 }
