@@ -10,4 +10,11 @@ data class BookingStatus(
         }
         throw IllegalStateException("이미 예매된 상태입니다.")
     }
+
+    fun cancel(): BookingStatus {
+        if (isBooked == true) {
+            return BookingStatus(this.movie, !isBooked)
+        }
+        throw IllegalStateException("이미 예매가 취소된 상태입니다.")
+    }
 }

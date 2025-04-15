@@ -45,4 +45,40 @@ class BookingStatusTest {
             bookingStatus.book()
         }
     }
+
+    @Test
+    fun `영화가 예매가 된 상태이면 취소할 수 있다`() {
+        val movie = Movie(
+            "해리포터와 마법사의 돌",
+            "해리포터 이미지",
+            LocalDateTime.of(2025, 4, 1, 0, 0, 0),
+            LocalDateTime.of(2025, 4, 25, 0, 0, 0),
+            152.minutes
+        )
+
+        val bookingStatus = BookingStatus(movie, true)
+
+        val actual = bookingStatus.cancel()
+
+        val expected = BookingStatus(movie, false)
+
+        Assertions.assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `영화가 예매가 안된 상태이면 취소할 수 없다`() {
+        val movie = Movie(
+            "해리포터와 마법사의 돌",
+            "해리포터 이미지",
+            LocalDateTime.of(2025, 4, 1, 0, 0, 0),
+            LocalDateTime.of(2025, 4, 25, 0, 0, 0),
+            152.minutes
+        )
+
+        val bookingStatus = BookingStatus(movie, false)
+
+        assertThrows<IllegalStateException> {
+            bookingStatus.cancel()
+        }
+    }
 }
