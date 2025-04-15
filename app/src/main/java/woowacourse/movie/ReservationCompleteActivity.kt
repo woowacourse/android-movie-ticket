@@ -18,13 +18,18 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        val movieTitle: String = intent.getStringExtra("title") ?: "라라랜드"
-        val screeningDate: String = intent.getStringExtra("screeningDate") ?: "2025.04.15"
+        val movieTitle: String = intent.getStringExtra(MOVIE_TITLE_KEY) ?: "라라랜드"
+        val screeningDate: String = intent.getStringExtra(MOVIE_SCREENING_DATE_KEY) ?: "2025.04.15"
 
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
         val screeningDateTextView =
             findViewById<TextView>(R.id.tv_reservation_complete_screening_date)
         movieTitleTextView.text = movieTitle
         screeningDateTextView.text = screeningDate
+    }
+
+    companion object {
+        const val MOVIE_TITLE_KEY = "title"
+        const val MOVIE_SCREENING_DATE_KEY = "screeningDate"
     }
 }

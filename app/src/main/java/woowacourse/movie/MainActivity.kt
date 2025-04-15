@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToReservationComplete(movie: Movie) {
         val bundle =
             Bundle().apply {
-                putString("title", movie.title)
+                putString(ReservationCompleteActivity.MOVIE_TITLE_KEY, movie.title)
                 putString(
-                    "screeningDate",
+                    ReservationCompleteActivity.MOVIE_SCREENING_DATE_KEY,
                     movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                 )
             }
