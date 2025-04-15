@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/movie_poster"
+        android:layout_width="90dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/movie_poster" android:layout_marginEnd="16dp" />
+
+    <LinearLayout
+        android:layout_width="193dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="해리 포터와 마법사의 돌"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/screening_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="상영일: 2025.4.1"
+            android:textStyle="normal"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/running_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="러닝타임: 152분"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/book_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/round_button"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="지금 예매"
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif-black"
+        android:textSize="14sp" />
+
+</LinearLayout>

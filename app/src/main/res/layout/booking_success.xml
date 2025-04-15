@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/noticeText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        android:text="영화 상영 시작 시간 15분 전까지\n취소가 가능합니다."
+        android:textColor="@android:color/white"
+        android:gravity="center_horizontal|bottom"
+        android:paddingTop="40dp"
+        android:paddingBottom="4dp"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Movie Title -->
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="해리 포터와 마법사의 돌"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toBottomOf="@id/noticeText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Release Date -->
+    <TextView
+        android:id="@+id/movieDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2025.4.1"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/movieTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
