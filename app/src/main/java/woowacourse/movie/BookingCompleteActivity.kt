@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,10 +19,19 @@ class BookingCompleteActivity : AppCompatActivity() {
             insets
         }
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val title = intent.getStringExtra("title")
         val date = intent.getStringExtra("date")
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date).text = date
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
