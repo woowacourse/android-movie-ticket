@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="132dp"
+    android:padding="12dp">
+
+    <ImageView
+        android:id="@+id/iv_poster"
+        android:layout_width="76dp"
+        android:layout_height="0dp"
+        android:background="@color/black"
+        android:contentDescription="@string/movie_poster"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_poster"
+        app:layout_constraintTop_toTopOf="@id/iv_poster"
+        tools:text="영화 제목" />
+
+    <TextView
+        android:id="@+id/tv_screening_date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="@string/screening_date"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <TextView
+        android:id="@+id/tv_screening_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_screening_date_label"
+        app:layout_constraintStart_toEndOf="@id/tv_screening_date_label"
+        app:layout_constraintTop_toTopOf="@id/tv_screening_date_label"
+        tools:text="2025.4.1" />
+
+    <TextView
+        android:id="@+id/tv_running_time_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/running_time"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tv_screening_date_label"
+        app:layout_constraintTop_toBottomOf="@id/tv_screening_date_label" />
+
+    <TextView
+        android:id="@+id/tv_running_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_running_time_label"
+        app:layout_constraintStart_toEndOf="@id/tv_running_time_label"
+        app:layout_constraintTop_toTopOf="@id/tv_running_time_label"
+        tools:text="152분" />
+
+    <Button
+        android:id="@+id/btn_reserve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/reserve_movie"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
