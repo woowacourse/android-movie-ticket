@@ -45,6 +45,7 @@ class MovieAdapter(
 
         reserveButton.setOnClickListener {
             val intent = Intent(context, MovieReservationCompletionActivity::class.java)
+            intent.putExtra("movie", movie)
             context.startActivity(intent)
         }
 
