@@ -1,6 +1,8 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +18,26 @@ class ReserveActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        initMovieInfo()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initMovieInfo() {
+        val title = findViewById<TextView>(R.id.tv_title)
+        val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
+
+        title.text = intent.getStringExtra("title")
+        screeningDate.text = intent.getStringExtra("screeningDate")
     }
 }
