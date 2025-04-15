@@ -7,11 +7,10 @@ import woowacourse.movie.model.ReservedMovie
 import java.time.LocalDate
 
 class ReservedMovieTest {
-
     @Test
     fun `제목과 상영일을 가진다`() {
         // When
-        val reservedMovie = ReservedMovie("승부", LocalDate.of(2025,3,26))
+        val reservedMovie = ReservedMovie("승부", LocalDate.of(2025, 3, 26))
 
         // Then
         assertSoftly(reservedMovie) {
