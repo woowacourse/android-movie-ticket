@@ -14,14 +14,14 @@ class MovieTest {
                 "승부",
                 LocalDate.of(2025, 3, 26),
                 115,
-                "res/drawable/images/match.jpeg",
+                R.drawable.match,
             )
 
         assertSoftly(movie) {
             title shouldBe "승부"
             screeningDate shouldBe LocalDate.of(2025, 3, 26)
             runningTime shouldBe 115
-            posterPath shouldBe "res/drawable/images/match.jpeg"
+            posterRes shouldBe R.drawable.match
         }
     }
 }
