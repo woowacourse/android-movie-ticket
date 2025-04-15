@@ -7,18 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MoviesActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/tv_movies_title"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@color/design_default_color_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/app_name"
-        app:titleMarginStart="24dp"
-        app:titleTextColor="@color/white" />
-
     <ListView
         android:id="@+id/lv_movies"
         android:layout_width="0dp"
@@ -26,5 +14,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movies_title" />
+        app:layout_constraintTop_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
