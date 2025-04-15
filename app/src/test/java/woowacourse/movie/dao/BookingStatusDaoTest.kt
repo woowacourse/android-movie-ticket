@@ -4,9 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.BookingStatus
-import woowacourse.movie.domain.Movie
-import java.time.LocalDateTime
-import kotlin.time.Duration.Companion.minutes
+import woowacourse.movie.fixture.MovieFixture
 
 class BookingStatusDaoTest {
     private lateinit var bookingStatusDao: BookingStatusDao
@@ -24,13 +22,7 @@ class BookingStatusDaoTest {
         val expected =
             setOf(
                 BookingStatus(
-                    Movie(
-                        "해리포터와 마법사의 돌",
-                        "https://tinyurl.com/mjn9ntrz",
-                        LocalDateTime.of(2025, 4, 1, 0, 0, 0),
-                        LocalDateTime.of(2025, 4, 25, 23, 59, 59),
-                        152.minutes,
-                    ),
+                    MovieFixture.movie,
                     false,
                 ),
             )
