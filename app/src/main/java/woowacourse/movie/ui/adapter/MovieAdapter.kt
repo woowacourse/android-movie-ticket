@@ -16,11 +16,17 @@ import woowacourse.movie.ui.view.ReservationActivity
 
 class MovieAdapter(
     context: Context,
-    private val movies: List<Movie>
+    private val movies: List<Movie>,
 ) : ArrayAdapter<Movie>(context, 0, movies) {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context)
-            .inflate(R.layout.item_movie, parent, false)
+    override fun getView(
+        position: Int,
+        convertView: View?,
+        parent: ViewGroup,
+    ): View {
+        val view =
+            convertView ?: LayoutInflater
+                .from(context)
+                .inflate(R.layout.item_movie, parent, false)
 
         val movie = movies[position]
 
@@ -38,7 +44,8 @@ class MovieAdapter(
 
         title.text = movie.title
         screeningDate.text = context.getString(R.string.date_text, movie.screeningDate)
-        runningTime.text = context.getString(R.string.runningTime_text, movie.runningTime.toString())
+        runningTime.text =
+            context.getString(R.string.runningTime_text, movie.runningTime.toString())
         imagePoster.setImageResource(movie.posterRes)
 
         return view
