@@ -8,7 +8,7 @@ import kotlin.time.Duration.Companion.minutes
 class MovieDao {
     fun movies(): Map<String, Movie> {
         val map = mutableMapOf<String, Movie>()
-        File("../app/src/main/java/woowacourse/movie/data/movie_ticket.md").readLines()
+        File(DIRECTORY).readLines()
             .drop(1)
             .forEach {
                 val (title, movie) = movie(it)
@@ -26,5 +26,9 @@ class MovieDao {
             title,
             Movie(title, posterUrl, startDateTime, endDateTime, parsedRunningTime),
         )
+    }
+
+    companion object {
+        private const val DIRECTORY = "../app/src/main/java/woowacourse/movie/data/movie_ticket.md"
     }
 }
