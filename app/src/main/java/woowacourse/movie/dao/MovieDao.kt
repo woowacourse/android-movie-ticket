@@ -1,12 +1,13 @@
 package woowacourse.movie.dao
 
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Movies
 import java.io.File
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
 
 class MovieDao {
-    fun movies(): Map<String, Movie> {
+    fun movies(): Movies {
         val map = mutableMapOf<String, Movie>()
         File(DIRECTORY).readLines()
             .drop(1)
@@ -14,7 +15,7 @@ class MovieDao {
                 val (title, movie) = movie(it)
                 map[title] = movie
             }
-        return map.toMap()
+        return Movies(map.toMap())
     }
 
     private fun movie(input: String): Pair<String, Movie> {

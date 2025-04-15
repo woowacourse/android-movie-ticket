@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Movies
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
 
@@ -18,7 +19,7 @@ class MovieDaoTest {
     @Test
     fun ` movie_ticket의 데이터를 불러올 수 있다`() {
         val actual = movieDao.movies()
-        val expected =
+        val expected = Movies(
             mapOf(
                 "해리포터와 마법사의 돌" to
                         Movie(
@@ -29,6 +30,7 @@ class MovieDaoTest {
                             152.minutes,
                         ),
             )
+        )
         assertThat(actual).isEqualTo(expected)
     }
 }
