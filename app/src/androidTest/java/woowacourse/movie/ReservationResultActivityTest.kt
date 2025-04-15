@@ -9,9 +9,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 
-class ReserveActivityTest {
+class ReservationResultActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(ReserveActivity::class.java)
+    val activityRule = ActivityScenarioRule(ReservationResultActivity::class.java)
 
     @DisplayName("타이틀 글자 표시 테스트")
     @Test
