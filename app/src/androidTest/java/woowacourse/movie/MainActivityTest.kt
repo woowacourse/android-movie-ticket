@@ -1,0 +1,20 @@
+package woowacourse.movie
+
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.junit.Rule
+import org.junit.Test
+
+class MainActivityTest {
+    @get:Rule
+    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Test
+    fun `앱을_실행하면_영화_제목이_표시된다`() {
+        onView(withId(R.id.tv_item_movie_title))
+            .check(matches(isDisplayed()))
+    }
+}
