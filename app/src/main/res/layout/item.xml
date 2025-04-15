@@ -34,7 +34,7 @@
             android:id="@+id/movie_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="상영일: 2024.01.01">
+            android:text="상영일:">
 
         </TextView>
 
@@ -42,7 +42,7 @@
             android:id="@+id/movie_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "러닝타임: 0분">
+            android:text = "러닝타임:">
 
         </TextView>
 
