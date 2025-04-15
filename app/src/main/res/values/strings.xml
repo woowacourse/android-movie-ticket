@@ -4,4 +4,5 @@
     <string name="running_time">러닝타임:</string>
     <string name="reserve_movie">지금 예매</string>
     <string name="movie_poster">영화 포스터</string>
+    <string name="cancel_guide">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
 </resources>
