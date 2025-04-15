@@ -30,19 +30,44 @@
             android:textSize="20sp"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/show_date"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="상영일: 2025.4.1"
-            android:textSize="13sp"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/running_time"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상영일: "
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/show_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2025.4.1"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="러닝타임: 152분"
-            android:textSize="13sp"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="러닝타임: "
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/running_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="152분"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/reservation_button"

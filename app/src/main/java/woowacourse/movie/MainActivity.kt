@@ -21,8 +21,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         allItems = mutableListOf(
-            MovieItem(R.drawable.harry_potter_poster, "해리 포터와 마법사의 돌", "상영일: 2025.4.1", "러닝타임: 152분")
+            MovieItem(R.drawable.harry_potter_poster, "해리 포터와 마법사의 돌", "2025.4.1", "152분")
         )
 
         val listView = findViewById<ListView>(R.id.movie_list)
