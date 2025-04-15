@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.domain.Movie
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class MoviesAdapter(
     private val movies: List<Movie>,
@@ -47,9 +49,11 @@ class MoviesAdapter(
         val screeningDate = itemView.findViewById<TextView>(R.id.tv_screening_date)
         val runningTime = itemView.findViewById<TextView>(R.id.tv_running_time)
 
+        val formattedScreeningDate = formatting(item.startDate, item.endDate)
+
         poster.setImageResource(item.imageUrl)
         title.text = item.title
-        screeningDate.text = item.date
+        screeningDate.text = formattedScreeningDate
         runningTime.text = MINUTE.format(item.runningTime.time)
     }
 
@@ -61,13 +65,25 @@ class MoviesAdapter(
         val reserveBtn = itemView.findViewById<Button>(R.id.btn_reserve)
         reserveBtn.setOnClickListener {
             val intent = Intent(parent.context, ReserveActivity::class.java)
+            val formattedScreeningDate = formatting(item.startDate, item.endDate)
             intent.putExtra("title", item.title)
-            intent.putExtra("screeningDate", item.date)
+            intent.putExtra("screeningDate", formattedScreeningDate)
             parent.context?.startActivity(intent)
         }
     }
 
+    private fun formatting(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): String {
+        val start = startDate.format(formatter)
+        val end = endDate.format(formatter)
+        return SCREENING_DATE.format(start, end)
+    }
+
     companion object {
         private const val MINUTE = "%d분"
+        private const val SCREENING_DATE = "%s ~ %s"
+        private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
