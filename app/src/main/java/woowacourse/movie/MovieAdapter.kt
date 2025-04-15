@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
 class MovieAdapter(
     movies: List<Movie>,
+    private val onClickReserveButton: () -> Unit,
 ) : BaseAdapter() {
     private val movies: List<Movie> = movies.toList()
 
@@ -23,7 +25,10 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
+        val view =
+            convertView ?: LayoutInflater
+                .from(parent?.context)
+                .inflate(R.layout.item_movie, parent, false)
         val movie = movies[position]
         initMovieItemView(view, movie)
 
@@ -50,6 +55,8 @@ class MovieAdapter(
                 view.context.getString(R.string.item_movie_running_time, runningTime)
             val posterView = view.findViewById<ImageView>(R.id.iv_item_movie_poster)
             posterView.setImageResource(posterId)
+            val reserveButton = view.findViewById<Button>(R.id.btn_item_movie_reserve)
+            reserveButton.setOnClickListener { onClickReserveButton() }
         }
     }
 }
