@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter
 class MovieAdapter(
     private val context: Context,
     private val movies: List<Movie>,
+    private val onReservationClick: (selectedMovie: Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = 1
 
@@ -52,6 +54,11 @@ class MovieAdapter(
         val runningTime = movies[position].runningTime
         runningTimeTextView.text =
             context.getString(R.string.movie_running_time).format(runningTime)
+
+        val button = view.findViewById<Button>(R.id.btn_movie_reservation)
+        button.setOnClickListener {
+            onReservationClick.invoke(movies[position])
+        }
 
         return view
     }

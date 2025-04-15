@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.model.Movie
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         val movieListView = findViewById<ListView>(R.id.lv_main_movies)
-        movieListView.adapter = MovieAdapter(this, Movie.values)
+        movieListView.adapter =
+            MovieAdapter(
+                this,
+                Movie.values,
+                ::navigateToReservationComplete,
+            )
+    }
+
+    private fun navigateToReservationComplete(movie: Movie) {
+        val bundle =
+            Bundle().apply {
+                putString("title", movie.title)
+                putString(
+                    "screeningDate",
+                    movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")),
+                )
+            }
+        val intent = Intent(this, ReservationCompleteActivity::class.java).putExtras(bundle)
+        startActivity(intent)
     }
 }
