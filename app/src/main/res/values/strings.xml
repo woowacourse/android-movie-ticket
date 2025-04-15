@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Movie</string>
+
+    <string name="movie_screening_date">상영일: %s</string>
+    <string name="movie_running_time">러닝타임: %d분</string>
+    <string name="movie_reservation">지금 예매</string>
+
 </resources>
