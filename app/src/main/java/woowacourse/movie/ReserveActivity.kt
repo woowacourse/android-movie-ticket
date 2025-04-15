@@ -37,7 +37,7 @@ class ReserveActivity : AppCompatActivity() {
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
 
-        title.text = intent.getStringExtra("title")
-        screeningDate.text = intent.getStringExtra("screeningDate")
+        title.text = intent.getStringExtra("title") ?: getString(R.string.no_title)
+        screeningDate.text = intent.getStringExtra("screeningDate") ?: getString(R.string.no_date)
     }
 }
