@@ -2,7 +2,7 @@
     <string name="app_name">Movie</string>
     <!--item_movie.xml-->
     <string name="cd_item_movie_poster">영화 포스터</string>
-    <string name="item_movie_screening_date">상영일: %s</string>
-    <string name="item_movie_running_time">러닝타임: %d분</string>
+    <string name="item_movie_screening_date">상영일: %1$d.%2$d.%3$d</string>
+    <string name="item_movie_running_time">러닝타임: %1$d분</string>
     <string name="item_movie_reserve">지금 예매</string>
 </resources>
