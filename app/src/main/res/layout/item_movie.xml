@@ -59,7 +59,7 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="@string/item_movie_reserve" />
+            android:text="@string/item_movie_reserve" />
 
     </LinearLayout>
 
