@@ -25,12 +25,12 @@ class MovieAdapter(
     ): View {
         val view = convertView ?: LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
         val movie = movies[position]
-        prepareView(view, movie)
+        initMovieItemView(view, movie)
 
         return view
     }
 
-    private fun prepareView(
+    private fun initMovieItemView(
         view: View,
         movie: Movie,
     ) {
