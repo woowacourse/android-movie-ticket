@@ -5,12 +5,12 @@ import java.time.LocalDate
 
 data class Movie(
     val title: String,
-    private val _screeningDate: LocalDate,
+    private val screeningDate: LocalDate,
     val runningTime: Int,
     @DrawableRes
     val posterId: Int,
 ) {
-    val screeningYear: Int = _screeningDate.year
-    val screeningMonth: Int = _screeningDate.monthValue
-    val screeningDay: Int = _screeningDate.dayOfMonth
+    val screeningYear: Int = screeningDate.year
+    val screeningMonth: Int = screeningDate.monthValue
+    val screeningDay: Int = screeningDate.dayOfMonth
 }
