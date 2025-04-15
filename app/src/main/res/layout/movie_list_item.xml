@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="해리 포터와 마법사의 돌"
+            android:text="영화 제목"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -45,7 +45,7 @@
                 android:id="@+id/show_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2025.4.1"
+                android:text="20xx.2.10"
                 android:textSize="13sp"/>
 
         </LinearLayout>
@@ -64,7 +64,7 @@
                 android:id="@+id/running_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="152분"
+                android:text="100분"
                 android:textSize="13sp"/>
 
         </LinearLayout>
