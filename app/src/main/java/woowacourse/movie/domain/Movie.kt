@@ -8,4 +8,8 @@ data class Movie(
     val endDate: LocalDate,
     val runningTime: RunningTime,
     val imageUrl: Int,
-)
+) {
+    companion object {
+        const val TICKET_PRICE = 13_000
+    }
+}
