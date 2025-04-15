@@ -26,6 +26,13 @@ class ReservationCompleteActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.tv_reservation_complete_screening_date)
         movieTitleTextView.text = movieTitle
         screeningDateTextView.text = screeningDate
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 
     companion object {
