@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 
 class MoviesAdapter(
     private val context: Context,
     private val movies: List<Movie>,
+    private val onBookingClick: (Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getView(
         position: Int,
@@ -35,6 +37,10 @@ class MoviesAdapter(
         poster.setImageResource(movie.poster)
         date.text = movie.date.toString()
         runningTime.text = movie.runningTime.toString()
+
+        view.findViewById<Button>(R.id.btn_movie_booking).setOnClickListener {
+            onBookingClick(movie)
+        }
 
         return view
     }
