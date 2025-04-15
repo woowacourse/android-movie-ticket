@@ -1,2 +1,2 @@
 title, poster_url, start_date, end_date, running_time
-해리포터와 마법사의 돌, https://upload.wikimedia.org/wikipedia/ko/d/dd/%ED%95%B4%EB%A6%AC_%ED%8F%AC%ED%84%B0%EC[…]B%B2%95%EC%82%AC%EC%9D%98_%EB%8F%8C_%EC%98%81%ED%99%94.jpg, 2025-04-01T00:00:00, 2025-04-25T23:59:59, 152
+해리포터와 마법사의 돌, https://tinyurl.com/mjn9ntrz, 2025-04-01T00:00:00, 2025-04-25T23:59:59, 152

@@ -3,9 +3,7 @@ package woowacourse.movie.dao
 import woowacourse.movie.domain.Movie
 import java.io.File
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import kotlin.time.Duration.Companion.minutes
-
 
 class MovieDao {
     fun movies(): Map<String, Movie> {
@@ -19,8 +17,8 @@ class MovieDao {
         return map.toMap()
     }
 
-    private fun movie(input:String):Pair<String, Movie> {
-        val (title, posterUrl, startDate, endDate, runningTime) = input.split(",").map {it.trim()}
+    private fun movie(input: String): Pair<String, Movie> {
+        val (title, posterUrl, startDate, endDate, runningTime) = input.split(",").map { it.trim() }
         val startDateTime = LocalDateTime.parse(startDate)
         val endDateTime = LocalDateTime.parse(endDate)
         val parsedRunningTime = runningTime.toInt().minutes

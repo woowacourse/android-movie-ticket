@@ -8,5 +8,5 @@ data class Movie(
     val posterUrl: String,
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
-    val runningTime: Duration
+    val runningTime: Duration,
 )
