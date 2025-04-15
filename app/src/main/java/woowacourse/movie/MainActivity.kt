@@ -21,17 +21,25 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val movies = listOf(
+        val adapter = MovieAdapter(this, movies)
+        val listView = findViewById<ListView>(R.id.movies)
+        listView.adapter = adapter
+    }
+
+    companion object {
+        private val movies = listOf(
             Movie(
                 "승부",
                 LocalDate.of(2025,3,26),
                 115,
                 R.drawable.match
+            ),
+            Movie(
+                "미키 17",
+                LocalDate.of(2025, 2, 28),
+                137,
+                R.drawable.mickey
             )
         )
-
-        val adapter = MovieAdapter(this, movies)
-        val listView = findViewById<ListView>(R.id.movies)
-        listView.adapter = adapter
     }
 }
