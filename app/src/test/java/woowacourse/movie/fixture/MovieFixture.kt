@@ -5,7 +5,6 @@ import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
 
 object MovieFixture {
-
     val movie = Movie(
         "해리포터와 마법사의 돌",
         "https://tinyurl.com/mjn9ntrz",
