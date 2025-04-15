@@ -68,6 +68,6 @@ class MoviesAdapter(
     }
 
     companion object {
-        const val MINUTE = "%d분"
+        private const val MINUTE = "%d분"
     }
 }
