@@ -9,5 +9,5 @@
 - [x] 예매를 취소할 수 있다.
 
 - [x] movie_ticket, booking_status 데이터 생성
-- [ ] movie_ticket의 데이터를 불러올 수 있다
+- [x] movie_ticket의 데이터를 불러올 수 있다
 - [ ] booking_status의 데이터를 불러올 수 있다
