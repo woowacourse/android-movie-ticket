@@ -8,19 +8,25 @@ import kotlin.time.Duration.Companion.minutes
 
 
 class MovieDao {
-    fun movies(): Set<Movie> {
-        return File("../app/src/main/java/woowacourse/movie/data/movie_ticket.md").readLines()
-            .filterNot { it.startsWith("title") }
-            .map { movie(it)}
-            .toSet()
+    fun movies(): Map<String, Movie> {
+        val map = mutableMapOf<String, Movie>()
+        File("../app/src/main/java/woowacourse/movie/data/movie_ticket.md").readLines()
+            .drop(1)
+            .forEach {
+                val (title, movie) = movie(it)
+                map[title] = movie
+            }
+        return map.toMap()
     }
 
-    private fun movie(input:String):Movie {
+    private fun movie(input:String):Pair<String, Movie> {
         val (title, posterUrl, startDate, endDate, runningTime) = input.split(",").map {it.trim()}
         val startDateTime = LocalDateTime.parse(startDate)
         val endDateTime = LocalDateTime.parse(endDate)
         val parsedRunningTime = runningTime.toInt().minutes
-        return Movie(title, posterUrl, startDateTime, endDateTime, parsedRunningTime)
+        return Pair(
+            title,
+            Movie(title, posterUrl, startDateTime, endDateTime, parsedRunningTime),
+        )
     }
-
 }

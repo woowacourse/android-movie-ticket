@@ -10,4 +10,4 @@
 
 - [x] movie_ticket, booking_status 데이터 생성
 - [x] movie_ticket의 데이터를 불러올 수 있다
-- [ ] booking_status의 데이터를 불러올 수 있다
+- [x] booking_status의 데이터를 불러올 수 있다
