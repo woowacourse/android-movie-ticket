@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10sp">
+
+    <ImageView
+        android:id="@+id/movie_image"
+        android:layout_width="100sp"
+        android:layout_height="120sp">
+
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10sp">
+
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="영화 제목"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginBottom="5sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/movie_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상영일: 2024.01.01">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/movie_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "러닝타임: 0분">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/reserve_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지금 예매"
+            android:layout_gravity="bottom|end">
+
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>
