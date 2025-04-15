@@ -8,4 +8,6 @@
 - [X] 예매를 할 수 있다.
 - [x] 예매를 취소할 수 있다.
 
-- [ ] txt파일에 두개의 정보를 넣으면, 그 정보를 불러온다.
+- [ ] movie_ticket, booking_status 데이터 생성
+- [ ] movie_ticket의 데이터를 불러올 수 있다
+- [ ] booking_status의 데이터를 불러올 수 있다
