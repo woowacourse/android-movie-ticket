@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
                     movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                 )
             }
-        val intent = Intent(this, ReservationCompleteActivity::class.java).putExtras(bundle)
+        val intent =
+            Intent(this, ReservationCompleteActivity::class.java).apply { putExtras(bundle) }
         startActivity(intent)
     }
 }
