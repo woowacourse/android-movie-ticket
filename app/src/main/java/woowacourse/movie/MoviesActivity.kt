@@ -13,7 +13,7 @@ class MoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_movies)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_movies)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -29,7 +29,7 @@ class MoviesActivity : AppCompatActivity() {
     private fun bookMovie(movie: Movie) {
         val intent = Intent(this, BookingCompleteActivity::class.java)
         intent.putExtra("title", movie.title)
-        intent.putExtra("date", movie.date.toString())
+        intent.putExtra("date", movie.startDate.toString())
         startActivity(intent)
     }
 }
