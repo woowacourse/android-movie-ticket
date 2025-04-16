@@ -14,11 +14,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.time.DayOfWeek.SATURDAY
-import java.time.DayOfWeek.SUNDAY
 import java.time.LocalDate
 
 class BookingDetailActivity : AppCompatActivity() {
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
+    private lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
     private var ticketCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,32 +52,8 @@ class BookingDetailActivity : AppCompatActivity() {
                 LocalDate.parse(endDate),
             )
 
-        val dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
-        val timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
-
-        val weekdaysTimes: List<String> =
-            listOf(
-                "10:00",
-                "12:00",
-                "14:00",
-                "16:00",
-                "18:00",
-                "20:00",
-                "22:00",
-                "24:00",
-            )
-
-        val weekendsTimes: List<String> =
-            listOf(
-                "09:00",
-                "11:00",
-                "13:00",
-                "15:00",
-                "17:00",
-                "19:00",
-                "21:00",
-                "23:00",
-            )
+        dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
+        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
 
         dateSpinner.adapter =
             ArrayAdapter<LocalDate>(
@@ -85,12 +62,9 @@ class BookingDetailActivity : AppCompatActivity() {
                 dates,
             )
 
-        timeSpinner.adapter =
-            ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_spinner_item,
-                weekendsTimes,
-            )
+        timeSpinnerAdapter = TimeSpinnerAdapter(this)
+        timeSpinnerAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
+        timeSpinner.adapter = timeSpinnerAdapter
 
         dateSpinner.onItemSelectedListener =
             object : android.widget.AdapterView.OnItemSelectedListener {
@@ -101,20 +75,8 @@ class BookingDetailActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectedDate = parent?.getItemAtPosition(position) as LocalDate
-                    val isWeekend =
-                        selectedDate.dayOfWeek == SATURDAY ||
-                            selectedDate.dayOfWeek == SUNDAY
-
-                    val newTimes = if (isWeekend) weekendsTimes else weekdaysTimes
-
-                    timeSpinner.adapter =
-                        ArrayAdapter(
-                            this@BookingDetailActivity,
-                            android.R.layout.simple_spinner_item,
-                            newTimes,
-                        ).also {
-                            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        }
+                    val dateType = DateType.from(selectedDate)
+                    timeSpinnerAdapter.updateTimes(dateType)
                 }
 
                 override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
@@ -178,12 +140,40 @@ class BookingDetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(TICKET_DATE_KEY, dateSpinner.selectedItemPosition)
+        outState.putInt(TICKET_TIME_KEY, timeSpinner.selectedItemPosition)
+        outState.putInt(TICKET_COUNT_KEY, ticketCount)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val ticketDate = savedInstanceState.getInt(TICKET_DATE_KEY)
+        val ticketTime = savedInstanceState.getInt(TICKET_TIME_KEY)
+        ticketCount = savedInstanceState.getInt(TICKET_COUNT_KEY)
+
+        dateSpinner.setSelection(ticketDate)
+
+        val selectedDate = DateType.from(LocalDate.parse(dateSpinner.selectedItem.toString()))
+        timeSpinnerAdapter.updateTimes(selectedDate)
+
+        timeSpinner.setSelection(ticketTime)
+
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+    }
+
     companion object {
         const val MOVIE_TITLE_KEY = "movie_title"
         const val MOVIE_START_DATE_KEY = "movie_start_date"
         const val MOVIE_END_DATE_KEY = "movie_end_date"
         const val MOVIE_RUNNING_TIME_KEY = "movie_running_time"
         const val MOVIE_POSTER_KEY = "movie_poster"
+        const val TICKET_DATE_KEY = "ticket_date"
+        const val TICKET_TIME_KEY = "ticket_time"
+        const val TICKET_COUNT_KEY = "ticket_count"
 
         fun newIntent(
             context: Context,
