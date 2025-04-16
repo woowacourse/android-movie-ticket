@@ -20,6 +20,11 @@ class BookingCompleteActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val title = intent.getStringExtra("title")
+        val time = intent.getStringExtra("bookingTime")
+
+        findViewById<TextView>(R.id.tv_title).text = title
+        findViewById<TextView>(R.id.tv_release_date).text = time
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
