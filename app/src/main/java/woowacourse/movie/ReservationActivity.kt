@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate = LocalDate.now()
+    private var ticketCount: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +36,14 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val data = getSelectedMovieData()
-        val peopleCount = findViewById<TextView>(R.id.tv_reservation_people_count)
+        val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_ticket_count)
         setupMovieReservationInfo(data)
         setupDateAdapter(data)
         setupTimeAdapter()
-        setupMinusButtonClick(peopleCount)
-        setupPlusButtonClick(peopleCount)
+
+        setupTicketCount(savedInstanceState)
+        setupMinusButtonClick(ticketCountTextView)
+        setupPlusButtonClick(ticketCountTextView)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -140,22 +143,44 @@ class ReservationActivity : AppCompatActivity() {
                 times,
             )
 
-        findViewById<Spinner>(R.id.spinner_reservation_time).adapter = timeAdapter
-    }
+        findViewById<Spinner>(R.id.spinner_reservation_time).apply {
+            adapter = timeAdapter
+            onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                    }
 
-    private fun setupPlusButtonClick(peopleCount: TextView) {
-        findViewById<Button>(R.id.btn_reservation_plus_people_count).setOnClickListener {
-            peopleCount.text = (peopleCount.text.toString().toInt() + 1).toString()
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                    }
+                }
         }
     }
 
-    private fun setupMinusButtonClick(peopleCount: TextView) {
-        findViewById<Button>(R.id.btn_reservation_minus_people_count).setOnClickListener {
-            if (peopleCount.text.toString().toInt() == 1) {
+    private fun setupTicketCount(savedInstanceState: Bundle?) {
+        ticketCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
+        findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.toString()
+    }
+
+    private fun setupPlusButtonClick(peopleCountTextView: TextView) {
+        findViewById<Button>(R.id.btn_reservation_plus_ticket_count).setOnClickListener {
+            ticketCount += 1
+            peopleCountTextView.text = ticketCount.toString()
+        }
+    }
+
+    private fun setupMinusButtonClick(peopleCountTextView: TextView) {
+        findViewById<Button>(R.id.btn_reservation_minus_ticket_count).setOnClickListener {
+            if (ticketCount == 1) {
                 Toast.makeText(this, "최소 1명은 선택해야 합니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            peopleCount.text = (peopleCount.text.toString().toInt() - 1).toString()
+            ticketCount -= 1
+            peopleCountTextView.text = ticketCount.toString()
         }
     }
 
@@ -209,6 +234,11 @@ class ReservationActivity : AppCompatActivity() {
         return LocalDate.of(year, month, date)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(TICKET_COUNT_DATA_KEY, ticketCount)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
@@ -216,5 +246,6 @@ class ReservationActivity : AppCompatActivity() {
 
     companion object {
         const val MOVIE_DATA_KEY = "data"
+        const val TICKET_COUNT_DATA_KEY = "count"
     }
 }

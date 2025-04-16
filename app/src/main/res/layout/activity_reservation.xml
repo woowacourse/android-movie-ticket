@@ -67,7 +67,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_reservation_minus_people_count"
+            app:layout_constraintBottom_toTopOf="@id/btn_reservation_minus_ticket_count"
             app:layout_constraintEnd_toStartOf="@id/spinner_reservation_time"
             app:layout_constraintStart_toStartOf="@id/tv_reservation_running_time" />
 
@@ -82,7 +82,7 @@
             app:layout_constraintTop_toTopOf="@id/spinner_reservation_date" />
 
         <Button
-            android:id="@+id/btn_reservation_minus_people_count"
+            android:id="@+id/btn_reservation_minus_ticket_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="@id/spinner_reservation_date" />
 
         <Button
-            android:id="@+id/btn_reservation_plus_people_count"
+            android:id="@+id/btn_reservation_plus_ticket_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+"
@@ -101,19 +101,19 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/spinner_reservation_time"
             app:layout_constraintTop_toBottomOf="@id/spinner_reservation_time"
-            app:layout_constraintTop_toTopOf="@id/btn_reservation_minus_people_count" />
+            app:layout_constraintTop_toTopOf="@id/btn_reservation_minus_ticket_count" />
 
         <TextView
-            android:id="@+id/tv_reservation_people_count"
+            android:id="@+id/tv_reservation_ticket_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_reservation_minus_people_count"
-            app:layout_constraintEnd_toStartOf="@id/btn_reservation_plus_people_count"
-            app:layout_constraintStart_toEndOf="@id/btn_reservation_minus_people_count"
-            app:layout_constraintTop_toTopOf="@id/btn_reservation_minus_people_count" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_reservation_minus_ticket_count"
+            app:layout_constraintEnd_toStartOf="@id/btn_reservation_plus_ticket_count"
+            app:layout_constraintStart_toEndOf="@id/btn_reservation_minus_ticket_count"
+            app:layout_constraintTop_toTopOf="@id/btn_reservation_minus_ticket_count" />
 
         <Button
             android:id="@+id/btn_reservation_select_complete"
@@ -124,7 +124,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/btn_reservation_plus_people_count"
-            app:layout_constraintStart_toStartOf="@id/btn_reservation_minus_people_count" />
+            app:layout_constraintEnd_toEndOf="@id/btn_reservation_plus_ticket_count"
+            app:layout_constraintStart_toStartOf="@id/btn_reservation_minus_ticket_count" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
