@@ -1,6 +1,7 @@
 package woowacourse.movie.model
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieScheduler(
@@ -23,18 +24,17 @@ class MovieScheduler(
 
     fun getBookableTimes(
         date: LocalDate,
-        now: LocalTime = LocalTime.now(),
+        now: LocalDateTime = LocalDateTime.now(),
     ): List<LocalTime> {
         val dayType = DayType.from(date)
         val startHour = if (dayType == DayType.WEEKEND) WEEKEND_START_TIME else WEEKDAY_START_TIME
 
         val times = mutableListOf<LocalTime>()
-        var time = LocalTime.of(startHour, START_MINUTE)
+        var time = LocalDateTime.of(date, LocalTime.of(startHour, START_MINUTE))
 
-        while (time != LocalTime.MIDNIGHT) {
-
+        while (time.toLocalTime() < LocalTime.MAX && time.toLocalDate().isEqual(date)) {
             if (time.isAfter(now)) {
-                times.add(time)
+                times.add(time.toLocalTime())
             }
 
             time = time.plusHours(HOURS_TO_ADD)
