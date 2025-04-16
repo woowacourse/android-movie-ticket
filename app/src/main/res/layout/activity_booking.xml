@@ -145,6 +145,7 @@
         app:layout_constraintVertical_bias="0.89">
 
         <Button
+            android:id="@+id/minus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -152,6 +153,7 @@
             android:textSize="25sp" />
 
         <TextView
+            android:id="@+id/ticket_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -162,6 +164,7 @@
             android:textColor="@color/black"/>
 
         <Button
+            android:id="@+id/plus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|end"

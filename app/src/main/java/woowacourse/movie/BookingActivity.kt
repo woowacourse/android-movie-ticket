@@ -1,7 +1,10 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -24,6 +27,9 @@ class BookingActivity : AppCompatActivity() {
         val poster = findViewById<ImageView>(R.id.movie_poster)
         val movieDate = findViewById<Spinner>(R.id.movie_date)
         val movieTime = findViewById<Spinner>(R.id.movie_time)
+        val minusButton = findViewById<Button>(R.id.minus_button)
+        val plusButton = findViewById<Button>(R.id.plus_button)
+        val ticketCount = findViewById<TextView>(R.id.ticket_count)
 
         poster.setImageResource(intent.getIntExtra("POSTER",0))
         title.text = intent.getStringExtra("TITLE")
@@ -40,6 +46,29 @@ class BookingActivity : AppCompatActivity() {
         val movieTimesAdapter = ArrayAdapter(this, R.layout.spinner_item, times)
         movieTimesAdapter.setDropDownViewResource(R.layout.spinner_item)
         movieTime.adapter = movieTimesAdapter
+
+        movieDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedTimes = getTimes(dates[position])
+                val selectedTimesAdapter = ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
+                selectedTimesAdapter.setDropDownViewResource(R.layout.spinner_item)
+                movieTime.adapter = selectedTimesAdapter
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
+        minusButton.setOnClickListener {
+            ticketCount.text = (ticketCount.text.toString().toInt() - 1).toString()
+            if(ticketCount.text.toString().toInt()<0) ticketCount.text = "0"
+        }
+
+        plusButton.setOnClickListener {
+            ticketCount.text = (ticketCount.text.toString().toInt() + 1).toString()
+        }
+
+
+
     }
 
     private fun getDates(startDate: String, endDate: String): List<String> {
@@ -61,7 +90,7 @@ class BookingActivity : AppCompatActivity() {
         val parsedDate = LocalDate.parse(date, dateFormatter)
         val times = mutableListOf<String>()
 
-        if (parsedDate.dayOfWeek != DayOfWeek.SATURDAY || parsedDate.dayOfWeek != DayOfWeek.SUNDAY) {
+        if (parsedDate.dayOfWeek != DayOfWeek.SATURDAY && parsedDate.dayOfWeek != DayOfWeek.SUNDAY) {
             for (hour in 10..24 step 2) {
                 val timeStr = String.format("%02d:00", hour)
                 times.add(timeStr)
