@@ -8,7 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
@@ -23,7 +25,19 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movie = intent.getSerializableExtra("movie") as? Movie
+        var movie = intent.getSerializableExtra("movie") as? Movie
+        if (movie == null) {
+            movie =
+                Movie(
+                    R.drawable.ic_launcher_background,
+                    "",
+                    Date(
+                        LocalDate.of(2025, 1, 1),
+                        LocalDate.of(2025, 1, 1),
+                    ),
+                    "",
+                )
+        }
 
         val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
         val movieDateTextView = findViewById<TextView>(R.id.movie_date)
@@ -47,13 +61,13 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
-        val startDateFormatted = movie?.date?.startDate?.format(formatter)
-        val endDateFormatted = movie?.date?.endDate?.format(formatter)
+        val startDateFormatted = movie.date.startDate.format(formatter)
+        val endDateFormatted = movie.date.endDate.format(formatter)
 
-        movieTitleTextView.text = movie?.title
+        movieTitleTextView.text = movie.title
         movieDateTextView.text = getString(R.string.movieDate, startDateFormatted, endDateFormatted)
-        movieTimeTextView.text = getString(R.string.movieTime, movie?.time)
-        movie?.image?.let { moviePosterImageView.setImageResource(it) }
+        movieTimeTextView.text = getString(R.string.movieTime, movie.time)
+        moviePosterImageView.setImageResource(movie.image)
     }
 
     private fun updateCounterText() {
