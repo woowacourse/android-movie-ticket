@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movies
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -10,7 +10,6 @@ import org.hamcrest.Matchers.anything
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.view.movies.MoviesActivity
 
 class MoviesActivityTest {
     @get:Rule
