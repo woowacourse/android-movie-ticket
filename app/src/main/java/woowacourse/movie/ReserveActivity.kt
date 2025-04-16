@@ -3,6 +3,8 @@ package woowacourse.movie
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -47,7 +49,12 @@ class ReserveActivity : AppCompatActivity() {
 
         initMoveInfo(movie!!)
         initDateSpinner(movie.screeningDate)
-        initTimeSpinner(movie.screeningDate)
+        val startDate =
+            movieScheduler.getStartDate(
+                movie.screeningDate.startDate,
+                LocalDate.now(),
+            )
+        initTimeSpinner(startDate)
     }
 
     private fun initMoveInfo(movie: Movie) {
@@ -73,17 +80,30 @@ class ReserveActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item,
                 dates,
             )
+
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectDate = dates[position]
+                    initTimeSpinner(selectDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
     }
 
-    private fun initTimeSpinner(screeningDate: ScreeningDate) {
-        val currentTime = LocalDateTime.now()
+    private fun initTimeSpinner(selectedDate: LocalDate) {
+        val currentDateTime = LocalDateTime.now()
         val times =
             movieScheduler.reservableTimes(
-                movieScheduler.getStartDate(
-                    screeningDate.startDate,
-                    currentTime.toLocalDate(),
-                ),
-                currentTime,
+                selectedDate,
+                currentDateTime,
             )
 
         timeSpinner.adapter =
