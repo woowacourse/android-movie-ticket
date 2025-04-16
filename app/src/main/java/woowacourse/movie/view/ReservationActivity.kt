@@ -172,5 +172,11 @@ class ReservationActivity : AppCompatActivity() {
     companion object {
         const val DEFAULT_TICKET_COUNT = 1
         const val TICKET_COUNT = "TICKET_COUNT"
+
+        const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
+        const val EXTRA_SHOWTIME_YEAR = "woowacourse.movie.EXTRA_SHOWTIME_YEAR"
+        const val EXTRA_SHOWTIME_MONTH = "woowacourse.movie.EXTRA_SHOWTIME_MONTH"
+        const val EXTRA_SHOWTIME_DAY = "woowacourse.movie.EXTRA_SHOWTIME_DAY"
+        const val EXTRA_SHOWTIME_HOUR = "woowacourse.movie.EXTRA_SHOWTIME_HOUR"
     }
 }
