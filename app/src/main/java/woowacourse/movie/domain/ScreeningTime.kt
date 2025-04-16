@@ -12,9 +12,9 @@ class ScreeningTime(
         val endHour = LocalTime.of(23, 0)
         val startHour =
             if (isWeekend()) {
-                LocalTime.of(10, 0)
-            } else {
                 LocalTime.of(9, 0)
+            } else {
+                LocalTime.of(10, 0)
             }
 
         var currentTime = LocalTime.of(date.hour, date.minute)
