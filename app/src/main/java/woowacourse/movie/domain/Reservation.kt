@@ -1,12 +1,13 @@
 package woowacourse.movie.domain
 
+import java.io.Serializable
 import java.time.LocalDateTime
 
 class Reservation(
     val title: String,
     var count: Int,
     val reservedTime: LocalDateTime,
-) {
+) : Serializable {
     fun totalPrice(price: Int): Int = price * count
 
     fun addCount() = Reservation(title, ++count, reservedTime)

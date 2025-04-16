@@ -61,8 +61,8 @@ class ReserveActivity : AppCompatActivity() {
             )
         initTimeSpinner(startDate)
 
-        reservation =
-            Reservation(
+        reservation = savedInstanceState?.getSerializable("reservation") as? Reservation
+            ?: Reservation(
                 title = movie.title,
                 count = 0,
                 reservedTime = getSelectedDateTime(),
@@ -186,6 +186,12 @@ class ReserveActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putSerializable("reservation", reservation)
     }
 
     companion object {
