@@ -1,9 +1,8 @@
 package woowacourse.movie.view.reservation.result
 
-import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -11,17 +10,21 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-
-private val fakeContext = ApplicationProvider.getApplicationContext<Context>()
+import woowacourse.movie.domain.model.ReservationInfo
+import woowacourse.movie.view.fixture.fakeContext
 
 class ReservationResultActivityTest {
     @Before
     fun setUp() {
+        val reservationInfo =
+            ReservationInfo(
+                title = "해리 포터와 마법사의 돌",
+                reservationDateTime = "2025.4.15 11:00",
+                reservationNumber = 2,
+            )
+        val bundle = Bundle().apply { putParcelable("reservation_info", reservationInfo) }
         val intent =
-            Intent(fakeContext, ReservationResultActivity::class.java).apply {
-                putExtra("title", "해리 포터와 마법사의 돌")
-                putExtra("date", "2025.4.1")
-            }
+            Intent(fakeContext, ReservationResultActivity::class.java).putExtras(bundle)
 
         ActivityScenario.launch<ReservationResultActivity>(intent)
     }
@@ -41,6 +44,18 @@ class ReservationResultActivityTest {
     @Test
     fun `예매한_영화의_상영일을_보여준다`() {
         onView(withId(R.id.tv_movie_date))
-            .check(matches(withText("2025.4.1")))
+            .check(matches(withText("2025.4.15 11:00")))
+    }
+
+    @Test
+    fun `예매한_영화의_예매_인원_수를_보여준다`() {
+        onView(withId(R.id.tv_reservation_number_info))
+            .check(matches(withText("일반 2명")))
+    }
+
+    @Test
+    fun `예매한_영화의_인원수에_맞는_총_티켓_가격을_보여준다`() {
+        onView(withId(R.id.tv_reservation_total_price))
+            .check(matches(withText("26,000원 (현장 결제)")))
     }
 }

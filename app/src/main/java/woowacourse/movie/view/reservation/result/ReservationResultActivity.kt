@@ -23,12 +23,16 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
     }
 
     private fun displayReservationResult() {
-        val reservationInfo = intent?.getParcelableExtra<ReservationInfo>(getString(R.string.bundle_key_reservation_info))
+        val reservationInfo =
+            intent?.getParcelableExtra<ReservationInfo>(getString(R.string.bundle_key_reservation_info))
         val title = reservationInfo?.title
         val reservationDateTime = reservationInfo?.reservationDateTime
 
         val tvCancelDescription = findViewById<TextView>(R.id.tv_cancel_description)
-        tvCancelDescription?.let { it.text = getString(R.string.reservation_result_cancel_time_description, CANCELLATION_TIME) }
+        tvCancelDescription?.let {
+            it.text =
+                getString(R.string.reservation_result_cancel_time_description, CANCELLATION_TIME)
+        }
 
         val tvMovieTitle = findViewById<TextView>(R.id.tv_movie_title)
         tvMovieTitle?.let { it.text = title }
@@ -37,10 +41,18 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         tvMovieDate?.let { it.text = reservationDateTime }
 
         val tvReservationNumberInfo = findViewById<TextView>(R.id.tv_reservation_number_info)
-        tvReservationNumberInfo?.let { it.text = getString(R.string.reservation_number_info).format(reservationInfo?.reservationNumber) }
+        tvReservationNumberInfo?.let {
+            it.text =
+                getString(R.string.reservation_number_info).format(reservationInfo?.reservationNumber)
+        }
 
         val tvTotalPrice = findViewById<TextView>(R.id.tv_reservation_total_price)
-        tvTotalPrice?.let { it.text = getString(R.string.reservation_total_price).format(reservationInfo?.totalPrice()) }
+        tvTotalPrice?.let {
+            it.text =
+                getString(R.string.reservation_total_price).format(
+                    reservationInfo?.totalPrice(),
+                )
+        }
     }
 
     companion object {
