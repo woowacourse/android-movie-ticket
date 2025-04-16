@@ -22,10 +22,10 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
         }
         val ticket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra("ticket", Ticket::class.java)
+                intent.getParcelableExtra(MovieReservationActivity.EXTRA_TICKET, Ticket::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                intent.getParcelableExtra("ticket")
+                intent.getParcelableExtra(MovieReservationActivity.EXTRA_TICKET)
             }
         if (ticket == null) {
             finish()
