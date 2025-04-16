@@ -57,11 +57,11 @@ class MainActivity : AppCompatActivity() {
         val (startDate, endDate) = movie.releaseDate
 
         val startYear = startDate.year
-        val startMonth = startDate.month
+        val startMonth = startDate.monthValue
         val startDay = startDate.dayOfMonth
 
         val endYear = endDate.year
-        val endMonth = endDate.month
+        val endMonth = endDate.monthValue
         val endDay = endDate.dayOfMonth
 
         val intent =
