@@ -3,7 +3,7 @@ package woowacourse.movie
 import android.content.Context
 import android.widget.ArrayAdapter
 
-class TimeSpinnerAdapter(
+class TimeAdapter(
     context: Context,
 ) : ArrayAdapter<String>(
         context,

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
@@ -19,7 +18,8 @@ import java.time.LocalDate
 class BookingDetailActivity : AppCompatActivity() {
     private lateinit var dateSpinner: Spinner
     private lateinit var timeSpinner: Spinner
-    private lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
+    private lateinit var timeAdapter: TimeAdapter
+    private lateinit var dateAdapter: DateAdapter
     private var ticketCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,25 +46,20 @@ class BookingDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
 
-        val dates: List<LocalDate> =
-            getDatesBetween(
-                LocalDate.parse(startDate),
-                LocalDate.parse(endDate),
-            )
-
         dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
         timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
 
-        dateSpinner.adapter =
-            ArrayAdapter<LocalDate>(
+        dateAdapter =
+            DateAdapter(
                 this,
-                android.R.layout.simple_spinner_item,
-                dates,
+                LocalDate.parse(startDate),
+                LocalDate.parse(endDate),
             )
+        dateSpinner.adapter = dateAdapter
 
-        timeSpinnerAdapter = TimeSpinnerAdapter(this)
-        timeSpinnerAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
-        timeSpinner.adapter = timeSpinnerAdapter
+        timeAdapter = TimeAdapter(this)
+        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
+        timeSpinner.adapter = timeAdapter
 
         dateSpinner.onItemSelectedListener =
             object : android.widget.AdapterView.OnItemSelectedListener {
@@ -76,7 +71,7 @@ class BookingDetailActivity : AppCompatActivity() {
                 ) {
                     val selectedDate = parent?.getItemAtPosition(position) as LocalDate
                     val dateType = DateType.from(selectedDate)
-                    timeSpinnerAdapter.updateTimes(dateType)
+                    timeAdapter.updateTimes(dateType)
                 }
 
                 override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
@@ -120,19 +115,6 @@ class BookingDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDatesBetween(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ): List<LocalDate> {
-        val dates = mutableListOf<LocalDate>()
-        var currentDate = startDate
-        while (currentDate.isBefore(endDate)) {
-            dates.add(currentDate)
-            currentDate = currentDate.plusDays(1)
-        }
-        return dates
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> finish()
@@ -158,7 +140,7 @@ class BookingDetailActivity : AppCompatActivity() {
         dateSpinner.setSelection(ticketDate)
 
         val selectedDate = DateType.from(LocalDate.parse(dateSpinner.selectedItem.toString()))
-        timeSpinnerAdapter.updateTimes(selectedDate)
+        timeAdapter.updateTimes(selectedDate)
 
         timeSpinner.setSelection(ticketTime)
 
