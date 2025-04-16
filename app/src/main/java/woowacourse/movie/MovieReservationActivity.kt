@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -45,6 +46,7 @@ class MovieReservationActivity : AppCompatActivity() {
         val scheduler = Scheduler()
         initDateSpinner(movie, scheduler)
         initTicketCountButton()
+        initSelectButton()
     }
 
     private fun initDateSpinner(
@@ -103,6 +105,20 @@ class MovieReservationActivity : AppCompatActivity() {
             if (ticketCount == Int.MAX_VALUE) return@setOnClickListener
             ticketCount++
             ticketCountTextView.text = ticketCount.toString()
+        }
+    }
+
+    private fun initSelectButton() {
+        val selectButton = findViewById<Button>(R.id.select_button)
+        val alertDialog =
+            AlertDialog
+                .Builder(this)
+                .setTitle(R.string.confirm_reservation_title)
+                .setMessage(R.string.confirm_reservation_message)
+                .setPositiveButton(R.string.confirm_reservation_text) { _, _ -> }
+                .setNegativeButton(R.string.cancel_text) { dialog, _ -> dialog.dismiss() }
+        selectButton.setOnClickListener {
+            alertDialog.show()
         }
     }
 }
