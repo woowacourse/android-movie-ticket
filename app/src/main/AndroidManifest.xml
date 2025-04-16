@@ -16,10 +16,10 @@
             android:name=".ui.view.BookingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.ReservationActivity"
+            android:name=".ui.view.BookingSummaryActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

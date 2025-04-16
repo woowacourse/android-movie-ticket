@@ -14,48 +14,52 @@
             android:id="@+id/poster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-        </ImageView>
+            android:layout_weight="1"
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="15dp">
+            android:padding="25dp">
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
-
-            </TextView>
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="32sp"
+                android:paddingBottom="20dp"/>
 
             <TextView
+                android:id="@+id/screeningDate"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
 
-            </TextView>
+            <TextView
+                android:id="@+id/runningTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:paddingBottom="40dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                </Spinner>
+                    android:layout_weight="1"/>
 
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"/>
 
-                </Spinner>
             </LinearLayout>
 
             <LinearLayout
@@ -66,10 +70,11 @@
                 android:gravity="center_vertical">
 
                 <Button
+                    android:id="@+id/decrease"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/minus_sign" />
+                    android:text="@string/decrease_sign" />
 
                 <TextView
                     android:id="@+id/quantity"
@@ -82,21 +87,21 @@
                     android:textSize="18sp" />
 
                 <Button
+                    android:id="@+id/increase"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/plus_sign" />
+                    android:text="@string/increase_sign" />
 
             </LinearLayout>
 
             <Button
+                android:id="@+id/select"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/select_text"
-                android:textSize="20sp">
-
-            </Button>
+                android:textSize="20sp"/>
 
         </LinearLayout>
     </TableLayout>
