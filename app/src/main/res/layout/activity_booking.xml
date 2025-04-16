@@ -8,7 +8,7 @@
     tools:context=".BookingActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/img_movie_poster"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
@@ -68,7 +68,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <TextView
-            android:id="@+id/tv_running_time"
+            android:id="@+id/tv_running_time_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_running_time"
@@ -78,15 +78,16 @@
             app:layout_constraintTop_toBottomOf="@id/tv_release_date" />
 
         <TextView
+            android:id="@+id/tv_running_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="152분"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_running_time"
-            app:layout_constraintStart_toEndOf="@id/tv_running_time"
-            app:layout_constraintTop_toTopOf="@id/tv_running_time" />
+            app:layout_constraintBottom_toBottomOf="@id/tv_running_time_title"
+            app:layout_constraintStart_toEndOf="@id/tv_running_time_title"
+            app:layout_constraintTop_toTopOf="@id/tv_running_time_title" />
 
         <Spinner
             android:id="@+id/sp_date"
@@ -96,7 +97,7 @@
             app:layout_constraintEnd_toStartOf="@id/sp_time"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_running_time" />
+            app:layout_constraintTop_toBottomOf="@id/tv_running_time_title" />
 
         <Spinner
             android:id="@+id/sp_time"

@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.model.Movie
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,23 +42,28 @@ class MainActivity : AppCompatActivity() {
             MovieAdapter(
                 items = itemList.toList(),
                 onClickBooking = { idx ->
-                    val target = itemList[idx]
-                    moveToBookingComplete(target.title, target.releaseDate)
+                    moveToBookingComplete(itemList[idx])
                 },
             )
 
         listView.adapter = adapter
     }
 
-    private fun moveToBookingComplete(
-        movieTitle: String,
-        movieBookingTime: String,
-    ) {
+    private fun moveToBookingComplete(movie: Movie) {
         val intent =
-            Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra("title", movieTitle)
-                putExtra("bookingTime", movieBookingTime)
+            Intent(this, BookingActivity::class.java).apply {
+                putExtra(KEY_MOVIE_TITLE, movie.title)
+                putExtra(KEY_MOVIE_POSTER, movie.poster)
+                putExtra(KEY_MOVIE_RELEASE_DATE, movie.releaseDate)
+                putExtra(KEY_MOVIE_RUNNING_TIME, movie.runningTime)
             }
         startActivity(intent)
+    }
+
+    companion object {
+        const val KEY_MOVIE_TITLE = "MOVIE_TITLE"
+        const val KEY_MOVIE_POSTER = "MOVIE_POSTER"
+        const val KEY_MOVIE_RELEASE_DATE = "MOVIE_RELEASE_DATE"
+        const val KEY_MOVIE_RUNNING_TIME = "MOVIE_RUNNING_TIME"
     }
 }
