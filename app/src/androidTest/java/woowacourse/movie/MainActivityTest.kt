@@ -20,7 +20,7 @@ class MainActivityTest {
 
     @Test
     fun 화면에_해리포터_영화의_상영날짜가_표시된다() {
-        onView(withId(R.id.show_date))
+        onView(withId(R.id.start_date))
             .check(matches(withText("2025.4.1")))
     }
 

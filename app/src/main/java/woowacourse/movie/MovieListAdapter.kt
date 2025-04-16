@@ -17,7 +17,7 @@ class MovieListAdapter(context: Context, items: MutableList<MovieItem>): ArrayAd
         val item = getItem(position)
         val image = view.findViewById<ImageView>(R.id.movie_image)
         val title = view.findViewById<TextView>(R.id.title)
-        val date = view.findViewById<TextView>(R.id.show_date)
+        val date = view.findViewById<TextView>(R.id.start_date)
         val runningTime = view.findViewById<TextView>(R.id.running_time)
 
         item?.let {
