@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -18,6 +19,7 @@ import java.time.LocalDate
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var screening: Screening
+    private var ticketCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,21 @@ class ReservationActivity : AppCompatActivity() {
         runningTimeView.text = getString(R.string.running_time, screening.runningTime)
 
         initDateSpinner(screening.period.start, screening.period.endInclusive)
+
+        val ticketCountView = findViewById<TextView>(R.id.tv_reservation_audience_count)
+        ticketCountView.text = ticketCount.toString()
+
+        val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
+        ticketCountPlusButton.setOnClickListener {
+            ticketCount++
+            ticketCountView.text = ticketCount.toString()
+        }
+
+        val ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
+        ticketCountMinusButton.setOnClickListener {
+            if (ticketCount > 1) ticketCount--
+            ticketCountView.text = ticketCount.toString()
+        }
     }
 
     private fun initDateSpinner(
