@@ -15,15 +15,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieScheduler
+import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReserveActivity : AppCompatActivity() {
     private val movieScheduler = MovieScheduler()
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
+    private lateinit var reservation: Reservation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +58,13 @@ class ReserveActivity : AppCompatActivity() {
                 LocalDate.now(),
             )
         initTimeSpinner(startDate)
+
+        reservation =
+            Reservation(
+                title = movie.title,
+                count = 0,
+                reservedTime = getSelectedDateTime(),
+            )
     }
 
     private fun initMoveInfo(movie: Movie) {
@@ -91,6 +101,7 @@ class ReserveActivity : AppCompatActivity() {
                 ) {
                     val selectDate = dates[position]
                     initTimeSpinner(selectDate)
+                    reservation = reservation.updateReservedTime(getSelectedDateTime())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -112,6 +123,28 @@ class ReserveActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item,
                 times,
             )
+
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    reservation = reservation.updateReservedTime(getSelectedDateTime())
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+    }
+
+    private fun getSelectedDateTime(): LocalDateTime {
+        return LocalDateTime.of(
+            dateSpinner.selectedItem as LocalDate?,
+            timeSpinner.selectedItem as LocalTime,
+        )
     }
 
     private fun formatting(screeningDate: ScreeningDate): String {
