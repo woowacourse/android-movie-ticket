@@ -2,6 +2,7 @@ package woowacourse.movie.domain
 
 import androidx.annotation.DrawableRes
 import java.time.LocalDate
+import java.time.LocalTime
 
 data class Screening(
     private val movie: Movie,
@@ -14,5 +15,5 @@ data class Screening(
     val title: String = movie.title
     val runningTime: Int = movie.runningTime
 
-    fun showtimes(date: LocalDate) = showTimePolicy.showtimes(date)
+    fun showtimes(date: LocalDate): List<LocalTime> = showTimePolicy.showtimes(date)
 }
