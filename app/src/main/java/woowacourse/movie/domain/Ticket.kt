@@ -4,9 +4,10 @@ import java.time.LocalDateTime
 
 data class Ticket(
     private val screening: Screening,
-    private val count: Int,
-    private val showtime: LocalDateTime,
+    val count: Int,
+    val showtime: LocalDateTime,
 ) {
+    val title: String = screening.title
     val price: Int = count * TICKET_PRICE
 
     companion object {

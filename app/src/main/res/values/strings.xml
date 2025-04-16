@@ -14,4 +14,6 @@
 
     <!--ticket.xml-->
     <string name="ticket_cancel_time_info">영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다.</string>
+    <string name="ticket_count">일반 %1$d명</string>
+    <string name="ticket_price">%1$s원 (현장 결제)</string>
 </resources>

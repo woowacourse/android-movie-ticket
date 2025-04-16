@@ -42,6 +42,7 @@
         tools:text="상영 시각" />
 
     <TextView
+        android:id="@+id/tv_ticket_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -50,6 +51,7 @@
         tools:text="일반 2명" />
 
     <TextView
+        android:id="@+id/tv_ticket_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

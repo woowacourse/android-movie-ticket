@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -85,13 +86,16 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-//        val title = intent.getStringExtra(MainActivity.EXTRA_TITLE)
-//        val date = intent.getStringExtra(MainActivity.EXTRA_PERIOD)
-//
-//        val titleView = findViewById<TextView>(R.id.tv_reservation_result_movie_title)
-//        titleView.text = title
-//
-//        val screeningDateView = findViewById<TextView>(R.id.tv_reservation_result_screening_date)
-//        screeningDateView.text = date
+        val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
+        titleView.text = ticket.title
+
+        val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
+        showtimeView.text = ticket.showtime.toString()
+
+        val countView = findViewById<TextView>(R.id.tv_ticket_count)
+        countView.text = getString(R.string.ticket_count, ticket.count)
+
+        val priceView = findViewById<TextView>(R.id.tv_ticket_price)
+        priceView.text = getString(R.string.ticket_price, ticket.price.toString())
     }
 }
