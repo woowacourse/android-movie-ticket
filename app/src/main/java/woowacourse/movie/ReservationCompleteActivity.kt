@@ -8,7 +8,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.ReservationActivity.Companion.TICKET_DATA_KEY
 import woowacourse.movie.model.MovieTicket
 
 class ReservationCompleteActivity : AppCompatActivity() {
@@ -56,6 +55,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
     }
 
     companion object {
-        val THOUSAND_COMMA = DecimalFormat("#,###")
+        const val TICKET_DATA_KEY = "movieTicket"
+        private val THOUSAND_COMMA = DecimalFormat("#,###")
     }
 }

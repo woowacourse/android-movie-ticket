@@ -3,16 +3,26 @@ package woowacourse.movie
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.model.MovieTicket
 
 class ReservationActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(ReservationActivity::class.java)
+
+    @Before
+    fun setup() {
+        Intents.init()
+    }
 
     @Test
     fun 영화_티켓_개수_플러스_버튼을_누르면_티켓_개수가_1_증가한다() {
@@ -87,5 +97,28 @@ class ReservationActivityTest {
         // then: 예약 확인 다이얼로그에 예매 완료 버튼이 표시된다
         onView(withText("예매 완료"))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun 다이얼로그_예매_완료_버튼을_누르면_영화_예매_완료_화면으로_티켓_정보를_넘긴다() {
+        // given: 다이얼로그 화면에서
+        onView(withId(R.id.btn_reservation_select_complete))
+            .perform(click())
+
+        // when: 예매 완료 버튼을 누르면
+        onView(withText("예매 완료"))
+            .perform(click())
+
+        // then: 영화 예매 완료 화면으로 티켓 정보를 넘긴다
+        intended(
+            hasExtra(
+                "movieTicket",
+                MovieTicket(
+                    "라라랜드",
+                    "2025.04.16 22:00",
+                    1,
+                ),
+            ),
+        )
     }
 }

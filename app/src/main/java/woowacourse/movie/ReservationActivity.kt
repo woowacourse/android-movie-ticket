@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.ReservationCompleteActivity.Companion.TICKET_DATA_KEY
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieTicket
 import java.time.DayOfWeek
@@ -279,7 +280,6 @@ class ReservationActivity : AppCompatActivity() {
 
     companion object {
         const val MOVIE_DATA_KEY = "data"
-        const val TICKET_COUNT_DATA_KEY = "count"
-        const val TICKET_DATA_KEY = "movie_ticket"
+        private const val TICKET_COUNT_DATA_KEY = "count"
     }
 }
