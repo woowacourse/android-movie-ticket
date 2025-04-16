@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/booking_success"
+    android:id="@+id/booking"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -54,7 +54,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf=""
+            app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp"
             tools:text="해리 포터와 마법사의 돌"/>
 
@@ -95,30 +95,30 @@
             app:layout_constraintTop_toBottomOf="@id/booked_movie_running_day_text"
             tools:text="러닝타임: 125분"/>
 
-        <Spinner
-            android:id="@+id/date_picker_actions"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/booked_movie_running_time_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/time_picker_actions"
-            android:layout_marginEnd="8dp" />
+        <!--        <Spinner-->
+        <!--            android:id="@+id/date_picker_actions"-->
+        <!--            android:layout_width="150dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/booked_movie_running_time_text"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/time_picker_actions"-->
+        <!--            android:layout_marginEnd="8dp" />-->
 
-        <Spinner
-            android:id="@+id/time_picker_actions"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/date_picker_actions"
-            app:layout_constraintStart_toEndOf="@id/date_picker_actions"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="8dp"/>
+        <!--        <Spinner-->
+        <!--            android:id="@+id/time_picker_actions"-->
+        <!--            android:layout_width="150dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintTop_toTopOf="@id/date_picker_actions"-->
+        <!--            app:layout_constraintStart_toEndOf="@id/date_picker_actions"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            android:layout_marginStart="8dp"/>-->
 
         <Button
             android:id="@+id/minus_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="4dp"
             android:background="@drawable/button_rounded_bg"
             android:backgroundTint="@color/purple_500"
             android:gravity="center"
@@ -127,8 +127,7 @@
             app:layout_constraintBottom_toTopOf="@id/common_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.014"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/count"
@@ -146,7 +145,6 @@
             app:layout_constraintBottom_toTopOf="@id/common_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf=""
             tools:text="2" />
 
         <Button
