@@ -4,5 +4,5 @@
     android:id="@+id/lv_main_movies"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".view.MainActivity"
     tools:listitem="@layout/item_movie" />
