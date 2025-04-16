@@ -1,11 +1,14 @@
 package woowacourse.movie
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.model.Movie
+import java.time.format.DateTimeFormatter
 
 class ReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,14 +21,21 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        val movieTitle: String = intent.getStringExtra(MOVIE_TITLE_KEY) ?: "라라랜드"
-        val screeningDate: String = intent.getStringExtra(MOVIE_SCREENING_DATE_KEY) ?: "2025.04.15"
+        val data =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getSerializableExtra("data", Movie::class.java)
+            } else {
+                intent.getSerializableExtra("data") as Movie
+            }
 
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
         val screeningDateTextView =
             findViewById<TextView>(R.id.tv_reservation_complete_screening_date)
-        movieTitleTextView.text = movieTitle
-        screeningDateTextView.text = screeningDate
+        movieTitleTextView.text = data?.title
+        screeningDateTextView.text =
+            data?.screeningDate?.format(
+                DateTimeFormatter.ofPattern("yyyy.MM.dd"),
+            )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -33,10 +43,5 @@ class ReservationCompleteActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
-    }
-
-    companion object {
-        const val MOVIE_TITLE_KEY = "title"
-        const val MOVIE_SCREENING_DATE_KEY = "screeningDate"
     }
 }

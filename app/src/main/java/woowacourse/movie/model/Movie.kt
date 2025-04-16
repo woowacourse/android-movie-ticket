@@ -1,6 +1,7 @@
 package woowacourse.movie.model
 
 import woowacourse.movie.R
+import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
@@ -8,7 +9,7 @@ data class Movie(
     val poster: Int,
     val screeningDate: LocalDate,
     val runningTime: Int,
-) {
+) : Serializable {
     companion object {
         val values: List<Movie> =
             listOf(Movie("라라랜드", R.drawable.lalaland, LocalDate.of(2025, 4, 15), 120))

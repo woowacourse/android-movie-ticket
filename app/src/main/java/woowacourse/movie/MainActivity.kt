@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.model.Movie
-import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,16 +30,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservationComplete(movie: Movie) {
-        val bundle =
-            Bundle().apply {
-                putString(ReservationCompleteActivity.MOVIE_TITLE_KEY, movie.title)
-                putString(
-                    ReservationCompleteActivity.MOVIE_SCREENING_DATE_KEY,
-                    movie.screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")),
-                )
-            }
         val intent =
-            Intent(this, ReservationCompleteActivity::class.java).apply { putExtras(bundle) }
+            Intent(this, ReservationCompleteActivity::class.java).apply { putExtra("data", movie) }
         startActivity(intent)
     }
 }
