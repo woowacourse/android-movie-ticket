@@ -13,16 +13,20 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".BookingActivity"
+            android:exported="false" />
+        <activity
             android:name=".BookingCompleteActivity"
-            android:exported="false" >
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
