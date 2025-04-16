@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +17,13 @@ class CompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val movieTitle = intent.getStringExtra("movieTitle")
+        val movieDate = intent.getStringExtra("movieDate")
+
+        val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
+        val movieDateTextView = findViewById<TextView>(R.id.movie_date)
+
+        movieTitleTextView.text = movieTitle
+        movieDateTextView.text = movieDate
     }
 }
