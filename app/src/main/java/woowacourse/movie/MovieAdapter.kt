@@ -45,15 +45,16 @@ class MovieAdapter(
         posterImageView.setImageDrawable(poster)
 
         val screeningDateTextView = view.findViewById<TextView>(R.id.tv_movie_screening_date)
-        val screeningDate =
-            movies[position].screeningDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        val startDate =
+            movies[position].startDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        val endDate = movies[position].endDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
         screeningDateTextView.text =
-            context.getString(R.string.movie_screening_date).format(screeningDate)
+            context.getString(R.string.movie_screening_date, startDate, endDate)
 
         val runningTimeTextView = view.findViewById<TextView>(R.id.tv_movie_running_time)
         val runningTime = movies[position].runningTime
         runningTimeTextView.text =
-            context.getString(R.string.movie_running_time).format(runningTime)
+            context.getString(R.string.movie_running_time, runningTime)
 
         val button = view.findViewById<Button>(R.id.btn_movie_reservation)
         button.setOnClickListener {

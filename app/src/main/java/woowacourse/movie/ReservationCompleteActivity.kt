@@ -33,7 +33,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.tv_reservation_complete_screening_date)
         movieTitleTextView.text = data?.title
         screeningDateTextView.text =
-            data?.screeningDate?.format(
+            data?.startDate?.format(
                 DateTimeFormatter.ofPattern("yyyy.MM.dd"),
             )
 
