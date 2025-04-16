@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val harryPotter =
             Movie(
                 "해리 포터와 마법사의 돌",
-                150,
+                152,
                 R.drawable.poster_harry_potter_and_the_philosophers_stone,
             )
         val harryPotterScreening =
