@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -98,6 +100,25 @@ class ReservationActivity : AppCompatActivity() {
             if (ticketCount > 1) ticketCount--
             ticketCountView.text = ticketCount.toString()
         }
+
+        val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
+        completeButton.setOnClickListener {
+            AlertDialog
+                .Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    navigateToReservationResultActivity()
+                }.setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }.setCancelable(false)
+                .show()
+        }
+    }
+
+    private fun navigateToReservationResultActivity() {
+        val intent = Intent(this, ReservationResultActivity::class.java)
+        startActivity(intent)
     }
 
     private fun initDateSpinner(
