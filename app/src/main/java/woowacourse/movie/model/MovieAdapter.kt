@@ -60,7 +60,9 @@ class MovieAdapter(
         val posterImage = AppCompatResources.getDrawable(context, R.drawable.harry_potter)
         poster.setImageDrawable(posterImage)
         title.text = movie.title
-        screeningDate.text = formatDate(movie.screeningDate)
+        val screeningStartDate = formatDate(movie.screeningStartDate)
+        val screeningEndDate = formatDate(movie.screeningEndDate)
+        screeningDate.text = context.getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
         runningTime.text = context.getString(R.string.minute_text, movie.runningTime)
 
         return itemView

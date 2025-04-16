@@ -9,6 +9,7 @@ import java.time.LocalDate
 data class Movie(
     @DrawableRes val imageSource: Int,
     val title: String,
-    val screeningDate: LocalDate,
+    val screeningStartDate: LocalDate,
+    val screeningEndDate: LocalDate,
     val runningTime: Int,
 ) : Parcelable

@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
                 Movie(
                     imageSource = R.drawable.harry_potter,
                     title = "해리 포터와 마법사의 돌",
-                    screeningDate = LocalDate.of(2025, 4, 1),
+                    screeningStartDate = LocalDate.of(2025, 4, 1),
+                    screeningEndDate = LocalDate.of(2025, 4, 25),
                     runningTime = 152,
                 ),
             )

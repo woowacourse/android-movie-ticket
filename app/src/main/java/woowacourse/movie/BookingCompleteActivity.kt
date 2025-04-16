@@ -34,7 +34,9 @@ class BookingCompleteActivity : AppCompatActivity() {
 
         movieData?.let {
             completeTitle.text = movieData.title
-            completeScreenDate.text = formatDate(movieData.screeningDate)
+            val screeningStartDate = formatDate(movieData.screeningStartDate)
+            val screeningEndDate = formatDate(movieData.screeningEndDate)
+            completeScreenDate.text = getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
