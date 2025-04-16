@@ -3,6 +3,7 @@ package woowacourse.movie.domain
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class Scheduler {
     fun getScreeningDates(
@@ -23,11 +24,11 @@ class Scheduler {
     fun getShowTimes(
         selectedDate: LocalDate,
         now: LocalDateTime,
-    ): List<Int> {
+    ): List<LocalTime> {
         val isToday = selectedDate == now.toLocalDate()
         val showTimes = if (selectedDate.isWeekend()) WEEKEND_SHOW_TIMES else WEEKDAY_SHOW_TIMES
         return if (isToday) {
-            showTimes.filter { time -> time > now.hour }
+            showTimes.filter { time -> time.hour > now.hour }
         } else {
             showTimes
         }
@@ -44,8 +45,12 @@ class Scheduler {
         private const val SCREENING_TIME_INTERVAL = 2
 
         private val WEEKEND_SHOW_TIMES =
-            (WEEKEND_OPENING_HOUR until CLOSING_HOUR step SCREENING_TIME_INTERVAL).toList()
+            (WEEKEND_OPENING_HOUR until CLOSING_HOUR step SCREENING_TIME_INTERVAL).map { hour ->
+                LocalTime.of(hour, 0)
+            }
         private val WEEKDAY_SHOW_TIMES =
-            (WEEKDAY_OPENING_HOUR until CLOSING_HOUR step SCREENING_TIME_INTERVAL).toList()
+            (WEEKDAY_OPENING_HOUR until CLOSING_HOUR step SCREENING_TIME_INTERVAL).map { hour ->
+                LocalTime.of(hour, 0)
+            }
     }
 }

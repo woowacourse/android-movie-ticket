@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class SchedulerTest {
     private val scheduler = Scheduler()
@@ -65,7 +66,7 @@ class SchedulerTest {
 
         // when
         val actual = scheduler.getShowTimes(selectedDate, now)
-        val expected = (10 until 24 step 2).toList()
+        val expected = (10 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         assertThat(actual).isEqualTo(expected)
     }
@@ -78,7 +79,7 @@ class SchedulerTest {
 
         // when
         val actual = scheduler.getShowTimes(selectedDate, now)
-        val expected = (9 until 24 step 2).toList()
+        val expected = (9 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -92,7 +93,7 @@ class SchedulerTest {
 
         // when
         val actual = scheduler.getShowTimes(selectedDate, now)
-        val expected = (14 until 24 step 2).toList()
+        val expected = (14 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -106,7 +107,7 @@ class SchedulerTest {
 
         // when
         val actual = scheduler.getShowTimes(selectedDate, now)
-        val expected = (15 until 24 step 2).toList()
+        val expected = (15 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         // then
         assertThat(actual).isEqualTo(expected)
