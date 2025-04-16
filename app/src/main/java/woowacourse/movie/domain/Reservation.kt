@@ -9,9 +9,12 @@ class Reservation(
 ) {
     fun totalPrice(price: Int): Int = price * count
 
-    fun addCount() = Reservation(title, count++, reservedTime)
+    fun addCount() = Reservation(title, ++count, reservedTime)
 
-    fun minusCount() = Reservation(title, count--, reservedTime)
+    fun minusCount(): Reservation {
+        if (count == 0) return this
+        return Reservation(title, --count, reservedTime)
+    }
 
     fun updateReservedTime(time: LocalDateTime) = Reservation(title, count, time)
 }

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -26,6 +27,7 @@ class ReserveActivity : AppCompatActivity() {
     private val movieScheduler = MovieScheduler()
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
+    private val ticketCount: TextView by lazy { findViewById(R.id.tv_count) }
     private lateinit var reservation: Reservation
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +67,9 @@ class ReserveActivity : AppCompatActivity() {
                 count = 0,
                 reservedTime = getSelectedDateTime(),
             )
+
+        updateTicketCount()
+        initButtonClickListeners()
     }
 
     private fun initMoveInfo(movie: Movie) {
@@ -145,6 +150,25 @@ class ReserveActivity : AppCompatActivity() {
             dateSpinner.selectedItem as LocalDate?,
             timeSpinner.selectedItem as LocalTime,
         )
+    }
+
+    private fun initButtonClickListeners() {
+        val minusBtn = findViewById<Button>(R.id.btn_minus)
+        val plusBtn = findViewById<Button>(R.id.btn_plus)
+
+        minusBtn.setOnClickListener {
+            reservation = reservation.minusCount()
+            updateTicketCount()
+        }
+
+        plusBtn.setOnClickListener {
+            reservation = reservation.addCount()
+            updateTicketCount()
+        }
+    }
+
+    private fun updateTicketCount() {
+        ticketCount.text = reservation.count.toString()
     }
 
     private fun formatting(screeningDate: ScreeningDate): String {
