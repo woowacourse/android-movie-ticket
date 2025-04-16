@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -10,55 +11,89 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
+
 class BookingActivity : AppCompatActivity() {
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+    private lateinit var movieTime: Spinner
+    private lateinit var movieDate: Spinner
+    private lateinit var startDate: TextView
+    private lateinit var endDate: TextView
+    private lateinit var ticketCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
 
+        startDate = findViewById(R.id.start_date)
+        endDate = findViewById(R.id.end_date)
+        movieDate = findViewById(R.id.movie_date)
+        movieTime = findViewById(R.id.movie_time)
+        ticketCount = findViewById(R.id.ticket_count)
+        setupPage()
+
+        setupDateChangeListener()
+        countButtonHandler()
+        confirmButtonHandler()
+        if (savedInstanceState!=null) {
+            repairInstanceState(savedInstanceState)
+        }
+
+    }
+
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("TICKET_COUNT", ticketCount.text.toString())
+        outState.putInt("MOVIE_DATE_POSITION", movieDate.selectedItemPosition)
+        outState.putInt("MOVIE_TIME_POSITION", movieTime.selectedItemPosition)
+
+        Log.d("test",movieTime.selectedItemPosition.toString())
+    }
+
+    private fun repairInstanceState(state : Bundle){
+        Log.d("test",state.getInt("MOVIE_TIME_POSITION").toString())
+        movieDate.setSelection(state.getInt("MOVIE_DATE_POSITION"))
+        movieTime.setSelection(state.getInt("MOVIE_TIME_POSITION"))
+        ticketCount.text = state.getString("TICKET_COUNT")
+    }
+
+    private fun setupPage() {
         val title = findViewById<TextView>(R.id.title)
-        val startDate = findViewById<TextView>(R.id.start_date)
-        val endDate = findViewById<TextView>(R.id.end_date)
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
-        val movieDate = findViewById<Spinner>(R.id.movie_date)
-        val movieTime = findViewById<Spinner>(R.id.movie_time)
-        val ticketCount = findViewById<TextView>(R.id.ticket_count)
 
-        poster.setImageResource(intent.getIntExtra("POSTER",0))
+        poster.setImageResource(intent.getIntExtra("POSTER", 0))
         title.text = intent.getStringExtra("TITLE")
         startDate.text = intent.getStringExtra("START_DATE")
         endDate.text = intent.getStringExtra("END_DATE")
         runningTime.text = intent.getStringExtra("RUNNING_TIME")
 
-        setDateSpinner(startDate.text.toString(), endDate.text.toString(), movieDate)
-        setTimeSpinner(startDate.text.toString(), movieTime)
-
-        movieDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedTimes = getTimes(getDates(startDate.text.toString(), endDate.text.toString())[position])
-                val selectedTimesAdapter = ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
-                selectedTimesAdapter.setDropDownViewResource(R.layout.spinner_item)
-                movieTime.adapter = selectedTimesAdapter
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-
-        countButtonHandler(ticketCount)
-        confirmButtonHandler(ticketCount)
+        setDateSpinner()
+        setTimeSpinner()
     }
 
-    private fun confirmButtonHandler(ticketCount: TextView) {
+    private fun setupDateChangeListener() {
+        movieDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedDate = getDates()[position]
+                val selectedTimes = getTimes(selectedDate)
+                val adapter = ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
+                adapter.setDropDownViewResource(R.layout.spinner_item)
+                movieTime.adapter = adapter
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun confirmButtonHandler() {
         val confirmButton = findViewById<Button>(R.id.confirm_button)
 
         confirmButton.setOnClickListener {
@@ -67,7 +102,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun countButtonHandler(ticketCount: TextView) {
+    private fun countButtonHandler() {
         val minusButton = findViewById<Button>(R.id.minus_button)
         val plusButton = findViewById<Button>(R.id.plus_button)
 
@@ -81,23 +116,23 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun setTimeSpinner(startDate: String, movieTime: Spinner) {
-        val times = getTimes(startDate)
+    private fun setTimeSpinner() {
+        val times = getTimes(startDate.text.toString())
         val movieTimesAdapter = ArrayAdapter(this, R.layout.spinner_item, times)
         movieTimesAdapter.setDropDownViewResource(R.layout.spinner_item)
         movieTime.adapter = movieTimesAdapter
     }
 
-    private fun setDateSpinner(startDate: String, endDate: String, movieDate: Spinner) {
-        val dates = getDates(startDate, endDate)
+    private fun setDateSpinner() {
+        val dates = getDates()
         val movieDatesAdapter = ArrayAdapter(this, R.layout.spinner_item, dates)
         movieDatesAdapter.setDropDownViewResource(R.layout.spinner_item)
         movieDate.adapter = movieDatesAdapter
     }
 
-    private fun getDates(startDate: String, endDate: String): List<String> {
-        val parsedStartDate = LocalDate.parse(startDate, dateFormatter)
-        val parsedEndDate = LocalDate.parse(endDate, dateFormatter)
+    private fun getDates(): List<String> {
+        val parsedStartDate = LocalDate.parse(startDate.text.toString(), dateFormatter)
+        val parsedEndDate = LocalDate.parse(endDate.text.toString(), dateFormatter)
 
         val dates = mutableListOf<String>()
         var current = parsedStartDate
@@ -112,21 +147,15 @@ class BookingActivity : AppCompatActivity() {
 
     private fun getTimes(date: String): List<String> {
         val parsedDate = LocalDate.parse(date, dateFormatter)
-        val times = mutableListOf<String>()
 
-        if (parsedDate.dayOfWeek != DayOfWeek.SATURDAY && parsedDate.dayOfWeek != DayOfWeek.SUNDAY) {
-            for (hour in 10..24 step 2) {
-                val timeStr = String.format("%02d:00", hour)
-                times.add(timeStr)
-            }
-        } else {
-            for (hour in 9..24 step 2) {
-                val timeStr = String.format("%02d:00", hour)
-                times.add(timeStr)
-            }
+        val startHour = when (parsedDate.dayOfWeek) {
+            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> 9
+            else -> 10
         }
 
-        return times
+        return (startHour..24 step 2).map { hour ->
+            String.format("%02d:00", hour)
+        }
     }
 
     private fun askToConfirmBooking(){
@@ -147,6 +176,11 @@ class BookingActivity : AppCompatActivity() {
             }
             .setCancelable(false)
             .show()
-
     }
 }
+
+
+
+
+
+
