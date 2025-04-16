@@ -11,8 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ReservedMovie
-import woowacourse.movie.ui.view.ReservationActivity
+import woowacourse.movie.ui.view.BookingActivity
 
 class MovieAdapter(
     context: Context,
@@ -32,8 +31,8 @@ class MovieAdapter(
 
         val reservationBtn = view.findViewById<Button>(R.id.reservation)
         reservationBtn.setOnClickListener {
-            val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra("Reservation", ReservedMovie(movie.title, movie.screeningDate))
+            val intent = Intent(context, BookingActivity::class.java)
+            intent.putExtra("Movie", movie)
             context.startActivity(intent)
         }
 
@@ -43,7 +42,7 @@ class MovieAdapter(
         val runningTime = view.findViewById<TextView>(R.id.runningTime)
 
         title.text = movie.title
-        screeningDate.text = context.getString(R.string.date_text, movie.screeningDate)
+        screeningDate.text = context.getString(R.string.date_text, movie.startScreeningDate, movie.endScreeningDate)
         runningTime.text =
             context.getString(R.string.runningTime_text, movie.runningTime.toString())
         imagePoster.setImageResource(movie.posterRes)
