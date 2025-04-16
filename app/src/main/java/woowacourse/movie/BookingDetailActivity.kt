@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -27,6 +28,8 @@ class BookingDetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val title = intent.getStringExtra(MOVIE_TITLE_KEY)
         val startDate = intent.getStringExtra(MOVIE_START_DATE_KEY)
@@ -106,6 +109,13 @@ class BookingDetailActivity : AppCompatActivity() {
             currentDate = currentDate.plusDays(1)
         }
         return dates
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
