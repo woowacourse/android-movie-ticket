@@ -3,12 +3,15 @@ package woowacourse.movie
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.time.LocalDate
 
 class BookingDetailActivity : AppCompatActivity() {
     private var ticketCount: Int = 0
@@ -33,6 +36,38 @@ class BookingDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_detail_running_time).text = "${runningTime}분"
         findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
 
+        val dates: List<LocalDate> =
+            getDatesBetween(
+                LocalDate.parse(startDate),
+                LocalDate.parse(endDate),
+            )
+
+        findViewById<Spinner>(R.id.sp_booking_detail_date).adapter =
+            ArrayAdapter<LocalDate>(
+                this,
+                android.R.layout.simple_spinner_item,
+                dates,
+            )
+
+        val times: List<String> =
+            listOf(
+                "09:00",
+                "11:00",
+                "13:00",
+                "15:00",
+                "17:00",
+                "19:00",
+                "21:00",
+                "23:00",
+            )
+
+        findViewById<Spinner>(R.id.sp_booking_detail_time).adapter =
+            ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                times,
+            )
+
         findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
             if (ticketCount > 0) {
                 ticketCount--
@@ -44,6 +79,19 @@ class BookingDetailActivity : AppCompatActivity() {
             ticketCount++
             findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
         }
+    }
+
+    private fun getDatesBetween(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): List<LocalDate> {
+        val dates = mutableListOf<LocalDate>()
+        var currentDate = startDate
+        while (currentDate.isBefore(endDate)) {
+            dates.add(currentDate)
+            currentDate = currentDate.plusDays(1)
+        }
+        return dates
     }
 
     companion object {
