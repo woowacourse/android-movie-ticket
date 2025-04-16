@@ -47,7 +47,7 @@ class MovieAdapter(
         runningTime.text = RUNNING_TIME.format(movie.runningTime)
 
         reserveButton.setOnClickListener {
-            val intent = Intent(context, MovieReservationCompletionActivity::class.java)
+            val intent = Intent(context, MovieReservationActivity::class.java)
             intent.putExtra("movie", movie)
             context.startActivity(intent)
         }

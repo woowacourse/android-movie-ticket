@@ -13,9 +13,13 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".MovieReservationCompletionActivity"
+            android:name=".MovieReservationActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MovieReservationCompletionActivity"
+            android:exported="false"
+            android:parentActivityName=".MovieReservationActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
