@@ -94,6 +94,7 @@ class ReservationActivity : AppCompatActivity() {
                     dialog.dismiss()
                 }
                 .show()
+                .setCancelable(false)
         }
         val screenStartDate: String =
             intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
