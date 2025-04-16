@@ -6,5 +6,7 @@
         취소가 가능합니다.</string>
     <string name="minute_text">%d분</string>
     <string name="screening_date_period">%s ~ %s</string>
+    <string name="screening_complete_headCount">일반 %d명</string>
+    <string name="screening_complete_booking_amount">%s원 (현장 결제)</string>
     <string name="reserve_now_info">지금 예매</string>
 </resources>

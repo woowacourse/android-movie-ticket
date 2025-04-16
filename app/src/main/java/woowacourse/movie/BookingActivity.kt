@@ -3,7 +3,6 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -16,15 +15,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.model.Booking
+import woowacourse.movie.model.BookingResult
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var date: String
-
-    //private lateinit var time: String
-    private var count = 0
+    private lateinit var time: String
+    private var headCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +37,7 @@ class BookingActivity : AppCompatActivity() {
         }
 
         date = LocalDate.now().toString()
+        time = LocalTime.now().toString()
 
         val movieData =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -98,19 +99,20 @@ class BookingActivity : AppCompatActivity() {
         val peopleCount = findViewById<TextView>(R.id.tv_people_count)
 
         btnMinus.setOnClickListener {
-            if (count > 0) count--
-            peopleCount.text = count.toString()
+            if (headCount > 0) headCount--
+            peopleCount.text = headCount.toString()
         }
 
         btnPlus.setOnClickListener {
-            peopleCount.text = (++count).toString()
+            peopleCount.text = (++headCount).toString()
         }
 
         val btnReserveConfirm = findViewById<Button>(R.id.btn_reserve_confirm)
         btnReserveConfirm.setOnClickListener {
             // 인원수가 0이 아니고, 날짜와 시간을 선택한 경우에만 선택을 할 수 있도록 해야 함
-            if (count > 0 && date.isNotBlank()) {
-                showConfirmDialog()
+            if (headCount > 0 && date.isNotBlank()) {
+                val bookingResult = BookingResult(headCount, date, time)
+                showConfirmDialog(movieData, bookingResult)
             }
         }
     }
@@ -132,7 +134,7 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    screeningTimeSpinner.getItemAtPosition(position)
+                    time = screeningTimeSpinner.getItemAtPosition(position).toString()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -145,13 +147,17 @@ class BookingActivity : AppCompatActivity() {
         return date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
     }
 
-    private fun showConfirmDialog() {
+    private fun showConfirmDialog(
+        movie: Movie,
+        bookingResult: BookingResult,
+    ) {
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
             .setPositiveButton("예매 완료") { _, _ ->
                 val intent = Intent(this, BookingCompleteActivity::class.java)
-                //intent.putExtra("")
+                intent.putExtra("movieData", movie)
+                intent.putExtra("bookingResult", bookingResult)
                 startActivity(intent)
             }
             .setNegativeButton("취소") { dialog, _ ->
