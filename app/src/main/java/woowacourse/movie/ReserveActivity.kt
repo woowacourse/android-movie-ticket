@@ -117,7 +117,12 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner(selectedDate: LocalDate) {
-        val currentDateTime = LocalDateTime.now()
+        val currentDateTime =
+            LocalDateTime.now()
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0)
+
         val times =
             movieScheduler.reservableTimes(
                 selectedDate,
