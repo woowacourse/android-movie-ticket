@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,6 +18,8 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MovieReservationActivity : AppCompatActivity() {
+    private var ticketCount = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,6 +44,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
         val scheduler = Scheduler()
         initDateSpinner(movie, scheduler)
+        initTicketCountButton()
     }
 
     private fun initDateSpinner(
@@ -82,5 +87,22 @@ class MovieReservationActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item,
                 scheduler.getShowTimes(selectedDate, LocalDateTime.now()),
             )
+    }
+
+    private fun initTicketCountButton() {
+        val decrementButton = findViewById<Button>(R.id.decrement_button)
+        val incrementButton = findViewById<Button>(R.id.increment_button)
+        val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
+
+        decrementButton.setOnClickListener {
+            if (ticketCount == 0) return@setOnClickListener
+            ticketCount--
+            ticketCountTextView.text = ticketCount.toString()
+        }
+        incrementButton.setOnClickListener {
+            if (ticketCount == Int.MAX_VALUE) return@setOnClickListener
+            ticketCount++
+            ticketCountTextView.text = ticketCount.toString()
+        }
     }
 }
