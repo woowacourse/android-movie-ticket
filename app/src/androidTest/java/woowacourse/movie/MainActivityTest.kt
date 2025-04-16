@@ -26,6 +26,18 @@ class MainActivityTest {
     }
 
     @Test
+    fun `포스터가_표시된다`() {
+        onView(withId(R.id.iv_item_movie_poster))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `러닝타임이_표시된다`() {
+        onView(withId(R.id.tv_item_movie_running_time))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
     fun `목록에_영화_정보를_표시한다`() {
         onView(withId(R.id.lv_main_movies))
             .check(matches(isDisplayed()))
