@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
@@ -44,6 +46,7 @@ class ReservationActivity : AppCompatActivity() {
         setupTicketCount(savedInstanceState)
         setupMinusButtonClick(ticketCountTextView)
         setupPlusButtonClick(ticketCountTextView)
+        setupCompleteButtonClick()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -181,6 +184,22 @@ class ReservationActivity : AppCompatActivity() {
             }
             ticketCount -= 1
             peopleCountTextView.text = ticketCount.toString()
+        }
+    }
+
+    private fun setupCompleteButtonClick() {
+        findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
+            AlertDialog
+                .Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }.setPositiveButton("예매 완료") { dialog, _ ->
+                    val intent = Intent(this, ReservationCompleteActivity::class.java)
+                    startActivity(intent)
+                    dialog.dismiss()
+                }.show()
         }
     }
 
