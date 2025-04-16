@@ -8,8 +8,8 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.CompleteActivity
 import woowacourse.movie.R
+import woowacourse.movie.ReservationActivity
 
 class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int {
@@ -44,10 +44,11 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
         titleTextView.text = items[position].title
         dateTextView.text = parent?.context?.getString(R.string.movieDate, items[position].date)
         timeTextView.text = parent?.context?.getString(R.string.movieTime, items[position].time)
+
         reserveButton.setOnClickListener {
-            val intent = Intent(parent?.context, CompleteActivity::class.java)
-            intent.putExtra("movieTitle", items[position].title)
-            intent.putExtra("movieDate", items[position].date)
+            val intent = Intent(parent?.context, ReservationActivity::class.java)
+            val movie = Movie(items[position].image, items[position].title, items[position].date, items[position].time)
+            intent.putExtra("movie", movie)
             parent?.context?.startActivity(intent)
         }
 
