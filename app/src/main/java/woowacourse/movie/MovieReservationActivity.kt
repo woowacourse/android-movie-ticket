@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -22,6 +23,9 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
+    private lateinit var movie: Movie
+    private lateinit var selectedDate: LocalDate
+    private lateinit var selectedTime: LocalTime
     private var ticketCount = MINIMUM_TICKET_COUNT
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,36 +38,56 @@ class MovieReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra("movie", Movie::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                intent.getParcelableExtra("movie")
-            }
-        if (movie == null) {
+        movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("movie", Movie::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra("movie")
+        } ?: run {
             finish()
             return
         }
 
+        val savedTicket =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                savedInstanceState?.getParcelable("ticket", Ticket::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                savedInstanceState?.getParcelable("ticket")
+            }
+
         val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
         val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
         val scheduler = Scheduler()
-        initDateSpinner(dateSpinner, timeSpinner, movie, scheduler)
-        initTimeSpinner(timeSpinner, dateSpinner.selectedItem as LocalDate, scheduler)
+        initDateSpinner(dateSpinner, timeSpinner, scheduler, savedTicket?.showtime)
+        initTimeSpinner(timeSpinner, scheduler, savedTicket?.showtime?.toLocalTime())
+
+        savedTicket?.let { ticket ->
+            ticketCount = ticket.count
+            findViewById<TextView>(R.id.ticket_count).text = ticketCount.toString()
+        }
+
         initTicketCountButton()
-        initSelectButton(
-            movie,
-            dateSpinner,
-            timeSpinner,
-        )
+        initSelectButton(movie)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.wtf("testtt", "put: $selectedTime")
+        val ticket =
+            Ticket(
+                movie = movie,
+                showtime = LocalDateTime.of(selectedDate, selectedTime),
+                count = ticketCount,
+            )
+        outState.putParcelable("ticket", ticket)
     }
 
     private fun initDateSpinner(
         dateSpinner: Spinner,
         timeSpinner: Spinner,
-        movie: Movie,
         scheduler: Scheduler,
+        savedDateTime: LocalDateTime?,
     ) {
         val screeningDates =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
@@ -82,24 +106,46 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    initTimeSpinner(timeSpinner, screeningDates[position], scheduler)
+                    selectedDate = screeningDates[position]
+                    initTimeSpinner(timeSpinner, scheduler, savedDateTime?.toLocalTime())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+
+        selectedDate = savedDateTime?.toLocalDate() ?: dateSpinner.selectedItem as LocalDate
+        dateSpinner.setSelection((dateSpinner.adapter as ArrayAdapter<LocalDate>).getPosition(selectedDate))
     }
 
     private fun initTimeSpinner(
         timeSpinner: Spinner,
-        selectedDate: LocalDate,
         scheduler: Scheduler,
+        savedTime: LocalTime?,
     ) {
+        val showtimes = scheduler.getShowTimes(selectedDate, LocalDateTime.now())
         timeSpinner.adapter =
             ArrayAdapter(
                 this@MovieReservationActivity,
                 android.R.layout.simple_spinner_item,
-                scheduler.getShowTimes(selectedDate, LocalDateTime.now()),
+                showtimes,
             )
+
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedTime = showtimes[position]
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {}
+            }
+
+        selectedTime = savedTime ?: timeSpinner.selectedItem as LocalTime
+        timeSpinner.setSelection((timeSpinner.adapter as ArrayAdapter<LocalTime>).getPosition(selectedTime))
     }
 
     private fun initTicketCountButton() {
@@ -119,11 +165,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSelectButton(
-        movie: Movie,
-        dateSpinner: Spinner,
-        timeSpinner: Spinner,
-    ) {
+    private fun initSelectButton(movie: Movie) {
         val selectButton = findViewById<Button>(R.id.select_button)
         val alertDialog =
             AlertDialog
@@ -135,11 +177,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     val ticket =
                         Ticket(
                             movie = movie,
-                            showtime =
-                                LocalDateTime.of(
-                                    dateSpinner.selectedItem as LocalDate,
-                                    timeSpinner.selectedItem as LocalTime,
-                                ),
+                            showtime = LocalDateTime.of(selectedDate, selectedTime),
                             count = ticketCount,
                         )
                     intent.putExtra("ticket", ticket)

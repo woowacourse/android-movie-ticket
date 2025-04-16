@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-class Ticket(
+data class Ticket(
     val movie: Movie,
     val showtime: LocalDateTime,
     val count: Int,
