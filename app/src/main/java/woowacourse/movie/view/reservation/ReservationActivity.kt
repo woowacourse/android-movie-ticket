@@ -53,8 +53,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
                 .replace("-", ".")
 
         val spinnerTime = findViewById<Spinner>(R.id.spinner_reservation_time)
-        val reservationTime =
-            spinnerTime?.getItemAtPosition(spinnerDate.selectedItemPosition).toString()
+        val reservationTime = spinnerTime?.getItemAtPosition(spinnerDate.selectedItemPosition).toString()
 
         btnReservationFinish?.setOnClickListener {
             if (reservationNumber == 0) return@setOnClickListener
@@ -94,7 +93,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             }
 
             val tvRunningTime = findViewById<TextView>(R.id.tv_reservation_running_time)
-            tvRunningTime?.let { it.text = movie.runningTime }
+            tvRunningTime?.let { it.text = getString(R.string.running_time, movie.runningTime.toString()) }
         }
     }
 }

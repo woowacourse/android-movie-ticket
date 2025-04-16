@@ -26,7 +26,7 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                         LocalDateTime.of(2025, 4, 1, 0, 0),
                         LocalDateTime.of(2025, 4, 25, 0, 0),
                     ),
-                    getString(R.string.running_time, "152"),
+                    152,
                 ),
             )
         val movieListAdapter =

@@ -65,7 +65,7 @@ class MovieListAdapter(
             }
 
         val tvRunningTime = view.findViewById<TextView>(R.id.tv_running_time)
-        tvRunningTime.text = movie.runningTime
+        tvRunningTime.text = view.context.getString(R.string.running_time, movie.runningTime.toString())
     }
 
     private fun setReservationButton(
