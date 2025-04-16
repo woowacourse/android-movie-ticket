@@ -76,6 +76,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_reservation_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/spinner_reservation_date"
             app:layout_constraintTop_toTopOf="@id/spinner_reservation_date" />
