@@ -10,19 +10,18 @@ import androidx.core.view.WindowInsetsCompat
 class BookingResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_booking_result)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.reservation)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         val title = findViewById<TextView>(R.id.title)
         val date = findViewById<TextView>(R.id.date)
+        val time = findViewById<TextView>(R.id.time)
+        val audienceCount = findViewById<TextView>(R.id.count)
+        val money = findViewById<TextView>(R.id.money)
 
         title.text = intent.getStringExtra("TITLE")
         date.text = intent.getStringExtra("DATE")
-
+        time.text = intent.getStringExtra("TIME")
+        audienceCount.text = String.format(resources.getString(R.string.people_count), intent.getStringExtra("COUNT"))
+        money.text = String.format(resources.getString(R.string.payment), intent.getStringExtra("COUNT").toString().toInt() * 13000)
     }
 }
