@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
 
 class ReservationActivity : AppCompatActivity() {
+    private var count = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,9 +29,30 @@ class ReservationActivity : AppCompatActivity() {
         val moviePosterImageView = findViewById<ImageView>(R.id.movie_image)
         val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
 
+        val minusButton = findViewById<Button>(R.id.minus_button)
+        val plusButton = findViewById<Button>(R.id.plus_button)
+        updateCounterText()
+
+        minusButton.setOnClickListener {
+            if (count > 1) {
+                count--
+            }
+            updateCounterText()
+        }
+
+        plusButton.setOnClickListener {
+            count++
+            updateCounterText()
+        }
+
         movieTitleTextView.text = movie?.title
         movieDateTextView.text = getString(R.string.movieDate, movie?.date)
         movieTimeTextView.text = getString(R.string.movieTime, movie?.time)
         movie?.image?.let { moviePosterImageView.setImageResource(it) }
+    }
+
+    private fun updateCounterText() {
+        val counterTextView = findViewById<TextView>(R.id.personnel)
+        counterTextView.text = count.toString()
     }
 }
