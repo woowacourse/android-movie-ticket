@@ -19,7 +19,13 @@ import java.time.LocalDate
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var screening: Screening
-    private var ticketCount = 1
+    private var ticketCount = DEFAULT_TICKET_COUNT
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(TICKET_COUNT, ticketCount)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,11 +36,13 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        initModel()
+
+        val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
+        initModel(savedTicketCount)
         initViews()
     }
 
-    private fun initModel() {
+    private fun initModel(savedTicketCount: Int) {
         val title =
             intent.getStringExtra(MainActivity.EXTRA_TITLE) ?: throw IllegalStateException()
         val startYear = intent.getIntExtra(MainActivity.EXTRA_START_YEAR, 0)
@@ -49,6 +57,8 @@ class ReservationActivity : AppCompatActivity() {
         val endDate = LocalDate.of(endYear, endMonth, endDay)
         val period = startDate..endDate
         screening = Screening(Movie(title, runningTIme, posterId), period)
+
+        ticketCount = savedTicketCount
     }
 
     private fun initViews() {
@@ -136,5 +146,10 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+    }
+
+    companion object {
+        const val DEFAULT_TICKET_COUNT = 1
+        const val TICKET_COUNT = "TICKET_COUNT"
     }
 }
