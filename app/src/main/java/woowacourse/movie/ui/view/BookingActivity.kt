@@ -1,16 +1,20 @@
 package woowacourse.movie.ui.view
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieScheduler
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -23,9 +27,58 @@ class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen()
-        displayMovieInfo()
+        val movie = intent.intentSerializable("Movie", Movie::class.java)
+        displayMovieInfo(movie)
         bindTicketQuantityButtonListeners()
         bindSelectButtonListener()
+
+        val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
+        val dates = movieScheduler.getBookableDates()
+
+        val dateSpinner = findViewById<Spinner>(R.id.dateSpinner)
+        dateSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                dates,
+            )
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    date = parent?.getItemAtPosition(position) as LocalDate
+
+                    val timeSpinner = findViewById<Spinner>(R.id.timeSpinner)
+                    val times = movieScheduler.getBookableTimes(date)
+                    timeSpinner.adapter =
+                        ArrayAdapter(
+                            this@BookingActivity,
+                            android.R.layout.simple_spinner_item,
+                            times,
+                        )
+
+                    timeSpinner.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                time = parent?.getItemAtPosition(position) as LocalTime
+                                print(time)
+                            }
+
+                            override fun onNothingSelected(parent: AdapterView<*>?) {}
+                        }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     private fun setupScreen() {
@@ -38,8 +91,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayMovieInfo() {
-        val movie = intent.intentSerializable("Movie", Movie::class.java)
+    private fun displayMovieInfo(movie: Movie) {
         val poster = findViewById<ImageView>(R.id.poster)
         poster.setImageResource(movie.posterRes)
 
@@ -47,7 +99,8 @@ class BookingActivity : AppCompatActivity() {
         title.text = movie.title
 
         val screeningDate = findViewById<TextView>(R.id.screeningDate)
-        screeningDate.text = getString(R.string.date_text, movie.startScreeningDate, movie.endScreeningDate)
+        screeningDate.text =
+            getString(R.string.date_text, movie.startScreeningDate, movie.endScreeningDate)
 
         val runningTime = findViewById<TextView>(R.id.runningTime)
         runningTime.text = getString(R.string.runningTime_text, movie.runningTime.toString())
@@ -85,7 +138,7 @@ class BookingActivity : AppCompatActivity() {
 //            .show()
     }
 
-    private fun updateQuantity()  {
+    private fun updateQuantity() {
         quantityView.text = ticketQuantity.toString()
     }
 }
