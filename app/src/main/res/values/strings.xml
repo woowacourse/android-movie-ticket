@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="movieDate">상영일: %1$s</string>
+    <string name="movieDate">상영일: %1$s ~ %2$s</string>
     <string name="movieTime">러닝타임: %1$s분</string>
 </resources>

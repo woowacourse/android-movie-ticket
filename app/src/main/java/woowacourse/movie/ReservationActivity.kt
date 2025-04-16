@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
+import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var count = 1
@@ -45,8 +46,12 @@ class ReservationActivity : AppCompatActivity() {
             updateCounterText()
         }
 
+        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+        val startDateFormatted = movie?.date?.startDate?.format(formatter)
+        val endDateFormatted = movie?.date?.endDate?.format(formatter)
+
         movieTitleTextView.text = movie?.title
-        movieDateTextView.text = getString(R.string.movieDate, movie?.date)
+        movieDateTextView.text = getString(R.string.movieDate, startDateFormatted, endDateFormatted)
         movieTimeTextView.text = getString(R.string.movieTime, movie?.time)
         movie?.image?.let { moviePosterImageView.setImageResource(it) }
     }

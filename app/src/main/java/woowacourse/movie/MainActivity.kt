@@ -6,8 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MyAdapter
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             Movie(
                 R.drawable.harry,
                 "해리 포터와 마법사의 돌",
-                "2025.4.1",
+                Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
                 "152",
             ),
         )

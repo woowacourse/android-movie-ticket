@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.ReservationActivity
+import java.time.format.DateTimeFormatter
 
 class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int {
@@ -40,9 +41,13 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
         val timeTextView: TextView = view.findViewById(R.id.movie_time)
         val reserveButton: Button = view.findViewById(R.id.reserve_button)
 
+        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+        val startDateFormatted = items[position].date.startDate.format(formatter)
+        val endDateFormatted = items[position].date.endDate.format(formatter)
+
         imageView.setImageResource(items[position].image)
         titleTextView.text = items[position].title
-        dateTextView.text = parent?.context?.getString(R.string.movieDate, items[position].date)
+        dateTextView.text = parent?.context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
         timeTextView.text = parent?.context?.getString(R.string.movieTime, items[position].time)
 
         reserveButton.setOnClickListener {

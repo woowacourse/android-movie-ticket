@@ -5,6 +5,6 @@ import java.io.Serializable
 data class Movie(
     val image: Int,
     val title: String,
-    val date: String,
+    val date: Date,
     val time: String,
 ) : Serializable
