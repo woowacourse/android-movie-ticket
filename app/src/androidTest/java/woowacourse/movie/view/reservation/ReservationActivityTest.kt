@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.view.fixture.fakeContext
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 class ReservationActivityTest {
     @Before
@@ -25,8 +25,8 @@ class ReservationActivityTest {
                 title = "해리 포터와 마법사의 돌",
                 screeningPeriod =
                     ScreeningPeriod(
-                        LocalDateTime.of(2025, 4, 1, 0, 0),
-                        LocalDateTime.of(2025, 4, 25, 0, 0),
+                        LocalDate.of(2025, 4, 1),
+                        LocalDate.of(2025, 4, 25),
                     ),
                 runningTime = 152,
             )

@@ -2,10 +2,10 @@ package woowacourse.movie.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 @Parcelize
 data class ScreeningPeriod(
-    val startDate: LocalDateTime,
-    val endDate: LocalDateTime,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
 ) : Parcelable
