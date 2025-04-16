@@ -3,4 +3,21 @@
     <string name="movie_screening_date">상영일: %s ~ %s</string>
     <string name="movie_running_time">러닝타임: %d분</string>
     <string name="movie_reservation">지금 예매</string>
+    <string-array name="running_time_array">
+        <item>09:00</item>
+        <item>11:00</item>
+        <item>13:00</item>
+        <item>15:00</item>
+        <item>17:00</item>
+        <item>19:00</item>
+        <item>21:00</item>
+        <item>23:00</item>
+    </string-array>
+
+    <string-array name="reservation_day_array">
+        <item>2025-04-01</item>
+        <item>2025-04-02</item>
+        <item>2025-04-03</item>
+        <item>2025-04-03</item>
+    </string-array>
 </resources>

@@ -1,14 +1,15 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.ReservationCompleteActivity.Companion.MOVIE_SCREENING_DATE_KEY
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -28,6 +29,22 @@ class ReservationActivity : AppCompatActivity() {
         val bookedRunningDayText = findViewById<TextView>(R.id.booked_movie_running_day_text)
         val titleTextView = findViewById<TextView>(R.id.booked_movie_title_text)
         val runningTimeTextView = findViewById<TextView>(R.id.booked_movie_running_time_text)
+        val runningTimeSpinner = findViewById<Spinner>(R.id.time_picker_actions)
+        val reservationDaySpinner = findViewById<Spinner>(R.id.date_picker_actions)
+
+        val runningTimeArray = resources.getStringArray(R.array.running_time_array)
+        val runningTimeAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, runningTimeArray)
+
+        val reservationDayArray = resources.getStringArray(R.array.reservation_day_array)
+        val reservationDayAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, reservationDayArray)
+
+        runningTimeSpinner.adapter = runningTimeAdapter
+        reservationDaySpinner.adapter = reservationDayAdapter
+
+        runningTimeSpinner.setSelection(0)
+        reservationDaySpinner.setSelection(0)
 
         memberPlusButton.setOnClickListener {
             memberCount.text = memberCount.text.toString()
@@ -66,8 +83,6 @@ class ReservationActivity : AppCompatActivity() {
             R.string.movie_running_time,
             runningTime.toInt()
         )
-
-
     }
 
     companion object {
