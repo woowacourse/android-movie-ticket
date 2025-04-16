@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         allItems = mutableListOf(
-            MovieItem(R.drawable.harry_potter_poster, "해리 포터와 마법사의 돌", "2025.4.1", "152분")
+            MovieItem(R.drawable.harry_potter_poster, "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25","152분")
         )
 
         val listView = findViewById<ListView>(R.id.movie_list)

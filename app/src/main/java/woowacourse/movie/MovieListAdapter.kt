@@ -17,21 +17,26 @@ class MovieListAdapter(context: Context, items: MutableList<MovieItem>): ArrayAd
         val item = getItem(position)
         val image = view.findViewById<ImageView>(R.id.movie_image)
         val title = view.findViewById<TextView>(R.id.title)
-        val date = view.findViewById<TextView>(R.id.start_date)
+        val startDate = view.findViewById<TextView>(R.id.start_date)
+        val endDate = view.findViewById<TextView>(R.id.end_date)
         val runningTime = view.findViewById<TextView>(R.id.running_time)
 
         item?.let {
             image.setImageResource(it.poster)
             title.text = it.title
-            date.text = it.date
+            startDate.text = it.startDate
+            endDate.text = it.endDate
             runningTime.text = it.runningTime
         }
 
         val button = view.findViewById<Button>(R.id.reservation_button)
         button.setOnClickListener {
-            val intent = Intent(context,BookingResultActivity::class.java).apply {
+            val intent = Intent(context,BookingActivity::class.java).apply {
+                putExtra("POSTER",item?.poster)
                 putExtra("TITLE",title.text)
-                putExtra("DATE",date.text)
+                putExtra("START_DATE",startDate.text)
+                putExtra("END_DATE",endDate.text)
+                putExtra("RUNNING_TIME",runningTime.text)
             }
             context.startActivity(intent)
         }
