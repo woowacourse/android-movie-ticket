@@ -1,5 +1,6 @@
 package woowacourse.movie.view.movies
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -8,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.view.reservation.result.ReservationResultActivity
 
 class MoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +36,15 @@ class MoviesActivity : AppCompatActivity() {
                 movies,
                 object : OnMovieEventListener {
                     override fun onClick(movie: Movie) {
+                        val bundle = Bundle()
+                        movie.let {
+                            bundle.putString(getString(R.string.bundle_key_movie_title), it.title)
+                            bundle.putString(getString(R.string.bundle_key_movie_date), it.date)
+                        }
+
+                        startActivity(
+                            Intent(this@MoviesActivity, ReservationResultActivity::class.java).putExtras(bundle),
+                        )
                     }
                 },
             )

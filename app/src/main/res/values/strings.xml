@@ -4,4 +4,7 @@
     <string name="movie_date">상영일: %s</string>
     <string name="running_time">러닝타임: %s분</string>
     <string name="reservation_button_text">지금 예매</string>
+
+    <string name="bundle_key_movie_title">title</string>
+    <string name="bundle_key_movie_date">date</string>
 </resources>
