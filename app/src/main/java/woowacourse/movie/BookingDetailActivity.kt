@@ -14,6 +14,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.time.DayOfWeek.SATURDAY
+import java.time.DayOfWeek.SUNDAY
 import java.time.LocalDate
 
 class BookingDetailActivity : AppCompatActivity() {
@@ -49,14 +51,22 @@ class BookingDetailActivity : AppCompatActivity() {
                 LocalDate.parse(endDate),
             )
 
-        findViewById<Spinner>(R.id.sp_booking_detail_date).adapter =
-            ArrayAdapter<LocalDate>(
-                this,
-                android.R.layout.simple_spinner_item,
-                dates,
+        val dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
+        val timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
+
+        val weekdaysTimes: List<String> =
+            listOf(
+                "10:00",
+                "12:00",
+                "14:00",
+                "16:00",
+                "18:00",
+                "20:00",
+                "22:00",
+                "24:00",
             )
 
-        val times: List<String> =
+        val weekendsTimes: List<String> =
             listOf(
                 "09:00",
                 "11:00",
@@ -68,12 +78,47 @@ class BookingDetailActivity : AppCompatActivity() {
                 "23:00",
             )
 
-        findViewById<Spinner>(R.id.sp_booking_detail_time).adapter =
+        dateSpinner.adapter =
+            ArrayAdapter<LocalDate>(
+                this,
+                android.R.layout.simple_spinner_item,
+                dates,
+            )
+
+        timeSpinner.adapter =
             ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_spinner_item,
-                times,
+                weekendsTimes,
             )
+
+        dateSpinner.onItemSelectedListener =
+            object : android.widget.AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: android.widget.AdapterView<*>?,
+                    view: android.view.View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate = parent?.getItemAtPosition(position) as LocalDate
+                    val isWeekend =
+                        selectedDate.dayOfWeek == SATURDAY ||
+                            selectedDate.dayOfWeek == SUNDAY
+
+                    val newTimes = if (isWeekend) weekendsTimes else weekdaysTimes
+
+                    timeSpinner.adapter =
+                        ArrayAdapter(
+                            this@BookingDetailActivity,
+                            android.R.layout.simple_spinner_item,
+                            newTimes,
+                        ).also {
+                            it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        }
+                }
+
+                override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
+            }
 
         findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
             if (ticketCount > 0) {
@@ -93,10 +138,8 @@ class BookingDetailActivity : AppCompatActivity() {
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
-                    val selectedDate =
-                        findViewById<Spinner>(R.id.sp_booking_detail_date).selectedItem.toString()
-                    val selectedTime =
-                        findViewById<Spinner>(R.id.sp_booking_detail_time).selectedItem.toString()
+                    val selectedDate = dateSpinner.selectedItem.toString()
+                    val selectedTime = timeSpinner.selectedItem.toString()
 
                     val intent =
                         BookingCompleteActivity.newIntent(
