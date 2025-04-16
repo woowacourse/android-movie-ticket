@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.ReservationActivity.Companion.MOVIE_DATA_KEY
 import woowacourse.movie.model.Movie
 import java.time.format.DateTimeFormatter
 
@@ -23,9 +24,9 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
         val data =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("data", Movie::class.java)
+                intent.getSerializableExtra(MOVIE_DATA_KEY, Movie::class.java)
             } else {
-                intent.getSerializableExtra("data") as Movie
+                intent.getSerializableExtra(MOVIE_DATA_KEY) as Movie
             }
 
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)

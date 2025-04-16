@@ -34,50 +34,45 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val data =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra("data", Movie::class.java)
-            } else {
-                intent.getSerializableExtra("data") as Movie
-            }
+        val data = getSelectedMovieData()
+        val peopleCount = findViewById<TextView>(R.id.tv_reservation_people_count)
+        setupMovieReservationInfo(data)
+        setupDateAdapter(data)
+        setupTimeAdapter()
+        setupMinusButtonClick(peopleCount)
+        setupPlusButtonClick(peopleCount)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun getSelectedMovieData(): Movie =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(MOVIE_DATA_KEY, Movie::class.java) ?: Movie.value
+        } else {
+            intent.getSerializableExtra(MOVIE_DATA_KEY) as Movie
+        }
+
+    private fun setupMovieReservationInfo(movie: Movie) {
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
         val poster =
             AppCompatResources.getDrawable(
                 this,
-                data?.poster ?: R.drawable.lalaland,
+                movie.poster,
             )
         posterImageView.setImageDrawable(poster)
 
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_title)
-        movieTitleTextView.text = data?.title
+        movieTitleTextView.text = movie.title
 
         val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
-        val startDate = data?.startDate?.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-        val endDate = data?.endDate?.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        val startDate = movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        val endDate = movie.endDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
         val runningTimeTextView = findViewById<TextView>(R.id.tv_reservation_running_time)
-        val runningTime = data?.runningTime
+        val runningTime = movie.runningTime
         runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
-
-        setupDateAdapter(data!!)
-        setupTimeAdapter()
-
-        val peopleCount = findViewById<TextView>(R.id.tv_reservation_people_count)
-        findViewById<Button>(R.id.btn_reservation_minus_people_count).setOnClickListener {
-            if (peopleCount.text.toString().toInt() == 1) {
-                Toast.makeText(this, "최소 1명은 선택해야 합니다.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            peopleCount.text = (peopleCount.text.toString().toInt() - 1).toString()
-        }
-        findViewById<Button>(R.id.btn_reservation_plus_people_count).setOnClickListener {
-            peopleCount.text = (peopleCount.text.toString().toInt() + 1).toString()
-        }
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setupDateAdapter(movie: Movie) {
@@ -117,7 +112,9 @@ class ReservationActivity : AppCompatActivity() {
             times =
                 when (now.dayOfWeek) {
                     DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY ->
-                        weekdayTime.timeTable(now.hour)
+                        weekdayTime.timeTable(
+                            now.hour,
+                        )
 
                     DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> weekendTime.timeTable(now.hour)
 
@@ -127,7 +124,9 @@ class ReservationActivity : AppCompatActivity() {
             times =
                 when (selectedDate.dayOfWeek) {
                     DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY ->
-                        weekdayTime.map { "$it:00" }
+                        weekdayTime.map {
+                            "$it:00"
+                        }
 
                     DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> weekendTime.map { "$it:00" }
                     null -> emptyList()
@@ -142,6 +141,22 @@ class ReservationActivity : AppCompatActivity() {
             )
 
         findViewById<Spinner>(R.id.spinner_reservation_time).adapter = timeAdapter
+    }
+
+    private fun setupPlusButtonClick(peopleCount: TextView) {
+        findViewById<Button>(R.id.btn_reservation_plus_people_count).setOnClickListener {
+            peopleCount.text = (peopleCount.text.toString().toInt() + 1).toString()
+        }
+    }
+
+    private fun setupMinusButtonClick(peopleCount: TextView) {
+        findViewById<Button>(R.id.btn_reservation_minus_people_count).setOnClickListener {
+            if (peopleCount.text.toString().toInt() == 1) {
+                Toast.makeText(this, "최소 1명은 선택해야 합니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            peopleCount.text = (peopleCount.text.toString().toInt() - 1).toString()
+        }
     }
 
     private fun ClosedRange<LocalDate>.toList(): List<String> {
@@ -161,11 +176,6 @@ class ReservationActivity : AppCompatActivity() {
             }
         }
         return emptyList()
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return super.onSupportNavigateUp()
     }
 
     private val weekdayTime =
@@ -197,5 +207,14 @@ class ReservationActivity : AppCompatActivity() {
         val month = slice(5..6).toInt()
         val date = slice(8..9).toInt()
         return LocalDate.of(year, month, date)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
+    }
+
+    companion object {
+        const val MOVIE_DATA_KEY = "data"
     }
 }
