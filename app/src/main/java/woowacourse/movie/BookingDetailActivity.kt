@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -30,11 +31,13 @@ class BookingDetailActivity : AppCompatActivity() {
         val startDate = intent.getStringExtra(MOVIE_START_DATE_KEY)
         val endDate = intent.getStringExtra(MOVIE_END_DATE_KEY)
         val runningTime = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY)
+        val poster = intent.getIntExtra(MOVIE_POSTER_KEY, 0)
 
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_detail_date).text = "$startDate ~ $endDate"
         findViewById<TextView>(R.id.tv_booking_detail_running_time).text = "${runningTime}분"
         findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
 
         val dates: List<LocalDate> =
             getDatesBetween(
@@ -99,6 +102,7 @@ class BookingDetailActivity : AppCompatActivity() {
         const val MOVIE_START_DATE_KEY = "movie_start_date"
         const val MOVIE_END_DATE_KEY = "movie_end_date"
         const val MOVIE_RUNNING_TIME_KEY = "movie_running_time"
+        const val MOVIE_POSTER_KEY = "movie_poster"
 
         fun newIntent(
             context: Context,
@@ -106,12 +110,14 @@ class BookingDetailActivity : AppCompatActivity() {
             startDate: String,
             endDate: String,
             runningTime: String,
+            poster: Int,
         ): Intent =
             Intent(context, BookingDetailActivity::class.java).apply {
                 putExtra(MOVIE_TITLE_KEY, title)
                 putExtra(MOVIE_START_DATE_KEY, startDate)
                 putExtra(MOVIE_END_DATE_KEY, endDate)
                 putExtra(MOVIE_RUNNING_TIME_KEY, runningTime)
+                putExtra(MOVIE_POSTER_KEY, poster)
             }
     }
 }

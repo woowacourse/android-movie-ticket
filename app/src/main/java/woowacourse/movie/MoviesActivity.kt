@@ -33,6 +33,7 @@ class MoviesActivity : AppCompatActivity() {
                 movie.startDate.toString(),
                 movie.endDate.toString(),
                 movie.runningTime.toString(),
+                movie.poster,
             )
         startActivity(intent)
     }
