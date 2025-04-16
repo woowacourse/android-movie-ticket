@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.R.layout
 import woowacourse.movie.ReservationCompleteActivity.Companion.TICKET_DATA_KEY
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieTicket
@@ -91,7 +92,7 @@ class ReservationActivity : AppCompatActivity() {
         val dateAdapter =
             ArrayAdapter(
                 this,
-                com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
+                layout.support_simple_spinner_dropdown_item,
                 duration,
             )
 
@@ -146,7 +147,7 @@ class ReservationActivity : AppCompatActivity() {
         val timeAdapter =
             ArrayAdapter(
                 this,
-                com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
+                layout.support_simple_spinner_dropdown_item,
                 times,
             )
 
