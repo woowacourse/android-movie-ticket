@@ -30,7 +30,7 @@ class Booking(
 
     private fun screeningTimesType(
         date: LocalDate,
-        baseTime: LocalTime = LocalTime.of(9, 0),
+        baseTime: LocalTime = LocalTime.of(8, 0),
     ): List<String> {
         if (isWeekend(date)) {
             return weekendScreeningTimes.filter { time -> time == LocalTime.MIDNIGHT || time.isAfter(baseTime) }

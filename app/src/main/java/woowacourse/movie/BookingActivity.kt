@@ -17,8 +17,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.model.Booking
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.ScreeningDateAdapter
-import woowacourse.movie.model.ScreeningTimeAdapter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
