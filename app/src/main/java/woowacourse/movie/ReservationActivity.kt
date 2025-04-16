@@ -47,5 +47,12 @@ class ReservationActivity : AppCompatActivity() {
         val runningTimeTextView = findViewById<TextView>(R.id.tv_reservation_running_time)
         val runningTime = data?.runningTime
         runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }
