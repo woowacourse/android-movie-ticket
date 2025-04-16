@@ -20,6 +20,12 @@ class MainActivityTest {
     }
 
     @Test
+    fun `상영일이_표시된다`() {
+        onView(withId(R.id.tv_item_movie_screening_date))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
     fun `목록에_영화_정보를_표시한다`() {
         onView(withId(R.id.lv_main_movies))
             .check(matches(isDisplayed()))
