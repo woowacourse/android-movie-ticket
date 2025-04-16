@@ -7,7 +7,12 @@ import java.time.LocalDate
 @Parcelize
 data class Movie(
     val title: String,
-    val screeningDate: LocalDate,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
     val runningTime: Int,
     val poster: Int,
-) : Parcelable
+) : Parcelable {
+    init {
+        require(startDate <= endDate)
+    }
+}

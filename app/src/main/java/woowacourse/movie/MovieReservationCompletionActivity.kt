@@ -32,6 +32,6 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
         val screeningDate = findViewById<TextView>(R.id.screening_date)
 
         title.text = movie?.title
-        screeningDate.text = movie?.screeningDate?.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        screeningDate.text = movie?.startDate?.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
     }
 }

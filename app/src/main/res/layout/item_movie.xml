@@ -52,7 +52,7 @@
                 android:id="@+id/screening_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2025.4.1"
+                android:text="2025.4.1 ~ 2025.4.25"
                 android:textColor="@color/black"
                 android:textSize="12dp" />
 
