@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
@@ -46,26 +48,78 @@ class BookingDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
 
-        dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
-        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
+        setupDateSpinner(startDate, endDate)
+        setupTimeSpinner(startDate)
 
-        dateAdapter =
-            DateAdapter(
-                this,
-                LocalDate.parse(startDate),
-                LocalDate.parse(endDate),
+        setupDateSpinnerItemClickListener()
+        setupTicketCountClickListeners()
+
+        setupSelectCompleteClickListener(title)
+    }
+
+    private fun setupSelectCompleteClickListener(title: String) {
+        findViewById<Button>(R.id.btn_booking_detail_select_complete).setOnClickListener {
+            showSelectCompleteDialog(title)
+        }
+    }
+
+    private fun showSelectCompleteDialog(title: String) {
+        AlertDialog
+            .Builder(this)
+            .setTitle("예매 확인")
+            .setMessage("정말 예매하시겠습니까?")
+            .setPositiveButton("예매 완료") { _, _ ->
+                navigateToBookingComplete(title)
+            }.setNegativeButton("취소", null)
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun navigateToBookingComplete(title: String) {
+        val selectedDate = dateSpinner.selectedItem.toString()
+        val selectedTime = timeSpinner.selectedItem.toString()
+
+        val intent =
+            BookingCompleteActivity.newIntent(
+                context = this,
+                title = title,
+                date = selectedDate,
+                time = selectedTime,
+                ticketCount = ticketCount,
             )
-        dateSpinner.adapter = dateAdapter
 
-        timeAdapter = TimeAdapter(this)
-        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
-        timeSpinner.adapter = timeAdapter
+        startActivity(intent)
+        finish()
+    }
 
+    private fun setupTicketCountClickListeners() {
+        findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
+            decreaseTicketCount()
+        }
+
+        findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
+            increaseTicketCount()
+        }
+    }
+
+    private fun decreaseTicketCount() {
+        if (ticketCount > 0) {
+            ticketCount--
+            findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        }
+    }
+
+    private fun increaseTicketCount() {
+        ticketCount++
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+    }
+
+    private fun setupDateSpinnerItemClickListener() {
         dateSpinner.onItemSelectedListener =
-            object : android.widget.AdapterView.OnItemSelectedListener {
+            object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
-                    parent: android.widget.AdapterView<*>?,
-                    view: android.view.View?,
+                    parent: AdapterView<*>?,
+                    view: View?,
                     position: Int,
                     id: Long,
                 ) {
@@ -74,45 +128,31 @@ class BookingDetailActivity : AppCompatActivity() {
                     timeAdapter.updateTimes(dateType)
                 }
 
-                override fun onNothingSelected(parent: android.widget.AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+    }
 
-        findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
-            if (ticketCount > 0) {
-                ticketCount--
-                findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
-            }
-        }
+    private fun setupTimeSpinner(startDate: String) {
+        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
 
-        findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
-            ticketCount++
-            findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
-        }
+        timeAdapter = TimeAdapter(this)
+        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
+        timeSpinner.adapter = timeAdapter
+    }
 
-        findViewById<Button>(R.id.btn_booking_detail_select_complete).setOnClickListener {
-            AlertDialog
-                .Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
-                    val selectedDate = dateSpinner.selectedItem.toString()
-                    val selectedTime = timeSpinner.selectedItem.toString()
+    private fun setupDateSpinner(
+        startDate: String,
+        endDate: String,
+    ) {
+        dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
 
-                    val intent =
-                        BookingCompleteActivity.newIntent(
-                            context = this,
-                            title = title,
-                            date = selectedDate,
-                            time = selectedTime,
-                            ticketCount = ticketCount,
-                        )
-
-                    startActivity(intent)
-                    finish()
-                }.setNegativeButton("취소", null)
-                .setCancelable(false)
-                .show()
-        }
+        dateAdapter =
+            DateAdapter(
+                this,
+                LocalDate.parse(startDate),
+                LocalDate.parse(endDate),
+            )
+        dateSpinner.adapter = dateAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
