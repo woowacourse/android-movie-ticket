@@ -8,7 +8,7 @@ class Reservation(
     var count: Int,
     val reservedTime: LocalDateTime,
 ) : Serializable {
-    fun totalPrice(price: Int): Int = price * count
+    fun totalPrice(): Int = TICKET_PRICE * count
 
     fun addCount() = Reservation(title, ++count, reservedTime)
 
@@ -18,4 +18,8 @@ class Reservation(
     }
 
     fun updateReservedTime(time: LocalDateTime) = Reservation(title, count, time)
+
+    companion object {
+        private const val TICKET_PRICE = 13000
+    }
 }

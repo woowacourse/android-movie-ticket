@@ -47,4 +47,57 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="상영일" />
+
+    <TextView
+        android:id="@+id/tv_ticket_tier"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="end"
+        android:text="@string/ticket_tier"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@id/tv_ticket_count"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_screening_date" />
+
+    <TextView
+        android:id="@+id/tv_ticket_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_ticket_tier"
+        app:layout_constraintTop_toBottomOf="@id/tv_screening_date"
+        tools:text="N명" />
+
+    <TextView
+        android:id="@+id/tv_total_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="end"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@id/tv_purchase_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_ticket_tier"
+        tools:text="26,000원" />
+
+    <TextView
+        android:id="@+id/tv_purchase_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/purchase_type"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_total_price"
+        app:layout_constraintTop_toBottomOf="@id/tv_ticket_tier" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

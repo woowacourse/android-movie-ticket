@@ -10,4 +10,6 @@
     <string name="select_complete">선택 완료</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <string name="ticket_tier">일반</string>
+    <string name="purchase_type">(현장 결제)</string>
 </resources>
