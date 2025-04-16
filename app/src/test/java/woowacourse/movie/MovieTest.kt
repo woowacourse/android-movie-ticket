@@ -13,13 +13,15 @@ class MovieTest {
             Movie(
                 "승부",
                 LocalDate.of(2025, 3, 26),
+                LocalDate.of(2025, 3, 27),
                 115,
                 R.drawable.match,
             )
 
         assertSoftly(movie) {
             title shouldBe "승부"
-            screeningDate shouldBe LocalDate.of(2025, 3, 26)
+            startScreeningDate shouldBe LocalDate.of(2025, 3, 26)
+            endScreeningDate shouldBe LocalDate.of(2025, 3, 27)
             runningTime shouldBe 115
             posterRes shouldBe R.drawable.match
         }
