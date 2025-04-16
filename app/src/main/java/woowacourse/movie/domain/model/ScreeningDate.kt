@@ -3,9 +3,9 @@ package woowacourse.movie.domain.model
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
-class ScreeningDate(
-    private val startDate: LocalDate,
-    private val endDate: LocalDate,
+data class ScreeningDate(
+    val startDate: LocalDate,
+    val endDate: LocalDate,
 ) {
     fun bookingDates(today: LocalDate): List<LocalDate> {
         val start = getStartDate(today)
