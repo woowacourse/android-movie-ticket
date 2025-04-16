@@ -1,7 +1,5 @@
 package woowacourse.movie.ui.view
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -9,10 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.ReservedMovie
-import java.io.Serializable
+import woowacourse.movie.model.BookedMovie
 
-class ReservationActivity : AppCompatActivity() {
+class BookingSummaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,19 +20,10 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val reservedMovie = intent.intentSerializable("Reservation", ReservedMovie::class.java)
+        val bookedMovie = intent.intentSerializable("Booking", BookedMovie::class.java)
         val title = findViewById<TextView>(R.id.title)
         val screeningDate = findViewById<TextView>(R.id.screeningDate)
-        title.text = reservedMovie.title
-        screeningDate.text = reservedMovie.screeningDate.toString()
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun <T: Serializable> Intent.intentSerializable(key: String, customClass: Class<T>): T {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            this.getSerializableExtra(key, customClass)!!
-        } else {
-            this.getSerializableExtra(key) as T
-        }
+        title.text = bookedMovie.title
+        screeningDate.text = bookedMovie.screeningDate.toString()
     }
 }
