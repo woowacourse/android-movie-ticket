@@ -1,12 +1,10 @@
 package woowacourse.movie.domain
 
 import java.io.Serializable
-import java.time.LocalDate
 
 data class Movie(
     val title: String,
-    val startDate: LocalDate,
-    val endDate: LocalDate,
+    val screeningDate: ScreeningDate,
     val runningTime: RunningTime,
     val imageUrl: Int,
 ) : Serializable {

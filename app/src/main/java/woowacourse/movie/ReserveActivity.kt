@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
-import java.time.LocalDate
+import woowacourse.movie.domain.ScreeningDate
 import java.time.format.DateTimeFormatter
 
 class ReserveActivity : AppCompatActivity() {
@@ -45,7 +45,7 @@ class ReserveActivity : AppCompatActivity() {
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
         val runningTime = findViewById<TextView>(R.id.tv_running_time)
 
-        val formattedScreeningDate = formatting(movie.startDate, movie.endDate)
+        val formattedScreeningDate = formatting(movie.screeningDate)
 
         poster.setImageResource(movie.imageUrl)
         title.text = movie.title
@@ -53,12 +53,9 @@ class ReserveActivity : AppCompatActivity() {
         runningTime.text = MINUTE.format(movie.runningTime.time)
     }
 
-    private fun formatting(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ): String {
-        val start = startDate.format(formatter)
-        val end = endDate.format(formatter)
+    private fun formatting(screeningDate: ScreeningDate): String {
+        val start = screeningDate.startDate.format(formatter)
+        val end = screeningDate.endDate.format(formatter)
         return SCREENING_DATE.format(start, end)
     }
 

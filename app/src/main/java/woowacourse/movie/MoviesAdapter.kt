@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.domain.Movie
-import java.time.LocalDate
+import woowacourse.movie.domain.ScreeningDate
 import java.time.format.DateTimeFormatter
 
 class MoviesAdapter(
@@ -49,7 +49,7 @@ class MoviesAdapter(
         val screeningDate = itemView.findViewById<TextView>(R.id.tv_screening_date)
         val runningTime = itemView.findViewById<TextView>(R.id.tv_running_time)
 
-        val formattedScreeningDate = formatting(item.startDate, item.endDate)
+        val formattedScreeningDate = formatting(item.screeningDate)
 
         poster.setImageResource(item.imageUrl)
         title.text = item.title
@@ -70,12 +70,9 @@ class MoviesAdapter(
         }
     }
 
-    private fun formatting(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ): String {
-        val start = startDate.format(formatter)
-        val end = endDate.format(formatter)
+    private fun formatting(screeningDate: ScreeningDate): String {
+        val start = screeningDate.startDate.format(formatter)
+        val end = screeningDate.endDate.format(formatter)
         return SCREENING_DATE.format(start, end)
     }
 

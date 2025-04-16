@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTime
+import woowacourse.movie.domain.ScreeningDate
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -33,8 +34,7 @@ class MainActivity : AppCompatActivity() {
             listOf(
                 Movie(
                     "해리포터와 마법사의 돌",
-                    startTime,
-                    endTime,
+                    ScreeningDate(startTime, endTime),
                     RunningTime(152),
                     R.drawable.harrypotter,
                 ),
