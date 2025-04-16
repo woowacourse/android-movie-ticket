@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -15,11 +16,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
+import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class MovieReservationActivity : AppCompatActivity() {
-    private var ticketCount = 0
+    private var ticketCount = MINIMUM_TICKET_COUNT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,19 +46,27 @@ class MovieReservationActivity : AppCompatActivity() {
             return
         }
 
+        val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
+        val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
         val scheduler = Scheduler()
-        initDateSpinner(movie, scheduler)
+        initDateSpinner(dateSpinner, timeSpinner, movie, scheduler)
+        initTimeSpinner(timeSpinner, dateSpinner.selectedItem as LocalDate, scheduler)
         initTicketCountButton()
-        initSelectButton()
+        initSelectButton(
+            movie,
+            dateSpinner,
+            timeSpinner,
+        )
     }
 
     private fun initDateSpinner(
+        dateSpinner: Spinner,
+        timeSpinner: Spinner,
         movie: Movie,
         scheduler: Scheduler,
     ) {
         val screeningDates =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
-        val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
         dateSpinner.adapter =
             ArrayAdapter(
                 this,
@@ -71,7 +82,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    initTimeSpinner(screeningDates[position], scheduler)
+                    initTimeSpinner(timeSpinner, screeningDates[position], scheduler)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -79,10 +90,10 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner(
+        timeSpinner: Spinner,
         selectedDate: LocalDate,
         scheduler: Scheduler,
     ) {
-        val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
         timeSpinner.adapter =
             ArrayAdapter(
                 this@MovieReservationActivity,
@@ -97,7 +108,7 @@ class MovieReservationActivity : AppCompatActivity() {
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
 
         decrementButton.setOnClickListener {
-            if (ticketCount == 0) return@setOnClickListener
+            if (ticketCount == MINIMUM_TICKET_COUNT) return@setOnClickListener
             ticketCount--
             ticketCountTextView.text = ticketCount.toString()
         }
@@ -108,17 +119,38 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSelectButton() {
+    private fun initSelectButton(
+        movie: Movie,
+        dateSpinner: Spinner,
+        timeSpinner: Spinner,
+    ) {
         val selectButton = findViewById<Button>(R.id.select_button)
         val alertDialog =
             AlertDialog
                 .Builder(this)
                 .setTitle(R.string.confirm_reservation_title)
                 .setMessage(R.string.confirm_reservation_message)
-                .setPositiveButton(R.string.confirm_reservation_text) { _, _ -> }
-                .setNegativeButton(R.string.cancel_text) { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(R.string.confirm_reservation_text) { _, _ ->
+                    val intent = Intent(this, MovieReservationCompletionActivity::class.java)
+                    val ticket =
+                        Ticket(
+                            movie = movie,
+                            showtime =
+                                LocalDateTime.of(
+                                    dateSpinner.selectedItem as LocalDate,
+                                    timeSpinner.selectedItem as LocalTime,
+                                ),
+                            count = ticketCount,
+                        )
+                    intent.putExtra("ticket", ticket)
+                    startActivity(intent)
+                }.setNegativeButton(R.string.cancel_text) { dialog, _ -> dialog.dismiss() }
         selectButton.setOnClickListener {
             alertDialog.show()
         }
+    }
+
+    companion object {
+        private const val MINIMUM_TICKET_COUNT = 1
     }
 }

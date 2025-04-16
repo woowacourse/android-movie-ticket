@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompletionActivity : AppCompatActivity() {
@@ -20,18 +20,23 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movie =
+        val ticket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra("movie", Movie::class.java)
+                intent.getParcelableExtra("ticket", Ticket::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                intent.getParcelableExtra("movie")
+                intent.getParcelableExtra("ticket")
             }
+        if (ticket == null) {
+            finish()
+            return
+        }
 
         val title = findViewById<TextView>(R.id.movie_title)
         val screeningDate = findViewById<TextView>(R.id.screening_date)
 
-        title.text = movie?.title
-        screeningDate.text = movie?.startDate?.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        title.text = ticket.movie.title
+        screeningDate.text =
+            ticket.movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
     }
 }
