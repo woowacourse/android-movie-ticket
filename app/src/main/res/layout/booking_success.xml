@@ -87,7 +87,43 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/booked_movie_title_text"
-            tools:text="2025.04.01"/>
+            tools:text="2025.04.01 10:00"/>
+
+        <TextView
+            android:id="@+id/booked_movie_running_time_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120sp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0"
+            android:lineSpacingMultiplier="1.29"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/booked_movie_title_text"
+            tools:text="일반 2명" />
+
+        <TextView
+            android:id="@+id/booked_movie_ticket_price_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180sp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0"
+            android:lineSpacingMultiplier="1.29"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/booked_movie_title_text"
+            tools:text="26,000원 (현장 결제)" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -38,5 +38,8 @@ class ReservationCompleteActivity : AppCompatActivity() {
     companion object {
         const val MOVIE_TITLE_KEY = "title"
         const val MOVIE_SCREENING_DATE_KEY = "screeningDate"
+        const val MOVIE_SCREENING_TIME_KEY = "screeningTime"
+        const val MEMBER_COUNT_KEY = "memberCount"
+        const val TICKET_PRICE_KEY = "ticketPrice"
     }
 }

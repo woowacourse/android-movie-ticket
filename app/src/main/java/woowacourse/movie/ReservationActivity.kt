@@ -1,5 +1,8 @@
 package woowacourse.movie
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -10,6 +13,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.MemberCount
+import woowacourse.movie.domain.Movie
+import java.time.LocalDateTime
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -25,6 +31,7 @@ class ReservationActivity : AppCompatActivity() {
 
         val memberPlusButton = findViewById<Button>(R.id.plus_button)
         val memberMinusButton = findViewById<Button>(R.id.minus_button)
+        val memberCommonButton = findViewById<Button>(R.id.common_button)
         val memberCount = findViewById<TextView>(R.id.count)
         val bookedRunningDayText = findViewById<TextView>(R.id.booked_movie_running_day_text)
         val titleTextView = findViewById<TextView>(R.id.booked_movie_title_text)
@@ -46,6 +53,9 @@ class ReservationActivity : AppCompatActivity() {
         runningTimeSpinner.setSelection(0)
         reservationDaySpinner.setSelection(0)
 
+        val runningDateTime = runningTimeSpinner.selectedItem
+        val reservationDay = reservationDaySpinner.selectedItem
+
         memberPlusButton.setOnClickListener {
             memberCount.text = memberCount.text.toString()
                 .toIntOrNull()
@@ -53,6 +63,7 @@ class ReservationActivity : AppCompatActivity() {
                 ?.toString()
                 ?: "1"
         }
+
 
         memberMinusButton.setOnClickListener {
             if (memberCount.text.toString().toInt() <= 1) {
@@ -66,6 +77,24 @@ class ReservationActivity : AppCompatActivity() {
                 ?: "1"
         }
 
+        memberCommonButton.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    navigateToReservationComplete(
+                        title.toString(),
+                        reservationDay.toString(),
+                        runningDateTime.toString(),
+                        memberCount.text.toString().toInt(),
+                        26000
+                    )
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
         val screenStartDate: String =
             intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
         val screenEndDate: String =
@@ -90,5 +119,35 @@ class ReservationActivity : AppCompatActivity() {
         const val MOVIE_SCREENING_START_DATE_KEY = "screeningStartDate"
         const val MOVIE_SCREENING_END_DATE_KEY = "screeningEndDate"
         const val MOVIE_RUNNING_TIME_KEY = "runningTime"
+    }
+
+
+    private fun navigateToReservationComplete(
+        title: String,
+        runningDate: String,
+        runningTime: String,
+        memberCount: Int,
+        ticketPrice: Int
+    ) {
+        val bundle =
+            Bundle().apply {
+                putString(ReservationCompleteActivity.MOVIE_TITLE_KEY, title)
+                putString(
+                    ReservationCompleteActivity.MOVIE_SCREENING_DATE_KEY,
+                    runningDate
+                )
+                putString(
+                    ReservationCompleteActivity.MOVIE_SCREENING_TIME_KEY,
+                    runningTime
+                )
+                putString(
+                    ReservationCompleteActivity.MEMBER_COUNT_KEY,
+                    memberCount.toString()
+                )
+                putString(ReservationCompleteActivity.TICKET_PRICE_KEY, ticketPrice.toString())
+            }
+        val intent =
+            Intent(this, ReservationCompleteActivity::class.java).apply { putExtras(bundle) }
+        startActivity(intent)
     }
 }
