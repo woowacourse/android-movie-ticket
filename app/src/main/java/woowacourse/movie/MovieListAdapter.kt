@@ -29,7 +29,7 @@ class MovieListAdapter(context: Context, items: MutableList<MovieItem>): ArrayAd
 
         val button = view.findViewById<Button>(R.id.reservation_button)
         button.setOnClickListener {
-            val intent = Intent(context,ReservationActivity::class.java).apply {
+            val intent = Intent(context,BookingResultActivity::class.java).apply {
                 putExtra("TITLE",title.text)
                 putExtra("DATE",date.text)
             }
