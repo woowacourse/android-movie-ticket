@@ -39,7 +39,15 @@ class MovieReservationActivity : AppCompatActivity() {
         }
 
         val scheduler = Scheduler()
-        val screeningDates = scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
+        initDateSpinner(movie, scheduler)
+    }
+
+    private fun initDateSpinner(
+        movie: Movie,
+        scheduler: Scheduler,
+    ) {
+        val screeningDates =
+            scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
         val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
         dateSpinner.adapter =
             ArrayAdapter(
@@ -47,8 +55,6 @@ class MovieReservationActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item,
                 screeningDates,
             )
-
-        val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
 
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -58,17 +64,23 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selected = screeningDates[position]
-                    timeSpinner.adapter =
-                        ArrayAdapter(
-                            this@MovieReservationActivity,
-                            android.R.layout.simple_spinner_item,
-                            scheduler.getShowTimes(selected, LocalDateTime.now()),
-                        )
+                    initTimeSpinner(screeningDates[position], scheduler)
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+    }
+
+    private fun initTimeSpinner(
+        selectedDate: LocalDate,
+        scheduler: Scheduler,
+    ) {
+        val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
+        timeSpinner.adapter =
+            ArrayAdapter(
+                this@MovieReservationActivity,
+                android.R.layout.simple_spinner_item,
+                scheduler.getShowTimes(selectedDate, LocalDateTime.now()),
+            )
     }
 }
