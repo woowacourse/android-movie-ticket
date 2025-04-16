@@ -8,8 +8,8 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 
-class MoviesActivity : BaseActivity() {
-    override fun initView() {
+class MoviesActivity : BaseActivity(R.layout.activity_movies) {
+    override fun setupViews() {
         setMovieListView()
     }
 

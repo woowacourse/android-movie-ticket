@@ -2,21 +2,24 @@ package woowacourse.movie.view.base
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity(
+    @LayoutRes private val layoutResId: Int,
+) : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_movies)
+        setContentView(layoutResId)
         setWindowInsets()
-        initView()
+        setupViews()
     }
 
-    abstract fun initView()
+    abstract fun setupViews()
 
     private fun setWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

@@ -7,8 +7,9 @@ import woowacourse.movie.R
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.movies.MoviesActivity
 
-class ReservationResultActivity : BaseActivity() {
-    override fun initView() {
+class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
+    override fun setupViews() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         displayReservationResult()
     }
 
@@ -21,18 +22,17 @@ class ReservationResultActivity : BaseActivity() {
     }
 
     private fun displayReservationResult() {
-        val title = intent.getStringExtra(getString(R.string.bundle_key_movie_title))
-        val date = intent.getStringExtra(getString(R.string.bundle_key_movie_date))
+        val title = intent?.getStringExtra(getString(R.string.bundle_key_movie_title)).orEmpty()
+        val date = intent?.getStringExtra(getString(R.string.bundle_key_movie_date)).orEmpty()
 
         val tvCancelDescription = findViewById<TextView>(R.id.tv_cancel_description)
-        tvCancelDescription.text =
-            getString(R.string.reservation_result_cancel_time_description, CANCELLATION_TIME)
+        tvCancelDescription?.let { it.text = getString(R.string.reservation_result_cancel_time_description, CANCELLATION_TIME) }
 
         val tvMovieTitle = findViewById<TextView>(R.id.tv_movie_title)
-        tvMovieTitle.text = title
+        tvMovieTitle?.let { it.text = title }
 
         val tvMovieDate = findViewById<TextView>(R.id.tv_movie_date)
-        tvMovieDate.text = date
+        tvMovieDate?.let { it.text = date }
     }
 
     companion object {
