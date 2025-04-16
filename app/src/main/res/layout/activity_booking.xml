@@ -21,17 +21,18 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:text="영화제목"
         android:textSize="35sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.071"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.614" />
+        app:layout_constraintVertical_bias="0.58" />
 
 
     <LinearLayout
@@ -42,33 +43,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.697">
+        app:layout_constraintVertical_bias="0.66">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="상영일: "
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2003.02.10"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" ~ "
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2003.02.15"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
@@ -80,20 +85,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.737">
+        app:layout_constraintVertical_bias="0.70">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="러닝타임 : "
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/running_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100분"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
     </LinearLayout>
 
@@ -102,24 +109,24 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="25dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8">
+        app:layout_constraintVertical_bias="0.81">
 
         <Spinner
             android:id="@+id/movie_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1" />
 
         <Spinner
             android:id="@+id/movie_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -128,14 +135,14 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="25dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.896">
+        app:layout_constraintVertical_bias="0.89">
 
         <Button
             android:layout_width="wrap_content"
@@ -151,7 +158,8 @@
             android:layout_weight="1"
             android:paddingHorizontal="100dp"
             android:text="0"
-            android:textSize="35dp" />
+            android:textSize="35dp"
+            android:textColor="@color/black"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -165,14 +173,14 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="25dp"
         android:text="선택 완료"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.978" />
+        app:layout_constraintVertical_bias="0.98" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
