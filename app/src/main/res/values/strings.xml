@@ -4,4 +4,8 @@
     <string name="date_text">상영일: %s</string>
     <string name="runningTime_text">러닝타임: %s분</string>
     <string name="cancel_message">영화 상영 시작 시간 15분 전까지 \n 취소가 가능합니다.</string>
+    <string name="minus_sign">-</string>
+    <string name="plus_sign">+</string>
+    <string name="default_quantity">0</string>
+    <string name="select_text">선택 완료</string>
 </resources>
