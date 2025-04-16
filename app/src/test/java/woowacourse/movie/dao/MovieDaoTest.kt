@@ -19,8 +19,7 @@ class MovieDaoTest {
         val actual = movieDao.movies()
         val expected = Movies(
             mapOf(
-                "해리포터와 마법사의 돌" to
-                        MovieFixture.movie
+                "해리포터와 마법사의 돌" to MovieFixture.movie
             )
         )
         assertThat(actual).isEqualTo(expected)

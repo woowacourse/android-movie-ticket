@@ -1,22 +1,24 @@
 package woowacourse.movie
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movies
+import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movies: Movies, private val context: Context) : BaseAdapter() {
+class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
+
     override fun getCount(): Int {
-        return movies.movies.size
+        return movies.size
     }
 
     // 특정 위치의 데이터를 반환
     override fun getItem(position: Int): Any {
-        return movies.movies.values.elementAt(position)
+        return movies[position]
     }
 
     // 특정 위치의 아이템 ID를 반환 (일반적으로 position을 사용)
@@ -27,32 +29,36 @@ class MovieListAdapter(private val movies: Movies, private val context: Context)
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup?
-    ): View? {
-        val view: View
-        val holder: ViewHolder
+        parent: ViewGroup
+    ): View {
+        val currentItem = getItem(position) as? Movie ?: return View(parent.context)
+        val view = convertView ?: LayoutInflater.from(parent.context)
+            .inflate(R.layout.movie_item, parent, false)
+        val holder = (view.tag as? ViewHolder) ?: ViewHolder(view).also { view.tag = it }
 
-        if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.list_item, parent, false)
-            holder = ViewHolder(view)
-            view.tag = holder
-        } else {
-            view = convertView
-            holder = view.tag as ViewHolder
-        }
-
-        val currentItem = getItem(position) as Movie
-        holder.nameText.text = currentItem.title
-        holder.runningTime.text = currentItem.runningTime.toString()
-        holder.screeningDate.text = currentItem.startDateTime.toString()
-
+        holder.titleTextView.text = currentItem.title
+        holder.runningTimeTextView.text = holder.runningTimeTextView.context.getString(
+            R.string.movie_running_time,
+            currentItem.runningTime.inWholeMinutes
+        )
+        holder.screeningDateTextView.text = holder.screeningDateTextView.context.getString(
+            R.string.movie_screening_date,
+            DateTimeFormatter.ofPattern("yyyy.MM.dd").format(currentItem.startDateTime)
+        )
+        holder.posterImageView.setImageDrawable(
+            AppCompatResources.getDrawable(
+                parent.context,
+                currentItem.posterUrl
+            )
+        )
+        parent.context
         return view
     }
 }
 
 private class ViewHolder(view: View) {
-    val nameText: TextView = view.findViewById(R.id.movieTitle)
-    val runningTime: TextView = view.findViewById(R.id.running_time)
-    val screeningDate: TextView = view.findViewById(R.id.screening_date)
-
+    val titleTextView: TextView = view.findViewById<TextView>(R.id.movie_title)
+    val runningTimeTextView: TextView = view.findViewById<TextView>(R.id.movie_running)
+    val screeningDateTextView: TextView = view.findViewById<TextView>(R.id.movie_date)
+    val posterImageView: ImageView = view.findViewById<ImageView>(R.id.movie_poster)
 }

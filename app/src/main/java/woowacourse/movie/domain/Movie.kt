@@ -5,7 +5,7 @@ import kotlin.time.Duration
 
 data class Movie(
     val title: String,
-    val posterUrl: String,
+    val posterUrl: Int,
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
     val runningTime: Duration,

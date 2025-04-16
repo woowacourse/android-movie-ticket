@@ -25,7 +25,7 @@ class MovieDao {
         val parsedRunningTime = runningTime.toInt().minutes
         return Pair(
             title,
-            Movie(title, posterUrl, startDateTime, endDateTime, parsedRunningTime),
+            Movie(title, posterUrl.toInt(), startDateTime, endDateTime, parsedRunningTime),
         )
     }
 
