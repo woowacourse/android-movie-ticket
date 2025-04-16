@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import java.time.LocalDateTime
+import woowacourse.movie.view.extension.convertLocalDateFormat
 
 class MovieListAdapter(
     private val movies: List<Movie>,
@@ -77,6 +77,4 @@ class MovieListAdapter(
             eventListener.onClick(movie)
         }
     }
-
-    private fun LocalDateTime.convertLocalDateFormat(): String = this.toLocalDate().toString()
 }

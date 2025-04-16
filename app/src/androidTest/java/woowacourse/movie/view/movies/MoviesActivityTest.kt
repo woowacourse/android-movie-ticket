@@ -30,7 +30,7 @@ class MoviesActivityTest {
             .inAdapterView(withId(R.id.lv_movie))
             .atPosition(0)
             .onChildView(withId(R.id.tv_date))
-            .check(matches(withText("상영일: 2025.4.1")))
+            .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
     }
 
     @Test

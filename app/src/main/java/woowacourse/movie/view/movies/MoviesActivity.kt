@@ -7,7 +7,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.view.base.BaseActivity
-import woowacourse.movie.view.reservation.result.ReservationResultActivity
+import woowacourse.movie.view.reservation.ReservationActivity
 import java.time.LocalDateTime
 
 class MoviesActivity : BaseActivity(R.layout.activity_movies) {
@@ -35,15 +35,12 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                 object : OnMovieEventListener {
                     override fun onClick(movie: Movie) {
                         val bundle = Bundle()
-//                        movie.let {
-//                            bundle.putString(getString(R.string.bundle_key_movie_title), it.title)
-//                            bundle.putString(getString(R.string.bundle_key_movie_date), it.date)
-//                        }
+                        bundle.putParcelable(getString(R.string.bundle_key_movie), movie)
 
                         startActivity(
                             Intent(
                                 this@MoviesActivity,
-                                ReservationResultActivity::class.java,
+                                ReservationActivity::class.java,
                             ).putExtras(bundle),
                         )
                     }

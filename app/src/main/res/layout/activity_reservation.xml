@@ -9,7 +9,7 @@
     tools:context=".view.reservation.ReservationActivity">
 
     <ImageView
-        android:id="@+id/tv_reservation_poster"
+        android:id="@+id/iv_reservation_poster"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
