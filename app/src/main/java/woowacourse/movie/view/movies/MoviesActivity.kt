@@ -20,19 +20,23 @@ class MoviesActivity : AppCompatActivity() {
 
     private fun setMovieListView() {
         val lvMovie = findViewById<ListView>(R.id.lv_movie)
-        val movies = listOf(
-            Movie(
-                R.drawable.harrypotter,
-                "해리 포터와 마법사의 돌",
-                getString(R.string.movie_date, "2025.4.1"),
-                getString(R.string.running_time, "152")
+        val movies =
+            listOf(
+                Movie(
+                    R.drawable.harrypotter,
+                    "해리 포터와 마법사의 돌",
+                    getString(R.string.movie_date, "2025.4.1"),
+                    getString(R.string.running_time, "152"),
+                ),
             )
-        )
-        val movieListAdapter = MovieListAdapter(movies, object : OnMovieEventListener {
-            override fun onClick(movie: Movie) {
-
-            }
-        })
+        val movieListAdapter =
+            MovieListAdapter(
+                movies,
+                object : OnMovieEventListener {
+                    override fun onClick(movie: Movie) {
+                    }
+                },
+            )
         lvMovie.adapter = movieListAdapter
     }
 
