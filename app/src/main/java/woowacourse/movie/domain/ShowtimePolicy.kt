@@ -15,7 +15,7 @@ class ShowtimePolicy {
     private val LocalDate.isHoliday: Boolean get() = dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY
 
     private val workingDayShowtimes: List<LocalTime> =
-        (WORKING_DAY_START_HOUR..END_HOUR step HOUR_INTERVAL).map { hour: Int ->
+        (WORKING_DAY_START_HOUR until END_HOUR step HOUR_INTERVAL).map { hour: Int ->
             LocalTime.of(
                 hour,
                 0,
@@ -23,7 +23,12 @@ class ShowtimePolicy {
         }
 
     private val holidayShowtimes: List<LocalTime> =
-        (HOLIDAY_START_HOUR..END_HOUR step HOUR_INTERVAL).map { hour: Int -> LocalTime.of(hour, 0) }
+        (HOLIDAY_START_HOUR until END_HOUR step HOUR_INTERVAL).map { hour: Int ->
+            LocalTime.of(
+                hour,
+                0,
+            )
+        }
 
     companion object {
         const val WORKING_DAY_START_HOUR = 10
