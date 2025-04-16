@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -81,6 +82,16 @@ class BookingDetailActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
             ticketCount++
             findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        }
+
+        findViewById<Button>(R.id.btn_booking_detail_select_complete).setOnClickListener {
+            AlertDialog
+                .Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                }.setNegativeButton("취소", null)
+                .show()
         }
     }
 
