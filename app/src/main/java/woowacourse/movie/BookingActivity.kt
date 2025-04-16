@@ -22,6 +22,7 @@ import java.time.format.DateTimeFormatter
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var date: String
+
     //private lateinit var time: String
     private var count = 0
 
@@ -108,7 +109,7 @@ class BookingActivity : AppCompatActivity() {
         val btnReserveConfirm = findViewById<Button>(R.id.btn_reserve_confirm)
         btnReserveConfirm.setOnClickListener {
             // 인원수가 0이 아니고, 날짜와 시간을 선택한 경우에만 선택을 할 수 있도록 해야 함
-            if(count>0 && date.isNotBlank()){
+            if (count > 0 && date.isNotBlank()) {
                 showConfirmDialog()
             }
         }
@@ -144,18 +145,18 @@ class BookingActivity : AppCompatActivity() {
         return date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
     }
 
-    private fun showConfirmDialog(){
+    private fun showConfirmDialog() {
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _,_ ->
+            .setPositiveButton("예매 완료") { _, _ ->
                 val intent = Intent(this, BookingCompleteActivity::class.java)
                 //intent.putExtra("")
                 startActivity(intent)
             }
             .setNegativeButton("취소") { dialog, _ ->
                 dialog.dismiss()
-            }
+            }.setCancelable(false)
             .show()
     }
 }
