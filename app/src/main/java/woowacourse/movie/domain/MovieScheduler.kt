@@ -14,7 +14,7 @@ class MovieScheduler {
         return getDatesBetween(startDate, screeningDate.endDate)
     }
 
-    private fun getStartDate(
+    fun getStartDate(
         movieStartDate: LocalDate,
         currentDate: LocalDate,
     ): LocalDate {
