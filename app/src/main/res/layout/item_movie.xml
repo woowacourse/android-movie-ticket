@@ -56,11 +56,11 @@
             android:layout_gravity="end"
             android:paddingHorizontal="16dp"
             android:paddingVertical="10dp"
+            android:text="@string/item_movie_reserve"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="@string/item_movie_reserve" />
-
+            android:textStyle="bold" />
+        
     </LinearLayout>
 
 </LinearLayout>

@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ReservationResultActivity"
-    >
+    tools:context=".ReservationResultActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
         android:text="@string/reservation_result_cancel_time_info"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="15sp"/>
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/tv_reservation_result_movie_title"
@@ -29,7 +28,7 @@
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        tools:text="영화 제목"/>
+        tools:text="영화 제목" />
 
     <TextView
         android:id="@+id/tv_reservation_result_screening_date"
@@ -40,6 +39,6 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:text="상영일"/>
+        tools:text="상영일" />
 
 </LinearLayout>
