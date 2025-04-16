@@ -4,13 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
-class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
+class MovieListAdapter(
+    private val movies: List<Movie>,
+    private val onReservationClick: (selectedMovie: Movie) -> Unit,
+) : BaseAdapter() {
 
     override fun getCount(): Int {
         return movies.size
@@ -52,6 +56,12 @@ class MovieListAdapter(private val movies: List<Movie>) : BaseAdapter() {
             )
         )
         parent.context
+
+        val button = view.findViewById<Button>(R.id.btn_book)
+        button.setOnClickListener {
+            onReservationClick.invoke(movies[position])
+        }
+
         return view
     }
 }

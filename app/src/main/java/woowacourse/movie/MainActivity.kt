@@ -1,12 +1,17 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.dao.MovieDao
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Movies
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,16 +23,24 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val movies = Movies.movies
 
-        val movies = MovieDao().movies()
-        val adapter = MovieListAdapter(movies, this)
-
-        // ListView의 참조 가져오기
-        val listView = findViewById<ListView>(R.id.movieListView)
-        // ListView에 어댑터 설정
-        listView.adapter = adapter
-
+        val movieListView = findViewById<ListView>(R.id.movies)
+        val movieListAdapter = MovieListAdapter(movies, ::navigateToReservationComplete)
+        movieListView.adapter = movieListAdapter
     }
 
-
+    private fun navigateToReservationComplete(movie: Movie) {
+        val bundle =
+            Bundle().apply {
+                putString(ReservationCompleteActivity.MOVIE_TITLE_KEY, movie.title)
+                putString(
+                    ReservationCompleteActivity.MOVIE_SCREENING_DATE_KEY,
+                    movie.startDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")),
+                )
+            }
+        val intent =
+            Intent(this, ReservationCompleteActivity::class.java).apply { putExtras(bundle) }
+        startActivity(intent)
+    }
 }
