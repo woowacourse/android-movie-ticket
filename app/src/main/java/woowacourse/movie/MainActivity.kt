@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToReservationComplete(movie: Movie) {
         val intent =
-            Intent(this, ReservationCompleteActivity::class.java).apply { putExtra("data", movie) }
+            Intent(this, ReservationActivity::class.java).apply { putExtra("data", movie) }
         startActivity(intent)
     }
 }
