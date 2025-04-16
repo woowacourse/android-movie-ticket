@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -37,6 +38,10 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         memberMinusButton.setOnClickListener {
+            if (memberCount.text.toString().toInt() <= 1) {
+                Toast.makeText(this, "1명 이상의 인원을 선택해야 합니다", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             memberCount.text = memberCount.text.toString()
                 .toIntOrNull()
                 ?.minus(1)
@@ -44,10 +49,12 @@ class ReservationActivity : AppCompatActivity() {
                 ?: "1"
         }
 
-        val screenStartDate: String = intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
-        val screenEndDate: String = intent.getStringExtra(MOVIE_SCREENING_END_DATE_KEY) ?: "2025.04.01"
-        val title:String  = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
-        val runningTime:String = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY)?:""
+        val screenStartDate: String =
+            intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
+        val screenEndDate: String =
+            intent.getStringExtra(MOVIE_SCREENING_END_DATE_KEY) ?: "2025.04.01"
+        val title: String = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
+        val runningTime: String = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY) ?: ""
 
         bookedRunningDayText.text = bookedRunningDayText.context.getString(
             R.string.movie_screening_date,
@@ -62,6 +69,7 @@ class ReservationActivity : AppCompatActivity() {
 
 
     }
+
     companion object {
         const val MOVIE_TITLE_KEY = "title"
         const val MOVIE_SCREENING_START_DATE_KEY = "screeningStartDate"

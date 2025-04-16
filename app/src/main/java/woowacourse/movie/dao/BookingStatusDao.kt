@@ -1,8 +1,10 @@
 package woowacourse.movie.dao
 
 import woowacourse.movie.domain.BookingStatus
+import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movies
 import java.io.File
+import java.time.LocalDateTime
 
 class BookingStatusDao {
     fun bookingStatuses(movies: Movies): Set<BookingStatus> {
@@ -16,9 +18,10 @@ class BookingStatusDao {
         input: String,
         movies: Movies,
     ): BookingStatus {
-        val (title, isBooked) = input.split(",").map { it.trim() }
+        val (title, isBooked, memberCount, dateTime) = input.split(",").map { it.trim() }
         val movie = movies.find(title)
-        return BookingStatus(movie, isBooked.toBoolean())
+        val bookedTime = LocalDateTime.parse(dateTime)
+        return BookingStatus(movie, isBooked.toBoolean(), MemberCount(memberCount.toInt()), bookedTime)
     }
 
     companion object {
