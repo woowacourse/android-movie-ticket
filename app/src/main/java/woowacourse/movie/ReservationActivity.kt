@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -13,9 +12,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.domain.MemberCount
-import woowacourse.movie.domain.Movie
-import java.time.LocalDateTime
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -55,6 +51,12 @@ class ReservationActivity : AppCompatActivity() {
 
         val runningDateTime = runningTimeSpinner.selectedItem
         val reservationDay = reservationDaySpinner.selectedItem
+        val screenStartDate: String =
+            intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
+        val screenEndDate: String =
+            intent.getStringExtra(MOVIE_SCREENING_END_DATE_KEY) ?: "2025.04.01"
+        val title: String = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
+        val runningTime: String = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY) ?: ""
 
         memberPlusButton.setOnClickListener {
             memberCount.text = memberCount.text.toString()
@@ -96,12 +98,7 @@ class ReservationActivity : AppCompatActivity() {
                 .show()
                 .setCancelable(false)
         }
-        val screenStartDate: String =
-            intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
-        val screenEndDate: String =
-            intent.getStringExtra(MOVIE_SCREENING_END_DATE_KEY) ?: "2025.04.01"
-        val title: String = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
-        val runningTime: String = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY) ?: ""
+
 
         bookedRunningDayText.text = bookedRunningDayText.context.getString(
             R.string.movie_screening_date,

@@ -90,7 +90,7 @@
             tools:text="2025.04.01 10:00"/>
 
         <TextView
-            android:id="@+id/booked_movie_running_time_text"
+            android:id="@+id/member_count_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="120sp"

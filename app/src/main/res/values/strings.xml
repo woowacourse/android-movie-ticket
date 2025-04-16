@@ -4,6 +4,9 @@
     <string name="movie_running_time">러닝타임: %d분</string>
     <string name="movie_reservation">지금 예매</string>
     <string name="movie_running_dateTime">%s %s</string>
+    <string name="member_count">일반 %d명</string>
+    <string name="total_price">%,d원 (현장 결제)</string>
+
     <string-array name="running_time_array">
         <item>09:00</item>
         <item>11:00</item>
