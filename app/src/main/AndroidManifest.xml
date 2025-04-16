@@ -16,7 +16,7 @@
             android:name=".view.ReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".view.ReservationResultActivity"
+            android:name=".view.TicketActivity"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"

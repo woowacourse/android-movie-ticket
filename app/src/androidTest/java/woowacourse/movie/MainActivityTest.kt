@@ -49,7 +49,7 @@ class MainActivityTest {
         onView(withId(R.id.btn_item_movie_reserve))
             .perform(click())
 
-        onView(withId(R.id.layout_reservation_result))
+        onView(withId(R.id.layout_ticket))
             .check(matches(isDisplayed()))
     }
 }

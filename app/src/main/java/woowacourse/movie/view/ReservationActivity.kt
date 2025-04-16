@@ -108,7 +108,7 @@ class ReservationActivity : AppCompatActivity() {
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
-                    navigateToReservationResultActivity()
+                    navigateToTicketActivity()
                 }.setNegativeButton("취소") { dialog, _ ->
                     dialog.dismiss()
                 }.setCancelable(false)
@@ -116,8 +116,8 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToReservationResultActivity() {
-        val intent = Intent(this, ReservationResultActivity::class.java)
+    private fun navigateToTicketActivity() {
+        val intent = Intent(this, TicketActivity::class.java)
         startActivity(intent)
     }
 
