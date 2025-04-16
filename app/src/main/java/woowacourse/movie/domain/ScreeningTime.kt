@@ -1,6 +1,7 @@
 package woowacourse.movie.domain
 
 import java.time.DayOfWeek
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
@@ -16,11 +17,15 @@ class ScreeningTime(
                 LocalTime.of(9, 0)
             }
 
-        val currentTime = LocalTime.of(date.hour, date.minute)
+        var currentTime = LocalTime.of(date.hour, date.minute)
+
+        if (LocalDate.of(date.year, date.month, date.dayOfMonth) == LocalDate.now()) {
+            currentTime = LocalTime.now()
+        }
 
         val screeningTime =
             generateSequence(startHour) {
-                if (it in startHour..endHour) it.plusHours(2) else null
+                if (it in startHour..<endHour) it.plusHours(2) else null
             }.toList()
 
         return screeningTime.filter { it > currentTime }

@@ -1,8 +1,12 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +14,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieSchedule
+import woowacourse.movie.domain.ScreeningTime
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -68,10 +74,48 @@ class ReservationActivity : AppCompatActivity() {
         movieDateTextView.text = getString(R.string.movieDate, startDateFormatted, endDateFormatted)
         movieTimeTextView.text = getString(R.string.movieTime, movie.time)
         moviePosterImageView.setImageResource(movie.image)
+
+        val movieSchedule = MovieSchedule(movie.date)
+        val currentDateSpinner = movieSchedule.dateSpinner(LocalDate.now())
+        var selectedItem: LocalDate
+
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
+        spinnerDate.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                currentDateSpinner,
+            )
+        spinnerDate.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedItem = currentDateSpinner[position]
+                    setTimeSpinner(selectedItem)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     private fun updateCounterText() {
         val counterTextView = findViewById<TextView>(R.id.personnel)
         counterTextView.text = count.toString()
+    }
+
+    private fun setTimeSpinner(localDate: LocalDate) {
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+        ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            ScreeningTime(localDate.atStartOfDay()).runningTimeTable(),
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerTime.adapter = adapter
+        }
     }
 }
