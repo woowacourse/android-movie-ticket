@@ -8,7 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.domain.model.Movie
+import java.time.LocalDateTime
 
 class MovieListAdapter(
     private val movies: List<Movie>,
@@ -52,8 +53,17 @@ class MovieListAdapter(
     ) {
         val tvTitle = view.findViewById<TextView>(R.id.tv_title)
         tvTitle.text = movie.title
+
         val tvDate = view.findViewById<TextView>(R.id.tv_date)
-        tvDate.text = movie.date
+        tvDate.text =
+            movie.screeningPeriod.run {
+                view.context.getString(
+                    R.string.movie_date,
+                    startDate.convertLocalDateFormat(),
+                    endDate.convertLocalDateFormat(),
+                )
+            }
+
         val tvRunningTime = view.findViewById<TextView>(R.id.tv_running_time)
         tvRunningTime.text = movie.runningTime
     }
@@ -67,4 +77,6 @@ class MovieListAdapter(
             eventListener.onClick(movie)
         }
     }
+
+    private fun LocalDateTime.convertLocalDateFormat(): String = this.toLocalDate().toString()
 }
