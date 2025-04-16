@@ -7,8 +7,8 @@ import java.time.LocalDateTime
 @Parcelize
 class Ticket(
     val movie: Movie,
-    private val showtime: LocalDateTime,
-    private val count: Int,
+    val showtime: LocalDateTime,
+    val count: Int,
 ) : Parcelable {
     init {
         require(count >= MINIMUM_TICKET_COUNT)

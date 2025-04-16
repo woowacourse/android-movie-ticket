@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
+        android:text="해리 포터와 마법사의 돌"
         android:textColor="@android:color/black"
         android:textSize="25dp"
         android:textStyle="bold"
@@ -32,13 +33,67 @@
         app:layout_constraintTop_toBottomOf="@+id/cancellation_guide" />
 
     <TextView
-        android:id="@+id/screening_date"
+        android:id="@+id/showtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="2025.4.15 11:00"
         android:textColor="@android:color/black"
         android:textSize="25dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ticket_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showtime">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일반 "
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/ticket_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2명"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ticket_info">
+
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="26,000원"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" (현장 결제)"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

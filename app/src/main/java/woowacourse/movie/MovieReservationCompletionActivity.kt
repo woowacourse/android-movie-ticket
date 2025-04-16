@@ -33,10 +33,19 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
         }
 
         val title = findViewById<TextView>(R.id.movie_title)
-        val screeningDate = findViewById<TextView>(R.id.screening_date)
+        val showtime = findViewById<TextView>(R.id.showtime)
+        val ticketCount = findViewById<TextView>(R.id.ticket_count)
+        val totalPrice = findViewById<TextView>(R.id.total_price)
 
         title.text = ticket.movie.title
-        screeningDate.text =
-            ticket.movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        showtime.text = ticket.showtime.format(DATE_FORMAT)
+        ticketCount.text = TICKET_COUNT.format(ticket.count)
+        totalPrice.text = TOTAL_PRICE.format(ticket.totalPrice())
+    }
+
+    companion object {
+        private const val TICKET_COUNT = "%d명"
+        private const val TOTAL_PRICE = "%,d원"
+        private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
     }
 }
