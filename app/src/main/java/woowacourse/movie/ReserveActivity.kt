@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -155,6 +157,7 @@ class ReserveActivity : AppCompatActivity() {
     private fun initButtonClickListeners() {
         val minusBtn = findViewById<Button>(R.id.btn_minus)
         val plusBtn = findViewById<Button>(R.id.btn_plus)
+        val selectBtn = findViewById<Button>(R.id.btn_select)
 
         minusBtn.setOnClickListener {
             reservation = reservation.minusCount()
@@ -165,6 +168,29 @@ class ReserveActivity : AppCompatActivity() {
             reservation = reservation.addCount()
             updateTicketCount()
         }
+
+        val alertDialog = initSelectDialog()
+
+        selectBtn.setOnClickListener {
+            alertDialog.show()
+        }
+    }
+
+    private fun initSelectDialog(): AlertDialog.Builder {
+        return AlertDialog.Builder(this)
+            .setTitle("예매 확인")
+            .setMessage("정말 예매하시겠습니까?")
+            .setPositiveButton("예매 완료") { _, _ ->
+                val intent =
+                    Intent(this, ReservationResultActivity::class.java).apply {
+                        putExtra("reservation", reservation)
+                    }
+                startActivity(intent)
+            }
+            .setNegativeButton("취소") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
     }
 
     private fun updateTicketCount() {
