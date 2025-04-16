@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class BookingDetailActivity : AppCompatActivity() {
+    private var ticketCount: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,6 +31,19 @@ class BookingDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_detail_date).text = "$startDate ~ $endDate"
         findViewById<TextView>(R.id.tv_booking_detail_running_time).text = "${runningTime}분"
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+
+        findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
+            if (ticketCount > 0) {
+                ticketCount--
+                findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+            }
+        }
+
+        findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
+            ticketCount++
+            findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        }
     }
 
     companion object {
