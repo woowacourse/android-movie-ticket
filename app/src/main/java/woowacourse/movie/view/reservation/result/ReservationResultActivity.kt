@@ -1,24 +1,14 @@
 package woowacourse.movie.view.reservation.result
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.movies.MoviesActivity
 
-class ReservationResultActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_reservation_result)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        setWindowInsets()
+class ReservationResultActivity : BaseActivity() {
+    override fun initView() {
         displayReservationResult()
     }
 
@@ -43,14 +33,6 @@ class ReservationResultActivity : AppCompatActivity() {
 
         val tvMovieDate = findViewById<TextView>(R.id.tv_movie_date)
         tvMovieDate.text = date
-    }
-
-    private fun setWindowInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     companion object {
