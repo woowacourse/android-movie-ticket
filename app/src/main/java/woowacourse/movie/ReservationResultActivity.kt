@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,13 +21,13 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        val title = intent.getStringExtra(MainActivity.EXTRA_TITLE)
-        val date = intent.getStringExtra(MainActivity.EXTRA_DATE)
-
-        val titleView = findViewById<TextView>(R.id.tv_reservation_result_movie_title)
-        titleView.text = title
-
-        val screeningDateView = findViewById<TextView>(R.id.tv_reservation_result_screening_date)
-        screeningDateView.text = date
+//        val title = intent.getStringExtra(MainActivity.EXTRA_TITLE)
+//        val date = intent.getStringExtra(MainActivity.EXTRA_PERIOD)
+//
+//        val titleView = findViewById<TextView>(R.id.tv_reservation_result_movie_title)
+//        titleView.text = title
+//
+//        val screeningDateView = findViewById<TextView>(R.id.tv_reservation_result_screening_date)
+//        screeningDateView.text = date
     }
 }
