@@ -35,7 +35,7 @@ class MoviesAdapter(
 
         title.text = movie.title
         poster.setImageResource(movie.poster)
-        date.text = movie.startDate.toString()
+        date.text = "${movie.startDate} ~ ${movie.endDate}"
         runningTime.text = movie.runningTime.toString()
 
         view.findViewById<Button>(R.id.btn_movie_booking).setOnClickListener {
