@@ -110,6 +110,7 @@ class BookingDetailActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }.setNegativeButton("취소", null)
+                .setCancelable(false)
                 .show()
         }
     }
@@ -146,7 +147,7 @@ class BookingDetailActivity : AppCompatActivity() {
             title: String,
             startDate: String,
             endDate: String,
-            runningTime: String,
+            runningTime: Int,
             poster: Int,
         ): Intent =
             Intent(context, BookingDetailActivity::class.java).apply {
