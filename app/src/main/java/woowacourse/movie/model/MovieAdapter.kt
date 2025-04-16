@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import woowacourse.movie.BookingCompleteActivity
+import woowacourse.movie.BookingActivity
 import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -51,7 +51,7 @@ class MovieAdapter(
         reserveButton.setOnClickListener {
             val context = itemView.context
             val intent =
-                Intent(context, BookingCompleteActivity::class.java).apply {
+                Intent(context, BookingActivity::class.java).apply {
                     this.putExtra("movieData", movie)
                 }
             context.startActivity(intent)
