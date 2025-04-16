@@ -1,21 +1,33 @@
 package woowacourse.movie.view.reservation.result
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.view.movies.MoviesActivity
 
 class ReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_reservation_result)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setWindowInsets()
         displayReservationResult()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> startActivity(Intent(this, MoviesActivity::class.java))
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun displayReservationResult() {
