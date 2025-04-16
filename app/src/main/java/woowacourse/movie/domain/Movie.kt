@@ -1,5 +1,6 @@
 package woowacourse.movie.domain
 
+import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
@@ -8,7 +9,7 @@ data class Movie(
     val endDate: LocalDate,
     val runningTime: RunningTime,
     val imageUrl: Int,
-) {
+) : Serializable {
     companion object {
         const val TICKET_PRICE = 13_000
     }

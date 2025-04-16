@@ -64,10 +64,8 @@ class MoviesAdapter(
     ) {
         val reserveBtn = itemView.findViewById<Button>(R.id.btn_reserve)
         reserveBtn.setOnClickListener {
-            val intent = Intent(parent.context, ReservationResultActivity::class.java)
-            val formattedScreeningDate = formatting(item.startDate, item.endDate)
-            intent.putExtra("title", item.title)
-            intent.putExtra("screeningDate", formattedScreeningDate)
+            val intent = Intent(parent.context, ReserveActivity::class.java)
+            intent.putExtra("movie", item)
             parent.context?.startActivity(intent)
         }
     }
