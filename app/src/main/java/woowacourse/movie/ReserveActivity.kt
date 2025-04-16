@@ -66,7 +66,7 @@ class ReserveActivity : AppCompatActivity() {
         reservation = savedInstanceState?.getSerializable("reservation") as? Reservation
             ?: Reservation(
                 title = movie.title,
-                count = 0,
+                count = 1,
                 reservedTime = getSelectedDateTime(),
             )
 

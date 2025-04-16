@@ -13,7 +13,7 @@ class Reservation(
     fun addCount() = Reservation(title, ++count, reservedTime)
 
     fun minusCount(): Reservation {
-        if (count == 0) return this
+        if (count == 1) return this
         return Reservation(title, --count, reservedTime)
     }
 
