@@ -18,6 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieTicket
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -25,7 +26,9 @@ import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate = LocalDate.now()
+    private lateinit var selectedTime: String
     private var ticketCount: Int = 1
+    private lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +40,10 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val data = getSelectedMovieData()
+        movie = getSelectedMovieData()
         val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_ticket_count)
-        setupMovieReservationInfo(data)
-        setupDateAdapter(data)
+        setupMovieReservationInfo(movie)
+        setupDateAdapter(movie)
         setupTimeAdapter()
 
         setupTicketCount(savedInstanceState)
@@ -156,6 +159,7 @@ class ReservationActivity : AppCompatActivity() {
                         position: Int,
                         id: Long,
                     ) {
+                        selectedTime = times[position]
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -196,7 +200,17 @@ class ReservationActivity : AppCompatActivity() {
                 .setNegativeButton("취소") { dialog, _ ->
                     dialog.dismiss()
                 }.setPositiveButton("예매 완료") { dialog, _ ->
-                    val intent = Intent(this, ReservationCompleteActivity::class.java)
+                    val intent =
+                        Intent(this, ReservationCompleteActivity::class.java).apply {
+                            putExtra(
+                                TICKET_DATA_KEY,
+                                MovieTicket(
+                                    movie.title,
+                                    "${selectedDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))} $selectedTime",
+                                    ticketCount,
+                                ),
+                            )
+                        }
                     startActivity(intent)
                     dialog.dismiss()
                 }.show()
@@ -266,5 +280,6 @@ class ReservationActivity : AppCompatActivity() {
     companion object {
         const val MOVIE_DATA_KEY = "data"
         const val TICKET_COUNT_DATA_KEY = "count"
+        const val TICKET_DATA_KEY = "movie_ticket"
     }
 }

@@ -4,4 +4,6 @@
     <string name="movie_screening_date">상영일: %s ~ %s</string>
     <string name="movie_running_time">러닝타임: %d분</string>
     <string name="movie_reservation">지금 예매</string>
+    <string name="reservation_complete_ticket_count">일반 %d명</string>
+    <string name="reservation_complete_ticket_price">%s원 (현장 결제)</string>
 </resources>

@@ -35,7 +35,7 @@
         tools:text="라라랜드" />
 
     <TextView
-        android:id="@+id/tv_reservation_complete_screening_date"
+        android:id="@+id/tv_reservation_complete_timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -44,6 +44,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_title"
-        tools:text="2025.4.15" />
+        tools:text="2025.4.15 11:00" />
+
+    <TextView
+        android:id="@+id/tv_reservation_complete_ticket_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="@string/reservation_complete_ticket_count"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_timestamp" />
+
+    <TextView
+        android:id="@+id/tv_reservation_complete_ticket_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/reservation_complete_ticket_price"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/tv_reservation_complete_ticket_count"
+        app:layout_constraintStart_toStartOf="@id/tv_reservation_complete_ticket_count"
+        app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_ticket_count" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

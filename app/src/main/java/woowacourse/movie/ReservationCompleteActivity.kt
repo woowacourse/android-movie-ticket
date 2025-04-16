@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.icu.text.DecimalFormat
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -7,9 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.ReservationActivity.Companion.MOVIE_DATA_KEY
-import woowacourse.movie.model.Movie
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.ReservationActivity.Companion.TICKET_DATA_KEY
+import woowacourse.movie.model.MovieTicket
 
 class ReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,20 +22,29 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        val data =
+        val movieTicket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(MOVIE_DATA_KEY, Movie::class.java)
+                intent.getSerializableExtra(TICKET_DATA_KEY, MovieTicket::class.java)
             } else {
-                intent.getSerializableExtra(MOVIE_DATA_KEY) as Movie
+                intent.getSerializableExtra(TICKET_DATA_KEY) as MovieTicket
             }
 
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
+        movieTitleTextView.text = movieTicket?.title
+
         val screeningDateTextView =
-            findViewById<TextView>(R.id.tv_reservation_complete_screening_date)
-        movieTitleTextView.text = data?.title
-        screeningDateTextView.text =
-            data?.startDate?.format(
-                DateTimeFormatter.ofPattern("yyyy.MM.dd"),
+            findViewById<TextView>(R.id.tv_reservation_complete_timestamp)
+        screeningDateTextView.text = movieTicket?.timeStamp
+
+        val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_count)
+        ticketCountTextView.text =
+            resources.getString(R.string.reservation_complete_ticket_count, movieTicket?.count)
+
+        val ticketPriceTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_price)
+        ticketPriceTextView.text =
+            resources.getString(
+                R.string.reservation_complete_ticket_price,
+                THOUSAND_COMMA.format(movieTicket?.price()),
             )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -44,5 +53,9 @@ class ReservationCompleteActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    companion object {
+        val THOUSAND_COMMA = DecimalFormat("#,###")
     }
 }
