@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_booking_detail_movie_poster"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/img_poster_harry_potter_and_the_philosophers_stone" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp">
+
+                <TextView
+                    android:id="@+id/tv_booking_detail_movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="영화 제목" />
+
+                <TextView
+                    android:id="@+id/tv_booking_detail_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:text="상영일 : "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_booking_detail_movie_title" />
+
+                <TextView
+                    android:id="@+id/tv_booking_detail_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_booking_detail_date_label"
+                    app:layout_constraintStart_toEndOf="@+id/tv_booking_detail_date_label"
+                    app:layout_constraintTop_toTopOf="@+id/tv_booking_detail_date_label"
+                    tools:text="2025.4.1" />
+
+                <TextView
+                    android:id="@+id/tv_booking_detail_running_time_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="러닝타임 : "
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_booking_detail_date_label"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_booking_detail_date_label" />
+
+                <TextView
+                    android:id="@+id/tv_booking_detail_running_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_booking_detail_running_time_label"
+                    app:layout_constraintStart_toEndOf="@+id/tv_booking_detail_running_time_label"
+                    app:layout_constraintTop_toTopOf="@+id/tv_booking_detail_running_time_label"
+                    tools:text="152분" />
+
+                <Spinner
+                    android:id="@+id/sp_booking_detail_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="36dp"
+                    app:layout_constraintEnd_toStartOf="@id/sp_booking_detail_time"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_booking_detail_running_time_label" />
+
+                <Spinner
+                    android:id="@+id/sp_booking_detail_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/sp_booking_detail_date"
+                    app:layout_constraintTop_toTopOf="@id/sp_booking_detail_date" />
+
+                <Button
+                    android:id="@+id/btn_booking_detail_count_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="-"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/sp_booking_detail_date"
+                    app:layout_constraintTop_toBottomOf="@id/sp_booking_detail_date" />
+
+                <Button
+                    android:id="@+id/btn_booking_detail_count_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_booking_detail_count_down"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/btn_booking_detail_count_down" />
+
+                <TextView
+                    android:id="@+id/tv_booking_detail_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_booking_detail_count_down"
+                    app:layout_constraintEnd_toStartOf="@id/btn_booking_detail_count_up"
+                    app:layout_constraintStart_toEndOf="@id/btn_booking_detail_count_down"
+                    app:layout_constraintTop_toTopOf="@id/btn_booking_detail_count_down"
+                    tools:text="0" />
+
+
+                <Button
+                    android:id="@+id/btn_booking_detail_select_complete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:paddingHorizontal="120dp"
+                    android:paddingVertical="12dp"
+                    android:text="선택 완료"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_booking_detail_count_down" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
