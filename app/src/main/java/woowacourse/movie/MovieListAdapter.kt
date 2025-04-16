@@ -47,7 +47,8 @@ class MovieListAdapter(
         )
         holder.screeningDateTextView.text = holder.screeningDateTextView.context.getString(
             R.string.movie_screening_date,
-            DateTimeFormatter.ofPattern("yyyy.MM.dd").format(currentItem.startDateTime)
+            currentItem.startDateTime.toFormattedString(),
+            currentItem.endDateTime.toFormattedString()
         )
         holder.posterImageView.setImageDrawable(
             AppCompatResources.getDrawable(

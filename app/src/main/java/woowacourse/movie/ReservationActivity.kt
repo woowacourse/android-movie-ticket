@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.ReservationCompleteActivity.Companion.MOVIE_SCREENING_DATE_KEY
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -23,6 +24,9 @@ class ReservationActivity : AppCompatActivity() {
         val memberPlusButton = findViewById<Button>(R.id.plus_button)
         val memberMinusButton = findViewById<Button>(R.id.minus_button)
         val memberCount = findViewById<TextView>(R.id.count)
+        val bookedRunningDayText = findViewById<TextView>(R.id.booked_movie_running_day_text)
+        val titleTextView = findViewById<TextView>(R.id.booked_movie_title_text)
+        val runningTimeTextView = findViewById<TextView>(R.id.booked_movie_running_time_text)
 
         memberPlusButton.setOnClickListener {
             memberCount.text = memberCount.text.toString()
@@ -40,7 +44,28 @@ class ReservationActivity : AppCompatActivity() {
                 ?: "1"
         }
 
+        val screenStartDate: String = intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
+        val screenEndDate: String = intent.getStringExtra(MOVIE_SCREENING_END_DATE_KEY) ?: "2025.04.01"
+        val title:String  = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
+        val runningTime:String = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY)?:""
+
+        bookedRunningDayText.text = bookedRunningDayText.context.getString(
+            R.string.movie_screening_date,
+            screenStartDate,
+            screenEndDate
+        )
+        titleTextView.text = title
+        runningTimeTextView.text = runningTimeTextView.context.getString(
+            R.string.movie_running_time,
+            runningTime.toInt()
+        )
+
 
     }
-
+    companion object {
+        const val MOVIE_TITLE_KEY = "title"
+        const val MOVIE_SCREENING_START_DATE_KEY = "screeningStartDate"
+        const val MOVIE_SCREENING_END_DATE_KEY = "screeningEndDate"
+        const val MOVIE_RUNNING_TIME_KEY = "runningTime"
+    }
 }

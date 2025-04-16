@@ -33,14 +33,19 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToReservationComplete(movie: Movie) {
         val bundle =
             Bundle().apply {
-                putString(ReservationCompleteActivity.MOVIE_TITLE_KEY, movie.title)
+                putString(ReservationActivity.MOVIE_TITLE_KEY, movie.title)
                 putString(
-                    ReservationCompleteActivity.MOVIE_SCREENING_DATE_KEY,
-                    movie.startDateTime.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")),
+                    ReservationActivity.MOVIE_SCREENING_START_DATE_KEY,
+                    movie.startDateTime.toFormattedString()
                 )
+                putString(
+                    ReservationActivity.MOVIE_SCREENING_END_DATE_KEY,
+                    movie.endDateTime.toFormattedString()
+                )
+                putString(ReservationActivity.MOVIE_RUNNING_TIME_KEY, movie.runningTime.inWholeMinutes.toString())
             }
         val intent =
-            Intent(this, ReservationCompleteActivity::class.java).apply { putExtras(bundle) }
+            Intent(this, ReservationActivity::class.java).apply { putExtras(bundle) }
         startActivity(intent)
     }
 }
