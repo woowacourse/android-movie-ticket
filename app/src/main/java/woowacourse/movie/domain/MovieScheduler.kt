@@ -29,15 +29,9 @@ class MovieScheduler {
         startDate: LocalDate,
         endDate: LocalDate,
     ): List<LocalDate> {
-        val dates = mutableListOf<LocalDate>()
-        var current = startDate
+        val dayDiff = ChronoUnit.DAYS.between(startDate, endDate)
 
-        while (!current.isAfter(endDate)) {
-            dates.add(current)
-            current = current.plusDays(1)
-        }
-
-        return dates
+        return (0..dayDiff).map { startDate.plusDays(it) }
     }
 
     fun reservableTimes(
