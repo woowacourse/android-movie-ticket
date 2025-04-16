@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="people_count">일반 %s명</string>
+    <string name="payment">%d원 (현장 결제)</string>
 </resources>
