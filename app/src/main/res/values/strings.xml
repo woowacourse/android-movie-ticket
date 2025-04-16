@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">Movie</string>
     <string name="movie_poster">movie poster</string>
+
     <string name="movie_date">상영일: %s</string>
     <string name="running_time">러닝타임: %s분</string>
     <string name="reservation_button_text">지금 예매</string>
 
     <string name="bundle_key_movie_title">title</string>
     <string name="bundle_key_movie_date">date</string>
+
+    <string name="reservation_finish_button_text">선택 완료</string>
+    <string name="reservation_number_plus">+</string>
+    <string name="reservation_number_minus">-</string>
+    <string name="reservation_number_default">0</string>
 
     <string name="reservation_result_cancel_time_description">영화 상영 시작 시간 %d분 전까지\n취소가 가능합니다.</string>
 </resources>
