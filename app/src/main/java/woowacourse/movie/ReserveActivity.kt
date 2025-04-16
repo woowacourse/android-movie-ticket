@@ -54,7 +54,7 @@ class ReserveActivity : AppCompatActivity() {
             finish()
         }
 
-        initMoveInfo(movie!!)
+        initMovieInfo(movie!!)
         initDateSpinner(movie.screeningDate)
         val startDate =
             movieScheduler.getStartDate(
@@ -74,7 +74,7 @@ class ReserveActivity : AppCompatActivity() {
         initButtonClickListeners()
     }
 
-    private fun initMoveInfo(movie: Movie) {
+    private fun initMovieInfo(movie: Movie) {
         val poster = findViewById<ImageView>(R.id.iv_poster)
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)

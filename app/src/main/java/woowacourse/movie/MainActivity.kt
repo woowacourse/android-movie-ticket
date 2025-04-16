@@ -27,14 +27,14 @@ class MainActivity : AppCompatActivity() {
         moviesView = findViewById(R.id.lv_movies)
 
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-        val startTime: LocalDate = LocalDate.parse("2025.04.01", formatter)
-        val endTime: LocalDate = LocalDate.parse("2025.04.25", formatter)
+        val startDate: LocalDate = LocalDate.parse("2025.04.01", formatter)
+        val endDate: LocalDate = LocalDate.parse("2025.04.25", formatter)
 
         val movies =
             listOf(
                 Movie(
                     "해리포터와 마법사의 돌",
-                    ScreeningDate(startTime, endTime),
+                    ScreeningDate(startDate, endDate),
                     RunningTime(152),
                     R.drawable.harrypotter,
                 ),
