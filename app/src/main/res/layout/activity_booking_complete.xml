@@ -35,14 +35,36 @@
         tools:text="영화 제목" />
 
     <TextView
-        android:id="@+id/tv_booking_complete_movie_date"
+        android:id="@+id/tv_booking_complete_movie_date_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_booking_complete_movie_title"
-        tools:text="2025.4.1" />
+        tools:text="2025.4.1 11:00" />
 
+    <TextView
+        android:id="@+id/tv_booking_complete_ticket_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_booking_complete_movie_date_time"
+        tools:text="일반 2명" />
+
+    <TextView
+        android:id="@+id/tv_booking_complete_ticket_total_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_booking_complete_ticket_count"
+        tools:text="26,000원 (현장 결제)" />
 </androidx.constraintlayout.widget.ConstraintLayout>

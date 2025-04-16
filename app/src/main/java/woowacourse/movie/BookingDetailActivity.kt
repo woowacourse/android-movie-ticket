@@ -31,10 +31,10 @@ class BookingDetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val title = intent.getStringExtra(MOVIE_TITLE_KEY)
-        val startDate = intent.getStringExtra(MOVIE_START_DATE_KEY)
-        val endDate = intent.getStringExtra(MOVIE_END_DATE_KEY)
-        val runningTime = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY)
+        val title = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
+        val startDate = intent.getStringExtra(MOVIE_START_DATE_KEY) ?: ""
+        val endDate = intent.getStringExtra(MOVIE_END_DATE_KEY) ?: ""
+        val runningTime = intent.getIntExtra(MOVIE_RUNNING_TIME_KEY, 0)
         val poster = intent.getIntExtra(MOVIE_POSTER_KEY, 0)
 
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = title
@@ -93,6 +93,22 @@ class BookingDetailActivity : AppCompatActivity() {
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
+                    val selectedDate =
+                        findViewById<Spinner>(R.id.sp_booking_detail_date).selectedItem.toString()
+                    val selectedTime =
+                        findViewById<Spinner>(R.id.sp_booking_detail_time).selectedItem.toString()
+
+                    val intent =
+                        BookingCompleteActivity.newIntent(
+                            context = this,
+                            title = title,
+                            date = selectedDate,
+                            time = selectedTime,
+                            ticketCount = ticketCount,
+                        )
+
+                    startActivity(intent)
+                    finish()
                 }.setNegativeButton("취소", null)
                 .show()
         }
