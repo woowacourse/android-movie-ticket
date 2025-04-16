@@ -31,21 +31,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val movies = listOf(
-            Movie(
-                "승부",
-                LocalDate.of(2025,3,26),
-                LocalDate.of(2025, 4, 26),
-                115,
-                R.drawable.match
-            ),
-            Movie(
-                "미키 17",
-                LocalDate.of(2025, 2, 28),
-                LocalDate.of(2025, 3, 27),
-                137,
-                R.drawable.mickey
+        private val movies =
+            listOf(
+                Movie(
+                    "승부",
+                    LocalDate.of(2025, 3, 26),
+                    LocalDate.of(2025, 4, 26),
+                    115,
+                    R.drawable.match,
+                ),
+                Movie(
+                    "미키 17",
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 29),
+                    137,
+                    R.drawable.mickey,
+                ),
             )
-        )
     }
 }
