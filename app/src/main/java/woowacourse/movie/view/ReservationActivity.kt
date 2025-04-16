@@ -31,14 +31,14 @@ class ReservationActivity : AppCompatActivity() {
         val endMonth = intent.getIntExtra(MainActivity.EXTRA_END_MONTH, 0)
         val endDay = intent.getIntExtra(MainActivity.EXTRA_END_DAY, 0)
         val posterId = intent.getIntExtra(MainActivity.EXTRA_POSTER_ID, 0)
-        val runningTIme = intent.getStringExtra(MainActivity.EXTRA_RUNNING_TIME)
+        val runningTIme = intent.getIntExtra(MainActivity.EXTRA_RUNNING_TIME, 0)
 
         val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
         titleView.text = title
 
         val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
         periodView.text =
-            periodView.context.getString(
+            getString(
                 R.string.screening_period,
                 startYear,
                 startMonth,
@@ -51,6 +51,6 @@ class ReservationActivity : AppCompatActivity() {
         posterImageView.setImageResource(posterId)
 
         val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
-        runningTimeView.text = runningTIme
+        runningTimeView.text = getString(R.string.running_time, runningTIme)
     }
 }
