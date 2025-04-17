@@ -17,11 +17,13 @@ class TimeAdapter(
     fun updateTimes(dateType: DateType) {
         clear()
 
-        when (dateType) {
-            DateType.WEEKDAY -> weekdaysTimes
-            DateType.WEEKEND -> weekendsTimes
-        }
+        val times: List<String> =
+            when (dateType) {
+                DateType.WEEKDAY -> weekdaysTimes
+                DateType.WEEKEND -> weekendsTimes
+            }
 
+        addAll(times)
         notifyDataSetChanged()
     }
 

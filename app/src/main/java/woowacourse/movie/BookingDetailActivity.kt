@@ -132,14 +132,6 @@ class BookingDetailActivity : AppCompatActivity() {
             }
     }
 
-    private fun setupTimeSpinner(startDate: String) {
-        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
-
-        timeAdapter = TimeAdapter(this)
-        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
-        timeSpinner.adapter = timeAdapter
-    }
-
     private fun setupDateSpinner(
         startDate: String,
         endDate: String,
@@ -153,6 +145,14 @@ class BookingDetailActivity : AppCompatActivity() {
                 LocalDate.parse(endDate),
             )
         dateSpinner.adapter = dateAdapter
+    }
+
+    private fun setupTimeSpinner(startDate: String) {
+        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
+
+        timeAdapter = TimeAdapter(this)
+        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
+        timeSpinner.adapter = timeAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
