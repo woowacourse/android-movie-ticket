@@ -3,7 +3,7 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.data.Ticket
+import woowacourse.movie.domain.Ticket
 
 class BookingResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

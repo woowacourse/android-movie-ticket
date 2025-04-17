@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.BookingActivity
 import woowacourse.movie.R
-import woowacourse.movie.data.MovieInfo
+import woowacourse.movie.domain.MovieInfo
 
 class MovieListAdapter(context: Context, items: MutableList<MovieInfo>) :
     ArrayAdapter<MovieInfo>(context, 0, items) {

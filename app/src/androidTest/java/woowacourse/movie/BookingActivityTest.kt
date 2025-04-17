@@ -17,7 +17,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matchers.anything
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.data.MovieInfo
+import woowacourse.movie.domain.MovieInfo
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>

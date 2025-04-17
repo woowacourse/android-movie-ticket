@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.data.MovieInfo
+import woowacourse.movie.domain.MovieInfo
 
 class MainActivity : AppCompatActivity() {
     private lateinit var allItems: MutableList<MovieInfo>

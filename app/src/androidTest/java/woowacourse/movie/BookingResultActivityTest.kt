@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.data.Ticket
+import woowacourse.movie.domain.Ticket
 
 class BookingResultActivityTest {
     private lateinit var intent: Intent

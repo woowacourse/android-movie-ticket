@@ -11,8 +11,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.SpinnerAdapter
-import woowacourse.movie.data.MovieInfo
-import woowacourse.movie.data.Ticket
+import woowacourse.movie.domain.MovieInfo
+import woowacourse.movie.domain.Ticket
 
 class BookingActivity : AppCompatActivity() {
     private var movieInfo: MovieInfo? = null
