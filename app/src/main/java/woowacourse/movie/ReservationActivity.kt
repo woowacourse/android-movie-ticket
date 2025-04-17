@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,8 @@ import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var binding: BookingBinding
+    private lateinit var reservationDay: LocalDate
+    private lateinit var runningDateTime: LocalTime
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +42,45 @@ class ReservationActivity : AppCompatActivity() {
             MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates()
         )
         binding.datePickerActions.setSelection(0)
-        val reservationDay = binding.datePickerActions.selectedItem as LocalDate
+        reservationDay = binding.datePickerActions.selectedItem as LocalDate
+
+        binding.datePickerActions.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    reservationDay = parent?.getItemAtPosition(position) as LocalDate
+                    binding.timePickerActions.adapter = RunningTimeSpinnerAdapter(
+                        RunningTimes().runningTimes(reservationDay)
+                    )
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
 
         binding.timePickerActions.adapter = RunningTimeSpinnerAdapter(
             RunningTimes().runningTimes(reservationDay)
         )
         binding.timePickerActions.setSelection(0)
-        val runningDateTime = binding.timePickerActions.selectedItem as LocalTime
+        runningDateTime = binding.timePickerActions.selectedItem as LocalTime
+        binding.timePickerActions.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    runningDateTime = parent?.getItemAtPosition(position) as LocalTime
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
 
         binding.plusButton.setOnClickListener {
             binding.count.text = binding.count.text.toString()

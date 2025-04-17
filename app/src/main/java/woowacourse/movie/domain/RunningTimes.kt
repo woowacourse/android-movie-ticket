@@ -30,9 +30,12 @@ class RunningTimes(
 
         while (!movieTime.isAfter(endDateTime)) {
             if (currentDateTime.toLocalDate() == targetDay && !movieTime.isBefore(currentDateTime)) {
-                runningTimes.add(movieTime.toLocalTime())
+                movieTime = movieTime.plusHours(2)
+                continue
             }
+            runningTimes.add(movieTime.toLocalTime())
             movieTime = movieTime.plusHours(2)
+
         }
         return runningTimes.toList()
     }
