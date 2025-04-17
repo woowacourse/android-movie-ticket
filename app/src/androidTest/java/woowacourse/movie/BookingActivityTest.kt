@@ -78,7 +78,7 @@ class BookingActivityTest {
             .perform(click())
 
         onData(anything())
-            .atPosition(0)
+            .atPosition(18)
             .perform(click())
 
         onView(withId(R.id.movie_time))
