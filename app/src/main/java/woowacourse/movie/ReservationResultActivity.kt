@@ -69,7 +69,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm")
+        private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
         private val decimal = DecimalFormat("#,###")
         private const val TICKET_COUNT = "%d명"
         private const val TOTAL_PRICE = "%s원"
