@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -114,8 +115,8 @@ class ReservationActivity : AppCompatActivity() {
                 createTicket(
                     movie.title,
                     spinnerDate.selectedItem as LocalDate,
-                    spinnerTime.selectedItem as LocalTime,
-                )
+                    spinnerTime.selectedItem as? LocalTime,
+                ) ?: return@setOnClickListener
             ReservationDialog(this, ticket).popUp()
         }
     }
@@ -187,8 +188,13 @@ class ReservationActivity : AppCompatActivity() {
     private fun createTicket(
         movieTitle: String,
         localDate: LocalDate,
-        localTime: LocalTime,
-    ): Ticket {
+        localTime: LocalTime?,
+    ): Ticket? {
+        if (localTime == null) {
+            Toast.makeText(this, MESSAGE_NOT_ALLOWED_TIME, Toast.LENGTH_SHORT).show()
+            return null
+        }
+
         return Ticket(
             movieTitle,
             LocalDateTime.of(localDate.year, localDate.month, localDate.dayOfMonth, localTime.hour, localTime.minute),
@@ -200,6 +206,7 @@ class ReservationActivity : AppCompatActivity() {
         private const val KEY_PERSONNEL_COUNT = "personnel_count"
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
+        private const val MESSAGE_NOT_ALLOWED_TIME = "다른 날짜를 선택해 주세요"
         private const val DEFAULT_PERSONNEL = 1
     }
 }
