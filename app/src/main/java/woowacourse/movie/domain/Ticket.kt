@@ -9,13 +9,16 @@ data class Ticket(
     val personnel: Int,
 ) : Serializable {
     constructor() : this(
-        "untitled",
-        LocalDateTime.of(2025, 1, 1, 1, 1),
-        1,
+        UNTITLED_MOVIE_TITLE,
+        DEFAULT_DATETIME,
+        DEFAULT_PERSONNEL,
     )
 
     companion object {
         const val DEFAULT_PRICE = 13_000
         const val CANCEL_DEADLINE = 15
+        private const val UNTITLED_MOVIE_TITLE = "untitled"
+        private val DEFAULT_DATETIME = LocalDateTime.of(2025, 1, 1, 1, 1)
+        private const val DEFAULT_PERSONNEL = 1
     }
 }

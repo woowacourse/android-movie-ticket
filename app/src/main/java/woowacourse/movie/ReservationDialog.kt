@@ -12,14 +12,14 @@ class ReservationDialog(
 ) {
     fun popUp() {
         AlertDialog.Builder(context)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _, _ ->
+            .setTitle(context.getText(R.string.reserve_confirm))
+            .setMessage(context.getText(R.string.askFor_reserve))
+            .setPositiveButton(context.getText(R.string.complete)) { _, _ ->
                 val intent = Intent(context, CompleteActivity::class.java)
                 intent.putExtra("ticket", ticket)
                 context.startActivity(intent)
             }
-            .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(context.getText(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
             .show()
     }
