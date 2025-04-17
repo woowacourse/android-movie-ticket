@@ -33,7 +33,12 @@ class Booking(
         baseTime: LocalTime = LocalTime.of(8, 0),
     ): List<String> {
         if (isWeekend(date)) {
-            return weekendScreeningTimes.filter { time -> time == LocalTime.MIDNIGHT || time.isAfter(baseTime) }
+            return weekendScreeningTimes.filter { time ->
+                time == LocalTime.MIDNIGHT ||
+                    time.isAfter(
+                        baseTime,
+                    )
+            }
                 .map { time -> formatTime(time) }
         }
         return weekdayScreeningTimes.filter { time -> time.isAfter(baseTime) }
