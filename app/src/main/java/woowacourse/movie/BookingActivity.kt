@@ -33,8 +33,8 @@ class BookingActivity : AppCompatActivity() {
         movieDate = findViewById(R.id.movie_date)
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
-        setupPage()
 
+        setupPage()
         setupDateChangeListener()
         countButtonHandler()
         confirmButtonHandler()
@@ -91,10 +91,7 @@ class BookingActivity : AppCompatActivity() {
                 ) {
                     val selectedDate = getDates()[position]
                     val selectedTimes = getTimes(selectedDate)
-                    val adapter =
-                        ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
-                    adapter.setDropDownViewResource(R.layout.spinner_item)
-                    movieTime.adapter = adapter
+                    SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
