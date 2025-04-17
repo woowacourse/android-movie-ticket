@@ -8,6 +8,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
@@ -49,5 +50,36 @@ class BookingDetailActivityTest {
 
         onView(withId(R.id.sp_booking_detail_time))
             .check(matches(withSpinnerText("10:00")))
+    }
+
+    @Test
+    fun 플러스_버튼을_누르면_티켓_장수가_1_증가한다() {
+        onView(withId(R.id.btn_booking_detail_count_up))
+            .perform(click())
+
+        onView(withId(R.id.tv_booking_detail_count))
+            .check(matches(withText("1")))
+    }
+
+    @Test
+    fun 마이너스_버튼을_누르면_티켓_장수가_1_감소한다() {
+        onView(withId(R.id.btn_booking_detail_count_up))
+            .perform(click())
+            .perform(click())
+
+        onView(withId(R.id.btn_booking_detail_count_down))
+            .perform(click())
+
+        onView(withId(R.id.tv_booking_detail_count))
+            .check(matches(withText("1")))
+    }
+
+    @Test
+    fun 티켓_장수가_0일때_마이너스_버튼을_눌러도_변동되지_않는다() {
+        onView(withId(R.id.btn_booking_detail_count_down))
+            .perform(click())
+
+        onView(withId(R.id.tv_booking_detail_count))
+            .check(matches(withText("0")))
     }
 }
