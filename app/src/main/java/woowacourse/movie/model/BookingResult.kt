@@ -15,7 +15,7 @@ data class BookingResult(
     val selectedTime get() = _selectedTime
 
     init {
-        require(title.isNotBlank()) { "예매한 영화 제목은 비어있을 수 없다" }
+        require(title.isNotBlank()) { ERROR_TITLE_BLANK_MESSAGE }
     }
 
     fun calculateAmount(): Int {
@@ -44,5 +44,6 @@ data class BookingResult(
 
     companion object {
         private const val TICKET_PRICE = 13_000
+        private const val ERROR_TITLE_BLANK_MESSAGE = "예매한 영화 제목은 비어 있을 수 없다"
     }
 }
