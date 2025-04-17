@@ -169,16 +169,17 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun initTicketCountButton() {
         val decrementButton = findViewById<Button>(R.id.decrement_button)
+        if (ticketCount == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
         val incrementButton = findViewById<Button>(R.id.increment_button)
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
 
         decrementButton.setOnClickListener {
-            if (ticketCount == MINIMUM_TICKET_COUNT) return@setOnClickListener
             ticketCount--
             ticketCountTextView.text = ticketCount.toString()
+            if (ticketCount == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
         }
         incrementButton.setOnClickListener {
-            if (ticketCount == Int.MAX_VALUE) return@setOnClickListener
+            decrementButton.isEnabled = true
             ticketCount++
             ticketCountTextView.text = ticketCount.toString()
         }
