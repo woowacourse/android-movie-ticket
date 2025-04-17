@@ -86,7 +86,7 @@ class ReserveActivity : AppCompatActivity() {
         poster.setImageResource(movie.imageUrl)
         title.text = movie.title
         screeningDate.text = formattedScreeningDate
-        runningTime.text = MINUTE.format(movie.runningTime.time)
+        runningTime.text = getString(R.string.formatted_minute).format(movie.runningTime.time)
     }
 
     private fun initDateSpinner(screeningDate: ScreeningDate) {
@@ -211,7 +211,7 @@ class ReserveActivity : AppCompatActivity() {
     private fun formatting(screeningDate: ScreeningDate): String {
         val start = screeningDate.startDate.format(formatter)
         val end = screeningDate.endDate.format(formatter)
-        return SCREENING_DATE.format(start, end)
+        return getString(R.string.formatted_screening_date).format(start, end)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -232,8 +232,6 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val MINUTE = "%d분"
-        private const val SCREENING_DATE = "%s ~ %s"
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private const val DEFAULT_TICKET_COUNT_SIZE = 1
     }

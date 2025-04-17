@@ -48,8 +48,8 @@ class ReservationResultActivity : AppCompatActivity() {
 
         title.text = reservation.title
         screeningDate.text = formattedScreeningDate
-        ticketCount.text = TICKET_COUNT.format(reservation.count)
-        totalPrice.text = TOTAL_PRICE.format(decimal.format(reservation.totalPrice()))
+        ticketCount.text = getString(R.string.formatted_ticket_count).format(reservation.count)
+        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(reservation.totalPrice()))
     }
 
     private fun formatting(reservedDateTime: LocalDateTime): String {
@@ -71,7 +71,5 @@ class ReservationResultActivity : AppCompatActivity() {
     companion object {
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
         private val decimal = DecimalFormat("#,###")
-        private const val TICKET_COUNT = "%d명"
-        private const val TOTAL_PRICE = "%s원"
     }
 }
