@@ -33,6 +33,6 @@ class ScreeningTime {
     }
 
     companion object {
-        const val MIDNIGHT = 24
+        private const val MIDNIGHT = 24
     }
 }
