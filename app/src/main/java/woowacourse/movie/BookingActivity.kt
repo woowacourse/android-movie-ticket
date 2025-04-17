@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.data.MovieInfo
 import woowacourse.movie.data.Ticket
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -67,11 +68,15 @@ class BookingActivity : AppCompatActivity() {
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
 
-        poster.setImageResource(intent.getIntExtra("POSTER", 0))
-        title.text = intent.getStringExtra("TITLE")
-        startDate.text = intent.getStringExtra("START_DATE")
-        endDate.text = intent.getStringExtra("END_DATE")
-        runningTime.text = intent.getStringExtra("RUNNING_TIME")
+        val movieInfo = intent.getParcelableExtra<MovieInfo>("MOVIE_INFO")
+
+        if (movieInfo != null) {
+            poster.setImageResource(movieInfo.poster)
+            title.text = movieInfo.title
+            startDate.text = movieInfo.startDate
+            endDate.text = movieInfo.endDate
+            runningTime.text = movieInfo.runningTime
+        }
 
         setDateSpinner()
         setTimeSpinner()

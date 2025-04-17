@@ -9,8 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.data.MovieInfo
 
-class MovieListAdapter(context: Context, items: MutableList<MovieItem>): ArrayAdapter<MovieItem>(context, 0, items) {
+class MovieListAdapter(context: Context, items: MutableList<MovieInfo>): ArrayAdapter<MovieInfo>(context, 0, items) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_list_item, parent, false)
 
@@ -31,17 +32,21 @@ class MovieListAdapter(context: Context, items: MutableList<MovieItem>): ArrayAd
 
         val button = view.findViewById<Button>(R.id.reservation_button)
         button.setOnClickListener {
-            val intent = Intent(context,BookingActivity::class.java).apply {
-                putExtra("POSTER",item?.poster)
-                putExtra("TITLE",title.text)
-                putExtra("START_DATE",startDate.text)
-                putExtra("END_DATE",endDate.text)
-                putExtra("RUNNING_TIME",runningTime.text)
+            if (item != null) {
+                val movieInfo = MovieInfo(
+                    poster = item.poster,
+                    title = title.text.toString(),
+                    startDate = startDate.text.toString(),
+                    endDate = endDate.text.toString(),
+                    runningTime = runningTime.text.toString()
+                )
+
+                val intent = Intent(context, BookingActivity::class.java).apply {
+                    putExtra("MOVIE_INFO", movieInfo)
+                }
+                context.startActivity(intent)
             }
-            context.startActivity(intent)
         }
-
         return view
-
     }
 }
