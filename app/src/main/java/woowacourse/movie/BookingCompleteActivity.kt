@@ -16,8 +16,6 @@ class BookingCompleteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setupView()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         val title = intent.getStringExtra(MOVIE_TITLE_KEY)
         val date = intent.getStringExtra(MOVIE_DATE_KEY)
         val time = intent.getStringExtra(MOVIE_TIME_KEY)
@@ -40,6 +38,7 @@ class BookingCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

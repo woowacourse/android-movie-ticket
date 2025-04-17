@@ -26,9 +26,8 @@ class BookingDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupView()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupView()
 
         val title = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
         val startDate = intent.getStringExtra(MOVIE_START_DATE_KEY) ?: ""
@@ -59,6 +58,7 @@ class BookingDetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setupSelectCompleteClickListener(title: String) {
