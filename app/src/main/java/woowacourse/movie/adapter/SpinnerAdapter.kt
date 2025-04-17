@@ -1,8 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.adapter
 
 import android.content.Context
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import woowacourse.movie.R
 
 object SpinnerAdapter {
     fun bind(

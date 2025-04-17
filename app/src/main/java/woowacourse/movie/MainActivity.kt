@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.data.MovieInfo
 
 class MainActivity : AppCompatActivity() {
