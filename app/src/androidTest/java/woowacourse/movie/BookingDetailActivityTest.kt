@@ -4,8 +4,10 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -81,5 +83,31 @@ class BookingDetailActivityTest {
 
         onView(withId(R.id.tv_booking_detail_count))
             .check(matches(withText("0")))
+    }
+
+    @Test
+    fun 선택_완료_버튼을_누르면_예매_확인_다이얼로그가_노출된다() {
+        onView(withId(R.id.btn_booking_detail_count_up))
+            .perform(click())
+
+        onView(withId(R.id.btn_booking_detail_select_complete))
+            .perform(click())
+
+        onView(withText("정말 예매하시겠습니까?"))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun 다이얼로그_외_영역을_터치해도_닫히지_않는다() {
+        onView(withId(R.id.btn_booking_detail_count_up))
+            .perform(click())
+
+        onView(withId(R.id.btn_booking_detail_select_complete))
+            .perform(click())
+
+        pressBack()
+
+        onView(withText("정말 예매하시겠습니까?"))
+            .check(matches(isDisplayed()))
     }
 }
