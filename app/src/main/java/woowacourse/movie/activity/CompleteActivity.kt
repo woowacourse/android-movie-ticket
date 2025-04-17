@@ -12,8 +12,6 @@ import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
 class CompleteActivity : AppCompatActivity() {
-    private val priceFormatter = DecimalFormat("#,###")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,7 +26,7 @@ class CompleteActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo(ticket: Ticket) {
-        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d. HH:mm")
+        val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
         val dateTimeFormat = ticket.date.format(formatter)
 
         val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
@@ -48,6 +46,12 @@ class CompleteActivity : AppCompatActivity() {
         price: Int = Ticket.DEFAULT_PRICE,
         personnel: Int,
     ): String {
+        val priceFormatter = DecimalFormat(PRICE_PATTERN)
         return priceFormatter.format(price * personnel).toString()
+    }
+
+    companion object {
+        private const val DATETIME_PATTERN = "yyyy.M.d. HH:mm"
+        private const val PRICE_PATTERN = "#,###"
     }
 }

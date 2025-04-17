@@ -81,12 +81,12 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
 
     private fun setTimeTextView(
         view: View,
-        movieRunningTime: String,
+        movieRunningTime: Int,
         context: Context?,
     ) {
         val timeTextView: TextView = view.findViewById(R.id.movie_time)
 
-        timeTextView.text = context?.getString(R.string.movieTime, movieRunningTime)
+        timeTextView.text = context?.getString(R.string.movieTime, movieRunningTime.toString())
     }
 
     private fun setReserveButton(
