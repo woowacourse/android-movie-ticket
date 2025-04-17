@@ -11,7 +11,7 @@ import woowacourse.movie.view.reservation.ReservationActivity
 import java.time.LocalDate
 
 class MoviesActivity : BaseActivity(R.layout.activity_movies) {
-    override fun setupViews() {
+    override fun setupViews(savedInstanceState: Bundle?) {
         setMovieListView()
     }
 

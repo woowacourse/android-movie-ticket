@@ -16,10 +16,10 @@ abstract class BaseActivity(
         enableEdgeToEdge()
         setContentView(layoutResId)
         setWindowInsets()
-        setupViews()
+        setupViews(savedInstanceState)
     }
 
-    abstract fun setupViews()
+    abstract fun setupViews(savedInstanceState: Bundle?)
 
     private fun setWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

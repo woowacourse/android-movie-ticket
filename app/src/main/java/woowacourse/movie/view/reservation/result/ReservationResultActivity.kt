@@ -1,6 +1,7 @@
 package woowacourse.movie.view.reservation.result
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
 import woowacourse.movie.R
@@ -9,7 +10,7 @@ import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.movies.MoviesActivity
 
 class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
-    override fun setupViews() {
+    override fun setupViews(savedInstanceState: Bundle?) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         displayReservationResult()
     }
