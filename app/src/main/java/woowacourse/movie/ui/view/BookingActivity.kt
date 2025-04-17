@@ -33,7 +33,7 @@ class BookingActivity : AppCompatActivity() {
     }
     private lateinit var date: LocalDate
     private lateinit var time: LocalTime
-    private lateinit var quantityView: TextView
+    private lateinit var headCountView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +71,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun bindTicketQuantityButtonListeners() {
-        quantityView = findViewById(R.id.quantity)
+        headCountView = findViewById(R.id.headCount)
         updateHeadCount()
         val increaseBtn = findViewById<Button>(R.id.increase)
         increaseBtn.setOnClickListener {
@@ -187,6 +187,6 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun updateHeadCount() {
-        quantityView.text = headCount.toString()
+        headCountView.text = headCount.toString()
     }
 }

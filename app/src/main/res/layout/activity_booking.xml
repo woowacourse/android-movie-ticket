@@ -89,7 +89,7 @@
                         android:text="@string/decrease_sign" />
 
                     <TextView
-                        android:id="@+id/quantity"
+                        android:id="@+id/headCount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
