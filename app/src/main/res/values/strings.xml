@@ -6,4 +6,5 @@
     <string name="confirm_booking_message">정말 예매하시겠습니까?</string>
     <string name="yes">예</string>
     <string name="no">아니오</string>
+    <string name="no_movie_data_error_message">영화 정보를 불러올 수 없습니다.</string>
 </resources>
