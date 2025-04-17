@@ -16,6 +16,10 @@ import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_END_DATE_KEY
+import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_RUNNING_TIME_KEY
+import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_START_DATE_KEY
+import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_TITLE_KEY
 
 @Suppress("ktlint:standard:function-naming")
 class MoviesActivityTest {
@@ -29,7 +33,7 @@ class MoviesActivityTest {
     }
 
     @Test
-    fun 예매_버튼을_클릭하면_완료_화면으로_이동한다() {
+    fun 예매_버튼을_클릭하면_예매_화면으로_이동한다() {
         init()
 
         onData(anything())
@@ -40,9 +44,11 @@ class MoviesActivityTest {
 
         intended(
             allOf(
-                hasComponent(BookingCompleteActivity::class.java.name),
-                hasExtra("title", "해리 포터와 마법사의 돌"),
-                hasExtra("date", "2025-04-01"),
+                hasComponent(BookingDetailActivity::class.java.name),
+                hasExtra(MOVIE_TITLE_KEY, "해리 포터와 마법사의 돌"),
+                hasExtra(MOVIE_START_DATE_KEY, "2025-04-01"),
+                hasExtra(MOVIE_END_DATE_KEY, "2025-04-25"),
+                hasExtra(MOVIE_RUNNING_TIME_KEY, 152),
             ),
         )
 
