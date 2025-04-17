@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter
 
 class Booking(
     private val movie: Movie,
+    private val today: LocalDate = LocalDate.now(),
+    private val currentTime: LocalTime = LocalTime.now(),
 ) {
-    private val today get() = LocalDate.now()
-    private val currentTime get() = LocalTime.now()
     private val weekdayScreeningTimes = List(8) { idx -> LocalTime.of(9, 0).plusHours(idx * 2L) }
     private val weekendScreeningTimes = List(8) { idx -> LocalTime.of(10, 0).plusHours(idx * 2L) }
 
