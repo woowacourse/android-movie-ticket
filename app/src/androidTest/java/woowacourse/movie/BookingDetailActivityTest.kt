@@ -6,6 +6,7 @@ import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.device.DeviceInteraction.Companion.setScreenOrientation
 import androidx.test.espresso.device.EspressoDevice.Companion.onDevice
@@ -110,7 +111,7 @@ class BookingDetailActivityTest {
             .perform(click())
 
         onView(withId(R.id.btn_booking_detail_select_complete))
-            .perform(click())
+            .perform(scrollTo(), click())
 
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
@@ -122,7 +123,7 @@ class BookingDetailActivityTest {
             .perform(click())
 
         onView(withId(R.id.btn_booking_detail_select_complete))
-            .perform(click())
+            .perform(scrollTo(), click())
 
         pressBack()
 
@@ -138,7 +139,7 @@ class BookingDetailActivityTest {
             .perform(click())
 
         onView(withId(R.id.btn_booking_detail_select_complete))
-            .perform(click())
+            .perform(scrollTo(), click())
 
         onView(withText("예매 완료"))
             .perform(click())
