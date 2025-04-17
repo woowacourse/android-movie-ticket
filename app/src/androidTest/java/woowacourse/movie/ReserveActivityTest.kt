@@ -33,21 +33,21 @@ class ReserveActivityTest {
     @Test
     fun titleTest() {
         onView(withId(R.id.tv_title))
-            .check(matches(withText(HARRY_POTTER_TITLE)))
+            .check(matches(withText("해리포터")))
     }
 
     @DisplayName("상영일 글자 표시 테스트")
     @Test
     fun screeningDateTest() {
         onView(withId(R.id.tv_screening_date))
-            .check(matches(withText(HARRY_POTTER_FORMATTED_DATE)))
+            .check(matches(withText("2025.04.30 ~ 2025.05.04")))
     }
 
     @DisplayName("러닝타임 글자 표시 테스트")
     @Test
     fun runningTimeTest() {
         onView(withId(R.id.tv_running_time))
-            .check(matches(withText("${HARRY_POTTER_RUNNING_TIME}분")))
+            .check(matches(withText("152분")))
     }
 
     @DisplayName("예매 티켓 수 조정 버튼 클릭 테스트")
