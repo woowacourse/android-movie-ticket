@@ -38,7 +38,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
-            android:text="해리 포터와 마법사의 돌"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -60,7 +59,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="2025.4.1 ~ 2025.4.15"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_release_date"
@@ -82,7 +80,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="152분"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_running_time_title"
@@ -142,6 +139,7 @@
             app:layout_constraintTop_toTopOf="@id/btn_decrease" />
 
         <Button
+            android:id="@+id/btn_booking_complete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_booking_complete"
