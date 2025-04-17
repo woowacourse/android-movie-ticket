@@ -76,12 +76,15 @@ class TicketActivity : AppCompatActivity() {
         titleView.text = ticket.title
 
         val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
-        showtimeView.text = ticket.showtime.toString()
+        showtimeView.text =
+            ticket.showtime.run {
+                getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
+            }
 
         val countView = findViewById<TextView>(R.id.tv_ticket_count)
         countView.text = getString(R.string.ticket_count, ticket.count)
 
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
-        priceView.text = getString(R.string.ticket_price, ticket.price.toString())
+        priceView.text = getString(R.string.ticket_price, ticket.price)
     }
 }
