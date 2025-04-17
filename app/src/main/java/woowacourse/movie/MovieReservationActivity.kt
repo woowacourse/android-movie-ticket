@@ -57,7 +57,7 @@ class MovieReservationActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.ticket_count).text = ticketCount.toString()
         }
         initTicketCountButton()
-        initSelectButton(movie)
+        initSelectButton()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -167,7 +167,7 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSelectButton(movie: Movie) {
+    private fun initSelectButton() {
         val selectButton = findViewById<Button>(R.id.select_button)
         val alertDialog =
             AlertDialog
@@ -175,22 +175,26 @@ class MovieReservationActivity : AppCompatActivity() {
                 .setTitle(R.string.confirm_reservation_title)
                 .setMessage(R.string.confirm_reservation_message)
                 .setPositiveButton(R.string.confirm_reservation_text) { _, _ ->
-                    if (selectedDate != null && selectedTime != null) {
-                        val intent = Intent(this, MovieReservationCompletionActivity::class.java)
-                        val ticket =
-                            Ticket(
-                                movie = movie,
-                                showtime = LocalDateTime.of(selectedDate, selectedTime),
-                                count = ticketCount,
-                            )
-                        intent.putExtra(EXTRA_TICKET, ticket)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "날짜와 시간을 선택해주세요.", Toast.LENGTH_SHORT).show()
-                    }
+                    onConfirmReservation()
                 }.setNegativeButton(R.string.cancel_text) { dialog, _ -> dialog.dismiss() }
         selectButton.setOnClickListener {
             alertDialog.show()
+        }
+    }
+
+    private fun onConfirmReservation() {
+        if (selectedDate != null && selectedTime != null) {
+            val intent = Intent(this, MovieReservationCompletionActivity::class.java)
+            val ticket =
+                Ticket(
+                    movie = movie,
+                    showtime = LocalDateTime.of(selectedDate, selectedTime),
+                    count = ticketCount,
+                )
+            intent.putExtra(EXTRA_TICKET, ticket)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, R.string.incorrect_date_and_time, Toast.LENGTH_SHORT).show()
         }
     }
 
