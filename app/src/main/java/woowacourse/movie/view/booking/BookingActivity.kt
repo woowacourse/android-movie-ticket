@@ -1,11 +1,10 @@
 package woowacourse.movie.view.booking
 
+import AdapterItemSelectedListener
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -114,17 +113,8 @@ class BookingActivity : AppCompatActivity() {
             setSelection(savedInstanceState?.getInt(KEY_SELECTED_DATE_POSITION) ?: 0)
 
             onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long,
-                    ) {
-                        setTimeSpinner(screeningBookingDates[position], savedInstanceState)
-                    }
-
-                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                AdapterItemSelectedListener { pos ->
+                    setTimeSpinner(screeningBookingDates[pos], savedInstanceState)
                 }
         }
     }
@@ -164,7 +154,7 @@ class BookingActivity : AppCompatActivity() {
         }
 
         decreaseBtn.setOnClickListener {
-            val count = max(1, peopleCount.text.toString().toInt() - 1)
+            val count = max(MIN_BOOKING_PEOPLE_COUNT, peopleCount.text.toString().toInt() - 1)
             peopleCount.text = count.toString()
         }
 
@@ -238,9 +228,12 @@ class BookingActivity : AppCompatActivity() {
         private const val DEFAULT_DATE_YEAR = 1
         private const val DEFAULT_DATE_MONTH = 1
         private const val DEFAULT_DATE_DAY = 1
+        private const val MIN_BOOKING_PEOPLE_COUNT = 1
+
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
+
         const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
         const val KEY_BOOKING_DATE_TIME = "BOOKING_DATE_TIME"
         const val KEY_BOOKING_PEOPLE_COUNT = "BOOKING_PEOPLE_COUNT"
