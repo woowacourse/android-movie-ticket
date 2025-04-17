@@ -9,7 +9,7 @@ data class Ticket(
     val personnel: Int,
 ) : Serializable {
     constructor() : this(
-        "untitle",
+        "untitled",
         LocalDateTime.of(2025, 1, 1, 1, 1),
         1,
     )

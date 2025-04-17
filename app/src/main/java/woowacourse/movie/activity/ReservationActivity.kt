@@ -90,7 +90,7 @@ class ReservationActivity : AppCompatActivity() {
         val plusButton = findViewById<Button>(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            if (count > 1) count--
+            if (count > DEFUALT_PERSONNEL) count--
             updateCounterText()
         }
 
@@ -200,5 +200,6 @@ class ReservationActivity : AppCompatActivity() {
         private const val KEY_PERSONNEL_COUNT = "personnel_count"
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
+        private const val DEFUALT_PERSONNEL = 1
     }
 }
