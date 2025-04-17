@@ -45,8 +45,8 @@ class MovieTime {
         return times
     }
 
-    fun updateTime(selectedTime: Int) {
-        this.value = selectedTime
+    fun updateTime(newTime: Int) {
+        value = newTime
     }
 
     private fun List<Int>.timeTable(nowHour: Int): List<Int> {

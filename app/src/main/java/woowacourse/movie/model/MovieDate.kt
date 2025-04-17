@@ -11,8 +11,8 @@ class MovieDate(
 
     fun getDateTable(currentDate: LocalDate): List<LocalDate> = dateRangeToTable(currentDate)
 
-    fun updateDate(selectedDate: LocalDate) {
-        this.value = selectedDate
+    fun updateDate(newDate: LocalDate) {
+        value = newDate
     }
 
     private fun dateRangeToTable(currentDate: LocalDate): List<LocalDate> {
