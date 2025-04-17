@@ -1,13 +1,16 @@
 package woowacourse.movie.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
+@Parcelize
 class RunningTimes(
     val currentDate:LocalDate,
     val currentTime: LocalTime
-) {
+) : Parcelable {
     private fun isWeekdays(targetDay: LocalDate): Boolean {
         val dayOfWeek = targetDay.dayOfWeek
         return dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY

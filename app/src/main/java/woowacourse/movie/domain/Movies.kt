@@ -1,12 +1,15 @@
 package woowacourse.movie.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import woowacourse.movie.R
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
 
+@Parcelize
 data class Movies(
     val movies: Map<String, Movie>,
-) {
+) : Parcelable {
     fun find(title: String): Movie {
         return movies[title] ?: throw IllegalStateException(ERR_MOVIE_NOT_FOUND)
     }

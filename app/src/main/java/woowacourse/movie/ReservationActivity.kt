@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -12,6 +13,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.BookingStatus
+import woowacourse.movie.domain.MemberCount
+import woowacourse.movie.domain.Movie
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
 
@@ -25,6 +31,7 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
+        val movie = movie()
         val memberPlusButton = findViewById<Button>(R.id.plus_button)
         val memberMinusButton = findViewById<Button>(R.id.minus_button)
         val memberCommonButton = findViewById<Button>(R.id.common_button)
@@ -49,14 +56,9 @@ class ReservationActivity : AppCompatActivity() {
         runningTimeSpinner.setSelection(0)
         reservationDaySpinner.setSelection(0)
 
-        val runningDateTime = runningTimeSpinner.selectedItem
-        val reservationDay = reservationDaySpinner.selectedItem
-        val screenStartDate: String =
-            intent.getStringExtra(MOVIE_SCREENING_START_DATE_KEY) ?: "2025.04.01"
-        val screenEndDate: String =
-            intent.getStringExtra(MOVIE_SCREENING_END_DATE_KEY) ?: "2025.04.01"
-        val title: String = intent.getStringExtra(MOVIE_TITLE_KEY) ?: ""
-        val runningTime: String = intent.getStringExtra(MOVIE_RUNNING_TIME_KEY) ?: ""
+        val runningDateTime = runningTimeSpinner.selectedItem as String
+        val reservationDay = reservationDaySpinner.selectedItem as String
+
 
         memberPlusButton.setOnClickListener {
             memberCount.text = memberCount.text.toString()
@@ -85,11 +87,13 @@ class ReservationActivity : AppCompatActivity() {
                 .setMessage("정말 예매하시겠습니까?")
                 .setPositiveButton("예매 완료") { _, _ ->
                     navigateToReservationComplete(
-                        title.toString(),
-                        reservationDay.toString(),
-                        runningDateTime.toString(),
-                        memberCount.text.toString().toInt(),
-                        26000
+                        BookingStatus(
+                            movie = movie(),
+                            isBooked = true,
+                            memberCount = MemberCount(memberCount.text.toString().toInt()),
+                            bookedTime = LocalDateTime.parse("$reservationDay,$runningDateTime",
+                                DateTimeFormatter.ofPattern("yyyy-MM-dd,HH:mm"))
+                        )
                     )
                 }
                 .setNegativeButton("취소") { dialog, _ ->
@@ -102,50 +106,30 @@ class ReservationActivity : AppCompatActivity() {
 
         bookedRunningDayText.text = bookedRunningDayText.context.getString(
             R.string.movie_screening_date,
-            screenStartDate,
-            screenEndDate
+            movie.startDateTime,
+            movie.endDateTime
         )
-        titleTextView.text = title
+        titleTextView.text = movie.title
         runningTimeTextView.text = runningTimeTextView.context.getString(
             R.string.movie_running_time,
-            runningTime.toInt()
+            movie.runningTime.inWholeMinutes
         )
     }
 
-    companion object {
-        const val MOVIE_TITLE_KEY = "title"
-        const val MOVIE_SCREENING_START_DATE_KEY = "screeningStartDate"
-        const val MOVIE_SCREENING_END_DATE_KEY = "screeningEndDate"
-        const val MOVIE_RUNNING_TIME_KEY = "runningTime"
+    private fun navigateToReservationComplete(
+        bookingStatus: BookingStatus
+    ) {
+        val intent = Intent(this, ReservationCompleteActivity::class.java)
+            .apply { putExtra("bookingStatus", bookingStatus) }
+        startActivity(intent)
     }
 
-
-    private fun navigateToReservationComplete(
-        title: String,
-        runningDate: String,
-        runningTime: String,
-        memberCount: Int,
-        ticketPrice: Int
-    ) {
-        val bundle =
-            Bundle().apply {
-                putString(ReservationCompleteActivity.MOVIE_TITLE_KEY, title)
-                putString(
-                    ReservationCompleteActivity.MOVIE_SCREENING_DATE_KEY,
-                    runningDate
-                )
-                putString(
-                    ReservationCompleteActivity.MOVIE_SCREENING_TIME_KEY,
-                    runningTime
-                )
-                putString(
-                    ReservationCompleteActivity.MEMBER_COUNT_KEY,
-                    memberCount.toString()
-                )
-                putString(ReservationCompleteActivity.TICKET_PRICE_KEY, ticketPrice.toString())
-            }
-        val intent =
-            Intent(this, ReservationCompleteActivity::class.java).apply { putExtras(bundle) }
-        startActivity(intent)
+    private fun movie(): Movie {
+        return if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("movie", Movie::class.java) ?: throw IllegalStateException()
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra("movie") as? Movie ?: throw IllegalStateException()
+        }
     }
 }

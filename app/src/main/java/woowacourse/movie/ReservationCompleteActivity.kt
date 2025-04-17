@@ -1,11 +1,15 @@
 package woowacourse.movie
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.BookingStatus
+import woowacourse.movie.domain.Movie
+import java.time.format.DateTimeFormatter
 
 class ReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,8 +21,8 @@ class ReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val bookingStatus = bookingStatus()
 
-        val movieTitle: String = intent.getStringExtra(MOVIE_TITLE_KEY) ?: "해리포터"
         val movieTitleTextView = findViewById<TextView>(R.id.booked_movie_title_text)
         val screeningDateTextView =
             findViewById<TextView>(R.id.booked_movie_running_day_text)
@@ -26,19 +30,18 @@ class ReservationCompleteActivity : AppCompatActivity() {
         val bookedMovieTicketPriceTextView =
             findViewById<TextView>(R.id.booked_movie_ticket_price_text)
 
-        movieTitleTextView.text = movieTitle
+        movieTitleTextView.text = bookingStatus.movie.title
         screeningDateTextView.text = screeningDateTextView.context.getString(
             R.string.movie_running_dateTime,
-            intent.getStringExtra(MOVIE_SCREENING_DATE_KEY),
-            intent.getStringExtra(MOVIE_SCREENING_TIME_KEY)
+            bookingStatus.bookedTime
         )
         memberCountTextView.text = memberCountTextView.context.getString(
             R.string.member_count,
-            intent.getStringExtra(MEMBER_COUNT_KEY)?.toIntOrNull() ?: 1
+            bookingStatus.memberCount.value
         )
         bookedMovieTicketPriceTextView.text = bookedMovieTicketPriceTextView.context.getString(
             R.string.total_price,
-            intent.getStringExtra(TICKET_PRICE_KEY)?.toIntOrNull() ?: 26000
+            bookingStatus.calculateTicketPrices()
         )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -49,11 +52,12 @@ class ReservationCompleteActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    companion object {
-        const val MOVIE_TITLE_KEY = "title"
-        const val MOVIE_SCREENING_DATE_KEY = "screeningDate"
-        const val MOVIE_SCREENING_TIME_KEY = "screeningTime"
-        const val MEMBER_COUNT_KEY = "memberCount"
-        const val TICKET_PRICE_KEY = "ticketPrice"
+    private fun bookingStatus(): BookingStatus {
+        return if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra("bookingStatus", BookingStatus::class.java) ?: throw IllegalStateException()
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra("bookingStatus") as? BookingStatus ?: throw IllegalStateException()
+        }
     }
 }
