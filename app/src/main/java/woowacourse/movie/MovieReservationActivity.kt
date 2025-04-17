@@ -197,6 +197,7 @@ class MovieReservationActivity : AppCompatActivity() {
         selectButton.setOnClickListener {
             alertDialog.show()
         }
+        alertDialog.setCancelable(false)
     }
 
     private fun onConfirmReservation() {
