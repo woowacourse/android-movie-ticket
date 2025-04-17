@@ -2,8 +2,8 @@ package woowacourse.movie.domain
 
 import java.time.LocalDateTime
 
-data class Ticket(
-    private val screening: Screening,
+class Ticket(
+    screening: Screening,
     val count: Int,
     val showtime: LocalDateTime,
 ) {

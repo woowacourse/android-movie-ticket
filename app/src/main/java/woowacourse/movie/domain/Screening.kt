@@ -4,10 +4,10 @@ import androidx.annotation.DrawableRes
 import java.time.LocalDate
 import java.time.LocalTime
 
-data class Screening(
-    private val movie: Movie,
+class Screening(
+    movie: Movie,
     val period: ClosedRange<LocalDate>,
-    val showTimePolicy: ShowtimePolicy = ShowtimePolicy(),
+    private val showTimePolicy: ShowtimePolicy = ShowtimePolicy(),
 ) {
     @DrawableRes
     val posterId: Int = movie.posterId

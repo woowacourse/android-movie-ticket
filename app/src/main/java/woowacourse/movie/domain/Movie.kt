@@ -2,7 +2,7 @@ package woowacourse.movie.domain
 
 import androidx.annotation.DrawableRes
 
-data class Movie(
+class Movie(
     val title: String,
     val runningTime: Int,
     @DrawableRes
