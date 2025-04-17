@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -25,6 +26,8 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var binding: BookingBinding
     private lateinit var reservationDay: LocalDate
     private lateinit var runningDateTime: LocalTime
+    private var runningTimePosition: Int = 0
+    private var datePosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +41,15 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val movie = movie()
+        val memberCount = savedInstanceState?.getString("memberCount") ?: binding.count.text
+        binding.count.text = memberCount
+
+        runningTimePosition = savedInstanceState?.getInt("runningTime") ?: 0
+        datePosition = savedInstanceState?.getInt("reservationDay") ?: 0
         binding.datePickerActions.adapter = ReservationDaySpinnerAdapter(
             MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates()
         )
-        binding.datePickerActions.setSelection(0)
+        binding.datePickerActions.setSelection(datePosition)
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
 
         binding.datePickerActions.onItemSelectedListener =
@@ -56,6 +64,7 @@ class ReservationActivity : AppCompatActivity() {
                     binding.timePickerActions.adapter = RunningTimeSpinnerAdapter(
                         RunningTimes().runningTimes(reservationDay)
                     )
+                    datePosition = position
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -65,7 +74,7 @@ class ReservationActivity : AppCompatActivity() {
         binding.timePickerActions.adapter = RunningTimeSpinnerAdapter(
             RunningTimes().runningTimes(reservationDay)
         )
-        binding.timePickerActions.setSelection(0)
+        binding.timePickerActions.setSelection(runningTimePosition)
         runningDateTime = binding.timePickerActions.selectedItem as LocalTime
         binding.timePickerActions.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -76,6 +85,7 @@ class ReservationActivity : AppCompatActivity() {
                     id: Long
                 ) {
                     runningDateTime = parent?.getItemAtPosition(position) as LocalTime
+                    runningTimePosition = position
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -83,7 +93,7 @@ class ReservationActivity : AppCompatActivity() {
             }
 
         binding.plusButton.setOnClickListener {
-            binding.count.text = binding.count.text.toString()
+            binding.count.text= binding.count.text.toString()
                 .toIntOrNull()
                 ?.plus(1)
                 ?.toString()
@@ -91,7 +101,7 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         binding.minusButton.setOnClickListener {
-            if (binding.count.text.toString().toInt() <= 1) {
+            if (memberCount.toString().toInt() <= 1) {
                 Toast.makeText(this, "1명 이상의 인원을 선택해야 합니다", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -151,5 +161,12 @@ class ReservationActivity : AppCompatActivity() {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra("movie") as? Movie ?: throw IllegalStateException()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("memberCount", binding.count.text.toString())
+        outState.putInt("runningTime", runningTimePosition)
+        outState.putInt("reservationDay", datePosition)
     }
 }
