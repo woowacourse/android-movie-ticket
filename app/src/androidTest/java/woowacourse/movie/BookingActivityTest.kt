@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -14,7 +15,6 @@ import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_DAY
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_MONTH
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_YEAR
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_POSTER
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_RELEASE_DATE
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_RUNNING_TIME
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_DAY
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_MONTH
@@ -72,5 +72,27 @@ class BookingActivityTest {
     @Test
     fun releasedTimeSpinnerDisplayTest() {
         onView(withId(R.id.sp_time)).check(matches(isDisplayed()))
+    }
+
+    @DisplayName("인원 증가 버튼을 누르면 인원이 1 증가한다")
+    @Test
+    fun increaseBtnTest()  {
+        onView(withId(R.id.btn_increase)).perform(click())
+        onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
+    }
+
+    @DisplayName("인원 감소 버튼을 누르면 인원이 1 감소한다")
+    @Test
+    fun decreaseBtnTest()  {
+        onView(withId(R.id.btn_increase)).perform(click())
+        onView(withId(R.id.btn_decrease)).perform(click())
+        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+    }
+
+    @DisplayName("인원은 1명 이하로 감소하지 않는다")
+    @Test
+    fun minDecreaseBtnTest()  {
+        onView(withId(R.id.btn_decrease)).perform(click())
+        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
     }
 }

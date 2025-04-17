@@ -70,6 +70,7 @@ class BookingActivity : AppCompatActivity() {
         movieRunningTimeView.text = intent.getStringExtra(KEY_MOVIE_RUNNING_TIME)
 
         setDateSpinner(startDate, endDate)
+        setButtonListener()
     }
 
     private fun setDateSpinner(
@@ -117,6 +118,22 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun joinReleaseDates(startDate: LocalDate, endDate: LocalDate): String {
+    private fun setButtonListener() {
+        val increaseBtn = findViewById<Button>(R.id.btn_increase)
+        val decreaseBtn = findViewById<Button>(R.id.btn_decrease)
+
+        val peopleCount = findViewById<TextView>(R.id.tv_people_count)
+
+        increaseBtn.setOnClickListener {
+            val count = peopleCount.text.toString().toInt() + 1
+            peopleCount.text = count.toString()
+        }
+
+        decreaseBtn.setOnClickListener {
+            val count = max(1, peopleCount.text.toString().toInt() - 1)
+            peopleCount.text = count.toString()
+        }
+    }
         return "$startDate ~ $endDate"
     }
 
