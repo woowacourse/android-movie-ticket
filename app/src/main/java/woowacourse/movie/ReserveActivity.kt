@@ -16,18 +16,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.DateScheduler
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieScheduler
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.domain.TimeScheduler
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReserveActivity : AppCompatActivity() {
-    private val movieScheduler = MovieScheduler()
+    private val movieScheduler = MovieScheduler(DateScheduler(), TimeScheduler())
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
     private val ticketCount: TextView by lazy { findViewById(R.id.tv_ticket_count) }
@@ -58,7 +60,7 @@ class ReserveActivity : AppCompatActivity() {
         initMovieInfo(movie!!)
         initDateSpinner(movie.screeningDate)
         val startDate =
-            movieScheduler.getStartDate(
+            movieScheduler.dateScheduler.getStartDate(
                 movie.screeningDate.startDate,
                 LocalDate.now(),
             )
@@ -90,7 +92,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun initDateSpinner(screeningDate: ScreeningDate) {
-        val dates = movieScheduler.reservableDates(screeningDate, LocalDate.now())
+        val dates = movieScheduler.dateScheduler.reservableDates(screeningDate, LocalDate.now())
 
         dateSpinner.adapter =
             ArrayAdapter(
@@ -143,7 +145,7 @@ class ReserveActivity : AppCompatActivity() {
                 .withNano(0)
 
         val times =
-            movieScheduler.reservableTimes(
+            movieScheduler.timeScheduler.reservableTimes(
                 selectedDate,
                 currentDateTime,
             )

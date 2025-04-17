@@ -2,40 +2,11 @@ package woowacourse.movie.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class MovieSchedulerTest {
-    private val movieScheduler = MovieScheduler()
-
-    @Test
-    fun `현재 날짜가 상영 시작일보다 빠른 경우 상영 시작일 기준으로 상영 가능 날짜를 반환한다`() {
-        // given
-        val screeningDate = ScreeningDate(MAY_FIRST, MAY_THIRD)
-        val currentDate = APRIL_THIRTIETH
-        val expected: List<LocalDate> = listOf(MAY_FIRST, MAY_SECOND, MAY_THIRD)
-
-        // when
-        val actual = movieScheduler.reservableDates(screeningDate, currentDate)
-
-        // then
-        assertThat(actual).isEqualTo(expected)
-    }
-
-    @Test
-    fun `현재 날짜가 상영 시작일보다 느린 경우 현재 날짜 기준으로 상영 가능 날짜를 반환한다`() {
-        // given
-        val screeningDate = ScreeningDate(APRIL_THIRTIETH, MAY_THIRD)
-        val currentDate = MAY_FIRST
-        val expected: List<LocalDate> = listOf(MAY_FIRST, MAY_SECOND, MAY_THIRD)
-
-        // when
-        val actual = movieScheduler.reservableDates(screeningDate, currentDate)
-
-        // then
-        assertThat(actual).isEqualTo(expected)
-    }
+class TimeSchedulerTest {
+    private val timeScheduler = TimeScheduler()
 
     @Test
     fun `현재 날짜와 선택된 날짜가 같고 평일인데, 현재 시간이 빠른 경우 현재 시간 기준으로 짝수 시간을 반환한다`() {
@@ -49,7 +20,7 @@ class MovieSchedulerTest {
             )
 
         // when
-        val actual = movieScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -67,7 +38,7 @@ class MovieSchedulerTest {
             )
 
         // when
-        val actual = movieScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -90,7 +61,7 @@ class MovieSchedulerTest {
             )
 
         // when
-        val actual = movieScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -114,7 +85,7 @@ class MovieSchedulerTest {
             )
 
         // when
-        val actual = movieScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -128,7 +99,7 @@ class MovieSchedulerTest {
         val expected: List<LocalTime> = listOf()
 
         // when
-        val actual = movieScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
