@@ -27,6 +27,7 @@ import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_MONTH
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_YEAR
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
 import woowacourse.movie.view.ReservationActivity
+import java.time.LocalDate
 import java.time.LocalTime
 
 class ReservationActivityTest {
@@ -43,7 +44,7 @@ class ReservationActivityTest {
                 putExtra(EXTRA_START_DAY, 16)
                 putExtra(EXTRA_END_YEAR, 2025)
                 putExtra(EXTRA_END_MONTH, 4)
-                putExtra(EXTRA_END_DAY, 18)
+                putExtra(EXTRA_END_DAY, 21)
                 putExtra(
                     EXTRA_POSTER_ID,
                     R.drawable.poster_harry_potter_and_the_philosophers_stone,
@@ -103,17 +104,25 @@ class ReservationActivityTest {
 
     @Test
     fun `날짜를_선택하면_가능한_시간대가_표시된다`() {
-        // FIXME: 뷰가 2개 찾아지는 문제 해결 필요
+        onView(withId(R.id.spinner_reservation_screening_date)).perform(click())
         onData(
             allOf(
-                `is`(instanceOf(LocalTime::class.java)),
-                `is`(LocalTime.of(23, 30)),
-//                `is`(LocalDate.of(2025, 4, 17)),
+                `is`(instanceOf(LocalDate::class.java)),
+                `is`(LocalDate.of(2025, 4, 20)),
             ),
-        ).check(matches(withId(R.id.spinner_reservation_screening_time)))
-//
-//        onView(withId(R.id.spinner_reservation_screening_time))
-//            .check(matches(withSpinnerText("10:00")))
+        ).perform(click())
+
+        onView(withId(R.id.spinner_reservation_screening_time)).perform(click())
+
+        val hours = listOf(9, 11, 13, 15, 17, 19, 21, 23)
+        for (hour in hours) {
+            onData(
+                allOf(
+                    `is`(instanceOf(LocalTime::class.java)),
+                    `is`(LocalTime.of(hour, 0, 0)),
+                ),
+            ).check(matches(isDisplayed()))
+        }
     }
 
     @Test
