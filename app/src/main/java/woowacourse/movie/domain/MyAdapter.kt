@@ -56,7 +56,6 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
             intent.putExtra("movie", movie)
             parent?.context?.startActivity(intent)
         }
-
         return view
     }
 }

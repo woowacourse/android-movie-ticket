@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var count = 1
+    private var selectedTimeTable: LocalTime = LocalTime.of(1, 1)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,7 +115,7 @@ class ReservationActivity : AppCompatActivity() {
                     .setMessage("정말 예매하시겠습니까?")
                     .setPositiveButton("예매 완료") { _, _ ->
                         val intent = Intent(this, CompleteActivity::class.java)
-                        val ticket = createTicket(movie.title, selectedItem, LocalTime.now())
+                        val ticket = createTicket(movie.title, selectedItem, selectedTimeTable)
                         intent.putExtra("ticket", ticket)
                         startActivity(intent)
                     }
@@ -149,7 +150,7 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    currentTimeTable[position]
+                    selectedTimeTable = currentTimeTable[position]
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
