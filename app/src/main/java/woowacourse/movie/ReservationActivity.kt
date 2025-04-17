@@ -25,7 +25,8 @@ import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var count = 1
-    private var selectedTimeTable: LocalTime = LocalTime.of(1, 1)
+    private var datePosition = 0
+    private var timePosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,49 +70,31 @@ class ReservationActivity : AppCompatActivity() {
         movieTimeTextView.text = getString(R.string.movieTime, movie.time)
         moviePosterImageView.setImageResource(movie.image)
 
-        val movieSchedule = MovieSchedule(movie.date)
-        val currentDateSpinner = movieSchedule.dateSpinner(LocalDate.now())
-        var selectedItem: LocalDate = LocalDate.now()
-
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        spinnerDate.adapter =
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                currentDateSpinner,
-            )
-        spinnerDate.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    selectedItem = currentDateSpinner[position]
-                    setTimeSpinner(selectedItem)
-                }
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+        setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
 
         reservationButton.setOnClickListener {
-            val builder =
-                AlertDialog.Builder(this)
-                    .setTitle("예매 확인")
-                    .setMessage("정말 예매하시겠습니까?")
-                    .setPositiveButton("예매 완료") { _, _ ->
-                        val intent = Intent(this, CompleteActivity::class.java)
-                        val ticket = createTicket(movie.title, selectedItem, selectedTimeTable)
-                        intent.putExtra("ticket", ticket)
-                        startActivity(intent)
-                    }
-                    .setNegativeButton("취소") { dialog, _ ->
-                        dialog.dismiss()
-                    }.show()
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    val intent = Intent(this, CompleteActivity::class.java)
+                    val ticket = createTicket(movie.title, spinnerDate.selectedItem as LocalDate, spinnerTime.selectedItem as LocalTime)
+                    intent.putExtra("ticket", ticket)
+                    startActivity(intent)
+                }
+                .setNegativeButton("취소") { dialog, _ ->
+                    dialog.dismiss()
+                }.show()
         }
 
-        count = savedInstanceState?.getInt("personnel_count") ?: return
+        count = savedInstanceState?.getInt(KEY_PERSONNEL_COUNT) ?: return
+        datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
+        timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+
+        spinnerDate.setSelection(datePosition)
         updateCounterText()
     }
 
@@ -120,19 +103,22 @@ class ReservationActivity : AppCompatActivity() {
         counterTextView.text = count.toString()
     }
 
-    private fun setTimeSpinner(localDate: LocalDate) {
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-        val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).runningTimeTable()
-        spinnerTime.adapter =
+    private fun setDateSpinner(
+        movie: Movie,
+        localDate: LocalDate,
+        spinner: Spinner,
+        spinnerTime: Spinner,
+    ) {
+        val movieSchedule = MovieSchedule(movie.date)
+        val currentDateSpinner = movieSchedule.dateSpinner(localDate)
+
+        spinner.adapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
-                currentTimeTable,
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerTime.adapter = adapter
-            }
-        spinnerTime.onItemSelectedListener =
+                currentDateSpinner,
+            )
+        spinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -140,7 +126,41 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    selectedTimeTable = currentTimeTable[position]
+                    datePosition = position
+                    val selectedDate = currentDateSpinner[datePosition]
+                    setTimeSpinner(spinnerTime, selectedDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+    }
+
+    private fun setTimeSpinner(
+        spinner: Spinner,
+        localDate: LocalDate,
+    ) {
+        val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).runningTimeTable()
+        spinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                currentTimeTable,
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinner.adapter = adapter
+            }
+
+        spinner.setSelection(timePosition)
+
+        spinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    timePosition = position
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -150,7 +170,9 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt("personnel_count", count)
+        outState.putInt(KEY_PERSONNEL_COUNT, count)
+        outState.putInt(KEY_DATE_POSITION, datePosition)
+        outState.putInt(KEY_TIME_POSITION, timePosition)
     }
 
     private fun createTicket(
@@ -163,5 +185,11 @@ class ReservationActivity : AppCompatActivity() {
             LocalDateTime.of(localDate.year, localDate.month, localDate.dayOfMonth, localTime.hour, localTime.minute),
             count,
         )
+    }
+
+    companion object {
+        private const val KEY_PERSONNEL_COUNT = "personnel_count"
+        private const val KEY_DATE_POSITION = "movieDate_position"
+        private const val KEY_TIME_POSITION = "timeTable_position"
     }
 }
