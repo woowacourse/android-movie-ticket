@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setupView()
 
         val title = intent.getStringExtra(MOVIE_TITLE_KEY)
