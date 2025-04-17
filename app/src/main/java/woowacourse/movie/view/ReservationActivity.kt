@@ -2,6 +2,7 @@ package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -32,14 +33,17 @@ import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var screening: Screening
-    private var ticketCount = DEFAULT_TICKET_COUNT
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
+
+    private var ticketCount = DEFAULT_TICKET_COUNT
+    private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
         outState.putInt(TICKET_COUNT, ticketCount)
+        outState.putInt(TIME_ITEM_POSITION, timeItemPosition)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,11 +57,16 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
-        initModel(savedTicketCount)
+        val savedTimeItemPosition = savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: 0
+        Log.d("time", "$savedTimeItemPosition 값 oncreate")
+        initModel(savedTicketCount, savedTimeItemPosition)
         initViews()
     }
 
-    private fun initModel(savedTicketCount: Int) {
+    private fun initModel(
+        savedTicketCount: Int,
+        savedTimeItemPosition: Int,
+    ) {
         val title = intent.getStringExtra(EXTRA_TITLE) ?: error("영화 제목을 전달받지 못했습니다.")
         val startYear = intent.getIntExtra(EXTRA_START_YEAR, -1).takeIf { it != -1 } ?: error("")
         val startMonth = intent.getIntExtra(EXTRA_START_MONTH, 0)
@@ -71,8 +80,8 @@ class ReservationActivity : AppCompatActivity() {
         val endDate = LocalDate.of(endYear, endMonth, endDay)
         val period = startDate..endDate
         screening = Screening(Movie(title, runningTIme, posterId), period)
-
         ticketCount = savedTicketCount
+        timeItemPosition = savedTimeItemPosition
     }
 
     private fun initViews() {
@@ -166,6 +175,25 @@ class ReservationActivity : AppCompatActivity() {
         val dateSpinnerView = findViewById<Spinner>(R.id.spinner_reservation_screening_date)
         dateSpinnerView.adapter = dateAdapter
 
+        val timeSpinnerView =
+            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
+
+        timeSpinnerView.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
+                    selectedTime = screeningTimes[position]
+                    timeItemPosition = position
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
         dateSpinnerView.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -184,23 +212,8 @@ class ReservationActivity : AppCompatActivity() {
                             screeningTimes,
                         )
 
-                    val timeSpinnerView =
-                        findViewById<Spinner>(R.id.spinner_reservation_screening_time)
                     timeSpinnerView.adapter = timeAdapter
-
-                    timeSpinnerView.onItemSelectedListener =
-                        object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(
-                                parent: AdapterView<*>?,
-                                view: View?,
-                                position: Int,
-                                id: Long,
-                            ) {
-                                selectedTime = screeningTimes[position]
-                            }
-
-                            override fun onNothingSelected(parent: AdapterView<*>?) {}
-                        }
+                    timeSpinnerView.setSelection(timeItemPosition)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -209,13 +222,11 @@ class ReservationActivity : AppCompatActivity() {
 
     companion object {
         const val DEFAULT_TICKET_COUNT = 1
+        const val DEFAULT_TIME_ITEM_POSITION = 0
         const val TICKET_COUNT = "TICKET_COUNT"
+        const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
 
         const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
-        const val EXTRA_SHOWTIME_YEAR = "woowacourse.movie.EXTRA_SHOWTIME_YEAR"
-        const val EXTRA_SHOWTIME_MONTH = "woowacourse.movie.EXTRA_SHOWTIME_MONTH"
-        const val EXTRA_SHOWTIME_DAY = "woowacourse.movie.EXTRA_SHOWTIME_DAY"
-        const val EXTRA_SHOWTIME_HOUR = "woowacourse.movie.EXTRA_SHOWTIME_HOUR"
         const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
         const val EXTRA_START_DATE = "woowacourse.movie.EXTRA_START_DATE"
         const val EXTRA_END_DATE = "woowacourse.movie.EXTRA_END_DATE"
