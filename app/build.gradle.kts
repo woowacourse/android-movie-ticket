@@ -16,7 +16,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
+        testInstrumentationRunnerArguments["runnerBuilder"] =
+            "de.mannodermaus.junit5.AndroidJUnit5Builder"
     }
 
     buildTypes {
@@ -41,6 +42,11 @@ android {
             excludes += "win32-x86*/**"
         }
     }
+    testOptions {
+        emulatorControl {
+            enable = true
+        }
+    }
 }
 
 dependencies {
@@ -55,6 +61,7 @@ dependencies {
     testImplementation(libs.kotest.runner.junit5)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.espresso.intents)
+    androidTestImplementation("androidx.test.espresso:espresso-device:1.0.1")
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.assertj.core)
