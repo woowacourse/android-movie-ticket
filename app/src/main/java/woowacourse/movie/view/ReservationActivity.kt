@@ -213,7 +213,12 @@ class ReservationActivity : AppCompatActivity() {
                         )
 
                     timeSpinnerView.adapter = timeAdapter
-                    timeSpinnerView.setSelection(timeItemPosition)
+
+                    if (timeItemPosition >= screeningTimes.size) {
+                        timeSpinnerView.setSelection(screeningTimes.lastIndex)
+                    } else {
+                        timeSpinnerView.setSelection(timeItemPosition)
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
