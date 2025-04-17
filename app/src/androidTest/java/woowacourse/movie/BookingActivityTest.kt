@@ -53,7 +53,7 @@ class BookingActivityTest {
     @DisplayName("전달 받은 상영일 출력한다")
     @Test
     fun movieReleaseDateDisplayTest() {
-        onView(withId(R.id.tv_screening_period)).check(matches(withText("2025-04-01 ~ 2025-04-25")))
+        onView(withId(R.id.tv_screening_period)).check(matches(withText("2025.4.1 ~ 2025.4.25")))
     }
 
     @DisplayName("전달 받은 상영 시간을 출력한다")
@@ -76,14 +76,14 @@ class BookingActivityTest {
 
     @DisplayName("인원 증가 버튼을 누르면 인원이 1 증가한다")
     @Test
-    fun increaseBtnTest()  {
+    fun increaseBtnTest() {
         onView(withId(R.id.btn_increase)).perform(click())
         onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
     }
 
     @DisplayName("인원 감소 버튼을 누르면 인원이 1 감소한다")
     @Test
-    fun decreaseBtnTest()  {
+    fun decreaseBtnTest() {
         onView(withId(R.id.btn_increase)).perform(click())
         onView(withId(R.id.btn_decrease)).perform(click())
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
@@ -91,7 +91,7 @@ class BookingActivityTest {
 
     @DisplayName("인원은 1명 이하로 감소하지 않는다")
     @Test
-    fun minDecreaseBtnTest()  {
+    fun minDecreaseBtnTest() {
         onView(withId(R.id.btn_decrease)).perform(click())
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
     }

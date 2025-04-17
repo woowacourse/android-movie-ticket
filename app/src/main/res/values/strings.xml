@@ -7,4 +7,5 @@
     <string name="text_decrease">-</string>
     <string name="text_increase">+</string>
     <string name="text_booking_complete">선택 완료</string>
+    <string name="text_date_period">%s ~ %s</string>
 </resources>

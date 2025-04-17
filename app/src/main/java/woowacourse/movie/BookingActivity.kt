@@ -65,7 +65,11 @@ class BookingActivity : AppCompatActivity() {
         moviePosterView.setImageResource(intent.getIntExtra(KEY_MOVIE_POSTER, 0))
 
         val movieReleaseDateView = findViewById<TextView>(R.id.tv_screening_period)
-        movieReleaseDateView.text = joinReleaseDates(startDate, endDate)
+        movieReleaseDateView.text =
+            getString(R.string.text_date_period).format(
+                startDate.toDotFormat(),
+                endDate.toDotFormat(),
+            )
 
         val movieRunningTimeView = findViewById<TextView>(R.id.tv_running_time)
         movieRunningTimeView.text = intent.getStringExtra(KEY_MOVIE_RUNNING_TIME)
@@ -136,11 +140,9 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun joinReleaseDates(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ): String {
-        return "$startDate ~ $endDate"
+    private fun LocalDate.toDotFormat(): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+        return format(formatter)
     }
 
     companion object {
