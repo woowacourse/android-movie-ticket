@@ -5,6 +5,9 @@
     <!--    MoviesActivity-->
     <string name="movies_movie_date_with_tilde">%s ~ %s</string>
     <string name="movies_movie_running_time">%d분</string>
+    <string name="movies_movie_date_label">상영일 :</string>
+    <string name="movies_movie_running_time_label">러닝타임 :</string>
+    <string name="movies_movie_booking_now">지금 예매</string>
 
     <!--    BookingDetailActivity-->
     <string name="booking_detail_date_label">상영일 :</string>
