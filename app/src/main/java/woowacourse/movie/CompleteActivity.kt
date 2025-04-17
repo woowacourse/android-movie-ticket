@@ -37,11 +37,11 @@ class CompleteActivity : AppCompatActivity() {
         movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, Ticket.CANCEL_DEADLINE)
         movieDateTextView.text = dateTimeFormat
         moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
-        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(Ticket.DEFAULT_PRICE, ticket.personnel))
+        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(personnel = ticket.personnel))
     }
 
     private fun totalPrice(
-        price: Int,
+        price: Int = Ticket.DEFAULT_PRICE,
         personnel: Int,
     ): String {
         return priceFormatter.format(price * personnel).toString()
