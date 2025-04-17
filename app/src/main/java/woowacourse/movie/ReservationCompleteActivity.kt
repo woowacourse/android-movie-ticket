@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.databinding.BookingSuccessBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
@@ -22,27 +23,23 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
         val bookingStatus = bookingStatus()
+        val binding = BookingSuccessBinding.inflate(layoutInflater)
 
-        val movieTitleTextView = findViewById<TextView>(R.id.booked_movie_title_text)
-        val screeningDateTextView =
-            findViewById<TextView>(R.id.booked_movie_running_day_text)
-        val memberCountTextView = findViewById<TextView>(R.id.member_count_text)
-        val bookedMovieTicketPriceTextView =
-            findViewById<TextView>(R.id.booked_movie_ticket_price_text)
-
-        movieTitleTextView.text = bookingStatus.movie.title
-        screeningDateTextView.text = screeningDateTextView.context.getString(
-            R.string.movie_running_dateTime,
-            bookingStatus.bookedTime
-        )
-        memberCountTextView.text = memberCountTextView.context.getString(
+        binding.bookedMovieTitleText.text = bookingStatus.movie.title
+        binding.bookedMovieRunningDayText.text =
+            binding.bookedMovieRunningDayText.context.getString(
+                R.string.movie_running_dateTime,
+                bookingStatus.bookedTime
+            )
+        binding.memberCountText.text = binding.memberCountText.context.getString(
             R.string.member_count,
             bookingStatus.memberCount.value
         )
-        bookedMovieTicketPriceTextView.text = bookedMovieTicketPriceTextView.context.getString(
-            R.string.total_price,
-            bookingStatus.calculateTicketPrices()
-        )
+        binding.bookedMovieTicketPriceText.text =
+            binding.bookedMovieTicketPriceText.context.getString(
+                R.string.total_price,
+                bookingStatus.calculateTicketPrices()
+            )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -54,10 +51,12 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
     private fun bookingStatus(): BookingStatus {
         return if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra("bookingStatus", BookingStatus::class.java) ?: throw IllegalStateException()
+            intent.getParcelableExtra("bookingStatus", BookingStatus::class.java)
+                ?: throw IllegalStateException()
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra("bookingStatus") as? BookingStatus ?: throw IllegalStateException()
+            intent.getParcelableExtra("bookingStatus") as? BookingStatus
+                ?: throw IllegalStateException()
         }
     }
 }

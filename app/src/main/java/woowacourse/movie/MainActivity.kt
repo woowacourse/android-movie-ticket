@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.dao.MovieDao
+import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
 import java.time.format.DateTimeFormatter
@@ -23,9 +24,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val binding = ActivityMainBinding.inflate(layoutInflater)
         val movies = Movies.movies
 
-        val movieListView = findViewById<ListView>(R.id.movies)
+        val movieListView = binding.movies
         val movieListAdapter = MovieListAdapter(movies, ::navigateToReservationComplete)
         movieListView.adapter = movieListAdapter
     }
