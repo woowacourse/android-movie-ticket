@@ -8,10 +8,11 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.view.movie.MovieListActivity
 
-class MainActivityTest {
+class MovieListActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieListActivity::class.java)
 
     @DisplayName("영화 아이템 항목 1개 출력 테스트")
     @Test

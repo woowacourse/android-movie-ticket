@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.booking
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -7,11 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
-import woowacourse.movie.StringFormatter.thousandFormat
+import woowacourse.movie.R
+import woowacourse.movie.view.StringFormatter.thousandFormat
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

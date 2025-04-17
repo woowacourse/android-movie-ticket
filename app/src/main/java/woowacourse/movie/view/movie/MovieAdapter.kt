@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.movie
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,9 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.StringFormatter.dotDateFormat
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.view.StringFormatter.dotDateFormat
 
 class MovieAdapter(
     val onClickBooking: (Int) -> Unit,

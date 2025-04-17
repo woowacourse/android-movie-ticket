@@ -9,11 +9,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
-import woowacourse.movie.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
 import woowacourse.movie.fixture.fakeContext
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
+import woowacourse.movie.view.booking.BookingCompleteActivity
 
 class BookingCompleteActivityTest {
     private lateinit var intent: Intent

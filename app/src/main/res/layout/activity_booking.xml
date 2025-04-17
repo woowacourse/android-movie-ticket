@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookingActivity">
+    tools:context=".view.booking.BookingActivity">
 
     <ImageView
         android:id="@+id/img_movie_poster"

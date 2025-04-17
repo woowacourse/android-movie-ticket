@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.booking
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -15,20 +15,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_DAY
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_MONTH
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_YEAR
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_POSTER
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_RUNNING_TIME
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_DAY
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_MONTH
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_YEAR
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_TITLE
-import woowacourse.movie.StringFormatter.dotDateFormat
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import woowacourse.movie.domain.model.TicketType
+import woowacourse.movie.view.StringFormatter.dotDateFormat
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_MONTH
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_YEAR
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_POSTER
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_RUNNING_TIME
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_DAY
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_MONTH
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_YEAR
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_TITLE
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

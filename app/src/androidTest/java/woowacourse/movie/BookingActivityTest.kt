@@ -11,16 +11,17 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_DAY
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_MONTH
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_YEAR
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_POSTER
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_RUNNING_TIME
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_DAY
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_MONTH
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_YEAR
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_TITLE
 import woowacourse.movie.fixture.fakeContext
+import woowacourse.movie.view.booking.BookingActivity
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_MONTH
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_YEAR
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_POSTER
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_RUNNING_TIME
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_DAY
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_MONTH
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_YEAR
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_TITLE
 
 class BookingActivityTest {
     @Before

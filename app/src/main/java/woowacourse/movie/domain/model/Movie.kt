@@ -1,7 +1,6 @@
-package woowacourse.movie
+package woowacourse.movie.domain.model
 
 import androidx.annotation.DrawableRes
-import woowacourse.movie.domain.model.ScreeningDate
 
 class Movie(
     val title: String,
