@@ -2,7 +2,6 @@ package woowacourse.movie.ui.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -26,13 +25,19 @@ import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
     private var headCount: Int = 1
-    private val movie: Movie by lazy { intent.intentSerializable(getString(R.string.movie_info_key), Movie::class.java) }
+    private val movie: Movie by lazy {
+        intent.intentSerializable(
+            getString(R.string.movie_info_key),
+            Movie::class.java
+        )
+    }
     private lateinit var date: LocalDate
     private lateinit var time: LocalTime
     private lateinit var quantityView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
         setupScreen()
         displayMovieInfo()
         bindTicketQuantityButtonListeners()
@@ -67,6 +72,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun bindTicketQuantityButtonListeners() {
         quantityView = findViewById(R.id.quantity)
+        updateHeadCount()
         val increaseBtn = findViewById<Button>(R.id.increase)
         increaseBtn.setOnClickListener {
             headCount++
@@ -99,6 +105,9 @@ class BookingActivity : AppCompatActivity() {
             dates
         )
 
+        val index = if (::date.isInitialized) dates.indexOf(date) else 0
+        dateSpinner.setSelection(index)
+
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -107,7 +116,6 @@ class BookingActivity : AppCompatActivity() {
                 id: Long
             ) {
                 date = dateSpinner.getItemAtPosition(position) as LocalDate
-                Log.d("날짜", date.toString())
                 setupTimeSpinner(movieScheduler, date)
             }
 
@@ -124,6 +132,9 @@ class BookingActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item,
             times
         )
+
+        val index = if (::time.isInitialized) times.indexOf(time) else 0
+        timeSpinner.setSelection(index)
 
         timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -160,6 +171,19 @@ class BookingActivity : AppCompatActivity() {
         val intent = Intent(this, BookingSummaryActivity::class.java)
         intent.putExtra(getString(R.string.ticket_info_key), movieTicket)
         startActivity(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("HeadCount", headCount)
+        outState.putString("Date", date.toString())
+        outState.putString("Time", time.toString())
+    }
+
+    private fun loadSavedInstanceState(savedInstance: Bundle) {
+        headCount = savedInstance.getInt("HeadCount")
+        date = LocalDate.parse(savedInstance.getString("Date"))
+        time = LocalTime.parse(savedInstance.getString("Time"))
     }
 
     private fun updateHeadCount() {
