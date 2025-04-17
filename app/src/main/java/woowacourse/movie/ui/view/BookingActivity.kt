@@ -27,7 +27,7 @@ class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen()
-        val movie = intent.intentSerializable("Movie", Movie::class.java)
+        val movie = intent.intentSerializable(getString(R.string.movie_info_key), Movie::class.java)
         displayMovieInfo(movie)
         bindTicketQuantityButtonListeners()
         bindSelectButtonListener()
