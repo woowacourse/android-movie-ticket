@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -23,7 +24,7 @@ class MovieReservationActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(fakeContext, MainActivity::class.java).apply {
+            Intent(fakeContext, MovieReservationActivity::class.java).apply {
                 putExtra("movie", movie)
             }
         ActivityScenario.launch<MovieReservationActivity>(intent)
@@ -36,14 +37,29 @@ class MovieReservationActivityTest {
     }
 
     @Test
-    @DisplayName("선택한_영화의_상영일이_표시된다")
+    @DisplayName("선택한 영화의 상영일이 표시된다")
     fun displaySelectedMovieScreeningDateTest() {
         onView(withId(R.id.screening_date)).check(matches(withText("2025.04.01 ~ 2025.04.25")))
     }
 
     @Test
-    @DisplayName("선택한_영화의_러닝타임이_표시된다")
+    @DisplayName("선택한 영화의 러닝타임이 표시된다")
     fun displaySelectedMovieRunningTimeTest() {
         onView(withId(R.id.running_time)).check(matches(withText("152분")))
+    }
+
+    @Test
+    @DisplayName("+ 버튼을 클릭하면 인원수가 1 증가한다")
+    fun increaseTicketCountOnIncrementButtonClickTest() {
+        onView(withId(R.id.increment_button)).perform(click())
+        onView(withId(R.id.ticket_count)).check(matches(withText("2")))
+    }
+
+    @Test
+    @DisplayName("- 버튼을 클릭하면 인원수가 1 감소한다")
+    fun decreaseTicketCountOnDecrementButtonClickTest() {
+        onView(withId(R.id.increment_button)).perform(click())
+        onView(withId(R.id.decrement_button)).perform(click())
+        onView(withId(R.id.ticket_count)).check(matches(withText("1")))
     }
 }
