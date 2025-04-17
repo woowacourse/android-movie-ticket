@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.movie
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +7,14 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import java.time.LocalDate
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.view.StringFormatter.dotDateFormat
 
 class MovieAdapter(
     val onClickBooking: (Int) -> Unit,
     private val items: List<Movie>,
+    private val datePeriod: String,
 ) : BaseAdapter() {
     override fun getCount(): Int = items.size
 
@@ -44,7 +47,11 @@ class MovieAdapter(
 
         moviePoster.setImageResource(item.poster)
         movieTitle.text = item.title
-        movieReleaseDate.text = joinReleaseDates(item.releaseDate.startDate, item.releaseDate.endDate)
+        movieReleaseDate.text =
+            datePeriod.format(
+                dotDateFormat(item.releaseDate.startDate),
+                dotDateFormat(item.releaseDate.endDate),
+            )
         movieRunningTime.text = item.runningTime
 
         bookingBtn.setOnClickListener {
@@ -52,9 +59,5 @@ class MovieAdapter(
         }
 
         return convertView
-    }
-
-    private fun joinReleaseDates(startDate: LocalDate, endDate: LocalDate): String {
-        return "$startDate ~ $endDate"
     }
 }
