@@ -43,9 +43,13 @@ class MainActivity : AppCompatActivity() {
         val adapter =
             MoviesAdapter(movies) { movie ->
                 val intent = Intent(this, ReserveActivity::class.java)
-                intent.putExtra("movie", movie)
+                intent.putExtra(KEY_MOVIE, movie)
                 startActivity(intent)
             }
         moviesView.adapter = adapter
+    }
+
+    companion object {
+        private const val KEY_MOVIE = "movie"
     }
 }

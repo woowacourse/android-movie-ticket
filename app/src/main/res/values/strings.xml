@@ -16,4 +16,8 @@
     <string name="formatted_screening_date">%s ~ %s</string>
     <string name="formatted_ticket_count">%d명</string>
     <string name="formatted_total_price">%s원</string>
+    <string name="reserve_dialog_title">예매 확인</string>
+    <string name="reserve_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="reserve_dialog_positive_button">예매 완료</string>
+    <string name="reserve_dialog_negative_button">취소</string>
 </resources>

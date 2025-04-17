@@ -46,9 +46,9 @@ class ReserveActivity : AppCompatActivity() {
 
         val movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra("movie", Movie::class.java)
+                intent.getParcelableExtra(KEY_MOVIE, Movie::class.java)
             } else {
-                intent.getParcelableExtra("movie") as? Movie
+                intent.getParcelableExtra(KEY_MOVIE) as? Movie
             }
 
         if (movie == null) {
@@ -64,7 +64,7 @@ class ReserveActivity : AppCompatActivity() {
             )
         initTimeSpinner(startDate)
 
-        reservation = savedInstanceState?.getSerializable("reservation") as? Reservation
+        reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
             ?: Reservation(
                 title = movie.title,
                 _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
@@ -189,16 +189,16 @@ class ReserveActivity : AppCompatActivity() {
 
     private fun initSelectDialog(): AlertDialog.Builder {
         return AlertDialog.Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _, _ ->
+            .setTitle(getString(R.string.reserve_dialog_title))
+            .setMessage(getString(R.string.reserve_dialog_message))
+            .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
                 val intent =
                     Intent(this, ReservationResultActivity::class.java).apply {
-                        putExtra("reservation", reservation)
+                        putExtra(KEY_RESERVATION, reservation)
                     }
                 startActivity(intent)
             }
-            .setNegativeButton("취소") { dialog, _ ->
+            .setNegativeButton(getString(R.string.reserve_dialog_negative_button)) { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(false)
@@ -228,11 +228,13 @@ class ReserveActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putSerializable("reservation", reservation)
+        outState.putSerializable(KEY_RESERVATION, reservation)
     }
 
     companion object {
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private const val DEFAULT_TICKET_COUNT_SIZE = 1
+        private const val KEY_MOVIE = "movie"
+        private const val KEY_RESERVATION = "reservation"
     }
 }
