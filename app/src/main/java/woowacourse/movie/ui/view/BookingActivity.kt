@@ -1,6 +1,8 @@
 package woowacourse.movie.ui.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -9,17 +11,22 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.model.DefaultPricingPolicy
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieScheduler
+import woowacourse.movie.model.MovieTicket
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
-    private var ticketQuantity: Int = 0
+    private var headCount: Int = 1
+    private val movie: Movie by lazy { intent.intentSerializable(getString(R.string.movie_info_key), Movie::class.java) }
     private lateinit var date: LocalDate
     private lateinit var time: LocalTime
     private lateinit var quantityView: TextView
@@ -27,58 +34,10 @@ class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen()
-        val movie = intent.intentSerializable(getString(R.string.movie_info_key), Movie::class.java)
-        displayMovieInfo(movie)
+        displayMovieInfo()
         bindTicketQuantityButtonListeners()
         bindSelectButtonListener()
-
-        val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
-        val dates = movieScheduler.getBookableDates()
-
-        val dateSpinner = findViewById<Spinner>(R.id.dateSpinner)
-        dateSpinner.adapter =
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                dates,
-            )
-        dateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    date = parent?.getItemAtPosition(position) as LocalDate
-
-                    val timeSpinner = findViewById<Spinner>(R.id.timeSpinner)
-                    val times = movieScheduler.getBookableTimes(date)
-                    timeSpinner.adapter =
-                        ArrayAdapter(
-                            this@BookingActivity,
-                            android.R.layout.simple_spinner_item,
-                            times,
-                        )
-
-                    timeSpinner.onItemSelectedListener =
-                        object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(
-                                parent: AdapterView<*>?,
-                                view: View?,
-                                position: Int,
-                                id: Long,
-                            ) {
-                                time = parent?.getItemAtPosition(position) as LocalTime
-                                print(time)
-                            }
-
-                            override fun onNothingSelected(parent: AdapterView<*>?) {}
-                        }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+        setupDateSpinner()
     }
 
     private fun setupScreen() {
@@ -91,7 +50,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun displayMovieInfo(movie: Movie) {
+    private fun displayMovieInfo() {
         val poster = findViewById<ImageView>(R.id.poster)
         poster.setImageResource(movie.posterRes)
 
@@ -110,14 +69,14 @@ class BookingActivity : AppCompatActivity() {
         quantityView = findViewById(R.id.quantity)
         val increaseBtn = findViewById<Button>(R.id.increase)
         increaseBtn.setOnClickListener {
-            ticketQuantity++
-            updateQuantity()
+            headCount++
+            updateHeadCount()
         }
         val decreaseBtn = findViewById<Button>(R.id.decrease)
         decreaseBtn.setOnClickListener {
-            if (ticketQuantity > 0) {
-                ticketQuantity--
-                updateQuantity()
+            if (headCount > 1) {
+                headCount--
+                updateHeadCount()
             }
         }
     }
@@ -129,16 +88,81 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog() {
-//        AlertDialog.Builder(this)
-//            .setTitle(getString(R.string.dialog_title))
-//            .setPositiveButton(getString(R.string.complete)) {  }
-//            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
-//            .setCancelable(false)
-//            .show()
+    private fun setupDateSpinner() {
+        val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
+        val dateSpinner = findViewById<Spinner>(R.id.dateSpinner)
+        val dates = movieScheduler.getBookableDates()
+
+        dateSpinner.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            dates
+        )
+
+        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                date = dateSpinner.getItemAtPosition(position) as LocalDate
+                Log.d("날짜", date.toString())
+                setupTimeSpinner(movieScheduler, date)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
     }
 
-    private fun updateQuantity() {
-        quantityView.text = ticketQuantity.toString()
+    private fun setupTimeSpinner(movieScheduler: MovieScheduler, selectedDate: LocalDate) {
+        val timeSpinner = findViewById<Spinner>(R.id.timeSpinner)
+        val times = movieScheduler.getBookableTimes(selectedDate)
+
+        timeSpinner.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            times
+        )
+
+        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                time = timeSpinner.getItemAtPosition(position) as LocalTime
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun showDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dialog_title))
+            .setMessage(getString(R.string.dialog_message))
+            .setPositiveButton(getString(R.string.complete)) { _, _ -> onConfirm() }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun onConfirm() {
+        val movieTicket = MovieTicket(
+            title = movie.title,
+            screeningDateTime = LocalDateTime.of(date, time),
+            headCount = headCount,
+            pricingPolicy = DefaultPricingPolicy()
+        )
+
+        val intent = Intent(this, BookingSummaryActivity::class.java)
+        intent.putExtra(getString(R.string.ticket_info_key), movieTicket)
+        startActivity(intent)
+    }
+
+    private fun updateHeadCount() {
+        quantityView.text = headCount.toString()
     }
 }
