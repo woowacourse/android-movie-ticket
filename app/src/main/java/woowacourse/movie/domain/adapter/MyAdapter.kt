@@ -1,5 +1,6 @@
 package woowacourse.movie.domain.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity
+import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
@@ -36,28 +38,69 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
                 .from(parent?.context)
                 .inflate(R.layout.item, parent, false)
 
+        setImageView(view, items[position].image)
+        setTitleTextView(view, items[position].title)
+        setDateTextView(view, items[position].date, parent?.context)
+        setTimeTextView(view, items[position].time, parent?.context)
+        setReserveButton(
+            view,
+            parent?.context,
+            Movie(items[position].image, items[position].title, items[position].date, items[position].time),
+        )
+
+        return view
+    }
+
+    private fun setImageView(
+        view: View,
+        movieImage: Int,
+    ) {
         val imageView: ImageView = view.findViewById(R.id.movie_image)
+        imageView.setImageResource(movieImage)
+    }
+
+    private fun setTitleTextView(
+        view: View,
+        movieTitle: String,
+    ) {
         val titleTextView: TextView = view.findViewById(R.id.movie_title)
+        titleTextView.text = movieTitle
+    }
+
+    private fun setDateTextView(
+        view: View,
+        movieDate: Date,
+        context: Context?,
+    ) {
         val dateTextView: TextView = view.findViewById(R.id.movie_date)
+        val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
+        val startDateFormatted = movieDate.startDate.format(formatter)
+        val endDateFormatted = movieDate.endDate.format(formatter)
+        dateTextView.text = context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
+    }
+
+    private fun setTimeTextView(
+        view: View,
+        movieRunningTime: String,
+        context: Context?,
+    ) {
         val timeTextView: TextView = view.findViewById(R.id.movie_time)
+
+        timeTextView.text = context?.getString(R.string.movieTime, movieRunningTime)
+    }
+
+    private fun setReserveButton(
+        view: View,
+        context: Context?,
+        movie: Movie,
+    ) {
         val reserveButton: Button = view.findViewById(R.id.reserve_button)
 
-        val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
-        val startDateFormatted = items[position].date.startDate.format(formatter)
-        val endDateFormatted = items[position].date.endDate.format(formatter)
-
-        imageView.setImageResource(items[position].image)
-        titleTextView.text = items[position].title
-        dateTextView.text = parent?.context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
-        timeTextView.text = parent?.context?.getString(R.string.movieTime, items[position].time)
-
         reserveButton.setOnClickListener {
-            val intent = Intent(parent?.context, ReservationActivity::class.java)
-            val movie = Movie(items[position].image, items[position].title, items[position].date, items[position].time)
+            val intent = Intent(context, ReservationActivity::class.java)
             intent.putExtra("movie", movie)
-            parent?.context?.startActivity(intent)
+            context?.startActivity(intent)
         }
-        return view
     }
 
     companion object {
