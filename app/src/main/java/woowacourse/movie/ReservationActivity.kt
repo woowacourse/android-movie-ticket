@@ -185,33 +185,43 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun setupCompleteButtonClick() {
         findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
-            AlertDialog
-                .Builder(this)
-                .setTitle(getString(R.string.reservation_dialog_title))
-                .setMessage(getString(R.string.reservation_dialog_message))
-                .setCancelable(false)
-                .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
-                    dialog.dismiss()
-                }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
-                    val intent =
-                        Intent(this, ReservationCompleteActivity::class.java).apply {
-                            putExtra(
-                                TICKET_DATA_KEY,
-                                MovieTicket(
-                                    movie.title,
-                                    "${formatter.localDateToUI(movieDate.selectedDate)} ${
-                                        formatter.movieTimeToUI(
-                                            movieTime.selectedTime,
-                                        )
-                                    }",
-                                    ticketCount,
-                                ),
-                            )
-                        }
-                    startActivity(intent)
-                    dialog.dismiss()
-                }.show()
+            showReservationDialog()
         }
+    }
+
+    private fun showReservationDialog() {
+        AlertDialog
+            .Builder(this)
+            .setTitle(getString(R.string.reservation_dialog_title))
+            .setMessage(getString(R.string.reservation_dialog_message))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
+                val intent = movieTicketIntent()
+                startActivity(intent)
+                dialog.dismiss()
+            }.show()
+    }
+
+    private fun movieTicketIntent(): Intent {
+        val intent =
+            Intent(this, ReservationCompleteActivity::class.java).apply {
+                putExtra(
+                    TICKET_DATA_KEY,
+                    MovieTicket(
+                        title = movie.title,
+                        timeStamp =
+                            "${formatter.localDateToUI(movieDate.selectedDate)} ${
+                                formatter.movieTimeToUI(
+                                    movieTime.selectedTime,
+                                )
+                            }",
+                        count = ticketCount,
+                    ),
+                )
+            }
+        return intent
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

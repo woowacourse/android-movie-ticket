@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.model.MovieTicket
 
 class ReservationCompleteActivity : AppCompatActivity() {
+    private val movieTicket = getMovieTicketData()
     private val formatter: Formatter by lazy { Formatter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,13 +23,18 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        val movieTicket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(TICKET_DATA_KEY, MovieTicket::class.java)
-            } else {
-                intent.getSerializableExtra(TICKET_DATA_KEY) as MovieTicket
-            }
+        setupMovieTicketInfo()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
+    private fun getMovieTicketData(): MovieTicket? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(TICKET_DATA_KEY, MovieTicket::class.java)
+        } else {
+            intent.getSerializableExtra(TICKET_DATA_KEY) as MovieTicket
+        }
+
+    private fun setupMovieTicketInfo() {
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
         movieTitleTextView.text = movieTicket?.title
 
@@ -46,8 +52,6 @@ class ReservationCompleteActivity : AppCompatActivity() {
                 R.string.reservation_complete_ticket_price,
                 formatter.priceToUI(movieTicket?.price() ?: 13000),
             )
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onSupportNavigateUp(): Boolean {
