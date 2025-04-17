@@ -4,10 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +13,11 @@ import woowacourse.movie.databinding.BookingBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieDateTime
+import woowacourse.movie.domain.RunningTimes
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var binding: BookingBinding
@@ -26,7 +25,8 @@ class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.booking)
+        binding = BookingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.booking)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -34,25 +34,17 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val movie = movie()
-        binding = BookingBinding.inflate(layoutInflater)
-
-        val runningTimeArray = resources.getStringArray(R.array.running_time_array)
-        val runningTimeAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, runningTimeArray)
-
-        val reservationDayArray = resources.getStringArray(R.array.reservation_day_array)
-        val reservationDayAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, reservationDayArray)
-
-        binding.timePickerActions.adapter = runningTimeAdapter
-        binding.datePickerActions.adapter = reservationDayAdapter
-
-        binding.timePickerActions.setSelection(0)
+        binding.datePickerActions.adapter = ReservationDaySpinnerAdapter(
+            MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates()
+        )
         binding.datePickerActions.setSelection(0)
+        val reservationDay = binding.datePickerActions.selectedItem as LocalDate
 
-        val runningDateTime = binding.timePickerActions.selectedItem as String
-        val reservationDay = binding.datePickerActions.selectedItem as String
-
+        binding.timePickerActions.adapter = RunningTimeSpinnerAdapter(
+            RunningTimes().runningTimes(reservationDay)
+        )
+        binding.timePickerActions.setSelection(0)
+        val runningDateTime = binding.timePickerActions.selectedItem as LocalTime
 
         binding.plusButton.setOnClickListener {
             binding.count.text = binding.count.text.toString()
@@ -61,7 +53,6 @@ class ReservationActivity : AppCompatActivity() {
                 ?.toString()
                 ?: "1"
         }
-
 
         binding.minusButton.setOnClickListener {
             if (binding.count.text.toString().toInt() <= 1) {
@@ -85,8 +76,7 @@ class ReservationActivity : AppCompatActivity() {
                             movie = movie(),
                             isBooked = true,
                             memberCount = MemberCount(binding.count.text.toString().toInt()),
-                            bookedTime = LocalDateTime.parse("$reservationDay,$runningDateTime",
-                                DateTimeFormatter.ofPattern("yyyy-MM-dd,HH:mm"))
+                            bookedTime = LocalDateTime.of(reservationDay, runningDateTime)
                         )
                     )
                 }
