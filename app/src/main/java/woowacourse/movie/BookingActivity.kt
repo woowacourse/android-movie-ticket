@@ -76,7 +76,7 @@ class BookingActivity : AppCompatActivity() {
             SpinnerAdapter.bind(this, movieDate, info.getDates())
             SpinnerAdapter.bind(this, movieTime, info.getTimes(info.startDate))
         } ?: run {
-            Toast.makeText(this, "영화 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.no_movie_data_error_message, Toast.LENGTH_SHORT).show()
             finish()
         }
     }
