@@ -28,11 +28,13 @@ class CompleteActivity : AppCompatActivity() {
         val dateTimeFormat = ticket.date.format(formatter)
 
         val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
+        val movieCancelInfoTextView = findViewById<TextView>(R.id.cancel_info_Text)
         val movieDateTextView = findViewById<TextView>(R.id.movie_date)
         val moviePersonnel = findViewById<TextView>(R.id.movie_personnel)
         val movieTotalPrice = findViewById<TextView>(R.id.movie_total_price)
 
         movieTitleTextView.text = ticket.title
+        movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, Ticket.CANCEL_DEADLINE)
         movieDateTextView.text = dateTimeFormat
         moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
         movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(Ticket.DEFAULT_PRICE, ticket.personnel))

@@ -16,5 +16,6 @@ data class Ticket(
 
     companion object {
         const val DEFAULT_PRICE = 13_000
+        const val CANCEL_DEADLINE = 15
     }
 }
