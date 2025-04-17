@@ -199,6 +199,7 @@ class ReservationActivity : AppCompatActivity() {
                 .Builder(this)
                 .setTitle("예매 확인")
                 .setMessage("정말 예매하시겠습니까?")
+                .setCancelable(false)
                 .setNegativeButton("취소") { dialog, _ ->
                     dialog.dismiss()
                 }.setPositiveButton("예매 완료") { dialog, _ ->
