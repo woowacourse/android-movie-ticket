@@ -165,8 +165,10 @@ class ReserveActivity : AppCompatActivity() {
         val selectBtn = findViewById<Button>(R.id.btn_select)
 
         minusBtn.setOnClickListener {
-            reservation = reservation.minusCount()
-            updateTicketCount()
+            if (reservation.canMinus()) {
+                reservation = reservation.minusCount()
+                updateTicketCount()
+            }
         }
 
         plusBtn.setOnClickListener {

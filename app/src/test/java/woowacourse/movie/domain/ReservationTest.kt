@@ -43,7 +43,7 @@ class ReservationTest {
     }
 
     @Test
-    fun `예매할 티켓 수가 2장인 경우 예매할 티켓 수를 감소한다`() {
+    fun `예매할 티켓 수를 감소한다`() {
         // given
         reservation.count = 2
 
@@ -56,16 +56,27 @@ class ReservationTest {
     }
 
     @Test
-    fun `예매할 티켓 수가 1장인 경우 예매할 티켓 수가 감소하지 않는다`() {
+    fun `예매 개수가 최소 예매 개수와 같은 경우 감소할 수 없다`() {
         // given
         reservation.count = 1
 
         // when
-        val expected = reservation.count
-        val actual = reservation.minusCount().count
+        val actual = reservation.canMinus()
 
         // then
-        assertThat(actual).isEqualTo(expected)
+        assertThat(actual).isFalse()
+    }
+
+    @Test
+    fun `예매 개수가 최소 예매 개수보다 많은 경우 감소할 수 있다`() {
+        // given
+        reservation.count = 2
+
+        // when
+        val actual = reservation.canMinus()
+
+        // then
+        assertThat(actual).isTrue()
     }
 
     @Test
