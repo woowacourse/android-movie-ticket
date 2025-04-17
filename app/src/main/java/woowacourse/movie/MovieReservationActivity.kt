@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -21,6 +22,7 @@ import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
     private lateinit var movie: Movie
@@ -31,7 +33,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initializeUi()
+        initUi()
 
         movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(MovieAdapter.EXTRA_MOVIE, Movie::class.java)
@@ -43,6 +45,7 @@ class MovieReservationActivity : AppCompatActivity() {
             return
         }
 
+        initMovieInfo()
         val savedTicket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 savedInstanceState?.getParcelable(EXTRA_TICKET, Ticket::class.java)
@@ -51,7 +54,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 savedInstanceState?.getParcelable(EXTRA_TICKET)
             }
 
-        initializeSpinners(savedTicket)
+        initSpinners(savedTicket)
         savedTicket?.let { ticket ->
             ticketCount = ticket.count
             findViewById<TextView>(R.id.ticket_count).text = ticketCount.toString()
@@ -71,7 +74,7 @@ class MovieReservationActivity : AppCompatActivity() {
         outState.putParcelable(EXTRA_TICKET, ticket)
     }
 
-    private fun initializeUi() {
+    private fun initUi() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_movie_reservation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -81,7 +84,21 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeSpinners(savedTicket: Ticket?) {
+    private fun initMovieInfo() {
+        val poster = findViewById<ImageView>(R.id.poster)
+        val title = findViewById<TextView>(R.id.movie_title)
+        val screeningDate = findViewById<TextView>(R.id.screening_date)
+        val runningTime = findViewById<TextView>(R.id.running_time)
+
+        poster.setImageResource(movie.poster)
+        title.text = movie.title
+        val startDate = movie.startDate.format(DATE_FORMAT)
+        val endDate = movie.endDate.format(DATE_FORMAT)
+        screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
+        runningTime.text = RUNNING_TIME.format(movie.runningTime)
+    }
+
+    private fun initSpinners(savedTicket: Ticket?) {
         val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
         val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
         initDateSpinner(dateSpinner, timeSpinner, savedTicket?.showtime)
@@ -201,5 +218,8 @@ class MovieReservationActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_TICKET = "ticket"
         private const val MINIMUM_TICKET_COUNT = 1
+        private const val SCREENING_DATE_RANGE = "%s ~ %S"
+        private const val RUNNING_TIME = "%d분"
+        private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
