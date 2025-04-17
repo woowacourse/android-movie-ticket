@@ -11,7 +11,7 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
 
 class ReservationCompleteActivity : AppCompatActivity() {
-    private val movieTicket = getMovieTicketData()
+    private val movieTicket by lazy { getMovieTicketData() }
     private val formatter: Formatter by lazy { Formatter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
