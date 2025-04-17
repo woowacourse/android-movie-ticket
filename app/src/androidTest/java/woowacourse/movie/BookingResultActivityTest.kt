@@ -9,18 +9,19 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.data.Ticket
 
 class BookingResultActivityTest {
     private lateinit var intent: Intent
 
     @Before
     fun setupIntent() {
-        intent = Intent(ApplicationProvider.getApplicationContext(), BookingResultActivity::class.java).apply {
-            putExtra("TITLE", "해리 포터와 마법사의 돌")
-            putExtra("DATE", "2025.4.17")
-            putExtra("TIME", "10:00")
-            putExtra("COUNT", "2")
-        }
+        val ticket = Ticket("해리 포터와 마법사의 돌", "2025.4.17", "10:00", "2", "26000")
+
+        intent =
+            Intent(ApplicationProvider.getApplicationContext(), BookingResultActivity::class.java).apply {
+                putExtra("TICKET", ticket)
+            }
     }
 
     @Test
