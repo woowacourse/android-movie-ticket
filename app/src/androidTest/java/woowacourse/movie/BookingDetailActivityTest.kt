@@ -160,7 +160,7 @@ class BookingDetailActivityTest {
     @Test
     fun 화면을_회전해도_예매_정보가_유지된다() {
         onView(withId(R.id.sp_booking_detail_date))
-            .perform(click())
+            .perform(scrollTo(), click())
 
         onData(anything())
             .atPosition(1)
