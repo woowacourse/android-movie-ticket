@@ -86,7 +86,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initViews() {
         val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
-        titleView.text = title
+        titleView.text = screening.title
 
         val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
         periodView.text =
