@@ -31,9 +31,11 @@ class BookingCompleteActivity : AppCompatActivity() {
         val ticketTotalPrice = DecimalFormat("#,###").format(ticketCount * 13000)
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
-        findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text = "$date $time"
-        findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text = "일반 ${ticketCount}명"
-        findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text = "${ticketTotalPrice}원 (현장 결제)"
+        findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
+            getString(R.string.booking_complete_movie_date_time, date, time)
+        findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text = getString(R.string.booking_complete_ticket_count, ticketCount)
+        findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
+            getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

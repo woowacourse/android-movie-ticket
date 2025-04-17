@@ -14,7 +14,7 @@
         android:background="@color/purple_250"
         android:paddingTop="68dp"
         android:paddingBottom="12dp"
-        android:text="영화 상영 시작 시간 15분 전까지\n취소가 가능합니다."
+        android:text="@string/booking_complete_cancel_notice"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"

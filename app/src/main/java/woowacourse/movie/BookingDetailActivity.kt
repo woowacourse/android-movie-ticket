@@ -43,8 +43,8 @@ class BookingDetailActivity : AppCompatActivity() {
         val poster = intent.getIntExtra(MOVIE_POSTER_KEY, 0)
 
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = title
-        findViewById<TextView>(R.id.tv_booking_detail_date).text = "$startDate ~ $endDate"
-        findViewById<TextView>(R.id.tv_booking_detail_running_time).text = "${runningTime}분"
+        findViewById<TextView>(R.id.tv_booking_detail_date).text = getString(R.string.movies_movie_date_with_tilde, startDate, endDate)
+        findViewById<TextView>(R.id.tv_booking_detail_running_time).text = getString(R.string.movies_movie_running_time, runningTime)
         findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
 
@@ -66,11 +66,11 @@ class BookingDetailActivity : AppCompatActivity() {
     private fun showSelectCompleteDialog(title: String) {
         AlertDialog
             .Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예매 완료") { _, _ ->
+            .setTitle(getString(R.string.booking_detail_booking_check))
+            .setMessage(getString(R.string.booking_detail_booking_check_description))
+            .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
                 navigateToBookingComplete(title)
-            }.setNegativeButton("취소", null)
+            }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
             .setCancelable(false)
             .show()
     }
