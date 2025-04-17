@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -77,8 +76,8 @@ class BookingActivity : AppCompatActivity() {
             runningTime.text = movieInfo.runningTime
         }
 
-        setDateSpinner()
-        setTimeSpinner()
+        SpinnerAdapter.bind(this, movieDate, getDates())
+        SpinnerAdapter.bind(this, movieTime, getTimes(startDate.text.toString()))
     }
 
     private fun setupDateChangeListener() {
@@ -125,16 +124,6 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun setTimeSpinner() {
-        val times = getTimes(startDate.text.toString())
-        SpinnerAdapter.bind(this, movieTime, times)
-    }
-
-    private fun setDateSpinner() {
-        val dates = getDates()
-        SpinnerAdapter.bind(this, movieDate, dates)
-    }
-
     private fun getDates(): List<String> {
         val parsedStartDate = LocalDate.parse(startDate.text.toString(), dateFormatter)
         val parsedEndDate = LocalDate.parse(endDate.text.toString(), dateFormatter)
@@ -165,34 +154,19 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun askToConfirmBooking() {
-        AlertDialog
-            .Builder(this)
-            .setTitle("예매 확인")
-            .setMessage("정말 예매하시겠습니까?")
-            .setPositiveButton("예") { _, _ ->
-                val ticket =
-                    Ticket(
-                        title = findViewById<TextView>(R.id.title).text.toString(),
-                        date = findViewById<Spinner>(R.id.movie_date).selectedItem.toString(),
-                        time = findViewById<Spinner>(R.id.movie_time).selectedItem.toString(),
-                        count = findViewById<TextView>(R.id.ticket_count).text.toString(),
-                        money =
-                            (
-                                findViewById<TextView>(R.id.ticket_count)
-                                    .text
-                                    .toString()
-                                    .toInt() * 13000
-                            ).toString(),
-                    )
+        val ticket = Ticket(
+            title = findViewById<TextView>(R.id.title).text.toString(),
+            date = movieDate.selectedItem.toString(),
+            time = movieTime.selectedItem.toString(),
+            count = ticketCount.text.toString(),
+            money = (ticketCount.text.toString().toInt() * 13000).toString()
+        )
 
-                val intent =
-                    Intent(this, BookingResultActivity::class.java).apply {
-                        putExtra("TICKET", ticket)
-                    }
-                startActivity(intent)
-            }.setNegativeButton("아니요") { dialog, _ ->
-                dialog.dismiss()
-            }.setCancelable(false)
-            .show()
+        ConfirmDialog.show(this, ticket) {
+            val intent = Intent(this, BookingResultActivity::class.java).apply {
+                putExtra("TICKET", ticket)
+            }
+            startActivity(intent)
+        }
     }
 }
