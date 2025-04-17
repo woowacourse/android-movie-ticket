@@ -40,7 +40,7 @@ class ReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_reservation)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.layout_reservation_activity)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.layout_reservation)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
