@@ -8,12 +8,13 @@ import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.device.DeviceInteraction.Companion.setScreenOrientation
+import androidx.test.espresso.device.EspressoDevice.Companion.onDevice
+import androidx.test.espresso.device.action.ScreenOrientation
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.instanceOf
-import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.anything
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.data.MovieInfo
@@ -31,6 +32,7 @@ class BookingActivityTest {
             }
 
         scenario = ActivityScenario.launch<BookingActivity>(intent)
+        onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
     }
 
     @Test
@@ -62,7 +64,8 @@ class BookingActivityTest {
         onView(withId(R.id.movie_date))
             .perform(click())
 
-        onData(allOf(`is`(instanceOf(String::class.java)), `is`("2025.4.17")))
+        onData(anything())
+            .atPosition(16)
             .perform(click())
 
         onView(withId(R.id.movie_time))
@@ -74,10 +77,45 @@ class BookingActivityTest {
         onView(withId(R.id.movie_date))
             .perform(click())
 
-        onData(allOf(`is`(instanceOf(String::class.java)), `is`("2025.4.19")))
+        onData(anything())
+            .atPosition(0)
             .perform(click())
 
         onView(withId(R.id.movie_time))
             .check(matches(withSpinnerText("09:00")))
+    }
+
+    @Test
+    fun 화면이_회전되어도_입력된_정보가_유지된다() {
+        // given
+        onView(withId(R.id.movie_date))
+            .perform(click())
+
+        onData(anything())
+            .atPosition(1)
+            .perform(click())
+
+        onView(withId(R.id.movie_time))
+            .perform(click())
+
+        onData(anything())
+            .atPosition(1)
+            .perform(click())
+
+        onView(withId(R.id.plus_button))
+            .perform(click())
+
+        // when
+        onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
+
+        // then
+        onView(withId(R.id.movie_date))
+            .check(matches(withSpinnerText("2025.4.2")))
+
+        onView(withId(R.id.movie_time))
+            .check(matches(withSpinnerText("12:00")))
+
+        onView(withId(R.id.ticket_count))
+            .check(matches(withText("1")))
     }
 }
