@@ -29,7 +29,7 @@ class ReserveActivity : AppCompatActivity() {
     private val movieScheduler = MovieScheduler()
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
-    private val ticketCount: TextView by lazy { findViewById(R.id.tv_count) }
+    private val ticketCount: TextView by lazy { findViewById(R.id.tv_ticket_count) }
     private lateinit var reservation: Reservation
 
     override fun onCreate(savedInstanceState: Bundle?) {
