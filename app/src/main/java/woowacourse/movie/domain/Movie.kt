@@ -7,8 +7,4 @@ data class Movie(
     val screeningDate: ScreeningDate,
     val runningTime: RunningTime,
     val imageUrl: Int,
-) : Serializable {
-    companion object {
-        const val TICKET_PRICE = 13_000
-    }
-}
+) : Serializable
