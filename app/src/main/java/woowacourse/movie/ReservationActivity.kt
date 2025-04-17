@@ -39,56 +39,14 @@ class ReservationActivity : AppCompatActivity() {
         }
         val movie = intent.getSerializableExtra("movie") as? Movie ?: Movie()
 
-        val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
-        val movieDateTextView = findViewById<TextView>(R.id.movie_date)
-        val moviePosterImageView = findViewById<ImageView>(R.id.movie_image)
-        val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
-        val reservationButton = findViewById<Button>(R.id.reservation_button)
-
-        val minusButton = findViewById<Button>(R.id.minus_button)
-        val plusButton = findViewById<Button>(R.id.plus_button)
-        updateCounterText()
-
-        minusButton.setOnClickListener {
-            if (count > 1) {
-                count--
-            }
-            updateCounterText()
-        }
-
-        plusButton.setOnClickListener {
-            count++
-            updateCounterText()
-        }
-
-        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
-        val startDateFormatted = movie.date.startDate.format(formatter)
-        val endDateFormatted = movie.date.endDate.format(formatter)
-
-        movieTitleTextView.text = movie.title
-        movieDateTextView.text = getString(R.string.movieDate, startDateFormatted, endDateFormatted)
-        movieTimeTextView.text = getString(R.string.movieTime, movie.time)
-        moviePosterImageView.setImageResource(movie.image)
-
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
 
-        setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
+        initMovieInfo(movie)
+        initCountButtons()
+        initReservationButton(movie, spinnerDate, spinnerTime)
 
-        reservationButton.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
-                    val intent = Intent(this, CompleteActivity::class.java)
-                    val ticket = createTicket(movie.title, spinnerDate.selectedItem as LocalDate, spinnerTime.selectedItem as LocalTime)
-                    intent.putExtra("ticket", ticket)
-                    startActivity(intent)
-                }
-                .setNegativeButton("취소") { dialog, _ ->
-                    dialog.dismiss()
-                }.show()
-        }
+        setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
 
         count = savedInstanceState?.getInt(KEY_PERSONNEL_COUNT) ?: return
         datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
@@ -98,9 +56,77 @@ class ReservationActivity : AppCompatActivity() {
         updateCounterText()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(KEY_PERSONNEL_COUNT, count)
+        outState.putInt(KEY_DATE_POSITION, datePosition)
+        outState.putInt(KEY_TIME_POSITION, timePosition)
+    }
+
     private fun updateCounterText() {
         val counterTextView = findViewById<TextView>(R.id.personnel)
         counterTextView.text = count.toString()
+    }
+
+    private fun initMovieInfo(movie: Movie) {
+        val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
+        val movieDateTextView = findViewById<TextView>(R.id.movie_date)
+        val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
+        val moviePosterImageView = findViewById<ImageView>(R.id.movie_image)
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+        val start = movie.date.startDate.format(formatter)
+        val end = movie.date.endDate.format(formatter)
+
+        movieTitleTextView.text = movie.title
+        movieDateTextView.text = getString(R.string.movieDate, start, end)
+        movieTimeTextView.text = getString(R.string.movieTime, movie.time)
+        moviePosterImageView.setImageResource(movie.image)
+    }
+
+    private fun initCountButtons() {
+        val minusButton = findViewById<Button>(R.id.minus_button)
+        val plusButton = findViewById<Button>(R.id.plus_button)
+
+        minusButton.setOnClickListener {
+            if (count > 1) count--
+            updateCounterText()
+        }
+
+        plusButton.setOnClickListener {
+            count++
+            updateCounterText()
+        }
+
+        updateCounterText()
+    }
+
+    private fun initReservationButton(
+        movie: Movie,
+        spinnerDate: Spinner,
+        spinnerTime: Spinner,
+    ) {
+        val reservationButton = findViewById<Button>(R.id.reservation_button)
+
+        reservationButton.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("예매 확인")
+                .setMessage("정말 예매하시겠습니까?")
+                .setPositiveButton("예매 완료") { _, _ ->
+                    val intent = Intent(this, CompleteActivity::class.java)
+                    val ticket =
+                        createTicket(
+                            movie.title,
+                            spinnerDate.selectedItem as LocalDate,
+                            spinnerTime.selectedItem as LocalTime,
+                        )
+                    intent.putExtra("ticket", ticket)
+                    startActivity(intent)
+                }
+                .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
+                .show()
+        }
     }
 
     private fun setDateSpinner(
@@ -165,14 +191,6 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putInt(KEY_PERSONNEL_COUNT, count)
-        outState.putInt(KEY_DATE_POSITION, datePosition)
-        outState.putInt(KEY_TIME_POSITION, timePosition)
     }
 
     private fun createTicket(
