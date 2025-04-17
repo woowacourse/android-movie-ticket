@@ -11,4 +11,5 @@
     <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>
     <string name="reservation_dialog_cancel">취소</string>
     <string name="reservation_dialog_complete">예매 완료</string>
+    <string name="reservation_ticket_timestamp">%s %s</string>
 </resources>

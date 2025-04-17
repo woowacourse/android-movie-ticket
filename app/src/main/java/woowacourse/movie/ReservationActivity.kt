@@ -212,11 +212,11 @@ class ReservationActivity : AppCompatActivity() {
                     MovieTicket(
                         title = movie.title,
                         timeStamp =
-                            "${formatter.localDateToUI(movieDate.selectedDate)} ${
-                                formatter.movieTimeToUI(
-                                    movieTime.selectedTime,
-                                )
-                            }",
+                            getString(
+                                R.string.reservation_ticket_timestamp,
+                                formatter.localDateToUI(movieDate.selectedDate),
+                                formatter.movieTimeToUI(movieTime.selectedTime),
+                            ),
                         count = ticketCount,
                     ),
                 )
