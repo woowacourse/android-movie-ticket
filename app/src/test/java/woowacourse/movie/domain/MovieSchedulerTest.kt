@@ -119,4 +119,18 @@ class MovieSchedulerTest {
         // then
         assertThat(actual).isEqualTo(expected)
     }
+
+    @Test
+    fun `현재 날짜와 선택된 날짜가 같고 마지막 상영 시간을 초과했을 때 빈 리스트를 반환한다`() {
+        // given
+        val selectedDate = APRIL_THIRTIETH
+        val currentTime = LocalDateTime.of(APRIL_THIRTIETH, LocalTime.of(23, 0))
+        val expected: List<LocalTime> = listOf()
+
+        // when
+        val actual = movieScheduler.reservableTimes(selectedDate, currentTime)
+
+        // then
+        assertThat(actual).isEqualTo(expected)
+    }
 }

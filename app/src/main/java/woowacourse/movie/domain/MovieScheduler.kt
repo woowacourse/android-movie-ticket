@@ -54,6 +54,8 @@ class MovieScheduler {
         screeningDayType: ScreeningDayType,
         endTime: LocalTime = END_TIME,
     ): List<LocalTime> {
+        if (startTime > endTime) return listOf()
+
         val hourDiff = ChronoUnit.HOURS.between(startTime, endTime)
 
         val hours = (0..hourDiff).map { startTime.plusHours(it) }
