@@ -18,7 +18,7 @@ class MovieTime {
         now: LocalDateTime,
         selectedDate: LocalDate,
     ): List<Int> {
-        var times: List<Int>
+        val times: List<Int>
         if (now.toLocalDate() == selectedDate) {
             times =
                 when (now.dayOfWeek) {
