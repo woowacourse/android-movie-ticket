@@ -151,8 +151,13 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun navigateToResult() {
-        val reservationDate = spinnerDate.selectedItem.toString().replace("-", ".")
-        val reservationTime = spinnerTime.selectedItem.toString()
+        val reservationDate = spinnerDate.selectedItem as? LocalDate
+        val reservationTime = spinnerTime.selectedItem as? LocalTime
+
+        if (reservationDate == null || reservationTime == null) {
+            showToast(INVALID_RESERVATION_MESSAGE)
+            return
+        }
 
         val reservationInfo =
             ReservationInfo(

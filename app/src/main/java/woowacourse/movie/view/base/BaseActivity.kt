@@ -1,6 +1,7 @@
 package woowacourse.movie.view.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,10 @@ abstract class BaseActivity(
     }
 
     abstract fun setupViews(savedInstanceState: Bundle?)
+
+    fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
     private fun setWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
