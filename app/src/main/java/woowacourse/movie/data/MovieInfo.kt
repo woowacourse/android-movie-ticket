@@ -1,6 +1,6 @@
-package woowacourse.movie
+package woowacourse.movie.data
 
-data class MovieItem(
+data class MovieInfo(
     val poster: Int,
     val title: String,
     val startDate: String,
