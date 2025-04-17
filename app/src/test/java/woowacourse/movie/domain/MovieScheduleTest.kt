@@ -12,7 +12,7 @@ class MovieScheduleTest {
         val endDate = LocalDate.of(2025, 4, 17)
         val movieSchedule = MovieSchedule(Date(startDate, endDate))
         // when
-        val actual = movieSchedule.dateSpinner(LocalDate.of(2025, 4, 16))
+        val actual = movieSchedule.selectableDates(LocalDate.of(2025, 4, 16))
         val expected =
             listOf(
                 LocalDate.of(2025, 4, 16),

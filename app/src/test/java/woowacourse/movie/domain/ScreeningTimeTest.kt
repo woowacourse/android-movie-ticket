@@ -12,7 +12,7 @@ class ScreeningTimeTest {
         val currentTime = LocalDateTime.of(2025, 4, 23, 17, 20)
         val movieSchedule = ScreeningTime(currentTime)
         // when
-        val actual = movieSchedule.runningTimeTable()
+        val actual = movieSchedule.selectableTimes()
         val expected =
             listOf(
                 LocalTime.of(19, 0),
@@ -29,7 +29,7 @@ class ScreeningTimeTest {
         val currentTime = LocalDateTime.of(2025, 4, 19, 17, 20)
         val movieSchedule = ScreeningTime(currentTime)
         // when
-        val actual = movieSchedule.runningTimeTable()
+        val actual = movieSchedule.selectableTimes()
         val expected =
             listOf(
                 LocalTime.of(18, 0),

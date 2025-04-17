@@ -23,7 +23,10 @@ class CompleteActivity : AppCompatActivity() {
             insets
         }
         val ticket = intent.getSerializableExtra("ticket") as? Ticket ?: Ticket()
+        setTicketInfo(ticket)
+    }
 
+    private fun setTicketInfo(ticket: Ticket) {
         val formatter = DateTimeFormatter.ofPattern("yyyy.M.d. HH:mm")
         val dateTimeFormat = ticket.date.format(formatter)
 

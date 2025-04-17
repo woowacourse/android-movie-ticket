@@ -8,7 +8,7 @@ import java.time.LocalTime
 class ScreeningTime(
     private val date: LocalDateTime,
 ) {
-    fun runningTimeTable(): List<LocalTime> {
+    fun selectableTimes(): List<LocalTime> {
         val endHour = LocalTime.of(END_HOUR, DEFAULT_MINUTE)
         val startHour = createLocalTime()
 

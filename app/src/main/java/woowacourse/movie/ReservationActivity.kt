@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -10,7 +9,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,8 +23,8 @@ import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var count = 1
-    private var datePosition = 0
-    private var timePosition = 0
+    private var selectedDatePosition = 0
+    private var selectedTimePosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,17 +40,17 @@ class ReservationActivity : AppCompatActivity() {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
 
-        initMovieInfo(movie)
-        initCountButtons()
-        initReservationButton(movie, spinnerDate, spinnerTime)
+        setMovieInfo(movie)
+        setCountButtons()
+        setReservationButton(movie, spinnerDate, spinnerTime)
 
         setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
 
         count = savedInstanceState?.getInt(KEY_PERSONNEL_COUNT) ?: return
-        datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
-        timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
+        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
 
-        spinnerDate.setSelection(datePosition)
+        spinnerDate.setSelection(selectedDatePosition)
         updateCounterText()
     }
 
@@ -60,8 +58,8 @@ class ReservationActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         outState.putInt(KEY_PERSONNEL_COUNT, count)
-        outState.putInt(KEY_DATE_POSITION, datePosition)
-        outState.putInt(KEY_TIME_POSITION, timePosition)
+        outState.putInt(KEY_DATE_POSITION, selectedDatePosition)
+        outState.putInt(KEY_TIME_POSITION, selectedTimePosition)
     }
 
     private fun updateCounterText() {
@@ -69,7 +67,7 @@ class ReservationActivity : AppCompatActivity() {
         counterTextView.text = count.toString()
     }
 
-    private fun initMovieInfo(movie: Movie) {
+    private fun setMovieInfo(movie: Movie) {
         val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
         val movieDateTextView = findViewById<TextView>(R.id.movie_date)
         val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
@@ -85,7 +83,7 @@ class ReservationActivity : AppCompatActivity() {
         moviePosterImageView.setImageResource(movie.image)
     }
 
-    private fun initCountButtons() {
+    private fun setCountButtons() {
         val minusButton = findViewById<Button>(R.id.minus_button)
         val plusButton = findViewById<Button>(R.id.plus_button)
 
@@ -102,7 +100,7 @@ class ReservationActivity : AppCompatActivity() {
         updateCounterText()
     }
 
-    private fun initReservationButton(
+    private fun setReservationButton(
         movie: Movie,
         spinnerDate: Spinner,
         spinnerTime: Spinner,
@@ -110,23 +108,13 @@ class ReservationActivity : AppCompatActivity() {
         val reservationButton = findViewById<Button>(R.id.reservation_button)
 
         reservationButton.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
-                    val intent = Intent(this, CompleteActivity::class.java)
-                    val ticket =
-                        createTicket(
-                            movie.title,
-                            spinnerDate.selectedItem as LocalDate,
-                            spinnerTime.selectedItem as LocalTime,
-                        )
-                    intent.putExtra("ticket", ticket)
-                    startActivity(intent)
-                }
-                .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
-                .setCancelable(false)
-                .show()
+            val ticket =
+                createTicket(
+                    movie.title,
+                    spinnerDate.selectedItem as LocalDate,
+                    spinnerTime.selectedItem as LocalTime,
+                )
+            ReservationDialog(this, ticket).popUp()
         }
     }
 
@@ -137,7 +125,7 @@ class ReservationActivity : AppCompatActivity() {
         spinnerTime: Spinner,
     ) {
         val movieSchedule = MovieSchedule(movie.date)
-        val currentDateSpinner = movieSchedule.dateSpinner(localDate)
+        val currentDateSpinner = movieSchedule.selectableDates(localDate)
 
         spinner.adapter =
             ArrayAdapter(
@@ -153,8 +141,8 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    datePosition = position
-                    val selectedDate = currentDateSpinner[datePosition]
+                    selectedDatePosition = position
+                    val selectedDate = currentDateSpinner[selectedDatePosition]
                     setTimeSpinner(spinnerTime, selectedDate)
                 }
 
@@ -166,7 +154,7 @@ class ReservationActivity : AppCompatActivity() {
         spinner: Spinner,
         localDate: LocalDate,
     ) {
-        val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).runningTimeTable()
+        val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).selectableTimes()
         spinner.adapter =
             ArrayAdapter(
                 this,
@@ -177,7 +165,7 @@ class ReservationActivity : AppCompatActivity() {
                 spinner.adapter = adapter
             }
 
-        spinner.setSelection(timePosition)
+        spinner.setSelection(selectedTimePosition)
 
         spinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -187,7 +175,7 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    timePosition = position
+                    selectedTimePosition = position
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
