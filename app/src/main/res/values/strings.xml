@@ -2,4 +2,8 @@
     <string name="app_name">Movie</string>
     <string name="people_count">일반 %s명</string>
     <string name="payment">%d원 (현장 결제)</string>
+    <string name="confirm_booking_title">예매 확인</string>
+    <string name="confirm_booking_message">정말 예매하시겠습니까?</string>
+    <string name="yes">예</string>
+    <string name="no">아니오</string>
 </resources>
