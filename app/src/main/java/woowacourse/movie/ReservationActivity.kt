@@ -21,18 +21,19 @@ import com.google.android.material.R.layout
 import woowacourse.movie.ReservationCompleteActivity.Companion.TICKET_DATA_KEY
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieTicket
-import java.time.DayOfWeek
+import woowacourse.movie.model.MovieTime
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate = LocalDate.now()
-    private lateinit var selectedTime: String
     private var ticketCount: Int = 1
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
     private val movie by lazy { getSelectedMovieData() }
+
+    private val movieTime by lazy { MovieTime() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +78,8 @@ class ReservationActivity : AppCompatActivity() {
         movieTitleTextView.text = movie.title
 
         val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
-        val startDate = movie.startDate.toUI()
-        val endDate = movie.endDate.toUI()
+        val startDate = movie.startDate.toDateUI()
+        val endDate = movie.endDate.toDateUI()
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
@@ -120,38 +121,12 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setupTimeAdapter() {
-        val now = LocalDateTime.now()
-        val times: List<String>
-        if (LocalDate.now() == selectedDate) {
-            times =
-                when (now.dayOfWeek) {
-                    DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY ->
-                        weekdayTime.timeTable(
-                            now.hour,
-                        )
-
-                    DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> weekendTime.timeTable(now.hour)
-
-                    null -> emptyList()
-                }
-        } else {
-            times =
-                when (selectedDate.dayOfWeek) {
-                    DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY ->
-                        weekdayTime.map {
-                            "$it:00"
-                        }
-
-                    DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> weekendTime.map { "$it:00" }
-                    null -> emptyList()
-                }
-        }
-
+        val timeTable: List<Int> = movieTime.getTimeTable(LocalDateTime.now(), selectedDate)
         val timeAdapter =
             ArrayAdapter(
                 this,
                 layout.support_simple_spinner_dropdown_item,
-                times,
+                timeTable.map { it.toTimeUI() },
             )
 
         findViewById<Spinner>(R.id.spinner_reservation_time).apply {
@@ -165,8 +140,8 @@ class ReservationActivity : AppCompatActivity() {
                         position: Int,
                         id: Long,
                     ) {
-                        selectedTime = times[position]
                         selectedTimePosition = position
+                        movieTime.updateTime(timeTable[position])
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -217,7 +192,7 @@ class ReservationActivity : AppCompatActivity() {
                                 TICKET_DATA_KEY,
                                 MovieTicket(
                                     movie.title,
-                                    "${selectedDate.toUI()} $selectedTime",
+                                    "${selectedDate.toDateUI()} ${movieTime.selectedTime}",
                                     ticketCount,
                                 ),
                             )
@@ -232,44 +207,11 @@ class ReservationActivity : AppCompatActivity() {
         val dates = mutableListOf<String>()
         var current = LocalDate.now()
         while (current <= endInclusive) {
-            dates.add(current.toUI())
+            dates.add(current.toDateUI())
             current = current.plusDays(1)
         }
         return dates
     }
-
-    private fun List<Int>.timeTable(nowHour: Int): List<String> {
-        forEachIndexed { index, time ->
-            if (time > nowHour) {
-                return slice(index..<size).map { "$it:00" }
-            }
-        }
-        return emptyList()
-    }
-
-    private val weekdayTime =
-        listOf(
-            10,
-            12,
-            14,
-            16,
-            18,
-            20,
-            22,
-            24,
-        )
-
-    private val weekendTime =
-        listOf(
-            9,
-            11,
-            13,
-            15,
-            17,
-            19,
-            21,
-            23,
-        )
 
     private fun String.toLocalDate(): LocalDate {
         val year = slice(0..3).toInt()
@@ -278,7 +220,9 @@ class ReservationActivity : AppCompatActivity() {
         return LocalDate.of(year, month, date)
     }
 
-    fun LocalDate.toUI(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+    private fun LocalDate.toDateUI(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+
+    private fun Int.toTimeUI(): String = "$this:00"
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
