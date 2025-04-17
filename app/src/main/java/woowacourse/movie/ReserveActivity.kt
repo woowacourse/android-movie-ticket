@@ -46,6 +46,24 @@ class ReserveActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val movie = getMovie()
+
+        initMovieInfo(movie)
+        initDateSpinner(movie.screeningDate)
+        initTimeSpinner(movie.screeningDate.startDate)
+
+        reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
+            ?: Reservation(
+                title = movie.title,
+                _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
+                reservedTime = getSelectedDateTime(),
+            )
+
+        updateTicketCount()
+        initButtonClickListeners()
+    }
+
+    private fun getMovie(): Movie {
         val movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getParcelableExtra(KEY_MOVIE, Movie::class.java)
@@ -57,24 +75,7 @@ class ReserveActivity : AppCompatActivity() {
             finish()
         }
 
-        initMovieInfo(movie!!)
-        initDateSpinner(movie.screeningDate)
-        val startDate =
-            movieScheduler.dateScheduler.getStartDate(
-                movie.screeningDate.startDate,
-                LocalDate.now(),
-            )
-        initTimeSpinner(startDate)
-
-        reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
-            ?: Reservation(
-                title = movie.title,
-                _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
-                reservedTime = getSelectedDateTime(),
-            )
-
-        updateTicketCount()
-        initButtonClickListeners()
+        return movie!!
     }
 
     private fun initMovieInfo(movie: Movie) {
@@ -119,7 +120,13 @@ class ReserveActivity : AppCompatActivity() {
             }
     }
 
-    private fun initTimeSpinner(selectedDate: LocalDate) {
+    private fun initTimeSpinner(startDate: LocalDate) {
+        val selectedDate =
+            movieScheduler.dateScheduler.startDate(
+                startDate,
+                LocalDate.now(),
+            )
+
         updateTimeSpinner(selectedDate)
         timeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
