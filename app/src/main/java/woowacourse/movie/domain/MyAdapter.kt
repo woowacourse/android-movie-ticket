@@ -41,7 +41,7 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
         val timeTextView: TextView = view.findViewById(R.id.movie_time)
         val reserveButton: Button = view.findViewById(R.id.reserve_button)
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+        val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
         val startDateFormatted = items[position].date.startDate.format(formatter)
         val endDateFormatted = items[position].date.endDate.format(formatter)
 
@@ -57,5 +57,9 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
             parent?.context?.startActivity(intent)
         }
         return view
+    }
+
+    companion object {
+        private const val DATETIME_PATTERN = "yyyy.M.d"
     }
 }

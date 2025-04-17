@@ -29,7 +29,7 @@
             android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="영화 제목"
+            android:text="@string/movie_title"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="25sp"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:text="상영일:">
+            android:text="@string/movieDate">
 
         </TextView>
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:text = "러닝타임:"
+            android:text = "@string/movieTime"
             android:layout_marginBottom="30sp">
         </TextView>
 
@@ -84,7 +84,7 @@
                 android:id="@+id/minus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-"
+                android:text="@string/minus"
                 android:textSize="25sp"
                 android:layout_weight="1"
                 android:textStyle="bold">
@@ -94,7 +94,7 @@
                 android:id="@+id/personnel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="@string/default_personnel"
                 android:gravity="center"
                 android:layout_weight="9"
                 android:textColor="@color/black"
@@ -106,7 +106,7 @@
                 android:id="@+id/plus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+"
+                android:text="@string/plus"
                 android:textSize="25sp"
                 android:layout_weight="1"
                 android:textStyle="bold">
@@ -119,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-            android:text="선택 완료"
+            android:text="@string/reserve_complete"
             android:textSize="25sp"
             android:textStyle="bold"
             android:padding="10sp">

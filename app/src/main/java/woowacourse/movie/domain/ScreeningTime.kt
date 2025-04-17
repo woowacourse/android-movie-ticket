@@ -9,12 +9,12 @@ class ScreeningTime(
     private val date: LocalDateTime,
 ) {
     fun runningTimeTable(): List<LocalTime> {
-        val endHour = LocalTime.of(23, 0)
+        val endHour = LocalTime.of(END_HOUR, DEFAULT_MINUTE)
         val startHour =
             if (isWeekend()) {
-                LocalTime.of(9, 0)
+                LocalTime.of(WEEKEND_START_HOUR, DEFAULT_MINUTE)
             } else {
-                LocalTime.of(10, 0)
+                LocalTime.of(WEEKDAY_START_HOUR, DEFAULT_MINUTE)
             }
 
         var currentTime = LocalTime.of(date.hour, date.minute)
@@ -25,7 +25,7 @@ class ScreeningTime(
 
         val screeningTime =
             generateSequence(startHour) {
-                if (it in startHour..<endHour) it.plusHours(2) else null
+                if (it in startHour..<endHour) it.plusHours(HOURS_INTERVAL) else null
             }.toList()
 
         return screeningTime.filter { it > currentTime }
@@ -36,6 +36,10 @@ class ScreeningTime(
     }
 
     companion object {
-        private const val HOURS_INTERVAL = 2
+        private const val HOURS_INTERVAL = 2L
+        private const val WEEKEND_START_HOUR = 9
+        private const val WEEKDAY_START_HOUR = 10
+        private const val END_HOUR = 23
+        private const val DEFAULT_MINUTE = 0
     }
 }

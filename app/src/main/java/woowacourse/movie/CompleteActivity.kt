@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Ticket
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class CompleteActivity : AppCompatActivity() {
@@ -23,10 +22,7 @@ class CompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var ticket = intent.getSerializableExtra("ticket") as? Ticket
-        if (ticket == null) {
-            ticket = Ticket("", LocalDateTime.of(2025, 1, 1, 1, 1), 1)
-        }
+        val ticket = intent.getSerializableExtra("ticket") as? Ticket ?: Ticket()
 
         val formatter = DateTimeFormatter.ofPattern("yyyy.M.d. HH:mm")
         val dateTimeFormat = ticket.date.format(formatter)
@@ -39,7 +35,7 @@ class CompleteActivity : AppCompatActivity() {
         movieTitleTextView.text = ticket.title
         movieDateTextView.text = dateTimeFormat
         moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
-        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(Ticket.PRICE, ticket.personnel))
+        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(Ticket.DEFAULT_PRICE, ticket.personnel))
     }
 
     private fun totalPrice(

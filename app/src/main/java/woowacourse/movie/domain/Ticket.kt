@@ -8,7 +8,13 @@ data class Ticket(
     val date: LocalDateTime,
     val personnel: Int,
 ) : Serializable {
+    constructor() : this(
+        "untitle",
+        LocalDateTime.of(2025, 1, 1, 1, 1),
+        1,
+    )
+
     companion object {
-        const val PRICE = 13_000
+        const val DEFAULT_PRICE = 13_000
     }
 }

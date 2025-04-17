@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
@@ -37,19 +36,7 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        var movie = intent.getSerializableExtra("movie") as? Movie
-        if (movie == null) {
-            movie =
-                Movie(
-                    R.drawable.ic_launcher_background,
-                    "",
-                    Date(
-                        LocalDate.of(2025, 1, 1),
-                        LocalDate.of(2025, 1, 1),
-                    ),
-                    "",
-                )
-        }
+        val movie = intent.getSerializableExtra("movie") as? Movie ?: Movie()
 
         val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
         val movieDateTextView = findViewById<TextView>(R.id.movie_date)
