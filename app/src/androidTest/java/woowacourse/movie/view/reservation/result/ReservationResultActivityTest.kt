@@ -12,6 +12,7 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.fixture.fakeContext
+import java.time.LocalDateTime
 
 class ReservationResultActivityTest {
     @Before
@@ -19,7 +20,7 @@ class ReservationResultActivityTest {
         val reservationInfo =
             ReservationInfo(
                 title = "해리 포터와 마법사의 돌",
-                reservationDateTime = "2025.4.15 11:00",
+                reservationDateTime = LocalDateTime.of(2025, 4, 15, 11, 0),
                 reservationNumber = 2,
             )
         val bundle = Bundle().apply { putParcelable("reservation_info", reservationInfo) }
