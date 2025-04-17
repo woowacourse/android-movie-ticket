@@ -61,7 +61,7 @@ dependencies {
     testImplementation(libs.kotest.runner.junit5)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.espresso.intents)
-    androidTestImplementation("androidx.test.espresso:espresso-device:1.0.1")
+    androidTestImplementation(libs.androidx.espresso.device)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.assertj.core)
