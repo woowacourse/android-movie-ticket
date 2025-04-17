@@ -27,9 +27,6 @@ class MainActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
     private val movie = mockMovie()
 
-//    @get:Rule
-//    val activityRule = ActivityScenarioRule(MainActivity::class.java)
-
     @Before
     fun setUp() {
         Intents.init()
@@ -119,14 +116,6 @@ class MainActivityTest {
             .onChildView(withId(R.id.btn_reserve))
             .perform(click())
 
-//        val movie =
-//            Movie(
-//                imageSource = R.drawable.harry_potter,
-//                title = "---",
-//                screeningStartDate = LocalDate.of(2025, 4, 1),
-//                screeningEndDate = LocalDate.of(2025, 4, 25),
-//                runningTime = 150,
-//            )
         intended(
             allOf(
                 hasComponent(BookingActivity::class.java.name),
