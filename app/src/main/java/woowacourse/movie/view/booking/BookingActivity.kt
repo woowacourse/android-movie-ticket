@@ -52,12 +52,13 @@ class BookingActivity : AppCompatActivity() {
         val startDate = LocalDate.of(startDateYear, startDateMonth, startDateDay)
         val endDate = LocalDate.of(endDateYear, endDateMonth, endDateDay)
 
-        initView(startDate, endDate)
+        initView(startDate, endDate, savedInstanceState)
     }
 
     private fun initView(
         startDate: LocalDate,
         endDate: LocalDate,
+        savedInstanceState: Bundle?,
     ) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -83,53 +84,71 @@ class BookingActivity : AppCompatActivity() {
         val movieRunningTimeView = findViewById<TextView>(R.id.tv_running_time)
         movieRunningTimeView.text = intent.getStringExtra(KEY_MOVIE_RUNNING_TIME)
 
-        setDateSpinner(startDate, endDate)
+        savedInstanceState?.let {
+            val count = it.getString(KEY_PEOPLE_COUNT)
+            findViewById<TextView>(R.id.tv_people_count).text = count
+        }
+
+        setDateSpinner(startDate, endDate, savedInstanceState)
         setButtonListener()
     }
 
     private fun setDateSpinner(
         startDate: LocalDate,
         endDate: LocalDate,
+        savedInstanceState: Bundle?,
     ) {
         val dateSpinner = findViewById<Spinner>(R.id.sp_date)
 
         val screeningBookingDates: List<LocalDate> =
             ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
 
-        dateSpinner.adapter =
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                screeningBookingDates,
-            )
+        with(dateSpinner) {
+            adapter =
+                ArrayAdapter(
+                    this@BookingActivity,
+                    android.R.layout.simple_spinner_item,
+                    screeningBookingDates,
+                )
 
-        dateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    setTimeSpinner(screeningBookingDates[position])
+            setSelection(savedInstanceState?.getInt(KEY_SELECTED_DATE_POSITION) ?: 0)
+
+            onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long,
+                    ) {
+                        setTimeSpinner(screeningBookingDates[position], savedInstanceState)
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
                 }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+        }
     }
 
-    private fun setTimeSpinner(selectedDate: LocalDate) {
+    private fun setTimeSpinner(
+        selectedDate: LocalDate,
+        savedInstanceState: Bundle?,
+    ) {
         val timeSpinner: Spinner = findViewById(R.id.sp_time)
 
         val screeningTimes: List<LocalTime> =
             ScreeningTime().getAvailableScreeningTimes(LocalDateTime.now(), selectedDate)
 
-        timeSpinner.adapter =
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                screeningTimes,
-            )
+        with(timeSpinner) {
+            adapter =
+                ArrayAdapter(
+                    this@BookingActivity,
+                    android.R.layout.simple_spinner_item,
+                    screeningTimes,
+                )
+
+            val selectedPosition = savedInstanceState?.getInt(KEY_SELECTED_TIME_POSITION) ?: 0
+            setSelection(selectedPosition)
+        }
     }
 
     private fun setButtonListener() {
@@ -170,6 +189,7 @@ class BookingActivity : AppCompatActivity() {
             .setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
                 dialog.dismiss()
             }
+            .setCancelable(false)
             .show()
     }
 
@@ -202,10 +222,25 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        val dateSpinner = findViewById<Spinner>(R.id.sp_date)
+        val timeSpinner = findViewById<Spinner>(R.id.sp_time)
+        val peopleCount = findViewById<TextView>(R.id.tv_people_count)
+
+        outState.putString(KEY_PEOPLE_COUNT, peopleCount.text.toString())
+        outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
+        outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
+    }
+
     companion object {
         private const val DEFAULT_DATE_YEAR = 1
         private const val DEFAULT_DATE_MONTH = 1
         private const val DEFAULT_DATE_DAY = 1
+        private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
+        private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
+        private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
         const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
         const val KEY_BOOKING_DATE_TIME = "BOOKING_DATE_TIME"
         const val KEY_BOOKING_PEOPLE_COUNT = "BOOKING_PEOPLE_COUNT"

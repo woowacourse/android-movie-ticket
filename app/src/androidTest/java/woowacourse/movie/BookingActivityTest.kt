@@ -2,12 +2,19 @@ package woowacourse.movie
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.device.DeviceInteraction.Companion.setScreenOrientation
+import androidx.test.espresso.device.EspressoDevice.Companion.onDevice
+import androidx.test.espresso.device.action.ScreenOrientation
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
@@ -105,5 +112,55 @@ class BookingActivityTest {
         onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
         onView(withText("취소")).check(matches(isDisplayed()))
         onView(withText("예매 완료")).check(matches(isDisplayed()))
+    }
+
+    @DisplayName("다이얼로그 외부 영역을 클릭해도 다이얼로그가 유지된다")
+    @Test
+    fun dialogOutsideTouchTest() {
+        onView(withId(R.id.btn_booking_complete))
+            .perform(click())
+
+        pressBack()
+
+        onView(withText("예매 확인")).check(matches(isDisplayed()))
+        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
+        onView(withText("취소")).check(matches(isDisplayed()))
+        onView(withText("예매 완료")).check(matches(isDisplayed()))
+    }
+
+    @DisplayName("화면이 회전 되어도 인원수가 유지된다")
+    @Test
+    fun configurationChangePeopleCountTest() {
+        onView(withId(R.id.btn_increase)).perform(click())
+        onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
+        onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
+        onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
+    }
+
+    @DisplayName("화면이 회전 되어도 선택된 날짜가 유지된다")
+    @Test
+    fun configurationChangeDateTest() {
+        onView(withId(R.id.sp_date))
+            .perform(click())
+
+        onData(anything())
+            .atPosition(8)
+            .perform(click())
+
+        onView(withId(R.id.sp_time))
+            .perform(click())
+
+        onData(anything())
+            .atPosition(1)
+            .perform(click())
+
+        onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
+        onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
+
+        onView(withId(R.id.sp_date))
+            .check(matches(withSpinnerText("2025-04-25")))
+
+        onView(withId(R.id.sp_time))
+            .check(matches(withSpinnerText("12:00")))
     }
 }
