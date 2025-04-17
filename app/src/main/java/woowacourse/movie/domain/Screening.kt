@@ -7,7 +7,7 @@ import java.time.LocalTime
 class Screening(
     movie: Movie,
     val period: ClosedRange<LocalDate>,
-    private val showTimePolicy: ShowtimePolicy = ShowtimePolicy(),
+    private val showTimePolicy: ShowtimePolicy = DefaultShowtimePolicy(),
 ) {
     @DrawableRes
     val posterId: Int = movie.posterId
