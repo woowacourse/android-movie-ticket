@@ -25,7 +25,7 @@ class BookingResultActivityTest {
     }
 
     @Test
-    fun 지정된_영화_제목을_표시한다() {
+    fun `지정된_영화_제목을_표시한다`() {
         ActivityScenario.launch<BookingActivity>(intent).use {
             onView(withId(R.id.title))
                 .check(matches(withText("해리 포터와 마법사의 돌")))
@@ -33,7 +33,7 @@ class BookingResultActivityTest {
     }
 
     @Test
-    fun 지정된_날짜를_표시한다() {
+    fun `지정된_날짜를_표시한다`() {
         ActivityScenario.launch<BookingActivity>(intent).use {
             onView(withId(R.id.date))
                 .check(matches(withText("2025.4.17")))
@@ -41,7 +41,7 @@ class BookingResultActivityTest {
     }
 
     @Test
-    fun 지정된_시간을_표시한다() {
+    fun `지정된_시간을_표시한다`() {
         ActivityScenario.launch<BookingActivity>(intent).use {
             onView(withId(R.id.time))
                 .check(matches(withText("10:00")))
@@ -49,7 +49,7 @@ class BookingResultActivityTest {
     }
 
     @Test
-    fun 발권된_티켓수에_따른_인원수를_표시한다() {
+    fun `발권된_티켓수에_따른_인원수를_표시한다`() {
         ActivityScenario.launch<BookingActivity>(intent).use {
             onView(withId(R.id.count))
                 .check(matches(withText("일반 2명")))
@@ -57,7 +57,7 @@ class BookingResultActivityTest {
     }
 
     @Test
-    fun 발권된_티켓수에_따른_금액을_표시한다() {
+    fun `발권된_티켓수에_따른_금액을_표시한다`() {
         ActivityScenario.launch<BookingActivity>(intent).use {
             onView(withId(R.id.money))
                 .check(matches(withText("26000원 (현장 결제)")))

@@ -13,9 +13,16 @@ import woowacourse.movie.BookingActivity
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieInfo
 
-class MovieListAdapter(context: Context, items: MutableList<MovieInfo>): ArrayAdapter<MovieInfo>(context, 0, items) {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.movie_list_item, parent, false)
+class MovieListAdapter(context: Context, items: MutableList<MovieInfo>) :
+    ArrayAdapter<MovieInfo>(context, 0, items) {
+    override fun getView(
+        position: Int,
+        convertView: View?,
+        parent: ViewGroup,
+    ): View {
+        val view =
+            convertView ?: LayoutInflater.from(context)
+                .inflate(R.layout.movie_list_item, parent, false)
 
         val item = getItem(position)
         val image = view.findViewById<ImageView>(R.id.movie_image)
@@ -35,9 +42,10 @@ class MovieListAdapter(context: Context, items: MutableList<MovieInfo>): ArrayAd
         val button = view.findViewById<Button>(R.id.reservation_button)
         button.setOnClickListener {
             if (item != null) {
-                val intent = Intent(context, BookingActivity::class.java).apply {
-                    putExtra("MOVIE_INFO", item)
-                }
+                val intent =
+                    Intent(context, BookingActivity::class.java).apply {
+                        putExtra("MOVIE_INFO", item)
+                    }
                 context.startActivity(intent)
             }
         }

@@ -14,15 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        allItems = mutableListOf(
-            MovieInfo(
-                R.drawable.harry_potter_poster,
-                "해리 포터와 마법사의 돌",
-                "2025.4.1",
-                "2025.4.25",
-                "152분"
+        allItems =
+            mutableListOf(
+                MovieInfo(
+                    R.drawable.harry_potter_poster,
+                    "해리 포터와 마법사의 돌",
+                    "2025.4.1",
+                    "2025.4.25",
+                    "152분",
+                ),
             )
-        )
 
         val listView = findViewById<ListView>(R.id.movie_list)
         adapter = MovieListAdapter(this, allItems)

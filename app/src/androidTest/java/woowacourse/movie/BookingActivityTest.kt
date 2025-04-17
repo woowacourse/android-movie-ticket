@@ -36,7 +36,7 @@ class BookingActivityTest {
     }
 
     @Test
-    fun 증가_버튼을_누르면_카운트가_1씩_증가한다() {
+    fun `증가_버튼을_누르면_카운트가_1씩_증가한다`() {
         onView(withId(R.id.plus_button))
             .perform(click())
 
@@ -45,7 +45,7 @@ class BookingActivityTest {
     }
 
     @Test
-    fun 감소_버튼을_누르면_카운트가_1씩_감소한다() {
+    fun `감소_버튼을_누르면_카운트가_1씩_감소한다`() {
         scenario.onActivity { activity ->
             activity.findViewById<TextView>(R.id.ticket_count).text = "1"
         }
@@ -60,7 +60,7 @@ class BookingActivityTest {
     }
 
     @Test
-    fun 평일_날짜를_선택하면_10시부터_상영이_시작된다() {
+    fun `평일_날짜를_선택하면_10시부터_상영이_시작된다`() {
         onView(withId(R.id.movie_date))
             .perform(click())
 
@@ -73,7 +73,7 @@ class BookingActivityTest {
     }
 
     @Test
-    fun 주말_날짜를_선택하면_9시부터_상영이_시작된다() {
+    fun `주말_날짜를_선택하면_9시부터_상영이_시작된다`() {
         onView(withId(R.id.movie_date))
             .perform(click())
 
@@ -86,7 +86,7 @@ class BookingActivityTest {
     }
 
     @Test
-    fun 화면이_회전되어도_입력된_정보가_유지된다() {
+    fun `화면이_회전되어도_입력된_정보가_유지된다`() {
         // given
         onView(withId(R.id.movie_date))
             .perform(click())
