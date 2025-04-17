@@ -10,8 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 class MoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupView()
 
+        setupView()
         setupMovies()
     }
 

@@ -17,39 +17,14 @@ class TimeAdapter(
     fun updateTimes(dateType: DateType) {
         clear()
 
-        val times: List<String> =
+        val times: List<Time> =
             when (dateType) {
-                DateType.WEEKDAY -> weekdaysTimes
-                DateType.WEEKEND -> weekendsTimes
+                DateType.WEEKDAY -> Time.weekdaysTimes
+                DateType.WEEKEND -> Time.weekendsTimes
             }
 
-        addAll(times)
+        addAll(times.map { it.toString() })
+
         notifyDataSetChanged()
-    }
-
-    companion object {
-        val weekdaysTimes: List<String> =
-            listOf(
-                "09:00",
-                "11:00",
-                "13:00",
-                "15:00",
-                "17:00",
-                "19:00",
-                "21:00",
-                "23:00",
-            )
-
-        val weekendsTimes: List<String> =
-            listOf(
-                "10:00",
-                "12:00",
-                "14:00",
-                "16:00",
-                "18:00",
-                "20:00",
-                "22:00",
-                "24:00",
-            )
     }
 }
