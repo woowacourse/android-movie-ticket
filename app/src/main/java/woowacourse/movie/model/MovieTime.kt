@@ -8,9 +8,11 @@ class MovieTime {
     var selectedTime: Int = 0
         private set
 
-    private val weekdayTime: List<Int> = (10..24).step(2).toList()
+    private val weekdayTime: List<Int> =
+        (WEEKDAY_SCREENING_TIME_RANGE).step(SCREENING_INTERVAL_TIME).toList()
 
-    private val weekendTime: List<Int> = (9..24).step(2).toList()
+    private val weekendTime: List<Int> =
+        (WEEKEND_SCREENING_TIME_RANGE).step(SCREENING_INTERVAL_TIME).toList()
 
     fun getTimeTable(
         now: LocalDateTime,
@@ -54,5 +56,11 @@ class MovieTime {
             }
         }
         return emptyList()
+    }
+
+    companion object {
+        private val WEEKDAY_SCREENING_TIME_RANGE = 10..24
+        private val WEEKEND_SCREENING_TIME_RANGE = 9..24
+        private const val SCREENING_INTERVAL_TIME = 2
     }
 }

@@ -108,7 +108,7 @@ class ReservationActivity : AppCompatActivity() {
                         position: Int,
                         id: Long,
                     ) {
-                        selectedDate = duration[position].toLocalDate()
+                        selectedDate = formatter.uiToLocalDate(duration[position])
                         selectedDatePosition = position
                         setupTimeAdapter()
                     }
@@ -167,7 +167,12 @@ class ReservationActivity : AppCompatActivity() {
     private fun setupMinusButtonClick(peopleCountTextView: TextView) {
         findViewById<Button>(R.id.btn_reservation_minus_ticket_count).setOnClickListener {
             if (ticketCount == 1) {
-                Toast.makeText(this, "최소 1명은 선택해야 합니다.", Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(
+                        this,
+                        getString(R.string.reservation_min_ticket_count_message),
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 return@setOnClickListener
             }
             ticketCount -= 1
@@ -179,12 +184,12 @@ class ReservationActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
             AlertDialog
                 .Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
+                .setTitle(getString(R.string.reservation_dialog_title))
+                .setMessage(getString(R.string.reservation_dialog_message))
                 .setCancelable(false)
-                .setNegativeButton("취소") { dialog, _ ->
+                .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
                     dialog.dismiss()
-                }.setPositiveButton("예매 완료") { dialog, _ ->
+                }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
                     val intent =
                         Intent(this, ReservationCompleteActivity::class.java).apply {
                             putExtra(
@@ -214,13 +219,6 @@ class ReservationActivity : AppCompatActivity() {
             current = current.plusDays(1)
         }
         return dates
-    }
-
-    private fun String.toLocalDate(): LocalDate {
-        val year = slice(0..3).toInt()
-        val month = slice(5..6).toInt()
-        val date = slice(8..9).toInt()
-        return LocalDate.of(year, month, date)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

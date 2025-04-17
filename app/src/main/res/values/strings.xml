@@ -6,4 +6,9 @@
     <string name="movie_reservation">지금 예매</string>
     <string name="reservation_complete_ticket_count">일반 %d명</string>
     <string name="reservation_complete_ticket_price">%s원 (현장 결제)</string>
+    <string name="reservation_min_ticket_count_message">최소 1명은 선택해야 합니다.</string>
+    <string name="reservation_dialog_title">예매 확인</string>
+    <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="reservation_dialog_cancel">취소</string>
+    <string name="reservation_dialog_complete">예매 완료</string>
 </resources>

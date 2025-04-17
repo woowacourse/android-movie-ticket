@@ -7,5 +7,9 @@ data class MovieTicket(
     val timeStamp: String,
     val count: Int,
 ) : Serializable {
-    fun price(): Int = count * 13000
+    fun price(): Int = count * TICKET_PRICE
+
+    companion object {
+        private const val TICKET_PRICE = 13000
+    }
 }
