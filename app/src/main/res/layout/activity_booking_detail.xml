@@ -150,7 +150,6 @@
                 app:layout_constraintTop_toTopOf="@id/btn_booking_detail_count_down"
                 tools:text="0" />
 
-
             <Button
                 android:id="@+id/btn_booking_detail_select_complete"
                 android:layout_width="0dp"
