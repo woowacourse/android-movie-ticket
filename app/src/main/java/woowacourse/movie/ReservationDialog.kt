@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AlertDialog
+import woowacourse.movie.activity.CompleteActivity
 import woowacourse.movie.domain.Ticket
 
 class ReservationDialog(

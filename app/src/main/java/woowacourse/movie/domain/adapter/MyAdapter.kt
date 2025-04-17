@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,7 +9,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.ReservationActivity
+import woowacourse.movie.activity.ReservationActivity
+import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
 class MyAdapter(private val items: List<Movie>) : BaseAdapter() {

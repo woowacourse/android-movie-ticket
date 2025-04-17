@@ -7,8 +7,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.CompleteActivity
 import woowacourse.movie.R
+import woowacourse.movie.activity.CompleteActivity
 
 class CompleteActivityTest {
     @get:Rule

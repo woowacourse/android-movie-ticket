@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.os.Bundle
 import android.widget.ListView
@@ -6,9 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MyAdapter
+import woowacourse.movie.domain.adapter.MyAdapter
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {

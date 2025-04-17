@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.icu.text.DecimalFormat
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
