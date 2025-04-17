@@ -125,6 +125,7 @@ class ReservationActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }
+                .setCancelable(false)
                 .show()
         }
     }
