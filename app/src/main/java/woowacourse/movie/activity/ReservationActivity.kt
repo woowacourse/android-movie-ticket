@@ -81,7 +81,7 @@ class ReservationActivity : AppCompatActivity() {
 
         movieTitleTextView.text = movie.title
         movieDateTextView.text = getString(R.string.movieDate, start, end)
-        movieTimeTextView.text = getString(R.string.movieTime, movie.time)
+        movieTimeTextView.text = getString(R.string.movieTime, movie.time.toString())
         moviePosterImageView.setImageResource(movie.image)
     }
 
@@ -90,7 +90,7 @@ class ReservationActivity : AppCompatActivity() {
         val plusButton = findViewById<Button>(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            if (count > DEFUALT_PERSONNEL) count--
+            if (count > DEFAULT_PERSONNEL) count--
             updateCounterText()
         }
 
@@ -200,6 +200,6 @@ class ReservationActivity : AppCompatActivity() {
         private const val KEY_PERSONNEL_COUNT = "personnel_count"
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
-        private const val DEFUALT_PERSONNEL = 1
+        private const val DEFAULT_PERSONNEL = 1
     }
 }
