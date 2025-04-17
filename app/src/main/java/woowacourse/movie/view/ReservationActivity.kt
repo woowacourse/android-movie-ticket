@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Build
@@ -18,7 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.R.layout
-import woowacourse.movie.ReservationCompleteActivity.Companion.TICKET_DATA_KEY
+import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
@@ -208,7 +208,7 @@ class ReservationActivity : AppCompatActivity() {
         val intent =
             Intent(this, ReservationCompleteActivity::class.java).apply {
                 putExtra(
-                    TICKET_DATA_KEY,
+                    ReservationCompleteActivity.Companion.TICKET_DATA_KEY,
                     MovieTicket(
                         title = movie.title,
                         timeStamp =

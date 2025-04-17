@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.ReservationActivity.Companion.MOVIE_DATA_KEY
+import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 
 class MoviesActivity : AppCompatActivity() {
@@ -36,7 +36,10 @@ class MoviesActivity : AppCompatActivity() {
 
     private fun navigateToReservationComplete(movie: Movie) {
         val intent =
-            Intent(this, ReservationActivity::class.java).apply { putExtra(MOVIE_DATA_KEY, movie) }
+            Intent(
+                this,
+                ReservationActivity::class.java,
+            ).apply { putExtra(ReservationActivity.Companion.MOVIE_DATA_KEY, movie) }
         startActivity(intent)
     }
 }
