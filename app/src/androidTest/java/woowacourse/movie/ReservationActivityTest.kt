@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -99,6 +100,7 @@ class ReservationActivityTest {
             .check(matches(isDisplayed()))
     }
 
+    // 테스트 값 현재 시간 기준으로 하드 코딩 해야 함
     @Test
     fun 다이얼로그_예매_완료_버튼을_누르면_영화_예매_완료_화면으로_티켓_정보를_넘긴다() {
         // given: 다이얼로그 화면에서
@@ -115,10 +117,15 @@ class ReservationActivityTest {
                 "movieTicket",
                 MovieTicket(
                     "라라랜드",
-                    "2025.04.16 22:00",
+                    "2025.04.17 12:00",
                     1,
                 ),
             ),
         )
+    }
+
+    @After
+    fun finish() {
+        Intents.release()
     }
 }
