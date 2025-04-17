@@ -7,4 +7,8 @@ data class Ticket(
     val title: String,
     val date: LocalDateTime,
     val personnel: Int,
-) : Serializable
+) : Serializable {
+    companion object {
+        const val PRICE = 13_000
+    }
+}
