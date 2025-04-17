@@ -2,7 +2,7 @@ package woowacourse.movie.model
 
 @JvmInline
 value class TicketCount(
-    val value: Int = 1,
+    val value: Int = TICKET_MINIMUM_COUNT,
 ) {
     init {
         require(value >= TICKET_MINIMUM_COUNT) { TICKET_MINIMUM_ERROR_MESSAGE }
