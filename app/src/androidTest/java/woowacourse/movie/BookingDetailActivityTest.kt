@@ -7,13 +7,23 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents.init
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.Intents.release
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_DATE_KEY
+import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_TIME_KEY
+import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_TITLE_KEY
+import woowacourse.movie.BookingCompleteActivity.Companion.TICKET_COUNT_KEY
 import woowacourse.movie.BookingDetailActivity.Companion.newIntent
 
 @Suppress("ktlint:standard:function-naming")
@@ -109,5 +119,31 @@ class BookingDetailActivityTest {
 
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun 예매_완료_클릭시_예매_정보가_정상적으로_전달된다() {
+        init()
+
+        onView(withId(R.id.btn_booking_detail_count_up))
+            .perform(click())
+
+        onView(withId(R.id.btn_booking_detail_select_complete))
+            .perform(click())
+
+        onView(withText("예매 완료"))
+            .perform(click())
+
+        intended(
+            allOf(
+                hasComponent(BookingCompleteActivity::class.java.name),
+                hasExtra(MOVIE_TITLE_KEY, "해리 포터와 마법사의 돌"),
+                hasExtra(MOVIE_DATE_KEY, "2025-04-01"),
+                hasExtra(MOVIE_TIME_KEY, "09:00"),
+                hasExtra(TICKET_COUNT_KEY, 1),
+            ),
+        )
+
+        release()
     }
 }
