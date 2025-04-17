@@ -70,7 +70,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
                 reservationNumber = reservationNumber,
             )
 
-        outState.putParcelable(getString(R.string.bundle_key_reservation_info), reservationInfo)
+        outState.putParcelable(ReservationResultActivity.BUNDLE_KEY_RESERVATION_INFO, reservationInfo)
     }
 
     override fun setupViews(savedInstanceState: Bundle?) {
@@ -80,7 +80,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         setupListener()
         setupDateSpinner()
 
-        savedInstanceState?.getParcelable<ReservationInfo>(getString(R.string.bundle_key_reservation_info))?.let { reservationInfo ->
+        savedInstanceState?.getParcelable<ReservationInfo>(ReservationResultActivity.BUNDLE_KEY_RESERVATION_INFO)?.let { reservationInfo ->
             reservationNumber = reservationInfo.reservationNumber
             tvReservationNumber.text = reservationNumber.toString()
 
@@ -119,7 +119,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
     private fun setupData() {
         reservationNumber = tvReservationNumber.text.toString().toIntOrNull() ?: 0
-        movie = intent.getParcelableExtra(getString(R.string.bundle_key_movie))
+        movie = intent.getParcelableExtra(BUNDLE_KEY_MOVIE)
     }
 
     private fun setupListener() {
@@ -163,7 +163,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
         val intent =
             Intent(this, ReservationResultActivity::class.java).apply {
-                putExtra(getString(R.string.bundle_key_reservation_info), reservationInfo)
+                putExtra(ReservationResultActivity.BUNDLE_KEY_RESERVATION_INFO, reservationInfo)
             }
         startActivity(intent)
     }
@@ -238,5 +238,9 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
                 spinnerTime.setSelection(timePosition)
             }
         }
+    }
+
+    companion object {
+        const val BUNDLE_KEY_MOVIE = "movie"
     }
 }

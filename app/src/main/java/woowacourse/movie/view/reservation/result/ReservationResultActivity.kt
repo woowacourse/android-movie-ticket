@@ -25,7 +25,7 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
     private fun displayReservationResult() {
         val reservationInfo =
-            intent?.getParcelableExtra<ReservationInfo>(getString(R.string.bundle_key_reservation_info))
+            intent?.getParcelableExtra<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
         val title = reservationInfo?.title
         val reservationDateTime = reservationInfo?.reservationDateTime
 
@@ -58,5 +58,6 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
     companion object {
         private const val CANCELLATION_TIME = 15
+        const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
     }
 }

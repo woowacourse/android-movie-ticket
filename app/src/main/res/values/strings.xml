@@ -6,9 +6,6 @@
     <string name="running_time">러닝타임: %s분</string>
     <string name="reservation_button_text">지금 예매</string>
 
-    <string name="bundle_key_movie">movie</string>
-    <string name="bundle_key_reservation_info">reservation_info</string>
-
     <string name="reservation_finish_button_text">선택 완료</string>
     <string name="reservation_number_plus">+</string>
     <string name="reservation_number_minus">-</string>

@@ -35,7 +35,7 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                 object : OnMovieEventListener {
                     override fun onClick(movie: Movie) {
                         val bundle = Bundle()
-                        bundle.putParcelable(getString(R.string.bundle_key_movie), movie)
+                        bundle.putParcelable(ReservationActivity.BUNDLE_KEY_MOVIE, movie)
 
                         startActivity(
                             Intent(
