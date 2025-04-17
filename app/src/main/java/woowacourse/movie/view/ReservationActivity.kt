@@ -17,8 +17,14 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Screening
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_DAY
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_MONTH
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_YEAR
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_POSTER_ID
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_RUNNING_TIME
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_DAY
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_MONTH
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_YEAR
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -52,16 +58,15 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initModel(savedTicketCount: Int) {
-        val title =
-            intent.getStringExtra(MainActivity.EXTRA_TITLE) ?: throw IllegalStateException()
-        val startYear = intent.getIntExtra(MainActivity.EXTRA_START_YEAR, 0)
-        val startMonth = intent.getIntExtra(MainActivity.EXTRA_START_MONTH, 0)
-        val startDay = intent.getIntExtra(MainActivity.EXTRA_START_DAY, 0)
-        val endYear = intent.getIntExtra(MainActivity.EXTRA_END_YEAR, 0)
-        val endMonth = intent.getIntExtra(MainActivity.EXTRA_END_MONTH, 0)
-        val endDay = intent.getIntExtra(MainActivity.EXTRA_END_DAY, 0)
-        val posterId = intent.getIntExtra(MainActivity.EXTRA_POSTER_ID, 0)
-        val runningTIme = intent.getIntExtra(MainActivity.EXTRA_RUNNING_TIME, 0)
+        val title = intent.getStringExtra(EXTRA_TITLE) ?: error("영화 제목을 전달받지 못했습니다.")
+        val startYear = intent.getIntExtra(EXTRA_START_YEAR, -1).takeIf { it != -1 } ?: error("")
+        val startMonth = intent.getIntExtra(EXTRA_START_MONTH, 0)
+        val startDay = intent.getIntExtra(EXTRA_START_DAY, 0)
+        val endYear = intent.getIntExtra(EXTRA_END_YEAR, 0)
+        val endMonth = intent.getIntExtra(EXTRA_END_MONTH, 0)
+        val endDay = intent.getIntExtra(EXTRA_END_DAY, 0)
+        val posterId = intent.getIntExtra(EXTRA_POSTER_ID, 0)
+        val runningTIme = intent.getIntExtra(EXTRA_RUNNING_TIME, 0)
         val startDate = LocalDate.of(startYear, startMonth, startDay)
         val endDate = LocalDate.of(endYear, endMonth, endDay)
         val period = startDate..endDate
