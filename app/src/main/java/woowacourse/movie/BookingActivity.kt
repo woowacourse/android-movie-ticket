@@ -17,7 +17,6 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-
 class BookingActivity : AppCompatActivity() {
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.M.d")
     private lateinit var movieTime: Spinner
@@ -83,23 +82,24 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setupDateChangeListener() {
-        movieDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedDate = getDates()[position]
-                val selectedTimes = getTimes(selectedDate)
-                val adapter =
-                    ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
-                adapter.setDropDownViewResource(R.layout.spinner_item)
-                movieTime.adapter = adapter
-            }
+        movieDate.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate = getDates()[position]
+                    val selectedTimes = getTimes(selectedDate)
+                    val adapter =
+                        ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
+                    adapter.setDropDownViewResource(R.layout.spinner_item)
+                    movieTime.adapter = adapter
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     private fun confirmButtonHandler() {
@@ -127,16 +127,12 @@ class BookingActivity : AppCompatActivity() {
 
     private fun setTimeSpinner() {
         val times = getTimes(startDate.text.toString())
-        val movieTimesAdapter = ArrayAdapter(this, R.layout.spinner_item, times)
-        movieTimesAdapter.setDropDownViewResource(R.layout.spinner_item)
-        movieTime.adapter = movieTimesAdapter
+        SpinnerAdapter.bind(this, movieTime, times)
     }
 
     private fun setDateSpinner() {
         val dates = getDates()
-        val movieDatesAdapter = ArrayAdapter(this, R.layout.spinner_item, dates)
-        movieDatesAdapter.setDropDownViewResource(R.layout.spinner_item)
-        movieDate.adapter = movieDatesAdapter
+        SpinnerAdapter.bind(this, movieDate, dates)
     }
 
     private fun getDates(): List<String> {
@@ -157,10 +153,11 @@ class BookingActivity : AppCompatActivity() {
     private fun getTimes(date: String): List<String> {
         val parsedDate = LocalDate.parse(date, dateFormatter)
 
-        val startHour = when (parsedDate.dayOfWeek) {
-            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> 9
-            else -> 10
-        }
+        val startHour =
+            when (parsedDate.dayOfWeek) {
+                DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> 9
+                else -> 10
+            }
 
         return (startHour..24 step 2).map { hour ->
             String.format("%02d:00", hour)
@@ -168,28 +165,34 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun askToConfirmBooking() {
-        AlertDialog.Builder(this)
+        AlertDialog
+            .Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
             .setPositiveButton("예") { _, _ ->
-                val ticket = Ticket(
-                    title = findViewById<TextView>(R.id.title).text.toString(),
-                    date = findViewById<Spinner>(R.id.movie_date).selectedItem.toString(),
-                    time = findViewById<Spinner>(R.id.movie_time).selectedItem.toString(),
-                    count = findViewById<TextView>(R.id.ticket_count).text.toString(),
-                    money = (findViewById<TextView>(R.id.ticket_count).text.toString()
-                        .toInt() * 13000).toString()
-                )
+                val ticket =
+                    Ticket(
+                        title = findViewById<TextView>(R.id.title).text.toString(),
+                        date = findViewById<Spinner>(R.id.movie_date).selectedItem.toString(),
+                        time = findViewById<Spinner>(R.id.movie_time).selectedItem.toString(),
+                        count = findViewById<TextView>(R.id.ticket_count).text.toString(),
+                        money =
+                            (
+                                findViewById<TextView>(R.id.ticket_count)
+                                    .text
+                                    .toString()
+                                    .toInt() * 13000
+                            ).toString(),
+                    )
 
-                val intent = Intent(this, BookingResultActivity::class.java).apply {
-                    putExtra("TICKET", ticket)
-                }
+                val intent =
+                    Intent(this, BookingResultActivity::class.java).apply {
+                        putExtra("TICKET", ticket)
+                    }
                 startActivity(intent)
-            }
-            .setNegativeButton("아니요") { dialog, _ ->
+            }.setNegativeButton("아니요") { dialog, _ ->
                 dialog.dismiss()
-            }
-            .setCancelable(false)
+            }.setCancelable(false)
             .show()
     }
 }
