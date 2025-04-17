@@ -159,7 +159,7 @@ class ReservationActivity : AppCompatActivity() {
         val dateAdapter =
             ArrayAdapter(
                 this,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                android.R.layout.simple_spinner_item,
                 screeningDates,
             )
 
@@ -180,7 +180,7 @@ class ReservationActivity : AppCompatActivity() {
                     val timeAdapter =
                         ArrayAdapter(
                             this@ReservationActivity,
-                            androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                            android.R.layout.simple_spinner_item,
                             screeningTimes,
                         )
 

@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -10,6 +11,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.hamcrest.core.AllOf.allOf
+import org.hamcrest.core.Is.`is`
+import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_DAY
@@ -22,6 +26,7 @@ import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_MONTH
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_YEAR
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
 import woowacourse.movie.view.ReservationActivity
+import java.time.LocalTime
 
 class ReservationActivityTest {
     @get:Rule
@@ -93,5 +98,20 @@ class ReservationActivityTest {
         onView(withText(R.string.ticket_dialog_title))
             .inRoot(RootMatchers.isDialog())
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `날짜를_선택하면_가능한_시간대가_표시된다`() {
+        // FIXME: 뷰가 2개 찾아지는 문제 해결 필요
+        onData(
+            allOf(
+                `is`(instanceOf(LocalTime::class.java)),
+                `is`(LocalTime.of(23, 30)),
+//                `is`(LocalDate.of(2025, 4, 17)),
+            ),
+        ).check(matches(withId(R.id.spinner_reservation_screening_time)))
+//
+//        onView(withId(R.id.spinner_reservation_screening_time))
+//            .check(matches(withSpinnerText("10:00")))
     }
 }
