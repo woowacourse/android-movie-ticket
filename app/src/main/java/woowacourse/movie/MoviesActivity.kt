@@ -10,6 +10,12 @@ import androidx.core.view.WindowInsetsCompat
 class MoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupView()
+
+        setupMovies()
+    }
+
+    private fun setupView() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_movies)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_movies)) { v, insets ->
@@ -17,7 +23,9 @@ class MoviesActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
 
+    private fun setupMovies() {
         val moviesAdapter =
             MoviesAdapter(this, movies) { movie ->
                 bookMovie(movie)
@@ -28,12 +36,12 @@ class MoviesActivity : AppCompatActivity() {
     private fun bookMovie(movie: Movie) {
         val intent =
             BookingDetailActivity.newIntent(
-                this,
-                movie.title,
-                movie.startDate.toString(),
-                movie.endDate.toString(),
-                movie.runningTime,
-                movie.poster,
+                context = this,
+                title = movie.title,
+                startDate = movie.startDate.toString(),
+                endDate = movie.endDate.toString(),
+                runningTime = movie.runningTime,
+                poster = movie.poster,
             )
         startActivity(intent)
     }

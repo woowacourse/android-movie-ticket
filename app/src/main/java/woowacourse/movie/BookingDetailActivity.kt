@@ -26,13 +26,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_booking_detail)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_booking_detail)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setupView()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -55,6 +49,16 @@ class BookingDetailActivity : AppCompatActivity() {
         setupTicketCountClickListeners()
 
         setupSelectCompleteClickListener(title)
+    }
+
+    private fun setupView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_booking_detail)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_booking_detail)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     private fun setupSelectCompleteClickListener(title: String) {

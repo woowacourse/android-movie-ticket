@@ -14,13 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_booking_complete)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_booking_complete)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setupView()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -36,6 +30,16 @@ class BookingCompleteActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text = getString(R.string.booking_complete_ticket_count, ticketCount)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
             getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
+    }
+
+    private fun setupView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_booking_complete)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_booking_complete)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
