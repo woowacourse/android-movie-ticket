@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.icu.text.DecimalFormat
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -11,6 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.model.MovieTicket
 
 class ReservationCompleteActivity : AppCompatActivity() {
+    private val formatter: Formatter by lazy { Formatter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -43,7 +44,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
-                THOUSAND_COMMA.format(movieTicket?.price()),
+                formatter.priceToUI(movieTicket?.price() ?: 13000),
             )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -56,6 +57,5 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
     companion object {
         const val TICKET_DATA_KEY = "movieTicket"
-        private val THOUSAND_COMMA = DecimalFormat("#,###")
     }
 }

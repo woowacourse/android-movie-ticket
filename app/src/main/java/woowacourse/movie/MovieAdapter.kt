@@ -10,13 +10,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.model.Movie
-import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
     private val context: Context,
     private val movies: List<Movie>,
     private val onReservationClick: (selectedMovie: Movie) -> Unit,
 ) : BaseAdapter() {
+    private val formatter: Formatter by lazy { Formatter() }
+
     override fun getCount(): Int = 1
 
     override fun getItem(position: Int): Any = movies[position]
@@ -68,9 +69,8 @@ class MovieAdapter(
         position: Int,
     ) {
         val screeningDateTextView = view.findViewById<TextView>(R.id.tv_movie_screening_date)
-        val startDate =
-            movies[position].startDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-        val endDate = movies[position].endDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        val startDate = formatter.localDateToUI(movies[position].startDate)
+        val endDate = formatter.localDateToUI(movies[position].endDate)
         screeningDateTextView.text =
             context.getString(R.string.movie_screening_date, startDate, endDate)
     }

@@ -24,15 +24,14 @@ import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate = LocalDate.now()
     private var ticketCount: Int = 1
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
+    private val formatter: Formatter by lazy { Formatter() }
     private val movie by lazy { getSelectedMovieData() }
-
     private val movieTime by lazy { MovieTime() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +77,8 @@ class ReservationActivity : AppCompatActivity() {
         movieTitleTextView.text = movie.title
 
         val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
-        val startDate = movie.startDate.toDateUI()
-        val endDate = movie.endDate.toDateUI()
+        val startDate = formatter.localDateToUI(movie.startDate)
+        val endDate = formatter.localDateToUI(movie.endDate)
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
@@ -126,7 +125,7 @@ class ReservationActivity : AppCompatActivity() {
             ArrayAdapter(
                 this,
                 layout.support_simple_spinner_dropdown_item,
-                timeTable.map { it.toTimeUI() },
+                timeTable.map { formatter.movieTimeToUI(it) },
             )
 
         findViewById<Spinner>(R.id.spinner_reservation_time).apply {
@@ -192,7 +191,11 @@ class ReservationActivity : AppCompatActivity() {
                                 TICKET_DATA_KEY,
                                 MovieTicket(
                                     movie.title,
-                                    "${selectedDate.toDateUI()} ${movieTime.selectedTime}",
+                                    "${formatter.localDateToUI(selectedDate)} ${
+                                        formatter.movieTimeToUI(
+                                            movieTime.selectedTime,
+                                        )
+                                    }",
                                     ticketCount,
                                 ),
                             )
@@ -207,7 +210,7 @@ class ReservationActivity : AppCompatActivity() {
         val dates = mutableListOf<String>()
         var current = LocalDate.now()
         while (current <= endInclusive) {
-            dates.add(current.toDateUI())
+            dates.add(formatter.localDateToUI(current))
             current = current.plusDays(1)
         }
         return dates
@@ -219,10 +222,6 @@ class ReservationActivity : AppCompatActivity() {
         val date = slice(8..9).toInt()
         return LocalDate.of(year, month, date)
     }
-
-    private fun LocalDate.toDateUI(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-
-    private fun Int.toTimeUI(): String = "$this:00"
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
