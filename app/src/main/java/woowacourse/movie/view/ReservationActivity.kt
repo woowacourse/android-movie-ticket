@@ -23,11 +23,12 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
+import woowacourse.movie.model.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ReservationActivity : AppCompatActivity() {
-    private var ticketCount: Int = 1
+    private var ticketCount: TicketCount = TicketCount()
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
     private val formatter: Formatter by lazy { Formatter() }
@@ -153,8 +154,9 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setupSavedData(savedInstanceState: Bundle?) {
-        ticketCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
-        findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.toString()
+        val savedCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
+        ticketCount = TicketCount(savedCount)
+        findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
 
         selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
         selectedTimePosition = savedInstanceState?.getInt(TICKET_TIME_POSITION_DATA_KEY) ?: 0
@@ -163,23 +165,25 @@ class ReservationActivity : AppCompatActivity() {
     private fun setupPlusButtonClick(peopleCountTextView: TextView) {
         findViewById<Button>(R.id.btn_reservation_plus_ticket_count).setOnClickListener {
             ticketCount += 1
-            peopleCountTextView.text = ticketCount.toString()
+            peopleCountTextView.text = ticketCount.value.toString()
         }
     }
 
     private fun setupMinusButtonClick(peopleCountTextView: TextView) {
         findViewById<Button>(R.id.btn_reservation_minus_ticket_count).setOnClickListener {
-            if (ticketCount == 1) {
+            runCatching {
+                ticketCount - 1
+            }.onSuccess {
+                ticketCount -= 1
+            }.onFailure { error ->
                 Toast
                     .makeText(
                         this,
-                        getString(R.string.reservation_min_ticket_count_message),
+                        error.message,
                         Toast.LENGTH_SHORT,
                     ).show()
-                return@setOnClickListener
             }
-            ticketCount -= 1
-            peopleCountTextView.text = ticketCount.toString()
+            peopleCountTextView.text = ticketCount.value.toString()
         }
     }
 
@@ -217,7 +221,7 @@ class ReservationActivity : AppCompatActivity() {
                                 formatter.localDateToUI(movieDate.selectedDate),
                                 formatter.movieTimeToUI(movieTime.selectedTime),
                             ),
-                        count = ticketCount,
+                        count = ticketCount.value,
                     ),
                 )
             }
@@ -226,7 +230,7 @@ class ReservationActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(TICKET_COUNT_DATA_KEY, ticketCount)
+        outState.putInt(TICKET_COUNT_DATA_KEY, ticketCount.value)
         outState.putInt(TICKET_DATE_POSITION_DATA_KEY, selectedDatePosition)
         outState.putInt(TICKET_TIME_POSITION_DATA_KEY, selectedTimePosition)
     }
