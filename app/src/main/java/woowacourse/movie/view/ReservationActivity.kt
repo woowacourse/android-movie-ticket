@@ -117,11 +117,11 @@ class ReservationActivity : AppCompatActivity() {
         completeButton.setOnClickListener {
             AlertDialog
                 .Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
+                .setTitle(getString(R.string.ticket_dialog_title))
+                .setMessage(getString(R.string.ticket_dialog_message))
+                .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
                     navigateToTicketActivity()
-                }.setNegativeButton("취소") { dialog, _ ->
+                }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
                     dialog.dismiss()
                 }.setCancelable(false)
                 .show()

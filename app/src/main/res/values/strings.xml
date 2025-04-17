@@ -17,4 +17,8 @@
     <string name="ticket_count">일반 %1$d명</string>
     <string name="ticket_showtime">%1$d.%2$d.%3$d %4$d:%5$02d</string>
     <string name="ticket_price">%1$,d원 (현장 결제)</string>
+    <string name="ticket_dialog_title">예매 확인</string>
+    <string name="ticket_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="ticket_dialog_positive_button">예매 완료</string>
+    <string name="ticket_dialog_nagative_button">취소</string>
 </resources>
