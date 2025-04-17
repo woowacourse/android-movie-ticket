@@ -110,6 +110,9 @@ class ReservationActivity : AppCompatActivity() {
                         dialog.dismiss()
                     }.show()
         }
+
+        count = savedInstanceState?.getInt("personnel_count") ?: return
+        updateCounterText()
     }
 
     private fun updateCounterText() {
@@ -142,6 +145,12 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt("personnel_count", count)
     }
 
     private fun createTicket(
