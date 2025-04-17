@@ -3,7 +3,6 @@ package woowacourse.movie
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -12,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.data.Ticket
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -39,13 +39,10 @@ class BookingActivity : AppCompatActivity() {
         setupDateChangeListener()
         countButtonHandler()
         confirmButtonHandler()
-        if (savedInstanceState!=null) {
+        if (savedInstanceState != null) {
             repairInstanceState(savedInstanceState)
         }
-
     }
-
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -53,14 +50,15 @@ class BookingActivity : AppCompatActivity() {
         outState.putString("TICKET_COUNT", ticketCount.text.toString())
         outState.putInt("MOVIE_DATE_POSITION", movieDate.selectedItemPosition)
         outState.putInt("MOVIE_TIME_POSITION", movieTime.selectedItemPosition)
-
-        Log.d("test",movieTime.selectedItemPosition.toString())
     }
 
-    private fun repairInstanceState(state : Bundle){
-        Log.d("test",state.getInt("MOVIE_TIME_POSITION").toString())
+    private fun repairInstanceState(state: Bundle) {
         movieDate.setSelection(state.getInt("MOVIE_DATE_POSITION"))
-        movieTime.setSelection(state.getInt("MOVIE_TIME_POSITION"))
+        movieDate.post {
+            movieTime.post {
+                movieTime.setSelection(state.getInt("MOVIE_TIME_POSITION"))
+            }
+        }
         ticketCount.text = state.getString("TICKET_COUNT")
     }
 
@@ -81,10 +79,16 @@ class BookingActivity : AppCompatActivity() {
 
     private fun setupDateChangeListener() {
         movieDate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedDate = getDates()[position]
                 val selectedTimes = getTimes(selectedDate)
-                val adapter = ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
+                val adapter =
+                    ArrayAdapter(this@BookingActivity, R.layout.spinner_item, selectedTimes)
                 adapter.setDropDownViewResource(R.layout.spinner_item)
                 movieTime.adapter = adapter
             }
@@ -108,7 +112,7 @@ class BookingActivity : AppCompatActivity() {
 
         minusButton.setOnClickListener {
             ticketCount.text = (ticketCount.text.toString().toInt() - 1).toString()
-            if (ticketCount.text.toString().toInt()<0) ticketCount.text = "0"
+            if (ticketCount.text.toString().toInt() < 0) ticketCount.text = "0"
         }
 
         plusButton.setOnClickListener {
@@ -158,18 +162,24 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun askToConfirmBooking(){
+    private fun askToConfirmBooking() {
         AlertDialog.Builder(this)
             .setTitle("예매 확인")
             .setMessage("정말 예매하시겠습니까?")
             .setPositiveButton("예") { _, _ ->
-                val intent = Intent(this,BookingResultActivity::class.java).apply {
-                    putExtra("TITLE",findViewById<TextView>(R.id.title).text)
-                    putExtra("DATE",findViewById<Spinner>(R.id.movie_date).selectedItem.toString())
-                    putExtra("TIME",findViewById<Spinner>(R.id.movie_time).selectedItem.toString())
-                    putExtra("COUNT",findViewById<TextView>(R.id.ticket_count).text)
+                val ticket = Ticket(
+                    title = findViewById<TextView>(R.id.title).text.toString(),
+                    date = findViewById<Spinner>(R.id.movie_date).selectedItem.toString(),
+                    time = findViewById<Spinner>(R.id.movie_time).selectedItem.toString(),
+                    count = findViewById<TextView>(R.id.ticket_count).text.toString(),
+                    money = (findViewById<TextView>(R.id.ticket_count).text.toString()
+                        .toInt() * 13000).toString()
+                )
+
+                val intent = Intent(this, BookingResultActivity::class.java).apply {
+                    putExtra("TICKET", ticket)
                 }
-                this.startActivity(intent)
+                startActivity(intent)
             }
             .setNegativeButton("아니요") { dialog, _ ->
                 dialog.dismiss()
@@ -178,9 +188,3 @@ class BookingActivity : AppCompatActivity() {
             .show()
     }
 }
-
-
-
-
-
-
