@@ -14,6 +14,10 @@ data class BookingResult(
     val selectedDate get() = _selectedDate
     val selectedTime get() = _selectedTime
 
+    init {
+        require(title.isNotBlank()) { "예매한 영화 제목은 비어있을 수 없다" }
+    }
+
     fun calculateAmount(): Int {
         return TICKET_PRICE * headCount
     }
