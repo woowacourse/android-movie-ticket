@@ -10,12 +10,7 @@ class ScreeningTime(
 ) {
     fun runningTimeTable(): List<LocalTime> {
         val endHour = LocalTime.of(END_HOUR, DEFAULT_MINUTE)
-        val startHour =
-            if (isWeekend()) {
-                LocalTime.of(WEEKEND_START_HOUR, DEFAULT_MINUTE)
-            } else {
-                LocalTime.of(WEEKDAY_START_HOUR, DEFAULT_MINUTE)
-            }
+        val startHour = createLocalTime()
 
         var currentTime = LocalTime.of(date.hour, date.minute)
 
@@ -29,6 +24,13 @@ class ScreeningTime(
             }.toList()
 
         return screeningTime.filter { it > currentTime }
+    }
+
+    private fun createLocalTime(): LocalTime {
+        if (isWeekend()) {
+            return LocalTime.of(WEEKEND_START_HOUR, DEFAULT_MINUTE)
+        }
+        return LocalTime.of(WEEKDAY_START_HOUR, DEFAULT_MINUTE)
     }
 
     private fun isWeekend(): Boolean {
