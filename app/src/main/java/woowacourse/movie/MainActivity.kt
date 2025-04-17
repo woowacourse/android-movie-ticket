@@ -16,25 +16,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setUpUi()
 
         val intentMovieData =
-            movieOrNull() ?: Movie(
-                imageSource = R.drawable.harry_potter,
-                title = "해리 포터와 마법사의 돌",
-                screeningStartDate = LocalDate.of(2025, 4, 1),
-                screeningEndDate = LocalDate.of(2025, 4, 25),
-                runningTime = 152,
-            )
+            movieOrNull() ?: mockData()
+
         val movieList = listOf(intentMovieData)
         val movieAdapter = MovieAdapter(this, movieList)
         val listView = findViewById<ListView>(R.id.listview_layout)
 
         listView.adapter = movieAdapter
+    }
+
+    private fun setUpUi() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     private fun movieOrNull(): Movie? {
@@ -43,5 +42,15 @@ class MainActivity : AppCompatActivity() {
         } else {
             intent.getParcelableExtra("movieData")
         }
+    }
+
+    private fun mockData(): Movie {
+        return Movie(
+            imageSource = R.drawable.harry_potter,
+            title = "해리 포터와 마법사의 돌",
+            runningTime = 152,
+            screeningStartDate = LocalDate.of(2025, 4, 1),
+            screeningEndDate = LocalDate.of(2025, 4, 25),
+        )
     }
 }
