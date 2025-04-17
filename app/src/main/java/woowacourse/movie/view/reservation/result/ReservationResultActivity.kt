@@ -7,9 +7,9 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
+import woowacourse.movie.view.extension.toDateTimeFormatter
 import woowacourse.movie.view.movies.MoviesActivity
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
     override fun setupViews(savedInstanceState: Bundle?) {
@@ -47,8 +47,9 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
     private fun setupMovieDate(reservationDateTime: LocalDateTime?) {
         val tvMovieDate = findViewById<TextView>(R.id.tv_movie_date)
-        tvMovieDate?.text =
-            reservationDateTime?.format(DateTimeFormatter.ofPattern(RESERVATION_DATETIME_FORMAT))
+        RESERVATION_DATETIME_FORMAT.toDateTimeFormatter()?.let { formatter ->
+            tvMovieDate?.text = reservationDateTime?.format(formatter)
+        }
     }
 
     private fun setupReservationNumber(reservationNumber: Int?) {

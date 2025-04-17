@@ -15,13 +15,12 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
-import woowacourse.movie.view.extension.convertLocalDateFormat
+import woowacourse.movie.view.extension.toDateTimeFormatter
 import woowacourse.movie.view.movies.MoviesActivity
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     private var reservationNumber = ReservationInfo.RESERVATION_MIN_NUMBER
@@ -95,20 +94,19 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             val availableDates = it.screeningPeriod.getAvailableDates(LocalDateTime.now())
             updateDateSpinner(availableDates)
 
-            val temp = savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME)
-            println(temp)
-
+            val reservationDateTime =
+                savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME)
             val dateTime =
-                LocalDateTime.parse(
-                    temp,
-                    DateTimeFormatter.ofPattern(SPINNER_DATETIME_FORMAT),
-                )
-            val selectedDate = dateTime.toLocalDate()
-            val datePosition = dateSpinnerAdapter.getPosition(selectedDate)
-            if (datePosition >= 0) {
-                shouldIgnoreNextSelection = true
-                spinnerDate.setSelection(datePosition)
-                setupTimeSpinner(it, selectedDate, dateTime.toLocalTime())
+                SPINNER_DATETIME_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                    LocalDateTime.parse(reservationDateTime, formatter)
+                }
+            dateTime?.toLocalDate()?.let { selectedDate ->
+                val datePosition = dateSpinnerAdapter.getPosition(selectedDate)
+                if (datePosition >= 0) {
+                    shouldIgnoreNextSelection = true
+                    spinnerDate.setSelection(datePosition)
+                    setupTimeSpinner(it, selectedDate, dateTime.toLocalTime())
+                }
             }
         }
     }
@@ -184,8 +182,12 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             findViewById<TextView>(R.id.tv_screening_period).text =
                 getString(
                     R.string.movie_date,
-                    movie.screeningPeriod.startDate.convertLocalDateFormat(),
-                    movie.screeningPeriod.endDate.convertLocalDateFormat(),
+                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                        movie.screeningPeriod.startDate.format(formatter)
+                    },
+                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                        movie.screeningPeriod.endDate.format(formatter)
+                    },
                 )
             findViewById<TextView>(R.id.tv_reservation_running_time).text =
                 getString(
@@ -248,6 +250,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         private const val RESTORE_BUNDLE_KEY_RESERVATION_DATETIME = "reservation_datetime"
         private const val RESTORE_BUNDLE_KEY_RESERVATION_NUMBER = "reservation_number"
         private const val SPINNER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm"
+        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
         private const val INVALID_RESERVATION_MESSAGE = "예약 날짜 및 시간을 선택해 주세요"
     }
 }

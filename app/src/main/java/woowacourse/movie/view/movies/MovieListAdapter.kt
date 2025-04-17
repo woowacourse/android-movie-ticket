@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.extension.convertLocalDateFormat
+import woowacourse.movie.view.extension.toDateTimeFormatter
 
 class MovieListAdapter(
     private val movies: List<Movie>,
@@ -59,13 +59,18 @@ class MovieListAdapter(
             movie.screeningPeriod.run {
                 view.context.getString(
                     R.string.movie_date,
-                    startDate.convertLocalDateFormat(),
-                    endDate.convertLocalDateFormat(),
+                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                        movie.screeningPeriod.startDate.format(formatter)
+                    },
+                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                        movie.screeningPeriod.endDate.format(formatter)
+                    },
                 )
             }
 
         val tvRunningTime = view.findViewById<TextView>(R.id.tv_running_time)
-        tvRunningTime.text = view.context.getString(R.string.running_time, movie.runningTime.toString())
+        tvRunningTime.text =
+            view.context.getString(R.string.running_time, movie.runningTime.toString())
     }
 
     private fun setReservationButton(
@@ -76,5 +81,9 @@ class MovieListAdapter(
         btnReservation.setOnClickListener {
             eventListener.onClick(movie)
         }
+    }
+
+    companion object {
+        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
     }
 }
