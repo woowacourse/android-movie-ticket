@@ -138,6 +138,29 @@ class BookingActivity : AppCompatActivity() {
             val count = max(1, peopleCount.text.toString().toInt() - 1)
             peopleCount.text = count.toString()
         }
+
+        bookingBtn.setOnClickListener {
+            showDialog(
+                getString(R.string.text_booking_dialog_title),
+                getString(R.string.text_booking_dialog_description),
+            )
+        }
+    }
+
+    private fun showDialog(
+        title: String,
+        description: String,
+    ) {
+        AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(description)
+            .setPositiveButton(getString(R.string.text_booking_dialog_positive_button)) { _, _ ->
+            }
+            .setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
     }
 
     private fun LocalDate.toDotFormat(): String {

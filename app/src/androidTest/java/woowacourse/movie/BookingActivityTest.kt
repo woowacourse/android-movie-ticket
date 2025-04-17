@@ -95,4 +95,14 @@ class BookingActivityTest {
         onView(withId(R.id.btn_decrease)).perform(click())
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
     }
+
+    @DisplayName("예매 선택 완료 버튼을 누르면 예매 확인 다이얼로그가 뜬다")
+    @Test
+    fun bookingDialogDisplayTest() {
+        onView(withId(R.id.btn_booking_complete)).perform(click())
+        onView(withText("예매 확인")).check(matches(isDisplayed()))
+        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
+        onView(withText("취소")).check(matches(isDisplayed()))
+        onView(withText("예매 완료")).check(matches(isDisplayed()))
+    }
 }
