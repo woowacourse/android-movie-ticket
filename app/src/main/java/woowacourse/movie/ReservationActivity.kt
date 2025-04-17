@@ -20,19 +20,20 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.R.layout
 import woowacourse.movie.ReservationCompleteActivity.Companion.TICKET_DATA_KEY
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ReservationActivity : AppCompatActivity() {
-    private var selectedDate: LocalDate = LocalDate.now()
     private var ticketCount: Int = 1
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
     private val formatter: Formatter by lazy { Formatter() }
     private val movie by lazy { getSelectedMovieData() }
     private val movieTime by lazy { MovieTime() }
+    private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +46,8 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_ticket_count)
-        setupMovieReservationInfo(movie)
-        setupDateAdapter(movie)
+        setupMovieReservationInfo()
+        setupDateAdapter()
         setupTimeAdapter()
 
         setupSavedData(savedInstanceState)
@@ -64,7 +65,7 @@ class ReservationActivity : AppCompatActivity() {
             intent.getSerializableExtra(MOVIE_DATA_KEY) as Movie
         }
 
-    private fun setupMovieReservationInfo(movie: Movie) {
+    private fun setupMovieReservationInfo() {
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
         val poster =
             AppCompatResources.getDrawable(
@@ -87,8 +88,8 @@ class ReservationActivity : AppCompatActivity() {
         runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
     }
 
-    private fun setupDateAdapter(movie: Movie) {
-        val duration = (movie.startDate..movie.endDate).toList()
+    private fun setupDateAdapter() {
+        val duration: List<LocalDate> = movieDate.getDateTable(LocalDate.now())
 
         val dateAdapter =
             ArrayAdapter(
@@ -108,8 +109,9 @@ class ReservationActivity : AppCompatActivity() {
                         position: Int,
                         id: Long,
                     ) {
-                        selectedDate = formatter.uiToLocalDate(duration[position])
+                        movieDate.updateDate(duration[position])
                         selectedDatePosition = position
+                        selectedTimePosition = 0
                         setupTimeAdapter()
                     }
 
@@ -120,7 +122,8 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setupTimeAdapter() {
-        val timeTable: List<Int> = movieTime.getTimeTable(LocalDateTime.now(), selectedDate)
+        val timeTable: List<Int> =
+            movieTime.getTimeTable(LocalDateTime.now(), movieDate.selectedDate)
         val timeAdapter =
             ArrayAdapter(
                 this,
@@ -196,7 +199,7 @@ class ReservationActivity : AppCompatActivity() {
                                 TICKET_DATA_KEY,
                                 MovieTicket(
                                     movie.title,
-                                    "${formatter.localDateToUI(selectedDate)} ${
+                                    "${formatter.localDateToUI(movieDate.selectedDate)} ${
                                         formatter.movieTimeToUI(
                                             movieTime.selectedTime,
                                         )
@@ -209,16 +212,6 @@ class ReservationActivity : AppCompatActivity() {
                     dialog.dismiss()
                 }.show()
         }
-    }
-
-    private fun ClosedRange<LocalDate>.toList(): List<String> {
-        val dates = mutableListOf<String>()
-        var current = LocalDate.now()
-        while (current <= endInclusive) {
-            dates.add(formatter.localDateToUI(current))
-            current = current.plusDays(1)
-        }
-        return dates
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
