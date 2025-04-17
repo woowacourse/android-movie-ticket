@@ -30,7 +30,9 @@ class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate = LocalDate.now()
     private lateinit var selectedTime: String
     private var ticketCount: Int = 1
-    private lateinit var movie: Movie
+    private var selectedDatePosition: Int = 0
+    private var selectedTimePosition: Int = 0
+    private val movie by lazy { getSelectedMovieData() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +44,12 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        movie = getSelectedMovieData()
         val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_ticket_count)
         setupMovieReservationInfo(movie)
         setupDateAdapter(movie)
         setupTimeAdapter()
 
-        setupTicketCount(savedInstanceState)
+        setupSavedData(savedInstanceState)
         setupMinusButtonClick(ticketCountTextView)
         setupPlusButtonClick(ticketCountTextView)
         setupCompleteButtonClick()
@@ -76,8 +77,8 @@ class ReservationActivity : AppCompatActivity() {
         movieTitleTextView.text = movie.title
 
         val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
-        val startDate = movie.startDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
-        val endDate = movie.endDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+        val startDate = movie.startDate.toUI()
+        val endDate = movie.endDate.toUI()
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
@@ -98,6 +99,7 @@ class ReservationActivity : AppCompatActivity() {
 
         findViewById<Spinner>(R.id.spinner_reservation_date).apply {
             adapter = dateAdapter
+            setSelection(selectedDatePosition)
             onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -107,6 +109,7 @@ class ReservationActivity : AppCompatActivity() {
                         id: Long,
                     ) {
                         selectedDate = duration[position].toLocalDate()
+                        selectedDatePosition = position
                         setupTimeAdapter()
                     }
 
@@ -153,6 +156,7 @@ class ReservationActivity : AppCompatActivity() {
 
         findViewById<Spinner>(R.id.spinner_reservation_time).apply {
             adapter = timeAdapter
+            setSelection(selectedTimePosition)
             onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -162,6 +166,7 @@ class ReservationActivity : AppCompatActivity() {
                         id: Long,
                     ) {
                         selectedTime = times[position]
+                        selectedTimePosition = position
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -170,9 +175,12 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupTicketCount(savedInstanceState: Bundle?) {
+    private fun setupSavedData(savedInstanceState: Bundle?) {
         ticketCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
         findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.toString()
+
+        selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
+        selectedTimePosition = savedInstanceState?.getInt(TICKET_TIME_POSITION_DATA_KEY) ?: 0
     }
 
     private fun setupPlusButtonClick(peopleCountTextView: TextView) {
@@ -209,7 +217,7 @@ class ReservationActivity : AppCompatActivity() {
                                 TICKET_DATA_KEY,
                                 MovieTicket(
                                     movie.title,
-                                    "${selectedDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))} $selectedTime",
+                                    "${selectedDate.toUI()} $selectedTime",
                                     ticketCount,
                                 ),
                             )
@@ -224,7 +232,7 @@ class ReservationActivity : AppCompatActivity() {
         val dates = mutableListOf<String>()
         var current = LocalDate.now()
         while (current <= endInclusive) {
-            dates.add(current.format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
+            dates.add(current.toUI())
             current = current.plusDays(1)
         }
         return dates
@@ -270,9 +278,13 @@ class ReservationActivity : AppCompatActivity() {
         return LocalDate.of(year, month, date)
     }
 
+    fun LocalDate.toUI(): String = format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(TICKET_COUNT_DATA_KEY, ticketCount)
+        outState.putInt(TICKET_DATE_POSITION_DATA_KEY, selectedDatePosition)
+        outState.putInt(TICKET_TIME_POSITION_DATA_KEY, selectedTimePosition)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -283,5 +295,7 @@ class ReservationActivity : AppCompatActivity() {
     companion object {
         const val MOVIE_DATA_KEY = "data"
         private const val TICKET_COUNT_DATA_KEY = "count"
+        private const val TICKET_DATE_POSITION_DATA_KEY = "date"
+        private const val TICKET_TIME_POSITION_DATA_KEY = "time"
     }
 }
