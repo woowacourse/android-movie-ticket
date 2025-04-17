@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -39,7 +40,12 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.harrypotter,
                 ),
             )
-        val adapter = MoviesAdapter(movies)
+        val adapter =
+            MoviesAdapter(movies) { movie ->
+                val intent = Intent(this, ReserveActivity::class.java)
+                intent.putExtra("movie", movie)
+                startActivity(intent)
+            }
         moviesView.adapter = adapter
     }
 }

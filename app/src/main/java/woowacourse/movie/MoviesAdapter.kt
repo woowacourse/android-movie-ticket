@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import java.time.format.DateTimeFormatter
 
 class MoviesAdapter(
     private val movies: List<Movie>,
+    private val onClick: (Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.count()
 
@@ -35,7 +35,7 @@ class MoviesAdapter(
         val item: Movie = movies[position]
 
         initItemView(itemView!!, item)
-        initReserveButton(itemView, parent!!, item)
+        initReserveButton(itemView, item)
 
         return itemView
     }
@@ -59,14 +59,11 @@ class MoviesAdapter(
 
     private fun initReserveButton(
         itemView: View,
-        parent: ViewGroup,
         item: Movie,
     ) {
         val reserveBtn = itemView.findViewById<Button>(R.id.btn_reserve)
         reserveBtn.setOnClickListener {
-            val intent = Intent(parent.context, ReserveActivity::class.java)
-            intent.putExtra("movie", item)
-            parent.context?.startActivity(intent)
+            onClick(item)
         }
     }
 
