@@ -175,15 +175,15 @@ class BookingActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("HeadCount", headCount)
-        outState.putString("Date", date.toString())
-        outState.putString("Time", time.toString())
+        outState.putInt(getString(R.string.headCount_tag), headCount)
+        outState.putString(getString(R.string.date_tag), date.toString())
+        outState.putString(getString(R.string.time_tag), time.toString())
     }
 
     private fun loadSavedInstanceState(savedInstance: Bundle) {
-        headCount = savedInstance.getInt("HeadCount")
-        date = LocalDate.parse(savedInstance.getString("Date"))
-        time = LocalTime.parse(savedInstance.getString("Time"))
+        headCount = savedInstance.getInt(getString(R.string.headCount_tag))
+        date = LocalDate.parse(savedInstance.getString(getString(R.string.date_tag)))
+        time = LocalTime.parse(savedInstance.getString(getString(R.string.time_tag)))
     }
 
     private fun updateHeadCount() {

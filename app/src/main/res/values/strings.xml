@@ -16,4 +16,7 @@
     <string name="ticket_info_key">Ticket</string>
     <string name="headCount_message">일반 %s명</string>
     <string name="amount_message">%s원 (현장 결제)</string>
+    <string name="headCount_tag">HeadCount</string>
+    <string name="date_tag">Date</string>
+    <string name="time_tag">Time</string>
 </resources>
