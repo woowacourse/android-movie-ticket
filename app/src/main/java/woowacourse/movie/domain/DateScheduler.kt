@@ -8,11 +8,11 @@ class DateScheduler {
         screeningDate: ScreeningDate,
         currentDate: LocalDate,
     ): List<LocalDate> {
-        val startDate = getStartDate(screeningDate.startDate, currentDate)
+        val startDate = startDate(screeningDate.startDate, currentDate)
         return getDatesBetween(startDate, screeningDate.endDate)
     }
 
-    fun getStartDate(
+    fun startDate(
         movieStartDate: LocalDate,
         currentDate: LocalDate,
     ): LocalDate {
