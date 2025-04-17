@@ -5,27 +5,22 @@ import java.time.LocalDateTime
 
 class Reservation(
     val title: String,
-    var count: Int,
     val reservedTime: LocalDateTime,
+    private val _count: TicketCount,
 ) : Serializable {
-    init {
-        require(count >= 1) { INVALID_COUNT }
-    }
+    val count = _count.count
 
     fun totalPrice(): Int = TICKET_PRICE * count
 
-    fun addCount() = Reservation(title, ++count, reservedTime)
+    fun plusCount() = Reservation(title, reservedTime, _count + 1)
 
-    fun canMinus(): Boolean = count > 1
+    fun canMinus(): Boolean = _count.canMinus()
 
-    fun minusCount(): Reservation {
-        return Reservation(title, --count, reservedTime)
-    }
+    fun minusCount() = Reservation(title, reservedTime, _count - 1)
 
-    fun updateReservedTime(time: LocalDateTime) = Reservation(title, count, time)
+    fun updateReservedTime(time: LocalDateTime) = Reservation(title, time, _count)
 
     companion object {
         private const val TICKET_PRICE = 13000
-        private const val INVALID_COUNT = "예약 개수는 1보다 같거나 커야 합니다."
     }
 }

@@ -20,6 +20,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieScheduler
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
+import woowacourse.movie.domain.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -66,7 +67,7 @@ class ReserveActivity : AppCompatActivity() {
         reservation = savedInstanceState?.getSerializable("reservation") as? Reservation
             ?: Reservation(
                 title = movie.title,
-                count = 1,
+                _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
                 reservedTime = getSelectedDateTime(),
             )
 
@@ -172,7 +173,7 @@ class ReserveActivity : AppCompatActivity() {
         }
 
         plusBtn.setOnClickListener {
-            reservation = reservation.addCount()
+            reservation = reservation.plusCount()
             updateTicketCount()
         }
 
@@ -231,5 +232,6 @@ class ReserveActivity : AppCompatActivity() {
         private const val MINUTE = "%d분"
         private const val SCREENING_DATE = "%s ~ %s"
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        private const val DEFAULT_TICKET_COUNT_SIZE = 1
     }
 }

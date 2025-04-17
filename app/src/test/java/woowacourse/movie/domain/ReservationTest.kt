@@ -14,11 +14,11 @@ class ReservationTest {
         reservation =
             Reservation(
                 "해리포터",
-                1,
                 LocalDateTime.of(
                     APRIL_THIRTIETH,
                     LocalTime.of(12, 0),
                 ),
+                TicketCount(1),
             )
     }
 
@@ -36,7 +36,7 @@ class ReservationTest {
     fun `예매할 티켓 수를 증가한다`() {
         // given & when
         val expected = reservation.count + 1
-        val actual = reservation.addCount().count
+        val actual = reservation.plusCount().count
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -45,7 +45,7 @@ class ReservationTest {
     @Test
     fun `예매할 티켓 수를 감소한다`() {
         // given
-        reservation.count = 2
+        reservation = reservation.plusCount()
 
         // when
         val expected = reservation.count - 1
@@ -53,30 +53,6 @@ class ReservationTest {
 
         // then
         assertThat(actual).isEqualTo(expected)
-    }
-
-    @Test
-    fun `예매 개수가 최소 예매 개수와 같은 경우 감소할 수 없다`() {
-        // given
-        reservation.count = 1
-
-        // when
-        val actual = reservation.canMinus()
-
-        // then
-        assertThat(actual).isFalse()
-    }
-
-    @Test
-    fun `예매 개수가 최소 예매 개수보다 많은 경우 감소할 수 있다`() {
-        // given
-        reservation.count = 2
-
-        // when
-        val actual = reservation.canMinus()
-
-        // then
-        assertThat(actual).isTrue()
     }
 
     @Test

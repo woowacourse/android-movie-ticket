@@ -11,6 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -22,7 +23,7 @@ class ReservationResultActivityTest {
     private val reservation =
         Reservation(
             title = "해리포터",
-            count = 2,
+            _count = TicketCount(2),
             reservedTime =
                 LocalDateTime.of(
                     LocalDate.parse("2025.04.30", formatter),
