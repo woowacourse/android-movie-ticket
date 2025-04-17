@@ -8,6 +8,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -113,5 +114,17 @@ class ReservationActivityTest {
 //
 //        onView(withId(R.id.spinner_reservation_screening_time))
 //            .check(matches(withSpinnerText("10:00")))
+    }
+
+    @Test
+    fun `예매_완료를_확인하는_다이얼로그가_표시되고_배경을_터치해도_사라지지_않아야_한다`() {
+        onView(withId(R.id.btn_reservation_select_complete))
+            .perform(click())
+
+        onView(isRoot())
+            .perform(click())
+
+        onView(withText(R.string.ticket_dialog_title))
+            .check(matches(isDisplayed()))
     }
 }
